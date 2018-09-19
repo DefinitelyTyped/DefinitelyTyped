@@ -17176,12 +17176,9 @@ declare namespace OfficeExtension {
 ////////////////////////////////////////////////////////////////
 
 
-
 ////////////////////////////////////////////////////////////////
 
 
-
-////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////// Begin OfficeCore ////////////////////////
 ////////////////////////////////////////////////////////////////
@@ -17209,6 +17206,15 @@ declare namespace OfficeCore {
 ////////////////////////////////////////////////////////////////
 
 declare namespace Excel {
+    /**
+     *
+     * Creates and opens a new workbook.  Optionally, the workbook can be pre-populated with a base64-encoded .xlsx file.
+     *
+     * [Api set: ExcelApi 1.8]
+     *
+     * @param base64File Optional. The base64 encoded .xlsx file. The default value is null.
+     */
+    function createWorkbook(base64?: string): Promise<object>;
     interface ThreeArrowsSet {
         [index: number]: Icon;
         redDownArrow: Icon;
@@ -17575,14 +17581,14 @@ declare namespace Excel {
          *
          * Gets the range that represents the changed area of a specific worksheet.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.8]
          */
         getRange(ctx: Excel.RequestContext): Excel.Range;
         /**
          *
          * Gets the range that represents the changed area of a specific worksheet. It might return null object.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.8]
          */
         getRangeOrNullObject(ctx: Excel.RequestContext): Excel.Range;
     }
@@ -17639,14 +17645,14 @@ declare namespace Excel {
          *
          * Gets the range that represents the changed area of a table on a specific worksheet.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.8]
          */
         getRange(ctx: Excel.RequestContext): Excel.Range;
         /**
          *
          * Gets the range that represents the changed area of a table on a specific worksheet. It might return null object.
          *
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.8]
          */
         getRangeOrNullObject(ctx: Excel.RequestContext): Excel.Range;
     }
@@ -17826,14 +17832,206 @@ declare namespace Excel {
     }
     /**
      *
+     * Provides information about the chart that raised the Added event.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    interface ChartAddedEventArgs {
+        /**
+         *
+         * Gets the id of the chart that is added to the worksheet.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        chartId: string;
+        /**
+         *
+         * Gets the source of the event. See Excel.EventSource for details.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        source: Excel.EventSource | "Local" | "Remote";
+        /**
+         *
+         * Gets the type of the event. See Excel.EventType for details.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        type: "ChartAdded";
+        /**
+         *
+         * Gets the id of the worksheet in which the chart is added.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * Provides information about the chart that raised the Activated event.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    interface ChartActivatedEventArgs {
+        /**
+         *
+         * Gets the id of the chart that is activated.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        chartId: string;
+        /**
+         *
+         * Gets the type of the event. See Excel.EventType for details.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        type: "ChartActivated";
+        /**
+         *
+         * Gets the id of the worksheet in which the chart is activated.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * Provides information about the chart that raised the Deactivated event.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    interface ChartDeactivatedEventArgs {
+        /**
+         *
+         * Gets the id of the chart that is deactivated.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        chartId: string;
+        /**
+         *
+         * Gets the type of the event. See Excel.EventType for details.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        type: "ChartDeactivated";
+        /**
+         *
+         * Gets the id of the worksheet in which the chart is deactivated.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * Provides information about the chart that raised the Deleted event.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    interface ChartDeletedEventArgs {
+        /**
+         *
+         * Gets the id of the chart that is deleted from the worksheet.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        chartId: string;
+        /**
+         *
+         * Gets the source of the event. See Excel.EventSource for details.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        source: Excel.EventSource | "Local" | "Remote";
+        /**
+         *
+         * Gets the type of the event. See Excel.EventType for details.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        type: "ChartDeleted";
+        /**
+         *
+         * Gets the id of the worksheet in which the chart is deleted.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        worksheetId: string;
+    }
+    /**
+     *
+     * Provides information about the worksheet that raised the Calculated event.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    interface WorksheetCalculatedEventArgs {
+        /**
+         *
+         * Gets the type of the event. See Excel.EventType for details.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        type: "WorksheetCalculated";
+        /**
+         *
+         * Gets the id of the worksheet that is calculated.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        worksheetId: string;
+    }
+    /**
+     *
      * Represents the Excel Runtime class.
      *
      * [Api set: ExcelApi 1.5]
      */
     class Runtime extends OfficeExtension.ClientObject {
-        toJSON(): {
-            [key: string]: string;
-        };
+        /**
+         *
+         * Turn on/off JavaScript events in current taskpane or content add-in.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        enableEvents: boolean;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.Runtime): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.RuntimeUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.Runtime): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.Runtime` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.Runtime` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.Runtime` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.RuntimeLoadOptions): Excel.Runtime;
+        load(option?: string | string[]): Excel.Runtime;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.Runtime;
+        toJSON(): Excel.Interfaces.RuntimeData;
     }
     /**
      *
@@ -18016,6 +18214,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.7]
          */
         readonly name: string;
+        /**
+         *
+         * True if the workbook is open in Read-only mode. Read-only.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly readOnly: boolean;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -18133,6 +18338,35 @@ declare namespace Excel {
     }
     /**
      *
+     * The WorkbookCreated object is the top level object created by Application.CreateWorkbook. A WorkbookCreated object is a special Workbook object.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class WorkbookCreated extends OfficeExtension.ClientObject {
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.WorkbookCreated` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.WorkbookCreated` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.WorkbookCreated` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: string | string[]): Excel.WorkbookCreated;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.WorkbookCreated;
+        toJSON(): Excel.Interfaces.WorkbookCreatedData;
+    }
+    /**
+     *
      * An Excel worksheet is a grid of cells. It can contain data, tables, charts, etc.
      *
      * [Api set: ExcelApi 1.1]
@@ -18204,6 +18438,22 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         position: number;
+        /**
+         *
+         * Gets or sets the worksheet's gridlines flag.
+            This flag determines whether gridlines are visible to the user.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        showGridlines: boolean;
+        /**
+         *
+         * Gets or sets the worksheet's headings flag.
+            This flag determines whether headings are visible to the user.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        showHeadings: boolean;
         /**
          *
          * Returns the standard (default) height of all the rows in the worksheet, in points. Read-only.
@@ -18409,6 +18659,15 @@ declare namespace Excel {
         readonly onActivated: OfficeExtension.EventHandlers<Excel.WorksheetActivatedEventArgs>;
         /**
          *
+         * Occurs when the worksheet is calculated.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @eventproperty
+         */
+        readonly onCalculated: OfficeExtension.EventHandlers<Excel.WorksheetCalculatedEventArgs>;
+        /**
+         *
          * Occurs when data changed on a specific worksheet.
          *
          * [Api set: ExcelApi 1.7]
@@ -18542,6 +18801,15 @@ declare namespace Excel {
          * @eventproperty
          */
         readonly onAdded: OfficeExtension.EventHandlers<Excel.WorksheetAddedEventArgs>;
+        /**
+         *
+         * Occurs when any worksheet in the workbook is calculated.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @eventproperty
+         */
+        readonly onCalculated: OfficeExtension.EventHandlers<Excel.WorksheetCalculatedEventArgs>;
         /**
          *
          * Occurs when any worksheet in the workbook is deactivated.
@@ -18808,6 +19076,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.6]
          */
         readonly conditionalFormats: Excel.ConditionalFormatCollection;
+        /**
+         *
+         * Returns a data validation object.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly dataValidation: Excel.DataValidation;
         /**
          *
          * Returns a format object, encapsulating the range's font, fill, borders, alignment, and other properties. Read-only.
@@ -20329,6 +20604,13 @@ declare namespace Excel {
         readonly id: string;
         /**
          *
+         * Returns a numeric id.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly legacyId: string;
+        /**
+         *
          * Name of the table.
          *
          * [Api set: ExcelApi 1.1]
@@ -20835,6 +21117,327 @@ declare namespace Excel {
             expand?: string;
         }): Excel.TableRow;
         toJSON(): Excel.Interfaces.TableRowData;
+    }
+    /**
+     *
+     * Represents the data validation applied to the current range.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class DataValidation extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Error alert when user enters invalid data.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        errorAlert: Excel.DataValidationErrorAlert;
+        /**
+         *
+         * Ignore blanks: no data validation will be performed on blank cells, it defaults to true.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        ignoreBlanks: boolean;
+        /**
+         *
+         * Prompt when users select a cell.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        prompt: Excel.DataValidationPrompt;
+        /**
+         *
+         * Data Validation rule that contains different type of data validation criteria.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        rule: Excel.DataValidationRule;
+        /**
+         *
+         * Type of the data validation, see Excel.DataValidationType for details.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly type: Excel.DataValidationType | "None" | "WholeNumber" | "Decimal" | "List" | "Date" | "Time" | "TextLength" | "Custom" | "Inconsistent" | "MixedCriteria";
+        /**
+         *
+         * Represents if all cell values are valid according to the data validation rules.
+            Returns true if all cell values are valid, or false if all cell values are invalid.
+            Returns null if there are both valid and invalid cell values within the range.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly valid: boolean;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.DataValidation): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.DataValidationUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.DataValidation): void;
+        /**
+         *
+         * Clears the data validation from the current range.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        clear(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.DataValidation` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.DataValidation` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.DataValidation` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.DataValidationLoadOptions): Excel.DataValidation;
+        load(option?: string | string[]): Excel.DataValidation;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.DataValidation;
+        toJSON(): Excel.Interfaces.DataValidationData;
+    }
+    /**
+     *
+     * Data validation rule contains different types of data validation. You can only use one of them at a time according the Excel.DataValidationType.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    interface DataValidationRule {
+        /**
+         *
+         * Custom data validation criteria.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        custom?: Excel.CustomDataValidation;
+        /**
+         *
+         * Date data validation criteria.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        date?: Excel.DateTimeDataValidation;
+        /**
+         *
+         * Decimal data validation criteria.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        decimal?: Excel.BasicDataValidation;
+        /**
+         *
+         * List data validation criteria.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        list?: Excel.ListDataValidation;
+        /**
+         *
+         * TextLength data validation criteria.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        textLength?: Excel.BasicDataValidation;
+        /**
+         *
+         * Time data validation criteria.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        time?: Excel.DateTimeDataValidation;
+        /**
+         *
+         * WholeNumber data validation criteria.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        wholeNumber?: Excel.BasicDataValidation;
+    }
+    /**
+     *
+     * Represents the Basic Type data validation criteria.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    interface BasicDataValidation {
+        /**
+         *
+         * Gets or sets the Formula1, i.e. minimum value or value depending of the operator.
+            When setting the value, it can be passed in as a number, a range object, or a string formula (where the string is either a stringified number, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
+            When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        formula1: string | number | Range;
+        /**
+         *
+         * Gets or sets the Formula2, i.e. maximum value or value depending of the operator.
+            When setting the value, it can be passed in as a number, a range object, or a string formula (where the string is either a stringified number, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
+            When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        formula2?: string | number | Range;
+        /**
+         *
+         * The operator to use for validating the data.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        operator: Excel.DataValidationOperator | "Between" | "NotBetween" | "EqualTo" | "NotEqualTo" | "GreaterThan" | "LessThan" | "GreaterThanOrEqualTo" | "LessThanOrEqualTo";
+    }
+    /**
+     *
+     * Represents the Date data validation criteria.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    interface DateTimeDataValidation {
+        /**
+         *
+         * Gets or sets the Formula1, i.e. minimum value or value depending of the operator.
+            When setting the value, it can be passed in as a Date, a Range object, or a string formula (where the string is either a stringified date/time in ISO8601 format, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
+            When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        formula1: string | Date | Range;
+        /**
+         *
+         * Gets or sets the Formula2, i.e. maximum value or value depending of the operator.
+            When setting the value, it can be passed in as a Date, a Range object, or a string (where the string is either a stringified date/time in ISO8601 format, a cell reference like "=A1", or a formula like "=MIN(A1, B1)").
+            When retrieving the value, it will always be returned as a string formula, for example: "=10", "=A1", "=SUM(A1:B5)", etc.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        formula2?: string | Date | Range;
+        /**
+         *
+         * The operator to use for validating the data.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        operator: Excel.DataValidationOperator | "Between" | "NotBetween" | "EqualTo" | "NotEqualTo" | "GreaterThan" | "LessThan" | "GreaterThanOrEqualTo" | "LessThanOrEqualTo";
+    }
+    /**
+     *
+     * Represents the List data validation criteria.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    interface ListDataValidation {
+        /**
+         *
+         * Displays the list in cell drop down or not, it defaults to true.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        inCellDropDown: boolean;
+        /**
+         *
+         * Source of the list for data validation
+            When setting the value, it can be passed in as a Excel Range object, or a string that contains comma separated number, boolean or date.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        source: string | Range;
+    }
+    /**
+     *
+     * Represents the Custom data validation criteria.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    interface CustomDataValidation {
+        /**
+         *
+         * Custom data validation formula, it is to create special rules, such as preventing duplicates, or limiting the total in a range of cells.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        formula: string;
+    }
+    /**
+     *
+     * Represents the error alert properties for the data validation.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    interface DataValidationErrorAlert {
+        /**
+         *
+         * Represents error alert message.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        message: string;
+        /**
+         *
+         * It determines show error alert dialog or not when users enter invalid data, it defaults to true.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        showAlert: boolean;
+        /**
+         *
+         * Represents Data validation alert type, please see Excel.DataValidationAlertStyle for details.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        style: Excel.DataValidationAlertStyle | "Stop" | "Warning" | "Information";
+        /**
+         *
+         * Represents error alert dialog title.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        title: string;
+    }
+    /**
+     *
+     * Represents the user prompt properties for the data validation.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    interface DataValidationPrompt {
+        /**
+         *
+         * Represents the message of the prompt.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        message: string;
+        /**
+         *
+         * It determines showing the prompt or not when user selects a cell with the data validation.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        showPrompt: boolean;
+        /**
+         *
+         * Represents the title for the prompt.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        title: string;
     }
     /**
      *
@@ -21360,7 +21963,7 @@ declare namespace Excel {
          * @param sourceData The Range object corresponding to the source data.
          * @param seriesBy Optional. Specifies the way columns or rows are used as data series on the chart. See Excel.ChartSeriesBy for details.
          */
-        add(type: "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel", sourceData: Range, seriesBy?: "Auto" | "Columns" | "Rows"): Excel.Chart;
+        add(type: "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Boxwhisker" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel", sourceData: Range, seriesBy?: "Auto" | "Columns" | "Rows"): Excel.Chart;
         /**
          *
          * Returns the number of charts in the worksheet.
@@ -21414,6 +22017,42 @@ declare namespace Excel {
         load(option?: Excel.Interfaces.ChartCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.ChartCollection;
         load(option?: string | string[]): Excel.ChartCollection;
         load(option?: OfficeExtension.LoadOption): Excel.ChartCollection;
+        /**
+         *
+         * Occurs when a chart is activated.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @eventproperty
+         */
+        readonly onActivated: OfficeExtension.EventHandlers<Excel.ChartActivatedEventArgs>;
+        /**
+         *
+         * Occurs when a new chart is added to the worksheet.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @eventproperty
+         */
+        readonly onAdded: OfficeExtension.EventHandlers<Excel.ChartAddedEventArgs>;
+        /**
+         *
+         * Occurs when a chart is deactivated.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @eventproperty
+         */
+        readonly onDeactivated: OfficeExtension.EventHandlers<Excel.ChartDeactivatedEventArgs>;
+        /**
+         *
+         * Occurs when a chart is deleted.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @eventproperty
+         */
+        readonly onDeleted: OfficeExtension.EventHandlers<Excel.ChartDeletedEventArgs>;
         toJSON(): Excel.Interfaces.ChartCollectionData;
     }
     /**
@@ -21456,6 +22095,13 @@ declare namespace Excel {
         readonly legend: Excel.ChartLegend;
         /**
          *
+         * Represents the plotArea for the chart.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly plotArea: Excel.ChartPlotArea;
+        /**
+         *
          * Represents either a single series or collection of series in the chart. Read-only.
          *
          * [Api set: ExcelApi 1.1]
@@ -21477,11 +22123,26 @@ declare namespace Excel {
         readonly worksheet: Excel.Worksheet;
         /**
          *
+         * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to
+            the level of where the category labels are being sourced from. Read/Write.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        categoryLabelLevel: number;
+        /**
+         *
          * Represents the type of the chart. See Excel.ChartType for details.
          *
          * [Api set: ExcelApi 1.7]
          */
-        chartType: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel";
+        chartType: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Boxwhisker" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel";
+        /**
+         *
+         * Returns or sets the way that blank cells are plotted on a chart. Read/Write.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        displayBlanksAs: Excel.ChartDisplayBlanksAs | "NotPlotted" | "Zero" | "Interplotted";
         /**
          *
          * Represents the height, in points, of the chart object.
@@ -21512,11 +22173,49 @@ declare namespace Excel {
         name: string;
         /**
          *
+         * Returns or sets the way columns or rows are used as data series on the chart. Read/Write.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        plotBy: Excel.ChartPlotBy | "Rows" | "Columns";
+        /**
+         *
+         * True if only visible cells are plotted. False if both visible and hidden cells are plotted. Read/Write.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        plotVisibleOnly: boolean;
+        /**
+         *
+         * Returns or sets a ChartSeriesNameLevel enumeration constant referring to
+            the level of where the series names are being sourced from. Read/Write.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        seriesNameLevel: number;
+        /**
+         *
          * Represents whether to display all field buttons on a PivotChart.
          *
          * [Api set: ExcelApi 1.7]
          */
         showAllFieldButtons: boolean;
+        /**
+         *
+         * Represents whether to to show the data labels when the value is greater than the maximum value on the value axis.
+            If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
+            This property applies to 2-D charts only.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        showDataLabelsOverMaximum: boolean;
+        /**
+         *
+         * Returns or sets the chart style for the chart. Read/Write.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        style: number;
         /**
          *
          * Represents the distance, in points, from the top edge of the object to the top of row 1 (on a worksheet) or the top of the chart area (on a chart).
@@ -21627,6 +22326,24 @@ declare namespace Excel {
             select?: string;
             expand?: string;
         }): Excel.Chart;
+        /**
+         *
+         * Occurs when the chart is activated.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @eventproperty
+         */
+        readonly onActivated: OfficeExtension.EventHandlers<Excel.ChartActivatedEventArgs>;
+        /**
+         *
+         * Occurs when the chart is deactivated.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @eventproperty
+         */
+        readonly onDeactivated: OfficeExtension.EventHandlers<Excel.ChartDeactivatedEventArgs>;
         toJSON(): Excel.Interfaces.ChartData;
     }
     /**
@@ -21765,6 +22482,13 @@ declare namespace Excel {
     class ChartSeries extends OfficeExtension.ClientObject {
         /**
          *
+         * Represents a collection of all dataLabels in the series.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly dataLabels: Excel.ChartDataLabels;
+        /**
+         *
          * Represents the formatting of a chart series, which includes fill and line formatting. Read-only.
          *
          * [Api set: ExcelApi 1.1]
@@ -21786,11 +22510,18 @@ declare namespace Excel {
         readonly trendlines: Excel.ChartTrendlineCollection;
         /**
          *
+         * Returns or sets the group for the specified series. Read/Write
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        axisGroup: Excel.ChartAxisGroup | "Primary" | "Secondary";
+        /**
+         *
          * Represents the chart type of a series. See Excel.ChartType for details.
          *
          * [Api set: ExcelApi 1.7]
          */
-        chartType: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel";
+        chartType: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Boxwhisker" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel";
         /**
          *
          * Represents the doughnut hole size of a chart series.  Only valid on doughnut and doughnutExploded charts.
@@ -21801,11 +22532,25 @@ declare namespace Excel {
         doughnutHoleSize: number;
         /**
          *
+         * Returns or sets the explosion value for a pie-chart or doughnut-chart slice. Returns 0 (zero) if there's no explosion (the tip of the slice is in the center of the pie). Read/Write.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        explosion: number;
+        /**
+         *
          * Boolean value representing if the series is filtered or not. Not applicable for surface charts.
          *
          * [Api set: ExcelApi 1.7]
          */
         filtered: boolean;
+        /**
+         *
+         * Returns or sets the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360. Read/Write
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        firstSliceAngle: number;
         /**
          *
          * Represents the gap width of a chart series.  Only valid on bar and column charts, as well as
@@ -21821,6 +22566,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.7]
          */
         hasDataLabels: boolean;
+        /**
+         *
+         * True if Microsoft Excel inverts the pattern in the item when it corresponds to a negative number. Read/Write.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        invertIfNegative: boolean;
         /**
          *
          * Represents markers background color of a chart series.
@@ -21858,11 +22610,25 @@ declare namespace Excel {
         name: string;
         /**
          *
+         * Specifies how bars and columns are positioned. Can be a value between – 100 and 100. Applies only to 2-D bar and 2-D column charts. Read/Write.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        overlap: number;
+        /**
+         *
          * Represents the plot order of a chart series within the chart group.
          *
          * [Api set: ExcelApi 1.7]
          */
         plotOrder: number;
+        /**
+         *
+         * Returns or sets the size of the secondary section of either a pie of pie chart or a bar of pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200. Read/Write.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        secondPlotSize: number;
         /**
          *
          * Boolean value representing if the series has a shadow or not.
@@ -21877,6 +22643,20 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.7]
          */
         smooth: boolean;
+        /**
+         *
+         * Returns or sets the way the two sections of either a pie of pie chart or a bar of pie chart are split. Read/Write.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        splitType: Excel.ChartSplitStype | "SplitByPosition" | "SplitByValue" | "SplitByPercentValue" | "SplitByCustomSplit";
+        /**
+         *
+         * True if Microsoft Excel assigns a different color or pattern to each data marker. The chart must contain only one series. Read/Write.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        varyByCategories: boolean;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -22338,6 +23118,13 @@ declare namespace Excel {
         readonly title: Excel.ChartAxisTitle;
         /**
          *
+         * Represents the alignment for the specified axis tick label. See Excel.ChartTextHorizontalAlignment for detail.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        alignment: Excel.ChartTickLabelAlignment | "Center" | "Left" | "Right";
+        /**
+         *
          * Represents the group for the specified axis. See Excel.ChartAxisGroup for details. Read-only.
          *
          * [Api set: ExcelApi 1.7]
@@ -22378,6 +23165,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.7]
          */
         readonly height: number;
+        /**
+         *
+         * Represents whether value axis crosses the category axis between categories.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        isBetweenCategories: boolean;
         /**
          *
          * Represents the distance, in points, from the left edge of the axis to the left of chart area. Null if the axis is not visible. Read-only.
@@ -22450,6 +23244,41 @@ declare namespace Excel {
         minorUnit: any;
         /**
          *
+         * Represents whether an axis is multilevel or not.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        multiLevel: boolean;
+        /**
+         *
+         * Represents the format code for the axis tick label.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        numberFormat: string;
+        /**
+         *
+         * Represents the distance between the levels of labels, and the distance between the first level and the axis line. The value should be an integer from 0 to 1000.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        offset: number;
+        /**
+         *
+         * Represents the specified axis position where the other axis crosses. See Excel.ChartAxisPosition for details.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        position: Excel.ChartAxisPosition | "Automatic" | "Maximum" | "Minimum" | "Custom";
+        /**
+         *
+         * Represents the specified axis position where the other axis crosses at. Read Only. Set to this property should use SetPositionAt(double) method.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly positionAt: number;
+        /**
+         *
          * Represents whether Microsoft Excel plots data points from last to first.
          *
          * [Api set: ExcelApi 1.7]
@@ -22469,6 +23298,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.7]
          */
         showDisplayUnitLabel: boolean;
+        /**
+         *
+         * Represents the text orientation of the axis tick label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        textOrientation: any;
         /**
          *
          * Represents the position of tick-mark labels on the specified axis. See Excel.ChartAxisTickLabelPosition for details.
@@ -22551,6 +23387,15 @@ declare namespace Excel {
          */
         setCustomDisplayUnit(value: number): void;
         /**
+         *
+         * Set the specified axis position where the other axis crosses at.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param value Custom value of the crosses at
+         */
+        setPositionAt(value: number): void;
+        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
          * @remarks
@@ -22580,6 +23425,13 @@ declare namespace Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAxisFormat extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Represents chart fill formatting. Read-only.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly fill: Excel.ChartFill;
         /**
          *
          * Represents the font attributes (font name, font size, color, etc.) for a chart axis element. Read-only.
@@ -22674,6 +23526,15 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ChartAxisTitle): void;
         /**
+         *
+         * A string value that represents the formula of chart axis title using A1-style notation.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param formula a string that present the formula to set
+         */
+        setFormula(formula: string): void;
+        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
          * @remarks
@@ -22703,6 +23564,20 @@ declare namespace Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartAxisTitleFormat extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Represents the border format, which includes color, linestyle, and weight.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly border: Excel.ChartBorder;
+        /**
+         *
+         * Represents chart fill formatting.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly fill: Excel.ChartFill;
         /**
          *
          * Represents the font attributes, such as font name, font size, color, etc. of chart axis title object. Read-only.
@@ -22763,6 +23638,28 @@ declare namespace Excel {
         readonly format: Excel.ChartDataLabelFormat;
         /**
          *
+         * Represents whether data labels automatically generates appropriate text based on context.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        autoText: boolean;
+        /**
+         *
+         * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
+            This property is valid only when TextOrientation of data label is 0.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        horizontalAlignment: Excel.ChartTextHorizontalAlignment | "Center" | "Left" | "Right" | "Justify" | "Distributed";
+        /**
+         *
+         * Represents the format code for data labels.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        numberFormat: string;
+        /**
+         *
          * DataLabelPosition value that represents the position of the data label. See Excel.ChartDataLabelPosition for details.
          *
          * [Api set: ExcelApi 1.1]
@@ -22817,6 +23714,21 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         showValue: boolean;
+        /**
+         *
+         * Represents the text orientation of data labels. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        textOrientation: number;
+        /**
+         *
+         * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
+            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        verticalAlignment: Excel.ChartTextVerticalAlignment | "Center" | "Bottom" | "Top" | "Justify" | "Distributed";
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -22861,6 +23773,56 @@ declare namespace Excel {
      * [Api set: ExcelApi 1.7]
      */
     class ChartDataLabel extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Represents the format of chart data label.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly format: Excel.ChartDataLabelFormat;
+        /**
+         *
+         * Boolean value representing if data label automatically generates appropriate text based on context.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        autoText: boolean;
+        /**
+         *
+         * String value that represents the formula of chart data label using A1-style notation.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        formula: string;
+        /**
+         *
+         * Returns the height, in points, of the chart data label. Read-only. Null if chart data label is not visible.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly height: number;
+        /**
+         *
+         * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
+            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        horizontalAlignment: Excel.ChartTextHorizontalAlignment | "Center" | "Left" | "Right" | "Justify" | "Distributed";
+        /**
+         *
+         * Represents the distance, in points, from the left edge of chart data label to the left edge of chart area. Null if chart data label is not visible.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        left: number;
+        /**
+         *
+         * String value that represents the format code for data label.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        numberFormat: string;
         /**
          *
          * DataLabelPosition value that represents the position of the data label. See Excel.ChartDataLabelPosition for details.
@@ -22917,6 +23879,42 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.7]
          */
         showValue: boolean;
+        /**
+         *
+         * String representing the text of the data label on a chart.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        text: string;
+        /**
+         *
+         * Represents the text orientation of chart data label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        textOrientation: number;
+        /**
+         *
+         * Represents the distance, in points, from the top edge of chart data label to the top of chart area. Null if chart data label is not visible.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        top: number;
+        /**
+         *
+         * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
+            This property is valid only when TextOrientation of data label is 0.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        verticalAlignment: Excel.ChartTextVerticalAlignment | "Center" | "Bottom" | "Top" | "Justify" | "Distributed";
+        /**
+         *
+         * Returns the width, in points, of the chart data label. Read-only. Null if chart data label is not visible.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly width: number;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -22961,6 +23959,13 @@ declare namespace Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartDataLabelFormat extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Represents the border format, which includes color, linestyle, and weight. Read-only.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly border: Excel.ChartBorder;
         /**
          *
          * Represents the fill format of the current chart data label. Read-only.
@@ -23244,11 +24249,46 @@ declare namespace Excel {
     class ChartLegendEntry extends OfficeExtension.ClientObject {
         /**
          *
+         * Represents the height of the legendEntry on the chart Legend.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly height: number;
+        /**
+         *
+         * Represents the index of the LegendEntry in the Chart Legend.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly index: number;
+        /**
+         *
+         * Represents the left of a chart legendEntry.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly left: number;
+        /**
+         *
+         * Represents the top of a chart legendEntry.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly top: number;
+        /**
+         *
          * Represents the visible of a chart legend entry.
          *
          * [Api set: ExcelApi 1.7]
          */
         visible: boolean;
+        /**
+         *
+         * Represents the width of the legendEntry on the chart Legend.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly width: number;
         /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
          *
          * @remarks
@@ -23338,6 +24378,13 @@ declare namespace Excel {
      * [Api set: ExcelApi 1.1]
      */
     class ChartLegendFormat extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Represents the border format, which includes color, linestyle, and weight. Read-only.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly border: Excel.ChartBorder;
         /**
          *
          * Represents the fill format of an object, which includes background formating information. Read-only.
@@ -23733,6 +24780,13 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.ChartBorder): void;
         /**
+         *
+         * Clear the border format of a chart element.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        clear(): void;
+        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          *
          * @remarks
@@ -23929,6 +24983,27 @@ declare namespace Excel {
         readonly format: Excel.ChartTrendlineFormat;
         /**
          *
+         * Represents the label of a chart trendline.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly label: Excel.ChartTrendlineLabel;
+        /**
+         *
+         * Represents the number of periods that the trendline extends backward.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        backwardPeriod: number;
+        /**
+         *
+         * Represents the number of periods that the trendline extends forward.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        forwardPeriod: number;
+        /**
+         *
          * Represents the intercept value of the trendline. Can be set to a numeric value or an empty string (for automatic values). The returned value is always a number.
          *
          * [Api set: ExcelApi 1.7]
@@ -23955,6 +25030,20 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.7]
          */
         polynomialOrder: number;
+        /**
+         *
+         * True if the equation for the trendline is displayed on the chart.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        showEquation: boolean;
+        /**
+         *
+         * True if the R-squared for the trendline is displayed on the chart.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        showRSquared: boolean;
         /**
          *
          * Represents the type of a chart trendline.
@@ -24119,6 +25208,373 @@ declare namespace Excel {
             expand?: string;
         }): Excel.ChartTrendlineFormat;
         toJSON(): Excel.Interfaces.ChartTrendlineFormatData;
+    }
+    /**
+     *
+     * This object represents the attributes for a chart trendline lable object.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class ChartTrendlineLabel extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Represents the format of chart trendline label.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly format: Excel.ChartTrendlineLabelFormat;
+        /**
+         *
+         * Boolean value representing if trendline label automatically generates appropriate text based on context.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        autoText: boolean;
+        /**
+         *
+         * String value that represents the formula of chart trendline label using A1-style notation.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        formula: string;
+        /**
+         *
+         * Returns the height, in points, of the chart trendline label. Read-only. Null if chart trendline label is not visible.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly height: number;
+        /**
+         *
+         * Represents the horizontal alignment for chart trendline label. See Excel.ChartTextHorizontalAlignment for details.
+            This property is valid only when TextOrientation of trendline label is 90, -90 or 180.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        horizontalAlignment: Excel.ChartTextHorizontalAlignment | "Center" | "Left" | "Right" | "Justify" | "Distributed";
+        /**
+         *
+         * Represents the distance, in points, from the left edge of chart trendline label to the left edge of chart area. Null if chart trendline label is not visible.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        left: number;
+        /**
+         *
+         * String value that represents the format code for trendline label.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        numberFormat: string;
+        /**
+         *
+         * String representing the text of the trendline label on a chart.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        text: string;
+        /**
+         *
+         * Represents the text orientation of chart trendline label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        textOrientation: number;
+        /**
+         *
+         * Represents the distance, in points, from the top edge of chart trendline label to the top of chart area. Null if chart trendline label is not visible.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        top: number;
+        /**
+         *
+         * Represents the vertical alignment of chart trendline label. See Excel.ChartTextVerticalAlignment for details.
+            This property is valid only when TextOrientation of trendline label is 0.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        verticalAlignment: Excel.ChartTextVerticalAlignment | "Center" | "Bottom" | "Top" | "Justify" | "Distributed";
+        /**
+         *
+         * Returns the width, in points, of the chart trendline label. Read-only. Null if chart trendline label is not visible.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly width: number;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.ChartTrendlineLabel): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.ChartTrendlineLabelUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.ChartTrendlineLabel): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.ChartTrendlineLabel` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.ChartTrendlineLabel` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.ChartTrendlineLabel` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.ChartTrendlineLabelLoadOptions): Excel.ChartTrendlineLabel;
+        load(option?: string | string[]): Excel.ChartTrendlineLabel;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.ChartTrendlineLabel;
+        toJSON(): Excel.Interfaces.ChartTrendlineLabelData;
+    }
+    /**
+     *
+     * Encapsulates the format properties for the chart trendline label.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class ChartTrendlineLabelFormat extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Represents the border format, which includes color, linestyle, and weight.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly border: Excel.ChartBorder;
+        /**
+         *
+         * Represents the fill format of the current chart trendline label.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly fill: Excel.ChartFill;
+        /**
+         *
+         * Represents the font attributes (font name, font size, color, etc.) for a chart trendline label.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly font: Excel.ChartFont;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.ChartTrendlineLabelFormat): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.ChartTrendlineLabelFormatUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.ChartTrendlineLabelFormat): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.ChartTrendlineLabelFormat` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.ChartTrendlineLabelFormat` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.ChartTrendlineLabelFormat` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.ChartTrendlineLabelFormatLoadOptions): Excel.ChartTrendlineLabelFormat;
+        load(option?: string | string[]): Excel.ChartTrendlineLabelFormat;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.ChartTrendlineLabelFormat;
+        toJSON(): Excel.Interfaces.ChartTrendlineLabelFormatData;
+    }
+    /**
+     *
+     * This object represents the attributes for a chart plotArea object.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class ChartPlotArea extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Represents the formatting of a chart plotArea.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly format: Excel.ChartPlotAreaFormat;
+        /**
+         *
+         * Represents the height value of plotArea.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        height: number;
+        /**
+         *
+         * Represents the insideHeight value of plotArea.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        insideHeight: number;
+        /**
+         *
+         * Represents the insideLeft value of plotArea.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        insideLeft: number;
+        /**
+         *
+         * Represents the insideTop value of plotArea.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        insideTop: number;
+        /**
+         *
+         * Represents the insideWidth value of plotArea.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        insideWidth: number;
+        /**
+         *
+         * Represents the left value of plotArea.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        left: number;
+        /**
+         *
+         * Represents the position of plotArea.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        position: Excel.ChartPlotAreaPosition | "Automatic" | "Custom";
+        /**
+         *
+         * Represents the top value of plotArea.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        top: number;
+        /**
+         *
+         * Represents the width value of plotArea.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        width: number;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.ChartPlotArea): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.ChartPlotAreaUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.ChartPlotArea): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.ChartPlotArea` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.ChartPlotArea` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.ChartPlotArea` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.ChartPlotAreaLoadOptions): Excel.ChartPlotArea;
+        load(option?: string | string[]): Excel.ChartPlotArea;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.ChartPlotArea;
+        toJSON(): Excel.Interfaces.ChartPlotAreaData;
+    }
+    /**
+     *
+     * Represents the format properties for chart plotArea.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class ChartPlotAreaFormat extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Represents the border attributes of a chart plotArea.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly border: Excel.ChartBorder;
+        /**
+         *
+         * Represents the fill format of an object, which includes background formating information.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly fill: Excel.ChartFill;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.ChartPlotAreaFormat): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.ChartPlotAreaFormatUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.ChartPlotAreaFormat): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.ChartPlotAreaFormat` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.ChartPlotAreaFormat` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.ChartPlotAreaFormat` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.ChartPlotAreaFormatLoadOptions): Excel.ChartPlotAreaFormat;
+        load(option?: string | string[]): Excel.ChartPlotAreaFormat;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.ChartPlotAreaFormat;
+        toJSON(): Excel.Interfaces.ChartPlotAreaFormatData;
     }
     /**
      *
@@ -24794,6 +26250,18 @@ declare namespace Excel {
         readonly items: Excel.PivotTable[];
         /**
          *
+         * Add a Pivottable based on the specified source data and insert it at the top left cell of the destination range.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param name The name of the new PivotTable.
+         * @param source The source data for the new PivotTable, this can either be a range (or string address including the worksheet name) or a table.
+         * @param destination The cell in the upper-left corner of the PivotTable report's destination range (the range on the worksheet where the resulting report will be placed).
+         * @returns Returns the newly inserted PivotTable.
+         */
+        add(name: string, source: Range | string | Table, destination: Range | string): Excel.PivotTable;
+        /**
+         *
          * Gets the number of pivot tables in the collection.
          *
          * [Api set: ExcelApi 1.4]
@@ -24856,6 +26324,48 @@ declare namespace Excel {
     class PivotTable extends OfficeExtension.ClientObject {
         /**
          *
+         * The Column Pivot Hierarchies of the PivotTable.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly columnHierarchies: Excel.RowColumnPivotHierarchyCollection;
+        /**
+         *
+         * The Data Pivot Hierarchies of the PivotTable.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly dataHierarchies: Excel.DataPivotHierarchyCollection;
+        /**
+         *
+         * The Filter Pivot Hierarchies of the PivotTable.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly filterHierarchies: Excel.FilterPivotHierarchyCollection;
+        /**
+         *
+         * The Pivot Hierarchies of the PivotTable.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly hierarchies: Excel.PivotHierarchyCollection;
+        /**
+         *
+         * The PivotLayout describing the layout and visual structure of the PivotTable.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly layout: Excel.PivotLayout;
+        /**
+         *
+         * The Row Pivot Hierarchies of the PivotTable.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly rowHierarchies: Excel.RowColumnPivotHierarchyCollection;
+        /**
+         *
          * The worksheet containing the current PivotTable.
          *
          * [Api set: ExcelApi 1.3]
@@ -24891,6 +26401,13 @@ declare namespace Excel {
         set(properties: Excel.PivotTable): void;
         /**
          *
+         * Deletes the PivotTable.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        delete(): void;
+        /**
+         *
          * Refreshes the PivotTable.
          *
          * [Api set: ExcelApi 1.3]
@@ -24918,6 +26435,1234 @@ declare namespace Excel {
             expand?: string;
         }): Excel.PivotTable;
         toJSON(): Excel.Interfaces.PivotTableData;
+    }
+    /**
+     *
+     * Represents the visual layout of the PivotTable.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class PivotLayout extends OfficeExtension.ClientObject {
+        /**
+         *
+         * This property indicates the PivotLayoutType of all fields on the PivotTable. If fields have different states, this will be null.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        layoutType: Excel.PivotLayoutType | "Compact" | "Tabular" | "Outline";
+        /**
+         *
+         * True if the PivotTable report shows grand totals for columns.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        showColumnGrandTotals: boolean;
+        /**
+         *
+         * True if the PivotTable report shows grand totals for rows.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        showRowGrandTotals: boolean;
+        /**
+         *
+         * This property indicates the SubtotalLocationType of all fields on the PivotTable. If fields have different states, this will be null.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        subtotalLocation: Excel.SubtotalLocationType | "AtTop" | "AtBottom" | "Off";
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.PivotLayout): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.PivotLayoutUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.PivotLayout): void;
+        /**
+         *
+         * Returns the range where the PivotTable's column labels reside.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        getColumnLabelRange(): Excel.Range;
+        /**
+         *
+         * Returns the range where the PivotTable's data values reside.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        getDataBodyRange(): Excel.Range;
+        /**
+         *
+         * Returns the range of the PivotTable's filter area.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        getFilterAxisRange(): Excel.Range;
+        /**
+         *
+         * Returns the range the PivotTable exists on, excluding the filter area.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        getRange(): Excel.Range;
+        /**
+         *
+         * Returns the range where the PivotTable's row labels reside.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        getRowLabelRange(): Excel.Range;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.PivotLayout` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.PivotLayout` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.PivotLayout` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.PivotLayoutLoadOptions): Excel.PivotLayout;
+        load(option?: string | string[]): Excel.PivotLayout;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.PivotLayout;
+        toJSON(): Excel.Interfaces.PivotLayoutData;
+    }
+    /**
+     *
+     * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class PivotHierarchyCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.PivotHierarchy[];
+        /**
+         *
+         * Gets the number of pivot hierarchies in the collection.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a PivotHierarchy by its name or id.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param name Name of the PivotTable to be retrieved.
+         */
+        getItem(name: string): Excel.PivotHierarchy;
+        /**
+         *
+         * Gets a PivotHierarchy by name. If the PivotHierarchy does not exist, will return a null object.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param name Name of the PivotHierarchy to be retrieved.
+         */
+        getItemOrNullObject(name: string): Excel.PivotHierarchy;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.PivotHierarchyCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.PivotHierarchyCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.PivotHierarchyCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.PivotHierarchyCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.PivotHierarchyCollection;
+        load(option?: string | string[]): Excel.PivotHierarchyCollection;
+        load(option?: OfficeExtension.LoadOption): Excel.PivotHierarchyCollection;
+        toJSON(): Excel.Interfaces.PivotHierarchyCollectionData;
+    }
+    /**
+     *
+     * Represents the Excel PivotHierarchy.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class PivotHierarchy extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Returns the PivotFields associated with the PivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly fields: Excel.PivotFieldCollection;
+        /**
+         *
+         * Id of the PivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly id: string;
+        /**
+         *
+         * Name of the PivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        name: string;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.PivotHierarchy): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.PivotHierarchyUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.PivotHierarchy): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.PivotHierarchy` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.PivotHierarchy` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.PivotHierarchy` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.PivotHierarchyLoadOptions): Excel.PivotHierarchy;
+        load(option?: string | string[]): Excel.PivotHierarchy;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.PivotHierarchy;
+        toJSON(): Excel.Interfaces.PivotHierarchyData;
+    }
+    /**
+     *
+     * Represents a collection of RowColumnPivotHierarchy items associated with the PivotTable.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class RowColumnPivotHierarchyCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.RowColumnPivotHierarchy[];
+        /**
+         *
+         * Adds the PivotHierarchy to the current axis. If the hierarchy is present elsewhere on the row, column,
+            or filter axis, it will be removed from that location.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        add(pivotHierarchy: Excel.PivotHierarchy): Excel.RowColumnPivotHierarchy;
+        /**
+         *
+         * Gets the number of pivot hierarchies in the collection.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a RowColumnPivotHierarchy by its name or id.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param name Name of the PivotTable to be retrieved.
+         */
+        getItem(name: string): Excel.RowColumnPivotHierarchy;
+        /**
+         *
+         * Gets a RowColumnPivotHierarchy by name. If the RowColumnPivotHierarchy does not exist, will return a null object.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param name Name of the RowColumnPivotHierarchy to be retrieved.
+         */
+        getItemOrNullObject(name: string): Excel.RowColumnPivotHierarchy;
+        /**
+         *
+         * Removes the PivotHierarchy from the current axis.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        remove(rowColumnPivotHierarchy: Excel.RowColumnPivotHierarchy): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.RowColumnPivotHierarchyCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.RowColumnPivotHierarchyCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.RowColumnPivotHierarchyCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.RowColumnPivotHierarchyCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.RowColumnPivotHierarchyCollection;
+        load(option?: string | string[]): Excel.RowColumnPivotHierarchyCollection;
+        load(option?: OfficeExtension.LoadOption): Excel.RowColumnPivotHierarchyCollection;
+        toJSON(): Excel.Interfaces.RowColumnPivotHierarchyCollectionData;
+    }
+    /**
+     *
+     * Represents the Excel RowColumnPivotHierarchy.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class RowColumnPivotHierarchy extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Returns the PivotFields associated with the RowColumnPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly fields: Excel.PivotFieldCollection;
+        /**
+         *
+         * Id of the RowColumnPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly id: string;
+        /**
+         *
+         * Name of the RowColumnPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        name: string;
+        /**
+         *
+         * Position of the RowColumnPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        position: number;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.RowColumnPivotHierarchy): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.RowColumnPivotHierarchyUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.RowColumnPivotHierarchy): void;
+        /**
+         *
+         * Reset the RowColumnPivotHierarchy back to its default values.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        setToDefault(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.RowColumnPivotHierarchy` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.RowColumnPivotHierarchy` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.RowColumnPivotHierarchy` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.RowColumnPivotHierarchyLoadOptions): Excel.RowColumnPivotHierarchy;
+        load(option?: string | string[]): Excel.RowColumnPivotHierarchy;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.RowColumnPivotHierarchy;
+        toJSON(): Excel.Interfaces.RowColumnPivotHierarchyData;
+    }
+    /**
+     *
+     * Represents a collection of FilterPivotHierarchy items associated with the PivotTable.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class FilterPivotHierarchyCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.FilterPivotHierarchy[];
+        /**
+         *
+         * Adds the PivotHierarchy to the current axis. If the hierarchy is present elsewhere on the row, column,
+            or filter axis, it will be removed from that location.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        add(pivotHierarchy: Excel.PivotHierarchy): Excel.FilterPivotHierarchy;
+        /**
+         *
+         * Gets the number of pivot hierarchies in the collection.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a FilterPivotHierarchy by its name or id.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param name Name of the PivotTable to be retrieved.
+         */
+        getItem(name: string): Excel.FilterPivotHierarchy;
+        /**
+         *
+         * Gets a FilterPivotHierarchy by name. If the FilterPivotHierarchy does not exist, will return a null object.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param name Name of the FilterPivotHierarchy to be retrieved.
+         */
+        getItemOrNullObject(name: string): Excel.FilterPivotHierarchy;
+        /**
+         *
+         * Removes the PivotHierarchy from the current axis.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        remove(filterPivotHierarchy: Excel.FilterPivotHierarchy): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.FilterPivotHierarchyCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.FilterPivotHierarchyCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.FilterPivotHierarchyCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.FilterPivotHierarchyCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.FilterPivotHierarchyCollection;
+        load(option?: string | string[]): Excel.FilterPivotHierarchyCollection;
+        load(option?: OfficeExtension.LoadOption): Excel.FilterPivotHierarchyCollection;
+        toJSON(): Excel.Interfaces.FilterPivotHierarchyCollectionData;
+    }
+    /**
+     *
+     * Represents the Excel FilterPivotHierarchy.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class FilterPivotHierarchy extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Returns the PivotFields associated with the FilterPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly fields: Excel.PivotFieldCollection;
+        /**
+         *
+         * Determines whether to allow multiple filter items.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        enableMultipleFilterItems: boolean;
+        /**
+         *
+         * Id of the FilterPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly id: string;
+        /**
+         *
+         * Name of the FilterPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        name: string;
+        /**
+         *
+         * Position of the FilterPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        position: number;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.FilterPivotHierarchy): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.FilterPivotHierarchyUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.FilterPivotHierarchy): void;
+        /**
+         *
+         * Reset the FilterPivotHierarchy back to its default values.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        setToDefault(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.FilterPivotHierarchy` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.FilterPivotHierarchy` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.FilterPivotHierarchy` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.FilterPivotHierarchyLoadOptions): Excel.FilterPivotHierarchy;
+        load(option?: string | string[]): Excel.FilterPivotHierarchy;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.FilterPivotHierarchy;
+        toJSON(): Excel.Interfaces.FilterPivotHierarchyData;
+    }
+    /**
+     *
+     * Represents a collection of DataPivotHierarchy items associated with the PivotTable.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class DataPivotHierarchyCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.DataPivotHierarchy[];
+        /**
+         *
+         * Adds the PivotHierarchy to the current axis.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        add(pivotHierarchy: Excel.PivotHierarchy): Excel.DataPivotHierarchy;
+        /**
+         *
+         * Gets the number of pivot hierarchies in the collection.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a DataPivotHierarchy by its name or id.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param name Name of the PivotTable to be retrieved.
+         */
+        getItem(name: string): Excel.DataPivotHierarchy;
+        /**
+         *
+         * Gets a DataPivotHierarchy by name. If the DataPivotHierarchy does not exist, will return a null object.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param name Name of the DataPivotHierarchy to be retrieved.
+         */
+        getItemOrNullObject(name: string): Excel.DataPivotHierarchy;
+        /**
+         *
+         * Removes the PivotHierarchy from the current axis.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        remove(DataPivotHierarchy: Excel.DataPivotHierarchy): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.DataPivotHierarchyCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.DataPivotHierarchyCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.DataPivotHierarchyCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.DataPivotHierarchyCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.DataPivotHierarchyCollection;
+        load(option?: string | string[]): Excel.DataPivotHierarchyCollection;
+        load(option?: OfficeExtension.LoadOption): Excel.DataPivotHierarchyCollection;
+        toJSON(): Excel.Interfaces.DataPivotHierarchyCollectionData;
+    }
+    /**
+     *
+     * Represents the Excel DataPivotHierarchy.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class DataPivotHierarchy extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Returns the PivotFields associated with the DataPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly field: Excel.PivotField;
+        /**
+         *
+         * Id of the DataPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly id: string;
+        /**
+         *
+         * Name of the DataPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        name: string;
+        /**
+         *
+         * Number format of the DataPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        numberFormat: string;
+        /**
+         *
+         * Position of the DataPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        position: number;
+        /**
+         *
+         * Determines whether the data should be sown as a specific summary calculation or not.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        showAs: Excel.ShowAsRule;
+        /**
+         *
+         * Determines whether to show all items of the DataPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        summarizeBy: Excel.AggregationFunction | "Unknown" | "Automatic" | "Sum" | "Count" | "Average" | "Max" | "Min" | "Product" | "CountNumbers" | "StandardDeviation" | "StandardDeviationP" | "Variance" | "VarianceP";
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.DataPivotHierarchy): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.DataPivotHierarchyUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.DataPivotHierarchy): void;
+        /**
+         *
+         * Reset the DataPivotHierarchy back to its default values.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        setToDefault(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.DataPivotHierarchy` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.DataPivotHierarchy` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.DataPivotHierarchy` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.DataPivotHierarchyLoadOptions): Excel.DataPivotHierarchy;
+        load(option?: string | string[]): Excel.DataPivotHierarchy;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.DataPivotHierarchy;
+        toJSON(): Excel.Interfaces.DataPivotHierarchyData;
+    }
+    /**
+     * [Api set: ExcelApi 1.8]
+     */
+    interface ShowAsRule {
+        /**
+         *
+         * The Base PivotField to base the ShowAs calculation, if applicable based on the ShowAsCalculation type, else null.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        baseField?: Excel.PivotField;
+        /**
+         *
+         * The Base Item to base the ShowAs calculation on, if applicable based on the ShowAsCalculation type, else null.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        baseItem?: Excel.PivotItem;
+        /**
+         *
+         * The ShowAs Calculation to use for the Data PivotField. See Excel.ShowAsCalculation for Details.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        calculation: Excel.ShowAsCalculation | "Unknown" | "None" | "PercentOfGrandTotal" | "PercentOfRowTotal" | "PercentOfColumnTotal" | "PercentOfParentRowTotal" | "PercentOfParentColumnTotal" | "PercentOfParentTotal" | "PercentOf" | "RunningTotal" | "PercentRunningTotal" | "DifferenceFrom" | "PercentDifferenceFrom" | "RankAscending" | "RankDecending" | "Index";
+    }
+    /**
+     *
+     * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class PivotFieldCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.PivotField[];
+        /**
+         *
+         * Gets the number of pivot hierarchies in the collection.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a PivotHierarchy by its name or id.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param name Name of the PivotTable to be retrieved.
+         */
+        getItem(name: string): Excel.PivotField;
+        /**
+         *
+         * Gets a PivotHierarchy by name. If the PivotHierarchy does not exist, will return a null object.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param name Name of the PivotHierarchy to be retrieved.
+         */
+        getItemOrNullObject(name: string): Excel.PivotField;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.PivotFieldCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.PivotFieldCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.PivotFieldCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.PivotFieldCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.PivotFieldCollection;
+        load(option?: string | string[]): Excel.PivotFieldCollection;
+        load(option?: OfficeExtension.LoadOption): Excel.PivotFieldCollection;
+        toJSON(): Excel.Interfaces.PivotFieldCollectionData;
+    }
+    /**
+     *
+     * Represents the Excel PivotField.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class PivotField extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Returns the PivotFields associated with the PivotField.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly items: Excel.PivotItemCollection;
+        /**
+         *
+         * Id of the PivotField.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly id: string;
+        /**
+         *
+         * Name of the PivotField.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        name: string;
+        /**
+         *
+         * Determines whether to show all items of the PivotField.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        showAllItems: boolean;
+        /**
+         *
+         * Subtotals of the PivotField.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        subtotals: Excel.Subtotals;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.PivotField): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.PivotFieldUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.PivotField): void;
+        /**
+         *
+         * Sorts the PivotField. If a DataPivotHierarchy is specified, then sort will be applied based on it, if not sort will be based on the PivotField itself.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param sortby Represents whether the sorting is done in an ascending or descending order.
+         */
+        sortByLabels(sortby: Excel.SortBy): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.PivotField` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.PivotField` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.PivotField` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.PivotFieldLoadOptions): Excel.PivotField;
+        load(option?: string | string[]): Excel.PivotField;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.PivotField;
+        toJSON(): Excel.Interfaces.PivotFieldData;
+    }
+    /**
+     *
+     * Represents a collection of all the Pivot Items related to their parent PivotField.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class PivotItemCollection extends OfficeExtension.ClientObject {
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.PivotItem[];
+        /**
+         *
+         * Gets the number of pivot hierarchies in the collection.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         *
+         * Gets a PivotHierarchy by its name or id.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param name Name of the PivotTable to be retrieved.
+         */
+        getItem(name: string): Excel.PivotItem;
+        /**
+         *
+         * Gets a PivotHierarchy by name. If the PivotHierarchy does not exist, will return a null object.
+         *
+         * [Api set: ExcelApi 1.8]
+         *
+         * @param name Name of the PivotHierarchy to be retrieved.
+         */
+        getItemOrNullObject(name: string): Excel.PivotItem;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.PivotItemCollection` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.PivotItemCollection` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.PivotItemCollection` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.PivotItemCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.PivotItemCollection;
+        load(option?: string | string[]): Excel.PivotItemCollection;
+        load(option?: OfficeExtension.LoadOption): Excel.PivotItemCollection;
+        toJSON(): Excel.Interfaces.PivotItemCollectionData;
+    }
+    /**
+     *
+     * Represents the Excel PivotItem.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    class PivotItem extends OfficeExtension.ClientObject {
+        /**
+         *
+         * Id of the PivotItem.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        readonly id: string;
+        /**
+         *
+         * Determines whether the item is expanded to show child items or if it's collapsed and child items are hidden.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        isExpanded: boolean;
+        /**
+         *
+         * Name of the PivotItem.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        name: string;
+        /**
+         *
+         * Determines whether the PivotItem is visible or not.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        visible: boolean;
+        /** Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.
+         *
+         * @remarks
+         *
+         * This method has the following additional signature:
+         *
+         * `set(properties: Excel.PivotItem): void`
+         *
+         * @param properties A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called.
+         * @param options Provides an option to suppress errors if the properties object tries to set any read-only properties.
+         */
+        set(properties: Interfaces.PivotItemUpdateData, options?: OfficeExtension.UpdateOptions): void;
+        /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
+        set(properties: Excel.PivotItem): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         *
+         * @remarks
+         *
+         * In addition to this signature, this method has the following signatures:
+         *
+         * `load(option?: string | string[]): Excel.PivotItem` - Where option is a comma-delimited string or an array of strings that specify the properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; }): Excel.PivotItem` - Where option.select is a comma-delimited string that specifies the properties to load, and options.expand is a comma-delimited string that specifies the navigation properties to load.
+         *
+         * `load(option?: { select?: string; expand?: string; top?: number; skip?: number }): Excel.PivotItem` - Only available on collection types. It is similar to the preceding signature. Option.top specifies the maximum number of collection items that can be included in the result. Option.skip specifies the number of items that are to be skipped and not included in the result. If option.top is specified, the result set will start after skipping the specified number of items.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(option?: Excel.Interfaces.PivotItemLoadOptions): Excel.PivotItem;
+        load(option?: string | string[]): Excel.PivotItem;
+        load(option?: {
+            select?: string;
+            expand?: string;
+        }): Excel.PivotItem;
+        toJSON(): Excel.Interfaces.PivotItemData;
+    }
+    /**
+     *
+     * Subtotals for the Pivot Field.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    interface Subtotals {
+        /**
+         *
+         * If Automatic is set to true, then all other values will be ignored when setting the Subtotals.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        automatic?: boolean;
+        average?: boolean;
+        count?: boolean;
+        countNumbers?: boolean;
+        max?: boolean;
+        min?: boolean;
+        product?: boolean;
+        standardDeviation?: boolean;
+        standardDeviationP?: boolean;
+        sum?: boolean;
+        variance?: boolean;
+        varianceP?: boolean;
+    }
+    /**
+     *
+     * Represents the sort direction.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    enum SortBy {
+        /**
+         *
+         * Ascending sort. Smallest to largest or A to Z.
+         *
+         */
+        ascending = "Ascending",
+        /**
+         *
+         * Descending sort. Largest to smallest or Z to A.
+         *
+         */
+        descending = "Descending",
+    }
+    /**
+     *
+     * Aggregation Function for the Data Pivot Field.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    enum AggregationFunction {
+        /**
+         *
+         * Aggregation function is unknown or unsupported.
+         *
+         */
+        unknown = "Unknown",
+        /**
+         *
+         * Excel will automatically select the aggregation based on the data items.
+         *
+         */
+        automatic = "Automatic",
+        /**
+         *
+         * Aggregate using the sum of the data, equivalent to the SUM function.
+         *
+         */
+        sum = "Sum",
+        /**
+         *
+         * Aggregate using the count of items in the data, equivalent to the COUNTA function.
+         *
+         */
+        count = "Count",
+        /**
+         *
+         * Aggregate using the average of the data, equivalent to the AVERAGE function.
+         *
+         */
+        average = "Average",
+        /**
+         *
+         * Aggregate using the maximum value of the data, equivalent to the MAX function.
+         *
+         */
+        max = "Max",
+        /**
+         *
+         * Aggregate using the minimum value of the data, equivalent to the MIN function.
+         *
+         */
+        min = "Min",
+        /**
+         *
+         * Aggregate using the product of the data, equivalent to the PRODUCT function.
+         *
+         */
+        product = "Product",
+        /**
+         *
+         * Aggregate using the count of numbers in the data, equivalent to the COUNTA function.
+         *
+         */
+        countNumbers = "CountNumbers",
+        /**
+         *
+         * Aggregate using the standard deviation of the data, equivalent to the STDEV function.
+         *
+         */
+        standardDeviation = "StandardDeviation",
+        /**
+         *
+         * Aggregate using the standard deviation of the data, equivalent to the STDEVP function.
+         *
+         */
+        standardDeviationP = "StandardDeviationP",
+        /**
+         *
+         * Aggregate using the variance of the data, equivalent to the VAR function.
+         *
+         */
+        variance = "Variance",
+        /**
+         *
+         * Aggregate using the variance of the data, equivalent to the VARP function.
+         *
+         */
+        varianceP = "VarianceP",
+    }
+    /**
+     *
+     * The ShowAs Calculation function for the Data Pivot Field.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    enum ShowAsCalculation {
+        /**
+         *
+         * Calculation is unknown or unsupported.
+         *
+         */
+        unknown = "Unknown",
+        /**
+         *
+         * No calculation is applied.
+         *
+         */
+        none = "None",
+        /**
+         *
+         * Percent of the grand total.
+         *
+         */
+        percentOfGrandTotal = "PercentOfGrandTotal",
+        /**
+         *
+         * Percent of the row total.
+         *
+         */
+        percentOfRowTotal = "PercentOfRowTotal",
+        /**
+         *
+         * Percent of the column total.
+         *
+         */
+        percentOfColumnTotal = "PercentOfColumnTotal",
+        /**
+         *
+         * Percent of the row total for the specified Base Field.
+         *
+         */
+        percentOfParentRowTotal = "PercentOfParentRowTotal",
+        /**
+         *
+         * Percent of the column total for the specified Base Field.
+         *
+         */
+        percentOfParentColumnTotal = "PercentOfParentColumnTotal",
+        /**
+         *
+         * Percent of the grand total for the specified Base Field.
+         *
+         */
+        percentOfParentTotal = "PercentOfParentTotal",
+        /**
+         *
+         * Percent of the specified Base Field and Base Item.
+         *
+         */
+        percentOf = "PercentOf",
+        /**
+         *
+         * Running Total of the specified Base Field.
+         *
+         */
+        runningTotal = "RunningTotal",
+        /**
+         *
+         * Percent Running Total of the specified Base Field.
+         *
+         */
+        percentRunningTotal = "PercentRunningTotal",
+        /**
+         *
+         * Difference from the specified Base Field and Base Item.
+         *
+         */
+        differenceFrom = "DifferenceFrom",
+        /**
+         *
+         * Difference from the specified Base Field and Base Item.
+         *
+         */
+        percentDifferenceFrom = "PercentDifferenceFrom",
+        /**
+         *
+         * Ascending Rank of the specified Base Field.
+         *
+         */
+        rankAscending = "RankAscending",
+        /**
+         *
+         * Descending Rank of the specified Base Field.
+         *
+         */
+        rankDecending = "RankDecending",
+        /**
+         *
+         * Calculates the values as follows:
+            ((value in cell) x (Grand Total of Grand Totals)) / ((Grand Row Total) x (Grand Column Total))
+         *
+         */
+        index = "Index",
     }
     /**
      *
@@ -26817,6 +29562,13 @@ declare namespace Excel {
         readonly font: Excel.RangeFont;
         /**
          *
+         * Indicates if text is automatically indented when the text alignment in a cell is set to equal distribution.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        autoIndent: boolean;
+        /**
+         *
          * Indicates if the style is a built-in style.
          *
          * [Api set: ExcelApi 1.7]
@@ -26927,6 +29679,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.7]
          */
         shrinkToFit: boolean;
+        /**
+         *
+         * The text orientation for the style.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        textOrientation: number;
         /**
          *
          * Represents the vertical alignment for the style. See Excel.VerticalAlignment for details.
@@ -27300,6 +30059,13 @@ declare namespace Excel {
         picture = "Picture",
     }
     /**
+     * [Api set: ExcelApi 1.8]
+     */
+    enum ChartPlotAreaPosition {
+        automatic = "Automatic",
+        custom = "Custom",
+    }
+    /**
      *
      * Specifies whether the series are by rows or by columns. On Desktop, the "auto" option will inspect the source data shape to automatically guess whether the data is by rows or columns; on Excel Online, "auto" will simply default to "columns".
      *
@@ -27342,6 +30108,14 @@ declare namespace Excel {
         distributed = "Distributed",
     }
     /**
+     * [Api set: ExcelApi 1.8]
+     */
+    enum ChartTickLabelAlignment {
+        center = "Center",
+        left = "Left",
+        right = "Right",
+    }
+    /**
      * [Api set: ExcelApi 1.1]
      */
     enum ChartType {
@@ -27349,15 +30123,9 @@ declare namespace Excel {
         columnClustered = "ColumnClustered",
         columnStacked = "ColumnStacked",
         columnStacked100 = "ColumnStacked100",
-        _3DColumnClustered = "3DColumnClustered",
-        _3DColumnStacked = "3DColumnStacked",
-        _3DColumnStacked100 = "3DColumnStacked100",
         barClustered = "BarClustered",
         barStacked = "BarStacked",
         barStacked100 = "BarStacked100",
-        _3DBarClustered = "3DBarClustered",
-        _3DBarStacked = "3DBarStacked",
-        _3DBarStacked100 = "3DBarStacked100",
         lineStacked = "LineStacked",
         lineStacked100 = "LineStacked100",
         lineMarkers = "LineMarkers",
@@ -27365,7 +30133,6 @@ declare namespace Excel {
         lineMarkersStacked100 = "LineMarkersStacked100",
         pieOfPie = "PieOfPie",
         pieExploded = "PieExploded",
-        _3DPieExploded = "3DPieExploded",
         barOfPie = "BarOfPie",
         xyscatterSmooth = "XYScatterSmooth",
         xyscatterSmoothNoMarkers = "XYScatterSmoothNoMarkers",
@@ -27373,8 +30140,6 @@ declare namespace Excel {
         xyscatterLinesNoMarkers = "XYScatterLinesNoMarkers",
         areaStacked = "AreaStacked",
         areaStacked100 = "AreaStacked100",
-        _3DAreaStacked = "3DAreaStacked",
-        _3DAreaStacked100 = "3DAreaStacked100",
         doughnutExploded = "DoughnutExploded",
         radarMarkers = "RadarMarkers",
         radarFilled = "RadarFilled",
@@ -27409,19 +30174,20 @@ declare namespace Excel {
         pyramidBarStacked = "PyramidBarStacked",
         pyramidBarStacked100 = "PyramidBarStacked100",
         pyramidCol = "PyramidCol",
-        _3DColumn = "3DColumn",
         line = "Line",
-        _3DLine = "3DLine",
-        _3DPie = "3DPie",
         pie = "Pie",
         xyscatter = "XYScatter",
-        _3DArea = "3DArea",
         area = "Area",
         doughnut = "Doughnut",
         radar = "Radar",
         histogram = "Histogram",
+        boxwhisker = "Boxwhisker",
         pareto = "Pareto",
         regionMap = "RegionMap",
+        treemap = "Treemap",
+        waterfall = "Waterfall",
+        sunburst = "Sunburst",
+        funnel = "Funnel",
     }
     /**
      * [Api set: ExcelApi 1.1]
@@ -27429,6 +30195,52 @@ declare namespace Excel {
     enum ChartUnderlineStyle {
         none = "None",
         single = "Single",
+    }
+    /**
+     * [Api set: ExcelApi 1.8]
+     */
+    enum ChartDisplayBlanksAs {
+        notPlotted = "NotPlotted",
+        zero = "Zero",
+        interplotted = "Interplotted",
+    }
+    /**
+     * [Api set: ExcelApi 1.8]
+     */
+    enum ChartPlotBy {
+        rows = "Rows",
+        columns = "Columns",
+    }
+    /**
+     * [Api set: ExcelApi 1.8]
+     */
+    enum ChartSplitStype {
+        splitByPosition = "SplitByPosition",
+        splitByValue = "SplitByValue",
+        splitByPercentValue = "SplitByPercentValue",
+        splitByCustomSplit = "SplitByCustomSplit",
+    }
+    /**
+     * [Api set: ExcelApi 1.8]
+     */
+    enum ChartColorScheme {
+        colorfulPalette1 = "ColorfulPalette1",
+        colorfulPalette2 = "ColorfulPalette2",
+        colorfulPalette3 = "ColorfulPalette3",
+        colorfulPalette4 = "ColorfulPalette4",
+        monochromaticPalette1 = "MonochromaticPalette1",
+        monochromaticPalette2 = "MonochromaticPalette2",
+        monochromaticPalette3 = "MonochromaticPalette3",
+        monochromaticPalette4 = "MonochromaticPalette4",
+        monochromaticPalette5 = "MonochromaticPalette5",
+        monochromaticPalette6 = "MonochromaticPalette6",
+        monochromaticPalette7 = "MonochromaticPalette7",
+        monochromaticPalette8 = "MonochromaticPalette8",
+        monochromaticPalette9 = "MonochromaticPalette9",
+        monochromaticPalette10 = "MonochromaticPalette10",
+        monochromaticPalette11 = "MonochromaticPalette11",
+        monochromaticPalette12 = "MonochromaticPalette12",
+        monochromaticPalette13 = "MonochromaticPalette13",
     }
     /**
      * [Api set: ExcelApi 1.7]
@@ -27752,6 +30564,101 @@ declare namespace Excel {
         double = "Double",
     }
     /**
+     *
+     * Represents Data validation type enum.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    enum DataValidationType {
+        /**
+         *
+         * None means allow any value and so there is no data validation in the range.
+         *
+         */
+        none = "None",
+        /**
+         *
+         * Whole number data validation type
+         *
+         */
+        wholeNumber = "WholeNumber",
+        /**
+         *
+         * Decimal data validation type
+         *
+         */
+        decimal = "Decimal",
+        /**
+         *
+         * List data validation type
+         *
+         */
+        list = "List",
+        /**
+         *
+         * Date data validation type
+         *
+         */
+        date = "Date",
+        /**
+         *
+         * Time data validation type
+         *
+         */
+        time = "Time",
+        /**
+         *
+         * Text length data validation type
+         *
+         */
+        textLength = "TextLength",
+        /**
+         *
+         * Custom data validation type
+         *
+         */
+        custom = "Custom",
+        /**
+         *
+         * Inconsistent means that the range has inconsistent data validation (there are different rules on different cells)
+         *
+         */
+        inconsistent = "Inconsistent",
+        /**
+         *
+         * MixedCriteria means that the range has data validation present on some but not all cells
+         *
+         */
+        mixedCriteria = "MixedCriteria",
+    }
+    /**
+     *
+     * Represents Data validation operator enum.
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    enum DataValidationOperator {
+        between = "Between",
+        notBetween = "NotBetween",
+        equalTo = "EqualTo",
+        notEqualTo = "NotEqualTo",
+        greaterThan = "GreaterThan",
+        lessThan = "LessThan",
+        greaterThanOrEqualTo = "GreaterThanOrEqualTo",
+        lessThanOrEqualTo = "LessThanOrEqualTo",
+    }
+    /**
+     *
+     * Represents Data validation error alert style. The default is "Stop".
+     *
+     * [Api set: ExcelApi 1.8]
+     */
+    enum DataValidationAlertStyle {
+        stop = "Stop",
+        warning = "Warning",
+        information = "Information",
+    }
+    /**
      * [Api set: ExcelApi 1.1]
      */
     enum DeleteShiftDirection {
@@ -27975,7 +30882,6 @@ declare namespace Excel {
         justify = "Justify",
         distributed = "Distributed",
     }
-
     /**
      * [Api set: ExcelApi 1.7]
      */
@@ -28164,6 +31070,18 @@ declare namespace Excel {
         tableDeleted = "TableDeleted",
         /**
          *
+         * TableFiltered represents the type of event registered on table or TableCollection, and occurs when data of table is filtered.
+         *
+         */
+        tableFiltered = "TableFiltered",
+        /**
+         *
+         * WorksheetFiltered represents the type of event registered on worksheet or WorksheetCollection, and occurs when data of autofilter in the worksheet is filtered.
+         *
+         */
+        worksheetFiltered = "WorksheetFiltered",
+        /**
+         *
          * ShapeActivated represents the type of event that is registered on Shape, and occurs when shape activates.
          *
          */
@@ -28174,6 +31092,12 @@ declare namespace Excel {
          *
          */
         shapeDeactivated = "ShapeDeactivated",
+        /**
+         *
+         * VisualChange represents the type of event registered on Visual, and occurs when there is a visual change.
+         *
+         */
+        visualChange = "VisualChange",
     }
     /**
      * [Api set: ExcelApi 1.7]
@@ -28195,6 +31119,52 @@ declare namespace Excel {
         format = "Format",
         manager = "Manager",
         company = "Company",
+    }
+    /**
+     * [Api set: ExcelApi 1.8]
+     */
+    enum SubtotalLocationType {
+        /**
+         *
+         * Subtotals are at the top.
+         *
+         */
+        atTop = "AtTop",
+        /**
+         *
+         * Subtotals are at the bottom.
+         *
+         */
+        atBottom = "AtBottom",
+        /**
+         *
+         * Subtotals are off.
+         *
+         */
+        off = "Off",
+    }
+    /**
+     * [Api set: ExcelApi 1.8]
+     */
+    enum PivotLayoutType {
+        /**
+         *
+         * A horizontally compressed form with labels from the next field in the same column.
+         *
+         */
+        compact = "Compact",
+        /**
+         *
+         * Inner fields' items are always on a new line relative to the outer fields' items.
+         *
+         */
+        tabular = "Tabular",
+        /**
+         *
+         * Inner fields' items are on same row as outer fields' items and subtotals are always on the bottom.
+         *
+         */
+        outline = "Outline",
     }
     /**
      * [Api set: ExcelApi 1.7]
@@ -32140,6 +35110,16 @@ declare namespace Excel {
             */
             $skip?: number;
         }
+        /** An interface for updating data on the Runtime object, for use in "runtime.set({ ... })". */
+        interface RuntimeUpdateData {
+            /**
+             *
+             * Turn on/off JavaScript events in current taskpane or content add-in.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            enableEvents?: boolean;
+        }
         /** An interface for updating data on the Application object, for use in "application.set({ ... })". */
         interface ApplicationUpdateData {
             /**
@@ -32178,6 +35158,22 @@ declare namespace Excel {
             position?: number;
             /**
              *
+             * Gets or sets the worksheet's gridlines flag.
+            This flag determines whether gridlines are visible to the user.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showGridlines?: boolean;
+            /**
+             *
+             * Gets or sets the worksheet's headings flag.
+            This flag determines whether headings are visible to the user.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showHeadings?: boolean;
+            /**
+             *
              * Returns or sets the standard (default) width of all the columns in the worksheet.
             One unit of column width is equal to the width of one character in the Normal style. For proportional fonts, the width of the character 0 (zero) is used.
              *
@@ -32207,6 +35203,13 @@ declare namespace Excel {
         }
         /** An interface for updating data on the Range object, for use in "range.set({ ... })". */
         interface RangeUpdateData {
+            /**
+            *
+            * Returns a data validation object.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            dataValidation?: Excel.Interfaces.DataValidationUpdateData;
             /**
             *
             * Returns a format object, encapsulating the range's font, fill, borders, alignment, and other properties.
@@ -32486,6 +35489,37 @@ declare namespace Excel {
              */
             values?: any[][];
         }
+        /** An interface for updating data on the DataValidation object, for use in "dataValidation.set({ ... })". */
+        interface DataValidationUpdateData {
+            /**
+             *
+             * Error alert when user enters invalid data.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            errorAlert?: Excel.DataValidationErrorAlert;
+            /**
+             *
+             * Ignore blanks: no data validation will be performed on blank cells, it defaults to true.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            ignoreBlanks?: boolean;
+            /**
+             *
+             * Prompt when users select a cell.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            prompt?: Excel.DataValidationPrompt;
+            /**
+             *
+             * Data Validation rule that contains different type of data validation criteria.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            rule?: Excel.DataValidationRule;
+        }
         /** An interface for updating data on the RangeFormat object, for use in "rangeFormat.set({ ... })". */
         interface RangeFormatUpdateData {
             /**
@@ -32710,6 +35744,13 @@ declare namespace Excel {
             legend?: Excel.Interfaces.ChartLegendUpdateData;
             /**
             *
+            * Represents the plotArea for the chart.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            plotArea?: Excel.Interfaces.ChartPlotAreaUpdateData;
+            /**
+            *
             * Represents the title of the specified chart, including the text, visibility, position, and formating of the title.
             *
             * [Api set: ExcelApi 1.1]
@@ -32717,11 +35758,26 @@ declare namespace Excel {
             title?: Excel.Interfaces.ChartTitleUpdateData;
             /**
              *
+             * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to
+            the level of where the category labels are being sourced from. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            categoryLabelLevel?: number;
+            /**
+             *
              * Represents the type of the chart. See Excel.ChartType for details.
              *
              * [Api set: ExcelApi 1.7]
              */
-            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel";
+            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Boxwhisker" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel";
+            /**
+             *
+             * Returns or sets the way that blank cells are plotted on a chart. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            displayBlanksAs?: Excel.ChartDisplayBlanksAs | "NotPlotted" | "Zero" | "Interplotted";
             /**
              *
              * Represents the height, in points, of the chart object.
@@ -32745,11 +35801,49 @@ declare namespace Excel {
             name?: string;
             /**
              *
+             * Returns or sets the way columns or rows are used as data series on the chart. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            plotBy?: Excel.ChartPlotBy | "Rows" | "Columns";
+            /**
+             *
+             * True if only visible cells are plotted. False if both visible and hidden cells are plotted. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            plotVisibleOnly?: boolean;
+            /**
+             *
+             * Returns or sets a ChartSeriesNameLevel enumeration constant referring to
+            the level of where the series names are being sourced from. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            seriesNameLevel?: number;
+            /**
+             *
              * Represents whether to display all field buttons on a PivotChart.
              *
              * [Api set: ExcelApi 1.7]
              */
             showAllFieldButtons?: boolean;
+            /**
+             *
+             * Represents whether to to show the data labels when the value is greater than the maximum value on the value axis.
+            If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
+            This property applies to 2-D charts only.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showDataLabelsOverMaximum?: boolean;
+            /**
+             *
+             * Returns or sets the chart style for the chart. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            style?: number;
             /**
              *
              * Represents the distance, in points, from the top edge of the object to the top of row 1 (on a worksheet) or the top of the chart area (on a chart).
@@ -32790,6 +35884,13 @@ declare namespace Excel {
         interface ChartSeriesUpdateData {
             /**
             *
+            * Represents a collection of all dataLabels in the series.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            dataLabels?: Excel.Interfaces.ChartDataLabelsUpdateData;
+            /**
+            *
             * Represents the formatting of a chart series, which includes fill and line formatting.
             *
             * [Api set: ExcelApi 1.1]
@@ -32797,11 +35898,18 @@ declare namespace Excel {
             format?: Excel.Interfaces.ChartSeriesFormatUpdateData;
             /**
              *
+             * Returns or sets the group for the specified series. Read/Write
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            axisGroup?: Excel.ChartAxisGroup | "Primary" | "Secondary";
+            /**
+             *
              * Represents the chart type of a series. See Excel.ChartType for details.
              *
              * [Api set: ExcelApi 1.7]
              */
-            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel";
+            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Boxwhisker" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel";
             /**
              *
              * Represents the doughnut hole size of a chart series.  Only valid on doughnut and doughnutExploded charts.
@@ -32812,11 +35920,25 @@ declare namespace Excel {
             doughnutHoleSize?: number;
             /**
              *
+             * Returns or sets the explosion value for a pie-chart or doughnut-chart slice. Returns 0 (zero) if there's no explosion (the tip of the slice is in the center of the pie). Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            explosion?: number;
+            /**
+             *
              * Boolean value representing if the series is filtered or not. Not applicable for surface charts.
              *
              * [Api set: ExcelApi 1.7]
              */
             filtered?: boolean;
+            /**
+             *
+             * Returns or sets the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360. Read/Write
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            firstSliceAngle?: number;
             /**
              *
              * Represents the gap width of a chart series.  Only valid on bar and column charts, as well as
@@ -32832,6 +35954,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             hasDataLabels?: boolean;
+            /**
+             *
+             * True if Microsoft Excel inverts the pattern in the item when it corresponds to a negative number. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            invertIfNegative?: boolean;
             /**
              *
              * Represents markers background color of a chart series.
@@ -32869,11 +35998,25 @@ declare namespace Excel {
             name?: string;
             /**
              *
+             * Specifies how bars and columns are positioned. Can be a value between – 100 and 100. Applies only to 2-D bar and 2-D column charts. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            overlap?: number;
+            /**
+             *
              * Represents the plot order of a chart series within the chart group.
              *
              * [Api set: ExcelApi 1.7]
              */
             plotOrder?: number;
+            /**
+             *
+             * Returns or sets the size of the secondary section of either a pie of pie chart or a bar of pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            secondPlotSize?: number;
             /**
              *
              * Boolean value representing if the series has a shadow or not.
@@ -32888,6 +36031,20 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             smooth?: boolean;
+            /**
+             *
+             * Returns or sets the way the two sections of either a pie of pie chart or a bar of pie chart are split. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            splitType?: Excel.ChartSplitStype | "SplitByPosition" | "SplitByValue" | "SplitByPercentValue" | "SplitByCustomSplit";
+            /**
+             *
+             * True if Microsoft Excel assigns a different color or pattern to each data marker. The chart must contain only one series. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            varyByCategories?: boolean;
         }
         /** An interface for updating data on the ChartSeriesFormat object, for use in "chartSeriesFormat.set({ ... })". */
         interface ChartSeriesFormatUpdateData {
@@ -33021,6 +36178,13 @@ declare namespace Excel {
             title?: Excel.Interfaces.ChartAxisTitleUpdateData;
             /**
              *
+             * Represents the alignment for the specified axis tick label. See Excel.ChartTextHorizontalAlignment for detail.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            alignment?: Excel.ChartTickLabelAlignment | "Center" | "Left" | "Right";
+            /**
+             *
              * Returns or sets the base unit for the specified category axis.
              *
              * [Api set: ExcelApi 1.7]
@@ -33047,6 +36211,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             displayUnit?: Excel.ChartAxisDisplayUnit | "None" | "Hundreds" | "Thousands" | "TenThousands" | "HundredThousands" | "Millions" | "TenMillions" | "HundredMillions" | "Billions" | "Trillions" | "Custom";
+            /**
+             *
+             * Represents whether value axis crosses the category axis between categories.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            isBetweenCategories?: boolean;
             /**
              *
              * Represents the base of the logarithm when using logarithmic scales.
@@ -33112,6 +36283,34 @@ declare namespace Excel {
             minorUnit?: any;
             /**
              *
+             * Represents whether an axis is multilevel or not.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            multiLevel?: boolean;
+            /**
+             *
+             * Represents the format code for the axis tick label.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: string;
+            /**
+             *
+             * Represents the distance between the levels of labels, and the distance between the first level and the axis line. The value should be an integer from 0 to 1000.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            offset?: number;
+            /**
+             *
+             * Represents the specified axis position where the other axis crosses. See Excel.ChartAxisPosition for details.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: Excel.ChartAxisPosition | "Automatic" | "Maximum" | "Minimum" | "Custom";
+            /**
+             *
              * Represents whether Microsoft Excel plots data points from last to first.
              *
              * [Api set: ExcelApi 1.7]
@@ -33131,6 +36330,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             showDisplayUnitLabel?: boolean;
+            /**
+             *
+             * Represents the text orientation of the axis tick label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: any;
             /**
              *
              * Represents the position of tick-mark labels on the specified axis. See Excel.ChartAxisTickLabelPosition for details.
@@ -33205,6 +36411,13 @@ declare namespace Excel {
         interface ChartAxisTitleFormatUpdateData {
             /**
             *
+            * Represents the border format, which includes color, linestyle, and weight.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderUpdateData;
+            /**
+            *
             * Represents the font attributes, such as font name, font size, color, etc. of chart axis title object.
             *
             * [Api set: ExcelApi 1.1]
@@ -33220,6 +36433,28 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.1]
             */
             format?: Excel.Interfaces.ChartDataLabelFormatUpdateData;
+            /**
+             *
+             * Represents whether data labels automatically generates appropriate text based on context.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            autoText?: boolean;
+            /**
+             *
+             * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
+            This property is valid only when TextOrientation of data label is 0.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            horizontalAlignment?: Excel.ChartTextHorizontalAlignment | "Center" | "Left" | "Right" | "Justify" | "Distributed";
+            /**
+             *
+             * Represents the format code for data labels.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: string;
             /**
              *
              * DataLabelPosition value that represents the position of the data label. See Excel.ChartDataLabelPosition for details.
@@ -33276,9 +36511,67 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             showValue?: boolean;
+            /**
+             *
+             * Represents the text orientation of data labels. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: number;
+            /**
+             *
+             * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
+            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            verticalAlignment?: Excel.ChartTextVerticalAlignment | "Center" | "Bottom" | "Top" | "Justify" | "Distributed";
         }
         /** An interface for updating data on the ChartDataLabel object, for use in "chartDataLabel.set({ ... })". */
         interface ChartDataLabelUpdateData {
+            /**
+            *
+            * Represents the format of chart data label.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            format?: Excel.Interfaces.ChartDataLabelFormatUpdateData;
+            /**
+             *
+             * Boolean value representing if data label automatically generates appropriate text based on context.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            autoText?: boolean;
+            /**
+             *
+             * String value that represents the formula of chart data label using A1-style notation.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            formula?: string;
+            /**
+             *
+             * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
+            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            horizontalAlignment?: Excel.ChartTextHorizontalAlignment | "Center" | "Left" | "Right" | "Justify" | "Distributed";
+            /**
+             *
+             * Represents the distance, in points, from the left edge of chart data label to the left edge of chart area. Null if chart data label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            left?: number;
+            /**
+             *
+             * String value that represents the format code for data label.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: string;
             /**
              *
              * DataLabelPosition value that represents the position of the data label. See Excel.ChartDataLabelPosition for details.
@@ -33335,9 +36628,45 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             showValue?: boolean;
+            /**
+             *
+             * String representing the text of the data label on a chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            text?: string;
+            /**
+             *
+             * Represents the text orientation of chart data label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: number;
+            /**
+             *
+             * Represents the distance, in points, from the top edge of chart data label to the top of chart area. Null if chart data label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            top?: number;
+            /**
+             *
+             * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
+            This property is valid only when TextOrientation of data label is 0.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            verticalAlignment?: Excel.ChartTextVerticalAlignment | "Center" | "Bottom" | "Top" | "Justify" | "Distributed";
         }
         /** An interface for updating data on the ChartDataLabelFormat object, for use in "chartDataLabelFormat.set({ ... })". */
         interface ChartDataLabelFormatUpdateData {
+            /**
+            *
+            * Represents the border format, which includes color, linestyle, and weight.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderUpdateData;
             /**
             *
             * Represents the font attributes (font name, font size, color, etc.) for a chart data label.
@@ -33455,6 +36784,13 @@ declare namespace Excel {
         }
         /** An interface for updating data on the ChartLegendFormat object, for use in "chartLegendFormat.set({ ... })". */
         interface ChartLegendFormatUpdateData {
+            /**
+            *
+            * Represents the border format, which includes color, linestyle, and weight.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderUpdateData;
             /**
             *
             * Represents the font attributes such as font name, font size, color, etc. of a chart legend.
@@ -33673,6 +37009,27 @@ declare namespace Excel {
             */
             format?: Excel.Interfaces.ChartTrendlineFormatUpdateData;
             /**
+            *
+            * Represents the label of a chart trendline.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            label?: Excel.Interfaces.ChartTrendlineLabelUpdateData;
+            /**
+             *
+             * Represents the number of periods that the trendline extends backward.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            backwardPeriod?: number;
+            /**
+             *
+             * Represents the number of periods that the trendline extends forward.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            forwardPeriod?: number;
+            /**
              *
              * Represents the intercept value of the trendline. Can be set to a numeric value or an empty string (for automatic values). The returned value is always a number.
              *
@@ -33702,6 +37059,20 @@ declare namespace Excel {
             polynomialOrder?: number;
             /**
              *
+             * True if the equation for the trendline is displayed on the chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showEquation?: boolean;
+            /**
+             *
+             * True if the R-squared for the trendline is displayed on the chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showRSquared?: boolean;
+            /**
+             *
              * Represents the type of a chart trendline.
              *
              * [Api set: ExcelApi 1.7]
@@ -33721,6 +37092,181 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.7]
             */
             line?: Excel.Interfaces.ChartLineFormatUpdateData;
+        }
+        /** An interface for updating data on the ChartTrendlineLabel object, for use in "chartTrendlineLabel.set({ ... })". */
+        interface ChartTrendlineLabelUpdateData {
+            /**
+            *
+            * Represents the format of chart trendline label.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            format?: Excel.Interfaces.ChartTrendlineLabelFormatUpdateData;
+            /**
+             *
+             * Boolean value representing if trendline label automatically generates appropriate text based on context.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            autoText?: boolean;
+            /**
+             *
+             * String value that represents the formula of chart trendline label using A1-style notation.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            formula?: string;
+            /**
+             *
+             * Represents the horizontal alignment for chart trendline label. See Excel.ChartTextHorizontalAlignment for details.
+            This property is valid only when TextOrientation of trendline label is 90, -90 or 180.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            horizontalAlignment?: Excel.ChartTextHorizontalAlignment | "Center" | "Left" | "Right" | "Justify" | "Distributed";
+            /**
+             *
+             * Represents the distance, in points, from the left edge of chart trendline label to the left edge of chart area. Null if chart trendline label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            left?: number;
+            /**
+             *
+             * String value that represents the format code for trendline label.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: string;
+            /**
+             *
+             * String representing the text of the trendline label on a chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            text?: string;
+            /**
+             *
+             * Represents the text orientation of chart trendline label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: number;
+            /**
+             *
+             * Represents the distance, in points, from the top edge of chart trendline label to the top of chart area. Null if chart trendline label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            top?: number;
+            /**
+             *
+             * Represents the vertical alignment of chart trendline label. See Excel.ChartTextVerticalAlignment for details.
+            This property is valid only when TextOrientation of trendline label is 0.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            verticalAlignment?: Excel.ChartTextVerticalAlignment | "Center" | "Bottom" | "Top" | "Justify" | "Distributed";
+        }
+        /** An interface for updating data on the ChartTrendlineLabelFormat object, for use in "chartTrendlineLabelFormat.set({ ... })". */
+        interface ChartTrendlineLabelFormatUpdateData {
+            /**
+            *
+            * Represents the border format, which includes color, linestyle, and weight.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderUpdateData;
+            /**
+            *
+            * Represents the font attributes (font name, font size, color, etc.) for a chart trendline label.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            font?: Excel.Interfaces.ChartFontUpdateData;
+        }
+        /** An interface for updating data on the ChartPlotArea object, for use in "chartPlotArea.set({ ... })". */
+        interface ChartPlotAreaUpdateData {
+            /**
+            *
+            * Represents the formatting of a chart plotArea.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            format?: Excel.Interfaces.ChartPlotAreaFormatUpdateData;
+            /**
+             *
+             * Represents the height value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            height?: number;
+            /**
+             *
+             * Represents the insideHeight value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            insideHeight?: number;
+            /**
+             *
+             * Represents the insideLeft value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            insideLeft?: number;
+            /**
+             *
+             * Represents the insideTop value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            insideTop?: number;
+            /**
+             *
+             * Represents the insideWidth value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            insideWidth?: number;
+            /**
+             *
+             * Represents the left value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            left?: number;
+            /**
+             *
+             * Represents the position of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: Excel.ChartPlotAreaPosition | "Automatic" | "Custom";
+            /**
+             *
+             * Represents the top value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            top?: number;
+            /**
+             *
+             * Represents the width value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            width?: number;
+        }
+        /** An interface for updating data on the ChartPlotAreaFormat object, for use in "chartPlotAreaFormat.set({ ... })". */
+        interface ChartPlotAreaFormatUpdateData {
+            /**
+            *
+            * Represents the border attributes of a chart plotArea.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderUpdateData;
         }
         /** An interface for updating data on the CustomXmlPartScopedCollection object, for use in "customXmlPartScopedCollection.set({ ... })". */
         interface CustomXmlPartScopedCollectionUpdateData {
@@ -33743,6 +37289,205 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.3]
              */
             name?: string;
+        }
+        /** An interface for updating data on the PivotLayout object, for use in "pivotLayout.set({ ... })". */
+        interface PivotLayoutUpdateData {
+            /**
+             *
+             * This property indicates the PivotLayoutType of all fields on the PivotTable. If fields have different states, this will be null.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            layoutType?: Excel.PivotLayoutType | "Compact" | "Tabular" | "Outline";
+            /**
+             *
+             * True if the PivotTable report shows grand totals for columns.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showColumnGrandTotals?: boolean;
+            /**
+             *
+             * True if the PivotTable report shows grand totals for rows.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showRowGrandTotals?: boolean;
+            /**
+             *
+             * This property indicates the SubtotalLocationType of all fields on the PivotTable. If fields have different states, this will be null.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            subtotalLocation?: Excel.SubtotalLocationType | "AtTop" | "AtBottom" | "Off";
+        }
+        /** An interface for updating data on the PivotHierarchyCollection object, for use in "pivotHierarchyCollection.set({ ... })". */
+        interface PivotHierarchyCollectionUpdateData {
+            items?: Excel.Interfaces.PivotHierarchyData[];
+        }
+        /** An interface for updating data on the PivotHierarchy object, for use in "pivotHierarchy.set({ ... })". */
+        interface PivotHierarchyUpdateData {
+            /**
+             *
+             * Name of the PivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: string;
+        }
+        /** An interface for updating data on the RowColumnPivotHierarchyCollection object, for use in "rowColumnPivotHierarchyCollection.set({ ... })". */
+        interface RowColumnPivotHierarchyCollectionUpdateData {
+            items?: Excel.Interfaces.RowColumnPivotHierarchyData[];
+        }
+        /** An interface for updating data on the RowColumnPivotHierarchy object, for use in "rowColumnPivotHierarchy.set({ ... })". */
+        interface RowColumnPivotHierarchyUpdateData {
+            /**
+             *
+             * Name of the RowColumnPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: string;
+            /**
+             *
+             * Position of the RowColumnPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: number;
+        }
+        /** An interface for updating data on the FilterPivotHierarchyCollection object, for use in "filterPivotHierarchyCollection.set({ ... })". */
+        interface FilterPivotHierarchyCollectionUpdateData {
+            items?: Excel.Interfaces.FilterPivotHierarchyData[];
+        }
+        /** An interface for updating data on the FilterPivotHierarchy object, for use in "filterPivotHierarchy.set({ ... })". */
+        interface FilterPivotHierarchyUpdateData {
+            /**
+             *
+             * Determines whether to allow multiple filter items.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            enableMultipleFilterItems?: boolean;
+            /**
+             *
+             * Name of the FilterPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: string;
+            /**
+             *
+             * Position of the FilterPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: number;
+        }
+        /** An interface for updating data on the DataPivotHierarchyCollection object, for use in "dataPivotHierarchyCollection.set({ ... })". */
+        interface DataPivotHierarchyCollectionUpdateData {
+            items?: Excel.Interfaces.DataPivotHierarchyData[];
+        }
+        /** An interface for updating data on the DataPivotHierarchy object, for use in "dataPivotHierarchy.set({ ... })". */
+        interface DataPivotHierarchyUpdateData {
+            /**
+            *
+            * Returns the PivotFields associated with the DataPivotHierarchy.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            field?: Excel.Interfaces.PivotFieldUpdateData;
+            /**
+             *
+             * Name of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: string;
+            /**
+             *
+             * Number format of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: string;
+            /**
+             *
+             * Position of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: number;
+            /**
+             *
+             * Determines whether the data should be sown as a specific summary calculation or not.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showAs?: Excel.ShowAsRule;
+            /**
+             *
+             * Determines whether to show all items of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            summarizeBy?: Excel.AggregationFunction | "Unknown" | "Automatic" | "Sum" | "Count" | "Average" | "Max" | "Min" | "Product" | "CountNumbers" | "StandardDeviation" | "StandardDeviationP" | "Variance" | "VarianceP";
+        }
+        /** An interface for updating data on the PivotFieldCollection object, for use in "pivotFieldCollection.set({ ... })". */
+        interface PivotFieldCollectionUpdateData {
+            items?: Excel.Interfaces.PivotFieldData[];
+        }
+        /** An interface for updating data on the PivotField object, for use in "pivotField.set({ ... })". */
+        interface PivotFieldUpdateData {
+            /**
+             *
+             * Name of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: string;
+            /**
+             *
+             * Determines whether to show all items of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showAllItems?: boolean;
+            /**
+             *
+             * Subtotals of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            subtotals?: Excel.Subtotals;
+        }
+        /** An interface for updating data on the PivotItemCollection object, for use in "pivotItemCollection.set({ ... })". */
+        interface PivotItemCollectionUpdateData {
+            items?: Excel.Interfaces.PivotItemData[];
+        }
+        /** An interface for updating data on the PivotItem object, for use in "pivotItem.set({ ... })". */
+        interface PivotItemUpdateData {
+            /**
+             *
+             * Determines whether the item is expanded to show child items or if it's collapsed and child items are hidden.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            isExpanded?: boolean;
+            /**
+             *
+             * Name of the PivotItem.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: string;
+            /**
+             *
+             * Determines whether the PivotItem is visible or not.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            visible?: boolean;
         }
         /** An interface for updating data on the DocumentProperties object, for use in "documentProperties.set({ ... })". */
         interface DocumentPropertiesUpdateData {
@@ -34381,6 +38126,13 @@ declare namespace Excel {
             font?: Excel.Interfaces.RangeFontUpdateData;
             /**
              *
+             * Indicates if text is automatically indented when the text alignment in a cell is set to equal distribution.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            autoIndent?: boolean;
+            /**
+             *
              * Indicates if the formula will be hidden when the worksheet is protected.
              *
              * [Api set: ExcelApi 1.7]
@@ -34479,6 +38231,13 @@ declare namespace Excel {
             shrinkToFit?: boolean;
             /**
              *
+             * The text orientation for the style.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: number;
+            /**
+             *
              * Represents the vertical alignment for the style. See Excel.VerticalAlignment for details.
              *
              * [Api set: ExcelApi 1.7]
@@ -34495,6 +38254,16 @@ declare namespace Excel {
         /** An interface for updating data on the StyleCollection object, for use in "styleCollection.set({ ... })". */
         interface StyleCollectionUpdateData {
             items?: Excel.Interfaces.StyleData[];
+        }
+        /** An interface describing the data returned by calling "runtime.toJSON()". */
+        interface RuntimeData {
+            /**
+             *
+             * Turn on/off JavaScript events in current taskpane or content add-in.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            enableEvents?: boolean;
         }
         /** An interface describing the data returned by calling "application.toJSON()". */
         interface ApplicationData {
@@ -34592,6 +38361,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             name?: string;
+            /**
+             *
+             * True if the workbook is open in Read-only mode. Read-only.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            readOnly?: boolean;
         }
         /** An interface describing the data returned by calling "workbookProtection.toJSON()". */
         interface WorkbookProtectionData {
@@ -34602,6 +38378,16 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             protected?: boolean;
+        }
+        /** An interface describing the data returned by calling "workbookCreated.toJSON()". */
+        interface WorkbookCreatedData {
+            /**
+             *
+             * Returns a value that uniquely identifies the WorkbookCreated object.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: string;
         }
         /** An interface describing the data returned by calling "worksheet.toJSON()". */
         interface WorksheetData {
@@ -34661,6 +38447,22 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             position?: number;
+            /**
+             *
+             * Gets or sets the worksheet's gridlines flag.
+            This flag determines whether gridlines are visible to the user.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showGridlines?: boolean;
+            /**
+             *
+             * Gets or sets the worksheet's headings flag.
+            This flag determines whether headings are visible to the user.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showHeadings?: boolean;
             /**
              *
              * Returns the standard (default) height of all the rows in the worksheet, in points. Read-only.
@@ -34723,6 +38525,13 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.6]
             */
             conditionalFormats?: Excel.Interfaces.ConditionalFormatData[];
+            /**
+            *
+            * Returns a data validation object.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            dataValidation?: Excel.Interfaces.DataValidationData;
             /**
             *
             * Returns a format object, encapsulating the range's font, fill, borders, alignment, and other properties. Read-only.
@@ -35184,6 +38993,13 @@ declare namespace Excel {
             id?: string;
             /**
              *
+             * Returns a numeric id.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            legacyId?: string;
+            /**
+             *
              * Name of the table.
              *
              * [Api set: ExcelApi 1.1]
@@ -35294,6 +39110,53 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             values?: any[][];
+        }
+        /** An interface describing the data returned by calling "dataValidation.toJSON()". */
+        interface DataValidationData {
+            /**
+             *
+             * Error alert when user enters invalid data.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            errorAlert?: Excel.DataValidationErrorAlert;
+            /**
+             *
+             * Ignore blanks: no data validation will be performed on blank cells, it defaults to true.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            ignoreBlanks?: boolean;
+            /**
+             *
+             * Prompt when users select a cell.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            prompt?: Excel.DataValidationPrompt;
+            /**
+             *
+             * Data Validation rule that contains different type of data validation criteria.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            rule?: Excel.DataValidationRule;
+            /**
+             *
+             * Type of the data validation, see Excel.DataValidationType for details.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            type?: Excel.DataValidationType | "None" | "WholeNumber" | "Decimal" | "List" | "Date" | "Time" | "TextLength" | "Custom" | "Inconsistent" | "MixedCriteria";
+            /**
+             *
+             * Represents if all cell values are valid according to the data validation rules.
+            Returns true if all cell values are valid, or false if all cell values are invalid.
+            Returns null if there are both valid and invalid cell values within the range.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            valid?: boolean;
         }
         /** An interface describing the data returned by calling "rangeFormat.toJSON()". */
         interface RangeFormatData {
@@ -35533,6 +39396,13 @@ declare namespace Excel {
             legend?: Excel.Interfaces.ChartLegendData;
             /**
             *
+            * Represents the plotArea for the chart.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            plotArea?: Excel.Interfaces.ChartPlotAreaData;
+            /**
+            *
             * Represents either a single series or collection of series in the chart. Read-only.
             *
             * [Api set: ExcelApi 1.1]
@@ -35554,11 +39424,26 @@ declare namespace Excel {
             worksheet?: Excel.Interfaces.WorksheetData;
             /**
              *
+             * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to
+            the level of where the category labels are being sourced from. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            categoryLabelLevel?: number;
+            /**
+             *
              * Represents the type of the chart. See Excel.ChartType for details.
              *
              * [Api set: ExcelApi 1.7]
              */
-            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel";
+            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Boxwhisker" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel";
+            /**
+             *
+             * Returns or sets the way that blank cells are plotted on a chart. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            displayBlanksAs?: Excel.ChartDisplayBlanksAs | "NotPlotted" | "Zero" | "Interplotted";
             /**
              *
              * Represents the height, in points, of the chart object.
@@ -35589,11 +39474,49 @@ declare namespace Excel {
             name?: string;
             /**
              *
+             * Returns or sets the way columns or rows are used as data series on the chart. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            plotBy?: Excel.ChartPlotBy | "Rows" | "Columns";
+            /**
+             *
+             * True if only visible cells are plotted. False if both visible and hidden cells are plotted. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            plotVisibleOnly?: boolean;
+            /**
+             *
+             * Returns or sets a ChartSeriesNameLevel enumeration constant referring to
+            the level of where the series names are being sourced from. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            seriesNameLevel?: number;
+            /**
+             *
              * Represents whether to display all field buttons on a PivotChart.
              *
              * [Api set: ExcelApi 1.7]
              */
             showAllFieldButtons?: boolean;
+            /**
+             *
+             * Represents whether to to show the data labels when the value is greater than the maximum value on the value axis.
+            If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
+            This property applies to 2-D charts only.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showDataLabelsOverMaximum?: boolean;
+            /**
+             *
+             * Returns or sets the chart style for the chart. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            style?: number;
             /**
              *
              * Represents the distance, in points, from the top edge of the object to the top of row 1 (on a worksheet) or the top of the chart area (on a chart).
@@ -35634,6 +39557,13 @@ declare namespace Excel {
         interface ChartSeriesData {
             /**
             *
+            * Represents a collection of all dataLabels in the series.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            dataLabels?: Excel.Interfaces.ChartDataLabelsData;
+            /**
+            *
             * Represents the formatting of a chart series, which includes fill and line formatting. Read-only.
             *
             * [Api set: ExcelApi 1.1]
@@ -35655,11 +39585,18 @@ declare namespace Excel {
             trendlines?: Excel.Interfaces.ChartTrendlineData[];
             /**
              *
+             * Returns or sets the group for the specified series. Read/Write
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            axisGroup?: Excel.ChartAxisGroup | "Primary" | "Secondary";
+            /**
+             *
              * Represents the chart type of a series. See Excel.ChartType for details.
              *
              * [Api set: ExcelApi 1.7]
              */
-            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel";
+            chartType?: Excel.ChartType | "Invalid" | "ColumnClustered" | "ColumnStacked" | "ColumnStacked100" | "3DColumnClustered" | "3DColumnStacked" | "3DColumnStacked100" | "BarClustered" | "BarStacked" | "BarStacked100" | "3DBarClustered" | "3DBarStacked" | "3DBarStacked100" | "LineStacked" | "LineStacked100" | "LineMarkers" | "LineMarkersStacked" | "LineMarkersStacked100" | "PieOfPie" | "PieExploded" | "3DPieExploded" | "BarOfPie" | "XYScatterSmooth" | "XYScatterSmoothNoMarkers" | "XYScatterLines" | "XYScatterLinesNoMarkers" | "AreaStacked" | "AreaStacked100" | "3DAreaStacked" | "3DAreaStacked100" | "DoughnutExploded" | "RadarMarkers" | "RadarFilled" | "Surface" | "SurfaceWireframe" | "SurfaceTopView" | "SurfaceTopViewWireframe" | "Bubble" | "Bubble3DEffect" | "StockHLC" | "StockOHLC" | "StockVHLC" | "StockVOHLC" | "CylinderColClustered" | "CylinderColStacked" | "CylinderColStacked100" | "CylinderBarClustered" | "CylinderBarStacked" | "CylinderBarStacked100" | "CylinderCol" | "ConeColClustered" | "ConeColStacked" | "ConeColStacked100" | "ConeBarClustered" | "ConeBarStacked" | "ConeBarStacked100" | "ConeCol" | "PyramidColClustered" | "PyramidColStacked" | "PyramidColStacked100" | "PyramidBarClustered" | "PyramidBarStacked" | "PyramidBarStacked100" | "PyramidCol" | "3DColumn" | "Line" | "3DLine" | "3DPie" | "Pie" | "XYScatter" | "3DArea" | "Area" | "Doughnut" | "Radar" | "Histogram" | "Boxwhisker" | "Pareto" | "RegionMap" | "Treemap" | "Waterfall" | "Sunburst" | "Funnel";
             /**
              *
              * Represents the doughnut hole size of a chart series.  Only valid on doughnut and doughnutExploded charts.
@@ -35670,11 +39607,25 @@ declare namespace Excel {
             doughnutHoleSize?: number;
             /**
              *
+             * Returns or sets the explosion value for a pie-chart or doughnut-chart slice. Returns 0 (zero) if there's no explosion (the tip of the slice is in the center of the pie). Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            explosion?: number;
+            /**
+             *
              * Boolean value representing if the series is filtered or not. Not applicable for surface charts.
              *
              * [Api set: ExcelApi 1.7]
              */
             filtered?: boolean;
+            /**
+             *
+             * Returns or sets the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360. Read/Write
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            firstSliceAngle?: number;
             /**
              *
              * Represents the gap width of a chart series.  Only valid on bar and column charts, as well as
@@ -35690,6 +39641,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             hasDataLabels?: boolean;
+            /**
+             *
+             * True if Microsoft Excel inverts the pattern in the item when it corresponds to a negative number. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            invertIfNegative?: boolean;
             /**
              *
              * Represents markers background color of a chart series.
@@ -35727,11 +39685,25 @@ declare namespace Excel {
             name?: string;
             /**
              *
+             * Specifies how bars and columns are positioned. Can be a value between – 100 and 100. Applies only to 2-D bar and 2-D column charts. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            overlap?: number;
+            /**
+             *
              * Represents the plot order of a chart series within the chart group.
              *
              * [Api set: ExcelApi 1.7]
              */
             plotOrder?: number;
+            /**
+             *
+             * Returns or sets the size of the secondary section of either a pie of pie chart or a bar of pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            secondPlotSize?: number;
             /**
              *
              * Boolean value representing if the series has a shadow or not.
@@ -35746,6 +39718,20 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             smooth?: boolean;
+            /**
+             *
+             * Returns or sets the way the two sections of either a pie of pie chart or a bar of pie chart are split. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            splitType?: Excel.ChartSplitStype | "SplitByPosition" | "SplitByValue" | "SplitByPercentValue" | "SplitByCustomSplit";
+            /**
+             *
+             * True if Microsoft Excel assigns a different color or pattern to each data marker. The chart must contain only one series. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            varyByCategories?: boolean;
         }
         /** An interface describing the data returned by calling "chartSeriesFormat.toJSON()". */
         interface ChartSeriesFormatData {
@@ -35886,6 +39872,13 @@ declare namespace Excel {
             title?: Excel.Interfaces.ChartAxisTitleData;
             /**
              *
+             * Represents the alignment for the specified axis tick label. See Excel.ChartTextHorizontalAlignment for detail.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            alignment?: Excel.ChartTickLabelAlignment | "Center" | "Left" | "Right";
+            /**
+             *
              * Represents the group for the specified axis. See Excel.ChartAxisGroup for details. Read-only.
              *
              * [Api set: ExcelApi 1.7]
@@ -35940,6 +39933,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             height?: number;
+            /**
+             *
+             * Represents whether value axis crosses the category axis between categories.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            isBetweenCategories?: boolean;
             /**
              *
              * Represents the distance, in points, from the left edge of the axis to the left of chart area. Null if the axis is not visible. Read-only.
@@ -36012,6 +40012,41 @@ declare namespace Excel {
             minorUnit?: any;
             /**
              *
+             * Represents whether an axis is multilevel or not.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            multiLevel?: boolean;
+            /**
+             *
+             * Represents the format code for the axis tick label.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: string;
+            /**
+             *
+             * Represents the distance between the levels of labels, and the distance between the first level and the axis line. The value should be an integer from 0 to 1000.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            offset?: number;
+            /**
+             *
+             * Represents the specified axis position where the other axis crosses. See Excel.ChartAxisPosition for details.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: Excel.ChartAxisPosition | "Automatic" | "Maximum" | "Minimum" | "Custom";
+            /**
+             *
+             * Represents the specified axis position where the other axis crosses at. Read Only. Set to this property should use SetPositionAt(double) method.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            positionAt?: number;
+            /**
+             *
              * Represents whether Microsoft Excel plots data points from last to first.
              *
              * [Api set: ExcelApi 1.7]
@@ -36031,6 +40066,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             showDisplayUnitLabel?: boolean;
+            /**
+             *
+             * Represents the text orientation of the axis tick label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: any;
             /**
              *
              * Represents the position of tick-mark labels on the specified axis. See Excel.ChartAxisTickLabelPosition for details.
@@ -36126,6 +40168,13 @@ declare namespace Excel {
         interface ChartAxisTitleFormatData {
             /**
             *
+            * Represents the border format, which includes color, linestyle, and weight.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderData;
+            /**
+            *
             * Represents the font attributes, such as font name, font size, color, etc. of chart axis title object. Read-only.
             *
             * [Api set: ExcelApi 1.1]
@@ -36141,6 +40190,28 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.1]
             */
             format?: Excel.Interfaces.ChartDataLabelFormatData;
+            /**
+             *
+             * Represents whether data labels automatically generates appropriate text based on context.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            autoText?: boolean;
+            /**
+             *
+             * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
+            This property is valid only when TextOrientation of data label is 0.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            horizontalAlignment?: Excel.ChartTextHorizontalAlignment | "Center" | "Left" | "Right" | "Justify" | "Distributed";
+            /**
+             *
+             * Represents the format code for data labels.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: string;
             /**
              *
              * DataLabelPosition value that represents the position of the data label. See Excel.ChartDataLabelPosition for details.
@@ -36197,9 +40268,74 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             showValue?: boolean;
+            /**
+             *
+             * Represents the text orientation of data labels. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: number;
+            /**
+             *
+             * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
+            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            verticalAlignment?: Excel.ChartTextVerticalAlignment | "Center" | "Bottom" | "Top" | "Justify" | "Distributed";
         }
         /** An interface describing the data returned by calling "chartDataLabel.toJSON()". */
         interface ChartDataLabelData {
+            /**
+            *
+            * Represents the format of chart data label.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            format?: Excel.Interfaces.ChartDataLabelFormatData;
+            /**
+             *
+             * Boolean value representing if data label automatically generates appropriate text based on context.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            autoText?: boolean;
+            /**
+             *
+             * String value that represents the formula of chart data label using A1-style notation.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            formula?: string;
+            /**
+             *
+             * Returns the height, in points, of the chart data label. Read-only. Null if chart data label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            height?: number;
+            /**
+             *
+             * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
+            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            horizontalAlignment?: Excel.ChartTextHorizontalAlignment | "Center" | "Left" | "Right" | "Justify" | "Distributed";
+            /**
+             *
+             * Represents the distance, in points, from the left edge of chart data label to the left edge of chart area. Null if chart data label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            left?: number;
+            /**
+             *
+             * String value that represents the format code for data label.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: string;
             /**
              *
              * DataLabelPosition value that represents the position of the data label. See Excel.ChartDataLabelPosition for details.
@@ -36256,9 +40392,52 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             showValue?: boolean;
+            /**
+             *
+             * String representing the text of the data label on a chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            text?: string;
+            /**
+             *
+             * Represents the text orientation of chart data label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: number;
+            /**
+             *
+             * Represents the distance, in points, from the top edge of chart data label to the top of chart area. Null if chart data label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            top?: number;
+            /**
+             *
+             * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
+            This property is valid only when TextOrientation of data label is 0.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            verticalAlignment?: Excel.ChartTextVerticalAlignment | "Center" | "Bottom" | "Top" | "Justify" | "Distributed";
+            /**
+             *
+             * Returns the width, in points, of the chart data label. Read-only. Null if chart data label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            width?: number;
         }
         /** An interface describing the data returned by calling "chartDataLabelFormat.toJSON()". */
         interface ChartDataLabelFormatData {
+            /**
+            *
+            * Represents the border format, which includes color, linestyle, and weight. Read-only.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderData;
             /**
             *
             * Represents the font attributes (font name, font size, color, etc.) for a chart data label. Read-only.
@@ -36371,11 +40550,46 @@ declare namespace Excel {
         interface ChartLegendEntryData {
             /**
              *
+             * Represents the height of the legendEntry on the chart Legend.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            height?: number;
+            /**
+             *
+             * Represents the index of the LegendEntry in the Chart Legend.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            index?: number;
+            /**
+             *
+             * Represents the left of a chart legendEntry.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            left?: number;
+            /**
+             *
+             * Represents the top of a chart legendEntry.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            top?: number;
+            /**
+             *
              * Represents the visible of a chart legend entry.
              *
              * [Api set: ExcelApi 1.7]
              */
             visible?: boolean;
+            /**
+             *
+             * Represents the width of the legendEntry on the chart Legend.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            width?: number;
         }
         /** An interface describing the data returned by calling "chartLegendEntryCollection.toJSON()". */
         interface ChartLegendEntryCollectionData {
@@ -36383,6 +40597,13 @@ declare namespace Excel {
         }
         /** An interface describing the data returned by calling "chartLegendFormat.toJSON()". */
         interface ChartLegendFormatData {
+            /**
+            *
+            * Represents the border format, which includes color, linestyle, and weight. Read-only.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderData;
             /**
             *
             * Represents the font attributes such as font name, font size, color, etc. of a chart legend. Read-only.
@@ -36615,6 +40836,27 @@ declare namespace Excel {
             */
             format?: Excel.Interfaces.ChartTrendlineFormatData;
             /**
+            *
+            * Represents the label of a chart trendline.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            label?: Excel.Interfaces.ChartTrendlineLabelData;
+            /**
+             *
+             * Represents the number of periods that the trendline extends backward.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            backwardPeriod?: number;
+            /**
+             *
+             * Represents the number of periods that the trendline extends forward.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            forwardPeriod?: number;
+            /**
              *
              * Represents the intercept value of the trendline. Can be set to a numeric value or an empty string (for automatic values). The returned value is always a number.
              *
@@ -36644,6 +40886,20 @@ declare namespace Excel {
             polynomialOrder?: number;
             /**
              *
+             * True if the equation for the trendline is displayed on the chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showEquation?: boolean;
+            /**
+             *
+             * True if the R-squared for the trendline is displayed on the chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showRSquared?: boolean;
+            /**
+             *
              * Represents the type of a chart trendline.
              *
              * [Api set: ExcelApi 1.7]
@@ -36663,6 +40919,195 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.7]
             */
             line?: Excel.Interfaces.ChartLineFormatData;
+        }
+        /** An interface describing the data returned by calling "chartTrendlineLabel.toJSON()". */
+        interface ChartTrendlineLabelData {
+            /**
+            *
+            * Represents the format of chart trendline label.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            format?: Excel.Interfaces.ChartTrendlineLabelFormatData;
+            /**
+             *
+             * Boolean value representing if trendline label automatically generates appropriate text based on context.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            autoText?: boolean;
+            /**
+             *
+             * String value that represents the formula of chart trendline label using A1-style notation.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            formula?: string;
+            /**
+             *
+             * Returns the height, in points, of the chart trendline label. Read-only. Null if chart trendline label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            height?: number;
+            /**
+             *
+             * Represents the horizontal alignment for chart trendline label. See Excel.ChartTextHorizontalAlignment for details.
+            This property is valid only when TextOrientation of trendline label is 90, -90 or 180.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            horizontalAlignment?: Excel.ChartTextHorizontalAlignment | "Center" | "Left" | "Right" | "Justify" | "Distributed";
+            /**
+             *
+             * Represents the distance, in points, from the left edge of chart trendline label to the left edge of chart area. Null if chart trendline label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            left?: number;
+            /**
+             *
+             * String value that represents the format code for trendline label.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: string;
+            /**
+             *
+             * String representing the text of the trendline label on a chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            text?: string;
+            /**
+             *
+             * Represents the text orientation of chart trendline label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: number;
+            /**
+             *
+             * Represents the distance, in points, from the top edge of chart trendline label to the top of chart area. Null if chart trendline label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            top?: number;
+            /**
+             *
+             * Represents the vertical alignment of chart trendline label. See Excel.ChartTextVerticalAlignment for details.
+            This property is valid only when TextOrientation of trendline label is 0.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            verticalAlignment?: Excel.ChartTextVerticalAlignment | "Center" | "Bottom" | "Top" | "Justify" | "Distributed";
+            /**
+             *
+             * Returns the width, in points, of the chart trendline label. Read-only. Null if chart trendline label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            width?: number;
+        }
+        /** An interface describing the data returned by calling "chartTrendlineLabelFormat.toJSON()". */
+        interface ChartTrendlineLabelFormatData {
+            /**
+            *
+            * Represents the border format, which includes color, linestyle, and weight.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderData;
+            /**
+            *
+            * Represents the font attributes (font name, font size, color, etc.) for a chart trendline label.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            font?: Excel.Interfaces.ChartFontData;
+        }
+        /** An interface describing the data returned by calling "chartPlotArea.toJSON()". */
+        interface ChartPlotAreaData {
+            /**
+            *
+            * Represents the formatting of a chart plotArea.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            format?: Excel.Interfaces.ChartPlotAreaFormatData;
+            /**
+             *
+             * Represents the height value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            height?: number;
+            /**
+             *
+             * Represents the insideHeight value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            insideHeight?: number;
+            /**
+             *
+             * Represents the insideLeft value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            insideLeft?: number;
+            /**
+             *
+             * Represents the insideTop value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            insideTop?: number;
+            /**
+             *
+             * Represents the insideWidth value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            insideWidth?: number;
+            /**
+             *
+             * Represents the left value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            left?: number;
+            /**
+             *
+             * Represents the position of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: Excel.ChartPlotAreaPosition | "Automatic" | "Custom";
+            /**
+             *
+             * Represents the top value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            top?: number;
+            /**
+             *
+             * Represents the width value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            width?: number;
+        }
+        /** An interface describing the data returned by calling "chartPlotAreaFormat.toJSON()". */
+        interface ChartPlotAreaFormatData {
+            /**
+            *
+            * Represents the border attributes of a chart plotArea.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderData;
         }
         /** An interface describing the data returned by calling "tableSort.toJSON()". */
         interface TableSortData {
@@ -36731,6 +41176,48 @@ declare namespace Excel {
         interface PivotTableData {
             /**
             *
+            * The Column Pivot Hierarchies of the PivotTable.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            columnHierarchies?: Excel.Interfaces.RowColumnPivotHierarchyData[];
+            /**
+            *
+            * The Data Pivot Hierarchies of the PivotTable.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            dataHierarchies?: Excel.Interfaces.DataPivotHierarchyData[];
+            /**
+            *
+            * The Filter Pivot Hierarchies of the PivotTable.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            filterHierarchies?: Excel.Interfaces.FilterPivotHierarchyData[];
+            /**
+            *
+            * The Pivot Hierarchies of the PivotTable.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            hierarchies?: Excel.Interfaces.PivotHierarchyData[];
+            /**
+            *
+            * The PivotLayout describing the layout and visual structure of the PivotTable.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            layout?: Excel.Interfaces.PivotLayoutData;
+            /**
+            *
+            * The Row Pivot Hierarchies of the PivotTable.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            rowHierarchies?: Excel.Interfaces.RowColumnPivotHierarchyData[];
+            /**
+            *
             * The worksheet containing the current PivotTable.
             *
             * [Api set: ExcelApi 1.3]
@@ -36750,6 +41237,275 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.3]
              */
             name?: string;
+        }
+        /** An interface describing the data returned by calling "pivotLayout.toJSON()". */
+        interface PivotLayoutData {
+            /**
+             *
+             * This property indicates the PivotLayoutType of all fields on the PivotTable. If fields have different states, this will be null.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            layoutType?: Excel.PivotLayoutType | "Compact" | "Tabular" | "Outline";
+            /**
+             *
+             * True if the PivotTable report shows grand totals for columns.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showColumnGrandTotals?: boolean;
+            /**
+             *
+             * True if the PivotTable report shows grand totals for rows.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showRowGrandTotals?: boolean;
+            /**
+             *
+             * This property indicates the SubtotalLocationType of all fields on the PivotTable. If fields have different states, this will be null.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            subtotalLocation?: Excel.SubtotalLocationType | "AtTop" | "AtBottom" | "Off";
+        }
+        /** An interface describing the data returned by calling "pivotHierarchyCollection.toJSON()". */
+        interface PivotHierarchyCollectionData {
+            items?: Excel.Interfaces.PivotHierarchyData[];
+        }
+        /** An interface describing the data returned by calling "pivotHierarchy.toJSON()". */
+        interface PivotHierarchyData {
+            /**
+            *
+            * Returns the PivotFields associated with the PivotHierarchy.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            fields?: Excel.Interfaces.PivotFieldData[];
+            /**
+             *
+             * Id of the PivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: string;
+            /**
+             *
+             * Name of the PivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: string;
+        }
+        /** An interface describing the data returned by calling "rowColumnPivotHierarchyCollection.toJSON()". */
+        interface RowColumnPivotHierarchyCollectionData {
+            items?: Excel.Interfaces.RowColumnPivotHierarchyData[];
+        }
+        /** An interface describing the data returned by calling "rowColumnPivotHierarchy.toJSON()". */
+        interface RowColumnPivotHierarchyData {
+            /**
+            *
+            * Returns the PivotFields associated with the RowColumnPivotHierarchy.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            fields?: Excel.Interfaces.PivotFieldData[];
+            /**
+             *
+             * Id of the RowColumnPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: string;
+            /**
+             *
+             * Name of the RowColumnPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: string;
+            /**
+             *
+             * Position of the RowColumnPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: number;
+        }
+        /** An interface describing the data returned by calling "filterPivotHierarchyCollection.toJSON()". */
+        interface FilterPivotHierarchyCollectionData {
+            items?: Excel.Interfaces.FilterPivotHierarchyData[];
+        }
+        /** An interface describing the data returned by calling "filterPivotHierarchy.toJSON()". */
+        interface FilterPivotHierarchyData {
+            /**
+            *
+            * Returns the PivotFields associated with the FilterPivotHierarchy.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            fields?: Excel.Interfaces.PivotFieldData[];
+            /**
+             *
+             * Determines whether to allow multiple filter items.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            enableMultipleFilterItems?: boolean;
+            /**
+             *
+             * Id of the FilterPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: string;
+            /**
+             *
+             * Name of the FilterPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: string;
+            /**
+             *
+             * Position of the FilterPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: number;
+        }
+        /** An interface describing the data returned by calling "dataPivotHierarchyCollection.toJSON()". */
+        interface DataPivotHierarchyCollectionData {
+            items?: Excel.Interfaces.DataPivotHierarchyData[];
+        }
+        /** An interface describing the data returned by calling "dataPivotHierarchy.toJSON()". */
+        interface DataPivotHierarchyData {
+            /**
+            *
+            * Returns the PivotFields associated with the DataPivotHierarchy.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            field?: Excel.Interfaces.PivotFieldData;
+            /**
+             *
+             * Id of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: string;
+            /**
+             *
+             * Name of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: string;
+            /**
+             *
+             * Number format of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: string;
+            /**
+             *
+             * Position of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: number;
+            /**
+             *
+             * Determines whether the data should be sown as a specific summary calculation or not.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showAs?: Excel.ShowAsRule;
+            /**
+             *
+             * Determines whether to show all items of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            summarizeBy?: Excel.AggregationFunction | "Unknown" | "Automatic" | "Sum" | "Count" | "Average" | "Max" | "Min" | "Product" | "CountNumbers" | "StandardDeviation" | "StandardDeviationP" | "Variance" | "VarianceP";
+        }
+        /** An interface describing the data returned by calling "pivotFieldCollection.toJSON()". */
+        interface PivotFieldCollectionData {
+            items?: Excel.Interfaces.PivotFieldData[];
+        }
+        /** An interface describing the data returned by calling "pivotField.toJSON()". */
+        interface PivotFieldData {
+            /**
+            *
+            * Returns the PivotFields associated with the PivotField.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            items?: Excel.Interfaces.PivotItemData[];
+            /**
+             *
+             * Id of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: string;
+            /**
+             *
+             * Name of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: string;
+            /**
+             *
+             * Determines whether to show all items of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showAllItems?: boolean;
+            /**
+             *
+             * Subtotals of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            subtotals?: Excel.Subtotals;
+        }
+        /** An interface describing the data returned by calling "pivotItemCollection.toJSON()". */
+        interface PivotItemCollectionData {
+            items?: Excel.Interfaces.PivotItemData[];
+        }
+        /** An interface describing the data returned by calling "pivotItem.toJSON()". */
+        interface PivotItemData {
+            /**
+             *
+             * Id of the PivotItem.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: string;
+            /**
+             *
+             * Determines whether the item is expanded to show child items or if it's collapsed and child items are hidden.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            isExpanded?: boolean;
+            /**
+             *
+             * Name of the PivotItem.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: string;
+            /**
+             *
+             * Determines whether the PivotItem is visible or not.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            visible?: boolean;
         }
         /** An interface describing the data returned by calling "documentProperties.toJSON()". */
         interface DocumentPropertiesData {
@@ -37430,6 +42186,13 @@ declare namespace Excel {
             font?: Excel.Interfaces.RangeFontData;
             /**
              *
+             * Indicates if text is automatically indented when the text alignment in a cell is set to equal distribution.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            autoIndent?: boolean;
+            /**
+             *
              * Indicates if the style is a built-in style.
              *
              * [Api set: ExcelApi 1.7]
@@ -37542,6 +42305,13 @@ declare namespace Excel {
             shrinkToFit?: boolean;
             /**
              *
+             * The text orientation for the style.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: number;
+            /**
+             *
              * Represents the vertical alignment for the style. See Excel.VerticalAlignment for details.
              *
              * [Api set: ExcelApi 1.7]
@@ -37575,6 +42345,22 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.2]
              */
             value?: T;
+        }
+        /**
+         *
+         * Represents the Excel Runtime class.
+         *
+         * [Api set: ExcelApi 1.5]
+         */
+        interface RuntimeLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Turn on/off JavaScript events in current taskpane or content add-in.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            enableEvents?: boolean;
         }
         /**
          *
@@ -37642,6 +42428,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             name?: boolean;
+            /**
+             *
+             * True if the workbook is open in Read-only mode. Read-only.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            readOnly?: boolean;
         }
         /**
          *
@@ -37709,6 +42502,22 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             position?: boolean;
+            /**
+             *
+             * Gets or sets the worksheet's gridlines flag.
+            This flag determines whether gridlines are visible to the user.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showGridlines?: boolean;
+            /**
+             *
+             * Gets or sets the worksheet's headings flag.
+            This flag determines whether headings are visible to the user.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showHeadings?: boolean;
             /**
              *
              * Returns the standard (default) height of all the rows in the worksheet, in points. Read-only.
@@ -37793,6 +42602,22 @@ declare namespace Excel {
             position?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: Gets or sets the worksheet's gridlines flag.
+            This flag determines whether gridlines are visible to the user.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showGridlines?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Gets or sets the worksheet's headings flag.
+            This flag determines whether headings are visible to the user.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showHeadings?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Returns the standard (default) height of all the rows in the worksheet, in points. Read-only.
              *
              * [Api set: ExcelApi 1.7]
@@ -37854,6 +42679,13 @@ declare namespace Excel {
          */
         interface RangeLoadOptions {
             $all?: boolean;
+            /**
+            *
+            * Returns a data validation object.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            dataValidation?: Excel.Interfaces.DataValidationLoadOptions;
             /**
             *
             * Returns a format object, encapsulating the range's font, fill, borders, alignment, and other properties.
@@ -38535,6 +43367,13 @@ declare namespace Excel {
             id?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: Returns a numeric id.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            legacyId?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Name of the table.
              *
              * [Api set: ExcelApi 1.1]
@@ -38640,6 +43479,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             id?: boolean;
+            /**
+             *
+             * Returns a numeric id.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            legacyId?: boolean;
             /**
              *
              * Name of the table.
@@ -38833,6 +43679,59 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             values?: boolean;
+        }
+        /**
+         *
+         * Represents the data validation applied to the current range.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface DataValidationLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Error alert when user enters invalid data.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            errorAlert?: boolean;
+            /**
+             *
+             * Ignore blanks: no data validation will be performed on blank cells, it defaults to true.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            ignoreBlanks?: boolean;
+            /**
+             *
+             * Prompt when users select a cell.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            prompt?: boolean;
+            /**
+             *
+             * Data Validation rule that contains different type of data validation criteria.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            rule?: boolean;
+            /**
+             *
+             * Type of the data validation, see Excel.DataValidationType for details.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            type?: boolean;
+            /**
+             *
+             * Represents if all cell values are valid according to the data validation rules.
+            Returns true if all cell values are valid, or false if all cell values are invalid.
+            Returns null if there are both valid and invalid cell values within the range.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            valid?: boolean;
         }
         /**
          *
@@ -39137,6 +44036,13 @@ declare namespace Excel {
             legend?: Excel.Interfaces.ChartLegendLoadOptions;
             /**
             *
+            * For EACH ITEM in the collection: Represents the plotArea for the chart.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            plotArea?: Excel.Interfaces.ChartPlotAreaLoadOptions;
+            /**
+            *
             * For EACH ITEM in the collection: Represents either a single series or collection of series in the chart.
             *
             * [Api set: ExcelApi 1.1]
@@ -39158,11 +44064,26 @@ declare namespace Excel {
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
             /**
              *
+             * For EACH ITEM in the collection: Returns or sets a ChartCategoryLabelLevel enumeration constant referring to
+            the level of where the category labels are being sourced from. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            categoryLabelLevel?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Represents the type of the chart. See Excel.ChartType for details.
              *
              * [Api set: ExcelApi 1.7]
              */
             chartType?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns or sets the way that blank cells are plotted on a chart. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            displayBlanksAs?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the height, in points, of the chart object.
@@ -39193,11 +44114,49 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: Returns or sets the way columns or rows are used as data series on the chart. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            plotBy?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: True if only visible cells are plotted. False if both visible and hidden cells are plotted. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            plotVisibleOnly?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns or sets a ChartSeriesNameLevel enumeration constant referring to
+            the level of where the series names are being sourced from. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            seriesNameLevel?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Represents whether to display all field buttons on a PivotChart.
              *
              * [Api set: ExcelApi 1.7]
              */
             showAllFieldButtons?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents whether to to show the data labels when the value is greater than the maximum value on the value axis.
+            If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
+            This property applies to 2-D charts only.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showDataLabelsOverMaximum?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns or sets the chart style for the chart. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            style?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the distance, in points, from the top edge of the object to the top of row 1 (on a worksheet) or the top of the chart area (on a chart).
@@ -39251,6 +44210,13 @@ declare namespace Excel {
             legend?: Excel.Interfaces.ChartLegendLoadOptions;
             /**
             *
+            * Represents the plotArea for the chart.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            plotArea?: Excel.Interfaces.ChartPlotAreaLoadOptions;
+            /**
+            *
             * Represents either a single series or collection of series in the chart.
             *
             * [Api set: ExcelApi 1.1]
@@ -39272,11 +44238,26 @@ declare namespace Excel {
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
             /**
              *
+             * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to
+            the level of where the category labels are being sourced from. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            categoryLabelLevel?: boolean;
+            /**
+             *
              * Represents the type of the chart. See Excel.ChartType for details.
              *
              * [Api set: ExcelApi 1.7]
              */
             chartType?: boolean;
+            /**
+             *
+             * Returns or sets the way that blank cells are plotted on a chart. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            displayBlanksAs?: boolean;
             /**
              *
              * Represents the height, in points, of the chart object.
@@ -39307,11 +44288,49 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
+             * Returns or sets the way columns or rows are used as data series on the chart. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            plotBy?: boolean;
+            /**
+             *
+             * True if only visible cells are plotted. False if both visible and hidden cells are plotted. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            plotVisibleOnly?: boolean;
+            /**
+             *
+             * Returns or sets a ChartSeriesNameLevel enumeration constant referring to
+            the level of where the series names are being sourced from. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            seriesNameLevel?: boolean;
+            /**
+             *
              * Represents whether to display all field buttons on a PivotChart.
              *
              * [Api set: ExcelApi 1.7]
              */
             showAllFieldButtons?: boolean;
+            /**
+             *
+             * Represents whether to to show the data labels when the value is greater than the maximum value on the value axis.
+            If value axis became smaller than the size of data points, you can use this property to set whether to show the data labels.
+            This property applies to 2-D charts only.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showDataLabelsOverMaximum?: boolean;
+            /**
+             *
+             * Returns or sets the chart style for the chart. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            style?: boolean;
             /**
              *
              * Represents the distance, in points, from the top edge of the object to the top of row 1 (on a worksheet) or the top of the chart area (on a chart).
@@ -39360,6 +44379,13 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
+            * For EACH ITEM in the collection: Represents a collection of all dataLabels in the series.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            dataLabels?: Excel.Interfaces.ChartDataLabelsLoadOptions;
+            /**
+            *
             * For EACH ITEM in the collection: Represents the formatting of a chart series, which includes fill and line formatting.
             *
             * [Api set: ExcelApi 1.1]
@@ -39372,6 +44398,13 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.1]
             */
             points?: Excel.Interfaces.ChartPointsCollectionLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns or sets the group for the specified series. Read/Write
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            axisGroup?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the chart type of a series. See Excel.ChartType for details.
@@ -39389,11 +44422,25 @@ declare namespace Excel {
             doughnutHoleSize?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: Returns or sets the explosion value for a pie-chart or doughnut-chart slice. Returns 0 (zero) if there's no explosion (the tip of the slice is in the center of the pie). Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            explosion?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Boolean value representing if the series is filtered or not. Not applicable for surface charts.
              *
              * [Api set: ExcelApi 1.7]
              */
             filtered?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns or sets the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360. Read/Write
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            firstSliceAngle?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the gap width of a chart series.  Only valid on bar and column charts, as well as
@@ -39409,6 +44456,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             hasDataLabels?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: True if Microsoft Excel inverts the pattern in the item when it corresponds to a negative number. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            invertIfNegative?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents markers background color of a chart series.
@@ -39446,11 +44500,25 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: Specifies how bars and columns are positioned. Can be a value between – 100 and 100. Applies only to 2-D bar and 2-D column charts. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            overlap?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Represents the plot order of a chart series within the chart group.
              *
              * [Api set: ExcelApi 1.7]
              */
             plotOrder?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns or sets the size of the secondary section of either a pie of pie chart or a bar of pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            secondPlotSize?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Boolean value representing if the series has a shadow or not.
@@ -39465,6 +44533,20 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             smooth?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Returns or sets the way the two sections of either a pie of pie chart or a bar of pie chart are split. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            splitType?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: True if Microsoft Excel assigns a different color or pattern to each data marker. The chart must contain only one series. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            varyByCategories?: boolean;
         }
         /**
          *
@@ -39474,6 +44556,13 @@ declare namespace Excel {
          */
         interface ChartSeriesLoadOptions {
             $all?: boolean;
+            /**
+            *
+            * Represents a collection of all dataLabels in the series.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            dataLabels?: Excel.Interfaces.ChartDataLabelsLoadOptions;
             /**
             *
             * Represents the formatting of a chart series, which includes fill and line formatting.
@@ -39488,6 +44577,13 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.1]
             */
             points?: Excel.Interfaces.ChartPointsCollectionLoadOptions;
+            /**
+             *
+             * Returns or sets the group for the specified series. Read/Write
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            axisGroup?: boolean;
             /**
              *
              * Represents the chart type of a series. See Excel.ChartType for details.
@@ -39505,11 +44601,25 @@ declare namespace Excel {
             doughnutHoleSize?: boolean;
             /**
              *
+             * Returns or sets the explosion value for a pie-chart or doughnut-chart slice. Returns 0 (zero) if there's no explosion (the tip of the slice is in the center of the pie). Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            explosion?: boolean;
+            /**
+             *
              * Boolean value representing if the series is filtered or not. Not applicable for surface charts.
              *
              * [Api set: ExcelApi 1.7]
              */
             filtered?: boolean;
+            /**
+             *
+             * Returns or sets the angle of the first pie-chart or doughnut-chart slice, in degrees (clockwise from vertical). Applies only to pie, 3-D pie, and doughnut charts. Can be a value from 0 through 360. Read/Write
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            firstSliceAngle?: boolean;
             /**
              *
              * Represents the gap width of a chart series.  Only valid on bar and column charts, as well as
@@ -39525,6 +44635,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             hasDataLabels?: boolean;
+            /**
+             *
+             * True if Microsoft Excel inverts the pattern in the item when it corresponds to a negative number. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            invertIfNegative?: boolean;
             /**
              *
              * Represents markers background color of a chart series.
@@ -39562,11 +44679,25 @@ declare namespace Excel {
             name?: boolean;
             /**
              *
+             * Specifies how bars and columns are positioned. Can be a value between – 100 and 100. Applies only to 2-D bar and 2-D column charts. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            overlap?: boolean;
+            /**
+             *
              * Represents the plot order of a chart series within the chart group.
              *
              * [Api set: ExcelApi 1.7]
              */
             plotOrder?: boolean;
+            /**
+             *
+             * Returns or sets the size of the secondary section of either a pie of pie chart or a bar of pie chart, as a percentage of the size of the primary pie. Can be a value from 5 to 200. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            secondPlotSize?: boolean;
             /**
              *
              * Boolean value representing if the series has a shadow or not.
@@ -39581,6 +44712,20 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             smooth?: boolean;
+            /**
+             *
+             * Returns or sets the way the two sections of either a pie of pie chart or a bar of pie chart are split. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            splitType?: boolean;
+            /**
+             *
+             * True if Microsoft Excel assigns a different color or pattern to each data marker. The chart must contain only one series. Read/Write.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            varyByCategories?: boolean;
         }
         /**
          *
@@ -39812,6 +44957,13 @@ declare namespace Excel {
             title?: Excel.Interfaces.ChartAxisTitleLoadOptions;
             /**
              *
+             * Represents the alignment for the specified axis tick label. See Excel.ChartTextHorizontalAlignment for detail.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            alignment?: boolean;
+            /**
+             *
              * Represents the group for the specified axis. See Excel.ChartAxisGroup for details. Read-only.
              *
              * [Api set: ExcelApi 1.7]
@@ -39866,6 +45018,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             height?: boolean;
+            /**
+             *
+             * Represents whether value axis crosses the category axis between categories.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            isBetweenCategories?: boolean;
             /**
              *
              * Represents the distance, in points, from the left edge of the axis to the left of chart area. Null if the axis is not visible. Read-only.
@@ -39938,6 +45097,41 @@ declare namespace Excel {
             minorUnit?: boolean;
             /**
              *
+             * Represents whether an axis is multilevel or not.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            multiLevel?: boolean;
+            /**
+             *
+             * Represents the format code for the axis tick label.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: boolean;
+            /**
+             *
+             * Represents the distance between the levels of labels, and the distance between the first level and the axis line. The value should be an integer from 0 to 1000.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            offset?: boolean;
+            /**
+             *
+             * Represents the specified axis position where the other axis crosses. See Excel.ChartAxisPosition for details.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: boolean;
+            /**
+             *
+             * Represents the specified axis position where the other axis crosses at. Read Only. Set to this property should use SetPositionAt(double) method.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            positionAt?: boolean;
+            /**
+             *
              * Represents whether Microsoft Excel plots data points from last to first.
              *
              * [Api set: ExcelApi 1.7]
@@ -39957,6 +45151,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             showDisplayUnitLabel?: boolean;
+            /**
+             *
+             * Represents the text orientation of the axis tick label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: boolean;
             /**
              *
              * Represents the position of tick-mark labels on the specified axis. See Excel.ChartAxisTickLabelPosition for details.
@@ -40070,6 +45271,13 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
+            * Represents the border format, which includes color, linestyle, and weight.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderLoadOptions;
+            /**
+            *
             * Represents the font attributes, such as font name, font size, color, etc. of chart axis title object.
             *
             * [Api set: ExcelApi 1.1]
@@ -40091,6 +45299,28 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.1]
             */
             format?: Excel.Interfaces.ChartDataLabelFormatLoadOptions;
+            /**
+             *
+             * Represents whether data labels automatically generates appropriate text based on context.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            autoText?: boolean;
+            /**
+             *
+             * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
+            This property is valid only when TextOrientation of data label is 0.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            horizontalAlignment?: boolean;
+            /**
+             *
+             * Represents the format code for data labels.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: boolean;
             /**
              *
              * DataLabelPosition value that represents the position of the data label. See Excel.ChartDataLabelPosition for details.
@@ -40147,6 +45377,21 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.1]
              */
             showValue?: boolean;
+            /**
+             *
+             * Represents the text orientation of data labels. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: boolean;
+            /**
+             *
+             * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
+            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            verticalAlignment?: boolean;
         }
         /**
          *
@@ -40156,6 +45401,56 @@ declare namespace Excel {
          */
         interface ChartDataLabelLoadOptions {
             $all?: boolean;
+            /**
+            *
+            * Represents the format of chart data label.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            format?: Excel.Interfaces.ChartDataLabelFormatLoadOptions;
+            /**
+             *
+             * Boolean value representing if data label automatically generates appropriate text based on context.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            autoText?: boolean;
+            /**
+             *
+             * String value that represents the formula of chart data label using A1-style notation.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            formula?: boolean;
+            /**
+             *
+             * Returns the height, in points, of the chart data label. Read-only. Null if chart data label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            height?: boolean;
+            /**
+             *
+             * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
+            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            horizontalAlignment?: boolean;
+            /**
+             *
+             * Represents the distance, in points, from the left edge of chart data label to the left edge of chart area. Null if chart data label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            left?: boolean;
+            /**
+             *
+             * String value that represents the format code for data label.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: boolean;
             /**
              *
              * DataLabelPosition value that represents the position of the data label. See Excel.ChartDataLabelPosition for details.
@@ -40212,6 +45507,42 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             showValue?: boolean;
+            /**
+             *
+             * String representing the text of the data label on a chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            text?: boolean;
+            /**
+             *
+             * Represents the text orientation of chart data label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: boolean;
+            /**
+             *
+             * Represents the distance, in points, from the top edge of chart data label to the top of chart area. Null if chart data label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            top?: boolean;
+            /**
+             *
+             * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
+            This property is valid only when TextOrientation of data label is 0.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            verticalAlignment?: boolean;
+            /**
+             *
+             * Returns the width, in points, of the chart data label. Read-only. Null if chart data label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            width?: boolean;
         }
         /**
          *
@@ -40221,6 +45552,13 @@ declare namespace Excel {
          */
         interface ChartDataLabelFormatLoadOptions {
             $all?: boolean;
+            /**
+            *
+            * Represents the border format, which includes color, linestyle, and weight.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderLoadOptions;
             /**
             *
             * Represents the font attributes (font name, font size, color, etc.) for a chart data label.
@@ -40350,11 +45688,46 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
+             * Represents the height of the legendEntry on the chart Legend.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            height?: boolean;
+            /**
+             *
+             * Represents the index of the LegendEntry in the Chart Legend.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            index?: boolean;
+            /**
+             *
+             * Represents the left of a chart legendEntry.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            left?: boolean;
+            /**
+             *
+             * Represents the top of a chart legendEntry.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            top?: boolean;
+            /**
+             *
              * Represents the visible of a chart legend entry.
              *
              * [Api set: ExcelApi 1.7]
              */
             visible?: boolean;
+            /**
+             *
+             * Represents the width of the legendEntry on the chart Legend.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            width?: boolean;
         }
         /**
          *
@@ -40366,11 +45739,46 @@ declare namespace Excel {
             $all?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: Represents the height of the legendEntry on the chart Legend.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            height?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the index of the LegendEntry in the Chart Legend.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            index?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the left of a chart legendEntry.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            left?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the top of a chart legendEntry.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            top?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Represents the visible of a chart legend entry.
              *
              * [Api set: ExcelApi 1.7]
              */
             visible?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the width of the legendEntry on the chart Legend.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            width?: boolean;
         }
         /**
          *
@@ -40380,6 +45788,13 @@ declare namespace Excel {
          */
         interface ChartLegendFormatLoadOptions {
             $all?: boolean;
+            /**
+            *
+            * Represents the border format, which includes color, linestyle, and weight.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderLoadOptions;
             /**
             *
             * Represents the font attributes such as font name, font size, color, etc. of a chart legend.
@@ -40654,6 +46069,27 @@ declare namespace Excel {
             */
             format?: Excel.Interfaces.ChartTrendlineFormatLoadOptions;
             /**
+            *
+            * Represents the label of a chart trendline.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            label?: Excel.Interfaces.ChartTrendlineLabelLoadOptions;
+            /**
+             *
+             * Represents the number of periods that the trendline extends backward.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            backwardPeriod?: boolean;
+            /**
+             *
+             * Represents the number of periods that the trendline extends forward.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            forwardPeriod?: boolean;
+            /**
              *
              * Represents the intercept value of the trendline. Can be set to a numeric value or an empty string (for automatic values). The returned value is always a number.
              *
@@ -40683,6 +46119,20 @@ declare namespace Excel {
             polynomialOrder?: boolean;
             /**
              *
+             * True if the equation for the trendline is displayed on the chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showEquation?: boolean;
+            /**
+             *
+             * True if the R-squared for the trendline is displayed on the chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showRSquared?: boolean;
+            /**
+             *
              * Represents the type of a chart trendline.
              *
              * [Api set: ExcelApi 1.7]
@@ -40704,6 +46154,27 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.7]
             */
             format?: Excel.Interfaces.ChartTrendlineFormatLoadOptions;
+            /**
+            *
+            * For EACH ITEM in the collection: Represents the label of a chart trendline.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            label?: Excel.Interfaces.ChartTrendlineLabelLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the number of periods that the trendline extends backward.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            backwardPeriod?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Represents the number of periods that the trendline extends forward.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            forwardPeriod?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the intercept value of the trendline. Can be set to a numeric value or an empty string (for automatic values). The returned value is always a number.
@@ -40734,6 +46205,20 @@ declare namespace Excel {
             polynomialOrder?: boolean;
             /**
              *
+             * For EACH ITEM in the collection: True if the equation for the trendline is displayed on the chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showEquation?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: True if the R-squared for the trendline is displayed on the chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showRSquared?: boolean;
+            /**
+             *
              * For EACH ITEM in the collection: Represents the type of a chart trendline.
              *
              * [Api set: ExcelApi 1.7]
@@ -40755,6 +46240,219 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.7]
             */
             line?: Excel.Interfaces.ChartLineFormatLoadOptions;
+        }
+        /**
+         *
+         * This object represents the attributes for a chart trendline lable object.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface ChartTrendlineLabelLoadOptions {
+            $all?: boolean;
+            /**
+            *
+            * Represents the format of chart trendline label.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            format?: Excel.Interfaces.ChartTrendlineLabelFormatLoadOptions;
+            /**
+             *
+             * Boolean value representing if trendline label automatically generates appropriate text based on context.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            autoText?: boolean;
+            /**
+             *
+             * String value that represents the formula of chart trendline label using A1-style notation.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            formula?: boolean;
+            /**
+             *
+             * Returns the height, in points, of the chart trendline label. Read-only. Null if chart trendline label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            height?: boolean;
+            /**
+             *
+             * Represents the horizontal alignment for chart trendline label. See Excel.ChartTextHorizontalAlignment for details.
+            This property is valid only when TextOrientation of trendline label is 90, -90 or 180.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            horizontalAlignment?: boolean;
+            /**
+             *
+             * Represents the distance, in points, from the left edge of chart trendline label to the left edge of chart area. Null if chart trendline label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            left?: boolean;
+            /**
+             *
+             * String value that represents the format code for trendline label.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: boolean;
+            /**
+             *
+             * String representing the text of the trendline label on a chart.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            text?: boolean;
+            /**
+             *
+             * Represents the text orientation of chart trendline label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: boolean;
+            /**
+             *
+             * Represents the distance, in points, from the top edge of chart trendline label to the top of chart area. Null if chart trendline label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            top?: boolean;
+            /**
+             *
+             * Represents the vertical alignment of chart trendline label. See Excel.ChartTextVerticalAlignment for details.
+            This property is valid only when TextOrientation of trendline label is 0.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            verticalAlignment?: boolean;
+            /**
+             *
+             * Returns the width, in points, of the chart trendline label. Read-only. Null if chart trendline label is not visible.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            width?: boolean;
+        }
+        /**
+         *
+         * Encapsulates the format properties for the chart trendline label.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface ChartTrendlineLabelFormatLoadOptions {
+            $all?: boolean;
+            /**
+            *
+            * Represents the border format, which includes color, linestyle, and weight.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderLoadOptions;
+            /**
+            *
+            * Represents the font attributes (font name, font size, color, etc.) for a chart trendline label.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            font?: Excel.Interfaces.ChartFontLoadOptions;
+        }
+        /**
+         *
+         * This object represents the attributes for a chart plotArea object.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface ChartPlotAreaLoadOptions {
+            $all?: boolean;
+            /**
+            *
+            * Represents the formatting of a chart plotArea.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            format?: Excel.Interfaces.ChartPlotAreaFormatLoadOptions;
+            /**
+             *
+             * Represents the height value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            height?: boolean;
+            /**
+             *
+             * Represents the insideHeight value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            insideHeight?: boolean;
+            /**
+             *
+             * Represents the insideLeft value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            insideLeft?: boolean;
+            /**
+             *
+             * Represents the insideTop value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            insideTop?: boolean;
+            /**
+             *
+             * Represents the insideWidth value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            insideWidth?: boolean;
+            /**
+             *
+             * Represents the left value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            left?: boolean;
+            /**
+             *
+             * Represents the position of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: boolean;
+            /**
+             *
+             * Represents the top value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            top?: boolean;
+            /**
+             *
+             * Represents the width value of plotArea.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            width?: boolean;
+        }
+        /**
+         *
+         * Represents the format properties for chart plotArea.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface ChartPlotAreaFormatLoadOptions {
+            $all?: boolean;
+            /**
+            *
+            * Represents the border attributes of a chart plotArea.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            border?: Excel.Interfaces.ChartBorderLoadOptions;
         }
         /**
          *
@@ -40883,6 +46581,13 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
+            * For EACH ITEM in the collection: The PivotLayout describing the layout and visual structure of the PivotTable.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            layout?: Excel.Interfaces.PivotLayoutLoadOptions;
+            /**
+            *
             * For EACH ITEM in the collection: The worksheet containing the current PivotTable.
             *
             * [Api set: ExcelApi 1.3]
@@ -40913,6 +46618,13 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
+            * The PivotLayout describing the layout and visual structure of the PivotTable.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            layout?: Excel.Interfaces.PivotLayoutLoadOptions;
+            /**
+            *
             * The worksheet containing the current PivotTable.
             *
             * [Api set: ExcelApi 1.3]
@@ -40932,6 +46644,487 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.3]
              */
             name?: boolean;
+        }
+        /**
+         *
+         * Represents the visual layout of the PivotTable.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface PivotLayoutLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * This property indicates the PivotLayoutType of all fields on the PivotTable. If fields have different states, this will be null.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            layoutType?: boolean;
+            /**
+             *
+             * True if the PivotTable report shows grand totals for columns.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showColumnGrandTotals?: boolean;
+            /**
+             *
+             * True if the PivotTable report shows grand totals for rows.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showRowGrandTotals?: boolean;
+            /**
+             *
+             * This property indicates the SubtotalLocationType of all fields on the PivotTable. If fields have different states, this will be null.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            subtotalLocation?: boolean;
+        }
+        /**
+         *
+         * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface PivotHierarchyCollectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Id of the PivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Name of the PivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: boolean;
+        }
+        /**
+         *
+         * Represents the Excel PivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface PivotHierarchyLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Id of the PivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: boolean;
+            /**
+             *
+             * Name of the PivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: boolean;
+        }
+        /**
+         *
+         * Represents a collection of RowColumnPivotHierarchy items associated with the PivotTable.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface RowColumnPivotHierarchyCollectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Id of the RowColumnPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Name of the RowColumnPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Position of the RowColumnPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: boolean;
+        }
+        /**
+         *
+         * Represents the Excel RowColumnPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface RowColumnPivotHierarchyLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Id of the RowColumnPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: boolean;
+            /**
+             *
+             * Name of the RowColumnPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: boolean;
+            /**
+             *
+             * Position of the RowColumnPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: boolean;
+        }
+        /**
+         *
+         * Represents a collection of FilterPivotHierarchy items associated with the PivotTable.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface FilterPivotHierarchyCollectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Determines whether to allow multiple filter items.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            enableMultipleFilterItems?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Id of the FilterPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Name of the FilterPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Position of the FilterPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: boolean;
+        }
+        /**
+         *
+         * Represents the Excel FilterPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface FilterPivotHierarchyLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Determines whether to allow multiple filter items.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            enableMultipleFilterItems?: boolean;
+            /**
+             *
+             * Id of the FilterPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: boolean;
+            /**
+             *
+             * Name of the FilterPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: boolean;
+            /**
+             *
+             * Position of the FilterPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: boolean;
+        }
+        /**
+         *
+         * Represents a collection of DataPivotHierarchy items associated with the PivotTable.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface DataPivotHierarchyCollectionLoadOptions {
+            $all?: boolean;
+            /**
+            *
+            * For EACH ITEM in the collection: Returns the PivotFields associated with the DataPivotHierarchy.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            field?: Excel.Interfaces.PivotFieldLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Id of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Name of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Number format of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Position of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Determines whether the data should be sown as a specific summary calculation or not.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showAs?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Determines whether to show all items of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            summarizeBy?: boolean;
+        }
+        /**
+         *
+         * Represents the Excel DataPivotHierarchy.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface DataPivotHierarchyLoadOptions {
+            $all?: boolean;
+            /**
+            *
+            * Returns the PivotFields associated with the DataPivotHierarchy.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            field?: Excel.Interfaces.PivotFieldLoadOptions;
+            /**
+             *
+             * Id of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: boolean;
+            /**
+             *
+             * Name of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: boolean;
+            /**
+             *
+             * Number format of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            numberFormat?: boolean;
+            /**
+             *
+             * Position of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            position?: boolean;
+            /**
+             *
+             * Determines whether the data should be sown as a specific summary calculation or not.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showAs?: boolean;
+            /**
+             *
+             * Determines whether to show all items of the DataPivotHierarchy.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            summarizeBy?: boolean;
+        }
+        /**
+         *
+         * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface PivotFieldCollectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Id of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Name of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Determines whether to show all items of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showAllItems?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Subtotals of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            subtotals?: boolean;
+        }
+        /**
+         *
+         * Represents the Excel PivotField.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface PivotFieldLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Id of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: boolean;
+            /**
+             *
+             * Name of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: boolean;
+            /**
+             *
+             * Determines whether to show all items of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            showAllItems?: boolean;
+            /**
+             *
+             * Subtotals of the PivotField.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            subtotals?: boolean;
+        }
+        /**
+         *
+         * Represents a collection of all the Pivot Items related to their parent PivotField.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface PivotItemCollectionLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Id of the PivotItem.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Determines whether the item is expanded to show child items or if it's collapsed and child items are hidden.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            isExpanded?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Name of the PivotItem.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Determines whether the PivotItem is visible or not.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            visible?: boolean;
+        }
+        /**
+         *
+         * Represents the Excel PivotItem.
+         *
+         * [Api set: ExcelApi 1.8]
+         */
+        interface PivotItemLoadOptions {
+            $all?: boolean;
+            /**
+             *
+             * Id of the PivotItem.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            id?: boolean;
+            /**
+             *
+             * Determines whether the item is expanded to show child items or if it's collapsed and child items are hidden.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            isExpanded?: boolean;
+            /**
+             *
+             * Name of the PivotItem.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            name?: boolean;
+            /**
+             *
+             * Determines whether the PivotItem is visible or not.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            visible?: boolean;
         }
         /**
          *
@@ -41927,6 +48120,13 @@ declare namespace Excel {
             font?: Excel.Interfaces.RangeFontLoadOptions;
             /**
              *
+             * Indicates if text is automatically indented when the text alignment in a cell is set to equal distribution.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            autoIndent?: boolean;
+            /**
+             *
              * Indicates if the style is a built-in style.
              *
              * [Api set: ExcelApi 1.7]
@@ -42039,6 +48239,13 @@ declare namespace Excel {
             shrinkToFit?: boolean;
             /**
              *
+             * The text orientation for the style.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: boolean;
+            /**
+             *
              * Represents the vertical alignment for the style. See Excel.VerticalAlignment for details.
              *
              * [Api set: ExcelApi 1.7]
@@ -42081,6 +48288,13 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.7]
             */
             font?: Excel.Interfaces.RangeFontLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Indicates if text is automatically indented when the text alignment in a cell is set to equal distribution.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            autoIndent?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Indicates if the style is a built-in style.
@@ -42193,6 +48407,13 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.7]
              */
             shrinkToFit?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: The text orientation for the style.
+             *
+             * [Api set: ExcelApi 1.8]
+             */
+            textOrientation?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Represents the vertical alignment for the style. See Excel.VerticalAlignment for details.
@@ -53276,13 +59497,6 @@ declare namespace Word {
      * Executes a batch script that performs actions on the Word object model, using the RequestContext of previously-created API objects.
      * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared RequestContext, which means that any changes applied to these objects will be picked up by "context.sync()".
      * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Word application. Since the Office add-in and the Word application run in two different processes, the RequestContext is required to get access to the Word object model from the add-in.
-     * 
-     * @remarks
-     * In addition to this signature, the method also has the following signatures:
-     * 
-     * `run<T>(batch: (context: Word.RequestContext) => Promise<T>): Promise<T>;`
-     * 
-     * `run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Word.RequestContext) => Promise<T>): Promise<T>;`
      */
     function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Word.RequestContext) => Promise<T>): Promise<T>;
 }
@@ -59500,14 +65714,14 @@ declare namespace OneNote {
      */
     function run<T>(batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
     /**
-     * Executes a batch script that performs actions on the OneNote object model, using the request context of a previously-created API object.
-     * @param object - A previously-created API object. The batch will use the same request context as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
-     * @param batch - A function that takes in an OneNote.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-     */
-    function run<T>(object: OfficeExtension.ClientObject, batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
-    /**
      * Executes a batch script that performs actions on the OneNote object model, using the request context of previously-created API objects.
      * @param object - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared request context, which means that any changes applied to these objects will be picked up by "context.sync()".
+     * @param batch - A function that takes in an OneNote.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     */
+    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
+    /**
+     * Executes a batch script that performs actions on the OneNote object model, using the request context of a previously-created API object.
+     * @param object - A previously-created API object. The batch will use the same request context as the passed-in object, which means that any changes applied to the object will be picked up by "context.sync()".
      * @param batch - A function that takes in an OneNote.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
      * 
      * @remarks
@@ -59517,7 +65731,7 @@ declare namespace OneNote {
      * 
      * `run<T>(objects: OfficeExtension.ClientObject[], batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;`
      */
-    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
+    function run<T>(object: OfficeExtension.ClientObject, batch: (context: OneNote.RequestContext) => Promise<T>): Promise<T>;
 }
 
 
@@ -62063,15 +68277,15 @@ declare namespace Visio {
      */
     function run<T>(object: OfficeExtension.ClientObject | OfficeExtension.EmbeddedSession, batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
     /**
-     * Executes a batch script that performs actions on the Visio object model, using the RequestContext of a previously-created object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
-     * @param contextObject - A previously-created Visio.RequestContext. This context will get re-used by the batch function (instead of having a new context created). This means that the batch will be able to pick up changes made to existing API objects, if those objects were derived from this same context.
-     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the RequestContext is required to get access to the Visio object model from the add-in.
-     */
-    function run<T>(contextObject: OfficeExtension.ClientRequestContext, batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
-    /**
      * Executes a batch script that performs actions on the Visio object model, using the request context of previously-created API objects.
      * @param objects - An array of previously-created API objects. The array will be validated to make sure that all of the objects share the same context. The batch will use this shared request context, which means that any changes applied to these objects will be picked up by "context.sync()".
      * @param batch - A function that takes in a Visio.RequestContext and returns a promise (typically, just the result of "context.sync()"). When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     */
+    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
+    /**
+     * Executes a batch script that performs actions on the Visio object model, using the RequestContext of a previously-created object. When the promise is resolved, any tracked objects that were automatically allocated during execution will be released.
+     * @param contextObject - A previously-created Visio.RequestContext. This context will get re-used by the batch function (instead of having a new context created). This means that the batch will be able to pick up changes made to existing API objects, if those objects were derived from this same context.
+     * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Visio application. Since the Office add-in and the Visio application run in two different processes, the RequestContext is required to get access to the Visio object model from the add-in.
      * 
      * @remarks
      * In addition to this signature, the method also has the following signatures:
@@ -62082,7 +68296,7 @@ declare namespace Visio {
      * 
      * `run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;`
      */
-    function run<T>(objects: OfficeExtension.ClientObject[], batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
+    function run<T>(contextObject: OfficeExtension.ClientRequestContext, batch: (context: Visio.RequestContext) => Promise<T>): Promise<T>;
 }
 
 
