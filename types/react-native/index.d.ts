@@ -5117,6 +5117,7 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      * @param borderless If the ripple can render outside it's bounds
      */
     static Ripple(color: string, borderless?: boolean): RippleBackgroundPropType;
+    static canUseNativeForeground(): boolean;
 }
 
 export interface Route {
@@ -8970,11 +8971,13 @@ export interface ComponentInterface<P> {
  * Common types are lined up with the appropriate prop differs with
  * `TypeToDifferMap`.  Non-scalar types not in the map default to `deepDiffer`.
  */
-export function requireNativeComponent<P>(
+export function requireNativeComponent<P, NP = {}>(
     viewName: string,
     componentInterface?: ComponentInterface<P>,
-    extraConfig?: { nativeOnly?: any }
-): React.ComponentClass<PropTypes.InferProps<PropTypes.ValidationMap<P>>>;
+    extraConfig?: { nativeOnly?: NP }
+): React.ComponentClass<
+    Partial<PropTypes.InferProps<PropTypes.ValidationMap<P>>> & { [K in keyof NP]?: any}
+>;
 
 export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>
