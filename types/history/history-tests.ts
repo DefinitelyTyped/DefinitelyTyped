@@ -56,17 +56,19 @@ let input = { value: "" };
     // Extending an existing location object.
     history.push({ pathname: location.pathname, search: '?other=search' });
 
-    if (history.canGo(-1)) {
-        history.go(-1);
-        history.goBack();
-    }
+    // canGo does not exist on History
+    // if (history.canGo(-1)) {
+    //     history.go(-1);
+    //     history.goBack();
+    // }
 
     let unblock = history.block(true);
     unblock();
 
-    history.entries.forEach(function (location) {
-        let typedLocation: Location = location;
-    });
+    // entries does not exist on History
+    // history.entries.forEach(function (location) {
+    //     let typedLocation: Location = location;
+    // });
 }
 
 {
