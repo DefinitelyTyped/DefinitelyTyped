@@ -168,7 +168,5 @@ export type HeaderInit = Headers | string[];
 export type BodyInit = ArrayBuffer | ArrayBufferView | NodeJS.ReadableStream | string | URLSearchParams;
 export type RequestInfo = string | Request;
 
-export default function fetch(
-    url: string | Request,
-    init?: RequestInit
-): Promise<Response>;
+declare const fetch: GlobalFetch['fetch'];
+export default fetch;
