@@ -1,4 +1,4 @@
-import w2v = require("word2vector");
+import * as w2v from "word2vector";
 
 const trainFile = "./build/data/train.data";
 const modelFile = "./build/data/test.model.bin";
