@@ -51,7 +51,7 @@ export interface Fiber {
 
     // The ref last used to attach this node.
     // I'll avoid adding an owner field for prod and model that as functions.
-    ref: null | (((handle: unknown) => void) & { _stringRef: string | null | undefined }) | RefObject;
+    ref: null | (((handle: any) => void) & { _stringRef: string | null | undefined }) | RefObject;
 
     // Input is the data coming into process this fiber. Arguments. Props.
     pendingProps: any; // This type will be more specific once we overload the tag.
@@ -64,7 +64,7 @@ export interface Fiber {
     memoizedState: any;
 
     // A linked-list of contexts that this fiber depends on
-    firstContextDependency: ContextDependency<unknown> | null;
+    firstContextDependency: ContextDependency<any> | null;
 
     // Bitfield that describes properties about the fiber and its subtree. E.g.
     // the AsyncMode flag indicates whether the subtree should be async-by-

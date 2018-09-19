@@ -5,7 +5,7 @@ export interface Update<State> {
 
     tag: 0 | 1 | 2 | 3;
     payload: any;
-    callback: (() => unknown) | null;
+    callback: (() => any) | null;
 
     next: Update<State> | null;
     nextEffect: Update<State> | null;

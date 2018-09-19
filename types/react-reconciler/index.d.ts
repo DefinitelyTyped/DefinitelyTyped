@@ -2,7 +2,7 @@
 // Project: https://reactjs.org/
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
 
 export { default } from './ReactFiberReconciler';
 

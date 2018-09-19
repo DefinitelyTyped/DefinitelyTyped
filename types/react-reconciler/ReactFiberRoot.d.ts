@@ -6,7 +6,7 @@ import { Interaction } from './Tracking';
 export interface Batch {
     _defer: boolean;
     _expirationTime: ExpirationTime;
-    _onComplete: () => unknown;
+    _onComplete: () => any;
     _next: Batch | null;
 }
 

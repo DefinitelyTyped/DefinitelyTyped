@@ -240,7 +240,7 @@ export interface Reconciler<Instance, TextInstance, Container, PublicInstance> {
     ): R;
     interactiveUpdates<A, B, R>(fn: (a: A, b: B) => R, a: A, b: B): R;
     flushInteractiveUpdates(): void;
-    flushControlled(fn: () => unknown): void;
+    flushControlled(fn: () => any): void;
     flushSync<A, R>(fn: (a: A) => R, a: A): R;
 
     // Used to extract the return value from the initial render. Legacy API.
