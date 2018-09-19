@@ -7275,7 +7275,7 @@ export interface NetInfoStatic {
      * sensitive to heavy data usage on that connection due to monetary
      * costs, data limitations or battery/performance issues.
      */
-    isConnectionExpensive: Promise<boolean>;
+    isConnectionExpensive: () => Promise<boolean>;
 }
 
 export interface PanResponderGestureState {
