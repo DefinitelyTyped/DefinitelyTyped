@@ -8,7 +8,7 @@ import { ReactNodeList } from './ReactTypes';
 export type OpaqueHandle = Fiber;
 export type OpaqueRoot = FiberRoot;
 
-export interface HostConfig<Type, Props, Container, Instance, TextInstance, HydratableInstance, PublicInstance, HostContext, UpdatePayload, ChildSet, TimeoutHandle, NoTimeout, CallbackId> {
+export interface HostConfig<Type, Props, Container, Instance, TextInstance, HydratableInstance, PublicInstance, HostContext, UpdatePayload, ChildSet, TimeoutHandle, NoTimeout> {
     getPublicInstance(instance: Instance | TextInstance): PublicInstance;
     getRootHostContext(rootContainerInstance: Container): HostContext;
     getChildHostContext(parentHostContext: HostContext, type: Type, rootContainerInstance: Container): HostContext;
@@ -54,8 +54,8 @@ export interface HostConfig<Type, Props, Container, Instance, TextInstance, Hydr
     scheduleDeferredCallback(
         callback: (deadline: Deadline) => void,
         options?: { timeout: number },
-    ): CallbackId;
-    cancelDeferredCallback(callbackID: CallbackId): void;
+    ): any;
+    cancelDeferredCallback(callbackID: any): void;
 
     setTimeout(handler: (...args: any[]) => void, timeout: number): TimeoutHandle | NoTimeout;
     clearTimeout(handle: TimeoutHandle | NoTimeout): void;
@@ -256,6 +256,6 @@ export interface Reconciler<Instance, TextInstance, Container, PublicInstance> {
     injectIntoDevTools(devToolsConfig: DevToolsConfig<Instance, TextInstance>): boolean;
 }
 
-export default function <Type, Props, Container, Instance, TextInstance, HydratableInstance, PublicInstance, HostContext, UpdatePayload, ChildSet, TimeoutHandle, NoTimeout, CallbackId>(
-    config: HostConfig<Type, Props, Container, Instance, TextInstance, HydratableInstance, PublicInstance, HostContext, UpdatePayload, ChildSet, TimeoutHandle, NoTimeout, CallbackId>,
+export default function <Type, Props, Container, Instance, TextInstance, HydratableInstance, PublicInstance, HostContext, UpdatePayload, ChildSet, TimeoutHandle, NoTimeout>(
+    config: HostConfig<Type, Props, Container, Instance, TextInstance, HydratableInstance, PublicInstance, HostContext, UpdatePayload, ChildSet, TimeoutHandle, NoTimeout>,
 ): Reconciler<Instance, TextInstance, Container, PublicInstance>;
