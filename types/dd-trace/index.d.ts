@@ -3,6 +3,7 @@
 // Definitions by: Colin Bradley <https://github.com/ColinBradley>
 //                 Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 // Prettified with:
 // $ prettier --parser typescript --tab-width 4 --semi --trailing-comma es5 --write --print-width 120 types/dd-trace/{,*}/*.ts*
