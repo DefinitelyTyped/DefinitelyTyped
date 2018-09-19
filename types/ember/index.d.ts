@@ -18,7 +18,7 @@
 /// <reference types="ember__polyfills" />
 /// <reference types="ember__object" />
 /// <reference types="ember__utils" />
-/// <reference types="ember__object" />
+/// <reference types="ember__engine" />
 
 declare module 'ember' {
     import {
@@ -48,6 +48,11 @@ declare module 'ember' {
     import * as EmberObjectComputedNs from '@ember/object/computed';
     import * as EmberObjectEventedNs from '@ember/object/evented';
     import * as EmberObjectEventsNs from '@ember/object/events';
+    // @ember/engine
+    import * as EmberEngineNs from '@ember/engine';
+    import * as EmberEngineInstanceNs from '@ember/engine/instance';
+    import _ContainerProxyMixin from '@ember/engine/-private/container-proxy-mixin';
+    import _RegistryProxyMixin from '@ember/engine/-private/registry-proxy-mixin';
     import EmberCoreObject from '@ember/object/core';
     // tslint:disable-next-line:no-duplicate-imports
     import EmberMixin from '@ember/object/mixin';
@@ -286,81 +291,6 @@ declare module 'ember' {
             underscore(): string;
             w(): string[];
         }
-
-        /**
-         * Given a fullName return a factory manager.
-         */
-        interface _ContainerProxyMixin {
-            /**
-             * Returns an object that can be used to provide an owner to a
-             * manually created instance.
-             */
-            ownerInjection(): {};
-            /**
-             * Given a fullName return a corresponding instance.
-             */
-            lookup(fullName: string, options?: {}): any;
-            /**
-             * Given a fullName return a corresponding factory.
-             */
-            factoryFor(fullName: string, options?: {}): any;
-        }
-        const _ContainerProxyMixin: EmberMixin<_ContainerProxyMixin>;
-
-        /**
-         * RegistryProxyMixin is used to provide public access to specific
-         * registry functionality.
-         */
-        interface _RegistryProxyMixin {
-            /**
-             * Given a fullName return the corresponding factory.
-             */
-            resolveRegistration(fullName: string): Function;
-            /**
-             * Registers a factory or value that can be used for dependency injection (with
-             * `inject`) or for service lookup. Each factory is registered with
-             * a full name including two parts: `type:name`.
-             */
-            register(fullName: string, factory: any, options?: { singleton?: boolean, instantiate?: boolean }): any;
-            /**
-             * Unregister a factory.
-             */
-            unregister(fullName: string): any;
-            /**
-             * Check if a factory is registered.
-             */
-            hasRegistration(fullName: string): boolean;
-            /**
-             * Register an option for a particular factory.
-             */
-            registerOption(fullName: string, optionName: string, options: {}): any;
-            /**
-             * Return a specific registered option for a particular factory.
-             */
-            registeredOption(fullName: string, optionName: string): {};
-            /**
-             * Register options for a particular factory.
-             */
-            registerOptions(fullName: string, options: {}): any;
-            /**
-             * Return registered options for a particular factory.
-             */
-            registeredOptions(fullName: string): {};
-            /**
-             * Allow registering options for all factories of a type.
-             */
-            registerOptionsForType(type: string, options: {}): any;
-            /**
-             * Return the registered options for all factories of a type.
-             */
-            registeredOptionsForType(type: string): {};
-            /**
-             * Define a dependency injection onto a specific factory or all factories
-             * of a type.
-             */
-            inject(factoryNameOrType: string, property: string, injectionName: string): any;
-        }
-        const _RegistryProxyMixin: EmberMixin<_RegistryProxyMixin>;
         /**
          Ember.ActionHandler is available on some familiar classes including Ember.Route,
         Ember.Component, and Ember.Controller. (Internally the mixin is used by Ember.CoreView,
@@ -383,10 +313,10 @@ declare module 'ember' {
         }
         const ActionHandler: EmberMixin<ActionHandler>;
         /**
-        An instance of Ember.Application is the starting point for every Ember application. It helps to
-        instantiate, initialize and coordinate the many objects that make up your app.
-        **/
-        class Application extends Engine {
+         * An instance of Ember.Application is the starting point for every Ember application. It helps to
+         * instantiate, initialize and coordinate the many objects that make up your app.
+         */
+        class Application extends EmberEngineNs.default {
             /**
             Call advanceReadiness after any asynchronous setup logic has completed.
             Each call to deferReadiness must be matched by a call to advanceReadiness
@@ -834,61 +764,8 @@ declare module 'ember' {
              */
             namespace: Application;
         }
-        interface Initializer<T> {
-            name: string;
-            before?: string[];
-            after?: string[];
-            initialize(application: T): void;
-        }
-        /**
-         * The `Engine` class contains core functionality for both applications and
-         * engines.
-         */
-        class Engine extends Namespace.extend(_RegistryProxyMixin) {
-            /**
-             * The goal of initializers should be to register dependencies and injections.
-             * This phase runs once. Because these initializers may load code, they are
-             * allowed to defer application readiness and advance it. If you need to access
-             * the container or store you should use an InstanceInitializer that will be run
-             * after all initializers and therefore after all code is loaded and the app is
-             * ready.
-             */
-            static initializer(initializer: Initializer<Engine>): void;
-            /**
-             * Instance initializers run after all initializers have run. Because
-             * instance initializers run after the app is fully set up. We have access
-             * to the store, container, and other items. However, these initializers run
-             * after code has loaded and are not allowed to defer readiness.
-             */
-            static instanceInitializer(instanceInitializer: Initializer<EngineInstance>): void;
-            /**
-             * Set this to provide an alternate class to `Ember.DefaultResolver`
-             */
-            resolver: Resolver;
-            /**
-             * Create an EngineInstance for this Engine.
-             */
-            buildInstance(options?: object): EngineInstance;
-        }
-        /**
-         * The `EngineInstance` encapsulates all of the stateful aspects of a
-         * running `Engine`.
-         */
-        class EngineInstance extends Object.extend(
-            _RegistryProxyMixin,
-            _ContainerProxyMixin
-        ) {
-            /**
-             * Unregister a factory.
-             */
-            unregister(fullName: string): any;
-
-            /**
-             *  Initialize the `EngineInstance` and return a promise that resolves
-             *  with the instance itself when the boot process is complete.
-             */
-            boot(): Promise<EngineInstance>;
-        }
+        class EngineInstance extends EmberEngineInstanceNs.default {}
+        class Engine extends EmberEngineNs.default {}
         /**
          * This mixin defines the common interface implemented by enumerable objects
          * in Ember. Most of these methods follow the standard Array iteration
@@ -2710,17 +2587,6 @@ declare module '@ember/debug/container-debug-adapter' {
 declare module '@ember/debug/data-adapter' {
     import Ember from 'ember';
     export default class DataAdapter extends Ember.DataAdapter { }
-}
-
-declare module '@ember/engine' {
-    import Ember from 'ember';
-    export default class Engine extends Ember.Engine { }
-    export const getEngineParent: typeof Ember.getEngineParent;
-}
-
-declare module '@ember/engine/instance' {
-    import Ember from 'ember';
-    export default class EngineInstance extends Ember.EngineInstance { }
 }
 
 declare module '@ember/error' {
