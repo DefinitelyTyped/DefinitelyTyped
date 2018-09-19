@@ -77,27 +77,35 @@ ex2.firstName; // $ExpectType string
 
 type UnwStringSet = UnwrapComputedPropertySetter<string>; // $ExpectType string
 type UnwStringGet = UnwrapComputedPropertyGetter<string>; // $ExpectType string
+// $ExpectType string
 type UnwCpStringSet1 = UnwrapComputedPropertySetter<
     Ember.ComputedProperty<string>
->; // $ExpectType string
+>;
+// $ExpectType string
 type UnwCpStringGet1 = UnwrapComputedPropertyGetter<
     Ember.ComputedProperty<string>
->; // $ExpectType string
+>;
+// $ExpectType string
 type UnwCpStringSet2 = UnwrapComputedPropertySetter<
     Ember.ComputedProperty<string, string>
->; // $ExpectType string
+>;
+// $ExpectType string
 type UnwCpStringGet2 = UnwrapComputedPropertyGetter<
     Ember.ComputedProperty<string, string>
->; // $ExpectType string
+>;
+// $ExpectType string
 type UnwCpStringSet3 = UnwrapComputedPropertySetter<
     Ember.ComputedProperty<number, string>
->; // $ExpectType string
+>;
+// $ExpectType number
 type UnwCpStringGet3 = UnwrapComputedPropertyGetter<
     Ember.ComputedProperty<number, string>
->; // $ExpectType number
+>;
+// $ExpectType number
 type UnwCpStringSet4 = UnwrapComputedPropertySetter<
     Ember.ComputedProperty<string, number>
->; // $ExpectType number
+>;
+// $ExpectType string
 type UnwCpStringGet4 = UnwrapComputedPropertyGetter<
     Ember.ComputedProperty<string, number>
->; // $ExpectType string
+>;

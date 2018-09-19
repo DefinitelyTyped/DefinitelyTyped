@@ -7,12 +7,13 @@ import {
     UnwrapComputedPropertyGetters,
     UnwrapComputedPropertySetters
 } from '@ember/object/-private/types';
+import Observable from "@ember/object/observable";
 
 class OtherThing {
     observerOfDemo(target: DemoObservable, key: 'foo') {}
 }
 
-class DemoObservable implements Ember.Observable {
+class DemoObservable implements Observable {
     foo: string;
     isFoo = true;
     bar: [boolean, boolean];
