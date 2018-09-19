@@ -2832,6 +2832,32 @@ declare module "mongoose" {
       /** sets the document fields to return */
       select?: any;
     }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
+    
+    /**
+     * Issues a mongodb findOneAndDelete command.
+     * Finds a matching document, removes it, passing the found document (if any) to the
+     * callback. Executes immediately if callback is passed.
+     */
+    findOneAndDelete(): DocumentQuery<T | null, T>;
+    findOneAndDelete(conditions: any,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
+    findOneAndDelete(conditions: any, options: {
+      /**
+       * if multiple docs are found by the conditions, sets the sort order to choose
+       * which doc to update
+       */
+      sort?: any;
+      /** puts a time limit on the query - requires mongodb >= 2.6.0 */
+      maxTimeMS?: number;
+      /** sets the document fields to return */
+      select?: any;             
+      /** like select, it determines which fields to return */          
+      projection?: any;
+      /** if true, returns the raw result from the MongoDB driver */                     
+      rawResult?: boolean;
+      /** overwrites the schema's strict mode option for this update */                     
+      strict?: boolean|string;                      
+    }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     /**
      * Issues a mongodb findAndModify update command.
