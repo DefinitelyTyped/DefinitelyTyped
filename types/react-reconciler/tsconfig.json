@@ -18,8 +18,10 @@
     },
     "files": [
         "index.d.ts",
-        "test/react-reconciler-tests.ts",
         "test/HostConfigWithNoHydration.ts",
-        "test/HostConfigWithNoPersistence.ts"
+        "test/HostConfigWithNoPersistence.ts",
+        "test/react-reconciler-tests.ts",
+        "test/ReactTestHostConfig.ts",
+        "test/ReactTestRendererScheduling.ts"
     ]
 }
