@@ -171,7 +171,7 @@ export class Participant extends EventEmitter {
     audioTracks: Map<Track.SID, AudioTrackPublication>;
     dataTracks: Map<Track.SID, DataTrackPublication>;
     identity: Participant.Identity;
-    networkQualityLEvel: NetworkQualityLevel | null;
+    networkQualityLevel: NetworkQualityLevel | null;
     sid: Participant.SID;
     state: string;
     tracks: Map<Track.SID, TrackPublication>;
