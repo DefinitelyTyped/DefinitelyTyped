@@ -1,5 +1,5 @@
-import jsftp from 'jsftp';
-import jsftpLsr from 'jsftp-lsr';
+import jsftp = require('jsftp');
+import jsftpLsr = require('jsftp-lsr');
 
 const Ftp = jsftpLsr(jsftp);
 

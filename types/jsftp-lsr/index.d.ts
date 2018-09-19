@@ -2,9 +2,8 @@
 // Project: https://github.com/firerap/jsftp-lsr#readme
 // Definitions by: Konrad Księski <https://github.com/xyleen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
 
-import Jsftp from 'jsftp';
+import Jsftp = require('jsftp');
 
 export = JsftpLsr;
 

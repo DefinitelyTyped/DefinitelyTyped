@@ -1,11 +1,11 @@
-import Ftp from 'jsftp';
+import Ftp = require('jsftp');
 
 const connectOpts = {
     host: 'localhost',
     port: 22222,
 };
 
-const ftp = new Ftp(connectOpts);  // $ExpectType Ftp
+const ftp = new Ftp(connectOpts);  // $ExpectType Jsftp
 
 ftp.ls('foo', (err) => { });  // $ExpectType void
 
