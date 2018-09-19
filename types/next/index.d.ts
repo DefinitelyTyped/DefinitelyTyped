@@ -180,6 +180,10 @@ declare namespace next {
     /**
      * Next.js counterpart of React.ComponentType.
      * Specially useful in HOCs that receive Next.js components.
+     *
+     * @template P Component props.
+     * @template IP Initial props returned from getInitialProps.
+     * @template C Context passed to getInitialProps.
      */
     type NextComponentType<P = {}, IP = P, C = NextContext> =
         | NextComponentClass<P, IP, C>
