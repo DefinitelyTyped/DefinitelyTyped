@@ -356,3 +356,13 @@ Sortable.create(simpleList, {
     group: "shared",
     sort: false
 });
+
+// List with handle
+Sortable.create(simpleList, {
+    handle: '.glyphicon-move',
+    animation: 150,
+    filter: ".disabled",
+    onMove: function (evt) {
+        return evt.related.className.indexOf('disabled') === -1;
+    }
+});
