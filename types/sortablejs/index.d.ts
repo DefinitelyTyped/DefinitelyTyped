@@ -96,28 +96,35 @@ declare namespace Sortable {
     }
 
     export interface Options {
-        group?: string | GroupOptions;
-        sort?: boolean;
-        delay?: number;
-        disabled?: boolean;
-        store?: {
-            get: (sortable: Sortable) => any[];
-            set: (sortable: Sortable) => any;
-        };
         animation?: number;
-        handle?: string;
-        filter?: any;
-        draggable?: string;
-        ghostClass?: string;
         chosenClass?: string;
         dataIdAttr?: string;
-        forceFallback?: boolean;
+        delay?: number;
+        disabled?: boolean;
+        dragClass?: string;
+        draggable?: string;
+        dragoverBubble?: boolean;
+        dropBubble?: boolean;
         fallbackClass?: string;
         fallbackOnBody?: boolean;
+        fallbackTolerance?: number;
+        fallbackOffset?: { x: number, y: number };
+        filter?: string | ((this: Sortable, event: Event | TouchEvent, target: HTMLElement, sortable: Sortable) => boolean);
+        forceFallback?: boolean;
+        ghostClass?: string;
+        group?: string | GroupOptions;
+        handle?: string;
+        ignore?: string;
+        preventOnFilter?: boolean;
         scroll?: boolean;
         scrollSensitivity?: number;
         scrollSpeed?: number;
-        setData?: (dataTransfer: any, draggedElement: HTMLElement) => any;
+        sort?: boolean;
+        store?: {
+            get: (sortable: Sortable) => string[];
+            set: (sortable: Sortable) => void;
+        };
+        setData?: (dataTransfer: DataTransfer, draggedElement: HTMLElement) => void;
         onStart?: (event: SortableEvent) => void;
         onEnd?: (event: SortableEvent) => void;
         onAdd?: (event: SortableEvent) => void;
