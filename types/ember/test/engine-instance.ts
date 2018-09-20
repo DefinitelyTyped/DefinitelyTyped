@@ -21,6 +21,6 @@ engineInstance.lookup('route:basic');
 
 engineInstance.boot();
 
-(async function() {
+(async () => {
   await engineInstance.boot();
-}());
+})();

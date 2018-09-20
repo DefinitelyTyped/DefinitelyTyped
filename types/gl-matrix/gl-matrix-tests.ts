@@ -74,6 +74,7 @@ outVec2 = vec2.cross(outVec3, vec2A, vec2B);
 outVec2 = vec2.lerp(outVec2, vec2A, vec2B, 0.5);
 outVec2 = vec2.random(outVec2);
 outVec2 = vec2.random(outVec2, 5.0);
+outVec2 = vec2.rotate(outVec2, vec2A, vec2B, Math.PI * 0.5);
 outVec2 = vec2.transformMat2(outVec2, vec2A, mat2A);
 outVec2 = vec2.transformMat2d(outVec2, vec2A, mat2dA);
 outVec2 = vec2.transformMat3(outVec2, vec2A, mat3A);
