@@ -54,7 +54,7 @@ declare class Pikaday {
     /**
      * Set the current selection with a Moment.js object (see setDate).
      */
-    setMoment(moment: any): void;
+    setMoment(moment: any, preventOnSelect?: boolean): void;
 
     /**
      * Change the current view to see a specific date.

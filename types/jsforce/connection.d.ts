@@ -7,6 +7,7 @@ import { SObject } from './salesforce-object';
 import { Analytics } from './api/analytics';
 import { Chatter } from './api/chatter';
 import { Metadata } from './api/metadata';
+import { Apex } from './api/apex';
 import { Bulk } from './bulk';
 import { Cache } from './cache'
 import { OAuth2, Streaming } from '.';
@@ -141,6 +142,7 @@ export class Connection extends BaseConnection {
 
     tooling: Tooling;
     analytics: Analytics;
+    apex: Apex;
     chatter: Chatter;
     metadata: Metadata;
     bulk: Bulk;

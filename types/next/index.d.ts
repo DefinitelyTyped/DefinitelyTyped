@@ -16,18 +16,18 @@ import * as url from "url";
 
 import { Response as NodeResponse } from "node-fetch";
 
-import { SingletonRouter } from './router';
+import { SingletonRouter, DefaultQuery } from './router';
 
 declare namespace next {
-    /** Map object used in query strings. */
-    type QueryStringMapObject = Record<string, string | string[] | undefined>;
+    // Deprecated
+    type QueryStringMapObject = DefaultQuery;
 
     /**
      * Context object used in methods like `getInitialProps()`
      * https://github.com/zeit/next.js/blob/6.1.1/server/render.js#L77
      * https://github.com/zeit/next.js/blob/6.1.1/readme.md#fetching-data-and-component-lifecycle
      */
-    interface NextContext<Q = QueryStringMapObject> {
+    interface NextContext<Q = DefaultQuery> {
         /** path section of URL */
         pathname: string;
         /** query string section of URL parsed as an object */
@@ -44,8 +44,8 @@ declare namespace next {
         err?: Error;
     }
 
-    type NextSFC<TProps = {}, Q = QueryStringMapObject> = NextStatelessComponent<TProps, Q>;
-    interface NextStatelessComponent<TProps = {}, Q = QueryStringMapObject>
+    type NextSFC<TProps = {}, Q = DefaultQuery> = NextStatelessComponent<TProps, Q>;
+    interface NextStatelessComponent<TProps = {}, Q = DefaultQuery>
         extends React.StatelessComponent<TProps> {
         getInitialProps?: (ctx: NextContext<Q>) => Promise<TProps>;
     }
@@ -142,28 +142,28 @@ declare namespace next {
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: QueryStringMapObject,
+            query?: DefaultQuery,
             parsedUrl?: UrlLike
         ): Promise<void>;
         renderToHTML(
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: QueryStringMapObject
+            query?: DefaultQuery
         ): Promise<string>;
         renderError(
             err: any,
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: QueryStringMapObject
+            query?: DefaultQuery
         ): Promise<void>;
         renderErrorToHTML(
             err: any,
             req: http.IncomingMessage,
             res: http.ServerResponse,
             pathname: string,
-            query?: QueryStringMapObject
+            query?: DefaultQuery
         ): Promise<string>;
         render404(
             req: http.IncomingMessage,

@@ -1,6 +1,9 @@
 // Type definitions for D3JS d3-time module 1.0
 // Project: https://github.com/d3/d3-time/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Last module patch version validated against: 1.0.7
@@ -134,7 +137,7 @@ export interface CountableTimeInterval extends TimeInterval {
      * because its purpose is to return the zero-based number of the specified end date relative to the specified start date.
      *
      * @param start A start date object.
-     * @param start An end date object.
+     * @param end An end date object.
      */
     count(start: Date, end: Date): number;
     /**

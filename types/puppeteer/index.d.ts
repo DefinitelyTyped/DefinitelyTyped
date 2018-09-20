@@ -592,6 +592,14 @@ export interface ScreenshotOptions {
   encoding?: "base64" | "binary";
 }
 
+export interface BinaryScreenShotOptions extends ScreenshotOptions {
+    encoding?: "binary";
+}
+
+export interface Base64ScreenShotOptions extends ScreenshotOptions {
+    encoding: "base64";
+}
+
 /** Options for `addStyleTag` */
 export interface StyleTagOptions {
   /** Url of the <link> tag. */
@@ -747,7 +755,9 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle, Ev
    * If the element is detached from DOM, the method throws an error.
    * @param options Same options as in page.screenshot.
    */
-  screenshot(options?: ScreenshotOptions): Promise<Buffer>;
+  screenshot(options?: Base64ScreenShotOptions): Promise<string>;
+  screenshot(options?: BinaryScreenShotOptions): Promise<Buffer>;
+  screenshot(options?: ScreenshotOptions): Promise<string | Buffer>;
   /**
    * This method scrolls element into view if needed, and then uses touchscreen.tap to tap in the center of the element.
    * If the element is detached from DOM, the method throws an error.
@@ -1346,6 +1356,8 @@ export interface Page extends EventEmitter, FrameBase {
    * Captures a screenshot of the page.
    * @param options The screenshot options.
    */
+  screenshot(options?: Base64ScreenShotOptions): Promise<string>;
+  screenshot(options?: BinaryScreenShotOptions): Promise<Buffer>;
   screenshot(options?: ScreenshotOptions): Promise<string | Buffer>;
 
   /**

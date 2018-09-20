@@ -1036,23 +1036,22 @@ declare namespace webpack {
     }
 
     interface InputFileSystem {
-        purge(): void;
-        readFile(path: string, callback: (err: Error, contents: Buffer) => void): void;
+        purge?(): void;
+        readFile(path: string, callback: (err: Error | undefined | null, contents: Buffer) => void): void;
         readFileSync(path: string): Buffer;
-        readlink(path: string, callback: (err: Error, linkString: string) => void): void;
+        readlink(path: string, callback: (err: Error | undefined | null, linkString: string) => void): void;
         readlinkSync(path: string): string;
-        stat(path: string, callback: (err: Error, stats: any) => void): void;
+        stat(path: string, callback: (err: Error | undefined | null, stats: any) => void): void;
         statSync(path: string): any;
     }
 
     interface OutputFileSystem {
         join(...paths: string[]): string;
-        mkdir(path: string, callback: (err: Error) => void): void;
-        mkdirp(path: string, callback: (err: Error) => void): void;
-        purge(): void;
-        rmdir(path: string, callback: (err: Error) => void): void;
-        unlink(path: string, callback: (err: Error) => void): void;
-        writeFile(path: string, data: any, callback: (err: Error) => void): void;
+        mkdir(path: string, callback: (err: Error | undefined | null) => void): void;
+        mkdirp(path: string, callback: (err: Error | undefined | null) => void): void;
+        rmdir(path: string, callback: (err: Error | undefined | null) => void): void;
+        unlink(path: string, callback: (err: Error | undefined | null) => void): void;
+        writeFile(path: string, data: any, callback: (err: Error | undefined | null) => void): void;
     }
 
     interface SortableSet<T> extends Set<T> {

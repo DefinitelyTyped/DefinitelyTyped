@@ -175,6 +175,12 @@
             "asOfVersion": "2.0.15"
         },
         {
+            "libraryName": "bitwise",
+            "typingsPackageName": "bitwise",
+            "sourceRepoURL": "https://github.com/dodekeract/bitwise",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "botvs",
             "typingsPackageName": "botvs",
             "sourceRepoURL": "https://www.botvs.com/",
