@@ -18,6 +18,8 @@
             "@ember/string": ["ember__string"],
             "@ember/utils": ["ember__utils"],
             "@ember/utils/*": ["ember__utils/*"],
+            "@ember/array": ["ember__array"],
+            "@ember/array/*": ["ember__array/*"],
             "@ember/object": ["ember__object"],
             "@ember/object/*": ["ember__object/*"],
             "@ember/polyfills": ["ember__polyfills"]
