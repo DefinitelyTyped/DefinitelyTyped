@@ -1817,7 +1817,7 @@ declare namespace Office {
          */
         ActiveViewChanged,
         /**
-         * Triggers when any date or time of the selected appointment is changed in Outlook.
+         * Triggers when any date or time of the selected appointment or series is changed in Outlook.
          * 
          * [Api set: Mailbox 1.7]
          */
@@ -1921,7 +1921,7 @@ declare namespace Office {
          */
         OfficeThemeChanged,
         /**
-         * Triggers when the recipient list of the selected item or the location of the appointment or series is changed in Outlook.
+         * Triggers when the recipient list of the selected item or the appointment location is changed in Outlook.
          * 
          * [Api set: Mailbox 1.7]
          */
