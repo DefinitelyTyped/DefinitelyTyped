@@ -19,6 +19,8 @@
 /// <reference types="ember__object" />
 /// <reference types="ember__utils" />
 /// <reference types="ember__array" />
+/// <reference types="ember__engine" />
+/// <reference types="ember__debug" />
 
 declare module 'ember' {
     import {
@@ -48,6 +50,15 @@ declare module 'ember' {
     import * as EmberObjectComputedNs from '@ember/object/computed';
     import * as EmberObjectEventedNs from '@ember/object/evented';
     import * as EmberObjectEventsNs from '@ember/object/events';
+    // @ember/debug
+    import * as EmberDebugNs from '@ember/debug';
+    import _ContainerDebugAdapter from '@ember/debug/container-debug-adapter';
+    import _DataAdapter from '@ember/debug/data-adapter';
+    // @ember/engine
+    import * as EmberEngineNs from '@ember/engine';
+    import * as EmberEngineInstanceNs from '@ember/engine/instance';
+    import _ContainerProxyMixin from '@ember/engine/-private/container-proxy-mixin';
+    import _RegistryProxyMixin from '@ember/engine/-private/registry-proxy-mixin';
     import EmberCoreObject from '@ember/object/core';
     // tslint:disable-next-line:no-duplicate-imports
     import EmberMixin from '@ember/object/mixin';
@@ -297,81 +308,6 @@ declare module 'ember' {
             underscore(): string;
             w(): string[];
         }
-
-        /**
-         * Given a fullName return a factory manager.
-         */
-        interface _ContainerProxyMixin {
-            /**
-             * Returns an object that can be used to provide an owner to a
-             * manually created instance.
-             */
-            ownerInjection(): {};
-            /**
-             * Given a fullName return a corresponding instance.
-             */
-            lookup(fullName: string, options?: {}): any;
-            /**
-             * Given a fullName return a corresponding factory.
-             */
-            factoryFor(fullName: string, options?: {}): any;
-        }
-        const _ContainerProxyMixin: EmberMixin<_ContainerProxyMixin>;
-
-        /**
-         * RegistryProxyMixin is used to provide public access to specific
-         * registry functionality.
-         */
-        interface _RegistryProxyMixin {
-            /**
-             * Given a fullName return the corresponding factory.
-             */
-            resolveRegistration(fullName: string): (...args: any[]) => any;
-            /**
-             * Registers a factory or value that can be used for dependency injection (with
-             * `inject`) or for service lookup. Each factory is registered with
-             * a full name including two parts: `type:name`.
-             */
-            register(fullName: string, factory: any, options?: { singleton?: boolean, instantiate?: boolean }): any;
-            /**
-             * Unregister a factory.
-             */
-            unregister(fullName: string): any;
-            /**
-             * Check if a factory is registered.
-             */
-            hasRegistration(fullName: string): boolean;
-            /**
-             * Register an option for a particular factory.
-             */
-            registerOption(fullName: string, optionName: string, options: {}): any;
-            /**
-             * Return a specific registered option for a particular factory.
-             */
-            registeredOption(fullName: string, optionName: string): {};
-            /**
-             * Register options for a particular factory.
-             */
-            registerOptions(fullName: string, options: {}): any;
-            /**
-             * Return registered options for a particular factory.
-             */
-            registeredOptions(fullName: string): {};
-            /**
-             * Allow registering options for all factories of a type.
-             */
-            registerOptionsForType(type: string, options: {}): any;
-            /**
-             * Return the registered options for all factories of a type.
-             */
-            registeredOptionsForType(type: string): {};
-            /**
-             * Define a dependency injection onto a specific factory or all factories
-             * of a type.
-             */
-            inject(factoryNameOrType: string, property: string, injectionName: string): any;
-        }
-        const _RegistryProxyMixin: EmberMixin<_RegistryProxyMixin>;
         /**
          * Ember.ActionHandler is available on some familiar classes including Ember.Route,
          * Ember.Component, and Ember.Controller. (Internally the mixin is used by Ember.CoreView,
@@ -397,7 +333,7 @@ declare module 'ember' {
          * An instance of Ember.Application is the starting point for every Ember application. It helps to
          * instantiate, initialize and coordinate the many objects that make up your app.
          */
-        class Application extends Engine {
+        class Application extends EmberEngineNs.default {
             /**
              * Call advanceReadiness after any asynchronous setup logic has completed.
              * Each call to deferReadiness must be matched by a call to advanceReadiness
@@ -614,15 +550,7 @@ declare module 'ember' {
              */
             factoryFor(fullName: string, options?: {}): any;
         }
-        /**
-         * The ContainerDebugAdapter helps the container and resolver interface
-         * with tools that debug Ember such as the Ember Inspector for Chrome and Firefox.
-         */
-        class ContainerDebugAdapter extends Object {
-            resolver: Resolver;
-            canCatalogEntriesByType(type: string): boolean;
-            catalogEntriesByType(type: string): string[];
-        }
+        class ContainerDebugAdapter extends _ContainerDebugAdapter {}
         /**
          * Additional methods for the Controller.
          */
@@ -642,79 +570,10 @@ declare module 'ember' {
         // TODO: replace with a proper ES6 reexport once we remove declare module 'ember' {}
         class Object extends EmberObjectNs.default {}
         class CoreObject extends EmberCoreObject {}
-        /**
-         * The `DataAdapter` helps a data persistence library
-         * interface with tools that debug Ember such as Chrome and Firefox.
-         */
-        class DataAdapter extends Object {
-            /**
-             * The container-debug-adapter which is used
-             * to list all models.
-             */
-            containerDebugAdapter: ContainerDebugAdapter;
-            /**
-             * Ember Data > v1.0.0-beta.18
-             * requires string model names to be passed
-             * around instead of the actual factories.
-             */
-            acceptsModelName: boolean;
-            /**
-             * Specifies how records can be filtered.
-             * Records returned will need to have a `filterValues`
-             * property with a key for every name in the returned array.
-             */
-            getFilters(): DataAdapter.Column[];
-            /**
-             * Fetch the model types and observe them for changes.
-             */
-            watchModelTypes(
-                typesAdded: (types: DataAdapter.WrappedType[]) => void,
-                typesUpdated: (types: DataAdapter.WrappedType[]) => void
-            ): () => void;
-            /**
-             * Fetch the records of a given type and observe them for changes.
-             */
-            watchRecords(
-                modelName: string,
-                recordsAdded: (records: DataAdapter.WrappedRecord[]) => void,
-                recordsUpdated: (records: DataAdapter.WrappedRecord[]) => void,
-                recordsRemoved: (idx: number, count: number) => void
-            ): () => void;
-        }
-        namespace DataAdapter {
-            interface Column {
-                name: string;
-                desc: string;
-            }
-            interface WrappedRecord {
-                columnValues: object;
-                object: object;
-            }
-            interface WrappedType {
-                type: {
-                    name: string;
-                    count: number;
-                    columns: Column[];
-                    object: typeof Object;
-                };
-                release: () => void;
-            }
-        }
+        class DataAdapter extends _DataAdapter {}
         const Debug: {
-            /**
-             * Allows for runtime registration of handler functions that override the default deprecation behavior.
-             * Deprecations are invoked by calls to [Ember.deprecate](http://emberjs.com/api/classes/Ember.html#method_deprecate).
-             * The following example demonstrates its usage by registering a handler that throws an error if the
-             * message contains the word "should", otherwise defers to the default handler.
-             */
-            registerDeprecationHandler(handler: (message: string, options: { id: string, until: string }, next: () => void) => void): void;
-            /**
-             * Allows for runtime registration of handler functions that override the default warning behavior.
-             * Warnings are invoked by calls made to [Ember.warn](http://emberjs.com/api/classes/Ember.html#method_warn).
-             * The following example demonstrates its usage by registering a handler that does nothing overriding Ember's
-             * default warning behavior.
-             */
-            registerWarnHandler(handler: (message: string, options: { id: string }, next: () => void) => void): void;
+            registerDeprecationHandler: typeof EmberDebugNs.registerDeprecationHandler;
+            registerWarnHandler: typeof EmberDebugNs.registerWarnHandler;
         };
         /**
          * The DefaultResolver defines the default lookup rules to resolve
@@ -740,55 +599,9 @@ declare module 'ember' {
             after?: string[];
             initialize(application: T): void;
         }
-        /**
-         * The `Engine` class contains core functionality for both applications and
-         * engines.
-         */
-        class Engine extends Namespace.extend(_RegistryProxyMixin) {
-            /**
-             * The goal of initializers should be to register dependencies and injections.
-             * This phase runs once. Because these initializers may load code, they are
-             * allowed to defer application readiness and advance it. If you need to access
-             * the container or store you should use an InstanceInitializer that will be run
-             * after all initializers and therefore after all code is loaded and the app is
-             * ready.
-             */
-            static initializer(initializer: Initializer<Engine>): void;
-            /**
-             * Instance initializers run after all initializers have run. Because
-             * instance initializers run after the app is fully set up. We have access
-             * to the store, container, and other items. However, these initializers run
-             * after code has loaded and are not allowed to defer readiness.
-             */
-            static instanceInitializer(instanceInitializer: Initializer<EngineInstance>): void;
-            /**
-             * Set this to provide an alternate class to `Ember.DefaultResolver`
-             */
-            resolver: Resolver;
-            /**
-             * Create an EngineInstance for this Engine.
-             */
-            buildInstance(options?: object): EngineInstance;
-        }
-        /**
-         * The `EngineInstance` encapsulates all of the stateful aspects of a
-         * running `Engine`.
-         */
-        class EngineInstance extends Object.extend(
-            _RegistryProxyMixin,
-            _ContainerProxyMixin
-        ) {
-            /**
-             * Unregister a factory.
-             */
-            unregister(fullName: string): any;
 
-            /**
-             *  Initialize the `EngineInstance` and return a promise that resolves
-             *  with the instance itself when the boot process is complete.
-             */
-            boot(): Promise<EngineInstance>;
-        }
+        class EngineInstance extends EmberEngineInstanceNs.default {}
+        class Engine extends EmberEngineNs.default {}
 
         /**
          * A subclass of the JavaScript Error object for use in Ember.
@@ -1930,14 +1743,8 @@ declare module 'ember' {
             test: boolean,
             options?: { id?: string; until?: string }
         ): any;
-        /**
-         * Define an assertion that will throw an exception if the condition is not met.
-         */
-        function assert(desc: string, test?: boolean): void | never;
-        /**
-         * Display a debug notice.
-         */
-        function debug(message: string): void;
+        const assert: typeof EmberDebugNs.assert;
+        const debug: typeof EmberDebugNs.debug;
         const defineProperty: typeof EmberObjectNs.defineProperty;
         /**
          * Alias an old, deprecated method with its new counterpart.
@@ -1954,23 +1761,9 @@ declare module 'ember' {
             message: string,
             func: Func
         ): Func;
-        /**
-         * Run a function meant for debugging.
-         */
-        function runInDebug(func: () => any): void;
-        /**
-         * Display a warning with the provided message.
-         */
-        function warn(message: string, test: boolean, options: { id: string }): void;
-        function warn(message: string, options: { id: string }): void;
-        /**
-         * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
-         */
-        function warn(message: string, test: boolean, options?: { id?: string }): void;
-        /**
-         * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
-         */
-        function warn(message: string, options?: { id?: string }): void;
+
+        export const runInDebug: typeof EmberDebugNs.runInDebug;
+        export const warn: typeof EmberDebugNs.warn;
         /**
          * Global helper method to create a new binding. Just pass the root object
          * along with a `to` and `from` path to create and connect the binding.
@@ -2035,11 +1828,7 @@ declare module 'ember' {
          */
         function keys(o: any): string[];
         const guidFor: typeof EmberObjectInternalsNs.guidFor;
-        /**
-         * Convenience method to inspect an object. This method will attempt to
-         * convert the object into a useful string description.
-         */
-        function inspect(obj: any): string;
+        const inspect: typeof EmberDebugNs.inspect;
         const tryInvoke: typeof EmberUtilsNs.tryInvoke;
         /**
          * Framework objects in an Ember application (components, services, routes, etc.)
@@ -2295,37 +2084,26 @@ declare module '@ember/controller' {
     export interface Registry {}
 }
 
-declare module '@ember/debug' {
-    import Ember from 'ember';
-    export const assert: typeof Ember.assert;
-    export const debug: typeof Ember.debug;
-    export const inspect: typeof Ember.inspect;
-    export const registerDeprecationHandler: typeof Ember.Debug.registerDeprecationHandler;
-    export const registerWarnHandler: typeof Ember.Debug.registerWarnHandler;
-    export const runInDebug: typeof Ember.runInDebug;
-    export const warn: typeof Ember.warn;
-}
+// declare module '@ember/debug' {
+//     import Ember from 'ember';
+//     export const assert: typeof Ember.assert;
+//     export const debug: typeof Ember.debug;
+//     export const inspect: typeof Ember.inspect;
+//     export const registerDeprecationHandler: typeof Ember.Debug.registerDeprecationHandler;
+//     export const registerWarnHandler: typeof Ember.Debug.registerWarnHandler;
+//     export const runInDebug: typeof Ember.runInDebug;
+//     export const warn: typeof Ember.warn;
+// }
 
-declare module '@ember/debug/container-debug-adapter' {
-    import Ember from 'ember';
-    export default class ContainerDebugAdapter extends Ember.ContainerDebugAdapter { }
-}
+// declare module '@ember/debug/container-debug-adapter' {
+//     import Ember from 'ember';
+//     export default class ContainerDebugAdapter extends Ember.ContainerDebugAdapter { }
+// }
 
-declare module '@ember/debug/data-adapter' {
-    import Ember from 'ember';
-    export default class DataAdapter extends Ember.DataAdapter { }
-}
-
-declare module '@ember/engine' {
-    import Ember from 'ember';
-    export default class Engine extends Ember.Engine { }
-    export const getEngineParent: typeof Ember.getEngineParent;
-}
-
-declare module '@ember/engine/instance' {
-    import Ember from 'ember';
-    export default class EngineInstance extends Ember.EngineInstance { }
-}
+// declare module '@ember/debug/data-adapter' {
+//     import Ember from 'ember';
+//     export default class DataAdapter extends Ember.DataAdapter { }
+// }
 
 declare module '@ember/error' {
     import Ember from 'ember';
