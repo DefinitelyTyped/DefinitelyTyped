@@ -16,16 +16,22 @@ import * as url from "url";
 
 import { Response as NodeResponse } from "node-fetch";
 
-import { SingletonRouter, DefaultQuery } from './router';
+import { SingletonRouter, DefaultQuery } from "./router";
 
 declare namespace next {
     // Deprecated
     type QueryStringMapObject = DefaultQuery;
+    type ServerConfig = NextConfig;
+    // End Deprecated
+
+    type UrlLike = url.UrlObject | url.Url;
 
     /**
      * Context object used in methods like `getInitialProps()`
      * https://github.com/zeit/next.js/blob/6.1.1/server/render.js#L77
      * https://github.com/zeit/next.js/blob/6.1.1/readme.md#fetching-data-and-component-lifecycle
+     *
+     * @template Q Query object schema.
      */
     interface NextContext<Q = DefaultQuery> {
         /** path section of URL */
@@ -44,19 +50,11 @@ declare namespace next {
         err?: Error;
     }
 
-    type NextSFC<TProps = {}, Q = DefaultQuery> = NextStatelessComponent<TProps, Q>;
-    interface NextStatelessComponent<TProps = {}, Q = DefaultQuery>
-        extends React.StatelessComponent<TProps> {
-        getInitialProps?: (ctx: NextContext<Q>) => Promise<TProps>;
-    }
-
-    type UrlLike = url.UrlObject | url.Url;
-
     /**
      * Next.js config schema.
      * https://github.com/zeit/next.js/blob/6.1.1/server/config.js#L10
      */
-    interface ServerConfig {
+    interface NextConfig {
         webpack?: any;
         webpackDevMiddleware?: any;
         poweredByHeader?: boolean;
@@ -83,7 +81,7 @@ declare namespace next {
         dev?: boolean;
         staticMarkup?: boolean;
         quiet?: boolean;
-        conf?: ServerConfig;
+        conf?: NextConfig;
     }
 
     /**
@@ -97,7 +95,7 @@ declare namespace next {
         quiet: boolean;
         router: SingletonRouter;
         http: null | http.Server;
-        nextConfig: ServerConfig;
+        nextConfig: NextConfig;
         distDir: string;
         buildId: string;
         hotReloader: any;
@@ -114,7 +112,7 @@ declare namespace next {
 
         getHotReloader(
             dir: string,
-            options: { quiet: boolean; config: ServerConfig; buildId: string }
+            options: { quiet: boolean; config: NextConfig; buildId: string }
         ): any;
         handleRequest(
             req: http.IncomingMessage,
@@ -132,11 +130,7 @@ declare namespace next {
         close(): Promise<void>;
         defineRoutes(): Promise<void>;
         start(): Promise<void>;
-        run(
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            parsedUrl: UrlLike
-        ): Promise<void>;
+        run(req: http.IncomingMessage, res: http.ServerResponse, parsedUrl: UrlLike): Promise<void>;
 
         render(
             req: http.IncomingMessage,
@@ -181,6 +175,49 @@ declare namespace next {
         handleBuildId(buildId: string, res: http.ServerResponse): boolean;
         getCompilationError(): Promise<any>;
         send404(res: http.ServerResponse): void;
+    }
+
+    /**
+     * Next.js counterpart of React.ComponentType.
+     * Specially useful in HOCs that receive Next.js components.
+     *
+     * @template P Component props.
+     * @template IP Initial props returned from getInitialProps.
+     * @template C Context passed to getInitialProps.
+     */
+    type NextComponentType<P = {}, IP = P, C = NextContext> =
+        | NextComponentClass<P, IP, C>
+        | NextStatelessComponent<P, IP, C>;
+
+    /**
+     * Next.js counterpart of React.SFC/React.StatelessComponent.
+     *
+     * @template P Component props.
+     * @template IP Initial props returned from getInitialProps.
+     * @template C Context passed to getInitialProps.
+     */
+    type NextSFC<P = {}, IP = P, C = NextContext> = NextStatelessComponent<P, IP, C>;
+    type NextStatelessComponent<P = {}, IP = P, C = NextContext> = React.StatelessComponent<P> &
+        NextStaticLifecycle<IP, C>;
+
+    /**
+     * Next.js counterpart of React.ComponentClass.
+     *
+     * @template P Component props.
+     * @template IP Initial props returned from getInitialProps.
+     * @template C Context passed to getInitialProps.
+     */
+    type NextComponentClass<P = {}, IP = P, C = NextContext> = React.ComponentClass<P> &
+        NextStaticLifecycle<IP, C>;
+
+    /**
+     * Next.js specific lifecycle methods.
+     *
+     * @template IP Initial props returned from getInitialProps and passed to the component.
+     * @template C Context passed to getInitialProps.
+     */
+    interface NextStaticLifecycle<IP, C> {
+        getInitialProps?: (ctx: C) => Promise<IP> | IP;
     }
 }
 
