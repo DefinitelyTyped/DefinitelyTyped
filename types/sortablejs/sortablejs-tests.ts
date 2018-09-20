@@ -2,9 +2,9 @@
 import Sortable = require("sortablejs");
 
 
-var simpleList = document.getElementById('list');
+var simpleList = document.createElement('ul');
 var list = simpleList;
-var el = document.getElementById('el');
+var el = document.createElement('div');
 var sortable = new Sortable(simpleList, {});
 var order = sortable.toArray();
 var angular: any;
@@ -86,7 +86,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(value: any
 (function() {
     'use strict';
 
-    var byId = function(id: string) { return document.getElementById(id); },
+    var byId = function(id: string) { return document.getElementById(id)!; },
 
         loadScripts = function(desc: any, callback: any) {
             var deps: string[] = [];
@@ -172,7 +172,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(value: any
         animation: 150,
         filter: '.js-remove',
         onFilter: function(evt) {
-            evt.item.parentNode.removeChild(evt.item);
+            evt.item.parentNode!.removeChild(evt.item);
         }
     });
 
@@ -279,7 +279,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(value: any
 document.addEventListener("DOMContentLoaded", function() {
     function setNoiseBackground(el: any, width: number, height: number, opacity: number) {
         var canvas = document.createElement("canvas");
-        var context = canvas.getContext("2d");
+        var context = canvas.getContext("2d")!;
 
         canvas.width = width;
         canvas.height = height;
