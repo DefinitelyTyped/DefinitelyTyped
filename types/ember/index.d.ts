@@ -19,6 +19,7 @@
 /// <reference types="ember__object" />
 /// <reference types="ember__utils" />
 /// <reference types="ember__engine" />
+/// <reference types="ember__debug" />
 
 declare module 'ember' {
     import {
@@ -48,6 +49,10 @@ declare module 'ember' {
     import * as EmberObjectComputedNs from '@ember/object/computed';
     import * as EmberObjectEventedNs from '@ember/object/evented';
     import * as EmberObjectEventsNs from '@ember/object/events';
+    // @ember/debug
+    import * as EmberDebugNs from '@ember/debug';
+    import _ContainerDebugAdapter from '@ember/debug/container-debug-adapter';
+    import _DataAdapter from '@ember/debug/data-adapter';
     // @ember/engine
     import * as EmberEngineNs from '@ember/engine';
     import * as EmberEngineInstanceNs from '@ember/engine/instance';
@@ -626,15 +631,7 @@ declare module 'ember' {
              */
             factoryFor(fullName: string, options?: {}): any;
         }
-        /**
-         * The ContainerDebugAdapter helps the container and resolver interface
-         * with tools that debug Ember such as the Ember Inspector for Chrome and Firefox.
-         */
-        class ContainerDebugAdapter extends Object {
-            resolver: Resolver;
-            canCatalogEntriesByType(type: string): boolean;
-            catalogEntriesByType(type: string): string[];
-        }
+        class ContainerDebugAdapter extends _ContainerDebugAdapter {}
         /**
          * Additional methods for the Controller.
          */
@@ -671,79 +668,10 @@ declare module 'ember' {
         // TODO: replace with a proper ES6 reexport once we remove declare module 'ember' {}
         class Object extends EmberObjectNs.default {}
         class CoreObject extends EmberCoreObject {}
-        /**
-         * The `DataAdapter` helps a data persistence library
-         * interface with tools that debug Ember such as Chrome and Firefox.
-         */
-        class DataAdapter extends Object {
-            /**
-             * The container-debug-adapter which is used
-             * to list all models.
-             */
-            containerDebugAdapter: ContainerDebugAdapter;
-            /**
-             * Ember Data > v1.0.0-beta.18
-             * requires string model names to be passed
-             * around instead of the actual factories.
-             */
-            acceptsModelName: boolean;
-            /**
-             * Specifies how records can be filtered.
-             * Records returned will need to have a `filterValues`
-             * property with a key for every name in the returned array.
-             */
-            getFilters(): DataAdapter.Column[];
-            /**
-             * Fetch the model types and observe them for changes.
-             */
-            watchModelTypes(
-                typesAdded: (types: DataAdapter.WrappedType[]) => void,
-                typesUpdated: (types: DataAdapter.WrappedType[]) => void
-            ): () => void;
-            /**
-             * Fetch the records of a given type and observe them for changes.
-             */
-            watchRecords(
-                modelName: string,
-                recordsAdded: (records: DataAdapter.WrappedRecord[]) => void,
-                recordsUpdated: (records: DataAdapter.WrappedRecord[]) => void,
-                recordsRemoved: (idx: number, count: number) => void
-            ): () => void;
-        }
-        namespace DataAdapter {
-            interface Column {
-                name: string;
-                desc: string;
-            }
-            interface WrappedRecord {
-                columnValues: object;
-                object: object;
-            }
-            interface WrappedType {
-                type: {
-                    name: string;
-                    count: number;
-                    columns: Column[];
-                    object: typeof Object;
-                };
-                release: () => void;
-            }
-        }
+        class DataAdapter extends _DataAdapter {}
         const Debug: {
-            /**
-             * Allows for runtime registration of handler functions that override the default deprecation behavior.
-             * Deprecations are invoked by calls to [Ember.deprecate](http://emberjs.com/api/classes/Ember.html#method_deprecate).
-             * The following example demonstrates its usage by registering a handler that throws an error if the
-             * message contains the word "should", otherwise defers to the default handler.
-             */
-            registerDeprecationHandler(handler: (message: string, options: { id: string, until: string }, next: () => void) => void): void;
-            /**
-             * Allows for runtime registration of handler functions that override the default warning behavior.
-             * Warnings are invoked by calls made to [Ember.warn](http://emberjs.com/api/classes/Ember.html#method_warn).
-             * The following example demonstrates its usage by registering a handler that does nothing overriding Ember's
-             * default warning behavior.
-             */
-            registerWarnHandler(handler: (message: string, options: { id: string }, next: () => void) => void): void;
+            registerDeprecationHandler: typeof EmberDebugNs.registerDeprecationHandler;
+            registerWarnHandler: typeof EmberDebugNs.registerWarnHandler;
         };
         /**
          * The DefaultResolver defines the default lookup rules to resolve
@@ -2169,14 +2097,8 @@ declare module 'ember' {
             test: boolean,
             options?: { id?: string; until?: string }
         ): any;
-        /**
-         * Define an assertion that will throw an exception if the condition is not met.
-         */
-        function assert(desc: string, test?: boolean): void | never;
-        /**
-         * Display a debug notice.
-         */
-        function debug(message: string): void;
+        const assert: typeof EmberDebugNs.assert;
+        const debug: typeof EmberDebugNs.debug;
         const defineProperty: typeof EmberObjectNs.defineProperty;
         /**
          * Alias an old, deprecated method with its new counterpart.
@@ -2193,23 +2115,9 @@ declare module 'ember' {
             message: string,
             func: Func
         ): Func;
-        /**
-         * Run a function meant for debugging.
-         */
-        function runInDebug(func: () => any): void;
-        /**
-         * Display a warning with the provided message.
-         */
-        function warn(message: string, test: boolean, options: { id: string }): void;
-        function warn(message: string, options: { id: string }): void;
-        /**
-         * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
-         */
-        function warn(message: string, test: boolean, options?: { id?: string }): void;
-        /**
-         * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
-         */
-        function warn(message: string, options?: { id?: string }): void;
+
+        export const runInDebug: typeof EmberDebugNs.runInDebug;
+        export const warn: typeof EmberDebugNs.warn;
         /**
          * Global helper method to create a new binding. Just pass the root object
          * along with a `to` and `from` path to create and connect the binding.
@@ -2287,11 +2195,7 @@ declare module 'ember' {
          */
         function keys(o: any): string[];
         const guidFor: typeof EmberObjectInternalsNs.guidFor;
-        /**
-         * Convenience method to inspect an object. This method will attempt to
-         * convert the object into a useful string description.
-         */
-        function inspect(obj: any): string;
+        const inspect: typeof EmberDebugNs.inspect;
         const tryInvoke: typeof EmberUtilsNs.tryInvoke;
         /**
          * Framework objects in an Ember application (components, services, routes, etc.)
@@ -2568,26 +2472,26 @@ declare module '@ember/controller' {
     export interface Registry {}
 }
 
-declare module '@ember/debug' {
-    import Ember from 'ember';
-    export const assert: typeof Ember.assert;
-    export const debug: typeof Ember.debug;
-    export const inspect: typeof Ember.inspect;
-    export const registerDeprecationHandler: typeof Ember.Debug.registerDeprecationHandler;
-    export const registerWarnHandler: typeof Ember.Debug.registerWarnHandler;
-    export const runInDebug: typeof Ember.runInDebug;
-    export const warn: typeof Ember.warn;
-}
+// declare module '@ember/debug' {
+//     import Ember from 'ember';
+//     export const assert: typeof Ember.assert;
+//     export const debug: typeof Ember.debug;
+//     export const inspect: typeof Ember.inspect;
+//     export const registerDeprecationHandler: typeof Ember.Debug.registerDeprecationHandler;
+//     export const registerWarnHandler: typeof Ember.Debug.registerWarnHandler;
+//     export const runInDebug: typeof Ember.runInDebug;
+//     export const warn: typeof Ember.warn;
+// }
 
-declare module '@ember/debug/container-debug-adapter' {
-    import Ember from 'ember';
-    export default class ContainerDebugAdapter extends Ember.ContainerDebugAdapter { }
-}
+// declare module '@ember/debug/container-debug-adapter' {
+//     import Ember from 'ember';
+//     export default class ContainerDebugAdapter extends Ember.ContainerDebugAdapter { }
+// }
 
-declare module '@ember/debug/data-adapter' {
-    import Ember from 'ember';
-    export default class DataAdapter extends Ember.DataAdapter { }
-}
+// declare module '@ember/debug/data-adapter' {
+//     import Ember from 'ember';
+//     export default class DataAdapter extends Ember.DataAdapter { }
+// }
 
 declare module '@ember/error' {
     import Ember from 'ember';
