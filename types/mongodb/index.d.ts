@@ -209,17 +209,18 @@ export class MongoError extends Error {
     constructor(message: string);
     static create(options: Object): MongoError;
     code?: number;
-    // While not documented, the 'errmsg' prop is AFAIK the only way to find out
-    // which unique index caused a duplicate key error. When you have multiple
-    // unique indexes on a collection, knowing which index caused a duplicate
-    // key error enables you to send better (more precise) error messages to the
-    // client/user (eg. "Email address must be unique" instead of "Both email
-    // address and username must be unique") - which caters for a better (app)
-    // user experience.
-    // 
-    // Details:
-    // https://github.com/Automattic/mongoose/issues/2129 (issue for mongoose,
-    // but the same applies for the mongodb native driver)
+    /**
+     * While not documented, the 'errmsg' prop is AFAIK the only way to find out
+     * which unique index caused a duplicate key error. When you have multiple
+     * unique indexes on a collection, knowing which index caused a duplicate
+     * key error enables you to send better (more precise) error messages to the
+     * client/user (eg. "Email address must be unique" instead of "Both email
+     * address and username must be unique") - which caters for a better (app)
+     * user experience.
+     * 
+     * Details: https://github.com/Automattic/mongoose/issues/2129 (issue for
+     * mongoose, but the same applies for the native mongodb driver)
+     */
     errmsg?: string;
 }
 
