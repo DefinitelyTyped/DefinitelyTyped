@@ -8,6 +8,25 @@ export = Sortable;
 export as namespace Sortable;
 
 declare namespace Sortablejs {
+    interface SortableEvent extends ExtendableEventInit {
+        clone: HTMLElement;
+        from: HTMLElement;
+        item: HTMLElement;
+        newIndex: number | undefined;
+        oldIndex: number | undefined;
+        to: HTMLElement;
+    }
+
+    interface SortableMoveEvent extends ExtendableEventInit {
+        dragged: HTMLElement;
+        draggedRect: DOMRect;
+        from: HTMLElement;
+        related: HTMLElement;
+        relatedRect: DOMRect;
+        to: HTMLElement;
+        willInsertAfter?: boolean;
+    }
+
     interface SortableOptions {
         group?: any;
         sort?: boolean;
@@ -31,14 +50,14 @@ declare namespace Sortablejs {
         scrollSensitivity?: number;
         scrollSpeed?: number;
         setData?: (dataTransfer: any, draggedElement: any) => any;
-        onStart?: (event: any) => any;
-        onEnd?: (event: any) => any;
-        onAdd?: (event: any) => any;
-        onUpdate?: (event: any) => any;
-        onSort?: (event: any) => any;
-        onRemove?: (event: any) => any;
-        onFilter?: (event: any) => any;
-        onMove?: (event: any) => boolean;
+        onStart?: (event: SortableEvent) => void;
+        onEnd?: (event: SortableEvent) => void;
+        onAdd?: (event: SortableEvent) => void;
+        onUpdate?: (event: SortableEvent) => void;
+        onSort?: (event: SortableEvent) => void;
+        onRemove?: (event: SortableEvent) => void;
+        onFilter?: (event: SortableEvent) => void;
+        onMove?: (event: SortableMoveEvent) => boolean;
     }
 
     interface SortableUtils {
