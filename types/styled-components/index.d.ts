@@ -7,6 +7,7 @@
 // TypeScript Version: 2.8
 
 /// <reference types="node" />
+/// <reference lib="dom" />
 
 import * as React from 'react';
 
@@ -195,7 +196,7 @@ export class StyleSheet {}
 
 interface StyleSheetManagerProps {
     sheet?: StyleSheet;
-    target?: HTMLElement | null;
+    target?: Node;
 }
 
 export class StyleSheetManager extends React.Component<
