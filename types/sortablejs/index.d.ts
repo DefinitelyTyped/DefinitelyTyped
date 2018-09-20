@@ -3,12 +3,72 @@
 // Definitions by: Maw-Fox <https://github.com/Maw-Fox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Sortable = Sortablejs.Sortable;
 export = Sortable;
-export as namespace Sortable;
 
-declare namespace Sortablejs {
-    interface SortableEvent extends Event {
+declare class Sortable {
+    public options: Sortable.Options;
+    public el: HTMLElement;
+
+    /**
+     * Sortable's main constructor.
+     * @param {HTMLElement} element Any variety of HTMLElement.
+     * @param {Sortable.Options} options Sortable options object.
+     */
+    constructor(element: HTMLElement, options: Sortable.Options);
+
+    static active: Sortable;
+    static utils: Sortable.Utils;
+
+    /**
+     * Creation of new instances.
+     * @param {HTMLElement} element Any variety of HTMLElement.
+     * @param {Sortable.Options} options Sortable options object.
+     * @returns {Sortable}
+     */
+    static create(element: HTMLElement, options: Sortable.Options): Sortable;
+
+    /**
+     * Options getter/setter
+     * @param {string} name a Sortable.Options property.
+     * @param {*} [value] a Value.
+     * @returns {*}
+     */
+    option<K extends keyof Sortable.Options>(name: K, value: Sortable.Options[K]): void;
+    option<K extends keyof Sortable.Options>(name: K): Sortable.Options[K];
+
+    /**
+     * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
+     * @param {string|HTMLElement} element an HTMLElement or selector string.
+     * @param   {String}       [selector]  default: `options.draggable`
+     * @returns {HTMLElement}
+     */
+    closest(element: HTMLElement, selector?: string): HTMLElement | null;
+
+    /**
+     * Sorts the elements according to the array.
+     * @param {string[]} order an array of strings to sort.
+     */
+    sort(order: string[]): void;
+
+    /**
+     * Saving and restoring of the sort.
+     */
+    save(): void;
+
+    /**
+     * Removes the sortable functionality completely.
+     */
+    destroy(): void;
+
+    /**
+     * Serializes the sortable's item data-id's (dataIdAttr option) into an array of string.
+     * @returns {string[]}
+     */
+    toArray(): string[];
+}
+
+declare namespace Sortable {
+    export interface SortableEvent extends Event {
         clone: HTMLElement;
         from: HTMLElement;
         item: HTMLElement;
@@ -18,7 +78,7 @@ declare namespace Sortablejs {
         to: HTMLElement;
     }
 
-    interface SortableMoveEvent extends Event {
+    export interface MoveEvent extends Event {
         dragged: HTMLElement;
         draggedRect: DOMRect;
         from: HTMLElement;
@@ -28,7 +88,7 @@ declare namespace Sortablejs {
         willInsertAfter?: boolean;
     }
 
-    interface SortableOptions {
+    export interface Options {
         group?: any;
         sort?: boolean;
         delay?: number;
@@ -58,10 +118,10 @@ declare namespace Sortablejs {
         onSort?: (event: SortableEvent) => void;
         onRemove?: (event: SortableEvent) => void;
         onFilter?: (event: SortableEvent) => void;
-        onMove?: (event: SortableMoveEvent) => boolean;
+        onMove?: (event: MoveEvent) => boolean;
     }
 
-    interface SortableUtils {
+    interface Utils {
         /**
          * Attach an event handler function
          * @param {HTMLElement} element an HTMLElement.
@@ -151,76 +211,14 @@ declare namespace Sortablejs {
         toggleClass(element: HTMLElement, name: string, state: boolean): void;
     }
 
-    class DOMRect {
-        public bottom: number;
-        public height: number;
-        public left: number;
-        public right: number;
-        public top: number;
-        public width: number;
-        public x: number;
-        public y: number;
-    }
-
-    class Sortable {
-        public options: SortableOptions;
-        public el: HTMLElement;
-
-        /**
-         * Sortable's main constructor.
-         * @param {HTMLElement} element Any variety of HTMLElement.
-         * @param {SortableOptions} options Sortable options object.
-         */
-        constructor(element: HTMLElement, options: SortableOptions);
-
-        static active: Sortable;
-        static utils: SortableUtils;
-
-        /**
-         * Creation of new instances.
-         * @param {HTMLElement} element Any variety of HTMLElement.
-         * @param {SortableOptions} options Sortable options object.
-         * @returns {Sortable}
-         */
-        static create(element: HTMLElement, options: SortableOptions): Sortable;
-
-        /**
-         * Options getter/setter
-         * @param {string} name a SortableOptions property.
-         * @param {*} [value] a Value.
-         * @returns {*}
-         */
-        option<K extends keyof SortableOptions>(name: K, value: SortableOptions[K]): void;
-        option<K extends keyof SortableOptions>(name: K): SortableOptions[K];
-
-        /**
-         * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
-         * @param {string|HTMLElement} element an HTMLElement or selector string.
-         * @param   {String}       [selector]  default: `options.draggable`
-         * @returns {HTMLElement}
-         */
-        closest(element: HTMLElement, selector?: string): HTMLElement | null;
-
-        /**
-         * Sorts the elements according to the array.
-         * @param {string[]} order an array of strings to sort.
-         */
-        sort(order: string[]): void;
-
-        /**
-         * Saving and restoring of the sort.
-         */
-        save(): void;
-
-        /**
-         * Removes the sortable functionality completely.
-         */
-        destroy(): void;
-
-        /**
-         * Serializes the sortable's item data-id's (dataIdAttr option) into an array of string.
-         * @returns {string[]}
-         */
-        toArray(): string[];
+    interface DOMRect {
+        bottom: number;
+        height: number;
+        left: number;
+        right: number;
+        top: number;
+        width: number;
+        x: number;
+        y: number;
     }
 }
