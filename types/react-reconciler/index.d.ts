@@ -7,7 +7,7 @@
 import { Component, ReactNode } from 'react';
 
 declare function ReactReconciler<Type, Props, Container, Instance, TextInstance, HydratableInstance, PublicInstance, HostContext, UpdatePayload, ChildSet, TimeoutHandle, NoTimeout>(
-    // eslint-disable-next-line no-unnecessary-generics
+    // tslint:disable-next-line:no-unnecessary-generics
     config: ReactReconciler.HostConfig<Type, Props, Container, Instance, TextInstance, HydratableInstance, PublicInstance, HostContext, UpdatePayload, ChildSet, TimeoutHandle, NoTimeout>,
 ): ReactReconciler.Reconciler<Instance, TextInstance, Container, PublicInstance>;
 
