@@ -50,7 +50,7 @@ declare class Sortable {
      * Sorts the elements according to the array.
      * @param {string[]} order an array of strings to sort.
      */
-    sort(order: string[]): void;
+    sort(order: ReadonlyArray<string>): void;
 
     /**
      * Saving and restoring of the sort.
@@ -120,7 +120,7 @@ declare namespace Sortable {
         /**
          * whether elements can be added from other lists, or an array of group names from which elements can be taken.
          */
-        put?: boolean | string | string[] | ((to: Sortable) => boolean);
+        put?: boolean | string | ReadonlyArray<string> | ((to: Sortable) => boolean);
         /**
          * revert cloned element to initial position after moving to a another list.
          */
