@@ -22,6 +22,7 @@
 /// <reference types="ember__engine" />
 /// <reference types="ember__debug" />
 /// <reference types="ember__controller" />
+/// <reference types="ember__component" />
 
 declare module 'ember' {
     import {
@@ -79,6 +80,11 @@ declare module 'ember' {
 
     type EmberArray<T> = EmberArrayNs.default<T>;
     import EmberActionHandler from '@ember/object/-private/action-handler';
+    import EmberComponent from '@ember/component';
+    import EmberTextArea from '@ember/component/text-area';
+    import EmberTextField from '@ember/component/text-field';
+    import EmberCheckbox from '@ember/component/checkbox';
+    import EmberHelper from '@ember/component/helper';
 
     type Mix<A, B> = B & Pick<A, Exclude<keyof A, keyof B>>;
     type Mix3<A, B, C> = Mix<Mix<A, B>, C>;
@@ -160,114 +166,12 @@ declare module 'ember' {
         [event: string]: string | null | undefined;
     }
 
-    interface ViewMixin {
-        /**
-         * A list of properties of the view to apply as attributes. If the property
-         * is a string value, the value of that string will be applied as the value
-         * for an attribute of the property's name.
-         */
-        attributeBindings: string[];
-        /**
-         * Returns the current DOM element for the view.
-         */
-        element: Element;
-        /**
-         * Returns a jQuery object for this view's element. If you pass in a selector
-         * string, this method will return a jQuery object, using the current element
-         * as its buffer.
-         */
-        $: JQueryStatic;
-        /**
-         * The HTML `id` of the view's element in the DOM. You can provide this
-         * value yourself but it must be unique (just as in HTML):
-         */
-        elementId: string;
-        /**
-         * Tag name for the view's outer element. The tag name is only used when an
-         * element is first created. If you change the `tagName` for an element, you
-         * must destroy and recreate the view element.
-         */
-        tagName: string;
-        /**
-         * Renders the view again. This will work regardless of whether the
-         * view is already in the DOM or not. If the view is in the DOM, the
-         * rendering process will be deferred to give bindings a chance
-         * to synchronize.
-         */
-        rerender(): void;
-        /**
-         * Called when a view is going to insert an element into the DOM.
-         */
-        willInsertElement(): void;
-        /**
-         * Called when the element of the view has been inserted into the DOM.
-         * Override this function to do any set up that requires an element
-         * in the document body.
-         */
-        didInsertElement(): void;
-        /**
-         * Called when the view is about to rerender, but before anything has
-         * been torn down. This is a good opportunity to tear down any manual
-         * observers you have installed based on the DOM state
-         */
-        willClearRender(): void;
-        /**
-         * Called when the element of the view is going to be destroyed. Override
-         * this function to do any teardown that requires an element, like removing
-         * event listeners.
-         */
-        willDestroyElement(): void;
-    }
-    const ViewMixin: EmberMixin<ViewMixin>;
-
     /**
      * Ember.CoreView is an abstract class that exists to give view-like behavior to both Ember's main
      * view class Ember.Component and other classes that don't need the full functionality of Ember.Component.
      * Unless you have specific needs for CoreView, you will use Ember.Component in your applications.
      */
     class CoreView extends Ember.Object.extend(Ember.Evented, Ember.ActionHandler) {}
-    interface ActionSupport {
-        sendAction(action: string, ...params: any[]): void;
-    }
-    const ActionSupport: EmberMixin<ActionSupport>;
-
-    interface ClassNamesSupport {
-        /**
-         * A list of properties of the view to apply as class names. If the property is a string value,
-         * the value of that string will be applied as a class name.
-         *
-         * If the value of the property is a Boolean, the name of that property is added as a dasherized
-         * class name.
-         *
-         * If you would prefer to use a custom value instead of the dasherized property name, you can
-         * pass a binding like this: `classNameBindings: ['isUrgent:urgent']`
-         *
-         * This list of properties is inherited from the component's superclasses as well.
-         */
-        classNameBindings: string[];
-        /**
-         * Standard CSS class names to apply to the view's outer element. This
-         * property automatically inherits any class names defined by the view's
-         * superclasses as well.
-         */
-        classNames: string[];
-    }
-    const ClassNamesSupport: EmberMixin<ClassNamesSupport>;
-
-    interface TriggerActionOptions {
-        action?: string;
-        target?: Ember.Object;
-        actionContext?: Ember.Object;
-    }
-    /**
-     * Ember.TargetActionSupport is a mixin that can be included in a class to add a triggerAction method
-     * with semantics similar to the Handlebars {{action}} helper. In normal Ember usage, the {{action}}
-     * helper is usually the best choice. This mixin is most often useful when you are doing more
-     * complex event handling in Components.
-     */
-    interface TargetActionSupport {
-        triggerAction(opts: TriggerActionOptions): boolean;
-    }
 
     export namespace Ember {
         const A: typeof EmberArrayNs.A;
@@ -285,6 +189,11 @@ declare module 'ember' {
         export const MutableEnumerable: typeof EmberMutableEnumerable;
         const ActionHandler: typeof EmberActionHandler;
         class Controller extends EmberControllerNs.default {}
+        export class Component extends EmberComponent {}
+        export class TextArea extends EmberTextArea {}
+        export class TextField extends EmberTextField {}
+        export class Checkbox extends EmberCheckbox {}
+        export class Helper extends EmberHelper {}
         interface FunctionPrototypeExtensions {
             /**
              * The `property` extension of Javascript's Function prototype is available
@@ -442,11 +351,6 @@ declare module 'ember' {
             toString(): string;
         }
         /**
-         * The internal class used to create text inputs when the {{input}} helper is used
-         * with type of checkbox. See Handlebars.helpers.input for usage details.
-         */
-        class Checkbox extends Component {}
-        /**
          * Implements some standard methods for comparing objects. Add this mixin to
          * any class you create that can compare its instances.
          */
@@ -454,79 +358,6 @@ declare module 'ember' {
             compare(a: any, b: any): number;
         }
         const Comparable: EmberMixin<Comparable>;
-        /**
-         * A view that is completely isolated. Property access in its templates go to the view object
-         * and actions are targeted at the view object. There is no access to the surrounding context or
-         * outer controller; all contextual information is passed in.
-         */
-        class Component extends CoreView.extend(ViewMixin, ActionSupport, ClassNamesSupport) {
-            // methods
-            readDOMAttr(name: string): string;
-            // properties
-            /**
-             * The WAI-ARIA role of the control represented by this view. For example, a button may have a
-             * role of type 'button', or a pane may have a role of type 'alertdialog'. This property is
-             * used by assistive software to help visually challenged users navigate rich web applications.
-             */
-            ariaRole: string;
-            /**
-             * The HTML id of the component's element in the DOM. You can provide this value yourself but
-             * it must be unique (just as in HTML):
-             *
-             * If not manually set a default value will be provided by the framework. Once rendered an
-             * element's elementId is considered immutable and you should never change it. If you need
-             * to compute a dynamic value for the elementId, you should do this when the component or
-             * element is being instantiated:
-             */
-            elementId: string;
-            /**
-             * If false, the view will appear hidden in DOM.
-             */
-            isVisible: boolean;
-            /**
-             * A component may contain a layout. A layout is a regular template but supersedes the template
-             * property during rendering. It is the responsibility of the layout template to retrieve the
-             * template property from the component (or alternatively, call Handlebars.helpers.yield,
-             * {{yield}}) to render it in the correct location. This is useful for a component that has a
-             * shared wrapper, but which delegates the rendering of the contents of the wrapper to the
-             * template property on a subclass.
-             */
-            layout: TemplateFactory | string;
-            /**
-             * Enables components to take a list of parameters as arguments.
-             */
-            static positionalParams: string[] | string;
-            // events
-            /**
-             * Called when the attributes passed into the component have been updated. Called both during the
-             * initial render of a container and during a rerender. Can be used in place of an observer; code
-             * placed here will be executed every time any attribute updates.
-             */
-            didReceiveAttrs(): void;
-            /**
-             * Called after a component has been rendered, both on initial render and in subsequent rerenders.
-             */
-            didRender(): void;
-            /**
-             * Called when the component has updated and rerendered itself. Called only during a rerender,
-             * not during an initial render.
-             */
-            didUpdate(): void;
-            /**
-             * Called when the attributes passed into the component have been changed. Called only during a
-             * rerender, not during an initial render.
-             */
-            didUpdateAttrs(): void;
-            /**
-             * Called before a component has been rendered, both on initial render and in subsequent rerenders.
-             */
-            willRender(): void;
-            /**
-             * Called when the component is about to update and rerender itself. Called only during a rerender,
-             * not during an initial render.
-             */
-            willUpdate(): void;
-        }
         export class ComputedProperty<Get, Set = Get> extends EmberObjectComputedNs.default<Get, Set> {}
         /**
          * A container used to instantiate and cache objects.
@@ -616,27 +447,7 @@ declare module 'ember' {
          * history.pushState API.
          */
         class HistoryLocation extends Object {}
-        /**
-         * Ember Helpers are functions that can compute values, and are used in templates.
-         * For example, this code calls a helper named `format-currency`:
-         */
-        class Helper extends Object {
-            /**
-             * In many cases, the ceremony of a full `Ember.Helper` class is not required.
-             * The `helper` method create pure-function helpers without instances. For
-             * example:
-             */
-            static helper(helper: (params: any[], hash?: object) => any): Helper;
-            /**
-             * Override this function when writing a class-based helper.
-             */
-            compute(params: any[], hash: object): any;
-            /**
-             * On a class-based helper, it may be useful to force a recomputation of that
-             * helpers value. This is akin to `rerender` on a component.
-             */
-            recompute(): any;
-        }
+
         /**
          * The purpose of the Ember Instrumentation module is
          * to provide efficient, general-purpose instrumentation
@@ -653,7 +464,7 @@ declare module 'ember' {
          * transition of the application's instance of `Ember.Router` to
          * a supplied route by name.
          */
-        class LinkComponent extends Component {
+        class LinkComponent extends EmberComponent {
             /**
              * Used to determine when this `LinkComponent` is active.
              */
@@ -1130,62 +941,6 @@ declare module 'ember' {
             ): void;
         }
         class Service extends Object {}
-        /**
-         * The internal class used to create textarea element when the `{{textarea}}`
-         * helper is used.
-         */
-        class TextArea extends Component.extend(TextSupport) {}
-        /**
-         * The internal class used to create text inputs when the `{{input}}`
-         * helper is used with `type` of `text`.
-         */
-        class TextField extends Component.extend(TextSupport) {
-            /**
-             * The `value` attribute of the input element. As the user inputs text, this
-             * property is updated live.
-             */
-            value: string;
-            /**
-             * The `type` attribute of the input element.
-             */
-            type: string;
-            /**
-             * The `size` of the text field in characters.
-             */
-            size: string;
-            /**
-             * The `pattern` attribute of input element.
-             */
-            pattern: string;
-            /**
-             * The `min` attribute of input element used with `type="number"` or `type="range"`.
-             */
-            min: string;
-            /**
-             * The `max` attribute of input element used with `type="number"` or `type="range"`.
-             */
-            max: string;
-        }
-        /**
-         * `TextSupport` is a shared mixin used by both `Ember.TextField` and
-         * `Ember.TextArea`. `TextSupport` adds a number of methods that allow you to
-         * specify a controller action to invoke when a certain event is fired on your
-         * text field or textarea. The specifed controller action would get the current
-         * value of the field passed in as the only argument unless the value of
-         * the field is empty. In that case, the instance of the field itself is passed
-         * in as the only argument.
-         */
-        interface TextSupport extends TargetActionSupport {
-            cancel(event: (...args: any[]) => any): void;
-            focusIn(event: (...args: any[]) => any): void;
-            focusOut(event: (...args: any[]) => any): void;
-            insertNewLine(event: (...args: any[]) => any): void;
-            keyPress(event: (...args: any[]) => any): void;
-            action: string;
-            bubbles: boolean;
-            onEvent: string;
-        }
-        const TextSupport: Mixin<TextSupport, Ember.Component>;
         interface Transition {
             /**
              * Aborts the Transition. Note you can also implicitly abort a transition
@@ -2002,45 +1757,6 @@ declare module '@ember/application/instance' {
 declare module '@ember/application/resolver' {
     import Ember from 'ember';
     export default class Resolver extends Ember.Resolver { }
-}
-
-declare module '@ember/component' {
-    import Ember from 'ember';
-    export default class Component extends Ember.Component { }
-}
-
-declare module '@ember/component/checkbox' {
-    import Ember from 'ember';
-    export default class Checkbox extends Ember.Checkbox { }
-}
-
-declare module '@ember/component/helper' {
-    import Ember from 'ember';
-    export default class Helper extends Ember.Helper { }
-    /**
-     * In many cases, the ceremony of a full `Helper` class is not required.
-     * The `helper` method create pure-function helpers without instances. For
-     * example:
-     * ```app/helpers/format-currency.js
-     * import { helper } from '@ember/component/helper';
-     * export default helper(function(params, hash) {
-     *   let cents = params[0];
-     *   let currency = hash.currency;
-     *   return `${currency}${cents * 0.01}`;
-     * });
-     * ```
-     */
-    export function helper(helperFn: (params: any[], hash?: any) => any): any;
-}
-
-declare module '@ember/component/text-area' {
-    import Ember from 'ember';
-    export default class TextArea extends Ember.TextArea { }
-}
-
-declare module '@ember/component/text-field' {
-    import Ember from 'ember';
-    export default class TextField extends Ember.TextField { }
 }
 
 declare module '@ember/error' {
