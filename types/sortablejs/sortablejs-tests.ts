@@ -197,7 +197,7 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(value: any
     },
         {
             name: 'advanced',
-            pull: 'clone',
+            pull: 'clone' as 'clone',
             put: false
         }, {
             name: 'advanced',
@@ -297,3 +297,62 @@ document.addEventListener("DOMContentLoaded", function() {
 
     setNoiseBackground(document.getElementsByTagName('body')[0], 50, 50, 0.02);
 }, false);
+
+Sortable.create(simpleList, {
+    group: 'foo',
+    animation: 100
+});
+
+Sortable.create(simpleList, {
+    group: 'bar',
+    animation: 100
+});
+
+Sortable.create(simpleList, {
+    group: {
+        name: 'qux',
+        put: ['foo', 'bar']
+    },
+    animation: 100
+});
+
+Sortable.create(simpleList, {
+    group: 'foo',
+    animation: 100
+});
+
+Sortable.create(simpleList, {
+    group: {
+        name: 'bar',
+        put: 'qux',
+        pull: function (to, from) {
+            return from.el.children.length > 2 || 'clone';
+        }
+    },
+    animation: 100
+});
+
+Sortable.create(simpleList, {
+    group: {
+        name: 'qux',
+        put: function (to) {
+            return to.el.children.length < 4;
+        }
+    },
+    animation: 100
+});
+
+Sortable.create(simpleList, {
+    animation: 200,
+    group: {
+        name: "shared",
+        pull: "clone",
+        revertClone: true,
+    },
+    sort: true
+});
+
+Sortable.create(simpleList, {
+    group: "shared",
+    sort: false
+});

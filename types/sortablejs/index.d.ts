@@ -88,8 +88,15 @@ declare namespace Sortable {
         willInsertAfter?: boolean;
     }
 
+    export interface GroupOptions {
+        name: string;
+        pull?: boolean | 'clone' | ((to: Sortable, from: Sortable) => boolean | string);
+        put?: boolean | string | string[] | ((to: Sortable) => boolean);
+        revertClone?: boolean;
+    }
+
     export interface Options {
-        group?: any;
+        group?: string | GroupOptions;
         sort?: boolean;
         delay?: number;
         disabled?: boolean;
