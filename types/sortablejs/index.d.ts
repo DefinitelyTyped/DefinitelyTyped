@@ -8,16 +8,17 @@ export = Sortable;
 export as namespace Sortable;
 
 declare namespace Sortablejs {
-    interface SortableEvent extends ExtendableEventInit {
+    interface SortableEvent extends Event {
         clone: HTMLElement;
         from: HTMLElement;
         item: HTMLElement;
         newIndex: number | undefined;
         oldIndex: number | undefined;
+        target: HTMLElement;
         to: HTMLElement;
     }
 
-    interface SortableMoveEvent extends ExtendableEventInit {
+    interface SortableMoveEvent extends Event {
         dragged: HTMLElement;
         draggedRect: DOMRect;
         from: HTMLElement;
@@ -67,7 +68,7 @@ declare namespace Sortablejs {
          * @param {string} event an Event context.
          * @param {Function} fn
          */
-        on(element: HTMLElement, event: string, fn: (event: any) => any): void;
+        on(element: HTMLElement, event: string, fn: EventListenerOrEventListenerObject): void;
 
         /**
          * Remove an event handler function
@@ -75,14 +76,14 @@ declare namespace Sortablejs {
          * @param {string} event an Event context.
          * @param {Function} fn a callback.
          */
-        off(element: HTMLElement, event: string, fn: (event: any) => any): void;
+        off(element: HTMLElement, event: string, fn: EventListenerOrEventListenerObject): void;
 
         /**
          * Get the values of all the CSS properties.
          * @param {HTMLElement} element an HTMLElement.
          * @returns {Object}
          */
-        css(element: HTMLElement): any;
+        css(element: HTMLElement): CSSStyleDeclaration;
 
         /**
          * Get the value of style properties.
@@ -90,7 +91,7 @@ declare namespace Sortablejs {
          * @param {string} prop a property key.
          * @returns {*}
          */
-        css(element: HTMLElement, prop: string): any;
+        css<K extends keyof CSSStyleDeclaration>(element: HTMLElement, prop: K): CSSStyleDeclaration[K];
 
         /**
          * Set one CSS property.
@@ -98,7 +99,7 @@ declare namespace Sortablejs {
          * @param {string} prop a property key.
          * @param {string} value a property value.
          */
-        css(element: HTMLElement, prop: string, value: string): void;
+        css<K extends keyof CSSStyleDeclaration>(element: HTMLElement, prop: K, value: CSSStyleDeclaration[K]): void;
 
         /**
          * Set CSS properties.
@@ -114,7 +115,7 @@ declare namespace Sortablejs {
          * @param {function} [iterator] An iterator.
          * @returns {HTMLElement[]}
          */
-        find(context: HTMLElement, tagName: string, iterator?: (value: any) => any): HTMLElement[];
+        find(context: HTMLElement, tagName: string, iterator?: (value: HTMLElement, index: number) => void): NodeListOf<HTMLElement>;
 
         /**
          * Takes a function and returns a new one that will always have a particular context.
@@ -189,8 +190,8 @@ declare namespace Sortablejs {
          * @param {*} [value] a Value.
          * @returns {*}
          */
-        option(name: string, value: any): any;
-        option(name: string): any;
+        option<K extends keyof SortableOptions>(name: K, value: SortableOptions[K]): void;
+        option<K extends keyof SortableOptions>(name: K): SortableOptions[K];
 
         /**
          * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
