@@ -49,7 +49,7 @@ declare namespace Sortablejs {
         scroll?: boolean;
         scrollSensitivity?: number;
         scrollSpeed?: number;
-        setData?: (dataTransfer: any, draggedElement: any) => any;
+        setData?: (dataTransfer: any, draggedElement: HTMLElement) => any;
         onStart?: (event: SortableEvent) => void;
         onEnd?: (event: SortableEvent) => void;
         onAdd?: (event: SortableEvent) => void;
@@ -67,7 +67,7 @@ declare namespace Sortablejs {
          * @param {string} event an Event context.
          * @param {Function} fn
          */
-        on(element: any, event: string, fn: (event: any) => any): void;
+        on(element: HTMLElement, event: string, fn: (event: any) => any): void;
 
         /**
          * Remove an event handler function
@@ -75,14 +75,14 @@ declare namespace Sortablejs {
          * @param {string} event an Event context.
          * @param {Function} fn a callback.
          */
-        off(element: any, event: string, fn: (event: any) => any): void;
+        off(element: HTMLElement, event: string, fn: (event: any) => any): void;
 
         /**
          * Get the values of all the CSS properties.
          * @param {HTMLElement} element an HTMLElement.
          * @returns {Object}
          */
-        css(element: any): any;
+        css(element: HTMLElement): any;
 
         /**
          * Get the value of style properties.
@@ -90,7 +90,7 @@ declare namespace Sortablejs {
          * @param {string} prop a property key.
          * @returns {*}
          */
-        css(element: any, prop: string): any;
+        css(element: HTMLElement, prop: string): any;
 
         /**
          * Set one CSS property.
@@ -98,14 +98,14 @@ declare namespace Sortablejs {
          * @param {string} prop a property key.
          * @param {string} value a property value.
          */
-        css(element: any, prop: string, value: string): void;
+        css(element: HTMLElement, prop: string, value: string): void;
 
         /**
          * Set CSS properties.
          * @param {HTMLElement} element an HTMLElement.
          * @param {Object} props a properties object.
          */
-        css(element: any, props: any): void;
+        css(element: HTMLElement, props: any): void;
 
         /**
          * Get elements by tag name.
@@ -114,15 +114,15 @@ declare namespace Sortablejs {
          * @param {function} [iterator] An iterator.
          * @returns {HTMLElement[]}
          */
-        find(context: any, tagName: string, iterator?: (value: any) => any): any[];
+        find(context: HTMLElement, tagName: string, iterator?: (value: any) => any): HTMLElement[];
 
         /**
          * Takes a function and returns a new one that will always have a particular context.
-         * @param {*} context an HTMLElement.
+         * @param {HTMLElement} context an HTMLElement.
          * @param {function} fn a function.
          * @returns {function}
          */
-        bind(context: any, fn: () => any): () => any;
+        bind(context: HTMLElement, fn: () => any): () => any;
 
         /**
          * Check the current matched set of elements against a selector.
@@ -130,7 +130,7 @@ declare namespace Sortablejs {
          * @param {string} selector an element selector.
          * @returns {boolean}
          */
-        is(element: any, selector: string): boolean;
+        is(element: HTMLElement, selector: string): boolean;
 
         /**
          * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
@@ -139,7 +139,7 @@ declare namespace Sortablejs {
          * @param {HTMLElement} [context] a specific element's context.
          * @returns {HTMLElement}
          */
-        closest(element: any, selector: string, context?: any): any;
+        closest(element: HTMLElement, selector: string, context?: HTMLElement): HTMLElement | null;
 
         /**
          * Add or remove one classes from each element
@@ -147,7 +147,7 @@ declare namespace Sortablejs {
          * @param {string} name a class name.
          * @param {boolean} state a class's state.
          */
-        toggleClass(element: any, name: string, state: boolean): void;
+        toggleClass(element: HTMLElement, name: string, state: boolean): void;
     }
 
     class DOMRect {
@@ -163,14 +163,14 @@ declare namespace Sortablejs {
 
     class Sortable {
         public options: SortableOptions;
-        public el: any;
+        public el: HTMLElement;
 
         /**
          * Sortable's main constructor.
          * @param {HTMLElement} element Any variety of HTMLElement.
          * @param {SortableOptions} options Sortable options object.
          */
-        constructor(element: any, options: SortableOptions);
+        constructor(element: HTMLElement, options: SortableOptions);
 
         static active: Sortable;
         static utils: SortableUtils;
@@ -181,7 +181,7 @@ declare namespace Sortablejs {
          * @param {SortableOptions} options Sortable options object.
          * @returns {Sortable}
          */
-        static create(element: any, options: SortableOptions): Sortable;
+        static create(element: HTMLElement, options: SortableOptions): Sortable;
 
         /**
          * Options getter/setter
@@ -195,9 +195,10 @@ declare namespace Sortablejs {
         /**
          * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
          * @param {string|HTMLElement} element an HTMLElement or selector string.
+         * @param   {String}       [selector]  default: `options.draggable`
          * @returns {HTMLElement}
          */
-        closest(element: any): any;
+        closest(element: HTMLElement, selector?: string): HTMLElement | null;
 
         /**
          * Sorts the elements according to the array.
