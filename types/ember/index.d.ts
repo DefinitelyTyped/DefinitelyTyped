@@ -21,6 +21,7 @@
 /// <reference types="ember__array" />
 /// <reference types="ember__engine" />
 /// <reference types="ember__debug" />
+/// <reference types="ember__error" />
 
 declare module 'ember' {
     import {
@@ -70,6 +71,8 @@ declare module 'ember' {
     import EmberArrayProxy from '@ember/array/proxy';
     import EmberEnumerable from '@ember/array/-private/enumerable';
     import EmberArrayProtoExtensions from '@ember/array/types/prototype-extensions';
+    // @ember/error
+    import EmberError from '@ember/error';
 
     type EmberArray<T> = EmberArrayNs.default<T>;
 
@@ -605,7 +608,7 @@ declare module 'ember' {
         /**
          * A subclass of the JavaScript Error object for use in Ember.
          */
-        const Error: ErrorConstructor;
+        const Error: EmberError;
         /**
          * `Ember.EventDispatcher` handles delegating browser events to their
          * corresponding `Ember.Views.` For example, when you click on a view,
@@ -2080,33 +2083,6 @@ declare module '@ember/controller' {
     // so string lookups resolve to the correct type.
     // tslint:disable-next-line:no-empty-interface
     export interface Registry {}
-}
-
-// declare module '@ember/debug' {
-//     import Ember from 'ember';
-//     export const assert: typeof Ember.assert;
-//     export const debug: typeof Ember.debug;
-//     export const inspect: typeof Ember.inspect;
-//     export const registerDeprecationHandler: typeof Ember.Debug.registerDeprecationHandler;
-//     export const registerWarnHandler: typeof Ember.Debug.registerWarnHandler;
-//     export const runInDebug: typeof Ember.runInDebug;
-//     export const warn: typeof Ember.warn;
-// }
-
-// declare module '@ember/debug/container-debug-adapter' {
-//     import Ember from 'ember';
-//     export default class ContainerDebugAdapter extends Ember.ContainerDebugAdapter { }
-// }
-
-// declare module '@ember/debug/data-adapter' {
-//     import Ember from 'ember';
-//     export default class DataAdapter extends Ember.DataAdapter { }
-// }
-
-declare module '@ember/error' {
-    import Ember from 'ember';
-    const Error: typeof Ember.Error;
-    export default Error;
 }
 
 declare module '@ember/routing/auto-location' {
