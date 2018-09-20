@@ -32,7 +32,7 @@ declare namespace Highstock {
         yAxis?: Highcharts.AxisOptions;
     }
 
-    interface RangeSelectButtonEvent {
+    interface RangeSelectorButtonEvent {
         click?(event: Event): void;
     }
 
@@ -41,7 +41,7 @@ declare namespace Highstock {
         count?: number;
         text: string;
         dataGrouping?: any; // not sure how this works
-        events?: RangeSelectButtonEvent;
+        events?: RangeSelectorButtonEvent;
     }
 
     interface RangeSelectorOptions {
