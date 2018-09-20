@@ -21,7 +21,7 @@ interface contractOptions {
     gas: number;
 }
 
-export default class Contract {
+export class Contract {
     constructor(
         jsonInterface: any[],
         address?: string,

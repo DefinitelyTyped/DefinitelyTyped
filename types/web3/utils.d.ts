@@ -35,15 +35,15 @@ type Mixed =
     | number
     | BigNumber
     | {
-    type: string;
-    value: string;
-}
+        type: string;
+        value: string;
+    }
     | {
-    t: string;
-    v: string;
-};
+        t: string;
+        v: string;
+    };
 
-export default interface Utils {
+export interface Utils {
     BN: BigNumber; // TODO only static-definition
     isBN(any: any): boolean;
     isBigNumber(any: any): boolean;
