@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "office-runtime-tests.ts"
+        "custom-functions-runtime-tests.ts"
     ]
 }
