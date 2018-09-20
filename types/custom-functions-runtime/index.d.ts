@@ -9,6 +9,9 @@ office-js
 Copyright (c) Microsoft Corporation
 */
 
+/* 
+* Enables you to map your own name that uses lowercase letters to a function. 
+*/
 declare let CustomFunctionMappings: { [key: string]: Function };
 
 declare namespace CustomFunctions {
