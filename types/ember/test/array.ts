@@ -42,7 +42,7 @@ const codes: number[] = letters.map((item, index, enumerable) => {
     return item.charCodeAt(0);
 });
 
-let value = '1,2,3';
-let filters = Ember.A(value.split(','));
+const value = '1,2,3';
+const filters = Ember.A(value.split(','));
 filters.push('4');
 filters.sort();

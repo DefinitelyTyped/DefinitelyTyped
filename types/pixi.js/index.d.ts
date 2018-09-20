@@ -290,8 +290,7 @@ declare namespace PIXI {
 
         protected onChildrenChange: (...args: any[]) => void;
         addChild<T extends DisplayObject>(
-            child: T,
-            ...additionalChildren: DisplayObject[]
+            ...children: T[]
         ): T;
         addChildAt<T extends DisplayObject>(child: T, index: number): T;
         swapChildren(child: DisplayObject, child2: DisplayObject): void;

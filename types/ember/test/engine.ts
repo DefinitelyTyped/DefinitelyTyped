@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { assertType } from "./lib/assert";
 
-let BaseEngine = Ember.Engine.extend({
+const BaseEngine = Ember.Engine.extend({
     modulePrefix: 'my-engine'
 });
 
@@ -19,14 +19,14 @@ BaseEngine.instanceInitializer({
     }
 });
 
-let Engine1 = BaseEngine.create({
+const Engine1 = BaseEngine.create({
     rootElement: '#engine-one',
     customEvents: {
         paste: 'paste'
     }
 });
 
-let Engine2 = BaseEngine.create({
+const Engine2 = BaseEngine.create({
     rootElement: '#engine-two',
     customEvents: {
         mouseenter: null,
@@ -34,8 +34,8 @@ let Engine2 = BaseEngine.create({
     }
 });
 
-let Engine3 = BaseEngine.create();
+const Engine3 = BaseEngine.create();
 
-let Engine3Instance1 = Engine3.buildInstance();
+const Engine3Instance1 = Engine3.buildInstance();
 
-let Engine3Instance2 = Engine3.buildInstance({ foo: 'bar' });
+const Engine3Instance2 = Engine3.buildInstance({ foo: 'bar' });
