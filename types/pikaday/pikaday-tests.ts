@@ -97,6 +97,7 @@ new Pikaday({field: $('#datepicker')[0]});
 
 (() => {
     new Pikaday({
-        yearRange: 5
+        yearRange: 5,
+        toString: (date, format) => '2017-08-23'
     });
 })();
