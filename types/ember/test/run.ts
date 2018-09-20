@@ -6,7 +6,7 @@ import { assertType } from "./lib/assert";
 assertType<string[]>(Ember.run.queues);
 
 function testRun() {
-    let r = run(function() {
+    const r = run(() => {
         // code to be executed within a RunLoop
         return 123;
     });
@@ -38,43 +38,43 @@ function testBind() {
 function testCancel() {
     const myContext = {};
 
-    let runNext = run.next(myContext, function() {
+    const runNext = run.next(myContext, () => {
         // will not be executed
     });
 
     run.cancel(runNext);
 
-    let runLater = run.later(myContext, function() {
+    const runLater = run.later(myContext, () => {
         // will not be executed
     }, 500);
 
     run.cancel(runLater);
 
-    let runScheduleOnce = run.scheduleOnce('afterRender', myContext, function() {
+    const runScheduleOnce = run.scheduleOnce('afterRender', myContext, () => {
         // will not be executed
     });
 
     run.cancel(runScheduleOnce);
 
-    let runOnce = run.once(myContext, function() {
+    const runOnce = run.once(myContext, () => {
         // will not be executed
     });
 
     run.cancel(runOnce);
 
-    let throttle = run.throttle(myContext, function() {
+    const throttle = run.throttle(myContext, () => {
         // will not be executed
     }, 1, false);
 
     run.cancel(throttle);
 
-    let debounce = run.debounce(myContext, function() {
+    const debounce = run.debounce(myContext, () => {
         // will not be executed
     }, 1);
 
     run.cancel(debounce);
 
-    let debounceImmediate = run.debounce(myContext, function() {
+    const debounceImmediate = run.debounce(myContext, () => {
         // will be executed since we passed in true (immediate)
     }, 100, true);
 
@@ -86,7 +86,7 @@ function testDebounce() {
     function runIt() {
     }
 
-    let myContext = { name: 'debounce' };
+    const myContext = { name: 'debounce' };
 
     run.debounce(runIt, 150);
     run.debounce(myContext, runIt, 150);
@@ -112,20 +112,20 @@ function testBegin() {
 }
 
 function testJoin() {
-    run.join(function() {
+    run.join(() => {
         // creates a new run-loop
     });
 
-    run(function() {
+    run(() => {
         // creates a new run-loop
-        run.join(function() {
+        run.join(() => {
             // joins with the existing run-loop, and queues for invocation on
             // the existing run-loops action queue.
         });
     });
 
-    new RSVP.Promise(function(resolve) {
-        Ember.run.later(function() {
+    new RSVP.Promise((resolve) => {
+        Ember.run.later(() => {
             resolve({ msg: 'Hold Your Horses' });
         }, 3000);
     });
@@ -133,14 +133,14 @@ function testJoin() {
 
 function testLater() {
     const myContext = {};
-    run.later(myContext, function() {
+    run.later(myContext, () => {
         // code here will execute within a RunLoop in about 500ms with this == myContext
     }, 500);
 }
 
 function testNext() {
     const myContext = {};
-    run.next(myContext, function() {
+    run.next(myContext, () => {
         // code to be executed in the next run loop,
         // which will be scheduled after the current one
     });
@@ -160,12 +160,12 @@ function testOnce() {
 function testSchedule() {
     Ember.Component.extend({
         init() {
-            run.schedule('sync', this, function() {
+            run.schedule('sync', this, () => {
                 // this will be executed in the first RunLoop queue, when bindings are synced
                 console.log('scheduled on sync queue');
             });
 
-            run.schedule('actions', this, function() {
+            run.schedule('actions', this, () => {
                 // this will be executed in the 'actions' queue, after bindings have synced.
                 console.log('scheduled on actions queue');
             });
@@ -183,12 +183,12 @@ function testScheduleOnce() {
     }
 
     const myContext = {};
-    run(function() {
+    run(() => {
         run.scheduleOnce('afterRender', myContext, sayHi);
         run.scheduleOnce('afterRender', myContext, sayHi);
         // sayHi will only be executed once, in the afterRender queue of the RunLoop
     });
-    run.scheduleOnce('actions', myContext, function() {
+    run.scheduleOnce('actions', myContext, () => {
         console.log('Closure');
     });
 }
@@ -197,7 +197,7 @@ function testThrottle() {
     function runIt() {
     }
 
-    let myContext = { name: 'throttle' };
+    const myContext = { name: 'throttle' };
 
     run.throttle(runIt, 150);
     run.throttle(myContext, runIt, 150);

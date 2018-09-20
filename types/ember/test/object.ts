@@ -34,8 +34,8 @@ class Foo extends Ember.Object.extend({
 }) {
     b = 5;
     baz() {
-        let y = this.b; // $ExpectType number
-        let z = this.a; // $ExpectType ComputedProperty<string, string>
+        const y = this.b; // $ExpectType number
+        const z = this.a; // $ExpectType ComputedProperty<string, string>
         this.b = 10;
         this.get('b').toFixed(4); // $ExpectType string
         this.set('a', 'abc').split(','); // $ExpectType string[]
@@ -54,10 +54,10 @@ export class Foo2 extends Ember.Object {
   name!: string;
 
   changeName(name: string) {
-    let a: string = this.set('name', name);
-    let b: number = this.set('name', name); // $ExpectError
-    let x: string = Ember.set(this, 'name', name);
-    let y: number = Ember.set(this, 'name', name); // $ExpectError
+    const a: string = this.set('name', name);
+    const b: number = this.set('name', name); // $ExpectError
+    const x: string = Ember.set(this, 'name', name);
+    const y: number = Ember.set(this, 'name', name); // $ExpectError
     this.setProperties({
         name
     });

@@ -3,7 +3,9 @@ import Object from '@ember/object';
 import Array from '@ember/array';
 import Ember from 'ember'; // currently needed for Transition
 
-interface Post extends Ember.Object {}
+interface Post extends Ember.Object {
+    title: string;
+}
 
 interface Posts extends Array<Post> {}
 
