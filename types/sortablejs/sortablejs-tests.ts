@@ -28,7 +28,7 @@ Sortable.create(list, {
             control = event.target;
 
         if (Sortable.utils.is(control, ".js-remove")) {
-            item.parentNode.removeChild(item);
+            item.parentNode!.removeChild(item);
         }
         else if (Sortable.utils.is(control, ".js-edit")) {
             // ..
