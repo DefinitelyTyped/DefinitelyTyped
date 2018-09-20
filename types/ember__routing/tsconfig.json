@@ -19,6 +19,7 @@
             "@ember/object/*": ["ember__object/*"],
             "@ember/array": ["ember__array"],
             "@ember/array/*": ["ember__array/*"],
+            "@ember/controller": ["ember__controller"],
             "@ember/routing": ["ember__routing"],
             "@ember/routing/*": ["ember__routing/*"]
         },

@@ -26,6 +26,7 @@
             "@ember/debug/*": ["ember__debug/*"],
             "@ember/object": ["ember__object"],
             "@ember/object/*": ["ember__object/*"],
+            "@ember/controller": ["ember__controller"],
             "@ember/polyfills": ["ember__polyfills"]
         },
         "types": [],

@@ -21,6 +21,7 @@
 /// <reference types="ember__array" />
 /// <reference types="ember__engine" />
 /// <reference types="ember__debug" />
+/// <reference types="ember__controller" />
 
 declare module 'ember' {
     import {
@@ -63,6 +64,8 @@ declare module 'ember' {
     import _RegistryProxyMixin from '@ember/engine/-private/registry-proxy-mixin';
     import EmberCoreObject from '@ember/object/core';
     // tslint:disable-next-line:no-duplicate-imports
+    import * as EmberControllerNs from '@ember/controller';
+    // tslint:disable-next-line:no-duplicate-imports
     import EmberMixin from '@ember/object/mixin';
     import EmberObservable from '@ember/object/observable';
     // @ember/array
@@ -75,6 +78,7 @@ declare module 'ember' {
     import EmberArrayProtoExtensions from '@ember/array/types/prototype-extensions';
 
     type EmberArray<T> = EmberArrayNs.default<T>;
+    import EmberActionHandler from '@ember/object/-private/action-handler';
 
     type Mix<A, B> = B & Pick<A, Exclude<keyof A, keyof B>>;
     type Mix3<A, B, C> = Mix<Mix<A, B>, C>;
@@ -98,10 +102,6 @@ declare module 'ember' {
      * https://github.com/typed-ember/ember-typings/pull/29
      */
 
-    interface ActionsHash {
-        [index: string]: (...params: any[]) => any;
-    }
-
     interface EmberRunTimer {
         __ember_run_timer_brand__: any;
     }
@@ -114,8 +114,6 @@ declare module 'ember' {
         | 'render'
         | 'afterRender'
         | 'destroy';
-    type QueryParamTypes = 'boolean' | 'number' | 'array' | 'string';
-    type QueryParamScopeTypes = 'controller' | 'model';
 
     interface RenderOptions {
         into?: string;
@@ -285,6 +283,8 @@ declare module 'ember' {
         export const NativeArray: typeof EmberNativeArray;
         export type MutableEnumerable<T> = EmberMutableEnumerable<T>;
         export const MutableEnumerable: typeof EmberMutableEnumerable;
+        const ActionHandler: typeof EmberActionHandler;
+        class Controller extends EmberControllerNs.default {}
         interface FunctionPrototypeExtensions {
             /**
              * The `property` extension of Javascript's Function prototype is available
@@ -318,27 +318,7 @@ declare module 'ember' {
             underscore(): string;
             w(): string[];
         }
-        /**
-         * Ember.ActionHandler is available on some familiar classes including Ember.Route,
-         * Ember.Component, and Ember.Controller. (Internally the mixin is used by Ember.CoreView,
-         * Ember.ControllerMixin, and Ember.Route and available to the above classes through inheritance.)
-         */
-        interface ActionHandler {
-            /**
-             * Triggers a named action on the ActionHandler. Any parameters supplied after the actionName
-             * string will be passed as arguments to the action target function.
-             *
-             * If the ActionHandler has its target property set, actions may bubble to the target.
-             * Bubbling happens when an actionName can not be found in the ActionHandler's actions
-             * hash or if the action target function returns true.
-             */
-            send(actionName: string, ...args: any[]): void;
-            /**
-             * The collection of functions, keyed by name, available on this ActionHandler as action targets.
-             */
-            actions: ActionsHash;
-        }
-        const ActionHandler: EmberMixin<ActionHandler>;
+
         /**
          * An instance of Ember.Application is the starting point for every Ember application. It helps to
          * instantiate, initialize and coordinate the many objects that make up your app.
@@ -561,22 +541,7 @@ declare module 'ember' {
             factoryFor(fullName: string, options?: {}): any;
         }
         class ContainerDebugAdapter extends _ContainerDebugAdapter {}
-        /**
-         * Additional methods for the Controller.
-         */
-        interface ControllerMixin extends ActionHandler {
-            replaceRoute(name: string, ...args: any[]): void;
-            transitionToRoute(name: string, ...args: any[]): void;
-            model: any;
-            queryParams: string | string[] | EmberArray<{ [key: string]: {
-                type?: QueryParamTypes,
-                scope?: QueryParamScopeTypes,
-                as?: string
-            }}>;
-            target: object;
-        }
-        const ControllerMixin: EmberMixin<ControllerMixin>;
-        class Controller extends Object.extend(ControllerMixin) {}
+
         // TODO: replace with a proper ES6 reexport once we remove declare module 'ember' {}
         class Object extends EmberObjectNs.default {}
         class ObjectProxy extends EmberObjectProxyNs.default {}
@@ -2077,38 +2042,6 @@ declare module '@ember/component/text-field' {
     import Ember from 'ember';
     export default class TextField extends Ember.TextField { }
 }
-
-declare module '@ember/controller' {
-    import Ember from 'ember';
-    export default class Controller extends Ember.Controller { }
-    export const inject: typeof Ember.inject.controller;
-
-    // A type registry for Ember `Controller`s. Meant to be declaration-merged
-    // so string lookups resolve to the correct type.
-    // tslint:disable-next-line:no-empty-interface
-    export interface Registry {}
-}
-
-// declare module '@ember/debug' {
-//     import Ember from 'ember';
-//     export const assert: typeof Ember.assert;
-//     export const debug: typeof Ember.debug;
-//     export const inspect: typeof Ember.inspect;
-//     export const registerDeprecationHandler: typeof Ember.Debug.registerDeprecationHandler;
-//     export const registerWarnHandler: typeof Ember.Debug.registerWarnHandler;
-//     export const runInDebug: typeof Ember.runInDebug;
-//     export const warn: typeof Ember.warn;
-// }
-
-// declare module '@ember/debug/container-debug-adapter' {
-//     import Ember from 'ember';
-//     export default class ContainerDebugAdapter extends Ember.ContainerDebugAdapter { }
-// }
-
-// declare module '@ember/debug/data-adapter' {
-//     import Ember from 'ember';
-//     export default class DataAdapter extends Ember.DataAdapter { }
-// }
 
 declare module '@ember/error' {
     import Ember from 'ember';

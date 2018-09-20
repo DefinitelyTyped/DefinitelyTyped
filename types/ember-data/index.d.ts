@@ -6,6 +6,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+/// <reference types="ember" />
+/// <reference types="ember__object" />
+/// <reference types="ember__controller" />
+/// <reference types="ember__routing" />
+
 declare module 'ember-data' {
     import Ember from 'ember';
     import Evented from '@ember/object/evented';
@@ -2088,7 +2093,11 @@ declare module 'ember-data' {
             normalize(typeClass: Model, hash: {}): {};
         }
     }
-
+    module '@ember/controller' {
+        export default interface Controller {
+            store: DS.Store;
+        }
+    }
     export default DS;
 }
 
@@ -2103,9 +2112,7 @@ declare module 'ember' {
         interface Route {
             store: DS.Store;
         }
-        interface Controller {
-            store: DS.Store;
-        }
+
         interface DataAdapter {
             store: DS.Store;
         }
