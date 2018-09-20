@@ -195,7 +195,7 @@ export class StyleSheet {}
 
 interface StyleSheetManagerProps {
     sheet?: StyleSheet;
-    target?: React.ReactNode;
+    target?: HTMLElement | null;
 }
 
 export class StyleSheetManager extends React.Component<
