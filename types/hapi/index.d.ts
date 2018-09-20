@@ -3477,10 +3477,12 @@ export class Server extends Podium {
     decorate(type: 'request', property: string, method: (existing: ((...args: any[]) => any)) => (request: Request) => DecorationMethod<Request>, options: {apply: true, extend: true}): void;
     decorate(type: 'request', property: string, method: (request: Request) => DecorationMethod<Request>, options: {apply: true, extend?: boolean}): void;
     decorate(type: 'request', property: string, method: DecorationMethod<Request>, options?: {apply?: boolean, extend?: boolean}): void;
+    decorate(type: 'request', property: string, method: any, options?: {apply?: boolean, extend?: boolean}): void;
     decorate(type: 'toolkit', property: string, method: (existing: ((...args: any[]) => any)) => DecorationMethod<ResponseToolkit>, options: {apply?: boolean, extend: true}): void;
     decorate(type: 'toolkit', property: string, method: DecorationMethod<ResponseToolkit>, options?: {apply?: boolean, extend?: boolean}): void;
     decorate(type: 'server', property: string, method: (existing: ((...args: any[]) => any)) => DecorationMethod<Server>, options: {apply?: boolean, extend: true}): void;
     decorate(type: 'server', property: string, method: DecorationMethod<Server>, options?: {apply?: boolean, extend?: boolean}): void;
+    decorate(type: 'server', property: string, method: any, options?: {apply?: boolean, extend?: boolean}): void;
 
     /**
      * Used within a plugin to declare a required dependency on other plugins where:
