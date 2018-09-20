@@ -1817,7 +1817,7 @@ declare namespace Office {
          */
         ActiveViewChanged,
         /**
-         * Triggers when the appointment date or time of the selected series is changed in Outlook.
+         * Triggers when the date or time of the selected appointment is changed in Outlook.
          * 
          * [Api set: Mailbox 1.7]
          */
@@ -15894,7 +15894,7 @@ declare namespace Office {
          * 
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
          */
-        recurrenceTimeZone: Office.MailboxEnums.RecurrenceTimeZone;
+        recurrenceTimeZone: RecurrenceTimeZone;
 
         /**
          * Gets or sets the type of the recurring appointment series.
@@ -16018,7 +16018,7 @@ declare namespace Office {
     }
 
     /**
-     * Gets or sets the properties of the recurrence.
+     * Represents the properties of the recurrence.
      * 
      * [Api set: Mailbox 1.7]
      * 
@@ -16058,6 +16058,16 @@ declare namespace Office {
          * Valid values are: 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', and 'Sun'.
          */
         firstDayOfWeek: Office.MailboxEnums.Days;
+    }
+
+    /**
+     * Represents the time zone of the recurrence.
+     */
+    export interface RecurrenceTimeZone {
+        /**
+         * Represents the name of the recurrence time zone.
+         */
+        name: Office.MailboxEnums.RecurrenceTimeZone;
     }
 
     /**
