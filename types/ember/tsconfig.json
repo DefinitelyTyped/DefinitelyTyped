@@ -24,6 +24,8 @@
             "@ember/array/*": ["ember__array/*"],
             "@ember/debug": ["ember__debug"],
             "@ember/debug/*": ["ember__debug/*"],
+            "@ember/runloop": ["ember__runloop"],
+            "@ember/runloop/*": ["ember__runloop/*"],
             "@ember/object": ["ember__object"],
             "@ember/object/*": ["ember__object/*"],
             "@ember/polyfills": ["ember__polyfills"]

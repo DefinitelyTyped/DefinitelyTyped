@@ -19,7 +19,8 @@
             "@ember/object/*": ["ember__object/*"],
             "@ember/engine": ["ember__engine"],
             "@ember/engine/*": ["ember__engine/*"],
-            "@ember/runloop": ["ember__runloop"]
+            "@ember/runloop": ["ember__runloop"],
+            "@ember/runloop/*": ["ember__runloop/*"]
         },
         "types": [],
         "noEmit": true,
@@ -27,6 +28,8 @@
     },
     "files": [
         "index.d.ts",
+        "types.d.ts",
+        "-private/types.d.ts",
         "ember__runloop-tests.ts"
     ]
 }
