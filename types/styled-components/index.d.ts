@@ -192,8 +192,6 @@ interface StylesheetComponentProps {
     sheet: ServerStyleSheet;
 }
 
-export class StyleSheet {}
-
 interface StyleSheetManagerProps {
     sheet?: StyleSheet;
     target?: Node;
