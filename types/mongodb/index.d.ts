@@ -16,6 +16,7 @@
 //                 Jimmy Shimizu <https://github.com/jishi>
 //                 Dominik Heigl <https://github.com/various89>
 //                 Angela-1 <https://github.com/angela-1>
+//                 Mikael Lirbank <https://github.com/lirbank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -208,6 +209,7 @@ export class MongoError extends Error {
     constructor(message: string);
     static create(options: Object): MongoError;
     code?: number;
+    errmsg?: string;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#.connect */
