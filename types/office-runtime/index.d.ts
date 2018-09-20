@@ -9,23 +9,34 @@ office-runtime
 Copyright (c) Microsoft Corporation
 */
 
+/*
+* @beta
+* Runtime intended for Office add-ins which is separate from Office-js.  
+*/
 declare namespace OfficeRuntime {
-    function displayWebDialog(url: string, options: DisplayWebDialogOptions): Promise<Dialog>;
-    const AsyncStorage: AsyncStorage;
+  /* 
+  * @beta
+  * Displays a dialog box.
+  */
+  function displayWebDialog(url: string, options: DisplayWebDialogOptions): Promise<Dialog>;
+  /* 
+  * @beta
+  * Asynchronous, global, and persistent key-value storage that can be used by Excel Custom Functions.
+  */
+  const AsyncStorage: AsyncStorage;
 
-    // tslint:disable-next-line:interface-name
-       /*
-       * Asynchronous, global, and persistent key-value storage that can be used by Excel Custom Functions.
-       * @beta
-       *
-       * @remarks
-       * Each add-in instance has its own storage partition, unique to a user and their device.
-       *
-       * The default amount of total storage allowed per add-in is 5MB.
-       *
-       * Each method listed below returns a Promise object.
-       *
-       */
+    /*
+    * Asynchronous, global, and persistent key-value storage that can be used by Excel Custom Functions.
+    * @beta
+    *
+    * @remarks
+    * Each add-in instance has its own storage partition, unique to a user and their device.
+    *
+    * The default amount of total storage allowed per add-in is 5MB.
+    *
+    * Each method listed below returns a Promise object.
+    *
+    */
     interface AsyncStorage {
       /*
        * @beta
