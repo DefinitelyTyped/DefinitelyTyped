@@ -40,14 +40,14 @@ Sortable.create(el, {
     group: "localStorage-example",
     store: {
         get: function(sortable) {
-            var order = localStorage.getItem(sortable.options.group);
+            var order = localStorage.getItem(sortable.options.group as string);
 
             return order ? order.split('|') : [];
         },
         set: function(sortable) {
             var order = sortable.toArray();
 
-            localStorage.setItem(sortable.options.group, order.join('|'));
+            localStorage.setItem(sortable.options.group as string, order.join('|'));
         }
     }
 });
@@ -124,12 +124,12 @@ simpleList.innerHTML = Array.apply(null, new Array(100)).map(function(value: any
         animation: 150,
         store: {
             get: function(sortable) {
-                var order = localStorage.getItem(sortable.options.group);
+                var order = localStorage.getItem(sortable.options.group as string);
                 return order ? order.split('|') : [];
             },
             set: function(sortable) {
                 var order = sortable.toArray();
-                localStorage.setItem(sortable.options.group, order.join('|'));
+                localStorage.setItem(sortable.options.group as string, order.join('|'));
             }
         },
         onAdd: function(evt) { console.log('onAdd.foo:', [evt.item, evt.from]); },
