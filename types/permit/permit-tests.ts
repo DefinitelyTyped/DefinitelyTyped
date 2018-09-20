@@ -21,19 +21,7 @@ const bearer = new Bearer({
 function permitHandler(req: IncomingMessage, res: ServerResponse) {
     const token = permit.check(req);
 
-    if (!token) {
-        permit.fail(res);
-        throw new Error(`Authentication required!`);
-    }
-
-    const user = "some-user";
-
-    if (!user) {
-        permit.fail(res);
-        throw new Error(`Authentication invalid!`);
-    }
-
-    return 'Success!';
+    permit.fail(res);
 }
 
 function basichHndler(req: IncomingMessage, res: ServerResponse) {
