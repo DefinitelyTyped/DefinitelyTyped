@@ -220,6 +220,12 @@ const StatelessComponent3: React.SFC<SCProps> =
 // allows null as props
 const StatelessComponent4: React.SFC = props => null;
 
+// React.createContext
+const context1 = React.createContext<{ foo: string }>();
+const context2 = React.createContext<{ foo: string }>({ foo: "text" });
+// $ExpectError
+const context3 = React.createContext<{ foo: string }>({ bar: string });
+
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
