@@ -4,7 +4,7 @@
 //                 Ihor Chulinda <https://github.com/Igmat>
 //                 Nico Greenarry <https://github.com/NicoGreenarry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
 /// <reference lib="dom" />
