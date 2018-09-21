@@ -1169,6 +1169,10 @@ declare namespace Parse {
      */
     function initialize(applicationId: string, javaScriptKey?: string, masterKey?: string): void;
 
+    /**
+     * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
+     * @param AsyncStorage AsyncStorage from 'react-native' package
+     */
     function setAsyncStorage(AsyncStorage: any): void;
 
 }
