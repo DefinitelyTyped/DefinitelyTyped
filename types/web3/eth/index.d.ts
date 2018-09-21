@@ -89,7 +89,7 @@ export default interface Eth {
         address: string,
         defaultBlock?: BlockType,
         cb?: Callback<number>
-    ): Promise<number>;
+    ): Promise<string>;
     getBlock(
         number: BlockType,
         returnTransactionObjects?: boolean,

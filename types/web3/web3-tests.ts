@@ -22,6 +22,7 @@ let setProviderRes: boolean = web3.setProvider(myProvider);
 // web3.eth
 // --------------------------------------------------------------------------
 setProviderRes = web3.eth.setProvider(myProvider);
+const balance: Promise<string> = web3.eth.getBalance("0x407d73d8a49eeb85d32cf465507dd71d507100c1");
 const storage: Promise<string> = web3.eth.getStorageAt(contractAddress, 0);
 
 //
