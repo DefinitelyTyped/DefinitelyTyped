@@ -54,7 +54,7 @@ export class IpcProvider extends Provider {
     reset(): undefined;
 }
 
-export default interface Providers {
+export interface Providers {
     WebsocketProvider: new (
         host: string,
         timeout?: number

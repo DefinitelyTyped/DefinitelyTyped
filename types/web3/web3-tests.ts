@@ -1,4 +1,4 @@
-import Web3 = require("web3");
+import { Web3 } from "web3";
 import BigNumber = require("bn.js");
 
 const contractAddress = "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe";

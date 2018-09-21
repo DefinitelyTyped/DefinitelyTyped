@@ -1,9 +1,9 @@
 import BigNumber = require("bn.js");
 import { Provider } from "../providers";
-import Contract, { CustomOptions as CustomContractOptions } from "./contract";
-import PromiEvent from "../promiEvent";
-import ABI from "./abi";
-import Accounts from "./accounts";
+import { Contract, CustomOptions as CustomContractOptions } from "./contract";
+import { PromiEvent } from "../promiEvent";
+import { ABI } from "./abi";
+import { Accounts } from "./accounts";
 import {
     BatchRequest,
     Iban,
@@ -25,7 +25,7 @@ import {
     EncodedTransaction
 } from "../types";
 
-export default interface Eth {
+export interface Eth {
     defaultAccount: string;
     defaultBlock: BlockType;
     BatchRequest: new () => BatchRequest;
