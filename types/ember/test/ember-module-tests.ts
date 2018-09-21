@@ -203,9 +203,6 @@ const h1 = Ember.Helper.extend({
 });
 // Ember.HistoryLocation
 const hil = new Ember.HistoryLocation();
-// Ember.Instrumentation
-Ember.Instrumentation.instrument('foo', {}, () => {}, window);
-Ember.Instrumentation.reset();
 // Ember.LinkComponent
 Ember.LinkComponent.create(); // $ExpectType LinkComponent
 // Ember.Mixin
