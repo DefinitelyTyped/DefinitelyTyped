@@ -593,12 +593,6 @@ declare module 'ember' {
              */
             namespace: Application;
         }
-        interface Initializer<T> {
-            name: string;
-            before?: string[];
-            after?: string[];
-            initialize(application: T): void;
-        }
 
         class EngineInstance extends EmberEngineInstanceNs.default {}
         class Engine extends EmberEngineNs.default {}
