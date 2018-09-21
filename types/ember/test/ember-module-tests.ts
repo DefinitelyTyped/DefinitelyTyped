@@ -179,6 +179,7 @@ Ember.Debug.registerWarnHandler(() => {});
 // Ember.DefaultResolver
 const dr = new Ember.DefaultResolver();
 dr.resolve('route:index');
+dr.resolve(); // $ExpectError
 // Ember.Engine
 const e1 = new Ember.Engine();
 e1.register('data:foo', {}, { instantiate: false });
