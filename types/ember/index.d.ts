@@ -18,6 +18,7 @@
 /// <reference types="ember__polyfills" />
 /// <reference types="ember__object" />
 /// <reference types="ember__utils" />
+/// <reference types="ember__array" />
 /// <reference types="ember__engine" />
 /// <reference types="ember__debug" />
 
@@ -62,9 +63,14 @@ declare module 'ember' {
     // tslint:disable-next-line:no-duplicate-imports
     import EmberMixin from '@ember/object/mixin';
     import Observable from '@ember/object/observable';
+    // @ember/array
+    import * as EmberArrayNs from '@ember/array';
+    import EmberMutableArray from '@ember/array/mutable';
+    import EmberArrayProxy from '@ember/array/proxy';
+    import EmberEnumerable from '@ember/array/-private/enumerable';
+    import EmberArrayProtoExtensions from '@ember/array/types/prototype-extensions';
 
-    // Get an alias to the global Array type to use in inner scope below.
-    type GlobalArray<T> = T[];
+    type EmberArray<T> = EmberArrayNs.default<T>;
 
     type Mix<A, B> = B & Pick<A, Exclude<keyof A, keyof B>>;
     type Mix3<A, B, C> = Mix<Mix<A, B>, C>;
@@ -262,6 +268,13 @@ declare module 'ember' {
     }
 
     export namespace Ember {
+        const A: typeof EmberArrayNs.A;
+        const isArray: typeof EmberArrayNs.isArray;
+        export type Enumerable<T> = EmberEnumerable<T>;
+        export const Enumerable: typeof EmberEnumerable;
+        class ArrayProxy<T> extends EmberArrayProxy<T> {}
+        export type Array<T> = EmberArray<T>;
+        export const Array: typeof EmberArrayNs.default;
         interface FunctionPrototypeExtensions {
             /**
              * The `property` extension of Javascript's Function prototype is available
@@ -283,7 +296,7 @@ declare module 'ember' {
             on(...args: string[]): this;
         }
 
-        interface ArrayPrototypeExtensions<T> extends MutableArray<T>, Observable, Copyable {}
+        interface ArrayPrototypeExtensions<T> extends EmberArrayProtoExtensions<T> {}
 
         interface StringPrototypeExtensions {
             camelize(): string;
@@ -418,101 +431,7 @@ declare module 'ember' {
          * running `Application`.
          */
         class ApplicationInstance extends EngineInstance {}
-        /**
-         * This module implements Observer-friendly Array-like behavior. This mixin is picked up by the
-         * Array class as well as other controllers, etc. that want to appear to be arrays.
-         */
-        interface Array<T> extends Enumerable<T> {
-            /**
-             * __Required.__ You must implement this method to apply this mixin.
-             */
-            length: number | ComputedProperty<number>;
-            /**
-             * Returns the object at the given `index`. If the given `index` is negative
-             * or is greater or equal than the array length, returns `undefined`.
-             */
-            objectAt(idx: number): T | undefined;
-            /**
-             * This returns the objects at the specified indexes, using `objectAt`.
-             */
-            objectsAt(indexes: number[]): Ember.Array<T>;
-            /**
-             * Returns a new array that is a slice of the receiver. This implementation
-             * uses the observable array methods to retrieve the objects for the new
-             * slice.
-             */
-            slice(beginIndex?: number, endIndex?: number): T[];
-            /**
-             * Returns the index of the given object's first occurrence.
-             * If no `startAt` argument is given, the starting location to
-             * search is 0. If it's negative, will count backward from
-             * the end of the array. Returns -1 if no match is found.
-             */
-            indexOf(searchElement: T, fromIndex?: number): number;
-            /**
-             * Returns the index of the given object's last occurrence.
-             * If no `startAt` argument is given, the search starts from
-             * the last position. If it's negative, will count backward
-             * from the end of the array. Returns -1 if no match is found.
-             */
-            lastIndexOf(searchElement: T, fromIndex?: number): number;
-            /**
-             * Adds an array observer to the receiving array. The array observer object
-             * normally must implement two methods:
-             */
-            addArrayObserver(target: {}, opts: {}): this;
-            /**
-             * Removes an array observer from the object if the observer is current
-             * registered. Calling this method multiple times with the same object will
-             * have no effect.
-             */
-            removeArrayObserver(target: {}, opts: {}): this;
-            /**
-             * Becomes true whenever the array currently has observers watching changes
-             * on the array.
-             */
-            hasArrayObservers: ComputedProperty<boolean>;
-            /**
-             * If you are implementing an object that supports `Ember.Array`, call this
-             * method just before the array content changes to notify any observers and
-             * invalidate any related properties. Pass the starting index of the change
-             * as well as a delta of the amounts to change.
-             */
-            arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): this;
-            /**
-             * If you are implementing an object that supports `Ember.Array`, call this
-             * method just after the array content changes to notify any observers and
-             * invalidate any related properties. Pass the starting index of the change
-             * as well as a delta of the amounts to change.
-             */
-            arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): this;
-            /**
-             * Returns a special object that can be used to observe individual properties
-             * on the array. Just get an equivalent property on this object and it will
-             * return an enumerable that maps automatically to the named key on the
-             * member objects.
-             */
-            '@each': ComputedProperty<T>;
-        }
-        // Ember.Array rather than Array because the `array-type` lint rule doesn't realize the global is shadowed
-        const Array: EmberMixin<Ember.Array<any>>;
 
-        /**
-         * An ArrayProxy wraps any other object that implements Ember.Array and/or Ember.MutableArray,
-         * forwarding all requests. This makes it very useful for a number of binding use cases or other cases
-         * where being able to swap out the underlying array is useful.
-         */
-        interface ArrayProxy<T> extends MutableArray<T> {}
-        class ArrayProxy<T> extends Object.extend(MutableArray as {}) {
-            content: NativeArray<T>;
-
-            /**
-             * Should actually retrieve the object at the specified index from the
-             * content. You can override this method in subclasses to transform the
-             * content item to something new.
-             */
-            objectAtContent(idx: number): T | undefined;
-        }
         /**
          * AutoLocation will select the best location option based off browser support with the priority order: history, hash, none.
          */
@@ -639,7 +558,7 @@ declare module 'ember' {
             replaceRoute(name: string, ...args: any[]): void;
             transitionToRoute(name: string, ...args: any[]): void;
             model: any;
-            queryParams: string | string[] | Array<{ [key: string]: {
+            queryParams: string | string[] | EmberArray<{ [key: string]: {
                 type?: QueryParamTypes,
                 scope?: QueryParamScopeTypes,
                 as?: string
@@ -648,23 +567,6 @@ declare module 'ember' {
         }
         const ControllerMixin: EmberMixin<ControllerMixin>;
         class Controller extends Object.extend(ControllerMixin) {}
-        /**
-         * Implements some standard methods for copying an object. Add this mixin to
-         * any object you create that can create a copy of itself. This mixin is
-         * added automatically to the built-in array.
-         */
-        interface Copyable {
-            /**
-             * __Required.__ You must implement this method to apply this mixin.
-             */
-            copy(deep: boolean): Copyable;
-            /**
-             * If the object implements `Ember.Freezable`, then this will return a new
-             * copy if the object is not frozen and the receiver if the object is frozen.
-             */
-            frozenCopy(): Copyable;
-        }
-        const Copyable: EmberMixin<Copyable>;
         // TODO: replace with a proper ES6 reexport once we remove declare module 'ember' {}
         class Object extends EmberObjectNs.default {}
         class CoreObject extends EmberCoreObject {}
@@ -691,169 +593,10 @@ declare module 'ember' {
              */
             namespace: Application;
         }
+
         class EngineInstance extends EmberEngineInstanceNs.default {}
         class Engine extends EmberEngineNs.default {}
-        /**
-         * This mixin defines the common interface implemented by enumerable objects
-         * in Ember. Most of these methods follow the standard Array iteration
-         * API defined up to JavaScript 1.8 (excluding language-specific features that
-         * cannot be emulated in older versions of JavaScript).
-         */
-        interface Enumerable<T> {
-            /**
-             * Helper method returns the first object from a collection. This is usually
-             * used by bindings and other parts of the framework to extract a single
-             * object if the enumerable contains only one item.
-             */
-            firstObject: ComputedProperty<T | undefined>;
-            /**
-             * Helper method returns the last object from a collection. If your enumerable
-             * contains only one object, this method should always return that object.
-             * If your enumerable is empty, this method should return `undefined`.
-             */
-            lastObject: ComputedProperty<T | undefined>;
-            /**
-             * @deprecated Use `Enumerable#includes` instead.
-             */
-            contains(obj: T): boolean;
-            /**
-             * Iterates through the enumerable, calling the passed function on each
-             * item. This method corresponds to the `forEach()` method defined in
-             * JavaScript 1.6.
-             */
-            forEach: GlobalArray<T>['forEach'];
-            /**
-             * Alias for `mapBy`
-             */
-            getEach(key: string): any[];
-            /**
-             * Sets the value on the named property for each member. This is more
-             * ergonomic than using other methods defined on this helper. If the object
-             * implements Ember.Observable, the value will be changed to `set(),` otherwise
-             * it will be set directly. `null` objects are skipped.
-             */
-            setEach(key: string, value: any): any;
-            /**
-             * Maps all of the items in the enumeration to another value, returning
-             * a new array. This method corresponds to `map()` defined in JavaScript 1.6.
-             */
-            map: GlobalArray<T>['map'];
-            /**
-             * Similar to map, this specialized function returns the value of the named
-             * property on all items in the enumeration.
-             */
-            mapBy(key: string): any[];
-            /**
-             * Returns an array with all of the items in the enumeration that the passed
-             * function returns true for. This method corresponds to `filter()` defined in
-             * JavaScript 1.6.
-             */
-            filter: GlobalArray<T>['filter'];
-            /**
-             * Returns an array with all of the items in the enumeration where the passed
-             * function returns false. This method is the inverse of filter().
-             */
-            reject(callbackfn: (value: T, index: number, array: T[]) => any, thisArg?: any): NativeArray<T>;
-            /**
-             * Returns an array with just the items with the matched property. You
-             * can pass an optional second argument with the target value. Otherwise
-             * this will match any property that evaluates to `true`.
-             */
-            filterBy(key: string, value?: any): NativeArray<T>;
-            /**
-             * Returns an array with the items that do not have truthy values for
-             * key.  You can pass an optional second argument with the target value.  Otherwise
-             * this will match any property that evaluates to false.
-             */
-            rejectBy(key: string, value?: any): NativeArray<T>;
-            /**
-             * Returns the first item in the array for which the callback returns true.
-             * This method works similar to the `filter()` method defined in JavaScript 1.6
-             * except that it will stop working on the array once a match is found.
-             */
-            find: GlobalArray<T>['find'];
-            /**
-             * Returns the first item with a property matching the passed value. You
-             * can pass an optional second argument with the target value. Otherwise
-             * this will match any property that evaluates to `true`.
-             */
-            findBy(key: string, value?: any): T | undefined;
-            /**
-             * Returns `true` if the passed function returns true for every item in the
-             * enumeration. This corresponds with the `every()` method in JavaScript 1.6.
-             */
-            every: GlobalArray<T>['every'];
-            /**
-             * Returns `true` if the passed property resolves to the value of the second
-             * argument for all items in the enumerable. This method is often simpler/faster
-             * than using a callback.
-             */
-            isEvery(key: string, value?: any): boolean;
-            /**
-             * Returns `true` if the passed function returns true for any item in the
-             * enumeration.
-             */
-            any(callback: (value: T, index: number, array: T[]) => boolean, target?: {}): boolean;
-            /**
-             * Returns `true` if the passed property resolves to the value of the second
-             * argument for any item in the enumerable. This method is often simpler/faster
-             * than using a callback.
-             */
-            isAny(key: string, value?: any): boolean;
-            /**
-             * This will combine the values of the enumerator into a single value. It
-             * is a useful way to collect a summary value from an enumeration. This
-             * corresponds to the `reduce()` method defined in JavaScript 1.8.
-             */
-            reduce: GlobalArray<T>['reduce'];
-            /**
-             * Invokes the named method on every object in the receiver that
-             * implements it. This method corresponds to the implementation in
-             * Prototype 1.6.
-             */
-            invoke(methodName: keyof T, ...args: any[]): any[];
-            /**
-             * Simply converts the enumerable into a genuine array. The order is not
-             * guaranteed. Corresponds to the method implemented by Prototype.
-             */
-            toArray(): T[];
-            /**
-             * Returns a copy of the array with all `null` and `undefined` elements removed.
-             */
-            compact(): NativeArray<T>;
-            /**
-             * Returns a new enumerable that excludes the passed value. The default
-             * implementation returns an array regardless of the receiver type.
-             * If the receiver does not contain the value it returns the original enumerable.
-             */
-            without(value: T): NativeArray<T>;
-            /**
-             * Returns a new enumerable that contains only unique values. The default
-             * implementation returns an array regardless of the receiver type.
-             */
-            uniq(): NativeArray<T>;
-            /**
-             * Converts the enumerable into an array and sorts by the keys
-             * specified in the argument.
-             */
-            sortBy(property: string): NativeArray<T>;
-            /**
-             * Returns a new enumerable that contains only items containing a unique property value.
-             * The default implementation returns an array regardless of the receiver type.
-             */
-            uniqBy(property: string): NativeArray<T>;
-            /**
-             * Returns `true` if the passed object can be found in the enumerable.
-             */
-            includes(searchElement: T, fromIndex?: number): boolean;
-            /**
-             * This is the handler for the special array content property. If you get
-             * this property, it will return this. If you set this property to a new
-             * array, it will replace the current content.
-             */
-            '[]': ComputedProperty<this>;
-        }
-        const Enumerable: EmberMixin<Enumerable<any>>;
+
         /**
          * A subclass of the JavaScript Error object for use in Ember.
          */
@@ -1029,118 +772,15 @@ declare module 'ember' {
             static create(): MapWithDefault;
         }
         class Mixin<T, Base = EmberObjectNs.default> extends EmberMixin<T, Base> {}
-        /**
-         * This mixin defines the API for modifying array-like objects. These methods
-         * can be applied only to a collection that keeps its items in an ordered set.
-         * It builds upon the Array mixin and adds methods to modify the array.
-         * One concrete implementations of this class include ArrayProxy.
-         */
-        interface MutableArray<T> extends Array<T>, MutableEnumerable<T> {
-            /**
-             * __Required.__ You must implement this method to apply this mixin.
-             */
-            replace(idx: number, amt: number, objects: any[]): any;
-            /**
-             * Remove all elements from the array. This is useful if you
-             * want to reuse an existing array without having to recreate it.
-             */
-            clear(): this;
-            /**
-             * This will use the primitive `replace()` method to insert an object at the
-             * specified index.
-             */
-            insertAt(idx: number, object: {}): this;
-            /**
-             * Remove an object at the specified index using the `replace()` primitive
-             * method. You can pass either a single index, or a start and a length.
-             */
-            removeAt(start: number, len?: number): this;
-            /**
-             * Push the object onto the end of the array. Works just like `push()` but it
-             * is KVO-compliant.
-             */
-            pushObject(obj: T): T;
-            /**
-             * Add the objects in the passed numerable to the end of the array. Defers
-             * notifying observers of the change until all objects are added.
-             */
-            pushObjects(objects: Enumerable<T>): this;
-            /**
-             * Pop object from array or nil if none are left. Works just like `pop()` but
-             * it is KVO-compliant.
-             */
-            popObject(): T;
-            /**
-             * Shift an object from start of array or nil if none are left. Works just
-             * like `shift()` but it is KVO-compliant.
-             */
-            shiftObject(): T;
-            /**
-             * Unshift an object to start of array. Works just like `unshift()` but it is
-             * KVO-compliant.
-             */
-            unshiftObject(obj: T): T;
-            /**
-             * Adds the named objects to the beginning of the array. Defers notifying
-             * observers until all objects have been added.
-             */
-            unshiftObjects(objects: Enumerable<T>): this;
-            /**
-             * Reverse objects in the array. Works just like `reverse()` but it is
-             * KVO-compliant.
-             */
-            reverseObjects(): this;
-            /**
-             * Replace all the receiver's content with content of the argument.
-             * If argument is an empty array receiver will be cleared.
-             */
-            setObjects(objects: Ember.Array<T>): this;
-        }
-        const MutableArray: Mixin<MutableArray<any>>;
-        /**
-         * This mixin defines the API for modifying generic enumerables. These methods
-         * can be applied to an object regardless of whether it is ordered or
-         * unordered.
-         */
-        interface MutableEnumerable<T> extends Enumerable<T> {
-            /**
-             * __Required.__ You must implement this method to apply this mixin.
-             */
-            addObject(object: T): T;
-            /**
-             * Adds each object in the passed enumerable to the receiver.
-             */
-            addObjects(objects: Enumerable<T>): this;
-            /**
-             * __Required.__ You must implement this method to apply this mixin.
-             */
-            removeObject(object: T): T;
-            /**
-             * Removes each object in the passed enumerable from the receiver.
-             */
-            removeObjects(objects: Enumerable<T>): this;
-        }
-        const MutableEnumerable: Mixin<MutableEnumerable<any>>;
+        const MutableArray: typeof EmberMutableArray;
+
         /**
          * A Namespace is an object usually used to contain other objects or methods
          * such as an application or framework. Create a namespace anytime you want
          * to define one of these new containers.
          */
         class Namespace extends Object {}
-        /**
-         * The NativeArray mixin contains the properties needed to make the native
-         * Array support Ember.MutableArray and all of its dependent APIs. Unless you
-         * have `EmberENV.EXTEND_PROTOTYPES` or `EmberENV.EXTEND_PROTOTYPES.Array` set to
-         * false, this will be applied automatically. Otherwise you can apply the mixin
-         * at anytime by calling `Ember.NativeArray.apply(Array.prototype)`.
-         */
-        interface NativeArray<T> extends GlobalArray<T>, MutableArray<T>, Observable, Copyable {
-            /**
-             * __Required.__ You must implement this method to apply this mixin.
-             */
-            length: number;
-        }
-        const NativeArray: Mixin<NativeArray<any>>;
+
         /**
          * Ember.NoneLocation does not interact with the browser. It is useful for
          * testing, or when you need to manage state with your Router, but temporarily
@@ -2157,15 +1797,6 @@ declare module 'ember' {
          * loading. Triggers any callbacks registered for this event.
          */
         function runLoadHooks(name: string, object?: {}): any;
-        /**
-         * Creates an `Ember.NativeArray` from an Array like object.
-         * Does not modify the original object's contents. Ember.A is not needed if
-         * `EmberENV.EXTEND_PROTOTYPES` is `true` (the default value). However,
-         * it is recommended that you use Ember.A when creating addons for
-         * ember or when you can not guarantee that `EmberENV.EXTEND_PROTOTYPES`
-         * will be `true`.
-         */
-        function A<T>(arr?: T[]): NativeArray<T>;
         const compare: typeof EmberUtilsNs.compare;
         /**
          * Creates a shallow copy of the passed object. A deep copy of the object is
@@ -2173,10 +1804,6 @@ declare module 'ember' {
          */
         const copy: typeof EmberObjectInternalsNs.copy;
         const isEqual: typeof EmberUtilsNs.isEqual;
-        /**
-         * Returns true if the passed object is an array or Array-like.
-         */
-        function isArray(obj: any): obj is ArrayLike<any>;
         const typeOf: typeof EmberUtilsNs.typeOf;
         // TODO: replace with an es6 reexport when declare module 'ember' is removed
         /**
@@ -2399,27 +2026,6 @@ declare module '@ember/application/instance' {
 declare module '@ember/application/resolver' {
     import Ember from 'ember';
     export default class Resolver extends Ember.Resolver { }
-}
-
-declare module '@ember/array' {
-    import Ember from 'ember';
-    type EmberArray<T> = Ember.Array<T>;
-    const EmberArray: typeof Ember.Array;
-    export default EmberArray;
-    export const A: typeof Ember.A;
-    export const isArray: typeof Ember.isArray;
-}
-
-declare module '@ember/array/mutable' {
-    import Ember from 'ember';
-    type MutableArray<T> = Ember.MutableArray<T>;
-    const MutableArray: typeof Ember.MutableArray;
-    export default MutableArray;
-}
-
-declare module '@ember/array/proxy' {
-    import Ember from 'ember';
-    export default class ArrayProxy<T> extends Ember.ArrayProxy<T> { }
 }
 
 declare module '@ember/component' {

@@ -20,6 +20,8 @@
             "@ember/engine/*": ["ember__engine/*"],
             "@ember/utils": ["ember__utils"],
             "@ember/utils/*": ["ember__utils/*"],
+            "@ember/array": ["ember__array"],
+            "@ember/array/*": ["ember__array/*"],
             "@ember/debug": ["ember__debug"],
             "@ember/debug/*": ["ember__debug/*"],
             "@ember/object": ["ember__object"],
