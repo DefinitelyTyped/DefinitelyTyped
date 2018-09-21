@@ -202,7 +202,7 @@ const h1 = Ember.Helper.extend({
     }
 });
 // Ember.HistoryLocation
-const hil = new Ember.HistoryLocation();
+const hil = new Ember.HistoryLocation(); // $ExpectType HistoryLocation
 // Ember.LinkComponent
 Ember.LinkComponent.create(); // $ExpectType LinkComponent
 // Ember.Mixin
@@ -232,7 +232,7 @@ const na: Ember.NativeArray<number> = Ember.A([2, 3, 4]);
 na; // $ExpectType NativeArray<number>
 na.clear(); // $ExpectType NativeArray<number>
 // Ember.NoneLocation
-new Ember.NoneLocation();
+new Ember.NoneLocation();  // $ExpectType NoneLocation
 // Ember.Object
 new Ember.Object();
 // Ember.ObjectProxy
