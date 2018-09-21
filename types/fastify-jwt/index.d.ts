@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { SignOptions, VerifyOptions, VerifyCallback, SignCallback, DecodeOptions } from 'jsonwebtoken';
+import { Secret, SignOptions, VerifyOptions, VerifyCallback, SignCallback, DecodeOptions } from 'jsonwebtoken';
 
 export interface FastifyInstance<HttpServer, HttpRequest, HttpResponse> {
     jwt: jwt;
@@ -13,8 +13,8 @@ export interface FastifyInstance<HttpServer, HttpRequest, HttpResponse> {
 export interface jwt {
     sign: (payload: any, options?: SignOptions, callback?: SignCallback) => string;
     verify: (token: string, options?: VerifyOptions, callback?: VerifyCallback) => string;
-    decode: (token: string, options?: DecodeOptions) => string;
-    secret: string;
+    decode: (token: string, options?: DecodeOptions) => null | { [key: string]: any } | string;
+    secret: Secret;
 }
 
 export interface FastifyRequest<HttpRequest> {

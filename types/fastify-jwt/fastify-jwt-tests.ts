@@ -61,6 +61,7 @@ fastify.jwt.sign(9999, {}, (err, token) => {
 });
 
 fastify.jwt.decode("some-token");
+fastify.jwt.decode("some-token");
 fastify.jwt.secret = "some-secret";
 fastify.jwt.verify("some-token", {}, (err) => {
   if (err) {
