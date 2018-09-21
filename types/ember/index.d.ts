@@ -279,6 +279,12 @@ declare module 'ember' {
         class ArrayProxy<T> extends EmberArrayProxy<T> {}
         export type Array<T> = EmberArray<T>;
         export const Array: typeof EmberArrayNs.default;
+        export type MutableArray<T> = EmberMutableArray<T>;
+        export const MutableArray: typeof EmberMutableArray;
+        export type NativeArray<T> = EmberNativeArray<T>;
+        export const NativeArray: typeof EmberNativeArray;
+        export type MutableEnumerable<T> = EmberMutableEnumerable<T>;
+        export const MutableEnumerable: typeof EmberMutableEnumerable;
         interface FunctionPrototypeExtensions {
             /**
              * The `property` extension of Javascript's Function prototype is available
@@ -779,12 +785,6 @@ declare module 'ember' {
             static create(): MapWithDefault;
         }
         class Mixin<T, Base = EmberObjectNs.default> extends EmberMixin<T, Base> {}
-        export type MutableArray<T> = EmberMutableArray<T>;
-        export const MutableArray: typeof EmberMutableArray;
-        export type NativeArray<T> = EmberNativeArray<T>;
-        export const NativeArray: typeof EmberNativeArray;
-        export type MutableEnumerable<T> = EmberMutableEnumerable<T>;
-        export const MutableEnumerable: typeof EmberMutableEnumerable;
 
         /**
          * A Namespace is an object usually used to contain other objects or methods
