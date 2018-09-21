@@ -220,6 +220,11 @@ export class MongoError extends Error {
      * 
      * Details: https://github.com/Automattic/mongoose/issues/2129 (issue for
      * mongoose, but the same applies for the native mongodb driver)
+     * 
+     * Note that in mongoose (the link above) the prop in question is called
+     * 'message' while in mongodb it is called 'errmsg'. This can be seen in
+     * multiple places in the source code, for example here:
+     * https://github.com/mongodb/node-mongodb-native/blob/a12aa15ac3eaae3ad5c4166ea1423aec4560f155/test/functional/find_tests.js#L1111
      */
     errmsg?: string;
 }
