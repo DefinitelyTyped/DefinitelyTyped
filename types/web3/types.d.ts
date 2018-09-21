@@ -1,3 +1,5 @@
+import { Provider } from "./providers";
+
 export type Callback<T> = (error: Error, result: T) => void;
 
 export interface EventEmitter {
@@ -60,6 +62,7 @@ export interface Logs {
     address?: string;
     topics?: Array<string | string[]>;
 }
+
 export interface Log {
     address: string;
     data: string;
@@ -70,6 +73,7 @@ export interface Log {
     blockHash: string;
     blockNumber: number;
 }
+
 export interface Subscribe<T> {
     subscription: {
         id: string;
@@ -82,6 +86,7 @@ export interface Subscribe<T> {
 }
 
 export interface Shh {
+    setProvider: (provider: Provider) => boolean;
     generateSymKeyFromPassword(password: string): Promise<string>;
     generateSymKeyFromPassword(
         password: string,
@@ -89,4 +94,8 @@ export interface Shh {
     ): void;
     // TODO: type every method
 }
-export class Bzz {} // TODO: Type
+
+export class Bzz {
+    setProvider: (provider: Provider) => boolean;
+    // TODO: Type
+}

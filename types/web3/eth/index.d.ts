@@ -36,7 +36,7 @@ export default interface Eth {
         options?: CustomContractOptions
     ) => Contract;
     abi: ABI;
-    setProvider: (provider: Provider) => void;
+    setProvider: (provider: Provider) => boolean;
     accounts: Accounts;
     call(
         callObject: Tx,
