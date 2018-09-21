@@ -16,6 +16,8 @@
         "paths": {
             "@ember/debug": ["ember__debug"],
             "@ember/debug/*": ["ember__debug/*"],
+            "@ember/array": ["ember__array"],
+            "@ember/array/*": ["ember__array/*"],
             "@ember/object": ["ember__object"],
             "@ember/object/*": ["ember__object/*"]
         },
