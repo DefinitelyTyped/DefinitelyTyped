@@ -4,6 +4,7 @@ Copyright (c) Microsoft Corporation
 */
 
 OfficeRuntime.AsyncStorage.getItem("foo", () => {
+
     // perform an action
  });
  OfficeRuntime.AsyncStorage.getItem("foo").then(value => console.log(value));

@@ -15,6 +15,10 @@
             "../"
         ],
         "paths": {
+            "@ember/object": ["ember__object"],
+            "@ember/object/*": ["ember__object/*"],
+            "@ember/engine": ["ember__engine"],
+            "@ember/engine/*": ["ember__engine/*"],
             "@ember/application": ["ember__application"],
             "@ember/application/*": ["ember__application/*"]
         },

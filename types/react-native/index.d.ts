@@ -3,6 +3,7 @@
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
+//                 Simon Knott <https://github.com/skn0tt>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
@@ -30,6 +31,7 @@
 /// <reference path="globals.d.ts" />
 /// <reference path="legacy-properties.d.ts" />
 /// <reference path="BatchedBridge.d.ts" />
+/// <reference path="Devtools.d.ts" />
 
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
@@ -5116,6 +5118,7 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      * @param borderless If the ripple can render outside it's bounds
      */
     static Ripple(color: string, borderless?: boolean): RippleBackgroundPropType;
+    static canUseNativeForeground(): boolean;
 }
 
 export interface Route {
@@ -5216,6 +5219,20 @@ export namespace StyleSheet {
     export function flatten(style?: StyleProp<TextStyle>): TextStyle;
     export function flatten(style?: StyleProp<ImageStyle>): ImageStyle;
     export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
+
+    /**
+     * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will
+     * not be reliably announced. The whole thing might be deleted, who knows? Use
+     * at your own risk.
+     *
+     * Sets a function to use to pre-process a style property value. This is used
+     * internally to process color and transform values. You should not use this
+     * unless you really know what you are doing and have exhausted other options.
+     */
+    export function setStyleAttributePreprocessor(
+        property: string,
+        process: (nextProp: any) => any
+    ): void;
 
     /**
      * This is defined as the width of a thin line on the platform. It can be
@@ -7354,7 +7371,7 @@ export interface NetInfoStatic {
      * sensitive to heavy data usage on that connection due to monetary
      * costs, data limitations or battery/performance issues.
      */
-    isConnectionExpensive: Promise<boolean>;
+    isConnectionExpensive: () => Promise<boolean>;
 }
 
 export interface PanResponderGestureState {
@@ -8955,11 +8972,13 @@ export interface ComponentInterface<P> {
  * Common types are lined up with the appropriate prop differs with
  * `TypeToDifferMap`.  Non-scalar types not in the map default to `deepDiffer`.
  */
-export function requireNativeComponent<P>(
+export function requireNativeComponent<P, NP = {}>(
     viewName: string,
     componentInterface?: ComponentInterface<P>,
-    extraConfig?: { nativeOnly?: any }
-): React.ComponentClass<PropTypes.InferProps<PropTypes.ValidationMap<P>>>;
+    extraConfig?: { nativeOnly?: NP }
+): React.ComponentClass<
+    Partial<PropTypes.InferProps<PropTypes.ValidationMap<P>>> & { [K in keyof NP]?: any}
+>;
 
 export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>

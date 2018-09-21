@@ -9,13 +9,12 @@ office-js
 Copyright (c) Microsoft Corporation
 */
 
-
 ////////////////////////////////////////////////////////////////
 //////////////////// Begin custom-functions-runtime ////////////
 ////////////////////////////////////////////////////////////////
 
-/* 
-* Enables you to map your own name that uses lowercase letters to a function. 
+/*
+* Enables you to map your own name that uses lowercase letters to a function.
 */
 declare let CustomFunctionMappings: { [key: string]: Function };
 
@@ -36,7 +35,6 @@ declare namespace CustomFunctions {
         onCanceled: () => void;
     }
 }
-
 
 ////////////////////////////////////////////////////////////////
 //////////////////// End custom-functions-runtime ////////////

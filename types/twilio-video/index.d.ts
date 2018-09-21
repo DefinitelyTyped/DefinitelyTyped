@@ -39,6 +39,10 @@ export class AudioTrack extends Track {
     kind: 'audio';
     mediaStreamTrack: MediaStreamTrack;
 
+    // Required for Safari if you want to detach without errors
+    // See: https://github.com/twilio/twilio-video.js/issues/294#issuecomment-389708981
+    _attachments?: HTMLMediaElement[];
+
     attach(element?: HTMLMediaElement | string): HTMLMediaElement;
     detach(element?: HTMLMediaElement | string): HTMLMediaElement[];
 }
@@ -94,7 +98,7 @@ export class LocalParticipant extends Participant {
     tracks: Map<Track.SID, LocalTrackPublication>;
     videoTracks: Map<Track.SID, LocalVideoTrackPublication>;
 
-    publishTrack(localTrack: LocalTrack): Promise<LocalTrackPublication>;
+    publishTrack(track: LocalTrack): Promise<LocalTrackPublication>;
     publishTrack(
         mediaStreamTrack: MediaStreamTrack, options?: LocalTrackOptions,
     ): Promise<LocalTrackPublication>;
@@ -102,6 +106,8 @@ export class LocalParticipant extends Participant {
         tracks: LocalTrack[] | MediaStreamTrack[],
     ): Promise<LocalTrackPublication[]>;
     setParameters(encodingParameters?: EncodingParameters | null): LocalParticipant;
+    unpublishTrack(track: LocalTrack): LocalTrackPublication;
+    unpublishTracks(tracks: LocalTrack): LocalTrackPublication[];
 }
 export class LocalTrackPublication extends TrackPublication {
     isTrackEnabled: boolean;
@@ -169,7 +175,7 @@ export class Participant extends EventEmitter {
     audioTracks: Map<Track.SID, AudioTrackPublication>;
     dataTracks: Map<Track.SID, DataTrackPublication>;
     identity: Participant.Identity;
-    networkQualityLEvel: NetworkQualityLevel | null;
+    networkQualityLevel: NetworkQualityLevel | null;
     sid: Participant.SID;
     state: string;
     tracks: Map<Track.SID, TrackPublication>;
@@ -431,6 +437,10 @@ export class VideoTrack extends Track {
     kind: 'video';
     mediaStreamTrack: MediaStreamTrack;
 
+    // Required for Safari if you want to detach without errors
+    // See: https://github.com/twilio/twilio-video.js/issues/294#issuecomment-389708981
+    _attachments?: HTMLMediaElement[];
+
     attach(element?: HTMLMediaElement | string): HTMLVideoElement;
     detach(element?: HTMLMediaElement | string): HTMLMediaElement[];
 }
@@ -472,10 +482,11 @@ export interface ConnectOptions {
     tracks?: LocalTrack[] | MediaStreamTrack[];
     video?: boolean | CreateLocalTrackOptions;
 }
-export interface CreateLocalTrackOptions {
-    logLevel: LogLevel | LogLevels;
+export interface CreateLocalTrackOptions extends MediaTrackConstraints {
+    // In API reference logLevel is not optional, but in the Twilio examples it is
+    logLevel?: LogLevel | LogLevels;
     name?: string;
-    workaroundWebKitBug180748?: boolean; // Lol
+    workaroundWebKitBug180748?: boolean;
 }
 export interface CreateLocalTracksOptions {
     audio?: boolean | CreateLocalTrackOptions;

@@ -37,15 +37,20 @@ const Example = () => (
                         </div>
                     )}
                 />
-                <Step
-                    id="dumbledore"
-                    render={({ previous }) => (
+                <Step id="dumbledore">
+                    {({ previous, next }) => (
                         <div>
                             <h1>Dumbledore</h1>
                             <button onClick={previous}>Previous</button>
+                            <button onClick={next}>Next</button>
                         </div>
                     )}
-                />
+                </Step>
+                <Step id="harry">
+                    <div>
+                        <h1>Harry</h1>
+                    </div>
+                </Step>
             </Steps>
         )}
     />

@@ -1483,6 +1483,9 @@ export class AggregationCursor<T = Default> extends Readable {
     geoNear(document: Object): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#group */
     group(document: Object): AggregationCursor<T>;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#hasNext */
+    hasNext(): Promise<boolean>;
+    hasNext(callback: MongoCallback<boolean>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#isClosed */
     isClosed(): boolean;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#limit */

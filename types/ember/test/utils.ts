@@ -1,44 +1,43 @@
 import Ember from 'ember';
-import * as utils from '@ember/utils';
 import { assertType } from "./lib/assert";
 
 function testTypeOf() {
-    utils.typeOf(); // $ExpectType "undefined"
-    const str: string = utils.typeOf({});
+    Ember.typeOf(); // $ExpectType "undefined"
+    const str: string = Ember.typeOf({});
 }
 
 function testIsNoneType() {
     const maybeUndefined: string | undefined = 'not actually undefined';
-    if (utils.isNone(maybeUndefined)) {
+    if (Ember.isNone(maybeUndefined)) {
         return;
     }
 
     const anotherString = maybeUndefined + 'another string';
-    utils.isNone(); // $ExpectType boolean
+    Ember.isNone(); // $ExpectType boolean
 }
 
 function testIsBlank() {
-    utils.isBlank(); // $ExpectType boolean
-    utils.isBlank(''); // $ExpectType boolean
-    utils.isBlank('', ''); // $ExpectError
+    Ember.isBlank(); // $ExpectType boolean
+    Ember.isBlank(''); // $ExpectType boolean
+    Ember.isBlank('', ''); // $ExpectError
 }
 
 function testIsEmpty() {
-    utils.isEmpty(); // $ExpectType boolean
-    utils.isEmpty(''); // $ExpectType boolean
-    utils.isEmpty('', ''); // $ExpectError
+    Ember.isEmpty(); // $ExpectType boolean
+    Ember.isEmpty(''); // $ExpectType boolean
+    Ember.isEmpty('', ''); // $ExpectError
 }
 
 function testIsPresent() {
-    utils.isPresent(); // $ExpectType boolean
-    utils.isPresent(''); // $ExpectType boolean
-    utils.isPresent('', ''); // $ExpectError
+    Ember.isPresent(); // $ExpectType boolean
+    Ember.isPresent(''); // $ExpectType boolean
+    Ember.isPresent('', ''); // $ExpectError
 }
 
 function testIsNone() {
-    utils.isNone(); // $ExpectType boolean
-    utils.isNone(''); // $ExpectType boolean
-    utils.isNone('', ''); // $ExpectError
+    Ember.isNone(); // $ExpectType boolean
+    Ember.isNone(''); // $ExpectType boolean
+    Ember.isNone('', ''); // $ExpectError
 }
 
 function testMerge() {
@@ -54,7 +53,7 @@ function testAssign() {
 }
 
 function testOnError() {
-    Ember.onerror = function(error) {
+    Ember.onerror = (error) => {
         Ember.$.post('/report-error', {
             stack: error.stack,
             otherInformation: 'whatever app state you want to provide'
@@ -62,20 +61,12 @@ function testOnError() {
     };
 }
 
-function testMakeArray() {
-    assertType<any[]>(Ember.makeArray());
-    assertType<any[]>(Ember.makeArray(null));
-    assertType<any[]>(Ember.makeArray(undefined));
-    assertType<string[]>(Ember.makeArray('lindsay'));
-    assertType<number[]>(Ember.makeArray([1, 2, 42]));
-}
-
 function testDeprecateFunc() {
     function newMethod(first: string, second: number): string {
         return '';
     }
 
-    let oldMethod = Ember.deprecateFunc('Please use the new method', { id: 'deprecated.id', until: '6.0' }, newMethod);
+    const oldMethod = Ember.deprecateFunc('Please use the new method', { id: 'deprecated.id', until: '6.0' }, newMethod);
     assertType<string>(newMethod('first', 123));
     assertType<string>(oldMethod('first', 123));
 }
@@ -128,9 +119,8 @@ function testTryInvoke() {
     Ember.tryInvoke(new Foo(), 'add', ['4', 3]); // $ExpectType undefined
 }
 
-(function() {
+(() => {
     /** typeOf */
-    // TODO: more specific return type in @types/ember https://github.com/typed-ember/ember-cli-typescript/issues/259
     Ember.typeOf();                       // $ExpectType "undefined"
     Ember.typeOf(null);                   // $ExpectType "null"
     Ember.typeOf(undefined);              // $ExpectType "undefined"
@@ -154,7 +144,7 @@ function testTryInvoke() {
     Ember.typeOf((new Date()) as RegExp | Date); // "regexp" | "date"
 })();
 
-(function() { /* assign */
+(() => { /* assign */
     Ember.assign({}, { a: 'b'});
     Ember.assign({}, { a: 'b'}).a; // $ExpectType string
     Ember.assign({ a: 6 }, { a: 'b'}).a; // $ExpectType string
@@ -165,12 +155,12 @@ function testTryInvoke() {
     Ember.assign({ a: 'hello' }, { b: 6 }, { a: true }).a; // $ExpectType boolean
     Ember.assign({ a: 'hello' }, '', { a: true }).a; // $ExpectError
     Ember.assign({ d: ['gobias industries'] }, { a: 'hello' }, { b: 6 }, { a: true }).d; // $ExpectType string[]
-}());
+})();
 
-(function() { /* merge */
+(() => { /* merge */
     Ember.merge({}, { a: 'b'});
     Ember.merge({}, { a: 'b'}).a; // $ExpectType string
     Ember.merge({ a: 6 }, { a: 'b'}).a; // $ExpectType string
     Ember.merge({ a: 6 }, {}).a; // $ExpectType number
     Ember.merge({ b: 6 }, {}).a; // $ExpectError
-}());
+})();
