@@ -166,12 +166,12 @@ export interface Eth {
     ): Promise<EncodedTransaction>;
     sendSignedTransaction(
         data: string,
-        cb?: Callback<string>
-    ): PromiEvent<TransactionReceipt>;
+        cb?: Callback<TransactionReceipt | string | { confNumber: number, receipt: TransactionReceipt }>
+    ): PromiEvent<TransactionReceipt | string | { confNumber: number, receipt: TransactionReceipt }>;
     sendTransaction(
         tx: Tx,
-        cb?: Callback<string>
-    ): PromiEvent<TransactionReceipt>;
+        cb?: Callback<TransactionReceipt | string | { confNumber: number, receipt: TransactionReceipt }>
+    ): PromiEvent<TransactionReceipt | string | { confNumber: number, receipt: TransactionReceipt }>;
     submitWork(
         nonce: string,
         powHash: string,
