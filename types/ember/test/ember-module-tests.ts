@@ -85,6 +85,7 @@ Ember.merge({ a: 12 }, { b: 34 }).a; // $ExpectType number
 // observer
 const o2 = EmberObject.extend({
     name: 'foo',
+    age: 3,
     nameWatcher: Ember.observer('name', () => {}),
     nameWatcher2: Ember.observer('name', 'fullName', () => {})
 });
@@ -106,6 +107,7 @@ Ember.runInDebug(() => {});
 Ember.sendEvent(o2, 'clicked', [1, 2]); // $ExpectType boolean
 // set
 Ember.set(o2.create(), 'name', 'bar'); // $ExpectType string
+Ember.set(o2.create(), 'age', 4); // $ExpectType number
 Ember.set(o2.create(), 'nam', 'bar'); // $ExpectError
 // setOwner
 Ember.setOwner(o2.create(), {});
@@ -141,6 +143,7 @@ Ember.ApplicationInstance.create(); // $ExpectType ApplicationInstance
 // TODO: Ember.ApplicationInstance.BootOptions
 // Ember.Array
 const a1: Ember.Array<string> = [];
+const a2: Ember.Array<string> = {}; // $ExpectError
 // Ember.ArrayProxy
 new Ember.ArrayProxy<number>([3, 3, 2]); // $ExpectType ArrayProxy<number>
 // Ember.Checkbox
