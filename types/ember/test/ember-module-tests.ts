@@ -1,9 +1,5 @@
 import Ember from 'ember';
-import EngineInstance from '@ember/engine/instance';
-import Component from '@ember/component';
-import EmberObject from '@ember/object';
-import ComputedProperty from '@ember/object/computed';
-import Evented from '@ember/object/evented';
+
 // $
 Ember.$; // $ExpectType JQueryStatic
 // A
@@ -46,9 +42,9 @@ Ember.deprecate("you shouldn't use this anymore", 3 === 3, {
 Ember.get({ z: 23 }, 'z'); // $ExpectType number
 Ember.get({ z: 23 }, 'zz'); // $ExpectError
 // getEngineParent
-Ember.getEngineParent(new EngineInstance()); // $ExpectType EngineInstance
+Ember.getEngineParent(new Ember.EngineInstance()); // $ExpectType EngineInstance
 // getOwner
-Ember.getOwner(new Component());
+Ember.getOwner(new Ember.Component());
 // getProperties
 Ember.getProperties({ z: 23 }, 'z').z; // $ExpectType number
 Ember.getProperties({ z: 23 }, 'z', 'z').z; // $ExpectType number
@@ -83,14 +79,14 @@ Ember.isPresent([]); // $ExpectType boolean
 // merge
 Ember.merge({ a: 12 }, { b: 34 }).a; // $ExpectType number
 // observer
-const o2 = EmberObject.extend({
+const o2 = Ember.Object.extend({
     name: 'foo',
     age: 3,
     nameWatcher: Ember.observer('name', () => {}),
     nameWatcher2: Ember.observer('name', 'fullName', () => {})
 });
 // on
-const o3 = EmberObject.extend({
+const o3 = Ember.Object.extend({
     name: 'foo',
     nameWatcher: Ember.on('init', () => {}),
     nameWatcher2: Ember.on('destroy', () => {})
@@ -192,11 +188,12 @@ ei1.lookup('data:foo');
 // Ember.Error
 new Ember.Error('Halp!');
 // Ember.Evented
-const oe1 = EmberObject.extend(Evented).create();
+const oe1 = Ember.Object.extend(Ember.Evented).create();
 oe1.trigger('foo');
 oe1.on('bar', () => {});
+oe1.on('bar', { foo() {}}, () => {});
 // Ember.HashLocation
-const hl = new Ember.HashLocation();
+const hl = new Ember.HashLocation(); // $ExpectType HashLocation
 // Ember.Helper
 const h1 = Ember.Helper.extend({
     compute() {
@@ -225,18 +222,18 @@ const ma1: Ember.MutableArray<string> = [
     'bananna',
     'stand'
 ];
-ma1.addObject('!');
-ma1.filterBy('');
+ma1.addObject('!'); // $ExpectType string
+ma1.filterBy(''); // $ExpectType NativeArray<string>
 // Ember.MutableEnumerable
 // tslint:disable-next-line:prefer-const
 let me1: Ember.MutableEnumerable<[string]> = null as any;
-me1.compact();
+me1.compact(); // $ExpectType NativeArray<[string]>
 // Ember.Namespace
 const myNs = Ember.Namespace.extend({});
 // Ember.NativeArray
 const na: Ember.NativeArray<number> = Ember.A([2, 3, 4]);
 na; // $ExpectType NativeArray<number>
-na.clear();
+na.clear(); // $ExpectType NativeArray<number>
 // Ember.NoneLocation
 new Ember.NoneLocation();
 // Ember.Object
