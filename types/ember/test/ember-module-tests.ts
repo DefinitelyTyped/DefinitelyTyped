@@ -82,7 +82,6 @@ Ember.isPresent(''); // $ExpectType boolean
 Ember.isPresent([]); // $ExpectType boolean
 // merge
 Ember.merge({ a: 12 }, { b: 34 }).a; // $ExpectType number
-Ember.merge({}, {});
 // observer
 const o2 = EmberObject.extend({
     name: 'foo',
@@ -240,7 +239,7 @@ new Ember.NoneLocation();
 // Ember.Object
 new Ember.Object();
 // Ember.ObjectProxy
-new Ember.ObjectProxy();
+new Ember.ObjectProxy(); // $ExpectType ObjectProxy
 // Ember.Observable
 Ember.Object.extend(Ember.Observable, {});
 // Ember.PromiseProxyMixin
