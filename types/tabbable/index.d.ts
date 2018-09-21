@@ -9,6 +9,10 @@ declare namespace T {
     interface Options {
         includeContainer?: boolean;
     }
+
+    function isTabbable(el: HTMLElement): boolean;
+
+    function isFocusable(el: HTMLElement): boolean;
 }
 
 export = T;
