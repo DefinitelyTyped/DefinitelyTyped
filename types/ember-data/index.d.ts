@@ -8,6 +8,9 @@
 
 declare module 'ember-data' {
     import Ember from 'ember';
+    import Evented from '@ember/object/evented';
+    import ObjectProxy from '@ember/object/proxy';
+    import PromiseProxyMixin from '@ember/object/promise-proxy-mixin';
     import RSVP from 'rsvp';
 
     export interface ModelRegistry {}
@@ -286,7 +289,7 @@ declare module 'ember-data' {
         /**
          * Holds validation errors for a given record, organized by attribute names.
          */
-        interface Errors extends Ember.Enumerable<any>, Ember.Evented {}
+        interface Errors extends Ember.Enumerable<any>, Evented {}
         class Errors extends Ember.Object {
             /**
              * DEPRECATED:
@@ -657,7 +660,7 @@ declare module 'ember-data' {
          * `DS.RecordArray` or its subclasses will be returned by your application's store
          * in response to queries.
          */
-        interface RecordArray<T> extends Ember.ArrayProxy<T>, Ember.Evented {}
+        interface RecordArray<T> extends Ember.ArrayProxy<T>, Evented {}
         class RecordArray<T> {
             /**
              * The flag to signal a `RecordArray` is finished loading data.
@@ -868,7 +871,7 @@ declare module 'ember-data' {
          */
         interface PromiseArray<T>
             extends Ember.ArrayProxy<T>,
-                Ember.PromiseProxyMixin<Ember.ArrayProxy<T>> {}
+                PromiseProxyMixin<Ember.ArrayProxy<T>> {}
         class PromiseArray<T> {}
         /**
          * A `PromiseObject` is an object that acts like both an `Ember.Object`
@@ -878,8 +881,8 @@ declare module 'ember-data' {
          * be updated when the promise resolves.
          */
         interface PromiseObject<T>
-            extends Ember.ObjectProxy,
-                Ember.PromiseProxyMixin<T & Ember.ObjectProxy> {}
+            extends ObjectProxy,
+                PromiseProxyMixin<T & ObjectProxy> {}
         class PromiseObject<T> {}
         /**
          * A PromiseManyArray is a PromiseArray that also proxies certain method calls
