@@ -7,7 +7,7 @@
  */
 
 import * as d3Drag from 'd3-drag';
-import { event, select, Selection } from 'd3-selection';
+import { ArrayLike, event, select, Selection } from 'd3-selection';
 
 // NB: Consider alternative approach to getting live event-binding
 // when using webpack as suggested by @ocombe in response to
@@ -62,7 +62,7 @@ circleCustomDrag = d3Drag.drag<SVGCircleElement, CircleDatum, CustomSubject | d3
 
 // set and get container element/accessor ----------------------------
 
-let containerAccessor: (this: SVGCircleElement, d: CircleDatum, i: number, group: SVGCircleElement[] | NodeListOf<SVGCircleElement>) => d3Drag.DragContainerElement;
+let containerAccessor: (this: SVGCircleElement, d: CircleDatum, i: number, group: SVGCircleElement[] | ArrayLike<SVGCircleElement>) => d3Drag.DragContainerElement;
 
 containerAccessor = function(d, i, group) {
     console.log('Node Id of circle: ', d.nodeId);
@@ -123,7 +123,7 @@ circleDrag = circleDrag.touchable(true);
 circleDrag = circleDrag.touchable(function(d, i, group) {
     const that: SVGCircleElement = this;
     const datum: CircleDatum = d;
-    const g: SVGCircleElement[] | NodeListOf<SVGCircleElement> = group;
+    const g: SVGCircleElement[] | ArrayLike<SVGCircleElement> = group;
     return "ontouchstart" in this && datum.color === 'green';
 });
 

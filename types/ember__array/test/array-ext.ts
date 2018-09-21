@@ -1,6 +1,6 @@
 import { assertType } from './lib/assert';
 import EmberObject from '@ember/object';
-import { ArrayPrototypeExtensions } from '@ember/array/types/prototype-extensions';
+import ArrayPrototypeExtensions from '@ember/array/types/prototype-extensions';
 
 declare global {
     interface Array<T> extends ArrayPrototypeExtensions<T> {}

@@ -270,6 +270,7 @@ declare var SlowBuffer: {
 // Buffer class
 type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
 interface Buffer extends Uint8Array {
+    constructor: typeof Buffer;
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): { type: 'Buffer', data: any[] };
@@ -647,6 +648,14 @@ declare namespace NodeJS {
         system: number;
     }
 
+    export interface ProcessRelease {
+        name: string;
+        sourceUrl?: string;
+        headersUrl?: string;
+        libUrl?: string;
+        lts?: string;
+    }
+
     export interface ProcessVersions {
         http_parser: string;
         node: string;
@@ -785,6 +794,7 @@ declare namespace NodeJS {
         memoryUsage(): MemoryUsage;
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
+        release: ProcessRelease;
         umask(mask?: number): number;
         uptime(): number;
         hrtime(time?: [number, number]): [number, number];

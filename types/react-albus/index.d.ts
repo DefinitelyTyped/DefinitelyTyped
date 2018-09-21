@@ -1,6 +1,7 @@
 // Type definitions for react-albus 2.0
 // Project: https://github.com/americanexpress/react-albus#readme
 // Definitions by: Sindre Seppola <https://github.com/sseppola>
+//                 Conrad Reuter <https://github.com/conradreuter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -34,5 +35,7 @@ export const Steps: React.ComponentType<{
 
 export const Step: React.ComponentType<{
     id: string;
-    render: (wizard: WizardContext) => React.ReactNode;
-}>;
+} & (
+    | { render?: (wizard: WizardContext) => React.ReactNode; }
+    | { children: (wizard: WizardContext) => React.ReactNode; }
+)>;

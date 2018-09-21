@@ -30,7 +30,7 @@ const persons6: MutableArray<Person> = people.filter((person) => person.get('nam
 assertType<typeof people>(people.get('[]'));
 assertType<Person>(people.get('[]').get('firstObject')); // $ExpectType any
 
-assertType<EmberArray<boolean>>(people.mapBy('isHappy')); // $ExpectType Array<boolean>
+assertType<boolean[]>(people.mapBy('isHappy')); // $ExpectType boolean[]
 assertType<any[]>(people.mapBy('name.length'));
 
 const last = people.get('lastObject');  // $ExpectType ({ name: string; isHappy: boolean; } & EmberObject & { name: string; isHappy: boolean; }) | undefined

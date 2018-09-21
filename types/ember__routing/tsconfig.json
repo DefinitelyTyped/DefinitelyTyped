@@ -17,6 +17,8 @@
         "paths": {
             "@ember/object": ["ember__object"],
             "@ember/object/*": ["ember__object/*"],
+            "@ember/array": ["ember__array"],
+            "@ember/array/*": ["ember__array/*"],
             "@ember/routing": ["ember__routing"],
             "@ember/routing/*": ["ember__routing/*"]
         },

@@ -35,6 +35,7 @@
         "promise-proxy-mixin.d.ts",
         "proxy.d.ts",
         "-private/types.d.ts",
+        "-private/copyable.d.ts",
         "test/lib/assert.ts",
         "test/access-modifier.ts",
         "test/core.ts",
