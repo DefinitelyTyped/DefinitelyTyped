@@ -1,10 +1,11 @@
-// Type definitions for Recompose 0.26
+// Type definitions for Recompose 0.27
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 //                 Samuel DeSota <https://github.com/mrapogee>
 //                 Curtis Layne <https://github.com/clayne11>
 //                 Rasmus Eneman <https://github.com/Pajn>
 //                 Lucas Terra <https://github.com/lucasterra>
+//                 Brian Adams <https://github.com/brian-lives-outdoors>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -269,19 +270,19 @@ declare module 'recompose' {
     // Static property helpers: https://github.com/acdlite/recompose/blob/master/docs/API.md#static-property-helpers
 
     // setStatic: https://github.com/acdlite/recompose/blob/master/docs/API.md#setStatic
-    export function setStatic<TOutter>(
+    export function setStatic(
         key: string, value: any
-    ): ComponentEnhancer<TOutter, TOutter>;
+    ): <T extends Component>(component: T) => T;
 
     // setPropTypes: https://github.com/acdlite/recompose/blob/master/docs/API.md#setPropTypes
-    export function setPropTypes<TOutter>(
-        propTypes: ValidationMap<TOutter>
-    ): ComponentEnhancer<any, TOutter>;
+    export function setPropTypes<P>(
+        propTypes: ValidationMap<P>
+    ): <T extends Component<P>>(component: T) => T;
 
     // setDisplayName: https://github.com/acdlite/recompose/blob/master/docs/API.md#setDisplayName
-    export function setDisplayName<TOutter>(
+    export function setDisplayName(
         displayName: string
-    ): ComponentEnhancer<TOutter, TOutter>;
+    ): <T extends Component>(component: T) => T;
 
 
     // Utilities: https://github.com/acdlite/recompose/blob/master/docs/API.md#utilities
