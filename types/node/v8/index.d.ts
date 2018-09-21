@@ -480,6 +480,14 @@ declare namespace NodeJS {
         system: number;
     }
 
+    export interface ProcessRelease {
+        name: string;
+        sourceUrl?: string;
+        headersUrl?: string;
+        libUrl?: string;
+        lts?: string;
+    }
+
     export interface ProcessVersions {
         http_parser: string;
         node: string;
@@ -613,6 +621,7 @@ declare namespace NodeJS {
         memoryUsage(): MemoryUsage;
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
+        release: ProcessRelease;
         umask(mask?: number): number;
         uptime(): number;
         hrtime(time?: [number, number]): [number, number];
