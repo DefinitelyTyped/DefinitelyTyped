@@ -11,16 +11,16 @@ export interface FastifyInstance<HttpServer, HttpRequest, HttpResponse> {
 }
 
 export interface jwt {
-    sign: (payload: any, options?: SignOptions, callback?: SignCallback) => string;
-    verify: (token: string, options?: VerifyOptions, callback?: VerifyCallback) => string;
+    sign: (payload: any, options?: SignOptions, callback?: SignCallback) => void;
+    verify: (token: string, options?: VerifyOptions, callback?: VerifyCallback) => void;
     decode: (token: string, options?: DecodeOptions) => null | { [key: string]: any } | string;
     secret: Secret;
 }
 
 export interface FastifyRequest<HttpRequest> {
-    jwtVerify: (options?: VerifyOptions | VerifyCallback, next?: jwt["verify"]) => FastifyRequest<HttpRequest>;
+    jwtVerify: (options?: VerifyOptions | VerifyCallback, next?: VerifyCallback) => Promise<null | { [key: string]: any } | string> | null | { [key: string]: any } | string;
 }
 
 export interface FastifyReply<HttpResponse> {
-    jwtSign: (payload: any, options?: SignOptions | SignCallback, next?: jwt["sign"]) => FastifyReply<HttpResponse>;
+    jwtSign: (payload: any, options?: SignOptions | SignCallback, next?: SignCallback) => void;
 }
