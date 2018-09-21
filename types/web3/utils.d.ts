@@ -58,7 +58,8 @@ export interface Utils {
     fromAscii(val: string): string;
     fromDecimal(val: string | number | BigNumber): string;
     fromUtf8(val: string): string;
-    fromWei(val: string | number | BigNumber, unit: Unit): string | BigNumber;
+    fromWei(val: BigNumber, unit?: Unit): BigNumber;
+    fromWei(val: string | number, unit?: Unit): string;
     hexToBytes(val: string): number[];
     hexToNumber(val: string | number | BigNumber): number;
     hexToNumberString(val: string | number | BigNumber): string;
