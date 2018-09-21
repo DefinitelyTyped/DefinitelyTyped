@@ -1,9 +1,9 @@
 import BigNumber = require("bn.js");
 import { Provider } from "../providers";
-import Contract, { CustomOptions as CustomContractOptions } from "./contract";
-import PromiEvent from "../promiEvent";
-import ABI from "./abi";
-import Accounts from "./accounts";
+import { Contract, CustomOptions as CustomContractOptions } from "./contract";
+import { PromiEvent } from "../promiEvent";
+import { ABI } from "./abi";
+import { Accounts } from "./accounts";
 import {
     BatchRequest,
     Iban,
@@ -25,7 +25,7 @@ import {
     EncodedTransaction
 } from "../types";
 
-export default interface Eth {
+export interface Eth {
     defaultAccount: string;
     defaultBlock: BlockType;
     BatchRequest: new () => BatchRequest;
@@ -88,7 +88,7 @@ export default interface Eth {
     getBalance(
         address: string,
         defaultBlock?: BlockType,
-        cb?: Callback<number>
+        cb?: Callback<string>
     ): Promise<number>;
     getBlock(
         number: BlockType,
@@ -166,12 +166,12 @@ export default interface Eth {
     ): Promise<EncodedTransaction>;
     sendSignedTransaction(
         data: string,
-        cb?: Callback<string>
-    ): PromiEvent<TransactionReceipt>;
+        cb?: Callback<TransactionReceipt | string | { confNumber: number, receipt: TransactionReceipt }>
+    ): PromiEvent<TransactionReceipt | string | { confNumber: number, receipt: TransactionReceipt }>;
     sendTransaction(
         tx: Tx,
-        cb?: Callback<string>
-    ): PromiEvent<TransactionReceipt>;
+        cb?: Callback<TransactionReceipt | string | { confNumber: number, receipt: TransactionReceipt }>
+    ): PromiEvent<TransactionReceipt | string | { confNumber: number, receipt: TransactionReceipt }>;
     submitWork(
         nonce: string,
         powHash: string,

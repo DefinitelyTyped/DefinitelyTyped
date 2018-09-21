@@ -35,15 +35,15 @@ type Mixed =
     | number
     | BigNumber
     | {
-    type: string;
-    value: string;
-}
+        type: string;
+        value: string;
+    }
     | {
-    t: string;
-    v: string;
-};
+        t: string;
+        v: string;
+    };
 
-export default interface Utils {
+export interface Utils {
     BN: BigNumber; // TODO only static-definition
     isBN(any: any): boolean;
     isBigNumber(any: any): boolean;
@@ -58,7 +58,8 @@ export default interface Utils {
     fromAscii(val: string): string;
     fromDecimal(val: string | number | BigNumber): string;
     fromUtf8(val: string): string;
-    fromWei(val: string | number | BigNumber, unit: Unit): string | BigNumber;
+    fromWei(val: BigNumber, unit?: Unit): BigNumber;
+    fromWei(val: string | number, unit?: Unit): string;
     hexToBytes(val: string): number[];
     hexToNumber(val: string | number | BigNumber): number;
     hexToNumberString(val: string | number | BigNumber): string;
