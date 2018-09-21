@@ -45,6 +45,8 @@ declare module 'ember' {
     import * as EmberObjectNs from '@ember/object';
     import * as EmberObjectObserversNs from '@ember/object/observers';
     import * as EmberObjectMixinNs from '@ember/object/mixin';
+    import * as EmberObjectProxyNs from '@ember/object/proxy';
+    import * as EmberObjectPromiseProxyNs from '@ember/object/promise-proxy-mixin';
     import * as EmberObjectInternalsNs from '@ember/object/internals';
     import * as EmberObjectComputedNs from '@ember/object/computed';
     import * as EmberObjectEventedNs from '@ember/object/evented';
@@ -61,7 +63,7 @@ declare module 'ember' {
     import EmberCoreObject from '@ember/object/core';
     // tslint:disable-next-line:no-duplicate-imports
     import EmberMixin from '@ember/object/mixin';
-    import Observable from '@ember/object/observable';
+    import EmberObservable from '@ember/object/observable';
 
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
@@ -283,7 +285,7 @@ declare module 'ember' {
             on(...args: string[]): this;
         }
 
-        interface ArrayPrototypeExtensions<T> extends MutableArray<T>, Observable, Copyable {}
+        interface ArrayPrototypeExtensions<T> extends MutableArray<T>, EmberObservable, Copyable {}
 
         interface StringPrototypeExtensions {
             camelize(): string;
@@ -667,6 +669,9 @@ declare module 'ember' {
         const Copyable: EmberMixin<Copyable>;
         // TODO: replace with a proper ES6 reexport once we remove declare module 'ember' {}
         class Object extends EmberObjectNs.default {}
+        class ObjectProxy extends EmberObjectProxyNs.default {}
+        const Observable: typeof EmberObservable;
+        const PromiseProxyMixin: typeof EmberObjectPromiseProxyNs.default;
         class CoreObject extends EmberCoreObject {}
         class DataAdapter extends _DataAdapter {}
         const Debug: {
@@ -1134,7 +1139,7 @@ declare module 'ember' {
          * false, this will be applied automatically. Otherwise you can apply the mixin
          * at anytime by calling `Ember.NativeArray.apply(Array.prototype)`.
          */
-        interface NativeArray<T> extends GlobalArray<T>, MutableArray<T>, Observable, Copyable {
+        interface NativeArray<T> extends GlobalArray<T>, MutableArray<T>, EmberObservable, Copyable {
             /**
              * __Required.__ You must implement this method to apply this mixin.
              */
