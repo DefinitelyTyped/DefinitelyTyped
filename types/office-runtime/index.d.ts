@@ -13,8 +13,8 @@ Copyright (c) Microsoft Corporation
 declare namespace OfficeRuntime {
     /**
      * Enables you to pop up a web dialog box.
-     * @param url 
-     * @param options 
+     * @param url
+     * @param options
      */
     function displayWebDialog(url: string, options: DisplayWebDialogOptions): Promise<Dialog>;
     /**
@@ -22,22 +22,22 @@ declare namespace OfficeRuntime {
      */
     const AsyncStorage: AsyncStorage;
     /**
-    * Asynchronous, global, and persistent key-value storage that can be used by Excel Custom Functions.
-    * @beta
-    *
-    * @remarks
-    * Each add-in instance has its own storage partition, unique to a user and their device.
-    *
-    * The default amount of total storage allowed per add-in is 5MB.
-    *
-    * Each method listed below returns a Promise object.
-    *
-    */
+     * Asynchronous, global, and persistent key-value storage that can be used by Excel Custom Functions.
+     * @beta
+     *
+     * @remarks
+     * Each add-in instance has its own storage partition, unique to a user and their device.
+     *
+     * The default amount of total storage allowed per add-in is 5MB.
+     *
+     * Each method listed below returns a Promise object.
+     *
+     */
     interface AsyncStorage {
         /**
-        * @beta
-        * Retrieves an object based on a key and invokes a callback when finished. Returns a Promise.
-        */
+         * @beta
+         * Retrieves an object based on a key and invokes a callback when finished. Returns a Promise.
+         */
         getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>;
         /**
          * @beta
@@ -45,29 +45,29 @@ declare namespace OfficeRuntime {
          */
         setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<void>;
         /**
-        * @beta
-        * Removes an item for specified key and invokes a callback when finished. Returns a Promise.
-        */
+         * @beta
+         * Removes an item for specified key and invokes a callback when finished. Returns a Promise.
+         */
         removeItem(key: string, callback?: (error?: Error) => void): Promise<void>;
         /**
-        * @beta
-        * Erases all AsyncStorage. Returns a Promise.
-        */
+         * @beta
+         * Erases all AsyncStorage. Returns a Promise.
+         */
         clear(callback?: (error?: Error) => void): Promise<void>;
         /**
-        * @beta
-        * Returns a Promise with all keys.
-        */
+         * @beta
+         * Returns a Promise with all keys.
+         */
         getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string[]>;
         /**
-        * @beta
-        * Stores multiple key-value pairs in one batch. Returns a Promise. When a key doesn't exist, returns null.
-        */
+         * @beta
+         * Stores multiple key-value pairs in one batch. Returns a Promise. When a key doesn't exist, returns null.
+         */
         multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>;
         /**
-        * @beta
-        * Deletes a batch of keys, specified in the `keys` array.
-        */
+         * @beta
+         * Deletes a batch of keys, specified in the `keys` array.
+         */
         multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<void>;
         /**
          * @beta
@@ -76,25 +76,25 @@ declare namespace OfficeRuntime {
         multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<string[][]>;
     }
     /*
-    * @beta
-    * Object representing the dialog box.
-    */
+     * @beta
+     * Object representing the dialog box.
+     */
     interface Dialog {
         /**
          * @beta
          * Method that closes a dialog box.
-        */
+         */
         close(): Promise<void>;
     }
 
     /**
-    * Provides options for how a dialog is displayed.
-    */
+     * Provides options for how a dialog is displayed.
+     */
     interface DisplayWebDialogOptions {
         /**
-        * @beta
-        * Determines whether the dialog box displays as a popup (false) or within an IFrame (true). This setting is only applicable to custom functions running on Excel Online.
-        */
+         * @beta
+         * Determines whether the dialog box displays as a popup (false) or within an IFrame (true). This setting is only applicable to custom functions running on Excel Online.
+         */
         displayInIFrame?: boolean;
         /**
          * @beta
@@ -104,22 +104,22 @@ declare namespace OfficeRuntime {
         /**
          * @beta
          * Defines the width of the dialog box as a percentage of the current display.
-        */
+         */
         width?: string;
         /**
-        * @beta
-        * True if title is hidden from the dialog box.
-        */
+         * @beta
+         * True if title is hidden from the dialog box.
+         */
         hideTitle?: boolean;
         /*
-        * @beta
-        * Callback that is run when the dialog box is closed.
-        */
+         * @beta
+         * Callback that is run when the dialog box is closed.
+         */
         onClose?: () => void;
         /*
-        * @beta
-        * Callback that is run when the dialog box sends an error.
-        */
+         * @beta
+         * Callback that is run when the dialog box sends an error.
+         */
         onMessage?(message: string, dialog?: Dialog): void;
     }
 }
