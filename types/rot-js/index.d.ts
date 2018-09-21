@@ -353,7 +353,7 @@ export interface RNGable {
     getUniformInt(lowerBound: number, upperBound: number): number;
     getNormal(mean?: number, stddev?: number): number;
     getPercentage(): number;
-    getWeightedValue<T>(data: { T: number }): T;
+    getWeightedValue<T>(data: { T: number }): T; // tslint:disable-line no-unnecessary-generics (TODO: This is probably wrong)
     getState(): [number, number, number, number];
     setState(state: [number, number, number, number]): RNGable;
     clone(): RNGable;
