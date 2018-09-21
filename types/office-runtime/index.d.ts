@@ -123,4 +123,3 @@ declare namespace OfficeRuntime {
         onMessage?(message: string, dialog?: Dialog): void;
     }
 }
-
