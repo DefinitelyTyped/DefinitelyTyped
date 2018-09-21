@@ -262,6 +262,7 @@ declare namespace Knex {
     }
 
     interface WithWrapped {
+        (alias: string, queryBuilder: QueryBuilder): QueryBuilder;
         (alias: string, callback: (queryBuilder: QueryBuilder) => any): QueryBuilder;
     }
 
