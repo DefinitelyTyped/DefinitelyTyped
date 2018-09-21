@@ -106,7 +106,7 @@ export interface WithTheme<T> {
 }
 
 export interface StyledComponentProps<ClassKey extends string = string> {
-  classes?: Partial<ClassNameMap<ClassKey>>;
+  classes: Partial<ClassNameMap<ClassKey>>;
   innerRef?: React.Ref<any> | React.RefObject<any>;
 }
 
