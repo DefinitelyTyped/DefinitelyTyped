@@ -10,18 +10,11 @@ export = dht;
 /**
  * Returns a new DHT object for accessing a DHT11 or DHT22/AM2302 via GPIO.
  * @param gpio      an unsigned integer specifying the GPIO number
- * @param type      A DhtType enumeration value for the sensor type
+ * @param type      11 to initialize for reading a DHT11, 22 for DHT22/AM2302
  */
-declare function dht(gpio: number, type: dht.DhtType | number): dht.Dht;
+declare function dht(gpio: number, type: number): dht.Dht;
 
 declare namespace dht {
-    /** The various sensor types supported by pigpio-dht. */
-    enum DhtType {
-        DHT11 = 11,
-        DHT22 = 22,
-        AM2302 = 22,
-    }
-
     interface Dht extends NodeJS.EventEmitter {
         /**
          * Starts reading the sensor value. Emits the 'start' event before starting,
