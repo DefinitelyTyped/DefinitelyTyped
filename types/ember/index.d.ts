@@ -24,6 +24,7 @@
 /// <reference types="ember__controller" />
 /// <reference types="ember__component" />
 /// <reference types="ember__routing" />
+/// <reference types="ember__application" />
 
 declare module 'ember' {
     import {
@@ -65,6 +66,9 @@ declare module 'ember' {
     import _ContainerProxyMixin from '@ember/engine/-private/container-proxy-mixin';
     import _RegistryProxyMixin from '@ember/engine/-private/registry-proxy-mixin';
     import EmberCoreObject from '@ember/object/core';
+    import * as EmberApplicationNs from '@ember/application';
+    import * as EmberApplicationInstanceNs from '@ember/application/instance';
+    import * as EmberApplicationDeprecateNs from '@ember/application/deprecations';
     // tslint:disable-next-line:no-duplicate-imports
     import * as EmberControllerNs from '@ember/controller';
     // tslint:disable-next-line:no-duplicate-imports
@@ -96,6 +100,11 @@ declare module 'ember' {
     import EmberRoutingHistoryLocation from '@ember/routing/history-location';
     import EmberRoutingNoneLocation from '@ember/routing/none-location';
     import EmberRoutingLinkComponent from '@ember/routing/link-component';
+    // @ember/application
+    import EmberDefaultResolver from '@ember/application/-private/default-resolver';
+    import EmberEventDispatcher from '@ember/application/-private/event-dispatcher';
+    import EmberRegistry from '@ember/application/-private/registry';
+    import EmberResolver from '@ember/application/resolver';
 
     type Mix<A, B> = B & Pick<A, Exclude<keyof A, keyof B>>;
     type Mix3<A, B, C> = Mix<Mix<A, B>, C>;
@@ -132,37 +141,6 @@ declare module 'ember' {
         | 'afterRender'
         | 'destroy';
 
-    interface EventDispatcherEvents {
-        touchstart?: string | null;
-        touchmove?: string | null;
-        touchend?: string | null;
-        touchcancel?: string | null;
-        keydown?: string | null;
-        keyup?: string | null;
-        keypress?: string | null;
-        mousedown?: string | null;
-        mouseup?: string | null;
-        contextmenu?: string | null;
-        click?: string | null;
-        dblclick?: string | null;
-        mousemove?: string | null;
-        focusin?: string | null;
-        focusout?: string | null;
-        mouseenter?: string | null;
-        mouseleave?: string | null;
-        submit?: string | null;
-        input?: string | null;
-        change?: string | null;
-        dragstart?: string | null;
-        drag?: string | null;
-        dragenter?: string | null;
-        dragleave?: string | null;
-        dragover?: string | null;
-        drop?: string | null;
-        dragend?: string | null;
-        [event: string]: string | null | undefined;
-    }
-
     /**
      * Ember.CoreView is an abstract class that exists to give view-like behavior to both Ember's main
      * view class Ember.Component and other classes that don't need the full functionality of Ember.Component.
@@ -198,6 +176,14 @@ declare module 'ember' {
         export class NoneLocation extends EmberRoutingNoneLocation {}
         export class HistoryLocation extends EmberRoutingHistoryLocation {}
         export class LinkComponent extends EmberRoutingLinkComponent {}
+        const deprecateFunc: typeof EmberApplicationDeprecateNs.deprecateFunc;
+        const deprecate: typeof EmberApplicationDeprecateNs.deprecate;
+        const getOwner: typeof EmberApplicationNs.getOwner;
+        const setOwner: typeof EmberApplicationNs.setOwner;
+        class DefaultResolver extends EmberDefaultResolver {}
+        class Resolver extends EmberResolver {}
+        class EventDispatcher extends EmberEventDispatcher {}
+        class Registry extends EmberRegistry {}
         interface FunctionPrototypeExtensions {
             /**
              * The `property` extension of Javascript's Function prototype is available
@@ -231,109 +217,6 @@ declare module 'ember' {
             underscore(): string;
             w(): string[];
         }
-
-        /**
-         * An instance of Ember.Application is the starting point for every Ember application. It helps to
-         * instantiate, initialize and coordinate the many objects that make up your app.
-         */
-        class Application extends EmberEngineNs.default {
-            /**
-             * Call advanceReadiness after any asynchronous setup logic has completed.
-             * Each call to deferReadiness must be matched by a call to advanceReadiness
-             * or the application will never become ready and routing will not begin.
-             */
-            advanceReadiness(): void;
-            /**
-             * Use this to defer readiness until some condition is true.
-             *
-             * This allows you to perform asynchronous setup logic and defer
-             * booting your application until the setup has finished.
-             *
-             * However, if the setup requires a loading UI, it might be better
-             * to use the router for this purpose.
-             */
-            deferReadiness(): void;
-            /**
-             * defines an injection or typeInjection
-             */
-            inject(factoryNameOrType: string, property: string, injectionName: string): void;
-            /**
-             * This injects the test helpers into the window's scope. If a function of the
-             * same name has already been defined it will be cached (so that it can be reset
-             * if the helper is removed with `unregisterHelper` or `removeTestHelpers`).
-             * Any callbacks registered with `onInjectHelpers` will be called once the
-             * helpers have been injected.
-             */
-            injectTestHelpers(): void;
-            /**
-             * registers a factory for later injection
-             * @param fullName type:name (e.g., 'model:user')
-             * @param factory (e.g., App.Person)
-             */
-            register(fullName: string, factory: any): void;
-            /**
-             * This removes all helpers that have been registered, and resets and functions
-             * that were overridden by the helpers.
-             */
-            removeTestHelpers(): void;
-            /**
-             * Reset the application. This is typically used only in tests.
-             */
-            reset(): void;
-            /**
-             * This hook defers the readiness of the application, so that you can start
-             * the app when your tests are ready to run. It also sets the router's
-             * location to 'none', so that the window's location will not be modified
-             * (preventing both accidental leaking of state between tests and interference
-             * with your testing framework).
-             */
-            setupForTesting(): void;
-            /**
-             * The DOM events for which the event dispatcher should listen.
-             */
-            customEvents: EventDispatcherEvents;
-            /**
-             * The Ember.EventDispatcher responsible for delegating events to this application's views.
-             */
-            eventDispatcher: EventDispatcher;
-            /**
-             * Set this to provide an alternate class to Ember.DefaultResolver
-             */
-            resolver: DefaultResolver;
-            /**
-             * The root DOM element of the Application. This can be specified as an
-             * element or a jQuery-compatible selector string.
-             *
-             * This is the element that will be passed to the Application's, eventDispatcher,
-             * which sets up the listeners for event delegation. Every view in your application
-             * should be a child of the element you specify here.
-             */
-            rootElement: HTMLElement | string;
-            /**
-             * Called when the Application has become ready.
-             * The call will be delayed until the DOM has become ready.
-             */
-            ready: (...args: any[]) => any;
-            /**
-             * Application's router.
-             */
-            Router: Router;
-            registry: Registry;
-            /**
-             *  Initialize the application and return a promise that resolves with the `Application`
-             *  object when the boot process is complete.
-             */
-            boot(): Promise<Application>;
-            /**
-             * Create an ApplicationInstance for this Application.
-             */
-            buildInstance(options?: object): ApplicationInstance;
-        }
-        /**
-         * The `ApplicationInstance` encapsulates all of the stateful aspects of a
-         * running `Application`.
-         */
-        class ApplicationInstance extends EngineInstance {}
 
         /**
          * Connects the properties of two objects so that whenever the value of one property changes,
@@ -384,25 +267,6 @@ declare module 'ember' {
             registerDeprecationHandler: typeof EmberDebugNs.registerDeprecationHandler;
             registerWarnHandler: typeof EmberDebugNs.registerWarnHandler;
         };
-        /**
-         * The DefaultResolver defines the default lookup rules to resolve
-         * container lookups before consulting the container for registered
-         * items:
-         */
-        class DefaultResolver extends Resolver {
-            /**
-             * This method is called via the container's resolver method.
-             * It parses the provided `fullName` and then looks up and
-             * returns the appropriate template or class.
-             */
-            resolve(fullName: string): {};
-            /**
-             * This will be set to the Application instance when it is
-             * created.
-             */
-            namespace: Application;
-        }
-
         class EngineInstance extends EmberEngineInstanceNs.default {}
         class Engine extends EmberEngineNs.default {}
 
@@ -410,20 +274,7 @@ declare module 'ember' {
          * A subclass of the JavaScript Error object for use in Ember.
          */
         const Error: ErrorConstructor;
-        /**
-         * `Ember.EventDispatcher` handles delegating browser events to their
-         * corresponding `Ember.Views.` For example, when you click on a view,
-         * `Ember.EventDispatcher` ensures that that view's `mouseDown` method gets
-         * called.
-         */
-        class EventDispatcher extends Object {
-            /**
-             * The set of events names (and associated handler function names) to be setup
-             * and dispatched by the `EventDispatcher`. Modifications to this list can be done
-             * at setup time, generally via the `Ember.Application.customEvents` hash.
-             */
-            events: EventDispatcherEvents;
-        }
+
         const Evented: typeof EmberObjectEventedNs.default;
         /**
          * The `Ember.Freezable` mixin implements some basic methods for marking an
@@ -525,19 +376,6 @@ declare module 'ember' {
             toArray(): any[];
         }
 
-        /**
-         * A registry used to store factory and option information keyed
-         * by type.
-         */
-        class Registry {
-            register(
-                fullName: string,
-                factory: EmberClassConstructor<any>,
-                options?: { singleton?: boolean }
-            ): void;
-        }
-        class Resolver extends Ember.Object {}
-
         class Service extends Object {}
         interface Transition {
             /**
@@ -566,7 +404,8 @@ declare module 'ember' {
         namespace RSVP {
             type Promise<T> = Rsvp.Promise<T>;
         }
-
+        class Application extends EmberApplicationNs.default {}
+        class ApplicationInstance extends EmberApplicationInstanceNs.default {}
         /**
          * This is a container for an assortment of testing related functionality
          */
@@ -1049,41 +888,10 @@ declare module 'ember' {
          * `getEngineParent` retrieves an engine instance's parent instance.
          */
         function getEngineParent(engine: EngineInstance): EngineInstance;
-        /**
-         * Display a deprecation warning with the provided message and a stack trace
-         * (Chrome and Firefox only).
-         */
-        function deprecate(
-            message: string,
-            test: boolean,
-            options: { id: string; until: string }
-        ): any;
-        /**
-         * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
-         */
-        function deprecate(
-            message: string,
-            test: boolean,
-            options?: { id?: string; until?: string }
-        ): any;
+
         const assert: typeof EmberDebugNs.assert;
         const debug: typeof EmberDebugNs.debug;
         const defineProperty: typeof EmberObjectNs.defineProperty;
-        /**
-         * Alias an old, deprecated method with its new counterpart.
-         */
-        function deprecateFunc<Func extends ((...args: any[]) => any)>(
-            message: string,
-            options: { id: string; until: string },
-            func: Func
-        ): Func;
-        /**
-         * @deprecated Missing deprecation options: https://emberjs.com/deprecations/v2.x/#toc_ember-debug-function-options
-         */
-        function deprecateFunc<Func extends ((...args: any[]) => any)>(
-            message: string,
-            func: Func
-        ): Func;
 
         export const runInDebug: typeof EmberDebugNs.runInDebug;
         export const warn: typeof EmberDebugNs.warn;
@@ -1115,17 +923,6 @@ declare module 'ember' {
         const setProperties: typeof EmberObjectNs.setProperties;
         const set: typeof EmberObjectNs.set;
         const trySet: typeof EmberObjectNs.trySet;
-
-        /**
-         * Detects when a specific package of Ember (e.g. 'Ember.Application')
-         * has fully loaded and is available for extension.
-         */
-        function onLoad(name: string, callback: (...args: any[]) => any): any;
-        /**
-         * Called when an Ember.js package (e.g Ember.Application) has finished
-         * loading. Triggers any callbacks registered for this event.
-         */
-        function runLoadHooks(name: string, object?: {}): any;
         const compare: typeof EmberUtilsNs.compare;
         /**
          * Creates a shallow copy of the passed object. A deep copy of the object is
@@ -1153,18 +950,7 @@ declare module 'ember' {
         const guidFor: typeof EmberObjectInternalsNs.guidFor;
         const inspect: typeof EmberDebugNs.inspect;
         const tryInvoke: typeof EmberUtilsNs.tryInvoke;
-        /**
-         * Framework objects in an Ember application (components, services, routes, etc.)
-         * are created via a factory and dependency injection system. Each of these
-         * objects is the responsibility of an "owner", which handled its
-         * instantiation and manages its lifetime.
-         */
-        function getOwner(object: any): any;
-        /**
-         * `setOwner` forces a new owner on a given object instance. This is primarily
-         * useful in some testing cases.
-         */
-        function setOwner(object: any, owner: any): void;
+
         /**
          * A function may be assigned to `Ember.onerror` to be called when Ember
          * internals encounter an error. This is useful for specialized error handling
@@ -1208,36 +994,6 @@ declare module 'ember' {
     }
 
     export default Ember;
-}
-
-declare module '@ember/application' {
-    import Ember from 'ember';
-    export default class Application extends Ember.Application { }
-    export const getOwner: typeof Ember.getOwner;
-    export const onLoad: typeof Ember.onLoad;
-    export const runLoadHooks: typeof Ember.runLoadHooks;
-    export const setOwner: typeof Ember.setOwner;
-}
-
-declare module '@ember/application/deprecations' {
-    import Ember from 'ember';
-    export const deprecate: typeof Ember.deprecate;
-    export const deprecateFunc: typeof Ember.deprecateFunc;
-}
-
-declare module '@ember/application/globals-resolver' {
-    import Ember from 'ember';
-    export default class GlobalsResolver extends Ember.DefaultResolver { }
-}
-
-declare module '@ember/application/instance' {
-    import Ember from 'ember';
-    export default class ApplicationInstance extends Ember.ApplicationInstance { }
-}
-
-declare module '@ember/application/resolver' {
-    import Ember from 'ember';
-    export default class Resolver extends Ember.Resolver { }
 }
 
 declare module '@ember/error' {

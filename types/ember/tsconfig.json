@@ -30,6 +30,8 @@
             "@ember/object/*": ["ember__object/*"],
             "@ember/component": ["ember__component"],
             "@ember/component/*": ["ember__component/*"],
+            "@ember/application": ["ember__application"],
+            "@ember/application/*": ["ember__application/*"],
             "@ember/controller": ["ember__controller"],
             "@ember/polyfills": ["ember__polyfills"]
         },
