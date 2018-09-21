@@ -103,7 +103,7 @@ Ember.removeObserver({}, 'create', () => {}); // $ExpectError
 // runInDebug
 Ember.runInDebug(() => {});
 // sendEvent
-Ember.sendEvent(o2, 'clicked', [1, 2]);
+Ember.sendEvent(o2, 'clicked', [1, 2]); // $ExpectType boolean
 // set
 Ember.set(o2.create(), 'name', 'bar'); // $ExpectType string
 Ember.set(o2.create(), 'nam', 'bar'); // $ExpectError
