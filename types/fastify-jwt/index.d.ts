@@ -22,14 +22,10 @@ declare module "fastify" {
     (token: string, options?: VerifyOptions): object | string;
   }
 
-  interface DecodeFunction {
-    (token: string, options?: DecodeOptions): null | { [key: string]: any } | string;
-  }
-
   interface jwt {
       sign: SignFunction;
       verify: VerifyFunction;
-      decode: DecodeFunction;
+      decode(token: string, options?: DecodeOptions): null | { [key: string]: any } | string;
       secret: Secret;
   }
   
