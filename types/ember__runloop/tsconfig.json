@@ -17,8 +17,6 @@
         "paths": {
             "@ember/object": ["ember__object"],
             "@ember/object/*": ["ember__object/*"],
-            "@ember/engine": ["ember__engine"],
-            "@ember/engine/*": ["ember__engine/*"],
             "@ember/runloop": ["ember__runloop"],
             "@ember/runloop/*": ["ember__runloop/*"]
         },
