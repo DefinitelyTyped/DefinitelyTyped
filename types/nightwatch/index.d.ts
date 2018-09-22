@@ -1,7 +1,8 @@
-// Type definitions for nightwatch 0.9
+// Type definitions for nightwatch 1.0
 // Project: http://nightwatchjs.org/api
 // Definitions by: Rahul Kavalapara <https://github.com/rkavalap>
 //                 Connor Schlesiger <https://github.com/schlesiger>
+//                 Dave Hall <https://github.com/d-g-h>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface NightwatchCustomPageObjects {
@@ -1220,10 +1221,10 @@ export interface NightwatchAPI {
      *  browser.pause();
      * };
      * ```
-     * @param ms: The number of milliseconds to wait.
+     * @param ms: Optional - number of milliseconds to wait.
      * @param callback: Optional callback function to be called when the command finishes.
      */
-    pause(ms: number, callback?: (result: NightwatchCallbackResult) => void): this;
+    pause(ms?: number, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * A simple perform command which allows access to the "api" in a callback. Can be useful if you want to read variables set by other commands.
