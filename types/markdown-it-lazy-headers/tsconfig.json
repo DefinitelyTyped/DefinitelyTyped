@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "markdown-it-lazyheaders-tests.ts"
+        "markdown-it-lazy-headers-tests.ts"
     ]
 }
