@@ -11,11 +11,25 @@ declare module "fastify" {
   interface FastifyInstance<HttpServer, HttpRequest, HttpResponse> {
       jwt: jwt;
   }
-  
+
+  interface SignFunction {
+    (payload: any, options?: SignOptions): string;
+    (payload: any, options?: SignOptions, callback?: SignCallback): void;
+  }
+
+  interface VerifyFunction {
+    (token: string, options?: VerifyOptions, callback?: VerifyCallback): void;
+    (token: string, options?: VerifyOptions): object | string;
+  }
+
+  interface DecodeFunction {
+    (token: string, options?: DecodeOptions): null | { [key: string]: any } | string;
+  }
+
   interface jwt {
-      sign: (payload: any, options?: SignOptions, callback?: SignCallback) => void;
-      verify: (token: string, options?: VerifyOptions, callback?: VerifyCallback) => void;
-      decode: (token: string, options?: DecodeOptions) => null | { [key: string]: any } | string;
+      sign: SignFunction;
+      verify: VerifyFunction;
+      decode: DecodeFunction;
       secret: Secret;
   }
   
