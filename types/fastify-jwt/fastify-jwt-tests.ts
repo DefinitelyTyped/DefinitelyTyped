@@ -1,5 +1,5 @@
 import { IncomingMessage, Server, ServerResponse } from "http";
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify-jwt";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
 const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> = {
   jwt: {
