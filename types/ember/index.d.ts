@@ -25,6 +25,7 @@
 /// <reference types="ember__component" />
 /// <reference types="ember__routing" />
 /// <reference types="ember__application" />
+/// <reference types="ember__test" />
 
 declare module 'ember' {
     import {
@@ -69,6 +70,7 @@ declare module 'ember' {
     import * as EmberApplicationNs from '@ember/application';
     import * as EmberApplicationInstanceNs from '@ember/application/instance';
     import * as EmberApplicationDeprecateNs from '@ember/application/deprecations';
+    import * as EmberTestNs from '@ember/test';
     // tslint:disable-next-line:no-duplicate-imports
     import * as EmberControllerNs from '@ember/controller';
     // tslint:disable-next-line:no-duplicate-imports
@@ -105,6 +107,8 @@ declare module 'ember' {
     import EmberEventDispatcher from '@ember/application/-private/event-dispatcher';
     import EmberRegistry from '@ember/application/-private/registry';
     import EmberResolver from '@ember/application/resolver';
+    // @ember/test
+    import EmberTestAdapter from '@ember/test/adapter';
 
     type Mix<A, B> = B & Pick<A, Exclude<keyof A, keyof B>>;
     type Mix3<A, B, C> = Mix<Mix<A, B>, C>;
@@ -410,27 +414,12 @@ declare module 'ember' {
          * This is a container for an assortment of testing related functionality
          */
         namespace Test {
-            /**
-             * `registerHelper` is used to register a test helper that will be injected
-             * when `App.injectTestHelpers` is called.
-             */
-            function registerHelper(
-                name: string,
-                helperMethod: (app: Application, ...args: any[]) => any,
-                options?: object
-            ): any;
-            /**
-             * `registerAsyncHelper` is used to register an async test helper that will be injected
-             * when `App.injectTestHelpers` is called.
-             */
-            function registerAsyncHelper(
-                name: string,
-                helperMethod: (app: Application, ...args: any[]) => any
-            ): void;
-            /**
-             * Remove a previously added helper method.
-             */
-            function unregisterHelper(name: string): void;
+            class Adapter extends EmberTestAdapter {}
+            const registerHelper: typeof EmberTestNs.registerHelper;
+            const unregisterHelper: typeof EmberTestNs.unregisterHelper;
+            const registerWaiter: typeof EmberTestNs.registerWaiter;
+            const unregisterWaiter: typeof EmberTestNs.unregisterWaiter;
+            const registerAsyncHelper: typeof EmberTestNs.registerAsyncHelper;
             /**
              * Used to register callbacks to be fired whenever `App.injectTestHelpers`
              * is called.
@@ -454,28 +443,7 @@ declare module 'ember' {
              * an instance of `Ember.Test.Promise`
              */
             function resolve<T>(value?: T | PromiseLike<T>, label?: string): Ember.Test.Promise<T>;
-            /**
-             * This allows ember-testing to play nicely with other asynchronous
-             * events, such as an application that is waiting for a CSS3
-             * transition or an IndexDB transaction. The waiter runs periodically
-             * after each async helper (i.e. `click`, `andThen`, `visit`, etc) has executed,
-             * until the returning result is truthy. After the waiters finish, the next async helper
-             * is executed and the process repeats.
-             */
-            function registerWaiter(callback: () => boolean): any;
-            function registerWaiter<Context>(
-                context: Context,
-                callback: (this: Context) => boolean
-            ): any;
-            /**
-             * `unregisterWaiter` is used to unregister a callback that was
-             * registered with `registerWaiter`.
-             */
-            function unregisterWaiter(callback: () => boolean): any;
-            function unregisterWaiter<Context>(
-                context: Context,
-                callback: (this: Context) => boolean
-            ): any;
+
             /**
              * Iterates through each registered test waiter, and invokes
              * its callback. If any waiter returns false, this method will return
@@ -486,32 +454,13 @@ declare module 'ember' {
              * Used to allow ember-testing to communicate with a specific testing
              * framework.
              */
-            const adapter: Adapter;
-            /**
-             * The primary purpose of this class is to create hooks that can be implemented
-             * by an adapter for various test frameworks.
-             */
-            class Adapter {
-                /**
-                 * This callback will be called whenever an async operation is about to start.
-                 */
-                asyncStart(): any;
-                /**
-                 * This callback will be called whenever an async operation has completed.
-                 */
-                asyncEnd(): any;
-                /**
-                 * Override this method with your testing framework's false assertion.
-                 * This function is called whenever an exception occurs causing the testing
-                 * promise to fail.
-                 */
-                exception(error: string): any;
-            }
+            const adapter: EmberTestAdapter;
+
             /**
              * This class implements the methods defined by Ember.Test.Adapter for the
              * QUnit testing framework.
              */
-            class QUnitAdapter extends Adapter {}
+            class QUnitAdapter extends EmberTestAdapter {}
             class Promise<T> extends Rsvp.Promise<T> {
                 constructor(
                     executor: (
@@ -1028,20 +977,6 @@ declare module '@ember/service' {
     // string lookups resolve to the correct type.
     // tslint:disable-next-line:no-empty-interface
     interface Registry {}
-}
-
-declare module '@ember/test' {
-    import Ember from 'ember';
-    export const registerAsyncHelper: typeof Ember.Test.registerAsyncHelper;
-    export const registerHelper: typeof Ember.Test.registerHelper;
-    export const registerWaiter: typeof Ember.Test.registerWaiter;
-    export const unregisterHelper: typeof Ember.Test.unregisterHelper;
-    export const unregisterWaiter: typeof Ember.Test.unregisterWaiter;
-}
-
-declare module '@ember/test/adapter' {
-    import Ember from 'ember';
-    export default class TestAdapter extends Ember.Test.Adapter { }
 }
 
 declare module 'htmlbars-inline-precompile' {
