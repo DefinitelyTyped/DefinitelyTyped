@@ -1,7 +1,7 @@
 import { Repository } from './repository';
 import { StatusList } from './status-list';
-import { StatusEntry } from './status-entry';
 import { StatusOptions } from './status-options';
+import { StatusEntry } from './status-entry';
 
 export namespace Status {
     const enum STATUS {
@@ -48,63 +48,9 @@ export namespace Status {
 }
 
 export class Status {
-    /**
-     *
-     *
-     * @static
-     * @param {StatusList} statuslist
-     * @param {number} idx
-     * @returns {StatusEntry}
-     *
-     * @memberof Status
-     */
     static byIndex(statuslist: StatusList, idx: number): StatusEntry;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {string} path
-     * @returns {number}
-     *
-     * @memberof Status
-     */
     static file(repo: Repository, path: string): number;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Function} callback
-     * @param {*} payload
-     * @returns {Promise<number>}
-     *
-     * @memberof Status
-     */
-    static foreach(repo: Repository, callback: Function, payload: any): Promise<number>;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {StatusOptions} opts
-     * @param {Function} callback
-     * @param {*} payload
-     * @returns {Promise<number>}
-     *
-     * @memberof Status
-     */
-    static foreachExt(repo: Repository, opts: StatusOptions, callback: Function, payload: any): Promise<number>;
-    /**
-     *
-     *
-     * @static
-     * @param {number} ignored
-     * @param {Repository} repo
-     * @param {string} path
-     * @returns {number}
-     *
-     * @memberof Status
-     */
+    static foreach(repo: Repository, callback?: Function): Promise<number>;
+    static foreachExt(repo: Repository, opts?: StatusOptions, callback?: Function): Promise<number>;
     static shouldIgnore(ignored: number, repo: Repository, path: string): number;
 }

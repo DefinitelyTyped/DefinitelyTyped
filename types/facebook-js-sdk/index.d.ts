@@ -1,12 +1,14 @@
 // Type definitions for the Facebook Javascript SDK 2.8
 // Project: https://developers.facebook.com/docs/javascript
-// Definitions by: Amrit Kahlon <https://github.com/amritk>
+// Definitions by:  Amrit Kahlon    <https://github.com/amritk>
+//                  Mahmoud Zohdi   <https://github.com/mahmoudzohdi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import fb = facebook;
 declare var FB: fb.FacebookStatic;
 declare namespace facebook {
-
+    
+    
     interface FacebookStatic {
         api: any;
         AppEvents: any;
@@ -18,15 +20,17 @@ declare namespace facebook {
          * The synchronous nature of this method is what sets it apart from the other login methods.
          *
          * @param callback function to handle the response.
+         * 
+         * This method is similar in nature to FB.getLoginStatus(), but it returns just the authResponse object.
          */
-        getAuthResponse(callback: (response: AuthResponse) => void): void;
+        getAuthResponse(): AuthResponse;
         /**
          * FB.getLoginStatus() allows you to determine if a user is
          * logged in to Facebook and has authenticated your app.
          *
          * @param callback function to handle the response.
          */
-        getLoginStatus(callback: (response: AuthResponse) => void, roundtrip?: boolean ): void;
+        getLoginStatus(callback: (response: StatusResponse) => void, roundtrip?: boolean ): void;
         /**
          * The method FB.init() is used to initialize and setup the SDK.
          *
@@ -43,13 +47,13 @@ declare namespace facebook {
          * @param callback function to handle the response.
          * @param options optional ILoginOption to add params such as scope.
          */
-        login(callback: (response: AuthResponse) => void, options?: LoginOptions): void;
+        login(callback: (response: StatusResponse) => void, options?: LoginOptions): void;
         /**
          * The method FB.logout() logs the user out of your site and, in some cases, Facebook.
          *
          * @param callback function to handle the response
          */
-        logout(callback: (response: AuthResponse) => void): void;
+        logout(callback: (response: StatusResponse) => void): void;
 
         /**
          * @see https://developers.facebook.com/docs/sharing/reference/share-dialog
@@ -66,6 +70,11 @@ declare namespace facebook {
          */
         ui(params: PayDialogParams, callback: (response: PayDialogResponse) => void): void;
 
+		/**
+         * @see https://developers.facebook.com/docs/games_payments/payments_lite
+         */
+        ui(params: PaymentsLiteDialogParams, callback: (response: PaymentsLiteDialogResponse) => void): void;
+		
         /**
          * @see https://developers.facebook.com/docs/videos/live-video/exploring-live
          */
@@ -154,6 +163,14 @@ declare namespace facebook {
         request_id?: string;
         test_currency?: string;
     }
+	
+	interface PaymentsLiteDialogParams extends DialogParams {
+        method: 'pay';
+        action: 'purchaseiap';
+        product_id: string;
+        developer_payload?: string;
+		quantity?: number;
+    }
 
     interface LiveDialogParams extends DialogParams {
         method: 'live_broadcast';
@@ -167,16 +184,17 @@ declare namespace facebook {
     //  RESPONSES
     //
     ////////////////////////
-
     interface AuthResponse {
+        accessToken: string;
+        expiresIn: number;
+        signedRequest: string;
+        userID: string;
+        grantedScopes?: string;
+    }
+    
+    interface StatusResponse {
         status: string;
-        authResponse: {
-            accessToken: string;
-            expiresIn: number;
-	    grantedScopes: string;
-            signedRequest: string;
-            userID: string;
-        };
+        authResponse: AuthResponse;
     }
 
     interface ShareDialogResponse {
@@ -199,6 +217,17 @@ declare namespace facebook {
         signed_request: string;
     }
 
+	interface PaymentsLiteDialogResponse {
+        developer_payload?: string;
+        payment_id: number;
+        product_id?: string;
+        purchase_time?: number;
+        purchase_token?: string;
+        signed_request?: string;
+		error_code?: number;
+		error_message?: string;
+    }
+	
     interface LiveDialogResponse {
         id: string;
         stream_url: string;

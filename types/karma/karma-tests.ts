@@ -51,7 +51,7 @@ server.on('run_complete', (browsers, results) => {
    results.error = false;
    results.exitCode = 0;
    results.failed = 9;
-   results.success = 10; 
+   results.success = 10;
 });
 
 //var runner = require('karma').runner; => cannot use this syntax otherwise runner is of type any
@@ -88,6 +88,12 @@ module.exports = function(config: karma.Config) {
       'coverage'
     ],
 
+    middleware: ['foo', 'bar'],
+
+    mime: {
+      'text/x-typescript': ['ts', 'tsx']
+    },
+
     preprocessors: {
       'app.js': ['coverage']
     },
@@ -100,7 +106,25 @@ module.exports = function(config: karma.Config) {
       'Chrome',
       'Firefox'
     ],
+    customLaunchers: {
+      ChromiumHeadless_without_security: {
+        base: 'ChromiumHeadless',
+        flags: ['--no-sandbox', '--disable-setuid-sandbox'],
+      },
+    },
 
     singleRun: true
+  });
+};
+
+const foo = (config: karma.Config) => {
+  config.set({
+    client: {
+      args: ['a', 'b'],
+      useIframe: true,
+      runInParent: true,
+      captureConsole: true,
+      clearContext: true
+    }
   });
 };

@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/thrift
 // Definitions by: Kamek <https://github.com/kamek-pf>
 //                 Kevin Greene <https://github.com/kevin-greene-ck>
+//                 Jesse Zhang <https://github.com/jessezhang91>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -9,6 +10,7 @@
 
 import * as net from 'net';
 import * as http from 'http';
+import * as https from 'https';
 import * as tls from 'tls';
 
 // Thrift re-exports node-int64 and Q
@@ -47,6 +49,11 @@ export interface TSet {
 
 export interface TStruct {
     fname: string;
+}
+
+export interface TStructLike {
+    read(input: TProtocol): void;
+    write(output: TProtocol): void;
 }
 
 export interface TTransport {
@@ -114,6 +121,10 @@ export interface TProtocol {
     skip(type: Thrift.Type): void;
 }
 
+export interface HttpHeaders {
+    [name: string]: number | string | string[] | undefined;
+}
+
 export interface SeqId2Service {
     [seqid: number]: string;
 }
@@ -157,7 +168,7 @@ export class XHRConnection extends NodeJS.EventEmitter {
     recv_buf: string;
     transport: TTransport;
     protocol: TProtocol;
-    headers: http.OutgoingHttpHeaders;
+    headers: HttpHeaders;
     constructor(host: string, port: number, options?: ConnectOptions);
     getXmlHttpRequestObject(): XMLHttpRequest;
     flush(): void;
@@ -175,7 +186,7 @@ export interface WSOptions {
     host: string;
     port: number;
     path: string;
-    headers: http.OutgoingHttpHeaders;
+    headers: HttpHeaders;
 }
 
 export class WSConnection extends NodeJS.EventEmitter {
@@ -197,8 +208,8 @@ export class WSConnection extends NodeJS.EventEmitter {
     write(data: Buffer): void;
 }
 
-export class Multiplexer<TClient> {
-    createClient(serviceName: string, client: TClientConstructor<TClient>, connection: Connection): TClient;
+export class Multiplexer {
+    createClient<TClient>(serviceName: string, client: TClientConstructor<TClient>, connection: Connection): TClient;
 }
 
 export class MultiplexedProcessor {
@@ -216,14 +227,14 @@ export interface ServiceMap<TProcessor, THandler> {
 export interface ServiceOptions<TProcessor, THandler> {
     transport?: TTransportConstructor;
     protocol?: TProtocolConstructor;
-    processor?: { new (handler: THandler): TProcessor };
+    processor?: { new(handler: THandler): TProcessor };
     handler?: THandler;
 }
 
 export interface ServerOptions<TProcessor, THandler> extends ServiceOptions<TProcessor, THandler> {
     cors?: string[];
     files?: string;
-    headers?: http.IncomingHttpHeaders;
+    headers?: HttpHeaders;
     services?: ServiceMap<TProcessor, THandler>;
     tls?: tls.TlsOptions;
 }
@@ -232,32 +243,32 @@ export interface ConnectOptions {
     transport?: TTransportConstructor;
     protocol?: TProtocolConstructor;
     path?: string;
-    headers?: http.OutgoingHttpHeaders;
+    headers?: HttpHeaders;
     https?: boolean;
     debug?: boolean;
     max_attempts?: number;
     retry_max_delay?: number;
     connect_timeout?: number;
     timeout?: number;
-    nodeOptions?: http.ClientRequestArgs;
+    nodeOptions?: http.RequestOptions | https.RequestOptions;
 }
 
 export interface WSConnectOptions {
     transport?: TTransportConstructor;
     protocol?: TProtocolConstructor;
     path?: string;
-    headers?: http.OutgoingHttpHeaders;
+    headers?: HttpHeaders;
     secure?: boolean;
     wsOptions?: WSOptions;
 }
 
 export type TClientConstructor<TClient> =
-    { new (output: TTransport, pClass: { new (trans: TTransport): TProtocol }): TClient; } |
-    { Client: { new (output: TTransport, pClass: { new (trans: TTransport): TProtocol }): TClient; } };
+    { new(output: TTransport, pClass: { new(trans: TTransport): TProtocol }): TClient; } |
+    { Client: { new(output: TTransport, pClass: { new(trans: TTransport): TProtocol }): TClient; } };
 
 export type TProcessorConstructor<TProcessor, THandler> =
-    { new (handler: THandler): TProcessor } |
-    { Processor: { new (handler: THandler): TProcessor }};
+    { new(handler: THandler): TProcessor } |
+    { Processor: { new(handler: THandler): TProcessor } };
 
 export interface WebServerOptions<TProcessor, THandler> {
     services: {
@@ -310,7 +321,7 @@ export function createServer<TProcessor, THandler>(
 export function createWebServer<TProcessor, THandler>(options: WebServerOptions<TProcessor, THandler>): http.Server | tls.Server;
 
 export class TBufferedTransport implements TTransport {
-    constructor(buffer: Buffer | undefined, callback: TTransportCallback);
+    constructor(buffer?: Buffer, callback?: TTransportCallback);
     static receiver(callback: (trans: TBufferedTransport, seqid: number) => void, seqid: number): (data: Buffer) => void;
     commitPosition(): void;
     rollbackPosition(): void;
@@ -330,7 +341,7 @@ export class TBufferedTransport implements TTransport {
 }
 
 export class TFramedTransport implements TTransport {
-    constructor(buffer: Buffer | undefined, callback: TTransportCallback);
+    constructor(buffer?: Buffer, callback?: TTransportCallback);
     static receiver(callback: (trans: TFramedTransport, seqid: number) => void, seqid: number): (data: Buffer) => void;
     commitPosition(): void;
     rollbackPosition(): void;
@@ -350,7 +361,7 @@ export class TFramedTransport implements TTransport {
 }
 
 export interface TTransportConstructor {
-  new (buffer: Buffer | undefined, callback: TTransportCallback): TTransport;
+    new(buffer?: Buffer, callback?: TTransportCallback): TTransport;
 }
 
 export class TBinaryProtocol implements TProtocol {
@@ -498,7 +509,7 @@ export class TCompactProtocol implements TProtocol {
 }
 
 export interface TProtocolConstructor {
-    new (trans: TTransport, strictRead?: boolean, strictWrite?: boolean): TProtocol;
+    new(trans: TTransport, strictRead?: boolean, strictWrite?: boolean): TProtocol;
 }
 
 // thrift.js

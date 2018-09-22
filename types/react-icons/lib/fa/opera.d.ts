@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class FaOpera extends React.Component<IconBaseProps> { }
+declare class FaOpera extends React.Component<IconBaseProps> { }
+export = FaOpera;

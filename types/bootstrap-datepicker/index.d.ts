@@ -10,7 +10,20 @@ type DatepickerEvents = "show"|"hide"|"clearDate"|"changeDate"|"changeMonth"|"ch
 
 type DatepickerViewModes = 0|"days"|1|"months"|2|"years"|3|"decades"|4|"centuries"|"millenium";
 
-type DatepickerOrientations = "auto"|"left top"|"left bottom"|"right top"|"right bottom";
+type DatepickerOrientations =
+    "auto"
+    | "left top"
+    | "left bottom"
+    | "right top"
+    | "right bottom"
+    | "top auto"
+    | "bottom auto"
+    | "auto left"
+    | "top left"
+    | "bottom left"
+    | "auto right"
+    | "top right"
+    | "bottom right"
 
 /**
  * All options that take a “Date” can handle a Date object; a String
@@ -58,6 +71,7 @@ interface DatepickerOptions {
     daysOfWeekHighlighted?:string|number[];
     defaultViewDate?:Date|string|DatepickerViewDate;
     updateViewDate?:boolean;
+    enableOnReadonly?: boolean;
 }
 
 interface DatepickerViewDate {

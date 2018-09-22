@@ -39,6 +39,12 @@ namespace stdTests {
         std.http.get("http://localhost").end();
     }
 
+    namespace http2 {
+        std.http2.connect("somewhere").on("stream", (stream) => {
+            stream.pipe(process.stdout);
+        });
+    }
+
     namespace https {
         std.https.get("https://adone.io").end();
     }
@@ -91,6 +97,10 @@ namespace stdTests {
         std.domain.create().members;
     }
 
+    namespace module {
+        new std.module.Module("1").exports;
+    }
+
     namespace tty {
         const a: boolean = std.tty.isatty(1);
     }
@@ -125,5 +135,9 @@ namespace stdTests {
 
     namespace dgram {
         std.dgram.createSocket("udp4").bind(31337);
+    }
+
+    namespace perf_hooks {
+        std.perf_hooks.performance.measure("1", "2", "3");
     }
 }

@@ -1,6 +1,8 @@
 // Type definitions for TinyMCE 4.5
 // Project: https://github.com/tinymce/tinymce
-// Definitions by: Martin Duparc <https://github.com/martinduparc>, Poul Poulsen <https://github.com/ipoul>
+// Definitions by: Martin Duparc <https://github.com/martinduparc>
+//                 Poul Poulsen <https://github.com/ipoul>
+//                 Nico Hartto <https://github.com/nicohartto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -53,7 +55,31 @@ export function walk(o: {}, f: () => void, n?: string, s?: string): void;
 export function init(settings: Settings): void;
 
 export interface Settings {
-  table_toolbar?: boolean;
+  table_toolbar?: string;
+
+  table_appearance_options?: boolean;
+
+  table_clone_elements?: string;
+
+  table_grid?: boolean;
+
+  table_tab_navigation?: boolean;
+
+  table_default_attributes?: object | string;
+
+  table_default_styles?: object | string;
+
+  table_class_list?: object[];
+
+  table_cell_class_list?: object[];
+
+  table_row_class_list?: object[];
+
+  table_advtab?: boolean;
+
+  table_cell_advtab?: boolean;
+
+  table_row_advtab?: boolean;
 
   auto_focus?: string;
 
@@ -826,7 +852,7 @@ export namespace dom {
 
     parseStyle(cssText: string): {};
 
-    remove<T>(node: string, keepChildren?: boolean): Element | T[];
+    remove<T>(node: string | Element, keepChildren?: boolean): Element | T[];
 
     removeAllAttribs(e: Element): void;
 

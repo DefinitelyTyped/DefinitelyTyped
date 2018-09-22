@@ -1212,6 +1212,14 @@ interface SchedulerStatic {
 	 * @param config the configuration object of the timespan to mark/block
 	*/
 	addMarkedTimespan(config: any): number;
+	
+	/**
+	 * adds a new keyboard shortcut
+	 * @param shortcut the key name or the name of keys combination for a shortcut (shortcut syntax)
+	 * @param handler the handler of the shortcut call
+	 * @param scope the name of the context element to attach the handler function to (list of scopes)
+	 */
+	addShortcut(shortcut: string, handler: () => void, scope?: any): void;
 
 	/**
 	 * adds a section to the currently active view (if the opened view isn't Timeline in the 'Tree' mode - the method will be ignored)
@@ -1558,6 +1566,13 @@ interface SchedulerStatic {
 	 * @param type (<i>'json', 'xml', 'ical'</i>) the data type. The default value - <i>'xml'</i>
 	*/
 	parse(data: any, type?: string): void;
+	
+	/**
+	 * removes a keyboard shortcut
+	 * @param shortcut the key name or the name of keys combination for a shortcut (shortcut syntax)
+	 * @param scope the element to which the shortcut is attached (list of scopes)
+	 */
+	removeShortcut(shortcut: string, scope: any): void;
 
 	/**
 	 * creates a mini calendar

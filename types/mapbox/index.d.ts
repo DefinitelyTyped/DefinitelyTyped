@@ -2,6 +2,7 @@
 // Project: https://www.mapbox.com/mapbox.js/
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as Leaflet from "leaflet";
 
@@ -366,12 +367,12 @@ declare global {
 		///////////////////////////// CONFIGURATION //////////////////////////
 		//////////////////////////////////////////////////////////////////////
 
-		class config {
-			static FORCE_HTTPS: boolean;
+		namespace config {
+			const FORCE_HTTPS: boolean;
 
-			static HTTP_URLS: string[];
+			const HTTP_URLS: string[];
 
-			static HTTPS_URLS: string[];
+			const HTTPS_URLS: string[];
 		}
 	}
 }

@@ -1,6 +1,6 @@
 // Type definitions for angular-material 1.1
 // Project: https://github.com/angular/material
-// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>, Geert Jansen <https://github.com/geertjansen>
+// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>, Geert Jansen <https://github.com/geertjansen>, Edward Knowles <https://github.com/eknowles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -11,6 +11,10 @@ export = _;
 
 declare module 'angular' {
     namespace material {
+        interface IAriaProvider {
+            disableWarnings(): void;
+        }
+
         interface ResolveObject {
             [name: string]: Injectable<(...args: any[]) => PromiseLike<any>>;
         }
@@ -76,6 +80,7 @@ declare module 'angular' {
 
         interface IPromptDialog extends IPresetDialog<IPromptDialog> {
             cancel(cancel: string): IPromptDialog;
+            required(required: boolean): IPromptDialog; // default: false
             placeholder(placeholder: string): IPromptDialog;
             initialValue(initialValue: string): IPromptDialog;
         }
@@ -120,12 +125,21 @@ declare module 'angular' {
         }
 
         interface IDialogService {
+            // indexer used to call preset dialog created with $mdDialogProvider
+            // see: https://material.angularjs.org/latest/api/service/$mdDialog#custom-presets
+            // tslint:disable-next-line:ban-types
+            [presetName: string]: Function;
+
             show(dialog: IDialogOptions | IAlertDialog | IConfirmDialog | IPromptDialog): IPromise<any>;
             confirm(): IConfirmDialog;
             alert(): IAlertDialog;
             prompt(): IPromptDialog;
             hide(response?: any): IPromise<any>;
             cancel(response?: any): void;
+        }
+
+        interface IDialogProvider {
+            addPreset(presetName: string, presetOptions: { methods?: ReadonlyArray<string>, options: () => IDialogOptions }): IDialogProvider;
         }
 
         type IIcon = (id: string) => IPromise<Element>; // id is a unique ID or URL
@@ -218,7 +232,7 @@ declare module 'angular' {
             contrastDefaultColor?: string;
             contrastDarkColors?: string | string[];
             contrastLightColors?: string | string[];
-            contrastStrongLightColors?: string|string[];
+            contrastStrongLightColors?: string | string[];
         }
 
         interface IThemeHues {
@@ -290,6 +304,25 @@ declare module 'angular' {
             configuration(): IThemeConfig;
         }
 
+        interface IDefineThemeOptions {
+            primary?: string;
+            accent?: string;
+            warn?: string;
+            background?: string;
+            dark?: boolean;
+        }
+
+        interface IThemingService {
+            PALETTES: IConfiguredColorPalette; // get only
+            THEMES: IConfiguredThemes; // get only
+            (element: JQuery): void;
+            registered(themeName: string): boolean;
+            defaultTheme(): string;
+            generateTheme(name: string): void;
+            setBrowserColor(options: IBrowserColors): () => void;
+            defineTheme(name: string, options: IDefineThemeOptions): IPromise<string>;
+        }
+
         interface IDateLocaleProvider {
             months: string[];
             shortMonths: string[];
@@ -328,6 +361,18 @@ declare module 'angular' {
             brown: IPalette;
             grey: IPalette;
             'blue-grey': IPalette;
+        }
+
+        interface IConfiguredColorPalette extends IColorPalette {
+            [name: string]: IPalette;
+        }
+
+        interface IThemes {
+            default: ITheme;
+        }
+
+        interface IConfiguredThemes extends IThemes {
+            [name: string]: ITheme;
         }
 
         interface IPanelConfig {
@@ -458,5 +503,7 @@ declare module 'angular' {
         interface IProgressCircularProvider {
             configure(options: IProgressCircularConfig): void;
         }
+
+        type IStickyService = (scope: IScope, element: JQuery, elementClone?: JQuery) => void;
     }
 }

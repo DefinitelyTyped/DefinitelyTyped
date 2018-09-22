@@ -1,4 +1,4 @@
-// Type definitions for EaselJS 0.8.0
+// Type definitions for EaselJS 1.0.0
 // Project: http://www.createjs.com/#!/EaselJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -51,6 +51,22 @@ declare namespace createjs {
 
         // methods
         clone(): Bitmap;
+    }
+
+    export class BitmapCache {
+        constructor();
+
+        // properties
+        cacheID: number;
+
+        // methods
+        static getFilterBounds(target: DisplayObject, output?: Rectangle): Rectangle;
+        toString(): string;
+        define(target: DisplayObject, x: number, y: number, width: number, height: number, scale?: number): void;
+        update(compositeOperation?: string): void;
+        release(): void;
+        getCacheDataURL(): string;
+        draw(ctx: CanvasRenderingContext2D): boolean;
     }
 
     export class ScaleBitmap extends DisplayObject {
@@ -211,6 +227,7 @@ declare namespace createjs {
 
         // properties
         alpha: number;
+        bitmapCache: BitmapCache;
         cacheCanvas: HTMLCanvasElement | Object;
         cacheID: number;
         compositeOperation: string;
@@ -922,6 +939,60 @@ declare namespace createjs {
         toDataURL(backgroundColor: string, mimeType: string): string;
         update(...arg: any[]): void;
 
+    }
+
+    interface IStageGLOptions {
+        preserveBuffer?: boolean;
+        antialias?: boolean;
+        transparent?: boolean;
+        premultiply?: boolean;
+        autoPurge?: number;
+    }
+
+    export class StageGL extends Stage {
+        constructor(canvas: HTMLCanvasElement | string | Object, options?: IStageGLOptions);
+
+        // properties
+        static VERTEX_PROPERTY_COUNT: number;
+        static INDICIES_PER_CARD: number;
+        static DEFAULT_MAX_BATCH_SIZE: number;
+        static WEBGL_MAX_INDEX_NUM: number;
+        static UV_RECT: number;
+        static COVER_VERT: Float32Array;
+        static COVER_UV: Float32Array;
+        static COVER_UV_FLIP: Float32Array;
+        static REGULAR_VARYING_HEADER: string;
+        static REGULAR_VERTEX_HEADER: string;
+        static REGULAR_FRAGMENT_HEADER: string;
+        static REGULAR_VERTEX_BODY: string;
+        static REGULAR_FRAGMENT_BODY: string;
+        static REGULAR_FRAG_COLOR_NORMAL: string;
+        static REGULAR_FRAG_COLOR_PREMULTIPLY: string;
+        static PARTICLE_VERTEX_BODY: string;
+        static PARTICLE_FRAGMENT_BODY: string;
+        static COVER_VARYING_HEADER: string;
+        static COVER_VERTEX_HEADER: string;
+        static COVER_FRAGMENT_HEADER: string;
+        static COVER_VERTEX_BODY: string;
+        static COVER_FRAGMENT_BODY: string;
+        isWebGL: boolean;
+        autoPurge: number;
+        vocalDebug: boolean;
+
+        // methods
+        static buildUVRects(spritesheet: SpriteSheet, target?: number, onlyTarget?: boolean): Object;
+        static isWebGLActive(ctx: CanvasRenderingContext2D): boolean;
+        cacheDraw(target: DisplayObject, filters: Filter[], manager: BitmapCache): boolean;
+        getBaseTexture(w?: number, h?: number): WebGLTexture | null;
+        getFilterShader(filter: Filter | Object): WebGLProgram;
+        getRenderBufferTexture (w: number, h: number): WebGLTexture;
+        getTargetRenderTexture (target: DisplayObject, w: number, h: number): Object;
+        protectTextureSlot(id: number, lock?: boolean): void;
+        purgeTextures(count?: number): void;
+        releaseTexture(item: DisplayObject | WebGLTexture | HTMLImageElement | HTMLCanvasElement): void;
+        setTextureParams(gl: WebGLRenderingContext, isPOT?: boolean): void;
+        updateSimultaneousTextureCount(count?: number): void;
+        updateViewport(width: number, height: number): void;
     }
 
 

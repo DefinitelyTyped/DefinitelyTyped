@@ -1,8 +1,9 @@
-// Type definitions for i18next 8.4
+// Type definitions for i18next 11.9
 // Project: http://i18next.com
 // Definitions by: Michael Ledin <https://github.com/mxl>
 //                 Budi Irawan <https://github.com/deerawan>
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+//                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,6 +15,18 @@ declare namespace i18next {
     type FallbackLng = string | string[] | FallbackLngObjList;
 
     type FormatFunction = (value: string, format?: string, lng?: string) => string;
+
+    /* tslint:disable-next-line:no-empty-interface */
+    interface DetectionPluginOptions {
+    }
+
+    /* tslint:disable-next-line:no-empty-interface */
+    interface BackendPluginOptions {
+    }
+
+    /* tslint:disable-next-line:no-empty-interface */
+    interface CachePluginOptions {
+    }
 
     interface InterpolationOptions {
         /**
@@ -37,6 +50,11 @@ declare namespace i18next {
          * @default true
          */
         escapeValue?: boolean;
+        /**
+         * 	If true, then value passed into escape function is not casted to string, use with custom escape function that does its own type check
+         * @default false
+         */
+        useRawValueToEscape?: boolean;
         /**
          * 	prefix for interpolation
          * @default '{{'
@@ -91,18 +109,40 @@ declare namespace i18next {
          * 	global variables to use in interpolation replacements
          * @default undefined
          */
-        defaultVariables?: any;
+        defaultVariables?: { [index: string]: any };
+        /**
+         * 	after how many interpolation runs to break out before throwing a stack overflow
+         * @default 1000
+         */
+        maxReplaces?: number;
     }
 
     interface ReactOptions {
         /**
          * set to true if you like to wait for loaded in every translated hoc
+         * @default false
          */
         wait?: boolean;
         /**
          * set it to fallback to let passed namespaces to translated hoc act as fallbacks
+         * @default 'default'
          */
-        nsMode?: string;
+        nsMode?: 'default' | 'fallback';
+        /**
+         * set it to the default parent element created by the Trans component.
+         * @default 'div'
+         */
+        defaultTransParent?: string;
+        /**
+         * set which events trigger a rerender, can be set to false or string of events
+         * @default 'languageChanged loaded'
+         */
+        bindI18n?: string | false;
+        /**
+         * set which events on store trigger a rerender, can be set to false or string of events
+         * @default 'added removed'
+         */
+        bindStore?: string | false;
     }
 
     interface InitOptions {
@@ -188,6 +228,15 @@ declare namespace i18next {
         saveMissing?: boolean;
 
         /**
+         * experimental: enable to update default values using the saveMissing
+         * (Works only if defaultValue different from translated value.
+         * Only useful on initial development or when keeping code as source of truth not changing values outside of code.
+         * Only supported if backend supports it already)
+         * @default false
+         */
+        updateMissing?: boolean;
+
+        /**
          * @default 'fallback'
          */
         saveMissingTo?: "current" | "all" | "fallback";
@@ -196,7 +245,7 @@ declare namespace i18next {
          * Used for custom missing key handling (needs saveMissing set to true!)
          * @default false
          */
-        missingKeyHandler?: false | ((lng: string, ns: string, key: string, fallbackValue: string) => void);
+        missingKeyHandler?: false | ((lngs: string[], ns: string, key: string, fallbackValue: string) => void);
 
         /**
          * receives a key that was not found in `t()` and returns a value, that will be returned by `t()`
@@ -209,6 +258,12 @@ declare namespace i18next {
          * @default false
          */
         appendNamespaceToMissingKey?: boolean;
+
+        /**
+         * gets called in case a interpolation value is undefined. This method will not be called if the value is empty string or null
+         * @default noop
+         */
+        missingInterpolationHandler?: (text: string, value: any) => any;
 
         /**
          * will use 'plural' as suffix for languages only having 1 plural form, setting it to false will suffix all with numbers
@@ -267,19 +322,19 @@ declare namespace i18next {
          * options for language detection - check documentation of plugin
          * @default undefined
          */
-        detection?: object;
+        detection?: DetectionPluginOptions;
 
         /**
          * options for backend - check documentation of plugin
          * @default undefined
          */
-        backend?: object;
+        backend?: BackendPluginOptions;
 
         /**
          * options for cache layer - check documentation of plugin
          * @default undefined
          */
-        cache?: object;
+        cache?: CachePluginOptions;
 
         /**
          * options for react - check documentation of plugin
@@ -488,7 +543,7 @@ declare namespace i18next {
         /**
          * Returns rtl or ltr depending on languages read direction.
          */
-        dir(lng?: string): void;
+        dir(lng?: string): "ltr" | "rtl";
 
         /**
          * Exposes interpolation.format function added on init.

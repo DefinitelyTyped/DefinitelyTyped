@@ -1,9 +1,11 @@
-// Type definitions for fetch-mock 5.12
+// Type definitions for fetch-mock 6.0
 // Project: https://github.com/wheresrhys/fetch-mock
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Tamir Duberstein <https://github.com/tamird>
 //                 Risto Keravuori <https://github.com/merrywhether>
 //                 Chris Sinclair <https://github.com/chrissinclair>
+//                 Matt Tennison <https://github.com/matttennison>
+//                 Quentin Bouygues <https://github.com/quentinbouygues>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -12,10 +14,9 @@ declare namespace fetchMock {
 
     /**
      * Mock matcher function
-     * @param url
-     * @param opts
      */
     type MockMatcherFunction = (url: string, opts: MockRequest) => boolean;
+
     /**
      * Mock matcher. Can be one of following:
      * string: Either
@@ -39,27 +40,45 @@ declare namespace fetchMock {
          * Set the response body
          */
         body?: string | {};
+
         /**
          * Set the response status
          * @default 200
          */
         status?: number;
+
         /**
          * Set the response headers.
          */
         headers?: { [key: string]: string };
+
         /**
          * If this property is present then a Promise rejected with the value
          * of throws is returned
          */
         throws?: boolean;
+
         /**
          * This property determines whether or not the request body should be
          * JSON.stringified before being sent
          * @default true
          */
         sendAsJson?: boolean;
+
+        /**
+         * Setting this property to true will automatically add the
+         * content-length header
+         * @default true
+         */
+        includeContentLength?: boolean;
+
+        /**
+         * The URL the response should be from (to imitate followed redirects
+         *  - will set redirected: true on the response)
+         */
+        redirectUrl?: string;
     }
+
     /**
      * Response: A Response instance - will be used unaltered
      * number: Creates a response with this status
@@ -75,10 +94,9 @@ declare namespace fetchMock {
                         | string | Promise<string>
                         | {} | Promise<{}>
                         | MockResponseObject | Promise<MockResponseObject>;
+
     /**
      * Mock response function
-     * @param url
-     * @param opts
      */
     type MockResponseFunction = (url: string, opts: MockRequest) => MockResponse;
 
@@ -96,18 +114,39 @@ declare namespace fetchMock {
          *  clash)
          */
         name?: string;
+
         /**
          * http method to match
          */
         method?: string;
+
+        /**
+         * key/value map of headers to match
+         */
+        headers?: { [key: string]: string };
+
+        /**
+         * key/value map of query strings to match, in any order
+         */
+        query?: { [key: string]: string };
+
         /**
          * as specified above
          */
         matcher?: MockMatcher;
+
+        /**
+         * This option allows for existing routes in a mock to be overwritten.
+         * It’s also possible to define multiple routes with ‘the same’ matcher.
+         * Default behaviour is to error
+         */
+        overwriteRoutes?: boolean;
+
         /**
          * as specified above
          */
         response?: MockResponse | MockResponseFunction;
+
         /**
          * integer, n, limiting the number of times the matcher can be used.
          * If the route has already been called n times the route will be
@@ -115,7 +154,7 @@ declare namespace fetchMock {
          * any other routes defined (which may eventually result in an error
          * if nothing matches it).
          */
-        times?: number;
+        repeat?: number;
     }
 
     type MockCall = [string, MockRequest];
@@ -155,6 +194,7 @@ declare namespace fetchMock {
          * @param [options] Additional properties defining the route to mock
          */
         mock(matcher: MockMatcher, response: MockResponse | MockResponseFunction, options?: MockOptions): this;
+
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -162,6 +202,14 @@ declare namespace fetchMock {
          * @param options The route to mock
          */
         mock(options: MockOptions): this;
+
+        /**
+         * Returns a drop-in mock for fetch which can be passed to other mocking
+         * libraries. It implements the full fetch-mock api and maintains its
+         * own state independent of other instances, so tests can be run in
+         * parallel.
+         */
+        sandbox(): FetchMockSandbox;
 
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
@@ -184,6 +232,7 @@ declare namespace fetchMock {
          * @param [options] Additional properties defining the route to mock
          */
         get(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodGet): this;
+
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -206,6 +255,7 @@ declare namespace fetchMock {
          * @param [options] Additional properties defining the route to mock
          */
         post(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodPost): this;
+
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -228,6 +278,7 @@ declare namespace fetchMock {
          * @param [options] Additional properties defining the route to mock
          */
         put(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodPut): this;
+
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -250,6 +301,7 @@ declare namespace fetchMock {
          * @param [options] Additional properties defining the route to mock
          */
         delete(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodDelete): this;
+
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -272,6 +324,7 @@ declare namespace fetchMock {
          * @param [options] Additional properties defining the route to mock
          */
         head(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodHead): this;
+
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -294,6 +347,7 @@ declare namespace fetchMock {
          * @param [options] Additional properties defining the route to mock
          */
         patch(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodHead): this;
+
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
          * route, and optionally returns a mocked Response object or passes the
@@ -347,6 +401,7 @@ declare namespace fetchMock {
          * them or not.
          */
         calls(): MatchedRoutes;
+
         /**
          * Returns all calls to fetch matching matcherName.
          */
@@ -402,6 +457,14 @@ declare namespace fetchMock {
          * lot of array buffers, it can be useful to default to `false`
          */
         configure(opts: {}): void;
+    }
+
+    interface FetchMockSandbox extends FetchMockStatic {
+        /**
+         * Also callable as fetch(). Use `typeof fetch` in your code to define
+         * a field that accepts both `fetch()` and a fetch-mock sandbox.
+         */
+        (input?: string | Request , init?: RequestInit): Promise<Response>;
     }
 }
 

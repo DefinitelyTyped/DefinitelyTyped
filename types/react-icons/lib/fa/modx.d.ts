@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class FaModx extends React.Component<IconBaseProps> { }
+declare class FaModx extends React.Component<IconBaseProps> { }
+export = FaModx;

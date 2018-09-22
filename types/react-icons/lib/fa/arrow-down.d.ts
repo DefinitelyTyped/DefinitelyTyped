@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class FaArrowDown extends React.Component<IconBaseProps> { }
+declare class FaArrowDown extends React.Component<IconBaseProps> { }
+export = FaArrowDown;

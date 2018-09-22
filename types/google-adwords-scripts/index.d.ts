@@ -1387,7 +1387,7 @@ interface hasStartAndEndDateBuilder<B> {
 }
 
 interface hasStats {
-    getStatsFor(dateRange: DayOfWeekString): AdWordsStats;
+    getStatsFor(dateRange: DateRange): AdWordsStats;
     getStatsFor(dateFrom: AdWordsDate | string, dateTo: AdWordsDate | string): AdWordsStats;
 }
 

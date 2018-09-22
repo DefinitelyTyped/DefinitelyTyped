@@ -1,4 +1,4 @@
-import * as bwipjs from 'bwip-js';
+import bwipjs = require('bwip-js');
 import * as http from 'http';
 import * as fs from 'fs';
 

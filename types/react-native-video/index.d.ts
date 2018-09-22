@@ -1,16 +1,38 @@
 // Type definitions for react-native-video 2.0
 // Project: https://github.com/react-native-community/react-native-video
 // Definitions by: HuHuanming <https://github.com/huhuanming>
-//                 abrahambotros <https://github.com/abrahambotros>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import {
-    ViewProperties
+    ViewProps
 } from 'react-native';
 
-export interface VideoProperties extends ViewProperties {
+export interface OnLoadData {
+  canPlayFastForward: boolean;
+  canPlayReverse: boolean;
+  canPlaySlowForward: boolean;
+  canPlaySlowReverse: boolean;
+  canStepBackward: boolean;
+  canStepForward: boolean;
+  currentTime: number;
+  duration: number;
+  naturalSize: {
+    height: number;
+    width: number;
+    orientation: 'horizontal' | 'landscape';
+  };
+}
+
+export interface LoadError {
+  error: {
+    '': string;
+    errorString: string;
+  };
+}
+
+export interface VideoProperties extends ViewProps {
     /* Native only */
     src?: any;
     seek?: number;
@@ -45,13 +67,14 @@ export interface VideoProperties extends ViewProperties {
     controls?: boolean;
     currentTime?: number;
     progressUpdateInterval?: number;
+    useTextureView?: boolean;
     onLoadStart?(): void;
-    onLoad?(): void;
+    onLoad?(data: OnLoadData): void;
     onBuffer?(): void;
-    onError?(): void;
+    onError?(error: LoadError): void;
     onProgress?(data: {
-        currentTime: number,
-        playableDuration: number,
+        currentTime: number;
+        playableDuration: number;
     }): void;
     onSeek?(): void;
     onEnd?(): void;

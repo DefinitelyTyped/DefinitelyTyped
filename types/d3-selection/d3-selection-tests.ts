@@ -89,10 +89,11 @@ const body5: d3Selection.Selection<HTMLBodyElement, BodyDatum, null, undefined> 
 // d3Selection.select<HTMLBodyElement, BodyDatum>(baseTypeEl.node()!); // fails as baseTypeEl.node() is not of type HTMLBodyElement
 
 // test, when it is not certain, whether an element of the type to be selected exists
-let maybeSVG1: d3Selection.Selection<SVGSVGElement | null, any, HTMLElement, undefined> = d3Selection.select<SVGSVGElement, any>('svg');
+let maybeSVG1: d3Selection.Selection<SVGSVGElement | null, any, HTMLElement, undefined>;
 maybeSVG1 = d3Selection.select<SVGSVGElement | null, any>('svg');
 
 let maybeSVG2: d3Selection.Selection<SVGSVGElement | null, any, null, undefined>;
+// maybeSVG2 = d3Selection.select<SVGSVGElement, any>(maybeSVG1.node()); // fails with strict function types
 maybeSVG2 = d3Selection.select<SVGSVGElement | null, any>(maybeSVG1.node());
 
 // fails, as node type mismatches selection type
@@ -144,8 +145,7 @@ const xSVGCircleElementList: NodeListOf<SVGCircleElement> = document.querySelect
 const circleSelection: d3Selection.Selection<SVGCircleElement, any, null, undefined> = d3Selection.selectAll(xSVGCircleElementList);
 
 // selectAll(...) accepts HTMLCollection, HTMLCollectionOf<...> argument
-
-const documentLinks: d3Selection.Selection<HTMLAnchorElement | HTMLAreaElement, any, null, undefined> = d3Selection.selectAll(document.links);
+const documentLinks: d3Selection.Selection<HTMLAnchorElement | HTMLAreaElement, any, null, undefined> = d3Selection.selectAll<HTMLAnchorElement | HTMLAreaElement, any>(document.links);
 
 // ---------------------------------------------------------------------------------------
 // Tests of Sub-Selection Functions
@@ -162,17 +162,18 @@ const svgEl: d3Selection.Selection<SVGSVGElement, SVGDatum, HTMLElement, any> = 
 
 let firstG: d3Selection.Selection<SVGGElement, SVGDatum, HTMLElement, any> = svgEl.select<SVGGElement>('g');
 // let firstG_2: d3Selection.Selection<SVGGElement, SVGDatum, SVGSVGElement, any> = svgEl.select<SVGGElement>('g'); // fails, parent element of selection does not change with .select(...)
-// firstG = svgEl.select('g'); // fails, element type defaults to 'BaseType', but SVGGElement expexted on left-hand side
-// firstG = svgEl.select<SVGSVGElement>('svg'); // fails, element type of SVGSVGElement provided, but SVGGElement expexted on left-hand side (silly test to begin with)
+// firstG = svgEl.select('g'); // fails, element type defaults to 'BaseType', but SVGGElement expected on left-hand side
+// firstG = svgEl.select<SVGSVGElement>('svg'); // fails, element type of SVGSVGElement provided, but SVGGElement expected on left-hand side (silly test to begin with)
 
 // test, when it is not certain, whether an element of the type to be selected exists
-let maybeG: d3Selection.Selection<SVGGElement | null, SVGDatum, HTMLElement, any> = svgEl.select<SVGGElement>('g');
+let maybeG: d3Selection.Selection<SVGGElement | null, SVGDatum, HTMLElement, any>;
+// maybeG = svgEl.select<SVGGElement>('g'); // fails, with strictFunctionTypes
 maybeG = svgEl.select<SVGGElement | null>('g');
 
 // Using select(...) sub-selection with a selector function argument.
 
-function svgGroupSelector(this: SVGSVGElement, d: SVGDatum, i: number, groups: SVGSVGElement[]): SVGGElement {
-    return this.querySelector('g')!; // this-type compatible with group element-type to which the selector function will be appplied
+function svgGroupSelector(this: SVGSVGElement, d: SVGDatum, i: number, groups: SVGSVGElement[] | ArrayLike<SVGSVGElement>): SVGGElement {
+    return this.querySelector('g')!; // this-type compatible with group element-type to which the selector function will be applied
 }
 
 firstG = svgEl.select(svgGroupSelector);
@@ -215,14 +216,15 @@ emptySubSelection = svgEl.selectAll(undefined);
 
 // Using selectAll(...) sub-selection with a string argument.
 
-let elementsUnknownData: d3Selection.Selection<d3Selection.BaseType, any, SVGSVGElement, SVGDatum> = svgEl.selectAll('g');
+let elementsUnknownData: d3Selection.Selection<SVGGElement, any, SVGSVGElement, SVGDatum> = svgEl.selectAll<SVGGElement, any>('g');
+// let elementsAndDataUnknown: d3Selection.Selection<d3Selection.BaseType, any, SVGSVGElement, SVGDatum> = svgEl.selectAll('g'); // fails with strictFunctionTypes
 let gElementsOldData: d3Selection.Selection<SVGGElement, CircleDatum, SVGSVGElement, SVGDatum> = svgEl.selectAll<SVGGElement, CircleDatum>('g');
 // gElementsOldData = svgEl.selectAll('g'); // fails default type parameters of selectAll for group element type and datum type do not match
 
 // Using selectAll(...) sub-selection with a selector function argument.
 
-function svgGroupSelectorAll(this: SVGSVGElement, d: SVGDatum, i: number, groups: SVGSVGElement[]): NodeListOf<SVGGElement> {
-    return this.querySelectorAll('g'); // this-type compatible with group element-type to which the selector function will be appplied
+function svgGroupSelectorAll(this: SVGSVGElement, d: SVGDatum, i: number, groups: SVGSVGElement[] | d3Selection.ArrayLike<SVGSVGElement>): NodeListOf<SVGGElement> {
+    return this.querySelectorAll('g'); // this-type compatible with group element-type to which the selector function will be applied
 }
 
 gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(svgGroupSelectorAll);
@@ -300,11 +302,11 @@ gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(d3Selection.selecto
 
 // Scenario 1: Filter retaining the element type of the select group (i.e. no type narrowing during filtering)
 
-let filterdGElements: d3Selection.Selection<SVGGElement, CircleDatum, SVGSVGElement, SVGDatum>;
+let filteredGElements: d3Selection.Selection<SVGGElement, CircleDatum, SVGSVGElement, SVGDatum>;
 
-filterdGElements = gElementsOldData.filter('.top-level');
+filteredGElements = gElementsOldData.filter('.top-level');
 
-filterdGElements = gElementsOldData.filter(function(d, i, g) {
+filteredGElements = gElementsOldData.filter(function(d, i, g) {
     const that: SVGGElement = this;
     // const that2: HTMLElement  = this; // fails, type mismatch
     const datum: CircleDatum = d;
@@ -320,23 +322,23 @@ filterdGElements = gElementsOldData.filter(function(d, i, g) {
 // Scenario 2: Filtering narrows the type of selected elements in a known way
 
 // assume the class ".any-svg-type" can only be assigned to SVGElements in the DOM
-let filterdGElements2: d3Selection.Selection<SVGGElement, any, HTMLElement, any>;
+let filteredGElements2: d3Selection.Selection<SVGGElement, any, HTMLElement, any>;
 
-filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter<SVGGElement>('g');
-// filterdGElements2 = d3Selection.selectAll('.any-type').filter('g'); // fails without using narrowing generic on filter method
+filteredGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter<SVGGElement>('g');
+// filteredGElements2 = d3Selection.selectAll('.any-type').filter('g'); // fails without using narrowing generic on filter method
 
-filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter<SVGGElement>(function(){
+filteredGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter<SVGGElement>(function() {
     const that: SVGElement = this;
     return that.tagName === 'g' || that.tagName === 'G';
 });
-// filterdGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter(function(){
+// filteredGElements2 = d3Selection.selectAll<SVGElement, any>('.any-svg-type').filter(function(){
 //     const that: SVGElement = this;
 //     return that.tagName === 'g'|| that.tagName === 'G';
 // }); // fails without using narrowing generic on filter method
 
 // matcher() -----------------------------------------------------------------------------
 
-filterdGElements = gElementsOldData.filter(d3Selection.matcher('.top-level'));
+filteredGElements = gElementsOldData.filter(d3Selection.matcher('.top-level'));
 
 // ---------------------------------------------------------------------------------------
 // Tests of Modification
@@ -642,7 +644,7 @@ let circles2: d3Selection.Selection<SVGCircleElement, CircleDatumAlternative, SV
 
 // Test creating initial data-driven circle selection
 // and append materialized SVGCircleElement per enter() selection element
-// - use data(...) with array-signature and infer data type from arrray type passed into data(...)
+// - use data(...) with array-signature and infer data type from array type passed into data(...)
 // - use enter() to obtain enter selection
 // - materialize svg circles using append(...) with type-parameter and string argument
 
@@ -697,7 +699,7 @@ exitCircles
     })
     .remove();
 
-// Note: the alternative using only .exit() without typing, will fail, if access to datum properties is attemped.
+// Note: the alternative using only .exit() without typing, will fail, if access to datum properties is attempted.
 // If access to d is not required, the short-hand is acceptable e.g. circles2.exit().remove();
 
 // let exitCircles2 = circles2.exit(); // Note: Without explicit re-typing to the old data type, the data type default to '{}'
@@ -774,7 +776,7 @@ nRow = td2.data(); // flattened matrix (Array[16] of number)
 // Tests of Alternative DOM Manipulation
 // ---------------------------------------------------------------------------------------
 
-// append(...) and creator(...) ----------------------------------------------------------
+// append(...), creator(...) and create(...) ---------------------------------------------
 
 // without append<...> typing returned selection has group element of type BaseType
 let newDiv: d3Selection.Selection<d3Selection.BaseType, BodyDatum, HTMLElement, any>;
@@ -794,7 +796,7 @@ newDiv2 = body.append(function(d, i, g) {
     const index: number = i;
     const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
     console.log('Body element foo property: ', d.foo); // data of type BodyDatum
-    return this.ownerDocument.createElement('div'); // this-type HTMLBodyElement
+    return this.ownerDocument!.createElement('div'); // this-type HTMLBodyElement
 });
 
 // newDiv2 = body.append<HTMLDivElement>(function(d) {
@@ -804,6 +806,12 @@ newDiv2 = body.append(function(d, i, g) {
 // newDiv2 = body.append(function(d) {
 //     return this.ownerDocument.createElement('a'); // fails, HTMLDivElement expected by inference, HTMLAnchorElement returned
 // });
+
+// create a detached element
+
+let detachedDiv: d3Selection.Selection<HTMLDivElement, undefined, null, undefined>;
+
+detachedDiv = d3Selection.create<HTMLDivElement>('div');
 
 // insert(...) ---------------------------------------------------------------------------
 
@@ -820,7 +828,7 @@ const typeValueFunction = function(
   i: number,
   g: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement>
 ) {
-    return this.ownerDocument.createElement('p'); // this-type HTMLParagraphElement
+    return this.ownerDocument!.createElement('p'); // this-type HTMLParagraphElement
 };
 
 const beforeValueFunction = function(
@@ -846,6 +854,18 @@ newParagraph2 = body.insert(d3Selection.creator<HTMLParagraphElement>('p'));
 newParagraph2 = body.insert(typeValueFunction, 'p.second-paragraph');
 newParagraph2 = body.insert(typeValueFunction, beforeValueFunction);
 newParagraph2 = body.insert(typeValueFunction);
+
+// clone(...) ----------------------------------------------------------------------------
+
+let clonedParagraph: d3Selection.Selection<HTMLParagraphElement, BodyDatum, HTMLElement, any>;
+
+// shallow clone
+clonedParagraph = newParagraph2.clone();
+
+// deep clone
+
+newParagraph.append('span');
+clonedParagraph = newParagraph2.clone(true);
 
 // sort(...) -----------------------------------------------------------------------------
 
@@ -925,14 +945,14 @@ circles = circles.call(enforceMinRadius, 40); // check chaining return type by r
 
 // on(...) -------------------------------------------------------------------------------
 
-let listener: undefined | ((this: HTMLBodyElement, datum: BodyDatum, index: number, group: HTMLBodyElement[] | ArrayLike<HTMLBodyElement>) => void);
+let listener: undefined | ((this: HTMLBodyElement, datum: BodyDatum, index: number, group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement>) => void);
 
 body = body.on('click', function(d, i, g) {
     const that: HTMLBodyElement = this;
     // const that2: SVGElement  = this; // fails, type mismatch
     const datum: BodyDatum = d;
     const index: number = i;
-    const group: HTMLBodyElement[] | ArrayLike<HTMLBodyElement> = g;
+    const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
     console.log('onclick print body background color: ', this.bgColor); // HTMLBodyElement
     console.log('onclick print "foo" datum property: ', d.foo); // BodyDatum type
 });
@@ -988,13 +1008,11 @@ interface SuccessEvent {
 }
 const successEvent = { type: 'wonEuro2016', team: 'Island' };
 
-let customListener: (this: HTMLBodyElement, finalOpponent: string) => string;
-
-customListener = finalOpponent => {
+function customListener(this: HTMLBodyElement | null, finalOpponent: string): string {
     const e = <SuccessEvent> d3Selection.event;
 
     return `${e.team} defeated ${finalOpponent} in the EURO 2016 Cup. Who would have thought!!!`;
-};
+}
 
 const resultText: string = d3Selection.customEvent(successEvent, customListener, body.node(), 'Wales');
 
@@ -1035,6 +1053,19 @@ positions = d3Selection.touches(h, changedTouches);
 positions = d3Selection.touches(svg, changedTouches);
 positions = d3Selection.touches(g, changedTouches);
 positions = d3Selection.touches(h, changedTouches);
+
+// clientPoint() ---------------------------------------------------------------------
+
+let clientPoint: [number, number];
+declare let mEvt: MouseEvent;
+declare let tEvt: Touch;
+declare let msgEvt: MSGestureEvent;
+declare let customEvt: {clientX: number, clientY: number}; // minimally conforming  object
+
+clientPoint = d3Selection.clientPoint(svg, mEvt);
+clientPoint = d3Selection.clientPoint(g, tEvt);
+clientPoint = d3Selection.clientPoint(h, msgEvt);
+clientPoint = d3Selection.clientPoint(h, customEvt);
 
 // ---------------------------------------------------------------------------------------
 // Tests of style

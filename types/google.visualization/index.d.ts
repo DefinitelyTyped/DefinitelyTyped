@@ -20,6 +20,7 @@ declare namespace google {
 
         export interface ChartSpecs {
             chartType: string;
+            container?: HTMLElement;
             containerId?: string;
             options?: Object;
             dataTable?: Object;
@@ -87,7 +88,7 @@ declare namespace google {
             getColumnProperties(columnIndex: number): Properties;
             getColumnProperty(columnIndex: number, name: string): any;
             getColumnRange(columnIndex: number): { min: any; max: any };
-            getColumnRole(columnIndex: string): string;
+            getColumnRole(columnIndex: number): string;
             getColumnType(columnIndex: number): string;
             getDistinctValues(columnIndex: number): any[];
             getFilteredRows(filters: DataTableCellFilter[]): number[];
@@ -456,8 +457,8 @@ declare namespace google {
             maxTextLines?: number;
             minTextSpacing?: number;
             showTextEvery?: number;
-            maxValue?: number;
-            minValue?: number;
+            maxValue?: number | Date | number[];
+            minValue?: number | Date | number[];
             viewWindowMode?: string;
             viewWindow?: ChartViewWindow;
         }
@@ -468,8 +469,8 @@ declare namespace google {
         }
 
         export interface ChartViewWindow {
-            max?: number;
-            min?: number;
+            max?: number | Date | number[];
+            min?: number | Date | number[];
         }
 
         export interface ChartTooltip {
@@ -645,6 +646,7 @@ declare namespace google {
             interpolateNulls?: boolean;
             legend?: ChartLegend | 'none';
             lineWidth?: number;
+            min?: number;
             orientation?: string;
             pointSize?: number;
             reverseCategories?: boolean;
@@ -1009,7 +1011,7 @@ declare namespace google {
         export interface TableOptions {
             allowHtml?: boolean;
             alternatingRowStyle?: boolean;
-            cssClassName?: CssClassNames;
+            cssClassNames?: CssClassNames;
             firstRowNumber?: number;
             height?: string;
             page?: string;

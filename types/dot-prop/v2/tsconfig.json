@@ -7,12 +7,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "dot-prop": ["dot-prop/v2"]
+            "dot-prop": [
+                "dot-prop/v2"
+            ]
         },
         "types": [],
         "noEmit": true,

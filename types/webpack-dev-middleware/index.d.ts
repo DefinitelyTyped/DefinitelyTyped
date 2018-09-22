@@ -1,10 +1,15 @@
-// Type definitions for webpack-dev-middleware 1.9
+// Type definitions for webpack-dev-middleware 2.0
 // Project: https://github.com/webpack/webpack-dev-middleware
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
+//                 reduckted <https://github.com/reduckted>
+//                 Chris Abrams <https://github.com/chrisabrams>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import { NextHandleFunction } from 'connect';
 import * as webpack from 'webpack';
+import * as loglevel from 'loglevel';
+import { NextHandleFunction } from 'connect';
+import MemoryFileSystem = require('memory-fs');
 
 export = WebpackDevMiddleware;
 
@@ -15,38 +20,36 @@ declare function WebpackDevMiddleware(
 
 declare namespace WebpackDevMiddleware {
 	interface Options {
-		noInfo?: boolean;
-		quiet?: boolean;
+		logLevel?: string;
 		lazy?: boolean;
 		watchOptions?: webpack.Options.WatchOptions;
 		publicPath: string;
-		index?: string;
+		index?: string | boolean;
 		headers?: {
 			[name: string]: string;
 		};
 		stats?: webpack.Options.Stats;
 		reporter?: Reporter | null;
 		serverSideRender?: boolean;
-
-		log?: Logger;
-		warn?: Logger;
-		error?: Logger;
+		logger?: Logger;
 		filename?: string;
+		writeToDisk?: boolean | ((filename: string) => boolean);
 	}
 
 	interface ReporterOptions {
 		state: boolean;
-		stats: webpack.Stats;
-		options: Options;
+		stats?: webpack.Stats;
+		log: Logger;
 	}
 
-	type Reporter = (reporterOptions: ReporterOptions) => void;
-
-	type Logger = (message?: any, ...optionalParams: any[]) => void;
+	type Logger = loglevel.Logger;
+	type Reporter = (middlewareOptions: Options, reporterOptions: ReporterOptions) => void;
 
 	interface WebpackDevMiddleware {
 		close(callback?: () => void): void;
 		invalidate(callback?: (stats: webpack.Stats) => void): void;
 		waitUntilValid(callback?: (stats: webpack.Stats) => void): void;
+		getFilenameFromUrl: (url: string) => string | false;
+		fileSystem: MemoryFileSystem;
 	}
 }

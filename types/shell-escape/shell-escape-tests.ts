@@ -1,4 +1,4 @@
-import * as shellEscape from 'shell-escape';
+import shellEscape = require('shell-escape');
 
 () => {
     const stringRes = shellEscape(['cp', '-r', 'src/', 'dest/']);

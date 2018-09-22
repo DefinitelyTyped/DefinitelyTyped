@@ -1,15 +1,19 @@
-// Type definitions for socket.io 1.4.4
+// Type definitions for socket.io 1.4.5
 // Project: http://socket.io/
-// Definitions by: PROGRE <https://github.com/progre>, Damian Connolly <https://github.com/divillysausages>, Florent Poujol <https://github.com/florentpoujol>, KentarouTakeda <https://github.com/KentarouTakeda>
+// Definitions by: PROGRE <https://github.com/progre>
+//                 Damian Connolly <https://github.com/divillysausages>
+//                 Florent Poujol <https://github.com/florentpoujol>
+//                 KentarouTakeda <https://github.com/KentarouTakeda>
+//                 Alexey Snigirev <https://github.com/gigi>
+//                 Ezinwa Okpoechi <https://github.com/BrainMaestro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
 
-declare module 'socket.io' {
-	var server: SocketIOStatic;
-
-	export = server;
-}
+declare const SocketIO: SocketIOStatic;
+export = SocketIO;
+/** @deprecated Available as a global for backwards-compatibility. */
+export as namespace SocketIO;
 
 interface SocketIOStatic {
 	/**
@@ -45,7 +49,6 @@ interface SocketIOStatic {
 }
 
 declare namespace SocketIO {
-
 	interface Server {
 		engine: { ws: any };
 
@@ -63,6 +66,16 @@ declare namespace SocketIO {
 		 * Sets the 'json' flag when emitting an event
 		 */
 		json: Server;
+
+		/**
+		 * Sets a modifier for a subsequent event emission that the event data may be lost if the clients are not ready to receive messages
+		 */
+		volatile: Server;
+
+		/**
+		 * Sets a modifier for a subsequent event emission that the event data will only be broadcast to the current node
+		 */
+		local: Server;
 
 		/**
 		 * Server request verification function, that checks for allowed origins
@@ -119,7 +132,7 @@ declare namespace SocketIO {
 		 * Gets the allowed origins for requests
 		 * @default "*:*"
 		 */
-		origins(): string;
+		origins(): string|string[];
 
 		/**
 		 * Sets the allowed origins for requests
@@ -127,7 +140,7 @@ declare namespace SocketIO {
 		 * @default "*:*"
 		 * return This Server
 		 */
-		origins( v: string ): Server;
+		origins( v: string|string[] ): Server;
 
 		/**
 		 * Attaches socket.io to a server
@@ -291,7 +304,7 @@ declare namespace SocketIO {
 		 * Accepted origins
 		 * @default '*:*'
 		 */
-		origins?: string;
+		origins?: string|string[];
 
 		/**
 		 * How many milliseconds without a pong packed to consider the connection closed (engine.io)
@@ -466,6 +479,21 @@ declare namespace SocketIO {
 		compress( compress: boolean ): Namespace;
 	}
 
+	interface Packet extends Array<any> {
+		/**
+		 * Event name
+		 */
+		[0]: string;
+		/**
+		 * Packet data
+		 */
+		[1]: any;
+		/**
+		 * Ack function
+		 */
+		[2]: (...args: any[]) => void;
+	}
+
 	/**
 	 * The socket, which handles our connection for a namespace. NOTE: while
 	 * we technically extend NodeJS.EventEmitter, we're not putting it here
@@ -530,49 +558,7 @@ declare namespace SocketIO {
 		/**
 		 * The object used when negociating the handshake
 		 */
-		handshake: {
-			/**
-			 * The headers passed along with the request. e.g. 'host',
-			 * 'connection', 'accept', 'referer', 'cookie'
-			 */
-			headers: any;
-
-			/**
-			 * The current time, as a string
-			 */
-			time: string;
-
-			/**
-			 * The remote address of the connection request
-			 */
-			address: string;
-
-			/**
-			 * Is this a cross-domain request?
-			 */
-			xdomain: boolean;
-
-			/**
-			 * Is this a secure request?
-			 */
-			secure: boolean;
-
-			/**
-			 * The timestamp for when this was issued
-			 */
-			issued: number;
-
-			/**
-			 * The request url
-			 */
-			url: string;
-
-			/**
-			 * Any query string parameters in the request url
-			 */
-			query: any;
-		};
-
+		handshake: Handshake;
 		/**
 		 * Sets the 'json' flag when emitting an event
 		 */
@@ -605,6 +591,13 @@ declare namespace SocketIO {
 		in( room: string ): Socket;
 
 		/**
+		 * Registers a middleware, which is a function that gets executed for every incoming Packet and receives as parameter the packet and a function to optionally defer execution to the next registered middleware.
+		 *
+		 * Errors passed to middleware callbacks are sent as special error packets to clients.
+		 */
+		use( fn: ( packet: Packet, next: (err?: any) => void ) => void ): Socket;
+
+		/**
 		 * Sends a 'message' event
 		 * @see emit( event, ...args )
 		 */
@@ -623,7 +616,7 @@ declare namespace SocketIO {
 		 * take an optional parameter, err, of a possible error
 		 * @return This Socket
 		 */
-		join( name: string, fn?: ( err?: any ) => void ): Socket;
+		join( name: string|string[], fn?: ( err?: any ) => void ): Socket;
 
 		/**
 		 * Leaves a room
@@ -660,6 +653,66 @@ declare namespace SocketIO {
 		compress( compress: boolean ): Socket;
 	}
 
+	interface Handshake {
+		/**
+		 * The headers passed along with the request. e.g. 'host',
+		 * 'connection', 'accept', 'referer', 'cookie'
+		 */
+		headers: any;
+
+		/**
+		 * The current time, as a string
+		 */
+		time: string;
+
+		/**
+		 * The remote address of the connection request
+		 */
+		address: string;
+
+		/**
+		 * Is this a cross-domain request?
+		 */
+		xdomain: boolean;
+
+		/**
+		 * Is this a secure request?
+		 */
+		secure: boolean;
+
+		/**
+		 * The timestamp for when this was issued
+		 */
+		issued: number;
+
+		/**
+		 * The request url
+		 */
+		url: string;
+
+		/**
+		 * Any query string parameters in the request url
+		 */
+		query: any;
+	}
+
+	/**
+	 * The interface describing a room
+	 */
+	interface Room {
+		sockets: {[id: string]: boolean };
+		length: number;
+	}
+
+	/**
+	 * The interface describing a dictionary of rooms
+	 * Where room is the name of the room
+	 */
+
+	 interface Rooms {
+		[room: string]: Room;
+	 }
+
 	/**
 	 * The interface used when dealing with rooms etc
 	 */
@@ -672,9 +725,8 @@ declare namespace SocketIO {
 
 		/**
 		 * A dictionary of all the rooms that we have in this namespace
-		 * The rooms are made of a `sockets` key which is the dictionary of sockets per ID
 		 */
-		rooms: {[room: string]: {sockets: {[id: string]: boolean }, length: number }};
+		rooms: Rooms;
 
 		/**
 		 * A dictionary of all the socket ids that we're dealing with, and all

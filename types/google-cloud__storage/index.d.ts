@@ -1,12 +1,16 @@
-// Type definitions for @google-cloud/storage 1.1
-// Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/storage
+// Type definitions for @google-cloud/storage 1.7
+// Project: https://github.com/googleapis/nodejs-storage
 // Definitions by: Brian Love <https://github.com/blove>
 //                 Nathan Brooker Perry <https://github.com/nbperry>
+//                 Matt Welke <https://github.com/welkie>
+//                 Futa Ogawa <https://github.com/ogawa0071>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
 import { ReadStream, WriteStream } from "fs";
+import { CoreOptions } from "request";
 
 type PromiseLibrary<T> = () => PromiseLike<T>;
 
@@ -17,7 +21,7 @@ declare namespace Storage {
     class Bucket {
         constructor(storage: Storage, name: string);
         acl: Acl;
-        combine(sources: string[] | File[], destination: string[] | File[]): Promise<[File, ApiResponse]>;
+        combine(sources: string[] | File[], destination: string | File): Promise<[File, ApiResponse]>;
         create(config?: BucketConfig): Promise<[Bucket, ApiResponse]>;
         createChannel(id: string, config: ChannelConfig): Promise<[Channel, ApiResponse]>;
         delete(): Promise<[ApiResponse]>;
@@ -51,6 +55,8 @@ declare namespace Storage {
         versioning?: {
             enabled?: boolean
         };
+        // Note: This is not documented, but it is used in examples (https://cloud.google.com/nodejs/docs/reference/storage/1.7.x/Storage)
+        storageClass?: 'COLDLINE' | 'DURABLE_REDUCED_AVAILABILITY' | 'MULTI_REGIONAL' | 'NEARLINE' | 'REGIONAL';
     }
 
     /**
@@ -98,10 +104,12 @@ declare namespace Storage {
     interface BucketQuery {
         autoPaginate?: boolean;
         delimiter?: string;
+        directory?: string;
         prefix?: string;
         maxApiCalls?: number;
         maxResults?: number;
         pageToken?: string;
+        userProject?: string;
         versions?: boolean;
     }
 
@@ -129,30 +137,101 @@ declare namespace Storage {
         get(): Promise<[File, ApiResponse]>;
         getMetadata(): Promise<[FileMetadata, ApiResponse]>;
         getSignedPolicy(options?: SignedPolicyOptions): Promise<[SignedPolicy]>;
-        getSignedUrl(config?: SignedUrlConfig): Promise<[string]>;
+        getSignedUrl(config: SignedUrlConfig): Promise<[string]>;
         makePrivate(options?: FilePrivateOptions): Promise<[ApiResponse]>;
         makePublic(): Promise<[ApiResponse]>;
         move(destination: string | Bucket | File): Promise<[File, ApiResponse]>;
         name: string;
-        save(data: string, options?: WriteStreamOptions): Promise<void>;
+        save(data: string | Buffer, options?: WriteStreamOptions): Promise<void>;
         setEncryptionKey(encryptionKey: string | Buffer): File;
         setMetadata(metadata: FileMetadata): Promise<[ApiResponse]>;
         metadata?: FileMetadata;
     }
 
     /**
+     * Access controls on the object, containing one or more objectAccessControls Resources.
+     */
+    interface AclFileMetadata {
+        bucket?: string;
+        domain?: string;
+        email?: string;
+        entity?: string;
+        entityId?: string;
+        etag?: string;
+        generation?: number;
+        id?: string;
+        kind?: string;
+        object?: string;
+        projectTeam?: ProjectTeam;
+        role?: string;
+        selfLink?: string;
+    }
+
+    /**
+     * The project team associated with the entity, if any.
+     */
+    interface ProjectTeam {
+        projectNumber?: string;
+        team?: string;
+    }
+
+    /**
+     * Metadata of customer-supplied encryption key, if the object is encrypted by such a key.
+     */
+    interface CustomerEncryption {
+        encryptionAlgorithm?: string;
+        keySha256?: string;
+    }
+
+    /**
      * User-defined metadata.
      */
     interface CustomFileMetadata {
-        [key: string]: boolean | number | string | null;
+        [key: string]: string;
+    }
+
+    /**
+     * The owner of the object. This will always be the uploader of the object.
+     */
+    interface Owner {
+        entity?: string;
+        entityId?: string;
     }
 
     /**
      * File metadata.
      */
     interface FileMetadata {
+        acl?: AclFileMetadata[];
+        bucket?: string;
+        cacheControl?: string;
+        componentCount?: number;
+        // Note: this property is accessed in one of the examples
+        component_count?: number;
+        contentDisposition?: string;
+        contentEncoding?: string;
+        contentLanguage?: string;
         contentType?: string;
+        crc32c?: string;
+        customerEncryption?: CustomerEncryption;
+        etag?: string;
+        generation?: number;
+        id?: string;
+        kind?: string;
+        kmsKeyName?: string;
+        md5Hash?: string;
+        mediaLink?: string;
         metadata?: CustomFileMetadata;
+        metageneration?: number;
+        name?: string;
+        owner?: Owner;
+        selfLink?: string;
+        size?: null | number;
+        storageClass?: string;
+        timeCreated?: string;
+        timeDeleted?: string;
+        timeStorageClassUpdated?: string;
+        updated?: string;
     }
 
     /**
@@ -194,7 +273,7 @@ declare namespace Storage {
         cname?: string;
         contentMd5?: string;
         contentType?: string;
-        expires?: number | string;
+        expires: any;
         extensionHeaders?: { [key: string]: string };
         promptSaveAs?: string;
         responseDisposition?: string;
@@ -311,38 +390,27 @@ declare namespace Storage {
      * Options when uploading file to bucket.
      */
     interface UploadOptions extends WriteStreamOptions {
-        destination?: string;
+        destination?: string | File;
+        encryptionKey?: string;
+        kmsKeyName?: string;
+        requestOptions?: CoreOptions;
     }
 
     /**
      * Options when writing to a file stream.
      */
     interface WriteStreamOptions {
-        gzip?: boolean;
+        contentType?: string;
+        gzip?: string | boolean;
         metadata?: FileMetadata;
-        offset?: number;
+        offset?: string;
         predefinedAcl?: string;
         private?: boolean;
         public?: boolean;
         resumable?: boolean;
         uri?: string;
+        userProject?: string;
         validation?: string | boolean;
-    }
-
-    /**
-     * The Storage class allows you interact with Google Cloud Storage.
-     */
-    class Storage {
-        constructor(config?: ConfigurationObject);
-        acl: Acl;
-        bucket(name: string | Bucket): Bucket;
-        channel(id: string, resourceId: string): Channel;
-        createBucket(name: string, metadata?: BucketConfig): Promise<[Bucket, ApiResponse]>;
-        getBuckets(query?: BucketQuery): Promise<[Bucket[]]>;
-        getBucketsStream(query?: BucketQuery): Promise<[ReadStream]>;
-        Channel: (storage: Storage, id: string, resourceId: string) => Channel;
-        File: (bucket: Bucket, name: string, opts: BucketFileOptions) => File;
-        Bucket: (storage: Storage, name: string) => Bucket;
     }
 
     /**
@@ -382,6 +450,20 @@ declare namespace Storage {
     }
 }
 
-declare function Storage(config?: Storage.ConfigurationObject): Storage.Storage;
+/**
+ * The Storage class allows you interact with Google Cloud Storage.
+ */
+declare class Storage {
+    constructor(config?: Storage.ConfigurationObject);
+    acl: Storage.Acl;
+    bucket(name: string | Storage.Bucket): Storage.Bucket;
+    channel(id: string, resourceId: string): Storage.Channel;
+    createBucket(name: string, metadata?: Storage.BucketConfig): Promise<[Storage.Bucket, Storage.ApiResponse]>;
+    getBuckets(query?: Storage.BucketQuery): Promise<[Storage.Bucket[]]>;
+    getBucketsStream(query?: Storage.BucketQuery): Promise<[ReadStream]>;
+    Channel: (storage: Storage, id: string, resourceId: string) => Storage.Channel;
+    File: (bucket: Storage.Bucket, name: string, opts: Storage.BucketFileOptions) => Storage.File;
+    Bucket: (storage: Storage, name: string) => Storage.Bucket;
+}
 
 export = Storage;

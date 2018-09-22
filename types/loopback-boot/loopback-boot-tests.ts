@@ -1,6 +1,6 @@
-import * as loopback from 'loopback';
-import * as boot from 'loopback-boot';
-import * as cookieParser from 'cookie-parser';
+import loopback = require('loopback');
+import boot = require('loopback-boot');
+import cookieParser = require('cookie-parser');
 
 class Server {
   app: loopback.LoopBackApplication;

@@ -97,29 +97,5 @@ let eventTarget: EventTarget = {
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean) { return; }
 }
 
-let ndefTagEvent = {
-    bubbles: false,
-    cancelBubble: false,
-    cancelable: false,
-    currentTarget: eventTarget,
-    defaultPrevented: false,
-    eventPhase: 2,
-    isTrusted: true,
-    returnValue: true,
-    srcElement: new Element(),
-    target: eventTarget,
-    timeStamp: 1394448136236,
-    type: "ndef",
-    initEvent(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean) { return; },
-    preventDefault() { return; },
-    stopImmediatePropagation() { return; },
-    stopPropagation() { return; },
-    AT_TARGET: 0,
-    BUBBLING_PHASE: 0,
-    CAPTURING_PHASE: 0,
-    scoped: false,
-    deepPath(): any { },
-    tag: ndefTag
-};
-
+let ndefTagEvent = { ...(undefined as Event), tag: ndefTag };
 let event: NdefTagEvent = ndefTagEvent;

@@ -7,14 +7,19 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "types": [],
         "paths": {
-            "webpack-merge": ["webpack-merge/v0"],
-            "webpack-merge/*": ["webpack-merge/v0/*"]
+            "webpack-merge": [
+                "webpack-merge/v0"
+            ],
+            "webpack-merge/*": [
+                "webpack-merge/v0/*"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

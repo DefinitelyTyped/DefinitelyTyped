@@ -37,7 +37,7 @@ function test_excel() {
 			["Female", 14]
 		];
 
-		var chart = sheet.charts.add(Excel.ChartType._3DColumn, range, "auto");
+		var chart = sheet.charts.add(Excel.ChartType._3DColumn, range, "Auto");
 
 		chart.format.fill.setSolidColor("F8F8FF");
 
@@ -46,7 +46,7 @@ function test_excel() {
 		chart.title.format.font.size = 18;
 		chart.title.format.font.color = "568568";
 
-		chart.legend.position = "right";
+		chart.legend.position = "Right";
 		chart.legend.format.font.name = "Algerian";
 		chart.legend.format.font.size = 13;
 
@@ -165,9 +165,9 @@ function test_word() {
 		myContentControl.tag = 'Customer-Address';
 		myContentControl.title = 'Enter Customer Address Here:';
 		myContentControl.style = 'Heading 2';
-		myContentControl.insertText('One Microsoft Way, Redmond, WA 98052', 'replace');
+		myContentControl.insertText('One Microsoft Way, Redmond, WA 98052', 'Replace');
 		myContentControl.cannotEdit = true;
-		myContentControl.appearance = 'tags';
+		myContentControl.appearance = 'Tags';
 
 		// Queue a command to load the id property for the content control you created.
 		context.load(myContentControl, 'id');
@@ -250,18 +250,71 @@ function test_word() {
 
 }
 
-function test_shared() {
-	Office.context.auth.getAccessTokenAsync({ forceConsent: false },
-		function (result) {
-			if (result.status === Office.AsyncResultStatus.Succeeded) {
-				// result.value is the raw access token
-				console.log(result.value)
-			}
-			else {
-				console.log("Code: " + result.error.code);
-				console.log("Message: " + result.error.message);
-				console.log("name: " + result.error.name);
-			}
+async function test_visio() {
+	const url = "someurl";
+
+	try {
+		const session = new OfficeExtension.EmbeddedSession(url, { id: "embed-iframe", container: document.getElementById("iframeHost") });
+		await session.init();
+		await Visio.run(session, async context => {
+			const eventResult = context.document.onPageLoadComplete.add(async args => {
+				console.log(Date.now() + ": Page Load Complete Event: " + JSON.stringify(args));
+			});
+			await context.sync();
+			console.log("Success");
+		});
+	} catch (error) {
+		if (error instanceof OfficeExtension.Error) {
+			console.log("Debug info: " + JSON.stringify(error.debugInfo));
 		}
-	);
+	}
+}
+
+function test_OfficePromise() {
+	let p1: Promise<any> = Excel.run(async () => { return 10 });
+	let p2: Promise<any> = new OfficeExtension.Promise(resolve => setTimeout(resolve, 1000));
+	let p3: Promise<any> = new Office.Promise(resolve => setTimeout(resolve, 1000));
+	let p4: OfficeExtension.IPromise<any> = new OfficeExtension.Promise(resolve => setTimeout(resolve, 1000));
+}
+
+async function test_interfaces() {
+	await Excel.run(async context => {
+		let range = context.workbook.getSelectedRange();
+		range.set({
+			values: [["Hi"]],
+			format: {
+				fill: {
+					color: "red"
+				}
+			}
+		});
+
+		let rangeSettables: Excel.Interfaces.RangeUpdateData = {
+			values: [["Hi"]],
+			format: {
+				fill: {
+					color: "red"
+				}
+			}
+		};
+		range.set(rangeSettables);
+	});
+}
+
+async function testResumeExistingObject () {
+	let range: Excel.Range;
+	await Excel.run(async context => {
+		range = context.workbook.getSelectedRange();
+		await context.sync();
+	});
+
+	await Excel.run(range, async context => {
+		range.clear();
+		await context.sync();
+	});
+
+	await Excel.run({delayForCellEdit: true, previousObjects: range}, async context => {
+		range.clear();
+		await context.sync();
+	});
 }

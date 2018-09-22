@@ -1,4 +1,4 @@
-import * as klaw from "klaw";
+import klaw = require("klaw");
 const path = require('path');
 
 // README.md: Streams 1 (push) example:

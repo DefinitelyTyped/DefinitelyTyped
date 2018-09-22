@@ -1,6 +1,7 @@
 // Type definitions for amqp 0.2
 // Project: https://github.com/postwait/node-amqp
 // Definitions by: Carl Winkler <https://github.com/seikho>
+//                 Mark Line <https://github.com/jonnysparkplugs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -95,6 +96,7 @@ export interface ConnectionOptions {
   authMechanism?: string;
   vhost?: string;
   noDelay?: boolean;
+  heartbeat?: number;
   ssl?: {
     enabled: boolean;
     keyFile?: string;
@@ -125,6 +127,19 @@ export interface ConnectionOptions {
 
   /** Default: 1000 */
   reconnectBackoffTime?: number;
+
+  clientProperties?: {
+    applicationName?: string;
+    capabilities?: {
+      consumer_cancel_notify?: boolean
+    }
+    /** Default: 'node-' + process.version */
+    platform?: string;
+    /** Default: node-amqp */
+    product?: string;
+    /** Default: 'nodeAMQPVersion' */
+    version?: string;
+  };
 }
 
 export interface QueueOptions {

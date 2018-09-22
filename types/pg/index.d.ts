@@ -1,4 +1,4 @@
-// Type definitions for pg 7.1
+// Type definitions for pg 7.4
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,6 +16,8 @@ export interface ConnectionConfig {
     port?: number;
     host?: string;
     connectionString?: string;
+    keepAlive?: boolean;
+    stream?: stream.Duplex;
 }
 
 export interface Defaults extends ConnectionConfig {
@@ -33,14 +35,14 @@ export interface ClientConfig extends ConnectionConfig {
 }
 
 export interface PoolConfig extends ClientConfig {
-      // properties from module 'node-pool'
-      max?: number;
-      min?: number;
-      connectionTimeoutMillis?: number;
-      idleTimeoutMillis?: number;
+    // properties from module 'node-pool'
+    max?: number;
+    min?: number;
+    connectionTimeoutMillis?: number;
+    idleTimeoutMillis?: number;
 
-      application_name?: string;
-      Promise?: PromiseConstructorLike;
+    application_name?: string;
+    Promise?: PromiseConstructorLike;
 }
 
 export interface QueryConfig {
@@ -49,11 +51,37 @@ export interface QueryConfig {
     values?: any[];
 }
 
-export interface QueryResult {
+export interface Submittable {
+    submit: (connection: Connection) => void;
+}
+
+export interface QueryArrayConfig extends QueryConfig {
+    rowMode: 'array';
+}
+
+export interface FieldDef {
+    name: string;
+    tableID: number;
+    columnID: number;
+    dataTypeID: number;
+    dataTypeSize: number;
+    dataTypeModifier: number;
+    format: string;
+}
+
+export interface QueryResultBase {
     command: string;
     rowCount: number;
     oid: number;
+    fields: FieldDef[];
+}
+
+export interface QueryResult extends QueryResultBase {
     rows: any[];
+}
+
+export interface QueryArrayResult extends QueryResultBase {
+    rows: any[][];
 }
 
 export interface Notification {
@@ -66,6 +94,48 @@ export interface ResultBuilder extends QueryResult {
     addRow(row: any): void;
 }
 
+export interface QueryParse {
+    name: string;
+    text: string;
+    types: string[];
+}
+
+export interface BindConfig {
+    portal?: string;
+    statement?: string;
+    binary?: string;
+    values?: Array<(Buffer | null | undefined | string)>;
+}
+
+export interface ExecuteConfig {
+    portal?: string;
+    rows?: string;
+}
+
+export interface MessageConfig {
+    type: string;
+    name?: string;
+}
+
+export class Connection extends events.EventEmitter {
+    readonly stream: stream.Duplex;
+
+    constructor(config?: ConnectionConfig);
+
+    bind(config: BindConfig | null, more: boolean): void;
+    execute(config: ExecuteConfig | null, more: boolean): void;
+    parse(query: QueryParse, more: boolean): void;
+
+    query(text: string): void;
+
+    describe(msg: MessageConfig, more: boolean): void;
+    close(msg: MessageConfig, more: boolean): void;
+
+    flush(): void;
+    sync(): void;
+    end(): void;
+}
+
 export class Pool extends events.EventEmitter {
     // `new Pool('pg://user@localhost/mydb')` is not allowed.
     // But it passes type check because of issue:
@@ -76,36 +146,35 @@ export class Pool extends events.EventEmitter {
     readonly idleCount: number;
     readonly waitingCount: number;
 
-    connect(): Promise<Client>;
-    connect(callback: (err: Error, client: Client, done: () => void) => void): void;
+    connect(): Promise<PoolClient>;
+    connect(callback: (err: Error, client: PoolClient, done: (release?: any) => void) => void): void;
 
     end(): Promise<void>;
     end(callback: () => void): void;
 
-    query(queryStream: QueryConfig & stream.Readable): stream.Readable;
+    query<T extends Submittable>(queryStream: T): T;
+    query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
-    query(queryText: string, values?: any[]): Promise<QueryResult>;
+    query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
+    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
     query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
-    on(event: "error", listener: (err: Error, client: Client) => void): this;
-    on(event: "connect" | "acquire", listener: (client: Client) => void): this;
+    on(event: "error", listener: (err: Error, client: PoolClient) => void): this;
+    on(event: "connect" | "acquire" | "remove", listener: (client: PoolClient) => void): this;
 }
 
-export class Client extends events.EventEmitter {
-    constructor(config: ClientConfig);
+export class ClientBase extends events.EventEmitter {
+    constructor(config?: string | ClientConfig);
 
     connect(): Promise<void>;
     connect(callback: (err: Error) => void): void;
 
-    end(): Promise<void>;
-    end(callback: (err: Error) => void): void;
-
-    release(err?: Error): void;
-
-    query(queryStream: QueryConfig & stream.Readable): stream.Readable;
+    query<T extends Submittable>(queryStream: T): T;
+    query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
-    query(queryText: string, values?: any[]): Promise<QueryResult>;
+    query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
+    query(queryConfig: QueryArrayConfig, callback: (err: Error, result: QueryArrayResult) => void): Query;
     query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
@@ -123,6 +192,17 @@ export class Client extends events.EventEmitter {
     on(event: "notification", listener: (message: Notification) => void): this;
     // tslint:disable-next-line unified-signatures
     on(event: "end", listener: () => void): this;
+}
+
+export class Client extends ClientBase {
+    constructor(config?: string | ClientConfig);
+
+    end(): Promise<void>;
+    end(callback: (err: Error) => void): void;
+}
+
+export interface PoolClient extends ClientBase {
+    release(err?: Error): void;
 }
 
 export class Query extends events.EventEmitter {

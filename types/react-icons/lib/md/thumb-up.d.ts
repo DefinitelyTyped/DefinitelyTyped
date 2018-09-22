@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class MdThumbUp extends React.Component<IconBaseProps> { }
+declare class MdThumbUp extends React.Component<IconBaseProps> { }
+export = MdThumbUp;

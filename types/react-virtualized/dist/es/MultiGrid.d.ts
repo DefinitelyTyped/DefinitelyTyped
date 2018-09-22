@@ -1,20 +1,27 @@
-import { PureComponent, Validator, Requireable } from 'react'
-import { GridProps } from './Grid'
+import { PureComponent, Validator, Requireable } from "react";
+import { GridProps } from "./Grid";
+import { CellPosition } from "./CellMeasurer";
 
 export type MultiGridProps = {
-    fixedColumnCount: number;
-    fixedRowCount: number;
-    style: React.CSSProperties;
-    styleBottomLeftGrid: React.CSSProperties;
-    styleBottomRightGrid: React.CSSProperties;
-    styleTopLeftGrid: React.CSSProperties;
-    styleTopRightGrid: React.CSSProperties;
+    classNameBottomLeftGrid?: string;
+    classNameBottomRightGrid?: string;
+    classNameTopLeftGrid?: string;
+    classNameTopRightGrid?: string;
+    enableFixedColumnScroll?: boolean;
+    enableFixedRowScroll?: boolean;
+    fixedColumnCount?: number;
+    fixedRowCount?: number;
+    style?: React.CSSProperties;
+    styleBottomLeftGrid?: React.CSSProperties;
+    styleBottomRightGrid?: React.CSSProperties;
+    styleTopLeftGrid?: React.CSSProperties;
+    styleTopRightGrid?: React.CSSProperties;
 } & GridProps;
 
 export type MultiGridState = {
-    scrollLeft: number,
-    scrollTop: number
-}
+    scrollLeft: number;
+    scrollTop: number;
+};
 
 /**
  * Renders 1, 2, or 4 Grids depending on configuration.
@@ -25,51 +32,54 @@ export type MultiGridState = {
  */
 export class MultiGrid extends PureComponent<MultiGridProps, MultiGridState> {
     static propTypes: {
-        fixedColumnCount: Validator<number>,
-        fixedRowCount: Validator<number>,
-        style: Validator<React.CSSProperties>,
-        styleBottomLeftGrid: Validator<React.CSSProperties>,
-        styleBottomRightGrid: Validator<React.CSSProperties>,
-        styleTopLeftGrid: Validator<React.CSSProperties>,
-        styleTopRightGrid: Validator<React.CSSProperties>
+        classNameBottomLeftGrid: Validator<string>;
+        classNameBottomRightGrid: Validator<string>;
+        classNameTopLeftGrid: Validator<string>;
+        classNameTopRightGrid: Validator<string>;
+        enableFixedColumnScroll: Validator<boolean>;
+        enableFixedRowScroll: Validator<boolean>;
+        fixedColumnCount: Validator<number>;
+        fixedRowCount: Validator<number>;
+        style: Validator<React.CSSProperties>;
+        styleBottomLeftGrid: Validator<React.CSSProperties>;
+        styleBottomRightGrid: Validator<React.CSSProperties>;
+        styleTopLeftGrid: Validator<React.CSSProperties>;
+        styleTopRightGrid: Validator<React.CSSProperties>;
     };
 
     static defaultProps: {
-        fixedColumnCount: 0,
-        fixedRowCount: 0,
-        style: {},
-        styleBottomLeftGrid: {},
-        styleBottomRightGrid: {},
-        styleTopLeftGrid: {},
-        styleTopRightGrid: {}
+        classNameBottomLeftGrid: "";
+        classNameBottomRightGrid: "";
+        classNameTopLeftGrid: "";
+        classNameTopRightGrid: "";
+        enableFixedColumnScroll: false;
+        enableFixedRowScroll: false;
+        fixedColumnCount: 0;
+        fixedRowCount: 0;
+        scrollToColumn: -1;
+        scrollToRow: -1;
+        style: {};
+        styleBottomLeftGrid: {};
+        styleBottomRightGrid: {};
+        styleTopLeftGrid: {};
+        styleTopRightGrid: {};
     };
-
-    constructor(props: MultiGridProps, context: any);
 
     forceUpdateGrids(): void;
 
     /** See Grid#invalidateCellSizeAfterRender */
-    invalidateCellSizeAfterRender(params?: {
-        columnIndex?: number,
-        rowIndex?: number
-    }): void;
+    invalidateCellSizeAfterRender(params?: Partial<CellPosition>): void;
 
     /** See Grid#measureAllCells */
     measureAllCells(): void;
 
     /** See Grid#recomputeGridSize */
     recomputeGridSize(params?: {
-        columnIndex?: number,
-        rowIndex?: number
+        columnIndex?: number;
+        rowIndex?: number;
     }): void;
-
-    componentDidMount(): void;
-
-    componentDidUpdate(prevProps: MultiGridProps, prevState: MultiGridState): void;
-
-    componentWillMount(): void;
-
-    componentWillReceiveProps(nextProps: MultiGridProps, nextState: MultiGridState): void;
-
-    render(): JSX.Element;
+    static getDerivedStateFromProps(
+        nextProps: MultiGridProps,
+        prevState: MultiGridState
+    ): MultiGridState | null;
 }

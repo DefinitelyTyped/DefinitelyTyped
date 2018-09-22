@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class GoFileDirectory extends React.Component<IconBaseProps> { }
+declare class GoFileDirectory extends React.Component<IconBaseProps> { }
+export = GoFileDirectory;

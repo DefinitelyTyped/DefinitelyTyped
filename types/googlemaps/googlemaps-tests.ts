@@ -40,6 +40,53 @@ let map: google.maps.Map = new google.maps.Map(
     mapOptions
 );
 
+/***** Fitting map to bounds *****/
+map.fitBounds({
+    north: 10,
+    east: 10,
+    west: 10,
+    south: 10
+}, 50);
+
+map.fitBounds({
+    east: 10,
+    north: 10,
+    south: 10,
+    west: 10
+}, {
+    bottom: 100,
+    left: 150,
+    right: 150,
+    top: 50
+});
+
+/***** Pan map to bounds *****/
+map.panToBounds({
+    north: 10,
+    east: 10,
+    west: 10,
+    south: 10
+})
+
+map.panToBounds({
+    north: 10,
+    east: 10,
+    west: 10,
+    south: 10
+}, 50)
+
+map.panToBounds({
+    east: 10,
+    north: 10,
+    south: 10,
+    west: 10
+}, {
+    bottom: 100,
+    left: 150,
+    right: 150,
+    top: 50
+});
+
 
 /***** Data *****/
 
@@ -313,6 +360,9 @@ var panoramaOptions: google.maps.StreetViewPanoramaOptions = {
 };
 var panorama = new google.maps.StreetViewPanorama(document.createElement("div"), panoramaOptions);
 
+// MVCObject method on StreetViewPanorama
+var panoramaEvent = panorama.addListener("pano_changed", () => {});
+
 
 /***** MVCArray *****/
 
@@ -362,3 +412,29 @@ heatmap.setData([
     { weight: 1, location: new google.maps.LatLng(37.782551, -122.445368) },
     { weight: 2, location: new google.maps.LatLng(37.782745, -122.444586) }
 ]);
+
+/***** google.maps.places.PlacesService *****/
+let service = new google.maps.places.PlacesService(new HTMLDivElement());
+
+service.getDetails({
+    placeId: '-a1',
+    fields: ['name'],
+    sessionToken: new google.maps.places.AutocompleteSessionToken()
+}, (result, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.NOT_FOUND) {
+        return;
+    }
+
+    result.name; // $ExpectType string
+})
+
+service.findPlaceFromQuery({
+    query: 'Big Ben London',
+    fields: ['name']
+}, (results, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.ERROR) {
+        return;
+    }
+
+    results[0].name; // $ExpectType string
+});

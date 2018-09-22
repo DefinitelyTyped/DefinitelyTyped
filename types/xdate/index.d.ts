@@ -373,3 +373,6 @@ declare class XDate {
     public static UTC(year : number, month : number, day : number , hours? : number , minutes? : number , seconds?:number,ms?:number): number;
 
 }
+
+export = XDate;
+export as namespace XDate;

@@ -8,12 +8,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "conf": ["conf/v0"]
+            "conf": [
+                "conf/v0"
+            ]
         },
         "types": [],
         "noEmit": true,

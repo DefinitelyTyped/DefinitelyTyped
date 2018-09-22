@@ -3,21 +3,26 @@
 // Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu>, Bill <https://github.com/bkim54>, Michael Haan <https://github.com/sfrooster>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 // # Classes
 export class Client {
     constructor(connectionString: string, clientId?: string, options?: ZKOptions, noBatchOptions?: AckBatchOptions, sslOptions?: any);
     close(cb?: () => void): void;
+    loadMetadataForTopics(topics: string[], cb: (error: TopicsNotExistError | any, data: any) => any): void;
     topicExists(topics: string[], cb: (error?: TopicsNotExistError | any) => any): void;
     refreshMetadata(topics: string[], cb?: (error?: any) => any): void;
     sendOffsetCommitV2Request(group: string, generationId: number, memberId: string, commits: OffsetCommitRequest[], cb: (error: any, data: any) => any): void;
+    // Note: socket_error is currently KafkaClient only, and zkReconnect is currently Client only.
+    on(eventName: "brokersChanged" | "close" | "connect" | "ready" | "reconnect" | "zkReconnect", cb: () => any): this;
+    on(eventName: "error" | "socket_error", cb: (error: any) => any): this;
 }
 
 export class KafkaClient extends Client {
     constructor(options?: KafkaClientOptions);
-    on(eventName: "ready", cb: () => any): this;
-    on(eventName: "reconnect", cb: () => void): this;
-    on(eventName: "error", cb: (error: any) => any): this;
     connect(): void;
+    getListGroups(cb: (error: any, data: any) => any): void;
+    describeGroups(consumerGroups: any, cb: (error: any, data: any) => any): void;
 }
 
 export class Producer {
@@ -88,24 +93,30 @@ export class Offset {
 }
 
 export class KeyedMessage {
-    constructor(key: string, message: string);
+    constructor(key: string, value: string | Buffer);
+}
+
+export class Admin {
+    constructor(kafkaClient: KafkaClient);
+    listGroups(cb: (error: any, data: any) => any): void;
+    describeGroups(consumerGroups: any, cb: (error: any, data: any) => any): void;
 }
 
 // # Interfaces
 
 export interface Message {
-  topic: string;
-  value: string;
-  offset?: number;
-  partition?: number;
-  highWaterOffset?: number;
-  key?: number;
-}
+    topic: string;
+    value: string | Buffer;
+    offset?: number;
+    partition?: number;
+    highWaterOffset?: number;
+    key?: string;
+  }
 
 export interface ProducerOptions {
-  requireAcks?: number;
-  ackTimeoutMs?: number;
-  partitionerType?: number;
+    requireAcks?: number;
+    ackTimeoutMs?: number;
+    partitionerType?: number;
 }
 
 export interface KafkaClientOptions {

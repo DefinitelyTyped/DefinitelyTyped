@@ -2,7 +2,12 @@
 // Project: https://github.com/quilljs/quill/
 // Definitions by: Sumit <https://github.com/sumitkm>
 //                 Guillaume <https://github.com/guillaume-ro-fr>
+//                 James Garbutt <https://github.com/43081j>
+//                 Aniello Falcone <https://github.com/AnielloFalcone>
+//                 Mohammad Hossein Amri <https://github.com/mhamri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { Blot } from 'parchment/dist/src/blot/abstract/blot';
 
 /**
  * A stricter type definition would be:
@@ -38,6 +43,7 @@ export interface KeyboardStatic {
 }
 
 export interface ClipboardStatic {
+    convert(html?: string): DeltaStatic;
     addMatcher(selectorOrNodeType: string|number, callback: (node: any, delta: DeltaStatic) => DeltaStatic): void;
     dangerouslyPasteHTML(html: string, source?: Sources): void;
     dangerouslyPasteHTML(index: number, html: string, source?: Sources): void;
@@ -56,7 +62,9 @@ export interface QuillOptionsStatic {
 }
 
 export interface BoundsStatic {
+    bottom: number;
     left: number;
+    right: number;
     top: number;
     height: number;
     width: number;
@@ -79,9 +87,9 @@ export interface DeltaStatic {
     concat(other: DeltaStatic): DeltaStatic;
     diff(other: DeltaStatic, index?: number): DeltaStatic;
     eachLine(predicate: (line: DeltaStatic, attributes: StringMap, idx: number) => any, newline?: string): DeltaStatic;
-    transform(index: number): number;
+    transform(index: number, priority?: boolean): number;
     transform(other: DeltaStatic, priority: boolean): DeltaStatic;
-    transformPosition(index: number): number;
+    transformPosition(index: number, priority?: boolean): number;
 }
 
 export class Delta implements DeltaStatic {
@@ -136,6 +144,8 @@ export class Quill implements EventEmitter {
      */
     root: HTMLDivElement;
     clipboard: ClipboardStatic;
+    scroll: Blot;
+    keyboard: KeyboardStatic;
     constructor(container: string | Element, options?: QuillOptionsStatic);
     deleteText(index: number, length: number, source?: Sources): DeltaStatic;
     disable(): void;
@@ -167,6 +177,8 @@ export class Quill implements EventEmitter {
     formatText(index: number, length: number, source?: Sources): DeltaStatic;
     formatText(index: number, length: number, format: string, value: any, source?: Sources): DeltaStatic;
     formatText(index: number, length: number, formats: StringMap, source?: Sources): DeltaStatic;
+    formatText(range: RangeStatic, format: string, value: any, source?: Sources): DeltaStatic;
+    formatText(range: RangeStatic, formats: StringMap, source?: Sources): DeltaStatic;
     getFormat(range?: RangeStatic): StringMap;
     getFormat(index: number, length?: number): StringMap;
     removeFormat(index: number, length: number, source?: Sources): DeltaStatic;
@@ -174,7 +186,8 @@ export class Quill implements EventEmitter {
     blur(): void;
     focus(): void;
     getBounds(index: number, length?: number): BoundsStatic;
-    getSelection(focus?: boolean): RangeStatic;
+    getSelection(focus: true): RangeStatic;
+    getSelection(focus?: false): RangeStatic | null;
     hasFocus(): boolean;
     setSelection(index: number, length: number, source?: Sources): void;
     setSelection(range: RangeStatic, source?: Sources): void;

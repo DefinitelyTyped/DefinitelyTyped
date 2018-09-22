@@ -55,18 +55,19 @@ export interface QueryParameter extends BaseParameter, BaseSchema {
   allowEmptyValue?: boolean;
 }
 
-export interface PathParameter extends BaseParameter {
+export interface PathParameter extends BaseParameter, BaseSchema {
   type: string;
   required: boolean;
 }
 
-export interface HeaderParameter extends BaseParameter {
+export interface HeaderParameter extends BaseParameter, BaseSchema {
   type: string;
 }
 
 export interface FormDataParameter extends BaseParameter, BaseSchema {
   type: string;
   collectionFormat?: string;
+  allowEmptyValue?: boolean;
 }
 
 export type Parameter =
@@ -86,7 +87,7 @@ export interface Path {
   options?: Operation;
   head?: Operation;
   patch?: Operation;
-  parameters?: [Parameter];
+  parameters?: Parameter[];
 }
 
 // ----------------------------- Operation -----------------------------------
@@ -146,7 +147,7 @@ export interface Schema extends BaseSchema {
   readOnly?: boolean;
   xml?: XML;
   externalDocs?: ExternalDocs;
-  example?: {[exampleName: string]: {}};
+  example?: any;
   required?: string[];
 }
 
@@ -164,7 +165,7 @@ export interface BaseSecurity {
   description?: string;
 }
 
-// tslint:disable:no-empty-interface
+// tslint:disable-next-line no-empty-interface
 export interface BasicAuthenticationSecurity extends BaseSecurity {
   // It's the exact same interface as BaseSecurity
 }

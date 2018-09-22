@@ -212,7 +212,6 @@ declare namespace Viewer {
 
     /**
      * Change the global default options.
-     * @param options
      */
     function setDefaults(options: ViewerOption): void;
 
@@ -222,7 +221,8 @@ declare namespace Viewer {
     function noConflict(): void;
 }
 
-/** * JavaScript image viewer.
+/**
+ * JavaScript image viewer.
  * @see {@link https://github.com/fengyuanchen/viewerjs}
  */
 declare class Viewer {
@@ -292,7 +292,6 @@ declare class Viewer {
 
     /**
      * Rotate the image to an absolute degree.
-     * @param degree
      */
     rotateTo(degree: number): void;
 
@@ -365,7 +364,8 @@ declare class Viewer {
     destroy(): void;
 }
 
-/** JavaScript image viewer.
+/**
+ * JavaScript image viewer.
  * @see {@link https://github.com/fengyuanchen/viewerjs}
  */
 export = Viewer;

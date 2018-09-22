@@ -1,22 +1,12 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // All are TODOs
-        "await-promise": false,
-        "ban-types": false,
         "callable-types": false,
-        "no-boolean-literal-compare": false,
-        "no-empty-interface": false,
-        "no-misused-new": false,
-        "no-object-literal-type-assertion": false,
-        "no-unnecessary-qualifier": false,
-        "no-unnecessary-type-assertion": false,
-        "no-var-keyword": false,
-        "prefer-conditional-expression": false,
-        "prefer-switch": false,
-        "prefer-template": false,
-        "space-before-function-paren": false,
-        "space-within-parens": false,
-        "use-default-type-parameter": false
+        "interface-name": false,
+        "no-any-union": false,
+        "no-declare-current-package": false,
+
+        "ban-types": false,
+        "no-object-literal-type-assertion": false
     }
 }

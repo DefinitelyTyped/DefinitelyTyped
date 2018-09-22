@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class FaThumbTack extends React.Component<IconBaseProps> { }
+declare class FaThumbTack extends React.Component<IconBaseProps> { }
+export = FaThumbTack;

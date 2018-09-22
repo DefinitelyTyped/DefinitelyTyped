@@ -94,6 +94,11 @@ declare namespace adone {
                  * Mark this block as exclusive
                  */
                 skip: DescribeFunction;
+
+                /**
+                 * Mark this block as todo
+                 */
+                todo: DescribeFunction;
             }
 
             interface TestOptions {
@@ -146,6 +151,11 @@ declare namespace adone {
                  * Mark this test as exclusive
                  */
                 skip: TestFunction;
+
+                /**
+                 * Mark this test as todo
+                 */
+                todo: TestFunction;
             }
 
             interface HookRuntimeContext {
@@ -172,7 +182,7 @@ declare namespace adone {
                 | "end before each hook" | "end after each hook"
                 | "end before test hook" | "end after test hook";
 
-            interface Emitter extends event.EventEmitter {
+            interface Emitter extends event.Emitter {
                 on(event: "enter block", listener: (event: { block: Block }) => void): this;
                 on(event: "exit block", listener: (event: { block: Block }) => void): this;
                 on(event: "start test", listener: (event: { block: Block, test: Test }) => void): this;
@@ -268,6 +278,11 @@ declare namespace adone {
                 only(): this;
 
                 /**
+                 * Marks this test as todo
+                 */
+                todo(): this;
+
+                /**
                  * Returns the timeout of the test
                  */
                 timeout(): number | null;
@@ -354,6 +369,11 @@ declare namespace adone {
                  * Marks this block as inclusive
                  */
                 only(): this;
+
+                /**
+                 * Marks this block as todo
+                 */
+                todo(): this;
 
                 /**
                  * Returns the timeout of the block
@@ -1423,7 +1443,7 @@ declare namespace adone {
                     /**
                      * Requires the value to be of the given type
                      */
-                    typeOf(type: adone.util.I.PossibleTypes): Matcher;
+                    typeOf(type: adone.meta.I.PossibleTypes): Matcher;
                     typeOf(type: string): Matcher;
 
                     /**

@@ -59,7 +59,7 @@ export interface SyntheticEventData extends OptionalEventProperties {
 export type EventSimulator = (element: Element | Component<any>, eventData?: SyntheticEventData) => void;
 
 export interface MockedComponentClass {
-    new (): any;
+    new (props: {}): any;
 }
 
 export interface ShallowRenderer {

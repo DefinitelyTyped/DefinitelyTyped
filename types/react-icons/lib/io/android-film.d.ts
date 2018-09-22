@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class IoAndroidFilm extends React.Component<IconBaseProps> { }
+declare class IoAndroidFilm extends React.Component<IconBaseProps> { }
+export = IoAndroidFilm;

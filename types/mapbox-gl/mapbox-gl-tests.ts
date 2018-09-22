@@ -17,7 +17,8 @@ let map = new mapboxgl.Map({
 	minZoom: 1,
 	maxZoom: 2,
 	interactive: true,
-	attributionControl: false,
+	attributionControl: true,
+	customAttribution: '© YourCo',
 	bearingSnap: 7,
 	scrollZoom: true,
 	maxBounds: [[-100,-90],[100,90]],
@@ -150,7 +151,8 @@ map.flyTo({
 	screenSpeed: 1,
 	easing: function(t: any) {
 		return t;
-	}
+	},
+	maxDuration: 1
 });
 
 /**
@@ -206,9 +208,25 @@ map.addSource('some id', videoSourceObj); // add
 map.removeSource('some id');  // remove
 
 /**
+ * Add Raster Source /// made URL optional to allow only tiles.
+ */
+map.addSource('radar', {
+	type: 'raster',
+	tiles: ['https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WmsServer?bbox={bbox-epsg-3857}&service=WMS&request=GetMap&version=1.3.0&layers=1&styles=&format=image/png&transparent=true&height=256&width=256&crs=EPSG:3857'],
+	tileSize: 256
+})
+
+map.addLayer({
+	id: 'radar',
+	type: 'raster',
+	source: 'radar',
+	paint: {}
+})
+
+/**
  * Popup
  */
-var popup = new mapboxgl.Popup({closeOnClick: false, closeButton: true, anchor: 'top-right', offset: {'top': [0,0], 'bottom': [25,-50]} })
+var popup = new mapboxgl.Popup({closeOnClick: false, closeButton: true, anchor: 'top-right', offset: {'top': [0,0], 'bottom': [25,-50]}, className: 'custom-class' })
 	.setLngLat([-50, 50])
 	.setHTML('<h1>Hello World!</h1>')
 	.addTo(map);
@@ -303,16 +321,6 @@ var mapStyle = {
 	]
 };
 
-map = new mapboxgl.Map({
-	container: 'map',
-	minZoom: 14,
-	zoom: 17,
-	center: [-122.514426, 37.562984],
-	bearing: -96,
-	style: videoStyle,
-	hash: false
-});
-
 /**
  * Add video
  */
@@ -362,11 +370,34 @@ map = new mapboxgl.Map({
 	hash: false
 });
 
+map = new mapboxgl.Map({
+	container: 'map',
+	minZoom: 14,
+	zoom: 17,
+	center: [-122.514426, 37.562984],
+	bearing: -96,
+	style: videoStyle,
+	hash: false
+});
+
 /**
  * Marker
  */
-let marker = new mapboxgl.Marker(null,{offset: [10, 0]})
+let marker = new mapboxgl.Marker(undefined, {offset: [10, 0]})
 	.setLngLat([-50,50])
 	.addTo(map);
 
 marker.remove();
+
+/*
+ * LngLatBounds
+ */
+let bool:boolean
+let bounds = new mapboxgl.LngLatBounds()
+bool = bounds.isEmpty()
+
+/*
+ * AttributionControl
+ */
+let attributionControl = new mapboxgl.AttributionControl({ compact: false, customAttribution: '© YourCo' });
+attributionControl.on('click', () => {});

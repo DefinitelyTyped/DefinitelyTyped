@@ -37,6 +37,7 @@ function test5() {
     });
     sock.monitor();
     sock.monitor(10);
+    sock.monitor(10, 2);
 }
 
 function test6() {
@@ -46,4 +47,14 @@ function test6() {
     });
     sock.pause();
     sock.resume();
+}
+
+function test7() {
+    const xPubSocket = zeromq.socket('xpub');
+    const xPSubSocket = zeromq.socket('xsub');
+
+    xPubSocket.bindSync(`tcp://127.0.0.1:3000`);
+    xPSubSocket.bindSync('tcp://127.0.0.1:3001');
+
+    zeromq.proxy(xPubSocket, xPSubSocket);
 }

@@ -37,5 +37,5 @@ export class WallabyConfig implements wallabyjs.IWallabyConfig {
     }
   };
 
-  constructor(private wallaby: wallabyjs.IWallaby) { }
+  constructor(private readonly wallaby: wallabyjs.IWallaby) { }
 }

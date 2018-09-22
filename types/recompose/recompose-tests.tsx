@@ -18,6 +18,8 @@ import {
     createEventHandlerWithConfig,
     componentFromStreamWithConfig, mapPropsStreamWithConfig,
     setObservableConfig,
+    StateHandler,
+    StateHandlerMap,
 } from "recompose";
 import rxjsconfig from "recompose/rxjsObservableConfig";
 import rxjs4config from "recompose/rxjs4ObservableConfig";
@@ -25,6 +27,45 @@ import mostConfig from "recompose/mostObservableConfig";
 import xstreamConfig from "recompose/xstreamObservableConfig";
 import baconConfig from "recompose/baconObservableConfig";
 import kefirConfig from "recompose/kefirObservableConfig";
+
+import mapPropsStandalone from "recompose/mapProps";
+import withPropsStandalone from "recompose/withProps";
+import withPropsOnChangeStandalone from "recompose/withPropsOnChange";
+import withHandlersStandalone from "recompose/withHandlers";
+import defaultPropsStandalone from "recompose/defaultProps";
+import renamePropStandalone from "recompose/renameProp";
+import renamePropsStandalone from "recompose/renameProps";
+import flattenPropStandalone from "recompose/flattenProp";
+import withStateStandalone from "recompose/withState";
+import withStateHandlersStandalone from "recompose/withStateHandlers";
+import withReducerStandalone from "recompose/withReducer";
+import branchStandalone from "recompose/branch";
+import renderComponentStandalone from "recompose/renderComponent";
+import renderNothingStandalone from "recompose/renderNothing";
+import shouldUpdateStandalone from "recompose/shouldUpdate";
+import pureStandalone from "recompose/pure";
+import onlyUpdateForKeysStandalone from "recompose/onlyUpdateForKeys";
+import onlyUpdateForPropTypesStandalone from "recompose/onlyUpdateForPropTypes";
+import withContextStandalone from "recompose/withContext";
+import getContextStandalone from "recompose/getContext";
+import lifecycleStandalone from "recompose/lifecycle";
+import toClassStandalone from "recompose/toClass";
+import setStaticStandalone from "recompose/setStatic";
+import setPropTypesStandalone from "recompose/setPropTypes";
+import setDisplayNameStandalone from "recompose/setDisplayName";
+import composeStandalone from "recompose/compose";
+import getDisplayNameStandalone from "recompose/getDisplayName";
+import wrapDisplayNameStandalone from "recompose/wrapDisplayName";
+import shallowEqualStandalone from "recompose/shallowEqual";
+import isClassComponentStandalone from "recompose/isClassComponent";
+import createSinkStandalone from "recompose/createSink";
+import componentFromPropStandalone from "recompose/componentFromProp";
+import nestStandalone from "recompose/nest";
+import hoistStaticsStandalone from "recompose/hoistStatics";
+import componentFromStreamStandalone, { componentFromStreamWithConfig as componentFromStreamWithConfigStandalone } from "recompose/componentFromStream";
+import mapPropsStreamStandalone, { mapPropsStreamWithConfig as mapPropsStreamWithConfigStandalone } from "recompose/mapPropsStream";
+import createEventHandlerStandalone, { createEventHandlerWithConfig as createEventHandlerWithConfigStandalone } from "recompose/createEventHandler";
+import setObservableConfigStandalone from "recompose/setObservableConfig";
 
 function testMapProps() {
     interface InnerProps {
@@ -81,20 +122,20 @@ function testWithPropsOnChange() {
 }
 
 function testWithHandlers() {
+    interface OutterProps {
+        out: number;
+    }
     interface InnerProps {
-        onSubmit: React.MouseEventHandler<HTMLDivElement>;
-        onChange: Function;
         foo: string;
     }
     interface HandlerProps {
         onSubmit: React.MouseEventHandler<HTMLDivElement>;
         onChange: Function;
     }
-    interface OutterProps { out: number; }
-    const InnerComponent: React.StatelessComponent<InnerProps> = ({onChange, onSubmit}) =>
-      <div onClick={onSubmit}></div>;
+    const InnerComponent: React.StatelessComponent<InnerProps & HandlerProps & OutterProps> = ({onChange, onSubmit, foo}) =>
+      <div onClick={onSubmit}>{foo}</div>;
 
-    const enhancer = withHandlers<OutterProps, HandlerProps>({
+    const enhancer = withHandlers<OutterProps & InnerProps, HandlerProps>({
       onChange: (props) => (e: any) => {},
       onSubmit: (props) => (e: React.MouseEvent<any>) => {},
     });
@@ -106,7 +147,7 @@ function testWithHandlers() {
         />
     )
 
-    const enhancer2 = withHandlers<OutterProps, HandlerProps>((props) => ({
+    const enhancer2 = withHandlers<OutterProps & InnerProps, HandlerProps>((props) => ({
       onChange: (props) => (e: any) => {},
       onSubmit: (props) => (e: React.MouseEvent<any>) => {},
     }));
@@ -114,6 +155,36 @@ function testWithHandlers() {
     const rendered2 = (
         <Enhanced2
             foo="bar"
+            out={42}
+        />
+    )
+
+    const handlerNameTypecheckProof = withHandlers<OutterProps, HandlerProps>({ // $ExpectError
+      onChange: () => () => {},
+      notAKeyOnHandlerProps: () => () => {},
+    });
+
+    // The inner props should be fully inferrable
+    const enhancer3 = withHandlers({
+      onChange: (props: OutterProps) => (e: any) => {},
+      onSubmit: (props: OutterProps) => (e: React.MouseEvent<any>) => {},
+    });
+    const Enhanced3 = enhancer3(({onChange, onSubmit, out}) =>
+        <div onClick={onSubmit}>{out}</div>);
+    const rendered3 = (
+        <Enhanced3
+            out={42}
+        />
+    )
+
+    const enhancer4 = withHandlers((props: OutterProps) => ({
+      onChange: (props) => (e: any) => {},
+      onSubmit: (props) => (e: React.MouseEvent<any>) => {},
+    }));
+    const Enhanced4 = enhancer4(({onChange, onSubmit, out}) =>
+        <div onClick={onSubmit}>{out}</div>);
+    const rendered4 = (
+        <Enhanced4
             out={42}
         />
     )
@@ -182,15 +253,27 @@ function testWithState() {
     const rendered2 = (
         <Enhanced2 title="foo" />
     );
+
+    // We can also actually provide the generic necessary
+    const enhancer3 = withState<OutterProps, number, "count", "setCount">("count", "setCount", 1);
+    const Enhanced3 = enhancer3(props => {
+        return <div>{props.count}</div>;
+    });
+    const rendered3 = (
+        <Enhanced3 title="foo" />
+    );
 }
 
 function testWithStateHandlers() {
     interface State { counter: number; }
-    interface Updaters { add: (n: number) => State; }
-    type InnerProps = State & Updaters;
+    interface Updaters extends StateHandlerMap<State> {
+      add: StateHandler<State>;
+    }
     interface OutterProps { initialCounter: number, power: number }
+    type InnerProps = State & Updaters & OutterProps;
     const InnerComponent: React.StatelessComponent<InnerProps> = (props) =>
         <div>
+            <div>{`Initial counter: ${props.initialCounter}`}</div>
             <div>{`Counter: ${props.counter}`}</div>
             <div onClick={() => props.add(2)}></div>
         </div>;
@@ -203,6 +286,28 @@ function testWithStateHandlers() {
     );
     const Enhanced = enhancer(InnerComponent);
     const rendered = (
+        <Enhanced initialCounter={4} power={2} />
+    );
+
+    const updateNameTypecheckProof = withStateHandlers<State, Updaters, OutterProps>(
+        (props: OutterProps) => ({ counter: props.initialCounter }),
+        { notAKeyOfUpdaters: (state, props) => n => ({ ...state, counter: state.counter + n ** props.power }), }, // $ExpectError
+    );
+
+    // The inner props should be fully inferrable
+    const enhancer2 = withStateHandlers(
+        (props: OutterProps) => ({ counter: props.initialCounter }),
+        {
+            add: (state, props) => n => ({ ...state, counter: state.counter + n ** props.power }),
+        },
+    );
+    const Enhanced2 = enhancer((props) =>
+        <div>
+            <div>{`Counts from: ${props.initialCounter}`}</div>
+            <div>{`Counter: ${props.counter}`}</div>
+            <div onClick={() => props.add(2)}></div>
+        </div>);
+    const rendered2 = (
         <Enhanced initialCounter={4} power={2} />
     );
 }
@@ -288,4 +393,22 @@ function testOnlyUpdateForKeys() {
     onlyUpdateForKeys<Props>(['foo'])(component)
     // This should be a compile error
     // onlyUpdateForKeys<Props>(['fo'])(component)
+}
+
+function testLifecycle() {
+    interface Props {
+        foo: number;
+        bar: string;
+    }
+    interface State {}
+    interface Instance {
+        instanceValue: number
+    }
+    const component: React.StatelessComponent<Props> = (props) => <div>{props.foo} {props.bar}</div>
+    lifecycle<Props, State, Instance>({
+        instanceValue: 1,
+        componentDidMount() {
+            this.instanceValue = 2
+        }
+    })(component)
 }

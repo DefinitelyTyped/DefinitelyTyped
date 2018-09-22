@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDataGrid from 'react-data-grid';
+import ReactDataGrid = require('react-data-grid');
 import * as ReactDataGridPlugins from 'react-data-grid-addons';
 import faker = require('faker');
 
@@ -10,13 +10,9 @@ var DropDownEditor = Editors.DropDownEditor;
 var { Selectors } = ReactDataGridPlugins.Data;
 
 class CustomFilterHeaderCell extends React.Component<any, any> {
-   constructor(props: any, context: any) {
-       super(props, context);
-
-       this.state = {
-           filterTerm: ""
-       };
-   }
+   state = {
+       filterTerm: ""
+   };
    handleChange(e: any) {
        let val = e.target.value;
        this.setState({filterTerm: val});
@@ -29,6 +25,35 @@ class CustomFilterHeaderCell extends React.Component<any, any> {
            </div>
        );
    }
+}
+
+class CustomRowSelectorCell extends ReactDataGridPlugins.Editors.CheckboxEditor {
+    render(){
+        return super.render();
+    }
+}
+
+export interface ICustomSelectAllProps {
+    onChange: any;
+    inputRef: any;
+}
+
+class CustomSelectAll extends React.Component<ICustomSelectAllProps> {
+    render() {
+        return (
+            <div className='react-grid-checkbox-container checkbox-align'>
+                <input
+                    className='react-grid-checkbox'
+                    type='checkbox'
+                    name='select-all-checkbox'
+                    id='select-all-checkbox'
+                    ref={this.props.inputRef}
+                    onChange={this.props.onChange}
+                />
+                <label htmlFor='select-all-checkbox' className='react-grid-checkbox-label'></label>
+            </div>
+        );
+    }
 }
 
 faker.locale = 'en_GB';
@@ -106,7 +131,7 @@ var counties = [
 
 var titles = ['Dr.', 'Mr.', 'Mrs.', 'Miss', 'Ms.'];
 
-var columns:ReactDataGrid.Column[] = [
+var columns:ReactDataGrid.Column<typeof counties>[] = [
     {
         key: 'id',
         name: 'ID',
@@ -127,7 +152,7 @@ var columns:ReactDataGrid.Column[] = [
         editor: <AutoCompleteEditor options={counties}/>,
         width: 200,
         resizable: true,
-        getRowMetaData: (rowdata: any, column: ReactDataGrid.Column) => {
+        getRowMetaData: (rowdata: any, column: ReactDataGrid.Column<typeof counties>) => {
             return {};
         }
     },
@@ -237,7 +262,7 @@ class Example extends React.Component<any, any> {
         return clonedColumns;
     }
 
-    handleGridRowsUpdated(updatedRowData:ReactDataGrid.GridRowsUpdatedEvent) {
+    handleGridRowsUpdated(updatedRowData:ReactDataGrid.GridRowsUpdatedEvent<typeof counties>) {
         var rows = this.state.rows;
 
         for (var i = updatedRowData.fromRow; i <= updatedRowData.toRow; i++) {
@@ -247,6 +272,13 @@ class Example extends React.Component<any, any> {
         }
 
         this.setState({rows: rows});
+    }
+
+    onRowExpandToggle = ({ columnGroupName, name, shouldExpand }:ReactDataGrid.OnRowExpandToggle ) => {
+        let expandedRows = Object.assign({}, this.state.expandedRows);
+        expandedRows[columnGroupName] = Object.assign({}, expandedRows[columnGroupName]);
+        expandedRows[columnGroupName][name] = {isExpanded: shouldExpand};
+        this.setState({expandedRows: expandedRows});
     }
 
     onRowClick(rowIdx:number, row: Object) {
@@ -283,12 +315,12 @@ class Example extends React.Component<any, any> {
         return this.state.rows.length;
     }
 
-    onRowsSelected(rows: Array<ReactDataGrid.SelectionParams>) {
+    onRowsSelected(rows: Array<ReactDataGrid.SelectionParams<typeof counties>>) {
         var selectedIndexes = this.state.selectedIndexes as Array<number>;
 
         this.setState({selectedIndexes: selectedIndexes.concat(rows.map(r => r.rowIdx))});
     }
-    onRowsDeselected(rows: Array<ReactDataGrid.SelectionParams>) {
+    onRowsDeselected(rows: Array<ReactDataGrid.SelectionParams<typeof counties>>) {
         var rowIndexes = rows.map(r => r.rowIdx);
         var selectedIndexes = this.state.selectedIndexes as Array<number>;
         this.setState({selectedIndexes: selectedIndexes.filter(i => rowIndexes.indexOf(i) === -1 )});
@@ -300,10 +332,12 @@ class Example extends React.Component<any, any> {
             <ReactDataGrid
                 ref='grid'
                 enableCellSelect={true}
+                enableDragAndDrop={true}
                 columns={this.getColumns()}
                 rowGetter={this.getRowAt}
                 rowsCount={this.getSize()}
                 onGridRowsUpdated={this.handleGridRowsUpdated}
+                onRowExpandToggle={this.onRowExpandToggle}
                 toolbar={<Toolbar onAddRow={this.handleAddRow}/>}
                 enableRowSelect={true}
                 rowHeight={50}
@@ -318,6 +352,8 @@ class Example extends React.Component<any, any> {
                         keys: {rowKey: 'id', values: selectedRows}
                     }
                 }}
+                rowActionsCell={CustomRowSelectorCell}
+                selectAllRenderer={CustomSelectAll}
                 onRowClick={this.onRowClick}
             />
 

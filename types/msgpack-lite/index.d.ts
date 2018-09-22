@@ -125,7 +125,7 @@ export interface CodecOptions {
    * @see https://github.com/kawanet/msgpack-lite#compatibility-mode
    * @default false
    */
-  raw?: boolean;
+  useraw?: boolean;
   /**
    * It decodes msgpack's int64/uint64 formats with int64-buffer object.
    * int64-buffer is a cutom integer type with 64 bits of precision instead
@@ -140,8 +140,14 @@ export interface CodecOptions {
   binarraybuffer?: boolean;
   /**
    * It returns Uint8Array object when encoding, instead of Buffer object.
+   * @default false
    */
   uint8array?: boolean;
+  /**
+   * It uses the global JavaScript Map type, if available, to unpack MessagePack map elements.
+   * @default false
+   */
+  usemap?: boolean;
 }
 
 export interface EncoderOptions {

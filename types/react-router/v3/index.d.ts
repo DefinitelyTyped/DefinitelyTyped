@@ -10,8 +10,9 @@
 //                 Karol Janyst <https://github.com/LKay>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Ross Allen <https://github.com/ssorallen>
+//                 Christian Gill <https://github.com/gillchristian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export {
     ChangeHook,

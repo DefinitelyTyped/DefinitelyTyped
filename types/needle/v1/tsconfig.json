@@ -7,12 +7,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "needle": ["needle/v1"]
+            "needle": [
+                "needle/v1"
+            ]
         },
         "types": [],
         "noEmit": true,

@@ -1,26 +1,27 @@
-// Type definitions for Glob 5.0.10
+// Type definitions for Glob 7.1
 // Project: https://github.com/isaacs/node-glob
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 voy <https://github.com/voy>
+//                 Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="minimatch" />
 
 import events = require("events");
-import fs = require('fs');
 import minimatch = require("minimatch");
 
-declare function G(pattern: string, cb: (err: Error, matches: string[]) => void): void;
-declare function G(pattern: string, options: G.IOptions, cb: (err: Error, matches: string[]) => void): void;
+declare function G(pattern: string, cb: (err: Error | null, matches: string[]) => void): void;
+declare function G(pattern: string, options: G.IOptions, cb: (err: Error | null, matches: string[]) => void): void;
 
 declare namespace G {
+    function __promisify__(pattern: string, options?: IOptions): Promise<string[]>;
+
     function sync(pattern: string, options?: IOptions): string[];
 
     function hasMagic(pattern: string, options?: IOptions): boolean;
 
-    var Glob: IGlobStatic;
-    var GlobSync: IGlobSyncStatic;
+    let Glob: IGlobStatic;
+    let GlobSync: IGlobSyncStatic;
 
     interface IOptions extends minimatch.IOptions {
         cwd?: string;
@@ -32,9 +33,10 @@ declare namespace G {
         stat?: boolean;
         silent?: boolean;
         strict?: boolean;
-        cache?: { [path: string]: any /* boolean | string | string[] */ };
-        statCache?: { [path: string]: fs.Stats };
-        symlinks?: any;
+        cache?: { [path: string]: boolean | 'DIR' | 'FILE' | string[] };
+        statCache?: { [path: string]: false | { isDirectory(): boolean} | undefined };
+        symlinks?: { [path: string]: boolean | undefined };
+        realpathCache?: { [path: string]: string };
         sync?: boolean;
         nounique?: boolean;
         nonull?: boolean;
@@ -45,25 +47,22 @@ declare namespace G {
         nocase?: boolean;
         matchBase?: any;
         nodir?: boolean;
-        ignore?: any; /* string | string[] */
+        ignore?: string | string[];
         follow?: boolean;
         realpath?: boolean;
         nonegate?: boolean;
         nocomment?: boolean;
         absolute?: boolean;
-
-        /** Deprecated. */
-        globDebug?: boolean;
     }
 
     interface IGlobStatic extends events.EventEmitter {
-        new (pattern: string, cb?: (err: Error, matches: string[]) => void): IGlob;
-        new (pattern: string, options: IOptions, cb?: (err: Error, matches: string[]) => void): IGlob;
+        new (pattern: string, cb?: (err: Error | null, matches: string[]) => void): IGlob;
+        new (pattern: string, options: IOptions, cb?: (err: Error | null, matches: string[]) => void): IGlob;
         prototype: IGlob;
     }
 
     interface IGlobSyncStatic {
-        new (pattern: string, options?: IOptions): IGlobBase
+        new (pattern: string, options?: IOptions): IGlobBase;
         prototype: IGlobBase;
     }
 
@@ -71,9 +70,9 @@ declare namespace G {
         minimatch: minimatch.IMinimatch;
         options: IOptions;
         aborted: boolean;
-        cache: { [path: string]: any /* boolean | string | string[] */ };
-        statCache: { [path: string]: fs.Stats };
-        symlinks: { [path: string]: boolean };
+        cache: { [path: string]: boolean | 'DIR' | 'FILE' | string[] };
+        statCache: { [path: string]: false | { isDirectory(): boolean; } | undefined };
+        symlinks: { [path: string]: boolean | undefined };
         realpathCache: { [path: string]: string };
         found: string[];
     }
@@ -82,29 +81,6 @@ declare namespace G {
         pause(): void;
         resume(): void;
         abort(): void;
-
-        /** Deprecated. */
-        EOF: any;
-        /** Deprecated. */
-        paused: boolean;
-        /** Deprecated. */
-        maxDepth: number;
-        /** Deprecated. */
-        maxLength: number;
-        /** Deprecated. */
-        changedCwd: boolean;
-        /** Deprecated. */
-        cwd: string;
-        /** Deprecated. */
-        root: string;
-        /** Deprecated. */
-        error: any;
-        /** Deprecated. */
-        matches: string[];
-        /** Deprecated. */
-        log(...args: any[]): void;
-        /** Deprecated. */
-        emitMatch(m: any): void;
     }
 }
 

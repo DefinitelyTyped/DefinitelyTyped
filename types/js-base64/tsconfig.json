@@ -6,7 +6,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -17,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "js-base64-tests.ts"
+        "test/js-base64-module.test.ts",
+        "test/js-base64-global.test.ts"
     ]
 }

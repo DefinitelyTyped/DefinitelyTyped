@@ -3,10 +3,11 @@
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 //                 Parambir Singh <https://github.com/parambirs>
-//                 Roberto Desideri <https://github.com/RobDesideri>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
-//                 Daniel Imms <https://github.com/Tyriar>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Hoàng Văn Khải <https://github.com/KSXGitHub>
+//                 Sander Koenders <https://github.com/Archcry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -33,8 +34,18 @@ interface Error {
     stack?: string;
 }
 
+// Declare "static" methods in Error
 interface ErrorConstructor {
+    /** Create .stack property on a target object */
     captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+
+    /**
+     * Optional override for formatting stack traces
+     *
+     * @see https://github.com/v8/v8/wiki/Stack%20Trace%20API#customizing-stack-traces
+     */
+    prepareStackTrace?: (err: Error, stackTraces: NodeJS.CallSite[]) => any;
+
     stackTraceLimit: number;
 }
 
@@ -166,34 +177,23 @@ declare var Buffer: {
     new (buffer: Buffer): Buffer;
     prototype: Buffer;
     /**
-     * Allocates a new Buffer using an {array} of octets.
-     *
-     * @param array
-     */
-    from(array: any[]): Buffer;
-    /**
      * When passed a reference to the .buffer property of a TypedArray instance,
      * the newly created Buffer will share the same allocated memory as the TypedArray.
      * The optional {byteOffset} and {length} arguments specify a memory range
      * within the {arrayBuffer} that will be shared by the Buffer.
      *
      * @param arrayBuffer The .buffer property of a TypedArray or a new ArrayBuffer()
-     * @param byteOffset
-     * @param length
      */
     from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?: number): Buffer;
     /**
-     * Copies the passed {buffer} data onto a new Buffer instance.
-     *
-     * @param buffer
+     * Creates a new Buffer using the passed {data}
+     * @param data data to create a new Buffer
      */
-    from(buffer: Buffer): Buffer;
+    from(data: any[] | string | Buffer | ArrayBuffer /*| TypedArray*/): Buffer;
     /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
-     *
-     * @param str
      */
     from(str: string, encoding?: string): Buffer;
     /**
@@ -279,6 +279,80 @@ declare namespace NodeJS {
         new(stdout: WritableStream, stderr?: WritableStream): Console;
     }
 
+    export interface CallSite {
+        /**
+         * Value of "this"
+         */
+        getThis(): any;
+
+        /**
+         * Type of "this" as a string.
+         * This is the name of the function stored in the constructor field of
+         * "this", if available.  Otherwise the object's [[Class]] internal
+         * property.
+         */
+        getTypeName(): string | null;
+
+        /**
+         * Current function
+         */
+        getFunction(): Function | undefined;
+
+        /**
+         * Name of the current function, typically its name property.
+         * If a name property is not available an attempt will be made to try
+         * to infer a name from the function's context.
+         */
+        getFunctionName(): string | null;
+
+        /**
+         * Name of the property [of "this" or one of its prototypes] that holds
+         * the current function
+         */
+        getMethodName(): string | null;
+
+        /**
+         * Name of the script [if this function was defined in a script]
+         */
+        getFileName(): string | null;
+
+        /**
+         * Current line number [if this function was defined in a script]
+         */
+        getLineNumber(): number | null;
+
+        /**
+         * Current column number [if this function was defined in a script]
+         */
+        getColumnNumber(): number | null;
+
+        /**
+         * A call site object representing the location where eval was called
+         * [if this function was created using a call to eval]
+         */
+        getEvalOrigin(): string | undefined;
+
+        /**
+         * Is this a toplevel invocation, that is, is "this" the global object?
+         */
+        isToplevel(): boolean;
+
+        /**
+         * Does this call take place in code defined by a call to eval?
+         */
+        isEval(): boolean;
+
+        /**
+         * Is this call in native V8 code?
+         */
+        isNative(): boolean;
+
+        /**
+         * Is this a constructor call?
+         */
+        isConstructor(): boolean;
+    }
+
     export interface ErrnoException extends Error {
         errno?: number;
         code?: string;
@@ -322,7 +396,7 @@ declare namespace NodeJS {
         writable: boolean;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
-        end(): void;
+        end(cb?: Function): void;
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
@@ -351,6 +425,7 @@ declare namespace NodeJS {
         rss: number;
         heapTotal: number;
         heapUsed: number;
+        external: number;
     }
 
     export interface CpuUsage {
@@ -382,6 +457,10 @@ declare namespace NodeJS {
         isTTY?: true;
     }
 
+    export interface ProcessEnv {
+        [key: string]: string | undefined;
+    }
+
     export interface WriteStream extends Socket {
         columns?: number;
         rows?: number;
@@ -403,8 +482,9 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
+        debugPort: number;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
-        env: any;
+        env: ProcessEnv;
         exit(code?: number): never;
         exitCode: number;
         getgid(): number;
@@ -655,21 +735,74 @@ declare module "http" {
     import * as net from "net";
     import * as stream from "stream";
 
+    // incoming headers will never contain number
+    export interface IncomingHttpHeaders {
+        'accept'?: string;
+        'access-control-allow-origin'?: string;
+        'access-control-allow-credentials'?: string;
+        'access-control-expose-headers'?: string;
+        'access-control-max-age'?: string;
+        'access-control-allow-methods'?: string;
+        'access-control-allow-headers'?: string;
+        'accept-patch'?: string;
+        'accept-ranges'?: string;
+        'age'?: string;
+        'allow'?: string;
+        'alt-svc'?: string;
+        'cache-control'?: string;
+        'connection'?: string;
+        'content-disposition'?: string;
+        'content-encoding'?: string;
+        'content-language'?: string;
+        'content-length'?: string;
+        'content-location'?: string;
+        'content-range'?: string;
+        'content-type'?: string;
+        'date'?: string;
+        'expires'?: string;
+        'host'?: string;
+        'last-modified'?: string;
+        'location'?: string;
+        'pragma'?: string;
+        'proxy-authenticate'?: string;
+        'public-key-pins'?: string;
+        'retry-after'?: string;
+        'set-cookie'?: string[];
+        'strict-transport-security'?: string;
+        'trailer'?: string;
+        'transfer-encoding'?: string;
+        'tk'?: string;
+        'upgrade'?: string;
+        'user-agent'?: string;
+        'vary'?: string;
+        'via'?: string;
+        'warning'?: string;
+        'www-authenticate'?: string;
+        [header: string]: string | string[] | undefined;
+    }
+
+    // outgoing headers allows numbers (as they are converted internally to strings)
+    export interface OutgoingHttpHeaders {
+        [header: string]: number | string | string[] | undefined;
+    }
+
     export interface RequestOptions {
         protocol?: string;
         host?: string;
         hostname?: string;
         family?: number;
-        port?: number;
+        port?: number | string;
         localAddress?: string;
         socketPath?: string;
         method?: string;
         path?: string;
-        headers?: { [key: string]: any };
+        headers?: OutgoingHttpHeaders;
         auth?: string;
         agent?: Agent | boolean;
         timeout?: number;
     }
+
+    export type ClientRequestArgs = RequestOptions
 
     export interface Server extends net.Server {
         setTimeout(msecs: number, callback: Function): void;
@@ -692,8 +825,8 @@ declare module "http" {
         write(str: string, encoding?: string, fd?: string): boolean;
 
         writeContinue(): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: any): void;
-        writeHead(statusCode: number, headers?: any): void;
+        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): void;
+        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): void;
         statusCode: number;
         statusMessage: string;
         headersSent: boolean;
@@ -703,7 +836,7 @@ declare module "http" {
         getHeader(name: string): string;
         removeHeader(name: string): void;
         write(chunk: any, encoding?: string): any;
-        addTrailers(headers: any): void;
+        addTrailers(headers: OutgoingHttpHeaders): void;
         finished: boolean;
 
         // Extended base methods
@@ -730,7 +863,7 @@ declare module "http" {
         setHeader(name: string, value: string | string[]): void;
         getHeader(name: string): string;
         removeHeader(name: string): void;
-        addTrailers(headers: any): void;
+        addTrailers(headers: OutgoingHttpHeaders): void;
 
         // Extended base methods
         end(): void;
@@ -744,10 +877,10 @@ declare module "http" {
         httpVersionMajor: number;
         httpVersionMinor: number;
         connection: net.Socket;
-        headers: any;
+        headers: IncomingHttpHeaders;
         rawHeaders: string[];
-        trailers: any;
-        rawTrailers: any;
+        trailers: OutgoingHttpHeaders;
+        rawTrailers: string[];
         setTimeout(msecs: number, callback: Function): NodeJS.Timer;
         /**
          * Only valid for request obtained from http.Server.
@@ -794,6 +927,7 @@ declare module "http" {
     }
 
     export class Agent {
+        maxFreeSockets: number;
         maxSockets: number;
         sockets: any;
         requests: any;
@@ -817,7 +951,7 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: RequestOptions | string, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
@@ -852,7 +986,7 @@ declare module "cluster" {
     }
 
     export class Worker extends events.EventEmitter {
-        id: string;
+        id: number;
         process: child.ChildProcess;
         suicide: boolean;
         send(message: any, sendHandle?: any, callback?: (error: Error) => void): boolean;
@@ -1401,7 +1535,9 @@ declare module "https" {
         secureProtocol?: string;
     }
 
-    export interface Agent extends http.Agent { }
+    export interface Agent extends http.Agent {
+        options?: AgentOptions;
+    }
 
     export interface AgentOptions extends http.AgentOptions {
         pfx?: any;
@@ -1420,7 +1556,7 @@ declare module "https" {
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: Function): Server;
-    export function request(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function request(options: RequestOptions | string, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export function get(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export var globalAgent: Agent;
 }
@@ -1720,7 +1856,7 @@ declare module "child_process" {
         gid?: number;
         shell?: boolean | string;
     }
-    export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
+    export function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
     export interface ExecOptions {
         cwd?: string;
@@ -1870,38 +2006,33 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface Url {
-        href?: string;
-        protocol?: string;
+    export interface UrlObject {
         auth?: string;
-        hostname?: string;
-        port?: string;
-        host?: string;
-        pathname?: string;
-        search?: string;
-        query?: string | any;
-        slashes?: boolean;
         hash?: string;
+        host?: string;
+        hostname?: string;
+        href?: string;
         path?: string;
+        pathname?: string;
+        port?: string | number;
+        protocol?: string;
+        query?: string | { [key: string]: any; };
+        search?: string;
+        slashes?: boolean;
     }
 
-    export interface UrlObject {
-        protocol?: string;
-        slashes?: boolean;
-        auth?: string;
-        host?: string;
-        hostname?: string;
-        port?: string | number;
-        pathname?: string;
-        search?: string;
-        query?: { [key: string]: any; };
-        hash?: string;
+    export interface Url extends UrlObject {
+        port?: string;
+        query?: any;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
     export function format(URL: URL, options?: URLFormatOptions): string;
-    export function format(urlObject: UrlObject): string;
+    export function format(urlObject: UrlObject | string): string;
     export function resolve(from: string, to: string): string;
+
+    export function domainToASCII(domain: string): string;
+    export function domainToUnicode(domain: string): string;
 
     export interface URLFormatOptions {
         auth?: boolean;
@@ -1915,7 +2046,7 @@ declare module "url" {
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): Iterator<string[]>;
-        forEach(callback: (value: string, name: string) => void): void;
+        forEach(callback: (value: string, name: string, searchParams: this) => void): void;
         get(name: string): string | null;
         getAll(name: string): string[];
         has(name: string): boolean;
@@ -1975,6 +2106,8 @@ declare module "dns" {
     export function lookup(hostname: string, options: LookupAllOptions, callback: (err: NodeJS.ErrnoException, addresses: LookupAddress[]) => void): void;
     export function lookup(hostname: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string | LookupAddress[], family: number) => void): void;
     export function lookup(hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+
+    export function lookupService(address: string, port: number, callback: (err: NodeJS.ErrnoException, hostname: string, service: string) => void): void;
 
     export interface ResolveOptions {
         ttl: boolean;
@@ -2100,9 +2233,9 @@ declare module "net" {
         destroy(err?: any): void;
         pause(): this;
         resume(): this;
-        setTimeout(timeout: number, callback?: Function): void;
-        setNoDelay(noDelay?: boolean): void;
-        setKeepAlive(enable?: boolean, initialDelay?: number): void;
+        setTimeout(timeout: number, callback?: Function): this;
+        setNoDelay(noDelay?: boolean): this;
+        setKeepAlive(enable?: boolean, initialDelay?: number): this;
         address(): { port: number; family: string; address: string; };
         unref(): void;
         ref(): void;
@@ -2497,15 +2630,11 @@ declare module "fs" {
 
     /**
      * Asynchronous rename.
-     * @param oldPath
-     * @param newPath
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function rename(oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /**
      * Synchronous rename
-     * @param oldPath
-     * @param newPath
      */
     export function renameSync(oldPath: string, newPath: string): void;
     export function truncate(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
@@ -2550,79 +2679,62 @@ declare module "fs" {
     /**
      * Asynchronous unlink - deletes the file specified in {path}
      *
-     * @param path
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function unlink(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /**
      * Synchronous unlink - deletes the file specified in {path}
-     *
-     * @param path
      */
     export function unlinkSync(path: string | Buffer): void;
     /**
      * Asynchronous rmdir - removes the directory specified in {path}
      *
-     * @param path
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function rmdir(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /**
      * Synchronous rmdir - removes the directory specified in {path}
-     *
-     * @param path
      */
     export function rmdirSync(path: string | Buffer): void;
     /**
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
-     * @param path
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdir(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /**
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
-     * @param path
-     * @param mode
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdir(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /**
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
-     * @param path
-     * @param mode
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdir(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /**
      * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
-     * @param path
-     * @param mode
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdirSync(path: string | Buffer, mode?: number): void;
     /**
      * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
-     * @param path
-     * @param mode
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdirSync(path: string | Buffer, mode?: string): void;
     /**
      * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      *
-     * @param prefix
      * @param callback The created folder path is passed as a string to the callback's second parameter.
      */
     export function mkdtemp(prefix: string, callback?: (err: NodeJS.ErrnoException, folder: string) => void): void;
     /**
      * Synchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      *
-     * @param prefix
      * @returns Returns the created folder path.
      */
     export function mkdtempSync(prefix: string): string;
@@ -2656,8 +2768,6 @@ declare module "fs" {
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
-     * @param fileName
-     * @param encoding
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
     export function readFile(filename: string, encoding: null, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
@@ -2666,7 +2776,6 @@ declare module "fs" {
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
-     * @param fileName
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
@@ -2676,7 +2785,6 @@ declare module "fs" {
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
-     * @param fileName
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
@@ -2684,15 +2792,11 @@ declare module "fs" {
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
-     * @param fileName
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
     export function readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
-     *
-     * @param fileName
-     * @param encoding
      */
     export function readFileSync(filename: string, encoding: null): Buffer;
     export function readFileSync(filename: string, encoding: string): string;
@@ -2700,7 +2804,6 @@ declare module "fs" {
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
-     * @param fileName
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
      */
     export function readFileSync(filename: string, options: { encoding: null; flag?: string; }): Buffer;
@@ -2709,7 +2812,6 @@ declare module "fs" {
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
-     * @param fileName
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
      */
     export function readFileSync(filename: string, options?: { flag?: string; }): Buffer;
@@ -2876,6 +2978,7 @@ declare module "fs" {
         autoClose?: boolean;
         start?: number;
         end?: number;
+        highWaterMark?: number;
     }): ReadStream;
     export function createWriteStream(path: string | Buffer, options?: {
         flags?: string;
@@ -2916,6 +3019,28 @@ declare module "path" {
          */
         name: string;
     }
+    export interface FormatInputPathObject {
+        /**
+         * The root of the path such as '/' or 'c:\'
+         */
+        root?: string;
+        /**
+         * The full directory path such as '/home/user/dir' or 'c:\path\dir'
+         */
+        dir?: string;
+        /**
+         * The file name including extension (if any) such as 'index.html'
+         */
+        base?: string;
+        /**
+         * The file extension (if any) such as '.html'
+         */
+        ext?: string;
+        /**
+         * The file name without extension (if any) such as 'index'
+         */
+        name?: string;
+    }
 
     /**
      * Normalize a string path, reducing '..' and '.' parts.
@@ -2940,7 +3065,7 @@ declare module "path" {
      *
      * @param pathSegments string paths to join.  Non-string arguments are ignored.
      */
-    export function resolve(...pathSegments: any[]): string;
+    export function resolve(...pathSegments: string[]): string;
     /**
      * Determines whether {path} is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory.
      *
@@ -2950,9 +3075,6 @@ declare module "path" {
     /**
      * Solve the relative path from {from} to {to}.
      * At times we have two absolute paths, and we need to derive the relative path from one to the other. This is actually the reverse transform of path.resolve.
-     *
-     * @param from
-     * @param to
      */
     export function relative(from: string, to: string): string;
     /**
@@ -2979,11 +3101,11 @@ declare module "path" {
     /**
      * The platform-specific file separator. '\\' or '/'.
      */
-    export var sep: string;
+    export var sep: '\\' | '/';
     /**
      * The platform-specific file delimiter. ';' or ':'.
      */
-    export var delimiter: string;
+    export var delimiter: ';' | ':';
     /**
      * Returns an object from a path string - the opposite of format().
      *
@@ -2995,7 +3117,7 @@ declare module "path" {
      *
      * @param pathString path to evaluate.
      */
-    export function format(pathObject: ParsedPath): string;
+    export function format(pathObject: FormatInputPathObject): string;
 
     export module posix {
         export function normalize(p: string): string;
@@ -3009,7 +3131,7 @@ declare module "path" {
         export var sep: string;
         export var delimiter: string;
         export function parse(p: string): ParsedPath;
-        export function format(pP: ParsedPath): string;
+        export function format(pP: FormatInputPathObject): string;
     }
 
     export module win32 {
@@ -3024,7 +3146,7 @@ declare module "path" {
         export var sep: string;
         export var delimiter: string;
         export function parse(p: string): ParsedPath;
-        export function format(pP: ParsedPath): string;
+        export function format(pP: FormatInputPathObject): string;
     }
 }
 
@@ -3170,7 +3292,7 @@ declare module "tls" {
         /**
          * Returns the bound address, the address family name and port of the underlying socket as reported by
          * the operating system.
-         * @returns {any} - An object with three properties, e.g. { port: 12346, family: 'IPv4', address: '127.0.0.1' }.
+         * @returns An object with three properties, e.g. { port: 12346, family: 'IPv4', address: '127.0.0.1' }.
          */
         address(): { port: number; family: string; address: string };
         /**
@@ -3189,7 +3311,7 @@ declare module "tls" {
         encrypted: boolean;
         /**
          * Returns an object representing the cipher name and the SSL/TLS protocol version of the current connection.
-         * @returns {CipherNameAndProtocol} - Returns an object representing the cipher name
+         * @returns Returns an object representing the cipher name
          * and the SSL/TLS protocol version of the current connection.
          */
         getCipher(): CipherNameAndProtocol;
@@ -3199,15 +3321,23 @@ declare module "tls" {
          * If detailed argument is true the full chain with issuer property will be returned,
          * if false only the top certificate without issuer property.
          * If the peer does not provide a certificate, it returns null or an empty object.
-         * @param {boolean} detailed - If true; the full chain with issuer property will be returned.
-         * @returns {PeerCertificate | DetailedPeerCertificate} - An object representing the peer's certificate.
+         * @param detailed - If true; the full chain with issuer property will be returned.
+         * @returns An object representing the peer's certificate.
          */
         getPeerCertificate(detailed: true): DetailedPeerCertificate;
         getPeerCertificate(detailed?: false): PeerCertificate;
         getPeerCertificate(detailed?: boolean): PeerCertificate | DetailedPeerCertificate;
         /**
+         * Returns a string containing the negotiated SSL/TLS protocol version of the current connection.
+         * The value `'unknown'` will be returned for connected sockets that have not completed the handshaking process.
+         * The value `null` will be returned for server sockets or disconnected client sockets.
+         * See https://www.openssl.org/docs/man1.0.2/ssl/SSL_get_version.html for more information.
+         * @returns negotiated SSL/TLS protocol version of the current connection
+         */
+        getProtocol(): string | null;
+        /**
          * Could be used to speed up handshake establishment when reconnecting to the server.
-         * @returns {any} - ASN.1 encoded TLS session or undefined if none was negotiated.
+         * @returns ASN.1 encoded TLS session or undefined if none was negotiated.
          */
         getSession(): any;
         /**
@@ -3242,9 +3372,9 @@ declare module "tls" {
          *
          * NOTE: Can be used to request peer's certificate after the secure connection has been established.
          * ANOTHER NOTE: When running as the server, socket will be destroyed with an error after handshakeTimeout timeout.
-         * @param {TlsOptions} options - The options may contain the following fields: rejectUnauthorized,
+         * @param options - The options may contain the following fields: rejectUnauthorized,
          * requestCert (See tls.createServer() for details).
-         * @param {Function} callback - callback(err) will be executed with null as err, once the renegotiation
+         * @param callback - callback(err) will be executed with null as err, once the renegotiation
          * is successfully completed.
          */
         renegotiate(options: TlsOptions, callback: (err: Error) => any): any;
@@ -3255,8 +3385,8 @@ declare module "tls" {
          * large fragments can span multiple roundtrips, and their processing can be delayed due to packet
          * loss or reordering. However, smaller fragments add extra TLS framing bytes and CPU overhead,
          * which may decrease overall server throughput.
-         * @param {number} size - TLS fragment size (default and maximum value is: 16384, minimum is: 512).
-         * @returns {boolean} - Returns true on success, false otherwise.
+         * @param size - TLS fragment size (default and maximum value is: 16384, minimum is: 512).
+         * @returns Returns true on success, false otherwise.
          */
         setMaxSendFragment(size: number): boolean;
 
@@ -3646,7 +3776,6 @@ declare module "stream" {
              *   5. error
              **/
             addListener(event: string, listener: Function): this;
-            addListener(event: string, listener: Function): this;
             addListener(event: "close", listener: () => void): this;
             addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
             addListener(event: "end", listener: () => void): this;
@@ -3700,8 +3829,8 @@ declare module "stream" {
             highWaterMark?: number;
             decodeStrings?: boolean;
             objectMode?: boolean;
-            write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
-            writev?: (chunks: { chunk: string | Buffer, encoding: string }[], callback: Function) => any;
+            write?: (chunk: any, encoding: string, callback: Function) => any;
+            writev?: (chunks: { chunk: any, encoding: string }[], callback: Function) => any;
         }
 
         export class Writable extends Stream implements NodeJS.WritableStream {
@@ -3711,7 +3840,7 @@ declare module "stream" {
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(): void;
+            end(cb?: Function): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
 
@@ -3796,7 +3925,7 @@ declare module "stream" {
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
-            end(): void;
+            end(cb?: Function): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
         }
@@ -3860,30 +3989,26 @@ declare module "assert" {
 
             constructor(options?: {
                 message?: string; actual?: any; expected?: any;
-                operator?: string; stackStartFunction?: Function
+                operator?: string; stackStartFn?: Function
             });
         }
 
-        export function fail(actual: any, expected: any, message?: string, operator?: string): void;
+        export function fail(message?: string): never;
+        export function fail(actual: any, expected: any, message?: string, operator?: string, stackStartFn?: Function): never;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
         export function deepEqual(actual: any, expected: any, message?: string): void;
-        export function notDeepEqual(acutal: any, expected: any, message?: string): void;
+        export function notDeepEqual(actual: any, expected: any, message?: string): void;
         export function strictEqual(actual: any, expected: any, message?: string): void;
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
         export function deepStrictEqual(actual: any, expected: any, message?: string): void;
         export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
 
         export function throws(block: Function, message?: string): void;
-        export function throws(block: Function, error: Function, message?: string): void;
-        export function throws(block: Function, error: RegExp, message?: string): void;
-        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
-
+        export function throws(block: Function, error: RegExp | Function, message?: string): void;
         export function doesNotThrow(block: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
-        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
+        export function doesNotThrow(block: Function, error: RegExp | Function, message?: string): void;
 
         export function ifError(value: any): void;
     }
@@ -3895,12 +4020,12 @@ declare module "tty" {
     import * as net from "net";
 
     export function isatty(fd: number): boolean;
-    export interface ReadStream extends net.Socket {
+    export class ReadStream extends net.Socket {
         isRaw: boolean;
         setRawMode(mode: boolean): void;
         isTTY: boolean;
     }
-    export interface WriteStream extends net.Socket {
+    export class WriteStream extends net.Socket {
         columns: number;
         rows: number;
         isTTY: boolean;

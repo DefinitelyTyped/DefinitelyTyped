@@ -21,13 +21,13 @@ declare namespace gapi.auth2 {
      * Calls the onInit function when the GoogleAuth object is fully initialized, or calls the onFailure function if
      * initialization fails.
      */
-    then(onInit: (googleAuth: GoogleAuth) => any, onFailure?: (reason: string) => any): any;
+    then(onInit: (googleAuth: GoogleAuth) => any, onFailure?: (reason: {error: string, details: string}) => any): any;
 
     /**
      * Signs in the user using the specified options.
      * If no option specified here, fallback to the options specified to gapi.auth2.init().
      */
-    signIn(options?: SigninOptions | SigninOptionsBuilder): any;
+    signIn(options?: SigninOptions | SigninOptionsBuilder): Promise<GoogleUser>;
 
     /**
      * Signs out all accounts from the application.
@@ -208,7 +208,7 @@ declare namespace gapi.auth2 {
     login_hint?: string;
     app_package_name?: string;
     openid_realm?: string;
-    include_granted_scope?: boolean;
+    include_granted_scopes?: boolean;
   }
 
   /**

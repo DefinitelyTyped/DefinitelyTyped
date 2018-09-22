@@ -1,10 +1,11 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-interface Props {
+export type CardTextProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
   className?: string;
   cssModule?: CSSModule;
-}
+} & T;
 
-declare var CardText: React.StatelessComponent<Props>;
+declare class CardText<T = {[key: string]: any}> extends React.Component<CardTextProps<T>> {}
 export default CardText;

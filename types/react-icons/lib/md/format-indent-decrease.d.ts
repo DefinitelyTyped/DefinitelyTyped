@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class MdFormatIndentDecrease extends React.Component<IconBaseProps> { }
+declare class MdFormatIndentDecrease extends React.Component<IconBaseProps> { }
+export = MdFormatIndentDecrease;

@@ -7,12 +7,15 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-            "graceful-fs": ["graceful-fs/v2"]
+            "graceful-fs": [
+                "graceful-fs/v2"
+            ]
         },
         "types": [],
         "noEmit": true,

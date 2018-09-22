@@ -2,8 +2,9 @@
 // Project: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 //                 Shoya Tanaka <https://github.com/8398a7>
+//                 Mykolas <https://github.com/mykolas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import {
     Store,
@@ -19,10 +20,11 @@ import {
     LocationDescriptor
 } from 'history';
 import * as React from 'react';
+import { match } from 'react-router';
 
 export interface ConnectedRouterProps<State> {
     store?: Store<State>;
-    history?: History;
+    history: History;
 }
 export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>> {}
 
@@ -77,3 +79,5 @@ export interface LocationChangeAction {
 }
 
 export function routerMiddleware(history: History): Middleware;
+
+export function createMatchSelector(path: string): (state: { router: RouterState }) => match | null;

@@ -1,7 +1,4 @@
-"use strict";
 import Knex = require('knex');
-import Promise = require('bluebird');
-import _ = require('lodash');
 
 // Initializing the Library
 var knex = Knex({
@@ -19,6 +16,20 @@ var knex = Knex({
     user     : 'your_database_user',
     password : 'your_database_password',
     database : 'myapp_test'
+  }
+});
+
+var knex = Knex({
+  debug: true,
+  client: 'pg',
+  version: '9.5',
+  connection: {
+    user    : 'your_database_user',
+    password: 'your_database_password',
+    server  : 'your_database_server',
+    options : {
+      database: 'myapp_test'
+    }
   }
 });
 
@@ -104,14 +115,41 @@ var knex = Knex({
 
 // searchPath
 var knex = Knex({
+    client: 'pg',
+    searchPath: 'public',
+});
+var knex = Knex({
+    client: 'pg',
+    searchPath: ['public', 'private'],
+});
+
+// postProcessResponse
+var knex = Knex({
   client: 'pg',
-  searchPath: 'public',
+  postProcessResponse: function(result, queryContext){
+    return result;
+  }
+});
+
+// wrapIdentifier
+var knex = Knex({
+  client: 'pg',
+  wrapIdentifier: function(value, origImpl, queryContext){
+    return origImpl(value + 'foo');
+  }
 });
 
 // useNullAsDefault
 var knex = Knex({
   client: 'sqlite',
   useNullAsDefault: true,
+});
+
+// Using custom client
+class TestClient extends Knex.Client {}
+
+var knex = Knex({
+  client: TestClient,
 });
 
 knex('books').insert({title: 'Test'}).returning('*').toString();
@@ -135,14 +173,17 @@ var knex = Knex({
 
 // Knex Query Builder
 knex.select('title', 'author', 'year').from('books');
+knex.select({ name: 'title', writer: 'author' }).from(knex.raw('books'));
 knex.select().table('books');
 
 knex.avg('sum_column1').from(function() {
-  this.sum('column1 as sum_column1').from('t1').groupBy('column1').as('t1')
+  this.sum('column1 as sum_column1').from('t1').groupBy('column1').as('t1');
 }).as('ignored_alias');
 
 knex.column('title', 'author', 'year').select().from('books');
 knex.column(['title', 'author', 'year']).select().from('books');
+knex.column('title', { by: 'author' }, 'year').select().from('books');
+knex.column({ title: 'title', by: 'author', published: 'year' }).select().from('books');
 knex.select('*').from('users');
 
 knex('users').where({
@@ -153,10 +194,19 @@ knex('users').where({
 knex('users').where('id', 1);
 
 knex('users').where(() => {
-  this.where('id', 1).orWhere('id', '>', 10)
+  this.where('id', 1).orWhere('id', '>', 10);
 }).orWhere({name: 'Tester'});
 
 knex('users').where('votes', '>', 100);
+
+// Let null be used in a two or 3 parameter where filter
+knex('users').where('votes', null);
+knex('users').where('votes', 'is not', null);
+
+// Using Raw in where
+knex('users').where(knex.raw('votes + 1'), '>', 101);
+knex('users').where(knex.raw('votes + 1'), '>', knex.raw('100 + 1'));
+knex('users').where('votes', '>', knex.raw('100 + 1'));
 
 var subquery = knex('users').where('votes', '>', 100).andWhere('status', 'active').orWhere('name', 'John').select('id');
 knex('accounts').where('id', 'in', subquery);
@@ -198,6 +248,60 @@ knex('users').whereBetween('votes', [1, 100]);
 knex('users').whereNotBetween('votes', [1, 100]);
 
 knex('users').whereRaw('id = ?', [1]);
+knex('users').whereRaw('id = :id', { id: 1 });
+knex('users').whereRaw('id = :id', { id: knex('users').select('id').limit(1) });
+
+// Aggregate functions can use string/object parameters
+knex('users').count();
+knex('users').count('*');
+knex('users').count('id', 'votes');
+knex('users').count({count: '*'});
+knex('users').count({count: ['id', 'votes']});
+knex('users').count({count: knex.raw('*')});
+knex('users').count(knex.raw('id'));
+
+knex('users').countDistinct('votes');
+knex('users').countDistinct(knex.raw('votes'));
+knex('users').countDistinct({votes: 'votes'});
+knex('users').countDistinct({votes: knex.raw('votes')});
+
+knex('users').avg('id');
+knex('users').avg('id', 'votes');
+knex('users').avg({avg: 'id'});
+knex('users').avg({avg: ['id', 'votes']});
+knex('users').avg({ab: knex.raw('a + b')});
+knex('users').avg(knex.raw('votes'));
+
+knex('users').avgDistinct('votes');
+knex('users').avgDistinct(knex.raw('votes'));
+knex('users').avgDistinct({votes: 'votes'});
+knex('users').avgDistinct({votes: knex.raw('votes')});
+
+knex('users').max('id');
+knex('users').max('id', 'votes');
+knex('users').max({max: 'id'});
+knex('users').max({max: ['id', 'votes']});
+knex('users').max({ab: knex.raw('a + b')});
+knex('users').max(knex.raw('votes'));
+
+knex('users').min('id');
+knex('users').min('id', 'votes');
+knex('users').min({min: 'id'});
+knex('users').min({min: ['id', 'votes']});
+knex('users').min({ab: knex.raw('a + b')});
+knex('users').min(knex.raw('votes'));
+
+knex('users').sum('id');
+knex('users').sum('id', 'votes');
+knex('users').sum({sum: 'id'});
+knex('users').sum({sum: ['id', 'votes']});
+knex('users').sum({ab: knex.raw('a + b')});
+knex('users').sum(knex.raw('votes'));
+
+knex('users').sumDistinct('votes');
+knex('users').sumDistinct(knex.raw('votes'));
+knex('users').sumDistinct({votes: 'votes'});
+knex('users').sumDistinct({votes: knex.raw('votes')});
 
 // Join methods
 knex('users')
@@ -221,59 +325,217 @@ knex('users')
   .select('users.id', 'contacts.phone');
 
 knex.select('*').from('users').join(knex('accounts').select('id', 'owner_id').as('accounts'), function() {
-  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
 knex.select('*').from('users').join('accounts', function() {
-  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
+});
+
+knex.select('*').from('users').join('accounts', function(join: Knex.JoinClause) {
+  if (this !== join) {
+    throw new Error("join() callback call semantics wrong");
+  }
+  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
+});
+
+knex.select('*').from('user').join('contacts', () => {
+  this.on('users.id', '=', knex.raw(7));
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onIn('contacts.id', [7, 15, 23, 41]);
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnIn('contacts.id', [7, 15, 23, 41]);
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnIn('contacts.id', [7, 15, 23, 41]);
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onNotIn('contacts.id', [7, 15, 23, 41]);
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNotIn('contacts.id', [7, 15, 23, 41]);
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNotIn('contacts.id', [7, 15, 23, 41]);
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onNull('contacts.email');
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNull('contacts.email');
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNull('contacts.email');
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onNotNull('contacts.email');
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNotNull('contacts.email');
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNotNull('contacts.email');
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  });
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  });
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  });
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onNotExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  });
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNotExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  });
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNotExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  });
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onBetween('contacts.id', [5, 30]);
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnBetween('contacts.id', [5, 30]);
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnBetween('contacts.id', [5, 30]);
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onNotBetween('contacts.id', [5, 30]);
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').andOnNotBetween('contacts.id', [5, 30]);
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').orOnNotBetween('contacts.id', [5, 30]);
+});
+
+knex.select('*').from('users').join('contacts', function() {
+  this.on('users.id', '=', 'contacts.id').onNotExists(function() {
+    this.select('*').from('accounts').whereRaw('users.account_id = accounts.id');
+  });
+});
+
+knex.select('*').from('users').join('accounts', (join: Knex.JoinClause) => {
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
 knex.select('*').from('users').join('accounts', 'accounts.type', knex.raw('?', ['admin']));
 
+knex.raw('? ON CONFLICT DO NOTHING', [knex('account').insert([{}])]);
+knex.raw('select * from users where id = ? OR id = ?',
+  1,
+  knex('users').select('id').limit(1),
+);
 knex.raw('select * from users where id = :user_id', { user_id: 1 });
+knex.raw('select * from users where id = :user_id_query', {
+  user_id_query: knex('ids').select('id').limit(1)
+});
 
 knex.from('users').innerJoin('accounts', 'users.id', 'accounts.user_id');
 
 knex.table('users').innerJoin('accounts', 'users.id', '=', 'accounts.user_id');
 
 knex('users').innerJoin('accounts', function() {
-  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
+});
+
+knex('users').innerJoin('accounts', (join: Knex.JoinClause) => {
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
 knex.select('*').from('users').leftJoin('accounts', 'users.id', 'accounts.user_id');
 
 knex.select('*').from('users').leftJoin('accounts', function() {
-  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
+});
+
+knex.select('*').from('users').leftJoin('accounts', (join: Knex.JoinClause) => {
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
 knex.select('*').from('users').leftOuterJoin('accounts', 'users.id', 'accounts.user_id');
 
 knex.select('*').from('users').leftOuterJoin('accounts', function() {
-  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
 knex.select('*').from('users').rightJoin('accounts', 'users.id', 'accounts.user_id');
 
 knex.select('*').from('users').rightJoin('accounts', function() {
-  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
+});
+
+knex.select('*').from('users').rightJoin('accounts', (join: Knex.JoinClause) => {
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
 knex.select('*').from('users').rightOuterJoin('accounts', 'users.id', 'accounts.user_id');
 
 knex.select('*').from('users').rightOuterJoin('accounts', function() {
-  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
 knex.select('*').from('users').outerJoin('accounts', 'users.id', 'accounts.user_id');
 
 knex.select('*').from('users').outerJoin('accounts', function() {
-  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
+});
+
+knex.select('*').from('users').outerJoin('accounts', (join: Knex.JoinClause) => {
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
 knex.select('*').from('users').fullOuterJoin('accounts', 'users.id', 'accounts.user_id');
 
 knex.select('*').from('users').fullOuterJoin('accounts', function() {
-  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
+});
+
+knex.select('*').from('users').fullOuterJoin('accounts', (join: Knex.JoinClause) => {
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
 knex.select('*').from('users').crossJoin('accounts', 'users.id', 'accounts.user_id');
@@ -281,6 +543,44 @@ knex.select('*').from('users').crossJoin('accounts', 'users.id', 'accounts.user_
 knex.select('*').from('accounts').joinRaw('natural full join table1').where('id', 1);
 
 knex.select('*').from('accounts').join(knex.raw('natural full join table1')).where('id', 1);
+
+knex.select('*').from('accounts')
+  .join(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .leftJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .leftOuterJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .rightJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .rightOuterJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .innerJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .crossJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .fullOuterJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+knex.select('*').from('accounts')
+  .outerJoin(function() {
+    this.select('*').from('accounts').as('special_accounts');
+  }, 'special_accounts.a', '=', 'accounts.b');
+
 
 knex('customers')
   .distinct('first_name', 'last_name')
@@ -309,7 +609,8 @@ knex('books')
   .returning('id')
   .insert([{title: 'Great Gatsby'}, {title: 'Fahrenheit 451'}]);
 
-knex.batchInsert('books', [{title:'Great Gatsby'}, {title: 'Fahrenheit 451'}], 200);
+knex.batchInsert('books', [{title: 'Great Gatsby'}, {title: 'Fahrenheit 451'}], 200);
+knex.batchInsert('books', [{title: 'Catcher In The Rye'}, {title: 'Pride And Prejudice'}]);
 knex.queryBuilder().table('books');
 
 knex('books').where('published_date', '<', 2000).update({status: 'archived'});
@@ -360,7 +661,6 @@ knex.transaction(function(trx) {
     })
     .then(trx.commit)
     .catch(trx.rollback);
-
 }).then(function() {
   console.log('Transaction complete.');
 }).catch(function(err) {
@@ -376,8 +676,18 @@ knex.transaction(function(trx) {
   knex('tableName')
     .transacting(trx)
     .forShare()
-    .select('*')
+    .select('*');
 });
+
+const transactionReturnValue = knex.transaction(function(trx) {
+  return knex("table")
+    .insert({ foo: "bar" })
+    .returning(["id"])
+    .then(function(result) { return result[0].id as number; });
+});
+
+// Tests that the transaction has kept the type of its return value by referencing a method of number
+transactionReturnValue.then(value => value.toExponential);
 
 knex('users').count('active');
 
@@ -456,7 +766,7 @@ knex.transaction(function(trx) {
 });
 
 // Using trx as a transaction object:
-knex.transaction(function(trx) {
+knex.transaction<{ length: number }>(function(trx) {
 
   trx.raw('');
 
@@ -503,7 +813,10 @@ knex.transaction(function(trx) {
   console.error(error);
 });
 
-knex.schema.withSchema("public").hasTable("table") as Promise<boolean>;
+// transacting handles undefined
+knex.insert({ name: 'Old Books'}).transacting(undefined);
+
+knex.schema.withSchema("public").hasTable("table"); // $ExpectType Bluebird<boolean>
 
 knex.schema.createTable('users', function (table) {
   table.increments();
@@ -512,6 +825,10 @@ knex.schema.createTable('users', function (table) {
   table.timestamps();
   table.timestamp('created_at').defaultTo(knex.fn.now());
   table.timestamps(true, true);
+});
+
+knex.schema.alterTable('users', function (table) {
+  table.string('role').nullable();
 });
 
 knex.schema.renameTable('users', 'old_users');
@@ -558,7 +875,7 @@ knex('users')
   .orWhere(knex.raw('status <> ?', [1]))
   .groupBy('status');
 
-  knex.raw('select * from users where id = ?', [1]).then(function(resp) {
+knex.raw('select * from users where id = ?', [1]).then(function(resp) {
     // ...
   });
 
@@ -588,8 +905,8 @@ knex.select('name').from('users')
   .andWhere('id', '<', 200)
   .limit(10)
   .offset(x)
-  .then(function(rows: any) {
-    return _.map(rows, 'name');
+  .then(function(rows) {
+    return rows.map((r: any) => r.name);
   })
   .then(function(names: any) {
     return knex.select('id').from('nicknames').whereIn('nickname', names);
@@ -598,7 +915,7 @@ knex.select('name').from('users')
     console.log(rows);
   })
   .catch(function(error) {
-    console.error(error)
+    console.error(error);
   });
 
 knex.select('*').from('users').where({name: 'Tim'})
@@ -642,7 +959,7 @@ knex.select('name').from('users').limit(10).then(function (rows: any[]) {
     memo.names.push(row.name);
     memo.count++;
     return memo;
-  }, {count: 0, names: []})
+  }, {count: 0, names: []});
 }).then(function(obj: any) {
   console.log(obj);
 }).catch(function(e: Error) {
@@ -665,19 +982,11 @@ knex.select('name').from('users')
   .where('id', '>', 20)
   .andWhere('id', '<', 200)
   .limit(10)
-  .offset(x)
-  .exec(function(err: any, rows: any[]) {
-    if (err) return console.error(err);
-    knex.select('id').from('nicknames').whereIn('nickname', _.map(rows, 'name') as any)
-      .exec(function(err: any, rows: any[]) {
-        if (err) return console.error(err);
-        console.log(rows);
-      });
-  });
+  .offset(x);
 
 // Retrieve the stream:
 var stream = knex.select('*').from('users').stream();
-var writableStream: any;
+var writableStream: NodeJS.WritableStream;
 stream.pipe(writableStream);
 
 // With options:
@@ -709,9 +1018,78 @@ knex.select('*')
     // ...
   });
 
-  knex.select('*').from('users').where(knex.raw('id = ?', [1])).toString();
+knex.select('*').from('users').where(knex.raw('id = ?', [1])).toString();
 
-  knex.select('*').from('users').where(knex.raw('id = ?', [1])).toSQL();
+knex.select('*').from('users').where(knex.raw('id = ?', [1])).toSQL();
+
+//
+// Callback functions
+//
+knex('users')
+  .select('*')
+  .join('contacts', function(builder) {
+    this.on(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).andOn(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).orOn(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).onExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).orOnExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).andOnExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).onNotExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).andOnNotExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    }).orOnNotExists(function(builder) {
+      let self: Knex.QueryBuilder = this;
+      self = builder;
+    });
+  }).where(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).orWhere(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).andWhere(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).whereIn('column', function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).orWhereIn('column', function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).whereNotIn('column', function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).orWhereNotIn('column', function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).whereWrapped(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).union(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).unionAll(function(builder) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }).modify(function(builder, aBool) {
+    let self: Knex.QueryBuilder = this;
+    self = builder;
+  }, true);
 
 //
 // Migrations
@@ -745,4 +1123,85 @@ knex.schema
   .dropTableIfExists('A')
   .createTable('A', table => {
     table.integer('C').unsigned().references('B.id').notNullable();
+    table.integer('D').primary('PK').notNullable();
+    table.string('E').unique('UX').nullable();
+    table.foreign('E', 'FK').references('F.id');
+    table.timestamp('T', false).notNullable();
   });
+
+
+//creating table in MySQL with binary primary key with known field length
+knex.schema.createTable('testTable', function (table) {
+    table.binary('binaryKey', 16).primary(); //will make table with binaryKey type BINARY(16)
+});
+
+// allow creating decimal column that can store that can store numbers of any
+// precision and scale. (Only supported for Oracle, SQLite, Postgres)
+var knex = Knex({
+    client: 'pg'
+});
+
+knex.schema
+    .dropTableIfExists('testTable')
+    .createTable('testTable', function (table) {
+        table.decimal('dec', null);
+    })
+    .dropTable('testTable');
+
+// allow specifying an alias for a table name
+knex.schema
+    .dropTableIfExists('foo')
+    .dropTableIfExists('bar')
+    .createTable('foo', function (table) {
+        table.uuid('id').primary();
+    })
+    .createTable('bar', function (table) {
+        table.uuid('id').primary();
+    });
+
+knex({
+    table1: 'foo',
+    table2: 'bar'
+})
+    .select({
+        table1Id: 'table1.id',
+        table2Id: 'table2.id'
+    });
+
+knex('characters')
+    .select()
+    .whereIn(['name', 'class'], [['Bar', 'Fighter'], ['Foo', 'Druid']]);
+
+knex('characters')
+    .select()
+    .whereIn('name', knex('characters').select('name'));
+knex('characters')
+    .select()
+    .whereIn(['name', 'class'], knex('characters').select('name', 'class'));
+
+knex('characters')
+    .select()
+    .whereIn('name', function() {
+        this.select('name').from('characters');
+    });
+knex('characters')
+    .select()
+    .whereIn(['name', 'class'], function() {
+        this.select('name', 'class').from('characters');
+    });
+
+knex('characters')
+    .select()
+    .where({ name: 'Bar', class: 'Fighter' })
+    .union(knex('characters').select().where({ name: 'Foo', class: 'Druid' }));
+knex('characters')
+    .select()
+    .where({ name: 'Bar', class: 'Fighter' })
+    .union([knex('characters').select().where({ name: 'Foo', class: 'Druid' })]);
+knex('characters')
+    .select()
+    .where({ name: 'Bar', class: 'Fighter' })
+    .union(
+        knex('characters').select().where({ name: 'Foo', class: 'Druid' }),
+        knex('characters').select().where({ name: 'Baz', class: 'Paladin' })
+    );

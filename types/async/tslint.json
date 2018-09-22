@@ -16,6 +16,7 @@
         "no-void-expression": false,
         "object-literal-key-quotes": false,
         "object-literal-shorthand": false,
+        "one-line": false,
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
         "prefer-const": false,

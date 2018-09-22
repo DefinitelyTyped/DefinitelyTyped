@@ -175,3 +175,25 @@ ctrl.getLabel();
 ctrl.setLabel("Label name");
 ctrl.getVisible();
 ctrl.setVisible(true);
+
+// Demonstrate getEntityMetadata
+Xrm.Utility.getEntityMetadata("account", ["telephone1"]).then((metadata) => {
+    console.log(metadata.Attributes["statuscode"].optionSet[0].Label.LocalizedLabels[0].Label);
+});
+
+// Demonstrate WebAPI RetrieveMultiple
+Xrm.WebApi.retrieveMultipleRecords("contact", `?fetchXml=<fetch version='1.0' mapping='logical' distinct='false'>
+    <entity name='contact'>
+        <attribute name='fullname' />
+        <attribute name='telephone1' />
+        <attribute name='contactid' />
+        <order attribute='fullname' descending='false' />
+        <link-entity name= 'account' from='accountid' to='parentcustomerid' visible= 'false' link-type='outer' alias= 'a_dc9b80f8c78146d89fd6a3b610836975' >
+            <attribute name='accountratingcode' />
+            <attribute name='accountnumber' />
+            <attribute name='name' />
+        </link-entity>
+    </entity>
+    </fetch>`).then((response) => {
+        console.log("Query Returned : " + response.entities.length);
+    });

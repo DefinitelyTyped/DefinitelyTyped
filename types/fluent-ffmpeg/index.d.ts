@@ -1,6 +1,8 @@
 // Type definitions for node-fluent-ffmpeg 2.1
 // Project: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
-// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>, DingWeizhe <https://github.com/DingWeizhe>
+// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>
+//                 DingWeizhe <https://github.com/DingWeizhe>
+//                 Mounir Abid <https://github.com/mabidina>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
 
 /// <reference types="node" />
@@ -11,7 +13,7 @@ import * as stream from "stream";
 declare namespace Ffmpeg {
     interface FfmpegCommandLogger {
         error(...data: any[]): void;
-        warning(...data: any[]): void;
+        warn(...data: any[]): void;
         info(...data: any[]): void;
         debug(...data: any[]): void;
     }
@@ -281,12 +283,10 @@ declare namespace Ffmpeg {
         getAvailableFormats(callback: FormatsCallback): void;
 
         // ffprobe
-        /* tslint:disable:unified-signatures */
-        ffprobe(callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        ffprobe(index: number, callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        /* tslint:enable:unified-signatures */
+        ffprobe(callback: (err: any, data: FfprobeData) => void): void;
+        ffprobe(index: number, callback: (err: any, data: FfprobeData) => void): void;
+        ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): void; // tslint:disable-line unified-signatures
+        ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): void;
 
         // recipes
         saveToFile(output: string): FfmpegCommand;
@@ -305,6 +305,11 @@ declare namespace Ffmpeg {
         clone(): FfmpegCommand;
         run(): void;
     }
+
+    function ffprobe(file: string, callback: (err: any, data: FfprobeData) => void): void;
+    function ffprobe(file: string, index: number, callback: (err: any, data: FfprobeData) => void): void;
+    function ffprobe(file: string, options: string[], callback: (err: any, data: FfprobeData) => void): void; // tslint:disable-line unified-signatures
+    function ffprobe(file: string, index: number, options: string[], callback: (err: any, data: FfprobeData) => void): void;
 }
 declare function Ffmpeg(options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;
 declare function Ffmpeg(input?: string | stream.Readable, options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;

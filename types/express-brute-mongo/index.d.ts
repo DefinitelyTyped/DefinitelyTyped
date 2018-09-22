@@ -8,15 +8,8 @@ import { Collection } from "mongodb";
 
 /**
  * @summary MongoDB store adapter.
- * @class
  */
 declare class MongoStore {
-    /**
-     * @summary Constructor.
-     * @constructor
-     * @param {Function} getCollection The collection.
-     * @param {Object}   options       The otpions.
-     */
     constructor(getCollection: (collection: (c: Collection) => void) => void, options?: Object);
 }
 export = MongoStore;

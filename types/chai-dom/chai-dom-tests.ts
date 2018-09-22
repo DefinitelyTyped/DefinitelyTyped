@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import * as chaiDom from 'chai-dom';
+import chaiDom = require('chai-dom');
 
 chai.use(chaiDom);
 var expect = chai.expect;
@@ -13,6 +13,7 @@ function test() {
     expect(testElement).to.have.id('id');
     expect(testElement).to.have.html('foo');
     expect(testElement).to.have.text('foo');
+    expect(testElement).to.have.trimmed.text('foo');
     expect(testElement).to.have.text(['foo', 'bar']);
     expect(testElement).to.have.value('foo');
     expect(testElement).to.be.empty;

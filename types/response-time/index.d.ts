@@ -2,6 +2,7 @@
 // Project: https://github.com/expressjs/response-time
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik>, TonyYang <https://github.com/TonyPythoneer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 
 /* =================== USAGE ===================

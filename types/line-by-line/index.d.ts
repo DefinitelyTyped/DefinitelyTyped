@@ -13,7 +13,6 @@ export = LineByLineReader;
 interface LineByLineReader extends EventEmitter {
     /**
      * subscribe to an event emitted by reader
-     * @param event {@link LineByLineReaderEvent}
      * @param listener A void function with one param
      */
     on(event: LineByLineReaderEvent, listener: (value: any) => void): this;

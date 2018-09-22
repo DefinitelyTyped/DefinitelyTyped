@@ -7,7 +7,7 @@
 import * as L from 'leaflet';
 
 declare module 'leaflet' {
-    interface MarkerCluster extends Marker {
+    class MarkerCluster extends Marker {
         /*
         * Recursively retrieve all child markers of this cluster.
         */
@@ -29,7 +29,7 @@ declare module 'leaflet' {
         getBounds(): LatLngBounds;
     }
 
-    interface MarkerClusterGroupOptions {
+    interface MarkerClusterGroupOptions extends LayerOptions {
         /*
         * When you mouse over a cluster it shows the bounds of its markers.
         */
@@ -117,7 +117,7 @@ declare module 'leaflet' {
         chunkDelay?: number;
     }
 
-    interface MarkerClusterGroup extends FeatureGroup {
+    class MarkerClusterGroup extends FeatureGroup {
         /*
         * Bulk methods for adding and removing markers and should be favoured over the
         * single versions when doing bulk addition/removal of markers.

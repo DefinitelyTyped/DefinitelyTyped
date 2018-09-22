@@ -1,7 +1,7 @@
 /// <reference types="jquery" />
 
-import * as Pikaday from "pikaday";
-import * as moment from "moment";
+import Pikaday = require("pikaday");
+import moment = require("moment");
 
 new Pikaday({field: document.getElementById('datepicker')});
 new Pikaday({field: $('#datepicker')[0]});
@@ -32,6 +32,7 @@ new Pikaday({field: $('#datepicker')[0]});
     picker.setDate('2015-01-01');
     picker.getMoment();
     picker.setMoment(moment('14th February 2014', 'DDo MMMM YYYY'));
+    picker.setMoment(moment('14th February 2014', 'DDo MMMM YYYY'), true);
     picker.gotoDate(new Date(2014, 1));
     picker.gotoToday();
     picker.gotoMonth(2);

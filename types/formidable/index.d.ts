@@ -14,6 +14,7 @@ export declare class IncomingForm extends events.EventEmitter {
     encoding: string;
     uploadDir: string;
     keepExtensions: boolean;
+    maxFileSize: number;
     maxFieldsSize: number;
     maxFields: number;
     hash: string | boolean;
@@ -29,7 +30,7 @@ export declare class IncomingForm extends events.EventEmitter {
 }
 
 export interface Fields {
-    [key: string]: string;
+    [key: string]: string|Array<string>;
 }
 
 export interface Files {

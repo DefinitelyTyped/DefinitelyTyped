@@ -52,7 +52,7 @@ declare namespace merge2 {
          *             If you set end === false in options, this event give you a notice that
          *             you should add more streams to merge, or end the mergedStream.
          *
-         * @param      {string} event  The 'queueDrain' event
+         * @param event The 'queueDrain' event
          *
          * @return     This stream
          */

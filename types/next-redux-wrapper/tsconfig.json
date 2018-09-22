@@ -1,24 +1,25 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "lib": [
-      "es6",
-      "dom"
-    ],
-    "jsx": "react",
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "baseUrl": "../",
-    "typeRoots": [
-      "../"
-    ],
-    "types": [],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "files": [
-    "index.d.ts",
-    "next-redux-wrapper-tests.tsx"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "jsx": "react",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "next-redux-wrapper-tests.tsx"
+    ]
 }

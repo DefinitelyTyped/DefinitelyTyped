@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class IoCompass extends React.Component<IconBaseProps> { }
+declare class IoCompass extends React.Component<IconBaseProps> { }
+export = IoCompass;

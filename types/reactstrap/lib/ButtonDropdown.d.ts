@@ -1,12 +1,10 @@
-import {
-  UncontrolledProps as DropdownUncontrolledProps,
-  Props as DropdownProps
-} from './Dropdown';
+import * as React from 'react';
+import { UncontrolledDropdownProps, DropdownProps } from './Dropdown';
 
-// tslint:disable-next-line
-export interface UncontrolledProps extends DropdownUncontrolledProps { }
-// tslint:disable-next-line
-interface Props extends DropdownProps { }
+export type UncontrolledProps<T = {}> = UncontrolledDropdownProps<T>;
+export type UncontrolledButtonDropdownProps<T = {}> = UncontrolledProps<T>;
 
-declare var ButtonDropdown: React.StatelessComponent<Props>;
+export type ButtonDropdownProps<T = {}> = DropdownProps<T>;
+
+declare class ButtonDropdown<T = {[key: string]: any}> extends React.Component<ButtonDropdownProps<T>> {}
 export default ButtonDropdown;

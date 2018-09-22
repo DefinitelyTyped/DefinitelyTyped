@@ -56,6 +56,7 @@ declare namespace BMap {
         getZoom(): number
         getPanorama(): Panorama
         centerAndZoom(center: Point, zoom: number): void
+        centerAndZoom(city: string): void
         panTo(center: Point, opts?: PanOptions): void
         panBy(x: number, y: number, opts?: PanOptions): void
         reset(): void

@@ -1,7 +1,9 @@
-// Type definitions for auth0-lock 10.16
+// Type definitions for auth0-lock 11.4
 // Project: http://auth0.com
 // Definitions by: Brian Caruso <https://github.com/carusology>
 //                 Dan Caddigan <https://github.com/goldcaddy77>
+//                 Larry Faudree <https://github.com/lfaudreejr>
+//                 Will Caulfield <https://github.com/willcaul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="auth0-js" />
@@ -23,15 +25,36 @@ type Auth0LockAdditionalSignUpFieldPrefillCallback =
 type Auth0LockAdditionalSignUpFieldPrefillFunction =
     (callback: Auth0LockAdditionalSignUpFieldPrefillCallback) => void;
 
-interface Auth0LockAdditionalSignUpField {
+interface Auth0LockAdditionalTextSignUpField {
+    type?: "text";
     icon?: string;
     name: string;
     options?: Auth0LockAdditionalSignUpFieldOption[] | Auth0LockAdditionalSignUpFieldOptionsFunction;
     placeholder: string;
     prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction;
-    type?: "select" | "text";
     validator?: (input: string) => { valid: boolean; hint?: string };
 }
+
+interface Auth0LockAdditionalSelectSignUpField {
+    type?: "select";
+    icon?: string;
+    name: string;
+    options?: Auth0LockAdditionalSignUpFieldOption[] | Auth0LockAdditionalSignUpFieldOptionsFunction;
+    placeholder: string;
+    prefill?: string | Auth0LockAdditionalSignUpFieldPrefillFunction;
+    validator?: (input: string) => { valid: boolean; hint?: string };
+}
+
+interface Auth0LockAdditionalCheckboxSignUpField {
+    type?: "checkbox";
+    icon?: string;
+    name: string;
+    placeholder: string;
+    prefill: "true" | "false";
+    validator?: (input: string) => { valid: boolean, hint?: string };
+}
+
+type Auth0LockAdditionalSignUpField = Auth0LockAdditionalSelectSignUpField |Auth0LockAdditionalTextSignUpField |Auth0LockAdditionalCheckboxSignUpField;
 
 type Auth0LockAvatarUrlCallback = (error: auth0.Auth0Error, url: string) => void;
 type Auth0LockAvatarDisplayNameCallback = (error: auth0.Auth0Error, displayName: string) => void;
@@ -53,6 +76,7 @@ interface Auth0LockThemeButtonOptions {
 
 interface Auth0LockThemeOptions {
     authButtons?: Auth0LockThemeButtonOptions;
+    hideMainScreenTitle?: boolean;
     labeledSubmitButton?: boolean;
     logo?: string;
     primaryColor?: string;
@@ -92,22 +116,29 @@ interface Auth0LockConstructorOptions {
     allowForgotPassword?: boolean;
     allowLogin?: boolean;
     allowSignUp?: boolean;
+    allowShowPassword?: boolean;
     assetsUrl?: string;
     auth?: Auth0LockAuthOptions;
     autoclose?: boolean;
     autofocus?: boolean;
-    avatar?: Auth0LockAvatarOptions;
+    avatar?: Auth0LockAvatarOptions | null;
+    clientBaseUrl?: string;
     closable?: boolean;
+    configurationBaseUrl?: string;
     container?: string;
     defaultADUsernameFromEmailPrefix?: string;
     defaultDatabaseConnection?: string;
     defaultEnterpriseConnection?: string;
     forgotPasswordLink?: string;
+    hashCleanup?: boolean;
     initialScreen?: "login" | "signUp" | "forgotPassword";
     language?: string;
+    languageBaseUrl?: string;
     languageDictionary?: any;
+    leeway?: number;
     loginAfterSignUp?: boolean;
     mustAcceptTerms?: boolean;
+    oidcConformant?: boolean;
     popupOptions?: Auth0LockPopupOptions;
     prefill?: { email?: string, username?: string};
     rememberLastLogin?: boolean;
@@ -115,7 +146,8 @@ interface Auth0LockConstructorOptions {
     socialButtonStyle?: "big" | "small";
     theme?: Auth0LockThemeOptions;
     usernameStyle?: string;
-    oidcConformant?: boolean;
+    _enableImpersonation?: boolean;
+    _enableIdPInitiatedLogin?: boolean;
 }
 
 interface Auth0LockFlashMessageOptions {
@@ -132,10 +164,13 @@ interface Auth0LockShowOptions {
     initialScreen?: "login" | "signUp" | "forgotPassword";
     flashMessage?: Auth0LockFlashMessageOptions;
     rememberLastLogin?: boolean;
+    languageDictionary?: any;
 }
 
 interface AuthResult {
     accessToken: string;
+    appState?: any;
+    expiresIn: number;
     idToken: string;
     idTokenPayload: {
         aud: string;
@@ -145,8 +180,10 @@ interface AuthResult {
         sub: string;
     };
     refreshToken?: string;
+    scope?: string;
     state: string;
-}
+    tokenType: string;
+  }
 
 interface Auth0LockStatic {
     new (clientId: string, domain: string, options?: Auth0LockConstructorOptions): Auth0LockStatic;
@@ -154,6 +191,7 @@ interface Auth0LockStatic {
     // deprecated
     getProfile(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
     getUserInfo(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
+    checkSession(options: any, callback: (error: auth0.Auth0Error, authResult: AuthResult | undefined) => void): void;
     // https://github.com/auth0/lock#resumeauthhash-callback
     resumeAuth(hash: string, callback: (error: auth0.Auth0Error, authResult: AuthResult) => void): void;
     show(options?: Auth0LockShowOptions): void;

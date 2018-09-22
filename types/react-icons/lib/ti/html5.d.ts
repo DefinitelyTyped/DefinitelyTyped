@@ -1,3 +1,4 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class TiHtml5 extends React.Component<IconBaseProps> { }
+declare class TiHtml5 extends React.Component<IconBaseProps> { }
+export = TiHtml5;

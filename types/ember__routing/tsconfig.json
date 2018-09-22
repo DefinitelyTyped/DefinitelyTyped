@@ -1,0 +1,44 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@ember/object": ["ember__object"],
+            "@ember/object/*": ["ember__object/*"],
+            "@ember/array": ["ember__array"],
+            "@ember/array/*": ["ember__array/*"],
+            "@ember/routing": ["ember__routing"],
+            "@ember/routing/*": ["ember__routing/*"]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "auto-location.d.ts",
+        "hash-location.d.ts",
+        "history-location.d.ts",
+        "index.d.ts",
+        "link-component.d.ts",
+        "location.d.ts",
+        "none-location.d.ts",
+        "route.d.ts",
+        "router-service.d.ts",
+        "router.d.ts",
+        "test/lib/assert.ts",
+        "test/route.ts",
+        "test/router.ts"
+    ]
+}

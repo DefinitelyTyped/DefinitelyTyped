@@ -9,7 +9,7 @@ declare namespace serializeJavascript {
          * This option is the same as the space argument that can be passed to JSON.stringify.
          * It can be used to add whitespace and indentation to the serialized output to make it more readable.
          */
-        space?: string | number | undefined;
+        space?: string | number;
         /**
          * This option is a signal to serialize() that the object being serialized does not contain any function or regexps values.
          * This enables a hot-path that allows serialization to be over 3x faster.
@@ -21,9 +21,9 @@ declare namespace serializeJavascript {
 
 /**
  * Serialize JavaScript to a superset of JSON that includes regular expressions and functions.
- * @param {any} input data to serialize
- * @param {serializeJavascript.SerializeJSOptions} options optional object
- * @returns {string} serialized data
+ * @param input data to serialize
+ * @param options optional object
+ * @returns serialized data
  */
 declare function serializeJavascript(input: any, options?: serializeJavascript.SerializeJSOptions): string;
 export = serializeJavascript;

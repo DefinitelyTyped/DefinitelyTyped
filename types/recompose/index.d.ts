@@ -1,10 +1,12 @@
-// Type definitions for Recompose 0.24
+// Type definitions for Recompose 0.26
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 //                 Samuel DeSota <https://github.com/mrapogee>
 //                 Curtis Layne <https://github.com/clayne11>
+//                 Rasmus Eneman <https://github.com/Pajn>
+//                 Lucas Terra <https://github.com/lucasterra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 ///<reference types="react" />
 
@@ -17,9 +19,8 @@ declare module 'recompose' {
     type predicate<T> = mapper<T, boolean>;
     type predicateDiff<T> = (current: T, next: T) => boolean
 
-    // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-    type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
-    type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+    // Diff / Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
+    type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
     interface Observer<T>{
         next(props: T): void;
@@ -78,13 +79,25 @@ declare module 'recompose' {
 
     // withHandlers: https://github.com/acdlite/recompose/blob/master/docs/API.md#withhandlers
     type EventHandler = Function;
-    type HandleCreators<TOutter> = {
+    // This type is required to infer TOutter
+    type HandleCreatorsStructure<TOutter> = {
         [handlerName: string]: mapper<TOutter, EventHandler>;
     };
-    type HandleCreatorsFactory<TOutter, THandlers> = (initialProps: TOutter) => HandleCreators<TOutter>;
+    // This type is required to infer THandlers
+    type HandleCreatorsHandlers<TOutter, THandlers> = {
+        [P in keyof THandlers]: (props: TOutter) => THandlers[P];
+    };
+    type HandleCreators<TOutter, THandlers> =
+        & HandleCreatorsStructure<TOutter>
+        & HandleCreatorsHandlers<TOutter, THandlers>
+    type HandleCreatorsFactory<TOutter, THandlers> = (initialProps: TOutter) =>
+        HandleCreators<TOutter, THandlers>;
+
     export function withHandlers<TOutter, THandlers>(
-        handlerCreators: HandleCreators<TOutter> | HandleCreatorsFactory<TOutter, THandlers>
-    ): InferableComponentEnhancerWithProps<THandlers, TOutter>;
+        handlerCreators:
+            | HandleCreators<TOutter, THandlers>
+            | HandleCreatorsFactory<TOutter, THandlers>
+    ): InferableComponentEnhancerWithProps<THandlers & TOutter, TOutter>;
 
     // defaultProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#defaultprops
     export function defaultProps<T = {}>(
@@ -133,14 +146,17 @@ declare module 'recompose' {
     >;
 
     // withStateHandlers: https://github.com/acdlite/recompose/blob/master/docs/API.md#withstatehandlers
-    type StateHandler<TState> = (...payload: any[]) => TState | undefined;
-    type StateUpdaters<TOutter, TState> = {
-      [updaterName: string]: (state: TState, props: TOutter) => StateHandler<TState>;
+    type StateHandler<TState> = (...payload: any[]) => Partial<TState> | undefined;
+    type StateHandlerMap<TState> = {
+      [updaterName: string]: StateHandler<TState>;
     };
-    export function withStateHandlers<TState, TUpdaters, TOutter>(
+    type StateUpdaters<TOutter, TState, TUpdaters> = {
+      [updaterName in keyof TUpdaters]: (state: TState, props: TOutter) => StateHandler<TState>;
+    };
+    export function withStateHandlers<TState, TUpdaters extends StateHandlerMap<TState>, TOutter = {}>(
       createProps: TState | mapper<TOutter, TState>,
-      stateUpdaters: StateUpdaters<TOutter, TState>,
-    ): InferableComponentEnhancerWithProps<TUpdaters & TState, TOutter>;
+      stateUpdaters: StateUpdaters<TOutter, TState, TUpdaters>,
+    ): InferableComponentEnhancerWithProps<TOutter & TState & TUpdaters, TOutter>;
 
     // withReducer: https://github.com/acdlite/recompose/blob/master/docs/API.md#withReducer
     type reducer<TState, TAction> = (s: TState, a: TAction) => TState;
@@ -216,7 +232,7 @@ declare module 'recompose' {
         contextTypes: ValidationMap<TContext>
     ) : InferableComponentEnhancer<TContext>;
 
-    interface ReactLifeCycleFunctionsThisArguments<TProps, TState> {
+    interface _ReactLifeCycleFunctionsThisArguments<TProps, TState> {
         props: TProps,
         state: TState,
         setState<TKeyOfState extends keyof TState>(f: (prevState: TState, props: TProps) => Pick<TState, TKeyOfState>, callback?: () => any): void;
@@ -228,20 +244,22 @@ declare module 'recompose' {
             [key: string]: React.ReactInstance
         };
     }
+    type ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance = {}> =
+        _ReactLifeCycleFunctionsThisArguments<TProps, TState> & TInstance
 
     // lifecycle: https://github.com/acdlite/recompose/blob/master/docs/API.md#lifecycle
-    interface ReactLifeCycleFunctions<TProps, TState> {
-        componentWillMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>) => void;
-        componentDidMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>) => void;
-        componentWillReceiveProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, nextProps: TProps) => void;
-        shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, nextProps: TProps, nextState: TState) => boolean;
-        componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, nextProps: TProps, nextState: TState) => void;
-        componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>, prevProps: TProps, prevState: TState) => void;
-        componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState>) => void;
+    interface ReactLifeCycleFunctions<TProps, TState, TInstance = {}> {
+        componentWillMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
+        componentDidMount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
+        componentWillReceiveProps?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps) => void;
+        shouldComponentUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => boolean;
+        componentWillUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, nextProps: TProps, nextState: TState) => void;
+        componentDidUpdate?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>, prevProps: TProps, prevState: TState) => void;
+        componentWillUnmount?: (this: ReactLifeCycleFunctionsThisArguments<TProps, TState, TInstance>) => void;
     }
 
-    export function lifecycle<TProps, TState>(
-        spec: ReactLifeCycleFunctions<TProps, TState>
+    export function lifecycle<TProps, TState, TInstance = {}>(
+        spec: ReactLifeCycleFunctions<TProps, TState, TInstance> & TInstance
     ): InferableComponentEnhancer<{}>;
 
     // toClass: https://github.com/acdlite/recompose/blob/master/docs/API.md#toClass
@@ -365,7 +383,7 @@ declare module 'recompose' {
     export function createEventHandler<T, TSubs extends Subscribable<T>>(): EventHandlerOf<T, TSubs>;
 
     // createEventHandlerWithConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#createEventHandlerWithConfig
-    export function createEventHandlerWithConfig(config: ObservableConfig): 
+    export function createEventHandlerWithConfig(config: ObservableConfig):
         <T, TSubs extends Subscribable<T>>() => EventHandlerOf<T, TSubs>;
 
     // setObservableConfig: https://github.com/acdlite/recompose/blob/master/docs/API.md#setObservableConfig
@@ -434,4 +452,235 @@ declare module 'recompose/kefirObservableConfig' {
     const kefirConfig: ObservableConfig;
 
     export default kefirConfig;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#mapprops
+declare module 'recompose/mapProps' {
+    import { mapProps } from 'recompose';
+    export default mapProps;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#withprops
+declare module 'recompose/withProps' {
+    import { withProps } from 'recompose';
+    export default withProps;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#withpropsonchange
+declare module 'recompose/withPropsOnChange' {
+    import { withPropsOnChange } from 'recompose';
+    export default withPropsOnChange;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#withhandlers
+declare module 'recompose/withHandlers' {
+    import { withHandlers } from 'recompose';
+    export default withHandlers;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#defaultprops
+declare module 'recompose/defaultProps' {
+    import { defaultProps } from 'recompose';
+    export default defaultProps;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#renameprop
+declare module 'recompose/renameProp' {
+    import { renameProp } from 'recompose';
+    export default renameProp;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#renameprops
+declare module 'recompose/renameProps' {
+    import { renameProps } from 'recompose';
+    export default renameProps;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#flattenprop
+declare module 'recompose/flattenProp' {
+    import { flattenProp } from 'recompose';
+    export default flattenProp;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#withstate
+declare module 'recompose/withState' {
+    import { withState } from 'recompose';
+    export default withState;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#withstatehandlers
+declare module 'recompose/withStateHandlers' {
+    import { withStateHandlers } from 'recompose';
+    export default withStateHandlers;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#withreducer
+declare module 'recompose/withReducer' {
+    import { withReducer } from 'recompose';
+    export default withReducer;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#branch
+declare module 'recompose/branch' {
+    import { branch } from 'recompose';
+    export default branch;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#rendercomponent
+declare module 'recompose/renderComponent' {
+    import { renderComponent } from 'recompose';
+    export default renderComponent;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#rendernothing
+declare module 'recompose/renderNothing' {
+    import { renderNothing } from 'recompose';
+    export default renderNothing;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#shouldupdate
+declare module 'recompose/shouldUpdate' {
+    import { shouldUpdate } from 'recompose';
+    export default shouldUpdate;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#pure
+declare module 'recompose/pure' {
+    import { pure } from 'recompose';
+    export default pure;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#onlyupdateforkeys
+declare module 'recompose/onlyUpdateForKeys' {
+    import { onlyUpdateForKeys } from 'recompose';
+    export default onlyUpdateForKeys;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#onlyupdateforproptypes
+declare module 'recompose/onlyUpdateForPropTypes' {
+    import { onlyUpdateForPropTypes } from 'recompose';
+    export default onlyUpdateForPropTypes;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#withcontext
+declare module 'recompose/withContext' {
+    import { withContext } from 'recompose';
+    export default withContext;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#getcontext
+declare module 'recompose/getContext' {
+    import { getContext } from 'recompose';
+    export default getContext;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#lifecycle
+declare module 'recompose/lifecycle' {
+    import { lifecycle } from 'recompose';
+    export default lifecycle;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#toclass
+declare module 'recompose/toClass' {
+    import { toClass } from 'recompose';
+    export default toClass;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#setstatic
+declare module 'recompose/setStatic' {
+    import { setStatic } from 'recompose';
+    export default setStatic;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#setproptypes
+declare module 'recompose/setPropTypes' {
+    import { setPropTypes } from 'recompose';
+    export default setPropTypes;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#setdisplayname
+declare module 'recompose/setDisplayName' {
+    import { setDisplayName } from 'recompose';
+    export default setDisplayName;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#compose
+declare module 'recompose/compose' {
+    import { compose } from 'recompose';
+    export default compose;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#getdisplayname
+declare module 'recompose/getDisplayName' {
+    import { getDisplayName } from 'recompose';
+    export default getDisplayName;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#wrapdisplayname
+declare module 'recompose/wrapDisplayName' {
+    import { wrapDisplayName } from 'recompose';
+    export default wrapDisplayName;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#shallowequal
+declare module 'recompose/shallowEqual' {
+    import { shallowEqual } from 'recompose';
+    export default shallowEqual;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#isclasscomponent
+declare module 'recompose/isClassComponent' {
+    import { isClassComponent } from 'recompose';
+    export default isClassComponent;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#createsink
+declare module 'recompose/createSink' {
+    import { createSink } from 'recompose';
+    export default createSink;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#componentfromprop
+declare module 'recompose/componentFromProp' {
+    import { componentFromProp } from 'recompose';
+    export default componentFromProp;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#nest
+declare module 'recompose/nest' {
+    import { nest } from 'recompose';
+    export default nest;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#hoiststatics
+declare module 'recompose/hoistStatics' {
+    import { hoistStatics } from 'recompose';
+    export default hoistStatics;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#componentfromstream
+declare module 'recompose/componentFromStream' {
+    import { componentFromStream } from 'recompose';
+    export { componentFromStreamWithConfig } from 'recompose';
+    export default componentFromStream;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#mappropsstream
+declare module 'recompose/mapPropsStream' {
+    import { mapPropsStream } from 'recompose';
+    export { mapPropsStreamWithConfig } from 'recompose';
+    export default mapPropsStream;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#createeventhandler
+declare module 'recompose/createEventHandler' {
+    import { createEventHandler } from 'recompose';
+    export { createEventHandlerWithConfig } from 'recompose';
+    export default createEventHandler;
+}
+
+// https://github.com/acdlite/recompose/blob/master/docs/API.md#setobservableconfig
+declare module 'recompose/setObservableConfig' {
+    import { setObservableConfig } from 'recompose';
+    export default setObservableConfig;
 }

@@ -20,7 +20,7 @@ declare class Pikaday {
      * Extends the existing configuration options for Pikaday object with the options provided.
      * Can be used to change/extend the configurations on runtime.
      * @param options full/partial configuration options.
-     * @returns {} extended configurations.
+     * @returns extended configurations.
      */
     config(options: Pikaday.PikadayOptions): Pikaday.PikadayOptions;
 
@@ -54,7 +54,7 @@ declare class Pikaday {
     /**
      * Set the current selection with a Moment.js object (see setDate).
      */
-    setMoment(moment: any): void;
+    setMoment(moment: any, preventOnSelect?: boolean): void;
 
     /**
      * Change the current view to see a specific date.

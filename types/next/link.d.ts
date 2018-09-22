@@ -1,5 +1,5 @@
-import * as url from 'url';
-import * as React from 'react';
+import * as url from "url";
+import * as React from "react";
 
 export type UrlLike = url.UrlObject | url.Url;
 export interface LinkState {
@@ -10,6 +10,7 @@ export interface LinkState {
     onError?(error: any): void;
     href?: string | UrlLike;
     as?: string | UrlLike;
+    passHref?: boolean;
     children: React.ReactElement<any>;
 }
 

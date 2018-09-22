@@ -1,11 +1,14 @@
-// Type definitions for react-native-material-ui 1.12
+// Type definitions for react-native-material-ui 1.31
 // Project: https://github.com/xotahal/react-native-material-ui
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Component } from 'react';
-import { ViewStyle, TextStyle, Image } from 'react-native';
+import { StyleProp, ViewStyle as ViewStyleRaw, TextStyle as TextStyleRaw, Image } from 'react-native';
+
+export type ViewStyle = StyleProp<ViewStyleRaw>;
+export type TextStyle = StyleProp<TextStyleRaw>;
 
 export interface ActionButtonProps {
     actions?: string[] | JSX.Element[] | Array<{
@@ -18,6 +21,7 @@ export interface ActionButtonProps {
     style?: {
         container?: ViewStyle
         icon?: TextStyle
+        positionContainer?: ViewStyle
     };
     transition?: 'toolbar' | 'speedDial';
     onPress?(): void;
@@ -25,11 +29,6 @@ export interface ActionButtonProps {
 }
 
 /**
- * Action Button
- *
- * @export
- * @class ActionButton
- * @extends {Component<ActionButtonProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/ActionButton/ActionButton.react.js
  */
 export class ActionButton extends Component<ActionButtonProps, any> {}
@@ -48,11 +47,6 @@ export interface AvatarProps {
 }
 
 /**
- * Avatar
- *
- * @export
- * @class Avatar
- * @extends {Component<AvatarProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Avatar/Avatar.react.js
  */
 export class Avatar extends Component<AvatarProps, any> {}
@@ -72,11 +66,6 @@ export interface BadgeProps {
 }
 
 /**
- * Badge
- *
- * @export
- * @class Badge
- * @extends {Component<BadgeProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Badge/Badge.react.js
  */
 export class Badge extends Component<BadgeProps, any> {}
@@ -91,11 +80,6 @@ export interface BottomNavigationProps {
 }
 
 /**
- * Bottom Navigation
- *
- * @export
- * @class BottomNavigation
- * @extends {Component<BottomNavigationProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/BottomNavigation/BottomNavigation.react.js
  */
 export class BottomNavigation extends Component<BottomNavigationProps, any> {}
@@ -135,11 +119,6 @@ export interface ButtonProps {
 }
 
 /**
- * Button
- *
- * @export
- * @class Button
- * @extends {Component<ButtonProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Button/Button.react.js
  */
 export class Button extends Component<ButtonProps, any> {}
@@ -153,11 +132,6 @@ export interface CardProps {
 }
 
 /**
- * Card
- *
- * @export
- * @class Card
- * @extends {Component<CardProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Card/Card.react.js
  */
 export class Card extends Component<CardProps, any> {}
@@ -178,11 +152,6 @@ export interface CheckBoxProps {
 }
 
 /**
- * Checkbox
- *
- * @export
- * @class Checkbox
- * @extends {Component<CheckBoxProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Checkbox/Checkbox.react.js
  */
 export class Checkbox extends Component<CheckBoxProps, any> {}
@@ -197,10 +166,6 @@ export interface DialogProps {
 
 /**
  * Dialog
- *
- * @export
- * @class Dialog
- * @extends {Component<DialogProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Dialog/Dialog.react.js
  */
 export class Dialog extends Component<DialogProps, any> {}
@@ -242,11 +207,6 @@ export interface DialogDefaultActionsProps {
 }
 
 /**
- * Dialog Default Actions
- *
- * @export
- * @class DialogDefaultActions
- * @extends {Component<DialogDefaultActionsProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Dialog/DialogDefaultActions.react.js
  */
 export class DialogDefaultActions extends Component<DialogDefaultActionsProps, any> {}
@@ -260,11 +220,6 @@ export interface DialogStackedActionsProps {
 }
 
 /**
- * Dialog Stacked Actions
- *
- * @export
- * @class DialogStackedActions
- * @extends {Component<DialogStackedActionsProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Dialog/DialogStackedActions.react.js
  */
 export class DialogStackedActions extends Component<DialogStackedActionsProps, any> {}
@@ -277,11 +232,6 @@ export interface DividerProps {
 }
 
 /**
- * Divider;
- *
- * @export
- * @class Divider
- * @extends {Component<DividerProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Divider/Divider.react.js
  */
 export class Divider extends Component<DividerProps, any> {}
@@ -345,11 +295,6 @@ export interface DrawerHeaderAccountProps {
 }
 
 /**
- * Drawer
- *
- * @export
- * @class Drawer
- * @extends {Component<DrawerProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Drawer/Drawer.react.js
  */
 export class Drawer extends Component<DrawerProps, any> {}
@@ -370,10 +315,6 @@ export interface IconProps {
 
 /**
  * Icon
- *
- * @export
- * @class Icon
- * @extends {Component<IconProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Icon/index.js
  */
 export class Icon extends Component<IconProps, any> {}
@@ -395,17 +336,12 @@ export interface IconToggleProps {
 }
 
 /**
- * Icon Toggle
- *
- * @export
- * @class IconToggle
- * @extends {Component<IconToggleProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/IconToggle/IconToggle.react.js
  */
 export class IconToggle extends Component<IconToggleProps, any> {}
 
 export interface ListItemCenterElement {
-    primaryText: string;
+    primaryText: string | JSX.Element;
     secondaryText?: string;
     tertiaryText?: string;
 }
@@ -441,11 +377,6 @@ export interface ListItemProps {
 }
 
 /**
- * List Item
- *
- * @export
- * @class ListItem
- * @extends {Component<ListItemProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/ListItem/ListItem.react.js
  */
 export class ListItem extends Component<ListItemProps, any> {}
@@ -460,11 +391,6 @@ export interface RadioButtonProps {
 }
 
 /**
- * Radio Button
- *
- * @export
- * @class RadioButton
- * @extends {Component<RadioButtonProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/RadioButton/RadioButton.react.js
  */
 export class RadioButton extends Component<RadioButtonProps, any> {}
@@ -480,11 +406,6 @@ export interface SubheaderProps {
 }
 
 /**
- * Subheader
- *
- * @export
- * @class Subheader
- * @extends {Component<SubheaderProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Subheader/Subheader.react.js
  */
 export class Subheader extends Component<SubheaderProps, any> {}
@@ -508,11 +429,18 @@ export interface Searchable {
     onSearchClosed?(): void;
     onSearchPressed?(): void;
     onSubmitEditing?(): void;
+    onSearchCloseRequested?(): void;
 }
 
 export interface ToolBarRightElement {
     actions?: Array<JSX.Element | string>;
     menu?: {icon: string, labels: string[]};
+}
+
+export interface RightElementPressEvent {
+    action: string;
+    index: number;
+    result?: any;
 }
 
 export interface ToolbarProps {
@@ -526,15 +454,10 @@ export interface ToolbarProps {
     searchable?: Searchable;
     onPress?(): void;
     onLeftElementPress?(): void;
-    onRightElementPress?(): void;
+    onRightElementPress?(e: RightElementPressEvent): void;
 }
 
 /**
- * Toolbar
- *
- * @export
- * @class Toolbar
- * @extends {Component<ToolbarProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Toolbar/Toolbar.react.js
  */
 export class Toolbar extends Component<ToolbarProps, any> {}
@@ -555,11 +478,6 @@ export interface SnackbarProps {
 }
 
 /**
- * Snackbar
- *
- * @export
- * @class Snackbar
- * @extends {Component<SnackbarProps, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/Snackbar/Snackbar.react.js
  */
 export class Snackbar extends Component<SnackbarProps, any> {}
@@ -571,29 +489,9 @@ export interface RippleFeedbackProps {
 }
 
 /**
- * Ripple Feedback
- *
- * @export
- * @class RippleFeedback
- * @extends {Component<IRippleFeedback, any>}
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/RippleFeedback/RippleFeedback.react.js
  */
 export class RippleFeedback extends Component<RippleFeedbackProps, any> {}
-
-export interface ThemeProviderProps {
-    uiTheme: {};
-    children: JSX.Element;
-}
-
-/**
- * ThemeProvider
- *
- * @export
- * @class ThemeProvider
- * @extends {Component<ThemeProviderProps, any>}
- * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/styles/ThemeProvider.react.js
- */
-export class ThemeProvider extends Component<ThemeProviderProps, any> {}
 
 export interface Color {
     red50: string;
@@ -857,3 +755,23 @@ export interface Color {
 }
 
 export const COLOR: Color;
+
+export interface ThemeProps {
+    theme: {};
+}
+
+export interface ThemeProviderProps {
+    value: {};
+    children: React.ReactElement<any>;
+}
+
+export interface ThemeConsumerProps {
+    children(props: ThemeProps): React.ReactElement<any>;
+}
+
+export namespace ThemeContext {
+    class Provider extends Component<ThemeProviderProps> {}
+    class Consumer extends Component<ThemeConsumerProps> {}
+}
+
+export function getTheme(theme: {}): {};

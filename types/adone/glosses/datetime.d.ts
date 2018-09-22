@@ -731,9 +731,6 @@ declare namespace adone {
                  */
                 creationData(): DatetimeCreationData;
 
-                /**
-                 *
-                 */
                 parsingFlags(): DatetimeParsingFlags;
 
                 /**

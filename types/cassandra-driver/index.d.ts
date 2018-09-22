@@ -1,6 +1,7 @@
-// Type definitions for cassandra-driver v3.2.2
+// Type definitions for cassandra-driver v3.4.1
 // Project: https://github.com/datastax/nodejs-driver
 // Definitions by: Marc Fisher <https://github.com/Svjard>
+//                 Christian D <https://github.com/pc-jedi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -12,11 +13,12 @@ export type ResultCallback = (err: Error, result: types.ResultSet) => void;
 
 import * as events from "events";
 import * as stream from "stream";
+import * as tls from "tls";
 import _Long = require("long");
 
 export namespace policies {
   namespace addressResolution {
-    var EC2MultiRegionTranslator: EC2MultiRegionTranslatorStatic;
+    let EC2MultiRegionTranslator: EC2MultiRegionTranslatorStatic;
 
     interface AddressTranslator {
       translate(address: string, port: number, callback: Callback): void;
@@ -32,10 +34,10 @@ export namespace policies {
   }
 
   namespace loadBalancing {
-    var DCAwareRoundRobinPolicy: DCAwareRoundRobinPolicyStatic;
-    var RoundRobinPolicy: RoundRobinPolicyStatic;
-    var TokenAwarePolicy: TokenAwarePolicyStatic;
-    var WhiteListPolicy: WhiteListPolicyStatic;
+    let DCAwareRoundRobinPolicy: DCAwareRoundRobinPolicyStatic;
+    let RoundRobinPolicy: RoundRobinPolicyStatic;
+    let TokenAwarePolicy: TokenAwarePolicyStatic;
+    let WhiteListPolicy: WhiteListPolicyStatic;
 
     interface LoadBalancingPolicy {
       init(client: Client, hosts: HostMap, callback: Callback): void;
@@ -72,8 +74,8 @@ export namespace policies {
   }
 
   namespace reconnection {
-    var ConstantReconnectionPolicy: ConstantReconnectionPolicyStatic;
-    var ExponentialReconnectionPolicy: ExponentialReconnectionPolicyStatic;
+    let ConstantReconnectionPolicy: ConstantReconnectionPolicyStatic;
+    let ExponentialReconnectionPolicy: ExponentialReconnectionPolicyStatic;
 
     interface ReconnectionPolicy {
       newSchedule(): { next: Function };
@@ -93,7 +95,7 @@ export namespace policies {
   }
 
   namespace retry {
-    var RetryPolicy: RetryPolicyStatic;
+    let RetryPolicy: RetryPolicyStatic;
 
     interface DecisionInfo {
       decision: number;
@@ -114,7 +116,11 @@ export namespace policies {
     interface RetryPolicyStatic {
       new (): RetryPolicy;
 
-      retryDecision: any;
+      retryDecision: {
+        rethrow: number,
+        retry: number,
+        ignore: number
+      };
     }
 
     interface RetryPolicy {
@@ -125,21 +131,61 @@ export namespace policies {
       retryResult(): { decision: retryDecision, consistency: types.consistencies, useCurrentHost: boolean };
     }
   }
+
+  namespace speculativeExecution {
+    let NoSpeculativeExecutionPolicy: NoSpeculativeExecutionPolicyStatic
+
+    interface SpeculativeExecutionPolicy {
+      init(client: Client): void;
+      newPlan(keyspace: string, queryInfo: string | Array<string>): {
+          nextExecution: Function
+      }
+    }
+
+    interface NoSpeculativeExecutionPolicyStatic {
+      new (): NoSpeculativeExecutionPolicy
+    }
+
+    interface NoSpeculativeExecutionPolicy extends SpeculativeExecutionPolicy { }
+    
+    interface ConstantSpeculativeExecutionPolicyStatic {
+      new (delay: number, maxSpeculativeExecutions: number): ConstantSpeculativeExecutionPolicy
+    }
+
+    interface ConstantSpeculativeExecutionPolicy extends SpeculativeExecutionPolicy { }
+  }
+
+  namespace timestampGeneration {
+      let MonotonicTimestampGenerator: MonotonicTimestampGeneratorStatic
+
+      interface TimestampGenerator {
+        next(client: Client): null | number | _Long
+      }
+
+      interface MonotonicTimestampGeneratorStatic {
+        new (warningThreshold?: number, minLogInterval?: number): MonotonicTimestampGeneratorStatic
+      }
+
+      interface MonotonicTimestampGenerator extends TimestampGenerator {
+        getDate(): number
+      }
+  }
 }
 
 export namespace types {
-  var BigDecimal: BigDecimalStatic;
-  var InetAddress: InetAddressStatic;
-  var Integer: IntegerStatic;
-  var LocalDate: LocalDateStatic;
-  var LocalTime: LocalTimeStatic;
-  var Long: _Long;
-  var ResultSet: ResultSetStatic;
-  // var ResultStream: ResultStreamStatic;
-  var Row: RowStatic;
-  var TimeUuid: TimeUuidStatic;
-  var Tuple: TupleStatic;
-  var Uuid: UuidStatic;
+  let BigDecimal: BigDecimalStatic;
+  let Duration: DurationStatic;
+  let Long: _Long;
+  let InetAddress: InetAddressStatic;
+  let Integer: IntegerStatic;
+  let LocalDate: LocalDateStatic;
+  let LocalTime: LocalTimeStatic;
+  let ResultSet: ResultSetStatic;
+  // let ResultStream: ResultStreamStatic;
+  let Row: RowStatic;
+  let TimeUuid: TimeUuidStatic;
+  let Tuple: TupleStatic;
+  let Uuid: UuidStatic;
 
   enum consistencies {
     any = 0,
@@ -218,6 +264,19 @@ export namespace types {
     toString(): string;
     toNumber(): number;
     toJSON(): string;
+  }
+
+  interface DurationStatic {
+    new (month: number, days: number, nanoseconds: number | _Long): Duration;
+
+    fromBuffer(buffer: Buffer): Duration;
+    fromString(input: string): Duration;
+  }
+
+  interface Duration {
+    equals(other: Duration): boolean;
+    toBuffer(): Buffer;
+    toString(): string;
   }
 
   interface InetAddressStatic {
@@ -335,13 +394,14 @@ export namespace types {
   }
 
   interface ResultSetStatic {
-    new (response: any, host: string, triedHost: { [key: string]: any }, consistency: consistencies): ResultSet;
+    new (response: any, host: string, triedHost: { [key: string]: any }, speculativeExecutions: number, consistency: consistencies): ResultSet;
   }
 
   interface ResultSet {
     info: {
       queriedHost: Host,
       triedHosts: { [key: string]: string; },
+      speculativeExecutions: number,
       achievedConsistency: consistencies,
       traceId: Uuid,
       warnings: Array<string>,
@@ -351,11 +411,13 @@ export namespace types {
     rowLength: number;
     columns: Array<{ [key: string]: string; }>;
     pageState: string;
-    nextPage: any; // function
+    nextPage: Function;
 
     first(): Row;
     getPageState(): string;
     getColumns(): Array<{ [key: string]: string; }>;
+    wasApplied(): boolean;
+    [Symbol.iterator](): Iterator<Row>;
   }
 
   interface ResultStreamStatic {
@@ -433,48 +495,58 @@ export namespace types {
   }
 }
 
-export var Client: ClientStatic;
-export var Host: HostStatic;
-export var HostMap: HostMapStatic;
-export var Encoder: EncoderStatic;
+export let Client: ClientStatic;
+export let Host: HostStatic;
+export let HostMap: HostMapStatic;
+export let Encoder: EncoderStatic;
 
 export interface ClientOptions {
   contactPoints: Array<string>,
   keyspace?: string,
+  refreshSchemaDelay?: number,
+  isMetadataSyncEnabled?: boolean,
+  prepareOnAllHosts?: boolean,
+  rePrepareOnUp?: boolean,
+  maxPrepared?: number,
   policies?: {
-    addressResolution?: policies.addressResolution.AddressTranslator,
     loadBalancing?: policies.loadBalancing.LoadBalancingPolicy,
+    retry?: policies.retry.RetryPolicy,
     reconnection?: policies.reconnection.ReconnectionPolicy,
-    retry?: policies.retry.RetryPolicy
+    addressResolution?: policies.addressResolution.AddressTranslator,
+    speculativeExecution?: policies.speculativeExecution.SpeculativeExecutionPolicy,
+    timestampGeneration?: policies.timestampGeneration.TimestampGenerator,
   },
   queryOptions?: QueryOptions,
   pooling?: {
-    heartBeatInterval: number,
-    coreConnectionsPerHost: { [key: number]: number; },
-    warmup: boolean;
+    heartBeatInterval?: number,
+    coreConnectionsPerHost?: { [key: number]: number; },
+    maxRequestsPerConnection?: number,
+    warmup?: boolean;
   },
   protocolOptions?: {
-    port: number,
-    maxSchemaAgreementWaitSeconds: number,
-    maxVersion: number
+    port?: number,
+    maxSchemaAgreementWaitSeconds?: number,
+    maxVersion?: number
   },
   socketOptions?: {
-    connectTimeout: number,
-    defunctReadTimeoutThreshold: number,
-    keepAlive: boolean,
-    keepAliveDelay: number,
-    readTimeout: number,
-    tcpNoDelay: boolean,
-    coalescingThreshold: number
+    connectTimeout?: number,
+    defunctReadTimeoutThreshold?: number,
+    keepAlive?: boolean,
+    keepAliveDelay?: number,
+    readTimeout?: number,
+    tcpNoDelay?: boolean,
+    coalescingThreshold?: number
   },
   authProvider?: auth.AuthProvider,
-  sslOptions?: any,
+  sslOptions?: tls.ConnectionOptions,
   encoding?: {
-    map: Function,
-    set: Function,
-    copyBuffer: boolean,
-    useUndefinedAsUnset: boolean
-  }
+    map?: Function,
+    set?: Function,
+    copyBuffer?: boolean,
+    useUndefinedAsUnset?: boolean
+  },
+  profiles?: Array<ExecutionProfile>,
+  promiseFactory?: Function,
 }
 
 export interface QueryOptions {
@@ -482,8 +554,11 @@ export interface QueryOptions {
   captureStackTrace?: boolean;
   consistency?: number;
   customPayload?: any;
+  executionProfile?: string | ExecutionProfile;
   fetchSize?: number;
   hints?: Array<string> | Array<Array<string>>;
+  isIdempotent?: boolean;
+  keyspace?: string;
   logged?: boolean;
   pageState?: Buffer | string;
   prepare?: boolean;
@@ -512,13 +587,16 @@ export interface Client extends events.EventEmitter {
   batch(queries: Array<string> | Array<{ query: string, params?: any }>, options?: QueryOptions): Promise<types.ResultSet>;
 
   connect(callback: Callback): void;
+  connect(): Promise<void>;
   eachRow(query: string, params?: any, options?: QueryOptions, rowCallback?: Callback, callback?: Callback): void;
   execute(query: string, params: any, options: QueryOptions, callback: ResultCallback): void;
   execute(query: string, params: any, callback: ResultCallback): void;
   execute(query: string, callback: ResultCallback): void;
   execute(query: string, params?: any, options?: QueryOptions): Promise<types.ResultSet>;
   getReplicas(keyspace: string, token: Buffer): Array<any>; // TODO: Should this be a more explicit return?
+  getState(): metadata.ClientState;
   shutdown(callback?: Callback): void;
+  shutdown(): Promise<void>;
   stream(query: string, params?: any, options?: QueryOptions, callback?: Callback): NodeJS.ReadableStream;
 }
 
@@ -545,6 +623,7 @@ export interface HostMapStatic {
 export interface HostMap extends events.EventEmitter {
   length: number;
 
+  clear(): Array<Host>;
   forEach(callback: Callback): void;
   get(key: string): Host;
   keys(): Array<string>;
@@ -563,9 +642,25 @@ export interface Encoder {
   encode(value: any, typeInfo?: string | number | { code: number, info?: any }): Buffer;
 }
 
+interface ExecutionProfileOptions {
+  consistency: number,
+    loadBalancing: policies.loadBalancing.LoadBalancingPolicy,
+    name: string,
+    readTimeout: number,
+    retry: policies.retry.RetryPolicy,
+    serialConsistency: number
+}
+
+export interface ExecutionProfileStatic {
+  new (name: string, options: ExecutionProfileOptions): ExecutionProfile
+}
+
+export interface ExecutionProfile extends ExecutionProfileOptions {
+}
+
 export namespace auth {
-  var Authenticator: AuthenticatorStatic;
-  var PlainTextAuthProvider: PlainTextAuthProviderStatic;
+  let Authenticator: AuthenticatorStatic;
+  let PlainTextAuthProvider: PlainTextAuthProviderStatic;
 
   interface AuthenticatorStatic {
     new (): Authenticator;
@@ -623,12 +718,12 @@ export namespace errors {
 }
 
 export namespace metadata {
-  var Aggregate: AggregateStatic;
-  var Index: IndexStatic;
-  var MaterializedView: MaterializedViewStatic;
-  var Metadata: MetadataStatic;
-  var SchemaFunction: SchemaFunctionStatic;
-  var TableMetadata: TableMetadataStatic;
+  let Aggregate: AggregateStatic;
+  let Index: IndexStatic;
+  let MaterializedView: MaterializedViewStatic;
+  let Metadata: MetadataStatic;
+  let SchemaFunction: SchemaFunctionStatic;
+  let TableMetadata: TableMetadataStatic;
 
   type caching = "all" | "keys_only" | "rows_only" | "none";
 
@@ -645,6 +740,17 @@ export namespace metadata {
     signature: Array<string>;
     stateFunction: string;
     stateType: string;
+  }
+  
+  interface ClientStateStatic {
+    new (): ClientState;
+  }
+  
+  interface ClientState {
+    getConnectedHosts(): Array<Host>;
+    getInFlightQueries(host: Host): number;
+    getOpenConnections(host: Host): number;
+    toString(): string;
   }
 
   interface DataTypeInfo {

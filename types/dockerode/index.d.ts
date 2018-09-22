@@ -5,6 +5,7 @@
 //                 ByeongHun Yoo <https://github.com/isac322>
 //                 Ray Fang <https://github.com/lazarusx>
 //                 Marius Meisenzahl <https://github.com/meisenzahl>
+//                 Rob Moran <https://github.com/thegecko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -400,10 +401,10 @@ declare namespace Dockerode {
       LinkLocalIPv6Address: string;
       LinkLocalIPv6PrefixLen: number;
       Ports: {
-        [portAndProtocol: string]: {
+        [portAndProtocol: string]: Array<{
           HostIp: string;
           HostPort: string;
-        }
+        }>;
       };
       SandboxKey: string;
       SecondaryIPAddresses?: any;
@@ -832,25 +833,25 @@ declare class Dockerode {
   createContainer(options: Dockerode.ContainerCreateOptions, callback: Callback<Dockerode.Container>): void;
   createContainer(options: Dockerode.ContainerCreateOptions): Promise<Dockerode.Container>;
 
-  createImage(options: {}, callback: Callback<Dockerode.Image>): void;
-  createImage(auth: any, options: {}, callback: Callback<Dockerode.Image>): void;
-  createImage(options: {}): Promise<Dockerode.Image>;
-  createImage(auth: any, options: {}): Promise<Dockerode.Image>;
+  createImage(options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  createImage(auth: any, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  createImage(options: {}): Promise<NodeJS.ReadableStream>;
+  createImage(auth: any, options: {}): Promise<NodeJS.ReadableStream>;
 
-  loadImage(file: string, options: {}, callback: Callback<any>): void;
-  loadImage(file: string, callback: Callback<any>): void;
-  loadImage(file: string, options?: {}): Promise<any>;
+  loadImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  loadImage(file: string | NodeJS.ReadableStream, callback: Callback<NodeJS.ReadableStream>): void;
+  loadImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<NodeJS.ReadableStream>;
 
-  importImage(file: string, options: {}, callback: Callback<any>): void;
-  importImage(file: string, callback: Callback<any>): void;
-  importImage(file: string, options?: {}): Promise<any>;
+  importImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  importImage(file: string | NodeJS.ReadableStream, callback: Callback<NodeJS.ReadableStream>): void;
+  importImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<NodeJS.ReadableStream>;
 
   checkAuth(options: any, callback: Callback<any>): void;
   checkAuth(options: any): Promise<any>;
 
-  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, options: {}, callback: Callback<any>): void;
-  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, callback: Callback<any>): void;
-  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, options?: {}): Promise<any>;
+  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, callback: Callback<NodeJS.ReadableStream>): void;
+  buildImage(file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext, options?: {}): Promise<NodeJS.ReadableStream>;
 
   getContainer(id: string): Dockerode.Container;
 
@@ -945,6 +946,9 @@ declare class Dockerode {
   info(callback: Callback<any>): void;
   info(): Promise<any>;
 
+  df(callback: Callback<any>): void;
+  df(): Promise<any>;
+
   version(callback: Callback<any>): void;
   version(): Promise<any>;
 
@@ -958,11 +962,11 @@ declare class Dockerode {
   pull(repoTag: string, options: {}, callback: Callback<any>, auth?: {}): Dockerode.Image;
   pull(repoTag: string, options: {}, auth?: {}): Promise<any>;
 
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, createOptions: {}, startOptions: {}, callback: Callback<any>): events.EventEmitter;
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, startOptions: {}, callback: Callback<any>): events.EventEmitter;
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, callback: Callback<any>): events.EventEmitter;
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, createOptions: {}, callback: Callback<any>): events.EventEmitter;
-  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream, createOptions?: {}, startOptions?: {}): Promise<any>;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], createOptions: {}, startOptions: {}, callback: Callback<any>): events.EventEmitter;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], startOptions: {}, callback: Callback<any>): events.EventEmitter;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], callback: Callback<any>): events.EventEmitter;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], createOptions: {}, callback: Callback<any>): events.EventEmitter;
+  run(image: string, cmd: string[], outputStream: NodeJS.WritableStream | NodeJS.WritableStream[], createOptions?: {}, startOptions?: {}): Promise<any>;
 
   swarmInit(options: {}, callback: Callback<any>): void;
   swarmInit(options: {}): Promise<any>;

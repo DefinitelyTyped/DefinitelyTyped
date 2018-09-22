@@ -1,4 +1,4 @@
-// Type definitions for jQueryUI 1.11
+// Type definitions for jQueryUI 1.12
 // Project: http://jqueryui.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -51,6 +51,12 @@ declare namespace JQueryUI {
         minLength?: number;
         position?: any; // object
         source?: any; // [], string or ()
+        classes?: AutocompleteClasses;
+    }
+
+    interface AutocompleteClasses {
+        "ui-autocomplete"?: string;
+        "ui-autocomplete-input"?: string;
     }
 
     interface AutocompleteUIParams {
@@ -377,7 +383,7 @@ declare namespace JQueryUI {
 		open?: DialogEvent;
         close?: DialogEvent;
     }
-    
+
     interface DialogClasses {
         "ui-dialog"?: string;
         "ui-dialog-content"?: string;
@@ -692,6 +698,17 @@ declare namespace JQueryUI {
         value?: number;
         values?: number[];
         highlight?: boolean;
+        classes? : SliderClasses;
+    }
+
+    interface SliderClasses {
+        "ui-slider"?: string;
+        "ui-slider-horizontal"?: string;
+        "ui-slider-vertical"?: string;
+        "ui-slider-handle"?: string;
+        "ui-slider-range"?: string;
+        "ui-slider-range-min"?: string;
+        "ui-slider-range-max"?: string;
     }
 
     interface SliderUIParams {
@@ -720,6 +737,7 @@ declare namespace JQueryUI {
 
     interface SortableOptions extends SortableEvents {
         appendTo?: any; // jQuery, Element, Selector or string
+        attribute?: string;
         axis?: string;
         cancel?: any; // Selector
         connectWith?: any; // Selector
@@ -1053,6 +1071,17 @@ declare namespace JQueryUI {
         show?: any;
     }
 
+    interface WidgetCommonProperties {
+        element: JQuery;
+        defaultElement : string;
+        document: Document;
+        namespace: string;
+        uuid: string;
+        widgetEventPrefix: string;
+        widgetFullName: string;
+        window: Window;
+    }
+
     interface Widget {
         (methodName: string): JQuery;
         (options: WidgetOptions): JQuery;
@@ -1061,8 +1090,8 @@ declare namespace JQueryUI {
         (optionLiteral: string, options: WidgetOptions): any;
         (optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
-        (name: string, prototype: any): JQuery;
-        (name: string, base: Function, prototype: any): JQuery;
+        <T>(name: string, prototype: T & ThisType<T & WidgetCommonProperties>): JQuery;
+        <T>(name: string, base: Function, prototype: T & ThisType<T & WidgetCommonProperties> ): JQuery;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1384,8 +1413,8 @@ interface JQuery {
       * @param optionName 'autohide'
       */
       datepicker(methodName: 'option', optionName: 'autohide'): boolean;
-    
-   
+
+
       /**
       * Get the endDate after initialization
       *
@@ -1799,7 +1828,7 @@ interface JQuery {
     sortable(methodName: 'disable'): void;
     sortable(methodName: 'enable'): void;
     sortable(methodName: 'widget'): JQuery;
-    sortable(methodName: 'toArray'): string[];
+    sortable(methodName: 'toArray', options?: { attribute?: string; }): string[];
     sortable(methodName: string): JQuery;
     sortable(options: JQueryUI.SortableOptions): JQuery;
     sortable(optionLiteral: string, optionName: string): any;
