@@ -34,9 +34,10 @@ new digibyte.Unit(2, 'DGB').toSatoshis();
 
 digibyte.Unit.fromMilis(1000).toDGB();
 
-var paymentInfo = {
+const paymentInfo = {
   address: 'DFVsFBiKuaL5HM9NWZgdHTQecLNit6tX5Y',
   amount: digibyte.Unit.fromDGB(1000).toSatoshis(),
 };
 
-var uri = new digibyte.URI(paymentInfo).toString();
+const uri = new digibyte.URI(paymentInfo).toString();
+uri.toString();
