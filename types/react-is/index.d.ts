@@ -11,7 +11,7 @@ import { ReactElement, ReactType } from 'react';
 
 export function typeOf(value: any): symbol | undefined;
 export function isValidElementType(value: any): value is ReactType;
-export function isAsyncMode(value: any): value is ReactType;
+export function isAsyncMode(value: any): value is ReactElement<any>;
 export function isContextConsumer(value: any): value is ReactElement<any>;
 export function isContextProvider(value: any): value is ReactElement<any>;
 export function isElement(value: any): value is ReactElement<any>;
