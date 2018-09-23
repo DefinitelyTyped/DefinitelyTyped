@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import plist = require("plist");
+import * as plist from "plist";
 
 ///
 /// Typing for test

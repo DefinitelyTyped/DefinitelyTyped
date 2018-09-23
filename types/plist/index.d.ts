@@ -5,6 +5,7 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
+import { XMLToStringOptions } from 'xmlbuilder';
 
 // plist
 export as namespace plist;
@@ -24,7 +25,5 @@ export interface PlistObject {
 export interface PlistArray extends Array<PlistValue> { }
 
 // PlistBuildOptions
-//   The instance of this type is passed to 'xmlbuilder' module as it is.
-//   So we want to import this type from '@types/xmlbuilder',
-//   but the type is not declared there...
-export type PlistBuildOptions = object;
+// The instance of this type is passed to 'xmlbuilder' module as it is.
+export type PlistBuildOptions = XMLToStringOptions;
