@@ -83,6 +83,7 @@ function test_query() {
     const query = new Parse.Query(GameScore);
     query.equalTo("playerName", "Dan Stemkoski");
     query.notEqualTo("playerName", "Michael Yabuti");
+    query.fullText("playerName", "dan", { language: 'en', caseSensitive: false, diacriticSensitive: true });
     query.greaterThan("playerAge", 18);
     query.limit(10);
     query.skip(10);
