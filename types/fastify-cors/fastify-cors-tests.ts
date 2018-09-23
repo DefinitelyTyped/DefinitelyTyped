@@ -11,7 +11,7 @@ const fastifyCorsOptions: fastifyCors.FastifyCorsOptions = {
     maxAge: 13000,
     preflightContinue: false,
     optionsSuccessStatus: 200,
-    preflight: false
+    preflight: false,
 };
 
 const fastifyCorsOptionsArray: fastifyCors.FastifyCorsOptions = {
@@ -19,11 +19,11 @@ const fastifyCorsOptionsArray: fastifyCors.FastifyCorsOptions = {
     allowedHeaders: ["authorization", "content-type"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
-    exposedHeaders: ["authorization"]
+    exposedHeaders: ["authorization"],
     maxAge: 13000,
     preflightContinue: false,
     optionsSuccessStatus: 200,
-    preflight: false
+    preflight: false,
 };
 
 const originString: fastifyCors.FastifyCorsOptions = {
@@ -31,11 +31,11 @@ const originString: fastifyCors.FastifyCorsOptions = {
     allowedHeaders: ["authorization", "content-type"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
-    exposedHeaders: ["authorization"]
+    exposedHeaders: ["authorization"],
     maxAge: 13000,
     preflightContinue: false,
     optionsSuccessStatus: 200,
-    preflight: false
+    preflight: false,
 };
 
 const originRegexp: fastifyCors.FastifyCorsOptions = {
@@ -43,11 +43,11 @@ const originRegexp: fastifyCors.FastifyCorsOptions = {
     allowedHeaders: ["authorization", "content-type"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
-    exposedHeaders: ["authorization"]
+    exposedHeaders: ["authorization"],
     maxAge: 13000,
     preflightContinue: false,
     optionsSuccessStatus: 200,
-    preflight: false
+    preflight: false,
 };
 
 const originStringArray: fastifyCors.FastifyCorsOptions = {
@@ -55,11 +55,11 @@ const originStringArray: fastifyCors.FastifyCorsOptions = {
     allowedHeaders: ["authorization", "content-type"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
-    exposedHeaders: ["authorization"]
+    exposedHeaders: ["authorization"],
     maxAge: 13000,
     preflightContinue: false,
     optionsSuccessStatus: 200,
-    preflight: false
+    preflight: false,
 };
 
 const originRegexpArray: fastifyCors.FastifyCorsOptions = {
@@ -67,11 +67,11 @@ const originRegexpArray: fastifyCors.FastifyCorsOptions = {
     allowedHeaders: ["authorization", "content-type"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
-    exposedHeaders: ["authorization"]
+    exposedHeaders: ["authorization"],
     maxAge: 13000,
     preflightContinue: false,
     optionsSuccessStatus: 200,
-    preflight: false
+    preflight: false,
 };
 
 const originCallback: fastifyCors.FastifyCorsOptions = {
@@ -81,9 +81,9 @@ const originCallback: fastifyCors.FastifyCorsOptions = {
     allowedHeaders: ["authorization", "content-type"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
-    exposedHeaders: ["authorization"]
+    exposedHeaders: ["authorization"],
     maxAge: 13000,
     preflightContinue: false,
     optionsSuccessStatus: 200,
-    preflight: false
+    preflight: false,
 };
