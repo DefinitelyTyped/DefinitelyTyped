@@ -298,7 +298,6 @@ export class Unit {
 }
 
 export class URI {
-
     static fromString(str: string): URI;
     static fromObject(json: object): URI;
     static isValid(data: boolean): URI;
