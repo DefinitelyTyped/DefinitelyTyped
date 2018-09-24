@@ -26,6 +26,7 @@
             "@ember/debug/*": ["ember__debug/*"],
             "@ember/object": ["ember__object"],
             "@ember/object/*": ["ember__object/*"],
+            "@ember/controller": ["ember__controller"],
             "@ember/polyfills": ["ember__polyfills"]
         },
         "types": [],
@@ -54,6 +55,7 @@
         "test/debug.ts",
         "test/detect-instance.ts",
         "test/detect.ts",
+        "test/ember-module-tests.ts",
         "test/ember-tests.ts",
         "test/engine-instance.ts",
         "test/engine.ts",
