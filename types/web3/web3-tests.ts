@@ -15,6 +15,9 @@ web3.eth.setProvider(myProvider);
 // web3.eth
 // --------------------------------------------------------------------------
 const storage: Promise<string> = web3.eth.getStorageAt(contractAddress, 0);
+const balance1: Promise<BigNumber> = web3.eth.getBalance(contractAddress);
+const balance2: Promise<BigNumber> = web3.eth.getBalance(contractAddress, "latest");
+web3.eth.getBalance(contractAddress, "latest", (error: Error, balance: BigNumber) => { });
 
 //
 // web3.eth.subscribe

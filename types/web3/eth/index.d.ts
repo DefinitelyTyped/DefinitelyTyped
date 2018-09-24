@@ -87,9 +87,13 @@ export default interface Eth {
     getAccounts(cb?: Callback<string[]>): Promise<string[]>;
     getBalance(
         address: string,
+        defaultBlock?: BlockType
+    ): Promise<BigNumber>;
+    getBalance(
+        address: string,
         defaultBlock?: BlockType,
         cb?: Callback<BigNumber>
-    ): Promise<BigNumber>;
+    ): void;
     getBlock(
         number: BlockType,
         returnTransactionObjects?: boolean,
