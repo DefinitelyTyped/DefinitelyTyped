@@ -69,8 +69,8 @@ declare namespace helmet {
         objectSrc?: HelmetCspDirectiveValue[];
         pluginTypes?: HelmetCspDirectiveValue[];
         prefetchSrc?: HelmetCspDirectiveValue[];
-        reportTo?: HelmetCspDirectiveValue | false;
-        reportUri?: HelmetCspDirectiveValue | false;
+        reportTo?: HelmetCspDirectiveValue;
+        reportUri?: HelmetCspDirectiveValue;
         requireSriFor?: HelmetCspRequireSriForValue[];
         sandbox?: HelmetCspSandboxDirective[];
         scriptSrc?: HelmetCspDirectiveValue[];
@@ -95,8 +95,8 @@ declare namespace helmet {
         'object-src'?: HelmetCspDirectiveValue[];
         'plugin-types'?: HelmetCspDirectiveValue[];
         'prefetch-src'?: HelmetCspDirectiveValue[];
-        'report-to'?: HelmetCspDirectiveValue | false;
-        'report-uri'?: HelmetCspDirectiveValue | false;
+        'report-to'?: HelmetCspDirectiveValue;
+        'report-uri'?: HelmetCspDirectiveValue;
         'require-sri-for'?: HelmetCspRequireSriForValue[];
         'sandbox'?: HelmetCspSandboxDirective[];
         'script-src'?: HelmetCspDirectiveValue;
@@ -105,12 +105,8 @@ declare namespace helmet {
         'worker-src'?: HelmetCspDirectiveValue;
     }
 
-    export interface IHelmetContentSecurityReportOnlyFunction {
-        (req: express.Request, res: express.Response): boolean;
-    }
-
     export interface IHelmetContentSecurityPolicyConfiguration {
-        reportOnly?: boolean | IHelmetContentSecurityReportOnlyFunction;
+        reportOnly?: boolean | ((req: express.Request, res: express.Response) => boolean);
         setAllHeaders?: boolean;
         disableAndroid?: boolean;
         browserSniff?: boolean;

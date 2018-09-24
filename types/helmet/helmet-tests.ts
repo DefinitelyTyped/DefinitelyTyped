@@ -76,14 +76,6 @@ function contentSecurityPolicyTest() {
         loose: false,
         setAllHeaders: true
     }));
-    app.use(helmet.contentSecurityPolicy({
-        directives: {
-            reportUri: false,
-            'report-uri': false,
-            reportTo: false,
-            'report-to': false
-        }
-    }));
 }
 
 /**
