@@ -26,6 +26,8 @@
             "@ember/debug/*": ["ember__debug/*"],
             "@ember/routing": ["ember__routing"],
             "@ember/routing/*": ["ember__routing/*"],
+            "@ember/test": ["ember__test"],
+            "@ember/test/*": ["ember__test/*"],
             "@ember/object": ["ember__object"],
             "@ember/object/*": ["ember__object/*"],
             "@ember/component": ["ember__component"],
