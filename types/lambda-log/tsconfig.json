@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "es5",
     "module": "commonjs",
     "lib": [
       "es6"
@@ -18,6 +19,6 @@
   },
   "files": [
     "index.d.ts",
-    "lambda-log-tests.ts"
+    "lambdaLogTests.ts"
   ]
 }

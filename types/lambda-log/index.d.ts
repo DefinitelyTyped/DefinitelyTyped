@@ -31,9 +31,9 @@ export class LogMessage {
 
     constructor(logRecordOptions: LogRecordOptions, opts: LambdaLogOptions);
 
-    get value(): LogRecord;
-    get log(): LogRecord;
-    get throw(): undefined;
+    value: LogRecord;
+    log: LogRecord;
+    throw: undefined;
 
     toJSON(format?: number): string;
 
