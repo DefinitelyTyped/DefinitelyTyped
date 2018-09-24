@@ -30,7 +30,6 @@ const sendSignedTransactionTxReceipt4: PromiEvent<TransactionReceipt> = web3.eth
     .on("receipt", (txReceipt: TransactionReceipt) => { })
     .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
 
-
 const sendTransactionTxReceipt0: PromiEvent<TransactionReceipt> = web3.eth.sendTransaction({ to: "0x1" },
     (error: Error, txHash: string) => { });
 const sendTransactionTxReceipt1: PromiEvent<TransactionReceipt> = web3.eth.sendTransaction({ to: "0x1" })
