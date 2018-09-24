@@ -13,25 +13,25 @@ Copyright (c) Microsoft Corporation
 //////////////////// Begin custom-functions-runtime ////////////
 ////////////////////////////////////////////////////////////////
 
-/*
-* Enables you to map your own name that uses lowercase letters to a function.
-*/
+/**
+ * Enables you to map your own name that uses lowercase letters to a function.
+ */
 declare let CustomFunctionMappings: { [key: string]: Function };
 
 declare namespace CustomFunctions {
     interface StreamingHandler<T> extends CancelableHandler {
-        /*
-        * Sets the returned result for a streaming custom function.
-        * @beta
-        */
+        /**
+         * Sets the returned result for a streaming custom function.
+         * @beta
+         */
         setResult: (value: T) => void;
     }
 
     interface CancelableHandler {
-        /*
-        * Handles what should occur when a custom function is canceled.
-        * @beta
-        */
+        /**
+         * Handles what should occur when a custom function is canceled.
+         * @beta
+         */
         onCanceled: () => void;
     }
 }

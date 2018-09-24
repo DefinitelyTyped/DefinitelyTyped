@@ -63,6 +63,7 @@ import {
     InputAccessoryView,
     StatusBar,
     NativeSyntheticEvent,
+    NativeScrollEvent,
     GestureResponderEvent,
     TextInputScrollEventData,
     TextInputSelectionChangeEventData,
@@ -388,7 +389,14 @@ export class CapsLockComponent extends React.Component<TextProps> {
     }
 }
 
-class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
+class ScrollerListComponentTest extends React.Component<
+    {},
+    { dataSource: ListViewDataSource }
+> {
+    eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        console.log(event);
+    };
+
     render() {
         const scrollViewStyle1 = StyleSheet.create({
             scrollView: {
@@ -406,11 +414,27 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                         throw new Error("Expected scroll to be enabled.");
                     }
 
-                    return <ScrollView horizontal={true} nestedScrollEnabled={true} contentOffset={{x: 0, y: 0}} {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]} />;
+                    return (
+                        <ScrollView
+                            horizontal={true}
+                            nestedScrollEnabled={true}
+                            contentOffset={{ x: 0, y: 0 }}
+                            {...props}
+                            style={[
+                                scrollViewStyle1.scrollView,
+                                scrollViewStyle2
+                            ]}
+                        />
+                    );
                 }}
                 renderRow={({ type, data }, _, row) => {
                     return <Text>Filler</Text>;
                 }}
+                onScroll={this.eventHandler}
+                onScrollBeginDrag={this.eventHandler}
+                onScrollEndDrag={this.eventHandler}
+                onMomentumScrollBegin={this.eventHandler}
+                onMomentumScrollEnd={this.eventHandler}
             />
         );
     }

@@ -13,6 +13,7 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Martin van Dam <https://github.com/mvdam>
+//                 Kacper Wiszczuk <https://github.com/esemesek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -4810,7 +4811,7 @@ export interface ModalPropsIOS {
      * The `onOrientationChange` callback is called when the orientation changes while the modal is being displayed.
      * The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
      */
-    onOrientationChange?: (event?: NativeSyntheticEvent<any>) => void;
+    onOrientationChange?: (event: NativeSyntheticEvent<any>) => void;
 }
 
 export interface ModalPropsAndroid {
@@ -6301,27 +6302,27 @@ export interface ScrollViewProps
      * Fires at most once per frame during scrolling.
      * The frequency of the events can be contolled using the scrollEventThrottle prop.
      */
-    onScroll?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires if a user initiates a scroll gesture.
      */
-    onScrollBeginDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onScrollBeginDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires when a user has finished scrolling.
      */
-    onScrollEndDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onScrollEndDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires when scroll view has finished moving
      */
-    onMomentumScrollEnd?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onMomentumScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires when scroll view has begun moving
      */
-    onMomentumScrollBegin?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onMomentumScrollBegin?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * When true the scroll view stops on multiples of the scroll view's size
@@ -8484,7 +8485,7 @@ export namespace Animated {
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
     interface EventConfig<T> {
-        listener?: (event?: NativeSyntheticEvent<T>) => void;
+        listener?: (event: NativeSyntheticEvent<T>) => void;
         useNativeDriver?: boolean;
     }
 
