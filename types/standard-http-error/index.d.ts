@@ -3,24 +3,15 @@
 // Definitions by: Labat Robin <https://github.com/roblabat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="standard-error" />
+// TypeScript Version: 2.2
 
-declare module 'standard-http-error' {
-    import * as StandardError from 'standard-error';
+import StandardError = require('standard-error');
 
-    const HttpError: HttpError.constructor;
+export = HttpError;
 
-    namespace HttpError {
-        interface constructor {
-            new (code: number | string, message?: string, props?: object): error;
-            new (code: number | string, props?: object): error;
-            [key: string]: number | undefined;
-        }
+declare class HttpError extends StandardError {
+    code: number;
 
-        interface error extends StandardError.error {
-            code: number;
-        }
-    }
-
-    export = HttpError;
+    constructor(code: number | string, message?: string, props?: object);
+    constructor(code: number | string, props?: object);
 }

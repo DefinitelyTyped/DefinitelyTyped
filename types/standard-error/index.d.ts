@@ -3,19 +3,13 @@
 // Definitions by: Labat Robin <https://github.com/roblabat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'standard-error' {
-    const StandardError: StandardError.constructor;
+// TypeScript Version: 2.2
 
-    namespace StandardError {
-        interface constructor {
-            new (message: string, props?: object): error;
-            new (props: object): error;
-        }
+export = StandardError;
 
-        interface error extends Error {
-            [key: string]: any;
-        }
-    }
+declare class StandardError extends Error {
+    [key: string]: any;
 
-    export = StandardError;
+    constructor(message: string, props?: any);
+    constructor(props: any);
 }
