@@ -25,7 +25,7 @@
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Simon Schick <https://github.com/SimonSchick
+//                 Simon Schick <https://github.com/SimonSchick>
 //                 Thomas den Hollander <https://github.com/ThomasdenH>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
