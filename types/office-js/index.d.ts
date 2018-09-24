@@ -22693,7 +22693,7 @@ declare namespace Excel {
          *
          * [Api set: ExcelApi 1.8]
          */
-        splitType: Excel.ChartSplitStype | "SplitByPosition" | "SplitByValue" | "SplitByPercentValue" | "SplitByCustomSplit";
+        splitType: "SplitByPosition" | "SplitByValue" | "SplitByPercentValue" | "SplitByCustomSplit";
         /**
          *
          * True if Microsoft Excel assigns a different color or pattern to each data marker. The chart must contain only one series. Read/Write.
@@ -30271,15 +30271,6 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.8]
      */
-    enum ChartSplitStype {
-        splitByPosition = "SplitByPosition",
-        splitByValue = "SplitByValue",
-        splitByPercentValue = "SplitByPercentValue",
-        splitByCustomSplit = "SplitByCustomSplit",
-    }
-    /**
-     * [Api set: ExcelApi 1.8]
-     */
     enum ChartColorScheme {
         colorfulPalette1 = "ColorfulPalette1",
         colorfulPalette2 = "ColorfulPalette2",
@@ -36094,7 +36085,7 @@ declare namespace Excel {
              *
              * [Api set: ExcelApi 1.8]
              */
-            splitType?: Excel.ChartSplitStype | "SplitByPosition" | "SplitByValue" | "SplitByPercentValue" | "SplitByCustomSplit";
+            splitType?: "SplitByPosition" | "SplitByValue" | "SplitByPercentValue" | "SplitByCustomSplit";
             /**
              *
              * True if Microsoft Excel assigns a different color or pattern to each data marker. The chart must contain only one series. Read/Write.
@@ -39781,7 +39772,7 @@ declare namespace Excel {
              *
              * [Api set: ExcelApi 1.8]
              */
-            splitType?: Excel.ChartSplitStype | "SplitByPosition" | "SplitByValue" | "SplitByPercentValue" | "SplitByCustomSplit";
+            splitType?: "SplitByPosition" | "SplitByValue" | "SplitByPercentValue" | "SplitByCustomSplit";
             /**
              *
              * True if Microsoft Excel assigns a different color or pattern to each data marker. The chart must contain only one series. Read/Write.

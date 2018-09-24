@@ -6,6 +6,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+/// <reference types="ember" />
+/// <reference types="ember__object" />
+/// <reference types="ember__controller" />
+/// <reference types="ember__routing" />
+/// <reference types="ember__test" />
+
 declare module 'ember-data' {
     import Ember from 'ember';
     import Evented from '@ember/object/evented';
@@ -2088,36 +2094,34 @@ declare module 'ember-data' {
             normalize(typeClass: Model, hash: {}): {};
         }
     }
-
-    export default DS;
-}
-
-declare module 'ember' {
-    import DS from 'ember-data';
-    namespace Ember {
-        /*
-		* The store is automatically injected into these objects
-		*
-		* https://github.com/emberjs/data/blob/05e95280e11c411177f2fbcb65fd83488d6a9d89/addon/setup-container.js#L71-L78
-		*/
-        interface Route {
-            store: DS.Store;
-        }
-        interface Controller {
-            store: DS.Store;
-        }
-        interface DataAdapter {
+    /**
+    * The store is automatically injected into these objects
+    *
+    * https://github.com/emberjs/data/blob/05e95280e11c411177f2fbcb65fd83488d6a9d89/addon/setup-container.js#L71-L78
+    */
+    module '@ember/controller' {
+        export default interface Controller {
             store: DS.Store;
         }
     }
-
-    // It is also available to inject anywhere
+    module '@ember/routing/route' {
+        export default interface Route {
+            store: DS.Store;
+        }
+    }
+    module '@ember/debug/data-adapter' {
+        export default interface DataAdapter {
+            store: DS.Store;
+        }
+    }
     module '@ember/service' {
         interface Registry {
             'store': DS.Store;
         }
     }
+    export default DS;
 }
+
 declare module 'ember-test-helpers' {
     import DS from 'ember-data';
     interface TestContext {

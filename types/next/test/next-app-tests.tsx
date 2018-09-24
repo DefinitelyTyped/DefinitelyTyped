@@ -1,11 +1,12 @@
 import * as React from "react";
 import App, { Container, NextAppContext, AppProps, AppComponentType } from "next/app";
+import { DefaultQuery } from "next/router";
 
 interface NextComponentProps {
     example: string;
 }
 
-interface TypedQuery {
+interface TypedQuery extends DefaultQuery {
     id?: string;
 }
 
@@ -32,11 +33,12 @@ class TestAppWithProps extends App<NextComponentProps> {
     }
 }
 
-class TestAppWithTypedQuery extends App<{}, NextAppContext<TypedQuery>> {
+class TestAppWithTypedQuery extends App {
     static async getInitialProps({ ctx }: NextAppContext<TypedQuery>) {
         const { id } = ctx.query;
         const processQuery = (id?: string) => id;
         processQuery(id);
+        return { pageProps: id };
     }
 }
 

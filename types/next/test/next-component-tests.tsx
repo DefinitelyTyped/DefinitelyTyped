@@ -1,11 +1,12 @@
 import * as React from "react";
 import { NextStatelessComponent, NextContext, NextComponentType } from "next";
+import { DefaultQuery } from "next/router";
 
 interface NextComponentProps {
     example: string;
 }
 
-interface TypedQuery {
+interface TypedQuery extends DefaultQuery {
     id?: string;
 }
 

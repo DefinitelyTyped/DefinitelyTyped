@@ -1,34 +1,35 @@
-// Type definitions for Node.js 10.10.x
+// Type definitions for Node.js 10.11.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
-//                 Parambir Singh <https://github.com/parambirs>
-//                 Christian Vaagland Tellnes <https://github.com/tellnes>
-//                 Wilco Bakker <https://github.com/WilcoBakker>
-//                 Nicolas Voigt <https://github.com/octo-sniffle>
-//                 Chigozirim C. <https://github.com/smac89>
-//                 Flarna <https://github.com/Flarna>
-//                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
-//                 wwwy3y3 <https://github.com/wwwy3y3>
-//                 Deividas Bakanas <https://github.com/DeividasBakanas>
-//                 Kelvin Jin <https://github.com/kjin>
-//                 Alvis HT Tang <https://github.com/alvis>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
 //                 Alberto Schiabel <https://github.com/jkomyno>
-//                 Klaus Meinhardt <https://github.com/ajafff>
-//                 Huw <https://github.com/hoo29>
-//                 Nicolas Even <https://github.com/n-e>
-//                 Bruno Scheufler <https://github.com/brunoscheufler>
-//                 Mohsen Azimi <https://github.com/mohsen1>
-//                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Alexander T. <https://github.com/a-tarasyuk>
-//                 Lishude <https://github.com/islishude>
+//                 Alvis HT Tang <https://github.com/alvis>
 //                 Andrew Makarov <https://github.com/r3nya>
-//                 Zane Hannan AU <https://github.com/ZaneHannanAU>
-//                 Thomas den Hollander <https://github.com/ThomasdenH>
+//                 Bruno Scheufler <https://github.com/brunoscheufler>
+//                 Chigozirim C. <https://github.com/smac89>
+//                 Christian Vaagland Tellnes <https://github.com/tellnes>
+//                 Deividas Bakanas <https://github.com/DeividasBakanas>
 //                 Eugene Y. Q. Shen <https://github.com/eyqs>
+//                 Flarna <https://github.com/Flarna>
+//                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
+//                 Hoàng Văn Khải <https://github.com/KSXGitHub>
+//                 Huw <https://github.com/hoo29>
+//                 Kelvin Jin <https://github.com/kjin>
+//                 Klaus Meinhardt <https://github.com/ajafff>
+//                 Lishude <https://github.com/islishude>
+//                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
 //                 Matthieu Sieben <https://github.com/matthieusieben>
+//                 Mohsen Azimi <https://github.com/mohsen1>
+//                 Nicolas Even <https://github.com/n-e>
+//                 Nicolas Voigt <https://github.com/octo-sniffle>
+//                 Parambir Singh <https://github.com/parambirs>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Simon Schick <https://github.com/SimonSchick>
+//                 Thomas den Hollander <https://github.com/ThomasdenH>
+//                 Wilco Bakker <https://github.com/WilcoBakker>
+//                 wwwy3y3 <https://github.com/wwwy3y3>
+//                 Zane Hannan AU <https://github.com/ZaneHannanAU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -2955,7 +2956,6 @@ declare module "net" {
         connect(port: number, connectionListener?: Function): this;
         connect(path: string, connectionListener?: Function): this;
 
-        bufferSize: number;
         setEncoding(encoding?: string): this;
         pause(): this;
         resume(): this;
@@ -2966,15 +2966,16 @@ declare module "net" {
         unref(): void;
         ref(): void;
 
-        remoteAddress?: string;
-        remoteFamily?: string;
-        remotePort?: number;
-        localAddress: string;
-        localPort: number;
-        bytesRead: number;
-        bytesWritten: number;
-        connecting: boolean;
-        destroyed: boolean;
+        readonly bufferSize: number;
+        readonly bytesRead: number;
+        readonly bytesWritten: number;
+        readonly connecting: boolean;
+        readonly destroyed: boolean;
+        readonly localAddress: string;
+        readonly localPort: number;
+        readonly remoteAddress?: string;
+        readonly remoteFamily?: string;
+        readonly remotePort?: number;
 
         // Extended base methods
         end(): void;
@@ -6553,6 +6554,7 @@ declare module "util" {
         export function isArrayBuffer(object: any): object is ArrayBuffer;
         export function isAsyncFunction(object: any): boolean;
         export function isBooleanObject(object: any): object is Boolean;
+        export function isBoxedPrimitive(object: any): object is (Number | Boolean | String | Symbol /* BigInt */);
         export function isDataView(object: any): object is DataView;
         export function isDate(object: any): object is Date;
         export function isExternal(object: any): boolean;
@@ -7238,15 +7240,20 @@ declare module "http2" {
 
     export interface Http2Stream extends stream.Duplex {
         readonly aborted: boolean;
-        close(code?: number, callback?: () => void): void;
         readonly closed: boolean;
         readonly destroyed: boolean;
         readonly pending: boolean;
-        priority(options: StreamPriorityOptions): void;
         readonly rstCode: number;
         readonly session: Http2Session;
-        setTimeout(msecs: number, callback?: () => void): void;
         readonly state: StreamState;
+        /**
+         * Set the true if the END_STREAM flag was set in the request or response HEADERS frame received,
+         * indicating that no additional data should be received and the readable side of the Http2Stream will be closed.
+         */
+        readonly endAfterHeaders: boolean;
+        close(code?: number, callback?: () => void): void;
+        priority(options: StreamPriorityOptions): void;
+        setTimeout(msecs: number, callback?: () => void): void;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "aborted", listener: () => void): this;
