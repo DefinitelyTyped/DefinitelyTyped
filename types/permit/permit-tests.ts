@@ -19,7 +19,7 @@ const bearer = new Bearer({
 });
 
 function permitHandler(req: IncomingMessage, res: ServerResponse) {
-    const token = permit.check(req);
+    permit.check(req);
 
     permit.fail(res);
 }
