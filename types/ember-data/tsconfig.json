@@ -18,7 +18,11 @@
             "@ember/debug/*": ["ember__debug/*"],
             "@ember/array": ["ember__array"],
             "@ember/array/*": ["ember__array/*"],
+            "@ember/debug": ["ember__debug"],
+            "@ember/debug/*": ["ember__debug/*"],
             "@ember/controller": ["ember__controller"],
+            "@ember/routing": ["ember__routing"],
+            "@ember/routing/*": ["ember__routing/*"],
             "@ember/object": ["ember__object"],
             "@ember/object/*": ["ember__object/*"]
         },

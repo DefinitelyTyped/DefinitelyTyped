@@ -23,6 +23,7 @@
 /// <reference types="ember__debug" />
 /// <reference types="ember__controller" />
 /// <reference types="ember__component" />
+/// <reference types="ember__routing" />
 
 declare module 'ember' {
     import {
@@ -57,7 +58,7 @@ declare module 'ember' {
     // @ember/debug
     import * as EmberDebugNs from '@ember/debug';
     import _ContainerDebugAdapter from '@ember/debug/container-debug-adapter';
-    import _DataAdapter from '@ember/debug/data-adapter';
+    import EmberDataAdapter from '@ember/debug/data-adapter';
     // @ember/engine
     import * as EmberEngineNs from '@ember/engine';
     import * as EmberEngineInstanceNs from '@ember/engine/instance';
@@ -85,6 +86,16 @@ declare module 'ember' {
     import EmberTextField from '@ember/component/text-field';
     import EmberCheckbox from '@ember/component/checkbox';
     import EmberHelper from '@ember/component/helper';
+    // @ember/routing
+    import EmberRoutingRouter from '@ember/routing/router';
+    import EmberRoutingRoute from '@ember/routing/route';
+    import EmberRoutingTransition from '@ember/routing/-private/transition';
+    import EmberRoutingRouterService from '@ember/routing/router-service';
+    import EmberRoutingHashLocation from '@ember/routing/hash-location';
+    import EmberRoutingAutoLocation from '@ember/routing/auto-location';
+    import EmberRoutingHistoryLocation from '@ember/routing/history-location';
+    import EmberRoutingNoneLocation from '@ember/routing/none-location';
+    import EmberRoutingLinkComponent from '@ember/routing/link-component';
 
     type Mix<A, B> = B & Pick<A, Exclude<keyof A, keyof B>>;
     type Mix3<A, B, C> = Mix<Mix<A, B>, C>;
@@ -120,20 +131,6 @@ declare module 'ember' {
         | 'render'
         | 'afterRender'
         | 'destroy';
-
-    interface RenderOptions {
-        into?: string;
-        controller?: string;
-        model?: any;
-        outlet?: string;
-        view?: string;
-    }
-
-    interface RouteQueryParam {
-        refreshModel?: boolean;
-        replace?: boolean;
-        as?: string;
-    }
 
     interface EventDispatcherEvents {
         touchstart?: string | null;
@@ -187,6 +184,8 @@ declare module 'ember' {
         export const NativeArray: typeof EmberNativeArray;
         export type MutableEnumerable<T> = EmberMutableEnumerable<T>;
         export const MutableEnumerable: typeof EmberMutableEnumerable;
+        class Router extends EmberRoutingRouter {}
+        class Route extends EmberRoutingRoute {}
         const ActionHandler: typeof EmberActionHandler;
         class Controller extends EmberControllerNs.default {}
         export class Component extends EmberComponent {}
@@ -194,6 +193,11 @@ declare module 'ember' {
         export class TextField extends EmberTextField {}
         export class Checkbox extends EmberCheckbox {}
         export class Helper extends EmberHelper {}
+
+        export class HashLocation extends EmberRoutingHashLocation {}
+        export class NoneLocation extends EmberRoutingNoneLocation {}
+        export class HistoryLocation extends EmberRoutingHistoryLocation {}
+        export class LinkComponent extends EmberRoutingLinkComponent {}
         interface FunctionPrototypeExtensions {
             /**
              * The `property` extension of Javascript's Function prototype is available
@@ -332,10 +336,6 @@ declare module 'ember' {
         class ApplicationInstance extends EngineInstance {}
 
         /**
-         * AutoLocation will select the best location option based off browser support with the priority order: history, hash, none.
-         */
-        class AutoLocation extends Object {}
-        /**
          * Connects the properties of two objects so that whenever the value of one property changes,
          * the other property will be changed also.
          *
@@ -379,7 +379,7 @@ declare module 'ember' {
         const Observable: typeof EmberObservable;
         const PromiseProxyMixin: typeof EmberObjectPromiseProxyNs.default;
         class CoreObject extends EmberCoreObject {}
-        class DataAdapter extends _DataAdapter {}
+        class DataAdapter extends EmberDataAdapter {}
         const Debug: {
             registerDeprecationHandler: typeof EmberDebugNs.registerDeprecationHandler;
             registerWarnHandler: typeof EmberDebugNs.registerWarnHandler;
@@ -437,18 +437,6 @@ declare module 'ember' {
         }
         const Freezable: EmberMixin<Freezable>;
         /**
-         * `Ember.HashLocation` implements the location API using the browser's
-         * hash. At present, it relies on a `hashchange` event existing in the
-         * browser.
-         */
-        class HashLocation extends Object {}
-        /**
-         * Ember.HistoryLocation implements the location API using the browser's
-         * history.pushState API.
-         */
-        class HistoryLocation extends Object {}
-
-        /**
          * The purpose of the Ember Instrumentation module is
          * to provide efficient, general-purpose instrumentation
          * for Ember.
@@ -458,55 +446,6 @@ declare module 'ember' {
             reset(): void;
             subscribe(pattern: string, object: any): void;
             unsubscribe(subscriber: any): void;
-        };
-        /**
-         * `Ember.LinkComponent` renders an element whose `click` event triggers a
-         * transition of the application's instance of `Ember.Router` to
-         * a supplied route by name.
-         */
-        class LinkComponent extends EmberComponent {
-            /**
-             * Used to determine when this `LinkComponent` is active.
-             */
-            currentWhen: any;
-            /**
-             * Sets the `title` attribute of the `LinkComponent`'s HTML element.
-             */
-            title: string | null;
-            /**
-             * Sets the `rel` attribute of the `LinkComponent`'s HTML element.
-             */
-            rel: string | null;
-            /**
-             * Sets the `tabindex` attribute of the `LinkComponent`'s HTML element.
-             */
-            tabindex: string | null;
-            /**
-             * Sets the `target` attribute of the `LinkComponent`'s HTML element.
-             */
-            target: string | null;
-            /**
-             * The CSS class to apply to `LinkComponent`'s element when its `active`
-             * property is `true`.
-             */
-            activeClass: string;
-            /**
-             * Determines whether the `LinkComponent` will trigger routing via
-             * the `replaceWith` routing strategy.
-             */
-            replace: boolean;
-        }
-        /**
-         * Ember.Location returns an instance of the correct implementation of
-         * the `location` API.
-         */
-        const Location: {
-            /**
-             * This is deprecated in favor of using the container to lookup the location
-             * implementation as desired.
-             * @deprecated Use the container to lookup the location implementation that you need.
-             */
-            create(options?: {}): any;
         };
         /**
          * Inside Ember-Metal, simply uses the methods from `imports.console`.
@@ -568,13 +507,7 @@ declare module 'ember' {
          * to define one of these new containers.
          */
         class Namespace extends Object {}
-        /**
-         * Ember.NoneLocation does not interact with the browser. It is useful for
-         * testing, or when you need to manage state with your Router, but temporarily
-         * don't want it to muck with the URL (for example when you embed your
-         * application in a larger page).
-         */
-        class NoneLocation extends Object {}
+
         /**
          * This class is used internally by Ember and Ember Data.
          * Please do not use it at this time. We plan to clean it up
@@ -604,342 +537,7 @@ declare module 'ember' {
             ): void;
         }
         class Resolver extends Ember.Object {}
-        /**
-         * The `Ember.Route` class is used to define individual routes. Refer to
-         * the [routing guide](http://emberjs.com/guides/routing/) for documentation.
-         */
-        class Route extends Object.extend(ActionHandler, Evented) {
-            // methods
-            /**
-             * This hook is called after this route's model has resolved.
-             * It follows identical async/promise semantics to `beforeModel`
-             * but is provided the route's resolved model in addition to
-             * the `transition`, and is therefore suited to performing
-             * logic that can only take place after the model has already
-             * resolved.
-             */
-            afterModel(resolvedModel: any, transition: Transition): any;
 
-            /**
-             * This hook is the first of the route entry validation hooks
-             * called when an attempt is made to transition into a route
-             * or one of its children. It is called before `model` and
-             * `afterModel`, and is appropriate for cases when:
-             * 1) A decision can be made to redirect elsewhere without
-             *     needing to resolve the model first.
-             * 2) Any async operations need to occur first before the
-             *     model is attempted to be resolved.
-             * This hook is provided the current `transition` attempt
-             * as a parameter, which can be used to `.abort()` the transition,
-             * save it for a later `.retry()`, or retrieve values set
-             * on it from a previous hook. You can also just call
-             * `this.transitionTo` to another route to implicitly
-             * abort the `transition`.
-             * You can return a promise from this hook to pause the
-             * transition until the promise resolves (or rejects). This could
-             * be useful, for instance, for retrieving async code from
-             * the server that is required to enter a route.
-             */
-            beforeModel(transition: Transition): any;
-
-            /**
-             * Returns the controller for a particular route or name.
-             * The controller instance must already have been created, either through entering the
-             * associated route or using `generateController`.
-             */
-            controllerFor<K extends keyof ControllerRegistry>(name: K): ControllerRegistry[K];
-
-            /**
-             * Disconnects a view that has been rendered into an outlet.
-             */
-            disconnectOutlet(options: string | { outlet?: string; parentView?: string }): void;
-
-            /**
-             * A hook you can implement to convert the URL into the model for
-             * this route.
-             */
-            model(params: {}, transition: Transition): any;
-
-            /**
-             * Returns the model of a parent (or any ancestor) route
-             * in a route hierarchy.  During a transition, all routes
-             * must resolve a model object, and if a route
-             * needs access to a parent route's model in order to
-             * resolve a model (or just reuse the model from a parent),
-             * it can call `this.modelFor(theNameOfParentRoute)` to
-             * retrieve it.
-             */
-            modelFor(name: string): {};
-
-            /**
-             * Retrieves parameters, for current route using the state.params
-             * variable and getQueryParamsFor, using the supplied routeName.
-             */
-            paramsFor(name: string): {};
-
-            /**
-             * Refresh the model on this route and any child routes, firing the
-             * `beforeModel`, `model`, and `afterModel` hooks in a similar fashion
-             * to how routes are entered when transitioning in from other route.
-             * The current route params (e.g. `article_id`) will be passed in
-             * to the respective model hooks, and if a different model is returned,
-             * `setupController` and associated route hooks will re-fire as well.
-             * An example usage of this method is re-querying the server for the
-             * latest information using the same parameters as when the route
-             * was first entered.
-             * Note that this will cause `model` hooks to fire even on routes
-             * that were provided a model object when the route was initially
-             * entered.
-             */
-            redirect(): Transition;
-
-            /**
-             * Refresh the model on this route and any child routes, firing the
-             * `beforeModel`, `model`, and `afterModel` hooks in a similar fashion
-             * to how routes are entered when transitioning in from other route.
-             * The current route params (e.g. `article_id`) will be passed in
-             * to the respective model hooks, and if a different model is returned,
-             * `setupController` and associated route hooks will re-fire as well.
-             * An example usage of this method is re-querying the server for the
-             * latest information using the same parameters as when the route
-             * was first entered.
-             * Note that this will cause `model` hooks to fire even on routes
-             * that were provided a model object when the route was initially
-             * entered.
-             */
-            refresh(): Transition;
-
-            /**
-             * `render` is used to render a template into a region of another template
-             * (indicated by an `{{outlet}}`). `render` is used both during the entry
-             * phase of routing (via the `renderTemplate` hook) and later in response to
-             * user interaction.
-             */
-            render(name: string, options?: RenderOptions): void;
-
-            /**
-             * A hook you can use to render the template for the current route.
-             * This method is called with the controller for the current route and the
-             * model supplied by the `model` hook. By default, it renders the route's
-             * template, configured with the controller for the route.
-             * This method can be overridden to set up and render additional or
-             * alternative templates.
-             */
-            renderTemplate(controller: Controller, model: {}): void;
-
-            /**
-             * Transition into another route while replacing the current URL, if possible.
-             * This will replace the current history entry instead of adding a new one.
-             * Beside that, it is identical to `transitionTo` in all other respects. See
-             * 'transitionTo' for additional information regarding multiple models.
-             */
-            replaceWith(name: string, ...args: any[]): Transition;
-
-            /**
-             * A hook you can use to reset controller values either when the model
-             * changes or the route is exiting.
-             */
-            resetController(controller: Controller, isExiting: boolean, transition: any): void;
-
-            /**
-             * Sends an action to the router, which will delegate it to the currently active
-             * route hierarchy per the bubbling rules explained under actions.
-             */
-            send(name: string, ...args: any[]): void;
-
-            /**
-             * A hook you can implement to convert the route's model into parameters
-             * for the URL.
-             *
-             * The default `serialize` method will insert the model's `id` into the
-             * route's dynamic segment (in this case, `:post_id`) if the segment contains '_id'.
-             * If the route has multiple dynamic segments or does not contain '_id', `serialize`
-             * will return `Ember.getProperties(model, params)`
-             * This method is called when `transitionTo` is called with a context
-             * in order to populate the URL.
-             */
-            serialize(model: {}, params: string[]): string | object;
-
-            /**
-             * A hook you can use to setup the controller for the current route.
-             * This method is called with the controller for the current route and the
-             * model supplied by the `model` hook.
-             * By default, the `setupController` hook sets the `model` property of
-             * the controller to the `model`.
-             * If you implement the `setupController` hook in your Route, it will
-             * prevent this default behavior. If you want to preserve that behavior
-             * when implementing your `setupController` function, make sure to call
-             * `_super`
-             */
-            setupController(controller: Controller, model: {}): void;
-
-            /**
-             * Transition the application into another route. The route may
-             * be either a single route or route path
-             */
-            transitionTo(name: string, ...object: any[]): Transition;
-
-            /**
-             * The name of the view to use by default when rendering this routes template.
-             * When rendering a template, the route will, by default, determine the
-             * template and view to use from the name of the route itself. If you need to
-             * define a specific view, set this property.
-             * This is useful when multiple routes would benefit from using the same view
-             * because it doesn't require a custom `renderTemplate` method.
-             */
-            transitionTo(name: string, ...object: any[]): Transition;
-
-            // https://emberjs.com/api/ember/3.2/classes/Route/methods/intermediateTransitionTo?anchor=intermediateTransitionTo
-            /**
-             * Perform a synchronous transition into another route without attempting to resolve promises,
-             * update the URL, or abort any currently active asynchronous transitions
-             * (i.e. regular transitions caused by transitionTo or URL changes).
-             *
-             * @param name           the name of the route or a URL
-             * @param object         the model(s) or identifier(s) to be used while
-             *                       transitioning to the route.
-             * @returns              the Transition object associated with this attempted transition
-             */
-            intermediateTransitionTo(name: string, ...object: any[]): Transition;
-
-            // properties
-            /**
-             * The controller associated with this route.
-             */
-            controller: Controller;
-
-            /**
-             * The name of the controller to associate with this route.
-             * By default, Ember will lookup a route's controller that matches the name
-             * of the route (i.e. `App.PostController` for `App.PostRoute`). However,
-             * if you would like to define a specific controller to use, you can do so
-             * using this property.
-             * This is useful in many ways, as the controller specified will be:
-             * * p assed to the `setupController` method.
-             * * used as the controller for the view being rendered by the route.
-             * * returned from a call to `controllerFor` for the route.
-             */
-            controllerName: string;
-
-            /**
-             * Configuration hash for this route's queryParams.
-             */
-            queryParams: { [key: string]: RouteQueryParam };
-
-            /**
-             * The name of the route, dot-delimited
-             */
-            routeName: string;
-
-            /**
-             * The name of the template to use by default when rendering this routes
-             * template.
-             * This is similar with `viewName`, but is useful when you just want a custom
-             * template without a view.
-             */
-            templateName: string;
-
-            // events
-            /**
-             * This hook is executed when the router enters the route. It is not executed
-             * when the model for the route changes.
-             */
-            activate(): void;
-
-            /**
-             * This hook is executed when the router completely exits this route. It is
-             * not executed when the model for the route changes.
-             */
-            deactivate(): void;
-
-            /**
-             * The didTransition action is fired after a transition has successfully been
-             * completed. This occurs after the normal model hooks (beforeModel, model,
-             * afterModel, setupController) have resolved. The didTransition action has
-             * no arguments, however, it can be useful for tracking page views or resetting
-             * state on the controller.
-             */
-            didTransition(): void;
-
-            /**
-             * When attempting to transition into a route, any of the hooks may return a promise
-             * that rejects, at which point an error action will be fired on the partially-entered
-             * routes, allowing for per-route error handling logic, or shared error handling logic
-             * defined on a parent route.
-             */
-            error(error: any, transition: Transition): void;
-
-            /**
-             * The loading action is fired on the route when a route's model hook returns a
-             * promise that is not already resolved. The current Transition object is the first
-             * parameter and the route that triggered the loading event is the second parameter.
-             */
-            loading(transition: Transition, route: Route): void;
-
-            /**
-             * The willTransition action is fired at the beginning of any attempted transition
-             * with a Transition object as the sole argument. This action can be used for aborting,
-             * redirecting, or decorating the transition from the currently active routes.
-             */
-            willTransition(transition: Transition): void;
-        }
-        /**
-         * The `Ember.Router` class manages the application state and URLs. Refer to
-         * the [routing guide](http://emberjs.com/guides/routing/) for documentation.
-         */
-        class Router extends Object.extend(Evented) {
-            /**
-             * The `Router.map` function allows you to define mappings from URLs to routes
-             * in your application. These mappings are defined within the
-             * supplied callback function using `this.route`.
-             */
-            static map(callback: (this: RouterDSL) => void): void;
-            /**
-             * The `location` property determines the type of URL's that your
-             * application will use.
-             */
-            location: string;
-            /**
-             * Represents the URL of the root of the application, often '/'. This prefix is
-             * assumed on all routes defined on this router.
-             */
-            rootURL: string;
-            /**
-             * Handles updating the paths and notifying any listeners of the URL
-             * change.
-             */
-            didTransition(): any;
-            /**
-             * Handles notifying any listeners of an impending URL
-             * change.
-             */
-            willTransition(): any;
-            /**
-             * Transition the application into another route. The route may
-             * be either a single route or route path:
-             */
-            transitionTo(name: string, options?: {}): Transition;
-            transitionTo(name: string, ...models: any[]): Transition;
-            transitionTo(name: string, options: {}): Transition;
-        }
-        class RouterDSL {
-            constructor(name: string, options: object);
-            route(name: string, callback: (this: RouterDSL) => void): void;
-            route(
-                name: string,
-                options?: { path?: string; resetNamespace?: boolean },
-                callback?: (this: RouterDSL) => void
-            ): void;
-            mount(
-                name: string,
-                options?: {
-                    as?: string,
-                    path?: string,
-                    resetNamespace?: boolean,
-                    engineInfo?: any
-                }
-            ): void;
-        }
         class Service extends Object {}
         interface Transition {
             /**
@@ -1603,126 +1201,9 @@ declare module 'ember' {
         const expandProperties: typeof EmberObjectComputedNs.expandProperties;
     }
 
-    type RouteModel = object | string | number;
-    // https://emberjs.com/api/ember/2.18/classes/RouterService
-    /**
-     * The Router service is the public API that provides component/view layer access to the router.
-     */
-    export class RouterService extends Ember.Service {
-        //
-        /**
-         *   Name of the current route.
-         *  This property represent the logical name of the route,
-         *  which is comma separated.
-         *  For the following router:
-         *  ```app/router.js
-         *  Router.map(function() {
-         *  this.route('about');
-         *  this.route('blog', function () {
-         *      this.route('post', { path: ':post_id' });
-         *  });
-         *  });
-         *  ```
-         *  It will return:
-         *  * `index` when you visit `/`
-         *  * `about` when you visit `/about`
-         *  * `blog.index` when you visit `/blog`
-         *  * `blog.post` when you visit `/blog/some-post-id`
-         */
-        readonly currentRouteName: string;
-        //
-        /**
-         *   Current URL for the application.
-         *  This property represent the URL path for this route.
-         *  For the following router:
-         *  ```app/router.js
-         *  Router.map(function() {
-         *  this.route('about');
-         *  this.route('blog', function () {
-         *      this.route('post', { path: ':post_id' });
-         *  });
-         *  });
-         *  ```
-         *  It will return:
-         *  * `/` when you visit `/`
-         *  * `/about` when you visit `/about`
-         *  * `/blog` when you visit `/blog`
-         *  * `/blog/some-post-id` when you visit `/blog/some-post-id`
-         */
-        readonly currentURL: string;
-        //
-        /**
-         * Determines whether a route is active.
-         *
-         * @param routeName the name of the route
-         * @param models    the model(s) or identifier(s) to be used while
-         *                  transitioning to the route
-         * @param options   optional hash with a queryParams property containing a
-         *                  mapping of query parameters
-         */
-        isActive(routeName: string, options?: { queryParams: object }): boolean;
-        isActive(routeName: string, models: RouteModel, options?: { queryParams: object }): boolean;
-        isActive(routeName: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): boolean;
-        isActive(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): boolean;
-        isActive(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, modelsD: RouteModel, options?: { queryParams: object }): boolean;
-
-        // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=replaceWith
-        /**
-         * Transition into another route while replacing the current URL, if
-         * possible. The route may be either a single route or route path.
-         *
-         * @param routeNameOrUrl the name of the route or a URL
-         * @param models         the model(s) or identifier(s) to be used while
-         *                       transitioning to the route.
-         * @param options        optional hash with a queryParams property
-         *                       containing a mapping of query parameters
-         * @returns              the Transition object associated with this attempted transition
-         */
-        replaceWith(routeNameOrUrl: string, options?: { queryParams: object }): Ember.Transition;
-        replaceWith(routeNameOrUrl: string, models: RouteModel, options?: { queryParams: object }): Ember.Transition;
-        replaceWith(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): Ember.Transition;
-        replaceWith(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): Ember.Transition;
-        replaceWith(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, modelsD: RouteModel, options?: { queryParams: object }): Ember.Transition;
-
-        // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=transitionTo
-        /**
-         * Transition the application into another route. The route may be
-         * either a single route or route path
-         *
-         * @param routeNameOrUrl the name of the route or a URL
-         * @param models         the model(s) or identifier(s) to be used while
-         *                       transitioning to the route.
-         * @param options        optional hash with a queryParams property
-         *                       containing a mapping of query parameters
-         * @returns              the Transition object associated with this attempted transition
-         */
-        transitionTo(routeNameOrUrl: string, options?: { queryParam: object }): Ember.Transition;
-        transitionTo(routeNameOrUrl: string, models: RouteModel, options?: { queryParams: object }): Ember.Transition;
-        transitionTo(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): Ember.Transition;
-        transitionTo(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): Ember.Transition;
-        transitionTo(routeNameOrUrl: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, modelsD: RouteModel, options?: { queryParams: object }): Ember.Transition;
-
-        // https://emberjs.com/api/ember/2.18/classes/RouterService/methods/isActive?anchor=urlFor
-        /**
-         * Generate a URL based on the supplied route name.
-         *
-         * @param routeName the name of the route or a URL
-         * @param models    the model(s) or identifier(s) to be used while
-         *                  transitioning to the route.
-         * @param options   optional hash with a queryParams property containing
-         *                  a mapping of query parameters
-         * @returns         the string representing the generated URL
-         */
-        urlFor(routeName: string, options?: { queryParams: object }): string;
-        urlFor(routeName: string, models: RouteModel, options?: { queryParams: object }): string;
-        urlFor(routeName: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): string;
-        urlFor(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, options?: { queryParams: object }): string;
-        urlFor(routeName: string, modelsA: RouteModel, modelsB: RouteModel, modelsC: RouteModel, modelsD: RouteModel, options?: { queryParams: object }): string;
-    }
-
     module '@ember/service' {
         interface Registry {
-            'router': RouterService;
+            'router': EmberRoutingRouterService;
         }
     }
 
@@ -1763,52 +1244,6 @@ declare module '@ember/error' {
     import Ember from 'ember';
     const Error: typeof Ember.Error;
     export default Error;
-}
-
-declare module '@ember/routing/auto-location' {
-    import Ember from 'ember';
-    export default class AutoLocation extends Ember.AutoLocation { }
-}
-
-declare module '@ember/routing/hash-location' {
-    import Ember from 'ember';
-    export default class HashLocation extends Ember.HashLocation { }
-}
-
-declare module '@ember/routing/history-location' {
-    import Ember from 'ember';
-    export default class HistoryLocation extends Ember.HistoryLocation { }
-}
-
-declare module '@ember/routing/link-component' {
-    import Ember from 'ember';
-    export default class LinkComponent extends Ember.LinkComponent { }
-}
-
-declare module '@ember/routing/location' {
-    import Ember from 'ember';
-    const Location: typeof Ember.Location;
-    export default Location;
-}
-
-declare module '@ember/routing/none-location' {
-    import Ember from 'ember';
-    export default class NoneLocation extends Ember.NoneLocation { }
-}
-
-declare module '@ember/routing/route' {
-    import Ember from 'ember';
-    export default class Route extends Ember.Route { }
-}
-
-declare module '@ember/routing/router' {
-    import Ember from 'ember';
-    export default class EmberRouter extends Ember.Router { }
-}
-
-declare module '@ember/routing/router-service' {
-    import { RouterService } from 'ember';
-    export default class extends RouterService { }
 }
 
 declare module '@ember/runloop' {

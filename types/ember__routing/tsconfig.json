@@ -19,6 +19,10 @@
             "@ember/object/*": ["ember__object/*"],
             "@ember/array": ["ember__array"],
             "@ember/array/*": ["ember__array/*"],
+            "@ember/service": ["ember__service"],
+            "@ember/service/*": ["ember__service/*"],
+            "@ember/component": ["ember__component"],
+            "@ember/component/*": ["ember__component/*"],
             "@ember/controller": ["ember__controller"],
             "@ember/routing": ["ember__routing"],
             "@ember/routing/*": ["ember__routing/*"]
@@ -38,6 +42,9 @@
         "route.d.ts",
         "router-service.d.ts",
         "router.d.ts",
+        "types.d.ts",
+        "-private/router-dsl.d.ts",
+        "-private/transition.d.ts",
         "test/lib/assert.ts",
         "test/route.ts",
         "test/router.ts"
