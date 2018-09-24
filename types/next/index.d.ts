@@ -33,7 +33,7 @@ declare namespace next {
      *
      * @template Q Query object schema.
      */
-    interface NextContext<Q = DefaultQuery> {
+    interface NextContext<Q extends DefaultQuery = DefaultQuery> {
         /** path section of URL */
         pathname: string;
         /** query string section of URL parsed as an object */

@@ -30,7 +30,7 @@ export type Enhancer<E extends PageProps = AnyPageProps, P extends any = E> = (
  *
  * @template Q Query object schema.
  */
-export interface NextDocumentContext<Q = DefaultQuery> extends NextContext<Q> {
+export interface NextDocumentContext<Q extends DefaultQuery = DefaultQuery> extends NextContext<Q> {
     /** A callback that executes the actual React rendering logic (synchronously) */
     renderPage<E extends PageProps = AnyPageProps, P extends any = E>(
         enhancer?: Enhancer<E, P> // tslint:disable-line no-unnecessary-generics
@@ -86,8 +86,6 @@ export type DocumentComponentType<IP = {}, C = NextDocumentContext> = NextCompon
 export class Head extends React.Component<HeadProps> {}
 export class Main extends React.Component {}
 export class NextScript extends React.Component<NextScriptProps> {}
-export default class Document<IP = {}, C = NextDocumentContext> extends React.Component<
-    IP & DocumentProps
-> {
-    getInitialProps(context: C): Promise<IP> | IP;
+export default class Document<P = {}> extends React.Component<P & DocumentProps> {
+    static getInitialProps(context: NextDocumentContext): DocumentProps;
 }
