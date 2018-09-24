@@ -13,7 +13,8 @@ interface MyOptions {
 }
 
 // exports should work same as module.exports
-exports = (grunt: IGrunt) => {
+// assigning exports is an error in node, hence the cast
+(<any>exports) = (grunt: IGrunt) => {
 
     // Project configuration.
     grunt.initConfig({
