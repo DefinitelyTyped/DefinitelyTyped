@@ -1,4 +1,3 @@
-import { LngLatBoundsLike } from ".";
 import mapboxgl = require('.');
 
 // These examples adapted from Mapbox's examples (https://www.mapbox.com/mapbox-gl-js/examples)
