@@ -89,5 +89,5 @@ export class NextScript extends React.Component<NextScriptProps> {}
 export default class Document<IP = {}, C = NextDocumentContext> extends React.Component<
     IP & DocumentProps
 > {
-    getInitialProps(context: C): Promise<IP> | IP;
+    static getInitialProps(context: C): Promise<IP> | IP;
 }
