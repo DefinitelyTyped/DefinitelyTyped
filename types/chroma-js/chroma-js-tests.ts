@@ -111,7 +111,6 @@ function test_color() {
     chroma('teal').css('hsl');
     chroma('orange').rgb();
 
-
     chroma('#000000').num();
     chroma('#0000ff').num();
     chroma('#00ff00').num();
