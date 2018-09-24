@@ -14,7 +14,7 @@ export interface LambdaLogOptions {
     // Global tags array to include with every log
     tags?: string[];
     // Optional function which will run for every log to inject dynamic metadata
-    dynamicMeta?: null;
+    dynamicMeta?: () => any;
     // Enable debugging mode (log.debug messages)
     debug?: boolean;
     // Enable development mode which pretty-prints the log object to the console
@@ -51,5 +51,10 @@ export class LambdaLog extends EventEmitter {
 
     log(level: string, msg: string, meta: object, tags: string[]): string;
 
-    assert(test: any, msg: string, meta: object, tags: string[]): boolean | string;
+    assert(
+        test: any,
+        msg: string,
+        meta: object,
+        tags: string[]
+    ): boolean | string;
 }
