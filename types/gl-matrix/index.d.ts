@@ -344,7 +344,7 @@ declare module 'gl-matrix' {
          * @param b the second operand
          * @returns out
          */
-        public static cross(out: vec3, a: vec2 | number[], b: vec2 | number[]): vec2;
+        public static cross(out: vec3, a: vec2 | number[], b: vec2 | number[]): vec3;
 
         /**
          * Performs a linear interpolation between two vec2's
