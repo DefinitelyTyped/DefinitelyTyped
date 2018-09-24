@@ -289,7 +289,7 @@ declare namespace chroma {
          * [temperature gradient]{@link ChromaStatic.temperature} above.
          */
         temperature(): number;
-        
+
         /**
          * Returns the numeric representation of the hexadecimal RGB color.
          *
