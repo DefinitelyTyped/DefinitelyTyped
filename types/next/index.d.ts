@@ -1,4 +1,4 @@
-// Type definitions for next 6.1
+// Type definitions for next 7.0
 // Project: https://github.com/zeit/next.js
 // Definitions by: Drew Hays <https://github.com/dru89>
 //                 Brice BERNARD <https://github.com/brikou>
@@ -16,7 +16,7 @@ import * as url from "url";
 
 import { Response as NodeResponse } from "node-fetch";
 
-import { SingletonRouter, DefaultQuery } from "./router";
+import { SingletonRouter, DefaultQuery, UrlLike } from "./router";
 
 declare namespace next {
     // Deprecated
@@ -24,12 +24,10 @@ declare namespace next {
     type ServerConfig = NextConfig;
     // End Deprecated
 
-    type UrlLike = url.UrlObject | url.Url;
-
     /**
      * Context object used in methods like `getInitialProps()`
-     * https://github.com/zeit/next.js/blob/6.1.1/server/render.js#L77
-     * https://github.com/zeit/next.js/blob/6.1.1/readme.md#fetching-data-and-component-lifecycle
+     * https://github.com/zeit/next.js/blob/7.0.0/server/render.js#L97
+     * https://github.com/zeit/next.js/blob/7.0.0/README.md#fetching-data-and-component-lifecycle
      *
      * @template Q Query object schema.
      */
@@ -52,7 +50,7 @@ declare namespace next {
 
     /**
      * Next.js config schema.
-     * https://github.com/zeit/next.js/blob/6.1.1/server/config.js#L10
+     * https://github.com/zeit/next.js/blob/7.0.0/server/config.js#L9
      */
     interface NextConfig {
         webpack?: any;
@@ -74,7 +72,7 @@ declare namespace next {
 
     /**
      * Options passed to the Server constructor in Node.js.
-     * https://github.com/zeit/next.js/blob/6.1.1/server/index.js#L30
+     * https://github.com/zeit/next.js/blob/7.0.0/server/index.js#L25
      */
     interface ServerOptions {
         dir?: string;
@@ -89,7 +87,7 @@ declare namespace next {
      */
     interface Server {
         // From constructor
-        // https://github.com/zeit/next.js/blob/6.1.1/server/index.js#L30
+        // https://github.com/zeit/next.js/blob/7.0.0/server/index.js#L25
         dir: string;
         dev: boolean;
         quiet: boolean;
@@ -105,7 +103,6 @@ declare namespace next {
             distDir: string;
             hotReloader: any;
             buildId: string;
-            availableChunks: object;
             generateETags: boolean;
             runtimeConfig?: object;
         };
@@ -172,9 +169,7 @@ declare namespace next {
         ): Promise<void>;
         isServeableUrl(path: string): boolean;
         readBuildId(): string;
-        handleBuildId(buildId: string, res: http.ServerResponse): boolean;
         getCompilationError(): Promise<any>;
-        send404(res: http.ServerResponse): void;
     }
 
     /**

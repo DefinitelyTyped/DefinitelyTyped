@@ -1,62 +1,48 @@
-import Document, { DocumentProps, Enhancer, Head, Main, NextScript, NextDocumentContext, PageProps } from 'next/document';
+import Document, { Enhancer, Head, Main, NextScript, NextDocumentContext, PageProps } from 'next/document';
 import * as React from "react";
 
-const basicResults = (
-    <Document any="property" should="work" here>
-        <Head some="more" properties>
-            <meta name="description" content="Head can have children, too!" />
-        </Head>
-        <Main />
-        <NextScript />
-    </Document>
-);
+interface WithUrlProps {
+    url: string;
+}
 
-const withNonce = (
-    <Document>
-        <Head nonce="12345" />
-        <NextScript nonce="12345" />
-    </Document>
-);
-
-class MyDoc extends Document {
-    static async getInitialProps({ renderPage }: NextDocumentContext) {
+class MyDoc extends Document<WithUrlProps> {
+    static getInitialProps({ req, renderPage }: NextDocumentContext) {
         // without callback
         const _page = renderPage();
 
         // with callback
         const enhancer: Enhancer<PageProps, {}> = (App) => (props) => (<App />);
-        const { html, head, errorHtml, chunks, buildManifest } = renderPage(enhancer);
+        const { html, head, buildManifest } = renderPage(enhancer);
 
-        const style = {};
+        const styles = [
+            <style />
+        ];
 
-        return { html, head, errorHtml, chunks, buildManifest, style };
+        // Custom prop
+        const url = req!.url;
+
+        return { html, head, buildManifest, styles, url };
     }
 
     render() {
+        const { pathname, query } = this.props.__NEXT_DATA__;
+
         return (
             <html>
-                <Head>
+                <Head nonce="nonce" any="property" should="work" here>
                     <title>My page</title>
-                    <style id='cxs-style' dangerouslySetInnerHTML={{ __html: this.props.style }} />
+                    { this.props.styles }
                 </Head>
                 <body>
                     <Main />
                     <NextScript />
+                    <p>{this.props.url}</p>
                     {this.props.children}
                 </body>
             </html>
         );
     }
 }
-
-const extendedResults = (
-    <MyDoc any="property" should="work" here>
-        <Head some="more" properties>
-            <meta name="description" content="Head can have children, too!" />
-        </Head>
-        <h1>Hey there</h1>
-    </MyDoc>
-);
 
 const renderPage: NextDocumentContext['renderPage'] = (enhancer) => ({
     buildManifest: {},

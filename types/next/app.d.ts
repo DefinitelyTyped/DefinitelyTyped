@@ -20,6 +20,14 @@ export interface NextAppContext<Q extends DefaultQuery = DefaultQuery> {
 }
 
 /**
+ * Initial Props returned from base App class.
+ * https://github.com/zeit/next.js/blob/7.0.0/lib/app.js#L16
+ */
+export interface DefaultAppIProps {
+    pageProps: any;
+}
+
+/**
  * Props passed to the App component.
  * Component and pageProps are dynamic - cannot infer type.
  *
@@ -28,7 +36,6 @@ export interface NextAppContext<Q extends DefaultQuery = DefaultQuery> {
 export interface AppProps<Q extends DefaultQuery = DefaultQuery> {
     Component: NextComponentType<any, any, NextContext<Q>>;
     router: RouterProps<Q>;
-    pageProps: any;
 }
 
 /**
@@ -41,6 +48,6 @@ export interface AppProps<Q extends DefaultQuery = DefaultQuery> {
 export type AppComponentType<IP = {}, C = NextAppContext> = NextComponentType<IP & AppProps, IP, C>;
 
 export class Container extends React.Component {}
-export default class App<P = {}> extends React.Component<P & AppProps> {
-    static getInitialProps(context: NextAppContext): Promise<{ pageProps: any }>;
+export default class App<P = {}> extends React.Component<P & DefaultAppIProps & AppProps> {
+    static getInitialProps(context: NextAppContext): Promise<DefaultAppIProps>;
 }
