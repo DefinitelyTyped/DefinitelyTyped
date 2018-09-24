@@ -1,6 +1,7 @@
 // Type definitions for cote 0.14
 // Project: https://github.com/dashersw/cote#readme
 // Definitions by: makepost <https://github.com/makepost>
+//                 Labat Robin <https://github.com/roblabat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter2 } from "eventemitter2";
@@ -100,7 +101,7 @@ export class Responder extends Component {
     on<T extends Event>(
         type: string | string[],
         listener: (
-            ((event: T, callback: (result: any) => void) => void) |
+            ((event: T, callback: (error: any, result: any) => void) => void) |
             ((event: T) => Promise<any>)
         )
     ): this;
