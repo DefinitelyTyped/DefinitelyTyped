@@ -58,12 +58,18 @@ function contentSecurityPolicyTest() {
         disableAndroid: false
     };
 
+    function reportCb(req: express.Request, res: express.Response) { return '/some-uri'; }
+
     app.use(helmet.contentSecurityPolicy());
     app.use(helmet.contentSecurityPolicy({}));
     app.use(helmet.contentSecurityPolicy(config));
     app.use(helmet.contentSecurityPolicy({
         directives: {
-            defaultSrc: ["'self'"]
+            defaultSrc: ["'self'"],
+            reportUri: reportCb,
+            'report-uri': reportCb,
+            reportTo: reportCb,
+            'report-to': reportCb
         },
         loose: false,
         setAllHeaders: true
