@@ -366,6 +366,73 @@ declare namespace RoyalSlider {
          */
         visibleNearby?: RoyalSliderVisibleOptions;
     }
+	
+	export interface RoyalSliderSlide {
+		/**
+		 * TODO
+		 */
+		appendOnLoaded: boolean;
+		/**
+		 * slide element
+		 */
+		content: JQuery;
+		/**
+		 * TODO
+		 */
+		contentAdded: boolean;
+		/**
+		 * slide element wrapper
+		 */
+		holder: JQuery;
+		/**
+		 * slide index
+		 */
+		id: number;
+		/**
+		 * TODO
+		 */
+		images: null;
+		/**
+		 * TODO
+		 */
+		isAdded: boolean;
+		/**
+		 * TODO
+		 */
+		isAppended: boolean;
+		/**
+		 * TODO
+		 */
+		isBig: boolean;
+		/**
+		 * TODO
+		 */
+		isLoaded: boolean;
+		/**
+		 * TODO
+		 */
+		isLoading: boolean;
+		/**
+		 * TODO
+		 */
+		isRendered: boolean;
+		/**
+		 * TODO
+		 */
+		loadedTriggered: boolean;
+		/**
+		 * TODO
+		 */
+		positionSet: boolean;
+		/**
+		 * TODO
+		 */
+		sizeReady: boolean;
+		/**
+		 * TODO
+		 */
+		thumbnail: string;
+	}
 
     export interface RoyalSlider { //TODO: extends/implements JQuery? (giving problems due to next(), prev(), width and height and 'selector'.
         /**
@@ -443,7 +510,7 @@ declare namespace RoyalSlider {
         /**
          * current slide object
          */
-        currSlide: JQuery;
+        currSlide: RoyalSliderSlide;
         /**
          * total number of slides
          */
