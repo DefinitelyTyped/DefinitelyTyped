@@ -69,8 +69,8 @@ declare namespace helmet {
         objectSrc?: HelmetCspDirectiveValue[];
         pluginTypes?: HelmetCspDirectiveValue[];
         prefetchSrc?: HelmetCspDirectiveValue[];
-        reportTo?: HelmetCspDirectiveValue;
-        reportUri?: HelmetCspDirectiveValue;
+        reportTo?: HelmetCspDirectiveValue | false;
+        reportUri?: HelmetCspDirectiveValue | false;
         requireSriFor?: HelmetCspRequireSriForValue[];
         sandbox?: HelmetCspSandboxDirective[];
         scriptSrc?: HelmetCspDirectiveValue[];
@@ -95,8 +95,8 @@ declare namespace helmet {
         'object-src'?: HelmetCspDirectiveValue[];
         'plugin-types'?: HelmetCspDirectiveValue[];
         'prefetch-src'?: HelmetCspDirectiveValue[];
-        'report-to'?: HelmetCspDirectiveValue;
-        'report-uri'?: HelmetCspDirectiveValue;
+        'report-to'?: HelmetCspDirectiveValue | false;
+        'report-uri'?: HelmetCspDirectiveValue | false;
         'require-sri-for'?: HelmetCspRequireSriForValue[];
         'sandbox'?: HelmetCspSandboxDirective[];
         'script-src'?: HelmetCspDirectiveValue;
