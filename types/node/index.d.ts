@@ -1021,11 +1021,11 @@ declare module "buffer" {
 }
 
 declare module "querystring" {
-     interface StringifyOptions {
+    interface StringifyOptions {
         encodeURIComponent?: Function;
     }
 
-     interface ParseOptions {
+    interface ParseOptions {
         maxKeys?: number;
         decodeURIComponent?: Function;
     }
@@ -1075,7 +1075,7 @@ declare module "http" {
     import { URL } from "url";
 
     // incoming headers will never contain number
-     interface IncomingHttpHeaders {
+    interface IncomingHttpHeaders {
         'accept'?: string;
         'access-control-allow-origin'?: string;
         'access-control-allow-credentials'?: string;
@@ -1123,11 +1123,11 @@ declare module "http" {
     }
 
     // outgoing headers allows numbers (as they are converted internally to strings)
-     interface OutgoingHttpHeaders {
+    interface OutgoingHttpHeaders {
         [header: string]: number | string | string[] | undefined;
     }
 
-     interface ClientRequestArgs {
+    interface ClientRequestArgs {
         protocol?: string;
         host?: string;
         hostname?: string;
@@ -1147,7 +1147,7 @@ declare module "http" {
         createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: net.Socket) => void) => net.Socket;
     }
 
-     class Server extends net.Server {
+    class Server extends net.Server {
         constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
 
         setTimeout(msecs?: number, callback?: () => void): this;
@@ -1156,15 +1156,9 @@ declare module "http" {
         timeout: number;
         keepAliveTimeout: number;
     }
-    /**
-     * @deprecated Use IncomingMessage
-     */
-     class ServerRequest extends IncomingMessage {
-        connection: net.Socket;
-    }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
-     class OutgoingMessage extends stream.Writable {
+    class OutgoingMessage extends stream.Writable {
         upgrading: boolean;
         chunkedEncoding: boolean;
         shouldKeepAlive: boolean;
@@ -1188,7 +1182,7 @@ declare module "http" {
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_server.js#L108-L256
-     class ServerResponse extends OutgoingMessage {
+    class ServerResponse extends OutgoingMessage {
         statusCode: number;
         statusMessage: string;
 
@@ -1204,7 +1198,7 @@ declare module "http" {
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
-     class ClientRequest extends OutgoingMessage {
+    class ClientRequest extends OutgoingMessage {
         connection: net.Socket;
         socket: net.Socket;
         aborted: number;
@@ -1218,7 +1212,7 @@ declare module "http" {
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
     }
 
-     class IncomingMessage extends stream.Readable {
+    class IncomingMessage extends stream.Readable {
         constructor(socket: net.Socket);
 
         httpVersion: string;
@@ -1250,12 +1244,7 @@ declare module "http" {
         destroy(error?: Error): void;
     }
 
-    /**
-     * @deprecated Use IncomingMessage
-     */
-     class ClientResponse extends IncomingMessage { }
-
-     interface AgentOptions {
+    interface AgentOptions {
         /**
          * Keep sockets around in a pool to be used by other requests in the future. Default = false
          */
@@ -1279,7 +1268,7 @@ declare module "http" {
         timeout?: number;
     }
 
-     class Agent {
+    class Agent {
         maxFreeSockets: number;
         maxSockets: number;
         sockets: any;
@@ -1296,9 +1285,9 @@ declare module "http" {
         destroy(): void;
     }
 
-     const METHODS: string[];
+    const METHODS: string[];
 
-     const STATUS_CODES: {
+    const STATUS_CODES: {
         [errorCode: number]: string | undefined;
         [errorCode: string]: string | undefined;
     };
@@ -1511,77 +1500,77 @@ declare module "cluster" {
      *   6. online
      *   7. setup
      */
-     function addListener(event: string, listener: (...args: any[]) => void): Cluster;
-     function addListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-     function addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-     function addListener(event: "fork", listener: (worker: Worker) => void): Cluster;
-     function addListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    function addListener(event: string, listener: (...args: any[]) => void): Cluster;
+    function addListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    function addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    function addListener(event: "fork", listener: (worker: Worker) => void): Cluster;
+    function addListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
      // the handle is a net.Socket or net.Server object, or undefined.
-     function addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
-     function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
-     function addListener(event: "setup", listener: (settings: any) => void): Cluster;
+    function addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
+    function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
+    function addListener(event: "setup", listener: (settings: any) => void): Cluster;
 
-     function emit(event: string | symbol, ...args: any[]): boolean;
-     function emit(event: "disconnect", worker: Worker): boolean;
-     function emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
-     function emit(event: "fork", worker: Worker): boolean;
-     function emit(event: "listening", worker: Worker, address: Address): boolean;
-     function emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
-     function emit(event: "online", worker: Worker): boolean;
-     function emit(event: "setup", settings: any): boolean;
+    function emit(event: string | symbol, ...args: any[]): boolean;
+    function emit(event: "disconnect", worker: Worker): boolean;
+    function emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
+    function emit(event: "fork", worker: Worker): boolean;
+    function emit(event: "listening", worker: Worker, address: Address): boolean;
+    function emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
+    function emit(event: "online", worker: Worker): boolean;
+    function emit(event: "setup", settings: any): boolean;
 
-     function on(event: string, listener: (...args: any[]) => void): Cluster;
-     function on(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-     function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-     function on(event: "fork", listener: (worker: Worker) => void): Cluster;
-     function on(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-     function on(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
-     function on(event: "online", listener: (worker: Worker) => void): Cluster;
-     function on(event: "setup", listener: (settings: any) => void): Cluster;
+    function on(event: string, listener: (...args: any[]) => void): Cluster;
+    function on(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    function on(event: "fork", listener: (worker: Worker) => void): Cluster;
+    function on(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    function on(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
+    function on(event: "online", listener: (worker: Worker) => void): Cluster;
+    function on(event: "setup", listener: (settings: any) => void): Cluster;
 
-     function once(event: string, listener: (...args: any[]) => void): Cluster;
-     function once(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-     function once(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-     function once(event: "fork", listener: (worker: Worker) => void): Cluster;
-     function once(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-     function once(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
-     function once(event: "online", listener: (worker: Worker) => void): Cluster;
-     function once(event: "setup", listener: (settings: any) => void): Cluster;
+    function once(event: string, listener: (...args: any[]) => void): Cluster;
+    function once(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    function once(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    function once(event: "fork", listener: (worker: Worker) => void): Cluster;
+    function once(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    function once(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
+    function once(event: "online", listener: (worker: Worker) => void): Cluster;
+    function once(event: "setup", listener: (settings: any) => void): Cluster;
 
-     function removeListener(event: string, listener: (...args: any[]) => void): Cluster;
-     function removeAllListeners(event?: string): Cluster;
-     function setMaxListeners(n: number): Cluster;
-     function getMaxListeners(): number;
-     function listeners(event: string): Function[];
-     function listenerCount(type: string): number;
+    function removeListener(event: string, listener: (...args: any[]) => void): Cluster;
+    function removeAllListeners(event?: string): Cluster;
+    function setMaxListeners(n: number): Cluster;
+    function getMaxListeners(): number;
+    function listeners(event: string): Function[];
+    function listenerCount(type: string): number;
 
-     function prependListener(event: string, listener: (...args: any[]) => void): Cluster;
-     function prependListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-     function prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-     function prependListener(event: "fork", listener: (worker: Worker) => void): Cluster;
-     function prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    function prependListener(event: string, listener: (...args: any[]) => void): Cluster;
+    function prependListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    function prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    function prependListener(event: "fork", listener: (worker: Worker) => void): Cluster;
+    function prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
      // the handle is a net.Socket or net.Server object, or undefined.
-     function prependListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
-     function prependListener(event: "online", listener: (worker: Worker) => void): Cluster;
-     function prependListener(event: "setup", listener: (settings: any) => void): Cluster;
+    function prependListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
+    function prependListener(event: "online", listener: (worker: Worker) => void): Cluster;
+    function prependListener(event: "setup", listener: (settings: any) => void): Cluster;
 
-     function prependOnceListener(event: string, listener: (...args: any[]) => void): Cluster;
-     function prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-     function prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-     function prependOnceListener(event: "fork", listener: (worker: Worker) => void): Cluster;
-     function prependOnceListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    function prependOnceListener(event: string, listener: (...args: any[]) => void): Cluster;
+    function prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    function prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    function prependOnceListener(event: "fork", listener: (worker: Worker) => void): Cluster;
+    function prependOnceListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
      // the handle is a net.Socket or net.Server object, or undefined.
-     function prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
-     function prependOnceListener(event: "online", listener: (worker: Worker) => void): Cluster;
-     function prependOnceListener(event: "setup", listener: (settings: any) => void): Cluster;
+    function prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
+    function prependOnceListener(event: "online", listener: (worker: Worker) => void): Cluster;
+    function prependOnceListener(event: "setup", listener: (settings: any) => void): Cluster;
 
-     function eventNames(): string[];
+    function eventNames(): string[];
 }
 
 declare module "zlib" {
     import * as stream from "stream";
 
-     interface ZlibOptions {
+    interface ZlibOptions {
         flush?: number; // default: zlib.constants.Z_NO_FLUSH
         finishFlush?: number; // default: zlib.constants.Z_FINISH
         chunkSize?: number; // default: 16*1024
@@ -1592,40 +1581,40 @@ declare module "zlib" {
         dictionary?: Buffer | NodeJS.TypedArray | DataView | ArrayBuffer; // deflate/inflate only, empty dictionary by default
     }
 
-     interface Zlib {
+    interface Zlib {
         readonly bytesRead: number;
         close(callback?: () => void): void;
         flush(kind?: number | (() => void), callback?: () => void): void;
     }
 
-     interface ZlibParams {
+    interface ZlibParams {
         params(level: number, strategy: number, callback: () => void): void;
     }
 
-     interface ZlibReset {
+    interface ZlibReset {
         reset(): void;
     }
 
-     interface Gzip extends stream.Transform, Zlib { }
-     interface Gunzip extends stream.Transform, Zlib { }
-     interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
-     interface Inflate extends stream.Transform, Zlib, ZlibReset { }
-     interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
-     interface InflateRaw extends stream.Transform, Zlib, ZlibReset { }
-     interface Unzip extends stream.Transform, Zlib { }
+    interface Gzip extends stream.Transform, Zlib { }
+    interface Gunzip extends stream.Transform, Zlib { }
+    interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
+    interface Inflate extends stream.Transform, Zlib, ZlibReset { }
+    interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
+    interface InflateRaw extends stream.Transform, Zlib, ZlibReset { }
+    interface Unzip extends stream.Transform, Zlib { }
 
-     function createGzip(options?: ZlibOptions): Gzip;
-     function createGunzip(options?: ZlibOptions): Gunzip;
-     function createDeflate(options?: ZlibOptions): Deflate;
-     function createInflate(options?: ZlibOptions): Inflate;
-     function createDeflateRaw(options?: ZlibOptions): DeflateRaw;
-     function createInflateRaw(options?: ZlibOptions): InflateRaw;
-     function createUnzip(options?: ZlibOptions): Unzip;
+    function createGzip(options?: ZlibOptions): Gzip;
+    function createGunzip(options?: ZlibOptions): Gunzip;
+    function createDeflate(options?: ZlibOptions): Deflate;
+    function createInflate(options?: ZlibOptions): Inflate;
+    function createDeflateRaw(options?: ZlibOptions): DeflateRaw;
+    function createInflateRaw(options?: ZlibOptions): InflateRaw;
+    function createUnzip(options?: ZlibOptions): Unzip;
 
     type InputType = string | Buffer | DataView | ArrayBuffer | NodeJS.TypedArray;
-     function deflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
-     function deflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-     function deflateSync(buf: InputType, options?: ZlibOptions): Buffer;
+    function deflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    function deflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    function deflateSync(buf: InputType, options?: ZlibOptions): Buffer;
     function deflateRaw(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
     function deflateRaw(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
     function deflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
@@ -2199,8 +2188,6 @@ declare module "vm" {
     function createContext(sandbox?: Context): Context;
     function isContext(sandbox: Context): boolean;
     function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions | string): any;
-    /** @deprecated */
-    function runInDebugContext(code: string): any;
     function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions | string): any;
     function runInThisContext(code: string, options?: RunningScriptOptions | string): any;
     function compileFunction(code: string, params: string[], options: CompileFunctionOptions): Function;
