@@ -2,10 +2,11 @@
 // Project: https://github.com/fastify/fastify-jwt#readme
 // Definitions by: Jannik Keye <https://github.com/jannikkeye>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 import fastify = require("fastify");
 
 import { Secret, SignOptions, VerifyOptions, VerifyCallback, SignCallback, DecodeOptions } from 'jsonwebtoken';
+import { IncomingMessage, ServerResponse } from 'http';
 
 declare module "fastify" {
   interface FastifyInstance<HttpServer, HttpRequest, HttpResponse> {
@@ -13,8 +14,8 @@ declare module "fastify" {
   }
 
   interface SignFunction {
-    (payload: any, options?: SignOptions): string;
-    (payload: any, options?: SignOptions, callback?: SignCallback): void;
+    (payload: string | Buffer | object, options?: SignOptions): string;
+    (payload: string | Buffer | object, options?: SignOptions, callback?: SignCallback): void;
   }
 
   interface VerifyFunction {
@@ -28,18 +29,24 @@ declare module "fastify" {
       decode(token: string, options?: DecodeOptions): null | { [key: string]: any } | string;
       secret: Secret;
   }
-  
+
   interface FastifyRequest<HttpRequest> {
       jwtVerify: (options?: VerifyOptions | VerifyCallback, next?: VerifyCallback) => Promise<null | { [key: string]: any } | string> | null | { [key: string]: any } | string;
   }
-  
+
   interface FastifyReply<HttpResponse> {
-      jwtSign: (payload: any, options?: SignOptions | SignCallback, next?: SignCallback) => void;
+      jwtSign: (payload: string | Buffer | object, options?: SignOptions | SignCallback, next?: SignCallback) => void;
   }
 }
 
-declare function fastifyJwt (): void;
+declare function fastifyJwt(): void;
 
-declare namespace fastifyJwt {}
+declare namespace fastifyJwt {
+    type SecretCallback = (request: fastify.FastifyRequest<IncomingMessage>, reply: string | Buffer | object, callback?: VerifyCallback | SignCallback) => void;
+
+    interface FastifyJwtOptions {
+        secret: string | SecretCallback;
+    }
+}
 
 export = fastifyJwt;
