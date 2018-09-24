@@ -105,8 +105,12 @@ declare namespace helmet {
         'worker-src'?: HelmetCspDirectiveValue;
     }
 
+    export interface IHelmetContentSecurityReportOnlyFunction {
+        (req: express.Request, res: express.Response): boolean;
+    }
+
     export interface IHelmetContentSecurityPolicyConfiguration {
-        reportOnly?: boolean;
+        reportOnly?: boolean | IHelmetContentSecurityReportOnlyFunction;
         setAllHeaders?: boolean;
         disableAndroid?: boolean;
         browserSniff?: boolean;

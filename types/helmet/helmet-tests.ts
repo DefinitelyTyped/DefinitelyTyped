@@ -58,7 +58,8 @@ function contentSecurityPolicyTest() {
         disableAndroid: false
     };
 
-    function reportCb(req: express.Request, res: express.Response) { return '/some-uri'; }
+    function reportUriCb(req: express.Request, res: express.Response) { return '/some-uri'; }
+    function reportOnlyCb(req: express.Request, res: express.Response) { return false; }
 
     app.use(helmet.contentSecurityPolicy());
     app.use(helmet.contentSecurityPolicy({}));
@@ -66,11 +67,12 @@ function contentSecurityPolicyTest() {
     app.use(helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: ["'self'"],
-            reportUri: reportCb,
-            'report-uri': reportCb,
-            reportTo: reportCb,
-            'report-to': reportCb
+            reportUri: reportUriCb,
+            'report-uri': reportUriCb,
+            reportTo: reportUriCb,
+            'report-to': reportUriCb
         },
+        reportOnly: reportOnlyCb,
         loose: false,
         setAllHeaders: true
     }));
