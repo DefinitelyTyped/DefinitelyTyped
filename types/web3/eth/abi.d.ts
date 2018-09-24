@@ -10,7 +10,7 @@ export interface ABIDefinition {
 
 type ABIDataTypes = "uint256" | "boolean" | "string" | "bytes" | string; // TODO complete list
 
-export default interface ABI {
+export interface ABI {
     decodeLog(inputs: object, hexString: string, topics: string[]): object;
     encodeParameter(type: string, parameter: any): string;
     encodeParameters(types: string[], paramaters: any[]): string;

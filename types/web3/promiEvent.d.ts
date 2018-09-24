@@ -2,7 +2,7 @@ import { TransactionReceipt } from "./types";
 
 type PromiEventType = "transactionHash" | "receipt" | "confirmation" | "error";
 
-export default interface PromiEvent<T> extends Promise<T> {
+export interface PromiEvent<T> extends Promise<T> {
     once(
         type: "transactionHash",
         handler: (receipt: string) => void
