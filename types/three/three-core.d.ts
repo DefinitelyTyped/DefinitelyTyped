@@ -5236,12 +5236,10 @@ export class LOD extends Object3D {
 /**
  * An intermediate material type that casts more precisely the possible materials assignable to a [[Line]] object.
  *
- * [[LineDashedMaterial]] is omitted as it extends [[LineBasicMaterial]].
- *
  * // Todo:
  * // - can [[Line]] take in an array of materials ?
  */
-export type LineMaterialType = LineBasicMaterial | ShaderMaterial | MeshDepthMaterial;
+export type LineMaterialType = LineBasicMaterial | LineDashedMaterial | ShaderMaterial | MeshDepthMaterial;
 
 export class Line extends Object3D {
     constructor(
