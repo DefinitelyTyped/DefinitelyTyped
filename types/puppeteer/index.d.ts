@@ -1634,10 +1634,10 @@ export interface BrowserContext extends EventEmitter {
    *     - `'clipboard-write'`
    *     - `'payment-handler'`
    */
-  overridePermissions(origin: string, permissions: Array<string>): Promise<Object>;
+  overridePermissions(origin: string, permissions: string[]): Promise<object>;
 
   /** Clears all permission overrides for the browser context. */
-  clearPermissionOverrides(): Promise<Object>;
+  clearPermissionOverrides(): Promise<object>;
 }
 
 export interface BrowserContextEventObj {
