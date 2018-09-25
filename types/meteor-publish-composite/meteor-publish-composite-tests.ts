@@ -56,7 +56,7 @@ publishComposite('postsByUser', function(userId, limit) {
 						{
 								// Set a collection for an "alternative client side collections" as shown
 								// here: http://braindump.io/meteor/2014/09/20/publishing-to-an-alternative-clientside-collection-in-meteor.html
-								collection: 'user-post-comments',
+								collectionName: 'user-post-comments',
 								find: function(post) {
 										// Find all comments from these posts too
 										return Comments.find( { postId: post._id } );

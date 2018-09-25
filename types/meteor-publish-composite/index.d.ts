@@ -8,7 +8,7 @@
 /// <reference types="meteor" />
 
 declare interface PublishCompositeConfigN {
-    collection?: string;
+    collectionName?: string;
     children?: PublishCompositeConfigN[];
     find(
         ...args: any[]
@@ -16,7 +16,7 @@ declare interface PublishCompositeConfigN {
 }
 
 declare interface PublishCompositeConfig4<InLevel1, InLevel2, InLevel3, InLevel4, OutLevel> {
-    collection?: string;
+    collectionName?: string;
     children?: PublishCompositeConfigN[];
     find(
         arg4: InLevel4,
@@ -27,7 +27,7 @@ declare interface PublishCompositeConfig4<InLevel1, InLevel2, InLevel3, InLevel4
 }
 
 declare interface PublishCompositeConfig3<InLevel1, InLevel2, InLevel3, OutLevel> {
-    collection?: string;
+    collectionName?: string;
     children?: PublishCompositeConfig4<InLevel1, InLevel2, InLevel3, OutLevel, any>[];
     find(
         arg3: InLevel3,
@@ -37,7 +37,7 @@ declare interface PublishCompositeConfig3<InLevel1, InLevel2, InLevel3, OutLevel
 }
 
 declare interface PublishCompositeConfig2<InLevel1, InLevel2, OutLevel> {
-    collection?: string;
+    collectionName?: string;
     children?: PublishCompositeConfig3<InLevel1, InLevel2, OutLevel, any>[];
     find(
         arg2: InLevel2,
@@ -46,7 +46,7 @@ declare interface PublishCompositeConfig2<InLevel1, InLevel2, OutLevel> {
 }
 
 declare interface PublishCompositeConfig1<InLevel1, OutLevel> {
-    collection?: string;
+    collectionName?: string;
     children?: PublishCompositeConfig2<InLevel1, OutLevel, any>[];
     find(
         arg1: InLevel1
@@ -54,7 +54,7 @@ declare interface PublishCompositeConfig1<InLevel1, OutLevel> {
 }
 
 declare interface PublishCompositeConfig<OutLevel> {
-    collection?: string;
+    collectionName?: string;
     children?: PublishCompositeConfig1<OutLevel, any>[];
     find(): Mongo.Cursor<OutLevel>;
 }
