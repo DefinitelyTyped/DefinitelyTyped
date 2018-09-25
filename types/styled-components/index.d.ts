@@ -1,6 +1,7 @@
 // Type definitions for styled-components 3.0
 // Project: https://github.com/styled-components/styled-components
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
+//                 Ihor Chulinda <https://github.com/Igmat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -104,19 +105,20 @@ export interface ThemedBaseStyledInterface<T>
         component: React.ComponentType<P>,
     ): ThemedStyledFunction<P, T, WithOptionalTheme<P, T>>;
 }
-export type BaseStyledInterface = ThemedBaseStyledInterface<any>;
 
-export type ThemedStyledInterface<T> = ThemedBaseStyledInterface<T>;
-export type StyledInterface = ThemedStyledInterface<any>;
+export type ThemedStyledInterface<T> = ThemedBaseStyledInterface<Extract<keyof T, string> extends never ? any : T>;
+export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
+// tslint:disable-next-line:no-empty-interface
+export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T> {
     theme?: T | ((theme: T) => T);
 }
-export type ThemeProviderComponent<T> = React.ComponentClass<
+export type BaseThemeProviderComponent<T> = React.ComponentClass<
     ThemeProviderProps<T>
->;
-
-export interface ThemedCssFunction<T> {
+    >;
+export type ThemeProviderComponent<T> = BaseThemeProviderComponent<Extract<keyof T, string> extends never ? any : T>;
+export interface BaseThemedCssFunction<T> {
     (
         strings: TemplateStringsArray,
         ...interpolations: SimpleInterpolation[]
@@ -126,6 +128,7 @@ export interface ThemedCssFunction<T> {
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): Array<FlattenInterpolation<ThemedStyledProps<P, T>>>;
 }
+export type ThemedCssFunction<T> = BaseThemedCssFunction<Extract<keyof T, string> extends never ? any : T>;
 
 // Helper type operators
 type KeyofBase = keyof any;
@@ -150,20 +153,20 @@ export interface ThemedStyledComponentsModule<T> {
         strings: TemplateStringsArray,
         ...interpolations: SimpleInterpolation[]
     ): void;
-    withTheme<P extends { theme?: T }>(
-        component: React.ComponentType<P>,
-    ): React.ComponentClass<WithOptionalTheme<P, T>>;
+    withTheme: WithThemeFnInterface<T>;
 
     ThemeProvider: ThemeProviderComponent<T>;
 }
 
 declare const styled: StyledInterface;
 
-export const css: ThemedCssFunction<any>;
+export const css: ThemedCssFunction<DefaultTheme>;
 
-export function withTheme<P extends { theme?: T }, T>(
-    component: React.ComponentType<P>,
-): React.ComponentClass<WithOptionalTheme<P, T>>;
+export type BaseWithThemeFnInterface<T> = <P extends { theme?: T }>(
+        component: React.ComponentType<P>,
+    ) => React.ComponentClass<WithOptionalTheme<P, T>>;
+export type WithThemeFnInterface<T> = BaseWithThemeFnInterface<Extract<keyof T, string> extends never ? any : T>;
+export const withTheme: WithThemeFnInterface<DefaultTheme>;
 
 export function keyframes(
     strings: TemplateStringsArray,

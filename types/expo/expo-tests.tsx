@@ -40,7 +40,8 @@ import {
     Location,
     Updates,
     MediaLibrary,
-    Haptic
+    Haptic,
+    Constants
 } from 'expo';
 
 const reverseGeocode: Promise<Location.GeocodeData[]> = Location.reverseGeocodeAsync({
@@ -286,6 +287,30 @@ Camera.Constants.BarCodeType;
             component.recordAsync();
         }
     }} />);
+};
+async (camera: CameraObject) => {
+    const picture = await camera.takePictureAsync({
+        quality: 0.5,
+        base64: true,
+        exif: true
+    });
+
+    picture.uri;
+    picture.width;
+    picture.height;
+    picture.exif;
+    picture.base64;
+
+    camera.takePictureAsync({
+        quality: 1,
+        onPictureSaved: pic => {
+            pic.uri;
+            pic.width;
+            pic.height;
+            pic.exif;
+            pic.base64;
+        }
+    });
 };
 
 async () => {
@@ -849,4 +874,23 @@ Haptic.notification(Haptic.NotificationType.Success);
 Haptic.notification(Haptic.NotificationType.Error);
 
 Haptic.selection();
+// #endregion
+
+// #region Constants
+async () => {
+    const appOwnerShip = Constants.appOwnership;
+    const expoVersion = Constants.expoVersion;
+    const installationId = Constants.installationId;
+    const deviceId = Constants.deviceId;
+    const deviceName = Constants.deviceName;
+    const deviceYearClass = Constants.deviceYearClass;
+    const isDevice = Constants.isDevice;
+    const platform = Constants.platform;
+    const sessionId = Constants.sessionId;
+    const statusBarHeight = Constants.statusBarHeight;
+    const systemFonts = Constants.systemFonts;
+    const manifest = Constants.manifest;
+    const linkingUri = Constants.linkingUri;
+    const userAgent: string = await Constants.getWebViewUserAgentAsync();
+};
 // #endregion

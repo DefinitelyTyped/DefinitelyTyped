@@ -17,7 +17,6 @@ const config: Microsoft.ApplicationInsights.IConfig = {
     autoTrackPageVisitTime: true,
     disableExceptionTracking: false,
     disableAjaxTracking: false,
-    disableFetchTracking: true,
     overridePageViewDuration: false,
     maxAjaxCallsPerView: -1,
     disableDataLossAnalysis: true,

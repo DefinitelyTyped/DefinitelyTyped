@@ -16,7 +16,7 @@ export interface TransitionActions {
     exit?: boolean;
 }
 
-type TransitionStatus =
+export type TransitionStatus =
     typeof ENTERING |
     typeof ENTERED |
     typeof EXITING |

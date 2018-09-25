@@ -4,7 +4,7 @@ import Minio = require('minio');
 const minio = new Minio.Client({
     endPoint: 'localhost',
     port: 9000,
-    secure: false,
+    useSSL: false,
     accessKey: 'iV7RAFOtxF',
     secretKey: 'Go1hhOkXnl',
 });

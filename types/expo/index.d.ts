@@ -769,6 +769,9 @@ export namespace Brightness {
  */
 export interface PictureOptions {
     quality?: number;
+    base64?: boolean;
+    exif?: boolean;
+    onPictureSaved?: (data: PictureResponse) => void;
 }
 
 export interface PictureResponse {
@@ -874,6 +877,7 @@ export class Camera extends Component<CameraProps> {
 export namespace Constants {
     const appOwnership: 'expo' | 'standalone' | 'guest';
     const expoVersion: string;
+    const installationId: string;
     const deviceId: string;
     const deviceName: string;
     const deviceYearClass: number;
@@ -988,6 +992,8 @@ export namespace Constants {
     }
     const manifest: Manifest;
     const linkingUri: string;
+
+    function getWebViewUserAgentAsync(): Promise<string>;
 }
 
 /**

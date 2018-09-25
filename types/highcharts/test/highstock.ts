@@ -25,6 +25,14 @@ $(() => {
         rangeSelector: {
             allButtonsEnabled: true,
             selected: 1,
+            buttons: [{
+                type: 'month',
+                count: 1,
+                text: '1m',
+                events: {
+                    click: () => { }
+                }
+            }],
             buttonTheme: { // styles for the buttons
                 fill: 'none',
                 stroke: 'none',

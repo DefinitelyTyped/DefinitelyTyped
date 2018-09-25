@@ -33,7 +33,6 @@ function verifyFunction4(_req: Request, _accessToken: string, _refreshToken: str
 
 const strategyOptions2: StrategyOptionsWithRequest = {
     authorizationURL: 'http://www.example.com/auth',
-    callbackURL: 'http://www.example.com/callback',
     clientID: 'dummy',
     clientSecret: 'secret',
     tokenURL: 'http://www.example.com/token',

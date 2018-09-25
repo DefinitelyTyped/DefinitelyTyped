@@ -1,8 +1,9 @@
-// Type definitions for react-native 0.56
+// Type definitions for react-native 0.57
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
+//                 Simon Knott <https://github.com/skn0tt>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
@@ -12,6 +13,7 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Martin van Dam <https://github.com/mvdam>
+//                 Kacper Wiszczuk <https://github.com/esemesek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -30,7 +32,9 @@
 /// <reference path="globals.d.ts" />
 /// <reference path="legacy-properties.d.ts" />
 /// <reference path="BatchedBridge.d.ts" />
+/// <reference path="Devtools.d.ts" />
 
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 type Constructor<T> = new(...args: any[]) => T;
@@ -2240,6 +2244,11 @@ export interface WebViewPropsIOS {
      * `WebView`. The default value is `true`.
      */
     scrollEnabled?: boolean;
+
+    /**
+     * If `true`, use WKWebView instead of UIWebView.
+     */
+    useWebKit?: boolean;
 }
 
 export interface WebViewUriSource {
@@ -4807,7 +4816,7 @@ export interface ModalPropsIOS {
      * The `onOrientationChange` callback is called when the orientation changes while the modal is being displayed.
      * The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
      */
-    onOrientationChange?: (event?: NativeSyntheticEvent<any>) => void;
+    onOrientationChange?: (event: NativeSyntheticEvent<any>) => void;
 }
 
 export interface ModalPropsAndroid {
@@ -5115,6 +5124,7 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      * @param borderless If the ripple can render outside it's bounds
      */
     static Ripple(color: string, borderless?: boolean): RippleBackgroundPropType;
+    static canUseNativeForeground(): boolean;
 }
 
 export interface Route {
@@ -5215,6 +5225,20 @@ export namespace StyleSheet {
     export function flatten(style?: StyleProp<TextStyle>): TextStyle;
     export function flatten(style?: StyleProp<ImageStyle>): ImageStyle;
     export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
+
+    /**
+     * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will
+     * not be reliably announced. The whole thing might be deleted, who knows? Use
+     * at your own risk.
+     *
+     * Sets a function to use to pre-process a style property value. This is used
+     * internally to process color and transform values. You should not use this
+     * unless you really know what you are doing and have exhausted other options.
+     */
+    export function setStyleAttributePreprocessor(
+        property: string,
+        process: (nextProp: any) => any
+    ): void;
 
     /**
      * This is defined as the width of a thin line on the platform. It can be
@@ -6283,27 +6307,27 @@ export interface ScrollViewProps
      * Fires at most once per frame during scrolling.
      * The frequency of the events can be contolled using the scrollEventThrottle prop.
      */
-    onScroll?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires if a user initiates a scroll gesture.
      */
-    onScrollBeginDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onScrollBeginDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires when a user has finished scrolling.
      */
-    onScrollEndDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onScrollEndDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires when scroll view has finished moving
      */
-    onMomentumScrollEnd?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onMomentumScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires when scroll view has begun moving
      */
-    onMomentumScrollBegin?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onMomentumScrollBegin?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * When true the scroll view stops on multiples of the scroll view's size
@@ -7353,7 +7377,7 @@ export interface NetInfoStatic {
      * sensitive to heavy data usage on that connection due to monetary
      * costs, data limitations or battery/performance issues.
      */
-    isConnectionExpensive: Promise<boolean>;
+    isConnectionExpensive: () => Promise<boolean>;
 }
 
 export interface PanResponderGestureState {
@@ -8465,8 +8489,8 @@ export namespace Animated {
     export function parallel(animations: Array<CompositeAnimation>, config?: ParallelConfig): CompositeAnimation;
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
-    interface EventConfig {
-        listener?: ValueListenerCallback;
+    interface EventConfig<T> {
+        listener?: (event: NativeSyntheticEvent<T>) => void;
         useNativeDriver?: boolean;
     }
 
@@ -8486,7 +8510,7 @@ export namespace Animated {
      *  ]),
      *```
      */
-    export function event(argMapping: Array<Mapping | null>, config?: EventConfig): (...args: any[]) => void;
+    export function event<T>(argMapping: Array<Mapping | null>, config?: EventConfig<T>): (...args: any[]) => void;
 
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
@@ -8936,7 +8960,7 @@ export const PixelRatio: PixelRatioStatic;
 export interface ComponentInterface<P> {
     name?: string;
     displayName?: string;
-    propTypes: P;
+    propTypes: PropTypes.ValidationMap<P>;
 }
 
 /**
@@ -8954,11 +8978,13 @@ export interface ComponentInterface<P> {
  * Common types are lined up with the appropriate prop differs with
  * `TypeToDifferMap`.  Non-scalar types not in the map default to `deepDiffer`.
  */
-export function requireNativeComponent<P>(
+export function requireNativeComponent<P, NP = {}>(
     viewName: string,
     componentInterface?: ComponentInterface<P>,
-    extraConfig?: { nativeOnly?: any }
-): React.ComponentClass<P>;
+    extraConfig?: { nativeOnly?: NP }
+): React.ComponentClass<
+    Partial<PropTypes.InferProps<PropTypes.ValidationMap<P>>> & { [K in keyof NP]?: any}
+>;
 
 export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>
@@ -9001,10 +9027,10 @@ export namespace addons {
 //
 // Prop Types
 //
-export const ColorPropType: React.Requireable<any>;
-export const EdgeInsetsPropType: React.Requireable<any>;
-export const PointPropType: React.Requireable<any>;
-export const ViewPropTypes: React.Requireable<any>;
+export const ColorPropType: React.Validator<string>;
+export const EdgeInsetsPropType: React.Validator<Insets>;
+export const PointPropType: React.Validator<PointPropType>;
+export const ViewPropTypes: React.ValidationMap<ViewProps>;
 
 declare global {
     function require(name: string): any;

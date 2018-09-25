@@ -66,9 +66,28 @@ export {
     EnumTypeDefinitionNode,
     EnumValueDefinitionNode,
     InputObjectTypeDefinitionNode,
-    TypeExtensionNode,
-    ObjectTypeExtensionNode,
     DirectiveDefinitionNode,
+    TypeSystemExtensionNode,
+    SchemaExtensionNode,
+    TypeExtensionNode,
+    ScalarTypeExtensionNode,
+    ObjectTypeExtensionNode,
+    InterfaceTypeExtensionNode,
+    UnionTypeExtensionNode,
+    EnumTypeExtensionNode,
+    InputObjectTypeExtensionNode,
 } from "./ast";
+
+export {
+    isDefinitionNode,
+    isExecutableDefinitionNode,
+    isSelectionNode,
+    isValueNode,
+    isTypeNode,
+    isTypeSystemDefinitionNode,
+    isTypeDefinitionNode,
+    isTypeSystemExtensionNode,
+    isTypeExtensionNode,
+} from "./predicates";
 
 export { DirectiveLocation, DirectiveLocationEnum } from "./directiveLocation";

@@ -2,11 +2,11 @@ getCurrentPages();
 
 interface MyOwnEvent
 	extends wx.CustomEvent<
-	"my-own",
-	{
-		hello: string;
-	}
-	> { }
+			"my-own",
+			{
+				hello: string;
+			}
+		> {}
 
 let behavior = Behavior({
 	behaviors: [],
@@ -18,7 +18,7 @@ let behavior = Behavior({
 	data: {
 		myBehaviorData: ""
 	},
-	attached() { },
+	attached() {},
 	methods: {
 		myBehaviorMethod() {
 			const s: string = this.data.myBehaviorData;
@@ -57,7 +57,7 @@ Component({
 		attached() {
 			wx.setEnableDebug({
 				enableDebug: true,
-				success(res) { }
+				success(res) {}
 			});
 
 			wx.reportMonitor("123", 123);
@@ -66,6 +66,10 @@ Component({
 			wx.getLogManager().log("123");
 			wx.getLogManager().warn("123");
 			wx.getLogManager().debug("123");
+
+			this.createIntersectionObserver({}).observe("123", res => {
+				res.id;
+			});
 		},
 
 		detached() {
@@ -73,14 +77,14 @@ Component({
 				{
 					key: null
 				},
-				() => { }
+				() => {}
 			);
 		}
 	},
 
 	pageLifetimes: {
-		show() { },
-		hide() { }
+		show() {},
+		hide() {}
 	},
 
 	// 生命周期函数，可以为函数，或一个在methods段中定义的方法名
@@ -89,13 +93,13 @@ Component({
 			{
 				key: "123"
 			},
-			() => { }
+			() => {}
 		);
 	},
 
-	moved() { },
+	moved() {},
 
-	detached() { },
+	detached() {},
 
 	methods: {
 		readMyDataAndMyProps() {
@@ -188,9 +192,19 @@ Page({
 			}
 		};
 	},
-	onPageScroll: () => {
-		// this.
-		// Do something when page scroll
+	onPageScroll() {
+		wx.createIntersectionObserver(this, {})
+			.relativeToViewport()
+			.observe("div", res => {
+				console.log(res.id);
+				console.log(res.dataset);
+				console.log(res.intersectionRatio);
+				console.log(res.intersectionRect.left);
+				console.log(res.intersectionRect.top);
+				console.log(res.intersectionRect.width);
+				console.log(res.intersectionRect.height);
+			})
+			.disconnect();
 	},
 	onTabItemTap(item: any) {
 		this.setData({
@@ -434,3 +448,24 @@ wx.request({
 		console.error(e);
 	}
 }).abort();
+
+wx.getSystemInfo({
+	success(res) {
+		const {
+			brand,
+			pixelRatio,
+			platform,
+			windowHeight,
+			windowWidth,
+			screenHeight,
+			screenWidth,
+			statusBarHeight,
+			SDKVersion,
+			language,
+			model,
+			version,
+			fontSizeSetting,
+			system
+		} = res;
+	}
+});

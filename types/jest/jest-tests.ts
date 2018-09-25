@@ -504,6 +504,9 @@ describe("", () => {
         expect(jest.fn()).lastReturnedWith("jest");
         expect(jest.fn()).lastReturnedWith({});
 
+        expect(jest.fn()).nthCalledWith(0, "jest");
+        expect(jest.fn()).nthCalledWith(1, {});
+
         expect(jest.fn()).nthReturnedWith(0, "jest");
         expect(jest.fn()).nthReturnedWith(1, {});
 
@@ -512,6 +515,8 @@ describe("", () => {
         expect(10).toBe(10);
 
         expect(jest.fn()).toBeCalled();
+
+        expect(jest.fn()).toBeCalledTimes(1);
 
         expect(jest.fn()).toBeCalledWith();
         expect(jest.fn()).toBeCalledWith("jest");

@@ -8,13 +8,13 @@
 //                 Joseph Page <https://github.com/josefpaij>
 //                 Dan Manastireanu <https://github.com/danmana>
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
-//                 Sergey Rubanov <https://github.com/chicoxyzzy>
 //                 Simon Archer <https://github.com/archy-bold>
 //                 Ken Elkabany <https://github.com/braincore>
 //                 Slavik Nychkalo <https://github.com/gebeto>
 //                 Francesco Benedetto <https://github.com/frabnt>
 //                 Alexandros Dorodoulis <https://github.com/alexdor>
 //                 Manuel Heidrich <https://github.com/mahnuh>
+//                 Conrad Holtzhausen <https://github.com/Conrad777>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -159,10 +159,12 @@ interface Model {
     tension: number;
     x: number;
     y: number;
+    base: number;
+    head: number;
 }
 
 declare namespace Chart {
-    type ChartType = 'line' | 'bar' | 'horizontalBar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie';
+    type ChartType = 'line' | 'bar' | 'horizontalBar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie' | 'scatter';
 
     type TimeUnit = 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
 
@@ -263,6 +265,7 @@ declare namespace Chart {
         aspectRatio?: number;
         maintainAspectRatio?: boolean;
         events?: string[];
+        legendCallback?(chart: Chart): string;
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
         onClick?(event?: MouseEvent, activeElements?: Array<{}>): any;
         onResize?(this: Chart, newSize: ChartSize): void;
@@ -390,6 +393,8 @@ declare namespace Chart {
         easing?: string;
         onProgress?(chart: any): void;
         onComplete?(chart: any): void;
+        animateRotate?: boolean;
+        animateScale?: boolean;
     }
 
     interface ChartElementsOptions {
@@ -488,6 +493,7 @@ declare namespace Chart {
         fontSize?: number;
         fontStyle?: string;
         labelOffset?: number;
+        lineHeight?: number;
         max?: any;
         maxRotation?: number;
         maxTicksLimit?: number;
@@ -498,6 +504,8 @@ declare namespace Chart {
         reverse?: boolean;
         showLabelBackdrop?: boolean;
         source?: 'auto' | 'data' | 'labels';
+        suggestedMax?: number;
+        suggestedMin?: number;
     }
 
     interface AngleLineOptions {

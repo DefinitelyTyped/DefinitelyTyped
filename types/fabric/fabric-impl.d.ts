@@ -2048,6 +2048,11 @@ interface IObjectOptions {
 	 */
 	borderColor?: string;
 
+    /**
+     * Array specifying dash pattern of an object's border (hasBorder must be true)
+     */
+    borderDashArray?: number[];
+
 	/**
 	 * Color of controlling corners of an object (when it's active)
 	 */
@@ -3081,8 +3086,27 @@ interface ITextOptions extends IObjectOptions {
 	fontFamily?: string;
 	/**
 	 * Text decoration Possible values?: "", "underline", "overline" or "line-through".
+     * Feels like this has been deprecated in favor of underline, overline, linethrough props
 	 */
 	textDecoration?: string;
+    /**
+     * Text decoration underline.
+     * @type Boolean
+     * @default
+     */
+    underline?: boolean;
+    /**
+     * Text decoration overline.
+     * @type Boolean
+     * @default
+     */
+    overline?: boolean;
+    /**
+     * Text decoration linethrough.
+     * @type Boolean
+     * @default
+     */
+    linethrough?: boolean;
 	/**
 	 * Text alignment. Possible values?: "left", "center", or "right".
 	 */
@@ -3095,6 +3119,10 @@ interface ITextOptions extends IObjectOptions {
 	 * Line height
 	 */
 	lineHeight?: number;
+    /**
+     * Character spacing
+     */
+    charSpacing?: number;
 	/**
 	 * When defined, an object is rendered via stroke and this property specifies its color.
 	 * <b>Backwards incompatibility note?:</b> This property was named "strokeStyle" until v1.1.6
@@ -3190,6 +3218,33 @@ export class Text extends Object {
 	 * @param textDecoration Text decoration
 	 */
 	setTextDecoration(textDecoration: string): Text;
+    /**
+     * Retrieves object's underline
+     */
+    getUnderline(): boolean;
+    /**
+     * Sets object's underline
+     * @param underline Text underline
+     */
+    setUnderline(underline: boolean): Text;
+    /**
+     * Retrieves object's overline
+     */
+    getOverline(): boolean;
+    /**
+     * Sets object's overline
+     * @param overline Text overline
+     */
+    setOverline(overline: boolean): Text;
+    /**
+     * Retrieves object's linethrough
+     */
+    getLinethrough(): boolean;
+    /**
+     * Sets object's linethrough
+     * @param linethrough Text linethrough
+     */
+    setLinethrough(linethrough: boolean): Text;
 	/**
 	 * Retrieves object's fontStyle
 	 */
@@ -3208,6 +3263,15 @@ export class Text extends Object {
 	 * @param lineHeight Line height
 	 */
 	setLineHeight(lineHeight: number): Text;
+    /**
+     * Retrieves object's charSpacing
+     */
+    getCharSpacing(): number;
+    /**
+     * Sets object's charSpacing
+     * @param charSpacing Character spacing
+     */
+    setCharSpacing(charSpacing: number): Text;
 	/**
 	 * Retrieves object's textAlign
 	 */
@@ -3311,6 +3375,52 @@ interface IITextOptions extends IObjectOptions, ITextOptions {
 	 */
 	caching?: boolean;
 }
+export interface Textbox extends IText {}
+export class Textbox extends IText {
+    /**
+     * Constructor
+     * @param text Text string
+     * @param [options] Options object
+     */
+    constructor(text: string, options?: IITextOptions);
+    /**
+     * Detect if the text line is ended with an hard break
+     * text and itext do not have wrapping, return false
+     * @param {Number} lineIndex text to split
+     * @return {Boolean}
+     */
+    isEndOfWrapping(lineIndex: number): boolean;
+    /**
+     * Get minimum width of text box
+     * @return {Number}
+     */
+    getMinWidth(): number;
+    /**
+     * Selects entire text
+     * @return {fabric.Text} thisArg
+     * @chainable
+     */
+    selectAll(): Textbox;
+    /**
+     * Selects a line based on the index
+     * @param {Number} selectionStart Index of a character
+     * @return {fabric.IText} thisArg
+     * @chainable
+     */
+    selectLine(selectionStart: number): Textbox;
+    /**
+     * Enters editing state
+     * @return {fabric.Textbox} thisArg
+     * @chainable
+     */
+    enterEditing(): Textbox;
+    /**
+     * Exits from editing state
+     * @return {fabric.Textbox} thisArg
+     * @chainable
+     */
+    exitEditing(): Textbox;
+}
 export interface IText extends Text, IITextOptions { }
 export class IText extends Object {
 	/**
@@ -3320,9 +3430,10 @@ export class IText extends Object {
 	 */
 	constructor(text: string, options?: IITextOptions);
 	/**
-	 * Returns true if object has no styling
+     * Returns true if object has no styling or no styling in a line
+     * @param {Number} lineIndex , lineIndex is on wrapped lines.
 	 */
-	isEmptyStyles(): boolean;
+	isEmptyStyles(lineIndex: number): boolean;
 	render(ctx: CanvasRenderingContext2D, noTransform: boolean): void;
 	/**
 	 * Returns object representation of an instance

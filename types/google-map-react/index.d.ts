@@ -9,8 +9,8 @@ import * as React from 'react';
 export type BootstrapURLKeys = ({ key: string; } | { client: string; v: string; }) & { language?: string };
 
 export interface MapTypeStyle {
-  elementType: string;
-  featureType: string;
+  elementType?: string;
+  featureType?: string;
   stylers: any[];
 }
 
@@ -138,6 +138,7 @@ export interface Props {
   distanceToMouse?(pt: Point, mousePos: Point): void;
   googleMapLoader?(bootstrapURLKeys: any): void;
   onGoogleApiLoaded?(maps: { map: any, maps: any }): void;
+  onTilesLoaded?(): void;
   yesIWantToUseGoogleMapApiInternals?: boolean;
 }
 

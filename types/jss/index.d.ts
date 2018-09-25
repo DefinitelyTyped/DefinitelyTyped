@@ -77,7 +77,7 @@ export interface StyleSheet<RuleName extends string = any> {
 export type GenerateClassName<Name extends string = any> = (rule: Rule, sheet?: StyleSheet<Name>) => string;
 
 export interface JSSPlugin {
-	[key: string]: () => Partial<{
+	[key: string]: Partial<{
 		onCreateRule(name: string, style: Style, options: RuleOptions): Rule;
 		onProcessRule(rule: Rule, sheet: StyleSheet): void;
 		onProcessStyle(style: Style, rule: Rule, sheet: StyleSheet): Style;

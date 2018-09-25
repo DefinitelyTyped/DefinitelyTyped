@@ -397,3 +397,18 @@ puppeteer.launch().then(async browser => {
   );
   index; // $ExpectType number
 });
+
+// Test screenshot with an encoding option
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto("https://example.com");
+  const base64string: string = await page.screenshot({ encoding: "base64" });
+  const buffer: Buffer = await page.screenshot({ encoding: "binary" });
+  const screenshotOptions: puppeteer.ScreenshotOptions = {
+    fullPage: true,
+  };
+  const stringOrBuffer: string | Buffer = await page.screenshot(screenshotOptions);
+
+  browser.close();
+})();
