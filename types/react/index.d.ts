@@ -37,6 +37,7 @@ type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
 type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
+type NativeToggleEvent = Event; // no special constructor
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
 
@@ -723,6 +724,10 @@ declare namespace React {
         pseudoElement: string;
     }
 
+    interface ToggleEvent<T = Element> extends SyntheticEvent<T> {
+        nativeEvent: NativeToggleEvent;
+    }
+
     //
     // Event Handler Types
     // ----------------------------------------------------------------------
@@ -745,6 +750,7 @@ declare namespace React {
     type WheelEventHandler<T = Element> = EventHandler<WheelEvent<T>>;
     type AnimationEventHandler<T = Element> = EventHandler<AnimationEvent<T>>;
     type TransitionEventHandler<T = Element> = EventHandler<TransitionEvent<T>>;
+    type ToggleEventHandler<T = Element> = EventHandler<ToggleEvent<T>>;
 
     //
     // Props / DOM Attributes
@@ -969,6 +975,9 @@ declare namespace React {
         // Transition Events
         onTransitionEnd?: TransitionEventHandler<T>;
         onTransitionEndCapture?: TransitionEventHandler<T>;
+		
+        // Other Events
+        onToggle?: ToggleEventHandler<T>;
     }
 
     export interface CSSProperties extends CSS.Properties<string | number> {

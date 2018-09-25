@@ -62,6 +62,7 @@ type NativeKeyboardEvent = KeyboardEvent;
 type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
 type NativeTransitionEvent = TransitionEvent;
+type NativeToggleEvent = Event;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
 
@@ -539,6 +540,10 @@ declare namespace React {
         pseudoElement: string;
     }
 
+    interface ToggleEvent<T> extends SyntheticEvent<T> {
+        nativeEvent: NativeToggleEvent;
+    }
+
     //
     // Event Handler Types
     // ----------------------------------------------------------------------
@@ -560,6 +565,7 @@ declare namespace React {
     type WheelEventHandler<T> = EventHandler<WheelEvent<T>>;
     type AnimationEventHandler<T> = EventHandler<AnimationEvent<T>>;
     type TransitionEventHandler<T> = EventHandler<TransitionEvent<T>>;
+    type ToggleEventHandler<T> = EventHandler<ToggleEvent<T>>;
 
     //
     // Props / DOM Attributes
@@ -762,6 +768,9 @@ declare namespace React {
         // Transition Events
         onTransitionEnd?: TransitionEventHandler<T>;
         onTransitionEndCapture?: TransitionEventHandler<T>;
+
+        // Other Events
+        onToggle?: ToggleEventHandler<T>;
     }
 
     // See CSS 3 CSS-wide keywords https://www.w3.org/TR/css3-values/#common-keywords
