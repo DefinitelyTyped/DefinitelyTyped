@@ -18,6 +18,7 @@
             "@ember/string": ["ember__string"],
             "@ember/engine": ["ember__engine"],
             "@ember/engine/*": ["ember__engine/*"],
+            "@ember/error": ["ember__error"],
             "@ember/utils": ["ember__utils"],
             "@ember/utils/*": ["ember__utils/*"],
             "@ember/array": ["ember__array"],
