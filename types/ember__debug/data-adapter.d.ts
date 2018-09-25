@@ -1,6 +1,7 @@
 import ContainerDebugAdapter from "@ember/debug/container-debug-adapter";
 import EmberObject from "@ember/object";
 
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare namespace DataAdapter {
     interface Column {
         name: string;
@@ -25,7 +26,7 @@ declare namespace DataAdapter {
  * The `DataAdapter` helps a data persistence library
  * interface with tools that debug Ember such as Chrome and Firefox.
  */
-declare class DataAdapter extends EmberObject {
+export default class DataAdapter extends EmberObject {
     /**
      * The container-debug-adapter which is used
      * to list all models.
@@ -60,5 +61,3 @@ declare class DataAdapter extends EmberObject {
         recordsRemoved: (idx: number, count: number) => void
     ): () => void;
 }
-
-export default DataAdapter;

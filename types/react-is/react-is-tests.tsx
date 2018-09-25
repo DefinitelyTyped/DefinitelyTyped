@@ -72,3 +72,7 @@ ReactIs.typeOf(123) === undefined;
 ReactIs.typeOf({}) === undefined;
 ReactIs.typeOf(null) === undefined;
 ReactIs.typeOf(undefined) === undefined;
+
+// ForwardRef
+const forwardRef = React.forwardRef((props, ref) => <div />);
+ReactIs.isForwardRef(forwardRef); // true

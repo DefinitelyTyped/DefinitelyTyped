@@ -290,6 +290,12 @@ declare namespace Pikaday {
         formatStrict?: boolean;
 
         /**
+         * Function which will be used for formatting date object to string.
+         * This function will take precedence over moment.
+         */
+        toString?(date: Date, format?: string): string;
+
+        /**
          * Function which will be used for parsing input string and getting a date object from it.
          * This function will take precedence over moment.
          */

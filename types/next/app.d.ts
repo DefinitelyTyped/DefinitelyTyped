@@ -13,7 +13,7 @@ export type AppComponentContext = NextAppContext;
  *
  * @template Q Query object schema.
  */
-export interface NextAppContext<Q = DefaultQuery> {
+export interface NextAppContext<Q extends DefaultQuery = DefaultQuery> {
     Component: NextComponentType<any, any, NextContext<Q>>;
     router: RouterProps<Q>;
     ctx: NextContext<Q>;
@@ -25,7 +25,7 @@ export interface NextAppContext<Q = DefaultQuery> {
  *
  * @template Q Query object schema.
  */
-export interface AppProps<Q = DefaultQuery> {
+export interface AppProps<Q extends DefaultQuery = DefaultQuery> {
     Component: NextComponentType<any, any, NextContext<Q>>;
     router: RouterProps<Q>;
     pageProps: any;
@@ -41,6 +41,6 @@ export interface AppProps<Q = DefaultQuery> {
 export type AppComponentType<IP = {}, C = NextAppContext> = NextComponentType<IP & AppProps, IP, C>;
 
 export class Container extends React.Component {}
-export default class App<IP = {}, C = NextAppContext> extends React.Component<IP & AppProps> {
-    getInitialProps(context: C): Promise<IP> | IP;
+export default class App<P = {}> extends React.Component<P & AppProps> {
+    static getInitialProps(context: NextAppContext): Promise<{ pageProps: any }>;
 }

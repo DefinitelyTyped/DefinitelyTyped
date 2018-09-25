@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
+import Controller from '@ember/controller';
 
 class MyModel extends DS.Model {}
 
@@ -15,9 +16,10 @@ Ember.Route.extend({
     }
 });
 
-Ember.Controller.extend({
+Controller.extend({
     actions: {
         create(): any {
+            this.queryParams;
             return this.store.createRecord('my-model');
         }
     }

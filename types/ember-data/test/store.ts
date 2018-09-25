@@ -101,7 +101,7 @@ const MyRoute = Ember.Route.extend({
 });
 
 // Store is injectable via `inject` and resolves to `DS.Store`.
-const SomeComponent = Ember.Component.extend({
+const SomeComponent = Ember.Object.extend({
     store: Ember.inject.service('store'),
 
     lookUpUsers() {

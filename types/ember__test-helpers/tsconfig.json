@@ -19,6 +19,9 @@
         "paths": {
             "@ember/engine": ["ember__engine"],
             "@ember/engine/*": ["ember__engine/*"],
+            "@ember/error": ["ember__error"],
+            "@ember/application": ["ember__application"],
+            "@ember/application/*": ["ember__application/*"],
             "@ember/object": ["ember__object"],
             "@ember/object/*": ["ember__object/*"],
             "@ember/test-helpers": ["ember__test-helpers"]

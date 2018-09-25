@@ -1,21 +1,21 @@
 import Route from '@ember/routing/route';
 import Array from '@ember/array';
-import Ember from 'ember'; // currently needed for Transition
 import EmberObject from '@ember/object';
 import Controller from '@ember/controller';
+import Transition from '@ember/routing/-private/transition';
 
 class Post extends EmberObject {}
 
 interface Posts extends Array<Post> {}
 
 Route.extend({
-    beforeModel(transition: Ember.Transition) {
+    beforeModel(transition: Transition) {
         this.transitionTo('someOtherRoute');
     },
 });
 
 Route.extend({
-    afterModel(posts: Posts, transition: Ember.Transition) {
+    afterModel(posts: Posts, transition: Transition) {
         if (posts.length === 1) {
             this.transitionTo('post.show', posts.firstObject);
         }
@@ -39,7 +39,7 @@ Route.extend({
     },
 });
 
-Ember.Route.extend({
+Route.extend({
     model() {
         return this.modelFor('post');
     },
@@ -61,7 +61,7 @@ Route.extend({
 });
 
 Route.extend({
-    renderTemplate(controller: Ember.Controller, model: {}) {
+    renderTemplate(controller: Controller, model: {}) {
         this.render('posts', {
             view: 'someView', // the template to render, referenced by name
             into: 'application', // the template to render into, referenced by name
@@ -73,7 +73,7 @@ Route.extend({
 });
 
 Route.extend({
-    resetController(controller: Ember.Controller, isExiting: boolean, transition: boolean) {
+    resetController(controller: Controller, isExiting: boolean, transition: boolean) {
         if (isExiting) {
             //   controller.set('page', 1);
         }
