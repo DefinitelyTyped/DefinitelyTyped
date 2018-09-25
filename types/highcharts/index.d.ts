@@ -5767,8 +5767,10 @@ declare namespace Highcharts {
          *            name: 'Point1',
          *            color: '#FF00FF'
          *        }]
+         *
+         * 4. An array of arrays with three values for ranges. In this case the values correspond x, yMin and yMax.
          */
-        data?: Array<number | [number, number] | [string, number] | DataPoint>;
+        data?: Array<number | [number, number] | [string, number] | [string, number, number] | [number, number, number] | DataPoint>;
         /**
          * A description of the series to add to the screen reader information about the series.
          * @since 5.0.0
