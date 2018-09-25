@@ -1,4 +1,4 @@
-import { createBrowserHistory, createMemoryHistory, createHashHistory, createLocation, Location, History } from 'history';
+import { createBrowserHistory, createMemoryHistory, createHashHistory, createLocation, Location, History, MemoryHistory } from 'history';
 import * as LocationUtils from 'history/LocationUtils';
 import * as PathUtils from 'history/PathUtils';
 import * as DOMUtils from 'history/DOMUtils';
@@ -43,7 +43,7 @@ let input = { value: "" };
 }
 
 {
-    let history: History<{the: 'state'}> = createMemoryHistory();
+    let history: MemoryHistory<{the: 'state'}> = createMemoryHistory();
 
     // Pushing a path string.
     history.push('/the/path');
@@ -56,19 +56,17 @@ let input = { value: "" };
     // Extending an existing location object.
     history.push({ pathname: location.pathname, search: '?other=search' });
 
-    // canGo does not exist on History
-    // if (history.canGo(-1)) {
-    //     history.go(-1);
-    //     history.goBack();
-    // }
+    if (history.canGo(-1)) {
+        history.go(-1);
+        history.goBack();
+    }
 
     let unblock = history.block(true);
     unblock();
 
-    // entries does not exist on History
-    // history.entries.forEach(function (location) {
-    //     let typedLocation: Location = location;
-    // });
+    history.entries.forEach(function (location) {
+        let typedLocation: Location = location;
+    });
 }
 
 {
