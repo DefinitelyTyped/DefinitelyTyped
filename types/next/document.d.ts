@@ -5,7 +5,7 @@ import { DefaultQuery } from "./router";
 export interface RenderPageResponse {
     buildManifest: Record<string, any>;
     html?: string;
-    head?: React.ReactElement<any>[];
+    head?: Array<React.ReactElement<any>>;
 }
 
 export interface PageProps {
@@ -37,7 +37,7 @@ export interface NextDocumentContext<Q extends DefaultQuery = DefaultQuery> exte
  * https://github.com/zeit/next.js/blob/7.0.0/server/document.js#L16
  */
 export interface DefaultDocumentIProps extends RenderPageResponse {
-    styles?: React.ReactElement<any>[];
+    styles?: Array<React.ReactElement<any>>;
 }
 
 /**
