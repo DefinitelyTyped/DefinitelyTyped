@@ -14,16 +14,31 @@ const options: walk.WalkOptions = {
         names: () => { },
         nodeError: () => { }
     }
-}
+};
 
-// $ExpectType walk.Walker
+// $ExpectType Walker
 const walker = walk.walk('.', options);
-walker.on('directories', (root, statsArray, next) => {
+walker.on('directories', (
+    // $ExpectType string
+    root,
+    // $ExpectType WalkStats[]
+    statsArray,
+    // $ExpectType WalkNext
+    next
+) => {
     root.trim();
     statsArray.forEach((stats) => `${stats.name} (${stats.type})`);
     next();
 });
-walker.on('file', (root, stats, next) => {
+
+walker.on('file', (
+    // $ExpectType string
+    root,
+    // $ExpectType WalkStats
+    stats,
+    // $ExpectType WalkNext
+    next
+) => {
     // $ExpectError
     if (stats.type === 'foo') {
         //

@@ -1,24 +1,23 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
-        "forceConsistentCasingInFileNames": true,
+        "module": "commonjs",
         "lib": [
             "es6"
         ],
-        "module": "commonjs",
-        "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strict": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "types": []
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "./index.d.ts",
-        "./walk-tests.ts"
-    ],
+        "index.d.ts",
+        "walk-tests.ts"
+    ]
 }
