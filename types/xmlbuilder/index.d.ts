@@ -67,7 +67,7 @@ declare namespace xmlbuilder {
         importDocument(input: XMLElementOrXMLNode): XMLElementOrXMLNode;
         root(): XMLElementOrXMLNode;
         document(): any;
-        end(writerOrOptions?: XMLWriterOrXMLToStringOptions): string;
+        end(options?: XMLEndOptions): string;
         prev(): XMLElementOrXMLNode;
         next(): XMLElementOrXMLNode;
         nod(name: any, attributes?: Object, text?: any): XMLElementOrXMLNode;
@@ -124,7 +124,7 @@ declare namespace xmlbuilder {
         spacebeforeslash?: string;
     }
 
-    interface XMLWriterOrXMLToStringOptions extends XMLToStringOptions {
+    interface XMLEndOptions extends XMLToStringOptions {
         writer?: XMLWriter;
     }
 
