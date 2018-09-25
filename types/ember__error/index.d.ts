@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import Ember from 'ember';
-
-declare const Error: typeof Ember.Error;
-export default Error;
+/**
+ * A subclass of the JavaScript Error object for use in Ember.
+ */
+export default ErrorConstructor;

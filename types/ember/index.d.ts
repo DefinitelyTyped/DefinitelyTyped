@@ -22,6 +22,7 @@
 /// <reference types="ember__engine" />
 /// <reference types="ember__debug" />
 /// <reference types="ember__runloop" />
+/// <reference types="ember__error" />
 /// <reference types="ember__controller" />
 /// <reference types="ember__component" />
 /// <reference types="ember__routing" />
@@ -88,6 +89,8 @@ declare module 'ember' {
     import EmberArrayProtoExtensions from '@ember/array/types/prototype-extensions';
     // @ember/run
     import { RunMethod } from '@ember/runloop/-private/types';
+    // @ember/error
+    import EmberError from '@ember/error';
 
     type EmberArray<T> = EmberArrayNs.default<T>;
     import EmberActionHandler from '@ember/object/-private/action-handler';
@@ -256,7 +259,7 @@ declare module 'ember' {
         /**
          * A subclass of the JavaScript Error object for use in Ember.
          */
-        const Error: ErrorConstructor;
+        const Error: EmberError;
 
         const Evented: typeof EmberObjectEventedNs.default;
         /**
@@ -629,12 +632,6 @@ declare module 'ember' {
     }
 
     export default Ember;
-}
-
-declare module '@ember/error' {
-    import Ember from 'ember';
-    const Error: typeof Ember.Error;
-    export default Error;
 }
 
 declare module '@ember/service' {
