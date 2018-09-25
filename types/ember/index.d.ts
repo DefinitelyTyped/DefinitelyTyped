@@ -13,7 +13,6 @@
 // TypeScript Version: 2.8
 
 /// <reference types="jquery" />
-/// <reference types="handlebars" />
 /// <reference types="ember__string" />
 /// <reference types="ember__polyfills" />
 /// <reference types="ember__object" />
@@ -30,7 +29,6 @@
 /// <reference types="ember__test" />
 /// <reference types="ember__service" />
 
-declare module 'ember' {
     import {
         Objectify, Fix, UnwrapComputedPropertySetters,
         UnwrapComputedPropertySetter,
@@ -135,7 +133,7 @@ declare module 'ember' {
      * view class Ember.Component and other classes that don't need the full functionality of Ember.Component.
      * Unless you have specific needs for CoreView, you will use Ember.Component in your applications.
      */
-    class CoreView extends Ember.Object.extend(Ember.Evented, Ember.ActionHandler) {}
+    export class CoreView extends Ember.Object.extend(Ember.Evented, Ember.ActionHandler) {}
 
     export namespace Ember {
         const A: typeof EmberArrayNs.A;
@@ -621,14 +619,13 @@ declare module 'ember' {
         const expandProperties: typeof EmberObjectComputedNs.expandProperties;
     }
 
-    module '@ember/service' {
+    declare module '@ember/service' {
         interface Registry {
             'router': EmberRoutingRouterService;
         }
     }
 
     export default Ember;
-}
 
 declare module 'htmlbars-inline-precompile' {
     interface TemplateFactory {
