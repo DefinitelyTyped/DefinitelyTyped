@@ -25,6 +25,8 @@
             "@ember/array/*": ["ember__array/*"],
             "@ember/debug": ["ember__debug"],
             "@ember/debug/*": ["ember__debug/*"],
+            "@ember/runloop": ["ember__runloop"],
+            "@ember/runloop/*": ["ember__runloop/*"],
             "@ember/routing": ["ember__routing"],
             "@ember/routing/*": ["ember__routing/*"],
             "@ember/test": ["ember__test"],

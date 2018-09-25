@@ -21,6 +21,7 @@
 /// <reference types="ember__array" />
 /// <reference types="ember__engine" />
 /// <reference types="ember__debug" />
+/// <reference types="ember__runloop" />
 /// <reference types="ember__error" />
 /// <reference types="ember__controller" />
 /// <reference types="ember__component" />
@@ -49,6 +50,7 @@ declare module 'ember' {
     import * as EmberStringNs from '@ember/string';
     import * as EmberPolyfillsNs from '@ember/polyfills';
     import * as EmberUtilsNs from '@ember/utils';
+    import * as EmberRunloopNs from '@ember/runloop';
     import * as EmberObjectNs from '@ember/object';
     import * as EmberObjectObserversNs from '@ember/object/observers';
     import * as EmberObjectMixinNs from '@ember/object/mixin';
@@ -85,6 +87,8 @@ declare module 'ember' {
     import EmberEnumerable from '@ember/array/-private/enumerable';
     import EmberMutableEnumerable from '@ember/array/-private/mutable-enumerable';
     import EmberArrayProtoExtensions from '@ember/array/types/prototype-extensions';
+    // @ember/run
+    import { RunMethod } from '@ember/runloop/-private/types';
     // @ember/error
     import EmberError from '@ember/error';
 
@@ -122,31 +126,6 @@ declare module 'ember' {
      * Ember.Object.extend(...) accepts any number of mixins or literals.
      */
     type MixinOrLiteral<T, Base> = EmberMixin<T, Base> | T;
-
-    /**
-     * Used to infer the type of ember classes of type `T`.
-     *
-     * Generally you would use `EmberClass.create()` instead of `new EmberClass()`.
-     *
-     * The single-arg constructor is required by the typescript compiler.
-     * The multi-arg constructor is included for better ergonomics.
-     *
-     * Implementation is carefully chosen for the reasons described in
-     * https://github.com/typed-ember/ember-typings/pull/29
-     */
-
-    interface EmberRunTimer {
-        __ember_run_timer_brand__: any;
-    }
-
-    type RunMethod<Target, Ret = any> = ((this: Target, ...args: any[]) => Ret) | keyof Target;
-    type EmberRunQueues =
-        | 'sync'
-        | 'actions'
-        | 'routerTransitions'
-        | 'render'
-        | 'afterRender'
-        | 'destroy';
 
     /**
      * Ember.CoreView is an abstract class that exists to give view-like behavior to both Ember's main
@@ -537,300 +516,7 @@ declare module 'ember' {
             const w: typeof EmberStringNs.w;
         }
         const computed: typeof EmberObjectNs.computed;
-        const run: {
-            /**
-             * Runs the passed target and method inside of a RunLoop, ensuring any
-             * deferred actions including bindings and views updates are flushed at the
-             * end.
-             */
-            <Ret>(method: (...args: any[]) => Ret): Ret;
-            <Target, Ret>(target: Target, method: RunMethod<Target, Ret>): Ret;
-            /**
-             * If no run-loop is present, it creates a new one. If a run loop is
-             * present it will queue itself to run on the existing run-loops action
-             * queue.
-             */
-            join<Ret>(method: (...args: any[]) => Ret, ...args: any[]): Ret | undefined;
-            join<Target, Ret>(
-                target: Target,
-                method: RunMethod<Target, Ret>,
-                ...args: any[]
-            ): Ret | undefined;
-            /**
-             * Allows you to specify which context to call the specified function in while
-             * adding the execution of that function to the Ember run loop. This ability
-             * makes this method a great way to asynchronously integrate third-party libraries
-             * into your Ember application.
-             */
-            bind<Target, Ret>(
-                target: Target,
-                method: RunMethod<Target, Ret>,
-                ...args: any[]
-            ): (...args: any[]) => Ret;
-            /**
-             * Begins a new RunLoop. Any deferred actions invoked after the begin will
-             * be buffered until you invoke a matching call to `run.end()`. This is
-             * a lower-level way to use a RunLoop instead of using `run()`.
-             */
-            begin(): void;
-            /**
-             * Ends a RunLoop. This must be called sometime after you call
-             * `run.begin()` to flush any deferred actions. This is a lower-level way
-             * to use a RunLoop instead of using `run()`.
-             */
-            end(): void;
-            /**
-             * Adds the passed target/method and any optional arguments to the named
-             * queue to be executed at the end of the RunLoop. If you have not already
-             * started a RunLoop when calling this method one will be started for you
-             * automatically.
-             */
-            schedule<Target>(
-                queue: EmberRunQueues,
-                target: Target,
-                method: RunMethod<Target>,
-                ...args: any[]
-            ): EmberRunTimer;
-            schedule(
-                queue: EmberRunQueues,
-                method: (args: any[]) => any,
-                ...args: any[]
-            ): EmberRunTimer;
-            /**
-             * Invokes the passed target/method and optional arguments after a specified
-             * period of time. The last parameter of this method must always be a number
-             * of milliseconds.
-             */
-            later(method: (...args: any[]) => any, wait: number): EmberRunTimer;
-            later<Target>(target: Target, method: RunMethod<Target>, wait: number): EmberRunTimer;
-            later<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                wait: number
-            ): EmberRunTimer;
-            later<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                wait: number
-            ): EmberRunTimer;
-            later<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                arg2: any,
-                wait: number
-            ): EmberRunTimer;
-            later<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                arg2: any,
-                arg3: any,
-                wait: number
-            ): EmberRunTimer;
-            later<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                arg2: any,
-                arg3: any,
-                arg4: any,
-                wait: number
-            ): EmberRunTimer;
-            later<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                arg2: any,
-                arg3: any,
-                arg4: any,
-                arg5: any,
-                wait: number
-            ): EmberRunTimer;
-            /**
-             * Schedule a function to run one time during the current RunLoop. This is equivalent
-             * to calling `scheduleOnce` with the "actions" queue.
-             */
-            once<Target>(target: Target, method: RunMethod<Target>, ...args: any[]): EmberRunTimer;
-            /**
-             * Schedules a function to run one time in a given queue of the current RunLoop.
-             * Calling this method with the same queue/target/method combination will have
-             * no effect (past the initial call).
-             */
-            scheduleOnce<Target>(
-                queue: EmberRunQueues,
-                target: Target,
-                method: RunMethod<Target>,
-                ...args: any[]
-            ): EmberRunTimer;
-            /**
-             * Schedules an item to run from within a separate run loop, after
-             * control has been returned to the system. This is equivalent to calling
-             * `run.later` with a wait time of 1ms.
-             */
-            next<Target>(target: Target, method: RunMethod<Target>, ...args: any[]): EmberRunTimer;
-            /**
-             * Cancels a scheduled item. Must be a value returned by `run.later()`,
-             * `run.once()`, `run.scheduleOnce()`, `run.next()`, `run.debounce()`, or
-             * `run.throttle()`.
-             */
-            cancel(timer: EmberRunTimer): boolean;
-            /**
-             * Delay calling the target method until the debounce period has elapsed
-             * with no additional debounce calls. If `debounce` is called again before
-             * the specified time has elapsed, the timer is reset and the entire period
-             * must pass again before the target method is called.
-             */
-            debounce(
-                method: (...args: any[]) => any,
-                wait: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            debounce<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                wait: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            debounce<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                wait: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            debounce<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                wait: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            debounce<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                arg2: any,
-                wait: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            debounce<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                arg2: any,
-                arg3: any,
-                wait: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            debounce<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                arg2: any,
-                arg3: any,
-                arg4: any,
-                wait: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            debounce<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                arg2: any,
-                arg3: any,
-                arg4: any,
-                arg5: any,
-                wait: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            /**
-             * Ensure that the target method is never called more frequently than
-             * the specified spacing period. The target method is called immediately.
-             */
-            throttle(
-                method: (...args: any[]) => any,
-                spacing: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            throttle<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                spacing: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            throttle<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                spacing: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            throttle<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                spacing: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            throttle<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                arg2: any,
-                spacing: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            throttle<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                arg2: any,
-                arg3: any,
-                spacing: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            throttle<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                arg2: any,
-                arg3: any,
-                arg4: any,
-                spacing: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-            throttle<Target>(
-                target: Target,
-                method: RunMethod<Target>,
-                arg0: any,
-                arg1: any,
-                arg2: any,
-                arg3: any,
-                arg4: any,
-                arg5: any,
-                spacing: number,
-                immediate?: boolean
-            ): EmberRunTimer;
-
-            queues: EmberRunQueues[];
-        };
+        const run: typeof EmberRunloopNs.run;
         const platform: {
             defineProperty: boolean;
             hasPropertyAccessors: boolean;
@@ -946,23 +632,6 @@ declare module 'ember' {
     }
 
     export default Ember;
-}
-
-declare module '@ember/runloop' {
-    import Ember from 'ember';
-    export const begin: typeof Ember.run.begin;
-    export const bind: typeof Ember.run.bind;
-    export const cancel: typeof Ember.run.cancel;
-    export const debounce: typeof Ember.run.debounce;
-    export const end: typeof Ember.run.end;
-    export const join: typeof Ember.run.join;
-    export const later: typeof Ember.run.later;
-    export const next: typeof Ember.run.next;
-    export const once: typeof Ember.run.once;
-    export const run: typeof Ember.run;
-    export const schedule: typeof Ember.run.schedule;
-    export const scheduleOnce: typeof Ember.run.scheduleOnce;
-    export const throttle: typeof Ember.run.throttle;
 }
 
 declare module '@ember/service' {
