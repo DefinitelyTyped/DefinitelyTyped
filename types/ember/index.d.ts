@@ -138,31 +138,31 @@ export class CoreView extends Ember.Object.extend(Ember.Evented, Ember.ActionHan
 export namespace Ember {
     const A: typeof EmberArrayNs.A;
     const isArray: typeof EmberArrayNs.isArray;
-    export type Enumerable<T> = EmberEnumerable<T>;
-    export const Enumerable: typeof EmberEnumerable;
+    type Enumerable<T> = EmberEnumerable<T>;
+    const Enumerable: typeof EmberEnumerable;
     class ArrayProxy<T> extends EmberArrayProxy<T> {}
-    export type Array<T> = EmberArray<T>;
-    export const Array: typeof EmberArrayNs.default;
-    export type MutableArray<T> = EmberMutableArray<T>;
-    export const MutableArray: typeof EmberMutableArray;
-    export type NativeArray<T> = EmberNativeArray<T>;
-    export const NativeArray: typeof EmberNativeArray;
-    export type MutableEnumerable<T> = EmberMutableEnumerable<T>;
-    export const MutableEnumerable: typeof EmberMutableEnumerable;
+    type Array<T> = EmberArray<T>;
+    const Array: typeof EmberArrayNs.default;
+    type MutableArray<T> = EmberMutableArray<T>;
+    const MutableArray: typeof EmberMutableArray;
+    type NativeArray<T> = EmberNativeArray<T>;
+    const NativeArray: typeof EmberNativeArray;
+    type MutableEnumerable<T> = EmberMutableEnumerable<T>;
+    const MutableEnumerable: typeof EmberMutableEnumerable;
     class Router extends EmberRoutingRouter {}
     class Route extends EmberRoutingRoute {}
     const ActionHandler: typeof EmberActionHandler;
     class Controller extends EmberControllerNs.default {}
-    export class Component extends EmberComponent {}
-    export class TextArea extends EmberTextArea {}
-    export class TextField extends EmberTextField {}
-    export class Checkbox extends EmberCheckbox {}
-    export class Helper extends EmberHelper {}
+    class Component extends EmberComponent {}
+    class TextArea extends EmberTextArea {}
+    class TextField extends EmberTextField {}
+    class Checkbox extends EmberCheckbox {}
+    class Helper extends EmberHelper {}
 
-    export class HashLocation extends EmberRoutingHashLocation {}
-    export class NoneLocation extends EmberRoutingNoneLocation {}
-    export class HistoryLocation extends EmberRoutingHistoryLocation {}
-    export class LinkComponent extends EmberRoutingLinkComponent {}
+    class HashLocation extends EmberRoutingHashLocation {}
+    class NoneLocation extends EmberRoutingNoneLocation {}
+    class HistoryLocation extends EmberRoutingHistoryLocation {}
+    class LinkComponent extends EmberRoutingLinkComponent {}
     const deprecateFunc: typeof EmberApplicationDeprecateNs.deprecateFunc;
     const deprecate: typeof EmberApplicationDeprecateNs.deprecate;
     const getOwner: typeof EmberApplicationNs.getOwner;
@@ -228,7 +228,7 @@ export namespace Ember {
         compare(a: any, b: any): number;
     }
     const Comparable: EmberMixin<Comparable>;
-    export class ComputedProperty<Get, Set = Get> extends EmberObjectComputedNs.default<Get, Set> {}
+    class ComputedProperty<Get, Set = Get> extends EmberObjectComputedNs.default<Get, Set> {}
     /**
      * A container used to instantiate and cache objects.
      */
@@ -419,13 +419,13 @@ export namespace Ember {
                 reject: (reason?: any) => void
             ) => void,
             label?: string
-        ): Ember.Test.Promise<T>;
+        ): Promise<T>;
         /**
          * Replacement for `Ember.RSVP.resolve`
          * The only difference is this uses
          * an instance of `Ember.Test.Promise`
          */
-        function resolve<T>(value?: T | PromiseLike<T>, label?: string): Ember.Test.Promise<T>;
+        function resolve<T>(value?: T | PromiseLike<T>, label?: string): Promise<T>;
 
         /**
          * Iterates through each registered test waiter, and invokes
@@ -461,24 +461,23 @@ export namespace Ember {
          * Creates a property that lazily looks up another controller in the container.
          * Can only be used when defining another controller.
          */
-        function controller(): ComputedProperty<Ember.Controller>;
+        function controller(): ComputedProperty<Controller>;
         function controller<K extends keyof ControllerRegistry>(
             name: K
         ): ComputedProperty<ControllerRegistry[K]>;
         const service: typeof EmberServiceNs.inject;
     }
     namespace ENV {
-        const EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
+        const EXTEND_PROTOTYPES: {
+            Array: boolean;
+            Function: boolean;
+            String: boolean;
+        };
         const LOG_BINDINGS: boolean;
         const LOG_STACKTRACE_ON_DEPRECATION: boolean;
         const LOG_VERSION: boolean;
         const MODEL_FACTORY_INJECTIONS: boolean;
         const RAISE_ON_DEPRECATION: boolean;
-    }
-    namespace EXTEND_PROTOTYPES {
-        const Array: boolean;
-        const Function: boolean;
-        const String: boolean;
     }
     namespace Handlebars {
         function compile(string: string): (...args: any[]) => any;
@@ -493,7 +492,7 @@ export namespace Ember {
         const SafeString: typeof HandlebarsNamespace.SafeString;
         function parse(string: string): any;
         function print(ast: any): void;
-        const logger: typeof Ember.Logger;
+        const logger: typeof Logger;
         function log(level: string, str: string): void;
     }
     namespace String {
@@ -525,8 +524,8 @@ export namespace Ember {
     const debug: typeof EmberDebugNs.debug;
     const defineProperty: typeof EmberObjectNs.defineProperty;
 
-    export const runInDebug: typeof EmberDebugNs.runInDebug;
-    export const warn: typeof EmberDebugNs.warn;
+    const runInDebug: typeof EmberDebugNs.runInDebug;
+    const warn: typeof EmberDebugNs.warn;
     /**
      * Global helper method to create a new binding. Just pass the root object
      * along with a `to` and `from` path to create and connect the binding.
@@ -534,10 +533,10 @@ export namespace Ember {
      */
     function bind(obj: {}, to: string, from: string): Binding;
     const cacheFor: typeof EmberObjectInternalsNs.cacheFor;
-    export const addListener: typeof EmberObjectEventsNs.addListener;
-    export const removeListener: typeof EmberObjectEventsNs.removeListener;
-    export const sendEvent: typeof EmberObjectEventsNs.sendEvent;
-    export const on: typeof EmberObjectEventedNs.on;
+    const addListener: typeof EmberObjectEventsNs.addListener;
+    const removeListener: typeof EmberObjectEventsNs.removeListener;
+    const sendEvent: typeof EmberObjectEventsNs.sendEvent;
+    const on: typeof EmberObjectEventedNs.on;
 
     const isBlank: typeof EmberUtilsNs.isBlank;
     const isEmpty: typeof EmberUtilsNs.isEmpty;
@@ -619,17 +618,12 @@ export namespace Ember {
     const expandProperties: typeof EmberObjectComputedNs.expandProperties;
 }
 
-declare module '@ember/service' {
-    interface Registry {
-        'router': EmberRoutingRouterService;
-    }
-}
-
 export default Ember;
 
 declare module 'htmlbars-inline-precompile' {
     interface TemplateFactory {
         __htmlbars_inline_precompile_template_factory: any;
     }
+    // tslint:disable-next-line:strict-export-declare-modifiers
     export default function hbs(tagged: TemplateStringsArray): TemplateFactory;
 }
