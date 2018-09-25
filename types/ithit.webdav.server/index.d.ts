@@ -3,7 +3,6 @@
 // Definitions by: ITHit, LTD <https://github.com/ITHit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
 declare module "Impl/ArgumentUtil" {
     /**Utility to check arguments. */
     export class ArgumentUtil {
