@@ -1,4 +1,11 @@
-import Document, { Enhancer, Head, Main, NextScript, NextDocumentContext, PageProps } from 'next/document';
+import Document, {
+    Enhancer,
+    Head,
+    Main,
+    NextScript,
+    NextDocumentContext,
+    PageProps
+} from "next/document";
 import * as React from "react";
 
 interface WithUrlProps {
@@ -11,12 +18,10 @@ class MyDoc extends Document<WithUrlProps> {
         const _page = renderPage();
 
         // with callback
-        const enhancer: Enhancer<PageProps, {}> = (App) => (props) => (<App />);
+        const enhancer: Enhancer<PageProps, {}> = App => props => <App />;
         const { html, head, buildManifest } = renderPage(enhancer);
 
-        const styles = [
-            <style />
-        ];
+        const styles = [<style />];
 
         // Custom prop
         const url = req!.url;
@@ -31,7 +36,7 @@ class MyDoc extends Document<WithUrlProps> {
             <html>
                 <Head nonce="nonce" any="property" should="work" here>
                     <title>My page</title>
-                    { this.props.styles }
+                    {this.props.styles}
                 </Head>
                 <body>
                     <Main />
@@ -44,12 +49,12 @@ class MyDoc extends Document<WithUrlProps> {
     }
 }
 
-const renderPage: NextDocumentContext['renderPage'] = (enhancer) => ({
+const renderPage: NextDocumentContext["renderPage"] = enhancer => ({
     buildManifest: {},
     chunks: { names: [], filenames: [] },
-    html: '',
+    html: "",
     head: [<React.Fragment />],
-    errorHtml: '',
+    errorHtml: ""
 });
 
 interface PageInitialProps extends PageProps {
@@ -62,11 +67,18 @@ interface ProcessedInitialProps {
     bar: boolean;
 }
 
-const enhancerExplicit: Enhancer<PageProps, {}> = (App) => (props) => (<App />);
-const enhancerInferred = (App: React.ComponentType<ProcessedInitialProps>) => ({ foo, bar }: PageInitialProps) => (<App fooLength={foo.length} bar={!!bar} />);
+const enhancerExplicit: Enhancer<PageProps, {}> = App => props => <App />;
+const enhancerInferred = (App: React.ComponentType<ProcessedInitialProps>) => ({
+    foo,
+    bar
+}: PageInitialProps) => <App fooLength={foo.length} bar={!!bar} />;
 const explicitEnhancerRenderResponse = renderPage(enhancerExplicit);
 const inferredEnhancerRenderResponse = renderPage(enhancerInferred);
-const defaultedTypesRenderResponse = renderPage((App) => (props) => (<App url={props.url} />));
-const defaultedTypesExtendedRenderResponse = renderPage((App) => (props) => (<App foo="bar" url={props.url} />));
-const explicitTypesRenderResponseOne = renderPage<PageProps, {}>((App) => (props) => (<App />));
-const explicitTypesRenderResponseTwo = renderPage<PageInitialProps, ProcessedInitialProps>((App) => ({ foo, bar }) => (<App fooLength={foo.length} bar={!!bar} />));
+const defaultedTypesRenderResponse = renderPage(App => props => <App url={props.url} />);
+const defaultedTypesExtendedRenderResponse = renderPage(App => props => (
+    <App foo="bar" url={props.url} />
+));
+const explicitTypesRenderResponseOne = renderPage<PageProps, {}>(App => props => <App />);
+const explicitTypesRenderResponseTwo = renderPage<PageInitialProps, ProcessedInitialProps>(
+    App => ({ foo, bar }) => <App fooLength={foo.length} bar={!!bar} />
+);

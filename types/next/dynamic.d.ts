@@ -7,16 +7,10 @@ import {
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
-type AsyncComponent<P> = Promise<React.ComponentType<P>>;
-type AsyncComponentLoader<P> = () => AsyncComponent<P>;
-
-interface ModuleMapping {
-    [moduleName: string]: AsyncComponent<any>;
-}
-
-interface LoadedModuleMapping {
-    [moduleName: string]: React.ComponentType<any>;
-}
+type AsyncComponent<P = any> = Promise<React.ComponentType<P>>;
+type AsyncComponentLoader<P = any> = () => AsyncComponent<P>;
+type ModuleMapping = Record<string, AsyncComponent>;
+type LoadedModuleMapping = Record<string, React.ComponentType>;
 
 interface NextDynamicOptions<P = {}> extends Omit<LoadableOptions, "loading" | "modules"> {
     modules?: () => ModuleMapping; // overridden
