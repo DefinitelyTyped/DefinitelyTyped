@@ -1,10 +1,9 @@
 // Type definitions for react-jss 8.6
 // Project: https://github.com/cssinjs/react-jss#readme
-// Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
+// Definitions by: Sebastian Silbermann <https://github.com/eps1lon>, Alan Williams <https://github.com/amwill04>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import { createGenerateClassName, JSS, SheetsRegistry } from "jss";
-import * as React from "react";
 import { createTheming, ThemeProvider, withTheme } from "theming";
 
 import injectSheet from "./lib/injectSheet";
