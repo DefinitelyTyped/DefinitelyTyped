@@ -1,25 +1,65 @@
-import dynamic, * as d from "next/dynamic";
 import * as React from "react";
+import dynamic, { LoadingComponentProps } from "next/dynamic";
 
-// typically you'd use this with an esnext-style import() statement, but we'll make do without
-interface DynamicComponentProps {
+// You'd typically do this via import('./MyComponent')
+interface MyComponentProps {
     foo: string;
-    bar: number;
 }
-async function getComponent() {
-    return (props: DynamicComponentProps) => (
-        <div>
-            I'm an async component! {props.foo} {props.bar}
-        </div>
-    );
-}
+const MyComponent: React.StatelessComponent<MyComponentProps> = () => <div>I'm async!</div>;
+const asyncComponent = Promise.resolve(MyComponent);
 
-interface LoadingComponentProps {
-    baz: boolean;
-}
+// Examples from
+// https://github.com/zeit/next.js/#dynamic-import
 
-const DynamicComponent = dynamic(getComponent(), {
-    loading: (props: LoadingComponentProps) => <div>Loading! {props.baz}</div>,
+const LoadingComponent: React.StatelessComponent<LoadingComponentProps> = ({
+    isLoading,
+    error
+}) => <p>loading...</p>;
+
+// 1. Basic Usage (Also does SSR)
+const DynamicComponent = dynamic(asyncComponent);
+const dynamicComponentJSX = <DynamicComponent foo="bar" />;
+
+// 2. With Custom Loading Component
+const DynamicComponentWithCustomLoading = dynamic(asyncComponent, {
+    loading: LoadingComponent
+});
+const dynamicComponentWithCustomLoadingJSX = <DynamicComponentWithCustomLoading foo="bar" />;
+
+// 3. With No SSR
+const DynamicComponentWithNoSSR = dynamic(asyncComponent, {
+    ssr: false
 });
 
-const jsx = <DynamicComponent foo="five" bar={5} baz />;
+// 4. With Multiple Modules At Once
+const HelloBundle = dynamic<MyComponentProps>({
+    modules: () => {
+        const components = {
+            Hello1: asyncComponent,
+            Hello2: asyncComponent
+        };
+
+        return components;
+    },
+    render: (props, { Hello1, Hello2 }) => (
+        <div>
+            <h1>{props.foo}</h1>
+            <Hello1 />
+            <Hello2 />
+        </div>
+    )
+});
+const helloBundleJSX = <HelloBundle foo="bar" />;
+
+// 5. With plain Loadable options
+const LoadableComponent = dynamic({
+    loader: () => asyncComponent,
+    loading: LoadingComponent,
+    delay: 200,
+    timeout: 10000
+});
+
+// 6. No loading
+const DynamicComponentWithNoLoading = dynamic(asyncComponent, {
+    loading: () => null
+});

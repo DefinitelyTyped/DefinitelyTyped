@@ -13,9 +13,7 @@
 
 import * as http from "http";
 import * as url from "url";
-
 import { Response as NodeResponse } from "node-fetch";
-
 import { SingletonRouter, DefaultQuery, UrlLike } from "./router";
 
 declare namespace next {
