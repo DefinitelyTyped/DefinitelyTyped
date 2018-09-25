@@ -3,7 +3,10 @@ import { Server } from "hapi";
 
 const server = new Server({
     port: 8000,
-    load: { sampleInterval: 1000 }
+    load: {
+        sampleInterval: 1000,
+        concurrent: 123,
+    }
 });
 server.start();
 
