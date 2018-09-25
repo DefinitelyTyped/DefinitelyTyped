@@ -28,6 +28,7 @@
 /// <reference types="ember__routing" />
 /// <reference types="ember__application" />
 /// <reference types="ember__test" />
+/// <reference types="ember__service" />
 
 declare module 'ember' {
     import {
@@ -48,6 +49,8 @@ declare module 'ember' {
     import { Registry as ServiceRegistry } from '@ember/service';
     import { Registry as ControllerRegistry } from '@ember/controller';
     import * as EmberStringNs from '@ember/string';
+    // tslint:disable-next-line:no-duplicate-imports
+    import * as EmberServiceNs from '@ember/service';
     import * as EmberPolyfillsNs from '@ember/polyfills';
     import * as EmberUtilsNs from '@ember/utils';
     import * as EmberRunloopNs from '@ember/runloop';
@@ -464,14 +467,7 @@ declare module 'ember' {
             function controller<K extends keyof ControllerRegistry>(
                 name: K
             ): ComputedProperty<ControllerRegistry[K]>;
-            /**
-             * Creates a property that lazily looks up a service in the container. There
-             * are no restrictions as to what objects a service can be injected into.
-             */
-            function service(): ComputedProperty<Ember.Service>;
-            function service<K extends keyof ServiceRegistry>(
-                name: K
-            ): ComputedProperty<ServiceRegistry[K]>;
+            const service: typeof EmberServiceNs.inject;
         }
         namespace ENV {
             const EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
@@ -632,17 +628,6 @@ declare module 'ember' {
     }
 
     export default Ember;
-}
-
-declare module '@ember/service' {
-    import Ember from 'ember';
-    export default class Service extends Ember.Service { }
-    export const inject: typeof Ember.inject.service;
-
-    // A type registry for Ember `Service`s. Meant to be declaration-merged so
-    // string lookups resolve to the correct type.
-    // tslint:disable-next-line:no-empty-interface
-    interface Registry {}
 }
 
 declare module 'htmlbars-inline-precompile' {
