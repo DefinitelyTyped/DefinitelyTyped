@@ -221,7 +221,7 @@ const StatelessComponent3: React.SFC<SCProps> =
 const StatelessComponent4: React.SFC = props => null;
 
 // React.createContext
-const context1 = React.createContext<{ foo: string }>();
+const context1 = React.createContext<{ foo: string }>(undefined);
 const context2 = React.createContext<{ foo: string }>({ foo: "text" });
 // $ExpectError
 const context3 = React.createContext<{ foo: string }>({ bar: string });
