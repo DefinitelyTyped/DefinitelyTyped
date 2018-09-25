@@ -186,7 +186,8 @@ export function formatDefaultLocale(defaultLocale: FormatLocaleDefinition): Form
  * @param specifier A Specifier string.
  * @throws Error on invalid format specifier.
  */
-export function format(specifier: string): (n: number | { valueOf(): number }) => string;
+export function format(specifier: string):
+    (n: (number | {valueOf: () => number }), index?: number) => string;
 
 /**
  * Returns a new format function for the given string specifier. The returned function
