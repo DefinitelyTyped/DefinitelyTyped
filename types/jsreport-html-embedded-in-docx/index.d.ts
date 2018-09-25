@@ -2,7 +2,7 @@
 // Project: https://github.com/jsreport/jsreport-html-embedded-in-docx
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { ExtensionDefinition } from 'jsreport-core';
 
