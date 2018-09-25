@@ -1506,6 +1506,11 @@ export interface Browser extends EventEmitter {
   browserContexts(): BrowserContext[];
 
   /**
+   * Returns the default browser context. The default browser context can not be closed.
+   */
+  defaultBrowserContext(): BrowserContext;
+
+  /**
    * Closes browser with all the pages (if any were opened).
    * The browser object itself is considered to be disposed and can not be used anymore.
    */
@@ -1608,6 +1613,31 @@ export interface BrowserContext extends EventEmitter {
 
   /** An array of all active targets inside the browser context. */
   targets(): Target[];
+
+  /**
+   * @param origin The [origin] to grant permissions to, e.g. "https
+   * @param permissions An array of permissions to grant. All permissions that are not listed here will be automatically denied. Permissions can be one of the following values:
+   *     - `'geolocation'`
+   *     - `'midi'`
+   *     - `'midi-sysex'` (system-exclusive midi)
+   *     - `'notifications'`
+   *     - `'push'`
+   *     - `'camera'`
+   *     - `'microphone'`
+   *     - `'background-sync'`
+   *     - `'ambient-light-sensor'`
+   *     - `'accelerometer'`
+   *     - `'gyroscope'`
+   *     - `'magnetometer'`
+   *     - `'accessibility-events'`
+   *     - `'clipboard-read'`
+   *     - `'clipboard-write'`
+   *     - `'payment-handler'`
+   */
+  overridePermissions(origin: string, permissions: Array<string>): Promise<Object>;
+
+  /** Clears all permission overrides for the browser context. */
+  clearPermissionOverrides(): Promise<Object>;
 }
 
 export interface BrowserContextEventObj {
