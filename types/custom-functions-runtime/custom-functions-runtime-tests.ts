@@ -9,7 +9,7 @@ CustomFunctionMappings = {
 
 async function getStockValues(ticker: string): Promise<number> {
     const response = await fetch(`myService.com/prices/${ticker}`);
-    return (await response.json())['price'];
+    return (await response.json())["price"];
 }
 
 async function getStockValuesCancellable(
@@ -25,38 +25,32 @@ async function getStockValuesCancellable(
     }
 
     const response = await fetch(`myService.com/prices/${ticker}`);
-    return (await response.json())['price'];
+    return (await response.json())["price"];
 }
 
-async function stockPriceStream(
+function stockPriceStream(
     ticker: string,
     handler: CustomFunctions.StreamingHandler<number>
 ) {
-    var updateFrequency = 10 /* milliseconds*/;
-    var isPending = false;
+    const updateFrequency = 10 /* milliseconds*/;
+    let isPending = false;
 
-    var timer = setInterval(function() {
+    const timer = setInterval(async () => {
         // If there is already a pending request, skip this iteration:
         if (isPending) {
             return;
         }
 
-        var url = `myService.com/prices/${ticker}`;
+        const url = `myService.com/prices/${ticker}`;
         isPending = true;
-
-        fetch(url)
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(data) {
-                handler.setResult(data.price);
-            })
-            .catch(function(error) {
-                handler.setResult(new Error(error));
-            })
-            .then(function() {
-                isPending = false;
-            });
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            handler.setResult(data.price);
+        } catch (error) {
+            handler.setResult(error);
+        }
+        isPending = false;
     }, updateFrequency);
 
     handler.onCanceled = () => {
@@ -64,4 +58,4 @@ async function stockPriceStream(
     };
 }
 
-declare function pause(ms: number): Promise<void>;
+declare function pause(ms: number): Promise<undefined>;
