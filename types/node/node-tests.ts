@@ -4393,6 +4393,7 @@ import * as constants from 'constants';
 
 {
     {
+        const b: inspector.Console.ConsoleMessage = {source: 'test', text: 'test', level: 'error' };
         inspector.open();
         inspector.open(0);
         inspector.open(0, 'localhost');

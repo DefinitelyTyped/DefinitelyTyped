@@ -52,7 +52,7 @@ declare module "inspector" {
             /**
              * Console message that has been added.
              */
-            message: Console.ConsoleMessage;
+            message: ConsoleMessage;
         }
     }
 
@@ -101,7 +101,7 @@ declare module "inspector" {
             /**
              * Call frame identifier. This identifier is only valid while the virtual machine is paused.
              */
-            callFrameId: Debugger.CallFrameId;
+            callFrameId: CallFrameId;
             /**
              * Name of the JavaScript function called on this call frame.
              */
@@ -109,11 +109,11 @@ declare module "inspector" {
             /**
              * Location in the source code.
              */
-            functionLocation?: Debugger.Location;
+            functionLocation?: Location;
             /**
              * Location in the source code.
              */
-            location: Debugger.Location;
+            location: Location;
             /**
              * JavaScript script name or url.
              */
@@ -121,7 +121,7 @@ declare module "inspector" {
             /**
              * Scope chain for this call frame.
              */
-            scopeChain: Debugger.Scope[];
+            scopeChain: Scope[];
             /**
              * `this` object for this call frame.
              */
@@ -150,11 +150,11 @@ declare module "inspector" {
             /**
              * Location in the source code where scope starts
              */
-            startLocation?: Debugger.Location;
+            startLocation?: Location;
             /**
              * Location in the source code where scope ends
              */
-            endLocation?: Debugger.Location;
+            endLocation?: Location;
         }
 
         /**
@@ -191,7 +191,7 @@ declare module "inspector" {
             /**
              * Location to continue to.
              */
-            location: Debugger.Location;
+            location: Location;
             targetCallFrames?: string;
         }
 
@@ -199,7 +199,7 @@ declare module "inspector" {
             /**
              * Call frame identifier to evaluate on.
              */
-            callFrameId: Debugger.CallFrameId;
+            callFrameId: CallFrameId;
             /**
              * Expression to evaluate.
              */
@@ -232,18 +232,23 @@ declare module "inspector" {
              * Whether to throw an exception if side effect cannot be ruled out during evaluation.
              */
             throwOnSideEffect?: boolean;
+            /**
+             * Terminate execution after timing out (number of milliseconds).
+             * @experimental
+             */
+            timeout?: Runtime.TimeDelta;
         }
 
         interface GetPossibleBreakpointsParameterType {
             /**
              * Start of range to search possible breakpoint locations in.
              */
-            start: Debugger.Location;
+            start: Location;
             /**
              * End of range to search possible breakpoint locations in (excluding). When not specified, end
              * of scripts is used as end of range.
              */
-            end?: Debugger.Location;
+            end?: Location;
             /**
              * Only consider locations which are in the same (non-nested) function as start.
              */
@@ -269,14 +274,14 @@ declare module "inspector" {
         }
 
         interface RemoveBreakpointParameterType {
-            breakpointId: Debugger.BreakpointId;
+            breakpointId: BreakpointId;
         }
 
         interface RestartFrameParameterType {
             /**
              * Call frame identifier to evaluate on.
              */
-            callFrameId: Debugger.CallFrameId;
+            callFrameId: CallFrameId;
         }
 
         interface SearchInContentParameterType {
@@ -318,14 +323,14 @@ declare module "inspector" {
              * Id of the script.
              */
             scriptId: Runtime.ScriptId;
-            positions: Debugger.ScriptPosition[];
+            positions: ScriptPosition[];
         }
 
         interface SetBreakpointParameterType {
             /**
              * Location to set breakpoint in.
              */
-            location: Debugger.Location;
+            location: Location;
             /**
              * Expression to use as a breakpoint condition. When specified, debugger will only stop on the
              * breakpoint if this expression evaluates to true.
@@ -358,6 +363,18 @@ declare module "inspector" {
             /**
              * Expression to use as a breakpoint condition. When specified, debugger will only stop on the
              * breakpoint if this expression evaluates to true.
+             */
+            condition?: string;
+        }
+
+        interface SetBreakpointOnFunctionCallParameterType {
+            /**
+             * Function object id.
+             */
+            objectId: Runtime.RemoteObjectId;
+            /**
+             * Expression to use as a breakpoint condition. When specified, debugger will
+             * stop on the breakpoint if this expression evaluates to true.
              */
             condition?: string;
         }
@@ -423,7 +440,7 @@ declare module "inspector" {
             /**
              * Id of callframe that holds variable.
              */
-            callFrameId: Debugger.CallFrameId;
+            callFrameId: CallFrameId;
         }
 
         interface StepIntoParameterType {
@@ -458,7 +475,7 @@ declare module "inspector" {
             /**
              * List of the possible breakpoint locations.
              */
-            locations: Debugger.BreakLocation[];
+            locations: BreakLocation[];
         }
 
         interface GetScriptSourceReturnType {
@@ -476,7 +493,7 @@ declare module "inspector" {
             /**
              * New stack trace.
              */
-            callFrames: Debugger.CallFrame[];
+            callFrames: CallFrame[];
             /**
              * Async stack trace, if any.
              */
@@ -492,36 +509,43 @@ declare module "inspector" {
             /**
              * List of search matches.
              */
-            result: Debugger.SearchMatch[];
+            result: SearchMatch[];
         }
 
         interface SetBreakpointReturnType {
             /**
              * Id of the created breakpoint for further reference.
              */
-            breakpointId: Debugger.BreakpointId;
+            breakpointId: BreakpointId;
             /**
              * Location this breakpoint resolved into.
              */
-            actualLocation: Debugger.Location;
+            actualLocation: Location;
         }
 
         interface SetBreakpointByUrlReturnType {
             /**
              * Id of the created breakpoint for further reference.
              */
-            breakpointId: Debugger.BreakpointId;
+            breakpointId: BreakpointId;
             /**
              * List of the locations this breakpoint resolved into upon addition.
              */
-            locations: Debugger.Location[];
+            locations: Location[];
+        }
+
+        interface SetBreakpointOnFunctionCallReturnType {
+            /**
+             * Id of the created breakpoint for further reference.
+             */
+            breakpointId: BreakpointId;
         }
 
         interface SetScriptSourceReturnType {
             /**
              * New stack trace in case editing has happened while VM was stopped.
              */
-            callFrames?: Debugger.CallFrame[];
+            callFrames?: CallFrame[];
             /**
              * Whether current call stack  was modified after applying the changes.
              */
@@ -545,18 +569,18 @@ declare module "inspector" {
             /**
              * Breakpoint unique identifier.
              */
-            breakpointId: Debugger.BreakpointId;
+            breakpointId: BreakpointId;
             /**
              * Actual breakpoint location.
              */
-            location: Debugger.Location;
+            location: Location;
         }
 
         interface PausedEventDataType {
             /**
              * Call stack the virtual machine stopped on.
              */
-            callFrames: Debugger.CallFrame[];
+            callFrames: CallFrame[];
             /**
              * Pause reason.
              */
@@ -733,21 +757,21 @@ declare module "inspector" {
             /**
              * Child nodes.
              */
-            children: HeapProfiler.SamplingHeapProfileNode[];
+            children: SamplingHeapProfileNode[];
         }
 
         /**
          * Profile.
          */
         interface SamplingHeapProfile {
-            head: HeapProfiler.SamplingHeapProfileNode;
+            head: SamplingHeapProfileNode;
         }
 
         interface AddInspectedHeapObjectParameterType {
             /**
              * Heap snapshot object id to be accessible by means of $x command line API.
              */
-            heapObjectId: HeapProfiler.HeapSnapshotObjectId;
+            heapObjectId: HeapSnapshotObjectId;
         }
 
         interface GetHeapObjectIdParameterType {
@@ -758,7 +782,7 @@ declare module "inspector" {
         }
 
         interface GetObjectByHeapObjectIdParameterType {
-            objectId: HeapProfiler.HeapSnapshotObjectId;
+            objectId: HeapSnapshotObjectId;
             /**
              * Symbolic group name that can be used to release multiple objects.
              */
@@ -796,7 +820,7 @@ declare module "inspector" {
             /**
              * Id of the heap snapshot object corresponding to the passed remote object id.
              */
-            heapSnapshotObjectId: HeapProfiler.HeapSnapshotObjectId;
+            heapSnapshotObjectId: HeapSnapshotObjectId;
         }
 
         interface GetObjectByHeapObjectIdReturnType {
@@ -810,14 +834,14 @@ declare module "inspector" {
             /**
              * Return the sampling profile being collected.
              */
-            profile: HeapProfiler.SamplingHeapProfile;
+            profile: SamplingHeapProfile;
         }
 
         interface StopSamplingReturnType {
             /**
              * Recorded sampling heap profile.
              */
-            profile: HeapProfiler.SamplingHeapProfile;
+            profile: SamplingHeapProfile;
         }
 
         interface AddHeapSnapshotChunkEventDataType {
@@ -874,7 +898,7 @@ declare module "inspector" {
             /**
              * An array of source position ticks.
              */
-            positionTicks?: Profiler.PositionTickInfo[];
+            positionTicks?: PositionTickInfo[];
         }
 
         /**
@@ -884,7 +908,7 @@ declare module "inspector" {
             /**
              * The list of profile nodes. First item is the root node.
              */
-            nodes: Profiler.ProfileNode[];
+            nodes: ProfileNode[];
             /**
              * Profiling start timestamp in microseconds.
              */
@@ -947,7 +971,7 @@ declare module "inspector" {
             /**
              * Source ranges inside the function with coverage data.
              */
-            ranges: Profiler.CoverageRange[];
+            ranges: CoverageRange[];
             /**
              * Whether coverage data for this function has block granularity.
              */
@@ -969,7 +993,7 @@ declare module "inspector" {
             /**
              * Functions contained in the script that has coverage data.
              */
-            functions: Profiler.FunctionCoverage[];
+            functions: FunctionCoverage[];
         }
 
         /**
@@ -995,7 +1019,7 @@ declare module "inspector" {
             /**
              * The types for this parameter or return value.
              */
-            types: Profiler.TypeObject[];
+            types: TypeObject[];
         }
 
         /**
@@ -1014,7 +1038,7 @@ declare module "inspector" {
             /**
              * Type profile entries for parameters and return values of the functions in the script.
              */
-            entries: Profiler.TypeProfileEntry[];
+            entries: TypeProfileEntry[];
         }
 
         interface SetSamplingIntervalParameterType {
@@ -1039,28 +1063,28 @@ declare module "inspector" {
             /**
              * Coverage data for the current isolate.
              */
-            result: Profiler.ScriptCoverage[];
+            result: ScriptCoverage[];
         }
 
         interface StopReturnType {
             /**
              * Recorded profile.
              */
-            profile: Profiler.Profile;
+            profile: Profile;
         }
 
         interface TakePreciseCoverageReturnType {
             /**
              * Coverage data for the current isolate.
              */
-            result: Profiler.ScriptCoverage[];
+            result: ScriptCoverage[];
         }
 
         interface TakeTypeProfileReturnType {
             /**
              * Type profile for all scripts since startTypeProfile() was turned on.
              */
-            result: Profiler.ScriptTypeProfile[];
+            result: ScriptTypeProfile[];
         }
 
         interface ConsoleProfileFinishedEventDataType {
@@ -1069,7 +1093,7 @@ declare module "inspector" {
              * Location of console.profileEnd().
              */
             location: Debugger.Location;
-            profile: Profiler.Profile;
+            profile: Profile;
             /**
              * Profile title passed as an argument to console.profile().
              */
@@ -1130,7 +1154,7 @@ declare module "inspector" {
              * Primitive value which can not be JSON-stringified does not have `value`, but gets this
              * property.
              */
-            unserializableValue?: Runtime.UnserializableValue;
+            unserializableValue?: UnserializableValue;
             /**
              * String representation of the object.
              */
@@ -1138,16 +1162,16 @@ declare module "inspector" {
             /**
              * Unique object identifier (for non-primitive values).
              */
-            objectId?: Runtime.RemoteObjectId;
+            objectId?: RemoteObjectId;
             /**
              * Preview containing abbreviated property values. Specified for `object` type values only.
              * @experimental
              */
-            preview?: Runtime.ObjectPreview;
+            preview?: ObjectPreview;
             /**
              * @experimental
              */
-            customPreview?: Runtime.CustomPreview;
+            customPreview?: CustomPreview;
         }
 
         /**
@@ -1156,9 +1180,9 @@ declare module "inspector" {
         interface CustomPreview {
             header: string;
             hasBody: boolean;
-            formatterObjectId: Runtime.RemoteObjectId;
-            bindRemoteObjectFunctionId: Runtime.RemoteObjectId;
-            configObjectId?: Runtime.RemoteObjectId;
+            formatterObjectId: RemoteObjectId;
+            bindRemoteObjectFunctionId: RemoteObjectId;
+            configObjectId?: RemoteObjectId;
         }
 
         /**
@@ -1185,11 +1209,11 @@ declare module "inspector" {
             /**
              * List of the properties.
              */
-            properties: Runtime.PropertyPreview[];
+            properties: PropertyPreview[];
             /**
              * List of the entries. Specified for `map` and `set` subtype values only.
              */
-            entries?: Runtime.EntryPreview[];
+            entries?: EntryPreview[];
         }
 
         /**
@@ -1211,7 +1235,7 @@ declare module "inspector" {
             /**
              * Nested value preview.
              */
-            valuePreview?: Runtime.ObjectPreview;
+            valuePreview?: ObjectPreview;
             /**
              * Object subtype hint. Specified for `object` type values only.
              */
@@ -1225,11 +1249,11 @@ declare module "inspector" {
             /**
              * Preview of the key. Specified for map-like collection entries.
              */
-            key?: Runtime.ObjectPreview;
+            key?: ObjectPreview;
             /**
              * Preview of the value.
              */
-            value: Runtime.ObjectPreview;
+            value: ObjectPreview;
         }
 
         /**
@@ -1243,7 +1267,7 @@ declare module "inspector" {
             /**
              * The value associated with the property.
              */
-            value?: Runtime.RemoteObject;
+            value?: RemoteObject;
             /**
              * True if the value associated with the property may be changed (data descriptors only).
              */
@@ -1252,12 +1276,12 @@ declare module "inspector" {
              * A function which serves as a getter for the property, or `undefined` if there is no getter
              * (accessor descriptors only).
              */
-            get?: Runtime.RemoteObject;
+            get?: RemoteObject;
             /**
              * A function which serves as a setter for the property, or `undefined` if there is no setter
              * (accessor descriptors only).
              */
-            set?: Runtime.RemoteObject;
+            set?: RemoteObject;
             /**
              * True if the type of this property descriptor may be changed and if the property may be
              * deleted from the corresponding object.
@@ -1279,7 +1303,7 @@ declare module "inspector" {
             /**
              * Property symbol object, if the property is of the `symbol` type.
              */
-            symbol?: Runtime.RemoteObject;
+            symbol?: RemoteObject;
         }
 
         /**
@@ -1293,7 +1317,7 @@ declare module "inspector" {
             /**
              * The value associated with the property.
              */
-            value?: Runtime.RemoteObject;
+            value?: RemoteObject;
         }
 
         /**
@@ -1308,11 +1332,11 @@ declare module "inspector" {
             /**
              * Primitive value which can not be JSON-stringified.
              */
-            unserializableValue?: Runtime.UnserializableValue;
+            unserializableValue?: UnserializableValue;
             /**
              * Remote object handle.
              */
-            objectId?: Runtime.RemoteObjectId;
+            objectId?: RemoteObjectId;
         }
 
         /**
@@ -1328,7 +1352,7 @@ declare module "inspector" {
              * Unique id of the execution context. It can be used to specify in which execution context
              * script evaluation should be performed.
              */
-            id: Runtime.ExecutionContextId;
+            id: ExecutionContextId;
             /**
              * Execution context origin.
              */
@@ -1367,7 +1391,7 @@ declare module "inspector" {
             /**
              * Script ID of the exception location.
              */
-            scriptId?: Runtime.ScriptId;
+            scriptId?: ScriptId;
             /**
              * URL of the exception location, to be used when the script was not reported.
              */
@@ -1375,21 +1399,26 @@ declare module "inspector" {
             /**
              * JavaScript stack trace if available.
              */
-            stackTrace?: Runtime.StackTrace;
+            stackTrace?: StackTrace;
             /**
              * Exception object if available.
              */
-            exception?: Runtime.RemoteObject;
+            exception?: RemoteObject;
             /**
              * Identifier of the context where exception happened.
              */
-            executionContextId?: Runtime.ExecutionContextId;
+            executionContextId?: ExecutionContextId;
         }
 
         /**
          * Number of milliseconds since epoch.
          */
         type Timestamp = number;
+
+        /**
+         * Number of milliseconds.
+         */
+        type TimeDelta = number;
 
         /**
          * Stack entry for runtime errors and assertions.
@@ -1402,7 +1431,7 @@ declare module "inspector" {
             /**
              * JavaScript script id.
              */
-            scriptId: Runtime.ScriptId;
+            scriptId: ScriptId;
             /**
              * JavaScript script name or url.
              */
@@ -1429,16 +1458,16 @@ declare module "inspector" {
             /**
              * JavaScript function name.
              */
-            callFrames: Runtime.CallFrame[];
+            callFrames: CallFrame[];
             /**
              * Asynchronous JavaScript stack trace that preceded this stack, if available.
              */
-            parent?: Runtime.StackTrace;
+            parent?: StackTrace;
             /**
              * Asynchronous JavaScript stack trace that preceded this stack, if available.
              * @experimental
              */
-            parentId?: Runtime.StackTraceId;
+            parentId?: StackTraceId;
         }
 
         /**
@@ -1454,14 +1483,14 @@ declare module "inspector" {
          */
         interface StackTraceId {
             id: string;
-            debuggerId?: Runtime.UniqueDebuggerId;
+            debuggerId?: UniqueDebuggerId;
         }
 
         interface AwaitPromiseParameterType {
             /**
              * Identifier of the promise.
              */
-            promiseObjectId: Runtime.RemoteObjectId;
+            promiseObjectId: RemoteObjectId;
             /**
              * Whether the result is expected to be a JSON object that should be sent by value.
              */
@@ -1481,12 +1510,12 @@ declare module "inspector" {
              * Identifier of the object to call function on. Either objectId or executionContextId should
              * be specified.
              */
-            objectId?: Runtime.RemoteObjectId;
+            objectId?: RemoteObjectId;
             /**
              * Call arguments. All call arguments must belong to the same JavaScript world as the target
              * object.
              */
-            arguments?: Runtime.CallArgument[];
+            arguments?: CallArgument[];
             /**
              * In silent mode exceptions thrown during evaluation are not reported and do not pause
              * execution. Overrides `setPauseOnException` state.
@@ -1514,7 +1543,7 @@ declare module "inspector" {
              * Specifies execution context which global object will be used to call function on. Either
              * executionContextId or objectId should be specified.
              */
-            executionContextId?: Runtime.ExecutionContextId;
+            executionContextId?: ExecutionContextId;
             /**
              * Symbolic group name that can be used to release multiple objects. If objectGroup is not
              * specified and objectId is, objectGroup will be inherited from object.
@@ -1539,7 +1568,7 @@ declare module "inspector" {
              * Specifies in which execution context to perform script run. If the parameter is omitted the
              * evaluation will be performed in the context of the inspected page.
              */
-            executionContextId?: Runtime.ExecutionContextId;
+            executionContextId?: ExecutionContextId;
         }
 
         interface EvaluateParameterType {
@@ -1564,7 +1593,7 @@ declare module "inspector" {
              * Specifies in which execution context to perform evaluation. If the parameter is omitted the
              * evaluation will be performed in the context of the inspected page.
              */
-            contextId?: Runtime.ExecutionContextId;
+            contextId?: ExecutionContextId;
             /**
              * Whether the result is expected to be a JSON object that should be sent by value.
              */
@@ -1588,13 +1617,18 @@ declare module "inspector" {
              * @experimental
              */
             throwOnSideEffect?: boolean;
+            /**
+             * Terminate execution after timing out (number of milliseconds).
+             * @experimental
+             */
+            timeout?: TimeDelta;
         }
 
         interface GetPropertiesParameterType {
             /**
              * Identifier of the object to return properties for.
              */
-            objectId: Runtime.RemoteObjectId;
+            objectId: RemoteObjectId;
             /**
              * If true, returns properties belonging only to the element itself, not to its prototype
              * chain.
@@ -1617,14 +1651,14 @@ declare module "inspector" {
             /**
              * Specifies in which execution context to lookup global scope variables.
              */
-            executionContextId?: Runtime.ExecutionContextId;
+            executionContextId?: ExecutionContextId;
         }
 
         interface QueryObjectsParameterType {
             /**
              * Identifier of the prototype to return objects for.
              */
-            prototypeObjectId: Runtime.RemoteObjectId;
+            prototypeObjectId: RemoteObjectId;
             /**
              * Symbolic group name that can be used to release the results.
              */
@@ -1635,7 +1669,7 @@ declare module "inspector" {
             /**
              * Identifier of the object to release.
              */
-            objectId: Runtime.RemoteObjectId;
+            objectId: RemoteObjectId;
         }
 
         interface ReleaseObjectGroupParameterType {
@@ -1649,12 +1683,12 @@ declare module "inspector" {
             /**
              * Id of the script to run.
              */
-            scriptId: Runtime.ScriptId;
+            scriptId: ScriptId;
             /**
              * Specifies in which execution context to perform script run. If the parameter is omitted the
              * evaluation will be performed in the context of the inspected page.
              */
-            executionContextId?: Runtime.ExecutionContextId;
+            executionContextId?: ExecutionContextId;
             /**
              * Symbolic group name that can be used to release multiple objects.
              */
@@ -1691,44 +1725,44 @@ declare module "inspector" {
             /**
              * Promise result. Will contain rejected value if promise was rejected.
              */
-            result: Runtime.RemoteObject;
+            result: RemoteObject;
             /**
              * Exception details if stack strace is available.
              */
-            exceptionDetails?: Runtime.ExceptionDetails;
+            exceptionDetails?: ExceptionDetails;
         }
 
         interface CallFunctionOnReturnType {
             /**
              * Call result.
              */
-            result: Runtime.RemoteObject;
+            result: RemoteObject;
             /**
              * Exception details.
              */
-            exceptionDetails?: Runtime.ExceptionDetails;
+            exceptionDetails?: ExceptionDetails;
         }
 
         interface CompileScriptReturnType {
             /**
              * Id of the script.
              */
-            scriptId?: Runtime.ScriptId;
+            scriptId?: ScriptId;
             /**
              * Exception details.
              */
-            exceptionDetails?: Runtime.ExceptionDetails;
+            exceptionDetails?: ExceptionDetails;
         }
 
         interface EvaluateReturnType {
             /**
              * Evaluation result.
              */
-            result: Runtime.RemoteObject;
+            result: RemoteObject;
             /**
              * Exception details.
              */
-            exceptionDetails?: Runtime.ExceptionDetails;
+            exceptionDetails?: ExceptionDetails;
         }
 
         interface GetIsolateIdReturnType {
@@ -1753,15 +1787,15 @@ declare module "inspector" {
             /**
              * Object properties.
              */
-            result: Runtime.PropertyDescriptor[];
+            result: PropertyDescriptor[];
             /**
              * Internal object properties (only of the element itself).
              */
-            internalProperties?: Runtime.InternalPropertyDescriptor[];
+            internalProperties?: InternalPropertyDescriptor[];
             /**
              * Exception details.
              */
-            exceptionDetails?: Runtime.ExceptionDetails;
+            exceptionDetails?: ExceptionDetails;
         }
 
         interface GlobalLexicalScopeNamesReturnType {
@@ -1772,18 +1806,18 @@ declare module "inspector" {
             /**
              * Array with objects.
              */
-            objects: Runtime.RemoteObject;
+            objects: RemoteObject;
         }
 
         interface RunScriptReturnType {
             /**
              * Run result.
              */
-            result: Runtime.RemoteObject;
+            result: RemoteObject;
             /**
              * Exception details.
              */
-            exceptionDetails?: Runtime.ExceptionDetails;
+            exceptionDetails?: ExceptionDetails;
         }
 
         interface ConsoleAPICalledEventDataType {
@@ -1794,19 +1828,19 @@ declare module "inspector" {
             /**
              * Call arguments.
              */
-            args: Runtime.RemoteObject[];
+            args: RemoteObject[];
             /**
              * Identifier of the context where the call was made.
              */
-            executionContextId: Runtime.ExecutionContextId;
+            executionContextId: ExecutionContextId;
             /**
              * Call timestamp.
              */
-            timestamp: Runtime.Timestamp;
+            timestamp: Timestamp;
             /**
              * Stack trace captured when the call was made.
              */
-            stackTrace?: Runtime.StackTrace;
+            stackTrace?: StackTrace;
             /**
              * Console context descriptor for calls on non-default console context (not console.*):
              * 'anonymous#unique-logger-id' for call on unnamed context, 'name#unique-logger-id' for call
@@ -1831,26 +1865,26 @@ declare module "inspector" {
             /**
              * Timestamp of the exception.
              */
-            timestamp: Runtime.Timestamp;
-            exceptionDetails: Runtime.ExceptionDetails;
+            timestamp: Timestamp;
+            exceptionDetails: ExceptionDetails;
         }
 
         interface ExecutionContextCreatedEventDataType {
             /**
              * A newly created execution context.
              */
-            context: Runtime.ExecutionContextDescription;
+            context: ExecutionContextDescription;
         }
 
         interface ExecutionContextDestroyedEventDataType {
             /**
              * Id of the destroyed context
              */
-            executionContextId: Runtime.ExecutionContextId;
+            executionContextId: ExecutionContextId;
         }
 
         interface InspectRequestedEventDataType {
-            object: Runtime.RemoteObject;
+            object: RemoteObject;
             hints: {};
         }
     }
@@ -1874,7 +1908,7 @@ declare module "inspector" {
             /**
              * List of supported domains.
              */
-            domains: Schema.Domain[];
+            domains: Domain[];
         }
     }
 
@@ -1883,19 +1917,22 @@ declare module "inspector" {
      */
     class Session extends EventEmitter {
         /**
-         * Create a new instance of the inspector.Session class. The inspector session needs to be connected through session.connect() before the messages can be dispatched to the inspector backend.
+         * Create a new instance of the inspector.Session class.
+         * The inspector session needs to be connected through session.connect() before the messages can be dispatched to the inspector backend.
          */
         constructor();
 
         /**
          * Connects a session to the inspector back-end.
-         * An exception will be thrown if there is already a connected session established either through the API or by a front-end connected to the Inspector WebSocket port.
+         * An exception will be thrown if there is already a connected session established either
+         * through the API or by a front-end connected to the Inspector WebSocket port.
          */
         connect(): void;
 
         /**
          * Immediately close the session. All pending message callbacks will be called with an error.
-         * session.connect() will need to be called to be able to send messages again. Reconnected session will lose all inspector state, such as enabled agents or configured breakpoints.
+         * session.connect() will need to be called to be able to send messages again.
+         * Reconnected session will lose all inspector state, such as enabled agents or configured breakpoints.
          */
         disconnect(): void;
 
@@ -1951,7 +1988,7 @@ declare module "inspector" {
         post(
             method: "Debugger.getPossibleBreakpoints",
             params?: Debugger.GetPossibleBreakpointsParameterType,
-            callback?: (err: Error | null, params: Debugger.GetPossibleBreakpointsReturnType) => void,
+            callback?: (err: Error | null, params: Debugger.GetPossibleBreakpointsReturnType) => void
         ): void;
         post(method: "Debugger.getPossibleBreakpoints", callback?: (err: Error | null, params: Debugger.GetPossibleBreakpointsReturnType) => void): void;
 
@@ -2052,6 +2089,19 @@ declare module "inspector" {
         post(method: "Debugger.setBreakpointByUrl", callback?: (err: Error | null, params: Debugger.SetBreakpointByUrlReturnType) => void): void;
 
         /**
+         * Sets JavaScript breakpoint before each call to the given function.
+         * If another function was created from the same source as a given one,
+         * calling it will also trigger the breakpoint.
+         * @experimental
+         */
+        post(
+            method: "Debugger.setBreakpointOnFunctionCall",
+            params?: Debugger.SetBreakpointOnFunctionCallParameterType,
+            callback?: (err: Error | null, params: Debugger.SetBreakpointOnFunctionCallReturnType) => void
+        ): void;
+        post(method: "Debugger.setBreakpointOnFunctionCall", callback?: (err: Error | null, params: Debugger.SetBreakpointOnFunctionCallReturnType) => void): void;
+
+        /**
          * Activates / deactivates all breakpoints on the page.
          */
         post(method: "Debugger.setBreakpointsActive", params?: Debugger.SetBreakpointsActiveParameterType, callback?: (err: Error | null) => void): void;
@@ -2124,7 +2174,7 @@ declare module "inspector" {
         post(
             method: "HeapProfiler.getObjectByHeapObjectId",
             params?: HeapProfiler.GetObjectByHeapObjectIdParameterType,
-            callback?: (err: Error | null, params: HeapProfiler.GetObjectByHeapObjectIdReturnType) => void,
+            callback?: (err: Error | null, params: HeapProfiler.GetObjectByHeapObjectIdReturnType) => void
         ): void;
         post(method: "HeapProfiler.getObjectByHeapObjectId", callback?: (err: Error | null, params: HeapProfiler.GetObjectByHeapObjectIdReturnType) => void): void;
 
@@ -2268,7 +2318,7 @@ declare module "inspector" {
         post(
             method: "Runtime.globalLexicalScopeNames",
             params?: Runtime.GlobalLexicalScopeNamesParameterType,
-            callback?: (err: Error | null, params: Runtime.GlobalLexicalScopeNamesReturnType) => void,
+            callback?: (err: Error | null, params: Runtime.GlobalLexicalScopeNamesReturnType) => void
         ): void;
         post(method: "Runtime.globalLexicalScopeNames", callback?: (err: Error | null, params: Runtime.GlobalLexicalScopeNamesReturnType) => void): void;
 
