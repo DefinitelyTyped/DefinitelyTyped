@@ -262,7 +262,7 @@ declare namespace React {
         Consumer: Consumer<T>;
     }
     function createContext<T>(
-        defaultValue: T,
+        defaultValue: T | undefined,
         calculateChangedBits?: (prev: T, next: T) => number
     ): Context<T>;
 
