@@ -2,6 +2,7 @@
 // Project: https://github.com/americanexpress/react-albus#readme
 // Definitions by: Sindre Seppola <https://github.com/sseppola>
 //                 Conrad Reuter <https://github.com/conradreuter>
+//                 Jonas Kugelmann <https://github.com/kuirak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -23,19 +24,31 @@ export interface WizardContext {
     replace: (id?: string) => void;
 }
 
-export const Wizard: React.ComponentType<{
+export interface WizardComponentProps {
+    wizard: WizardContext;
+}
+
+export const withWizard: <P>(
+    component: React.ComponentType<P & WizardComponentProps>
+) => React.ComponentType<P>;
+
+export interface WizardProps {
     onNext?: (wizard: WizardContext) => void;
     render?: (wizard: WizardContext) => React.ReactNode;
     history?: History;
-}>;
+    basename?: string;
+}
 
-export const Steps: React.ComponentType<{
+export const Wizard: React.ComponentType<WizardProps>;
+
+export interface StepsProps {
     step?: WizardStepObject;
-}>;
+}
 
-export const Step: React.ComponentType<{
-    id: string;
-} & (
-    | { render?: (wizard: WizardContext) => React.ReactNode; }
-    | { children: (wizard: WizardContext) => React.ReactNode; }
-)>;
+export const Steps: React.ComponentType<StepsProps>;
+
+export type StepProps = { id: string } & (
+    | { render?: (wizard: WizardContext) => React.ReactNode }
+    | { children: (wizard: WizardContext) => React.ReactNode });
+
+export const Step: React.ComponentType<StepProps>;
