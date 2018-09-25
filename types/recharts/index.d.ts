@@ -15,6 +15,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import { getTickValues, getNiceTickValues, getTickValuesFixedDomain } from 'recharts-scale';
 import { CurveFactory } from 'd3-shape';
 
 export type Percentage = string;
