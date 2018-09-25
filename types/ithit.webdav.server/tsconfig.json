@@ -17,7 +17,9 @@
     },
     "files": [
         "index.d.ts",
-        "/*",
         "ithit.webdav.server-tests.ts"
+    ],
+    "include": [
+        "**/*.d.ts"
     ]
 }
