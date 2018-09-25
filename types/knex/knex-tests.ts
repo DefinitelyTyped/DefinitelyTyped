@@ -641,6 +641,9 @@ knex.with('new_books', 'select * from books where published_date >= :year', { ye
 knex.with('new_books', 'select * from books where published_date >= ?', [2016])
   .select('*').from('new_books');
 
+knex.with('new_books', knex.select('*').from('books').where("published_date", ">=", 2016))
+  .select('*').from('new_books');
+
 knex.withRaw('recent_books', 'select * from books where published_date >= :year', { year: 2013 })
   .select('*').from('recent_books');
 
@@ -650,6 +653,9 @@ knex.withRaw('recent_books', knex.raw('select * from books where published_date 
 knex.withWrapped("antique_books", function (qb) {
   qb.select('*').from('books').where('published_date', '<', 1899);
 }).select('*').from('antique_books');
+
+knex.withWrapped('new_books', knex.select('*').from('books').where("published_date", ">=", 2016))
+  .select('*').from('new_books');
 
 var someExternalMethod: Function;
 
