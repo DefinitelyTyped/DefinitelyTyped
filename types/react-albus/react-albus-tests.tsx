@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Wizard, Step, Steps, withWizard } from "react-albus";
-import { ButtonHTMLAttributes } from "react";
 
 const Example = () => (
     <Wizard

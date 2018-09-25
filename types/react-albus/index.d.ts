@@ -28,9 +28,9 @@ export interface WizardComponentProps {
     wizard: WizardContext;
 }
 
-export const withWizard: <P>(
+export function withWizard<P>(
     component: React.ComponentType<P & WizardComponentProps>
-) => React.ComponentType<P>;
+): React.ComponentType<P>;
 
 export interface WizardProps {
     onNext?: (wizard: WizardContext) => void;
