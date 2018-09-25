@@ -1302,7 +1302,7 @@ declare module "http" {
     function request(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
-    const globalAgent: Agent;
+    let globalAgent: Agent;
 }
 
 declare module "cluster" {
@@ -1934,7 +1934,7 @@ declare module "https" {
     function request(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     function get(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     function get(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
-    const globalAgent: Agent;
+    let globalAgent: Agent;
 }
 
 declare module "punycode" {
