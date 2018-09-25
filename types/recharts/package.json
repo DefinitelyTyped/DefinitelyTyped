@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "recharts-scale": "^0.3.2"
-    }
-}
