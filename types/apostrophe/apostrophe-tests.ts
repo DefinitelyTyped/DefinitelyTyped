@@ -1,14 +1,27 @@
 import { AposModuleOptions } from "apostrophe";
 
-const testModuleOptions: AposModuleOptions = {
+type CustomModules = "first-custom-widgets" | "second-custom-widgets";
+
+const firstCustomWidgetOptions: AposModuleOptions<{}> = {
     extend: "apostrophe-widgets",
-    label: "Test Widget",
+    label: "First Custom Widget",
     addFields: [
         {
             name: "title",
-            label: "Test Title",
-            type: "string",
-            required: true
+            label: "Custom Widget Title",
+            type: "string"
+        }
+    ]
+};
+
+const secondCustomWidgetOptions: AposModuleOptions<CustomModules> = {
+    extend: "first-custom-widgets",
+    label: "Second Custom Widget",
+    addFields: [
+        {
+            name: "title",
+            label: "Custom Widget Title",
+            type: "string"
         }
     ]
 };

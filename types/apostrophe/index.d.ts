@@ -277,8 +277,9 @@ declare namespace apostrophe {
         | "apostrophe-video-widgets"
         | "apostrophe-widgets";
 
-    interface AposModuleOptions {
-        extend: AposCoreModules;
+    // Pass in custom modules to AposModuleOptions to allow them in extend
+    interface AposModuleOptions<C> {
+        extend: AposCoreModules | C;
         name?: string;
         label: string;
         pluralLabel?: string;
