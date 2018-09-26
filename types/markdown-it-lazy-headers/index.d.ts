@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { MarkdownIt, Core, Token } from 'markdown-it';
+import { MarkdownIt } from 'markdown-it';
 
 declare function lazyheaders(md: MarkdownIt): void;
 

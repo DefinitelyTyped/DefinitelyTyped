@@ -1,4 +1,4 @@
-import * as MarkdownIt from "markdown-it";
+import MarkdownIt = require("markdown-it");
 import lazyHeaders = require("markdown-it-lazy-headers");
 
 const md = new MarkdownIt();
