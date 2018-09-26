@@ -27,6 +27,8 @@ interface FileUrlOptions {
  */
 declare function fileUrl(path: string, options?: FileUrlOptions): string;
 
+declare namespace fileUrl { }
+
 /**
  * Convert a path to a file URL.
  */
