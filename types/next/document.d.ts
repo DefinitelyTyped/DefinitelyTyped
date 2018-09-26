@@ -88,11 +88,12 @@ export interface NextScriptProps {
  * Document component type. Differs from the default type because the context it passes
  * to getInitialProps and the props is passes to the component are different.
  *
+ * @template P Component props.
  * @template IP Initial props returned from getInitialProps.
  * @template C Context passed to getInitialProps.
  */
-export type DocumentComponentType<IP = {}, C = NextDocumentContext> = NextComponentType<
-    IP & DocumentProps,
+export type DocumentComponentType<P = {}, IP = P, C = NextDocumentContext> = NextComponentType<
+    P & DocumentProps,
     IP,
     C
 >;
