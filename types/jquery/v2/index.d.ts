@@ -3385,7 +3385,7 @@ interface JQuery {
      * @see {@link https://api.jquery.com/selector/}
      */
     selector: string;
-    [index: number]: HTMLElement;
+    [index: number]: Element;
 
     /**
      * Add elements to the set of matched elements.

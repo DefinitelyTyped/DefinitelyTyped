@@ -3,11 +3,8 @@
     "rules": {
         // All are TODOs
         "ban-types": false,
-        "callable-types": false,
-        "interface-name": false,
         "no-empty-interface": false,
         "no-self-import": false,
-        "no-unnecessary-generics": false,
         "unified-signatures": false
     }
 }

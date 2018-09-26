@@ -3,14 +3,9 @@ import { NextContext, NextComponentType } from ".";
 import { DefaultQuery } from "./router";
 
 export interface RenderPageResponse {
-    buildManifest: { [key: string]: any };
-    chunks: {
-        names: string[];
-        filenames: string[];
-    };
+    buildManifest: Record<string, any>;
     html?: string;
-    head: Array<React.ReactElement<any>>;
-    errorHtml: string;
+    head?: Array<React.ReactElement<any>>;
 }
 
 export interface PageProps {
@@ -38,24 +33,42 @@ export interface NextDocumentContext<Q extends DefaultQuery = DefaultQuery> exte
 }
 
 /**
- * Props passed to the Document component.
+ * Initial Props returned from base Document class.
+ * https://github.com/zeit/next.js/blob/7.0.0/server/document.js#L16
  */
-export interface DocumentProps {
-    __NEXT_DATA__?: any;
-    dev?: boolean;
-    chunks?: {
-        names: string[];
-        filenames: string[];
-    };
-    html?: string;
-    head?: Array<React.ReactElement<any>>;
-    errorHtml?: string;
+export interface DefaultDocumentIProps extends RenderPageResponse {
     styles?: Array<React.ReactElement<any>>;
-    [key: string]: any;
+}
+
+/**
+ * Props passed to the Document component.
+ * https://github.com/zeit/next.js/blob/7.0.0/server/render.js#L165
+ */
+export interface DocumentProps<Q extends DefaultQuery = DefaultQuery> {
+    __NEXT_DATA__: {
+        props: any;
+        page: string;
+        pathname: string;
+        query: Q;
+        buildId: string;
+        assetPrefix?: string;
+        runtimeConfig?: any;
+        nextExport?: boolean;
+        err?: any;
+    };
+    dev: boolean;
+    dir?: string;
+    staticMarkup: boolean;
+    buildManifest: Record<string, any>;
+    devFiles: string[];
+    files: string[];
+    dynamicImports: string[];
+    assetPrefix: string;
 }
 
 /**
  * Props supported by the Head component.
+ * https://github.com/zeit/next.js/blob/7.0.0/server/document.js#L42
  */
 export interface HeadProps {
     nonce?: string;
@@ -64,6 +77,7 @@ export interface HeadProps {
 
 /**
  * Props supported by the NextScript component.
+ * https://github.com/zeit/next.js/blob/7.0.0/server/document.js#L141
  */
 export interface NextScriptProps {
     nonce?: string;
@@ -74,11 +88,12 @@ export interface NextScriptProps {
  * Document component type. Differs from the default type because the context it passes
  * to getInitialProps and the props is passes to the component are different.
  *
+ * @template P Component props.
  * @template IP Initial props returned from getInitialProps.
  * @template C Context passed to getInitialProps.
  */
-export type DocumentComponentType<IP = {}, C = NextDocumentContext> = NextComponentType<
-    IP & DocumentProps,
+export type DocumentComponentType<P = {}, IP = P, C = NextDocumentContext> = NextComponentType<
+    P & DocumentProps,
     IP,
     C
 >;
@@ -86,6 +101,8 @@ export type DocumentComponentType<IP = {}, C = NextDocumentContext> = NextCompon
 export class Head extends React.Component<HeadProps> {}
 export class Main extends React.Component {}
 export class NextScript extends React.Component<NextScriptProps> {}
-export default class Document<P = {}> extends React.Component<P & DocumentProps> {
-    static getInitialProps(context: NextDocumentContext): DocumentProps;
+export default class Document<P = {}> extends React.Component<
+    P & DefaultDocumentIProps & DocumentProps
+> {
+    static getInitialProps(context: NextDocumentContext): DefaultDocumentIProps;
 }
