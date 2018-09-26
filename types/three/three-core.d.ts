@@ -2747,14 +2747,9 @@ export interface LineDashedMaterialParameters extends MaterialParameters {
     gapSize?: number;
 }
 
-/**
- * Changed LineDashedMaterial to extend LineBasicMaterial as per the source
- */
 export class LineDashedMaterial extends LineBasicMaterial {
     constructor(parameters?: LineDashedMaterialParameters);
 
-    color: Color;
-    linewidth: number;
     scale: number;
     dashSize: number;
     gapSize: number;
