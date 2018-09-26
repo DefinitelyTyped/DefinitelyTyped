@@ -7,8 +7,6 @@
 
 import { Stats } from "fs";
 
-export as namespace walk;
-
 export interface WalkStats extends Stats {
     name: string;
     type: "file"
