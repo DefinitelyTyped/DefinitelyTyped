@@ -3683,7 +3683,7 @@
 /types/react-json/                                  @spielc
 /types/react-json-pretty/                           @LKay
 /types/react-json-tree/                             @gnestor
-/types/react-jsonschema-form/                       @iamdanfox @sirreal @iplus26 @KurtPreston @phbou72 @LucianBuzzo
+/types/react-jsonschema-form/                       @iamdanfox @iplus26 @KurtPreston @phbou72 @LucianBuzzo
 /types/react-lazyload/                              @m0a
 /types/react-lazylog/                               @benjaminRomano
 /types/react-leaflet/                               @danzel @davschne @yuit

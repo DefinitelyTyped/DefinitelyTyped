@@ -1,4 +1,3 @@
-import RSVP from 'rsvp';
 import { run } from '@ember/runloop';
 import EmberObject from '@ember/object';
 
@@ -123,11 +122,9 @@ function testJoin() {
         });
     });
 
-    new RSVP.Promise((resolve) => {
-        run.later(() => {
-            resolve({ msg: 'Hold Your Horses' });
-        }, 3000);
-    });
+    run.later(() => {
+        console.log({ msg: 'Hold Your Horses' });
+    }, 3000);
 }
 
 function testLater() {

@@ -9,12 +9,43 @@ import { WriteStream } from "fs";
 import { Console } from "console";
 import { EventEmitter } from "events";
 
+export interface LogRecordOptions {
+    level: string;
+    msg: string;
+    meta?: any;
+    tags?: string[];
+}
+
+export interface LogRecord {
+    msg: string;
+    meta: any;
+    _logLevel: string;
+    _tags: string[];
+}
+
+export class LogMessage {
+    level: string;
+    msg: string;
+
+    meta?: any;
+
+    constructor(logRecordOptions: LogRecordOptions, opts: LambdaLogOptions);
+
+    value: LogRecord;
+    log: LogRecord;
+    throw: undefined;
+
+    toJSON(format?: number): string;
+
+    static isError(val: any): boolean;
+}
+
 export interface LambdaLogOptions {
     meta?: any;
     // Global tags array to include with every log
     tags?: string[];
     // Optional function which will run for every log to inject dynamic metadata
-    dynamicMeta?: null;
+    dynamicMeta?: (message: LogMessage) => any;
     // Enable debugging mode (log.debug messages)
     debug?: boolean;
     // Enable development mode which pretty-prints the log object to the console
@@ -51,5 +82,10 @@ export class LambdaLog extends EventEmitter {
 
     log(level: string, msg: string, meta: object, tags: string[]): string;
 
-    assert(test: any, msg: string, meta: object, tags: string[]): boolean | string;
+    assert(
+        test: any,
+        msg: string,
+        meta: object,
+        tags: string[]
+    ): boolean | string;
 }

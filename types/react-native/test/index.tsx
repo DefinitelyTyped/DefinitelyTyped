@@ -663,10 +663,11 @@ class WebViewTest extends React.Component {
     render() {
         return (
             <WebView
-                originWhitelist={['https://origin.test']}
-                saveFormDataDisabled={false}
                 nativeConfig={{ component: 'test', props: {}, viewManager: {} }}
                 onShouldStartLoadWithRequest={(event) => event.navigationType !== 'formresubmit'}
+                originWhitelist={['https://origin.test']}
+                saveFormDataDisabled={false}
+                useWebKit={true}
             />
         );
     }
