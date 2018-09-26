@@ -40,8 +40,8 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
 //////////////////////////////////////////////////////////
 {
     {
-        const x: NodeModule = <any> {};
-        const y: NodeModule = <any> {};
+        const x: NodeModule = {} as any;
+        const y: NodeModule = {} as any;
         x.children.push(y);
         x.parent = require.main;
         require.main = y;
@@ -3847,7 +3847,7 @@ import * as constants from 'constants';
 
     // Http2Session
     {
-        const http2Session: http2.Http2Session = <any> {};
+        const http2Session: http2.Http2Session = {} as any;
         const ee: events.EventEmitter = http2Session;
 
         http2Session.on('close', () => {});
@@ -3887,7 +3887,7 @@ import * as constants from 'constants';
         (http2Session as http2.ClientHttp2Session).request(headers);
         (http2Session as http2.ClientHttp2Session).request(headers, options);
 
-        const stream: http2.Http2Stream = <any> {};
+        const stream: http2.Http2Stream = {} as any;
         http2Session.rstStream(stream);
         http2Session.rstStream(stream, 0);
 
@@ -3924,7 +3924,7 @@ import * as constants from 'constants';
 
     // Http2Stream
     {
-        const http2Stream: http2.Http2Stream = <any> {};
+        const http2Stream: http2.Http2Stream = {} as any;
         const duplex: stream.Duplex = http2Stream;
 
         http2Stream.on('aborted', () => {});
@@ -3966,7 +3966,7 @@ import * as constants from 'constants';
         http2Stream.close(undefined, () => {});
 
         // ClientHttp2Stream
-        const clientHttp2Stream: http2.ClientHttp2Stream = <any> {};
+        const clientHttp2Stream: http2.ClientHttp2Stream = {} as any;
         clientHttp2Stream.on('headers', (headers: http2.IncomingHttpHeaders, flags: number) => {});
         clientHttp2Stream.on('push', (headers: http2.IncomingHttpHeaders, flags: number) => {});
         clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders & http2.IncomingHttpStatusHeader, flags: number) => {
@@ -3974,7 +3974,7 @@ import * as constants from 'constants';
         });
 
         // ServerHttp2Stream
-        const serverHttp2Stream: http2.ServerHttp2Stream = <any> {};
+        const serverHttp2Stream: http2.ServerHttp2Stream = {} as any;
         const headers: http2.OutgoingHttpHeaders = {};
 
         serverHttp2Stream.additionalHeaders(headers);
@@ -4146,7 +4146,7 @@ import * as constants from 'constants';
         secureClientSessionOptions.ca = '';
         const onConnectHandler = (session: http2.Http2Session, socket: net.Socket) => {};
 
-        const serverHttp2Session: http2.ServerHttp2Session = <any> {};
+        const serverHttp2Session: http2.ServerHttp2Session = {} as any;
 
         serverHttp2Session.altsvc('', '');
         serverHttp2Session.altsvc('', 0);
