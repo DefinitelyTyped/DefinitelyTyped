@@ -2,7 +2,7 @@
 // Project: https://github.com/apostrophecms/apostrophe#readme
 // Definitions by: Aaron Holderman <https://github.com/afholderman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 export = apostrophe;
 export as namespace apos;
@@ -14,8 +14,6 @@ declare namespace apostrophe {
         directory: string;
         modules: string[];
     };
-
-    const prototype: {};
 
     const ui: {
         globalBusy: (state: any) => any;
@@ -278,7 +276,7 @@ declare namespace apostrophe {
         | "apostrophe-widgets";
 
     // Pass in custom modules to AposModuleOptions to allow them in extend
-    interface AposModuleOptions<C> {
+    interface AposModuleOptions<C = {}> {
         extend: AposCoreModules | C;
         name?: string;
         label: string;
