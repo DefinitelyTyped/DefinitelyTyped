@@ -323,7 +323,7 @@ export interface RequestRoute {
 export interface RequestOrig {
     params: object;
     query: object;
-    payload: object;
+    payload: {[key: string]: any};
 }
 
 export interface RequestLog {
@@ -439,7 +439,7 @@ export interface Request extends Podium {
      * The request payload based on the route payload.output and payload.parse settings.
      * TODO check this typing and add references / links.
      */
-    readonly payload: stream.Readable | Buffer | string | object;
+    readonly payload: stream.Readable | Buffer | string | {[key: string]: any};
 
     /**
      * Plugin-specific state. Provides a place to store and pass request-level plugin data. The plugins is an object where each key is a plugin name and the value is the state.
@@ -3481,6 +3481,7 @@ export class Server extends Podium {
     decorate(type: 'toolkit', property: string, method: DecorationMethod<ResponseToolkit>, options?: {apply?: boolean, extend?: boolean}): void;
     decorate(type: 'server', property: string, method: (existing: ((...args: any[]) => any)) => DecorationMethod<Server>, options: {apply?: boolean, extend: true}): void;
     decorate(type: 'server', property: string, method: DecorationMethod<Server>, options?: {apply?: boolean, extend?: boolean}): void;
+    decorate(type: 'request'|'server', property: string, method: any, options?: {apply?: boolean, extend?: boolean}): void;
 
     /**
      * Used within a plugin to declare a required dependency on other plugins where:
