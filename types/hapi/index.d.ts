@@ -1468,7 +1468,7 @@ export interface RouteOptionsResponse {
 /**
  * @see https://www.w3.org/TR/referrer-policy/
  */
-export type RefererPolicy = '' | 'no-referrer' | 'no-referrer-when-downgrade' | 'unsafe-url' |
+export type ReferrerPolicy = '' | 'no-referrer' | 'no-referrer-when-downgrade' | 'unsafe-url' |
     'same-origin' | 'origin' |  'strict-origin' | 'origin-when-cross-origin' | 'strict-origin-when-cross-origin';
 
 /**
@@ -1550,7 +1550,7 @@ export interface RouteOptionsSecureObject {
      * Controls the `Referrer-Policy` header, which has the following possible values.
      * @default false Header will not be send.
      */
-    referer?: false | RefererPolicy;
+    referrer?: false | ReferrerPolicy;
 }
 
 export type RouteOptionsSecure = boolean | RouteOptionsSecureObject;
