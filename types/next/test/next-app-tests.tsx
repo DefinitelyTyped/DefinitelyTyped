@@ -55,7 +55,7 @@ interface TestProps {
 }
 
 // Stateful HOC that adds props to wrapped component. Similar to what withRedux does.
-// tslint:disable-next-line no-unnecessary-generics
+// tslint:disable-next-line no-unnecessary-generics, use-default-type-parameter
 const withExample = <P extends {}>(App: AppComponentType<P & WithExampleProps, P>) =>
     class extends React.Component<P & AppProps & WithExampleHocProps> {
         test: string;
