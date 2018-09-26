@@ -130,33 +130,24 @@ type ExtractedPropsWithoutAnnotation = PropTypes.InferProps<typeof propTypesWith
 type ExtractedPropsFromOuterPropsWithoutAnnotation = PropTypes.InferProps<typeof outerPropTypesWithoutAnnotation>['props'];
 
 // $ExpectType true
-type ExtractPropsMatch = ExtractedProps extends ExtractedPropsWithoutAnnotation ? true : false;
+type ExtractPropsMatch = ExtractedProps extends ExtractedPropsWithoutAnnotation ? true : false; // <-- ERROR
 // $ExpectType true
 type ExtractPropsMatch2 = ExtractedPropsWithoutAnnotation extends ExtractedProps ? true : false;
 // $ExpectType true
-type ExtractPropsMatch3 = ExtractedProps extends Props ? true : false;
+type ExtractPropsMatch3 = ExtractedProps extends Props ? true : false; // <-- ERROR
 // $ExpectType true
 type ExtractPropsMatch4 = Props extends ExtractedPropsWithoutAnnotation ? true : false;
 // $ExpectType true
-type ExtractFromOuterPropsMatch = ExtractedPropsFromOuterProps extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false;
+type ExtractFromOuterPropsMatch = ExtractedPropsFromOuterProps extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false; // <-- ERROR
 // $ExpectType true
 type ExtractFromOuterPropsMatch2 = ExtractedPropsFromOuterPropsWithoutAnnotation extends ExtractedPropsFromOuterProps ? true : false;
 // $ExpectType true
-type ExtractFromOuterPropsMatch3 = ExtractedPropsFromOuterProps extends Props ? true : false;
+type ExtractFromOuterPropsMatch3 = ExtractedPropsFromOuterProps extends Props ? true : false; // <-- ERROR
 // $ExpectType true
 type ExtractFromOuterPropsMatch4 = Props extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false;
 
 // $ExpectType false
 type ExtractPropsMismatch = ExtractedPartialProps extends Props ? true : false;
-
-// $ExpectType {}
-type UnmatchedPropKeys = Pick<ExtractedPropsWithoutAnnotation, Extract<{
-    [K in keyof ExtractedPropsWithoutAnnotation]: ExtractedPropsWithoutAnnotation[K] extends ExtractedProps[K] ? never : K
-}[keyof ExtractedPropsWithoutAnnotation], keyof ExtractedPropsWithoutAnnotation>>;
-// $ExpectType {}
-type UnmatchedPropKeys2 = Pick<ExtractedProps, Extract<{
-    [K in NonNullable<keyof ExtractedProps>]: ExtractedProps[K] extends ExtractedPropsWithoutAnnotation[K] ? never : K
-}[NonNullable<keyof ExtractedProps>], keyof ExtractedProps>>;
 
 PropTypes.checkPropTypes({ xs: PropTypes.array }, { xs: [] }, 'location', 'componentName');
 
