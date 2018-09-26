@@ -285,13 +285,6 @@ declare namespace Sortable {
         css<K extends keyof CSSStyleDeclaration>(element: HTMLElement, prop: K, value: CSSStyleDeclaration[K]): void;
 
         /**
-         * Set CSS properties.
-         * @param element an HTMLElement.
-         * @param props a properties object.
-         */
-        css(element: HTMLElement, props: any): void;
-
-        /**
          * Get elements by tag name.
          * @param context an HTMLElement.
          * @param tagName A tag name.
