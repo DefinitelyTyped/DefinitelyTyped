@@ -206,21 +206,6 @@ export namespace Ember {
     }
 
     /**
-     * Connects the properties of two objects so that whenever the value of one property changes,
-     * the other property will be changed also.
-     *
-     * @deprecated https://emberjs.com/deprecations/v2.x#toc_ember-binding
-     */
-    class Binding {
-        constructor(toPath: string, fromPath: string);
-        connect(obj: any): Binding;
-        copy(): Binding;
-        disconnect(): Binding;
-        from(path: string): Binding;
-        to(path: string | string[]): Binding;
-        toString(): string;
-    }
-    /**
      * Implements some standard methods for comparing objects. Add this mixin to
      * any class you create that can compare its instances.
      */
@@ -263,28 +248,7 @@ export namespace Ember {
     const Error: EmberError;
 
     const Evented: typeof EmberObjectEventedNs.default;
-    /**
-     * The `Ember.Freezable` mixin implements some basic methods for marking an
-     * object as frozen. Once an object is frozen it should be read only. No changes
-     * may be made the internal state of the object.
-     * @deprecated Use `Object.freeze` instead.
-     */
-    interface Freezable {
-        freeze(): Freezable;
-        isFrozen: boolean;
-    }
-    const Freezable: EmberMixin<Freezable>;
-    /**
-     * The purpose of the Ember Instrumentation module is
-     * to provide efficient, general-purpose instrumentation
-     * for Ember.
-     */
-    const Instrumentation: {
-        instrument(name: string, payload: any, callback: (...args: any[]) => any, binding: any): void;
-        reset(): void;
-        subscribe(pattern: string, object: any): void;
-        unsubscribe(subscriber: any): void;
-    };
+
     /**
      * Inside Ember-Metal, simply uses the methods from `imports.console`.
      * Override this to provide more robust logging functionality.
@@ -364,19 +328,7 @@ export namespace Ember {
     }
 
     class Service extends Object {}
-    interface Transition {
-        /**
-         * Aborts the Transition. Note you can also implicitly abort a transition
-         * by initiating another transition while a previous one is underway.
-         */
-        abort(): Transition;
-        /**
-         * Retries a previously-aborted transition (making sure to abort the
-         * transition if it's still active). Returns a new transition that
-         * represents the new attempt to transition.
-         */
-        retry(): Transition;
-    }
+
     interface ViewTargetActionSupport {
         target: any;
         actionContext: any;
@@ -526,12 +478,6 @@ export namespace Ember {
 
     const runInDebug: typeof EmberDebugNs.runInDebug;
     const warn: typeof EmberDebugNs.warn;
-    /**
-     * Global helper method to create a new binding. Just pass the root object
-     * along with a `to` and `from` path to create and connect the binding.
-     * @deprecated https://emberjs.com/deprecations/v2.x#toc_ember-binding
-     */
-    function bind(obj: {}, to: string, from: string): Binding;
     const cacheFor: typeof EmberObjectInternalsNs.cacheFor;
     const addListener: typeof EmberObjectEventsNs.addListener;
     const removeListener: typeof EmberObjectEventsNs.removeListener;
@@ -569,11 +515,6 @@ export namespace Ember {
      */
     const assign: typeof EmberPolyfillsNs.assign;
     /**
-     * Polyfill for Object.create
-     * @deprecated Use Object.create
-     */
-    function create(o: object | null): any;
-    /**
      * Polyfill for Object.keys
      * @deprecated Use Object.keys
      */
@@ -589,11 +530,6 @@ export namespace Ember {
      */
     function onerror(error: Error): void;
     /**
-     * An empty function useful for some operations. Always returns `this`.
-     * @deprecated https://emberjs.com/deprecations/v2.x/#toc_code-ember-k-code
-     */
-    function K<This>(this: This): This;
-    /**
      * The semantic version
      */
     const VERSION: string;
@@ -608,13 +544,6 @@ export namespace Ember {
      */
     const testing: boolean;
 
-    const instrument: typeof Instrumentation.instrument;
-
-    const reset: typeof Instrumentation.reset;
-
-    const subscribe: typeof Instrumentation.subscribe;
-
-    const unsubscribe: typeof Instrumentation.unsubscribe;
     const expandProperties: typeof EmberObjectComputedNs.expandProperties;
 }
 
