@@ -1,4 +1,4 @@
-// Type definitions for openpgpjs
+// Type definitions for openpgp 4.0.0
 // Project: http://openpgpjs.org/
 // Definitions by: Guillaume Lacasa <https://blog.lacasa.fr>
 //                 Errietta Kostala <https://github.com/errietta>
