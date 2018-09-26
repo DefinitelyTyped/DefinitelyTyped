@@ -13,8 +13,8 @@ declare class Sortable {
 
     /**
      * Sortable's main constructor.
-     * @param {HTMLElement} element Any variety of HTMLElement.
-     * @param {Sortable.Options} options Sortable options object.
+     * @param element Any variety of HTMLElement.
+     * @param options Sortable options object.
      */
     constructor(element: HTMLElement, options: Sortable.Options);
 
@@ -23,32 +23,29 @@ declare class Sortable {
 
     /**
      * Creation of new instances.
-     * @param {HTMLElement} element Any variety of HTMLElement.
-     * @param {Sortable.Options} options Sortable options object.
-     * @returns {Sortable}
+     * @param element Any variety of HTMLElement.
+     * @param options Sortable options object.
      */
     static create(element: HTMLElement, options: Sortable.Options): Sortable;
 
     /**
      * Options getter/setter
-     * @param {string} name a Sortable.Options property.
-     * @param {*} [value] a Value.
-     * @returns {*}
+     * @param name a Sortable.Options property.
+     * @param value a value.
      */
     option<K extends keyof Sortable.Options>(name: K, value: Sortable.Options[K]): void;
     option<K extends keyof Sortable.Options>(name: K): Sortable.Options[K];
 
     /**
      * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
-     * @param {string|HTMLElement} element an HTMLElement or selector string.
-     * @param   {String}       [selector]  default: `options.draggable`
-     * @returns {HTMLElement}
+     * @param element an HTMLElement or selector string.
+     * @param selector default: `options.draggable`
      */
     closest(element: HTMLElement, selector?: string): HTMLElement | null;
 
     /**
      * Sorts the elements according to the array.
-     * @param {string[]} order an array of strings to sort.
+     * @param order an array of strings to sort.
      */
     sort(order: ReadonlyArray<string>): void;
 
@@ -64,7 +61,6 @@ declare class Sortable {
 
     /**
      * Serializes the sortable's item data-id's (dataIdAttr option) into an array of string.
-     * @returns {string[]}
      */
     toArray(): string[];
 }
@@ -253,89 +249,83 @@ declare namespace Sortable {
     interface Utils {
         /**
          * Attach an event handler function
-         * @param {HTMLElement} element an HTMLElement.
-         * @param {string} event an Event context.
-         * @param {Function} fn
+         * @param element an HTMLElement.
+         * @param event an Event context.
+         * @param fn
          */
         on(element: HTMLElement, event: string, fn: EventListenerOrEventListenerObject): void;
 
         /**
          * Remove an event handler function
-         * @param {HTMLElement} element an HTMLElement.
-         * @param {string} event an Event context.
-         * @param {Function} fn a callback.
+         * @param element an HTMLElement.
+         * @param event an Event context.
+         * @param fn a callback.
          */
         off(element: HTMLElement, event: string, fn: EventListenerOrEventListenerObject): void;
 
         /**
          * Get the values of all the CSS properties.
-         * @param {HTMLElement} element an HTMLElement.
-         * @returns {Object}
+         * @param element an HTMLElement.
          */
         css(element: HTMLElement): CSSStyleDeclaration;
 
         /**
          * Get the value of style properties.
-         * @param {HTMLElement} element an HTMLElement.
-         * @param {string} prop a property key.
-         * @returns {*}
+         * @param element an HTMLElement.
+         * @param prop a property key.
          */
         css<K extends keyof CSSStyleDeclaration>(element: HTMLElement, prop: K): CSSStyleDeclaration[K];
 
         /**
          * Set one CSS property.
-         * @param {HTMLElement} element an HTMLElement.
-         * @param {string} prop a property key.
-         * @param {string} value a property value.
+         * @param element an HTMLElement.
+         * @param prop a property key.
+         * @param value a property value.
          */
         css<K extends keyof CSSStyleDeclaration>(element: HTMLElement, prop: K, value: CSSStyleDeclaration[K]): void;
 
         /**
          * Set CSS properties.
-         * @param {HTMLElement} element an HTMLElement.
-         * @param {Object} props a properties object.
+         * @param element an HTMLElement.
+         * @param props a properties object.
          */
         css(element: HTMLElement, props: any): void;
 
         /**
          * Get elements by tag name.
-         * @param {HTMLElement} context an HTMLElement.
-         * @param {string} tagName A tag name.
-         * @param {function} [iterator] An iterator.
-         * @returns {HTMLElement[]}
+         * @param context an HTMLElement.
+         * @param tagName A tag name.
+         * @param iterator An iterator.
          */
         find(context: HTMLElement, tagName: string, iterator?: (value: HTMLElement, index: number) => void): NodeListOf<HTMLElement>;
 
         /**
          * Takes a function and returns a new one that will always have a particular context.
-         * @param {HTMLElement} context an HTMLElement.
-         * @param {function} fn a function.
-         * @returns {function}
+         * @param context an HTMLElement.
+         * @param fn a function.
          */
         bind(context: HTMLElement, fn: () => any): () => any;
 
         /**
          * Check the current matched set of elements against a selector.
-         * @param {HTMLElement} element an HTMLElement.
-         * @param {string} selector an element selector.
-         * @returns {boolean}
+         * @param element an HTMLElement.
+         * @param selector an element selector.
          */
         is(element: HTMLElement, selector: string): boolean;
 
         /**
          * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
-         * @param {HTMLElement} element an HTMLElement.
-         * @param {string} selector an element seletor.
-         * @param {HTMLElement} [context] a specific element's context.
-         * @returns {HTMLElement}
+         * @param element an HTMLElement.
+         * @param selector an element seletor.
+         * @param context a specific element's context.
          */
         closest(element: HTMLElement, selector: string, context?: HTMLElement): HTMLElement | null;
 
         /**
          * Add or remove one classes from each element
-         * @param {HTMLElement} element an HTMLElement.
-         * @param {string} name a class name.
-         * @param {boolean} state a class's state.
+         * @param element an HTMLElement.
+         * @param name a class name.
+         * @param state a class's state.
          */
         toggleClass(element: HTMLElement, name: string, state: boolean): void;
     }
