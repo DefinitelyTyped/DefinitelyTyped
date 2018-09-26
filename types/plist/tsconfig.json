@@ -1,18 +1,12 @@
 {
-    "files": [
-        "index.d.ts",
-        "inspector.d.ts",
-        "node-tests.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
         "lib": [
             "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -21,5 +15,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "plist-tests.ts"
+    ]
 }
