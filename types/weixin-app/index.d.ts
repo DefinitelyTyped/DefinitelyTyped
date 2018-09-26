@@ -2704,7 +2704,7 @@ declare namespace wx {
    * 但不会实际调用对应接口。如果用户之前已经同意授权，则不会出现弹窗，直接返回成功。
    */
   interface AuthorizeOptions extends BaseOptions {
-    scope: String;
+    scope: string;
   }
   function authorize(options: AuthorizeOptions): void;
   // 开放接口-----用户信息
