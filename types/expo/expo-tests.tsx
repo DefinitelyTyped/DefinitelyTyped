@@ -834,7 +834,7 @@ async () => {
         console.log(updateCheckResult.manifest);
     }
 
-    Updates.fetchUpdateAsync(updateEventListener);
+    Updates.fetchUpdateAsync({ eventListener: updateEventListener });
 
     const bundleFetchResult = await Updates.fetchUpdateAsync();
 
