@@ -5768,7 +5768,13 @@ declare namespace Highcharts {
          *            color: '#FF00FF'
          *        }]
          *
-         * 4. An array of arrays with three values for ranges. In this case the values correspond x, yMin and yMax.
+         * 4. An array of arrays with three values for ranges. In this case the values correspond x, yMin and yMax. If the
+         *    first value is a string it is applied as the name of the point, and the x value is inferred.
+         *        data: [
+         *            [1, 2, 3],
+         *            [2, 4, 6],
+         *            [3, 7, 8]
+         *
          */
         data?: Array<number | [number, number] | [string, number] | [string, number, number] | [number, number, number] | DataPoint>;
         /**
