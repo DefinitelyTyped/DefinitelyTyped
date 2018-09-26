@@ -21,12 +21,11 @@ declare function fastifyMultipart(): void;
 
 declare namespace fastifyMultipart {
     type MultipartHandler = (
-        fieldname: string,
-        val: any,
-        fieldnameTruncated: boolean,
-        valTruncated: boolean,
+        field: string,
+        file: any,
+        filename: string,
         encoding: string,
-        mimetype: string
+        mimetype: string,
     ) => void;
 
     interface FastifyMultipartOptions {
