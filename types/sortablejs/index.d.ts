@@ -293,13 +293,6 @@ declare namespace Sortable {
         find(context: HTMLElement, tagName: string, iterator?: (value: HTMLElement, index: number) => void): NodeListOf<HTMLElement>;
 
         /**
-         * Takes a function and returns a new one that will always have a particular context.
-         * @param context an HTMLElement.
-         * @param fn a function.
-         */
-        bind(context: HTMLElement, fn: () => any): () => any;
-
-        /**
          * Check the current matched set of elements against a selector.
          * @param element an HTMLElement.
          * @param selector an element selector.
