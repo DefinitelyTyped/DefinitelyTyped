@@ -3,7 +3,7 @@
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface PublishOptions {
+export interface PublishOptions {
     add?: boolean;
     branch?: string;
     dest?: string;
