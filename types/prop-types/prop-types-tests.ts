@@ -155,8 +155,8 @@ type UnmatchedPropKeys = Pick<ExtractedPropsWithoutAnnotation, Extract<{
 }[keyof ExtractedPropsWithoutAnnotation], keyof ExtractedPropsWithoutAnnotation>>;
 // $ExpectType: {}
 type UnmatchedPropKeys2 = Pick<ExtractedProps, Extract<{
-    [K in keyof ExtractedProps]: ExtractedProps[K] extends ExtractedPropsWithoutAnnotation[K] ? never : K
-}[keyof ExtractedProps], keyof ExtractedProps>>;
+    [K in NonNullable<keyof ExtractedProps>]: ExtractedProps[K] extends ExtractedPropsWithoutAnnotation[K] ? never : K
+}[NonNullable<keyof ExtractedProps>], keyof ExtractedProps>>;
 
 PropTypes.checkPropTypes({ xs: PropTypes.array }, { xs: [] }, 'location', 'componentName');
 
