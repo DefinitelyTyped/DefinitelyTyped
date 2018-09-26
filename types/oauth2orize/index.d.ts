@@ -7,7 +7,7 @@
 /// <reference types="node" />
 /// <reference types="express" />
 
-import { ServerRequest, ServerResponse } from "http";
+import { IncomingMessage, ServerResponse } from "http";
 
 export interface OAuth2 {
   client: any;
@@ -31,7 +31,7 @@ export interface OAuth2Info {
   scope: string;
 }
 
-export interface MiddlewareRequest extends ServerRequest {
+export interface MiddlewareRequest extends IncomingMessage {
   oauth2?: OAuth2;
   user?: any;
 }
