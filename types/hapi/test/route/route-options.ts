@@ -92,7 +92,7 @@ const routeOptionsResponse: RouteOptionsResponse = {
 };
 
 const routeOptionSecure: RouteOptionsSecureObject = {
-    referer: 'origin',
+    referrer: 'origin',
     noSniff: true,
     xframe: "deny",
     hsts: {
