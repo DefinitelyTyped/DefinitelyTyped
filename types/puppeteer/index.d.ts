@@ -474,7 +474,12 @@ export interface NavigationOptions {
    * @default load Navigation is consider when the `load` event is fired.
    */
   waitUntil?: LoadEvent | LoadEvent[];
+}
 
+/**
+ * Navigation options for `page.goto`.
+ */
+export interface DirectNavigationOptions extends NavigationOptions {
   /**
    * Referer header value.
    * If provided it will take preference over the referer header value set by
@@ -1388,7 +1393,7 @@ export interface Page extends EventEmitter, FrameBase {
    * @param url URL to navigate page to. The url should include scheme, e.g. `https://`
    * @param options The navigation parameters.
    */
-  goto(url: string, options?: NavigationOptions): Promise<Response | null>;
+  goto(url: string, options?: DirectNavigationOptions): Promise<Response | null>;
 
   /** Returns the virtual keyboard. */
   keyboard: Keyboard;
