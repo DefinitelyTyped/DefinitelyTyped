@@ -3,7 +3,7 @@
 // Definitions by: Colin Bradley <https://github.com/ColinBradley>
 //                 Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 // Prettified with:
 // $ prettier --parser typescript --tab-width 4 --semi --trailing-comma es5 --write --print-width 120 types/dd-trace/{,*}/*.ts*
@@ -183,12 +183,17 @@ type Plugin =
     | "elasticsearch"
     | "express"
     | "graphql"
+    | "hapi"
     | "http"
+    | "ioredis"
+    | "koa"
+    | "memcached"
     | "mongodb-core"
     | "mysql"
     | "mysql2"
     | "pg"
-    | "redis";
+    | "redis"
+    | "restify";
 
 interface BasePluginOptions {
     /**
@@ -197,7 +202,7 @@ interface BasePluginOptions {
     service?: string;
 }
 
-interface ExpressPluginOptions extends BasePluginOptions {
+interface BaseWebFrameworkPluginOptions extends BasePluginOptions {
     /**
      * An array of headers to include in the span metadata.
      */
@@ -210,6 +215,14 @@ interface ExpressPluginOptions extends BasePluginOptions {
      */
     validateStatus?: (code: number) => boolean;
 }
+
+interface ExpressPluginOptions extends BaseWebFrameworkPluginOptions {}
+
+interface HapiPluginOptions extends BaseWebFrameworkPluginOptions {}
+
+interface KoaPluginOptions extends BaseWebFrameworkPluginOptions {}
+
+interface RestifyPluginOptions extends BaseWebFrameworkPluginOptions {}
 
 interface GraphQLPluginOptions extends BasePluginOptions {
     /**
@@ -236,5 +249,8 @@ interface HTTPPluginOptions extends BasePluginOptions {
 type PluginConfiguration = { [K in Plugin]: BasePluginOptions } & {
     express: ExpressPluginOptions;
     graphql: GraphQLPluginOptions;
+    hapi: HapiPluginOptions;
     http: HTTPPluginOptions;
+    koa: KoaPluginOptions;
+    restify: RestifyPluginOptions;
 };

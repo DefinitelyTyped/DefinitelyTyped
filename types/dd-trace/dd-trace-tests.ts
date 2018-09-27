@@ -11,11 +11,13 @@ tracer.init({
     },
 });
 
-tracer.use("express", {
-    service: "incoming-request",
-    headers: ["User-Agent"],
-    validateStatus: code => code !== 418,
-});
+function useWebFrameworkPlugin(plugin: "express" | "hapi" | "koa" | "restify") {
+    tracer.use(plugin, {
+        service: "incoming-request",
+        headers: ["User-Agent"],
+        validateStatus: code => code !== 418,
+    });
+}
 
 tracer.use("graphql", {
     depth: 1,
@@ -31,7 +33,7 @@ tracer.use("http", {
 tracer
     .trace("web.request", {
         service: "my_service",
-        childOf: new SpanContext({ traceId: 1337, spanId: 42 }), // Childof must be an instance of this type. See: https://github.com/DataDog/dd-trace-js/blob/master/src/opentracing/tracer.js#L99
+        childOf: new SpanContext({ traceId: 1337, spanId: 42 }), // childOf must be an instance of this type. See: https://github.com/DataDog/dd-trace-js/blob/master/src/opentracing/tracer.js#L99
         tags: {
             env: "dev",
         },
