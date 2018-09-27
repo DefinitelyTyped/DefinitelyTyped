@@ -6,7 +6,19 @@
 
 // general type
 
-export  type Bucket = {
+export interface Options {
+    accessKeyId: string, // access secret you create
+    accessKeySecret: string, // access secret you create
+    stsToken?: string, // used by temporary authorization
+    bucket?: string, //  the default bucket you want to access If you don't have any bucket, please use putBucket() create one first.
+    endpoint?: string, // oss region domain. It takes priority over region.
+    region?: string, // the bucket data region location, please see Data Regions, default is oss-cn-hangzhou.
+    internal?: boolean, //  access OSS with aliyun internal network or not, default is false. If your servers are running on aliyun too, you can set true to save lot of money.
+    secure?: boolean, // instruct OSS client to use HTTPS (secure: true) or HTTP (secure: false) protocol.
+    timeout?: string | number // instance level timeout for all operations, default is 60s
+}
+
+export type Bucket = {
 
 }
 
@@ -16,14 +28,14 @@ export type ACLType = "public-read-write" | "public-read" | "and private"
 
 export type HTTPMethods = "GET" | "POST" | "DELETE" | "PUT";
 
-export type RequestOptions = {
+export interface RequestOptions {
     // the operation timeout
     timeout?: number
 }
 
 export type RuleStatusType = "Enabled" | "Disabled"
 
-export type LifecycleRule = {
+export interface LifecycleRule {
     id?: string, // rule id, if not set, OSS will auto create it with random string.
     prefix: string, // store prefix
     status: RuleStatusType, // rule status, allow values: Enabled or Disabled
@@ -31,7 +43,7 @@ export type LifecycleRule = {
     date: string // expire date, e.g.: 2022-10-11T00:00:00.000Z date and days only set one.
 }
 
-export type CORSRule = {
+export interface CORSRule {
     allowedOrigin: string | Array<string>, // configure for Access-Control-Allow-Origin header
     allowedMethod: string | Array<string>, // configure for Access-Control-Allow-Methods header
     allowedHeader?: string | Array<string>, // configure for Access-Control-Allow-Headers header
@@ -39,12 +51,12 @@ export type CORSRule = {
     maxAgeSeconds?: string | Array<string>, // configure for Access-Control-Max-Age header
 }
 
-export type OwnerType = {
+export interface OwnerType {
     id: string,
     displayName: string
 }
 
-export type ObjectMeta = {
+export interface ObjectMeta  {
     name: string, // object name on oss
     lastModified: string, // object last modified GMT date, e.g.: 2015-02-19T08:39:44.000Z
     etag: string, // object etag contains ", e.g.: "5B3C1A2E053D763E1B002CC607C5A0FE"
@@ -54,7 +66,7 @@ export type ObjectMeta = {
     owner: OwnerType,
 }
 
-export type NormalSuccessResponse = {
+export interface NormalSuccessResponse {
     //response status
     status: number,
     // response headers
@@ -65,12 +77,12 @@ export type NormalSuccessResponse = {
     rt: number
 }
 
-export type UserMeta = {
+export interface UserMeta {
     uid: number,
     pid: number
 }
 
-export type ObjectCallback = {
+export interface ObjectCallback {
     url: string, // After a file is uploaded successfully, the OSS sends a callback request to this URL.
     host?: string, // The host header value for initiating callback requests.
     body: string, // The value of the request body when a callback is initiated, for example, key=$(key)&etag=$(etag)&my_var=$(x:my_var).
@@ -79,12 +91,12 @@ export type ObjectCallback = {
     headers?: object //  extra headers, detail see RFC 2616
 }
 
-export type ModifyData = {
+export interface ModifyData {
     lastModified: string, //  object last modified GMT string
     etag: string // object etag contains ", e.g.: "5B3C1A2E053D763E1B002CC607C5A0FE"
 }
 
-export type Checkpoint = {
+export interface Checkpoint  {
     file: any, // The file object selected by the user, if the browser is restarted, it needs the user to manually trigger the settings
     name: string, //  object key
     fileSize: number,
@@ -93,44 +105,58 @@ export type Checkpoint = {
     doneParts: Array<{ number: number, etag: string }>
 }
 
-export type ObjectPart = {
+export interface ObjectPart {
     PartNumber: number,
     LastModified: any, // {Date} Time when a part is uploaded.
     ETag: string,
     size: number
 }
 
-export type Upload = {
+export interface Upload {
     name: string,
     uploadId: string,
     initiated: any
 }
 
+export interface Channel {
+    Name: string,
+    Description: string,
+    Status: string,
+    LastModified: string,
+    PublishUrls: Array<string>,
+    PlayUrls: Array<string>
+}
+
+export interface ChannelHistory {
+    StartTime: string, //
+    EndTime: string,
+    RemoteAddr: string //  the remote addr
+}
 // parameters type
-export type ListBucketsQueryType = {
+export interface ListBucketsQueryType {
     prefix?: string, // search buckets using prefix key
     marker?: string, // search start from marker, including marker key
     'max-keys'?: string | number // max buckets, default is 100, limit to 1000
 }
 
-export type PutBucketOptions = {
+export interface PutBucketOptions {
     timeout: number,
     storageClass: StorageType
 }
 
-export type PutBucketWebsiteConfig = {
+export interface PutBucketWebsiteConfig {
     index: string, // default page, e.g.: index.html
     error?: string // error page, e.g.: 'error.html'
 }
 
-export type ListObjectsQuery = {
+export interface ListObjectsQuery {
     prefix?: string, // search object using prefix key
     marker?: string, // search start from marker, including marker key
     delimiter?: string, // delimiter search scope e.g. / only search current dir, not including subdir
     'max-keys': string | number // max objects, default is 100, limit to 1000
 }
 
-export type ListObjectResult = {
+export interface ListObjectResult {
     objects: Array<ObjectMeta>,
     prefixes: Array<string>,
     isTruncated: boolean,
@@ -138,20 +164,20 @@ export type ListObjectResult = {
     res: NormalSuccessResponse
 }
 
-export type PutObjectOptions = {
+export interface PutObjectOptions {
     timeout?: number, // the operation timeout
     mime?: string, // custom mime, will send with Content-Type entity header
     meta?: UserMeta, // user meta, will send with x-oss-meta- prefix string e.g.: { uid: 123, pid: 110 }
     callback: ObjectCallback,
 }
 
-export type PutObjectResult = {
+export interface PutObjectResult {
     name: string,
     data: object,
     res: NormalSuccessResponse
 }
 
-export type PutStreamOptions = {
+export interface PutStreamOptions {
     contentLength?: number, // the stream length, chunked encoding will be used if absent
     timeout: number, // the operation timeout
     mime: string, // custom mime, will send with Content-Type entity header
@@ -159,7 +185,7 @@ export type PutStreamOptions = {
     callback: ObjectCallback
 }
 
-export type AppendObjectOptions = {
+export interface AppendObjectOptions {
     position?: string, // specify the position which is the content length of the latest object
     timeout?: number, // the operation timeout
     mime?: string, // custom mime, will send with Content-Type entity header
@@ -167,74 +193,74 @@ export type AppendObjectOptions = {
     headers?: object
 }
 
-export type AppendObjectResult = {
+export interface AppendObjectResult {
     name: string,
     url: string, // the url of oss
     res: NormalSuccessResponse,
     nextAppendPosition: string, // the next position
 }
 
-export type HeadObjectOptions = {
+export interface HeadObjectOptions {
     timeout?: number,
     headers?: object
 }
 
-export type HeadObjectResult = {
+export interface HeadObjectResult {
     status: number, // response status, maybe 200 or 304
     meta: UserMeta,
     res: NormalSuccessResponse
 }
 
-export type GetObjectOptions = {
+export interface GetObjectOptions {
     timeout?: number,
     process?: string, // image process params, will send with x-oss-process e.g.: {process: 'image/resize,w_200'}
     headers?: object
 }
 
-export type GetObjectResult = {
+export interface GetObjectResult {
     content?: any, // file content buffer if file parameter is null or ignore
     res: NormalSuccessResponse
 }
 
-export type GetStreamOptions = {
+export interface GetStreamOptions {
     timeout?: number,
     process?: string, // image process params, will send with x-oss-process e.g.: {process: 'image/resize,w_200'}
     headers?: object
 }
 
-export type GetStreamResult = {
+export interface GetStreamResult {
     stream?: any, // readable stream instance if response status is not 200, stream will be null.
     res: NormalSuccessResponse
 }
 
-export type CopyObjectOptions = {
+export interface CopyObjectOptions {
     timeout?: number,
     meta?: UserMeta,
     headers?: object
 }
 
-export type CopyAndPutMetaResult = {
+export interface CopyAndPutMetaResult {
     data: ModifyData,
     res: NormalSuccessResponse
 }
 
-export type DeleteMultiOptions = {
+export interface DeleteMultiOptions {
     quite?: boolean // quiet mode or verbose mode, default is false, verbose mode quiet mode: if all objects delete succes, return emtpy response. otherwise return delete error object results. verbose mode: return all object delete results.
     timeout?: number
 }
 
-export type DeleteMultiResult = {
+export interface DeleteMultiResult {
     deleted?: Array<string> // deleted object names list
     res: NormalSuccessResponse
 }
 
-export type ResponseHeaderType = {
+export interface ResponseHeaderType {
     'content-type'?: string,
     'content-disposition'? :string,
     'cache-control'?: string
 }
 
-export type SignatureUrlOptions = {
+export interface SignatureUrlOptions {
     expires?: number, // after expires seconds, the url will become invalid, default is 1800
     method?: HTTPMethods, // the HTTP method, default is 'GET'
     'Content-Type'?: string, // set the request content type
@@ -243,38 +269,38 @@ export type SignatureUrlOptions = {
     callback?: ObjectCallback
 }
 
-export type GetACLResult = {
+export interface GetACLResult {
     acl: ACLType,
     res: NormalSuccessResponse
 }
 
-export type InitMultipartUploadOptions = {
+export interface InitMultipartUploadOptions {
     timeout?: number,
     mime?: string, // Mime file type
     meta?: UserMeta,
     headers?: object
 }
 
-export type InitMultipartUploadResult = {
+export interface InitMultipartUploadResult {
     res: { status: number, headers: object, size: number, rt: number }
     bucket: string, // bucket name
     name: string, // object name store on OSS
     uploadId: string, // upload id, use for uploadPart, completeMultipart
 }
 
-export type UploadPartResult = {
+export interface UploadPartResult {
     name: string,
     etag: string,
     res: NormalSuccessResponse
 }
 
-export type CompleteMultipartUploadOptions = {
+export interface CompleteMultipartUploadOptions {
     timeout?: number,
     callback?: ObjectCallback,
     headers?: object
 }
 
-export type CompleteMultipartUploadResult = {
+export interface CompleteMultipartUploadResult {
     bucket: string,
     name: string,
     etag: string,
@@ -282,7 +308,7 @@ export type CompleteMultipartUploadResult = {
     res: NormalSuccessResponse
 }
 
-export type MultipartUploadOptions = {
+export interface MultipartUploadOptions {
     parallel?: number, // the number of parts to be uploaded in parallel
     partSize?: number, // the suggested size for each part
     progress?: Function, // the progress callback called after each successful upload of one part, it will be given three parameters: (percentage {Number}, checkpoint {Object}, res {Object})
@@ -295,7 +321,7 @@ export type MultipartUploadOptions = {
     copyheaders?: object, //  {Object} only uploadPartCopy api used, detail
 }
 
-export type MultipartUploadResult = {
+export interface MultipartUploadResult {
     bucket: string,
     name: string,
     etag: string,
@@ -303,27 +329,27 @@ export type MultipartUploadResult = {
     res: NormalSuccessResponse
 }
 
-export type MultipartUploadCopyResult =  {
+export interface MultipartUploadCopyResult {
     bucket: string,
     name: string,
     etag: string,
     res: NormalSuccessResponse
 }
 
-export type MultipartUploadCopySourceData = {
+export interface MultipartUploadCopySourceData {
     sourceKey: string, // the source object name
     sourceBucketName: string, // sourceData.  the source bucket name
     startOffset: number, // data copy start byte offset, e.g: 0
     endOffset: number // data copy end byte offset, e.g: 102400
 }
 
-export type ListPartsQuery = {
+export interface ListPartsQuery {
     'max-parts': number, // The maximum part number in the response of the OSS. default value: 1000.
     'part-number-marker': number, // Starting position of a specific list. A part is listed only when the part number is greater than the value of this parameter.
     'encoding-type': string // Specify the encoding of the returned content and the encoding type. Optional value: url
 }
 
-export type ListPartsResult = {
+export interface ListPartsResult {
     uploadId: string,
     bucket: string,
     name: string,
@@ -335,14 +361,14 @@ export type ListPartsResult = {
     res: NormalSuccessResponse
 }
 
-export type ListUploadsQuery = {
+export interface ListUploadsQuery {
     prefix?: string,
     'max-uploads'?: number,
     'key-marker'?: string,
     'upload-id-marker'?: string
 }
 
-export type ListUploadsResult = {
+export interface ListUploadsResult {
     res: NormalSuccessResponse,
     bucket: string,
     nextKeyMarker: any,
@@ -351,9 +377,62 @@ export type ListUploadsResult = {
     uploads: Array<Upload>
 }
 
+export interface PutChannelConf {
+    Description?: string,
+    Status?: string,
+    Target?: {
+        Type: string,
+        FragDuration: number,
+        FragCount: number,
+        PlaylistName: string
+    }
+}
+
+export interface PutChannelResult {
+    publishUrls: Array<string>,
+    playUrls: Array<string>,
+    res: NormalSuccessResponse
+}
+
+export interface GetChannelResult {
+    Status: string,
+    ConnectedTime?: string,
+    RemoteAddr?: string,
+    Video?: object,
+    Audio?: object,
+    res: NormalSuccessResponse
+}
+
+export interface ListChannelsQuery {
+    prefix: string, // the channel id prefix (returns channels with this prefix)
+    marker: string, // the channle id marker (returns channels after this id)
+    'max-keys ': number // max number of channels to return
+}
+
+export interface ListChannelsResult {
+    channels: Array<Channel>
+    nextMarker: string | null,
+    isTruncated: boolean,
+    res: NormalSuccessResponse
+}
+
+export interface ChannelHistoryResult {
+    records: ChannelHistory,
+    res: NormalSuccessResponse
+}
+
+export interface GetRtmpUrlOptions {
+    expires?: number, // the expire time in seconds of the url
+    params?: object, // the additional paramters for url, e.g.: {playlistName: 'play.m3u8'}
+    timeout?: number // the operation timeout
+}
+
 export default class OSS {
     // the image client
     static ImageClient: any
+
+    constructor(options: Options)
+
     /******************************************* the bucket operations *************************************************/
 
     // base operators
@@ -683,7 +762,7 @@ export default class OSS {
      * @param {RequestOptions} options
      * @return {Promise<GetACLResult>}
      */
-    getACL(name:string, options?: RequestOptions): Promise<GetACLResult>
+    getACL(name: string, options?: RequestOptions): Promise<GetACLResult>
 
     /**
      * Restore Object.
@@ -736,7 +815,7 @@ export default class OSS {
      * @param {CompleteMultipartUploadOptions} options
      * @return {Promise<CompleteMultipartUploadResult>}
      */
-    completeMultipartUpload(name: string, uploadId: string, parts: Array<{ number: number, etag: string }>, options?:CompleteMultipartUploadOptions): Promise<CompleteMultipartUploadResult>
+    completeMultipartUpload(name: string, uploadId: string, parts: Array<{ number: number, etag: string }>, options?: CompleteMultipartUploadOptions): Promise<CompleteMultipartUploadResult>
 
     /**
      * Upload file with OSS multipart.
@@ -788,4 +867,80 @@ export default class OSS {
     abortMultipartUpload(name: string, uploadId: string, options?: RequestOptions): Promise<NormalSuccessResponse>
 
     /************************************************ RTMP Operations *************************************************************/
+    /**
+     * Create a live channel.
+     * @param {string} id
+     * @param {PutChannelConf} conf
+     * @param {RequestOptions} options
+     * @return {Promise<PutChannelResult>}
+     */
+    putChannel(id: string, conf: PutChannelConf, options?: RequestOptions): Promise<PutChannelResult>
+
+    /**
+     * Get live channel info.
+     * @param {string} id
+     * @param {RequestOptions} options
+     * @return {Promise<{data: PutChannelConf; res: NormalSuccessResponse}>}
+     */
+    getChannel(id: string, options?: RequestOptions): Promise<{ data: PutChannelConf, res: NormalSuccessResponse }>
+
+    /**
+     * Delete a live channel.
+     * @param {string} id
+     * @param {RequestOptions} options
+     * @return {Promise<NormalSuccessResponse>}
+     */
+    deleteChannel(id: string, options?: RequestOptions): Promise<NormalSuccessResponse>
+
+    /**
+     * Change the live channel status.
+     * @param {string} id
+     * @param {string} status
+     * @param {RequestOptions} options
+     * @return {Promise<NormalSuccessResponse>}
+     */
+    putChannelStatus(id: string, status?: string, options?: RequestOptions): Promise<NormalSuccessResponse>
+
+    /**
+     * Get the live channel status.
+     * @param {string} id
+     * @param {RequestOptions} options
+     * @return {Promise<GetChannelResult>}
+     */
+    getChannelStatus(id: string, options?: RequestOptions): Promise<GetChannelResult>
+
+    /**
+     * List channels.
+     * @param {ListChannelsQuery} query
+     * @param {RequestOptions} options
+     * @return {Promise<ListChannelsResult>}
+     */
+    listChannels(query: ListChannelsQuery, options?: RequestOptions): Promise<ListChannelsResult>
+
+    /**
+     * Get the live channel history.
+     * @param {string} id
+     * @param {RequestOptions} options
+     * @return {Promise<ChannelHistoryResult>}
+     */
+    getChannelHistory(id: string, options?: RequestOptions): Promise<ChannelHistoryResult>
+
+    /**
+     * Create a VOD playlist for the channel.
+     * @param {string} id
+     * @param {string} name
+     * @param {{startTime: number; endTime: number}} time
+     * @param {RequestOptions} options
+     * @return {Promise<NormalSuccessResponse>}
+     */
+    createVod(id: string, name: string, time: { startTime: number, endTime: number }, options?: RequestOptions): Promise<NormalSuccessResponse>
+
+    /**
+     * Get signatured rtmp url for publishing.
+     * @param {string} channelId
+     * @param {GetRtmpUrlOptions} options
+     * @return {string}
+     */
+    getRtmpUrl(channelId?: string, options?: GetRtmpUrlOptions): string
 }
+
