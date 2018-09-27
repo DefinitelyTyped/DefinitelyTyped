@@ -321,7 +321,7 @@ export interface CalendarListBaseProps extends CalendarBaseProps {
     showScrollIndicator?: boolean;
 }
 
-export class CalendarList extends React.Component<CalendarListBaseProps> { }
+export class CalendarList extends React.Component<CalendarMarkingProps & CalendarListBaseProps> { }
 
 export interface AgendaThemeStyle extends CalendarTheme {
     agendaDayNumColor?: string;
