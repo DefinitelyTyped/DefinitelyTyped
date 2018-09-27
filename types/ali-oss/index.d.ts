@@ -84,6 +84,28 @@ export type ModifyData = {
     etag: string // object etag contains ", e.g.: "5B3C1A2E053D763E1B002CC607C5A0FE"
 }
 
+export type Checkpoint = {
+    file: any, // The file object selected by the user, if the browser is restarted, it needs the user to manually trigger the settings
+    name: string, //  object key
+    fileSize: number,
+    partSize: number,
+    uploadId: string,
+    doneParts: Array<{ number: number, etag: string }>
+}
+
+export type ObjectPart = {
+    PartNumber: number,
+    LastModified: any, // {Date} Time when a part is uploaded.
+    ETag: string,
+    size: number
+}
+
+export type Upload = {
+    name: string,
+    uploadId: string,
+    initiated: any
+}
+
 // parameters type
 export type ListBucketsQueryType = {
     prefix?: string, // search buckets using prefix key
@@ -244,6 +266,89 @@ export type UploadPartResult = {
     name: string,
     etag: string,
     res: NormalSuccessResponse
+}
+
+export type CompleteMultipartUploadOptions = {
+    timeout?: number,
+    callback?: ObjectCallback,
+    headers?: object
+}
+
+export type CompleteMultipartUploadResult = {
+    bucket: string,
+    name: string,
+    etag: string,
+    data: object,
+    res: NormalSuccessResponse
+}
+
+export type MultipartUploadOptions = {
+    parallel?: number, // the number of parts to be uploaded in parallel
+    partSize?: number, // the suggested size for each part
+    progress?: Function, // the progress callback called after each successful upload of one part, it will be given three parameters: (percentage {Number}, checkpoint {Object}, res {Object})
+    checkpoint?: Checkpoint, // the checkpoint to resume upload, if this is provided, it will continue the upload from where interrupted, otherwise a new multipart upload will be created.
+    meta?: UserMeta,
+    mime?: string,
+    callback?: ObjectCallback,
+    headers?: object,
+    timeout?: number
+    copyheaders?: object, //  {Object} only uploadPartCopy api used, detail
+}
+
+export type MultipartUploadResult = {
+    bucket: string,
+    name: string,
+    etag: string,
+    data: object,
+    res: NormalSuccessResponse
+}
+
+export type MultipartUploadCopyResult =  {
+    bucket: string,
+    name: string,
+    etag: string,
+    res: NormalSuccessResponse
+}
+
+export type MultipartUploadCopySourceData = {
+    sourceKey: string, // the source object name
+    sourceBucketName: string, // sourceData.  the source bucket name
+    startOffset: number, // data copy start byte offset, e.g: 0
+    endOffset: number // data copy end byte offset, e.g: 102400
+}
+
+export type ListPartsQuery = {
+    'max-parts': number, // The maximum part number in the response of the OSS. default value: 1000.
+    'part-number-marker': number, // Starting position of a specific list. A part is listed only when the part number is greater than the value of this parameter.
+    'encoding-type': string // Specify the encoding of the returned content and the encoding type. Optional value: url
+}
+
+export type ListPartsResult = {
+    uploadId: string,
+    bucket: string,
+    name: string,
+    PartNumberMarker: number,
+    nextPartNumberMarker: number,
+    maxParts: number,
+    isTruncated: boolean,
+    parts: Array<ObjectPart>,
+    res: NormalSuccessResponse
+}
+
+export type ListUploadsQuery = {
+    prefix?: string,
+    'max-uploads'?: number,
+    'key-marker'?: string,
+    'upload-id-marker'?: string
+}
+
+export type ListUploadsResult = {
+    res: NormalSuccessResponse,
+    bucket: string,
+    nextKeyMarker: any,
+    nextUploadIdMarker: any,
+    isTruncated: boolean,
+    uploads: Array<Upload>
 }
 
 export default class OSS {
@@ -623,4 +728,64 @@ export default class OSS {
      */
     uploadPartCopy(name: string, uploadId: string, partNo: number, range: string, sourceData: { sourceKey: string, sourceBucketName: string }, options: { timeout?: number, headers?: object }): Promise<UploadPartResult>
 
+    /**
+     * After uploading all data parts, you must call the Complete Multipart Upload API to complete Multipart Upload for the entire file.
+     * @param {string} name
+     * @param {string} uploadId
+     * @param {Array<{number: number; etag: string}>} parts
+     * @param {CompleteMultipartUploadOptions} options
+     * @return {Promise<CompleteMultipartUploadResult>}
+     */
+    completeMultipartUpload(name: string, uploadId: string, parts: Array<{ number: number, etag: string }>, options?:CompleteMultipartUploadOptions): Promise<CompleteMultipartUploadResult>
+
+    /**
+     * Upload file with OSS multipart.
+     * this function contains initMultipartUpload, uploadPart, completeMultipartUpload. When you use multipartUpload api，if you encounter problems with ConnectionTimeoutError, you should handle ConnectionTimeoutError in your business code.
+     * How to resolve ConnectionTimeoutError, you can decrease partSize size 、 Increase timeout 、Retry request , or give tips in your business code;
+     * @param {string} name
+     * @param file
+     * @param {MultipartUploadOptions} options
+     * @return {Promise<MultipartUploadResult>}
+     */
+    multipartUpload(name: string, file: any, options: MultipartUploadOptions): Promise<MultipartUploadResult>
+
+    /**
+     * Copy file with OSS multipart.
+     * this function contains head, initMultipartUpload, uploadPartCopy, completeMultipartUpload.
+     * When copying a file larger than 1 GB, you should use the Upload Part Copy method. If you want to copy a file smaller than 1 GB, see Copy Object.
+     * @param {string} name
+     * @param {MultipartUploadCopySourceData} sourceData
+     * @param {MultipartUploadOptions} options
+     * @return {Promise<MultipartUploadCopyResult>}
+     */
+    multipartUploadCopy(name: string, sourceData: MultipartUploadCopySourceData, options?: MultipartUploadOptions): Promise<MultipartUploadCopyResult>
+
+    /**
+     * The ListParts command can be used to list all successfully uploaded parts mapped to a specific upload ID, i.e.: those not completed and not aborted.
+     * @param {string} name
+     * @param {string} uploadId
+     * @param {ListPartsQuery} query
+     * @param {RequestOptions} options
+     * @return {Promise<ListPartsResult>}
+     */
+    listParts(name: string, uploadId: string, query?: ListPartsQuery, options?: RequestOptions): Promise<ListPartsResult>
+
+    /**
+     * List on-going multipart uploads, i.e.: those not completed and not aborted.
+     * @param {ListUploadsQuery} query
+     * @param {RequestOptions} options
+     * @return {Promise<ListUploadsResult>}
+     */
+    listUploads(query: ListUploadsQuery, options?: RequestOptions): Promise<ListUploadsResult>
+
+    /**
+     * Abort a multipart upload for object.
+     * @param {string} name
+     * @param {string} uploadId
+     * @param {RequestOptions} options
+     * @return {Promise<NormalSuccessResponse>}
+     */
+    abortMultipartUpload(name: string, uploadId: string, options?: RequestOptions): Promise<NormalSuccessResponse>
+
+    /************************************************ RTMP Operations *************************************************************/
 }
