@@ -19,7 +19,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "rebass-tests.tsx"
+        "index.d.ts"
     ]
 }
