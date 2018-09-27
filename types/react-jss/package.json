@@ -3,6 +3,5 @@
   "dependencies": {
     "csstype": "^2.0.0",
     "indefinite-observable": "^1.0.1",
-    "typescript": "^3.0.3"
   }
 }
