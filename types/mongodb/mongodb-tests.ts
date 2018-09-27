@@ -37,11 +37,7 @@ MongoClient.connect(connectionString, options, function (err: mongodb.MongoError
     if (err) throw err;
     const db = client.db('test');
 	
-	type TestClass {
-		name?: string,
-		a: number
-	}
-    var collection = db.collection<TestClass>('test_insert');
+    var collection = db.collection('test_insert');
     collection.insertOne({ a: 2 }, function (err: mongodb.MongoError, docs: any) {
 
         // Intentionally omitted type annotation from 'count'.
@@ -161,10 +157,11 @@ MongoClient.connect(connectionString, options, function (err: mongodb.MongoError
     {
         type TestCollection = {
             stringField: string;
-            numberField: number;
+            numberField?: number;
         };
         let testCollection = db.collection<TestCollection>('testCollection');
-
+		testCollection.insertOne({stringField:'hola'})
+		testCollection.insertMany([{stringField:'hola'},{stringField:'hola', numberField: 1}])
         testCollection.find({
             numberField: {
                 $and: [{ $gt: 0, $lt: 100 }]
