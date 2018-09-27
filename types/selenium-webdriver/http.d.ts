@@ -22,6 +22,9 @@ export class Request {
     constructor(method: string, path: string, opt_data?: Object);
 
     headers: Map<string, string>;
+    method: string;
+    path: string;
+    data: Object;
 
     /** @override */
     toString(): string;
