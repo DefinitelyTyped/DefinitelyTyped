@@ -350,7 +350,10 @@ export function createElement<P>(
     ...children: React.ReactNode[]
 ): React.ReactElement<P>;
 
-export type Runnable = (appParameters: any) => void;
+export interface Runnable {
+    (appParameters: any): void
+    componentProvider: ComponentProvider
+}
 
 type Task = (taskData: any) => Promise<void>;
 type TaskProvider = () => Task;
