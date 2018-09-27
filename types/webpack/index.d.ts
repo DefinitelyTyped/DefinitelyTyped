@@ -1579,6 +1579,12 @@ declare namespace webpack {
             context: string;
 
             /**
+             * Absolute path to the context of the entire compilation.
+             * @since v4.0.0
+             */
+            rootContext: string;
+
+            /**
              * The resolved request string.
              * In the example: "/abc/loader1.js?xyz!/abc/node_modules/loader2/index.js!/abc/resource.js?rrr"
              */

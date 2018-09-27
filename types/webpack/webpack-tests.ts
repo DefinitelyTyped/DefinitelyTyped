@@ -545,6 +545,8 @@ configuration = {
 };
 
 function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sourcemap?: RawSourceMap): void {
+    const rootContext: string = this.rootContext;
+
     this.cacheable();
 
     this.async();
