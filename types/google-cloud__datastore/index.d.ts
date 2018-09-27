@@ -3,6 +3,7 @@
 // Definitions by: Antoine Beauvais-Lacasse <https://github.com/beaulac>
 //                 Futa Ogawa <https://github.com/ogawa0071>
 //                 Thomas den Hollander <https://github.com/ThomasdenH>
+//                 Arjen van der Ende <https://github.com/arjenvanderende>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -11,6 +12,7 @@
 declare module '@google-cloud/datastore' {
     export = Datastore;
 
+    namespace Datastore {}
     import {
         DatastoreKey,
         KEY_SYMBOL,

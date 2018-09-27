@@ -1,4 +1,4 @@
-import Datastore = require('@google-cloud/datastore');
+import * as Datastore from '@google-cloud/datastore';
 import {
     DatastoreDouble,
     DatastoreGeopoint,
