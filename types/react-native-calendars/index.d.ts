@@ -319,6 +319,13 @@ export interface CalendarListBaseProps extends CalendarBaseProps {
      *  Enable or disable vertical scroll indicator. Default = false
      */
     showScrollIndicator?: boolean;
+
+    /**
+     * Show marked dates on the calendar
+     */
+    markedDates?:  {
+        [date: string]: PeriodMarking;
+    };
 }
 
 export class CalendarList extends React.Component<CalendarListBaseProps> { }
