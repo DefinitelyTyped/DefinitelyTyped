@@ -1,4 +1,4 @@
-import * as locks from "locks";
+import locks = require("locks");
 
 // Mutex
 const mutex: locks.Mutex = new locks.Mutex();

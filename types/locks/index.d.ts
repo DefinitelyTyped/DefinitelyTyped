@@ -8,7 +8,7 @@
 export class Mutex {
     /** Construct a new mutex lock. */
     constructor();
-    /** Flag indicating whther the lock is currently taken. */
+    /** Flag indicating whether the lock is currently taken. */
     isLocked: boolean;
     /** Take the lock. */
     lock(callback: () => void): void;
