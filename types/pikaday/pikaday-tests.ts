@@ -32,6 +32,7 @@ new Pikaday({field: $('#datepicker')[0]});
     picker.setDate('2015-01-01');
     picker.getMoment();
     picker.setMoment(moment('14th February 2014', 'DDo MMMM YYYY'));
+    picker.setMoment(moment('14th February 2014', 'DDo MMMM YYYY'), true);
     picker.gotoDate(new Date(2014, 1));
     picker.gotoToday();
     picker.gotoMonth(2);
@@ -86,6 +87,7 @@ new Pikaday({field: $('#datepicker')[0]});
         mainCalendar: 'right',
         theme: 'myTheme',
         formatStrict: true,
+        toString: (date) => '2017-08-23',
         parse: () => new Date('2017-08-23'),
         onSelect: () => {},
         onOpen: () => {},
@@ -96,6 +98,7 @@ new Pikaday({field: $('#datepicker')[0]});
 
 (() => {
     new Pikaday({
-        yearRange: 5
+        yearRange: 5,
+        toString: (date, format) => '2017-08-23'
     });
 })();

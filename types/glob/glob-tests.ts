@@ -5,7 +5,7 @@ const Glob = glob.Glob;
 	const pattern = "test/a/**/[cg]/../[cg]";
 	console.log(pattern);
 
-	const mg = new Glob(pattern, {mark: true, sync: true}, (er, matches) => {
+	const mg = new Glob(pattern, {mark: true, sync: true, symlinks: {"test/a/foo": true}}, (er, matches) => {
 		if (er) {
 			console.error(er);
 			return;
@@ -28,3 +28,7 @@ const Glob = glob.Glob;
 	});
 	console.log("after");
 })();
+
+declare const ignore: ReadonlyArray<string>;
+glob.sync('/foo/*', {realpath: true, realpathCache: {'/foo/bar': '/bar'}, ignore: '/foo/baz'});
+glob.sync('/*', {ignore, nodir: true, cache: {'/': ['bar', 'baz']}, statCache: {'/foo/bar': false, '/foo/baz': {isDirectory() { return true; }}}});

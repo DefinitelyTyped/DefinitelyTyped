@@ -59,6 +59,8 @@ declare namespace Highcharts {
         value: any;
         isFirst: number;
         isLast: number;
+        chart: ChartObject;
+        axis: AxisObject;
     }
 
     interface AxisLabels {
@@ -103,7 +105,8 @@ declare namespace Highcharts {
         format?: string;
         /**
          * Callback JavaScript function to format the label. The value is given by this.value. Additional properties for
-         * this are axis, chart, isFirst and isLast.
+         * this are axis, chart, isFirst and isLast. The value of the default label formatter can be retrieved by calling
+         * this.axis.defaultLabelFormatter.call(this) within the function.
          * @default function() {return this.value;}
          */
         formatter?(this: AxisLabelFormatterOptions): string;
@@ -372,6 +375,316 @@ declare namespace Highcharts {
         /**
          * The z index of the plot line within the chart.
          * @since 1.2
+         */
+        zIndex?: number;
+    }
+
+    interface AnnotationsPoint {
+        /**
+         * The x position of the point. Units can be either in axis or chart pixel coordinates.
+         * @default undefined
+         * @since 6.0.0
+         */
+        x?: number;
+        /**
+         * This number defines which xAxis the point is connected to.
+         * It refers to either the axis id or the index of the axis in the xAxis array.
+         * If the option is not configured or the axis is not found the point's x coordinate refers to the chart pixels.
+         * @default undefined
+         * @since 6.0.0
+         */
+        xAxis?: number | string;
+        /**
+         * The y position of the point. Units can be either in axis or chart pixel coordinates.
+         * @default undefined
+         * @since 6.0.0
+         */
+        y?: number;
+        /**
+         * This number defines which yAxis the point is connected to.
+         * It refers to either the axis id or the index of the axis in the yAxis array.
+         * If the option is not configured or the axis is not found the point's y coordinate refers to the chart pixels.
+         * @default undefined
+         * @since 6.0.0
+         */
+        yAxis?: number;
+    }
+
+    interface AnnotationsLabelOptions {
+        /**
+         * The alignment of the annotation's label. If right, the right side of the label should be touching the point.
+         * @default "center"
+         * @since 6.0.0
+         */
+        align?: "left" | "center" | "right";
+        /**
+         * The alignment of the annotation's label. If right, the right side of the label should be touching the point.
+         * @default false
+         * @since 6.0.0
+         */
+        allowOverlap?: boolean;
+        /**
+         * The background color or gradient for the annotation's label.
+         * @default rgba(0, 0, 0, 0.75)
+         * @since 6.0.0
+         */
+        backgroundColor?: string | Gradient;
+        /**
+         * The border color for the annotation's label.
+         * @default "black"
+         * @since 6.0.0
+         */
+        borderColor?: string | Gradient;
+        /**
+         * The border radius in pixels for the annotation's label.
+         * @default 1
+         * @since 6.0.0
+         */
+        borderRadius?: number;
+        /**
+         * The border width in pixels for the annotation's label.
+         * @default 1
+         * @since 6.0.0
+         */
+        borderWidth?: number;
+        /**
+         * Whether to hide the annotation's label that is outside the plot area.
+         * @default false
+         * @since 6.0.0
+         */
+        crop?: boolean;
+        /**
+         * The label's pixel distance from the point.
+         * @default undefined
+         * @since 6.0.0
+         */
+        distance?: number;
+        /**
+         * A format string for the data label.
+         * @default undefined
+         * @since 6.0.0
+         */
+        format?: string;
+        /**
+         * Callback JavaScript function to format the annotation's label.
+         * Note that if a format or text are defined, the format or text take precedence and the formatter is ignored.
+         * This refers to a point object.
+         * @default function () { return defined(this.y) ? this.y : 'Annotation label'; }
+         * @since 6.0.0
+         */
+        formatter?: Function;
+        /**
+         * How to handle the annotation's label that flow outside the plot area.
+         * The justify option aligns the label inside the plot area.
+         * @default "justify
+         * @since 6.0.0
+         */
+        overflow?: "justify" | "none";
+        /**
+         * When either the borderWidth or the backgroundColor is set, this is the padding within the box.
+         * @default 5
+         * @since 6.0.0
+         */
+        padding?: number;
+        /**
+         * The shadow of the box. The shadow can be an object configuration containing color, offsetX, offsetY, opacity and width.
+         * @default false
+         * @since 6.0.0
+         */
+        shadow?:
+            | boolean
+            | {
+            color?: string | Gradient;
+            offsetX?: number;
+            offsetY?: number;
+            opacity?: number;
+            width?: number;
+        };
+        /**
+         * The name of a symbol to use for the border around the label. Symbols are predefined functions on the Renderer object.
+         * @default "callout"
+         * @since 6.0.0
+         */
+        shape?: "connector" | "rect" | "circle" | "diamond" | "triangle";
+        /**
+         * Styles for the annotation's label.
+         * @default "callout"
+         * @since 6.0.0
+         */
+        style?: {
+            /**
+             * @default "contrast"
+             * @since 6.0.0
+             */
+            color?: string;
+            fontFamily?: string;
+            /**
+             * @default "11px"
+             * @since 6.0.0
+             */
+            fontSize?: string;
+            /**
+             * @default "normal"
+             * @since 6.0.0
+             */
+            fontWeight?: string;
+            textAlign?: string;
+        };
+        /**
+         * Alias for the format option.
+         * @default undefined
+         * @since 6.0.0
+         */
+        text?: string;
+        /**
+         * Whether to use HTML to render the annotation's label.
+         * @default false
+         * @since 6.0.0
+         */
+        useHTML?: boolean;
+        /**
+         * The vertical alignment of the annotation's label.
+         * @default "bottom"
+         * @since 6.0.0
+         */
+        verticalAlign?: "bottom" | "middle" | "top";
+        /**
+         * The x position offset of the label relative to the point.
+         * Note that if a distance is defined, the distance takes precedence over x and y options.
+         * @default 0
+         * @since 6.0.0
+         */
+        x?: number;
+        /**
+         * The y position offset of the label relative to the point.
+         * Note that if a distance is defined, the distance takes precedence over x and y options.
+         * @default -16
+         * @since 6.0.0
+         */
+        y?: number;
+    }
+
+    interface AnnotationsLabel extends AnnotationsLabelOptions {
+        /**
+         * This option defines the point to which the label will be connected.
+         * It can be either the point which exists in the series - it is referenced by the point's id
+         * - or a new point with defined x, y properties and optionally axes.
+         * @since 6.0.0
+         */
+        point?: string | AnnotationsPoint;
+    }
+
+    interface AnnotationsShapeOptions {
+        /**
+         * The color of the shape's fill.
+         * @default rgba(0, 0, 0, 0.75)
+         * @since 6.0.0
+         */
+        fill: string;
+        /**
+         * The height of the shape.
+         * @default undefined
+         * @since 6.0.0
+         */
+        height: number;
+        /**
+         * The radius of the shape.
+         * @default 0
+         * @since 6.0.0
+         */
+        r: number;
+        /**
+         * The color of the shape's stroke.
+         * @default rgba(0, 0, 0, 0.75)
+         * @since 6.0.0
+         */
+        stroke: string;
+        /**
+         * The pixel stroke width of the shape.
+         * @default 1
+         * @since 6.0.0
+         */
+        strokeWidth: number;
+        /**
+         * The type of the shape, e.g. circle or rectangle.
+         * @default "rect"
+         * @since 6.0.0
+         */
+        type: "circle" | "path" | "rect";
+        /**
+         * The width of the shape.
+         * @default undefined
+         * @since 6.0.0
+         */
+        width: number;
+    }
+
+    interface AnnotationsShape extends AnnotationsShapeOptions {
+        /**
+         * Id of the marker which will be drawn at the final vertex of the path. Custom markers can be defined in defs property.
+         * @default undefined
+         * @since 6.0.0
+         */
+        markerEnd: string;
+        /**
+         * Id of the marker which will be drawn at the final vertex of the path. Custom markers can be defined in defs property.
+         * @default undefined
+         * @since 6.0.0
+         */
+        markerStart: string;
+        /**
+         * This option defines the point to which the shape will be connected.
+         * It can be either the point which exists in the series - it is referenced by the point's id
+         * - or a new point with defined x, y properties and optionally axes.
+         * @since 6.0.0
+         */
+        point?: string | AnnotationsPoint;
+        /**
+         * An array of points for the shape. This option is available for shapes which can use multiple points such as path.
+         * A point can be either a point object or a point's id.
+         * @default undefined
+         * @since 6.0.0
+         */
+        points?: Array<string | AnnotationsPoint>;
+    }
+
+    /**
+     * Options for configuring annotations, for example labels, arrows or shapes. Annotations can be tied to points,
+     * axis coordinates or chart pixel coordinates.
+     */
+    interface AnnotationsOptions {
+        /**
+         * Options for annotation's labels. Each label inherits options from the labelOptions object.
+         * An option from the labelOptions can be overwritten by config for a specific label.
+         * @since 6.0.0
+         */
+        labelOptions?: AnnotationsLabelOptions;
+        /**
+         * An array of labels for the annotation. For options that apply to multiple labels, they can be added to the labelOptions.
+         * @since 6.0.0
+         */
+        labels?: AnnotationsLabel[];
+        /**
+         * Options for annotation's shapes. Each shape inherits options from the shapeOptions object.
+         * An option from the shapeOptions can be overwritten by config for a specific shape.
+         * @since 6.0.0
+         */
+        shapeOptions?: AnnotationsShapeOptions;
+        /**
+         * An array of shapes for the annotation. For options that apply to multiple shapes, they can be added to the shapeOptions.
+         * @since 6.0.0
+         */
+        shapes?: AnnotationsShape[];
+        /**
+         * Whether the annotation is visible.
+         * @default true
+         * @since 6.0.0
+         */
+        visible?: boolean;
+        /**
+         * The Z index of the annotation.
+         * @default 6
+         * @since 6.0.0
          */
         zIndex?: number;
     }
@@ -5454,8 +5767,16 @@ declare namespace Highcharts {
          *            name: 'Point1',
          *            color: '#FF00FF'
          *        }]
+         *
+         * 4. An array of arrays with three values for ranges. In this case the values correspond x, yMin and yMax. If the
+         *    first value is a string it is applied as the name of the point, and the x value is inferred.
+         *        data: [
+         *            [1, 2, 3],
+         *            [2, 4, 6],
+         *            [3, 7, 8]
+         *
          */
-        data?: Array<number | [number, number] | [string, number] | DataPoint>;
+        data?: Array<number | [number, number] | [string, number] | [string, number, number] | [number, number, number] | DataPoint>;
         /**
          * A description of the series to add to the screen reader information about the series.
          * @since 5.0.0
@@ -5557,6 +5878,12 @@ declare namespace Highcharts {
          * Individual data label for each point. The options are the same as the ones for plotOptions.series.dataLabels
          */
         dataLabels?: DataLabels;
+        /**
+         * A description of the point to add to the screen reader information about the point.
+         * @default undefined
+         * @since 5.0.0
+         */
+        description?: string;
         /**
          * The id of a series in the drilldown.series array to use for a drilldown for this point.
          * @since 3.0.8
@@ -5924,6 +6251,16 @@ declare namespace Highcharts {
          */
         formatter?(): boolean | string;
         /**
+         * Whether to allow the tooltip to render outside the chart's SVG element box.
+         * By default (false), the tooltip is rendered within the chart's SVG element, which results in
+         * the tooltip being aligned inside the chart area. For small charts, this may result in
+         * clipping or overlapping. When true, a separate SVG element is created and overlaid on the
+         * page, allowing the tooltip to be aligned inside the page itself.
+         * @default false
+         * @since 6.1.1
+         */
+        outside?: boolean;
+        /**
          * Padding inside the tooltip, in pixels.
          * @since 5.0.0
          * @default 8
@@ -6080,6 +6417,10 @@ declare namespace Highcharts {
          */
         accessibility?: AccessibilityOptions;
         /**
+         * Options for configuring annotations, for example labels, arrows or shapes.
+         */
+        annotations?: AnnotationsOptions;
+        /**
          * Options regarding the chart area and plot area as well as general chart options.
          */
         chart?: ChartOptions;
@@ -6167,7 +6508,7 @@ declare namespace Highcharts {
          * Allows setting a set of rules to apply for different screen or chart sizes. Each rule specifies additional chart options.
          * @since 5.0.0
          */
-        responsive?: ResponsiveOptions[];
+        responsive?: ResponsiveOptions;
         /**
          * The actual series to append to the chart. In addition to the members listed below, any member of the plotOptions
          * for that specific type of plot can be added to a series individually. For example, even though a general
@@ -6236,6 +6577,13 @@ declare namespace Highcharts {
      * Configuration options for the axes are given in options.xAxis and options.yAxis.
      */
     interface AxisObject {
+        dataMin: number;
+        dataMax: number;
+        userMin: number;
+        userMax: number;
+        bottom: number;
+        left: number;
+        width: number;
         /**
          * Add a plot band after render time.
          * @param options A configuration object consisting of the same members as options.xAxis.plotBands
@@ -6248,6 +6596,7 @@ declare namespace Highcharts {
          * @since 1.2.0
          */
         addPlotLine(options: PlotLines): void;
+        defaultLabelFormatter(this: AxisLabelFormatterOptions): string;
         /**
          * Get the current extremes for the axis.
          * @since 1.2.0
@@ -6370,6 +6719,8 @@ declare namespace Highcharts {
          * @since 3.0.8
          */
         addSeriesAsDrilldown(point: PointObject, seriesOptions: IndividualSeriesOptions): void;
+        chartHeight?: number;
+        chartWidth?: number;
         /**
          * A reference to the containing HTML element, dynamically inserted into the element given in chart.renderTo.
          * @since 1.2.5
@@ -6479,6 +6830,10 @@ declare namespace Highcharts {
          * @since 1.2.0
          */
         options: Options;
+        plotLeft?: number;
+        plotSizeX?: number;
+        plotSizeY?: number;
+        plotTop?: number;
         /**
          * Exporting module required. Clears away other elements in the page and prints the chart as it is displayed. By
          * default, when the exporting module is enabled, a button at the upper left calls this method.

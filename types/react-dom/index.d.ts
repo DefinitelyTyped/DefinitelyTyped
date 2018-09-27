@@ -5,6 +5,7 @@
 //                 Microsoft <https://microsoft.com>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Josh Rutherford <https://github.com/theruther4d>
+//                 JounQin <https://github.com/JounQin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -16,7 +17,7 @@ import {
     DOMAttributes, DOMElement, ReactNode, ReactPortal
 } from 'react';
 
-export function findDOMNode(instance: ReactInstance): Element | null | Text;
+export function findDOMNode(instance: ReactInstance): Element | string | null;
 export function unmountComponentAtNode(container: Element): boolean;
 
 export function createPortal(children: ReactNode, container: Element, key?: null | string): ReactPortal;

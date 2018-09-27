@@ -15,6 +15,12 @@
             "../"
         ],
         "paths": {
+            "@ember/object": ["ember__object"],
+            "@ember/object/*": ["ember__object/*"],
+            "@ember/engine": ["ember__engine"],
+            "@ember/engine/*": ["ember__engine/*"],
+            "@ember/routing": ["ember__routing"],
+            "@ember/routing/*": ["ember__routing/*"],
             "@ember/application": ["ember__application"],
             "@ember/application/*": ["ember__application/*"]
         },
@@ -28,6 +34,10 @@
         "index.d.ts",
         "instance.d.ts",
         "resolver.d.ts",
+        "types.d.ts",
+        "-private/default-resolver.d.ts",
+        "-private/event-dispatcher.d.ts",
+        "-private/registry.d.ts",
         "test/application.ts",
         "test/deprecations.ts",
         "test/resolver.ts",

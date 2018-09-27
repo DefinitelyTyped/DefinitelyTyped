@@ -21,6 +21,7 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Dick van den Brink <https://github.com/DickvdBrink>
 //                 Thomas Schulz <https://github.com/King2500>
+//                 Terry Mun <https://github.com/terrymun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -860,13 +861,13 @@ interface JQueryStatic {
      */
     post(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
 
-    // region proxy
+    // #region proxy
 
-    // region (fn, null | undefined)
+    // #region (fn, null | undefined)
 
-    // region 0 to 7 arguments
+    // #region 0 to 7 arguments
 
-    // region 0 parameters
+    // #region 0 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -980,9 +981,9 @@ interface JQueryStatic {
     proxy<TReturn>(fn: () => TReturn,
                    context: null | undefined): () => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 1 parameters
+    // #region 1 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -1110,9 +1111,9 @@ interface JQueryStatic {
         T>(fn: (t: T) => TReturn,
            context: null | undefined): (t: T) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 2 parameters
+    // #region 2 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -1240,9 +1241,9 @@ interface JQueryStatic {
         T, U>(fn: (t: T, u: U) => TReturn,
               context: null | undefined): (t: T, u: U) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 3 parameters
+    // #region 3 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -1370,9 +1371,9 @@ interface JQueryStatic {
         T, U, V>(fn: (t: T, u: U, v: V) => TReturn,
                  context: null | undefined): (t: T, u: U, v: V) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 4 parameters
+    // #region 4 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -1500,9 +1501,9 @@ interface JQueryStatic {
         T, U, V, W>(fn: (t: T, u: U, v: V, w: W) => TReturn,
                     context: null | undefined): (t: T, u: U, v: V, w: W) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 5 parameters
+    // #region 5 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -1630,9 +1631,9 @@ interface JQueryStatic {
         T, U, V, W, X>(fn: (t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: null | undefined): (t: T, u: U, v: V, w: W, x: X) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 6 parameters
+    // #region 6 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -1760,9 +1761,9 @@ interface JQueryStatic {
         T, U, V, W, X, Y>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 7+ parameters
+    // #region 7+ parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -1890,11 +1891,11 @@ interface JQueryStatic {
         T, U, V, W, X, Y, Z>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // endregion
+    // #endregion
 
-    // region 8+ arguments
+    // #region 8+ arguments
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -1911,15 +1912,15 @@ interface JQueryStatic {
                    context: null | undefined,
                    ...additionalArguments: any[]): (...args: any[]) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // endregion
+    // #endregion
 
-    // region (fn, context)
+    // #region (fn, context)
 
-    // region 0 to 7 arguments
+    // #region 0 to 7 arguments
 
-    // region 0 parameters
+    // #region 0 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -2048,9 +2049,9 @@ interface JQueryStatic {
         TReturn>(fn: () => TReturn,
                  context: TContext): (this: TContext) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 1 parameters
+    // #region 1 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -2194,9 +2195,9 @@ interface JQueryStatic {
         T>(fn: (t: T) => TReturn,
            context: TContext): (this: TContext, t: T) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 2 parameters
+    // #region 2 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -2340,9 +2341,9 @@ interface JQueryStatic {
         T, U>(fn: (t: T, u: U) => TReturn,
               context: TContext): (this: TContext, t: T, u: U) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 3 parameters
+    // #region 3 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -2486,9 +2487,9 @@ interface JQueryStatic {
         T, U, V>(fn: (t: T, u: U, v: V) => TReturn,
                  context: TContext): (this: TContext, t: T, u: U, v: V) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 4 parameters
+    // #region 4 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -2632,9 +2633,9 @@ interface JQueryStatic {
         T, U, V, W>(fn: (t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 5 parameters
+    // #region 5 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -2778,9 +2779,9 @@ interface JQueryStatic {
         T, U, V, W, X>(fn: (t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 6 parameters
+    // #region 6 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -2924,9 +2925,9 @@ interface JQueryStatic {
         T, U, V, W, X, Y>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // region 7+ parameters
+    // #region 7+ parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -3070,11 +3071,11 @@ interface JQueryStatic {
         T, U, V, W, X, Y, Z>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // endregion
+    // #endregion
 
-    // region 8+ arguments
+    // #region 8+ arguments
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -3093,11 +3094,11 @@ interface JQueryStatic {
                  context: TContext,
                  ...additionalArguments: any[]): (this: TContext, ...args: any[]) => TReturn;
 
-    // endregion
+    // #endregion
 
-    // endregion
+    // #endregion
 
-    // region (context, name)
+    // #region (context, name)
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
@@ -3115,9 +3116,9 @@ interface JQueryStatic {
                                    name: keyof TContext,
                                    ...additionalArguments: any[]): (this: TContext, ...args: any[]) => any;
 
-    // endregion
+    // #endregion
 
-    // endregion
+    // #endregion
 
     /**
      * Manipulate the queue of functions to be executed on the matched element.
@@ -3487,7 +3488,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/appendTo/ }\`
      * @since 1.0
      */
-    appendTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
+    appendTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element | DocumentFragment> | JQuery): this;
     /**
      * Set one or more attributes for the set of matched elements.
      *
@@ -5078,7 +5079,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/prependTo/ }\`
      * @since 1.0
      */
-    prependTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
+    prependTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element | DocumentFragment> | JQuery): this;
     /**
      * Get the immediately preceding sibling of each element in the set of matched elements. If a selector
      * is provided, it retrieves the previous sibling only if it matches that selector.
@@ -5854,9 +5855,22 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
     [n: number]: TElement;
 }
 
-// ES5 compatibility
+// #region ES5 compatibility
+
 // tslint:disable-next-line:no-empty-interface
 interface Iterable<T> { }
+
+interface SymbolConstructor {
+    /**
+     * A String value that is used in the creation of the default string description of an object.
+     * Called by the built-in method Object.prototype.toString.
+     */
+    readonly toStringTag: symbol;
+}
+
+declare var Symbol: SymbolConstructor;
+
+// #endregion
 
 declare namespace JQuery {
     type TypeOrArray<T> = T | T[];
@@ -5886,7 +5900,7 @@ declare namespace JQuery {
         [key: string]: T;
     }
 
-    // region Ajax
+    // #region Ajax
 
     interface AjaxSettings<TContext = any> extends Ajax.AjaxSettingsBase<TContext> {
         /**
@@ -6191,7 +6205,7 @@ declare namespace JQuery {
         }
 
         type StatusCodeCallbacks<TContext> = {
-            // region Success Status Codes
+            // #region Success Status Codes
 
             // jQuery treats 2xx and 304 status codes as a success
 
@@ -6297,9 +6311,9 @@ declare namespace JQuery {
             299?: SuccessCallback<TContext>;
             304?: SuccessCallback<TContext>;
 
-            // endregion
+            // #endregion
 
-            // region Error Status Codes
+            // #region Error Status Codes
 
             300?: ErrorCallback<TContext>;
             301?: ErrorCallback<TContext>;
@@ -6601,7 +6615,7 @@ declare namespace JQuery {
             598?: ErrorCallback<TContext>;
             599?: ErrorCallback<TContext>;
 
-            // endregion
+            // #endregion
         } & {
             // Status codes not listed require type annotations when defining the callback
             [index: number]: SuccessCallback<TContext> | ErrorCallback<TContext>;
@@ -6653,9 +6667,9 @@ declare namespace JQuery {
         interface AlwaysCallback<TResolve = any, TjqXHR = jqXHR<TResolve>> extends Deferred.Callback3<TResolve | TjqXHR, Ajax.TextStatus, TjqXHR | string> { }
     }
 
-    // endregion
+    // #endregion
 
-    // region Callbacks
+    // #region Callbacks
 
     // tslint:disable-next-line:ban-types
     interface Callbacks<T extends Function = Function> {
@@ -6746,18 +6760,18 @@ declare namespace JQuery {
         remove(...callbacks: T[]): this;
     }
 
-    // endregion
+    // #endregion
 
-    // region CSS
+    // #region CSS
 
     interface CSSHook<TElement> {
         get(this: this, elem: TElement, computed: any, extra: any): any;
         set(this: this, elem: TElement, value: any): void;
     }
 
-    // endregion
+    // #endregion
 
-    // region Deferred
+    // #region Deferred
 
     /**
      * Any object that has a then method.
@@ -6770,6 +6784,7 @@ declare namespace JQuery {
      * Represents the completion of an asynchronous operation
      */
     interface _Promise<T> {
+        readonly [Symbol.toStringTag]: "Promise";
         /**
          * Attaches callbacks for the resolution and/or rejection of the Promise.
          * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6875,7 +6890,7 @@ declare namespace JQuery {
          */
         state(): 'pending' | 'resolved' | 'rejected';
 
-        // region pipe
+        // #region pipe
 
         /**
          * Utility method to filter and/or chain Deferreds.
@@ -7088,9 +7103,9 @@ declare namespace JQuery {
             CRD, CJD, CND,
             RRD, RJD, RND>;
 
-        // endregion
+        // #endregion
 
-        // region then
+        // #region then
 
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
@@ -7282,7 +7297,7 @@ declare namespace JQuery {
             CRD, CJD, CND,
             RRD, RJD, RND>;
 
-        // endregion
+        // #endregion
 
         /**
          * Add handlers to be called when the Deferred object is rejected.
@@ -7463,7 +7478,7 @@ declare namespace JQuery {
          */
         state(): 'pending' | 'resolved' | 'rejected';
 
-        // region pipe
+        // #region pipe
 
         /**
          * Utility method to filter and/or chain Deferreds.
@@ -7676,9 +7691,9 @@ declare namespace JQuery {
             CRD, CJD, CND,
             RRD, RJD, RND>;
 
-        // endregion
+        // #endregion
 
-        // region then
+        // #region then
 
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
@@ -7870,7 +7885,7 @@ declare namespace JQuery {
             CRD, CJD, CND,
             RRD, RJD, RND>;
 
-        // endregion
+        // #endregion
 
         /**
          * Add handlers to be called when the Deferred object is rejected.
@@ -7924,9 +7939,9 @@ declare namespace JQuery {
         interface ProgressCallback<TNotify> extends Callback<TNotify> { }
     }
 
-    // endregion
+    // #endregion
 
-    // region Effects
+    // #region Effects
 
     type Duration = number | 'fast' | 'slow';
     // TODO: Is the first element always a string or is that specific to the 'fx' queue?
@@ -8028,11 +8043,11 @@ declare namespace JQuery {
         (fx: Tween<TElement>): void;
     }
 
-    // endregion
+    // #endregion
 
-    // region Events
+    // #region Events
 
-    // region Event
+    // #region Event
 
     // This should be a class but doesn't work correctly under the JQuery namespace. Event should be an inner class of jQuery.
 
@@ -8198,7 +8213,7 @@ declare namespace JQuery {
         type: string;
     }
 
-    // endregion
+    // #endregion
 
     interface EventHandler<TCurrentTarget, TData = null> extends EventHandlerBase<TCurrentTarget, Event<TCurrentTarget, TData>> { }
 
@@ -8207,134 +8222,7 @@ declare namespace JQuery {
         (this: TContext, t: T, ...args: any[]): void | false | any;
     }
 
-    // Provided for convenience for use with jQuery.Event.which
-    // tslint:disable-next-line:no-const-enum
-    const enum Mouse {
-        None = 0,
-        Left = 1,
-        Middle = 2,
-        Right = 3
-    }
-
-    // Provided for convenience for use with jQuery.Event.which
-    // tslint:disable-next-line:no-const-enum
-    const enum Key {
-        Backspace = 8,
-        Tab = 9,
-        Enter = 13,
-        Shift = 16,
-        Control = 17,
-        Alt = 18,
-        CapsLock = 20,
-        Escape = 27,
-        Space = 32,
-        PageUp = 33,
-        PageDown = 34,
-        End = 35,
-        Home = 36,
-        ArrowLeft = 37,
-        ArrowUp = 38,
-        ArrowRight = 39,
-        ArrowDown = 40,
-
-        Semicolon = 186,
-        Colon = 186,
-        EqualsSign = 187,
-        Plus = 187,
-        Comma = 188,
-        LessThanSign = 188,
-        Minus = 189,
-        Underscore = 189,
-        Period = 190,
-        GreaterThanSign = 190,
-        ForwardSlash = 191,
-        QuestionMark = 191,
-        Backtick = 192,
-        Tilde = 192,
-        OpeningSquareBracket = 219,
-        OpeningCurlyBrace = 219,
-        Backslash = 220,
-        Pipe = 220,
-        ClosingSquareBracket = 221,
-        ClosingCurlyBrace = 221,
-        SingleQuote = 222,
-        DoubleQuote = 222,
-
-        Pause = 19,
-        PrintScreen = 44,
-        Insert = 45,
-        Delete = 46,
-        Num0 = 48,
-        Num1 = 49,
-        Num2 = 50,
-        Num3 = 51,
-        Num4 = 52,
-        Num5 = 53,
-        Num6 = 54,
-        Num7 = 55,
-        Num8 = 56,
-        Num9 = 57,
-        A = 65,
-        B = 66,
-        C = 67,
-        D = 68,
-        E = 69,
-        F = 70,
-        G = 71,
-        H = 72,
-        I = 73,
-        J = 74,
-        K = 75,
-        L = 76,
-        M = 77,
-        N = 78,
-        O = 79,
-        P = 80,
-        Q = 81,
-        R = 82,
-        S = 83,
-        T = 84,
-        U = 85,
-        V = 86,
-        W = 87,
-        X = 88,
-        Y = 89,
-        Z = 90,
-        MetaLeft = 91,
-        MetaRight = 92,
-        ContextMenu = 93,
-        Numpad0 = 96,
-        Numpad1 = 97,
-        Numpad2 = 98,
-        Numpad3 = 99,
-        Numpad4 = 100,
-        Numpad5 = 101,
-        Numpad6 = 102,
-        Numpad7 = 103,
-        Numpad8 = 104,
-        Numpad9 = 105,
-        NumpadMultiply = 106,
-        NumpadAdd = 107,
-        NumpadSubtract = 109,
-        NumpadDecimal = 110,
-        NumpadDivide = 111,
-        F1 = 112,
-        F2 = 113,
-        F3 = 114,
-        F4 = 115,
-        F5 = 116,
-        F6 = 117,
-        F7 = 118,
-        F8 = 119,
-        F9 = 120,
-        F10 = 121,
-        F11 = 122,
-        F12 = 123,
-        NumLock = 144,
-        ScrollLock = 145
-    }
-
-    // endregion
+    // #endregion
 
     interface NameValuePair {
         name: string;
@@ -8358,7 +8246,7 @@ declare namespace JQuery {
     }
 }
 
-// region Legacy types
+// #region Legacy types
 
 // tslint:disable-next-line:no-empty-interface
 interface JQueryCallback extends JQuery.Callbacks { }
@@ -8557,4 +8445,4 @@ interface JQueryEasingFunctions {
     swing: JQueryEasingFunction;
 }
 
-// endregion
+// #endregion

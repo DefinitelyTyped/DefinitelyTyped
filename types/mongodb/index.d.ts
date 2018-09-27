@@ -16,6 +16,7 @@
 //                 Jimmy Shimizu <https://github.com/jishi>
 //                 Dominik Heigl <https://github.com/various89>
 //                 Angela-1 <https://github.com/angela-1>
+//                 Mikael Lirbank <https://github.com/lirbank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -208,6 +209,24 @@ export class MongoError extends Error {
     constructor(message: string);
     static create(options: Object): MongoError;
     code?: number;
+    /**
+     * While not documented, the 'errmsg' prop is AFAIK the only way to find out
+     * which unique index caused a duplicate key error. When you have multiple
+     * unique indexes on a collection, knowing which index caused a duplicate
+     * key error enables you to send better (more precise) error messages to the
+     * client/user (eg. "Email address must be unique" instead of "Both email
+     * address and username must be unique") - which caters for a better (app)
+     * user experience.
+     * 
+     * Details: https://github.com/Automattic/mongoose/issues/2129 (issue for
+     * mongoose, but the same applies for the native mongodb driver)
+     * 
+     * Note that in mongoose (the link above) the prop in question is called
+     * 'message' while in mongodb it is called 'errmsg'. This can be seen in
+     * multiple places in the source code, for example here:
+     * https://github.com/mongodb/node-mongodb-native/blob/a12aa15ac3eaae3ad5c4166ea1423aec4560f155/test/functional/find_tests.js#L1111
+     */
+    errmsg?: string;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#.connect */
@@ -1483,6 +1502,9 @@ export class AggregationCursor<T = Default> extends Readable {
     geoNear(document: Object): AggregationCursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#group */
     group(document: Object): AggregationCursor<T>;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#hasNext */
+    hasNext(): Promise<boolean>;
+    hasNext(callback: MongoCallback<boolean>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#isClosed */
     isClosed(): boolean;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/AggregationCursor.html#limit */

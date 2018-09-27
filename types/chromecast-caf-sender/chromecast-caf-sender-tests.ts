@@ -43,7 +43,7 @@ context.requestSession().then(err => {
 
   session.getSessionObj().sessionId === session.getSessionId();
   session.getSessionState() === cast.framework.SessionState.SESSION_STARTED;
-  session.getCastDevice().name;
+  session.getCastDevice().friendlyName;
   session.getApplicationMetadata().applicationId;
   session.getApplicationStatus() === "";
   session.getActiveInputState() ===

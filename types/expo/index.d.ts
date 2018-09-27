@@ -877,6 +877,7 @@ export class Camera extends Component<CameraProps> {
 export namespace Constants {
     const appOwnership: 'expo' | 'standalone' | 'guest';
     const expoVersion: string;
+    const installationId: string;
     const deviceId: string;
     const deviceName: string;
     const deviceYearClass: number;
@@ -991,6 +992,8 @@ export namespace Constants {
     }
     const manifest: Manifest;
     const linkingUri: string;
+
+    function getWebViewUserAgentAsync(): Promise<string>;
 }
 
 /**
@@ -2912,6 +2915,11 @@ export namespace Updates {
         message?: string;
     }
 
+    /** An optional params object passed to fetchUpdateAsync. */
+    interface FetchUpdateAsyncParams {
+        eventListener: UpdateEventListener;
+    }
+
     type UpdateEventListener = (event: UpdateEvent) => any;
 
     /**
@@ -2931,7 +2939,7 @@ export namespace Updates {
      * Downloads the most recent published version of your experience to the device's local cache.
      * Rejects if `updates.enabled` is `false` in app.json.
      */
-    function fetchUpdateAsync(listener?: UpdateEventListener): Promise<UpdateBundle>;
+    function fetchUpdateAsync(params?: FetchUpdateAsyncParams): Promise<UpdateBundle>;
 
     /**
      * Immediately reloads the current experience.

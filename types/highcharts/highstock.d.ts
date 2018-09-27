@@ -2,7 +2,8 @@
 // Project: http://www.highcharts.com/
 
 // Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
-// Definitions by: Dave Baumann <https://github.com/route2Dev>
+//                 Dave Baumann <https://github.com/route2Dev>
+//                 Richard Ison <https://github.com/richardison>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Highcharts from "highcharts";
@@ -31,11 +32,16 @@ declare namespace Highstock {
         yAxis?: Highcharts.AxisOptions;
     }
 
+    interface RangeSelectorButtonEvent {
+        click?(event: Event): void;
+    }
+
     interface RangeSelectorButton {
         type: string; // Defines the timespan, can be one of 'millisecond', 'second', 'minute', 'day', 'week', 'month', 'ytd' (year to date), 'year' and 'all'.
         count?: number;
         text: string;
         dataGrouping?: any; // not sure how this works
+        events?: RangeSelectorButtonEvent;
     }
 
     interface RangeSelectorOptions {

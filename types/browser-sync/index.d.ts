@@ -368,7 +368,7 @@ declare namespace browserSync {
         ws?: boolean;
         reqHeaders?: (config: object) => Hash<object>;
         proxyRes?: ProxyResponseMiddleware | ProxyResponseMiddleware[];
-        proxyReq?: ((res: http.ServerRequest) => void)[] | ((res: http.ServerRequest) => void);
+        proxyReq?: ((res: http.IncomingMessage) => void)[] | ((res: http.IncomingMessage) => void);
         error?: (err: NodeJS.ErrnoException, req: http.IncomingMessage, res: http.ServerResponse) => void;
     }
 
@@ -457,7 +457,7 @@ declare namespace browserSync {
          */
         (config?: Options, callback?: (err: Error, bs: object) => any): BrowserSyncInstance;
         /**
-         * 
+         *
          */
         instances: Array<BrowserSyncInstance>;
         /**
@@ -547,7 +547,7 @@ declare namespace browserSync {
          *
          * @method use
          * @param {object} module The object to be `required`.
-         * @param {object} options The 
+         * @param {object} options The
          * @param {any} cb A callback function that will return any errors.
          */
         use(module: { "plugin:name"?: string, plugin: (opts: object, bs: BrowserSyncInstance) => any }, options?: object, cb?: any): void;

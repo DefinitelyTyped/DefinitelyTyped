@@ -1,4 +1,4 @@
-// Type definitions for hapi 17.0
+// Type definitions for hapi 17.6
 // Project: https://github.com/hapijs/hapi
 // Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
@@ -502,6 +502,14 @@ export interface Request extends Podium {
      * The parsed request URI.
      */
     readonly url: url.Url;
+
+    /**
+     * Returns `true` when the request is active and processing should continue and `false` when the
+     *  request terminated early or completed its lifecycle. Useful when request processing is a
+     * resource-intensive operation and should be terminated early if the request is no longer active
+     * (e.g. client disconnected or aborted early).
+     */
+    active(): boolean;
 
     /**
      * Returns a response which you can pass into the reply interface where:
@@ -1458,6 +1466,12 @@ export interface RouteOptionsResponse {
 }
 
 /**
+ * @see https://www.w3.org/TR/referrer-policy/
+ */
+export type ReferrerPolicy = '' | 'no-referrer' | 'no-referrer-when-downgrade' | 'unsafe-url' |
+    'same-origin' | 'origin' |  'strict-origin' | 'origin-when-cross-origin' | 'strict-origin-when-cross-origin';
+
+/**
  * Default value: false (security headers disabled).
  * Sets common security headers. To enable, set security to true or to an object with the following options:
  * * hsts - controls the 'Strict-Transport-Security' header, where:
@@ -1531,6 +1545,12 @@ export interface RouteOptionsSecureObject {
      * boolean controlling the 'X-Content-Type-Options' header. Defaults to true setting the header to its only and default option, 'nosniff'.
      */
     noSniff?: boolean;
+
+    /**
+     * Controls the `Referrer-Policy` header, which has the following possible values.
+     * @default false Header will not be send.
+     */
+    referrer?: false | ReferrerPolicy;
 }
 
 export type RouteOptionsSecure = boolean | RouteOptionsSecureObject;
@@ -1842,30 +1862,6 @@ export interface RouteOptions {
 
     /**
      * Default value: false (security headers disabled).
-     * Sets common security headers. To enable, set security to true or to an object with the following options:
-     * * hsts - controls the 'Strict-Transport-Security' header, where:
-     * * * true - the header will be set to max-age=15768000. This is the default value.
-     * * * a number - the maxAge parameter will be set to the provided value.
-     * * * an object with the following fields:
-     * * * * maxAge - the max-age portion of the header, as a number. Default is 15768000.
-     * * * * includeSubDomains - a boolean specifying whether to add the includeSubDomains flag to the header.
-     * * * * preload - a boolean specifying whether to add the 'preload' flag (used to submit domains inclusion in Chrome's HTTP Strict Transport Security (HSTS) preload list) to the header.
-     * * xframe - controls the 'X-Frame-Options' header, where:
-     * * * true - the header will be set to 'DENY'. This is the default value.
-     * * * 'deny' - the headers will be set to 'DENY'.
-     * * * 'sameorigin' - the headers will be set to 'SAMEORIGIN'.
-     * * * an object for specifying the 'allow-from' rule, where:
-     * * * * rule - one of:
-     * * * * * 'deny'
-     * * * * * 'sameorigin'
-     * * * * * 'allow-from'
-     * * * * source - when rule is 'allow-from' this is used to form the rest of the header, otherwise this field is ignored. If rule is 'allow-from' but source is unset, the rule will be
-     * automatically changed to 'sameorigin'.
-     * * xss - boolean that controls the 'X-XSS-PROTECTION' header for Internet Explorer. Defaults to true which sets the header to equal '1; mode=block'.
-     *       Note: this setting can create a security vulnerability in versions of Internet Exploere below 8, as well as unpatched versions of IE8. See here and here for more information. If you
-     * actively support old versions of IE, it may be wise to explicitly set this flag to false.
-     * * noOpen - boolean controlling the 'X-Download-Options' header for Internet Explorer, preventing downloads from executing in your context. Defaults to true setting the header to 'noopen'.
-     * * noSniff - boolean controlling the 'X-Content-Type-Options' header. Defaults to true setting the header to its only and default option, 'nosniff'.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionssecurity)
      */
     security?: RouteOptionsSecure;
@@ -2821,6 +2817,12 @@ export interface ServerOptions {
     load?: {
         /** the frequency of sampling in milliseconds. When set to 0, the other load options are ignored. Defaults to 0 (no sampling). */
         sampleInterval?: number;
+
+        /**
+         * Max concurrent requests.
+         */
+        concurrent?: number;
+
         /** maximum V8 heap size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit). */
         maxHeapUsedBytes?: number;
         /**
@@ -3177,7 +3179,9 @@ export interface ServerState {
      * An object containing the configuration of each cookie added via [server.state()](https://github.com/hapijs/hapi/blob/master/API.md#server.state()) where each key is the
      * cookie name and value is the configuration object.
      */
-    readonly cookies: object;
+    readonly cookies: {
+        [key: string]: ServerStateCookieOptions;
+    };
 
     /**
      * An array containing the names of all configued cookies.
@@ -3232,6 +3236,8 @@ export type DecorationMethod<T> = (this: T, ...args: any[]) => any;
 export interface PluginProperties {
 }
 
+export type DecorateName = string | symbol;
+
 /**
  * The server object is the main application container. The server manages all incoming requests along with all
  * the facilities provided by the framework. Each server supports a single connection (e.g. listen to port 80).
@@ -3257,6 +3263,13 @@ export class Server extends Podium {
      * Server Auth: properties and methods
      */
     auth: ServerAuth;
+
+    /**
+     * Links another server to the initialize/start/stop state of the current server by calling the
+     * controlled server `initialize()`/`start()`/`stop()` methods whenever the current server methods
+     * are called, where:
+     */
+    control(server: Server): void;
 
     /**
      * Provides access to the decorations already applied to various framework interfaces. The object must not be
@@ -3350,6 +3363,11 @@ export class Server extends Podium {
          * event loop delay milliseconds.
          */
         eventLoopDelay: number;
+
+        /**
+         * Max concurrent requests.
+         */
+        concurrent: number
         /**
          * V8 heap usage.
          */
@@ -3473,14 +3491,14 @@ export class Server extends Podium {
      * @return void;
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverdecoratetype-property-method-options)
      */
-    decorate(type: 'handler', property: string, method: HandlerDecorationMethod, options?: {apply?: boolean, extend?: boolean}): void;
-    decorate(type: 'request', property: string, method: (existing: ((...args: any[]) => any)) => (request: Request) => DecorationMethod<Request>, options: {apply: true, extend: true}): void;
-    decorate(type: 'request', property: string, method: (request: Request) => DecorationMethod<Request>, options: {apply: true, extend?: boolean}): void;
-    decorate(type: 'request', property: string, method: DecorationMethod<Request>, options?: {apply?: boolean, extend?: boolean}): void;
-    decorate(type: 'toolkit', property: string, method: (existing: ((...args: any[]) => any)) => DecorationMethod<ResponseToolkit>, options: {apply?: boolean, extend: true}): void;
-    decorate(type: 'toolkit', property: string, method: DecorationMethod<ResponseToolkit>, options?: {apply?: boolean, extend?: boolean}): void;
-    decorate(type: 'server', property: string, method: (existing: ((...args: any[]) => any)) => DecorationMethod<Server>, options: {apply?: boolean, extend: true}): void;
-    decorate(type: 'server', property: string, method: DecorationMethod<Server>, options?: {apply?: boolean, extend?: boolean}): void;
+    decorate(type: 'handler', property: DecorateName, method: HandlerDecorationMethod, options?: {apply?: boolean, extend?: boolean}): void;
+    decorate(type: 'request', property: DecorateName, method: (existing: ((...args: any[]) => any)) => (request: Request) => DecorationMethod<Request>, options: {apply: true, extend: true}): void;
+    decorate(type: 'request', property: DecorateName, method: (request: Request) => DecorationMethod<Request>, options: {apply: true, extend?: boolean}): void;
+    decorate(type: 'request', property: DecorateName, method: DecorationMethod<Request>, options?: {apply?: boolean, extend?: boolean}): void;
+    decorate(type: 'toolkit', property: DecorateName, method: (existing: ((...args: any[]) => any)) => DecorationMethod<ResponseToolkit>, options: {apply?: boolean, extend: true}): void;
+    decorate(type: 'toolkit', property: DecorateName, method: DecorationMethod<ResponseToolkit>, options?: {apply?: boolean, extend?: boolean}): void;
+    decorate(type: 'server', property: DecorateName, method: (existing: ((...args: any[]) => any)) => DecorationMethod<Server>, options: {apply?: boolean, extend: true}): void;
+    decorate(type: 'server', property: DecorateName, method: DecorationMethod<Server>, options?: {apply?: boolean, extend?: boolean}): void;
 
     /**
      * Used within a plugin to declare a required dependency on other plugins where:

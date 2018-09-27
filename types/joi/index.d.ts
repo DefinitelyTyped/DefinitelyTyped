@@ -1,4 +1,4 @@
-// Type definitions for joi 13.4
+// Type definitions for joi 13.6
 // Project: https://github.com/hapijs/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Laurence Dougal Myers <https://github.com/laurence-myers>
@@ -13,6 +13,8 @@
 //                 Rafael Kallis <https://github.com/rafaelkallis>
 //                 Conan Lai <https://github.com/aconanlai>
 //                 Peter Thorson <https://github.com/zaphoyd>
+//                 Will Garcia <https://github.com/thewillg>
+//                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -147,6 +149,13 @@ export interface UriOptions {
     relativeOnly?: boolean;
 }
 
+export interface DataUriOptions {
+    /**
+     * optional parameter defaulting to true which will require = padding if true or make padding optional if false
+     */
+    paddingRequired?: boolean;
+}
+
 export interface Base64Options {
     /**
      * optional parameter defaulting to true which will require = padding if true or make padding optional if false
@@ -188,6 +197,7 @@ export interface ReferenceOptions {
     functions?: boolean;
 }
 
+// tslint:disable-next-line:interface-name
 export interface IPOptions {
     version?: string[];
     cidr?: string;
@@ -216,9 +226,7 @@ export interface ValidationErrorItem {
     context?: Context;
 }
 
-export interface ValidationErrorFunction {
-    (errors: ValidationErrorItem[]): string | ValidationErrorItem | ValidationErrorItem[] | Error;
-}
+export type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | ValidationErrorItem[] | Error;
 
 export interface ValidationResult<T> extends Pick<Promise<T>, 'then' | 'catch'> {
     error: ValidationError;
@@ -631,6 +639,11 @@ export interface StringSchema extends AnySchema {
     uri(options?: UriOptions): this;
 
     /**
+     * Requires the string value to be a valid data URI string.
+     */
+    dataUri(options?: DataUriOptions): this;
+
+    /**
      * Requires the string value to be a valid GUID.
      */
     guid(options?: GuidOptions): this;
@@ -669,6 +682,11 @@ export interface StringSchema extends AnySchema {
      * Requires the string value to contain no whitespace before or after. If the validation convert option is on (enabled by default), the string will be trimmed.
      */
     trim(): this;
+}
+
+export interface SymbolSchema extends AnySchema {
+    // TODO: support number and symbol index
+    map(iterable: Iterable<[string | number | boolean | symbol, symbol]> | { [key: string]: symbol }): this;
 }
 
 export interface ArraySchema extends AnySchema {
@@ -1065,6 +1083,11 @@ export function object(schema?: SchemaMap): ObjectSchema;
 export function string(): StringSchema;
 
 /**
+ * Generates a schema object that matches any symbol.
+ */
+export function symbol(): SymbolSchema;
+
+/**
  * Generates a type that will match one of the provided alternative schemas
  */
 export function alternatives(types: SchemaLike[]): AlternativesSchema;
@@ -1096,7 +1119,6 @@ export function validate<T, R>(value: T, schema: SchemaLike, options: Validation
  * Converts literal schema definition to joi schema object (or returns the same back if already a joi schema object).
  */
 export function compile(schema: SchemaLike): Schema;
-export function compile<T extends Schema>(schema: SchemaLike): T;
 
 /**
  * Validates a value against a schema and throws if validation fails.
@@ -1131,9 +1153,7 @@ export function isRef(ref: any): ref is Reference;
  * of strings For string values path separator is a dot (`.`)
  */
 export function reach(schema: ObjectSchema, path: string): Schema;
-export function reach<T extends Schema>(schema: ObjectSchema, path: string): T;
 export function reach(schema: ObjectSchema, path: string[]): Schema;
-export function reach<T extends Schema>(schema: ObjectSchema, path: string[]): T;
 
 /**
  * Creates a new Joi instance customized with the extension(s) you provide included.

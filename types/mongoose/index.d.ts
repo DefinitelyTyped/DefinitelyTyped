@@ -697,7 +697,9 @@ declare module "mongoose" {
         | "findOne"
         | "findOneAndRemove"
         | "findOneAndUpdate"
-        | "update",
+        | "update"
+        | "updateOne"
+        | "updateMany",
       fn: HookSyncCallback<T>,
       errorCb?: HookErrorCallback
     ): this;
@@ -730,7 +732,9 @@ declare module "mongoose" {
         | "findOne"
         | "findOneAndRemove"
         | "findOneAndUpdate"
-        | "update",
+        | "update"
+        | "updateOne"
+        | "updateMany",
       parallel: boolean,
       fn: HookAsyncCallback<T>,
       errorCb?: HookErrorCallback
@@ -1099,6 +1103,9 @@ declare module "mongoose" {
   class MongooseDocument {
     /** Checks if a path is set to its default. */
     $isDefault(path?: string): boolean;
+
+    /** Getter/setter around the session associated with this document. */
+    $session(session?: ClientSession): ClientSession;
 
     /**
      * Takes a populated field and returns it to its unpopulated state.
@@ -1932,7 +1939,7 @@ declare module "mongoose" {
     /**
      * Sets the [MongoDB session](https://docs.mongodb.com/manual/reference/server-sessions/)
      * associated with this query. Sessions are how you mark a query as part of a
-     * [transaction](/docs/transactions.html). 
+     * [transaction](/docs/transactions.html).
      */
     session(session: mongodb.ClientSession | null): this;
 
@@ -2701,6 +2708,7 @@ declare module "mongoose" {
      * Triggers the save() hook.
      */
     create(docs: any[], callback?: (err: any, res: T[]) => void): Promise<T[]>;
+    create(docs: any[], options?: SaveOptions, callback?: (err: any, res: T[]) => void): Promise<T[]>;
     create(...docs: any[]): Promise<T>;
     create(...docsWithCallback: any[]): Promise<T>;
 
@@ -2760,6 +2768,24 @@ declare module "mongoose" {
       select?: any;
     }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
+
+     /**
+     * Issue a mongodb findOneAndDelete command by a document's _id field.
+     * findByIdAndDelete(id, ...) is equivalent to findByIdAndDelete({ _id: id }, ...).
+     * Finds a matching document, removes it, passing the found document (if any) to the callback.
+     * Executes immediately if callback is passed, else a Query object is returned.
+     * @param id value of _id to query by
+     */
+    findByIdAndDelete(): DocumentQuery<T | null, T>;
+    findByIdAndDelete(id: any | number | string,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
+    findByIdAndDelete(id: any | number | string, options: {
+      /** if multiple docs are found by the conditions, sets the sort order to choose which doc to update */
+      sort?: any;
+      /** sets the document fields to return */
+      select?: any;
+    }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
+
     /**
      * Issues a mongodb findAndModify update command by a document's _id field. findByIdAndUpdate(id, ...)
      * is equivalent to findOneAndUpdate({ _id: id }, ...).
@@ -2805,6 +2831,32 @@ declare module "mongoose" {
       maxTimeMS?: number;
       /** sets the document fields to return */
       select?: any;
+    }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
+    
+    /**
+     * Issues a mongodb findOneAndDelete command.
+     * Finds a matching document, removes it, passing the found document (if any) to the
+     * callback. Executes immediately if callback is passed.
+     */
+    findOneAndDelete(): DocumentQuery<T | null, T>;
+    findOneAndDelete(conditions: any,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
+    findOneAndDelete(conditions: any, options: {
+      /**
+       * if multiple docs are found by the conditions, sets the sort order to choose
+       * which doc to update
+       */
+      sort?: any;
+      /** puts a time limit on the query - requires mongodb >= 2.6.0 */
+      maxTimeMS?: number;
+      /** sets the document fields to return */
+      select?: any;             
+      /** like select, it determines which fields to return */          
+      projection?: any;
+      /** if true, returns the raw result from the MongoDB driver */                     
+      rawResult?: boolean;
+      /** overwrites the schema's strict mode option for this update */                     
+      strict?: boolean|string;                      
     }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     /**
@@ -2970,6 +3022,7 @@ declare module "mongoose" {
   interface SaveOptions {
     safe?: boolean | WriteConcern;
     validateBeforeSave?: boolean;
+    session?: ClientSession;
   }
 
   interface WriteConcern {
@@ -3012,7 +3065,7 @@ declare module "mongoose" {
   interface ModelOptions {
     session?: ClientSession | null;
   }
-  
+
   interface ModelFindByIdAndUpdateOptions extends ModelOptions {
     /** true to return the modified document rather than the original. defaults to false */
     new?: boolean;

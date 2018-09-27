@@ -262,13 +262,13 @@ declare namespace CodeMirror {
         Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
         addLineWidget(line: any, node: HTMLElement, options?: {
             /** Whether the widget should cover the gutter. */
-            coverGutter: boolean;
+            coverGutter?: boolean;
             /** Whether the widget should stay fixed in the face of horizontal scrolling. */
-            noHScroll: boolean;
+            noHScroll?: boolean;
             /** Causes the widget to be placed above instead of below the text of the line. */
-            above: boolean;
+            above?: boolean;
             /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
-            showIfHidden: boolean;
+            showIfHidden?: boolean;
         }): CodeMirror.LineWidget;
 
 

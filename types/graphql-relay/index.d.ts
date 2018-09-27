@@ -244,6 +244,7 @@ export interface MutationConfig {
     inputFields: Thunk<GraphQLInputFieldConfigMap>;
     outputFields: Thunk<GraphQLFieldConfigMap<any, any>>;
     mutateAndGetPayload: mutationFn;
+    deprecationReason?: string;
 }
 
 /**
