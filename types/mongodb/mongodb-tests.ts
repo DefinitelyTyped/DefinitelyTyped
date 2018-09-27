@@ -36,7 +36,12 @@ let options: mongodb.MongoClientOptions = {
 MongoClient.connect(connectionString, options, function (err: mongodb.MongoError, client: mongodb.MongoClient) {
     if (err) throw err;
     const db = client.db('test');
-    var collection = db.collection('test_insert');
+	
+	type TestClass {
+		name?: string,
+		a: number
+	}
+    var collection = db.collection<TestClass>('test_insert');
     collection.insertOne({ a: 2 }, function (err: mongodb.MongoError, docs: any) {
 
         // Intentionally omitted type annotation from 'count'.
