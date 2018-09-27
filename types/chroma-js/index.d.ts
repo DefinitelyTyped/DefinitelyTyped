@@ -321,7 +321,8 @@ declare namespace chroma {
          * Set out format for scale() call. Passing null will result in a scale which outputs colors.
          */
         out(format: null): Scale;
-        out<K extends keyof ColorSpaces>(format: K | 'hex'): Scale<ColorSpaces[K] | string>;
+        out<K extends keyof ColorSpaces>(format: K): Scale<ColorSpaces[K]>;
+        out(format: 'hex'): Scale<string>;
     }
 
     interface Cubehelix {
