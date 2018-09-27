@@ -42,6 +42,8 @@ export interface ButtonProps extends BaseProps<ButtonClass> {
   borderColor?: string;
   borderRadius?: number;
   variant?: string;
+  bg?: string;
+  color?: string;
 }
 type ButtonClass = React.StatelessComponent<ButtonProps>;
 export declare const Button: ButtonClass;
@@ -51,20 +53,25 @@ export interface CardProps extends BaseProps<CardClass> {
   borderColor?: string;
   borderRadius?: number;
   boxShadow?: string;
+  bg?: string;
   backgroundImage?: string;
   backgroundSize?: string;
   backgroundPosition?: string;
   backgroundRepeat?: string;
   opacity?: number;
+  fontSize?: number | number[];
+  fontWeight?: string;
+  width?: number | number[];
 }
 type CardClass = React.StatelessComponent<CardProps>;
 export declare const Card: CardClass;
 
 export interface FlexProps extends BaseProps<FlexClass> {
-  height?: number;
-  borderRadius?: number;
-  src?: string;
-  alt?: string;
+  alignItems?: string;
+  justifyContent?: string,
+  flexDirection?: string,
+  flexWrap?: string,
+  width?: number | number[];
 }
 type FlexClass = React.StatelessComponent<FlexProps>
 export declare const Flex: FlexClass;
@@ -86,6 +93,7 @@ export interface ImageProps extends BaseProps<ImageClass> {
     borderRadius?: number;
     src?: string;
     alt?: string;
+    width?: number | number[];
 }
 type ImageClass = React.StatelessComponent<ImageProps>
 export declare const Image: ImageClass;
