@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 /// <reference types="node" />
-/// <reference types="busboy" />
 
+import busBody = require("busbody");
 import fastify = require("fastify");
 
 import { IncomingMessage, ServerResponse } from 'http';
