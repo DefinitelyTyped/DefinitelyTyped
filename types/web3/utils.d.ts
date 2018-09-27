@@ -49,6 +49,7 @@ export default interface Utils {
     isBigNumber(any: any): boolean;
     isAddress(any: any): boolean;
     isHex(any: any): boolean;
+    isHexStrict(any: any): boolean;
     _: us.UnderscoreStatic;
     asciiToHex(val: string): string;
     hexToAscii(val: string): string;
