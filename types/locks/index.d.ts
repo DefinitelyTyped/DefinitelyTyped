@@ -1,22 +1,11 @@
-// Type definitions for Locks 0.2.2
+// Type definitions for Locks 0.2
 // Project: https://github.com/Wizcorp/locks
 // Definitions by: Joshua Graham <https://github.com/flippynips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/* ================== USAGE ==================
-
-    import * as locks from "locks";
-    
-    let mutex: locks.Mutex = new locks.Mutex();
-    let readWriteLock: locks.ReadWriteLock = new locks.ReadWriteLock();
-    let semaphore: locks.Semaphore = new locks.Semaphore();
-    let condVariable: locks.CondVariable = new locks.CondVariable();
-
- ============================================= */
- 
- /** Solitary access lock */
- export class Mutex {
+/** Solitary access lock */
+export class Mutex {
     /** Construct a new mutex lock. */
     constructor();
     /** Flag indicating whther the lock is currently taken. */
@@ -31,7 +20,6 @@
     unlock(): void;
     /** Clear any waiting lock callbacks. */
     resetQueue(): void;
-    
 }
 
 /** Reader writer lock */
@@ -66,7 +54,6 @@ export class Semaphore {
     wait(callback: () => void): void;
     /** Signal a callback. */
     signal(): void;
-    
 }
 
 /** Conditional variable instance */
@@ -76,7 +63,7 @@ export class CondVariable {
     /** Get the current conditional variable value. */
     get(): any;
     /** Add a callback when the specified conditional variable value matches the specified value. */
-    wait(value: any, callback: ()=>void);
+    wait(value: any, callback: ()=>void): void;
     /** Set the conditional variable value. */
     set(value: any): void;
 }
