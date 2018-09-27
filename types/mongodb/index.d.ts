@@ -822,7 +822,12 @@ export type OptionalTSchema<T> = {
     [P in keyof T]?: T[P]
 }
 
+/** https://docs.mongodb.com/manual/reference/operator/update */
 export type UpdateQuery<T> = {
+    $inc: { [P in keyof T]?: number } | { [key: string]: number },
+    $min: { [P in keyof T]?: number } | { [key: string]: number },
+    $max: { [P in keyof T]?: number } | { [key: string]: number },
+    $mul: { [P in keyof T]?: number } | { [key: string]: number },
     $set: OptionalTSchema<T> | { [key: string]: any },
     $setOnInsert: OptionalTSchema<T> | { [key: string]: any },
     $unset: { [P in keyof T]?: '' } | { [key: string]: '' },
