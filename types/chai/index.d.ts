@@ -195,6 +195,7 @@ declare namespace Chai {
 
     interface KeyFilter {
         keys: Keys;
+        members: Members;
     }
 
     interface Equal {
