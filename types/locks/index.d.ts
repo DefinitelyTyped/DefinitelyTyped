@@ -63,7 +63,7 @@ export class CondVariable {
     /** Get the current conditional variable value. */
     get(): any;
     /** Add a callback when the specified conditional variable value matches the specified value. */
-    wait(value: any, callback: ()=>void): void;
+    wait(value: any, callback: () => void): void;
     /** Set the conditional variable value. */
     set(value: any): void;
 }

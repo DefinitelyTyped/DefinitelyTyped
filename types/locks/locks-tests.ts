@@ -8,8 +8,8 @@ mutex.unlock();
 
 // Semaphore
 const semaphore: locks.Semaphore = new locks.Semaphore(1);
-semaphore.wait(()=> {});
-semaphore.wait(()=> {});
+semaphore.wait(() => {});
+semaphore.wait(() => {});
 semaphore.signal();
 
 // Read Write Lock
@@ -23,7 +23,7 @@ readWriteLock.unlock();
 
 // Conditional Variable
 const condVariable: locks.CondVariable = new locks.CondVariable('ho');
-if(condVariable.get() !== 'ho') { console.log('Should not happen'); }
+if (condVariable.get() !== 'ho') { console.log('Should not happen'); }
 condVariable.wait('hi', () => {});
 condVariable.set('hi');
-if(condVariable.get() !== 'hi') { console.log('Should not happen'); }
+if (condVariable.get() !== 'hi') { console.log('Should not happen'); }
