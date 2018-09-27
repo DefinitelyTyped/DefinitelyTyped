@@ -2,6 +2,6 @@
   "private": true,
   "dependencies": {
     "csstype": "^2.0.0",
-    "indefinite-observable": "^1.0.1",
+    "indefinite-observable": "^1.0.1"
   }
 }
