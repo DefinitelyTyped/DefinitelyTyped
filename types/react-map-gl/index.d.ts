@@ -29,7 +29,7 @@ export interface MapRequest {
 
 export interface MapboxProps extends Partial<Viewport> {
     container?: {};
-    mapboxApiAccessToken: string;
+    mapboxApiAccessToken?: string;
     attributionControl?: boolean;
     preserveDrawingBuffer?: boolean;
     onLoad?: () => void;
