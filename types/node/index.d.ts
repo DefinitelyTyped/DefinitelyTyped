@@ -195,7 +195,7 @@ interface String {
  ------------------------------------------------*/
 declare const process: NodeJS.Process;
 declare const global: NodeJS.Global;
-declare const console: Console;
+declare var console: Console;
 
 declare const __filename: string;
 declare const __dirname: string;
