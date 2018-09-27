@@ -1239,7 +1239,7 @@ export interface NavigationInjectedProps<P = NavigationParams> {
 }
 
 export function withNavigation<T = {}, P = NavigationParams>(
-  Component: React.ComponentType<T & NavigationInjectedProps<P>>
+  Component: React.ComponentType<T | (T & NavigationInjectedProps<P>)>
 ): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationInjectedProps<P>>> }>;
 
 export interface NavigationFocusInjectedProps extends NavigationInjectedProps {
