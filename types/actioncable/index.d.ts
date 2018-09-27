@@ -9,7 +9,7 @@ declare module ActionCable {
   interface Channel {
     unsubscribe(): void;
     perform(action: string, data: {}): void;
-    send(data: Object): boolean;
+    send(data: any): boolean;
   }
 
   interface Subscriptions {
@@ -18,7 +18,7 @@ declare module ActionCable {
 
   interface Cable {
     subscriptions: Subscriptions;
-    send(data: Object): void;
+    send(data: any): void;
     connect(): void;
     disconnect(): void;
     ensureActiveConnection(): void;
@@ -27,7 +27,7 @@ declare module ActionCable {
   interface CreateMixin {
     connected(): void;
     disconnected(): void;
-    received(obj: Object): void;
+    received(obj: any): void;
     [key: string]: Function;
   }
 
