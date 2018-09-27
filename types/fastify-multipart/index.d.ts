@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 /// <reference types="node" />
 
-import busBody = require("busbody");
+import busboy = require("busboy");
 import fastify = require("fastify");
 
 import { IncomingMessage, ServerResponse } from 'http';
