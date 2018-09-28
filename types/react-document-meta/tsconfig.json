@@ -1,19 +1,13 @@
 {
-    "files": [
-        "index.d.ts",
-        "inspector.d.ts",
-        "node-tests.ts"
-    ],
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
         "lib": [
             "es6",
             "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -21,6 +15,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
-    }
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
+    },
+    "files": [
+        "index.d.ts",
+        "react-document-meta-tests.tsx"
+    ]
 }
