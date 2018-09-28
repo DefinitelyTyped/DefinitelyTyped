@@ -13,7 +13,9 @@
             "dom"
         ],
         "paths": {
-            "highcharts": [ "highcharts/v6" ]
+            "highcharts": [
+                "highcharts/v6"
+            ]
         },
         "typeRoots": [
             "../../"
