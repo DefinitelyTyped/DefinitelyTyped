@@ -1,24 +1,29 @@
 {
     "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": false,
+        "baseUrl": "../",
         "module": "commonjs",
         "lib": [
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "paths": {
+            "highcharts": [
+                "highcharts/v6"
+            ]
+        },
         "typeRoots": [
             "../"
         ],
-        "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "types": []
     },
     "files": [
         "index.d.ts",
-        "highcharts-ng-tests.ts"
+        "test/index.ts"
     ]
 }
