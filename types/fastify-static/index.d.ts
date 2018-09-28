@@ -4,8 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+import fastify = require("fastify");
+
 import { Server, IncomingMessage, ServerResponse } from "http";
-import * as fastify from "fastify";
 
 declare module "fastify" {
     interface FastifyReply<HttpResponse> {
