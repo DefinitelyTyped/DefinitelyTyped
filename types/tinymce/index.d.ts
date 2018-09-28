@@ -320,6 +320,8 @@ export interface Settings {
   imagetools_toolbar?: string;
 
   imagetools_api_key?: string;
+
+  readonly?: boolean;
 }
 
 export namespace settings {
