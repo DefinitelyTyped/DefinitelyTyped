@@ -26,6 +26,7 @@ export class PushNotificationOptions {
     onRegister?: (token: { os: string, token: string }) => void;
     onNotification?: (notification: PushNotification) => void;
     senderID?: string;
+    permissions?: PushNotificationPermissions;
     popInitialNotification?: boolean;
     requestPermissions?: boolean;
 }
