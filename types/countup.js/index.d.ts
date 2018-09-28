@@ -1,16 +1,9 @@
-// Type definitions for countup.js v1.9.3
+// Type definitions for countup.js 1.9
 // Project: https://github.com/inorganik/CountUp.js
-// Definitions by: Rostislav Shermenyov <https://github.com/shermendev/>
+// Definitions by: Rostislav Shermenyov <https://github.com/shermendev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const CountUp: countUp.CountUpConstructor;
-
-declare module "countup.js" {
-  export = CountUp;
-}
-
-declare namespace countUp {
-  interface CountUpConstructor {
+declare class CountUp {
     /**
      * @param target Id of html element or var of previously selected html element where counting occurs
      * @param startVal The value you want to begin at
@@ -18,65 +11,15 @@ declare namespace countUp {
      * @param decimals Number of decimal places, default 0
      * @param duration Duration of animation in seconds, default 2
      * @param options Object of options
-     * @return CountUp instance
      */
-    new (
-      target?: string | HTMLElement,
-      startVal?: number | string,
-      endVal?: number | string,
-      decimals?: number | string,
-      duration?: number | string,
-      options?: CountUpOptions
-    ): CountUpInstance;
-  }
-
-  interface CountUpOptions {
-    /**
-     * Character to use as a decimal
-     */
-    decimal?: string;
-    /**
-     * Optional custom easing function, default is Robert Penner's easeOutExpo
-     * @param t current time
-     * @param b start value
-     * @param c change in value
-     * @param d duration
-     * @return calculated value
-     */
-    easingFn?(t: number, b: number, c: number, d: number): number;
-    /**
-     * Optional custom formatting function
-     * @param num
-     * @return
-     */
-    formattingFn?(num: number): string;
-    /**
-     * Optionally pass an array of custom numerals for 0-9
-     */
-    numerals?: any[];
-    /**
-     * Optional text before the result
-     */
-    prefix?: string;
-    /**
-     * Character to use as a separator
-     */
-    separator?: string;
-    /**
-     * Optional text after the result
-     */
-    suffix?: string;
-    /**
-     * Toggle easing
-     */
-    useEasing?: boolean;
-    /**
-     * 1,000,000 vs 1000000
-     */
-    useGrouping?: boolean;
-  }
-
-  interface CountUpInstance {
+    constructor(
+        target: string | HTMLElement,
+        startVal: number | string,
+        endVal: number | string,
+        decimals?: number | string,
+        duration?: number | string,
+        options?: CountUp.CountUpOptions
+    );
     // #region Dynamic params
     // Will appear(or not) in the CountUpInstance object once the other functions fire
     // i.e. paused will return undefined instead of boolean unless the pauseResume() was called before
@@ -89,7 +32,7 @@ declare namespace countUp {
     error?: string;
     frameVal?: number;
     initialized?: boolean;
-    options?: CountUpOptions;
+    options?: CountUp.CountUpOptions;
     paused?: boolean;
     rAF?: number;
     remaining?: number;
@@ -127,5 +70,55 @@ declare namespace countUp {
      */
     update(newEndVal: number | string): void;
     version(): string;
-  }
 }
+
+declare namespace CountUp {
+    interface CountUpOptions {
+        /**
+         * Character to use as a decimal
+         */
+        decimal?: string;
+        /**
+         * Optional custom easing function, default is Robert Penner's easeOutExpo
+         * @param t current time
+         * @param b start value
+         * @param c change in value
+         * @param d duration
+         * @return calculated value
+         */
+        easingFn?(t: number, b: number, c: number, d: number): number;
+        /**
+         * Optional custom formatting function
+         * @param num
+         * @return
+         */
+        formattingFn?(num: number): string;
+        /**
+         * Optionally pass an array of custom numerals for 0-9
+         */
+        numerals?: any[];
+        /**
+         * Optional text before the result
+         */
+        prefix?: string;
+        /**
+         * Character to use as a separator
+         */
+        separator?: string;
+        /**
+         * Optional text after the result
+         */
+        suffix?: string;
+        /**
+         * Toggle easing
+         */
+        useEasing?: boolean;
+        /**
+         * 1,000,000 vs 1000000
+         */
+        useGrouping?: boolean;
+    }
+}
+
+export = CountUp;
+export as namespace CountUp;
