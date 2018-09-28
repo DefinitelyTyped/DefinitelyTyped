@@ -1,4 +1,4 @@
-// Type definitions for Recharts 1.0
+// Type definitions for Recharts 1.0.1
 // Project: http://recharts.org/
 // Definitions by: Maarten Mulders <https://github.com/mthmulders>
 //                 Raphael Mueller <https://github.com/rapmue>
