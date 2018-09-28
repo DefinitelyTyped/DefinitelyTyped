@@ -193,7 +193,7 @@ interface String {
  *                   GLOBAL                      *
  *                                               *
  ------------------------------------------------*/
-declare const process: NodeJS.Process;
+declare var process: NodeJS.Process;
 declare const global: NodeJS.Global;
 declare var console: Console;
 
@@ -240,7 +240,7 @@ interface NodeExtensions {
     [ext: string]: (m: NodeModule, filename: string) => any;
 }
 
-declare const require: NodeRequire;
+declare var require: NodeRequire;
 
 interface NodeModule {
     exports: any;
@@ -253,7 +253,7 @@ interface NodeModule {
     paths: string[];
 }
 
-declare const module: NodeModule;
+declare var module: NodeModule;
 
 // Same as module.exports
 declare const exports: any;
