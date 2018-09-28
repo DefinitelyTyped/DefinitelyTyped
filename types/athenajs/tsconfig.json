@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "allowJs": false,
+    "baseUrl": "../",
+    "typeRoots": [
+      "../"
+    ],
+    "noEmit": true,
+    "types": [],
+    "lib": [
+        "es5",
+        "es6",
+        "es2015.iterable",
+        "dom"
+    ]
+  },
+  "files": [
+    "index.d.ts",
+    "./test/dom.ts",
+    "./test/deferred.ts",
+    "./test/game.ts",
+    "./test/scene.ts",
+    "./test/drawable.ts",
+    "./test/simpletext.ts"
+  ]
+}
