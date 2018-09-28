@@ -188,9 +188,13 @@ declare namespace Knex {
     interface Distinct extends ColumnNameQueryBuilder {
     }
 
+    interface JoinCallback {
+        (this: JoinClause, join: JoinClause): void;
+    }
+
     interface Join {
         (raw: Raw): QueryBuilder;
-        (tableName: TableName | QueryCallback, clause: (this: JoinClause, join: JoinClause) => void): QueryBuilder;
+        (tableName: TableName | QueryCallback, clause: JoinCallback): QueryBuilder;
         (tableName: TableName | QueryCallback, columns: { [key: string]: string | number | Raw }): QueryBuilder;
         (tableName: TableName | QueryCallback, raw: Raw): QueryBuilder;
         (tableName: TableName | QueryCallback, column1: string, column2: string): QueryBuilder;
@@ -200,19 +204,19 @@ declare namespace Knex {
 
     interface JoinClause {
         on(raw: Raw): JoinClause;
-        on(callback: QueryCallback): JoinClause;
+        on(callback: JoinCallback): JoinClause;
         on(columns: { [key: string]: string | Raw }): JoinClause;
         on(column1: string, column2: string): JoinClause;
         on(column1: string, raw: Raw): JoinClause;
         on(column1: string, operator: string, column2: string | Raw): JoinClause;
         andOn(raw: Raw): JoinClause;
-        andOn(callback: QueryCallback): JoinClause;
+        andOn(callback: JoinCallback): JoinClause;
         andOn(columns: { [key: string]: string | Raw }): JoinClause;
         andOn(column1: string, column2: string): JoinClause;
         andOn(column1: string, raw: Raw): JoinClause;
         andOn(column1: string, operator: string, column2: string | Raw): JoinClause;
         orOn(raw: Raw): JoinClause;
-        orOn(callback: QueryCallback): JoinClause;
+        orOn(callback: JoinCallback): JoinClause;
         orOn(columns: { [key: string]: string | Raw }): JoinClause;
         orOn(column1: string, column2: string): JoinClause;
         orOn(column1: string, raw: Raw): JoinClause;
