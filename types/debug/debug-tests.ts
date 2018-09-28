@@ -18,3 +18,9 @@ log("Namespace: %s", log.namespace);
 var error:debug.IDebugger = debug("DefinitelyTyped:error");
 error.log = console.error.bind(console);
 error("This should be printed to stderr");
+
+var extendedLog: debug.IDebugger = log.extend('extended');
+extendedLog("Testing this is also an IDebugger.");
+
+var extendedWithCustomDelimiter: debug.IDebugger = log.extend('with-delim', '.');
+extendedWithCustomDelimiter("Testing this is an IDebugger, too.");

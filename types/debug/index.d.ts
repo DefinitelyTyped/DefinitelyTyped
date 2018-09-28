@@ -3,6 +3,7 @@
 // Definitions by: Seon-Wook Park <https://github.com/swook>
 //                 Gal Talmor <https://github.com/galtalmor>
 //                 John McLaughlin <https://github.com/zamb3zi>
+//                 Brasten Sager <https://github.com/brasten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var debug: debug.IDebug;
@@ -34,5 +35,6 @@ declare namespace debug {
         enabled: boolean;
         log: Function;
         namespace: string;
+        extend: (namespace: string, delimiter?: string) => debug.IDebugger;
     }
 }
