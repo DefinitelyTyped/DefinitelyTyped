@@ -1,4 +1,4 @@
-// Type definitions for Knex.js 0.14
+// Type definitions for Knex.js 0.16
 // Project: https://github.com/tgriesser/knex
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
