@@ -1,0 +1,39 @@
+{
+    "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "module": "commonjs",
+        "baseUrl": "../../",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "paths": {
+            "highcharts": [ "highcharts/v6" ]
+        },
+        "typeRoots": [
+            "../../"
+        ],
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "modules/accessibility.d.ts",
+        "modules/export-data.d.ts",
+        "modules/exporting.d.ts",
+        "modules/offline-exporting.d.ts",
+        "modules/series-label.d.ts",
+        "modules/vector.d.ts",
+        "test/index.ts",
+        "test/accessibility.ts",
+        "test/export-data.ts",
+        "test/exporting.ts",
+        "test/offline-exporting.ts",
+        "test/series-label.ts",
+        "test/vector.ts"
+    ]
+}
