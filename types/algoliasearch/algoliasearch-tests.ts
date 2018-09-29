@@ -104,6 +104,7 @@ let _algoliaQueryParameters: QueryParameters = {
   attributesToRetrieve: [''],
   restrictSearchableAttributes: [''],
   facets: '',
+  facetingAfterDistinct: true,
   maxValuesPerFacet: 2,
   attributesToHighlight: [''],
   attributesToSnippet: [''],

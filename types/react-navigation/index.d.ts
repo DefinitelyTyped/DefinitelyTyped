@@ -24,6 +24,7 @@
 //                 Gustavo Brunoro <https://github.com/brunoro>
 //                 Denis Frezzato <https://github.com/DenisFrezzato>
 //                 Mickael Wegerich <https://github.com/mickaelw>
+//                 Max Davidson <https://github.com/maxdavidson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1234,20 +1235,45 @@ export class Header extends React.Component<HeaderProps> {
   static HEIGHT: number;
 }
 
+export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+
+export type InferProps<T extends React.ComponentType<any>> = T extends React.ComponentType<infer P> ? P : never;
+
 export interface NavigationInjectedProps<P = NavigationParams> {
   navigation: NavigationScreenProp<NavigationState, P>;
 }
 
+// If the wrapped component is a class, we can get a ref to it
+export function withNavigation<T extends React.ComponentClass<NavigationInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationInjectedProps> & { onRef?: React.Ref<InstanceType<T>> }>;
+
+export function withNavigation<T extends React.ComponentType<NavigationInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationInjectedProps>>;
+
+// For backwards compatibility
 export function withNavigation<T = {}, P = NavigationParams>(
-  Component: React.ComponentType<T & NavigationInjectedProps<P>>
+  Component: React.ComponentType<T & NavigationInjectedProps<P>>,
 ): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationInjectedProps<P>>> }>;
 
-export interface NavigationFocusInjectedProps extends NavigationInjectedProps {
+export interface NavigationFocusInjectedProps<P = NavigationParams> extends NavigationInjectedProps<P> {
   isFocused: boolean;
 }
-export function withNavigationFocus<T = {}>(
-  Component: React.ComponentType<T & NavigationFocusInjectedProps>
-): React.ComponentType<T & { onRef?: React.Ref<typeof Component> }>;
+
+// If the wrapped component is a class, we can get a ref to it
+export function withNavigationFocus<T extends React.ComponentClass<NavigationFocusInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationFocusInjectedProps> & { onRef?: React.Ref<InstanceType<T>> }>;
+
+export function withNavigationFocus<T extends React.ComponentType<NavigationFocusInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationFocusInjectedProps>>;
+
+// For backwards compatibility
+export function withNavigationFocus<T = {}, P = NavigationParams>(
+  Component: React.ComponentType<T & NavigationFocusInjectedProps<P>>,
+): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationFocusInjectedProps<P>>> }>;
 
 /**
  * SafeAreaView Component

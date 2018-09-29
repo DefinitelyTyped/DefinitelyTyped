@@ -118,8 +118,13 @@ declare namespace OfficeRuntime {
         onClose?: () => void;
         /*
          * @beta
-         * Callback that is run when the dialog box sends an error.
+         * Callback that is run when the dialog sends a message to its parent.
          */
         onMessage?(message: string, dialog?: Dialog): void;
+        /*
+         * @beta
+         * Callback that is run when the dialog box sends an error.
+         */
+        onRuntimeError?(message: string, dialog?: Dialog): void;
     }
 }
