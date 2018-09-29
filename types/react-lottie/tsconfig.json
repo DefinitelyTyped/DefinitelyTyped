@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-lottie-tests.ts"
+        "react-lottie-tests.tsx"
     ]
 }
