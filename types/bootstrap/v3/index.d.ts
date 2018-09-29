@@ -1,21 +1,49 @@
-// Type definitions for Bootstrap 3.3.5
+// Type definitions for Bootstrap 3.3
 // Project: http://twitter.github.com/bootstrap/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
 /// <reference types="jquery"/>
 
-interface ModalOptions {
-    backdrop?: boolean|string;
-    keyboard?: boolean;
-    show?: boolean;
-    remote?: string;
+// --------------------------------------------------------------------------
+// Some Types and Interfaces
+// --------------------------------------------------------------------------
+
+type BootstrapPlacement = "auto" | "top" | "bottom" | "left" | "right";
+
+type BootstrapTrigger = "click" | "hover" | "focus" | "manual" |
+    "click hover" | "click focus" | "hover focus" |
+    "click hover focus";
+
+type BootstrapDynamicOffset = (elem: JQuery) => number;
+
+interface BootstrapDelay {
+    show?: number;
+    hide?: number;
 }
 
-interface ModalOptionsBackdropString {
-    backdrop?: string; // for "static"
+interface BootstrapOffset {
+    top?: number | BootstrapDynamicOffset;
+    bottom?: number | BootstrapDynamicOffset;
+}
+
+interface BootstrapViewport {
+    padding?: number;
+    selector: string;
+}
+
+interface TooltipInstance<T extends TooltipOptions> {
+    options: T;
+}
+
+// --------------------------------------------------------------------------------------
+// Options Interfaces
+// --------------------------------------------------------------------------------------
+
+interface ModalOptions {
+    backdrop?: boolean | "static";
     keyboard?: boolean;
     show?: boolean;
     remote?: string;
@@ -28,101 +56,81 @@ interface ScrollSpyOptions {
 
 interface TooltipOptions {
     animation?: boolean;
+    container?: string | false;
+    delay?: number | BootstrapDelay;
     html?: boolean;
-    placement?: string | Function;
+    placement?: BootstrapPlacement | ((this: TooltipInstance<this>, tooltip: HTMLElement, trigger: Element) => BootstrapPlacement);
     selector?: string;
-    title?: string | Function;
-    trigger?: string;
     template?: string;
-    delay?: number | Object;
-    container?: string | boolean;
-    viewport?: string | Function | Object;
+    title?: string | ((this: Element) => string);
+    trigger?: BootstrapTrigger;
+    viewport?: string | BootstrapViewport;
 }
 
-interface PopoverOptions {
-    animation?: boolean;
-    html?: boolean;
-    placement?: string | Function;
-    selector?: string;
-    trigger?: string;
-    title?: string | Function;
-    template?: string;
-    content?: any;
-    delay?: number | Object;
-    container?: string | boolean;
-    viewport?: string | Function | Object;
+interface PopoverOptions extends TooltipOptions {
+    content?: string | ((this: Element) => string);
 }
 
 interface CollapseOptions {
-    parent?: any;    
+    parent?: string | false;
     toggle?: boolean;
 }
 
 interface CarouselOptions {
-    interval?: number;
-    pause?: string;
+    interval?: number | false;
+    pause?: "hover" | null;
     wrap?: boolean;
     keyboard?: boolean;
 }
 
-interface TypeaheadOptions {
-    source?: any;
-    items?: number;
-    minLength?: number;
-    matcher?: (item: any) => boolean;
-    sorter?: (items: any[]) => any[];
-    updater?: (item: any) => any;
-    highlighter?: (item: any) => string;
+interface AffixOptions {
+    offset?: number | BootstrapOffset;
+    target?: string | Node | JQuery | Window;
 }
 
-interface AffixOptions {
-    offset?: number | Function | Object;
-    target?: any;
+// --------------------------------------------------------------------------------------
+// jQuery
+// --------------------------------------------------------------------------------------
+
+interface JQuery {
+    modal(action?: "toggle" | "show" | "hide" | "handleUpdate"): JQuery;
+    modal(options: ModalOptions): JQuery;
+
+    dropdown(action?: "toggle"): JQuery;
+
+    scrollspy(action?: "refresh"): JQuery;
+    scrollspy(options: ScrollSpyOptions): JQuery;
+
+    tab(action?: "show"): JQuery;
+
+    tooltip(action?: "show" | "hide" | "toggle" | "destroy"): JQuery;
+    tooltip(options: TooltipOptions): JQuery;
+
+    popover(action?: "show" | "hide" | "toggle" | "destroy"): JQuery;
+    popover(options: PopoverOptions): JQuery;
+
+    alert(action?: "close"): JQuery;
+
+    button(action?: "toggle" | "reset" | string): JQuery;
+
+    collapse(action?: "toggle" | "show" | "hide"): JQuery;
+    collapse(options: CollapseOptions): JQuery;
+
+    carousel(action?: "cycle" | "pause" | number | "prev" | "next"): JQuery;
+    carousel(options: CarouselOptions): JQuery;
+
+    affix(action?: "checkPosition"): JQuery;
+    affix(options: AffixOptions): JQuery;
+
+    emulateTransitionEnd(duration: number): JQuery;
 }
+
+// --------------------------------------------------------------------------------------
+// Other
+// --------------------------------------------------------------------------------------
 
 interface TransitionEventNames {
     end: string;
-}
-
-interface JQuery {
-    modal(options?: ModalOptions): JQuery;
-    modal(options?: ModalOptionsBackdropString): JQuery;
-    modal(command: string, relatedTarget?: Element): JQuery;
-
-    dropdown(): JQuery;
-    dropdown(command: string): JQuery;
-
-    scrollspy(command: string): JQuery;
-    scrollspy(options?: ScrollSpyOptions): JQuery;
-
-    tab(): JQuery;
-    tab(command: string): JQuery;
-
-    tooltip(options?: TooltipOptions): JQuery;
-    tooltip(command: string): JQuery;
-
-    popover(options?: PopoverOptions): JQuery;
-    popover(command: string): JQuery;
-
-    alert(): JQuery;
-    alert(command: string): JQuery;
-
-    button(): JQuery;
-    button(command: string): JQuery;
-
-    collapse(options?: CollapseOptions): JQuery;
-    collapse(command: string): JQuery;
-
-    carousel(options?: CarouselOptions): JQuery;
-    carousel(command: string): JQuery;
-    carousel(index: number): JQuery;
-
-    typeahead(options?: TypeaheadOptions): JQuery;
-
-    affix(options?: AffixOptions): JQuery;
-    affix(command: string): JQuery;
-
-    emulateTransitionEnd(duration: number): JQuery;
 }
 
 interface JQuerySupport {
