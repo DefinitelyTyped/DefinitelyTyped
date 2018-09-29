@@ -119,5 +119,3 @@ export type ParseStream = PullStream & {
 export function Parse(opts?: ParseOptions): ParseStream;
 export function ParseOne(match: RegExp, opts: ParseOptions): Duplex;
 export function Extract(opts?: ParseOptions): ParseStream;
-
-
