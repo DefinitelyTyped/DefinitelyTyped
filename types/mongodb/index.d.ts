@@ -801,25 +801,21 @@ export interface Collection<TSchema = Default> {
     stats(options: { scale: number, session?: ClientSession }, callback: MongoCallback<CollStats>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#update */
     /** @deprecated use updateOne, updateMany or bulkWrite */
-    update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | OptionalTSchema<TSchema>, callback: MongoCallback<WriteOpResult>): void;
+    update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<WriteOpResult>): void;
     /** @deprecated use updateOne, updateMany or bulkWrite */
-    update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | OptionalTSchema<TSchema>, options?: ReplaceOneOptions & { multi?: boolean }): Promise<WriteOpResult>;
+    update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: ReplaceOneOptions & { multi?: boolean }): Promise<WriteOpResult>;
     /** @deprecated use updateOne, updateMany or bulkWrite */
-    update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | OptionalTSchema<TSchema>, options: ReplaceOneOptions & { multi?: boolean }, callback: MongoCallback<WriteOpResult>): void;
+    update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: ReplaceOneOptions & { multi?: boolean }, callback: MongoCallback<WriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateMany */
-    updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | OptionalTSchema<TSchema>, callback: MongoCallback<UpdateWriteOpResult>): void;
-    updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | OptionalTSchema<TSchema>, options?: CommonOptions & { upsert?: boolean }): Promise<UpdateWriteOpResult>;
-    updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | OptionalTSchema<TSchema>, options: CommonOptions & { upsert?: boolean }, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: CommonOptions & { upsert?: boolean }): Promise<UpdateWriteOpResult>;
+    updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: CommonOptions & { upsert?: boolean }, callback: MongoCallback<UpdateWriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateOne */
-    updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | OptionalTSchema<TSchema>, callback: MongoCallback<UpdateWriteOpResult>): void;
-    updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | OptionalTSchema<TSchema>, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult>;
-    updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | OptionalTSchema<TSchema>, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult>;
+    updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#watch */
     watch(pipeline?: Object[], options?: ChangeStreamOptions & { startAtClusterTime?: Timestamp, session?: ClientSession }): ChangeStream;
-}
-
-export type OptionalTSchema<T> = {
-    [P in keyof T]?: T[P]
 }
 
 /** https://docs.mongodb.com/manual/reference/operator/update */
@@ -828,8 +824,8 @@ export type UpdateQuery<T> = {
     $min: { [P in keyof T]?: number } | { [key: string]: number },
     $max: { [P in keyof T]?: number } | { [key: string]: number },
     $mul: { [P in keyof T]?: number } | { [key: string]: number },
-    $set: OptionalTSchema<T> | { [key: string]: any },
-    $setOnInsert: OptionalTSchema<T> | { [key: string]: any },
+    $set: Partial<T> | { [key: string]: any },
+    $setOnInsert: Partial<T> | { [key: string]: any },
     $unset: { [P in keyof T]?: '' } | { [key: string]: '' },
     $rename: { [key: string]: keyof T } | { [key: string]: string },
     $currentDate: { [P in keyof T]?: (true | { $type: 'timestamp' }) } | { [key: string]: (true | { $type: 'timestamp' }) },
