@@ -2,13 +2,10 @@
 // Project: https://github.com/ali-sdk/ali-oss
 // Definitions by: Ptrdu <https://github.com/ptrdu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2.0
-
-// general type
+// TypeScript Version: 2.3
 
 import * as ImageClientDefinition from './ImageClient'
 import * as ClusterDefinition from "./Cluster"
-import {ImageClient} from "./ImageClient";
 
 export * from './ImageClient'
 export * from './Cluster'
