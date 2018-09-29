@@ -5689,7 +5689,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @since 1.0
      * @since 1.3
      */
-    trigger(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number): this;
+    trigger(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number | boolean): this;
     /**
      * Execute all handlers attached to an element for an event.
      *
@@ -5700,7 +5700,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @since 1.2
      * @since 1.3
      */
-    triggerHandler(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number): undefined | any;
+    triggerHandler(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number | boolean): undefined | any;
     /**
      * Remove a previously-attached event handler from the elements.
      *
