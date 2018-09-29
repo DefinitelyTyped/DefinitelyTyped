@@ -8,7 +8,7 @@ declare module 'athenajs' {
 
     export class Scene{
         constructor(options?: SceneOptions);
-        map: Map|null;
+        map: Map;
         hudScene: Scene | null;
         running: boolean;
         opacity: number;
@@ -122,10 +122,11 @@ declare module 'athenajs' {
     export class Paint extends Drawable{
         constructor(type: string, paintOptions: PaintOptions);
         arc(cx: number, cy: number, r: number, starteAngle: number, endAngle: number, fillStyle: string, borderSize: number): void;
-        circle(cx: number, cy: number, r: number, fillStyle: string, borderWidth?: number, borderStyle?: string): void;
-        circle(cx: number, cy: number, r: number, fillStyle: string): void;
+        fill(color?: string): void;
+        circle(cx: number, cy: number, r: number, fillStyle?: string, borderWidth?: number, borderStyle?: string): void;
         rect(x:number, y:number, width:number, height:number, color:string): void;
         name: string;
+        color: string;
     }
 
     export class BitmapText extends Drawable{
@@ -148,7 +149,7 @@ declare module 'athenajs' {
     export class Map{
         constructor(options:MapOptions)
         addObject(obj: Drawable, layerIndex?: number): void;
-        addTileSet(tiles: Tile[]): void;
+        addTileSet(tiles: TileDesc[]): void;
         checkMatrixForCollision(buffer: number[], matrixWidth: number, x: number, y: number, behavior: number): boolean;
         clear(tileNum?: number, behavior?: number): void;
         getTileBehaviorAtIndex(col:number, row:number): number;
@@ -174,6 +175,13 @@ declare module 'athenajs' {
             WALL: 2,
             LADDER: 3
         };
+    }
+
+    interface TileDesc {
+        offsetX: number,
+        offsetY: number,
+        width: number,
+        height: number
     }
 
     interface MapOptions{
@@ -232,7 +240,11 @@ declare module 'athenajs' {
     }
 
     interface EffectOptions {
-        easing?: string;
+        easing?: string,
+        when?: string,
+        startValue?: number,
+        endValue?: number,
+        duration?: number
     }
 
     export class Effect {
@@ -478,7 +490,7 @@ declare module 'athenajs' {
          * @returns {Drawable} the new drawable
          *
          */
-        scheduleSprite(spriteId:string, spriteOptions:object, delay:number):Drawable;
+        scheduleSprite(spriteId:string, spriteOptions:JSObject, delay:number):Drawable;
 
 
         /**
@@ -757,11 +769,20 @@ declare module 'athenajs' {
     }
 
     interface DrawableOptions{
-        objectId?: string;
-        layer?: number;
+        x?: number,
+        y?: number,
+        behavior?: { new(sprite: Drawable, options?: JSObject): Behavior },
+        canCollide?: boolean,
+        canCollideFriendBullet?: boolean,
+        collideGroup?: number,
+        objectId?: string,
+        layer?: number,
+        map?: Map
+        visible?: boolean,
+        pool?: number
     }
 
-    interface SimpleTextOptions{
+    interface SimpleTextOptions extends DrawableOptions{
         text?: string,
         width?: number,
         height?: number,
@@ -770,31 +791,34 @@ declare module 'athenajs' {
         fontStyle?: string,
         fontWeight?: string,
         align?: string,
-        color?:string
+        color?: string,
     }
 
-    interface PaintOptions {
-
+    interface PaintOptions extends DrawableOptions{
+        width?: number,
+        height?: number,
+        color?: string;
     }
 
-    interface BitmapTextOptions{
-
+    interface BitmapTextOptions extends DrawableOptions{
+        width?: number,
+        height?:number,
+        offsetX: number,
+        startY: number,
+        charWidth: number,
+        charHeight: number,
+        imageId: string,
+        scrollOffsetX?: number,
+        scrollOffsetY?: number,
+        text?: string,
+        size?: string
     }
 
-    interface SpriteOptions {
-        x?: number,
-        y?: number
-        pool?: number,
+    interface SpriteOptions extends DrawableOptions{
         easing?:string,
-        behavior?:{new(sprite:Drawable, options?:JSObject):Behavior},
         imageId?: string,
-        canCollide?: boolean,
-        canCollideFriendBullet?: boolean,
-        animations?: JSObject,
-        collideGroup?: number,
-        map?: Map,
-        data?: JSObject,
-        objectId?:string
+        animations?: Animations,
+        data?: JSObject
     }
 
     interface AnimOptions {
@@ -803,11 +827,34 @@ declare module 'athenajs' {
         frameHeight: number,
         frameDuration: number,
         offsetX?: number,
-        offsetY?: number
+        offsetY?: number,
+        frameSpacing?: number
+    }
+
+    interface AnimationObject{
+        frameDuration: number,
+        frames: [{
+            offsetX: number,
+            offsetY: number,
+            width: number,
+            height: number,
+            hitBox: {
+                x: number,
+                y: number,
+                x2: number,
+                y2:number
+            },
+            plane?: number
+        }],
+        loop?: number
     }
 
     type JSObject = {
         [key: string]: any
+    }
+
+    type Animations = {
+        [key: string]: AnimationObject
     }
 
     export interface GameEvent {
