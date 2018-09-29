@@ -125,6 +125,6 @@ declare namespace OfficeRuntime {
          * @beta
          * Callback that is run when the dialog box sends an error.
          */
-        onRuntimeError?(message: string, dialog?: Dialog): void;
+        onRuntimeError?(error: Error, dialog?: Dialog): void;
     }
 }
