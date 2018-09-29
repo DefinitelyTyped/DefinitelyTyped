@@ -1,6 +1,6 @@
-import {NormalSuccessResponse, RequestOptions} from "./index";
+import { NormalSuccessResponse, RequestOptions } from "./index";
 
-export interface Options {
+export interface ImageClientOptions {
     imageHost: string, // your image service domain that binding to a OSS bucket
     accessKeyId: string, // access key you create on aliyun console website
     accessKeySecret: string, // access secret you create
@@ -21,8 +21,8 @@ export interface StyleData {
     CreateTime: string, // style create time
     LastModifyTime: string // style last modify time
 }
-export class Client {
-    constructor(options: Options)
+export class ImageClient {
+    constructor(options: ImageClientOptions)
 
     /**
      * Get an image from the image channel.

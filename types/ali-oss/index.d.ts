@@ -8,6 +8,10 @@
 
 import * as ImageClientDefinition from './ImageClient'
 import * as ClusterDefinition from "./Cluster"
+import {ImageClient} from "./ImageClient";
+
+export * from './ImageClient'
+export * from './Cluster'
 
 export interface Options {
     accessKeyId: string, // access secret you create
@@ -22,7 +26,10 @@ export interface Options {
 }
 
 export type Bucket = {
-
+    name: string,
+    region: string,
+    creationDate: string,
+    StorageClass: StorageType
 }
 
 export type StorageType = "Standard" | "IA" | "Archive"
@@ -430,13 +437,9 @@ export interface GetRtmpUrlOptions {
     timeout?: number // the operation timeout
 }
 
-export interface ObjectInterface {
-    
-}
-
 export default class OSS {
     // the image client
-    public static ImageClient: (options: ImageClientDefinition.Options) => ImageClientDefinition.Client
+    public static ImageClient: (options: ImageClientDefinition.ImageClientOptions) => ImageClientDefinition.ImageClient
     public static Cluster: (options: ClusterDefinition.ClusterOptions) => ClusterDefinition.Cluster
 
     constructor(options: Options)
@@ -455,7 +458,8 @@ export default class OSS {
 
     /**
      * Create a new bucket.
-     * @param {string} name -  bucket name If bucket exists and not belong to current account, will throw BucketAlreadyExistsError. If bucket not exists, will create a new bucket and set it's ACL.
+     * @param {string} name -  bucket name If bucket exists and not belong to current account, will throw BucketAlreadyExistsError.
+     * If bucket not exists, will create a new bucket and set it's ACL.
      * @param {PutBucketOptions} options - optional parameters
      * @return { Promise<{ bucket: string, res: NormalSuccessResponse }> }
      */
@@ -952,4 +956,3 @@ export default class OSS {
     getRtmpUrl(channelId?: string, options?: GetRtmpUrlOptions): string
 
 }
-
