@@ -7,3 +7,12 @@ const client = new OSS({
     region: 'oss-cn-hangzhou'
 });
 
+const ImageClient = OSS.ImageClient({
+    imageHost: 'xxxx',
+    accessKeySecret: "xxxx",
+    accessKeyId: 'xxxxxx',
+    bucket: "",
+    internal: false,
+    region: "",
+    timeout: undefined
+})

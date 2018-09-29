@@ -6,6 +6,9 @@
 
 // general type
 
+import * as ImageClientDefinition from './ImageClient'
+import * as ClusterDefinition from "./Cluster"
+
 export interface Options {
     accessKeyId: string, // access secret you create
     accessKeySecret: string, // access secret you create
@@ -427,9 +430,14 @@ export interface GetRtmpUrlOptions {
     timeout?: number // the operation timeout
 }
 
+export interface ObjectInterface {
+    
+}
+
 export default class OSS {
     // the image client
-    static ImageClient: any
+    public static ImageClient: (options: ImageClientDefinition.Options) => ImageClientDefinition.Client
+    public static Cluster: (options: ClusterDefinition.ClusterOptions) => ClusterDefinition.Cluster
 
     constructor(options: Options)
 
@@ -942,5 +950,6 @@ export default class OSS {
      * @return {string}
      */
     getRtmpUrl(channelId?: string, options?: GetRtmpUrlOptions): string
+
 }
 
