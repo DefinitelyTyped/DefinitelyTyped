@@ -25,7 +25,7 @@ export class Request {
 }
 
 export class Response {
-    send(text: string, statesOrForm?: StateLinks | InputForm): void;
+    send(text: string, statesOrForm: StateLinks | InputForm): void;
     redirect(toState: string): void;
 }
 
