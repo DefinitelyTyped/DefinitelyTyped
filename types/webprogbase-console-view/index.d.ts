@@ -19,7 +19,7 @@ export class InputForm {
 
 export class Request {
     state: string;
-    data?: FormData;
+    data: FormData | null;
 
     constructor(stateName: string, formData?: InputForm);
 }
