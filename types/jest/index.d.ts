@@ -784,7 +784,8 @@ declare namespace jest {
          * Beware that `mockFn.mockRestore` only works when mock was created with `jest.spyOn`. Thus you have to take care of restoration
          * yourself when manually assigning `jest.fn()`.
          *
-         * The `restoreMocks` configuration option is available to restore mocks automatically between tests.
+         * The [`restoreMocks`](https://jestjs.io/docs/en/configuration.html#restoremocks-boolean) configuration option is available
+         * to restore mocks automatically between tests.
          */
         mockRestore(): void;
         /**
