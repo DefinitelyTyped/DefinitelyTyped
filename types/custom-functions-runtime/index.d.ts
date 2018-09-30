@@ -24,7 +24,7 @@ declare namespace CustomFunctions {
          * Sets the returned result for a streaming custom function.
          * @beta
          */
-        setResult: (value: T) => void;
+        setResult: (value: T | Error) => void;
     }
 
     interface CancelableHandler {

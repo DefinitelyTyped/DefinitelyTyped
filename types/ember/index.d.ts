@@ -118,23 +118,6 @@ import EmberResolver from '@ember/application/resolver';
 // @ember/test
 import EmberTestAdapter from '@ember/test/adapter';
 
-type Mix<A, B> = B & Pick<A, Exclude<keyof A, keyof B>>;
-type Mix3<A, B, C> = Mix<Mix<A, B>, C>;
-type Mix4<A, B, C, D> = Mix3<Mix<A, B>, C, D>;
-type Mix5<A, B, C, D, E> = Mix4<Mix<A, B>, C, D, E>;
-
-/**
- * Ember.Object.extend(...) accepts any number of mixins or literals.
- */
-type MixinOrLiteral<T, Base> = EmberMixin<T, Base> | T;
-
-/**
- * Ember.CoreView is an abstract class that exists to give view-like behavior to both Ember's main
- * view class Ember.Component and other classes that don't need the full functionality of Ember.Component.
- * Unless you have specific needs for CoreView, you will use Ember.Component in your applications.
- */
-export class CoreView extends Ember.Object.extend(Ember.Evented, Ember.ActionHandler) {}
-
 export namespace Ember {
     const A: typeof EmberArrayNs.A;
     const isArray: typeof EmberArrayNs.isArray;

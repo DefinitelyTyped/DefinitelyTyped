@@ -322,6 +322,7 @@ declare namespace chroma {
          */
         out(format: null): Scale;
         out<K extends keyof ColorSpaces>(format: K): Scale<ColorSpaces[K]>;
+        out(format: 'hex'): Scale<string>;
     }
 
     interface Cubehelix {

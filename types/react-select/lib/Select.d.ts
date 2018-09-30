@@ -194,7 +194,7 @@ export interface Props<OptionType> {
   /* Style modifier methods */
   styles?: StylesConfig;
   /* Sets the tabIndex attribute on the input */
-  tabIndex?: string;
+  tabIndex?: string | null;
   /* Select the currently focused option when the user presses tab */
   tabSelectsValue?: boolean;
   /* The value of the select; reflected by the selected option */

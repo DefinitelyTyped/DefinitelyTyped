@@ -1,5 +1,5 @@
 // Type definitions for @ember/routing 3.0
-// Project: http://emberjs.com/
+// Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Frouting
 // Definitions by: Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
