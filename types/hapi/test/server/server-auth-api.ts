@@ -21,7 +21,7 @@ const scheme: ServerAuthScheme = (server, options) => {
             if (!authorization) {
                 throw Boom.unauthorized(null, 'Custom');
             }
-            return h.authenticated({ credentials: { user: 'john' } });
+            return h.authenticated({ credentials: { user: { a: 1 } } });
         }
     };
 };
