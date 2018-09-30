@@ -6,8 +6,11 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
+        "paths": {
+            "massive": ["massive/v4"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
