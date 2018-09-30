@@ -5,8 +5,7 @@ const client = new OSS({
     accessKeySecret: 'your access secret',
     bucket: 'your bucket name',
     region: 'oss-cn-hangzhou'
-})
-
+});
 
 const ImageClient = OSS.ImageClient({
     imageHost: 'host',
@@ -16,7 +15,7 @@ const ImageClient = OSS.ImageClient({
     internal: false,
     region: "",
     timeout: 2000
-})
+});
 
 const cluster = OSS.Cluster({
     clusters: [
@@ -32,4 +31,4 @@ const cluster = OSS.Cluster({
         },
     ],
     schedule: 'masterSlave',
-})
+});
