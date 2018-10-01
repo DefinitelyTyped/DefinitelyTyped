@@ -9,8 +9,8 @@ class Folder extends DS.Model {
     parent = DS.belongsTo('folder', { inverse: 'children' });
 }
 
-declare module 'ember-data' {
-    interface ModelRegistry {
+declare module 'ember-data/types/registries/model' {
+    export default interface ModelRegistry {
         folder: Folder;
     }
 }
