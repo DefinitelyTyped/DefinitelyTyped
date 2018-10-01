@@ -30,7 +30,7 @@ declare namespace dht {
      * Result from a successful sensor read.
      */
     interface DhtResult {
-        /** The temperature value in degress Celsius. */
+        /** The temperature value in degrees Celsius. */
         temperature: number;
 
         /** The humidity value in percentage points. */
