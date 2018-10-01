@@ -4,7 +4,9 @@
         "lib": [
             "es6"
         ],
-        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
