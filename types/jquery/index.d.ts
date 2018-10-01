@@ -45,7 +45,7 @@ type _Event = Event;
 
 interface JQueryStatic {
     /**
-     * @see \`{@link http://api.jquery.com/jquery.ajax/#jQuery-ajax1 }\`
+     * @see \`{@link https://api.jquery.com/jquery.ajax/#jQuery-ajax1 }\`
      *
      * @deprecated Use \`{@link JQueryStatic.ajaxSetup }\`.
      */
@@ -55884,7 +55884,7 @@ declare namespace JQuery {
         }
 
         /**
-         * @see \`{@link http://api.jquery.com/jquery.ajax/#jQuery-ajax-settings }\`
+         * @see \`{@link https://api.jquery.com/jquery.ajax/#jQuery-ajax-settings }\`
          */
         interface AjaxSettingsBase<TContext> {
             /**
@@ -56573,7 +56573,7 @@ declare namespace JQuery {
     }
 
     /**
-     * @see \`{@link http://api.jquery.com/jquery.ajax/#jqXHR }\`
+     * @see \`{@link https://api.jquery.com/jquery.ajax/#jqXHR }\`
      */
     interface jqXHR<TResolve = any> extends Promise3<TResolve, jqXHR<TResolve>, never,
         Ajax.SuccessTextStatus, Ajax.ErrorTextStatus, never,
@@ -57225,7 +57225,7 @@ callbacks.fire( "world" );
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
      * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
-     * @see \`{@link http://api.jquery.com/Types/#Promise }\`
+     * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
     interface PromiseBase<TR, TJ, TN,
         UR, UJ, UN,
@@ -59280,7 +59280,7 @@ $.get( "test.php" )
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
      * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
-     * @see \`{@link http://api.jquery.com/Types/#Promise }\`
+     * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
     interface Promise3<TR, TJ, TN,
         UR, UJ, UN,
@@ -59293,7 +59293,7 @@ $.get( "test.php" )
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
      * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
-     * @see \`{@link http://api.jquery.com/Types/#Promise }\`
+     * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
     interface Promise2<TR, TJ, TN,
         UR, UJ, UN> extends PromiseBase<TR, TJ, TN,
@@ -59305,7 +59305,7 @@ $.get( "test.php" )
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
      * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
-     * @see \`{@link http://api.jquery.com/Types/#Promise }\`
+     * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
     interface Promise<TR, TJ = any, TN = any> extends PromiseBase<TR, TJ, TN,
         TR, TJ, TN,
