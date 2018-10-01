@@ -80,6 +80,73 @@ configuration = {
 };
 
 //
+// https://webpack.js.org/configuration/externals/
+//
+configuration = {
+    externals : {
+        react: 'react'
+    },
+};
+
+configuration = {
+    externals : {
+        lodash : {
+            commonjs: 'lodash',
+            amd: 'lodash',
+            root: '_' // indicates global variable
+        }
+      },
+};
+
+configuration = {
+    externals : {
+        subtract : {
+            root: ['math', 'subtract']
+        }
+    }
+};
+
+configuration = {
+    externals: [
+        // Disable TSLint for allowing non-arrow functions
+        /* tslint:disable-next-line */
+        function(context, request, callback) {
+          if (/^yourregex$/.test(request)){
+            return callback(null, 'commonjs ' + request);
+          }
+          callback({}, {});
+        }
+      ]
+};
+
+configuration = {
+    externals: [
+        {
+            // String
+            react: 'react',
+            // Object
+            lodash : {
+                commonjs: 'lodash',
+                amd: 'lodash',
+                root: '_' // indicates global variable
+            },
+            // Array
+            subtract: ['./math', 'subtract']
+            },
+            // Disable TSLint for allowing non-arrow functions
+            /* tslint:disable-next-line */
+            function(context, request, callback) {
+              if (/^yourregex$/.test(request)){
+                return callback(null, 'commonjs ' + request);
+              }
+              callback({}, {});
+            },
+            // Regex
+            /^(jquery|\$)$/i
+    ]
+};
+
+//
 // https://webpack.github.io/docs/optimization.html
 //
 
