@@ -2786,7 +2786,7 @@ export class MeshBasicMaterial extends Material {
     constructor(parameters?: MeshBasicMaterialParameters);
 
     color: Color;
-    map: Texture;
+    map: Texture | null;
     aoMap: Texture;
     aoMapIntensity: number;
     specularMap: Texture;
