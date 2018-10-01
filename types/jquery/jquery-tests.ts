@@ -720,12 +720,17 @@ function JQueryStatic() {
     }
 
     function isPlainObject() {
-        function type_guard(obj: object) {
-            if ($.isPlainObject(obj)) {
-                // $ExpectType PlainObject<any>
-                obj;
-            }
-        }
+        // $ExpectType boolean
+        $.isPlainObject({});                    // true
+
+        // $ExpectType boolean
+        $.isPlainObject(new Object());          // true
+
+        // $ExpectType boolean
+        $.isPlainObject(document);              // false
+
+        // $ExpectType boolean
+        $.isPlainObject(Object.create(null));   // true
     }
 
     function isWindow() {

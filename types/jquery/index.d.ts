@@ -5327,7 +5327,7 @@ jQuery.isPlainObject( "test" ) // false
 </html>
 ```
      */
-    isPlainObject(obj: any): obj is JQuery.PlainObject;
+    isPlainObject(obj: any): boolean;
     /**
      * Determine whether the argument is a window.
      *
@@ -55826,6 +55826,9 @@ declare namespace JQuery {
      * object is, in other words, an Object object. It is designated "plain" in jQuery documentation to
      * distinguish it from other kinds of JavaScript objects: for example, null, user-defined arrays, and
      * host objects such as document, all of which have a typeof value of "object."
+     *
+     * **Note**: The type declaration of PlainObject is imprecise. It includes host objects and user-defined
+     *           arrays which do not match jQuery's definition.
      */
     interface PlainObject<T = any> {
         [key: string]: T;
