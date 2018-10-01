@@ -80,10 +80,10 @@ class Readme {
             payload: { val: number };
         }
 
-        randomResponder.on('randomRequest', (req: RandomRequest, callback: (answer: number) => void) => {
+        randomResponder.on('randomRequest', (req: RandomRequest, callback: (error: any, answer?: number) => void) => {
             const answer = Math.floor(Math.random() * 10);
             console.log('request', req.payload.val, 'answering with', answer);
-            callback(answer);
+            callback(null, answer);
         });
     }
 

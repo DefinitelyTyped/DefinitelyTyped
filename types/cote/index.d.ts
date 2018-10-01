@@ -1,7 +1,9 @@
-// Type definitions for cote 0.14
+// Type definitions for cote 0.17
 // Project: https://github.com/dashersw/cote#readme
 // Definitions by: makepost <https://github.com/makepost>
+//                 Labat Robin <https://github.com/roblabat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { EventEmitter2 } from "eventemitter2";
 import * as SocketIO from "socket.io";
@@ -46,7 +48,7 @@ export class Requester extends Component {
      *
      * @param event Request.
      */
-    send<T extends Event>(event: T): Promise<any>;
+    send<T extends Event = GenericEvent>(event: T): Promise<any>;
 
     /**
      * Queues a request until a Responder is available, and once so, delivers
@@ -55,7 +57,7 @@ export class Requester extends Component {
      * @param event Request.
      * @param callback Function to execute after getting a result.
      */
-    send<T extends Event>(event: T, callback: (result: any) => void): void;
+    send<T extends Event = GenericEvent>(event: T, callback: (error: any, result: any) => void): void;
 }
 
 /**
@@ -97,12 +99,13 @@ export class Responder extends Component {
      * @param type Type. May be wildcarded or namespaced like in EventEmitter2.
      * @param listener Callback. Should return a result.
      */
-    on<T extends Event>(
+    on<T extends Event = GenericEvent>(
         type: string | string[],
-        listener: (
-            ((event: T, callback: (result: any) => void) => void) |
-            ((event: T) => Promise<any>)
-        )
+        listener: (event: T, callback: (error: any, result: any) => void) => void
+    ): this;
+    on<T extends Event = GenericEvent>(
+        type: string | string[],
+        listener: (event: T) => Promise<any>
     ): this;
 }
 
@@ -136,7 +139,7 @@ export class Publisher extends Component {
      * @param type EventEmitter-compatible type.
      * @param event Request.
      */
-    publish<T extends Event>(
+    publish<T extends Event = GenericEvent>(
         type: string,
         event: T
     ): void;
@@ -171,7 +174,7 @@ export class Subscriber extends Component {
      * @param type Type. May be wildcarded or namespaced like in EventEmitter2.
      * @param listener Callback. Returns nothing.
      */
-    on<T extends Event>(
+    on<T extends Event = GenericEvent>(
         type: string | string[],
         listener: (event: T) => void
     ): this;
@@ -282,6 +285,13 @@ export class PendingBalancedRequester extends Requester { }
  */
 export interface Event {
     type: string;
+}
+
+/**
+ * Event is nothing but object with `type`.
+ */
+export interface GenericEvent extends Event {
+    [key: string]: any;
 }
 
 /**
