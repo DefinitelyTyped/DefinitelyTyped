@@ -3,8 +3,8 @@ import { Behavior, Drawable, Map } from 'athenajs';
 const sprite = new Drawable('mySprite', {
     objectId: 'my Rocking Sprite',
     layer: 0
-}),
-    sprite2 = new Drawable('mySprite2', {});
+});
+const sprite2 = new Drawable('mySprite2', {});
 
 sprite.addChild(sprite2);
 sprite.animate('Fade', {

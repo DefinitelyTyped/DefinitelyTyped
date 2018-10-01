@@ -24,6 +24,5 @@ const sprite: Sprite = new Sprite('mySprite', {
 });
 
 sprite.setAnimation('anim1', () => {
-    sprite.setAnimation('anim1', () => { console.log('the end!') }, 0, true);
+    sprite.setAnimation('anim1', () => { console.log('the end!'); }, 0, true);
 });
-

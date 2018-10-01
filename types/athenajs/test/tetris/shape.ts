@@ -1,12 +1,12 @@
-import { Sprite, Tile, AudioManager as AM } from 'athenajs';
+import { Sprite, Tile, AudioManager as AM, JSObject } from 'athenajs';
 import ShapeBehavior from './shape_behavior';
 
 interface shapeDescription {
-    name: string,
-    width: number,
-    height: number,
-    color: number,
-    rotations: number[][]
+    name: string;
+    width: number;
+    height: number;
+    color: number;
+    rotations: number[][];
 }
 
 class Shape extends Sprite {
@@ -17,12 +17,12 @@ class Shape extends Sprite {
     // current shape rotation
     rotation: number;
 
-    constructor(name:string, options = {}) {
+    constructor(name: string, options = {}) {
         super(name, {
             imageId: 'tiles',
             easing: 'linear',
-            behavior: ShapeBehavior,
-            ...options
+            // behavior: ShapeBehavior,
+            // ...options
         });
 
         /**
@@ -108,10 +108,10 @@ class Shape extends Sprite {
     /**
      * Moves the shape at the top center of the map
      */
-    moveToTop() {
+    moveToTop(): void {
         if (this.shape) {
-            const map = this.currentMap,
-                col = Math.floor(((map.width - this.shape.width) / 2) / map.tileWidth);
+            const map = this.currentMap;
+            const col = Math.floor(((map.width - this.shape.width) / 2) / map.tileWidth);
 
             this.moveTo(col * map.tileWidth, 0);
         }
@@ -120,10 +120,8 @@ class Shape extends Sprite {
     /**
      * Changes the sprite's shape and rotation
      *
-     * @param {String} name the name of the shape
-     * @param {Number} rotation the rotation number
      */
-    setShape(name:string, rotation:number) {
+    setShape(name: string, rotation: number): void {
         this.shapeName = name;
         this.rotation = rotation;
         this.shape = this.shapes.find((shape) => shape.name === this.shapeName) || this.shapes[0];
@@ -133,9 +131,9 @@ class Shape extends Sprite {
     /**
      * Pick a new random shape
      */
-    setRandomShape() {
-        const shapeName = this.shapes[Math.random() * 7 | 0].name,
-            rotation = Math.random() * 4 | 0;
+    setRandomShape(): void {
+        const shapeName = this.shapes[Math.random() * 7 | 0].name;
+        const rotation = Math.random() * 4 | 0;
 
         console.log(`[Shape] setRandomShape() - ${shapeName}`);
 
@@ -151,7 +149,7 @@ class Shape extends Sprite {
                     startValue: 0,
                     endValue: 1
                 });
-            })
+            });
         } else {
             this.setShape(shapeName, rotation);
         }
@@ -160,12 +158,8 @@ class Shape extends Sprite {
     /**
      * Returns current matrix for the shape
      *
-     * @param {Number} rotation rotation number: set to -1 to return current rotation
-     * or any number to get the matrix for this particular rotation
-     *
-     * @returns {Array} the matrix
      */
-    getMatrix(rotation = -1) {
+    getMatrix(rotation = -1): number[] {
         return this.shape.rotations[rotation === -1 ? this.rotation : rotation];
     }
 
@@ -173,18 +167,13 @@ class Shape extends Sprite {
      * Move the shape on the map by a certain number of tiles, optionnaly sending an event
      * of a collision is detected
      *
-     * @param {Number} horizontal horizontal number of tiles to shift
-     * @param {Number} vertical vertical number of tiles to move
-     * @param {Boolean = true} notify set to true to send a notification
-     *
-     * @returns {Boolean} true if shape could be moved, false if a collision was detected
      */
-    snapTile(horizontal = 0, vertical = 0, notify = true, noSound = false) {
-        const map = this.currentMap,
-            buffer = this.getMatrix(),
-            tilePos = map.getTileIndexFromPixel(this.x, this.y),
-            newX = tilePos.x + horizontal,
-            newY = tilePos.y + vertical;
+    snapTile(horizontal = 0, vertical = 0, notify = true, noSound = false): boolean {
+        const map = this.currentMap;
+        const buffer = this.getMatrix();
+        const tilePos = map.getTileIndexFromPixel(this.x, this.y);
+        const newX = tilePos.x + horizontal;
+        const newY = tilePos.y + vertical;
 
         // first check there is no collision with walls
         if (!map.checkMatrixForCollision(buffer, this.shape.width, newX, newY, Tile.TYPE.WALL)) {
@@ -213,12 +202,12 @@ class Shape extends Sprite {
     /**
      * Switches to the next shape's rotation, if no collision found onto the map
      */
-    nextRotation() {
-        let matrix = null,
-            newRotation = this.rotation + 1;
+    nextRotation(): void {
+        let matrix: number[];
+        let newRotation = this.rotation + 1;
 
-        const map = this.currentMap,
-            tilePos = map.getTileIndexFromPixel(this.x, this.y);
+        const map = this.currentMap;
+        const tilePos = map.getTileIndexFromPixel(this.x, this.y);
 
         // cycles if last position reached
         if (newRotation > 3) {
@@ -247,7 +236,7 @@ class Shape extends Sprite {
      *  ...
      * }
      */
-    addAnimations() {
+    addAnimations(): void {
         // shape sprite images start at the top of the image file
         let offsetY = 0;
 
@@ -255,7 +244,7 @@ class Shape extends Sprite {
             let offsetX = 0;
             for (let i = 0; i < 4; ++i) {
                 this.addAnimation(`${shape.name}${i}`, 'tiles', {
-                    offsetY: offsetY, offsetX: offsetX, frameWidth: shape.width, frameHeight: shape.height, frameDuration: 1, numFrames: 1
+                    offsetY, offsetX, frameWidth: shape.width, frameHeight: shape.height, frameDuration: 1, numFrames: 1
                 });
                 offsetX += shape.width;
             }

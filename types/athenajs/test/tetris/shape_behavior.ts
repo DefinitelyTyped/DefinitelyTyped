@@ -1,4 +1,4 @@
-import { Behavior, InputManager as IM, AudioManager as AM } from 'athenajs';
+import { Behavior, InputManager as IM, AudioManager as AM, Sprite, Drawable } from 'athenajs';
 import Shape from './shape';
 
 /**
@@ -19,8 +19,8 @@ class ShapeBehavior extends Behavior {
     timerEnabled: boolean;
     startTime: number;
 
-    constructor(sprite:Shape, options:any) {
-        super(sprite, options);
+    constructor(sprite: Shape, options?: any) {
+        super(sprite as Drawable, options);
 
         // current behavior state: moving right, left, top, bottom
         this.state = 0;
@@ -51,12 +51,8 @@ class ShapeBehavior extends Behavior {
      * If he quickly releases the key and quickly presses it, we have to
      * react though
      *
-     * @param {Number} state the new state (key) pressed
-     * @param {Number} timestamp current timestamp
-     *
-     * @returns {Boolean} true if we should to react to the action
      */
-    ready(state:number, timestamp:number):boolean {
+    ready(state: number, timestamp: number): boolean {
         // if the player pressed a different key
         // we react immediately but have to wait a long_delay
         // before repeating the key if he keeps pressing it
@@ -81,16 +77,13 @@ class ShapeBehavior extends Behavior {
     /**
      * Checks tetris timer
      *
-     * @param {Number} timestamp current update timestamp
-     *
-     * @returns {Boolean} true if timer was reached
      */
-    timer(timestamp:number):boolean {
+    timer(timestamp: number): boolean {
         const sprite = this.sprite;
         if (!this.startTime) {
             this.startTime = timestamp;
         } else {
-            if (timestamp - this.startTime > sprite.data.speed) {
+            if (timestamp - this.startTime > sprite.data['speed']) {
                 // timer reached
                 this.startTime = timestamp;
                 return true;
@@ -111,7 +104,7 @@ class ShapeBehavior extends Behavior {
      * and updates its position when cursor keys are pressed or
      * the timer happened
      */
-    onUpdate(timestamp:number) {
+    onUpdate(timestamp: number) {
         const sprite = this.sprite as Shape;
 
         // debug: stop the timer when t key is pressed

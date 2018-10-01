@@ -4,10 +4,10 @@ let def: Deferred;
 
 // static Deferred.resolve
 Deferred.resolve(true).then(() => {
-
+    console.log('resolved');
 })
     .then(() => {
-
+        console.log('resolved');
     });
 
 def = new Deferred();

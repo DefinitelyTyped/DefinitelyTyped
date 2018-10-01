@@ -2,18 +2,18 @@ import { Game, Scene, Drawable, Map } from 'athenajs';
 
 let num: number;
 
-const hudScene = new Scene(),
-    myScene: Scene = new Scene({
-        name: 'myScene',
-        resources: [{
-            id: 'myRes',
-            src: 'src',
-            type: 'image'
-        }],
-        opacity: 1,
-        layers: 0,
-        hudScene: hudScene
-    });
+const hudScene = new Scene();
+const myScene: Scene = new Scene({
+    name: 'myScene',
+    resources: [{
+        id: 'myRes',
+        src: 'src',
+        type: 'image'
+    }],
+    opacity: 1,
+    layers: 0,
+    hudScene
+});
 
 num = myScene.getOpacity();
 myScene.setOpacity(10);
@@ -54,5 +54,5 @@ myScene.setMap(new Map({
     tileWidth: 24,
     tileHeight: 32,
     width: 240,
-    height:320
+    height: 320
 }));

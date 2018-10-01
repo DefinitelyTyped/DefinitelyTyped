@@ -1,7 +1,7 @@
 import { Game, Scene } from 'athenajs';
 
-let myScene: Scene = new Scene(),
-    sound: boolean;
+let myScene: Scene = new Scene();
+let sound: boolean;
 
 const game: Game = new Game({
     name: 'myGame',

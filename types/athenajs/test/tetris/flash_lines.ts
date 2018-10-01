@@ -1,26 +1,24 @@
-import { Paint } from 'athenajs';
+import { Paint, PaintOptions } from 'athenajs';
 
-interface FlashOptions{
-    lineHeight: number,
-    x: number,
-    y: number,
-    width: number
+interface FlashOptions extends PaintOptions {
+    lineHeight: number;
+    x: number;
+    y: number;
+    width: number;
 }
 
 export default class FlashLines extends Paint {
     lines: number[];
     lineHeight: number;
 
-    constructor(name:string, options:FlashOptions) {
-        super('flashlines', Object.assign({}, {
-        }, options));
+    constructor(name: string, options: FlashOptions) {
+        super('flashlines', options);
 
         this.lines = [];
         this.lineHeight = options.lineHeight;
     }
 
     flash() {
-        debugger;
         return this.animate('Fade', {
             startValue: 1,
             endValue: 0,
@@ -30,8 +28,7 @@ export default class FlashLines extends Paint {
     }
 
     render() {
-        for (let i = 0; i < this.lines.length; ++i) {
-            const line = this.lines[i];
+        for (const line of this.lines) {
             this.rect(0, line * this.lineHeight, this.width, this.lineHeight, 'white');
         }
     }

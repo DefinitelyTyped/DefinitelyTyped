@@ -1,15 +1,15 @@
 import { Dom } from 'athenajs';
 
-let div = Dom('div'),
-    body = Dom(document.body),
-    domElt: HTMLElement = body[0];
+const div = Dom('div');
+const body = Dom(document.body);
+const domElt: HTMLElement = body[0];
 
 // Dom.appendTo
 div.appendTo(body).show().hide();
 div.appendTo(domElt);
 
-const str: string|null = body.css('display'),
-    i: number = body.length;
+const str: string | null = body.css('display');
+const i: number = body.length;
 
 // Dom.css
 body.css('display', ' block');

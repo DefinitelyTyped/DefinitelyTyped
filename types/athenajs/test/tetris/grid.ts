@@ -3,23 +3,23 @@ import Shape from "./shape";
 import FlashLines from "./flash_lines";
 
 // size constants
-const MAP_ROWS = 22,
-  MAP_COLS = 12,
-  TILE_WIDTH = 20,
-  TILE_HEIGHT = 20,
-  // tile offsets in the spritesheet
-  MAP_TILES_OFFSET_Y = 440,
-  WALL_TILE_OFFSET_X = 140,
-  BACK_TILE_OFFSET_X = 160,
-  // wall tile number
-  WALL_TILE = 8,
-  // game width
-  TOTAL_WIDTH = 800,
-  TOTAL_HEIGHT = 600,
-  // speed (drop delay) at start
-  START_TIMING = 1200,
-  // speed increase at each level
-  LEVEL_TIMING = 55;
+const MAP_ROWS = 22;
+const MAP_COLS = 12;
+const TILE_WIDTH = 20;
+const TILE_HEIGHT = 20;
+// tile offsets in the spritesheet
+const MAP_TILES_OFFSET_Y = 440;
+const WALL_TILE_OFFSET_X = 140;
+const BACK_TILE_OFFSET_X = 160;
+// wall tile number
+const WALL_TILE = 8;
+// game width
+const TOTAL_WIDTH = 800;
+const TOTAL_HEIGHT = 600;
+// speed (drop delay) at start
+const START_TIMING = 1200;
+// speed increase at each level
+const LEVEL_TIMING = 55;
 
 class Grid extends Scene {
   // game parameters
@@ -112,10 +112,9 @@ class Grid extends Scene {
   }
 
   /**
-     * Generate tileset for the tetris map, mostly hardcoded stuff
-     *
-     * @returns {Array} The tileset for the map
-     */
+   * Generate tileset for the tetris map, mostly hardcoded stuff
+   *
+   */
   generateTileSet() {
     // create the list of all tiles for the map
     const tiles = [
@@ -148,8 +147,8 @@ class Grid extends Scene {
   }
 
   /**
-     * Generates the map of the game, adding walls around the playground
-     */
+   * Generates the map of the game, adding walls around the playground
+   */
   createMap() {
     // first create the map with an empty buffer
     const map = new Map({
@@ -184,8 +183,8 @@ class Grid extends Scene {
   }
 
   /**
-     * Generates the tile sprite that will be moved by the player
-     */
+   * Generates the tile sprite that will be moved by the player
+   */
   createShapes() {
     this.shape = new Shape("shape", {
       data: {
@@ -245,9 +244,9 @@ class Grid extends Scene {
   }
 
   /**
-     * Called when the scene is ready: generates the map and adds the player's shape
-     * sprite onto the screen
-     */
+   * Called when the scene is ready: generates the map and adds the player's shape
+   * sprite onto the screen
+   */
   setup() {
     this.createShapes();
 
@@ -301,8 +300,8 @@ class Grid extends Scene {
   }
 
   /**
-     * Called on game over, simply displays the score in an alert box and restarts the game
-     */
+   * Called on game over, simply displays the score in an alert box and restarts the game
+   */
   gameover() {
     AM.play("gameover");
     alert("game over!" + this.score);
@@ -310,13 +309,12 @@ class Grid extends Scene {
   }
 
   /**
-     * This method is called whenever an event that has been registered is received
-     *
-     * @param {Object} event the event object
-     */
-  onEvent(event:any) {
-    const nextShape = this.nextShape,
-      shape = this.shape;
+   * This method is called whenever an event that has been registered is received
+   *
+   */
+  onEvent(event: any) {
+    const nextShape = this.nextShape;
+    const shape = this.shape;
 
     switch (event.type) {
       case "shape:ground":
@@ -344,17 +342,17 @@ class Grid extends Scene {
   }
 
   /**
-     * This method is called when a shape has reached the ground: in this case
-     * we simply update the map using the shape's matrix
-     */
+   * This method is called when a shape has reached the ground: in this case
+   * we simply update the map using the shape's matrix
+   */
   updateMap() {
-    const shape = this.shape,
-      data = this.shape.shape,
-      map = this.map,
-      pos = map.getTileIndexFromPixel(shape.x, shape.y),
-      buffer = shape.getMatrix(),
-      rows = data.height / map.tileHeight,
-      cols = data.width / map.tileWidth;
+    const shape = this.shape;
+    const data = this.shape.shape;
+    const map = this.map;
+    const pos = map.getTileIndexFromPixel(shape.x, shape.y);
+    const buffer = shape.getMatrix();
+    const rows = data.height / map.tileHeight;
+    const cols = data.width / map.tileWidth;
 
     for (let j = 0; j < rows; ++j) {
       for (let i = 0; i < cols; ++i) {
@@ -366,20 +364,15 @@ class Grid extends Scene {
   }
 
   /**
-     * returns the number of lines that contains no hole, starting from
-     * startLine up to startLine + height
-     *
-     * @param {Number} startLine the first line to remove
-     * @param {Number} height the number of lines to remove
-     *
-     * @returns {Array} an array containing the line numbers that are full, sorted
-     * from the bottom to the top
-     */
-  getLinesToRemove(startLine:number, height:number):number[] {
+   * returns the number of lines that contains no hole, starting from
+   * startLine up to startLine + height
+   *
+   */
+  getLinesToRemove(startLine: number, height: number): number[] {
     console.log("[Grid] getLinesToRemove()");
     const map = this.map;
-    let lines = [],
-      lastLine = startLine + height - 1;
+    const lines: number[] = [];
+    let lastLine = startLine + height - 1;
 
     // avoid bottom ground
     if (lastLine > map.numRows - 2) lastLine = map.numRows - 2;
@@ -398,23 +391,22 @@ class Grid extends Scene {
   }
 
   /**
-     * Updates level + level object's text
-     */
+   * Updates level + level object's text
+   */
   updateLevel() {
-    let oldLevel = this.level;
+    const oldLevel = this.level;
     this.level = Math.floor(this.lines / 10);
     this.levelString.setText("Level: " + this.level);
     this.timing = START_TIMING - this.level * LEVEL_TIMING;
-    this.shape.data.speed = this.timing;
+    this.shape.data['speed'] = this.timing;
     oldLevel !== this.level && AM.play("level");
   }
 
   /**
-     * Updates the player's score using line number & current level
-     *
-     * @param {Number} lines the number of lines that have been removed
-     */
-  increaseScore(lines:number) {
+   * Updates the player's score using line number & current level
+   *
+   */
+  increaseScore(lines: number) {
     this.score +=
       this.scoreTable[lines - 1] + this.level * this.scoreTable[lines - 1];
     this.lines += lines;
@@ -429,15 +421,13 @@ class Grid extends Scene {
   }
 
   /**
-     * Removes lines from the map, shifting the map as needed, and adding
-     * empty tiles at the top
-     *
-     * @param {Number} startLine the first line to remove
-     * @param {Number} height the number of lines to remove
-     */
-  removeLinesFromMap(startLine:number, height:number) {
-    const map = this.map,
-      lines = this.getLinesToRemove(startLine, height);
+   * Removes lines from the map, shifting the map as needed, and adding
+   * empty tiles at the top
+   *
+   */
+  removeLinesFromMap(startLine: number, height: number) {
+    const map = this.map;
+    const lines = this.getLinesToRemove(startLine, height);
 
     // no full lines detected
     if (!lines.length) {
@@ -470,7 +460,7 @@ class Grid extends Scene {
     });
   }
 
-  pause(isRunning:boolean) {
+  pause(isRunning: boolean) {
     this.pauseString.visible = !isRunning;
     AM.play("pause");
   }
