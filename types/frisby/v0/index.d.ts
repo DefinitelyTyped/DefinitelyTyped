@@ -2,7 +2,7 @@
 // Project: https://github.com/vlucas/frisby
 // Definitions by: Johnny Li <https://github.com/johnny4753>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 ///<reference types="jasmine"/>
 
@@ -72,4 +72,3 @@ declare global {
 
 declare const frisby: Frisby;
 export = frisby;
-
