@@ -9,7 +9,7 @@ import * as React from "react";
 export interface VerticalTimelineProps {
     animate?: boolean;
     className?: string;
-    layout?: string;
+    layout?: '1-column' | '2-columns';
 }
 
 export interface VerticalTimelineElementProps {
