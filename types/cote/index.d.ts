@@ -283,7 +283,6 @@ export class PendingBalancedRequester extends Requester { }
  */
 export interface Event {
     type: string;
-    [key: string]: any;
 }
 
 /**
