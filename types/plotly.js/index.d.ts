@@ -251,6 +251,7 @@ export interface Layout {
 	legend: Partial<Legend>;
 	font: Partial<Font>;
 	scene: Partial<Scene>;
+	barmode: "stack" | "group" | "overlay" | "relative";
 }
 
 export interface Legend extends Label {
