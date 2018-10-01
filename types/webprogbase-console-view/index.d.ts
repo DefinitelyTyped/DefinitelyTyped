@@ -1,4 +1,4 @@
-// Type definitions for webprogbase-console-view 1.1
+// Type definitions for webprogbase-console-view 1.2
 // Project: https://github.com/DevInCube/webprogbase-console-view#readme
 // Definitions by: Veetaha <https://github.com/veetaha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,30 +7,39 @@
 export interface BasicObject<T> {
     [key: string]: T;
 }
-
-export interface DataLink {
+export interface FormFieldDescriptor {
     description: string;
-    data: any;
+    default?: string;
+    auto?: string;
 }
 
-export type FormFields = BasicObject<string>; /* key: state name, value: description */
-export type StateLinks = BasicObject<string | DataLink>;
-export type FormResult = BasicObject<string>;
+export interface StateLinkDescriptor {
+    description: string;
+    data: BasicObject<any>;
+}
 
-// tslint:disable-next-line no-unnecessary-class
+export type FormFields = BasicObject<string | FormFieldDescriptor>;
+export type StateLinks = BasicObject<string | StateLinkDescriptor>;
+
 export class InputForm {
     constructor(nextState: string, fieldsObject: FormFields);
+
+    // if  private members aren't defined, typescript allows assigning anything to InputForm
+    private members: any;
 }
 
 export class Request {
     state: string;
-    data: any;
-    /* data may also contain FormResult forwarded from state using InputForm, null by default. */
+    data: BasicObject<any> | null;
+
+    private constructor();
 }
 
 export class Response {
     send(text: string, statesOrForm?: StateLinks | InputForm): void;
-    redirect(toState: string, data?: any): void;
+    redirect(toState: string, data?: BasicObject<any>): void;
+
+    private constructor();
 }
 
 /************************************************************************************/
