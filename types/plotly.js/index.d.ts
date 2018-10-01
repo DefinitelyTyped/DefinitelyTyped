@@ -80,9 +80,11 @@ export interface PlotScene {
 }
 
 export interface PlotRelayoutEvent {
-	xaxis: PlotAxis;
-	yaxis: PlotAxis;
-	scene: PlotScene;
+	"yaxis.range[0]"?: number;
+	"yaxis.range[1]"?: number;
+	"xaxis.range[0]"?: number;
+	"xaxis.range[1]"?: number;
+	scene?: PlotScene;
 }
 
 export interface ClickAnnotationEvent {
