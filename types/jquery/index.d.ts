@@ -28804,7 +28804,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
     /**
      * A string containing the jQuery version number.
      *
-     * @see \`{@link https://api.jquery.com/jquery/ }\`
+     * @see \`{@link https://api.jquery.com/jquery-2/#jquery1 }\`
      * @since 1.0
      * @example ​ ````Determine if an object is a jQuery object
 ```html
