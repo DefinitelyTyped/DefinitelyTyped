@@ -197,7 +197,7 @@ declare namespace jest {
      *   spy.mockRestore();
      * });
      */
-    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): SpyInstance<T[M]>;
+    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): MockInstance<T[M]>;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -724,16 +724,6 @@ declare namespace jest {
     interface Mock<T = {}> extends Function, MockInstance<T> {
         new (...args: any[]): T;
         (...args: any[]): any;
-    }
-
-    interface SpyInstance<T = {}> extends MockInstance<T> {
-        /**
-         * Removes the mock and restores the initial implementation.
-         *
-         * This is useful when you want to mock functions in certain test cases and restore the
-         * original implementation in others.
-         */
-        mockRestore(): void;
     }
 
     /**
