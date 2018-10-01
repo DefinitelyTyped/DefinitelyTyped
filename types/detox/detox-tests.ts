@@ -18,5 +18,6 @@ describe('Test', () => {
         await expect(element(by.id('element')).atIndex(0)).toNotExist();
 
         await waitFor(element(by.id('element'))).toBeVisible().withTimeout(2000);
+        await device.pressBack();
     });
 });
