@@ -403,6 +403,7 @@ function testStub() {
     stub.returnsThis();
     stub.resolves();
     stub.resolves('foo');
+    stub.resolvesArg(1);
     stub.throws();
     stub.throws('err');
     stub.throws(new Error('err'));
