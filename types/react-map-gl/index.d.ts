@@ -143,8 +143,8 @@ export interface InteractiveMapProps extends StaticMapProps {
     touchRotate?: boolean;
     keyboard?: boolean;
 
-    onHover?: (event: MapEvent, lngLat: number[], features: any) => void;
-    onClick?: (event: MapEvent, lngLat: number[], features: any) => void;
+    onHover?: (event: MapEvent) => void;
+    onClick?: (event: MapEvent) => void;
 
     onContextMenu?: (event: MapEvent) => void;
 
