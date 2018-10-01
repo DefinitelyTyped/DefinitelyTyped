@@ -49,7 +49,7 @@ declare module 'athenajs' {
     export class Drawable{
         constructor(type: string, options: DrawableOptions);
         addChild(child:Drawable): void;
-        animate(name: string, options: object): Promise;
+        animate(name: string, options: JSObject): Promise;
         center(): Drawable;
         destroy(data?:any): void;
         moveTo(x: number, y: number, duration?: number): Drawable;
@@ -81,7 +81,7 @@ declare module 'athenajs' {
         movable: boolean;
         behavior: Behavior;
         currentMap: Map;
-        data: any;
+        data: JSObject;
         visible: boolean;
     }
 
@@ -383,7 +383,7 @@ declare module 'athenajs' {
          * any of these delays that can impact gameplay and alter the gameplay experience
          * in a negative way.
          */
-        prepareCanvas(resources: object[]): void;
+        prepareCanvas(resources: JSObject[]): void;
 
         /**
          * Starts an animation on the display
@@ -395,7 +395,7 @@ declare module 'athenajs' {
          * @param {any} [options.context=this] The context (this) to apply to the animation.
          * @param {any} context The context to bind the Effect to
          */
-        animate(fxName: string, options: object, context: RenderingContext): Promise;
+        animate(fxName: string, options: EffectOptions, context: RenderingContext): Promise;
 
         /**
          * stops current animation
@@ -475,11 +475,11 @@ declare module 'athenajs' {
          *
          * @returns {boolean} true if the trigger is valid
          */
-        checkConditions(trigger:object):boolean;
+        checkConditions(trigger:JSObject):boolean;
 
-        handleAction(options:object):void;
+        handleAction(options:JSObject):void;
 
-        handleEvent(options:object):boolean;
+        handleEvent(options:JSObject):boolean;
 
         /**
          * Schedule adding a new object to the map
@@ -532,7 +532,7 @@ declare module 'athenajs' {
     }
 
     interface _AudioManager {
-        audioCache: object,
+        audioCache: JSObject,
         enabled: boolean,
         /**
          * Adds a new sound element to the audio cache.
@@ -634,7 +634,7 @@ declare module 'athenajs' {
         37: 14,
         39: 15
     };
-    axes: object;
+    axes: JSObject;
     newGamepadPollDelay: number;
     gamepadSupport: boolean;
     recording: boolean;
@@ -642,10 +642,10 @@ declare module 'athenajs' {
     playingPos: number;
     /*recordedEvents: Array,*/
     pad: null;
-    latches: object;
-    keyPressed: object;
-    padPressed: object;
-    keyCb: object;
+    latches: JSObject;
+    keyPressed: JSObject;
+    padPressed: JSObject;
+    keyCb: JSObject;
     enabled: boolean;
     inputMode:string;
     // virtual joystick instance
@@ -694,7 +694,7 @@ declare module 'athenajs' {
         /**
          * Returns an object with the state of all keys
          */
-        getAllKeysStatus():object;
+        getAllKeysStatus():JSObject;
         getKeyStatus(key:string,  latch:boolean):boolean;
         isKeyDown(key:string|number, latch?:boolean):boolean;
         /**
@@ -740,7 +740,7 @@ declare module 'athenajs' {
         find(selector: string): _Dom;
         appendTo(selector: string | _Dom | HTMLElement): _Dom;
         attr(att: string, val: string): _Dom;
-        attr(att: object): _Dom;
+        attr(att: JSObject): _Dom;
         addClass(classes: string): _Dom;
         removeClass(classes: string): _Dom;
         html(str: string): _Dom;
@@ -807,7 +807,8 @@ declare module 'athenajs' {
         startY: number,
         charWidth: number,
         charHeight: number,
-        imageId: string,
+        imageId?: string,
+        imageSrc?:string,
         scrollOffsetX?: number,
         scrollOffsetY?: number,
         text?: string,
@@ -832,21 +833,22 @@ declare module 'athenajs' {
     }
 
     interface AnimationObject{
-        frameDuration: number,
-        frames: [{
+        frameDuration?: number,
+        frames: {
             offsetX: number,
             offsetY: number,
             width: number,
             height: number,
-            hitBox: {
+            hitBox?: {
                 x: number,
                 y: number,
                 x2: number,
-                y2:number
+                y2: number
             },
             plane?: number
-        }],
-        loop?: number
+        }[],
+        loop?: number,
+        speed?: number
     }
 
     type JSObject = {
