@@ -5301,7 +5301,7 @@ $.isNumeric( undefined )
 </html>
 ```
      */
-    isNumeric(value: any): value is number;
+    isNumeric(value: any): boolean;
     /**
      * Check to see if an object is a plain object (created using "{}" or "new Object").
      *

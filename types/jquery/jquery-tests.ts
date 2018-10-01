@@ -706,15 +706,17 @@ function JQueryStatic() {
     }
 
     function isNumeric() {
-        function type_guard(obj: boolean | number) {
-            if ($.isNumeric(obj)) {
-                // $ExpectType number
-                obj;
-            } else {
-                // $ExpectType boolean
-                obj;
-            }
-        }
+        // $ExpectType boolean
+        $.isNumeric(123);   // true
+
+        // $ExpectType boolean
+        $.isNumeric(0 / 0); // false
+
+        // $ExpectType boolean
+        $.isNumeric('123'); // true
+
+        // $ExpectType boolean
+        $.isNumeric('1s3'); // false
     }
 
     function isPlainObject() {
