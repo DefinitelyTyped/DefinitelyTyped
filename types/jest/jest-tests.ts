@@ -279,6 +279,8 @@ jest.fn().mockClear();
 
 jest.fn().mockReset();
 
+jest.fn().mockRestore();
+
 const spiedTarget = {
     returnsVoid(): void { },
     returnsString(): string {

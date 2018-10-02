@@ -197,7 +197,7 @@ declare namespace jest {
      *   spy.mockRestore();
      * });
      */
-    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): SpyInstance<T[M]>;
+    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): MockInstance<T[M]>;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -726,16 +726,6 @@ declare namespace jest {
         (...args: any[]): any;
     }
 
-    interface SpyInstance<T = {}> extends MockInstance<T> {
-        /**
-         * Removes the mock and restores the initial implementation.
-         *
-         * This is useful when you want to mock functions in certain test cases and restore the
-         * original implementation in others.
-         */
-        mockRestore(): void;
-    }
-
     /**
      * Wrap module with mock definitions
      *
@@ -776,6 +766,18 @@ declare namespace jest {
          * don't access stale data.
          */
         mockReset(): void;
+        /**
+         * Does everything that `mockFn.mockReset()` does, and also restores the original (non-mocked) implementation.
+         *
+         * This is useful when you want to mock functions in certain test cases and restore the original implementation in others.
+         *
+         * Beware that `mockFn.mockRestore` only works when mock was created with `jest.spyOn`. Thus you have to take care of restoration
+         * yourself when manually assigning `jest.fn()`.
+         *
+         * The [`restoreMocks`](https://jestjs.io/docs/en/configuration.html#restoremocks-boolean) configuration option is available
+         * to restore mocks automatically between tests.
+         */
+        mockRestore(): void;
         /**
          * Accepts a function that should be used as the implementation of the mock. The mock itself will still record
          * all calls that go into and instances that come from itself – the only difference is that the implementation
