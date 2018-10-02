@@ -18,7 +18,7 @@ declare function massive(
 ): Promise<massive.Database>;
 
 declare namespace massive {
-    type UUID = number | string;
+    type UUID = string;
 
     interface AnyObject<T = any> {
         [key: string]: T;
@@ -130,7 +130,7 @@ declare namespace massive {
         /** The name of the schema owning the table or */
         schema: string;
         /** A function invocation statement or a pg-promise QueryFile. */
-        sql: string | any;
+        sql: any;
         /** Number of parameters the executable expects. */
         paramCount: number;
         /** Whether a database function accepts variable-length argument lists as the last parameter. */
@@ -173,19 +173,19 @@ declare namespace massive {
 
         /** Find rows matching criteria. */
         find(
-            criteria?: AnyObject | UUID,
+            criteria?: AnyObject | number | UUID,
             options?: RetrievalOptions & ResultProcessingOptions
         ): Promise<any>;
 
         /** Find a document by searching in the body. */
         findDoc(
-            criteria?: AnyObject | UUID,
+            criteria?: AnyObject | number | UUID,
             options?: RetrievalOptions
         ): Promise<any>;
 
         /** Return a single record. */
         findOne(
-            criteria: AnyObject | UUID,
+            criteria: AnyObject | number | UUID,
             options?: RetrievalOptions & ResultProcessingOptions
         ): Promise<any>;
 
@@ -193,7 +193,7 @@ declare namespace massive {
          * Determine whether criteria represent a search by primary key.
          * If a number or uuid are passed, it is assumed to be a primary key value; if an object, it must have only one key, which must specify the primary key column.
          */
-        isPkSearch(criteria: AnyObject | string | number): boolean;
+        isPkSearch(criteria: AnyObject | UUID | number): boolean;
 
         /** Refresh a materialized view. */
         refresh(concurrently?: boolean): Promise<void>;
@@ -274,12 +274,9 @@ declare namespace massive {
         /** Save a document to the database. This function will create or replace the entire document body. */
         saveDoc(doc: AnyObject): Promise<AnyObject>;
 
-        /**
-         * Update a record. May be invoked with a complete record (including primary key), or with a criteria object and a map of fields to new values.
-         * Multi-row updates are only possible through the latter usage.
-         */
+        /** Update a record. */
         update(
-            criteria: string | number,
+            criteria: UUID | number,
             changes: AnyObject,
             options?: PersistenceUpdateDocOptions & ResultProcessingOptions
         ): Promise<AnyObject>;
@@ -296,7 +293,7 @@ declare namespace massive {
          * To test elements of the JSON field in a non-document table with a criteria object, use a JSON path string.
          */
         updateDoc(
-            criteria: string | number | AnyObject,
+            criteria: UUID | number | AnyObject,
             changes: AnyObject,
             options?: PersistenceUpdateDocOptions & ResultProcessingOptions
         ): Promise<AnyObject>;
@@ -306,11 +303,17 @@ declare namespace massive {
         /** A database sequence. */
         constructor(db: Database, name: string, schema: string);
 
-        /** Get the last value the sequence returned. */
-        lastValue(): Promise<any>;
+        /**
+         * Get the last value the sequence returned.
+         * The return value will be a stringified number.
+         */
+        lastValue(): Promise<string>;
 
-        /** Increment the sequence counter and return the next value. */
-        nextValue(): Promise<any>;
+        /**
+         * Increment the sequence counter and return the next value.
+         * The return value will be a stringified number.
+         */
+        nextValue(): Promise<string>;
 
         /** Reset the sequence. */
         reset(initialValue: number): Promise<void>;
@@ -376,7 +379,7 @@ declare namespace massive {
         /** Represents a DELETE query. */
         constructor(
             source: Readable,
-            criteria?: AnyObject | string | number,
+            criteria?: AnyObject | UUID | number,
             options?: ResultProcessingOptions & InheritanceOptions
         );
 
@@ -440,17 +443,14 @@ declare namespace massive {
         query(
             query: Select | Insert | Update | Delete | string,
             params?: string[],
-            options?: Pick<
-                ResultProcessingOptions,
-                "document" | "single" | "stream"
-            >
+            options?: ResultProcessingOptions
         ): Promise<any>;
 
         /**
          * Synchronize the database API with the current state by scanning for tables, views, functions, and scripts.
          * Objects and files which no longer exist are cleared and new objects and files added.
          */
-        reload(): Promise<void>;
+        reload(): Promise<Database>;
 
         /** Save a document. */
         saveDoc(collection: string, doc: AnyObject): Promise<any>;
