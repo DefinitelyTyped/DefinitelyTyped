@@ -263,12 +263,12 @@ declare namespace ReactGridLayout {
          *
          * Breakpoint names are arbitrary but must match in the cols and layouts objects.
          */
-        breakpoints?: {[P in Breakpoints]: number };
+        breakpoints?: { [P in Breakpoints]: number };
 
         /**
          * Number of cols. This is a breakpoint -> cols map, e.g. `{lg: 12, md: 10, ...}`.
          */
-        cols?: {[P in Breakpoints]: number };
+        cols?: { [P in Breakpoints]: number };
 
         /**
          * layouts is an object mapping breakpoints to layouts.
@@ -285,7 +285,7 @@ declare namespace ReactGridLayout {
         /**
          * Callback so you can save the layout.
          */
-        onLayoutChange?(currentLayout: Layout, allLayouts: Layouts): void;
+        onLayoutChange?(currentLayout: Layout[], allLayouts: Layouts): void;
 
         /**
          * Callback when the width changes, so you can modify the layout as needed.
