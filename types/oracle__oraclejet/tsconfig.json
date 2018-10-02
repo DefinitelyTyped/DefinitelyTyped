@@ -16,10 +16,10 @@
             "../"
         ],
         "paths": {
-            "ojs": [
+            "@oracle/oraclejet": [
                 "oracle__oraclejet"
             ],
-            "ojs/*": [
+            "@oracle/oraclejet/*": [
                 "oracle__oraclejet/*"
             ]
         }    
