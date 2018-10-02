@@ -1,4 +1,4 @@
-// Type definitions for Lazy.js 0.3.3
+// Type definitions for Lazy.js 0.3.4
 // Project: https://github.com/dtao/lazy.js/
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Mike Doughty <https://github.com/miso440>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -219,7 +219,7 @@ declare namespace LazyJS {
       //async(): X;
       defaults(defaults: any): ObjectLikeSequence<T>;
       functions(): Sequence<T>;
-      get(property: string): T;
+      get(property: string): any;
       invert(): ObjectLikeSequence<T>;
       keys(): Sequence<string>;
       merge(others: any | ObjectLikeSequence<T>, mergeFn?: Function): ObjectLikeSequence<T>;
