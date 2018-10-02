@@ -1,17 +1,15 @@
-// Type definitions for karma 3.0
+// Type definitions for karma 1.7
 // Project: https://github.com/karma-runner/karma
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 James Garbutt <https://github.com/43081j>
-//                 Yaroslav Admin <https://github.com/devoto13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 /// <reference types="node" />
 
-// See Karma public API https://karma-runner.github.io/latest/dev/public-api.html
+// See Karma public API https://karma-runner.github.io/0.13/dev/public-api.html
 import Promise = require('bluebird');
 import https = require('https');
-import { Appender } from 'log4js';
 
 declare namespace karma {
     interface Karma {
@@ -144,6 +142,16 @@ declare namespace karma {
 
     interface ConfigFile {
         configFile: string;
+    }
+
+    // taken from log4js 1.x typings which are gone...
+    interface Log4jsAppenderConfigBase {
+        type: string;
+        category?: string;
+        layout?: {
+            type: string;
+            [key: string]: any
+        }
     }
 
     interface ConfigOptions {
@@ -286,7 +294,7 @@ declare namespace karma {
          * @default [{type: 'console'}]
          * @description A list of log appenders to be used. See the documentation for [log4js] for more information.
          */
-        loggers?: { [name: string]: Appender } | Appender[];
+        loggers?: Log4jsAppenderConfigBase[];
         /**
          * @default []
          * @description List of names of additional middleware you want the

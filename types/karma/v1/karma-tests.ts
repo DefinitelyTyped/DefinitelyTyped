@@ -65,7 +65,7 @@ karma.runner.run({port: 9876}, function(exitCode: number) {
 var captured: boolean = karma.launcher.areAllCaptured();
 
 
-// Example of configuration file karma.conf.ts, see http://karma-runner.github.io/latest/config/configuration-file.html
+// Example of configuration file karma.conf.ts, see http://karma-runner.github.io/0.13/config/configuration-file.html
 module.exports = function(config: karma.Config) {
   config.set({
     logLevel: config.LOG_DEBUG,
@@ -82,10 +82,6 @@ module.exports = function(config: karma.Config) {
         included: false
       }
     ],
-
-    loggers: {
-      custom: { type: 'file', filename: 'log.txt' }
-    },
 
     reporters: [
       'progress',
