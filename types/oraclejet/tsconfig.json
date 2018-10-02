@@ -17,7 +17,7 @@
         ]
     },
     "files": [
-        "test.ts",
+        "oraclejetTests.ts",
         "index.d.ts",
         "ojaccordion/index.d.ts",
         "ojanimation/index.d.ts",
