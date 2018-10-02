@@ -633,6 +633,7 @@ configuration = {
     optimization: {
         splitChunks: {
             cacheGroups: {
+                default: false,
                 vendor: {
                     chunks: "initial",
                     test: "node_modules",
