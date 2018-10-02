@@ -130,19 +130,19 @@ type ExtractedPropsWithoutAnnotation = PropTypes.InferProps<typeof propTypesWith
 type ExtractedPropsFromOuterPropsWithoutAnnotation = PropTypes.InferProps<typeof outerPropTypesWithoutAnnotation>['props'];
 
 // $ExpectType true
-type ExtractPropsMatch = ExtractedProps extends ExtractedPropsWithoutAnnotation ? true : false; // <-- ERROR
+type ExtractPropsMatch = ExtractedProps extends ExtractedPropsWithoutAnnotation ? true : false;
 // $ExpectType true
 type ExtractPropsMatch2 = ExtractedPropsWithoutAnnotation extends ExtractedProps ? true : false;
 // $ExpectType true
-type ExtractPropsMatch3 = ExtractedProps extends Props ? true : false; // <-- ERROR
+type ExtractPropsMatch3 = ExtractedProps extends Props ? true : false;
 // $ExpectType true
 type ExtractPropsMatch4 = Props extends ExtractedPropsWithoutAnnotation ? true : false;
 // $ExpectType true
-type ExtractFromOuterPropsMatch = ExtractedPropsFromOuterProps extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false; // <-- ERROR
+type ExtractFromOuterPropsMatch = ExtractedPropsFromOuterProps extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false;
 // $ExpectType true
 type ExtractFromOuterPropsMatch2 = ExtractedPropsFromOuterPropsWithoutAnnotation extends ExtractedPropsFromOuterProps ? true : false;
 // $ExpectType true
-type ExtractFromOuterPropsMatch3 = ExtractedPropsFromOuterProps extends Props ? true : false; // <-- ERROR
+type ExtractFromOuterPropsMatch3 = ExtractedPropsFromOuterProps extends Props ? true : false;
 // $ExpectType true
 type ExtractFromOuterPropsMatch4 = Props extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false;
 
