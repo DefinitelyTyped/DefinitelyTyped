@@ -22,7 +22,7 @@
             "@oracle/oraclejet/*": [
                 "oracle__oraclejet/*"
             ]
-        }    
+        } 
     },
     "files": [
         "oracle__oraclejet-tests.ts",
