@@ -1,4 +1,4 @@
-// Type definitions for yeoman-generator 2.0
+// Type definitions for yeoman-generator 3.0
 // Project: https://github.com/yeoman/generator
 // Definitions by: Kentaro Okuno <https://github.com/armorik83>
 //                 Jay Anslow <https://github.com/janslow>
@@ -128,9 +128,8 @@ declare class Generator extends EventEmitter {
      * @param component Components to install
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
-     * @return Resolved if install successful, rejected otherwise
      */
-    bowerInstall(component?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    bowerInstall(component?: string|string[], options?: object, spawnOptions?: object): void;
     /**
      * Runs `npm` and `bower`, in sequence, in the generated directory and prints a
      * message to let the user know.
@@ -147,9 +146,8 @@ declare class Generator extends EventEmitter {
      *   npm: false
      * }).then(() => console.log('Everything is ready!'));
      *
-     * @return Resolved if install successful, rejected otherwise
      */
-    installDependencies(options?: Generator.InstallOptions): Promise<void>;
+    installDependencies(options?: Generator.InstallOptions): void;
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -158,24 +156,21 @@ declare class Generator extends EventEmitter {
      * @param pkgs Packages to install
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
-     * @return Resolved if install successful, rejected otherwise
      */
-    npmInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    npmInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): void;
     /**
      * Combine package manager cmd line arguments and run the `install` command.
      *
      * During the `install` step, every command will be scheduled to run once, on the
-     * run loop. This means you can use `Promise.then` to log information, but don't
-     * return it or mix it with `this.async` as it'll dead lock the process.
+     * run loop.
      *
      * @param installer Which package manager to use
      * @param paths Packages to install. Use an empty string for `npm install`
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`. ref
      *                     https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
-     * @return Resolved if install successful, rejected otherwise
      */
-    runInstall(installer: string, paths?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    scheduleInstallTask(installer: string, paths?: string|string[], options?: object, spawnOptions?: object): void;
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -184,9 +179,8 @@ declare class Generator extends EventEmitter {
      * @param pkgs Packages to install
      * @param options Options to pass to `dargs` as arguments
      * @param spawnOptions Options to pass `child_process.spawn`.
-     * @return Resolved if install successful, rejected otherwise
      */
-    yarnInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    yarnInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): void;
 
     // actions/user mixin
     readonly user: {
