@@ -394,10 +394,9 @@ declare namespace Sinon {
          */
         resolves(value?: any): SinonStub;
         /**
-         * Causes the stub to return the argument at the provided index.
-         * stub.returnsArg(0); causes the stub to return the first argument.
-         * If the argument at the provided index is not available, prior to sinon@6.1.2, an undefined value will be
-         * returned; starting from sinon@6.1.2, a TypeError will be thrown.
+         * Causes the stub to return a Promise which resolves to the argument at the provided index.
+         * stub.resolvesArg(0); causes the stub to return a Promise which resolves to the first argument.
+         * If the argument at the provided index is not available, a TypeError will be thrown.
          */
         resolvesArg(index: number): SinonStub;
         /**
