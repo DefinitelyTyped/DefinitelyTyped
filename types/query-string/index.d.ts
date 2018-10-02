@@ -13,13 +13,17 @@ export interface ParseOptions {
     decode?: boolean;
 }
 
+interface Params {
+  [key: string]: string
+}
+
 /**
  * Parse a query string into an object.
  * Leading ? or # are ignored, so you can pass location.search or location.hash directly.
  */
-export function parse(str: string, options?: ParseOptions): any;
+export function parse(str: string, options?: ParseOptions): Params;
 
-export function parseUrl(str: string, options?: ParseOptions): {url: string, query: any};
+export function parseUrl(str: string, options?: ParseOptions): {url: string, query: Params};
 
 export interface StringifyOptions {
     strict?: boolean;
@@ -30,7 +34,7 @@ export interface StringifyOptions {
 /**
  * Stringify an object into a query string, sorting the keys.
  */
-export function stringify(obj: object, options?: StringifyOptions): string;
+export function stringify(obj: Params, options?: StringifyOptions): string;
 
 /**
  * Extract a query string from a URL that can be passed into .parse().
