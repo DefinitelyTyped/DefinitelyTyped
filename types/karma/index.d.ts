@@ -59,17 +59,17 @@ declare namespace karma {
 
     interface LauncherStatic {
         generateId(): string;
-        //TODO: injector should be of type `di.Injector`
+        // TODO: injector should be of type `di.Injector`
         new (emitter: NodeJS.EventEmitter, injector: any): Launcher;
     }
 
     interface Launcher {
         Launcher: LauncherStatic;
-        //TODO: Can this return value ever be typified?
+        // TODO: Can this return value ever be typified?
         launch(names: string[], protocol: string, hostname: string, port: number, urlRoot: string): any[];
-        kill(id: string, callback: Function): boolean;
+        kill(id: string, callback: () => void): boolean;
         restart(id: string): boolean;
-        killAll(callback: Function): void;
+        killAll(callback: () => void): void;
         areAllCaptured(): boolean;
         markCaptured(id: string): void;
     }
@@ -82,14 +82,12 @@ declare namespace karma {
         run(options?: ConfigOptions | ConfigFile, callback?: ServerCallback): void;
     }
 
-
     interface Stopper {
         /**
-          * This function will signal a running server to stop. The equivalent of karma stop.
-          */
+         * This function will signal a running server to stop. The equivalent of karma stop.
+         */
         stop(options?: ConfigOptions, callback?: ServerCallback): void;
     }
-
 
     interface TestResults {
         disconnected: boolean;
@@ -115,23 +113,21 @@ declare namespace karma {
          */
         refreshFiles(): Promise<any>;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
 
         /**
          * Listen to the 'run_complete' event.
          */
         on(event: 'run_complete', listener: (browsers: any, results: TestResults) => void): this;
 
-        ///**
-        // * Backward-compatibility with karma-intellij bundled with WebStorm.
-        // * Deprecated since version 0.13, to be removed in 0.14
-        // */
-        //static start(): void;
+        /**
+         * Backward-compatibility with karma-intellij bundled with WebStorm.
+         * Deprecated since version 0.13, to be removed in 0.14
+         */
+        // static start(): void;
     }
 
-    interface ServerCallback {
-        (exitCode: number): void;
-    }
+    type ServerCallback = (exitCode: number) => void;
 
     interface Config {
         set: (config: ConfigOptions) => void;
@@ -250,7 +246,7 @@ declare namespace karma {
          * @default []
          * @description List of files/patterns to load in the browser.
          */
-        files?: (FilePattern | string)[];
+        files?: Array<FilePattern | string>;
         /**
          * @default []
          * @description List of test frameworks you want to use. Typically, you will set this to ['jasmine'], ['mocha'] or ['qunit']...
@@ -334,7 +330,7 @@ declare namespace karma {
          * but your interactive debugging does not.
          *
          */
-        preprocessors?: { [name: string]: string | string[] }
+        preprocessors?: { [name: string]: string | string[] };
         /**
          * @default 'http:'
          * Possible Values:
@@ -351,7 +347,7 @@ declare namespace karma {
          * @default {}
          * @description A map of path-proxy pairs.
          */
-        proxies?: { [path: string]: string }
+        proxies?: { [path: string]: string };
         /**
          * @default true
          * @description Whether or not Karma or any browsers should raise an error when an inavlid SSL certificate is found.
