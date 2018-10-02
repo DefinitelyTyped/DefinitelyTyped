@@ -1,7 +1,9 @@
 import PushNotification from 'react-native-push-notification';
 
 PushNotification.configure({
-    onNotification: (notification) => {},
+    onNotification: (notification) => {
+        notification.finish("UIBackgroundFetchResultNoData");
+    },
     onRegister: (token) => {},
     senderID: 'XXX',
     popInitialNotification: false,
@@ -18,7 +20,7 @@ PushNotification.cancelLocalNotifications = (details) => {};
 PushNotification.cancelAllLocalNotifications();
 PushNotification.setApplicationIconBadgeNumber(1);
 PushNotification.getApplicationIconBadgeNumber((badgeCount) => {});
-PushNotification.popInitialNotification();
+PushNotification.popInitialNotification((notification) => {});
 PushNotification.checkPermissions((checkPermissions) => {});
 PushNotification.abandonPermissions();
 PushNotification.registerNotificationActions(['Accept', 'Reject', 'Yes', 'No']);

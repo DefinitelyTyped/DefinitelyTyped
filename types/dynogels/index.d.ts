@@ -1,6 +1,8 @@
-// Type definitions for dynogels 8.0
+// Type definitions for dynogels 9.0
 // Project: https://github.com/clarkie/dynogels#readme
 // Definitions by: Spartan Labs <https://github.com/SpartanLabs>
+//                 Ramon de Klein <https://github.com/ramondeklein>
+//                 Stephen Tuso <https://github.com/stephentuso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -76,7 +78,7 @@ export interface Model {
     getItems(items: string[] | Array<{ [key: string]: string }>, options: GetItemOptions, callback: (err: Error, items: any[]) => void): void;
     batchGetItems(items: string[] | Array<{ [key: string]: string }>, callback: (err: Error, items: any[]) => void): void;
     batchGetItems(items: string[] | Array<{ [key: string]: string }>, options: GetItemOptions, callback: (err: Error, items: any[]) => void): void;
-    createTable(options: { [key: string]: CreateTablesOptions } | DynogelsGlobalOptions, callback: (err: Error, data: AWS.DynamoDB.CreateTableOutput) => void): void;
+    createTable(options: CreateTablesOptions, callback: (err: Error, data: AWS.DynamoDB.CreateTableOutput) => void): void;
     createTable(callback: (err: Error, data: AWS.DynamoDB.CreateTableOutput) => void): void;
     updateTable(throughput: Throughput, callback: (err: Error, data: AWS.DynamoDB.UpdateTableOutput) => void): void;
     updateTable(callback: (err: Error, data: AWS.DynamoDB.UpdateTableOutput) => void): void;
@@ -152,7 +154,8 @@ export interface ModelConfig {
 
 // Dynogels Item
 export interface Item {
-    get(key?: string): { [key: string]: any };
+    get(): { [key: string]: any };
+    get(key: string): any;
     set(params: {}): Item;
     save(callback?: DynogelsItemCallback): void;
     update(options: UpdateItemOptions, callback?: DynogelsItemCallback): void;

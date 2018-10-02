@@ -1,8 +1,9 @@
 import Stripe = require('stripe');
+import { customers } from 'stripe';
 
 var stripe = new Stripe("sk_test_BF573NobVn98OiIsPAv7A04K")
 
-stripe.setApiVersion('2016-03-07');
+stripe.setApiVersion('2017-04-06');
 
 //#region Balance tests
 // ##################################################################################
@@ -58,6 +59,7 @@ stripe.charges.create({
     // asynchronously called
 
     charge.refunds.create().then(function (refund) {
+        const reason = refund.failure_reason;
         // asynchronously called
     });
     charge.refunds.create({ amount: 100 }).then(function (refund) {
@@ -65,7 +67,7 @@ stripe.charges.create({
     });
 
     charge.refunds.retrieve("re_15jzA4Ee31JkLCeQcxbTbjaL").then(function (refund) {
-
+        var status: "pending" | "succeeded" | "failed" | "canceled" = refund.status;
     });
 
     charge.refunds.update("re_15jzA4Ee31JkLCeQcxbTbjaL", { metadata: { test: "data" } }).then(function (refund) {
@@ -230,27 +232,61 @@ stripe.charges.markAsFraudulent('ch_15fvyXEe31JkLCeQOo0SwFk9').then(function (re
 
 stripe.customers.create({
     description: 'Customer for test@example.com',
-    source: "tok_15V2YhEe31JkLCeQy9iUgsJX" // obtained with Stripe.js
+    source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
+    metadata: { test: "123", test2: 123 } // IOptionsMetadata test
 }, function (err, customer) {
     // asynchronously called
     });
 stripe.customers.create({
     description: 'Customer for test@example.com',
-    source: "tok_15V2YhEe31JkLCeQy9iUgsJX" // obtained with Stripe.js
+    source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
+    metadata: null // IOptionsMetadata test
 }).then( function (customer) {
     // asynchronously called
     customer.cards.create({ card: "tok_17wV94BoqMA9o2xkhlAd3ALf"}).then(function (customer) {});
-    customer.cards.retrieve("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (card) {});
+    customer.cards.retrieve("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (card) {
+        let strCustomer: string = <string>card.customer;
+        let objCustomer: customers.ICustomer = <customers.ICustomer>card.customer;
+    });
     customer.cards.update("card_17xMvXBoqMA9o2xkq6W5gamx", { name: "Test" }).then(function (card) {});
     customer.cards.list().then(function (cards) {});
     customer.cards.del("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (confirmation) {});
 
-    customer.subscriptions.create({ plan: "gold" }).then(function (subscription) { });
-    customer.subscriptions.retrieve("sub_8Eluur5KoIKxuy").then(function (subscription) { });
-    customer.subscriptions.update("sub_8Eluur5KoIKxuy", { plan: "silver" }).then(function (subscription) { });
+    customer.subscriptions.create({ items: [{ plan: "gold" }], trial_period_days: 7 }).then(function (subscription) { });
+    customer.subscriptions.create({ items: [{ plan: "gold" }], trial_end: "now", billing_cycle_anchor: 1516881177, prorate: true }).then(function (subscription) { });
+    customer.subscriptions.create({ items: [{ plan: "gold" }], trial_end: 1516881177, billing: "send_invoice", days_until_due: 7 }).then(function (subscription) { });
+    customer.subscriptions.create({ items: [{ plan: "gold" }], billing: "charge_automatically" }).then(function (subscription) { });
+    customer.subscriptions.retrieve("sub_8Eluur5KoIKxuy").then(function (subscription) {
+        customer.subscriptions.update("sub_8Eluur5KoIKxuy", { items: [{ id: subscription.items.data[0].id, plan: "silver" }] }).then(function (subscription) { });
+     });
+    customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: "now", billing_cycle_anchor: "now" });
+    customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: 1516881177, billing: "send_invoice", days_until_due: 7, billing_cycle_anchor: "unchanged", cancel_at_period_end: false });
     customer.subscriptions.list().then(function (subscriptions) { });
     customer.subscriptions.del("sub_8Eluur5KoIKxuy").then(function (subscription) { });
     customer.subscriptions.deleteDiscount("sub_8Eluur5KoIKxuy").then(function (confirmation) { });
+
+    // IMetadata tests:
+    let str: string;
+    customer.metadata["test"] == str;
+    customer.metadata.test1 == str;
+
+    //IOptionsMetadata tests:
+    let metadata: Stripe.IOptionsMetadata;
+    let num: number;
+    metadata["test"] = str;
+    metadata["test"] = num;
+    metadata["test"] == str;
+    metadata["test"] == num;
+    metadata.testStr = str;
+    metadata.testNum = num;
+    metadata.test1 == str;
+    metadata.test2 == num;
+    metadata = {
+        test1: str,
+        test2: num
+    }
+    metadata = {};
+    metadata = null;
 });
 
 
@@ -265,6 +301,22 @@ stripe.customers.create({
     source: "tok_15V2YhEe31JkLCeQy9iUgsJX" // obtained with Stripe.js
 }, { stripe_account: "" }).then(function (customer) {
 
+});
+
+// {"now"} for trial_end
+stripe.customers.create({
+    description: "Customer for test@example.com",
+    source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
+    plan: "platypi-dev",
+    trial_end: "now"
+});
+
+// {number} for trial_end
+stripe.customers.create({
+    description: "Customer for test@example.com",
+    source: "tok_15V2YhEe31JkLCeQy9iUgsJX", // obtained with Stripe.js
+    plan: "platypi-dev",
+    trial_end: 1516881177
 });
 
 stripe.customers.retrieve(
@@ -313,6 +365,10 @@ stripe.customers.list({ limit: 3 }).then(function (customers) {
     // asynchronously called
 });
 
+stripe.customers.list({ email: "test@example.com" }).then(function (customers) {
+	// asynchronously called
+});
+
 stripe.customers.createCard(
     "cus_5rfJKDJkuxzh5Q",
     { card: "tok_15V2YhEe31JkLCeQy9iUgsJX" },
@@ -344,7 +400,7 @@ stripe.customers.createSource(
             object: "card",
             exp_month: 1,
             exp_year: 16,
-            number: 4242424242424242
+            number: '4242424242424242'
         }
     },
     function (err, card) {
@@ -359,7 +415,7 @@ stripe.customers.createSource(
             object: "card",
             exp_month: 1,
             exp_year: 16,
-            number: 4242424242424242
+            number: '4242424242424242'
         }
     }).then(
     function (card) {
@@ -444,6 +500,25 @@ stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc').then(function (cards) 
     // asynchronously called
 });
 
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', null, function (err, cards) {
+    // asynchronously called
+});
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', null).then(function (cards) {
+    // asynchronously called
+});
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', {
+    object: "card",
+    limit: 100
+}).then(function (cards) {
+    // asynchronously called
+});
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', {
+    object: "bank_account",
+    limit: 100
+}).then(function (cards) {
+    // asynchronously called
+});
+
 stripe.customers.retrieveSubscription(
     "cus_5rfJKDJkuxzh5Q",
     "sub_5rfJxnBLGSwsYp",
@@ -455,12 +530,12 @@ stripe.customers.retrieveSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp"
     // asynchronously called
 });
 
-stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { plan: "platypi-dev" },
+stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { items: [{ id: "si_62U5U5BoqBA2o2xp6Eqcl6J7", plan: "platypi-dev" }] },
     function (err, subscription) {
         // asynchronously called
     }
 );
-stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { plan: "platypi-dev" }).then(function (subscription) {
+stripe.customers.updateSubscription("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLGSwsYp", { items: [{ id: "si_62U5U5BoqBA2o2xp6Eqcl6J7", plan: "platypi-dev" }] }).then(function (subscription) {
     // asynchronously called
 });
 
@@ -551,19 +626,29 @@ stripe.customers.deleteSubscriptionDiscount("cus_5rfJKDJkuxzh5Q", "sub_5rfJxnBLG
 //#region Transfers Reversals tests
 // ##################################################################################
 
+stripe.transfers.createReversal("tr_17F2JBFuhr4V1legrq97JrFE", function (err, reversal) {
+    // asynchronously called
+});
+
+stripe.transfers.createReversal("tr_17F2JBFuhr4V1legrq97JrFE").then(function (reversal) {
+    // asynchronously called
+});
+
+
 //#endregion
 
 //#region Accounts test
 // ##################################################################################
 
 stripe.accounts.create({
-    email: ""
+    email: "",
+    type: "standard"
 }, function (err, customer) {
     // asynchronously called
     }
 );
 stripe.accounts.create({
-    email: ""
+    type: "custom"
 }).then(function (customer) {
     // asynchronously called
     }
@@ -599,6 +684,29 @@ stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
     }
 );
 
+stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
+    {
+        payout_statement_descriptor: "From Stripe"
+    }).then(
+    function (account) {
+        // asynchronously called
+    }
+);
+
+stripe.accounts.update("acct_17wV8KBoqMA9o2xk",
+    {
+        payout_schedule: {
+            delay_days: 5,
+            interval: "monthly",
+            monthly_anchor: 4,
+            weekly_anchor: "monday"
+        }
+    }).then(
+    function (account) {
+        // asynchronously called
+    }
+);
+
 stripe.accounts.del("acct_17wV8KBoqMA9o2xk", function (err, confirmation) { });
 stripe.accounts.del("acct_17wV8KBoqMA9o2xk").then(function (confirmation) { });
 
@@ -619,6 +727,11 @@ stripe.accounts.list(
     { limit: 3 }).then(
     function (accounts) {
         // asynchronously called
+    }
+);
+stripe.accounts.retrieve("acct_17wV8KBoqMA9o2xk").then(
+    function (accounts) {
+        var payouts_enabled: boolean = accounts.payouts_enabled;
     }
 );
 //#endregion
@@ -690,7 +803,10 @@ stripe.accounts.createExternalAccount("", { external_account: "tok_15V2YhEe31JkL
 
 //#region Orders tests
 // ##################################################################################
-
+stripe.orders.retrieve("or_1C8XKwEe31JkLCeQHg0jcisf", function (err, order) {
+    // asynchronously called
+    var amount_returned: number = order.amount_returned;
+});
 
 
 //#endregion
@@ -705,7 +821,21 @@ stripe.accounts.createExternalAccount("", { external_account: "tok_15V2YhEe31JkL
 //#region Products tests
 // ##################################################################################
 
-
+stripe.products.create({
+    name: "My amazing product",
+    type: "service",
+    attributes: ["color"]
+}, function (err, coupon) {
+    // asynchronously called
+});
+stripe.products.create({
+    name: "My amazing product",
+    type: "service",
+    attributes: ["color"]
+}).then(function (product) {
+    // asynchronously called
+    const prodType: "service" | "good" = product.type;
+});
 
 //#endregion
 
@@ -879,6 +1009,10 @@ stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb").then(function (invoice) {
     // asynchronously called
 });
 
+stripe.invoices.pay("in_15fvyXEe31JkLCeQH7QbgZZb", { source: "source_id" }).then(function (invoice) {
+    // asynchronously called
+});
+
 stripe.invoices.list(
     { customer: "cus_5rfJKDJkuxzh5Q", limit: 3 },
     function (err, invoices) {
@@ -888,6 +1022,10 @@ stripe.invoices.list(
 stripe.invoices.list({ customer: "cus_5rfJKDJkuxzh5Q", limit: 3 }).then(function (invoices) {
     // asynchronously called
 });
+
+stripe.invoices.retrieve("in_15fvyXEe31JkLCeQH7QbgZZb", { expand: ["subscription"] }).then(function (invoice) {
+  invoice.subscription
+})
 
 //#endregion
 
@@ -1013,51 +1151,86 @@ stripe.payouts.cancel(
 //#region Plans tests
 // ##################################################################################
 
+// all product hash options
 stripe.plans.create({
     amount: 2000,
     interval: "month",
-    name: "Amazing Gold Plan",
+    product: {
+        name: "Amazing Gold Plan",
+        statement_descriptor: "Gold Plan",
+        metadata: {
+            plan_id: "goldplan123"
+        }
+    },
+    nickname: "Something to remember me by",
     currency: "usd",
-    id: "gold"
+    id: "gold-plan",
+    usage_type: 'metered',
+    billing_scheme: 'per_unit'
 }, function (err, plan) {
     // asynchronously called
-    });
+});
+
+// minimum options with product hash
 stripe.plans.create({
     amount: 2000,
-    interval: "month",
-    name: "Amazing Gold Plan",
     currency: "usd",
-    id: "gold"
+    interval: "month",
+    product: {
+        name: "Amazing Gold Plan"
+    }
 }).then(function (plan) {
     // asynchronously called
 });
 
+// minimum options with product id
+stripe.plans.create({
+    amount: 2000,
+    currency: "usd",
+    interval: "month",
+    product: "prod_UT1t06yZ3iBEHi"
+}).then(function (plan) {
+    // asynchronously called
+    const productId = plan.product as string;
+});
+
 stripe.plans.retrieve(
-    "platypi-dev",
+    "gold-plan",
+    {
+        expand: ["product"]
+    },
     function (err, plan) {
         // asynchronously called
+        const product = plan.product as Stripe.products.IProduct;
     }
 );
-stripe.plans.retrieve("platypi-dev").then(function (plan) {
+stripe.plans.retrieve("gold-plan").then(function (plan) {
     // asynchronously called
 });
 
-stripe.plans.update("platypi-dev", {
-    name: "New plan name"
+stripe.plans.update("gold-plan", {
+    product: "prod_UT1t06yZ3iBEHi"
 }, function (err, plan) {
     // asynchronously called
 });
-stripe.plans.update("platypi-dev", { name: "New plan name" }).then(function (plan) {
+stripe.plans.update("gold-plan", { nickname: "New gold plan nickname" }).then(function (plan) {
     // asynchronously called
 });
 
 stripe.plans.del(
-    "platypi-dev",
+    "gold-plan",
     function (err, confirmation) {
         // asynchronously called
     }
 );
-stripe.plans.del("platypi-dev").then(function (confirmation) {
+stripe.plans.del("gold-plan").then(function (confirmation) {
+    // asynchronously called
+});
+
+stripe.plans.list({ active: true, product: 'prod_someproduct' }, function(err, plans) {
+    // asynchronously called
+});
+stripe.plans.list({ active: true, product: 'prod_someproduct' }).then(function (plans) {
     // asynchronously called
 });
 
@@ -1080,11 +1253,18 @@ stripe.plans.list().then(function (plans) {
 //#region Subscriptions tests
 // ##################################################################################
 
-stripe.subscriptions.create({ plan: "platypi-dev", customer: "cus_5rfJKDJkuxzh5Q" }, function(err, subscription) {
+stripe.subscriptions.create({ items: [{ plan: "platypi-dev" }], customer: "cus_5rfJKDJkuxzh5Q" }, function(err, subscription) {
     // asynchronously called
 });
-stripe.subscriptions.create({ plan: "platypi-dev", customer: "cus_5rfJKDJkuxzh5Q" }).then(function(subscription) {
+stripe.subscriptions.create({ items: [{ plan: "platypi-dev" }], customer: "cus_5rfJKDJkuxzh5Q" }).then(function(subscription) {
     // asynchronously called
+
+    stripe.subscriptions.update("sub_8QwCiwZ9tmMSpt", { items: [{ id: subscription.items.data[0].id, plan: "platypi" }] }, function(err, subscription) {
+        // asynchronously called
+    });
+    stripe.subscriptions.update("sub_8QwCiwZ9tmMSpt", { items: [{ id: subscription.items.data[0].id, plan: "platypi" }] }).then(function(subscription) {
+        // asynchronously called
+    });
 });
 
 stripe.subscriptions.retrieve("sub_8QwCiwZ9tmMSpt", function(err, subscription) {
@@ -1098,13 +1278,6 @@ stripe.subscriptions.retrieve("sub_8QwCiwZ9tmMSpt").then(function(subscription) 
     if (typeof subscription.customer === "object") {
         subscription.customer.email;
     }
-});
-
-stripe.subscriptions.update("sub_8QwCiwZ9tmMSpt", { plan: "platypi" }, function(err, subscription) {
-    // asynchronously called
-});
-stripe.subscriptions.update("sub_8QwCiwZ9tmMSpt", { plan: "platypi" }).then(function(subscription) {
-    // asynchronously called
 });
 
 stripe.subscriptions.del("sub_8QwCiwZ9tmMSpt", function(err, subscription) {
@@ -1123,9 +1296,60 @@ stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" 
 
 //#endregion
 
+//#region Subscription Items tests
+// ##################################################################################
+
+stripe.subscriptionItems.create({ subscription: "sub_C9giwDfCeN8fwt", plan: "platypi-dev" }, function(err, subscriptionItem) {
+    // asynchronously called
+});
+stripe.subscriptionItems.create({ subscription: "sub_C9giwDfCeN8fwt", plan: "platypi-dev" }).then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.create({ subscription: "sub_C9giwDfCeN8fwt", plan: "platypi-dev", prorate: true, proration_date: Math.round(new Date().valueOf() / 1000) }).then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.retrieve("si_C9gimdd2l9qvCU", function(err, subscriptionItem) {
+    // asynchronously called
+});
+stripe.subscriptionItems.retrieve("si_C9gimdd2l9qvCU").then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.update("si_C9gimdd2l9qvCU", { plan: "platypi" }, function(err, subscriptionItem) {
+    // asynchronously called
+});
+stripe.subscriptionItems.update("si_C9gimdd2l9qvCU", { plan: "platypi" }).then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.del("si_C9gimdd2l9qvCU", function(err, subscriptionItem) {
+    // asynchronously called
+});
+stripe.subscriptionItems.del("si_C9gimdd2l9qvCU").then(function(subscriptionItem) {
+    // asynchronously called
+});
+
+stripe.subscriptionItems.list({ subscription: "si_C9gimdd2l9qvCU" }, function(err, subscriptionItems) {
+    // asynchronously called
+});
+stripe.subscriptionItems.list({ subscription: "si_C9gimdd2l9qvCU" }).then(function(subscriptionItems) {
+    // asynchronously called
+});
+
+//#endregion
+
 //#region Ephemeral keys tests
 // ##################################################################################
 
 stripe.ephemeralKeys.create({ customer: "cus_5rfJKDJkuxzh5Q" }, { stripe_version: "2017-08-15" }).then(function(ephemeralKeys) {
     // asynchronously called
 });
+
+
+stripe.usageRecords.create('sub_8QwCiwZ9tmMSpt', { action: 'set', quantity: 10000, timestamp: 1537006853 }).then((usageRecord: Stripe.usageRecords.IUsageRecord) => {});
+stripe.usageRecords.create('sub_8QwCiwZ9tmMSpt', { action: 'set', quantity: 10000, timestamp: 1537006853 }, (err, usageRecord: Stripe.usageRecords.IUsageRecord) => {})
+
+stripe.usageRecordSummarys.list({ subscription_item: 'si_C9gimdd2l9qvCU', limit: 10 }).then((usageRecordSummarys: Stripe.usageRecordSummarys.IUsageRecordSummarys) => {});
+stripe.usageRecordSummarys.list({ subscription_item: 'si_C9gimdd2l9qvCU', limit: 10 }, (err, usageRecordSummarys: Stripe.usageRecordSummarys.IUsageRecordSummarys) => {})

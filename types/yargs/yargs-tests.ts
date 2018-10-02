@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import * as yargs from 'yargs';
+import yargs = require('yargs');
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -647,4 +647,22 @@ function Argv$check() {
     const ya = yargs
         .check((argv, aliases) => void 0)
         .check((argv, aliases) => void 0, false);
+}
+
+function Argv$hide() {
+    const ya = yargs
+        .hide('a');
+}
+
+function Argv$showHidden() {
+    const ya = yargs
+        .showHidden()
+        .showHidden(true)
+        .showHidden('show-hidden')
+        .showHidden('show-hidden', 'Show hidden options');
+}
+
+function Argv$scriptName() {
+    const ya = yargs
+        .scriptName("my-script");
 }

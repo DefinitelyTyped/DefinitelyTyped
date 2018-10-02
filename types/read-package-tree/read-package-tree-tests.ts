@@ -1,4 +1,4 @@
-import * as readPackageTree from "read-package-tree";
+import readPackageTree = require("read-package-tree");
 
 readPackageTree("../", (error, data) => {
     // done

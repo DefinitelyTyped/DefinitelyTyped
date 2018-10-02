@@ -3,7 +3,7 @@
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { BabylonOptions } from 'babylon';
 import * as t from 'babel-types';

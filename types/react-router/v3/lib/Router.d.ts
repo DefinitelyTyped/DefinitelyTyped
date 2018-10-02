@@ -52,7 +52,7 @@ type GoFunction = (n: number) => void;
 type NavigateFunction = () => void;
 type ActiveFunction = (location: LocationDescriptor, indexOnly?: boolean) => boolean;
 type LeaveHookFunction = (route: any, callback: RouteHook) => void;
-type CreatePartFunction<Part> = (path: Path, query?: any) => Part;
+type CreatePartFunction<Part> = (pathOrLoc: LocationDescriptor, query?: any) => Part;
 
 export interface InjectedRouter {
     push: LocationFunction;
@@ -66,10 +66,10 @@ export interface InjectedRouter {
     isActive: ActiveFunction;
 }
 
-export interface RouteComponentProps<P, R> {
+export interface RouteComponentProps<P, R, ComponentProps = any> {
     location: Location;
     params: P & R;
-    route: PlainRoute;
+    route: PlainRoute<ComponentProps>;
     router: InjectedRouter;
     routes: PlainRoute[];
     routeParams: R;

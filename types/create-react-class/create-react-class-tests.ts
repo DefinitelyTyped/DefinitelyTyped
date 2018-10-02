@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as DOM from "react-dom-factories";
-import * as createReactClass from "create-react-class";
+import createReactClass = require("create-react-class");
 
 interface Props {
     foo: string;
@@ -11,7 +11,7 @@ interface State {
     bar: number;
 }
 
-const props: Props & React.ClassAttributes<{}> = {
+const props: Props = {
     foo: "foo"
 };
 
@@ -73,6 +73,12 @@ const ClassicComponent: React.ClassicComponentClass<Props> = createReactClass<Pr
     }
 });
 
+const ClassicComponentNoProps: React.ClassicComponentClass = createReactClass({
+    render() {
+        return DOM.div();
+    }
+});
+
 // React.createFactory
 const classicFactory: React.ClassicFactory<Props> =
     React.createFactory(ClassicComponent);
@@ -81,6 +87,7 @@ const classicFactoryElement: React.ClassicElement<Props> =
 
 // React.createElement
 const classicElement: React.ClassicElement<Props> = React.createElement(ClassicComponent, props);
+const classicElementNullProps: React.ClassicElement<{}> = React.createElement(ClassicComponentNoProps, null);
 
 // React.cloneElement
 const clonedClassicElement: React.ClassicElement<Props> =

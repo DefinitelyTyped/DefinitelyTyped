@@ -88,6 +88,7 @@ function minusTests() {
     0.3 - 0.1; // 0.19999999999999998
     const x = new Big(0.3);
     x.minus(0.1); // '0.2'
+    x.sub(0.1); // '0.2'
 }
 
 function modTests() {
@@ -101,6 +102,7 @@ function plusTests() {
     const x = new Big(0.1);
     const y = x.plus(0.2); // '0.3'
     Big(0.7).plus(x).plus(y); // '1'
+    Big(0.7).add(x).add(y); // '1'
 }
 
 function powTests() {
@@ -140,6 +142,7 @@ function timesTests() {
     const x = new Big(0.6);
     const y = x.times(3); // '1.8'
     Big('7e+500').times(y); // '1.26e+501'
+    Big('7e+500').mul(y); // '1.26e+501'
 }
 
 function toExponentialTests() {
@@ -197,6 +200,24 @@ function toJSONTests() {
     const a = new Big('123').toJSON();
 
     JSON.parse(str, (k, v)  => k === '' ? v : new Big(v)); // Returns an array of three Big numbers.
+}
+
+// test Big.c
+function coefficientTests() {
+    const x = new Big('123');
+    x.c; // [1, 2, 3]
+}
+
+// test Big.e
+function exponentTests() {
+    const x = new Big('123e+20');
+    x.e; // 22
+}
+
+// test Big.s
+function signTests() {
+    const x = new Big('-123');
+    x.s; // -1
 }
 
 // see http://mikemcl.github.io/big.js/#faq

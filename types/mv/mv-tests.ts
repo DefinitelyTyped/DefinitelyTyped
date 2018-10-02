@@ -1,4 +1,4 @@
-import * as mv from 'mv';
+import mv = require('mv');
 
 () => {
     mv('/tmp/f1.txt', '/tmp/f2.txt', error => {

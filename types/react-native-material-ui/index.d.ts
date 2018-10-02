@@ -1,11 +1,14 @@
-// Type definitions for react-native-material-ui 1.12
+// Type definitions for react-native-material-ui 1.31
 // Project: https://github.com/xotahal/react-native-material-ui
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Component } from 'react';
-import { ViewStyle, TextStyle, Image } from 'react-native';
+import { StyleProp, ViewStyle as ViewStyleRaw, TextStyle as TextStyleRaw, Image } from 'react-native';
+
+export type ViewStyle = StyleProp<ViewStyleRaw>;
+export type TextStyle = StyleProp<TextStyleRaw>;
 
 export interface ActionButtonProps {
     actions?: string[] | JSX.Element[] | Array<{
@@ -18,6 +21,7 @@ export interface ActionButtonProps {
     style?: {
         container?: ViewStyle
         icon?: TextStyle
+        positionContainer?: ViewStyle
     };
     transition?: 'toolbar' | 'speedDial';
     onPress?(): void;
@@ -337,7 +341,7 @@ export interface IconToggleProps {
 export class IconToggle extends Component<IconToggleProps, any> {}
 
 export interface ListItemCenterElement {
-    primaryText: string;
+    primaryText: string | JSX.Element;
     secondaryText?: string;
     tertiaryText?: string;
 }
@@ -425,11 +429,18 @@ export interface Searchable {
     onSearchClosed?(): void;
     onSearchPressed?(): void;
     onSubmitEditing?(): void;
+    onSearchCloseRequested?(): void;
 }
 
 export interface ToolBarRightElement {
     actions?: Array<JSX.Element | string>;
     menu?: {icon: string, labels: string[]};
+}
+
+export interface RightElementPressEvent {
+    action: string;
+    index: number;
+    result?: any;
 }
 
 export interface ToolbarProps {
@@ -443,7 +454,7 @@ export interface ToolbarProps {
     searchable?: Searchable;
     onPress?(): void;
     onLeftElementPress?(): void;
-    onRightElementPress?(): void;
+    onRightElementPress?(e: RightElementPressEvent): void;
 }
 
 /**
@@ -481,16 +492,6 @@ export interface RippleFeedbackProps {
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/RippleFeedback/RippleFeedback.react.js
  */
 export class RippleFeedback extends Component<RippleFeedbackProps, any> {}
-
-export interface ThemeProviderProps {
-    uiTheme: {};
-    children: JSX.Element;
-}
-
-/**
- * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/styles/ThemeProvider.react.js
- */
-export class ThemeProvider extends Component<ThemeProviderProps, any> {}
 
 export interface Color {
     red50: string;
@@ -754,3 +755,23 @@ export interface Color {
 }
 
 export const COLOR: Color;
+
+export interface ThemeProps {
+    theme: {};
+}
+
+export interface ThemeProviderProps {
+    value: {};
+    children: React.ReactElement<any>;
+}
+
+export interface ThemeConsumerProps {
+    children(props: ThemeProps): React.ReactElement<any>;
+}
+
+export namespace ThemeContext {
+    class Provider extends Component<ThemeProviderProps> {}
+    class Consumer extends Component<ThemeConsumerProps> {}
+}
+
+export function getTheme(theme: {}): {};

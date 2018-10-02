@@ -1,4 +1,4 @@
-// Type definitions for dragula v2.1.2
+// Type definitions for hystrixjs 0.2
 // Project: https://bitbucket.org/igor_sechyn/hystrixjs
 // Definitions by: Igor Sechyn <https://github.com/igorsechyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,20 +10,20 @@ export as namespace hystrixjs;
 export as namespace HystrixJS;
 
 export interface HystrixProperties {
-    "hystrix.force.circuit.open"?: boolean,
-    "hystrix.force.circuit.closed"?: boolean,
-    "hystrix.circuit.sleepWindowInMilliseconds"?: number,
-    "hystrix.circuit.errorThresholdPercentage"?: number,
-    "hystrix.circuit.volumeThreshold"?: number,
-    "hystrix.circuit.volumeThreshold.forceOverride"?: boolean,
-    "hystrix.circuit.volumeThreshold.override"?: number,
-    "hystrix.execution.timeoutInMilliseconds"?: number,
-    "hystrix.metrics.statistical.window.timeInMilliseconds"?: number,
-    "hystrix.metrics.statistical.window.bucketsNumber"?: number,
-    "hystrix.metrics.percentile.window.timeInMilliseconds"?: number,
-    "hystrix.metrics.percentile.window.bucketsNumber"?: number,
-    "hystrix.request.volume.rejectionThreshold"?: number,
-    "hystrix.promise.implementation"?: PromiseConstructorLike,
+    "hystrix.force.circuit.open"?: boolean;
+    "hystrix.force.circuit.closed"?: boolean;
+    "hystrix.circuit.sleepWindowInMilliseconds"?: number;
+    "hystrix.circuit.errorThresholdPercentage"?: number;
+    "hystrix.circuit.volumeThreshold"?: number;
+    "hystrix.circuit.volumeThreshold.forceOverride"?: boolean;
+    "hystrix.circuit.volumeThreshold.override"?: number;
+    "hystrix.execution.timeoutInMilliseconds"?: number;
+    "hystrix.metrics.statistical.window.timeInMilliseconds"?: number;
+    "hystrix.metrics.statistical.window.bucketsNumber"?: number;
+    "hystrix.metrics.percentile.window.timeInMilliseconds"?: number;
+    "hystrix.metrics.percentile.window.bucketsNumber"?: number;
+    "hystrix.request.volume.rejectionThreshold"?: number;
+    "hystrix.promise.implementation"?: PromiseConstructorLike;
 }
 
 export interface HystrixConfig {
@@ -39,46 +39,45 @@ export interface HystrixConfig {
     metricsStatisticalWindowBuckets(): number;
     metricsStatisticalWindowInMilliseconds(): number;
     metricsPercentileWindowInMilliseconds(): number;
-    metricsPercentileWindowBuckets(): number;
     requestVolumeRejectionThreshold(): number;
     resetProperties(): void;
     init(properties: HystrixProperties): void;
 }
 
 export interface Command {
-    execute(...args: any[]): PromiseLike<any>
+    execute(...args: any[]): PromiseLike<any>;
 }
 
 export interface CommandA0<R> {
-    execute<R>(): PromiseLike<R>
+    execute<R>(): PromiseLike<R>;
 }
 
 export interface CommandA1<R, T> {
-    execute(t: T): PromiseLike<R>
+    execute(t: T): PromiseLike<R>;
 }
 
 export interface CommandA2<R, T, U> {
-    execute(t: T, u: U): PromiseLike<R>
+    execute(t: T, u: U): PromiseLike<R>;
 }
 
 export interface CommandA3<R, T, U, V> {
-    execute(t: T, u: U, v: V): PromiseLike<R>
+    execute(t: T, u: U, v: V): PromiseLike<R>;
 }
 
 export interface CommandA4<R, T, U, V, W> {
-    execute(t: T, u: U, v: V, w: W): PromiseLike<R>
+    execute(t: T, u: U, v: V, w: W): PromiseLike<R>;
 }
 
 export interface CommandA5<R, T, U, V, W, X> {
-    execute(t: T, u: U, v: V, w: W, x: X): PromiseLike<R>
+    execute(t: T, u: U, v: V, w: W, x: X): PromiseLike<R>;
 }
 
 export interface CommandA6<R, T, U, V, W, X, Y> {
-    execute(t: T, u: U, v: V, w: W, x: X, y: Y): PromiseLike<R>
+    execute(t: T, u: U, v: V, w: W, x: X, y: Y): PromiseLike<R>;
 }
 
 export interface CommandA7<R, T, U, V, W, X, Y, Z> {
-    execute(t: T, u: U, v: V, w: W, x: X, y: Y, z: Z): PromiseLike<R>
+    execute(t: T, u: U, v: V, w: W, x: X, y: Y, z: Z): PromiseLike<R>;
 }
 
 export interface CommandBuilder {
@@ -97,7 +96,7 @@ export interface CommandBuilder {
     context(value: any): CommandBuilder;
     run(value: (...args: any[]) => PromiseLike<any>): CommandBuilder;
     fallbackTo(value: (error: Error, args ?: any[]) => PromiseLike<any>): CommandBuilder;
-    build() : Command;
+    build(): Command;
 }
 
 export interface CommandBuilderA0<R> {
@@ -116,7 +115,7 @@ export interface CommandBuilderA0<R> {
     context(value: any): CommandBuilderA0<R>;
     run(value: () => PromiseLike<R>): CommandBuilderA0<R>;
     fallbackTo(value: (error: Error) => PromiseLike<R>): CommandBuilderA0<R>;
-    build() : CommandA0<R>;
+    build(): CommandA0<R>;
 }
 
 export interface CommandBuilderA1<R, T> {
@@ -134,7 +133,7 @@ export interface CommandBuilderA1<R, T> {
     circuitBreakerErrorThresholdPercentage(value: number): CommandBuilderA1<R, T>;
     context(value: any): CommandBuilderA1<R, T>;
     run(value: (t: T) => PromiseLike<R>): CommandBuilderA1<R, T>;
-    fallbackTo(value: (error: Error, args : [T]) => PromiseLike<R>): CommandBuilderA1<R, T>;
+    fallbackTo(value: (error: Error, args: [T]) => PromiseLike<R>): CommandBuilderA1<R, T>;
     build(): CommandA1<R, T>;
 }
 
@@ -288,28 +287,28 @@ export interface CommandMetrics {
 }
 
 export interface MetricsProperties {
-    commandKey: string,
-    commandGroup: string,
-    statisticalWindowTimeInMilliSeconds?: number,
-    statisticalWindowNumberOfBuckets?: number,
-    percentileWindowTimeInMilliSeconds?: number,
-    percentileWindowNumberOfBuckets?: number
+    commandKey: string;
+    commandGroup: string;
+    statisticalWindowTimeInMilliSeconds?: number;
+    statisticalWindowNumberOfBuckets?: number;
+    percentileWindowTimeInMilliSeconds?: number;
+    percentileWindowNumberOfBuckets?: number;
 }
 
 export interface MetricsFactory {
     getOrCreate(config: MetricsProperties): CommandMetrics;
     resetCache(): void;
-    getAllMetrics(): Array<CommandMetrics>;
+    getAllMetrics(): CommandMetrics[];
 }
 
 export interface CirctuiBreakerConfig {
-    circuitBreakerSleepWindowInMilliseconds: number,
-    commandKey: string,
-    circuitBreakerErrorThresholdPercentage: number,
-    circuitBreakerRequestVolumeThreshold: number,
-    commandGroup: string,
-    circuitBreakerForceClosed: boolean,
-    circuitBreakerForceOpened: boolean
+    circuitBreakerSleepWindowInMilliseconds: number;
+    commandKey: string;
+    circuitBreakerErrorThresholdPercentage: number;
+    circuitBreakerRequestVolumeThreshold: number;
+    commandGroup: string;
+    circuitBreakerForceClosed: boolean;
+    circuitBreakerForceOpened: boolean;
 }
 
 export interface CircuitBreaker {
@@ -321,16 +320,16 @@ export interface CircuitBreaker {
 
 export interface CircuitFactory {
     getOrCreate(config: CirctuiBreakerConfig): CircuitBreaker;
-    getCache(): Array<CircuitBreaker>;
+    getCache(): CircuitBreaker[];
     resetCache(): void;
 }
 
 export interface HystrixSSEStream {
-    toObservable(): Rx.Observable<any>
+    toObservable(): Rx.Observable<any>;
 }
 
-export var commandFactory: CommandFactory;
-export var metricsFactory: MetricsFactory;
-export var circuitFactory: CircuitFactory;
-export var hystrixSSEStream: HystrixSSEStream;
-export var hystrixConfig: HystrixConfig;
+export const commandFactory: CommandFactory;
+export const metricsFactory: MetricsFactory;
+export const circuitFactory: CircuitFactory;
+export const hystrixSSEStream: HystrixSSEStream;
+export const hystrixConfig: HystrixConfig;

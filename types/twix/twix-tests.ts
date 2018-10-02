@@ -1,6 +1,4 @@
-
-
-import * as moment from 'moment';
+import moment = require('moment');
 
 var someMoment = moment("20111031", "YYYYMMDD");
 var otherMoment = moment("20120620", "YYYYMMDD");

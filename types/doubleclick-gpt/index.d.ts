@@ -1,12 +1,13 @@
-// Type definitions for Google Publisher Tag v104
+// Type definitions for Google Publisher Tag v238
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
+//                 Steven Joyce <https://github.com/steven-joyce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace googletag {
     export type SingleSizeArray = number[];
 
-    export type NamedSize = string;
+    export type NamedSize = string | string[];
 
     export type SingleSize = SingleSizeArray | NamedSize;
 
@@ -27,6 +28,7 @@ declare namespace googletag {
           eventType: string,
             listener: (event: events.ImpressionViewableEvent | events.SlotOnloadEvent | events.SlotRenderEndedEvent | events.slotVisibilityChangedEvent) => void
         ): void;
+        getSlots(): Slot[];
     }
 
     export interface CompanionAdsService extends Service {
@@ -38,11 +40,16 @@ declare namespace googletag {
         setContent(slot: Slot, content: String): void;
     }
 
+    export interface LazyLoadOptionsConfig {
+        fetchMarginPercent?: number,
+        renderMarginPercent?: number,
+        mobileScaling?: number
+    }
+
     export interface ResponseInformation {
         advertiserId: string;
         campaignId: string;
         creativeId?: number;
-        labelIds: number[];
         lineItemId?: number;
     }
 
@@ -61,7 +68,7 @@ declare namespace googletag {
         defineSlot(adUnitPath: string, size: GeneralSize, opt_div?: string): Slot;
         destroySlots(opt_slots?: Slot[]): boolean;
         disablePublisherConsole(): void;
-        display(div?: string): void;
+        display(div?: string | Element): void;
         enableServices(): void;
         getVersion(): string;
         openConsole(opt_div?: string): void;
@@ -100,6 +107,7 @@ declare namespace googletag {
         setClickUrl(url: string): PassbackSlot;
         setForceSafeFrame(forceSafeFrame: boolean): PassbackSlot;
         setTagForChildDirectedTreatment(value: number): PassbackSlot;
+        setTagForUnderAgeOfConsent(value: number): PassbackSlot;
         setTargeting(key: string, value: string | string[]): PassbackSlot;
         updateTargetingFromMap(map: Object): PassbackSlot;
     }
@@ -113,8 +121,9 @@ declare namespace googletag {
         defineOutOfPagePassback(adUnitPath: string): PassbackSlot;
         definePassback(adUnitPath: string, size: GeneralSize): PassbackSlot;
         disableInitialLoad(): void;
-        display(adUnitPath: string, size: GeneralSize, opt_div?: string, opt_clickUrl?: string): Slot;
+        display(adUnitPath: string, size: GeneralSize, opt_div?: string | Element, opt_clickUrl?: string): Slot;
         enableAsyncRendering(): boolean;
+        enableLazyLoad(opt_config?: LazyLoadOptionsConfig): void;
         enableSingleRequest(): boolean;
         enableSyncRendering(): boolean;
         enableVideoAds(): void;
@@ -130,8 +139,10 @@ declare namespace googletag {
         setForceSafeFrame(forceSafeFrame: boolean): PubAdsService;
         setLocation(latitudeOrAddress: string | number, opt_longitude?: number, opt_radius?: number): PubAdsService;
         setPublisherProvidedId(ppid: string): PubAdsService;
+        setRequestNonPersonalizedAds(nonPersonalizedAds: 0 | 1): PubAdsService;
         setSafeFrameConfig(config: SafeFrameConfig): PubAdsService;
         setTagForChildDirectedTreatment(value: number): PubAdsService;
+        setTagForUnderAgeOfConsent(opt_value?: number): PubAdsService;
         setTargeting(key: string, value: string | string[]): PubAdsService;
         setVideoContent(videoContentId: string, videoCmsId: string): void;
         updateCorrelator(): PubAdsService;
@@ -154,12 +165,15 @@ declare namespace googletag {
         }
 
         export interface SlotRenderEndedEvent {
+            advertiserId?: number;
             creativeId?: number;
             isEmpty: boolean;
             lineItemId?: number;
             serviceName: string;
             size: number[] | string;
             slot: Slot;
+            sourceAgnosticCreativeId?: number;
+            sourceAgnosticLineItemId?: number;
         }
 
         export interface slotVisibilityChangedEvent {

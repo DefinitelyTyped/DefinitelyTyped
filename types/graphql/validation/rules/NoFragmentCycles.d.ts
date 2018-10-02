@@ -1,3 +1,6 @@
-import { ValidationContext } from '../index';
+import { ValidationContext } from "../ValidationContext";
+import { ASTVisitor } from "../../language/visitor";
 
-export function NoFragmentCycles(context: ValidationContext): any;
+export function cycleErrorMessage(fragName: string, spreadNames: Array<string>): string;
+
+export function NoFragmentCycles(context: ValidationContext): ASTVisitor;

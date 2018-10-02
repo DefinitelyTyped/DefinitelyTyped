@@ -12,6 +12,11 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "fs-extra": [
+                "fs-extra/v4"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

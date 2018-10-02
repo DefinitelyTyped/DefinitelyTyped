@@ -3,6 +3,7 @@
 // Definitions by:  William Johnston <https://github.com/wjohnsto>
 // 	                Kacper Polak <https://github.com/kacepe>
 // 	                Krittanan Pingclasai <https://github.com/kpping>
+// 	                James Munro <https://github.com/jdmunro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -241,6 +242,11 @@ export interface QueryOptions {
     sql: string;
 
     /**
+     * Values for template query
+     */
+    values?: any;
+
+    /**
      * Every operation takes an optional inactivity timeout option. This allows you to specify appropriate timeouts for
      * operations. It is important to note that these timeouts are not part of the MySQL protocol, and rather timeout
      * operations through the client. This means that when a timeout is reached, the connection it occurred on will be
@@ -391,10 +397,10 @@ export interface ConnectionConfig extends ConnectionOptions {
     bigNumberStrings?: boolean;
 
     /**
-     * Force date types (TIMESTAMP, DATETIME, DATE) to be returned as strings rather then inflated into JavaScript Date
-     * objects. (Default: false)
+     * Force date types (TIMESTAMP, DATETIME, DATE) to be returned as strings rather then inflated into JavaScript
+     * Date objects. Can be true/false or an array of type names to keep as strings. (Default: false)
      */
-    dateStrings?: boolean;
+    dateStrings?: boolean | Array<'TIMESTAMP' | 'DATETIME' | 'DATE'>;
 
     /**
      * This will print all incoming and outgoing packets on stdout.
@@ -521,6 +527,11 @@ export interface MysqlError extends Error {
      * SQL of failed query
      */
     sql?: string;
+
+    /**
+     * Error message from MySQL
+     */
+    sqlMessage?: string;
 }
 
 export const enum Types {

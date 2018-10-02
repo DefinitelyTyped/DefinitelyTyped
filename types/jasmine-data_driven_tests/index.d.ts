@@ -2,7 +2,7 @@
 // Project: https://github.com/gburghardt/jasmine-data_driven_tests
 // Definitions by: Anthony MacKinnon <https://github.com/AnthonyMacKinnon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare var all: JasmineDataDrivenTest;
 declare var xall: JasmineDataDrivenTest;

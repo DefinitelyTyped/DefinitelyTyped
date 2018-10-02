@@ -2,9 +2,9 @@
 
 import Bcrypt = require('bcrypt');
 import Basic = require('hapi-auth-basic');
-import * as Hapi from 'hapi';
+import { Server } from 'hapi';
 
-const server = new Hapi.Server();
+const server = new Server();
 
 interface User {
     username: string;
@@ -39,5 +39,5 @@ server.register(Basic).then(() => {
     server.auth.strategy('simple', 'basic', { validate });
 	server.auth.default('simple');
 
-    server.route({ method: 'GET', path: '/', config: { auth: 'simple' } });
+    server.route({ method: 'GET', path: '/', options: { auth: 'simple' } });
 });

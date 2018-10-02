@@ -1,7 +1,8 @@
-// Type definitions for Marked 0.3
-// Project: https://github.com/chjj/marked
+// Type definitions for Marked 0.4
+// Project: https://github.com/markedjs/marked
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
+//                 CrossR <https://github.com/CrossR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace marked;
@@ -72,7 +73,7 @@ declare namespace marked {
         html(html: string): string;
         heading(text: string, level: number, raw: string): string;
         hr(): string;
-        list(body: string, ordered: boolean): string;
+        list(body: string, ordered: boolean, start: number): string;
         listitem(text: string): string;
         paragraph(text: string): string;
         table(header: string, body: string): string;
@@ -202,21 +203,9 @@ declare namespace marked {
 
     interface MarkedOptions {
         /**
-         * Type: object Default: new Renderer()
-         *
-         * An object containing functions to render tokens to HTML.
+         * A prefix URL for any relative link.
          */
-        renderer?: Renderer;
-
-        /**
-         * Enable GitHub flavored markdown.
-         */
-        gfm?: boolean;
-
-        /**
-         * Enable GFM tables. This option requires the gfm option to be true.
-         */
-        tables?: boolean;
+        baseUrl?: string;
 
         /**
          * Enable GFM line breaks. This option requires the gfm option to be true.
@@ -224,34 +213,19 @@ declare namespace marked {
         breaks?: boolean;
 
         /**
-         * Conform to obscure parts of markdown.pl as much as possible. Don't fix any of the original markdown bugs or poor behavior.
+         * Enable GitHub flavored markdown.
          */
-        pedantic?: boolean;
+        gfm?: boolean;
 
         /**
-         * Sanitize the output. Ignore any HTML that has been input.
+         * Include an id attribute when emitting headings.
          */
-        sanitize?: boolean;
+        headerIds?: boolean;
 
         /**
-         * Optionally sanitize found HTML with a sanitizer function.
+         * Set the prefix for header tag ids.
          */
-        sanitizer?(html: string): string;
-
-        /**
-         * Mangle autolinks (<email@domain.com>).
-         */
-        mangle?: boolean;
-
-        /**
-         * Use smarter list behavior than the original markdown. May eventually be default with the old behavior moved into pedantic.
-         */
-        smartLists?: boolean;
-
-        /**
-         * Shows an HTML error message when rendering fails.
-         */
-        silent?: boolean;
+        headerPrefix?: string;
 
         /**
          * A function to highlight code blocks. The function takes three arguments: code, lang, and callback.
@@ -264,14 +238,51 @@ declare namespace marked {
         langPrefix?: string;
 
         /**
+         * Mangle autolinks (<email@domain.com>).
+         */
+        mangle?: boolean;
+
+        /**
+         * Conform to obscure parts of markdown.pl as much as possible. Don't fix any of the original markdown bugs or poor behavior.
+         */
+        pedantic?: boolean;
+
+        /**
+         * Type: object Default: new Renderer()
+         *
+         * An object containing functions to render tokens to HTML.
+         */
+        renderer?: Renderer;
+
+        /**
+         * Sanitize the output. Ignore any HTML that has been input.
+         */
+        sanitize?: boolean;
+
+        /**
+         * Optionally sanitize found HTML with a sanitizer function.
+         */
+        sanitizer?(html: string): string;
+
+        /**
+         * Shows an HTML error message when rendering fails.
+         */
+        silent?: boolean;
+
+        /**
+         * Use smarter list behavior than the original markdown. May eventually be default with the old behavior moved into pedantic.
+         */
+        smartLists?: boolean;
+
+        /**
          * Use "smart" typograhic punctuation for things like quotes and dashes.
          */
         smartypants?: boolean;
 
         /**
-         * Set the prefix for header tag ids.
+         * Enable GFM tables. This option requires the gfm option to be true.
          */
-        headerPrefix?: string;
+        tables?: boolean;
 
         /**
          * Generate closing slash for self-closing tags (<br/> instead of <br>)

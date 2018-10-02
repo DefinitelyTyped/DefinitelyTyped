@@ -54,7 +54,7 @@ declare class Pikaday {
     /**
      * Set the current selection with a Moment.js object (see setDate).
      */
-    setMoment(moment: any): void;
+    setMoment(moment: any, preventOnSelect?: boolean): void;
 
     /**
      * Change the current view to see a specific date.
@@ -288,6 +288,12 @@ declare namespace Pikaday {
          * The default flag for moment's strict date parsing (requires Moment.js for custom formatting). Default: false
          */
         formatStrict?: boolean;
+
+        /**
+         * Function which will be used for formatting date object to string.
+         * This function will take precedence over moment.
+         */
+        toString?(date: Date, format?: string): string;
 
         /**
          * Function which will be used for parsing input string and getting a date object from it.

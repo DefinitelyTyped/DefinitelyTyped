@@ -25,6 +25,12 @@ function TestFirefoxDriver() {
 function TestFirefoxOptions() {
     let options: firefox.Options = new firefox.Options();
 
+    options = options.addArguments('foo', 'bar');
+    options = options.windowSize({ width: 320, height: 480 });
+    options = options.addExtensions('foo', 'bar');
+    options = options.setPreference('a', 1);
+    options = options.setPreference('a', true);
+    options = options.setPreference('a', '1');
     options = options.setBinary('binary');
     options = options.setBinary(new firefox.Binary());
     options = options.setLoggingPreferences(new webdriver.logging.Preferences());

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { findDOMNode } from "react-dom";
-import * as ReactTooltip from "react-tooltip";
+import ReactTooltip = require("react-tooltip");
 
 export class ReactTooltipTest extends React.PureComponent {
     componentDidMount() {
@@ -8,7 +8,7 @@ export class ReactTooltipTest extends React.PureComponent {
     }
 
     render() {
-        const getContent: ReactTooltip.GetContent = [() => Math.floor(Math.random() * 100), 30];
+        const getContent: ReactTooltip.GetContent = [dataTip => Math.floor(Math.random() * 100), 30];
 
         return <div>
             <a data-tip data-for="happyFace"> d(`･∀･)b </a>
@@ -53,8 +53,8 @@ export class ReactTooltipTest extends React.PureComponent {
             <a data-for="getContent" data-tip>=( •̀д•́)</a>
             <ReactTooltip id="getContent" getContent={getContent} />
 
-            <a data-for="overTime" data-tip>=( •̀д•́)</a>
-            <ReactTooltip id="overTime" wrapper="span" getContent={[() => new Date().toISOString(), 1000]} />
+            <a data-for="overTime" data-tip="3/14/1592">=( •̀д•́)</a>
+            <ReactTooltip id="overTime" wrapper="span" getContent={[dateString => new Date(dateString).toISOString(), 1000]} />
 
             <a data-tip data-for="happyFace"> d(`･∀･)b </a>
             <ReactTooltip
@@ -91,7 +91,7 @@ export class ReactTooltipTest extends React.PureComponent {
             <p data-for="show-on-click" ref="fooShow" data-tip="tooltip" />
             <button
                 onClick={() => {
-                    ReactTooltip.show(findDOMNode(this.refs.fooShow));
+                    ReactTooltip.show(findDOMNode(this.refs.fooShow) as Element);
                 }}
             />
             <ReactTooltip id="show-on-click" />
@@ -99,7 +99,7 @@ export class ReactTooltipTest extends React.PureComponent {
             <p data-for="hide-on-click" ref="fooHide" data-tip="tooltip"/>
             <button
                 onClick={() => {
-                    ReactTooltip.hide(findDOMNode(this.refs.fooHide));
+                    ReactTooltip.hide(findDOMNode(this.refs.fooHide) as Element);
                 }}
             />
             <ReactTooltip id="hide-on-click" />

@@ -1,4 +1,4 @@
-// Type definitions for core-js 0.9
+// Type definitions for core-js 2.5
 // Project: https://github.com/zloirock/core-js/
 // Definitions by: Ron Buckton <https://github.com/rbuckton>, Michel Felipe <https://github.com/mfdeveloper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -58,6 +58,8 @@ declare function $for<T>(iterable: Iterable<T>): $for<T>;
 
 interface String {
     at(index: number): string;
+    padStart(length: number, fillStr?: string): string;
+    padEnd(length: number, fillStr?: string): string;
 }
 
 interface Object {
@@ -710,6 +712,7 @@ declare namespace core {
         from<T, U>(arrayLike: ArrayLike<T> | Iterable<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[];
         from<T>(arrayLike: ArrayLike<T> | Iterable<T>): T[];
         of<T>(...items: T[]): T[];
+        isArray(arg: any): arg is any[];
         push<T>(array: ArrayLike<T>, ...items: T[]): number;
         pop<T>(array: ArrayLike<T>): T;
         concat<T>(array: ArrayLike<T>, ...items: Array<T[] | T>): T[];
@@ -752,8 +755,8 @@ declare namespace core {
         raw(template: TemplateStringsArray, ...substitutions: any[]): string;
         startsWith(text: string, searchString: string, position?: number): boolean;
         at(text: string, index: number): string;
-        lpad(text: string, length: number, fillStr?: string): string;
-        rpad(text: string, length: number, fillStr?: string): string;
+        padStart(text: string, length: number, fillStr?: string): string;
+        padEnd(text: string, length: number, fillStr?: string): string;
         escapeHTML(text: string): string;
         unescapeHTML(text: string): string;
     };
@@ -1032,6 +1035,10 @@ declare module "core-js/fn/array/includes" {
 declare module "core-js/fn/array/index-of" {
     const indexOf: typeof core.Array.indexOf;
     export = indexOf;
+}
+declare module "core-js/fn/array/is-array" {
+    const isArray: typeof core.Array.isArray;
+    export = isArray;
 }
 declare module "core-js/fn/array/join" {
     const join: typeof core.Array.join;
@@ -1447,9 +1454,13 @@ declare module "core-js/fn/string/includes" {
     const includes: typeof core.String.includes;
     export = includes;
 }
-declare module "core-js/fn/string/lpad" {
-    const lpad: typeof core.String.lpad;
-    export = lpad;
+declare module "core-js/fn/string/pad-end" {
+    const padEnd: typeof core.String.padEnd;
+    export = padEnd;
+}
+declare module "core-js/fn/string/pad-start" {
+    const padStart: typeof core.String.padStart;
+    export = padStart;
 }
 declare module "core-js/fn/string/raw" {
     const raw: typeof core.String.raw;
@@ -1458,10 +1469,6 @@ declare module "core-js/fn/string/raw" {
 declare module "core-js/fn/string/repeat" {
     const repeat: typeof core.String.repeat;
     export = repeat;
-}
-declare module "core-js/fn/string/rpad" {
-    const rpad: typeof core.String.rpad;
-    export = rpad;
 }
 declare module "core-js/fn/string/starts-with" {
     const startsWith: typeof core.String.startsWith;
@@ -1811,6 +1818,10 @@ declare module "core-js/library/fn/array/includes" {
 declare module "core-js/library/fn/array/index-of" {
     const indexOf: typeof core.Array.indexOf;
     export = indexOf;
+}
+declare module "core-js/library/fn/array/is-array" {
+    const isArray: typeof core.Array.isArray;
+    export = isArray;
 }
 declare module "core-js/library/fn/array/join" {
     const join: typeof core.Array.join;
@@ -2262,9 +2273,13 @@ declare module "core-js/library/fn/string/includes" {
     const includes: typeof core.String.includes;
     export = includes;
 }
-declare module "core-js/library/fn/string/lpad" {
-    const lpad: typeof core.String.lpad;
-    export = lpad;
+declare module "core-js/library/fn/string/pad-end" {
+    const padEnd: typeof core.String.padEnd;
+    export = padEnd;
+}
+declare module "core-js/library/fn/string/pad-start" {
+    const padStart: typeof core.String.padStart;
+    export = padStart;
 }
 declare module "core-js/library/fn/string/raw" {
     const raw: typeof core.String.raw;
@@ -2273,10 +2288,6 @@ declare module "core-js/library/fn/string/raw" {
 declare module "core-js/library/fn/string/repeat" {
     const repeat: typeof core.String.repeat;
     export = repeat;
-}
-declare module "core-js/library/fn/string/rpad" {
-    const rpad: typeof core.String.rpad;
-    export = rpad;
 }
 declare module "core-js/library/fn/string/starts-with" {
     const startsWith: typeof core.String.startsWith;

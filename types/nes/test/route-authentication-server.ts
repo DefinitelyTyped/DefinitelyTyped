@@ -1,12 +1,18 @@
 // from https://github.com/hapijs/nes#route-authentication
 
-import Hapi = require('hapi');
+import { AuthCredentials, Request, ResponseToolkit, Server } from 'hapi';
 import Basic = require('hapi-auth-basic');
 import Bcrypt = require('bcrypt');
 import Nes = require('nes');
 
-var server = new Hapi.Server();
-server.connection();
+const server = new Server();
+
+declare module 'hapi' {
+    interface AuthCredentials {
+        id: string;
+        name: string;
+    }
+}
 
 server.register([Basic, Nes]).then(() => {
 
@@ -19,7 +25,7 @@ server.register([Basic, Nes]).then(() => {
         id: string;
     }
 
-    var users: {[index: string]: User} = {
+    const users: { [index: string]: User } = {
         john: {
             username: 'john',
             password: '$2a$10$iqJSHD.BGr0E2IxQwYgJmeP3NvhPrXAeLSaGCj6IR/XU5QtjVu5Tm',   // 'secret'
@@ -28,9 +34,9 @@ server.register([Basic, Nes]).then(() => {
         }
     };
 
-    var validate: Basic.Validate = async (request, username, password, h) => {
+    const validate: Basic.Validate = async (request, username, password, h) => {
 
-        var user = users[username];
+        const user = users[username];
         if (!user) {
             return { credentials: null, isValid: false };
         }
@@ -40,7 +46,7 @@ server.register([Basic, Nes]).then(() => {
         return { isValid, credentials: { id: user.id, name: user.name } };
     };
 
-    server.auth.strategy('simple', 'basic', { validateFunc: validate });
+    server.auth.strategy('simple', 'basic', {validateFunc: validate});
     server.auth.default('simple');
 
     // Configure route with authentication
@@ -48,9 +54,9 @@ server.register([Basic, Nes]).then(() => {
     server.route({
         method: 'GET',
         path: '/h',
-        config: {
+        options: {
             id: 'hello',
-            handler: function (request, h) {
+            handler: function (request: Request, h: ResponseToolkit) {
 
                 return 'Hello ' + request.auth.credentials.name;
             }

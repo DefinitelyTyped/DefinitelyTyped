@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as Helmet from 'react-helmet';
+import Helmet = require('react-helmet');
 
 <Helmet title="My Title" />
 

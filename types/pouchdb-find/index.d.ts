@@ -1,13 +1,11 @@
 // Type definitions for pouchdb-find 6.3
 // Project: https://pouchdb.com/
 // Definitions by: Jakub Navratil <https://github.com/trubit>
+//                 Sebastian Ramirez <https://github.com/tiangolo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="pouchdb-core" />
-
-// TODO: Fixing this lint error will require a large refactor
-/* tslint:disable:no-single-declare-module */
 
 declare namespace PouchDB {
     namespace Find {
@@ -103,7 +101,7 @@ declare namespace PouchDB {
         }
 
         interface FindResponse<Content extends {}> {
-            docs: Array<Core.Document<Content>>;
+            docs: Array<Core.ExistingDocument<Content>>;
         }
 
         interface CreateIndexOptions {

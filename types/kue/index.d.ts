@@ -3,6 +3,7 @@
 // Definitions by: Nicholas Penree <https://github.com/drudge>
 //                 Amiram Korach <https://github.com/amiram>
 //                 Christian D. <https://github.com/pc-jedi>
+//                 Budi Irawan <https://github.com/deerawan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -72,7 +73,13 @@ export declare class Job extends events.EventEmitter {
     // Should always be a number however currently it is a number when creating and a string when loading
     // https://github.com/Automattic/kue/issues/1081
     public created_at: string | number;
+    public updated_at: string | number;
+    public promote_at: string | number;
+    public failed_at: string | number;
+    public started_at: string | number;
     public client: redisClientFactory.RedisClient;
+    public workerId: string;
+    private _error: string;
     private _max_attempts;
 
     static priorities: Priorities;

@@ -1,14 +1,24 @@
 import * as React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-interface TOwnProps extends RouteComponentProps<{}> {
-  username: string;
+interface TOwnProps extends RouteComponentProps {
+    username: string;
 }
 
-const Component = (props: TOwnProps) => <h2>Welcome {props.username}</h2>;
+const ComponentFunction = (props: TOwnProps) => (
+    <h2>Welcome {props.username}</h2>
+);
 
-const WithRouterComponent = withRouter(Component);
+class ComponentClass extends React.Component<TOwnProps> {
+    render() {
+        return <h2>Welcome {this.props.username}</h2>;
+    }
+}
 
-const WithRouterTest = () => (<WithRouterComponent username="John" />);
+const WithRouterComponentFunction = withRouter(ComponentFunction);
+const WithRouterComponentClass = withRouter(ComponentClass);
 
-export default WithRouterTest;
+const WithRouterTestFunction = () => (
+    <WithRouterComponentFunction username="John" />
+);
+const WithRouterTestClass = () => <WithRouterComponentClass username="John" />;

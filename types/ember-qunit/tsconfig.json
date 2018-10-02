@@ -2,14 +2,27 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@ember/engine": ["ember__engine"],
+            "@ember/engine/*": ["ember__engine/*"],
+            "@ember/application": ["ember__application"],
+            "@ember/application/*": ["ember__application/*"],
+            "@ember/test": ["ember__test"],
+            "@ember/test/*": ["ember__test/*"],
+            "@ember/object": ["ember__object"],
+            "@ember/object/*": ["ember__object/*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

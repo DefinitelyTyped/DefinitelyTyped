@@ -58,3 +58,10 @@ MathJax.Hub.Config({
   CommonHTML: { linebreaks: { automatic: true } },
          SVG: { linebreaks: { automatic: true } }
 });
+
+MathJax.Hub.Config({
+    SVG: {
+        useFontCache: true,
+        useGlobalCache: true
+    }
+})

@@ -18,6 +18,9 @@
     },
     "files": [
         "index.d.ts",
+        "lib/context.d.ts",
+        "lib/session.d.ts",
+        "lib/util.d.ts",
         "koa-session-tests.ts"
     ]
 }

@@ -1,5 +1,5 @@
 import fs = require("fs");
-import * as grasp from "grasp";
+import grasp = require("grasp");
 
 grasp(); // $ExpectError
 grasp({ args: [] }); // $ExpectType void
@@ -17,10 +17,7 @@ grasp({
 });
 
 // $ExpectError
-grasp({
-    args: [],
-    textFormat: { cyan: "cyan" }
-});
+grasp({ args: [], textFormat: { cyan: "cyan" } });
 
 // $ExpectType string
 grasp.VERSION;

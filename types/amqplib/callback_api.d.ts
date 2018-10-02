@@ -54,6 +54,19 @@ export interface ConfirmChannel extends Channel {
     waitForConfirms(callback?: (err: any) => void): void;
 }
 
+export const credentials: {
+    external(): {
+      mechanism: string;
+      response(): Buffer;
+    };
+    plain(username: string, password: string): {
+      mechanism: string;
+      response(): Buffer;
+      username: string;
+      password: string;
+    };
+};
+
 export function connect(callback: (err: any, connection: Connection) => void): void;
 export function connect(url: string, callback: (err: any, connection: Connection) => void): void;
 export function connect(url: string, socketOptions: any, callback: (err: any, connection: Connection) => void): void;

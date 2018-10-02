@@ -5,8 +5,8 @@
 
 export = pTimeout;
 
-declare function pTimeout<T>(input: Promise<T>, ms: number, message?: string | pTimeout.TimeoutError): Promise<T>;
-declare function pTimeout<T, R>(input: Promise<T>, ms: number, fallback: () => R | Promise<R>): Promise<T | R>;
+declare function pTimeout<T>(input: PromiseLike<T>, ms: number, message?: string | pTimeout.TimeoutError): Promise<T>;
+declare function pTimeout<T, R>(input: PromiseLike<T>, ms: number, fallback: () => R | Promise<R>): Promise<T | R>;
 
 declare namespace pTimeout {
     class TimeoutError extends Error {

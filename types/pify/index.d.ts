@@ -1,6 +1,6 @@
 // Type definitions for pify 3.0.0
 // Project: https://github.com/sindresorhus/pify
-// Definitions by: Sam Verschueren <https://github.com/samverschueren>, [Michael Müller] <https://github.com/mad-mike>
+// Definitions by: Sam Verschueren <https://github.com/samverschueren>, [Michael Müller] <https://github.com/mad-mike>, Christoph Müller <https://github.com/c7hm4r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PromiseModule {
@@ -9,8 +9,8 @@ interface PromiseModule {
 
 interface PifyOptions {
     multiArgs?: boolean,
-    include?: [string | RegExp],
-    exclude?: [string | RegExp],
+    include?: Array<string | RegExp>,
+    exclude?: Array<string | RegExp>,
     excludeMain?: boolean,
     errorFirst?: boolean,
     promiseModule?: PromiseModule

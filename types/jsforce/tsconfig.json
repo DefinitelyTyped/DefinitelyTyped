@@ -6,8 +6,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
-        "strictFunctionTypes": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,14 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "connection.d.ts",
-        "create-options.d.ts",
-        "date-enum.d.ts",
-        "salesforce-object-options.d.ts",
-        "salesforce-object.d.ts",
-        "salesforce-id.d.ts",
-        "query.d.ts",
-        "describe-result.d.ts",
         "jsforce-tests.ts"
     ]
 }

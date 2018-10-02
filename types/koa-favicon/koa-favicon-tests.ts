@@ -1,4 +1,4 @@
-import * as Koa from "koa";
+import Koa = require("koa");
 import favicon = require("koa-favicon");
 
 const app = new Koa();

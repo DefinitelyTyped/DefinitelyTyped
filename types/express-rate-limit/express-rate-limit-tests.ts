@@ -21,7 +21,7 @@ const callbackWithFewerParams = new RateLimit({
 
 class SomeStore implements RateLimit.Store {
   incr(key: string, cb: RateLimit.StoreIncrementCallback) { }
-  resetAll() { }
+  decrement(key: string) { }
   resetKey(key: string) { }
 }
 

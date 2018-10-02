@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="jasmine" />
 import * as webdriver from "selenium-webdriver";
 
 declare global {
@@ -41,6 +40,9 @@ declare global {
   // Matchers
   // TODO - Use `T` to improve types
 
+  // Note: This augments a namespace from '@types/jasmine'.
+  // Intentionally not referencing those types from this file as they introduce many globals,
+  // and users may use protractor-helpers but not jasmine, and have different definitions of those globals (e.g. through `jest`)
   namespace jasmine {
     interface Matchers<T> {
       toBePresent() : boolean;

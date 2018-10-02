@@ -2,6 +2,7 @@
 // Project: https://github.com/d3/d3-zoom/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Last module patch version validated against: 1.7.0
 
@@ -693,7 +694,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * Each view is defined as an array of three numbers: cx, cy and width. The first two coordinates cx, cy represent the center of the viewport;
      * the last coordinate width represents the size of the viewport.
      *
-     * @param interpolatorFactory An interpolator factory to be used to generate interpolators beetween zooms for transitions.
+     * @param interpolatorFactory An interpolator factory to be used to generate interpolators between zooms for transitions.
      */
     interpolate(interpolatorFactory: (a: ZoomView, b: ZoomView) => ((t: number) => ZoomView)): this;
 
@@ -921,7 +922,7 @@ export interface ZoomTransform {
  *
  * For details see {@link https://github.com/d3/d3-zoom#zoom-transforms}
  *
- * @param node An element for which to retrieve its current zoomt transform.
+ * @param node An element for which to retrieve its current zoom transform.
  */
 export function zoomTransform(node: ZoomedElementBaseType): ZoomTransform;
 

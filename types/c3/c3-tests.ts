@@ -152,7 +152,8 @@ function axis_examples() {
                     fit: true,
                     values: [1, 2, 4, 8, 16, 32],
                     rotate: 60,
-                    outer: false
+                    outer: false,
+                    width: 100
                 },
                 max: 100,
                 min: -100,
@@ -333,6 +334,7 @@ function zoom_examples() {
         data: {},
         zoom: {
             enabled: false,
+            type: 'scroll',
             rescale: true,
             extent: [1, 100], // enable more zooming
             onzoom: (domain) => { /* code */ },
@@ -451,6 +453,7 @@ function gauge_examples() {
             max: 100,
             units: " %",
             width: 10,
+            fullCircle: true,
         }
     });
 }
@@ -619,7 +622,8 @@ function chart_bar() {
             width: {
                 ratio: 0.5, // this makes bar width 50% of length between ticks
                 max: 50 // this limits maximum width of bar to 50px
-            }
+            },
+            space: 10 // this adds space between bars in bar charts
             // or
             // width: 100 // this makes bar width 100px
         }
@@ -933,6 +937,26 @@ function axes_x_tick_fit() {
                 tick: {
                     fit: true,
                     format: "%e %b %y"
+                }
+            }
+        }
+    });
+}
+
+function axes_x_tick_width() {
+    const chart = c3.generate({
+        data: {
+            x: "x",
+            columns: [
+                ["x", "2013-10-31", "2013-12-31", "2014-01-31", "2014-02-28"],
+                ["sample", 30, 100, 400, 150],
+            ]
+        },
+        axis: {
+            x: {
+                type: "bar",
+                tick: {
+                    width: 100
                 }
             }
         }
@@ -1776,6 +1800,26 @@ function legend_custom() {
         });
 }
 
+function legend_tiles() {
+    const chart = c3.generate({
+        data: {
+            columns: [
+                ["sample", 30, 200, 100, 400, 150, 250]
+            ]
+        },
+        legend: {
+            // amount of padding to put between each legend element
+            padding: 5,
+            // define custom height and width for the legend item tile
+            item: {
+                tile: {
+                    width: 15,
+                    height: 2
+                }
+            }
+        }});
+}
+
 /////////////////////
 // Tooltip Tests
 /////////////////////
@@ -1841,6 +1885,37 @@ function tooltip_format() {
                     return format(value);
                 }
                 //            value: d3.format(",") // apply this format to both y and y2
+            }
+        }
+    });
+}
+
+function tooltip_order() {
+    const chart = c3.generate({
+        data: {
+            columns: [
+                ["data1", 30, 200, 100, 400, 150, 250],
+                ["data2", 50, 20, 10, 40, 15, 25]
+            ]
+        },
+        tooltip: {
+            order: 'asc'
+        }
+    });
+}
+
+function tooltip_order_function() {
+    const chart = c3.generate({
+        data: {
+            columns: [
+                ["data1", 30, 200, 100, 400, 150, 250],
+                ["data2", 50, 20, 10, 40, 15, 25]
+            ]
+        },
+        tooltip: {
+            order: (data1, data2) => {
+                return data1.id - data2.id;
+                // return data2.id - data2.id in case we want desc order
             }
         }
     });

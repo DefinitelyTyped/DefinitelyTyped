@@ -1,21 +1,16 @@
-export {
-    QueryRenderer,
-    fetchQuery,
-    graphql,
-} from "./index";
+export { QueryRenderer, fetchQuery, graphql } from "./index";
 import {
     ConnectionConfig,
     RelayPaginationProp as RelayModernPaginationProp,
-    RelayRefetchProp as RelayModernRefetchProp
+    RelayRefetchProp as RelayModernRefetchProp,
 } from "./index";
+export { ConcreteFragment, ConcreteRequest, ConcreteBatchRequest } from "relay-runtime";
 import * as RelayRuntimeTypes from "relay-runtime";
 import { RelayEnvironmentInterface } from "./classic";
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
 // ~~~~~~~~~~~~~~~~~~~~~
-export type ConcreteFragment = any;
-export type ConcreteBatch = any;
 export type ConcreteFragmentDefinition = object;
 export type ConcreteOperationDefinition = object;
 
@@ -30,7 +25,6 @@ export interface StatelessWithFragment<T> extends React.StatelessComponent<T> {
     getFragment: typeof getFragment;
 }
 export type ReactFragmentComponent<T> = ComponentWithFragment<T> | StatelessWithFragment<T>;
-export type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
 export type RelayClassicEnvironment = RelayEnvironmentInterface;
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -68,18 +62,18 @@ export interface GeneratedNodeMap {
 }
 
 export function createFragmentContainer<T>(
-    Component: ReactBaseComponent<T>,
+    Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap
 ): ReactFragmentComponent<T>;
 
 export function createRefetchContainer<T>(
-    Component: ReactBaseComponent<T>,
+    Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
     taggedNode: RelayRuntimeTypes.GraphQLTaggedNode
 ): ReactFragmentComponent<T>;
 
 export function createPaginationContainer<T>(
-    Component: ReactBaseComponent<T>,
+    Component: React.ComponentType<T>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
     connectionConfig: ConnectionConfig<T>
 ): ReactFragmentComponent<T>;

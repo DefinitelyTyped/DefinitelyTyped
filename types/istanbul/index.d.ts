@@ -24,6 +24,7 @@ declare namespace istanbul {
     interface Collector {
         new (options?: any): Collector;
         add(coverage: any, testName?: string): void;
+        getFinalCoverage(): any;
     }
 
     interface Config {

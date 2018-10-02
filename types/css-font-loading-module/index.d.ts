@@ -49,6 +49,8 @@ declare global {
         unicodeRange: string;
         variant: string;
         featureSettings: string;
+        variationSettings: string;
+        display: string;
         readonly status: FontFaceLoadStatus;
         readonly loaded: Promise<FontFace>;
     }

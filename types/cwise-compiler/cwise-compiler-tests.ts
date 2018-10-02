@@ -1,9 +1,7 @@
-/// <reference types='node' />
-
-import * as parse from 'cwise-parser';
-import * as ndarray from 'ndarray';
-import * as compile from 'cwise-compiler';
-import * as tape from 'tape';
+import parse = require('cwise-parser');
+import ndarray = require('ndarray');
+import compile = require('cwise-compiler');
+import tape = require('tape');
 
 tape("block tests", (t) => {
 	const ops = require('ndarray-ops');

@@ -21,6 +21,11 @@ export class Request {
      */
     constructor(method: string, path: string, opt_data?: Object);
 
+    headers: Map<string, string>;
+    method: string;
+    path: string;
+    data: Object;
+
     /** @override */
     toString(): string;
 }
@@ -37,6 +42,10 @@ export class Response {
      * @param {string} body The response body.
      */
     constructor(status: number, headers: Object, body: string);
+
+    status: number;
+    body: string;
+    headers: Map<string, string>;
 
     /** @override */
     toString(): string;

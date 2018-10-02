@@ -2,7 +2,7 @@
 // Project: https://github.com/simlrh/babel-webpack-plugin
 // Definitions by: Jed Fox <https://github.com/j-f1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Plugin } from 'webpack';
 import { TransformOptions } from 'babel-core';
