@@ -4,7 +4,7 @@
 //                 Ihor Chulinda <https://github.com/Igmat>
 //                 Adam Lavin <https://github.com/lavoaster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 

@@ -141,24 +141,6 @@ const cssWithValues2 = css`
   font-weight: ${'bold'};
 `;
 
-interface GlobalStyleProps {
-    testValue: string;
-}
-
-// 4.0 Global Style syntax
-const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
-  ${'font-size'}: ${10}pt;
-  ${cssWithValues1}
-  ${[cssWithValues1, cssWithValues2]}
-  ${({ testValue }) => testValue}
-`;
-
-const Shell = (
-    <div>
-        <GlobalStyle testValue={"test"} />
-    </div>
-);
-
 // css which uses function interpolations with common props
 const cssWithFunc1 = css`
     font-size: ${props => props.theme.fontSizePt}pt;
