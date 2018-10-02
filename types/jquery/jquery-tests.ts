@@ -336,11 +336,15 @@ function JQueryStatic() {
     }
 
     function data() {
-        // $ExpectType any
-        $.data(new HTMLElement(), 'myKey', undefined);
+        const value: string | undefined = {} as any;
+        // $ExpectError
+        $.data(new HTMLElement(), 'myKey', value);
 
         // $ExpectType "myValue"
         $.data(new HTMLElement(), 'myKey', 'myValue');
+
+        // $ExpectType any
+        $.data(new HTMLElement(), 'myKey', undefined);
 
         // $ExpectType any
         $.data(new HTMLElement(), 'myKey');
@@ -2937,8 +2941,9 @@ function JQuery() {
 
     function data() {
         function data() {
-            // $ExpectType any
-            $('p').data('myData', undefined);
+            const value: string | undefined = {} as any;
+            // $ExpectError
+            $('p').data('myData', value);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').data('myData', {});
@@ -2948,6 +2953,9 @@ function JQuery() {
                 myData1: {},
                 myData2: false
             });
+
+            // $ExpectType any
+            $('p').data('myData', undefined);
 
             // $ExpectType any
             $('p').data('myData');

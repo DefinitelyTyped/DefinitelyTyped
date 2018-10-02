@@ -2024,121 +2024,11 @@ $.contains( document.body, document.documentElement ); // false
     contains(container: Element, contained: Element): boolean;
     css(elem: Element, unknown: any): any;
     /**
-     * Returns value at named data store for the element, as set by jQuery.data(element, name, value), or
-     * the full data store for the element.
-     *
-     * @param element The DOM element to query for the data.
-     * @param key Name of the data stored.
-     * @see \`{@link https://api.jquery.com/jQuery.data/ }\`
-     * @since 1.2.3
-     * @example ​ ````Store then retrieve a value from the div element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.data demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>
-  The values stored were
-  <span></span>
-  and
-  <span></span>
-</div>
-​
-<script>
-var div = $( "div" )[ 0 ];
-jQuery.data( div, "test", {
-  first: 16,
-  last: "pizza!"
-});
-$( "span:first" ).text( jQuery.data( div, "test" ).first );
-$( "span:last" ).text( jQuery.data( div, "test" ).last );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.data demo</title>
-  <style>
-  div {
-    margin: 5px;
-    background: yellow;
-  }
-  button {
-    margin: 5px;
-    font-size: 14px;
-  }
-  p {
-    margin: 5px;
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>A div</div>
-<button>Get "blah" from the div</button>
-<button>Set "blah" to "hello"</button>
-<button>Set "blah" to 86</button>
-<button>Remove "blah" from the div</button>
-<p>The "blah" value of this div is <span>?</span></p>
-​
-<script>
-$( "button" ).click( function() {
-  var value,
-    div = $( "div" )[ 0 ];
-  switch ( $( "button" ).index( this ) ) {
-  case 0 :
-    value = jQuery.data( div, "blah" );
-    break;
-  case 1 :
-    jQuery.data( div, "blah", "hello" );
-    value = "Stored!";
-    break;
-  case 2 :
-    jQuery.data( div, "blah", 86 );
-    value = "Stored!";
-    break;
-  case 3 :
-    jQuery.removeData( div, "blah" );
-    value = "Removed!";
-    break;
-  }
-  $( "span" ).text( "" + value );
-});
-</script>
-</body>
-</html>
-```
-     */
-    data(element: Element, key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
-    /**
      * Store arbitrary data associated with the specified element. Returns the value that was set.
      *
      * @param element The DOM element to associate with the data.
      * @param key A string naming the piece of data to set.
-     * @param value The new data value; this can be any Javascript type except undefined.
+     * @param value The new data value; this can be any Javascript type except `undefined`.
      * @see \`{@link https://api.jquery.com/jQuery.data/ }\`
      * @since 1.2.3
      * @example ​ ````Store then retrieve a value from the div element.
@@ -2242,9 +2132,124 @@ $( "button" ).click( function() {
 </html>
 ```
      */
-    data<T>(element: Element, key: string, value: T): T;
+    data<T extends string | number | boolean | symbol | object | null>(element: Element, key: string, value: T): T;
     /**
-     * Returns value at named data store for the element, as set by jQuery.data(element, name, value), or
+     * Returns value at named data store for the element, as set by `jQuery.data(element, name, value)`, or
+     * the full data store for the element.
+     *
+     * @param element The DOM element to query for the data.
+     * @param key Name of the data stored.
+     * @param value `undefined` is not recognized as a data value. Calls such as `jQuery.data( el, "name", undefined )`
+     *              will return the corresponding data for "name", and is therefore the same as `jQuery.data( el, "name" )`
+     * @see \`{@link https://api.jquery.com/jQuery.data/ }\`
+     * @since 1.2.3
+     * @example ​ ````Store then retrieve a value from the div element.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.data demo</title>
+  <style>
+  div {
+    color: blue;
+  }
+  span {
+    color: red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div>
+  The values stored were
+  <span></span>
+  and
+  <span></span>
+</div>
+​
+<script>
+var div = $( "div" )[ 0 ];
+jQuery.data( div, "test", {
+  first: 16,
+  last: "pizza!"
+});
+$( "span:first" ).text( jQuery.data( div, "test" ).first );
+$( "span:last" ).text( jQuery.data( div, "test" ).last );
+</script>
+</body>
+</html>
+```
+     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.data demo</title>
+  <style>
+  div {
+    margin: 5px;
+    background: yellow;
+  }
+  button {
+    margin: 5px;
+    font-size: 14px;
+  }
+  p {
+    margin: 5px;
+    color: blue;
+  }
+  span {
+    color: red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div>A div</div>
+<button>Get "blah" from the div</button>
+<button>Set "blah" to "hello"</button>
+<button>Set "blah" to 86</button>
+<button>Remove "blah" from the div</button>
+<p>The "blah" value of this div is <span>?</span></p>
+​
+<script>
+$( "button" ).click( function() {
+  var value,
+    div = $( "div" )[ 0 ];
+  switch ( $( "button" ).index( this ) ) {
+  case 0 :
+    value = jQuery.data( div, "blah" );
+    break;
+  case 1 :
+    jQuery.data( div, "blah", "hello" );
+    value = "Stored!";
+    break;
+  case 2 :
+    jQuery.data( div, "blah", 86 );
+    value = "Stored!";
+    break;
+  case 3 :
+    jQuery.removeData( div, "blah" );
+    value = "Removed!";
+    break;
+  }
+  $( "span" ).text( "" + value );
+});
+</script>
+</body>
+</html>
+```
+     */
+    // `unified-signatures` is disabled so that behavior when passing `undefined` to `value` can be documented. Unifying the signatures
+    // results in potential confusion for users from an unexpected parameter.
+    // tslint:disable-next-line:unified-signatures
+    data(element: Element, key: string, value: undefined): any;
+    /**
+     * Returns value at named data store for the element, as set by `jQuery.data(element, name, value)`, or
      * the full data store for the element.
      *
      * @param element The DOM element to query for the data.
@@ -34552,116 +34557,10 @@ $( "div" ).on( "click", function() {
      */
     css(propertyNames: string[]): JQuery.PlainObject<string>;
     /**
-     * Return the value at the named data store for the first element in the jQuery collection, as set by
-     * data(name, value) or by an HTML5 data-* attribute.
-     *
-     * @param key Name of the data stored.
-     * @see \`{@link https://api.jquery.com/data/ }\`
-     * @since 1.2.3
-     * @example ​ ````Store then retrieve a value from the div element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>data demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>
-  The values stored were
-  <span></span>
-  and
-  <span></span>
-</div>
-​
-<script>
-$( "div" ).data( "test", { first: 16, last: "pizza!" } );
-$( "span:first" ).text( $( "div" ).data( "test" ).first );
-$( "span:last" ).text( $( "div" ).data( "test" ).last );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>data demo</title>
-  <style>
-  div {
-    margin: 5px;
-    background: yellow;
-  }
-  button {
-    margin: 5px;
-    font-size: 14px;
-  }
-  p {
-    margin: 5px;
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>A div</div>
-<button>Get "blah" from the div</button>
-<button>Set "blah" to "hello"</button>
-<button>Set "blah" to 86</button>
-<button>Remove "blah" from the div</button>
-<p>The "blah" value of this div is <span>?</span></p>
-​
-<script>
-$( "button" ).click(function() {
-  var value;
-​
-  switch ( $( "button" ).index( this ) ) {
-    case 0 :
-      value = $( "div" ).data( "blah" );
-      break;
-    case 1 :
-      $( "div" ).data( "blah", "hello" );
-      value = "Stored!";
-      break;
-    case 2 :
-      $( "div" ).data( "blah", 86 );
-      value = "Stored!";
-      break;
-    case 3 :
-      $( "div" ).removeData( "blah" );
-      value = "Removed!";
-      break;
-  }
-​
-  $( "span" ).text( "" + value );
-});
-</script>
-</body>
-</html>
-```
-     */
-    data(key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
-    /**
      * Store arbitrary data associated with the matched elements.
      *
      * @param key A string naming the piece of data to set.
-     * @param value The new data value; this can be any Javascript type except undefined.
+     * @param value The new data value; this can be any Javascript type except `undefined`.
      * @see \`{@link https://api.jquery.com/data/ }\`
      * @since 1.2.3
      * @example ​ ````Store then retrieve a value from the div element.
@@ -34762,7 +34661,7 @@ $( "button" ).click(function() {
 </html>
 ```
      */
-    data(key: string, value: any): this;
+    data(key: string, value: string | number | boolean | symbol | object | null): this;
     /**
      * Store arbitrary data associated with the matched elements.
      *
@@ -34868,6 +34767,117 @@ $( "button" ).click(function() {
 ```
      */
     data(obj: JQuery.PlainObject): this;
+    /**
+     * Return the value at the named data store for the first element in the jQuery collection, as set by
+     * data(name, value) or by an HTML5 data-* attribute.
+     *
+     * @param key Name of the data stored.
+     * @param value `undefined` is not recognized as a data value. Calls such as `.data( "name", undefined )`
+     *              will return the jQuery object that it was called on, allowing for chaining.
+     * @see \`{@link https://api.jquery.com/data/ }\`
+     * @since 1.2.3
+     * @example ​ ````Store then retrieve a value from the div element.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>data demo</title>
+  <style>
+  div {
+    color: blue;
+  }
+  span {
+    color: red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div>
+  The values stored were
+  <span></span>
+  and
+  <span></span>
+</div>
+​
+<script>
+$( "div" ).data( "test", { first: 16, last: "pizza!" } );
+$( "span:first" ).text( $( "div" ).data( "test" ).first );
+$( "span:last" ).text( $( "div" ).data( "test" ).last );
+</script>
+</body>
+</html>
+```
+     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>data demo</title>
+  <style>
+  div {
+    margin: 5px;
+    background: yellow;
+  }
+  button {
+    margin: 5px;
+    font-size: 14px;
+  }
+  p {
+    margin: 5px;
+    color: blue;
+  }
+  span {
+    color: red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div>A div</div>
+<button>Get "blah" from the div</button>
+<button>Set "blah" to "hello"</button>
+<button>Set "blah" to 86</button>
+<button>Remove "blah" from the div</button>
+<p>The "blah" value of this div is <span>?</span></p>
+​
+<script>
+$( "button" ).click(function() {
+  var value;
+​
+  switch ( $( "button" ).index( this ) ) {
+    case 0 :
+      value = $( "div" ).data( "blah" );
+      break;
+    case 1 :
+      $( "div" ).data( "blah", "hello" );
+      value = "Stored!";
+      break;
+    case 2 :
+      $( "div" ).data( "blah", 86 );
+      value = "Stored!";
+      break;
+    case 3 :
+      $( "div" ).removeData( "blah" );
+      value = "Removed!";
+      break;
+  }
+​
+  $( "span" ).text( "" + value );
+});
+</script>
+</body>
+</html>
+```
+     */
+    // `unified-signatures` is disabled so that behavior when passing `undefined` to `value` can be documented. Unifying the signatures
+    // results in potential confusion for users from an unexpected parameter.
+    // tslint:disable-next-line:unified-signatures
+    data(key: string, value: undefined): any;
     /**
      * Return the value at the named data store for the first element in the jQuery collection, as set by
      * data(name, value) or by an HTML5 data-* attribute.
