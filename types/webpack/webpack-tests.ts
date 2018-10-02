@@ -111,7 +111,9 @@ configuration = {
         // Disable TSLint for allowing non-arrow functions
         /* tslint:disable-next-line */
         function(context, request, callback) {
-          if (/^yourregex$/.test(request)){
+          if (/^yourregex$/.test(request)) {
+            // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
+            /* tslint:disable-next-line */
             return callback(null, 'commonjs ' + request);
           }
           callback({}, {});
@@ -136,7 +138,9 @@ configuration = {
             // Disable TSLint for allowing non-arrow functions
             /* tslint:disable-next-line */
             function(context, request, callback) {
-              if (/^yourregex$/.test(request)){
+              if (/^yourregex$/.test(request)) {
+                // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
+                /* tslint:disable-next-line */
                 return callback(null, 'commonjs ' + request);
               }
               callback({}, {});
