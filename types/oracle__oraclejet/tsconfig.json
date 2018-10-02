@@ -14,7 +14,12 @@
         "baseUrl": "../",
         "typeRoots": [
             "../"
-        ]
+        ],
+        "paths": {
+            "ojs/*": [
+                "oracle__oraclejet/*"
+            ]
+        }    
     },
     "files": [
         "oracle__oraclejet-tests.ts",
