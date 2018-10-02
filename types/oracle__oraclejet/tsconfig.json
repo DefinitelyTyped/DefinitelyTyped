@@ -16,6 +16,9 @@
             "../"
         ],
         "paths": {
+            "ojs": [
+                "oracle__oraclejet"
+            ],
             "ojs/*": [
                 "oracle__oraclejet/*"
             ]
