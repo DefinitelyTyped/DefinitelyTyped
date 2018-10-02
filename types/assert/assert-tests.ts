@@ -1,4 +1,4 @@
-import { assert } from 'assert';
+import * as assert from 'assert';
 
 assert(true, "it's working");
 

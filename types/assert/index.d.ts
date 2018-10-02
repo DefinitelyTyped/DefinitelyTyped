@@ -3,55 +3,50 @@
 // Definitions by: Nico Gallinal <https://github.com/nicoabie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export class AssertionError implements Error {
-    name:string;
-    message:string;
-    actual:any;
-    expected:any;
-    operator:string;
-    generatedMessage:boolean;
+declare module "assert" {
 
-    constructor(options?:{message?: string; actual?: any; expected?: any; operator?: string; stackStartFunction?: Function});
-  }
+    function assert(value: any, message?: string): void;
 
-  interface Assert {
+    namespace assert {
+        function fail(actual?: any, expected?: any, message?: string, operator?: string): void;
 
-    (value:any, message?:string):void;
+        function ok(value: any, message?: string): void;
 
-    fail(actual?:any, expected?:any, message?:string, operator?:string):void;
+        function equal(actual: any, expected: any, message?: string): void;
 
-    ok(value:any, message?:string):void;
+        function notEqual(actual: any, expected: any, message?: string): void;
 
-    equal(actual:any, expected:any, message?:string):void;
+        function deepEqual(actual: any, expected: any, message?: string): void;
 
-    notEqual(actual:any, expected:any, message?:string):void;
+        function notDeepEqual(acutal: any, expected: any, message?: string): void;
 
-    deepEqual(actual:any, expected:any, message?:string):void;
+        function strictEqual(actual: any, expected: any, message?: string): void;
 
-    notDeepEqual(acutal:any, expected:any, message?:string):void;
+        function notStrictEqual(actual: any, expected: any, message?: string): void;
 
-    strictEqual(actual:any, expected:any, message?:string):void;
+        function throws(block: Function, message?: string): void;
+        function throws(block: Function, error: Function, message?: string): void;
+        function throws(block: Function, error: RegExp, message?: string): void;
+        function throws(block: Function, error: (err: any) => boolean, message?: string): void;
 
-    notStrictEqual(actual:any, expected:any, message?:string):void;
+        function doesNotThrow(block: Function, message?: string): void;
+        function doesNotThrow(block: Function, error: Function, message?: string): void;
+        function doesNotThrow(block: Function, error: RegExp, message?: string): void;
+        function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
 
-    throws:{
-        (block:Function, message?:string): void;
-        (block:Function, error:Function, message?:string): void;
-        (block:Function, error:RegExp, message?:string): void;
-        (block:Function, error:(err:any) => boolean, message?:string): void;
-    };
+        function ifError(value: any): void;
 
-    doesNotThrow:{
-        (block:Function, message?:string): void;
-        (block:Function, error:Function, message?:string): void;
-        (block:Function, error:RegExp, message?:string): void;
-        (block:Function, error:(err:any) => boolean, message?:string): void;
-    };
+        class AssertionError implements Error {
+            name: string;
+            message: string;
+            actual: any;
+            expected: any;
+            operator: string;
+            generatedMessage: boolean;
 
-    ifError(value:any):void;
+            constructor(options?: { message?: string; actual?: any; expected?: any; operator?: string; stackStartFunction?: Function });
+        }
+    }
 
-    // Add index signature to enable calling inner methods such as assert['fail']
-    [propName: string]: (...args: any[]) => void;
-  }
-
-  export declare var assert: Assert;
+    export = assert;
+}
