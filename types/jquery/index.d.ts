@@ -45,8 +45,7 @@ type _Event = Event;
 
 interface JQueryStatic {
     /**
-     * @see \`{@link http://api.jquery.com/jquery.ajax/#jQuery-ajax1 }\`
-     *
+     * @see \`{@link https://api.jquery.com/jquery.ajax/#jQuery-ajax1 }\`
      * @deprecated Use \`{@link JQueryStatic.ajaxSetup }\`.
      */
     ajaxSettings: JQuery.AjaxSettings;
@@ -86,7 +85,6 @@ interface JQueryStatic {
          *
          * @see \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`
          * @since 1.4.3
-         *
          * @deprecated Deprecated since 3.0. See \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`.
          * @example ​ ````Cause all animations to run with less frames.
 ```html
@@ -226,7 +224,6 @@ $.when(
      *
      * @see \`{@link https://api.jquery.com/jQuery.support/ }\`
      * @since 1.3
-     *
      * @deprecated Deprecated since 1.9. See \`{@link https://api.jquery.com/jQuery.support/ }\`.
      */
     support: JQuery.PlainObject;
@@ -2025,123 +2022,13 @@ $.contains( document.body, document.documentElement ); // false
 ```
      */
     contains(container: Element, contained: Element): boolean;
-    css(elem: Element, unknown: any): any;
-    /**
-     * Returns value at named data store for the element, as set by jQuery.data(element, name, value), or
-     * the full data store for the element.
-     *
-     * @param element The DOM element to query for the data.
-     * @param key Name of the data stored.
-     * @see \`{@link https://api.jquery.com/jQuery.data/ }\`
-     * @since 1.2.3
-     * @example ​ ````Store then retrieve a value from the div element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.data demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>
-  The values stored were
-  <span></span>
-  and
-  <span></span>
-</div>
-​
-<script>
-var div = $( "div" )[ 0 ];
-jQuery.data( div, "test", {
-  first: 16,
-  last: "pizza!"
-});
-$( "span:first" ).text( jQuery.data( div, "test" ).first );
-$( "span:last" ).text( jQuery.data( div, "test" ).last );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.data demo</title>
-  <style>
-  div {
-    margin: 5px;
-    background: yellow;
-  }
-  button {
-    margin: 5px;
-    font-size: 14px;
-  }
-  p {
-    margin: 5px;
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>A div</div>
-<button>Get "blah" from the div</button>
-<button>Set "blah" to "hello"</button>
-<button>Set "blah" to 86</button>
-<button>Remove "blah" from the div</button>
-<p>The "blah" value of this div is <span>?</span></p>
-​
-<script>
-$( "button" ).click( function() {
-  var value,
-    div = $( "div" )[ 0 ];
-  switch ( $( "button" ).index( this ) ) {
-  case 0 :
-    value = jQuery.data( div, "blah" );
-    break;
-  case 1 :
-    jQuery.data( div, "blah", "hello" );
-    value = "Stored!";
-    break;
-  case 2 :
-    jQuery.data( div, "blah", 86 );
-    value = "Stored!";
-    break;
-  case 3 :
-    jQuery.removeData( div, "blah" );
-    value = "Removed!";
-    break;
-  }
-  $( "span" ).text( "" + value );
-});
-</script>
-</body>
-</html>
-```
-     */
-    data(element: Element, key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
+    css(elem: Element, name: string): any;
     /**
      * Store arbitrary data associated with the specified element. Returns the value that was set.
      *
      * @param element The DOM element to associate with the data.
      * @param key A string naming the piece of data to set.
-     * @param value The new data value; this can be any Javascript type except undefined.
+     * @param value The new data value; this can be any Javascript type except `undefined`.
      * @see \`{@link https://api.jquery.com/jQuery.data/ }\`
      * @since 1.2.3
      * @example ​ ````Store then retrieve a value from the div element.
@@ -2245,9 +2132,124 @@ $( "button" ).click( function() {
 </html>
 ```
      */
-    data<T>(element: Element, key: string, value: T): T;
+    data<T extends string | number | boolean | symbol | object | null>(element: Element, key: string, value: T): T;
     /**
-     * Returns value at named data store for the element, as set by jQuery.data(element, name, value), or
+     * Returns value at named data store for the element, as set by `jQuery.data(element, name, value)`, or
+     * the full data store for the element.
+     *
+     * @param element The DOM element to query for the data.
+     * @param key Name of the data stored.
+     * @param value `undefined` is not recognized as a data value. Calls such as `jQuery.data( el, "name", undefined )`
+     *              will return the corresponding data for "name", and is therefore the same as `jQuery.data( el, "name" )`
+     * @see \`{@link https://api.jquery.com/jQuery.data/ }\`
+     * @since 1.2.3
+     * @example ​ ````Store then retrieve a value from the div element.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.data demo</title>
+  <style>
+  div {
+    color: blue;
+  }
+  span {
+    color: red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div>
+  The values stored were
+  <span></span>
+  and
+  <span></span>
+</div>
+​
+<script>
+var div = $( "div" )[ 0 ];
+jQuery.data( div, "test", {
+  first: 16,
+  last: "pizza!"
+});
+$( "span:first" ).text( jQuery.data( div, "test" ).first );
+$( "span:last" ).text( jQuery.data( div, "test" ).last );
+</script>
+</body>
+</html>
+```
+     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.data demo</title>
+  <style>
+  div {
+    margin: 5px;
+    background: yellow;
+  }
+  button {
+    margin: 5px;
+    font-size: 14px;
+  }
+  p {
+    margin: 5px;
+    color: blue;
+  }
+  span {
+    color: red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div>A div</div>
+<button>Get "blah" from the div</button>
+<button>Set "blah" to "hello"</button>
+<button>Set "blah" to 86</button>
+<button>Remove "blah" from the div</button>
+<p>The "blah" value of this div is <span>?</span></p>
+​
+<script>
+$( "button" ).click( function() {
+  var value,
+    div = $( "div" )[ 0 ];
+  switch ( $( "button" ).index( this ) ) {
+  case 0 :
+    value = jQuery.data( div, "blah" );
+    break;
+  case 1 :
+    jQuery.data( div, "blah", "hello" );
+    value = "Stored!";
+    break;
+  case 2 :
+    jQuery.data( div, "blah", 86 );
+    value = "Stored!";
+    break;
+  case 3 :
+    jQuery.removeData( div, "blah" );
+    value = "Removed!";
+    break;
+  }
+  $( "span" ).text( "" + value );
+});
+</script>
+</body>
+</html>
+```
+     */
+    // `unified-signatures` is disabled so that behavior when passing `undefined` to `value` can be documented. Unifying the signatures
+    // results in potential confusion for users from an unexpected parameter.
+    // tslint:disable-next-line:unified-signatures
+    data(element: Element, key: string, value: undefined): any;
+    /**
+     * Returns value at named data store for the element, as set by `jQuery.data(element, name, value)`, or
      * the full data store for the element.
      *
      * @param element The DOM element to query for the data.
@@ -2665,6 +2667,12 @@ $( "div" ).find( "." + $.escapeSelector( ".box" ) );
      *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
+     * @param object1 An object containing additional properties to merge in.
+     * @param object2 An object containing additional properties to merge in.
+     * @param object3 An object containing additional properties to merge in.
+     * @param object4 An object containing additional properties to merge in.
+     * @param object5 An object containing additional properties to merge in.
+     * @param object6 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
      * @example ​ ````Merge two objects, modifying the first.
@@ -2768,6 +2776,11 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
+     * @param object1 An object containing additional properties to merge in.
+     * @param object2 An object containing additional properties to merge in.
+     * @param object3 An object containing additional properties to merge in.
+     * @param object4 An object containing additional properties to merge in.
+     * @param object5 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
      * @example ​ ````Merge two objects, modifying the first.
@@ -2871,6 +2884,10 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
+     * @param object1 An object containing additional properties to merge in.
+     * @param object2 An object containing additional properties to merge in.
+     * @param object3 An object containing additional properties to merge in.
+     * @param object4 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
      * @example ​ ````Merge two objects, modifying the first.
@@ -2974,6 +2991,9 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
+     * @param object1 An object containing additional properties to merge in.
+     * @param object2 An object containing additional properties to merge in.
+     * @param object3 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
      * @example ​ ````Merge two objects, modifying the first.
@@ -3077,6 +3097,8 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
+     * @param object1 An object containing additional properties to merge in.
+     * @param object2 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
      * @example ​ ````Merge two objects, modifying the first.
@@ -3180,6 +3202,7 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
+     * @param object1 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
      * @example ​ ````Merge two objects, modifying the first.
@@ -3283,6 +3306,8 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
+     * @param object1 An object containing additional properties to merge in.
+     * @param objectN Additional objects containing properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
      * @example ​ ````Merge two objects, modifying the first.
@@ -3380,12 +3405,18 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
 </html>
 ```
      */
-    extend(deep: true, target: any, object1: any, ...objects: any[]): any;
+    extend(deep: true, target: any, object1: any, ...objectN: any[]): any;
     /**
      * Merge the contents of two or more objects together into the first object.
      *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
+     * @param object1 An object containing additional properties to merge in.
+     * @param object2 An object containing additional properties to merge in.
+     * @param object3 An object containing additional properties to merge in.
+     * @param object4 An object containing additional properties to merge in.
+     * @param object5 An object containing additional properties to merge in.
+     * @param object6 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.0
      * @example ​ ````Merge two objects, modifying the first.
@@ -3489,6 +3520,11 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
+     * @param object1 An object containing additional properties to merge in.
+     * @param object2 An object containing additional properties to merge in.
+     * @param object3 An object containing additional properties to merge in.
+     * @param object4 An object containing additional properties to merge in.
+     * @param object5 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.0
      * @example ​ ````Merge two objects, modifying the first.
@@ -3592,6 +3628,10 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
+     * @param object1 An object containing additional properties to merge in.
+     * @param object2 An object containing additional properties to merge in.
+     * @param object3 An object containing additional properties to merge in.
+     * @param object4 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.0
      * @example ​ ````Merge two objects, modifying the first.
@@ -3695,6 +3735,9 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
+     * @param object1 An object containing additional properties to merge in.
+     * @param object2 An object containing additional properties to merge in.
+     * @param object3 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.0
      * @example ​ ````Merge two objects, modifying the first.
@@ -3798,6 +3841,8 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
+     * @param object1 An object containing additional properties to merge in.
+     * @param object2 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.0
      * @example ​ ````Merge two objects, modifying the first.
@@ -3901,6 +3946,7 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
+     * @param object1 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.0
      * @example ​ ````Merge two objects, modifying the first.
@@ -4004,6 +4050,8 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
+     * @param object1 An object containing additional properties to merge in.
+     * @param objectN Additional objects containing properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.0
      * @example ​ ````Merge two objects, modifying the first.
@@ -4101,7 +4149,7 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
 </html>
 ```
      */
-    extend(target: any, object1: any, ...objects: any[]): any;
+    extend(target: any, object1: any, ...objectN: any[]): any;
     /**
      * Load data from the server using a HTTP GET request.
      *
@@ -5051,7 +5099,6 @@ $p.append( jQuery.hasData( p ) + " " ); // false
      * @param hold Indicates whether the ready hold is being requested or released
      * @see \`{@link https://api.jquery.com/jQuery.holdReady/ }\`
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.2. See \`{@link https://github.com/jquery/jquery/issues/3288 }\`.
      * @example ​ ````Delay the ready event until a custom plugin has loaded.
 ```html
@@ -5134,7 +5181,6 @@ $spans.eq( 3 ).text( jQuery.inArray( "Pete", arr, 2 ) );
      * @param obj Object to test whether or not it is an array.
      * @see \`{@link https://api.jquery.com/jQuery.isArray/ }\`
      * @since 1.3
-     *
      * @deprecated Deprecated since 3.2. Use \`{@link Array.isArray }\`.
      * @example ​ ````Finds out if the parameter is an array.
 ```html
@@ -5189,7 +5235,6 @@ jQuery.isEmptyObject({ foo: "bar" }); // false
      * @param obj Object to test whether or not it is a function.
      * @see \`{@link https://api.jquery.com/jQuery.isFunction/ }\`
      * @since 1.2
-     *
      * @deprecated Deprecated since 3.3. Use `typeof x === "function"`.
      * @example ​ ````Test a few parameter examples.
 ```html
@@ -5262,7 +5307,6 @@ $.isFunction(function() {});
      * @param value The value to be tested.
      * @see \`{@link https://api.jquery.com/jQuery.isNumeric/ }\`
      * @since 1.7
-     *
      * @deprecated Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/2960 }\`.
      * @example ​ ````Sample return values of $.isNumeric with various inputs.
 ```html
@@ -5301,7 +5345,7 @@ $.isNumeric( undefined )
 </html>
 ```
      */
-    isNumeric(value: any): value is number;
+    isNumeric(value: any): boolean;
     /**
      * Check to see if an object is a plain object (created using "{}" or "new Object").
      *
@@ -5327,14 +5371,13 @@ jQuery.isPlainObject( "test" ) // false
 </html>
 ```
      */
-    isPlainObject(obj: any): obj is JQuery.PlainObject;
+    isPlainObject(obj: any): boolean;
     /**
      * Determine whether the argument is a window.
      *
      * @param obj Object to test whether or not it is a window.
      * @see \`{@link https://api.jquery.com/jQuery.isWindow/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/3629 }\`.
      * @example ​ ````Finds out if the parameter is a window.
 ```html
@@ -6064,7 +6107,6 @@ $log.append( "2nd loaded jQuery version (jq162): " + jq162.fn.jquery + "<br>" );
      *
      * @see \`{@link https://api.jquery.com/jQuery.now/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Date.now }\`.
      */
     now(): number;
@@ -6241,7 +6283,6 @@ $( "<ol></ol>" )
      * @param json The JSON string to parse.
      * @see \`{@link https://api.jquery.com/jQuery.parseJSON/ }\`
      * @since 1.4.1
-     *
      * @deprecated Deprecated since 3.0. Use \`{@link JSON.parse }\`.
      * @example ​ ````Parse a JSON string.
 ```html
@@ -7037,22 +7078,25 @@ $( "#searchForm" ).submit(function( event ) {
      */
     post(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
 
+    // region proxy
     // #region proxy
 
+    // region (fn, null | undefined)
     // #region (fn, null | undefined)
 
-    // #region 0 to 7 arguments
+    // region 0 to 7 additional arguments
+    // #region 0 to 7 additional arguments
 
+    // region 0 parameters
     // #region 0 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -7206,10 +7250,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -7363,10 +7406,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -7520,10 +7562,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -7677,10 +7718,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -7834,10 +7874,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -7991,11 +8030,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4`
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -8149,10 +8187,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -8303,16 +8340,16 @@ $( "#test" )
 
     // #endregion
 
+    // region 1 parameters
     // #region 1 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -8468,10 +8505,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -8627,10 +8663,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -8786,10 +8821,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -8945,10 +8979,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -9104,10 +9137,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -9263,10 +9295,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -9422,10 +9453,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -9577,16 +9607,16 @@ $( "#test" )
 
     // #endregion
 
+    // region 2 parameters
     // #region 2 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -9742,10 +9772,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -9901,10 +9930,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -10060,10 +10088,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -10219,10 +10246,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -10378,10 +10404,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -10537,10 +10562,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -10696,10 +10720,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -10851,16 +10874,16 @@ $( "#test" )
 
     // #endregion
 
+    // region 3 parameters
     // #region 3 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -11016,10 +11039,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -11175,10 +11197,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -11334,10 +11355,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -11493,10 +11513,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -11652,10 +11671,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -11811,10 +11829,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -11970,10 +11987,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -12125,16 +12141,16 @@ $( "#test" )
 
     // #endregion
 
+    // region 4 parameters
     // #region 4 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -12290,10 +12306,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -12449,10 +12464,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -12608,10 +12622,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -12767,10 +12780,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -12926,10 +12938,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -13085,10 +13096,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -13244,10 +13254,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -13399,16 +13408,16 @@ $( "#test" )
 
     // #endregion
 
+    // region 5 parameters
     // #region 5 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -13564,10 +13573,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -13723,10 +13731,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -13882,10 +13889,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -14041,10 +14047,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -14200,10 +14205,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -14359,10 +14363,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -14518,10 +14521,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -14673,16 +14675,16 @@ $( "#test" )
 
     // #endregion
 
+    // region 6 parameters
     // #region 6 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -14838,10 +14840,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -14997,10 +14998,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -15156,10 +15156,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -15315,10 +15314,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -15474,10 +15472,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -15633,10 +15630,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -15792,10 +15788,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -15947,16 +15942,16 @@ $( "#test" )
 
     // #endregion
 
+    // region 7+ parameters
     // #region 7+ parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -16112,10 +16107,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -16271,10 +16265,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -16430,10 +16423,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -16589,10 +16581,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -16748,10 +16739,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -16907,10 +16897,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -17066,10 +17055,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -17223,17 +17211,17 @@ $( "#test" )
 
     // #endregion
 
-    // #region 8+ arguments
+    // region 8+ additional arguments
+    // #region 8+ additional arguments
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -17387,21 +17375,23 @@ $( "#test" )
 
     // #endregion
 
+    // region (fn, context)
     // #region (fn, context)
 
-    // #region 0 to 7 arguments
+    // region 0 to 7 additional arguments
+    // #region 0 to 7 additional arguments
 
+    // region 0 parameters
     // #region 0 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -17556,11 +17546,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -17715,11 +17704,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -17874,11 +17862,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -18033,11 +18020,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -18192,11 +18178,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -18351,11 +18336,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4`
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -18510,11 +18494,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -18666,17 +18649,17 @@ $( "#test" )
 
     // #endregion
 
+    // region 1 parameters
     // #region 1 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -18833,11 +18816,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -18994,11 +18976,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -19155,11 +19136,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -19316,11 +19296,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -19477,11 +19456,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -19638,11 +19616,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -19799,11 +19776,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -19956,17 +19932,17 @@ $( "#test" )
 
     // #endregion
 
+    // region 2 parameters
     // #region 2 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -20123,11 +20099,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -20284,11 +20259,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -20445,11 +20419,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -20606,11 +20579,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -20767,11 +20739,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -20928,11 +20899,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -21089,11 +21059,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -21246,17 +21215,17 @@ $( "#test" )
 
     // #endregion
 
+    // region 3 parameters
     // #region 3 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -21413,11 +21382,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -21574,11 +21542,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -21735,11 +21702,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -21896,11 +21862,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -22057,11 +22022,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -22218,11 +22182,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -22379,11 +22342,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -22536,17 +22498,17 @@ $( "#test" )
 
     // #endregion
 
+    // region 4 parameters
     // #region 4 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -22703,11 +22665,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -22864,11 +22825,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -23025,11 +22985,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -23186,11 +23145,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -23347,11 +23305,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -23508,11 +23465,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -23669,11 +23625,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -23826,17 +23781,17 @@ $( "#test" )
 
     // #endregion
 
+    // region 5 parameters
     // #region 5 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -23993,11 +23948,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -24154,11 +24108,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -24315,11 +24268,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -24476,11 +24428,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -24637,11 +24588,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -24798,11 +24748,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -24959,11 +24908,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -25116,17 +25064,17 @@ $( "#test" )
 
     // #endregion
 
+    // region 6 parameters
     // #region 6 parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -25283,11 +25231,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -25444,11 +25391,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -25605,11 +25551,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -25766,11 +25711,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -25927,11 +25871,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -26088,11 +26031,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -26249,11 +26191,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -26406,17 +26347,17 @@ $( "#test" )
 
     // #endregion
 
+    // region 7+ parameters
     // #region 7+ parameters
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -26573,11 +26514,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -26734,11 +26674,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -26895,11 +26834,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -27056,11 +26994,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -27217,11 +27154,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -27378,11 +27314,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -27539,11 +27474,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -27698,18 +27632,18 @@ $( "#test" )
 
     // #endregion
 
-    // #region 8+ arguments
+    // region 8+ additional arguments
+    // #region 8+ additional arguments
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -27864,6 +27798,7 @@ $( "#test" )
 
     // #endregion
 
+    // region (context, name)
     // #region (context, name)
 
     /**
@@ -27875,7 +27810,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
@@ -28362,7 +28296,6 @@ $.trim("    hello, how are you?    ");
      * @param obj Object to get the internal JavaScript [[Class]] of.
      * @see \`{@link https://api.jquery.com/jQuery.type/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. See \`{@link https://github.com/jquery/jquery/issues/3605 }`.
      * @example ​ ````Find out if the parameter is a RegExp.
 ```html
@@ -28392,7 +28325,6 @@ $( "b" ).append( "" + jQuery.type( /test/ ) );
      * @param array The Array of DOM elements.
      * @see \`{@link https://api.jquery.com/jQuery.unique/ }\`
      * @since 1.1.3
-     *
      * @deprecated Deprecated since 3.0. Use \`{@link JQueryStatic.uniqueSort }`.
      * @example ​ ````Removes any duplicate elements from the array of divs.
 ```html
@@ -28804,7 +28736,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
     /**
      * A string containing the jQuery version number.
      *
-     * @see \`{@link https://api.jquery.com/jquery/ }\`
+     * @see \`{@link https://api.jquery.com/jquery-2/#jquery1 }\`
      * @since 1.0
      * @example ​ ````Determine if an object is a jQuery object
 ```html
@@ -31975,7 +31907,6 @@ $( "p" ).before( $( "b" ) );
      * @see \`{@link https://api.jquery.com/bind/ }\`
      * @since 1.0
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
      * @example ​ ````Handle click and double-click for the paragraph.  Note: the coordinates are window relative, so in this case relative to the demo iframe.
 ```html
@@ -32199,7 +32130,6 @@ $( "div.test" ).bind({
      * @see \`{@link https://api.jquery.com/bind/ }\`
      * @since 1.0
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
      * @example ​ ````Handle click and double-click for the paragraph.  Note: the coordinates are window relative, so in this case relative to the demo iframe.
 ```html
@@ -32418,7 +32348,6 @@ $( "div.test" ).bind({
      * @param events An object containing one or more DOM event types and functions to execute for them.
      * @see \`{@link https://api.jquery.com/bind/ }\`
      * @since 1.4
-     *
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
      * @example ​ ````Handle click and double-click for the paragraph.  Note: the coordinates are window relative, so in this case relative to the demo iframe.
 ```html
@@ -32637,7 +32566,6 @@ $( "div.test" ).bind({
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/blur/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````To trigger the blur event on all paragraphs:
 ```html
@@ -32665,7 +32593,6 @@ $( "p" ).blur();
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/blur/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````To trigger the blur event on all paragraphs:
 ```html
@@ -32693,7 +32620,6 @@ $( "p" ).blur();
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/change/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Attaches a change event to the select that gets the text for each selected option and writes them in the div.  It then triggers the event for the initial text draw.
 ```html
@@ -32763,7 +32689,6 @@ $( "input[type='text']" ).change(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/change/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Attaches a change event to the select that gets the text for each selected option and writes them in the div.  It then triggers the event for the initial text draw.
 ```html
@@ -33070,7 +32995,6 @@ $( "#stop" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/click/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Hide paragraphs on a page when they are clicked:
 ```html
@@ -33131,7 +33055,6 @@ $( "p" ).click();
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/click/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Hide paragraphs on a page when they are clicked:
 ```html
@@ -33434,7 +33357,6 @@ $( "#frameDemo" ).contents().find( "a" ).css( "background-color", "#BADA55" );
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/contextmenu/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````To show a &quot;Hello World!&quot; alert box when the contextmenu event is triggered on a paragraph on the page:
 ```html
@@ -33499,7 +33421,6 @@ div.contextmenu(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/contextmenu/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````To show a &quot;Hello World!&quot; alert box when the contextmenu event is triggered on a paragraph on the page:
 ```html
@@ -34660,116 +34581,10 @@ $( "div" ).on( "click", function() {
      */
     css(propertyNames: string[]): JQuery.PlainObject<string>;
     /**
-     * Return the value at the named data store for the first element in the jQuery collection, as set by
-     * data(name, value) or by an HTML5 data-* attribute.
-     *
-     * @param key Name of the data stored.
-     * @see \`{@link https://api.jquery.com/data/ }\`
-     * @since 1.2.3
-     * @example ​ ````Store then retrieve a value from the div element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>data demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>
-  The values stored were
-  <span></span>
-  and
-  <span></span>
-</div>
-​
-<script>
-$( "div" ).data( "test", { first: 16, last: "pizza!" } );
-$( "span:first" ).text( $( "div" ).data( "test" ).first );
-$( "span:last" ).text( $( "div" ).data( "test" ).last );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>data demo</title>
-  <style>
-  div {
-    margin: 5px;
-    background: yellow;
-  }
-  button {
-    margin: 5px;
-    font-size: 14px;
-  }
-  p {
-    margin: 5px;
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>A div</div>
-<button>Get "blah" from the div</button>
-<button>Set "blah" to "hello"</button>
-<button>Set "blah" to 86</button>
-<button>Remove "blah" from the div</button>
-<p>The "blah" value of this div is <span>?</span></p>
-​
-<script>
-$( "button" ).click(function() {
-  var value;
-​
-  switch ( $( "button" ).index( this ) ) {
-    case 0 :
-      value = $( "div" ).data( "blah" );
-      break;
-    case 1 :
-      $( "div" ).data( "blah", "hello" );
-      value = "Stored!";
-      break;
-    case 2 :
-      $( "div" ).data( "blah", 86 );
-      value = "Stored!";
-      break;
-    case 3 :
-      $( "div" ).removeData( "blah" );
-      value = "Removed!";
-      break;
-  }
-​
-  $( "span" ).text( "" + value );
-});
-</script>
-</body>
-</html>
-```
-     */
-    data(key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
-    /**
      * Store arbitrary data associated with the matched elements.
      *
      * @param key A string naming the piece of data to set.
-     * @param value The new data value; this can be any Javascript type except undefined.
+     * @param value The new data value; this can be any Javascript type except `undefined`.
      * @see \`{@link https://api.jquery.com/data/ }\`
      * @since 1.2.3
      * @example ​ ````Store then retrieve a value from the div element.
@@ -34870,7 +34685,7 @@ $( "button" ).click(function() {
 </html>
 ```
      */
-    data(key: string, value: any): this;
+    data(key: string, value: string | number | boolean | symbol | object | null): this;
     /**
      * Store arbitrary data associated with the matched elements.
      *
@@ -34976,6 +34791,117 @@ $( "button" ).click(function() {
 ```
      */
     data(obj: JQuery.PlainObject): this;
+    /**
+     * Return the value at the named data store for the first element in the jQuery collection, as set by
+     * data(name, value) or by an HTML5 data-* attribute.
+     *
+     * @param key Name of the data stored.
+     * @param value `undefined` is not recognized as a data value. Calls such as `.data( "name", undefined )`
+     *              will return the jQuery object that it was called on, allowing for chaining.
+     * @see \`{@link https://api.jquery.com/data/ }\`
+     * @since 1.2.3
+     * @example ​ ````Store then retrieve a value from the div element.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>data demo</title>
+  <style>
+  div {
+    color: blue;
+  }
+  span {
+    color: red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div>
+  The values stored were
+  <span></span>
+  and
+  <span></span>
+</div>
+​
+<script>
+$( "div" ).data( "test", { first: 16, last: "pizza!" } );
+$( "span:first" ).text( $( "div" ).data( "test" ).first );
+$( "span:last" ).text( $( "div" ).data( "test" ).last );
+</script>
+</body>
+</html>
+```
+     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>data demo</title>
+  <style>
+  div {
+    margin: 5px;
+    background: yellow;
+  }
+  button {
+    margin: 5px;
+    font-size: 14px;
+  }
+  p {
+    margin: 5px;
+    color: blue;
+  }
+  span {
+    color: red;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div>A div</div>
+<button>Get "blah" from the div</button>
+<button>Set "blah" to "hello"</button>
+<button>Set "blah" to 86</button>
+<button>Remove "blah" from the div</button>
+<p>The "blah" value of this div is <span>?</span></p>
+​
+<script>
+$( "button" ).click(function() {
+  var value;
+​
+  switch ( $( "button" ).index( this ) ) {
+    case 0 :
+      value = $( "div" ).data( "blah" );
+      break;
+    case 1 :
+      $( "div" ).data( "blah", "hello" );
+      value = "Stored!";
+      break;
+    case 2 :
+      $( "div" ).data( "blah", 86 );
+      value = "Stored!";
+      break;
+    case 3 :
+      $( "div" ).removeData( "blah" );
+      value = "Removed!";
+      break;
+  }
+​
+  $( "span" ).text( "" + value );
+});
+</script>
+</body>
+</html>
+```
+     */
+    // `unified-signatures` is disabled so that behavior when passing `undefined` to `value` can be documented. Unifying the signatures
+    // results in potential confusion for users from an unexpected parameter.
+    // tslint:disable-next-line:unified-signatures
+    data(key: string, value: undefined): any;
     /**
      * Return the value at the named data store for the first element in the jQuery collection, as set by
      * data(name, value) or by an HTML5 data-* attribute.
@@ -35194,7 +35120,6 @@ $( "button" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/dblclick/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````To bind a &quot;Hello World!&quot; alert box to the dblclick event on every paragraph on the page:
 ```html
@@ -35259,7 +35184,6 @@ divdbl.dblclick(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/dblclick/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````To bind a &quot;Hello World!&quot; alert box to the dblclick event on every paragraph on the page:
 ```html
@@ -35377,7 +35301,6 @@ $( "button" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/delegate/ }\`
      * @since 1.4.2
-     *
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
      * @example ​ ````Click a paragraph to add another. Note that .delegate() attaches a click event handler to all paragraphs - even new ones.
 ```html
@@ -35528,7 +35451,6 @@ $( "button" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/delegate/ }\`
      * @since 1.4.2
-     *
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
      * @example ​ ````Click a paragraph to add another. Note that .delegate() attaches a click event handler to all paragraphs - even new ones.
 ```html
@@ -35676,7 +35598,6 @@ $( "button" ).click(function() {
      * @param events A plain object of one or more event types and functions to execute for them.
      * @see \`{@link https://api.jquery.com/delegate/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
      * @example ​ ````Click a paragraph to add another. Note that .delegate() attaches a click event handler to all paragraphs - even new ones.
 ```html
@@ -37860,7 +37781,6 @@ $( "p span" ).first().addClass( "highlight" );
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focus/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Fire focus.
 ```html
@@ -37936,7 +37856,6 @@ $( document ).ready(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focus/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Fire focus.
 ```html
@@ -38012,7 +37931,6 @@ $( document ).ready(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focusin/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Watch for a focus to occur within the paragraphs on the page.
 ```html
@@ -38050,7 +37968,6 @@ $( "p" ).focusin(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focusin/ }\`
      * @since 1.4
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Watch for a focus to occur within the paragraphs on the page.
 ```html
@@ -38088,7 +38005,6 @@ $( "p" ).focusin(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focusout/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Watch for a loss of focus to occur inside paragraphs and note the difference between the focusout count and the blur count. (The blur count does not change because those events do not bubble.)
 ```html
@@ -38147,7 +38063,6 @@ $( "p" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focusout/ }\`
      * @since 1.4
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Watch for a loss of focus to occur inside paragraphs and note the difference between the focusout count and the blur count. (The blur count does not change because those events do not bubble.)
 ```html
@@ -40233,7 +40148,6 @@ $( "li" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keydown/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show the event object for the keydown handler when a key is pressed in the input.
 ```html
@@ -40303,7 +40217,6 @@ $( "#other" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keydown/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show the event object for the keydown handler when a key is pressed in the input.
 ```html
@@ -40373,7 +40286,6 @@ $( "#other" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keypress/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show the event object when a key is pressed in the input. Note: This demo relies on a simple $.print() plugin (https://api.jquery.com/resources/events.js) for the event object&#39;s output.
 ```html
@@ -40443,7 +40355,6 @@ $( "#other" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keypress/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show the event object when a key is pressed in the input. Note: This demo relies on a simple $.print() plugin (https://api.jquery.com/resources/events.js) for the event object&#39;s output.
 ```html
@@ -40513,7 +40424,6 @@ $( "#other" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keyup/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show the event object for the keyup handler (using a simple $.print plugin) when a key is released in the input.
 ```html
@@ -40584,7 +40494,6 @@ $( "#other").click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keyup/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show the event object for the keyup handler (using a simple $.print plugin) when a key is released in the input.
 ```html
@@ -41078,7 +40987,6 @@ $( "input" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mousedown/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
 ```html
@@ -41114,7 +41022,6 @@ $( "p" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mousedown/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
 ```html
@@ -41150,7 +41057,6 @@ $( "p" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseenter/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show texts when mouseenter and mouseout event triggering.
     mouseover fires when the pointer moves into the child element as well, while mouseenter fires only when the pointer moves into the bound element.
@@ -41229,7 +41135,6 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseenter/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show texts when mouseenter and mouseout event triggering.
     mouseover fires when the pointer moves into the child element as well, while mouseenter fires only when the pointer moves into the bound element.
@@ -41308,7 +41213,6 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseleave/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show number of times mouseout and mouseleave events are triggered. mouseout fires when the pointer moves out of child element as well, while mouseleave fires only when the pointer moves out of the bound element.
 ```html
@@ -41385,7 +41289,6 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseleave/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show number of times mouseout and mouseleave events are triggered. mouseout fires when the pointer moves out of child element as well, while mouseleave fires only when the pointer moves out of the bound element.
 ```html
@@ -41462,7 +41365,6 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mousemove/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show the mouse coordinates when the mouse is moved over the yellow div.  Coordinates are relative to the window, which in this case is the iframe.
 ```html
@@ -41524,7 +41426,6 @@ $( "div" ).mousemove(function( event ) {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mousemove/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show the mouse coordinates when the mouse is moved over the yellow div.  Coordinates are relative to the window, which in this case is the iframe.
 ```html
@@ -41586,7 +41487,6 @@ $( "div" ).mousemove(function( event ) {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseout/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show the number of times mouseout and mouseleave events are triggered.
   mouseout fires when the pointer moves out of the child element as well, while mouseleave fires only when the pointer moves out of the bound element.
@@ -41665,7 +41565,6 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseout/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show the number of times mouseout and mouseleave events are triggered.
   mouseout fires when the pointer moves out of the child element as well, while mouseleave fires only when the pointer moves out of the bound element.
@@ -41744,7 +41643,6 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseover/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show the number of times mouseover and mouseenter events are triggered.
 mouseover fires when the pointer moves into the child element as well, while mouseenter fires only when the pointer moves into the bound element.
@@ -41823,7 +41721,6 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseover/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show the number of times mouseover and mouseenter events are triggered.
 mouseover fires when the pointer moves into the child element as well, while mouseenter fires only when the pointer moves into the bound element.
@@ -41902,7 +41799,6 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseup/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
 ```html
@@ -41938,7 +41834,6 @@ $( "p" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseup/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
 ```html
@@ -49967,7 +49862,6 @@ $( "#stop" ).click(function() {
      * @param handler A function to execute after the DOM is ready.
      * @see \`{@link https://api.jquery.com/ready/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.0. Use `jQuery(function() { })`.
      * @example ​ ````Display a message when the DOM is loaded.
 ```html
@@ -50507,7 +50401,6 @@ $( "button" ).on( "click", function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/resize/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````To see the window width while (or after) it is resized, try:
 ```html
@@ -50537,7 +50430,6 @@ $( window ).resize(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/resize/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````To see the window width while (or after) it is resized, try:
 ```html
@@ -50567,7 +50459,6 @@ $( window ).resize(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/scroll/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````To do something when your page is scrolled:
 ```html
@@ -50615,7 +50506,6 @@ $( window ).scroll(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/scroll/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````To do something when your page is scrolled:
 ```html
@@ -50954,7 +50844,6 @@ $( "div.demo" ).scrollTop( 300 );
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/select/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````To do something when text in input boxes is selected:
 ```html
@@ -51014,7 +50903,6 @@ $( "input" ).select();
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/select/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````To do something when text in input boxes is selected:
 ```html
@@ -52932,7 +52820,6 @@ $( "#toggle" ).on( "click", function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/submit/ }\`
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````If you&#39;d like to prevent forms from being submitted unless a flag variable is set, try:
 ```html
@@ -53025,7 +52912,6 @@ $( "form:first" ).submit();
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/submit/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
      * @example ​ ````If you&#39;d like to prevent forms from being submitted unless a flag variable is set, try:
 ```html
@@ -53722,7 +53608,6 @@ $( "a" ).on( "click", function( event ) {
      * @param state A boolean value to determine whether the class should be added or removed.
      * @see \`{@link https://api.jquery.com/toggleClass/ }\`
      * @since 1.4
-     *
      * @deprecated Deprecated since 3.0. See \`{@link https://github.com/jquery/jquery/pull/2618 }\`.
      * @example ​ ````Toggle the class &#39;highlight&#39; when a paragraph is clicked.
 ```html
@@ -54087,7 +53972,6 @@ $( "input" ).focus(function() {
      * @see \`{@link https://api.jquery.com/unbind/ }\`
      * @since 1.0
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
@@ -54198,7 +54082,6 @@ $( "p" ).unbind( "click", foo ); // ... foo will no longer be called.
      *              A jQuery.Event object.
      * @see \`{@link https://api.jquery.com/unbind/ }\`
      * @since 1.0
-     *
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
@@ -54311,7 +54194,6 @@ $( "p" ).unbind( "click", foo ); // ... foo will no longer be called.
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/undelegate/ }\`
      * @since 1.4.2
-     *
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
@@ -54454,7 +54336,6 @@ $( "form" ).undelegate( ".whatever" );
      * @see \`{@link https://api.jquery.com/undelegate/ }\`
      * @since 1.4.2
      * @since 1.4.3
-     *
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
@@ -54595,7 +54476,6 @@ $( "form" ).undelegate( ".whatever" );
      * @see \`{@link https://api.jquery.com/undelegate/ }\`
      * @since 1.4.2
      * @since 1.6
-     *
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
@@ -55786,6 +55666,7 @@ $( "p" ).wrapInner( $( "<span class='red'></span>" ) );
     [n: number]: TElement;
 }
 
+// region ES5 compatibility
 // #region ES5 compatibility
 
 // tslint:disable-next-line:no-empty-interface
@@ -55826,11 +55707,15 @@ declare namespace JQuery {
      * object is, in other words, an Object object. It is designated "plain" in jQuery documentation to
      * distinguish it from other kinds of JavaScript objects: for example, null, user-defined arrays, and
      * host objects such as document, all of which have a typeof value of "object."
+     *
+     * **Note**: The type declaration of PlainObject is imprecise. It includes host objects and user-defined
+     *           arrays which do not match jQuery's definition.
      */
     interface PlainObject<T = any> {
         [key: string]: T;
     }
 
+    // region Ajax
     // #region Ajax
 
     interface AjaxSettings<TContext = any> extends Ajax.AjaxSettingsBase<TContext> {
@@ -55881,7 +55766,7 @@ declare namespace JQuery {
         }
 
         /**
-         * @see \`{@link http://api.jquery.com/jquery.ajax/#jQuery-ajax-settings }\`
+         * @see \`{@link https://api.jquery.com/jquery.ajax/#jQuery-ajax-settings }\`
          */
         interface AjaxSettingsBase<TContext> {
             /**
@@ -56136,6 +56021,7 @@ declare namespace JQuery {
         }
 
         type StatusCodeCallbacks<TContext> = {
+            // region Success Status Codes
             // #region Success Status Codes
 
             // jQuery treats 2xx and 304 status codes as a success
@@ -56244,6 +56130,7 @@ declare namespace JQuery {
 
             // #endregion
 
+            // region Error Status Codes
             // #region Error Status Codes
 
             300?: ErrorCallback<TContext>;
@@ -56570,7 +56457,7 @@ declare namespace JQuery {
     }
 
     /**
-     * @see \`{@link http://api.jquery.com/jquery.ajax/#jqXHR }\`
+     * @see \`{@link https://api.jquery.com/jquery.ajax/#jqXHR }\`
      */
     interface jqXHR<TResolve = any> extends Promise3<TResolve, jqXHR<TResolve>, never,
         Ajax.SuccessTextStatus, Ajax.ErrorTextStatus, never,
@@ -56600,6 +56487,7 @@ declare namespace JQuery {
 
     // #endregion
 
+    // region Callbacks
     // #region Callbacks
 
     // tslint:disable-next-line:ban-types
@@ -57164,6 +57052,7 @@ callbacks.fire( "world" );
 
     // #endregion
 
+    // region CSS
     // #region CSS
 
     interface CSSHook<TElement> {
@@ -57173,6 +57062,7 @@ callbacks.fire( "world" );
 
     // #endregion
 
+    // region Deferred
     // #region Deferred
 
     /**
@@ -57222,7 +57112,7 @@ callbacks.fire( "world" );
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
      * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
-     * @see \`{@link http://api.jquery.com/Types/#Promise }\`
+     * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
     interface PromiseBase<TR, TJ, TN,
         UR, UJ, UN,
@@ -57575,6 +57465,7 @@ obj.done(function( name ) {
          */
         state(): 'pending' | 'resolved' | 'rejected';
 
+        // region pipe
         // #region pipe
 
         /**
@@ -57586,7 +57477,6 @@ obj.done(function( name ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -57699,7 +57589,6 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -57805,7 +57694,6 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -57911,7 +57799,6 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -58010,7 +57897,6 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -58116,7 +58002,6 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -58215,7 +58100,6 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -58308,6 +58192,7 @@ chained.done(function( data ) {
 
         // #endregion
 
+        // region then
         // #region then
 
         /**
@@ -59277,7 +59162,7 @@ $.get( "test.php" )
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
      * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
-     * @see \`{@link http://api.jquery.com/Types/#Promise }\`
+     * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
     interface Promise3<TR, TJ, TN,
         UR, UJ, UN,
@@ -59290,7 +59175,7 @@ $.get( "test.php" )
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
      * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
-     * @see \`{@link http://api.jquery.com/Types/#Promise }\`
+     * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
     interface Promise2<TR, TJ, TN,
         UR, UJ, UN> extends PromiseBase<TR, TJ, TN,
@@ -59302,7 +59187,7 @@ $.get( "test.php" )
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
      * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
-     * @see \`{@link http://api.jquery.com/Types/#Promise }\`
+     * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
     interface Promise<TR, TJ = any, TN = any> extends PromiseBase<TR, TJ, TN,
         TR, TJ, TN,
@@ -59715,6 +59600,7 @@ obj.done(function( name ) {
          */
         state(): 'pending' | 'resolved' | 'rejected';
 
+        // region pipe
         // #region pipe
 
         /**
@@ -59726,7 +59612,6 @@ obj.done(function( name ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -59839,7 +59724,6 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -59945,7 +59829,6 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -60051,7 +59934,6 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -60150,7 +60032,6 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -60256,7 +60137,6 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -60355,7 +60235,6 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         *
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
          * @example ​ ````Filter resolve value:
 ```html
@@ -60448,6 +60327,7 @@ chained.done(function( data ) {
 
         // #endregion
 
+        // region then
         // #region then
 
         /**
@@ -61447,6 +61327,7 @@ $.get( "test.php" )
 
     // #endregion
 
+    // region Effects
     // #region Effects
 
     type Duration = number | 'fast' | 'slow';
@@ -61551,8 +61432,10 @@ $.get( "test.php" )
 
     // #endregion
 
+    // region Events
     // #region Events
 
+    // region Event
     // #region Event
 
     // This should be a class but doesn't work correctly under the JQuery namespace. Event should be an inner class of jQuery.
@@ -62330,6 +62213,7 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
     }
 }
 
+// region Legacy types
 // #region Legacy types
 
 // tslint:disable-next-line:no-empty-interface
