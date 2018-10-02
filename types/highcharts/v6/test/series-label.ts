@@ -1,0 +1,1 @@
+SeriesLabelFactory(Highcharts);

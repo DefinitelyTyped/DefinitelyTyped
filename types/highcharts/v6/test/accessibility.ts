@@ -1,0 +1,1 @@
+AccessibilityFactory(Highcharts);

@@ -1,0 +1,1 @@
+ExportingFactory(Highcharts);
