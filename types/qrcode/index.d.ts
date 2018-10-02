@@ -79,6 +79,12 @@ export interface QRCodeRenderersOptions extends QRCodeOptions {
      * Default: 4
      */
     scale?: number;
+    /**
+     * Forces a specific width for the output image.
+     * If width is too small to contain the qr symbol, this option will be ignored.
+     * Takes precedence over scale.
+     */
+    width?: number;
     color?: {
         /**
          * Color of dark module. Value must be in hex format (RGBA).
