@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.11
+// Type definitions for Node.js 10.11.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
