@@ -7,7 +7,10 @@
 /// <reference types="node" />
 
 declare const out: Mailgun.MailgunExport;
-export = out;
+
+declare module "mailgun-js" {
+    export = out;
+}
 
 declare namespace Mailgun {
     interface ConstructorParams {
