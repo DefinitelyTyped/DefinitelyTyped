@@ -54037,7 +54037,7 @@ $( "body" ).trigger({
 </html>
 ```
      */
-    trigger(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number): this;
+    trigger(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number | boolean): this;
     /**
      * Execute all handlers attached to an element for an event.
      *
@@ -54078,7 +54078,7 @@ $( "input" ).focus(function() {
 </html>
 ```
      */
-    triggerHandler(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number): undefined | any;
+    triggerHandler(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number | boolean): undefined | any;
     /**
      * Remove a previously-attached event handler from the elements.
      *

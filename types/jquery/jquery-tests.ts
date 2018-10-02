@@ -4228,6 +4228,9 @@ function JQuery() {
             $('p').trigger('myEvent', 3);
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').trigger('myEvent', true);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').trigger($.Event('myEvent'), ['Custom', 'Event']);
 
             // $ExpectType JQuery<HTMLElement>
@@ -4238,6 +4241,9 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('p').trigger($.Event('myEvent'), 3);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').trigger($.Event('myEvent'), true);
         }
 
         function triggerHandler() {
@@ -4254,6 +4260,9 @@ function JQuery() {
             $('p').triggerHandler('myEvent', 3);
 
             // $ExpectType any
+            $('p').triggerHandler('myEvent', true);
+
+            // $ExpectType any
             $('p').triggerHandler($.Event('myEvent'), ['Custom', 'Event']);
 
             // $ExpectType any
@@ -4264,6 +4273,9 @@ function JQuery() {
 
             // $ExpectType any
             $('p').triggerHandler($.Event('myEvent'), 3);
+
+            // $ExpectType any
+            $('p').triggerHandler($.Event('myEvent'), true);
         }
 
         function unbind() {
