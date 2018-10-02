@@ -7078,12 +7078,16 @@ $( "#searchForm" ).submit(function( event ) {
      */
     post(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
 
+    // region proxy
     // #region proxy
 
+    // region (fn, null | undefined)
     // #region (fn, null | undefined)
 
+    // region 0 to 7 additional arguments
     // #region 0 to 7 additional arguments
 
+    // region 0 parameters
     // #region 0 parameters
 
     /**
@@ -8336,6 +8340,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 1 parameters
     // #region 1 parameters
 
     /**
@@ -9602,6 +9607,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 2 parameters
     // #region 2 parameters
 
     /**
@@ -10868,6 +10874,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 3 parameters
     // #region 3 parameters
 
     /**
@@ -12134,6 +12141,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 4 parameters
     // #region 4 parameters
 
     /**
@@ -13400,6 +13408,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 5 parameters
     // #region 5 parameters
 
     /**
@@ -14666,6 +14675,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 6 parameters
     // #region 6 parameters
 
     /**
@@ -15932,6 +15942,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 7+ parameters
     // #region 7+ parameters
 
     /**
@@ -17200,6 +17211,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 8+ additional arguments
     // #region 8+ additional arguments
 
     /**
@@ -17363,10 +17375,13 @@ $( "#test" )
 
     // #endregion
 
+    // region (fn, context)
     // #region (fn, context)
 
+    // region 0 to 7 additional arguments
     // #region 0 to 7 additional arguments
 
+    // region 0 parameters
     // #region 0 parameters
 
     /**
@@ -18634,6 +18649,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 1 parameters
     // #region 1 parameters
 
     /**
@@ -19916,6 +19932,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 2 parameters
     // #region 2 parameters
 
     /**
@@ -21198,6 +21215,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 3 parameters
     // #region 3 parameters
 
     /**
@@ -22480,6 +22498,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 4 parameters
     // #region 4 parameters
 
     /**
@@ -23762,6 +23781,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 5 parameters
     // #region 5 parameters
 
     /**
@@ -25044,6 +25064,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 6 parameters
     // #region 6 parameters
 
     /**
@@ -26326,6 +26347,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 7+ parameters
     // #region 7+ parameters
 
     /**
@@ -27610,6 +27632,7 @@ $( "#test" )
 
     // #endregion
 
+    // region 8+ additional arguments
     // #region 8+ additional arguments
 
     /**
@@ -27775,6 +27798,7 @@ $( "#test" )
 
     // #endregion
 
+    // region (context, name)
     // #region (context, name)
 
     /**
@@ -55642,6 +55666,7 @@ $( "p" ).wrapInner( $( "<span class='red'></span>" ) );
     [n: number]: TElement;
 }
 
+// region ES5 compatibility
 // #region ES5 compatibility
 
 // tslint:disable-next-line:no-empty-interface
@@ -55690,6 +55715,7 @@ declare namespace JQuery {
         [key: string]: T;
     }
 
+    // region Ajax
     // #region Ajax
 
     interface AjaxSettings<TContext = any> extends Ajax.AjaxSettingsBase<TContext> {
@@ -55995,6 +56021,7 @@ declare namespace JQuery {
         }
 
         type StatusCodeCallbacks<TContext> = {
+            // region Success Status Codes
             // #region Success Status Codes
 
             // jQuery treats 2xx and 304 status codes as a success
@@ -56103,6 +56130,7 @@ declare namespace JQuery {
 
             // #endregion
 
+            // region Error Status Codes
             // #region Error Status Codes
 
             300?: ErrorCallback<TContext>;
@@ -56459,6 +56487,7 @@ declare namespace JQuery {
 
     // #endregion
 
+    // region Callbacks
     // #region Callbacks
 
     // tslint:disable-next-line:ban-types
@@ -57023,6 +57052,7 @@ callbacks.fire( "world" );
 
     // #endregion
 
+    // region CSS
     // #region CSS
 
     interface CSSHook<TElement> {
@@ -57032,6 +57062,7 @@ callbacks.fire( "world" );
 
     // #endregion
 
+    // region Deferred
     // #region Deferred
 
     /**
@@ -57434,6 +57465,7 @@ obj.done(function( name ) {
          */
         state(): 'pending' | 'resolved' | 'rejected';
 
+        // region pipe
         // #region pipe
 
         /**
@@ -58160,6 +58192,7 @@ chained.done(function( data ) {
 
         // #endregion
 
+        // region then
         // #region then
 
         /**
@@ -59567,6 +59600,7 @@ obj.done(function( name ) {
          */
         state(): 'pending' | 'resolved' | 'rejected';
 
+        // region pipe
         // #region pipe
 
         /**
@@ -60293,6 +60327,7 @@ chained.done(function( data ) {
 
         // #endregion
 
+        // region then
         // #region then
 
         /**
@@ -61292,6 +61327,7 @@ $.get( "test.php" )
 
     // #endregion
 
+    // region Effects
     // #region Effects
 
     type Duration = number | 'fast' | 'slow';
@@ -61396,8 +61432,10 @@ $.get( "test.php" )
 
     // #endregion
 
+    // region Events
     // #region Events
 
+    // region Event
     // #region Event
 
     // This should be a class but doesn't work correctly under the JQuery namespace. Event should be an inner class of jQuery.
@@ -62175,6 +62213,7 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
     }
 }
 
+// region Legacy types
 // #region Legacy types
 
 // tslint:disable-next-line:no-empty-interface
