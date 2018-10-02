@@ -130,7 +130,7 @@ declare class Generator extends EventEmitter {
      * @param spawnOptions Options to pass `child_process.spawn`.
      * @return Resolved if install successful, rejected otherwise
      */
-    bowerInstall(component?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    bowerInstall(component?: string|string[], options?: object, spawnOptions?: object): void;
     /**
      * Runs `npm` and `bower`, in sequence, in the generated directory and prints a
      * message to let the user know.
@@ -149,7 +149,7 @@ declare class Generator extends EventEmitter {
      *
      * @return Resolved if install successful, rejected otherwise
      */
-    installDependencies(options?: Generator.InstallOptions): Promise<void>;
+    installDependencies(options?: Generator.InstallOptions): void;
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -160,7 +160,7 @@ declare class Generator extends EventEmitter {
      * @param spawnOptions Options to pass `child_process.spawn`.
      * @return Resolved if install successful, rejected otherwise
      */
-    npmInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    npmInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): void;
     /**
      * Combine package manager cmd line arguments and run the `install` command.
      *
@@ -175,7 +175,7 @@ declare class Generator extends EventEmitter {
      *                     https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
      * @return Resolved if install successful, rejected otherwise
      */
-    runInstall(installer: string, paths?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    scheduleInstallTask(installer: string, paths?: string|string[], options?: object, spawnOptions?: object): void;
     /**
      * Receives a list of `packages` and an `options` object to install through npm.
      *
@@ -186,7 +186,7 @@ declare class Generator extends EventEmitter {
      * @param spawnOptions Options to pass `child_process.spawn`.
      * @return Resolved if install successful, rejected otherwise
      */
-    yarnInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): Promise<void>;
+    yarnInstall(pkgs?: string|string[], options?: object, spawnOptions?: object): void;
 
     // actions/user mixin
     readonly user: {
