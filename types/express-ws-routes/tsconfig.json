@@ -17,7 +17,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "express-ws-routes-tests.ts"
+        "index.d.ts"
     ]
 }
