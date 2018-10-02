@@ -471,12 +471,14 @@ async () => {
             fill='rgb(0,0,255)'
             strokeWidth={3}
             stroke='rgb(0,0,0)'
+            transform="translate(0, 0)"
         />
         <Svg.Circle
             cx={50}
             cy={50}
             r={50}
             fill="pink"
+            transform="translate(0, 0)"
         />
         <Svg.Ellipse
             cx={55}
@@ -486,6 +488,7 @@ async () => {
             stroke="purple"
             strokeWidth={2}
             fill="yellow"
+            transform="translate(0, 0)"
         />
         <Svg.Line
             x1={0}
@@ -494,18 +497,21 @@ async () => {
             y2={100}
             stroke="red"
             strokeWidth={2}
+            transform="translate(0, 0)"
         />
         <Svg.Polygon
             points="40,5 70,80 25,95"
             fill="lime"
             stroke="purple"
             strokeWidth={1}
+            transform="translate(0, 0)"
         />
         <Svg.Polyline
             points="10,10 20,12 30,20 40,60 60,70 95,90"
             fill="none"
             stroke="black"
             strokeWidth={3}
+            transform="translate(0, 0)"
         />
         <Svg.Text
             fill="none"
@@ -515,6 +521,7 @@ async () => {
             x={100}
             y={20}
             textAnchor="middle"
+            transform="translate(0, 0)"
         >
             STROKED TEXT
         </Svg.Text>
@@ -524,8 +531,8 @@ async () => {
                 d=""
             />
         </Svg.Defs>
-        <Svg.G y={20}>
-            <Svg.Text fill="blue"        >
+        <Svg.G transform="translate(0, 0)" y={20}>
+            <Svg.Text fill="blue" transform={{ translateX: 0, translateY: 0 }}>
                 <Svg.TextPath href="#path" startOffset="-10%">
                     We go up and down,
                     <Svg.TSpan fill="red" dy="5,5,5">then up again</Svg.TSpan>
@@ -538,8 +545,8 @@ async () => {
                 strokeWidth={1}
             />
         </Svg.G>
-        <Svg.Use href="#shape" x="20" y="0" />
-        <Svg.Use href="#shape" x="20" y="0" width="20" height="20"/>
+        <Svg.Use href="#shape" transform="translate(0, 0)" x="20" y="0" />
+        <Svg.Use href="#shape" transform={{ translateX: 0, translateY: 0 }} x="20" y="0" width="20" height="20"/>
         <Svg.Symbol id="symbol" viewBox="0 0 150 110" width="100" height="50">
             <Svg.Circle cx="50" cy="50" r="40" strokeWidth="8" stroke="red" fill="red"/>
             <Svg.Circle cx="90" cy="60" r="40" strokeWidth="8" stroke="green" fill="white"/>
