@@ -7,4 +7,4 @@
 /**
  * A subclass of the JavaScript Error object for use in Ember.
  */
-export default ErrorConstructor;
+export default class EmberError extends Error {}
