@@ -7082,7 +7082,7 @@ $( "#searchForm" ).submit(function( event ) {
 
     // #region (fn, null | undefined)
 
-    // #region 0 to 7 arguments
+    // #region 0 to 7 additional arguments
 
     // #region 0 parameters
 
@@ -7090,7 +7090,7 @@ $( "#searchForm" ).submit(function( event ) {
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -7246,7 +7246,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -7402,7 +7402,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -7558,7 +7558,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -7714,7 +7714,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -7870,7 +7870,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -8026,7 +8026,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4`
      * @since 1.6
@@ -8183,7 +8183,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -8342,7 +8342,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -8500,7 +8500,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -8658,7 +8658,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -8816,7 +8816,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -8974,7 +8974,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -9132,7 +9132,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -9290,7 +9290,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -9448,7 +9448,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -9608,7 +9608,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -9766,7 +9766,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -9924,7 +9924,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -10082,7 +10082,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -10240,7 +10240,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -10398,7 +10398,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -10556,7 +10556,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -10714,7 +10714,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -10874,7 +10874,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -11032,7 +11032,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -11190,7 +11190,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -11348,7 +11348,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -11506,7 +11506,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -11664,7 +11664,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -11822,7 +11822,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -11980,7 +11980,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -12140,7 +12140,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -12298,7 +12298,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -12456,7 +12456,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -12614,7 +12614,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -12772,7 +12772,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -12930,7 +12930,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -13088,7 +13088,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -13246,7 +13246,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -13406,7 +13406,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -13564,7 +13564,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -13722,7 +13722,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -13880,7 +13880,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -14038,7 +14038,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -14196,7 +14196,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -14354,7 +14354,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -14512,7 +14512,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -14672,7 +14672,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -14830,7 +14830,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -14988,7 +14988,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -15146,7 +15146,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -15304,7 +15304,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -15462,7 +15462,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -15620,7 +15620,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -15778,7 +15778,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -15938,7 +15938,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -16096,7 +16096,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -16254,7 +16254,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -16412,7 +16412,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -16570,7 +16570,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -16728,7 +16728,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -16886,7 +16886,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -17044,7 +17044,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
@@ -17200,13 +17200,13 @@ $( "#test" )
 
     // #endregion
 
-    // #region 8+ arguments
+    // #region 8+ additional arguments
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
@@ -17365,7 +17365,7 @@ $( "#test" )
 
     // #region (fn, context)
 
-    // #region 0 to 7 arguments
+    // #region 0 to 7 additional arguments
 
     // #region 0 parameters
 
@@ -17373,7 +17373,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -17531,7 +17531,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -17689,7 +17689,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -17847,7 +17847,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -18005,7 +18005,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -18163,7 +18163,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -18321,7 +18321,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4`
      * @since 1.6
@@ -18479,7 +18479,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -18640,7 +18640,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -18800,7 +18800,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -18960,7 +18960,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -19120,7 +19120,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -19280,7 +19280,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -19440,7 +19440,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -19600,7 +19600,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -19760,7 +19760,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -19922,7 +19922,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -20082,7 +20082,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -20242,7 +20242,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -20402,7 +20402,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -20562,7 +20562,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -20722,7 +20722,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -20882,7 +20882,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -21042,7 +21042,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -21204,7 +21204,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -21364,7 +21364,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -21524,7 +21524,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -21684,7 +21684,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -21844,7 +21844,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -22004,7 +22004,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -22164,7 +22164,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -22324,7 +22324,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -22486,7 +22486,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -22646,7 +22646,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -22806,7 +22806,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -22966,7 +22966,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -23126,7 +23126,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -23286,7 +23286,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -23446,7 +23446,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -23606,7 +23606,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -23768,7 +23768,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -23928,7 +23928,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -24088,7 +24088,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -24248,7 +24248,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -24408,7 +24408,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -24568,7 +24568,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -24728,7 +24728,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -24888,7 +24888,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -25050,7 +25050,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -25210,7 +25210,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -25370,7 +25370,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -25530,7 +25530,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -25690,7 +25690,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -25850,7 +25850,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -26010,7 +26010,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -26170,7 +26170,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -26332,7 +26332,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -26492,7 +26492,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -26652,7 +26652,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -26812,7 +26812,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -26972,7 +26972,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -27132,7 +27132,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -27292,7 +27292,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -27452,7 +27452,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -27610,13 +27610,13 @@ $( "#test" )
 
     // #endregion
 
-    // #region 8+ arguments
+    // #region 8+ additional arguments
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
      * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
+     * @param context The object to which the context (`this`) of the function should be set.
      * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
