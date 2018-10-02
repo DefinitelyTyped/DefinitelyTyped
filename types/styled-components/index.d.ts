@@ -162,6 +162,7 @@ export interface ThemedStyledComponentsModule<T> {
     withTheme: WithThemeFnInterface<T>;
 
     ThemeProvider: ThemeProviderComponent<T>;
+    ThemeConsumer: ThemeConsumerComponent<T>;
 }
 
 declare const styled: StyledInterface;
@@ -173,6 +174,13 @@ export type BaseWithThemeFnInterface<T> = <P extends { theme?: T }>(
     ) => React.ComponentClass<WithOptionalTheme<P, T>>;
 export type WithThemeFnInterface<T> = BaseWithThemeFnInterface<Extract<keyof T, string> extends never ? any : T>;
 export const withTheme: WithThemeFnInterface<DefaultTheme>;
+
+export interface ThemeConsumerProps<T> {
+    children(theme: T): React.ReactNode;
+}
+export type BaseThemeConsumerComponent<T> = React.ComponentClass<ThemeConsumerProps<T>>;
+export type ThemeConsumerComponent<T> = BaseThemeConsumerComponent<Extract<keyof T, string> extends never ? any : T>;
+export const ThemeConsumer: ThemeConsumerComponent<object>;
 
 export interface Keyframes {
     getName(): string;

@@ -12,6 +12,8 @@ import styled, {
     ThemeProps,
     ThemeProvider,
     withTheme,
+    ThemeConsumer,
+    ThemeConsumerComponent,
 } from 'styled-components';
 
 /**
@@ -322,19 +324,6 @@ styled(C); // used to fail; see issue trail linked below
 // https://github.com/styled-components/styled-components/pull/1427
 
 /**
- * extend
- */
-
-const ExtendButton = styled.button`
-    color: palevioletred;
-    font-size: 1em;
-    margin: 1em;
-    padding: 0.25em 1em;
-    border: 2px solid palevioletred;
-    border-radius: 3px;
-`;
-
-/**
  * function themes
  */
 
@@ -405,6 +394,10 @@ const ComponentWithTheme = withTheme(Component);
 
 <ComponentWithTheme text={'hi'} />; // ok
 <ComponentWithTheme text={'hi'} theme={{ color: 'red' }} />; // ok
+
+<ThemeConsumer>
+    {(theme) => <Component text="hi" theme={theme} />}
+</ThemeConsumer>;
 
 /**
  * isStyledComponent utility
