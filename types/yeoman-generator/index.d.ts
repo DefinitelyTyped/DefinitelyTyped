@@ -162,7 +162,7 @@ declare class Generator extends EventEmitter {
      * Combine package manager cmd line arguments and run the `install` command.
      *
      * During the `install` step, every command will be scheduled to run once, on the
-     * run loop. 
+     * run loop.
      *
      * @param installer Which package manager to use
      * @param paths Packages to install. Use an empty string for `npm install`
