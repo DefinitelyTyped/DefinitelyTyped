@@ -8,6 +8,8 @@
 
 declare const out: Mailgun.MailgunExport;
 
+// tslint:disable:no-declare-current-package
+// tslint:disable:no-single-declare-module
 declare module "mailgun-js" {
     export = out;
 }
