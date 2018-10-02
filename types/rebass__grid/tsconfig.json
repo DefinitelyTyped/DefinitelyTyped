@@ -12,6 +12,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@rebass/grid": ["rebass__grid"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -19,6 +22,6 @@
     },
     "files": [
         "index.d.ts",
-        "grid-styled-tests.tsx"
+        "rebass__grid-tests.tsx"
     ]
 }

@@ -1,8 +1,9 @@
-// Type definitions for grid-styled 4.2
-// Project: https://github.com/jxnblk/grid-styled
+// Type definitions for @rebass/grid 6.0
+// Project: https://github.com/rebassjs/grid
 // Definitions by: Anton Vasin <https://github.com/antonvasin>
 //                 Victor Orlov <https://github.com/vittorio>
 //                 Louis Hache <https://github.com/lhache>
+//                 Adam Lavin <https://github.com/lavoaster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -48,11 +49,6 @@ export interface FlexProps extends BoxProps {
     justifyContent?: ResponsiveProp;
     flexDirection?: ResponsiveProp;
     flexWrap?: ResponsiveProp;
-
-    // legacy aliases https://github.com/jxnblk/styled-system/releases/tag/v2.0.0
-    justify?: ResponsiveProp;
-    align?: ResponsiveProp;
-    wrap?: ResponsiveProp | boolean;
 }
 
 export type BoxComponent = StyledComponentClass<
@@ -74,7 +70,4 @@ export interface Theme {
 export const Box: BoxComponent;
 export const Flex: FlexComponent;
 export const theme: Theme;
-export type DivProps = Omit<React.HTMLProps<HTMLDivElement>, "ref"> & {
-    innerRef?: (el: HTMLDivElement) => any;
-};
-export const div: ComponentType<DivProps>;
+export const div: ComponentType<React.HTMLProps<HTMLDivElement>>;
