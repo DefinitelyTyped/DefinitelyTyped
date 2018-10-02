@@ -1,4 +1,4 @@
-// Type definitions for yeoman-generator 2.0
+// Type definitions for yeoman-generator 3.0
 // Project: https://github.com/yeoman/generator
 // Definitions by: Kentaro Okuno <https://github.com/armorik83>
 //                 Jay Anslow <https://github.com/janslow>
