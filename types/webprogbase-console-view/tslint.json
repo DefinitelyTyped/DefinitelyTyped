@@ -1,0 +1,34 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "no-var-keyword": true,
+    "no-arg": true,
+    "triple-equals": true,
+    "semicolon": true,
+    "adjacent-overload-signatures": true,
+    "await-promise": true,
+    "callable-types": true,
+    "deprecation": true,
+    "jsdoc-format": true,
+    "no-angle-bracket-type-assertion": true,
+    "no-duplicate-switch-case": true,
+    "prefer-const": true,
+    "prefer-function-over-method": true,
+    "prefer-object-spread": true,
+    "prefer-template": true,
+    "prefer-readonly": true,
+    "prefer-for-of": true,
+    "prefer-switch": true,
+    "no-unnecessary-qualifier": true,
+    "object-literal-shorthand": true,
+    "no-shadowed-variable": true,
+    "no-unnecessary-type-assertion": true,
+    "no-return-await": true,
+    "no-floating-promises": true,
+    "no-inferred-empty-object-type": true,
+    "strict-type-predicates": true,
+    "restrict-plus-operands": true
+  }
+
+
+}
