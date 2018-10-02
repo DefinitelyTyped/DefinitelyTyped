@@ -206,7 +206,7 @@ export interface Credentials1 extends Credentials {
 
 export interface Credentials2 extends Credentials {
   refreshToken?: string;
-  expiresIn: number;
+  expiresIn?: number;
 }
 
 export interface CustomProtocol {
