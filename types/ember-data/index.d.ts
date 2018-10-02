@@ -1,4 +1,4 @@
-// Type definitions for ember-data 3.0
+// Type definitions for ember-data 3.1
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
@@ -11,16 +11,10 @@ import Evented from '@ember/object/evented';
 import ObjectProxy from '@ember/object/proxy';
 import PromiseProxyMixin from '@ember/object/promise-proxy-mixin';
 import RSVP from 'rsvp';
-
-export interface ModelRegistry {}
-export interface AdapterRegistry {}
-export interface SerializerRegistry {}
-export interface TransformRegistry {
-    string: string;
-    boolean: boolean;
-    number: number;
-    date: Date;
-}
+import TransformRegistry from 'ember-data/types/registries/transform';
+import ModelRegistry from 'ember-data/types/registries/model';
+import SerializerRegistry from 'ember-data/types/registries/serializer';
+import AdapterRegistry from 'ember-data/types/registries/adapter';
 
 type AttributesFor<Model> = keyof Model; // TODO: filter to attr properties only (TS 2.8)
 type RelationshipsFor<Model> = keyof Model; // TODO: filter to hasMany/belongsTo properties only (TS 2.8)

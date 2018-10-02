@@ -1,10 +1,13 @@
 import * as puppeteer from "puppeteer";
+import { TimeoutError } from "puppeteer/Errors";
 
-// Examples taken from README
+// Basic nagivation
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto("https://example.com");
+  await page.goto("https://example.com", {
+    referer: 'http://google.com',
+  });
   await page.screenshot({ path: "example.png" });
 
   browser.close();
@@ -27,7 +30,9 @@ import * as puppeteer from "puppeteer";
   // Get the "viewport" of the page, as reported by the page.
   const dimensions = await page.evaluate(() => {
     return {
+      // tslint:disable-next-line no-unnecessary-type-assertion
       width: document.documentElement!.clientWidth,
+      // tslint:disable-next-line no-unnecessary-type-assertion
       height: document.documentElement!.clientHeight,
       deviceScaleFactor: window.devicePixelRatio
     };
@@ -306,12 +311,19 @@ puppeteer.launch().then(async browser => {
   browser.close();
 })();
 
-// Test 0.13 features
+// Test request API
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   const handler = (r: puppeteer.Request) => {
     const failure = r.failure();
+
+    const response = r.response();
+    if (!response) {
+      return;
+    }
+    const text: string = response.statusText();
+    const ip: string = response.remoteAddress().ip;
 
     if (failure == null) {
       console.error("Request completed successfully");
@@ -412,3 +424,51 @@ puppeteer.launch().then(async browser => {
 
   browser.close();
 })();
+
+// Test waitFor
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.waitFor(1000);
+  await page.waitFor('selector');
+  await page.waitFor('selector', {
+      timeout: 123,
+  });
+  await page.waitFor(() => !!document.querySelector('.foo'), {
+      hidden: true,
+  });
+  await page.waitFor((stuff: string) => !!document.querySelector(stuff), {
+    hidden: true,
+  }, 'asd');
+})();
+
+// Permission tests
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  const ctx = browser.defaultBrowserContext();
+  await ctx.overridePermissions('https://example.com', ['accelerometer']);
+  await ctx.clearPermissionOverrides();
+});
+
+// Geoloc
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  page.setGeolocation({
+    accuracy: 10,
+    latitude: 0,
+    longitude: 0,
+  });
+});
+
+// Errors
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+    try {
+        await page.waitFor('test');
+    } catch (err) {
+        console.log(err instanceof TimeoutError);
+    }
+});

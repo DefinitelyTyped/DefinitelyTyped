@@ -668,6 +668,7 @@ class WebViewTest extends React.Component {
                 originWhitelist={['https://origin.test']}
                 saveFormDataDisabled={false}
                 useWebKit={true}
+                allowFileAccess={true}
             />
         );
     }

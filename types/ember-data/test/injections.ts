@@ -4,8 +4,8 @@ import Controller from '@ember/controller';
 
 class MyModel extends DS.Model {}
 
-declare module 'ember-data' {
-    interface ModelRegistry {
+declare module 'ember-data/types/registries/model' {
+    export default interface ModelRegistry {
         'my-model': MyModel;
     }
 }

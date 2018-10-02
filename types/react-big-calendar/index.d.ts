@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.18
+// Type definitions for react-big-calendar 0.20
 // Project: https://github.com/intljusticemission/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
@@ -7,10 +7,11 @@
 //                 Paul Potsides <https://github.com/strongpauly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-
+import { Validator } from 'prop-types';
 import * as React from 'react';
 
 export type stringOrDate = string | Date;
+export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type Navigate = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 
@@ -97,11 +98,9 @@ export interface Formats {
 }
 
 export interface HeaderProps {
-    culture: BigCalendarProps['culture'];
     date: Date;
-    format: string;
     label: string;
-    localizer: object;
+    localizer: DateLocalizer;
 }
 
 export interface Components {
@@ -152,7 +151,29 @@ export interface Messages {
     showMore?: (count: number) => string;
 }
 
+export type Culture = string | string[];
+export type FormatInput = number | string | Date;
+
+export interface DateLocalizerSpec {
+    firstOfWeek: (culture: Culture) => number;
+    format: (value: FormatInput, format: string, culture: Culture) => string;
+    formats: Formats;
+    propType?: Validator<any>;
+}
+
+export class DateLocalizer {
+    formats: Formats;
+    propType: Validator<any>;
+    startOfWeek: (culture: Culture) => number;
+
+    constructor(spec: DateLocalizerSpec);
+
+    format(value: FormatInput, format: string, culture: Culture): string;
+}
+
 export interface BigCalendarProps<T extends Event = Event> extends React.Props<BigCalendar<T>> {
+    localizer: DateLocalizer;
+
     date?: stringOrDate;
     now?: Date;
     view?: View;
@@ -206,13 +227,42 @@ export interface BigCalendarProps<T extends Event = Event> extends React.Props<B
     elementProps?: React.HTMLAttributes<HTMLElement>;
 }
 
+export interface ViewStatic {
+    navigate(date: Date, action: Navigate, props: any): Date;
+}
+
+export interface MoveOptions {
+    action: Navigate;
+    date: Date;
+    today: Date;
+}
+
 export default class BigCalendar<T extends Event = Event> extends React.Component<BigCalendarProps<T>> {
+    components: {
+        dateCellWrapper: React.ComponentType,
+        dayWrapper: React.ComponentType,
+        eventWrapper: React.ComponentType,
+    };
     /**
-     * Setup the localizer by providing the moment Object
+     * create DateLocalizer from globalize
      */
-    static momentLocalizer(momentInstance: object): void;
+    static globalizeLocalizer(globalizeInstance: object): DateLocalizer;
     /**
-     * Setup the localizer by providing the globalize Object
+     * create DateLocalizer from a moment
      */
-    static globalizeLocalizer(globalizeInstance: object): void;
+    static momentLocalizer(momentInstance: object): DateLocalizer;
+    /**
+     * action constants for Navigate
+     */
+    static Navigate: {
+        PREVIOUS: 'PREV',
+        NEXT: 'NEXT',
+        TODAY: 'TODAY',
+        DATE: 'DATE',
+    };
+    /**
+     * action constants for View
+     */
+    static Views: Record<ViewKey, View>;
+    static move(View: ViewStatic | ViewKey, options: MoveOptions): Date;
 }
