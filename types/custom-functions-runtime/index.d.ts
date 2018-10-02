@@ -9,16 +9,17 @@ office-js
 Copyright (c) Microsoft Corporation
 */
 
-////////////////////////////////////////////////////////////////
-//////////////////// Begin custom-functions-runtime ////////////
-////////////////////////////////////////////////////////////////
-
 /**
- * Enables you to map your own name that uses lowercase letters to a function.
+ * Specific to Excel Custom Functions. Enables you to set key-value pairs (a function's JSON id : JavaScript name).
  */
 declare let CustomFunctionMappings: { [key: string]: Function };
-
+/**
+ * CustomFunctions namespace, used by Excel Custom Functions
+ */
 declare namespace CustomFunctions {
+    /**
+     * StreamingHandler interface
+     */
     interface StreamingHandler<T> extends CancelableHandler {
         /**
          * Sets the returned result for a streaming custom function.
@@ -26,7 +27,9 @@ declare namespace CustomFunctions {
          */
         setResult: (value: T | Error) => void;
     }
-
+    /**
+     * CancelableHandler interface
+     */
     interface CancelableHandler {
         /**
          * Handles what should occur when a custom function is canceled.
@@ -35,7 +38,3 @@ declare namespace CustomFunctions {
         onCanceled: () => void;
     }
 }
-
-////////////////////////////////////////////////////////////////
-//////////////////// End custom-functions-runtime ////////////
-////////////////////////////////////////////////////////////////

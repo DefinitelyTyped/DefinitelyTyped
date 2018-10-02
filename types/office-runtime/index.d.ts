@@ -75,7 +75,7 @@ declare namespace OfficeRuntime {
          */
         multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<string[][]>;
     }
-    /*
+    /**
      * @beta
      * Object representing the dialog box.
      */
@@ -111,12 +111,12 @@ declare namespace OfficeRuntime {
          * True if title is hidden from the dialog box.
          */
         hideTitle?: boolean;
-        /*
+        /**
          * @beta
          * Callback that is run when the dialog box is closed.
          */
         onClose?: () => void;
-        /*
+        /**
          * @beta
          * Callback that is run when the dialog sends a message to its parent.
          */
