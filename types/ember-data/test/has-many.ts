@@ -6,8 +6,8 @@ class BlogComment extends DS.Model {
     text = DS.attr('string');
 }
 
-declare module 'ember-data' {
-    interface ModelRegistry {
+declare module 'ember-data/types/registries/model' {
+    export default interface ModelRegistry {
         'blog-comment': BlogComment;
     }
 }
@@ -50,8 +50,8 @@ blogPost.set('commentsAsync', Ember.A());
 blogPost.set('commentsAsync', Ember.A([ comment! ]));
 
 class PaymentMethod extends DS.Model {}
-declare module 'ember-data' {
-    interface ModelRegistry {
+declare module 'ember-data/types/registries/model' {
+    export default interface ModelRegistry {
         'payment-method': PaymentMethod;
     }
 }
