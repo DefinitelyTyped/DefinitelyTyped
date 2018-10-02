@@ -6,6 +6,7 @@
 //                 Nico Jansen <https://github.com/nicojs>
 //                 James Garbutt <https://github.com/43081j>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
+//                 Greg Jednaszewski <https://github.com/gjednaszewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -392,6 +393,12 @@ declare namespace Sinon {
          * Since sinon@2.0.0
          */
         resolves(value?: any): SinonStub;
+        /**
+         * Causes the stub to return a Promise which resolves to the argument at the provided index.
+         * stub.resolvesArg(0); causes the stub to return a Promise which resolves to the first argument.
+         * If the argument at the provided index is not available, a TypeError will be thrown.
+         */
+        resolvesArg(index: number): SinonStub;
         /**
          * Causes the stub to throw an exception (Error).
          * @param type

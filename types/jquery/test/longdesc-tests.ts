@@ -1291,7 +1291,7 @@ function longdesc() {
             if (borderRadius && borderRadius !== 'borderRadius') {
                 $.cssHooks.borderRadius = {
                     get: function(elem, computed, extra) {
-                        return $.css(elem, borderRadius);
+                        return $.css(elem, borderRadius!);
                     },
                     set: function(elem, value) {
                         (<any> elem.style)[borderRadius!] = value;

@@ -332,15 +332,19 @@ function JQueryStatic() {
 
     function css() {
         // $ExpectType any
-        $.css(new HTMLElement(), {});
+        $.css(new HTMLElement(), 'borderRadius');
     }
 
     function data() {
-        // $ExpectType any
-        $.data(new HTMLElement(), 'myKey', undefined);
+        const value: string | undefined = {} as any;
+        // $ExpectError
+        $.data(new HTMLElement(), 'myKey', value);
 
         // $ExpectType "myValue"
         $.data(new HTMLElement(), 'myKey', 'myValue');
+
+        // $ExpectType any
+        $.data(new HTMLElement(), 'myKey', undefined);
 
         // $ExpectType any
         $.data(new HTMLElement(), 'myKey');
@@ -706,24 +710,31 @@ function JQueryStatic() {
     }
 
     function isNumeric() {
-        function type_guard(obj: boolean | number) {
-            if ($.isNumeric(obj)) {
-                // $ExpectType number
-                obj;
-            } else {
-                // $ExpectType boolean
-                obj;
-            }
-        }
+        // $ExpectType boolean
+        $.isNumeric(123);   // true
+
+        // $ExpectType boolean
+        $.isNumeric(0 / 0); // false
+
+        // $ExpectType boolean
+        $.isNumeric('123'); // true
+
+        // $ExpectType boolean
+        $.isNumeric('1s3'); // false
     }
 
     function isPlainObject() {
-        function type_guard(obj: object) {
-            if ($.isPlainObject(obj)) {
-                // $ExpectType PlainObject<any>
-                obj;
-            }
-        }
+        // $ExpectType boolean
+        $.isPlainObject({});                    // true
+
+        // $ExpectType boolean
+        $.isPlainObject(new Object());          // true
+
+        // $ExpectType boolean
+        $.isPlainObject(document);              // false
+
+        // $ExpectType boolean
+        $.isPlainObject(Object.create(null));   // true
     }
 
     function isWindow() {
@@ -2930,8 +2941,9 @@ function JQuery() {
 
     function data() {
         function data() {
-            // $ExpectType any
-            $('p').data('myData', undefined);
+            const value: string | undefined = {} as any;
+            // $ExpectError
+            $('p').data('myData', value);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').data('myData', {});
@@ -2941,6 +2953,9 @@ function JQuery() {
                 myData1: {},
                 myData2: false
             });
+
+            // $ExpectType any
+            $('p').data('myData', undefined);
 
             // $ExpectType any
             $('p').data('myData');

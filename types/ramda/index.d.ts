@@ -80,9 +80,17 @@ declare namespace R {
         set<T, U>(str: string, obj: T): U;
     }
 
-    interface Filter<T> {
-      (list: ReadonlyArray<T>): T[];
-      (obj: Dictionary<T>): Dictionary<T>;
+    interface Filter {
+        <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
+        <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: ReadonlyArray<T>) => T[];
+        <T, Kind extends 'object'>(fn: (value: T) => boolean): (list: Dictionary<T>) => Dictionary<T>;
+        <T>(fn: (value: T) => boolean, list: ReadonlyArray<T>): T[];
+        <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
+    }
+
+    interface FilterOnceApplied<T> {
+        (list: ReadonlyArray<T>): T[];
+        (obj: Dictionary<T>): Dictionary<T>;
     }
 
     type Evolve<O extends Evolvable<E>, E extends Evolver> = {
@@ -721,9 +729,7 @@ declare namespace R {
         /**
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
          */
-        filter<T>(fn: (value: T) => boolean): Filter<T>;
-        filter<T>(fn: (value: T) => boolean, list: ReadonlyArray<T>): T[];
-        filter<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
+        filter: Filter;
 
         /**
          * Returns the first element of the list which matches the predicate, or `undefined` if no
@@ -1906,9 +1912,7 @@ declare namespace R {
          * Similar to `filter`, except that it keeps only values for which the given predicate
          * function returns falsy.
          */
-        reject<T>(fn: (value: T) => boolean): Filter<T>;
-        reject<T>(fn: (value: T) => boolean, list: ReadonlyArray<T>): T[];
-        reject<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
+        reject: Filter;
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.

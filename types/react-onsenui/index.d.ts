@@ -354,6 +354,14 @@ export class Range extends Component<{
     disabled?: boolean,
 }, any> {}
 
+export class SearchInput extends Component<{
+    modifier?: string,
+    disabled?: boolean,
+    onChange?(e: Event): void,
+    value?: string,
+    inputId?: string,
+}, any> {}
+
 export class Select extends Component<{
     modifier?: string,
     disabled?: boolean,
