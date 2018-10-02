@@ -4,7 +4,7 @@ import * as ReactDOMServer from 'react-dom/server';
 
 import styled, {
     css,
-    injectGlobal,
+    createGlobalStyle,
     isStyledComponent,
     keyframes,
     ServerStyleSheet,
@@ -100,7 +100,7 @@ const theme = {
     main: 'mediumseagreen',
 };
 
-injectGlobal`
+const ExampleGlobalStyle = createGlobalStyle`
   @font-face {
       font-family: 'Operator Mono';
       src: url('../fonts/Operator-Mono.ttf');
@@ -115,6 +115,7 @@ class Example extends React.Component {
     render() {
         return (
             <ThemeProvider theme={theme}>
+                <ExampleGlobalStyle />
                 <Wrapper>
                     <Title>
                         Hello World, this is my first styled component!
@@ -139,12 +140,24 @@ const cssWithValues2 = css`
   ${[cssWithValues1, cssWithValues1]}
   font-weight: ${'bold'};
 `;
-// injectGlobal accepts simple interpolations if they're not using functions
-injectGlobal`
+
+interface GlobalStyleProps {
+    testValue: string;
+}
+
+// 4.0 Global Style syntax
+const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
   ${'font-size'}: ${10}pt;
   ${cssWithValues1}
   ${[cssWithValues1, cssWithValues2]}
+  ${({ testValue }) => testValue}
 `;
+
+const Shell = (
+    <div>
+        <GlobalStyle testValue={"test"} />
+    </div>
+);
 
 // css which uses function interpolations with common props
 const cssWithFunc1 = css`
@@ -161,12 +174,6 @@ const styledButton = styled.button`
   ${cssWithFunc1} ${[cssWithFunc1, cssWithFunc2]}
   ${() => [cssWithFunc1, cssWithFunc2]}
 `;
-// css with function interpolations cannot be used in injectGlobal
-/*
-injectGlobal`
-  ${cssWithFunc1}
-`;
-*/
 
 const name = 'hey';
 
@@ -343,12 +350,6 @@ const ExtendButton = styled.button`
     padding: 0.25em 1em;
     border: 2px solid palevioletred;
     border-radius: 3px;
-`;
-
-// We're extending Button with some extra styles
-const TomatoExtendButton = ExtendButton.extend`
-    color: tomato;
-    border-color: tomato;
 `;
 
 /**
@@ -546,3 +547,12 @@ const test = () => [
     <WithComponentFirstStyledA color={'black'} />,
     <WithComponentFirstStyledB b={2} color={'black'} />,
 ];
+
+// 4.0 With Component
+
+const asTest = (
+    <>
+        <WithComponentH1 as="h2" />
+        <WithComponentH1 as={WithComponentH2} />
+    </>
+);
