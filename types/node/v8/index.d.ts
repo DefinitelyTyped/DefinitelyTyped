@@ -2023,12 +2023,16 @@ declare module "child_process" {
     import * as events from "events";
     import * as stream from "stream";
     import * as net from "net";
-
+    interface StdioStreams extends ReadonlyArray<stream.Readable|stream.Writable> {
+        0: stream.Writable; // stdin
+        1: stream.Readable; // stdout
+        2: stream.Readable; // stderr
+    }
     export interface ChildProcess extends events.EventEmitter {
         stdin: stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
-        stdio: [stream.Writable, stream.Readable, stream.Readable];
+        stdio: StdioStreams;
         killed: boolean;
         pid: number;
         kill(signal?: string): void;
