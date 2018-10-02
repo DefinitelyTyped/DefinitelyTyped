@@ -6,11 +6,11 @@
 
 declare namespace crate {
     interface DBResultObject {
-        json: [object];
+        json: object[];
         duration: number;
         rowcount: number;
-        cols: [string];
-        rows: [[object]];
+        cols: string[];
+        rows: object[][];
     }
 
     interface Crate {
