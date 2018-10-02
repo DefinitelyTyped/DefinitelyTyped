@@ -23,20 +23,20 @@ export interface MapError {
 
 export interface MapRequest {
     url: string;
-    headers: {};
-    credentials: string;
+    headers?: { [index: string]: string };
+    credentials?: string;
 }
 
 export interface MapboxProps extends Partial<Viewport> {
     container?: {};
-    mapboxApiAccessToken: string;
+    mapboxApiAccessToken?: string;
     attributionControl?: boolean;
     preserveDrawingBuffer?: boolean;
     onLoad?: () => void;
     onError?: (e: MapError) => void;
     resuseMaps?: boolean;
     resuseMap?: boolean;
-    transformRequest?: () => MapRequest;
+    transformRequest?: (url?: string, resourceType?: string) => MapRequest;
 
     mapStyle?: string | {};
 
