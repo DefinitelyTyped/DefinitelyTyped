@@ -36,6 +36,7 @@ let options: mongodb.MongoClientOptions = {
 MongoClient.connect(connectionString, options, function (err: mongodb.MongoError, client: mongodb.MongoClient) {
     if (err) throw err;
     const db = client.db('test');
+	
     var collection = db.collection('test_insert');
     collection.insertOne({ a: 2 }, function (err: mongodb.MongoError, docs: any) {
 
@@ -156,10 +157,11 @@ MongoClient.connect(connectionString, options, function (err: mongodb.MongoError
     {
         type TestCollection = {
             stringField: string;
-            numberField: number;
+            numberField?: number;
         };
         let testCollection = db.collection<TestCollection>('testCollection');
-
+		testCollection.insertOne({stringField:'hola'})
+		testCollection.insertMany([{stringField:'hola'},{stringField:'hola', numberField: 1}])
         testCollection.find({
             numberField: {
                 $and: [{ $gt: 0, $lt: 100 }]
