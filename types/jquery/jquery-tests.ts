@@ -332,7 +332,7 @@ function JQueryStatic() {
 
     function css() {
         // $ExpectType any
-        $.css(new HTMLElement(), {});
+        $.css(new HTMLElement(), 'borderRadius');
     }
 
     function data() {

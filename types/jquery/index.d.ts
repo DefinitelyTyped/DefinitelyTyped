@@ -2022,7 +2022,7 @@ $.contains( document.body, document.documentElement ); // false
 ```
      */
     contains(container: Element, contained: Element): boolean;
-    css(elem: Element, unknown: any): any;
+    css(elem: Element, name: string): any;
     /**
      * Store arbitrary data associated with the specified element. Returns the value that was set.
      *
