@@ -2787,11 +2787,11 @@ export class MeshBasicMaterial extends Material {
 
     color: Color;
     map: Texture | null;
-    aoMap: Texture;
+    aoMap: Texture | null;
     aoMapIntensity: number;
     specularMap: Texture;
-    alphaMap: Texture;
-    envMap: Texture;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
