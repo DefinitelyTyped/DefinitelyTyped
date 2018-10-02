@@ -10,7 +10,7 @@ Copyright (c) Microsoft Corporation
 */
 
 /**
- * Specific to Excel Custom Functions. Enables you to set key-value pairs where the key is the uppercase id of a function in the custom function's JSON metadata file and the value is the name of the function as defined in the function's JavaScript file.
+ * Specific to Excel Custom Functions. Enables you to set key-value pairs (uppercase id of a function in the custom function's JSON metadata file: the name of the function as defined in the function's JavaScript file).
  */
 declare let CustomFunctionMappings: { [key: string]: Function };
 /**
