@@ -6419,7 +6419,7 @@ declare namespace Highcharts {
         /**
          * Options for configuring annotations, for example labels, arrows or shapes.
          */
-        annotations?: AnnotationsOptions;
+        annotations?: AnnotationsOptions[];
         /**
          * Options regarding the chart area and plot area as well as general chart options.
          */
