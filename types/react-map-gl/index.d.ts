@@ -34,8 +34,8 @@ export interface MapboxProps extends Partial<Viewport> {
     preserveDrawingBuffer?: boolean;
     onLoad?: () => void;
     onError?: (e: MapError) => void;
-    resuseMaps?: boolean;
-    resuseMap?: boolean;
+    reuseMaps?: boolean;
+    reuseMap?: boolean;
     transformRequest?: (url?: string, resourceType?: string) => MapRequest;
 
     mapStyle?: string | {};
