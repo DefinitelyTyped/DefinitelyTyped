@@ -1129,6 +1129,14 @@ declare namespace algoliasearch {
      * https://github.com/algolia/algoliasearch-client-js#facets
      */
     facets?: string | string[];
+    /** 
+    * Force faceting to be applied after de-duplication (via the Distinct setting).
+    * When using the distinct setting in combination with faceting, facet counts may be higher than expected. 
+    * This is because the engine, by default, computes faceting before applying de-duplication (distinct). 
+    * When facetingAfterDistinct is set to true, the engine calculates faceting after the de-duplication has been applied.
+    * default ""
+    */
+    facetingAfterDistinct?: boolean;
     /**
      * Limit the number of facet values returned for each facet.
      * default: ""

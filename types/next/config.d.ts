@@ -1,1 +1,1 @@
-export default function(): {serverRuntimeConfig: any, publicRuntimeConfig: any};
+export default function(): { serverRuntimeConfig: any; publicRuntimeConfig: any };

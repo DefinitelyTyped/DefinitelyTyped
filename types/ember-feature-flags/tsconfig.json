@@ -14,6 +14,7 @@
             "../"
         ],
         "paths": {
+            "@ember/service": ["ember__service"],
             "@ember/object": ["ember__object"],
             "@ember/object/*": ["ember__object/*"]
         },
