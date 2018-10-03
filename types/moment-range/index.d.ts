@@ -8,7 +8,7 @@
 
 import moment = require('moment');
 
-export class DateRange {
+export declare class DateRange {
     start: moment.Moment;
     end: moment.Moment;
 
