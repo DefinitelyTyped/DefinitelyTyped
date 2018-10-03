@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Flex, Box } from "grid-styled";
+import { Flex, Box } from "@rebass/grid";
 
 const Layout = () => (
     <Flex m={4}>

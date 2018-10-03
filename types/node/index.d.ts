@@ -174,7 +174,7 @@ interface SymbolConstructor {
     readonly iterator: symbol;
     readonly asyncIterator: symbol;
 }
-// declare const Symbol: SymbolConstructor;
+declare var Symbol: SymbolConstructor;
 interface SharedArrayBuffer {
     readonly byteLength: number;
     slice(begin?: number, end?: number): SharedArrayBuffer;
@@ -194,11 +194,11 @@ interface String {
  *                                               *
  ------------------------------------------------*/
 declare var process: NodeJS.Process;
-declare const global: NodeJS.Global;
+declare var global: NodeJS.Global;
 declare var console: Console;
 
-declare const __filename: string;
-declare const __dirname: string;
+declare var __filename: string;
+declare var __dirname: string;
 
 declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
 declare namespace setTimeout {
@@ -256,7 +256,7 @@ interface NodeModule {
 declare var module: NodeModule;
 
 // Same as module.exports
-declare const exports: any;
+declare var exports: any;
 declare const SlowBuffer: {
     new(str: string, encoding?: string): Buffer;
     new(size: number): Buffer;
