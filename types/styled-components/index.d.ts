@@ -152,7 +152,7 @@ export interface ThemedStyledComponentsModule<T> {
     keyframes(
         strings: TemplateStringsArray,
         ...interpolations: SimpleInterpolation[]
-    ): string;
+    ): Keyframes;
 
     createGlobalStyle<P = {}>(
         strings: TemplateStringsArray,
