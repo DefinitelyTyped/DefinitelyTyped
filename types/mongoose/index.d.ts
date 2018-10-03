@@ -387,6 +387,8 @@ declare module "mongoose" {
 
     /** Flag for using new URL string parser instead of current (deprecated) one */
     useNewUrlParser?: boolean;
+    /** Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify(). */
+    useFindAndModify?: boolean;
 
     // TODO
     safe?: any;
@@ -405,6 +407,11 @@ declare module "mongoose" {
        * models associated with this connection.
        */
       autoIndex?: boolean;
+
+      /**
+       * If true, this connection will use createIndex() instead of ensureIndex() for automatic index builds via Model.init().
+       */
+      useCreateIndex?: boolean;
     };
   }
 
@@ -2832,7 +2839,7 @@ declare module "mongoose" {
       /** sets the document fields to return */
       select?: any;
     }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
-    
+
     /**
      * Issues a mongodb findOneAndDelete command.
      * Finds a matching document, removes it, passing the found document (if any) to the
@@ -2850,13 +2857,13 @@ declare module "mongoose" {
       /** puts a time limit on the query - requires mongodb >= 2.6.0 */
       maxTimeMS?: number;
       /** sets the document fields to return */
-      select?: any;             
-      /** like select, it determines which fields to return */          
+      select?: any;
+      /** like select, it determines which fields to return */
       projection?: any;
-      /** if true, returns the raw result from the MongoDB driver */                     
+      /** if true, returns the raw result from the MongoDB driver */
       rawResult?: boolean;
-      /** overwrites the schema's strict mode option for this update */                     
-      strict?: boolean|string;                      
+      /** overwrites the schema's strict mode option for this update */
+      strict?: boolean|string;
     }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     /**

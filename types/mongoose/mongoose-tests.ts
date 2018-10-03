@@ -21,11 +21,13 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   user: 'larry',
   pass: 'housan',
   config: {
-    autoIndex: true
+    autoIndex: true,
+    useCreateIndex: true,
   },
   mongos: true,
   bufferCommands: false,
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useFindAndModify: true,
 });
 const connection3: null = mongoose.connect(connectUri, function (error) {
   error.stack;
