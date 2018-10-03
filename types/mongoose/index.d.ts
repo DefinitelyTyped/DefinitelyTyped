@@ -12,6 +12,7 @@
 //                 alfirin <https://github.com/alfirin>
 //                 Idan Dardikman <https://github.com/idandrd>
 //                 Dominik Heigl <https://github.com/various89>
+//                 Fazendaaa <https://github.com/Fazendaaa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1683,7 +1684,7 @@ declare module "mongoose" {
     elemMatch(path: string | any | Function, criteria: any): this;
 
     /** Specifies the complementary comparison value for paths specified with where() */
-    equals(val: any): this;
+    equals<T>(val: T): this;
 
     /** Executes the query */
     exec(callback?: (err: any, res: T) => void): Promise<T>;
@@ -1763,15 +1764,15 @@ declare module "mongoose" {
      * Specifies a $gt query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
-    gt(val: number): this;
-    gt(path: string, val: number): this;
+    gt<T>(val: T): this;
+    gt<T>(path: string, val: T): this;
 
     /**
      * Specifies a $gte query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
-    gte(val: number): this;
-    gte(path: string, val: number): this;
+    gte<T>(val: T): this;
+    gte<T>(path: string, val: T): this;
 
     /**
      * Sets query hints.
@@ -1805,15 +1806,15 @@ declare module "mongoose" {
      * Specifies a $lt query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
-    lt(val: number): this;
-    lt(path: string, val: number): this;
+    lt<T>(val: T): this;
+    lt<T>(path: string, val: T): this;
 
     /**
      * Specifies a $lte query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
-    lte(val: number): this;
-    lte(path: string, val: number): this;
+    lte<T>(val: T): this;
+    lte<T>(path: string, val: T): this;
 
     /**
      * Specifies a $maxDistance query condition.
