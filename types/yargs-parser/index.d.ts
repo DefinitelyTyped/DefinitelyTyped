@@ -2,6 +2,7 @@
 // Project: https://github.com/yargs/yargs-parser#readme
 // Definitions by: Miles Johnson <https://github.com/milesj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import { Arguments } from 'yargs';
 
@@ -24,7 +25,7 @@ export interface Options {
     array?: string[];
     boolean?: string[];
     config?: string | string[] | { [key: string]: boolean };
-    configuration?: Configuration;
+    configuration?: Partial<Configuration>;
     coerce?: { [key: string]: (arg: any) => any };
     count?: string[];
     default?: { [key: string]: any };
@@ -46,4 +47,10 @@ export interface DetailedArguments {
 
 export function detailed(argv: string | string[], opts?: Options): DetailedArguments;
 
-export default function parse(argv: string | string[], opts?: Options): Arguments;
+interface YargsParser {
+    (argv: string | string[], opts?: Options): Arguments;
+    detailed(argv: string | string[], opts?: Options): DetailedArguments;
+}
+
+declare const parser: YargsParser;
+export default parser;
