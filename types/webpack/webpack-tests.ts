@@ -150,6 +150,20 @@ configuration = {
     ]
 };
 
+configuration = {
+    externals: [
+        "add",
+        {
+            subtract: {
+                root: "subtract",
+                commonjs2: "./subtract",
+                commonjs: ["./math", "subtract"],
+                amd: "subtract"
+            }
+        }
+    ]
+};
+
 //
 // https://webpack.github.io/docs/optimization.html
 //
