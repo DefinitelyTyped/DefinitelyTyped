@@ -13,7 +13,6 @@ import styled, {
     ThemeProvider,
     withTheme,
     ThemeConsumer,
-    ThemeConsumerComponent,
 } from 'styled-components';
 
 /**
