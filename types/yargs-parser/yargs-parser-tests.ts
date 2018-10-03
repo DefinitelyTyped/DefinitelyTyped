@@ -1,4 +1,4 @@
-import parse, { detailed } from 'yargs-parser';
+import parse from 'yargs-parser';
 
 parse('--foo -bar');
 
@@ -42,9 +42,3 @@ parse.detailed('--foo -bar');
 parse.detailed(['--foo', '-bar']);
 
 parse.detailed(['--foo'], {});
-
-detailed('--foo -bar');
-
-detailed(['--foo', '-bar']);
-
-detailed(['--foo'], {});

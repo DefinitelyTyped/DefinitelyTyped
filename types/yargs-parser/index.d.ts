@@ -6,6 +6,8 @@
 
 import { Arguments } from 'yargs';
 
+export { Arguments };
+
 export interface Configuration {
     'boolean-negation': boolean;
     'camel-case-expansion': boolean;
@@ -45,12 +47,10 @@ export interface DetailedArguments {
     configuration: Configuration;
 }
 
-export function detailed(argv: string | string[], opts?: Options): DetailedArguments;
-
 interface YargsParser {
     (argv: string | string[], opts?: Options): Arguments;
     detailed(argv: string | string[], opts?: Options): DetailedArguments;
 }
 
-declare const parser: YargsParser;
-export default parser;
+declare const parse: YargsParser;
+export default parse;
