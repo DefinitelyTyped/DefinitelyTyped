@@ -422,6 +422,13 @@ export interface GridChildrenProps {
      * What row the component resides in.
      */
     row?: number;
+    /**
+     * How many rows/columns the component takes off.
+     */
+    span?: {
+        x: number;
+        y: number;
+  };
 }
 
 export interface GridProps {
