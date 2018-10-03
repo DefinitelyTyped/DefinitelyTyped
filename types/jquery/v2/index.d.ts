@@ -1411,16 +1411,6 @@ interface JQueryStatic {
      * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
      * @see {@link https://api.jquery.com/jQuery.parseHTML/}
      */
-    parseHTML(data: string, context?: Element, keepScripts?: boolean): any[];
-
-    /**
-     * Parses a string into an array of DOM nodes.
-     *
-     * @param data HTML string to be parsed
-     * @param context DOM element to serve as the context in which the HTML fragment will be created
-     * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
-     * @see {@link https://api.jquery.com/jQuery.parseHTML/}
-     */
     parseHTML(data: string, context?: Document, keepScripts?: boolean): any[];
 }
 

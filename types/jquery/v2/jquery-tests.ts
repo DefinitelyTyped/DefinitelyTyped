@@ -3561,5 +3561,4 @@ function test_element() {
     $('li').get().indexOf(itemEl);
     let otherItemEl = $('li').get(0);
     otherItemEl = itemEl;
-    $.parseHTML('<div>Hello World</div>', itemEl);
 }
