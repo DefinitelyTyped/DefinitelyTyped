@@ -1,4 +1,4 @@
-// Type definitions for express-ws-routes 1.1.0
+// Type definitions for express-ws-routes 1.1
 // Project: https://github.com/amekkawi/express-ws-routes
 // Definitions by: Gregor Stamać <https://github.com/gstamac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,6 @@ import { Router as coreRouter } from 'express-serve-static-core';
 declare function expressWsRoutes(): expressWsRoutes.Express;
 
 declare namespace expressWsRoutes {
-
 	type ClientInfo = { origin: string; secure: boolean; req: Request };
 	type WebSocketHandler = (socket: WebSocket) => void;
 	type CbHandler = (connectHandler: WebSocketHandler | boolean) => void;
@@ -27,7 +26,7 @@ declare namespace expressWsRoutes {
 	}
 
 	interface Router extends coreRouter {
-		websocket(route: string, handler: expressWsRoutes.WebSocketRouteHandler): void;
+		websocket(route: string, handler: WebSocketRouteHandler): void;
 	}
 }
 

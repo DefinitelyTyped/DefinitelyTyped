@@ -1,4 +1,4 @@
-// Type definitions for express-ws-routes 1.1.0
+// Type definitions for keycloak-connect 4.5
 // Project: https://github.com/keycloak/keycloak-nodejs-connect
 // Definitions by: Gregor Stamać <https://github.com/gstamac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -62,7 +62,7 @@ declare namespace Keycloak {
 		isExpired: () => boolean;
 		hasRole: (roleName: string) => boolean;
 		hasApplicationRole: (appName: string, roleName: string) => boolean;
-		hasRealmRole: (roleName: string) => boolean;		
+		hasRealmRole: (roleName: string) => boolean;
 	}
 
 	type SpecHandler = (token: Token, request: Request, response: Response) => boolean;
@@ -82,7 +82,7 @@ declare namespace Keycloak {
 	}
 
 	interface GrantedRequest extends Request {
-		kauth: { grant?: Grant }
+		kauth: { grant?: Grant };
 	}
 }
 
