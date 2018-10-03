@@ -2,7 +2,6 @@
 // Project: https://github.com/martijnversluis/ChordSheetJS
 // Definitions by: Jaime Mora <https://github.com/jrmora/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6.1
 
 export default chordsheetjs;
 
