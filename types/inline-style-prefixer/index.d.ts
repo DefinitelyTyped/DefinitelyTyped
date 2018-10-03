@@ -2,27 +2,27 @@
 // Project: https://github.com/rofrischmann/inline-style-prefixer
 // Definitions by: Andrej Hazucha <https://github.com/ahz>
 //                 dpetrezselyova <https://github.com/dpetrezselyova>
+//                 Frank Li <https://github.com/franklixuefei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace InlineStylePrefixer {
-    interface Configuration {
-        userAgent?: string;
-        keepUnprefixed?: boolean;
-    }
+export interface Plugin {
+  <T extends object>(
+    property: string,
+    value: number | string | number[] | string[] | T,
+    style: T,
+    prefixMap?: Record<string, string[]>
+  );
 }
 
-declare class InlineStylePrefixer {
-    constructor(cfg?: InlineStylePrefixer.Configuration);
-
-    prefix(style: CSSStyleDeclaration): CSSStyleDeclaration;
-
-    // support for React.CSSProperties
-    prefix<T>(style: T): T;
-
-    static prefixAll(style: CSSStyleDeclaration): CSSStyleDeclaration;
-
-    // support for React.CSSProperties
-    static prefixAll<T>(style: T): T;
+export interface StaticData {
+  prefixMap: Record<string, string[]>;
+  plugins: Array<Plugin>;
 }
 
-export = InlineStylePrefixer;
+export interface Prefix {
+  <T extends object>(style: T): T;
+}
+
+export declare function createPrefixer(staticData: StaticData): Prefix;
+
+export declare const prefix: Prefix;
