@@ -1,4 +1,4 @@
-// Type definitions for Rebass 0.3.6
+// Type definitions for Rebass 0.3.7
 // Project: https://github.com/jxnblk/rebass
 // Definitions by: rhysd <https://rhysd.github.io>
 //                 ryee-dev <https://github.com/ryee-dev>
