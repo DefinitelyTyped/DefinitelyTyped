@@ -1,4 +1,4 @@
-// Type definitions for react-native-scaled-image
+// Type definitions for react-native-scaled-image 0.0
 // Project: https://github.com/nanlabs/react-native-scaled-image
 // Definitions by: Matt Jaeger <https://github.com/Jaeger25>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,8 +7,7 @@
 import * as React from 'react';
 import { ImageSourcePropType, StyleProp, ImageStyle } from 'react-native';
 
-export interface ScaledImageProps
-{
+export interface ScaledImageProps {
   source: ImageSourcePropType;
   height?: number;
   width?: number;

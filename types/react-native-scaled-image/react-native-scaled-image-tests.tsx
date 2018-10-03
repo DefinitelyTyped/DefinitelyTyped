@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ScaledImage from 'react-native-scaled-image';
 
-class Example extends React.Component<{}, {}> {
+class Example extends React.Component {
     render() {
         return (
           <ScaledImage
