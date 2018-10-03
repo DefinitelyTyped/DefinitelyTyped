@@ -51,7 +51,7 @@ export default interface Utils {
     isBigNumber(any: any): boolean;
     isAddress(any: any): boolean;
     isHex(any: any): boolean;
-    isHexStrict(val: Hex | string): boolean;
+    isHexStrict(val: Hex): boolean;
     _: us.UnderscoreStatic;
     asciiToHex(val: string): string;
     hexToAscii(val: string): string;
