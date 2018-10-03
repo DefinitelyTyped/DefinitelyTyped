@@ -274,7 +274,7 @@ declare namespace Detox {
          * @param element
          * @example await waitFor(element(by.text('Text5'))).toBeVisible().whileElement(by.id('ScrollView630')).scroll(50, 'down');
          */
-        whileElement(by: Matchers): Element;
+        whileElement(by: Matchers): DetoxAny;
     }
     interface Actions<R> {
         /**
@@ -325,14 +325,14 @@ declare namespace Detox {
          * await element(by.id('scrollView')).scroll(100, 'down');
          * await element(by.id('scrollView')).scroll(100, 'up');
          */
-        scroll(pixels: number, direction: Direction): Actions<Promise<R>>;
+        scroll(pixels: number, direction: Direction): Promise<Actions<R>>;
         /**
          * Scroll to edge.
          * @param edge
          * @example await element(by.id('scrollView')).scrollTo('bottom');
          * await element(by.id('scrollView')).scrollTo('top');
          */
-        scrollTo(edge: Direction): Actions<Promise<R>>;
+        scrollTo(edge: Direction): Promise<Actions<R>>;
         /**
          *
          * @param direction
@@ -342,7 +342,7 @@ declare namespace Detox {
          * await element(by.id('scrollView')).swipe('down', 'fast');
          * await element(by.id('scrollView')).swipe('down', 'fast', 0.5);
          */
-        swipe(direction: Direction, speed?: Speed, percentage?: number): Actions<Promise<R>>;
+        swipe(direction: Direction, speed?: Speed, percentage?: number): Promise<Actions<R>>;
         /**
          * (iOS Only) column - number of datepicker column (starts from 0) value - string value in setted column (must be correct)
          * @param column
@@ -351,7 +351,7 @@ declare namespace Detox {
          * await element(by.type('UIPickerView')).setColumnToValue(1,"6");
          * await element(by.type('UIPickerView')).setColumnToValue(2,"34");
          */
-        setColumnToValue(column: number, value: string): Actions<Promise<R>>;
+        setColumnToValue(column: number, value: string): Promise<Actions<R>>;
     }
 
     type Direction = "left" | "right" | "top" | "bottom" | "up" | "down";
