@@ -747,7 +747,7 @@ export namespace DS {
          * relationship is not yet loaded. If the relationship is not loaded
          * it will always return `null`.
          */
-        value(objectOrPromise: {} | RSVP.Promise<any>): Model;
+        value(): Model | null;
         /**
          * Loads a record in a belongs to relationship if it is not already
          * loaded. If the relationship is already loaded this method does not
@@ -799,7 +799,7 @@ export namespace DS {
          * relationship is not yet loaded. If the relationship is not loaded
          * it will always return `null`.
          */
-        value(): ManyArray<T>;
+        value(): ManyArray<T> | null;
         /**
          * Loads the relationship if it is not already loaded.  If the
          * relationship is already loaded this method does not trigger a new
