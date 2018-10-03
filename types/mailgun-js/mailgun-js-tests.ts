@@ -31,7 +31,7 @@ mailgun.messages().send(
     (err, body) => {}
 );
 
-const messages: Mailgun.messages.SendData = {
+const exampleSendData: Mailgun.messages.SendData = {
   from: "user@test.com",
   to: "otheruser@test.com",
   text: "example text"
