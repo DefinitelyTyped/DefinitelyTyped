@@ -2753,6 +2753,7 @@ export class LineDashedMaterial extends LineBasicMaterial {
     scale: number;
     dashSize: number;
     gapSize: number;
+    isLineDashedMaterial: boolean;
 
     setValues(parameters: LineDashedMaterialParameters): void;
 }
