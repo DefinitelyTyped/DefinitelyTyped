@@ -1,4 +1,3 @@
-import { parse } from "@babel/parser";
 import traverse, { Visitor } from "@babel/traverse";
 import * as t from "@babel/types";
 
@@ -21,11 +20,7 @@ const MyVisitor2: Visitor = {
 };
 
 // Example from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-traverse
-const code = `function square(n) {
-    return n * n;
-}`;
-
-const ast = parse(code);
+declare const ast: t.Node;
 
 traverse(ast, {
     enter(path) {

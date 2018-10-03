@@ -1,9 +1,9 @@
 // Example from https://github.com/babel/babel/tree/master/packages/babel-generator
 import generate from "@babel/generator";
-import { parse } from "@babel/parser";
+import * as t from "@babel/types";
 
 const code = "class Example {}";
-const ast = parse(code);
+declare const ast: t.Node;
 
 ast.type;
 ast.loc!.start;

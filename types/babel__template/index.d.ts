@@ -6,10 +6,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ParseOptions } from "@babel/parser";
+import { ParserOptions } from "@babel/parser";
 import { Expression, File, Program, Statement } from "@babel/types";
 
-export interface TemplateBuilderOptions extends ParseOptions {
+export interface TemplateBuilderOptions extends ParserOptions {
     /**
      * A set of placeholder names to automatically accept. Items in this list do not need to match the given placeholder pattern.
      */
