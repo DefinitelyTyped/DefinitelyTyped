@@ -632,6 +632,8 @@ configuration = {
     mode: "production",
     optimization: {
         splitChunks: {
+            minSize: 3000,
+            maxSize: 5000,
             cacheGroups: {
                 default: false,
                 vendor: {
