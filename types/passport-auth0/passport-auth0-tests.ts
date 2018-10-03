@@ -30,7 +30,7 @@ passport.use(new auth0.Strategy({
     clientID: process.env.PASSPORT_AUTH0_CLIENT_ID as string,
     clientSecret: process.env.PASSPORT_AUTH0_CLIENT_SECRET as string,
     callbackURL: process.env.PASSPORT_AUTH0_CALLBACK_URL as string,
-    domain : process.env.PASSPORT_AUTH0_DOMAIN as string
+    domain : process.env.PASSPORT_AUTH0_DOMAIN as string,
     passReqToCallback: true
 },
     (req: express.Request, accessToken: string, refreshToken: string, profile: auth0.Profile, done: (error: any, user?: any) => void) => {
