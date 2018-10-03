@@ -72,5 +72,3 @@
 /// <reference path="apis/youtubeAnalytics/v1.d.ts"/>
 /// <reference path="apis/youtube/v3.d.ts"/>
 /// <reference path="apis/youtubePartner/v1.d.ts"/>
-
-declare module "google-apps-script";
