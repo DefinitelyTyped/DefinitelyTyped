@@ -38,7 +38,7 @@ export declare const Box: BoxClass;
 
 export interface ButtonProps extends BaseProps<ButtonClass> {
   fontWeight?: string;
-  border?: boolean;
+  border?: number;
   borderColor?: string;
   borderRadius?: number;
   variant?: string;
@@ -49,7 +49,7 @@ type ButtonClass = React.StatelessComponent<ButtonProps>;
 export declare const Button: ButtonClass;
 
 export interface CardProps extends BaseProps<CardClass> {
-  border?: boolean;
+  border?: number;
   borderColor?: string;
   borderRadius?: number;
   boxShadow?: string;
