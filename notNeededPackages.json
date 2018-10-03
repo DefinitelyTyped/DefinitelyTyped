@@ -397,6 +397,12 @@
             "asOfVersion": "7.4.0"
         },
         {
+            "libraryName": "deepmerge",
+            "typingsPackageName": "deepmerge",
+            "sourceRepoURL": "git@github.com:KyleAMathews/deepmerge.git",
+            "asOfVersion": "2.2.0"
+        },
+        {
             "libraryName": "delay",
             "typingsPackageName": "delay",
             "sourceRepoURL": "https://github.com/sindresorhus/delay",
