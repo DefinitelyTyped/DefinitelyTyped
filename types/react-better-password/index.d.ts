@@ -8,7 +8,7 @@ import * as React from 'react';
 export interface PasswordProps {
     className?: string;
     mask?: '•' | string;
-    onChange:  (value: string) => void;
+    onChange?: (value: string) => void;
     placeholder?: string;
     show?: boolean;
     timeout?: number;
