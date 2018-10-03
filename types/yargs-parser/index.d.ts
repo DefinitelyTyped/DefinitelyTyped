@@ -2,7 +2,7 @@
 // Project: https://github.com/yargs/yargs-parser#readme
 // Definitions by: Miles Johnson <https://github.com/milesj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 import { Arguments } from 'yargs';
 
