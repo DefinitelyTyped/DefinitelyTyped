@@ -98,6 +98,8 @@ declare namespace karma {
     }
 
     interface Server extends NodeJS.EventEmitter {
+        // TODO: Figure out how to convert Server to class and remove suppression
+        // tslint:disable-next-line:no-misused-new
         new (options?: ConfigOptions | ConfigFile, callback?: ServerCallback): Server;
         /**
          * Start the server
