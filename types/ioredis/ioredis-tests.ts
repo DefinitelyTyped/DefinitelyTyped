@@ -4,11 +4,13 @@ const redis = new Redis();
 
 redis.set('foo', 'bar');
 redis.get('foo', (err, result) => {
-    console.log(result);
+    if (result !== null) {
+        console.log(result);
+    }
 });
 
 // Or using a promise if the last argument isn't a function
-redis.get('foo').then((result: any) => {
+redis.get('foo').then((result: string | null) => {
     console.log(result);
 });
 
