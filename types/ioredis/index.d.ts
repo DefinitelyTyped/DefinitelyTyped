@@ -7,6 +7,7 @@
 //                 Shahar Mor <https://github.com/shaharmor>
 //                 Whemoon Jang <https://github.com/palindrom615>
 //                 Francis Gulotta <https://github.com/reconbot>
+//                 Oleg Repin <https://github.com/iamolegga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -100,7 +101,7 @@ declare namespace IORedis {
         strlen(key: KeyType, callback: (err: Error, res: number) => void): void;
         strlen(key: KeyType): Promise<number>;
 
-        del(...keys: KeyType[]): any;
+        del(...keys: KeyType[]): Promise<number>;
 
         exists(...keys: KeyType[]): Promise<number>;
 
