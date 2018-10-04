@@ -1,12 +1,6 @@
-// Type definitions for caller 1.0
+// Type definitions for caller 1.0.1
 // Project: https://github.com/totherik/caller
-// Definitions by: My Self <https://github.com/me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
+// Definitions by: Ignocide <https://github.com/ignocide>
 
 declare function caller(depth?: number): string;
 
