@@ -2,28 +2,25 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
-        "types": [],
         "paths": {
-            "bootstrap": [
-                "bootstrap/v3"
-            ]
+            "karma": [ "karma/v1" ]
         },
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "bootstrap-tests.ts"
+        "karma-tests.ts"
     ]
 }

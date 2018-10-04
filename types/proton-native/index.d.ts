@@ -1,6 +1,7 @@
 // Type definitions for proton-native 1.1
 // Project: https://github.com/kusti8/proton-native
 // Definitions by: Nguyen Xuan Khanh <https://github.com/khanhas>
+//                 Lukas Tetzlaff <https://github.com/ltetzlaff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -421,6 +422,13 @@ export interface GridChildrenProps {
      * What row the component resides in.
      */
     row?: number;
+    /**
+     * How many rows/columns the component takes off.
+     */
+    span?: {
+        x: number;
+        y: number;
+  };
 }
 
 export interface GridProps {
@@ -608,7 +616,7 @@ export interface RadioButtonsProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Called when a RadioButton is selected. The number selected is passed as an argument.
      */
-    onSelect?: (selected: boolean) => void;
+    onSelect?: (selected: number) => void;
     /**
      * What RadioButton is selected, zero-indexed. -1 means nothing is selected.
      */

@@ -2363,7 +2363,10 @@ declare namespace Stripe {
              */
             discountable: boolean;
 
-            invoice: string;
+            /**
+             * If null, the invoice item is pending and will be included in the upcoming invoice.
+             */ 
+            invoice: string | null;
             livemode: boolean;
             metadata: IMetadata;
 

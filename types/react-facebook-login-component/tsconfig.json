@@ -5,25 +5,22 @@
             "es6",
             "dom"
         ],
+        "target": "es6",
+        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
+        "baseUrl": "../",
         "typeRoots": [
-            "../../"
+            "../"
         ],
         "types": [],
-        "paths": {
-            "bootstrap": [
-                "bootstrap/v3"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "bootstrap-tests.ts"
+        "react-facebook-login-component-tests.tsx"
     ]
 }
