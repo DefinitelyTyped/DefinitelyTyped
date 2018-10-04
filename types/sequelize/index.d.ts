@@ -2890,9 +2890,12 @@ declare namespace sequelize {
         changed(): boolean | string[];
 
         /**
-         * Returns the previous value for key from `_previousDataValues`.
+         * If previous is called with a string, it will return the previous value for the key from `_previousDataValues`.
+         *
+         * If previous is called without an argument, it will return an object containing the previous keys and values that have changed.
          */
         previous(key: keyof TAttributes): any;
+        previous(): object;
 
         /**
          * Validate this instance, and if the validation passes, persist it to the database.

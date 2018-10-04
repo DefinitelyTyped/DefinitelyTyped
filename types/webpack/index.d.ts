@@ -576,6 +576,8 @@ declare namespace webpack {
             priority?: number;
             /** Minimal size for the created chunk */
             minSize?: number;
+            /** Maximum size for the created chunk */
+            maxSize?: number;
             /** Minimum number of times a module has to be duplicated until it's considered for splitting */
             minChunks?: number;
             /** Maximum number of requests which are accepted for on-demand loading */
@@ -592,6 +594,8 @@ declare namespace webpack {
             chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
             /** Minimal size for the created chunk */
             minSize?: number;
+            /** Maximum size for the created chunk */
+            maxSize?: number;
             /** Minimum number of times a module has to be duplicated until it's considered for splitting */
             minChunks?: number;
             /** Maximum number of requests which are accepted for on-demand loading */

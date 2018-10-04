@@ -632,12 +632,16 @@ configuration = {
     mode: "production",
     optimization: {
         splitChunks: {
+            minSize: 30000,
+            maxSize: 50000,
             cacheGroups: {
                 default: false,
                 vendor: {
                     chunks: "initial",
                     test: "node_modules",
                     name: "vendor",
+                    minSize: 30000,
+                    maxSize: 50000,
                     enforce: true
                 }
             }
