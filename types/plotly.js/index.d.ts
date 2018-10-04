@@ -155,7 +155,7 @@ export interface PlotlyHTMLElement extends HTMLElement {
 	on(event: 'plotly_afterexport' | 'plotly_afterplot' | 'plotly_animated' | 'plotly_animationinterrupted' | 'plotly_autosize' |
 		'plotly_beforeexport' | 'plotly_deselect' | 'plotly_doubleclick' | 'plotly_framework' | 'plotly_redraw' |
 		'plotly_transitioning' | 'plotly_transitioninterrupted', callback: () => void): void;
-    removeAllListeners: (handler: string) => void;
+	removeAllListeners: (handler: string) => void;
 }
 
 export interface ToImgopts {
@@ -339,7 +339,7 @@ export interface LayoutAxis extends Axis {
 	position: number;
 	rangeslider: Partial<RangeSlider>;
 	rangeselector: Partial<RangeSelector>;
-    automargin: boolean
+	automargin: boolean;
 }
 
 export interface SceneAxis extends Axis {
