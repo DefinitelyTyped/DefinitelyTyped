@@ -4,6 +4,7 @@
 //                 dpetrezselyova <https://github.com/dpetrezselyova>
 //                 Frank Li <https://github.com/franklixuefei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 export type Plugin = <T>(
   property: string,
