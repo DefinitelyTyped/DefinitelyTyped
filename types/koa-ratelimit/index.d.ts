@@ -2,7 +2,7 @@
 // Project: https://github.com/koajs/ratelimit#readme
 // Definitions by: Ben Watkins <https://github.com/OutdatedVersion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { Middleware, Context } from "koa";
 import { RedisClient } from "redis";
