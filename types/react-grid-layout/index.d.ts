@@ -284,8 +284,10 @@ declare namespace ReactGridLayout {
 
         /**
          * Callback so you can save the layout.
+         * 
+         * e.g. current layouts and all layouts
          */
-        onLayoutChange?(currentLayout: Layout[], allLayouts: Layouts): void;
+        onLayoutChange?(currentLayouts: Layout[], allLayouts: Layouts): void;
 
         /**
          * Callback when the width changes, so you can modify the layout as needed.
