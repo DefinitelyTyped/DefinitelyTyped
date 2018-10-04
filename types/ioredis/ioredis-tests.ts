@@ -1,4 +1,5 @@
 import Redis = require("ioredis");
+
 const redis = new Redis();
 
 redis.set('foo', 'bar');
@@ -30,6 +31,8 @@ redis.set('key', '100', 'PX', 10, (err, data) => {});
 redis.set('key', '100', 'EX', 10, 'NX', (err, data) => {});
 redis.set('key', '100', ['EX', 10, 'NX'], (err, data) => {});
 redis.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
+
+redis.exists('foo').then(result => result * 1);
 
 // Should support usage of Buffer
 redis.set(Buffer.from('key'), '100');
