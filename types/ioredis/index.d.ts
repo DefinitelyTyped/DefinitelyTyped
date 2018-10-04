@@ -7,6 +7,7 @@
 //                 Shahar Mor <https://github.com/shaharmor>
 //                 Whemoon Jang <https://github.com/palindrom615>
 //                 Francis Gulotta <https://github.com/reconbot>
+//                 Dmitry Motovilov <https://github.com/funthing>
 //                 Oleg Repin <https://github.com/iamolegga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -455,7 +456,13 @@ declare namespace IORedis {
         quit(callback: (err: Error, res: string) => void): void;
         quit(): Promise<string>;
 
-        scan(cursor: number, ...args: any[]): any;
+        scan(cursor: number): Promise<[string, string[]]>;
+
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
+
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
 
         sscan(key: KeyType, cursor: number, ...args: any[]): any;
 
@@ -776,8 +783,13 @@ declare namespace IORedis {
 
         quit(callback?: (err: Error, res: string) => void): Pipeline;
 
-        scan(cursor: number, ...args: any[]): Pipeline;
+        scan(cursor: number): Pipeline;
 
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number): Pipeline;
+
+        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Pipeline;
+        scan(cursor: number, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
         sscan(key: KeyType, cursor: number, ...args: any[]): Pipeline;
 
         hscan(key: KeyType, cursor: number, ...args: any[]): Pipeline;
