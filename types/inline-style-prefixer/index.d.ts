@@ -5,7 +5,7 @@
 //                 Frank Li <https://github.com/franklixuefei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Plugin = <T extends object>(
+export type Plugin = <T>(
   property: string,
   value: number | string | number[] | string[] | T,
   style: T,
@@ -17,8 +17,8 @@ export interface StaticData {
   plugins: Plugin[];
 }
 
-type Prefix = <T extends object>(style: T) => T;
+export type Prefix = <T>(style: T) => T;
 
 export function createPrefixer(staticData: StaticData): Prefix;
-  
+
 export const prefix: Prefix;
