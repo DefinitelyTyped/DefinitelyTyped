@@ -5,7 +5,7 @@
 //                 Bryan <https://github.com/bryanbecker>
 //                 Resi Respati <https://github.com/resir014>
 //                 Adam Laycock <https://github.com/Arcath>
-//                 Dominic Marcuse <https://github.com/apemanzilla>
+//                 Dominic Marcuse <https://github.com/dmarcuse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
