@@ -364,6 +364,12 @@ declare namespace CodeMirror {
         It will call the function, buffering up all changes, and only doing the expensive update after the function returns.
         This can be a lot faster. The return value from this method will be the return value of your function. */
         operation<T>(fn: ()=> T): T;
+        
+        /** In normal circumstances, use the above operation method. But if you want to buffer operations happening asynchronously, or that can't all be wrapped in a callback
+        function, you can call startOperation to tell CodeMirror to start buffering changes, and endOperation to actually render all the updates. Be careful: if you use this
+        API and forget to call endOperation, the editor will just never update. */
+        startOperation(): void;
+        endOperation(): void;
 
         /** Adjust the indentation of the given line.
         The second argument (which defaults to "smart") may be one of:
