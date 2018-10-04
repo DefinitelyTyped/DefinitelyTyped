@@ -6,6 +6,9 @@ redis.get('foo', (err, result) => {
     console.log(result);
 });
 
+// Static check that returned value is always a number
+redis.del('foo', 'bar').then(result => result * 1)
+
 // Or using a promise if the last argument isn't a function
 redis.get('foo').then((result: any) => {
     console.log(result);
