@@ -5,24 +5,20 @@
 //                 Frank Li <https://github.com/franklixuefei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Plugin {
-  <T extends object>(
-    property: string,
-    value: number | string | number[] | string[] | T,
-    style: T,
-    prefixMap?: Record<string, string[]>
-  );
-}
+type Plugin = <T extends object>(
+  property: string,
+  value: number | string | number[] | string[] | T,
+  style: T,
+  prefixMap?: Record<string, string[]>
+) => number | string | number[] | string[] | T | undefined;
 
 export interface StaticData {
   prefixMap: Record<string, string[]>;
-  plugins: Array<Plugin>;
+  plugins: Plugin[];
 }
 
-export interface Prefix {
-  <T extends object>(style: T): T;
-}
+type Prefix = <T extends object>(style: T) => T;
 
-export declare function createPrefixer(staticData: StaticData): Prefix;
-
-export declare const prefix: Prefix;
+export function createPrefixer(staticData: StaticData): Prefix;
+  
+export const prefix: Prefix;
