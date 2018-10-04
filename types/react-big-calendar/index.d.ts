@@ -180,6 +180,7 @@ export interface BigCalendarProps<T extends Event = Event> extends React.Props<B
     events?: T[];
     onNavigate?: (newDate: Date, action: Navigate) => void;
     onView?: (view: View) => void;
+    onRangeChange?: (range: DateRange) => void;                                  
     onDrillDown?: (date: Date, view: View) => void;
     onSelectSlot?: (slotInfo: { start: stringOrDate, end: stringOrDate, slots: Date[] | string[], action: 'select' | 'click' | 'doubleClick' }) => void;
     onDoubleClickEvent?: (event: T, e: React.SyntheticEvent<HTMLElement>) => void;
