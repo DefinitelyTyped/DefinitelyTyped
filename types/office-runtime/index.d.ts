@@ -1,5 +1,5 @@
 // Type definitions for office-runtime 1.0
-// Project: http://dev.office.com/
+// Project: https://github.com/OfficeDev/office-js-docs-reference
 // Definitions by: Michael Zlatskovsky <https://github.com/Zlatkovsky>, Michelle Scharlock <https://github.com/mscharlock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Typescript Version: 2.4
