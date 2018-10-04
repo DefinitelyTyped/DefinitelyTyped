@@ -65,8 +65,8 @@ declare namespace IORedis {
         bitcount(key: KeyType): Promise<number>;
         bitcount(key: KeyType, start: number, end: number): Promise<number>;
 
-        get(key: KeyType, callback: (err: Error, res: string) => void): void;
-        get(key: KeyType): Promise<string>;
+        get(key: KeyType, callback: (err: Error, res: string | null) => void): void;
+        get(key: KeyType): Promise<string | null>;
 
         getBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
         getBuffer(key: KeyType): Promise<Buffer>;
@@ -210,7 +210,7 @@ declare namespace IORedis {
         smembers(key: KeyType, callback: (err: Error, res: any) => void): void;
         smembers(key: KeyType): Promise<any>;
 
-        zadd(key: KeyType, ...args: string[]): any;
+        zadd(key: KeyType, ...args: string[]): Promise<number | string>;
 
         zincrby(key: KeyType, increment: number, member: string, callback: (err: Error, res: any) => void): void;
         zincrby(key: KeyType, increment: number, member: string): Promise<any>;
@@ -262,8 +262,8 @@ declare namespace IORedis {
         hsetnx(key: KeyType, field: string, value: any, callback: (err: Error, res: 0 | 1) => void): void;
         hsetnx(key: KeyType, field: string, value: any): Promise<0 | 1>;
 
-        hget(key: KeyType, field: string, callback: (err: Error, res: string) => void): void;
-        hget(key: KeyType, field: string): Promise<string>;
+        hget(key: KeyType, field: string, callback: (err: Error, res: string | null) => void): void;
+        hget(key: KeyType, field: string): Promise<string | null>;
         hgetBuffer(key: KeyType, field: string, callback: (err: Error, res: Buffer) => void): void;
         hgetBuffer(key: KeyType, field: string): Promise<Buffer>;
 
@@ -305,8 +305,8 @@ declare namespace IORedis {
         decrby(key: KeyType, decrement: number, callback: (err: Error, res: number) => void): void;
         decrby(key: KeyType, decrement: number): Promise<number>;
 
-        getset(key: KeyType, value: any, callback: (err: Error, res: string) => void): void;
-        getset(key: KeyType, value: any): Promise<string>;
+        getset(key: KeyType, value: any, callback: (err: Error, res: string | null) => void): void;
+        getset(key: KeyType, value: any): Promise<string | null>;
 
         mset(key: KeyType, value: any, ...args: string[]): any;
 
@@ -633,7 +633,7 @@ declare namespace IORedis {
 
         hsetnx(key: KeyType, field: string, value: any, callback?: (err: Error, res: 0 | 1) => void): Pipeline;
 
-        hget(key: KeyType, field: string, callback?: (err: Error, res: string) => void): Pipeline;
+        hget(key: KeyType, field: string, callback?: (err: Error, res: string | string) => void): Pipeline;
         hgetBuffer(key: KeyType, field: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
         hmset(key: KeyType, field: string, value: any, ...args: string[]): Pipeline;
