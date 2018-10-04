@@ -546,5 +546,6 @@ function rand() {
 	myPlot.on('plotly_transitioninterrupted', () => {
 		console.log('transition interrupted');
 	});
+
+	myPlot.removeAllListeners('plotly_restyle');
 })();
-//////////////////////////////////////////////////////////////////////
