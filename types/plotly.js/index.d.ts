@@ -574,7 +574,7 @@ export interface PlotMarker {
 	showscale: boolean;
 	line: Partial<ScatterMarkerLine>;
 	width: number;
-	colorbar: {
+	colorbar: Partial<{
 		thicknessmode: 'fraction' | 'pixels',
 		thickness: number,
 		lenmode: 'fraction' | 'pixels',
@@ -620,7 +620,7 @@ export interface PlotMarker {
 		titleside: 'right' | 'top' | 'bottom',
 		tickvalssrc: any,
 		ticktextsrc: any,
-	};
+	}>;
 	gradient: {
 		type: 'radial' | 'horizontal' | 'vertical' | 'none',
 		color: Color,
