@@ -2,6 +2,7 @@
 // Project: https://github.com/markdown-it/markdown-it
 // Definitions by: York Yao <https://github.com/plantain-00/>, Robert Coie <https://github.com/rapropos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 interface MarkdownItStatic {
     new (): MarkdownIt.MarkdownIt;
@@ -23,10 +24,17 @@ declare module MarkdownIt {
         parse(src: string, env: any): Token[];
         parseInline(src: string, env: any): Token[];
 
-        use<T>(
-            plugin: (md: MarkdownIt, ...params: T[]) => void,
-            ...params: T[]
+        /*
+        // The following only works in 3.0
+        // Since it's still not allowed to target 3.0, i'll leave the code commented out
+
+        use<T extends Array<any> = any[]>(
+            plugin: (md: MarkdownIt, ...params: T) => void,
+            ...params: T
         ): MarkdownIt;
+        */
+
+        use(plugin: (md: MarkdownIt, ...params: any[]) => void, ...params: any[]): MarkdownIt;
 
         utils: {
             assign(obj: any): any;
@@ -110,19 +118,19 @@ declare module MarkdownIt {
     interface RuleInline extends Rule<StateInline> {}
     interface RuleBlock extends Rule<StateBlock> {}
 
-    interface Ruler<R extends Rule = Rule> {
-        after(afterName: string, ruleName: string, rule: R, options?: any): void;
-        at(name: string, rule: R, options?: any): void;
-        before(beforeName: string, ruleName: string, rule: R, options?: any): void;
+    interface Ruler<S extends State = State> {
+        after(afterName: string, ruleName: string, rule: Rule<S>, options?: any): void;
+        at(name: string, rule: Rule<S>, options?: any): void;
+        before(beforeName: string, ruleName: string, rule: Rule<S>, options?: any): void;
         disable(rules: string | string[], ignoreInvalid?: boolean): string[];
         enable(rules: string | string[], ignoreInvalid?: boolean): string[];
         enableOnly(rule: string, ignoreInvalid?: boolean): void;
-        getRules(chain: string): R[];
-        push(ruleName: string, rule: R, options?: any): void;
+        getRules(chain: string): Rule<S>[];
+        push(ruleName: string, rule: Rule<S>, options?: any): void;
     }
 
-    interface RulerInline extends Ruler<RuleInline> {}
-    interface RulerBlock extends Ruler<RuleBlock> {}
+    interface RulerInline extends Ruler<StateInline> {}
+    interface RulerBlock extends Ruler<StateBlock> {}
 
     interface ParserBlock {
         parse(src: string, md: MarkdownIt, env: any, outTokens: Token[]): void;
