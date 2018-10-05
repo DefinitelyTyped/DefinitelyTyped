@@ -35,7 +35,7 @@ declare namespace ReactCrop {
         keepSelection?: boolean;
         onChange: (crop: Crop, pixelCrop: PixelCrop) => void;
         onComplete?: (crop: Crop, pixelCrop: PixelCrop) => void;
-        onImageLoaded?: (target: HTMLImageElement) => void;
+        onImageLoaded?: (target: HTMLImageElement, pixelCrop: PixelCrop) => void;
         onDragStart?: () => void;
         onDragEnd?: () => void;
         disabled?: boolean;
