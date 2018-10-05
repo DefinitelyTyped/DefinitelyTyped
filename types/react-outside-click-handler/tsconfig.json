@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-outside-click-handler.tsx"
+        "test/react-outside-click-handler-tests.tsx"
     ]
 }
