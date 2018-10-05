@@ -19,6 +19,9 @@ import { TimeoutError } from "puppeteer/Errors";
   await page.goto("https://news.ycombinator.com", { waitUntil: "networkidle0" });
   await page.pdf({ path: "hn.pdf", format: "A4" });
 
+  const frame = page.frames()[0];
+  await frame.goto('/');
+
   browser.close();
 })();
 
@@ -438,6 +441,11 @@ puppeteer.launch().then(async browser => {
       hidden: true,
   });
   await page.waitFor((stuff: string) => !!document.querySelector(stuff), {
+    hidden: true,
+  }, 'asd');
+
+  const frame: puppeteer.Frame = page.frames()[0];
+  await frame.waitFor((stuff: string) => !!document.querySelector(stuff), {
     hidden: true,
   }, 'asd');
 })();
