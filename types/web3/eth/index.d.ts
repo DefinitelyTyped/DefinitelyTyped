@@ -20,6 +20,7 @@ import {
     Callback,
     TransactionReceipt,
     Logs,
+    PastLogs,
     Log,
     Subscribe,
     EncodedTransaction
@@ -114,12 +115,7 @@ export default interface Eth {
     getGasPrice(cb?: Callback<number>): Promise<number>;
     getHashrate(cb?: Callback<number>): Promise<number>;
     getPastLogs(
-        options: {
-            fromBlock?: BlockType;
-            toBlock?: BlockType;
-            address?: string;
-            topics?: Array<string | string[]>;
-        },
+        options: PastLogs,
         cb?: Callback<Log[]>
     ): Promise<Log[]>;
     getProtocolVersion(cb?: Callback<string>): Promise<string>;
@@ -179,8 +175,8 @@ export default interface Eth {
         cb?: Callback<boolean>
     ): Promise<boolean>;
     sign(
-        address: string,
         dataToSign: string,
+        address: string,
         cb?: Callback<string>
     ): Promise<string>;
 }
