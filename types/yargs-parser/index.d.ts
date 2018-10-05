@@ -4,53 +4,61 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Arguments } from 'yargs';
+declare namespace yargsParser {
+    // Copied from @types/yargs
+    interface Arguments {
+        /** Non-option arguments */
+        _: string[];
+        /** The script name or node command */
+        $0: string;
+        /** All remaining options */
+        [argName: string]: any;
+    }
 
-export { Arguments };
+    interface DetailedArguments {
+        argv: Arguments;
+        error: Error | null;
+        aliases: { [alias: string]: string[] };
+        newAliases: { [alias: string]: boolean };
+        configuration: Configuration;
+    }
 
-export interface Configuration {
-    'boolean-negation': boolean;
-    'camel-case-expansion': boolean;
-    'combine-arrays': boolean;
-    'dot-notation': boolean;
-    'duplicate-arguments-array': boolean;
-    'flatten-duplicate-arrays': boolean;
-    'negation-prefix': string;
-    'parse-numbers': boolean;
-    'populate--': boolean;
-    'set-placeholder-key': boolean;
-    'short-option-groups': boolean;
+    interface Configuration {
+        'boolean-negation': boolean;
+        'camel-case-expansion': boolean;
+        'combine-arrays': boolean;
+        'dot-notation': boolean;
+        'duplicate-arguments-array': boolean;
+        'flatten-duplicate-arrays': boolean;
+        'negation-prefix': string;
+        'parse-numbers': boolean;
+        'populate--': boolean;
+        'set-placeholder-key': boolean;
+        'short-option-groups': boolean;
+    }
+
+    interface ParserOptions {
+        alias?: { [key: string]: string | string[] };
+        array?: string[];
+        boolean?: string[];
+        config?: string | string[] | { [key: string]: boolean };
+        configuration?: Partial<Configuration>;
+        coerce?: { [key: string]: (arg: any) => any };
+        count?: string[];
+        default?: { [key: string]: any };
+        envPrefix?: string;
+        narg?: { [key: string]: number };
+        normalize?: string[];
+        string?: string[];
+        number?: string[];
+        '--'?: boolean;
+    }
+
+    interface Parser {
+        (argv: string | string[], opts?: ParserOptions): Arguments;
+        detailed(argv: string | string[], opts?: ParserOptions): DetailedArguments;
+    }
 }
 
-export interface Options {
-    alias?: { [key: string]: string | string[] };
-    array?: string[];
-    boolean?: string[];
-    config?: string | string[] | { [key: string]: boolean };
-    configuration?: Partial<Configuration>;
-    coerce?: { [key: string]: (arg: any) => any };
-    count?: string[];
-    default?: { [key: string]: any };
-    envPrefix?: string;
-    narg?: { [key: string]: number };
-    normalize?: string[];
-    string?: string[];
-    number?: string[];
-    '--'?: boolean;
-}
-
-export interface DetailedArguments {
-    argv: Arguments;
-    error: Error | null;
-    aliases: { [alias: string]: string[] };
-    newAliases: { [alias: string]: boolean };
-    configuration: Configuration;
-}
-
-interface YargsParser {
-    (argv: string | string[], opts?: Options): Arguments;
-    detailed(argv: string | string[], opts?: Options): DetailedArguments;
-}
-
-declare const parse: YargsParser;
-export default parse;
+declare var parse: yargsParser.Parser;
+export = parse;

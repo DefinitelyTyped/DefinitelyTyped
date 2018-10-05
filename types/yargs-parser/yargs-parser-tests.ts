@@ -1,4 +1,4 @@
-import parse from 'yargs-parser';
+import parse, { Arguments } from 'yargs-parser';
 
 parse('--foo -bar');
 
@@ -42,3 +42,5 @@ parse.detailed('--foo -bar');
 parse.detailed(['--foo', '-bar']);
 
 parse.detailed(['--foo'], {});
+
+function test(args: Arguments) {}
