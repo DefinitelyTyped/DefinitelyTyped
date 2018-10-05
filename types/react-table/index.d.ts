@@ -27,7 +27,7 @@ export type SortedChangeFunction = (newSorted: SortingRule[], column: any, addit
 export type FilteredChangeFunction = (newFiltering: Filter[], column: any, value: any) => void;
 export type ExpandedChangeFunction = (column: any, event: any, isTouch: boolean) => void;
 export type ResizedChangeFunction = (newResized: Resize[], event: any) => void;
-export type SortFunction = (a: any, b: any, desc: any) => -1 | 0 | 1;
+export type SortFunction = (a: any, b: any, desc: any) => number;
 
 export interface Resize {
     id: string;
