@@ -113,6 +113,7 @@ interface Auth0LockPopupOptions {
 interface Auth0LockConstructorOptions {
     additionalSignUpFields?: Auth0LockAdditionalSignUpField[];
     allowedConnections?: string[];
+    allowAutocomplete?: boolean;
     allowForgotPassword?: boolean;
     allowLogin?: boolean;
     allowSignUp?: boolean;
