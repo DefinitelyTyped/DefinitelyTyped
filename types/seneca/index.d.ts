@@ -198,6 +198,8 @@ declare module "seneca" {
 
         interface Instance {
             version: string;
+                         
+            id: string;
 
             options(options: Options): void;
 
