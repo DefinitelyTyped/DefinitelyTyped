@@ -725,6 +725,7 @@
 /types/cucumber/                                    @abraaoalves @jan-molak @isoung @BendingBender @ErikSchierboom
 /types/currency-formatter/                          @mhegazy @davidmpaz
 /types/custom-error-generator/                      @thmiceli
+/types/custom-functions-runtime/                    @OfficeDev @Zlatkovsky @mscharlock @kbrandl
 /types/cwise/                                       @taoqf
 /types/cwise-compiler/                              @taoqf
 /types/cwise-parser/                                @taoqf
@@ -3132,7 +3133,8 @@
 /types/oclazyload/                                  @rolandzwaga
 /types/odata/                                       @janhommes @jcchalte
 /types/ofe/                                         @Morfent
-/types/office-js/                                   @OfficeDev @LanceEA @Zlatkovsky @kbrandl @Rick-Kirkham @AlexJerabek @ElizabethSamuel-MSFT
+/types/office-js/                                   @OfficeDev @LanceEA @Zlatkovsky @kbrandl @Rick-Kirkham @AlexJerabek @ElizabethSamuel-MSFT @mscharlock
+/types/office-runtime/                              @OfficeDev @mscharlock @kbrandl @Zlatkovsky
 /types/offline-js/                                  @cgwrench
 /types/oibackoff/                                   @geoffreak
 /types/oidc-token-manager/                          @rosieks
