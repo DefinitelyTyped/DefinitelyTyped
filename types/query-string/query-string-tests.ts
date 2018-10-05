@@ -26,7 +26,7 @@ import * as queryString from 'query-string';
     fooBar = queryString.parse('#foo=bar');
     fooBar = queryString.parse('?foo=bar%20baz', { decode: true });
 
-    let fooBarBaz: queryString.OutputParams;;
+    let fooBarBaz: queryString.OutputParams;
     fooBarBaz = queryString.parse('&foo=bar&foo=baz');
 }
 

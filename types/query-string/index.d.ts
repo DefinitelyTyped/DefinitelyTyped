@@ -14,11 +14,11 @@ export interface ParseOptions {
 }
 
 export interface InputParams {
-  [key: string]: any
+  [key: string]: any;
 }
 
 export interface OutputParams {
-  [key: string]: string | undefined
+  [key: string]: string | undefined;
 }
 
 /**
