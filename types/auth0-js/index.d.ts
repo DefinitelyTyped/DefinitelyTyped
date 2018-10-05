@@ -761,6 +761,7 @@ export interface AuthorizeOptions {
     scope?: string;
     audience?: string;
 	language?: string;
+    login_hint?: string;
 	prompt?: string;
     mode?: "login" | "signUp";
 }
