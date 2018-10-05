@@ -104,5 +104,5 @@ export class NextScript extends React.Component<NextScriptProps> {}
 export default class Document<P = {}> extends React.Component<
     P & DefaultDocumentIProps & DocumentProps
 > {
-    static getInitialProps(context: NextDocumentContext): DefaultDocumentIProps;
+    static getInitialProps(context: NextDocumentContext): DefaultDocumentIProps | Promise<DefaultDocumentIProps>;
 }
