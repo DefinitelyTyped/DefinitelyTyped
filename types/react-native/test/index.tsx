@@ -53,6 +53,7 @@ import {
     ScrollView,
     ScrollViewProps,
     SectionListRenderItemInfo,
+    Switch,
     RefreshControl,
     TabBarIOS,
     NativeModules,
@@ -807,3 +808,8 @@ const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent", 
         nativeProp: true,
     }
 });
+
+
+const SwitchColorTest = () => (
+    <Switch trackColor={{ true: 'pink', false: 'red'}} />
+)
