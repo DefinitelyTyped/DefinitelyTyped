@@ -4,31 +4,31 @@ import { Server as httpServer } from 'http';
 import { Router as coreRouter } from 'express-serve-static-core';
 import * as expresswsroutes from 'express-ws-routes';
 
-let clientInfo: expresswsroutes.ClientInfo;
-let origin: string = clientInfo.origin;
-let secure: boolean = clientInfo.secure;
-let request: Request = clientInfo.req;
+const clientInfo: expresswsroutes.ClientInfo = undefined;
+const origin: string = clientInfo.origin;
+const secure: boolean = clientInfo.secure;
+const request: Request = clientInfo.req;
 
-let webSocketHandler: expresswsroutes.WebSocketHandler;
-let socket: WebSocket;
+const webSocketHandler: expresswsroutes.WebSocketHandler = undefined;
+const socket: WebSocket = undefined;
 webSocketHandler(socket);
 
-let cbHandler: expresswsroutes.CbHandler;
+const cbHandler: expresswsroutes.CbHandler = undefined;
 cbHandler(webSocketHandler);
 cbHandler(true);
 
-let handler: expresswsroutes.WebSocketRouteHandler;
-let next: NextFunction;
+const handler: expresswsroutes.WebSocketRouteHandler = undefined;
+const next: NextFunction = undefined;
 handler(clientInfo, cbHandler, next);
 
-var server: expresswsroutes.Server;
-let http: httpServer = server;
-let wsServer: WebSocket.Server = server.wsServer;
+const server: expresswsroutes.Server = undefined;
+const http: httpServer = server;
+const wsServer: WebSocket.Server = server.wsServer;
 
-let app: expresswsroutes.Express = expresswsroutes();
-let e: exExpress = app;
-let ws: expresswsroutes.Express = app.websocket('/path', handler);
+const app: expresswsroutes.Express = expresswsroutes();
+const e: exExpress = app;
+const ws: expresswsroutes.Express = app.websocket('/path', handler);
 
-let router: expresswsroutes.Router;
-let r: coreRouter = router;
-let wsr: expresswsroutes.Router = router.websocket('/path', handler);
+const router: expresswsroutes.Router = undefined;
+const r: coreRouter = router;
+const wsr: expresswsroutes.Router = router.websocket('/path', handler);

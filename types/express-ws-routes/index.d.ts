@@ -12,7 +12,7 @@ import { Router as coreRouter } from 'express-serve-static-core';
 declare function expressWsRoutes(): expressWsRoutes.Express;
 
 declare namespace expressWsRoutes {
-	type ClientInfo = { origin: string; secure: boolean; req: Request };
+	interface ClientInfo { origin: string; secure: boolean; req: Request; }
 	type WebSocketHandler = (socket: WebSocket) => void;
 	type CbHandler = (connectHandler: WebSocketHandler | boolean) => void;
 	type WebSocketRouteHandler = (info: ClientInfo, cb: CbHandler, next: NextFunction) => void;
