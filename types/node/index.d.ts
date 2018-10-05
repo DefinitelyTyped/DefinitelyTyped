@@ -2651,6 +2651,7 @@ declare module "dns" {
         family?: number;
         hints?: number;
         all?: boolean;
+        verbatim?: boolean;
     }
 
     interface LookupOneOptions extends LookupOptions {
