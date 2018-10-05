@@ -21,12 +21,12 @@ import * as queryString from 'query-string';
 
 // parse
 {
-    let fooBar: { foo: 'bar' };
+    let fooBar: queryString.OutputParams;
     fooBar = queryString.parse('?foo=bar');
     fooBar = queryString.parse('#foo=bar');
     fooBar = queryString.parse('?foo=bar%20baz', { decode: true });
 
-    let fooBarBaz: { foo: ['bar', 'baz'] };
+    let fooBarBaz: queryString.OutputParams;;
     fooBarBaz = queryString.parse('&foo=bar&foo=baz');
 }
 

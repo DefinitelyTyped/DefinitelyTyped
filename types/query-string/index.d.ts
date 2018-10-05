@@ -18,7 +18,7 @@ export interface InputParams {
 }
 
 export interface OutputParams {
-  [key: string]: string
+  [key: string]: string | undefined
 }
 
 /**
