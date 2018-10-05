@@ -1697,6 +1697,7 @@ declare namespace React {
     }
 
     interface TdHTMLAttributes<T> extends HTMLAttributes<T> {
+        align?: "left" | "center" | "right" | "justify" | "char";
         colSpan?: number;
         headers?: string;
         rowSpan?: number;
@@ -1704,6 +1705,7 @@ declare namespace React {
     }
 
     interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
+        align?: "left" | "center" | "right" | "justify" | "char";
         colSpan?: number;
         headers?: string;
         rowSpan?: number;
