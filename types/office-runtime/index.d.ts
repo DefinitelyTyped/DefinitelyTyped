@@ -51,11 +51,6 @@ declare namespace OfficeRuntime {
         removeItem(key: string, callback?: (error?: Error) => void): Promise<void>;
         /**
          * @beta
-         * Erases all AsyncStorage. Returns a Promise.
-         */
-        clear(callback?: (error?: Error) => void): Promise<void>;
-        /**
-         * @beta
          * Returns a Promise with all keys.
          */
         getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string[]>;
