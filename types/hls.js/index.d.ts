@@ -567,7 +567,7 @@ declare namespace Hls {
          * (default: false)
          * Start prefetching start fragment although media not attached yet. Max number of append retries.
          */
-        startFragPrefech: boolean;
+        startFragPrefetch: boolean;
         /**
          * (default: 3)
          * Max number of sourceBuffer.appendBuffer() retry upon error. Such error could happen in loop with UHD streams, when internal buffer is full. (Quota Exceeding Error will be triggered).
