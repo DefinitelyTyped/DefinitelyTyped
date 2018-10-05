@@ -4,19 +4,18 @@ import * as Keycloak from 'keycloak-connect';
 let _string: string;
 let _number: number;
 let _boolean: boolean;
-let _undefined: undefined;
 let _any: any;
 
-let config: Keycloak.Config;
+const config: Keycloak.Config = undefined;
 
 let keycloak: Keycloak = new Keycloak(config);
 keycloak = new Keycloak(config, {});
 keycloak = new Keycloak(config, '');
 
 let request: Request;
-let response: Response;
-let options: Keycloak.MiddlewareOptions;
-let spec: Keycloak.SpecHandler;
+const response: Response = undefined;
+const options: Keycloak.MiddlewareOptions = undefined;
+const spec: Keycloak.SpecHandler = undefined;
 let grant: Keycloak.Grant;
 let token: Keycloak.Token;
 
@@ -35,53 +34,39 @@ grantPromise = keycloak.getGrantFromCode('code', request, response);
 _string = keycloak.loginUrl('uuid', 'redirectUrl');
 _string = keycloak.logoutUrl('redirectUrl');
 _string = keycloak.accountUrl();
-let account: Promise<any> = keycloak.getAccount(token);
+const account: Promise<any> = keycloak.getAccount(token);
 _boolean = keycloak.redirectToLogin(request);
 
-let baseConfig: Keycloak.BaseConfig;
+const baseConfig: Keycloak.BaseConfig = undefined;
 _any = baseConfig.scope;
-_undefined = baseConfig.scope;
 
-let storeConfig: Keycloak.StoreConfig;
+const storeConfig: Keycloak.StoreConfig = undefined;
 _any = storeConfig.store;
 
-let cookiesConfig: Keycloak.CookiesConfig;
+const cookiesConfig: Keycloak.CookiesConfig = undefined;
 _any = cookiesConfig.cookies;
 
-_any = config.scope;
-_undefined = config.scope;
-_any = config.store;
-_any = config.cookies;
-
-let middlewareOptions: Keycloak.MiddlewareOptions;
+const middlewareOptions: Keycloak.MiddlewareOptions = undefined;
 _string = middlewareOptions.logout;
-_undefined = middlewareOptions.logout;
 _string = middlewareOptions.admin;
-_undefined = middlewareOptions.admin;
 
 let tokenContent: Keycloak.TokenContent;
 _number = tokenContent.exp;
 _any = tokenContent.resource_access;
-_undefined = tokenContent.resource_access;
-_undefined = tokenContent.realm_access;
-let realm_access_roles: string[] = tokenContent.realm_access.roles;
-_undefined = tokenContent.realm_access.roles;
+const realm_access_roles: string[] = tokenContent.realm_access.roles;
 
 _string = token.token;
 _string = token.clientId;
 _any = token.header;
-_undefined = token.header;
 tokenContent = token.content;
-let signature: Buffer = token.signature;
-_undefined = token.signature;
+const signature: Buffer = token.signature;
 _string = token.signed;
-_undefined = token.signed;
 _boolean = token.isExpired();
 _boolean = token.hasRole('roleName');
 _boolean = token.hasApplicationRole('appName', 'roleName');
 _boolean = token.hasRealmRole('roleName');
 
-let specHandler: Keycloak.SpecHandler;
+const specHandler: Keycloak.SpecHandler = undefined;
 _boolean = specHandler(token, request, response);
 
 token = grant.access_token;
@@ -95,6 +80,6 @@ _string = grant.toString();
 _boolean = grant.isExpired();
 grant.store(request, response);
 
-const grantedRequest: Keycloak.GrantedRequest = {};
+const grantedRequest: Keycloak.GrantedRequest = undefined;
 request = grantedRequest;
 grant = grantedRequest.kauth.grant;
