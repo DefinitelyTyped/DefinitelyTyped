@@ -679,9 +679,9 @@ declare namespace Parse {
 
         // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
         interface FullTextOptions {
-          language:	string;
-          caseSensitive: boolean;
-          diacriticSensitive: boolean;
+          language?: string;
+          caseSensitive?: boolean;
+          diacriticSensitive?: boolean;
         }
     }
 
