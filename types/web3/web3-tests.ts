@@ -50,8 +50,7 @@ const testTx = {
     gas: 2000000
 };
 
-web3.eth.accounts.signTransaction(testTx, "").then(txSig =>
-{
+web3.eth.accounts.signTransaction(testTx, "").then(txSig => {
     txSig.messageHash = "0x1234";
     txSig.rawTransaction = "0x5678";
 
@@ -69,11 +68,9 @@ const encryptedKeystore = web3.eth.accounts.encrypt("0x1234", "5678");
 encryptedKeystore.crypto.cipher = "aes-128-ctr";
 
 const msgSignature: string = account.sign("0x1234").signature;
-account.signTransaction(testTx).then(txSig =>
-{
+account.signTransaction(testTx).then(txSig => {
     const txSignature: string = txSig.rawTransaction;
 });
-
 
 //
 // web3.eth.personal
