@@ -10983,7 +10983,7 @@ declare namespace chrome {
          */
         class RequestMatcher {
             protected readonly typeGuard: 'RequestMatcher';
-            constructor (parameters?: RequestMatcherFields);
+            constructor(parameters?: RequestMatcherFields);
             public readonly instanceType: string;
         }
 
@@ -11001,7 +11001,7 @@ declare namespace chrome {
         /** Declarative event action that redirects a network request.  */
         class RedirectRequest {
             protected readonly typeGuard: 'RedirectRequest';
-            constructor (parameters: RedirectRequestParams);
+            constructor(parameters: RedirectRequestParams);
             public readonly instanceType: string;
         }
 
@@ -11036,7 +11036,7 @@ declare namespace chrome {
          */
         class RedirectByRegEx {
             protected readonly typeGuard: 'RedirectByRegEx';
-            constructor (parameters: RedirectByRegExParams);
+            constructor(parameters: RedirectByRegExParams);
             public readonly instanceType: string;
         }
 
@@ -11055,7 +11055,7 @@ declare namespace chrome {
          */
         class SetRequestHeader {
             protected readonly typeGuard: 'SetRequestHeader';
-            constructor (parameters: SetRequestHeaderParams);
+            constructor(parameters: SetRequestHeaderParams);
             public readonly instanceType: string;
         }
 
@@ -11072,7 +11072,7 @@ declare namespace chrome {
          */
         class RemoveRequestHeader {
             protected readonly typeGuard: 'RemoveRequestHeader';
-            constructor (parameters: RemoveRequestHeaderParams);
+            constructor(parameters: RemoveRequestHeaderParams);
             public readonly instanceType: string;
         }
 
@@ -11091,7 +11091,7 @@ declare namespace chrome {
          */
         class AddResponseHeader {
             protected readonly typeGuard: 'AddResponseHeader';
-            constructor (parameters: AddResponseHeaderParams);
+            constructor(parameters: AddResponseHeaderParams);
             public readonly instanceType: string;
         }
 
@@ -11107,7 +11107,7 @@ declare namespace chrome {
          */
         class RemoveResponseHeader {
             protected readonly typeGuard: 'RemoveResponseHeader';
-            constructor (parameters: RemoveResponseHeaderParams);
+            constructor(parameters: RemoveResponseHeaderParams);
             public readonly instanceType: string;
         }
 
@@ -11133,7 +11133,7 @@ declare namespace chrome {
          */
         class IgnoreRules {
             protected readonly typeGuard: 'IgnoreRules';
-            constructor (parameters: IgnoreRulesParams);
+            constructor(parameters: IgnoreRulesParams);
             public readonly instanceType: string;
         }
 
@@ -11150,7 +11150,7 @@ declare namespace chrome {
          */
         class SendMessageToExtension {
             protected readonly typeGuard: 'SendMessageToExtension';
-            constructor (parameters: SendMessageParams);
+            constructor(parameters: SendMessageParams);
             public readonly instanceType: string;
         }
 
@@ -11248,7 +11248,7 @@ declare namespace chrome {
          */
         class AddRequestCookie {
             protected readonly typeGuard: 'AddRequestCookie';
-            constructor (parameters: AddCookie<RequestCookie>);
+            constructor(parameters: AddCookie<RequestCookie>);
             public readonly instanceType: string;
         }
 
@@ -11259,7 +11259,7 @@ declare namespace chrome {
          */
         class AddResponseCookie {
             protected readonly typeGuard: 'AddResponseCookie';
-            constructor (parameters: AddCookie<ResponseCookie>);
+            constructor(parameters: AddCookie<ResponseCookie>);
             public readonly instanceType: string;
         }
 
@@ -11292,7 +11292,7 @@ declare namespace chrome {
              * @param modification Attributes that shall be overridden in cookies that machted the filter.
              *                     Attributes that are set to an empty string are removed.
              */
-            constructor (parameters: EditCookieParams<RequestCookie, RequestCookie>);
+            constructor(parameters: EditCookieParams<RequestCookie, RequestCookie>);
             public readonly instanceType: string;
         }
 
@@ -11306,7 +11306,7 @@ declare namespace chrome {
              * @param filter Filter for cookies that will be modified.All empty entries are ignored.
              * @param modification
              */
-            constructor (parameter: EditCookieParams<FilterResponseCookie, ResponseCookie>);
+            constructor(parameter: EditCookieParams<FilterResponseCookie, ResponseCookie>);
             public readonly instanceType: string;
         }
 
@@ -11316,7 +11316,7 @@ declare namespace chrome {
          */
         class RemoveRequestCookie {
             protected readonly typeGuard: 'RemoveRequestCookie';
-            constructor (parameters: RemoveCookieParams<RequestCookie>);
+            constructor(parameters: RemoveCookieParams<RequestCookie>);
             public readonly instanceType: string;
         }
 
@@ -11340,7 +11340,7 @@ declare namespace chrome {
          */
         class RemoveResponseCookie {
             protected readonly typeGuard: 'RemoveResponseCookie';
-            constructor (parameters: RemoveCookieParams<FilterResponseCookie>);
+            constructor(parameters: RemoveCookieParams<FilterResponseCookie>);
             public readonly instanceType: string;
         }
 
@@ -11518,7 +11518,7 @@ declare namespace chrome {
  */
 declare class HTMLAppViewElement extends HTMLElement {
     /** Create a new AppView tag */
-    constructor ();
+    constructor();
     /**
      * Requests another app to be embedded.
      * @param app The extension id of the app to be embedded.
@@ -11626,7 +11626,7 @@ declare class HTMLWebViewElement extends HTMLElement {
     src: string;
 
     /** Create a new element */
-    constructor ();
+    constructor();
 
     /**
      * Queries audio state.
@@ -11907,6 +11907,21 @@ declare class HTMLWebViewElement extends HTMLElement {
      * @since Chrome 40.
      */
     loadDataWithBaseUrl(dataUrl: string, baseUrl: string, virtualUrl?: string): void;
+
+    /**
+     * @since Chrome 71
+     * @description Sets spatial navigation state of the webview.
+     * @param enabled Spatial navigation state value.
+     */
+    setSpatialNavigationEnabled(enabled: boolean): void;
+
+    /**
+     * @since Chrome 71
+     * @description Queries whether spatial navigation is enabled for the webview.
+     * @param callback Callback that will provide the value of the spatial navigation state.
+     */
+    isSpatialNavigationEnabled(callback: (enabled: boolean) => void): void;
+
 
     /**
      * Forcibly kills the guest web page's renderer process.
