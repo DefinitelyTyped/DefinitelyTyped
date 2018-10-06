@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["dom", "es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "jsx": "react",
+        "typeRoots": ["../"],
+        "paths": {
+            "storybook/addon-readme": ["storybook__addon-readme"],
+            "@storybook/react": ["storybook__react"]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "withReadme.d.ts",
+        "withDocs.d.ts",
+        "doc.d.ts",
+        "common.d.ts",
+        "storybook__addon-readme-tests.tsx"
+    ]
+}
