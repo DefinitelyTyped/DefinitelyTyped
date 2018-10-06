@@ -21,7 +21,7 @@ export interface TxSignature extends Signature {
 
 export interface PrivateKey {
 	address: string;
-	Crypto: {
+	crypto: {
 		cipher: string;
 		ciphertext: string;
 		cipherparams: {

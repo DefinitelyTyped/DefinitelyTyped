@@ -61,7 +61,10 @@ msgSig.messageHash = "0x1234";
 msgSig.message = "0x5678";
 msgSig.signature = "0x90ab";
 
-const noHashFieldInMsgSig: typeof msgSig & { hash?: never, rawTransaction?: never } = msgSig
+const noHashFieldInMsgSig: typeof msgSig & { hash?: never, rawTransaction?: never } = msgSig;
+
+const encryptedKeystore = web3.eth.accounts.encrypt("0x1234", "5678");
+encryptedKeystore.crypto.cipher = "aes-128-ctr";
 
 
 //
