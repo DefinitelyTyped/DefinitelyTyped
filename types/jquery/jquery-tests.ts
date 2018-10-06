@@ -131,6 +131,11 @@ function JQueryStatic() {
         $.cssNumber;
     }
 
+    function easing() {
+        // $ExpectType Easings
+        $.easing;
+    }
+
     function expr() {
         // $ExpectType Selectors
         $.expr;
@@ -6890,6 +6895,16 @@ function JQuery_EffectsOptions() {
             tween;
         }
     });
+}
+
+function JQuery_Easings() {
+    jQuery.easing.easeInCubic = (p: number, t: number, b: number, c: number, d: number) => {
+        return c * (t /= d) * t * t + b;
+    };
+
+    jQuery.easing.easeInCubic = (p: number) => {
+        return Math.pow(p, 3);
+    };
 }
 
 function JQuery_Event() {
