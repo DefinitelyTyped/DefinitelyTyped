@@ -9936,10 +9936,10 @@ declare namespace chrome {
             /** The language that this voice supports, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
             lang?: string;
             /**
-             * This voice's gender.
-             * One of: 'male', or 'female'
+             * @deprecated Deprecated since Chrome 70. Gender is deprecated and will be ignored.
+             * @description This voice's gender.
              */
-            gender?: string;
+            gender?: 'male' | 'female';
             /** The name of the voice. */
             voiceName?: string;
             /** The ID of the extension providing this voice. */
@@ -9983,10 +9983,10 @@ declare namespace chrome {
             /** The extension ID of the speech engine to use, if known. */
             extensionId?: string;
             /**
-             * Gender of voice for synthesized speech.
-             * One of: 'male', or 'female'
+             * @deprecated Deprecated since Chrome 70. Gender is deprecated and will be ignored.
+             * @description Gender of voice for synthesized speech.
              */
-            gender?: string;
+            gender?: 'male' | 'female';
             /** The TTS event types the voice must support. */
             requiredEventTypes?: string[];
             /** The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
