@@ -116,6 +116,7 @@ interface Auth0LockConstructorOptions {
     allowAutocomplete?: boolean;
     allowForgotPassword?: boolean;
     allowLogin?: boolean;
+    allowPasswordAutocomplete?: boolean;
     allowSignUp?: boolean;
     allowShowPassword?: boolean;
     assetsUrl?: string;
@@ -130,6 +131,7 @@ interface Auth0LockConstructorOptions {
     defaultADUsernameFromEmailPrefix?: string;
     defaultDatabaseConnection?: string;
     defaultEnterpriseConnection?: string;
+    flashMessage?: Auth0LockFlashMessageOptions;
     forgotPasswordLink?: string;
     hashCleanup?: boolean;
     initialScreen?: "login" | "signUp" | "forgotPassword";
@@ -143,6 +145,7 @@ interface Auth0LockConstructorOptions {
     popupOptions?: Auth0LockPopupOptions;
     prefill?: { email?: string, username?: string};
     rememberLastLogin?: boolean;
+    scrollGlobalMessagesIntoView?: boolean;
     signupLink?: string;
     socialButtonStyle?: "big" | "small";
     theme?: Auth0LockThemeOptions;
