@@ -194,7 +194,7 @@ interface GraphQLNonNullI<T extends GraphQLNullableType> {
   new (type: T): GraphQLNonNull<T>;
 }
 
-declare const GraphQLNonNull: GraphQLNonNullI<any>;
+declare const GraphQLNonNull: GraphQLNonNullI<GraphQLNullableType>;
 
 export type GraphQLWrappingType = GraphQLList<any> | GraphQLNonNull<any>;
 
