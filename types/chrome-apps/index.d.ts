@@ -6390,8 +6390,8 @@ declare namespace chrome {
             progress?: integer;
 
             /**
-             * Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification.
-             * @since Chrome 32.
+             * @deprecated Deprecated since Chrome 67. This UI hint is ignored as of Chrome 67
+             * @description Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification.
              */
             isClickable?: boolean;
 
@@ -6402,6 +6402,13 @@ declare namespace chrome {
              * @since Chrome 50
              */
             requireInteraction?: boolean;
+
+            /**
+             * @since Chrome 70.
+             * @description Indicates that no sounds or vibrations should be made when the notification is being shown.
+             * @default false
+             */
+            silent?: boolean;
         }
 
         /** The notification closed, either by the system or by user action. */
@@ -6416,8 +6423,10 @@ declare namespace chrome {
          */
         const onPermissionLevelChanged: chrome.events.Event<(level: string) => void>;
         /**
-         * The user clicked on a link for the app's notification settings.
-         * @since Chrome 32.
+         * @deprecated Deprecated since Chrome 65. Custom notification settings button is no longer supported.
+         * @description The user clicked on a link for the app's notification settings.
+         * As of Chrome 47, only ChromeOS has UI that dispatches this event.
+         * As of Chrome 65, that UI has been removed from ChromeOS, too.
          */
         const onShowSettings: chrome.events.Event<() => void>;
 
