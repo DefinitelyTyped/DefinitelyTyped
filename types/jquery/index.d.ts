@@ -48,7 +48,7 @@ type _Event = Event;
 interface JQueryStatic {
     /**
      * @see \`{@link https://api.jquery.com/jquery.ajax/#jQuery-ajax1 }\`
-     * @deprecated Use \`{@link JQueryStatic.ajaxSetup }\`.
+     * @deprecated ​ Deprecated. Use \`{@link ajaxSetup }\`.
      */
     ajaxSettings: JQuery.AjaxSettings;
     /**
@@ -89,17 +89,11 @@ interface JQueryStatic {
          *
          * @see \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`
          * @since 1.4.3
-         * @deprecated Deprecated since 3.0. See \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`.
+         * @deprecated ​ Deprecated since 3.0. See \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`.
          *
-         * **Cause**: As of jQuery 3.0 the `jQuery.fx.interval` property can be used to change the animation
-         * interval only on browsers that do not support the `window.requestAnimationFrame()` method. That is
-         * currently only Internet Explorer 9 and the Android Browser. Once support is dropped for these
-         * browsers, the property will serve no purpose and it will be removed.
+         * **Cause**: As of jQuery 3.0 the `jQuery.fx.interval` property can be used to change the animation interval only on browsers that do not support the `window.requestAnimationFrame()` method. That is currently only Internet Explorer 9 and the Android Browser. Once support is dropped for these browsers, the property will serve no purpose and it will be removed.
          *
-         * **Solution**: Find and remove code that changes or uses `jQuery.fx.interval`. If the value is being
-         * used by code in your page or a plugin, the code may be making assumptions that are no longer valid.
-         * aThe default value of `jQuery.fx.interval` is `13` (milliseconds), which could be used instead of
-         * accessing this property.
+         * **Solution**: Find and remove code that changes or uses `jQuery.fx.interval`. If the value is being used by code in your page or a plugin, the code may be making assumptions that are no longer valid. The default value of `jQuery.fx.interval` is `13` (milliseconds), which could be used instead of accessing this property.
          * @example ​ ````Cause all animations to run with less frames.
 ```html
 <!doctype html>
@@ -238,7 +232,7 @@ $.when(
      *
      * @see \`{@link https://api.jquery.com/jQuery.support/ }\`
      * @since 1.3
-     * @deprecated Deprecated since 1.9. See \`{@link https://api.jquery.com/jQuery.support/ }\`.
+     * @deprecated ​ Deprecated since 1.9. See \`{@link https://api.jquery.com/jQuery.support/ }\`.
      */
     support: JQuery.PlainObject;
     // Set to HTMLElement to minimize breaks but should probably be Element.
@@ -2006,7 +2000,7 @@ $.ajax({ data: myData });
     ajaxTransport(dataType: string,
                   handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => JQuery.Transport | void): void;
     /**
-     * @deprecated Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/3384 }\`.
+     * @deprecated ​ Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/3384 }\`.
      */
     camelCase(value: string): string;
     /**
@@ -5113,17 +5107,11 @@ $p.append( jQuery.hasData( p ) + " " ); // false
      * @param hold Indicates whether the ready hold is being requested or released
      * @see \`{@link https://api.jquery.com/jQuery.holdReady/ }\`
      * @since 1.6
-     * @deprecated Deprecated since 3.2. See \`{@link https://github.com/jquery/jquery/issues/3288 }\`.
+     * @deprecated ​ Deprecated since 3.2. See \`{@link https://github.com/jquery/jquery/issues/3288 }\`.
      *
-     * **Cause**: The `jQuery.holdReady()` method has been deprecated due to its detrimental effect on the
-     * global performance of the page. This method can prevent all the code on the page from initializing
-     * for extended lengths of time.
+     * **Cause**: The `jQuery.holdReady()` method has been deprecated due to its detrimental effect on the global performance of the page. This method can prevent all the code on the page from initializing for extended lengths of time.
      *
-     * **Solution**: Rewrite the page so that it does not require all jQuery ready handlers to be delayed.
-     * This might be accomplished, for example, by late-loading only the code that requires the delay when
-     * it is safe to run. Due to the complexity of this method, jQuery Migrate does not attempt to fill the
-     * functionality. If the underlying version of jQuery used with jQuery Migrate no longer contains
-     * `jQuery.holdReady()` the code will fail shortly after this warning appears.
+     * **Solution**: Rewrite the page so that it does not require all jQuery ready handlers to be delayed. This might be accomplished, for example, by late-loading only the code that requires the delay when it is safe to run. Due to the complexity of this method, jQuery Migrate does not attempt to fill the functionality. If the underlying version of jQuery used with jQuery Migrate no longer contains `jQuery.holdReady()` the code will fail shortly after this warning appears.
      * @example ​ ````Delay the ready event until a custom plugin has loaded.
 ```html
 <!doctype html>
@@ -5205,7 +5193,7 @@ $spans.eq( 3 ).text( jQuery.inArray( "Pete", arr, 2 ) );
      * @param obj Object to test whether or not it is an array.
      * @see \`{@link https://api.jquery.com/jQuery.isArray/ }\`
      * @since 1.3
-     * @deprecated Deprecated since 3.2. Use \`{@link Array.isArray }\`.
+     * @deprecated ​ Deprecated since 3.2. Use \`{@link ArrayConstructor.isArray Array.isArray}\`.
      * @example ​ ````Finds out if the parameter is an array.
 ```html
 <!doctype html>
@@ -5259,7 +5247,7 @@ jQuery.isEmptyObject({ foo: "bar" }); // false
      * @param obj Object to test whether or not it is a function.
      * @see \`{@link https://api.jquery.com/jQuery.isFunction/ }\`
      * @since 1.2
-     * @deprecated Deprecated since 3.3. Use `typeof x === "function"`.
+     * @deprecated ​ Deprecated since 3.3. Use `typeof x === "function"`.
      * @example ​ ````Test a few parameter examples.
 ```html
 <!doctype html>
@@ -5331,7 +5319,7 @@ $.isFunction(function() {});
      * @param value The value to be tested.
      * @see \`{@link https://api.jquery.com/jQuery.isNumeric/ }\`
      * @since 1.7
-     * @deprecated Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/2960 }\`.
+     * @deprecated ​ Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/2960 }\`.
      * @example ​ ````Sample return values of $.isNumeric with various inputs.
 ```html
 <!doctype html>
@@ -5402,7 +5390,7 @@ jQuery.isPlainObject( "test" ) // false
      * @param obj Object to test whether or not it is a window.
      * @see \`{@link https://api.jquery.com/jQuery.isWindow/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/3629 }\`.
+     * @deprecated ​ Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/3629 }\`.
      *
      * **Cause**: This method returns `true` if its argument is thought to be a `window` element. It was
      * created for internal use and is not a reliable way of detecting `window` for public needs.
@@ -6126,12 +6114,11 @@ $log.append( "2nd loaded jQuery version (jq162): " + jq162.fn.jquery + "<br>" );
      */
     noConflict(removeAll?: boolean): this;
     /**
-     * @deprecated Deprecated since 3.2.
+     * @deprecated ​ Deprecated since 3.2.
      *
      * **Cause**: This public but never-documented method has been deprecated as of jQuery 3.2.0.
      *
-     * **Solution**: Replace calls such as `jQuery.nodeName( elem, "div" )` with a test such as
-     * `elem.nodeName.toLowerCase() === "div"`.
+     * **Solution**: Replace calls such as `jQuery.nodeName( elem, "div" )` with a test such as `elem.nodeName.toLowerCase() === "div"`.
      */
     nodeName(elem: Node, name: string): boolean;
     /**
@@ -6146,7 +6133,7 @@ $log.append( "2nd loaded jQuery version (jq162): " + jq162.fn.jquery + "<br>" );
      *
      * @see \`{@link https://api.jquery.com/jQuery.now/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link Date.now }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link DateConstructor.now Date.now}\`.
      */
     now(): number;
     /**
@@ -6322,10 +6309,9 @@ $( "<ol></ol>" )
      * @param json The JSON string to parse.
      * @see \`{@link https://api.jquery.com/jQuery.parseJSON/ }\`
      * @since 1.4.1
-     * @deprecated Deprecated since 3.0. Use \`{@link JSON.parse }\`.
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link JSON.parse }\`.
      *
-     * **Cause**: The `jQuery.parseJSON` method in recent jQuery is identical to the native `JSON.parse`.
-     * As of jQuery 3.0 `jQuery.parseJSON` is deprecated.
+     * **Cause**: The `jQuery.parseJSON` method in recent jQuery is identical to the native `JSON.parse`. As of jQuery 3.0 `jQuery.parseJSON` is deprecated.
      *
      * **Solution**: Replace any use of `jQuery.parseJSON` with `JSON.parse`.
      * @example ​ ````Parse a JSON string.
@@ -7141,7 +7127,7 @@ $( "#searchForm" ).submit(function( event ) {
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -7297,7 +7283,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -7453,7 +7439,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -7609,7 +7595,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -7765,7 +7751,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -7921,7 +7907,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -8078,7 +8064,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4`
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -8234,7 +8220,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -8394,7 +8380,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -8552,7 +8538,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -8710,7 +8696,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -8868,7 +8854,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -9026,7 +9012,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -9184,7 +9170,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -9342,7 +9328,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -9500,7 +9486,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -9661,7 +9647,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -9819,7 +9805,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -9977,7 +9963,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -10135,7 +10121,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -10293,7 +10279,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -10451,7 +10437,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -10609,7 +10595,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -10767,7 +10753,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -10928,7 +10914,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -11086,7 +11072,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -11244,7 +11230,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -11402,7 +11388,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -11560,7 +11546,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -11718,7 +11704,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -11876,7 +11862,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -12034,7 +12020,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -12195,7 +12181,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -12353,7 +12339,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -12511,7 +12497,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -12669,7 +12655,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -12827,7 +12813,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -12985,7 +12971,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -13143,7 +13129,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -13301,7 +13287,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -13462,7 +13448,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -13620,7 +13606,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -13778,7 +13764,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -13936,7 +13922,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -14094,7 +14080,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -14252,7 +14238,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -14410,7 +14396,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -14568,7 +14554,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -14729,7 +14715,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -14887,7 +14873,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -15045,7 +15031,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -15203,7 +15189,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -15361,7 +15347,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -15519,7 +15505,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -15677,7 +15663,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -15835,7 +15821,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -15996,7 +15982,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -16154,7 +16140,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -16312,7 +16298,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -16470,7 +16456,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -16628,7 +16614,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -16786,7 +16772,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -16944,7 +16930,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -17102,7 +17088,7 @@ $( "#test" )
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -17266,7 +17252,7 @@ $( "#test" )
      * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -17436,7 +17422,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -17594,7 +17580,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -17752,7 +17738,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -17910,7 +17896,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -18068,7 +18054,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -18226,7 +18212,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -18384,7 +18370,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4`
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -18542,7 +18528,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -18704,7 +18690,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -18864,7 +18850,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -19024,7 +19010,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -19184,7 +19170,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -19344,7 +19330,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -19504,7 +19490,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -19664,7 +19650,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -19824,7 +19810,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -19987,7 +19973,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -20147,7 +20133,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -20307,7 +20293,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -20467,7 +20453,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -20627,7 +20613,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -20787,7 +20773,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -20947,7 +20933,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -21107,7 +21093,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -21270,7 +21256,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -21430,7 +21416,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -21590,7 +21576,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -21750,7 +21736,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -21910,7 +21896,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -22070,7 +22056,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -22230,7 +22216,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -22390,7 +22376,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -22553,7 +22539,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -22713,7 +22699,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -22873,7 +22859,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -23033,7 +23019,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -23193,7 +23179,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -23353,7 +23339,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -23513,7 +23499,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -23673,7 +23659,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -23836,7 +23822,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -23996,7 +23982,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -24156,7 +24142,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -24316,7 +24302,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -24476,7 +24462,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -24636,7 +24622,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -24796,7 +24782,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -24956,7 +24942,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -25119,7 +25105,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -25279,7 +25265,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -25439,7 +25425,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -25599,7 +25585,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -25759,7 +25745,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -25919,7 +25905,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -26079,7 +26065,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -26239,7 +26225,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -26402,7 +26388,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -26562,7 +26548,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -26722,7 +26708,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -26882,7 +26868,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -27042,7 +27028,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -27202,7 +27188,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -27362,7 +27348,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -27522,7 +27508,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -27688,7 +27674,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -27854,7 +27840,7 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
-     * @deprecated Deprecated since 3.3. Use \`{@link Function.bind }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
 ```html
 <!doctype html>
@@ -28340,7 +28326,7 @@ $.trim("    hello, how are you?    ");
      * @param obj Object to get the internal JavaScript [[Class]] of.
      * @see \`{@link https://api.jquery.com/jQuery.type/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. See \`{@link https://github.com/jquery/jquery/issues/3605 }`.
+     * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/jquery/issues/3605 }`.
      * @example ​ ````Find out if the parameter is a RegExp.
 ```html
 <!doctype html>
@@ -28369,13 +28355,11 @@ $( "b" ).append( "" + jQuery.type( /test/ ) );
      * @param array The Array of DOM elements.
      * @see \`{@link https://api.jquery.com/jQuery.unique/ }\`
      * @since 1.1.3
-     * @deprecated Deprecated since 3.0. Use \`{@link JQueryStatic.uniqueSort }`.
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link uniqueSort }\`.
      *
-     * **Cause**: The fact that `jQuery.unique` sorted its results in DOM order was surprising to many who
-     * did not read the documentation carefully. As of jQuery 3.0 this function is being renamed to make it clear.
+     * **Cause**: The fact that `jQuery.unique` sorted its results in DOM order was surprising to many who did not read the documentation carefully. As of jQuery 3.0 this function is being renamed to make it clear.
      *
-     * **Solution**: Replace all uses of `jQuery.unique` with `jQuery.uniqueSort` which is the same function
-     * with a better name.
+     * **Solution**: Replace all uses of `jQuery.unique` with `jQuery.uniqueSort` which is the same function with a better name.
      * @example ​ ````Removes any duplicate elements from the array of divs.
 ```html
 <!doctype html>
@@ -31957,15 +31941,11 @@ $( "p" ).before( $( "b" ) );
      * @see \`{@link https://api.jquery.com/bind/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link on }\`.
      *
-     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
-     * methods which can handle both delegated and direct event binding. Although the older methods are
-     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
-     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
-     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
-     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Handle click and double-click for the paragraph.  Note: the coordinates are window relative, so in this case relative to the demo iframe.
 ```html
 <!doctype html>
@@ -32012,7 +31992,7 @@ $( "p" ).bind( "mouseenter mouseleave", function( event ) {
      * @example ​ ````To display each paragraph&#39;s text in an alert box whenever it is clicked:
 ```html
 <!doctype html>
-<html lang="en">
+<html lang="en">link trigger
 <head>
   <meta charset="utf-8">
   <title>bind demo</title>
@@ -32188,15 +32168,11 @@ $( "div.test" ).bind({
      * @see \`{@link https://api.jquery.com/bind/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link on }\`.
      *
-     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
-     * methods which can handle both delegated and direct event binding. Although the older methods are
-     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
-     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
-     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
-     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Handle click and double-click for the paragraph.  Note: the coordinates are window relative, so in this case relative to the demo iframe.
 ```html
 <!doctype html>
@@ -32414,15 +32390,11 @@ $( "div.test" ).bind({
      * @param events An object containing one or more DOM event types and functions to execute for them.
      * @see \`{@link https://api.jquery.com/bind/ }\`
      * @since 1.4
-     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link on }\`.
      *
-     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
-     * methods which can handle both delegated and direct event binding. Although the older methods are
-     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
-     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
-     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
-     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Handle click and double-click for the paragraph.  Note: the coordinates are window relative, so in this case relative to the demo iframe.
 ```html
 <!doctype html>
@@ -32640,13 +32612,9 @@ $( "div.test" ).bind({
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/blur/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To trigger the blur event on all paragraphs:
@@ -32675,13 +32643,9 @@ $( "p" ).blur();
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/blur/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To trigger the blur event on all paragraphs:
@@ -32710,13 +32674,9 @@ $( "p" ).blur();
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/change/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Attaches a change event to the select that gets the text for each selected option and writes them in the div.  It then triggers the event for the initial text draw.
@@ -32787,13 +32747,9 @@ $( "input[type='text']" ).change(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/change/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Attaches a change event to the select that gets the text for each selected option and writes them in the div.  It then triggers the event for the initial text draw.
@@ -33101,13 +33057,9 @@ $( "#stop" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/click/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Hide paragraphs on a page when they are clicked:
@@ -33169,13 +33121,9 @@ $( "p" ).click();
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/click/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Hide paragraphs on a page when they are clicked:
@@ -33479,13 +33427,9 @@ $( "#frameDemo" ).contents().find( "a" ).css( "background-color", "#BADA55" );
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/contextmenu/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To show a &quot;Hello World!&quot; alert box when the contextmenu event is triggered on a paragraph on the page:
@@ -33551,13 +33495,9 @@ div.contextmenu(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/contextmenu/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To show a &quot;Hello World!&quot; alert box when the contextmenu event is triggered on a paragraph on the page:
@@ -35258,13 +35198,9 @@ $( "button" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/dblclick/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To bind a &quot;Hello World!&quot; alert box to the dblclick event on every paragraph on the page:
@@ -35330,13 +35266,9 @@ divdbl.dblclick(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/dblclick/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To bind a &quot;Hello World!&quot; alert box to the dblclick event on every paragraph on the page:
@@ -35455,15 +35387,11 @@ $( "button" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/delegate/ }\`
      * @since 1.4.2
-     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link on }\`.
      *
-     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
-     * methods which can handle both delegated and direct event binding. Although the older methods are
-     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
-     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
-     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
-     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Click a paragraph to add another. Note that .delegate() attaches a click event handler to all paragraphs - even new ones.
 ```html
 <!doctype html>
@@ -35613,15 +35541,11 @@ $( "button" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/delegate/ }\`
      * @since 1.4.2
-     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link on }\`.
      *
-     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
-     * methods which can handle both delegated and direct event binding. Although the older methods are
-     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
-     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
-     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
-     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Click a paragraph to add another. Note that .delegate() attaches a click event handler to all paragraphs - even new ones.
 ```html
 <!doctype html>
@@ -35768,15 +35692,11 @@ $( "button" ).click(function() {
      * @param events A plain object of one or more event types and functions to execute for them.
      * @see \`{@link https://api.jquery.com/delegate/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link on }\`.
      *
-     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
-     * methods which can handle both delegated and direct event binding. Although the older methods are
-     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
-     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
-     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
-     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Click a paragraph to add another. Note that .delegate() attaches a click event handler to all paragraphs - even new ones.
 ```html
 <!doctype html>
@@ -37959,13 +37879,9 @@ $( "p span" ).first().addClass( "highlight" );
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focus/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Fire focus.
@@ -38042,13 +37958,9 @@ $( document ).ready(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focus/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Fire focus.
@@ -38125,13 +38037,9 @@ $( document ).ready(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focusin/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Watch for a focus to occur within the paragraphs on the page.
@@ -38170,13 +38078,9 @@ $( "p" ).focusin(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focusin/ }\`
      * @since 1.4
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Watch for a focus to occur within the paragraphs on the page.
@@ -38215,13 +38119,9 @@ $( "p" ).focusin(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focusout/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Watch for a loss of focus to occur inside paragraphs and note the difference between the focusout count and the blur count. (The blur count does not change because those events do not bubble.)
@@ -38281,13 +38181,9 @@ $( "p" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/focusout/ }\`
      * @since 1.4
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Watch for a loss of focus to occur inside paragraphs and note the difference between the focusout count and the blur count. (The blur count does not change because those events do not bubble.)
@@ -39199,17 +39095,11 @@ $( "div" ).click(function() {
      * @see \`{@link https://api.jquery.com/hover/ }\`
      * @since 1.0
      * @since 1.4
-     * @deprecated
+     * @deprecated ​ Deprecated.
      *
-     * **Cause**: The `.hover()` method is a shorthand for the use of the `mouseover`/`mouseout` events. It
-     * is often a poor user interface choice because it does not allow for any small amounts of delay
-     * between when the mouse enters or exits an area and when the event fires. This can make it quite
-     * difficult to use with UI widgets such as drop-down menus. For more information on the problems of
-     * hovering, see the \`{@link hoverIntent plugin http://cherne.net/brian/resources/jquery.hoverIntent.html }\`.
+     * **Cause**: The `.hover()` method is a shorthand for the use of the `mouseover`/`mouseout` events. It is often a poor user interface choice because it does not allow for any small amounts of delay between when the mouse enters or exits an area and when the event fires. This can make it quite difficult to use with UI widgets such as drop-down menus. For more information on the problems of hovering, see the \`{@link http://cherne.net/brian/resources/jquery.hoverIntent.html hoverIntent plugin}\`.
      *
-     * **Solution**: Review uses of `.hover()` to determine if they are appropriate, and consider use of
-     * plugins such as `hoverIntent` as an alternative. The direct replacement for `.hover(fn1, fn2)`, is
-     * `.on("mouseenter", fn1).on("mouseleave", fn2)`.
+     * **Solution**: Review uses of `.hover()` to determine if they are appropriate, and consider use of plugins such as `hoverIntent` as an alternative. The direct replacement for `.hover(fn1, fn2)`, is `.on("mouseenter", fn1).on("mouseleave", fn2)`.
      * @example ​ ````To add a special style to list items that are being hovered over, try:
 ```html
 <!doctype html>
@@ -40385,13 +40275,9 @@ $( "li" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keydown/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the event object for the keydown handler when a key is pressed in the input.
@@ -40462,13 +40348,9 @@ $( "#other" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keydown/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the event object for the keydown handler when a key is pressed in the input.
@@ -40539,13 +40421,9 @@ $( "#other" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keypress/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the event object when a key is pressed in the input. Note: This demo relies on a simple $.print() plugin (https://api.jquery.com/resources/events.js) for the event object&#39;s output.
@@ -40616,13 +40494,9 @@ $( "#other" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keypress/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the event object when a key is pressed in the input. Note: This demo relies on a simple $.print() plugin (https://api.jquery.com/resources/events.js) for the event object&#39;s output.
@@ -40693,13 +40567,9 @@ $( "#other" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keyup/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the event object for the keyup handler (using a simple $.print plugin) when a key is released in the input.
@@ -40771,13 +40641,9 @@ $( "#other").click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/keyup/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the event object for the keyup handler (using a simple $.print plugin) when a key is released in the input.
@@ -41272,13 +41138,9 @@ $( "input" ).click(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mousedown/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
@@ -41315,13 +41177,9 @@ $( "p" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mousedown/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
@@ -41358,13 +41216,9 @@ $( "p" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseenter/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show texts when mouseenter and mouseout event triggering.
@@ -41444,13 +41298,9 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseenter/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show texts when mouseenter and mouseout event triggering.
@@ -41530,13 +41380,9 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseleave/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show number of times mouseout and mouseleave events are triggered. mouseout fires when the pointer moves out of child element as well, while mouseleave fires only when the pointer moves out of the bound element.
@@ -41614,13 +41460,9 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseleave/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show number of times mouseout and mouseleave events are triggered. mouseout fires when the pointer moves out of child element as well, while mouseleave fires only when the pointer moves out of the bound element.
@@ -41698,13 +41540,9 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mousemove/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the mouse coordinates when the mouse is moved over the yellow div.  Coordinates are relative to the window, which in this case is the iframe.
@@ -41767,13 +41605,9 @@ $( "div" ).mousemove(function( event ) {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mousemove/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the mouse coordinates when the mouse is moved over the yellow div.  Coordinates are relative to the window, which in this case is the iframe.
@@ -41836,13 +41670,9 @@ $( "div" ).mousemove(function( event ) {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseout/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the number of times mouseout and mouseleave events are triggered.
@@ -41922,13 +41752,9 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseout/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the number of times mouseout and mouseleave events are triggered.
@@ -42008,13 +41834,9 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseover/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the number of times mouseover and mouseenter events are triggered.
@@ -42094,13 +41916,9 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseover/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the number of times mouseover and mouseenter events are triggered.
@@ -42180,13 +41998,9 @@ $( "div.enterleave" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseup/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
@@ -42223,13 +42037,9 @@ $( "p" )
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/mouseup/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
@@ -50259,7 +50069,7 @@ $( "#stop" ).click(function() {
      * @param handler A function to execute after the DOM is ready.
      * @see \`{@link https://api.jquery.com/ready/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.0. Use `jQuery(function() { })`.
+     * @deprecated ​ Deprecated since 3.0. Use `jQuery(function() { })`.
      * @example ​ ````Display a message when the DOM is loaded.
 ```html
 <!doctype html>
@@ -50798,13 +50608,9 @@ $( "button" ).on( "click", function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/resize/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To see the window width while (or after) it is resized, try:
@@ -50835,13 +50641,9 @@ $( window ).resize(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/resize/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To see the window width while (or after) it is resized, try:
@@ -50872,13 +50674,9 @@ $( window ).resize(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/scroll/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To do something when your page is scrolled:
@@ -50927,13 +50725,9 @@ $( window ).scroll(function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/scroll/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To do something when your page is scrolled:
@@ -51273,13 +51067,9 @@ $( "div.demo" ).scrollTop( 300 );
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/select/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To do something when text in input boxes is selected:
@@ -51340,13 +51130,9 @@ $( "input" ).select();
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/select/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To do something when text in input boxes is selected:
@@ -53265,13 +53051,9 @@ $( "#toggle" ).on( "click", function() {
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/submit/ }\`
      * @since 1.4.3
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````If you&#39;d like to prevent forms from being submitted unless a flag variable is set, try:
@@ -53365,13 +53147,9 @@ $( "form:first" ).submit();
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/submit/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * @deprecated ​ Deprecated since 3.3. Use \`{@link on }\` or \`{@link trigger }\`.
      *
-     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
-     * any event type, and should be used instead of the shortcut methods. This message also applies to the
-     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
-     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
-     * keydown, keypress, keyup, and contextmenu.
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````If you&#39;d like to prevent forms from being submitted unless a flag variable is set, try:
@@ -54069,17 +53847,11 @@ $( "a" ).on( "click", function( event ) {
      * @param state A boolean value to determine whether the class should be added or removed.
      * @see \`{@link https://api.jquery.com/toggleClass/ }\`
      * @since 1.4
-     * @deprecated Deprecated since 3.0. See \`{@link https://github.com/jquery/jquery/pull/2618 }\`.
+     * @deprecated ​ Deprecated since 3.0. See \`{@link https://github.com/jquery/jquery/pull/2618 }\`.
      *
-     * **Cause**: Calling `.toggleClass()` with no arguments, or with a single Boolean `true` or `false`
-     * argument, has been deprecated. Its behavior was poorly documented, but essentially the method saved
-     * away the current class value in a data item when the class was removed and restored the saved value
-     * when it was toggled back. If you do not believe you are specificially trying to use this form of the
-     * method, it is possible you are accidentally doing so via an inadvertent undefined value, as
-     * `.toggleClass( undefined )` toggles all classes.
+     * **Cause**: Calling `.toggleClass()` with no arguments, or with a single Boolean `true` or `false` argument, has been deprecated. Its behavior was poorly documented, but essentially the method saved away the current class value in a data item when the class was removed and restored the saved value when it was toggled back. If you do not believe you are specificially trying to use this form of the method, it is possible you are accidentally doing so via an inadvertent undefined value, as `.toggleClass( undefined )` toggles all classes.
      *
-     * **Solution**: If this functionality is still needed, save the current full `.attr( "class" )` value
-     * in a data item and restore it when required.
+     * **Solution**: If this functionality is still needed, save the current full `.attr( "class" )` value in a data item and restore it when required.
      * @example ​ ````Toggle the class &#39;highlight&#39; when a paragraph is clicked.
 ```html
 <!doctype html>
@@ -54443,15 +54215,11 @@ $( "input" ).focus(function() {
      * @see \`{@link https://api.jquery.com/unbind/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link off }\`.
      *
-     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
-     * methods which can handle both delegated and direct event binding. Although the older methods are
-     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
-     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
-     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
-     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
 <!doctype html>
@@ -54561,15 +54329,11 @@ $( "p" ).unbind( "click", foo ); // ... foo will no longer be called.
      *              A jQuery.Event object.
      * @see \`{@link https://api.jquery.com/unbind/ }\`
      * @since 1.0
-     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link off }\`.
      *
-     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
-     * methods which can handle both delegated and direct event binding. Although the older methods are
-     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
-     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
-     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
-     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
 <!doctype html>
@@ -54681,15 +54445,11 @@ $( "p" ).unbind( "click", foo ); // ... foo will no longer be called.
      * @param handler A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/undelegate/ }\`
      * @since 1.4.2
-     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link off }\`.
      *
-     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
-     * methods which can handle both delegated and direct event binding. Although the older methods are
-     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
-     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
-     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
-     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
 <!doctype html>
@@ -54831,15 +54591,11 @@ $( "form" ).undelegate( ".whatever" );
      * @see \`{@link https://api.jquery.com/undelegate/ }\`
      * @since 1.4.2
      * @since 1.4.3
-     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link off }\`.
      *
-     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
-     * methods which can handle both delegated and direct event binding. Although the older methods are
-     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
-     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
-     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
-     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
 <!doctype html>
@@ -54979,15 +54735,11 @@ $( "form" ).undelegate( ".whatever" );
      * @see \`{@link https://api.jquery.com/undelegate/ }\`
      * @since 1.4.2
      * @since 1.6
-     * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
+     * @deprecated ​ Deprecated since 3.0. Use \`{@link off }\`.
      *
-     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
-     * methods which can handle both delegated and direct event binding. Although the older methods are
-     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
-     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
-     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
-     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
 <!doctype html>
@@ -56228,7 +55980,7 @@ declare namespace JQuery {
 
     interface Selectors extends Sizzle.Selectors {
         /**
-         * @deprecated Deprecated since 3.0.
+         * @deprecated ​ Deprecated since 3.0. Use \`{@link Selectors#pseudos }\`.
          *
          * **Cause**: The standard way to add new custom selectors through jQuery is `jQuery.expr.pseudos`. These two other aliases are deprecated, although they still work as of jQuery 3.0.
          *
@@ -56236,7 +55988,7 @@ declare namespace JQuery {
          */
         ':': Sizzle.Selectors.PseudoFunctions;
         /**
-         * @deprecated Deprecated since 3.0.
+         * @deprecated ​ Deprecated since 3.0. Use \`{@link Selectors#pseudos }\`.
          *
          * **Cause**: The standard way to add new custom selectors through jQuery is `jQuery.expr.pseudos`. These two other aliases are deprecated, although they still work as of jQuery 3.0.
          *
@@ -58007,14 +57759,11 @@ obj.done(function( name ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -58126,14 +57875,11 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -58238,14 +57984,11 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -58350,14 +58093,11 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -58455,14 +58195,11 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -58567,14 +58304,11 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -58672,14 +58406,11 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -60191,14 +59922,11 @@ obj.done(function( name ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -60310,14 +60038,11 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -60422,14 +60147,11 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -60534,14 +60256,11 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -60639,14 +60358,11 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -60751,14 +60467,11 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -60856,14 +60569,11 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.pipe/ }\`
          * @since 1.6
          * @since 1.7
-         * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link then }\`.
          *
-         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
-         * the `.then()` method was changed to perform the same function.
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
-         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
-         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
-         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -61933,22 +61643,22 @@ $.get( "test.php" )
         }
 
         /**
-         * @deprecated Use \`{@link JQuery.Deferred.Callback }\`.
+         * @deprecated ​ Deprecated. Use \`{@link Callback }\`.
          */
         interface DoneCallback<TResolve> extends Callback<TResolve> { }
 
         /**
-         * @deprecated Use \`{@link JQuery.Deferred.Callback }\`.
+         * @deprecated ​ Deprecated. Use \`{@link Callback }\`.
          */
         interface FailCallback<TReject> extends Callback<TReject> { }
 
         /**
-         * @deprecated Use \`{@link JQuery.Deferred.Callback }\`.
+         * @deprecated ​ Deprecated. Use \`{@link Callback }\`.
          */
         interface AlwaysCallback<TResolve, TReject> extends Callback<TResolve | TReject> { }
 
         /**
-         * @deprecated Use \`{@link JQuery.Deferred.Callback }\`.
+         * @deprecated ​ Deprecated. Use \`{@link Callback }\`.
          */
         interface ProgressCallback<TNotify> extends Callback<TNotify> { }
     }
@@ -62059,7 +61769,7 @@ $.get( "test.php" )
     }
 
     /**
-     * @deprecated Deprecated.
+     * @deprecated ​ Deprecated.
      *
      * **Cause**: Additional arguments for `jQuery.easing` methods were never documented and are redundant since the same behavior can be easily achieved without them. When Migrate detects this case, the specified easing function is not used and `"linear"` easing is used instead for the animation.
      *
@@ -62894,7 +62604,7 @@ interface JQueryPromise<T> extends JQuery.Promise<T> { }
 interface JQuerySerializeArrayElement extends JQuery.NameValuePair { }
 
 /**
- * @deprecated Deprecated since 1.9. See \`{@link https://api.jquery.com/jQuery.support/ }\`.
+ * @deprecated ​ Deprecated since 1.9. See \`{@link https://api.jquery.com/jQuery.support/ }\`.
  */
 // tslint:disable-next-line:no-empty-interface
 interface JQuerySupport extends JQuery.PlainObject { }
@@ -62902,13 +62612,13 @@ interface JQuerySupport extends JQuery.PlainObject { }
 // Legacy types that are not represented in the current type definitions are marked deprecated.
 
 /**
- * @deprecated Use \`{@link JQuery.Deferred.Callback }\` or \`{@link JQuery.Deferred.CallbackBase }\`.
+ * @deprecated ​ Deprecated. Use \`{@link JQuery.Deferred.Callback }\` or \`{@link JQuery.Deferred.CallbackBase }\`.
  */
 interface JQueryPromiseCallback<T> {
     (value?: T, ...args: any[]): void;
 }
 /**
- * @deprecated Use \`{@link JQueryStatic.param JQueryStatic&#91;'param'&#93;}\`.
+ * @deprecated ​ Deprecated. Use \`{@link JQueryStatic.param JQueryStatic&#91;'param'&#93;}\`.
  */
 interface JQueryParam {
     /**
@@ -62920,7 +62630,7 @@ interface JQueryParam {
     (obj: any, traditional?: boolean): string;
 }
 /**
- * @deprecated Use \`{@link JQuery.Event }\`.
+ * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\`.
  */
 interface BaseJQueryEventObject extends Event {
     /**
@@ -63015,7 +62725,7 @@ interface BaseJQueryEventObject extends Event {
     metaKey: boolean;
 }
 /**
- * @deprecated Use \`{@link JQuery.Event }\`.
+ * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\`.
  */
 interface JQueryInputEventObject extends BaseJQueryEventObject {
     altKey: boolean;
@@ -63024,7 +62734,7 @@ interface JQueryInputEventObject extends BaseJQueryEventObject {
     shiftKey: boolean;
 }
 /**
- * @deprecated Use \`{@link JQuery.Event }\`.
+ * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\`.
  */
 interface JQueryMouseEventObject extends JQueryInputEventObject {
     button: number;
@@ -63038,7 +62748,7 @@ interface JQueryMouseEventObject extends JQueryInputEventObject {
     screenY: number;
 }
 /**
- * @deprecated Use \`{@link JQuery.Event }\`.
+ * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\`.
  */
 interface JQueryKeyEventObject extends JQueryInputEventObject {
     char: any;
@@ -63047,24 +62757,24 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
     keyCode: number;
 }
 /**
- * @deprecated Use \`{@link JQuery.Event }\`.
+ * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\`.
  */
 interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject { }
 /**
- * @deprecated
+ * @deprecated ​ Deprecated.
  */
 interface JQueryPromiseOperator<T, U> {
     (callback1: JQuery.TypeOrArray<JQueryPromiseCallback<T>>,
      ...callbacksN: Array<JQuery.TypeOrArray<JQueryPromiseCallback<any>>>): JQueryPromise<U>;
 }
 /**
- * @deprecated Internal. See \`{@link https://github.com/jquery/api.jquery.com/issues/912 }\`.
+ * @deprecated ​ Deprecated. Internal. See \`{@link https://github.com/jquery/api.jquery.com/issues/912 }\`.
  */
 interface JQueryEasingFunction {
     (percent: number): number;
 }
 /**
- * @deprecated Internal. See \`{@link https://github.com/jquery/api.jquery.com/issues/912 }\`.
+ * @deprecated ​ Deprecated. Internal. See \`{@link https://github.com/jquery/api.jquery.com/issues/912 }\`.
  */
 interface JQueryEasingFunctions {
     [name: string]: JQueryEasingFunction;
