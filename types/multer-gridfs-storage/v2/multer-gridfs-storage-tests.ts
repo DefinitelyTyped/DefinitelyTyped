@@ -8,7 +8,7 @@ const conf: MulterGridfsStorage.FileConfig = {
 };
 
 // Connection promise
-const dbPromise = MongoClient.connect('mongodb://yourhost:27017/database');
+const dbPromise = MongoClient.connect('mongodb://yourhost:27017').then((client) => client.db('database'));
 
 const server = new Server('localhost', 27017);
 const db = new Db('database', server);
