@@ -9339,7 +9339,10 @@ declare namespace chrome {
             /** The display mode height in native pixels. */
             heightInNativePixels: integer;
 
-            /** The display mode UI scale factor. */
+            /**
+             * @deprecated Deprecated since Chrome 70. Use `displayZoomFactor`
+             * @description The display mode UI scale factor.
+             **/
             uiScale: integer;
 
             /** The display mode device scale factor. */
@@ -9400,15 +9403,16 @@ declare namespace chrome {
              * If set to true, changes the display mode to unified desktop.
              * If set to false, unified desktop mode will be disabled.
              * This is only valid for the primary display.
-             * If provided, mirroringSourceId must not be provided and other properties may not apply. This is has no effect if not provided.
-             * @see(See enableUnifiedDesktop for details).
+             * If provided, mirroringSourceId must not be provided and other properties may not apply.
+             * This is has no effect if not provided.
+             * @see(See `enableUnifiedDesktop` for details).
              * @since Chrome 59
              * */
             isUnified?: boolean;
 
             /**
              * @requires(CrOS) Chrome OS only.
-             * @deprecated Deprecated since Chrome 68. Use *setMirrorMode*
+             * @deprecated Deprecated since Chrome 68. Use ´setMirrorMode´
              * @see setMirrorMode
              * @description
              * If set and not empty, enables mirroring for this display.
