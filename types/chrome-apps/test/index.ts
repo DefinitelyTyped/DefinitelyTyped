@@ -1114,6 +1114,7 @@ chrome.networking.onc.getNetworks({ 'networkType': 'All' }, (networkList) => {
         if (networkObj.WiFi) {
             // WiFi active :)
             console.log('Wifi BSID: ' + networkObj.WiFi.BSSID);
+            const state = networkObj.WiFi.TetheringState;
         }
         chrome.networking.onc.setProperties(networkObj.GUID || '', {
             WiFi: {
@@ -1123,6 +1124,19 @@ chrome.networking.onc.getNetworks({ 'networkType': 'All' }, (networkList) => {
         // Test that we can't get passphrase
         chrome.networking.onc.getProperties(networkObj.GUID || '', (props) => {
             const WiFiResult = props.WiFi;
+        });
+        chrome.networking.onc.getState(networkObj.GUID || '', (state) => {
+            const wifiState = state.WiFi || {};
+            return wifiState.TetheringState;
+        });
+        chrome.networking.onc.getManagedProperties(networkObj.GUID || '', (result) => {
+            const wifiResult = result.WiFi;
+            if (wifiResult !== undefined) {
+                const managed = wifiResult.HexSSID;
+                if (managed !== undefined) {
+                    return managed.UserPolicy;
+                }
+            }
         });
     }
 });
