@@ -3,6 +3,12 @@ import { Tx } from "./types";
 export interface Account {
 	address: string;
 	privateKey: string;
+	sign(data: string): MessageSignature;
+	signTransaction(
+		tx: Tx,
+		cb?: (err: Error, result: TxSignature) => void
+	): Promise<TxSignature>;
+	encrypt(password: string, options?: any): PrivateKey;
 }
 
 export interface Signature {
