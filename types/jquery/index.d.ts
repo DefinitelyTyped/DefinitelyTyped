@@ -6122,6 +6122,15 @@ $log.append( "2nd loaded jQuery version (jq162): " + jq162.fn.jquery + "<br>" );
      */
     noConflict(removeAll?: boolean): this;
     /**
+     * @deprecated Deprecated since 3.2.
+     *
+     * **Cause**: This public but never-documented method has been deprecated as of jQuery 3.2.0.
+     *
+     * **Solution**: Replace calls such as `jQuery.nodeName( elem, "div" )` with a test such as
+     * `elem.nodeName.toLowerCase() === "div"`.
+     */
+    nodeName(elem: Node, name: string): boolean;
+    /**
      * An empty function.
      *
      * @see \`{@link https://api.jquery.com/jQuery.noop/ }\`

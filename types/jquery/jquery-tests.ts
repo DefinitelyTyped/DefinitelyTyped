@@ -903,6 +903,11 @@ function JQueryStatic() {
         $.noConflict();
     }
 
+    function nodeName() {
+        // $ExpectType boolean
+        $.nodeName({} as Node, 'name');
+    }
+
     function noop() {
         // $ExpectType undefined
         $.noop();
