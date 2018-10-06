@@ -3,7 +3,6 @@ import { Tx } from "./types";
 export interface Account {
 	address: string;
 	privateKey: string;
-	publicKey: string;
 }
 
 export interface Signature {
