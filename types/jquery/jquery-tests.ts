@@ -131,6 +131,11 @@ function JQueryStatic() {
         $.cssNumber;
     }
 
+    function expr() {
+        // $ExpectType Selectors
+        $.expr;
+    }
+
     function fn() {
         // $ExpectType JQuery<HTMLElement>
         $.fn;
@@ -6555,6 +6560,25 @@ function JQuery() {
             // $ExpectType HTMLElement[]
             $('p').toArray();
         }
+    }
+}
+
+function JQuery_Selectors() {
+    function pseudos_colon() {
+        // $ExpectType PseudoFunctions
+        $.expr[':'];
+    }
+
+    function filter() {
+        // $ExpectType FilterFunctions
+        $.expr.filter;
+    }
+
+    function stackoverflow_50727144() {
+        $.extend($.expr[":"], {
+            containsCaseInsensitive: (elem: any, i: number, match: any, array: any) =>
+                (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0
+        });
     }
 }
 
