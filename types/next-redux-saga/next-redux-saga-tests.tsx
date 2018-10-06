@@ -16,8 +16,8 @@ const reducer: Reducer<InitialState> = (state: InitialState = { foo: '' }, actio
     }
 };
 
-const makeStore = (initialState?: InitialState): Store<InitialState> => {
-    return createStore(reducer, initialState || {});
+const makeStore = (initialState: InitialState): Store<InitialState> => {
+    return createStore<InitialState>(reducer, initialState);
 };
 
 interface OwnProps {
