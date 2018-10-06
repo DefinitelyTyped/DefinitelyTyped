@@ -39,10 +39,30 @@ myContract.options.gas = 5000000;
 //
 // web3.eth.accounts
 // --------------------------------------------------------------------------
-const account = web3.eth.accounts.privateKeyToAccount("");
+const account = web3.eth.accounts.privateKeyToAccount("0x1234");
 
 // check that no `publicKey` field is present on `Account` type
 const noPublicKeyInAccount: typeof account & { publicKey?: never } = account;
+
+web3.eth.accounts.signTransaction({
+    to: '0xF0109fC8DF283027b6285cc889F5aA624EaC1F55',
+    value: '1000000000',
+    gas: 2000000
+}, "").then(txSig =>
+{
+    txSig.messageHash = "0x1234";
+    txSig.rawTransaction = "0x5678";
+
+    const noHashFieldInTxSig: typeof txSig & { hash?: never, message?: never, signature?: never } = txSig;
+});
+
+const msgSig = web3.eth.accounts.sign("0x1234", "0x5678");
+msgSig.messageHash = "0x1234";
+msgSig.message = "0x5678";
+msgSig.signature = "0x90ab";
+
+const noHashFieldInMsgSig: typeof msgSig & { hash?: never, rawTransaction?: never } = msgSig
+
 
 //
 // web3.eth.personal
