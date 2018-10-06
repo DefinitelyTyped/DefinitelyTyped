@@ -424,7 +424,7 @@ export interface FieldDefinitionNode {
     readonly loc?: Location;
     readonly description?: StringValueNode;
     readonly name: NameNode;
-    readonly arguments?: ReadonlyArray<InputValueDefinitionNode>;
+    readonly arguments: ReadonlyArray<InputValueDefinitionNode>;
     readonly type: TypeNode;
     readonly directives?: ReadonlyArray<DirectiveNode>;
 }
