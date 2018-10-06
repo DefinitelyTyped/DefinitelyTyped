@@ -1,7 +1,8 @@
 // somehow It can't find @storybook/react module, thus I couldn't write tests with storiesOf.
 // I tested with my local environment, though there always can be a mistake.
 // import { storiesOf } from "@storybook/react";
-import { withDocs, withReadme, doc } from "../";
+import * as React from "react";
+import { withDocs, withReadme, doc } from "storybook-readme";
 
 // Also I don't know how to write test with this style. Please look index.d.ts for more details
 // import Marked from "storybook-readme/components/Marked";

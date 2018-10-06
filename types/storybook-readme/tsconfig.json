@@ -10,7 +10,7 @@
         "jsx": "react",
         "typeRoots": ["../"],
         "paths": {
-            "storybook/addon-readme": ["storybook__addon-readme"],
+            "storybook-readme": ["storybook-readme"],
             "@storybook/react": ["storybook__react"]
         },
         "types": [],
@@ -19,10 +19,10 @@
     },
     "files": [
         "index.d.ts",
-        "withReadme.d.ts",
-        "withDocs.d.ts",
-        "doc.d.ts",
-        "common.d.ts",
-        "storybook__addon-readme-tests.tsx"
+        "./src/withReadme.d.ts",
+        "./src/withDocs.d.ts",
+        "./src/doc.d.ts",
+        "./src/common.d.ts",
+        "./src/storybook-readme-tests.tsx"
     ]
 }
