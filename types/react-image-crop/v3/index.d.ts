@@ -1,4 +1,4 @@
-// Type definitions for react-image-crop 6.0
+// Type definitions for react-image-crop 3.0
 // Project: https://github.com/DominicTobias/react-image-crop
 // Definitions by: Daniela Yassuda <https://github.com/danielasy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -35,7 +35,7 @@ declare namespace ReactCrop {
         keepSelection?: boolean;
         onChange: (crop: Crop, pixelCrop: PixelCrop) => void;
         onComplete?: (crop: Crop, pixelCrop: PixelCrop) => void;
-        onImageLoaded?: (target: HTMLImageElement, pixelCrop: PixelCrop) => void;
+        onImageLoaded?: (target: HTMLImageElement) => void;
         onDragStart?: () => void;
         onDragEnd?: () => void;
         disabled?: boolean;
