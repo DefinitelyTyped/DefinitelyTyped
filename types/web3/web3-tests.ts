@@ -39,6 +39,10 @@ myContract.options.gas = 5000000;
 //
 // web3.eth.accounts
 // --------------------------------------------------------------------------
+const account = web3.eth.accounts.privateKeyToAccount("");
+
+// check that no `publicKey` field is present on `Account` type
+const noPublicKeyInAccount: typeof account & { publicKey?: never } = account;
 
 //
 // web3.eth.personal
