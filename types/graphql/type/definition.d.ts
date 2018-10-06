@@ -182,13 +182,19 @@ export class GraphQLList<T extends GraphQLType> {
  *
  * Note: the enforcement of non-nullability occurs within the executor.
  */
-export class GraphQLNonNull<T extends GraphQLNullableType> {
-    readonly ofType: T;
-    constructor(ofType: T);
-    toString(): string;
-    toJSON(): string;
-    inspect(): string;
+interface GraphQLNonNull<T extends GraphQLNullableType> {
+  readonly ofType: T;
+  toString(): string;
+  toJSON(): string;
+  inspect(): string;
 }
+
+interface GraphQLNonNullI<T extends GraphQLNullableType> {
+  (type: T): GraphQLNonNull<T>;
+  new (type: T): GraphQLNonNull<T>;
+}
+
+declare const GraphQLNonNull: GraphQLNonNullI<any>;
 
 export type GraphQLWrappingType = GraphQLList<any> | GraphQLNonNull<any>;
 
