@@ -131,6 +131,16 @@ function JQueryStatic() {
         $.cssNumber;
     }
 
+    function easing() {
+        // $ExpectType Easings
+        $.easing;
+    }
+
+    function expr() {
+        // $ExpectType Selectors
+        $.expr;
+    }
+
     function fn() {
         // $ExpectType JQuery<HTMLElement>
         $.fn;
@@ -901,6 +911,11 @@ function JQueryStatic() {
 
         // $ExpectType JQueryStatic
         $.noConflict();
+    }
+
+    function nodeName() {
+        // $ExpectType boolean
+        $.nodeName({} as Node, 'name');
     }
 
     function noop() {
@@ -6553,6 +6568,25 @@ function JQuery() {
     }
 }
 
+function JQuery_Selectors() {
+    function pseudos_colon() {
+        // $ExpectType PseudoFunctions
+        $.expr[':'];
+    }
+
+    function filter() {
+        // $ExpectType FilterFunctions
+        $.expr.filter;
+    }
+
+    function stackoverflow_50727144() {
+        $.extend($.expr[":"], {
+            containsCaseInsensitive: (elem: any, i: number, match: any, array: any) =>
+                (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0
+        });
+    }
+}
+
 function JQuery_AjaxSettings() {
     $.ajax({
         accepts: {
@@ -6861,6 +6895,16 @@ function JQuery_EffectsOptions() {
             tween;
         }
     });
+}
+
+function JQuery_Easings() {
+    jQuery.easing.easeInCubic = (p: number, t: number, b: number, c: number, d: number) => {
+        return c * (t /= d) * t * t + b;
+    };
+
+    jQuery.easing.easeInCubic = (p: number) => {
+        return Math.pow(p, 3);
+    };
 }
 
 function JQuery_Event() {
