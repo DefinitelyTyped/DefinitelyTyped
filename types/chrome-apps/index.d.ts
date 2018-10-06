@@ -612,7 +612,10 @@ declare namespace chrome {
              * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
              */
             maxHeight?: integer;
-            /** Type of window to create */
+            /**
+             * @deprecated Deprecated since Chrome 69. All app windows use the 'shell' window type.
+             * @description Type of window to create
+             **/
             type?: 'shell';
             /**
              * If true, the window will have its own shelf icon.
@@ -919,7 +922,8 @@ declare namespace chrome {
             level?: integer;
         }
         /**
-         * Device properties by which to filter the list of returned audio devices. If the filter is not set or set to {}, returned device list will contain all available audio devices.
+         * Device properties by which to filter the list of returned audio devices.
+         * If the filter is not set or set to {}, returned device list will contain all available audio devices.
          */
         interface Filter {
             /**
@@ -1083,8 +1087,9 @@ declare namespace chrome {
         function getDevices(callback: (devices: Device[]) => void): void;
 
         /**
-         * Get a list of Bluetooth devices known to the system, including paired and recently discovered devices.
-         * @param filter Since Chrome 67. Some criteria to filter the list of returned bluetooth devices. If the filter is not set or set to {}, returned device list will contain all bluetooth devices. Right now this is only supported in ChromeOS, for other platforms, a full list is returned.
+         * @since Chrome 67.
+         * @description Get a list of Bluetooth devices known to the system, including paired and recently discovered devices.
+         * @param filter Some criteria to filter the list of returned bluetooth devices. If the filter is not set or set to {}, returned device list will contain all bluetooth devices. Right now this is only supported in ChromeOS, for other platforms, a full list is returned.
          * @param callback Called when the search is completed.
          */
         function getDevices(filter: DeviceFilter, callback: (devices: Device[]) => void): void;
@@ -3078,7 +3083,8 @@ declare namespace chrome {
             'document_end' |
             'document_idle';
         /**
-         * The origin of injected CSS.
+         * @since Chrome 66.
+         * @description The origin of injected CSS.
          **/
         type CSSOrigin =
             'author' |
@@ -5968,6 +5974,11 @@ declare namespace chrome {
             SSID?: S;
             /** The network signal strength. */
             SignalStrength?: integer;
+            /**
+             * @since Chrome 70
+             * @description The tethering state associated with the connection.
+             */
+            TetheringState?: string;
         }
         interface WiFiProperties<M extends ManagedObject = 'unmanaged',
             OF extends _internal_.ObjectFunction = 'getter',
