@@ -413,8 +413,8 @@ declare module "node-forge" {
     }
     namespace pkcs7 {
         interface PkcsSignedData {
-            content: string;
-            contentInfo: { value: any[] };
+            content?: string | util.ByteBuffer;
+            contentInfo?: { value: any[] };
   
             addCertificate(certificate: pki.Certificate): void;
             addSigner(options: {
@@ -423,7 +423,9 @@ declare module "node-forge" {
                 digestAlgorithm: string;
                 authenticatedAttributes: { type: string; value?: string }[];
             }): void;
-            sign(): void;
+            sign(options?:{
+                detached?: boolean
+            }): void;
             toAsn1(): asn1.Asn1;
         }
   
