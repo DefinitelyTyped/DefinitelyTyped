@@ -86,6 +86,16 @@ interface JQueryStatic {
          * @see \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`
          * @since 1.4.3
          * @deprecated Deprecated since 3.0. See \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`.
+         *
+         * **Cause**: As of jQuery 3.0 the `jQuery.fx.interval` property can be used to change the animation
+         * interval only on browsers that do not support the `window.requestAnimationFrame()` method. That is
+         * currently only Internet Explorer 9 and the Android Browser. Once support is dropped for these
+         * browsers, the property will serve no purpose and it will be removed.
+         *
+         * **Solution**: Find and remove code that changes or uses `jQuery.fx.interval`. If the value is being
+         * used by code in your page or a plugin, the code may be making assumptions that are no longer valid.
+         * aThe default value of `jQuery.fx.interval` is `13` (milliseconds), which could be used instead of
+         * accessing this property.
          * @example ​ ````Cause all animations to run with less frames.
 ```html
 <!doctype html>
@@ -5100,6 +5110,16 @@ $p.append( jQuery.hasData( p ) + " " ); // false
      * @see \`{@link https://api.jquery.com/jQuery.holdReady/ }\`
      * @since 1.6
      * @deprecated Deprecated since 3.2. See \`{@link https://github.com/jquery/jquery/issues/3288 }\`.
+     *
+     * **Cause**: The `jQuery.holdReady()` method has been deprecated due to its detrimental effect on the
+     * global performance of the page. This method can prevent all the code on the page from initializing
+     * for extended lengths of time.
+     *
+     * **Solution**: Rewrite the page so that it does not require all jQuery ready handlers to be delayed.
+     * This might be accomplished, for example, by late-loading only the code that requires the delay when
+     * it is safe to run. Due to the complexity of this method, jQuery Migrate does not attempt to fill the
+     * functionality. If the underlying version of jQuery used with jQuery Migrate no longer contains
+     * `jQuery.holdReady()` the code will fail shortly after this warning appears.
      * @example ​ ````Delay the ready event until a custom plugin has loaded.
 ```html
 <!doctype html>
@@ -5379,6 +5399,12 @@ jQuery.isPlainObject( "test" ) // false
      * @see \`{@link https://api.jquery.com/jQuery.isWindow/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/3629 }\`.
+     *
+     * **Cause**: This method returns `true` if its argument is thought to be a `window` element. It was
+     * created for internal use and is not a reliable way of detecting `window` for public needs.
+     *
+     * **Solution**: Remove any use of `jQuery.isWindow()` from code. If it is truly needed it can be
+     * replaced with a check for `obj != null && obj === obj.window` which was the test used inside this method.
      * @example ​ ````Finds out if the parameter is a window.
 ```html
 <!doctype html>
@@ -6284,6 +6310,11 @@ $( "<ol></ol>" )
      * @see \`{@link https://api.jquery.com/jQuery.parseJSON/ }\`
      * @since 1.4.1
      * @deprecated Deprecated since 3.0. Use \`{@link JSON.parse }\`.
+     *
+     * **Cause**: The `jQuery.parseJSON` method in recent jQuery is identical to the native `JSON.parse`.
+     * As of jQuery 3.0 `jQuery.parseJSON` is deprecated.
+     *
+     * **Solution**: Replace any use of `jQuery.parseJSON` with `JSON.parse`.
      * @example ​ ````Parse a JSON string.
 ```html
 <!doctype html>
@@ -28326,6 +28357,12 @@ $( "b" ).append( "" + jQuery.type( /test/ ) );
      * @see \`{@link https://api.jquery.com/jQuery.unique/ }\`
      * @since 1.1.3
      * @deprecated Deprecated since 3.0. Use \`{@link JQueryStatic.uniqueSort }`.
+     *
+     * **Cause**: The fact that `jQuery.unique` sorted its results in DOM order was surprising to many who
+     * did not read the documentation carefully. As of jQuery 3.0 this function is being renamed to make it clear.
+     *
+     * **Solution**: Replace all uses of `jQuery.unique` with `jQuery.uniqueSort` which is the same function
+     * with a better name.
      * @example ​ ````Removes any duplicate elements from the array of divs.
 ```html
 <!doctype html>
@@ -31908,6 +31945,14 @@ $( "p" ).before( $( "b" ) );
      * @since 1.0
      * @since 1.4.3
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
+     *
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
+     * methods which can handle both delegated and direct event binding. Although the older methods are
+     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     *
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
+     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
+     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Handle click and double-click for the paragraph.  Note: the coordinates are window relative, so in this case relative to the demo iframe.
 ```html
 <!doctype html>
@@ -32131,6 +32176,14 @@ $( "div.test" ).bind({
      * @since 1.0
      * @since 1.4.3
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
+     *
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
+     * methods which can handle both delegated and direct event binding. Although the older methods are
+     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     *
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
+     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
+     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Handle click and double-click for the paragraph.  Note: the coordinates are window relative, so in this case relative to the demo iframe.
 ```html
 <!doctype html>
@@ -32349,6 +32402,14 @@ $( "div.test" ).bind({
      * @see \`{@link https://api.jquery.com/bind/ }\`
      * @since 1.4
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
+     *
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
+     * methods which can handle both delegated and direct event binding. Although the older methods are
+     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     *
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
+     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
+     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Handle click and double-click for the paragraph.  Note: the coordinates are window relative, so in this case relative to the demo iframe.
 ```html
 <!doctype html>
@@ -32567,6 +32628,14 @@ $( "div.test" ).bind({
      * @see \`{@link https://api.jquery.com/blur/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To trigger the blur event on all paragraphs:
 ```html
 <!doctype html>
@@ -32594,6 +32663,14 @@ $( "p" ).blur();
      * @see \`{@link https://api.jquery.com/blur/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To trigger the blur event on all paragraphs:
 ```html
 <!doctype html>
@@ -32621,6 +32698,14 @@ $( "p" ).blur();
      * @see \`{@link https://api.jquery.com/change/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Attaches a change event to the select that gets the text for each selected option and writes them in the div.  It then triggers the event for the initial text draw.
 ```html
 <!doctype html>
@@ -32690,6 +32775,14 @@ $( "input[type='text']" ).change(function() {
      * @see \`{@link https://api.jquery.com/change/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Attaches a change event to the select that gets the text for each selected option and writes them in the div.  It then triggers the event for the initial text draw.
 ```html
 <!doctype html>
@@ -32996,6 +33089,14 @@ $( "#stop" ).click(function() {
      * @see \`{@link https://api.jquery.com/click/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Hide paragraphs on a page when they are clicked:
 ```html
 <!doctype html>
@@ -33056,6 +33157,14 @@ $( "p" ).click();
      * @see \`{@link https://api.jquery.com/click/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Hide paragraphs on a page when they are clicked:
 ```html
 <!doctype html>
@@ -33358,6 +33467,14 @@ $( "#frameDemo" ).contents().find( "a" ).css( "background-color", "#BADA55" );
      * @see \`{@link https://api.jquery.com/contextmenu/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To show a &quot;Hello World!&quot; alert box when the contextmenu event is triggered on a paragraph on the page:
 ```html
 <!doctype html>
@@ -33422,6 +33539,14 @@ div.contextmenu(function() {
      * @see \`{@link https://api.jquery.com/contextmenu/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To show a &quot;Hello World!&quot; alert box when the contextmenu event is triggered on a paragraph on the page:
 ```html
 <!doctype html>
@@ -35121,6 +35246,14 @@ $( "button" ).click(function() {
      * @see \`{@link https://api.jquery.com/dblclick/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To bind a &quot;Hello World!&quot; alert box to the dblclick event on every paragraph on the page:
 ```html
 <!doctype html>
@@ -35185,6 +35318,14 @@ divdbl.dblclick(function() {
      * @see \`{@link https://api.jquery.com/dblclick/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To bind a &quot;Hello World!&quot; alert box to the dblclick event on every paragraph on the page:
 ```html
 <!doctype html>
@@ -35302,6 +35443,14 @@ $( "button" ).click(function() {
      * @see \`{@link https://api.jquery.com/delegate/ }\`
      * @since 1.4.2
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
+     *
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
+     * methods which can handle both delegated and direct event binding. Although the older methods are
+     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     *
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
+     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
+     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Click a paragraph to add another. Note that .delegate() attaches a click event handler to all paragraphs - even new ones.
 ```html
 <!doctype html>
@@ -35452,6 +35601,14 @@ $( "button" ).click(function() {
      * @see \`{@link https://api.jquery.com/delegate/ }\`
      * @since 1.4.2
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
+     *
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
+     * methods which can handle both delegated and direct event binding. Although the older methods are
+     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     *
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
+     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
+     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Click a paragraph to add another. Note that .delegate() attaches a click event handler to all paragraphs - even new ones.
 ```html
 <!doctype html>
@@ -35599,6 +35756,14 @@ $( "button" ).click(function() {
      * @see \`{@link https://api.jquery.com/delegate/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.on }\`.
+     *
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
+     * methods which can handle both delegated and direct event binding. Although the older methods are
+     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     *
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
+     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
+     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Click a paragraph to add another. Note that .delegate() attaches a click event handler to all paragraphs - even new ones.
 ```html
 <!doctype html>
@@ -37782,6 +37947,14 @@ $( "p span" ).first().addClass( "highlight" );
      * @see \`{@link https://api.jquery.com/focus/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Fire focus.
 ```html
 <!doctype html>
@@ -37857,6 +38030,14 @@ $( document ).ready(function() {
      * @see \`{@link https://api.jquery.com/focus/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Fire focus.
 ```html
 <!doctype html>
@@ -37932,6 +38113,14 @@ $( document ).ready(function() {
      * @see \`{@link https://api.jquery.com/focusin/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Watch for a focus to occur within the paragraphs on the page.
 ```html
 <!doctype html>
@@ -37969,6 +38158,14 @@ $( "p" ).focusin(function() {
      * @see \`{@link https://api.jquery.com/focusin/ }\`
      * @since 1.4
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Watch for a focus to occur within the paragraphs on the page.
 ```html
 <!doctype html>
@@ -38006,6 +38203,14 @@ $( "p" ).focusin(function() {
      * @see \`{@link https://api.jquery.com/focusout/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Watch for a loss of focus to occur inside paragraphs and note the difference between the focusout count and the blur count. (The blur count does not change because those events do not bubble.)
 ```html
 <!doctype html>
@@ -38064,6 +38269,14 @@ $( "p" )
      * @see \`{@link https://api.jquery.com/focusout/ }\`
      * @since 1.4
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Watch for a loss of focus to occur inside paragraphs and note the difference between the focusout count and the blur count. (The blur count does not change because those events do not bubble.)
 ```html
 <!doctype html>
@@ -38973,6 +39186,17 @@ $( "div" ).click(function() {
      * @see \`{@link https://api.jquery.com/hover/ }\`
      * @since 1.0
      * @since 1.4
+     * @deprecated
+     *
+     * **Cause**: The `.hover()` method is a shorthand for the use of the `mouseover`/`mouseout` events. It
+     * is often a poor user interface choice because it does not allow for any small amounts of delay
+     * between when the mouse enters or exits an area and when the event fires. This can make it quite
+     * difficult to use with UI widgets such as drop-down menus. For more information on the problems of
+     * hovering, see the \`{@link hoverIntent plugin http://cherne.net/brian/resources/jquery.hoverIntent.html }\`.
+     *
+     * **Solution**: Review uses of `.hover()` to determine if they are appropriate, and consider use of
+     * plugins such as `hoverIntent` as an alternative. The direct replacement for `.hover(fn1, fn2)`, is
+     * `.on("mouseenter", fn1).on("mouseleave", fn2)`.
      * @example ​ ````To add a special style to list items that are being hovered over, try:
 ```html
 <!doctype html>
@@ -40149,6 +40373,14 @@ $( "li" ).click(function() {
      * @see \`{@link https://api.jquery.com/keydown/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the event object for the keydown handler when a key is pressed in the input.
 ```html
 <!doctype html>
@@ -40218,6 +40450,14 @@ $( "#other" ).click(function() {
      * @see \`{@link https://api.jquery.com/keydown/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the event object for the keydown handler when a key is pressed in the input.
 ```html
 <!doctype html>
@@ -40287,6 +40527,14 @@ $( "#other" ).click(function() {
      * @see \`{@link https://api.jquery.com/keypress/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the event object when a key is pressed in the input. Note: This demo relies on a simple $.print() plugin (https://api.jquery.com/resources/events.js) for the event object&#39;s output.
 ```html
 <!doctype html>
@@ -40356,6 +40604,14 @@ $( "#other" ).click(function() {
      * @see \`{@link https://api.jquery.com/keypress/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the event object when a key is pressed in the input. Note: This demo relies on a simple $.print() plugin (https://api.jquery.com/resources/events.js) for the event object&#39;s output.
 ```html
 <!doctype html>
@@ -40425,6 +40681,14 @@ $( "#other" ).click(function() {
      * @see \`{@link https://api.jquery.com/keyup/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the event object for the keyup handler (using a simple $.print plugin) when a key is released in the input.
 ```html
 <!doctype html>
@@ -40495,6 +40759,14 @@ $( "#other").click(function() {
      * @see \`{@link https://api.jquery.com/keyup/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the event object for the keyup handler (using a simple $.print plugin) when a key is released in the input.
 ```html
 <!doctype html>
@@ -40988,6 +41260,14 @@ $( "input" ).click(function() {
      * @see \`{@link https://api.jquery.com/mousedown/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
 ```html
 <!doctype html>
@@ -41023,6 +41303,14 @@ $( "p" )
      * @see \`{@link https://api.jquery.com/mousedown/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
 ```html
 <!doctype html>
@@ -41058,6 +41346,14 @@ $( "p" )
      * @see \`{@link https://api.jquery.com/mouseenter/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show texts when mouseenter and mouseout event triggering.
     mouseover fires when the pointer moves into the child element as well, while mouseenter fires only when the pointer moves into the bound element.
 ```html
@@ -41136,6 +41432,14 @@ $( "div.enterleave" )
      * @see \`{@link https://api.jquery.com/mouseenter/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show texts when mouseenter and mouseout event triggering.
     mouseover fires when the pointer moves into the child element as well, while mouseenter fires only when the pointer moves into the bound element.
 ```html
@@ -41214,6 +41518,14 @@ $( "div.enterleave" )
      * @see \`{@link https://api.jquery.com/mouseleave/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show number of times mouseout and mouseleave events are triggered. mouseout fires when the pointer moves out of child element as well, while mouseleave fires only when the pointer moves out of the bound element.
 ```html
 <!doctype html>
@@ -41290,6 +41602,14 @@ $( "div.enterleave" )
      * @see \`{@link https://api.jquery.com/mouseleave/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show number of times mouseout and mouseleave events are triggered. mouseout fires when the pointer moves out of child element as well, while mouseleave fires only when the pointer moves out of the bound element.
 ```html
 <!doctype html>
@@ -41366,6 +41686,14 @@ $( "div.enterleave" )
      * @see \`{@link https://api.jquery.com/mousemove/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the mouse coordinates when the mouse is moved over the yellow div.  Coordinates are relative to the window, which in this case is the iframe.
 ```html
 <!doctype html>
@@ -41427,6 +41755,14 @@ $( "div" ).mousemove(function( event ) {
      * @see \`{@link https://api.jquery.com/mousemove/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the mouse coordinates when the mouse is moved over the yellow div.  Coordinates are relative to the window, which in this case is the iframe.
 ```html
 <!doctype html>
@@ -41488,6 +41824,14 @@ $( "div" ).mousemove(function( event ) {
      * @see \`{@link https://api.jquery.com/mouseout/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the number of times mouseout and mouseleave events are triggered.
   mouseout fires when the pointer moves out of the child element as well, while mouseleave fires only when the pointer moves out of the bound element.
 ```html
@@ -41566,6 +41910,14 @@ $( "div.enterleave" )
      * @see \`{@link https://api.jquery.com/mouseout/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the number of times mouseout and mouseleave events are triggered.
   mouseout fires when the pointer moves out of the child element as well, while mouseleave fires only when the pointer moves out of the bound element.
 ```html
@@ -41644,6 +41996,14 @@ $( "div.enterleave" )
      * @see \`{@link https://api.jquery.com/mouseover/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the number of times mouseover and mouseenter events are triggered.
 mouseover fires when the pointer moves into the child element as well, while mouseenter fires only when the pointer moves into the bound element.
 ```html
@@ -41722,6 +42082,14 @@ $( "div.enterleave" )
      * @see \`{@link https://api.jquery.com/mouseover/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show the number of times mouseover and mouseenter events are triggered.
 mouseover fires when the pointer moves into the child element as well, while mouseenter fires only when the pointer moves into the bound element.
 ```html
@@ -41800,6 +42168,14 @@ $( "div.enterleave" )
      * @see \`{@link https://api.jquery.com/mouseup/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
 ```html
 <!doctype html>
@@ -41835,6 +42211,14 @@ $( "p" )
      * @see \`{@link https://api.jquery.com/mouseup/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````Show texts when mouseup and mousedown event triggering.
 ```html
 <!doctype html>
@@ -50402,6 +50786,14 @@ $( "button" ).on( "click", function() {
      * @see \`{@link https://api.jquery.com/resize/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To see the window width while (or after) it is resized, try:
 ```html
 <!doctype html>
@@ -50431,6 +50823,14 @@ $( window ).resize(function() {
      * @see \`{@link https://api.jquery.com/resize/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To see the window width while (or after) it is resized, try:
 ```html
 <!doctype html>
@@ -50460,6 +50860,14 @@ $( window ).resize(function() {
      * @see \`{@link https://api.jquery.com/scroll/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To do something when your page is scrolled:
 ```html
 <!doctype html>
@@ -50507,6 +50915,14 @@ $( window ).scroll(function() {
      * @see \`{@link https://api.jquery.com/scroll/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To do something when your page is scrolled:
 ```html
 <!doctype html>
@@ -50845,6 +51261,14 @@ $( "div.demo" ).scrollTop( 300 );
      * @see \`{@link https://api.jquery.com/select/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To do something when text in input boxes is selected:
 ```html
 <!doctype html>
@@ -50904,6 +51328,14 @@ $( "input" ).select();
      * @see \`{@link https://api.jquery.com/select/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To do something when text in input boxes is selected:
 ```html
 <!doctype html>
@@ -52821,6 +53253,14 @@ $( "#toggle" ).on( "click", function() {
      * @see \`{@link https://api.jquery.com/submit/ }\`
      * @since 1.4.3
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````If you&#39;d like to prevent forms from being submitted unless a flag variable is set, try:
 ```html
 <!doctype html>
@@ -52913,6 +53353,14 @@ $( "form:first" ).submit();
      * @see \`{@link https://api.jquery.com/submit/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.3. Use \`{@link JQuery.on }\` or \`{@link JQuery.trigger }\`.
+     * 
+     * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for
+     * any event type, and should be used instead of the shortcut methods. This message also applies to the
+     * other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick,
+     * mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit,
+     * keydown, keypress, keyup, and contextmenu.
+     * 
+     * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````If you&#39;d like to prevent forms from being submitted unless a flag variable is set, try:
 ```html
 <!doctype html>
@@ -53609,6 +54057,16 @@ $( "a" ).on( "click", function( event ) {
      * @see \`{@link https://api.jquery.com/toggleClass/ }\`
      * @since 1.4
      * @deprecated Deprecated since 3.0. See \`{@link https://github.com/jquery/jquery/pull/2618 }\`.
+     *
+     * **Cause**: Calling `.toggleClass()` with no arguments, or with a single Boolean `true` or `false`
+     * argument, has been deprecated. Its behavior was poorly documented, but essentially the method saved
+     * away the current class value in a data item when the class was removed and restored the saved value
+     * when it was toggled back. If you do not believe you are specificially trying to use this form of the
+     * method, it is possible you are accidentally doing so via an inadvertent undefined value, as
+     * `.toggleClass( undefined )` toggles all classes.
+     *
+     * **Solution**: If this functionality is still needed, save the current full `.attr( "class" )` value
+     * in a data item and restore it when required.
      * @example ​ ````Toggle the class &#39;highlight&#39; when a paragraph is clicked.
 ```html
 <!doctype html>
@@ -53973,6 +54431,14 @@ $( "input" ).focus(function() {
      * @since 1.0
      * @since 1.4.3
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
+     *
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
+     * methods which can handle both delegated and direct event binding. Although the older methods are
+     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     *
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
+     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
+     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
 <!doctype html>
@@ -54083,6 +54549,14 @@ $( "p" ).unbind( "click", foo ); // ... foo will no longer be called.
      * @see \`{@link https://api.jquery.com/unbind/ }\`
      * @since 1.0
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
+     *
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
+     * methods which can handle both delegated and direct event binding. Although the older methods are
+     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     *
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
+     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
+     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
 <!doctype html>
@@ -54195,6 +54669,14 @@ $( "p" ).unbind( "click", foo ); // ... foo will no longer be called.
      * @see \`{@link https://api.jquery.com/undelegate/ }\`
      * @since 1.4.2
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
+     *
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
+     * methods which can handle both delegated and direct event binding. Although the older methods are
+     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     *
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
+     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
+     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
 <!doctype html>
@@ -54337,6 +54819,14 @@ $( "form" ).undelegate( ".whatever" );
      * @since 1.4.2
      * @since 1.4.3
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
+     *
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
+     * methods which can handle both delegated and direct event binding. Although the older methods are
+     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     *
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
+     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
+     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
 <!doctype html>
@@ -54477,6 +54967,14 @@ $( "form" ).undelegate( ".whatever" );
      * @since 1.4.2
      * @since 1.6
      * @deprecated Deprecated since 3.0. Use \`{@link JQuery.off }\`.
+     *
+     * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()`
+     * methods which can handle both delegated and direct event binding. Although the older methods are
+     * still present in jQuery 3.0, they may be removed as early as the next major-version update.
+     *
+     * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old
+     * methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be
+     * renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
      * @example ​ ````Can bind and unbind events to the colored button.
 ```html
 <!doctype html>
@@ -57478,6 +57976,13 @@ obj.done(function( name ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -57590,6 +58095,13 @@ chained.done(function( data ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -57695,6 +58207,13 @@ chained.done(function( data ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -57800,6 +58319,13 @@ chained.done(function( data ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -57898,6 +58424,13 @@ chained.done(function( data ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -58003,6 +58536,13 @@ chained.done(function( data ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -58101,6 +58641,13 @@ chained.done(function( data ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link then JQuery.PromiseBase.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -59613,6 +60160,13 @@ obj.done(function( name ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -59725,6 +60279,13 @@ chained.done(function( data ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -59830,6 +60391,13 @@ chained.done(function( data ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -59935,6 +60503,13 @@ chained.done(function( data ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -60033,6 +60608,13 @@ chained.done(function( data ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -60138,6 +60720,13 @@ chained.done(function( data ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
@@ -60236,6 +60825,13 @@ chained.done(function( data ) {
          * @since 1.6
          * @since 1.7
          * @deprecated Deprecated since 1.8. Use \`{@link JQuery.Deferred.then }\`.
+         *
+         * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when
+         * the `.then()` method was changed to perform the same function.
+         *
+         * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`.
+         * Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous
+         * callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
 ```html
 <!doctype html>
