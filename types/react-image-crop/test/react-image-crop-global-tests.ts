@@ -71,6 +71,8 @@ class CompleteTest extends React.Component<{}, TestState> {
         this.setState({ crop });
     }
 
+    onImageError = (event: React.ReactEventHandler<HTMLImageElement>) => {};
+
     onImageLoaded = (image: HTMLImageElement) => {
         this.setState({
             crop: ReactCrop.makeAspectCrop(
@@ -91,6 +93,7 @@ class CompleteTest extends React.Component<{}, TestState> {
             {
                 src: 'imageSrc',
                 onChange: this.onChange,
+                onImageError: this.onImageError,
                 onImageLoaded: this.onImageLoaded,
                 crop: this.state.crop,
                 minWidth: 30,

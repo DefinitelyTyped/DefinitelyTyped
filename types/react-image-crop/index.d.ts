@@ -1,4 +1,4 @@
-// Type definitions for react-image-crop 3.0
+// Type definitions for react-image-crop 3.1
 // Project: https://github.com/DominicTobias/react-image-crop
 // Definitions by: Daniela Yassuda <https://github.com/danielasy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -26,6 +26,7 @@ declare namespace ReactCrop {
 
     interface ReactCropProps {
         src: string;
+        className?: string;
         crop?: Crop;
         imageAlt?: string;
         minWidth?: number;
@@ -35,7 +36,8 @@ declare namespace ReactCrop {
         keepSelection?: boolean;
         onChange: (crop: Crop, pixelCrop: PixelCrop) => void;
         onComplete?: (crop: Crop, pixelCrop: PixelCrop) => void;
-        onImageLoaded?: (target: HTMLImageElement) => void;
+        onImageError?: (event: React.ReactEventHandler<HTMLImageElement>) => void;
+        onImageLoaded?: (target: HTMLImageElement, pixelCrop: PixelCrop) => void;
         onDragStart?: () => void;
         onDragEnd?: () => void;
         disabled?: boolean;
@@ -47,7 +49,7 @@ declare namespace ReactCrop {
 
     function getPixelCrop(image: HTMLImageElement, percentCrop: Crop): Crop;
     function makeAspectCrop(crop: Crop, imageAspect: number): Crop;
-    function containCrop(crop: Crop, imageAspect: number): Crop;
+    function containCrop(previousCrop: Crop, crop: Crop, imageAspect: number): Crop;
 }
 
 declare class ReactCrop extends Component<ReactCrop.ReactCropProps> {
