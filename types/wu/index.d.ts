@@ -27,7 +27,7 @@ declare namespace wu {
 	function cycle<T>(iter: Iterable<T>): Iterable<T>;
 	function chunk<T>(n: number, iter: Iterable<T>): WuIterable<T[]>;
 	function concatMap<T, U>(fn: (t: T) => Iterable<U>, iter: Iterable<T>): WuIterable<U>;
-	function enumerate<T>(iter: Iterable<T>): Iterable<[number, T]>;
+	function enumerate<T>(iter: Iterable<T>): Iterable<[T, number]>;
 	function every<T>(fn: Filter<T>, iter: Iterable<T>): boolean;
 	function filter<T>(fn: Filter<T>, iter: Iterable<T>): WuIterable<T>;
 	function find<T>(fn: Filter<T>, iter: Iterable<T>): T | undefined;
@@ -76,7 +76,7 @@ declare namespace wu {
 		cycle(): Iterable<T>;
 		chunk(n: number): WuIterable<T[]>;
 		concatMap<U>(fn: (t: T) => Iterable<U>): WuIterable<U>;
-		enumerate(): Iterable<[number, T]>;
+		enumerate(): Iterable<[T, number]>;
 		every(fn: Filter<T>): boolean;
 		filter(fn: Filter<T>): WuIterable<T>;
 		find(fn: Filter<T>): T | undefined;
