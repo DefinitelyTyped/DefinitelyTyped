@@ -1,4 +1,4 @@
-// Type definitions for react-image-crop 3.1
+// Type definitions for react-image-crop 5.0
 // Project: https://github.com/DominicTobias/react-image-crop
 // Definitions by: Daniela Yassuda <https://github.com/danielasy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
