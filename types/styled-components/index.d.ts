@@ -21,7 +21,7 @@ export type ThemedOuterStyledProps<P, T> = P & {
     as?: React.ReactType | keyof JSX.IntrinsicElements;
     theme?: T;
 };
-export type OuterStyledProps<P, O> = ThemedOuterStyledProps<P, any>;
+export type OuterStyledProps<P> = ThemedOuterStyledProps<P, any>;
 
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> =
