@@ -23,7 +23,7 @@ interface ascii2mathml {
     (asciimath: string, options?: A2MML.Options): string;
 }
 
-namespace A2MML {
+declare namespace A2MML {
     interface Options {
         decimalMark?: string;
         colSep?: string;
