@@ -6915,7 +6915,7 @@ declare namespace browser.tabs {
 
     type _TabsOnUpdatedEvent<T = (tabId: number, changeInfo: {
         /** The tab's new attention state. */
-        attention: boolean;
+        attention?: boolean;
         /** The tab's new audible state. */
         audible?: boolean;
         /** True while the tab is not loaded with content. */
