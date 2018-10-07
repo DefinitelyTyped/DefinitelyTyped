@@ -530,3 +530,28 @@ const asTest = (
         <WithComponentH1 as={WithComponentH2} />
     </>
 );
+
+interface TestContainerProps {
+    size: 'big' | 'small';
+    test?: boolean;
+}
+const TestContainer = ({ size, test }: TestContainerProps) => {
+    return null;
+};
+
+const StyledTestContainer = styled(TestContainer)`
+    background: red;
+`;
+
+interface Test2ContainerProps {
+    type: 'foo' | 'bar';
+}
+class Test2Container extends React.Component<Test2ContainerProps> {
+    render() {
+        return null;
+    }
+}
+
+const containerTest = (
+    <StyledTestContainer as={Test2Container} size="small" />
+);
