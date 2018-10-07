@@ -726,6 +726,8 @@ declare namespace jest {
         (...args: any[]): any;
     }
 
+    interface SpyInstance<T = {}> extends MockInstance<T> {}
+
     /**
      * Wrap module with mock definitions
      *
