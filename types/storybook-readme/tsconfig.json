@@ -19,6 +19,7 @@
         "src/withDocs.d.ts",
         "src/doc.d.ts",
         "src/common.d.ts",
+        "components/Marked.d.ts",
         "storybook-readme-tests.tsx"
     ]
 }
