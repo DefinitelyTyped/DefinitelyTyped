@@ -47,7 +47,7 @@ declare class Web3 {
     shh: Shh;
     givenProvider: Provider;
     providers: Providers;
-    setProvider(provider: Provider): void;
+    setProvider(provider: Provider): boolean;
     utils: Utils;
 }
 
