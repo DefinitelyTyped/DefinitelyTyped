@@ -23,6 +23,11 @@ declare class A11yDialog {
      * Bind click listeners to dialog openers and closers.
      */
     create(): void;
+    /**
+     * Optional create function. If omitted, the one given to the constructor (or default) will be used.
+     */
+    create(el: Element | null): void;
+    create(el: Element | null, containers?: NodeList | Element | string): void;
 
 
     on<T extends Element>(evt: DialogEvents, callback: (dialogElement: T, event: Event) => void): void;
