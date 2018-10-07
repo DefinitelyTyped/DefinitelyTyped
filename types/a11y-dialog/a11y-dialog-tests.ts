@@ -1,6 +1,6 @@
 import A11yDialog = require('a11y-dialog');
 
-var dialogEl = new A11yDialog(document.getElementById("test"));
+const dialogEl = new A11yDialog(document.getElementById("test"));
 
 dialogEl.show();
 dialogEl.hide();
@@ -20,10 +20,9 @@ dialogEl.on("create", (el: HTMLElement, evt) => {
 });
 
 dialogEl.on('hide', () => {
-
+    const t = 5;
 });
 
-
 dialogEl.off("show", (el: HTMLElement) => {
-
-})
+    el.textContent;
+});

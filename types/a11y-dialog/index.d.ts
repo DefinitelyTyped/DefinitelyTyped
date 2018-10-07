@@ -1,12 +1,12 @@
-// Type definitions for a11y-dialog 5.2.0
+// Type definitions for a11y-dialog 5.2
 // Project: https://github.com/edenspiekermann/a11y-dialog
-// Definitions by: Yuto Otaguro <https://github.com/Goyatuzo>
+// Definitions by: Yuto <https://github.com/Goyatuzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 type DialogEvents = "show" | "hide" | "destroy" | "create";
 declare class A11yDialog {
     constructor(el: Element | null, containers?: NodeList | Element | string);
-
     /**
      * Shows the dialog.
      */
@@ -26,16 +26,21 @@ declare class A11yDialog {
     /**
      * Optional create function. If omitted, the one given to the constructor (or default) will be used.
      */
+    // tslint:disable-next-line unified-signatures
     create(el: Element | null): void;
+    // tslint:disable-next-line unified-signatures
     create(el: Element | null, containers?: NodeList | Element | string): void;
 
-
-    on<T extends Element>(evt: DialogEvents, callback: (dialogElement: T, event: Event) => void): void;
-    on<T extends Element>(evt: DialogEvents, callback: (dialogElement: T) => void): void;
+    on(evt: DialogEvents, callback: (dialogElement: any, event: Event) => void): void;
+    // tslint:disable-next-line unified-signatures
+    on(evt: DialogEvents, callback: (dialogElement: any) => void): void;
+    // tslint:disable-next-line unified-signatures
     on(evt: DialogEvents, callback: () => void): void;
 
-    off<T extends Element>(evt: DialogEvents, callback: (dialogElement: T, event: Event) => void): void;
-    off<T extends Element>(evt: DialogEvents, callback: (dialogElement: T) => void): void;
+    off(evt: DialogEvents, callback: (dialogElement: any, event: Event) => void): void;
+    // tslint:disable-next-line unified-signatures
+    off(evt: DialogEvents, callback: (dialogElement: any) => void): void;
+    // tslint:disable-next-line unified-signatures
     off(evt: DialogEvents, callback: () => void): void;
 }
 
