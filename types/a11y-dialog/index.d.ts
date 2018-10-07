@@ -6,7 +6,9 @@
 
 type DialogEvents = "show" | "hide" | "destroy" | "create";
 declare class A11yDialog {
-    constructor(el: Element | null, containers?: NodeList | Element | string);
+    // tslint:disable-next-line unified-signatures
+    constructor(el: Element | null, containers: NodeList | Element | string | null);
+    constructor(el: Element | null);
     /**
      * Shows the dialog.
      */
@@ -29,7 +31,7 @@ declare class A11yDialog {
     // tslint:disable-next-line unified-signatures
     create(el: Element | null): void;
     // tslint:disable-next-line unified-signatures
-    create(el: Element | null, containers?: NodeList | Element | string): void;
+    create(el: Element | null, containers?: NodeList | Element | string | null): void;
 
     on(evt: DialogEvents, callback: (dialogElement: any, event: Event) => void): void;
     // tslint:disable-next-line unified-signatures
