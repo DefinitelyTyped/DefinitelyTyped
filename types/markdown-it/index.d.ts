@@ -150,6 +150,17 @@ declare module MarkdownIt {
         ruler2: RulerInline;
     }
 
+    interface Delimiter {
+        close: boolean;
+        end: number;
+        jump: number;
+        length: number;
+        level: number;
+        marker: number;
+        open: boolean;
+        token: number;
+    }
+
     interface State {
         env: any;
         level: number;
@@ -174,7 +185,7 @@ declare module MarkdownIt {
         cache: { [start: number]: number };
 
         /** Emphasis-like delimiters */
-        delimiters: any[];
+        delimiters: Delimiter[];
 
         pending: string;
         pendingLevel: number;
