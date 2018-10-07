@@ -4,6 +4,7 @@
 //                 Budi Irawan <https://github.com/deerawan>
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Silas Rech <https://github.com/lenovouser>
+//                 Philipp Katz <https://github.com/qqilihq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,7 +15,7 @@ declare namespace i18next {
 
     type FallbackLng = string | string[] | FallbackLngObjList;
 
-    type FormatFunction = (value: string, format?: string, lng?: string) => string;
+    type FormatFunction = (value: any, format?: string, lng?: string) => string;
 
     /* tslint:disable-next-line:no-empty-interface */
     interface DetectionPluginOptions {
