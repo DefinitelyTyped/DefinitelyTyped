@@ -1408,7 +1408,7 @@ export class Map extends Evented {
     scrollWheelZoom: Handler;
     tap?: Handler;
     touchZoom: Handler;
-    gestureHandling: Handler;
+    gestureHandling?: Handler;
     zoomControl: Control.Zoom;
     options: MapOptions;
 }
