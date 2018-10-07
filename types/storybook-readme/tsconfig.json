@@ -23,6 +23,6 @@
         "src/withDocs.d.ts",
         "src/doc.d.ts",
         "src/common.d.ts",
-        "storybook-readme-tests.ts"
+        "storybook-readme-tests.tsx"
     ]
 }
