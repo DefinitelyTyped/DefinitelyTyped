@@ -1,3 +1,8 @@
+// Type definitions for abbrev 1.1
+// Project: https://github.com/uber/react-vis#readme
+// Definitions by: Domino987 <https://github.com/Domino987>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare module "react-vis" {
 
     export class AbstractSeries extends React.Component<PropsAbstractSeries> {
