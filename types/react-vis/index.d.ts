@@ -1,4 +1,4 @@
-// Type definitions for abbrev 1.1
+// Type definitions for react-vis 1.11.2
 // Project: https://github.com/uber/react-vis#readme
 // Definitions by: Domino987 <https://github.com/Domino987>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
