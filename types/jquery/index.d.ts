@@ -61782,17 +61782,17 @@ jQuery.easing.easeInCubic = function ( p, t, b, c, d ) {
     return c * ( t /= d ) * t * t + b;
 }
 ```
-      *
-      * You can achive same effect with this:
-      *
+     *
+     * You can achive same effect with this:
+     *
 ```js
 jQuery.easing.easeInCubic = function ( p ) {
     return Math.pow( p, 3 );
 }
 ```
-      *
-      * See jQuery-ui \`{@link https://github.com/jquery/jquery-ui/commit/c0093b599fcd58b6ad122ab425c4cc1a4da4a520#diff-9cd789a170c765edcf0f4854db386e1a commit}\` for other possible cases.
-      */
+     *
+     * See jQuery-ui \`{@link https://github.com/jquery/jquery-ui/commit/c0093b599fcd58b6ad122ab425c4cc1a4da4a520#diff-9cd789a170c765edcf0f4854db386e1a commit}\` for other possible cases.
+     */
     type EasingMethod = (p: number, t: number, b: number, c: number, d: number) => number;
 
     interface Easings {
