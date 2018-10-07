@@ -10,8 +10,7 @@
         "jsx": "react",
         "typeRoots": ["../"],
         "paths": {
-            "storybook-readme": ["storybook-readme"],
-            "@storybook/react": ["storybook__react"]
+            "storybook-readme": ["storybook-readme"]
         },
         "types": [],
         "noEmit": true,
