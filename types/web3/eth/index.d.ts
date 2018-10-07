@@ -91,8 +91,8 @@ export default interface Eth {
     ): Promise<BigNumber>;
     getBalance(
         address: string,
-        defaultBlock?: BlockType,
-        cb?: Callback<BigNumber>
+        defaultBlock: BlockType,
+        cb: Callback<BigNumber>
     ): void;
     getBlock(
         number: BlockType,
