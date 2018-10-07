@@ -1,4 +1,4 @@
-// Type definitions for storybook-readme "4.0.0-beta1"
+// Type definitions for storybook-readme 3.3
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Taeheon Kim  <https://github.com/lonyele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
