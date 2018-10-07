@@ -5344,11 +5344,8 @@ export class Skeleton {
     clone(): this;
 }
 
-export type SkinnedMeshMaterialType = MeshBasicMaterial | MeshDepthMaterial | MeshLambertMaterial | MeshPhongMaterial
-    | MeshStandardMaterial | ShaderMaterial
-
 export class SkinnedMesh extends Mesh {
-    constructor(geometry?: Geometry|BufferGeometry, material?: SkinnedMeshMaterialType, useVertexTexture?: boolean);
+    constructor(geometry?: Geometry|BufferGeometry, material?: Material, useVertexTexture?: boolean);
 
     bindMode: string;
     bindMatrix: Matrix4;
