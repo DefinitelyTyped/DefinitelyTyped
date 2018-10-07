@@ -2,6 +2,7 @@ import * as Utils from "./common/utils";
 import Renderer = require("./renderer");
 import Ruler = require("./ruler");
 
+
 export = Remarkable;
 
 declare class Remarkable {
@@ -134,11 +135,50 @@ declare namespace Remarkable {
         options: Options;
     }
 
+    export type ParsingState = {
+        src:         string,
+        env:         Env,
+        options:     Options,
+        tokens:      [ ContentToken ],
+        inlineMode:  boolean,
+
+        pos:         number,
+        posMax:      number,
+        pending:     string,
+        level:       number,
+
+        inline:      ParserInline,
+        block:       ParserBlock,
+        renderer:    Renderer,
+        typographer: boolean,
+
+        push:        (token: ContentToken) => void
+    }
+
+    /**
+     * Return `true` if the parsing function has recognized the current position
+     * in the input as one if its tokens.
+     */
+    type ParsingRule = (
+        /**
+         * Representation of the current input stream, and the results of
+         * parsing it so far.
+         */
+        state: ParsingState,
+
+        /**
+         * If `true` we just do the recognition part, and don't bother to push a
+         * token.
+         */
+        silent: boolean
+
+    ) => boolean;
+
     type Rule = (
         /**
          * The list of tokens currently being processed.
          */
-        tokens: Token[],
+        tokens: ContentToken[],
 
         /**
          * The index of the token currently being processed.
@@ -251,14 +291,20 @@ declare namespace Remarkable {
 
     interface ContentToken extends BaseToken {
         /**
-         * A text token has a `content` property containing the text it represents.
+         * A text token has a `content` property. This is passed to
+         * the corresponding renderer to be converted for output.
          */
-        content: string;
+        content: any;
 
         /**
          * The type of the token.
          */
-        type: "text";
+        type: string;
+
+        /**
+         * Is this a block element
+         */
+        block: boolean;
     }
 
     interface BlockContentToken extends BaseToken {
@@ -345,3 +391,16 @@ declare namespace Remarkable {
 
     type Token = (TagToken | ContentToken | BlockContentToken) & MiscTokenProps;
 }
+
+declare class ParserBlock {
+    tokenize(state: Remarkable.ParsingState, startLine: number, endLine: number) : void;
+    parse(str: string, options: Remarkable.Options, env: Remarkable.Env, tokens: [ Remarkable.Token ]): void;
+  }
+
+
+  declare class ParserInline {
+    skipToken(state: Remarkable.ParsingState) : void;
+    tokenize(state: Remarkable.ParsingState)  : void;
+    parse(str: string, options: Remarkable.Options, env: Remarkable.Env, tokens: [Remarkable.Token]) : void;
+    validateLink(url: string) : boolean;
+  }
