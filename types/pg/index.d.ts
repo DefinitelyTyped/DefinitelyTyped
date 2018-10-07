@@ -153,7 +153,6 @@ export class Pool extends events.EventEmitter {
     end(callback: () => void): void;
 
     query<T extends Submittable>(queryStream: T): T;
-    query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
     query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
     query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
@@ -172,7 +171,6 @@ export class ClientBase extends events.EventEmitter {
     connect(callback: (err: Error) => void): void;
 
     query<T extends Submittable>(queryStream: T): T;
-    query(queryConfig: QueryArrayConfig): Promise<QueryArrayResult>;
     query(queryConfig: QueryArrayConfig, values?: any[]): Promise<QueryArrayResult>;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
     query(queryTextOrConfig: string | QueryConfig, values?: any[]): Promise<QueryResult>;
