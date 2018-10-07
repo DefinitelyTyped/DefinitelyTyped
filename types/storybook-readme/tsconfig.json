@@ -9,9 +9,6 @@
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": ["../"],
-        "paths": {
-            "storybook-readme": ["storybook-readme"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
