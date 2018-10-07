@@ -19,10 +19,10 @@
     },
     "files": [
         "index.d.ts",
-        "./src/withReadme.d.ts",
-        "./src/withDocs.d.ts",
-        "./src/doc.d.ts",
-        "./src/common.d.ts",
+        "src/withReadme.d.ts",
+        "src/withDocs.d.ts",
+        "src/doc.d.ts",
+        "src/common.d.ts",
         "./src/storybook-readme-tests.tsx"
     ]
 }
