@@ -5362,12 +5362,12 @@ export class SkinnedMesh extends Mesh {
 }
 
 export class Sprite extends Object3D {
-    constructor(material?: SpriteMaterial);
+    constructor(material?: Material);
 
     type: "Sprite";
     isSprite: true;
 
-    material: SpriteMaterial;
+    material: Material;
     center: Vector2;
 
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
