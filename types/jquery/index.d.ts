@@ -61823,6 +61823,48 @@ jQuery.easing.easeInCubic = function ( p ) {
 
     // Instance members
     interface Event {
+        // region Copied properties
+        // #region Copied properties
+
+        bubbles?: boolean;
+        cancelable?: boolean;
+        eventPhase?: number;
+
+        detail?: number;
+        view?: Window;
+
+        button?: number;
+        buttons?: number;
+        clientX?: number;
+        clientY?: number;
+        offsetX?: number;
+        offsetY?: number;
+        screenX?: number;
+        screenY?: number;
+        /** @deprecated */
+        toElement?: Element;
+
+        pointerId?: number;
+        pointerType?: string;
+
+        /** @deprecated */
+        char?: string;
+        /** @deprecated */
+        charCode?: number;
+        key?: string;
+        /** @deprecated */
+        keyCode?: number;
+        
+        changedTouches?: TouchList;
+        targetTouches?: TouchList;
+        touches?: TouchList;
+        
+        altKey?: boolean;
+        ctrlKey?: boolean;
+        shiftKey?: boolean;
+
+        // #endregion
+
         /**
          * Indicates whether the META key was pressed when the event fired.
          *
@@ -62339,10 +62381,7 @@ $( "p" ).click(function( event ) {
 
     // Generic members
     interface Event<TTarget = EventTarget,
-        TData = null> extends Partial<Pick<PointerEvent & KeyboardEvent & TouchEvent, 'altKey' | 'bubbles' | 'cancelable' |
-        'changedTouches' | 'ctrlKey' | 'detail' | 'eventPhase' | 'metaKey' | 'pageX' | 'pageY' | 'shiftKey' | 'view' |
-        'char' | 'charCode' | 'key' | 'keyCode' | 'button' | 'buttons' | 'clientX' | 'clientY' | 'offsetX' | 'offsetY' |
-        'pointerId' | 'pointerType' | 'screenX' | 'screenY' | 'targetTouches' | 'toElement' | 'touches'>> {
+        TData = null> {
         /**
          * The current DOM element within the event bubbling phase.
          *
