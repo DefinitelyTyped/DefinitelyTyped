@@ -9,10 +9,6 @@
         "baseUrl": "../",
         "jsx": "react",
         "typeRoots": ["../"],
-        "paths": {
-            "storybook-readme": ["storybook-readme"],
-            "@storybook/react": ["storybook__react"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -23,6 +19,6 @@
         "src/withDocs.d.ts",
         "src/doc.d.ts",
         "src/common.d.ts",
-        "./src/storybook-readme-tests.tsx"
+        "storybook-readme-tests.tsx"
     ]
 }
