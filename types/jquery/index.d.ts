@@ -27086,17 +27086,7 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/callbacks.add/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.add() to add new callbacks to a callback list:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>callbacks.add demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // A sample logging function to be added to a callbacks list
 var foo = function( value ) {
   console.log( "foo: " + value );
@@ -27125,9 +27115,6 @@ callbacks.fire( "world" );
 // Outputs:
 // "foo: world"
 // "bar: world"
-</script>
-</body>
-</html>
 ```
          */
         add(callback: TypeOrArray<T>, ...callbacks: Array<TypeOrArray<T>>): this;
@@ -27137,17 +27124,7 @@ callbacks.fire( "world" );
          * @see \`{@link https://api.jquery.com/callbacks.disable/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.disable() to disable further calls to a callback list:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>callbacks.disable demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // A sample logging function to be added to a callbacks list
 var foo = function( value ) {
   console.log( value );
@@ -27168,9 +27145,6 @@ callbacks.disable();
 // Attempt to fire with "foobar" as an argument
 callbacks.fire( "foobar" );
 // foobar isn't output
-</script>
-</body>
-</html>
 ```
          */
         disable(): this;
@@ -27180,17 +27154,7 @@ callbacks.fire( "foobar" );
          * @see \`{@link https://api.jquery.com/callbacks.disabled/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.disabled() to determine if the callbacks list has been disabled:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>callbacks.disabled demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // A sample logging function to be added to a callbacks list
 var foo = function( value ) {
   console.log( "foo:" + value );
@@ -27211,9 +27175,6 @@ callbacks.disable();
 // Test the disabled state of the list
 console.log ( callbacks.disabled() );
 // Outputs: true
-</script>
-</body>
-</html>
 ```
          */
         disabled(): boolean;
@@ -27223,17 +27184,7 @@ console.log ( callbacks.disabled() );
          * @see \`{@link https://api.jquery.com/callbacks.empty/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.empty() to empty a list of callbacks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>callbacks.empty demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // A sample logging function to be added to a callbacks list
 var foo = function( value1, value2 ) {
   console.log( "foo: " + value1 + "," + value2 );
@@ -27258,9 +27209,6 @@ console.log( callbacks.has( foo ) );
 // false
 console.log( callbacks.has( bar ) );
 // false
-</script>
-</body>
-</html>
 ```
          */
         empty(): this;
@@ -27271,17 +27219,7 @@ console.log( callbacks.has( bar ) );
          * @see \`{@link https://api.jquery.com/callbacks.fire/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.fire() to invoke the callbacks in a list with any arguments that have been passed:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>callbacks.fire demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // A sample logging function to be added to a callbacks list
 var foo = function( value ) {
   console.log( "foo:" + value );
@@ -27309,9 +27247,6 @@ callbacks.fire( "hello again" );
 // Outputs:
 // "foo: hello again"
 // "bar: hello again"
-</script>
-</body>
-</html>
 ```
          */
         fire(...args: any[]): this;
@@ -27323,17 +27258,7 @@ callbacks.fire( "hello again" );
          * @see \`{@link https://api.jquery.com/callbacks.fireWith/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.fireWith() to fire a list of callbacks with a specific context and an array of arguments:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>callbacks.fireWith demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // A sample logging function to be added to a callbacks list
 var log = function( value1, value2 ) {
   console.log( "Received: " + value1 + "," + value2 );
@@ -27349,9 +27274,6 @@ callbacks.add( log );
 ​
 callbacks.fireWith( window, [ "foo","bar" ] );
 // Outputs: "Received: foo, bar"
-</script>
-</body>
-</html>
 ```
          */
         fireWith(context: object, args?: ArrayLike<any>): this;
@@ -27361,17 +27283,7 @@ callbacks.fireWith( window, [ "foo","bar" ] );
          * @see \`{@link https://api.jquery.com/callbacks.fired/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.fired() to determine if the callbacks in a list have been called at least once:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>callbacks.fired demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // A sample logging function to be added to a callbacks list
 var foo = function( value ) {
   console.log( "foo:" + value );
@@ -27388,9 +27300,6 @@ callbacks.fire( "world" ); // Outputs: "foo: world"
 ​
 // Test to establish if the callbacks have been called
 console.log( callbacks.fired() );
-</script>
-</body>
-</html>
 ```
          */
         fired(): boolean;
@@ -27402,17 +27311,7 @@ console.log( callbacks.fired() );
          * @see \`{@link https://api.jquery.com/callbacks.has/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.has() to check if a callback list contains a specific callback:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>callbacks.has demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // A sample logging function to be added to a callbacks list
 var foo = function( value1, value2 ) {
   console.log( "Received: " + value1 + "," + value2 );
@@ -27433,9 +27332,6 @@ console.log( callbacks.has( foo ) );
 // true
 console.log( callbacks.has( bar ) );
 // false
-</script>
-</body>
-</html>
 ```
          */
         has(callback?: T): boolean;
@@ -27445,17 +27341,7 @@ console.log( callbacks.has( bar ) );
          * @see \`{@link https://api.jquery.com/callbacks.lock/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.lock() to lock a callback list to avoid further changes being made to the list state:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>callbacks.lock demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // A sample logging function to be added to a callbacks list
 var foo = function( value ) {
   console.log( "foo:" + value );
@@ -27478,9 +27364,6 @@ callbacks.fire( "world" );
 ​
 // As the list was locked, no items were called,
 // so "world" isn't logged
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Use callbacks.lock() to lock a callback list with &quot;memory,&quot; and then resume using the list:
 ```html
@@ -27541,6 +27424,7 @@ callbacks.fire( "youHadMeAtHello" );
 // Outputs "bar: hello" because the list is still locked,
 // and the argument value is still stored in memory
 </script>
+​
 </body>
 </html>
 ```
@@ -27552,17 +27436,7 @@ callbacks.fire( "youHadMeAtHello" );
          * @see \`{@link https://api.jquery.com/callbacks.locked/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.locked() to determine the lock-state of a callback list:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>callbacks.locked demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // A sample logging function to be added to a callbacks list
 var foo = function( value ) {
   console.log( "foo: " + value );
@@ -27583,9 +27457,6 @@ callbacks.lock();
 // Test the lock-state of the list
 console.log ( callbacks.locked() );
 // true
-</script>
-</body>
-</html>
 ```
          */
         locked(): boolean;
@@ -27596,17 +27467,7 @@ console.log ( callbacks.locked() );
          * @see \`{@link https://api.jquery.com/callbacks.remove/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.remove() to remove callbacks from a callback list:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>callbacks.remove demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // A sample logging function to be added to a callbacks list
 var foo = function( value ) {
   console.log( "foo: " + value );
@@ -27628,9 +27489,6 @@ callbacks.remove( foo );
 callbacks.fire( "world" );
 ​
 // Nothing output as "foo" is no longer in the list
-</script>
-</body>
-</html>
 ```
          */
         remove(...callbacks: T[]): this;
