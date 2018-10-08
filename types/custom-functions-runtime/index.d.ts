@@ -10,15 +10,24 @@ Copyright (c) Microsoft Corporation
 */
 
 /**
- * Specific to Excel Custom Functions. Enables you to set key-value pairs (a function's JSON id : JavaScript name).
+ * Specific to Excel Custom Functions.
+ * Enables you to set key-value pairs which map
+ * a function's id in the JSON metadata to the JS function name.
+ * @beta
  */
 declare let CustomFunctionMappings: { [key: string]: Function };
 /**
  * CustomFunctions namespace, used by Excel Custom Functions
+ * @beta
  */
 declare namespace CustomFunctions {
     /**
-     * StreamingHandler interface
+     * A handler passed automatically as the last parameter
+     * to a streaming function. With this parameter, a
+     * function can use handler.setResult to set a cell value
+     * or hook into the handler.onCanceled event to
+     * to handle what happens when the function stops streaming.
+     * @beta
      */
     interface StreamingHandler<T> extends CancelableHandler {
         /**
