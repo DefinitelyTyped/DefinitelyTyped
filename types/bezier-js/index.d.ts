@@ -96,8 +96,8 @@ declare namespace BezierJs {
         constructor(p1: Point, p2: Point, p3: Point, p4?: Point);
         static fromSVG(svgString: string): Bezier;
         static getABC(n: number, S: Point, B: Point, E: Point, t: number): ABC;
-        static quadraticFromPoints(p1: Point, p2: Point, p3: Point, t: number): Bezier;
-        static cubicFromPoints(S: Point, B: Point, E: Point, t: number, d1: number): Bezier;
+        static quadraticFromPoints(p1: Point, p2: Point, p3: Point, t?: number): Bezier;
+        static cubicFromPoints(S: Point, B: Point, E: Point, t?: number, d1?: number): Bezier;
         static getUtils(): typeof utils;
         getUtils(): typeof utils;
         valueOf(): string;
