@@ -28666,17 +28666,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
      * @see \`{@link https://api.jquery.com/jquery-2/#jquery1 }\`
      * @since 1.0
      * @example ​ ````Determine if an object is a jQuery object
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jquery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var a = { what: "A regular JS object" },
   b = $( "body" );
 ​
@@ -28687,26 +28677,10 @@ if ( a.jquery ) { // Falsy, since it's undefined
 if ( b.jquery ) { // Truthy, since it's a string
     alert( "b is a jQuery object!" );
 }
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Get the current version of jQuery running on the page
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jquery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 alert( "You are running jQuery version: " + $.fn.jquery );
-</script>
-</body>
-</html>
 ```
      */
     jquery: string;
@@ -28753,6 +28727,7 @@ $( document.body )
   // Trigger the click to start
   .trigger( "click" );
 </script>
+​
 </body>
 </html>
 ```
@@ -28766,132 +28741,6 @@ $( document.body )
      *                argument of the $(selector, context) method.
      * @see \`{@link https://api.jquery.com/add/ }\`
      * @since 1.4
-     * @example ​ ````Finds all divs and makes a border.  Then adds all paragraphs to the jQuery object to set their backgrounds yellow.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>add demo</title>
-  <style>
-  div {
-    width: 60px;
-    height: 60px;
-    margin: 10px;
-    float: left;
-  }
-  p {
-    clear: left;
-    font-weight: bold;
-    font-size: 16px;
-    color: blue;
-    margin: 0 10px;
-    padding: 2px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-​
-<p>Added this... (notice no border)</p>
-​
-<script>
-$( "div" ).css( "border", "2px solid red" )
-  .add( "p" )
-  .css( "background", "yellow" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Adds more elements, matched by the given expression, to the set of matched elements.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>add demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Hello</p>
-<span>Hello Again</span>
-​
-<script>
-$( "p" ).add( "span" ).css( "background", "yellow" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Adds more elements, created on the fly, to the set of matched elements.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>add demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Hello</p>
-​
-<script>
-$( "p" ).clone().add( "<span>Again</span>" ).appendTo( document.body );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Adds one or more Elements to the set of matched elements.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>add demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Hello</p>
-<span id="a">Hello Again</span>
-​
-<script>
-$( "p" ).add( document.getElementById( "a" ) ).css( "background", "yellow" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Demonstrates how to add (or push) elements to an existing collection
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>add demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Hello</p>
-<span id="a">Hello Again</span>
-​
-<script>
-var collection = $( "p" );
-// Capture the new collection
-collection = collection.add( document.getElementById( "a" ) );
-collection.css( "background", "yellow" );
-</script>
-</body>
-</html>
-```
      */
     add(selector: JQuery.Selector, context: Element): this;
     /**
@@ -28945,6 +28794,7 @@ $( "div" ).css( "border", "2px solid red" )
   .add( "p" )
   .css( "background", "yellow" );
 </script>
+​
 </body>
 </html>
 ```
@@ -28965,6 +28815,7 @@ $( "div" ).css( "border", "2px solid red" )
 <script>
 $( "p" ).add( "span" ).css( "background", "yellow" );
 </script>
+​
 </body>
 </html>
 ```
@@ -28984,6 +28835,7 @@ $( "p" ).add( "span" ).css( "background", "yellow" );
 <script>
 $( "p" ).clone().add( "<span>Again</span>" ).appendTo( document.body );
 </script>
+​
 </body>
 </html>
 ```
@@ -29004,6 +28856,7 @@ $( "p" ).clone().add( "<span>Again</span>" ).appendTo( document.body );
 <script>
 $( "p" ).add( document.getElementById( "a" ) ).css( "background", "yellow" );
 </script>
+​
 </body>
 </html>
 ```
@@ -29027,6 +28880,7 @@ var collection = $( "p" );
 collection = collection.add( document.getElementById( "a" ) );
 collection.css( "background", "yellow" );
 </script>
+​
 </body>
 </html>
 ```
@@ -29092,6 +28946,7 @@ $( "div.before-addback" ).find( "p" ).addClass( "background" );
 // Second Example
 $( "div.after-addback" ).find( "p" ).addBack().addClass( "background" );
 </script>
+​
 </body>
 </html>
 ```
@@ -29139,6 +28994,7 @@ $( "div.after-addback" ).find( "p" ).addBack().addClass( "background" );
 <script>
 $( "p" ).last().addClass( "selected" );
 </script>
+​
 </body>
 </html>
 ```
@@ -29172,6 +29028,7 @@ $( "p" ).last().addClass( "selected" );
 <script>
 $( "p:last" ).addClass( "selected highlight" );
 </script>
+​
 </body>
 </html>
 ```
@@ -29215,6 +29072,7 @@ $( "div" ).addClass(function( index, currentClass ) {
   return addedClass;
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -29248,6 +29106,7 @@ $( "div" ).addClass(function( index, currentClass ) {
 <script>
 $( "p" ).after( "<b>Hello</b>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -29272,6 +29131,7 @@ $( "p" ).after( "<b>Hello</b>" );
 <script>
 $( "p" ).after( document.createTextNode( "Hello" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -29297,6 +29157,7 @@ $( "p" ).after( document.createTextNode( "Hello" ) );
 <script>
 $( "p" ).after( $( "b" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -29312,79 +29173,6 @@ $( "p" ).after( $( "b" ) );
      * @see \`{@link https://api.jquery.com/after/ }\`
      * @since 1.4
      * @since 1.10
-     * @example ​ ````Inserts some HTML after all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>after demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>I would like to say: </p>
-​
-<script>
-$( "p" ).after( "<b>Hello</b>" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Inserts a DOM element after all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>after demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>I would like to say: </p>
-​
-<script>
-$( "p" ).after( document.createTextNode( "Hello" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Inserts a jQuery object (similar to an Array of DOM Elements) after all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>after demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<b>Hello</b>
-<p>I would like to say: </p>
-​
-<script>
-$( "p" ).after( $( "b" ) );
-</script>
-</body>
-</html>
-```
      */
     after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     /**
@@ -29394,23 +29182,10 @@ $( "p" ).after( $( "b" ) );
      * @see \`{@link https://api.jquery.com/ajaxComplete/ }\`
      * @since 1.0
      * @example ​ ````Show a message when an Ajax request completes.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>ajaxComplete demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( document ).ajaxComplete(function( event, request, settings ) {
   $( "#msg" ).append( "<li>Request Complete.</li>" );
 });
-</script>
-</body>
-</html>
 ```
      */
     ajaxComplete(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
@@ -29421,23 +29196,10 @@ $( document ).ajaxComplete(function( event, request, settings ) {
      * @see \`{@link https://api.jquery.com/ajaxError/ }\`
      * @since 1.0
      * @example ​ ````Show a message when an Ajax request fails.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>ajaxError demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( document ).ajaxError(function( event, request, settings ) {
   $( "#msg" ).append( "<li>Error requesting page " + settings.url + "</li>" );
 });
-</script>
-</body>
-</html>
 ```
      */
     ajaxError(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxSettings: JQuery.AjaxSettings, thrownError: string) => void | false): this;
@@ -29448,23 +29210,10 @@ $( document ).ajaxError(function( event, request, settings ) {
      * @see \`{@link https://api.jquery.com/ajaxSend/ }\`
      * @since 1.0
      * @example ​ ````Show a message before an Ajax request is sent.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>ajaxSend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( document ).ajaxSend(function( event, request, settings ) {
   $( "#msg" ).append( "<li>Starting request at " + settings.url + "</li>" );
 });
-</script>
-</body>
-</html>
 ```
      */
     ajaxSend(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
@@ -29475,23 +29224,10 @@ $( document ).ajaxSend(function( event, request, settings ) {
      * @see \`{@link https://api.jquery.com/ajaxStart/ }\`
      * @since 1.0
      * @example ​ ````Show a loading message whenever an Ajax request starts (and none is already active).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>ajaxStart demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( document ).ajaxStart(function() {
   $( "#loading" ).show();
 });
-</script>
-</body>
-</html>
 ```
      */
     ajaxStart(handler: (this: Document) => void | false): this;
@@ -29502,23 +29238,10 @@ $( document ).ajaxStart(function() {
      * @see \`{@link https://api.jquery.com/ajaxStop/ }\`
      * @since 1.0
      * @example ​ ````Hide a loading message after all the Ajax requests have stopped.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>ajaxStop demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( document ).ajaxStop(function() {
   $( "#loading" ).hide();
 });
-</script>
-</body>
-</html>
 ```
      */
     ajaxStop(handler: (this: Document) => void | false): this;
@@ -29529,23 +29252,10 @@ $( document ).ajaxStop(function() {
      * @see \`{@link https://api.jquery.com/ajaxSuccess/ }\`
      * @since 1.0
      * @example ​ ````Show a message when an Ajax request completes successfully.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>ajaxSuccess demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( document ).ajaxSuccess(function( event, request, settings ) {
   $( "#msg" ).append( "<li>Successful Request!</li>" );
 });
-</script>
-</body>
-</html>
 ```
      */
     ajaxSuccess(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings, data: JQuery.PlainObject) => void | false): this;
@@ -29558,331 +29268,14 @@ $( document ).ajaxSuccess(function( event, request, settings ) {
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/animate/ }\`
      * @since 1.0
-     * @example ​ ````Click the button to animate the div with a number of different properties.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <style>
-  div {
-    background-color: #bca;
-    width: 100px;
-    border: 1px solid green;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="go">&raquo; Run</button>
-<div id="block">Hello!</div>
-​
-<script>
-// Using multiple unit types within one animation.
-​
-$( "#go" ).click(function() {
-  $( "#block" ).animate({
-    width: "70%",
-    opacity: 0.4,
-    marginLeft: "0.6in",
-    fontSize: "3em",
-    borderWidth: "10px"
-  }, 1500 );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates a div&#39;s left property with a relative value. Click several times on the buttons to see the relative animations queued up.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <style>
-  div {
-    position: absolute;
-    background-color: #abc;
-    left: 50px;
-    width: 90px;
-    height: 90px;
-    margin: 5px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="left">&laquo;</button>
-<button id="right">&raquo;</button>
-<div class="block"></div>
-​
-<script>
-$( "#right" ).click(function() {
-  $( ".block" ).animate({ "left": "+=50px" }, "slow" );
-});
-​
-$( "#left" ).click(function(){
-  $( ".block" ).animate({ "left": "-=50px" }, "slow" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````The first button shows how an unqueued animation works.  It expands the div out to 90% width while the font-size is increasing. Once the font-size change is complete, the border animation will begin.
-
-The second button starts a traditional chained animation, where each animation will start once the previous animation on the element has completed.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <style>
-  div {
-    background-color: #bca;
-    width: 200px;
-    height: 1.1em;
-    text-align: center;
-    border: 2px solid green;
-    margin: 3px;
-    font-size: 14px;
-  }
-  button {
-    font-size: 14px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="go1">&raquo; Animate Block1</button>
-<button id="go2">&raquo; Animate Block2</button>
-<button id="go3">&raquo; Animate Both</button>
-<button id="go4">&raquo; Reset</button>
-<div id="block1">Block1</div>
-<div id="block2">Block2</div>
-​
-<script>
-$( "#go1" ).click(function() {
-  $( "#block1" )
-    .animate({
-      width: "90%"
-    }, {
-      queue: false,
-      duration: 3000
-    })
-    .animate({ fontSize: "24px" }, 1500 )
-    .animate({ borderRightWidth: "15px" }, 1500 );
-});
-​
-$( "#go2" ).click(function() {
-  $( "#block2" )
-    .animate({ width: "90%" }, 1000 )
-    .animate({ fontSize: "24px" }, 1000 )
-    .animate({ borderLeftWidth: "15px" }, 1000 );
-});
-​
-$( "#go3" ).click(function() {
-  $( "#go1" ).add( "#go2" ).click();
-});
-​
-$( "#go4" ).click(function() {
-  $( "div" ).css({
-    width: "",
-    fontSize: "",
-    borderWidth: ""
-  });
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates the first div&#39;s left property and synchronizes the remaining divs, using the step function to set their left properties at each stage of the animation.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <style>
-  div {
-    position: relative;
-    background-color: #abc;
-    width: 40px;
-    height: 40px;
-    float: left;
-    margin: 5px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button id="go">Run »</button></p>
-<div class="block"></div>
-<div class="block"></div>
-<div class="block"></div>
-<div class="block"></div>
-<div class="block"></div>
-<div class="block"></div>
-​
-<script>
-$( "#go" ).click(function() {
-  $( ".block:first" ).animate({
-    left: 100
-  }, {
-    duration: 1000,
-    step: function( now, fx ){
-      $( ".block:gt(0)" ).css( "left", now );
-    }
-  });
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animate all paragraphs to toggle both height and opacity, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  height: "toggle",
-  opacity: "toggle"
-}, "slow" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animate all paragraphs to a left style of 50 and opacity of 1 (opaque, visible), completing the animation within 500 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  left: 50,
-  opacity: 1
-}, 500 );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animate the left and opacity style properties of all paragraphs; run the animation outside the queue, so that it will automatically start without waiting for its turn.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  left: "50px",
-  opacity: 1
-}, {
-  duration: 500,
-  queue: false
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````An example of using an &#39;easing&#39; function to provide a different style of animation. This will only work if you have a plugin that provides this easing function.  Note, this code will do nothing unless the paragraph element is hidden.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).animate({
   opacity: "show"
 }, "slow", "easein" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates all paragraphs to toggle both height and opacity, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  height: "toggle",
-  opacity: "toggle"
-}, {
-  duration: "slow"
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use an easing function to provide a different style of animation. This will only work if you have a plugin that provides this easing function.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  opacity: "show"
-}, {
-  duration: "slow",
-  easing: "easein"
-});
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Animate all paragraphs and execute a callback function when the animation is complete.  The first argument is an object of CSS properties, the second specifies that the animation should take 1000 milliseconds to complete, the third states the easing type, and the fourth argument is an anonymous callback function.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).animate({
   height: 200,
   width: 400,
@@ -29890,9 +29283,6 @@ $( "p" ).animate({
 }, 1000, "linear", function() {
   alert( "all done" );
 });
-</script>
-</body>
-</html>
 ```
      */
     animate(properties: JQuery.PlainObject,
@@ -29942,6 +29332,7 @@ $( "#go" ).click(function() {
   }, 1500 );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -29979,270 +29370,23 @@ $( "#left" ).click(function(){
   $( ".block" ).animate({ "left": "-=50px" }, "slow" );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````The first button shows how an unqueued animation works.  It expands the div out to 90% width while the font-size is increasing. Once the font-size change is complete, the border animation will begin.
-
-The second button starts a traditional chained animation, where each animation will start once the previous animation on the element has completed.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <style>
-  div {
-    background-color: #bca;
-    width: 200px;
-    height: 1.1em;
-    text-align: center;
-    border: 2px solid green;
-    margin: 3px;
-    font-size: 14px;
-  }
-  button {
-    font-size: 14px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<button id="go1">&raquo; Animate Block1</button>
-<button id="go2">&raquo; Animate Block2</button>
-<button id="go3">&raquo; Animate Both</button>
-<button id="go4">&raquo; Reset</button>
-<div id="block1">Block1</div>
-<div id="block2">Block2</div>
-​
-<script>
-$( "#go1" ).click(function() {
-  $( "#block1" )
-    .animate({
-      width: "90%"
-    }, {
-      queue: false,
-      duration: 3000
-    })
-    .animate({ fontSize: "24px" }, 1500 )
-    .animate({ borderRightWidth: "15px" }, 1500 );
-});
-​
-$( "#go2" ).click(function() {
-  $( "#block2" )
-    .animate({ width: "90%" }, 1000 )
-    .animate({ fontSize: "24px" }, 1000 )
-    .animate({ borderLeftWidth: "15px" }, 1000 );
-});
-​
-$( "#go3" ).click(function() {
-  $( "#go1" ).add( "#go2" ).click();
-});
-​
-$( "#go4" ).click(function() {
-  $( "div" ).css({
-    width: "",
-    fontSize: "",
-    borderWidth: ""
-  });
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates the first div&#39;s left property and synchronizes the remaining divs, using the step function to set their left properties at each stage of the animation.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <style>
-  div {
-    position: relative;
-    background-color: #abc;
-    width: 40px;
-    height: 40px;
-    float: left;
-    margin: 5px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button id="go">Run »</button></p>
-<div class="block"></div>
-<div class="block"></div>
-<div class="block"></div>
-<div class="block"></div>
-<div class="block"></div>
-<div class="block"></div>
-​
-<script>
-$( "#go" ).click(function() {
-  $( ".block:first" ).animate({
-    left: 100
-  }, {
-    duration: 1000,
-    step: function( now, fx ){
-      $( ".block:gt(0)" ).css( "left", now );
-    }
-  });
-});
-</script>
 </body>
 </html>
 ```
      * @example ​ ````Animate all paragraphs to toggle both height and opacity, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).animate({
   height: "toggle",
   opacity: "toggle"
 }, "slow" );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Animate all paragraphs to a left style of 50 and opacity of 1 (opaque, visible), completing the animation within 500 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).animate({
   left: 50,
   opacity: 1
 }, 500 );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animate the left and opacity style properties of all paragraphs; run the animation outside the queue, so that it will automatically start without waiting for its turn.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  left: "50px",
-  opacity: 1
-}, {
-  duration: 500,
-  queue: false
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````An example of using an &#39;easing&#39; function to provide a different style of animation. This will only work if you have a plugin that provides this easing function.  Note, this code will do nothing unless the paragraph element is hidden.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  opacity: "show"
-}, "slow", "easein" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates all paragraphs to toggle both height and opacity, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  height: "toggle",
-  opacity: "toggle"
-}, {
-  duration: "slow"
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use an easing function to provide a different style of animation. This will only work if you have a plugin that provides this easing function.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  opacity: "show"
-}, {
-  duration: "slow",
-  easing: "easein"
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animate all paragraphs and execute a callback function when the animation is complete.  The first argument is an object of CSS properties, the second specifies that the animation should take 1000 milliseconds to complete, the third states the easing type, and the fourth argument is an anonymous callback function.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  height: 200,
-  width: 400,
-  opacity: 0.5
-}, 1000, "linear", function() {
-  alert( "all done" );
-});
-</script>
-</body>
-</html>
 ```
      */
     animate(properties: JQuery.PlainObject,
@@ -30255,80 +29399,6 @@ $( "p" ).animate({
      * @param options A map of additional options to pass to the method.
      * @see \`{@link https://api.jquery.com/animate/ }\`
      * @since 1.0
-     * @example ​ ````Click the button to animate the div with a number of different properties.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <style>
-  div {
-    background-color: #bca;
-    width: 100px;
-    border: 1px solid green;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="go">&raquo; Run</button>
-<div id="block">Hello!</div>
-​
-<script>
-// Using multiple unit types within one animation.
-​
-$( "#go" ).click(function() {
-  $( "#block" ).animate({
-    width: "70%",
-    opacity: 0.4,
-    marginLeft: "0.6in",
-    fontSize: "3em",
-    borderWidth: "10px"
-  }, 1500 );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates a div&#39;s left property with a relative value. Click several times on the buttons to see the relative animations queued up.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <style>
-  div {
-    position: absolute;
-    background-color: #abc;
-    left: 50px;
-    width: 90px;
-    height: 90px;
-    margin: 5px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="left">&laquo;</button>
-<button id="right">&raquo;</button>
-<div class="block"></div>
-​
-<script>
-$( "#right" ).click(function() {
-  $( ".block" ).animate({ "left": "+=50px" }, "slow" );
-});
-​
-$( "#left" ).click(function(){
-  $( ".block" ).animate({ "left": "-=50px" }, "slow" );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````The first button shows how an unqueued animation works.  It expands the div out to 90% width while the font-size is increasing. Once the font-size change is complete, the border animation will begin.
 
 The second button starts a traditional chained animation, where each animation will start once the previous animation on the element has completed.
@@ -30395,6 +29465,7 @@ $( "#go4" ).click(function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -30439,61 +29510,12 @@ $( "#go" ).click(function() {
   });
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Animate all paragraphs to toggle both height and opacity, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  height: "toggle",
-  opacity: "toggle"
-}, "slow" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animate all paragraphs to a left style of 50 and opacity of 1 (opaque, visible), completing the animation within 500 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  left: 50,
-  opacity: 1
-}, 500 );
-</script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Animate the left and opacity style properties of all paragraphs; run the animation outside the queue, so that it will automatically start without waiting for its turn.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).animate({
   left: "50px",
   opacity: 1
@@ -30501,95 +29523,24 @@ $( "p" ).animate({
   duration: 500,
   queue: false
 });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````An example of using an &#39;easing&#39; function to provide a different style of animation. This will only work if you have a plugin that provides this easing function.  Note, this code will do nothing unless the paragraph element is hidden.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  opacity: "show"
-}, "slow", "easein" );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Animates all paragraphs to toggle both height and opacity, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).animate({
   height: "toggle",
   opacity: "toggle"
 }, {
   duration: "slow"
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Use an easing function to provide a different style of animation. This will only work if you have a plugin that provides this easing function.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).animate({
   opacity: "show"
 }, {
   duration: "slow",
   easing: "easein"
 });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animate all paragraphs and execute a callback function when the animation is complete.  The first argument is an object of CSS properties, the second specifies that the animation should take 1000 milliseconds to complete, the third states the easing type, and the fourth argument is an anonymous callback function.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  height: 200,
-  width: 400,
-  opacity: 0.5
-}, 1000, "linear", function() {
-  alert( "all done" );
-});
-</script>
-</body>
-</html>
 ```
      */
     animate(properties: JQuery.PlainObject,
@@ -30601,342 +29552,6 @@ $( "p" ).animate({
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/animate/ }\`
      * @since 1.0
-     * @example ​ ````Click the button to animate the div with a number of different properties.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <style>
-  div {
-    background-color: #bca;
-    width: 100px;
-    border: 1px solid green;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="go">&raquo; Run</button>
-<div id="block">Hello!</div>
-​
-<script>
-// Using multiple unit types within one animation.
-​
-$( "#go" ).click(function() {
-  $( "#block" ).animate({
-    width: "70%",
-    opacity: 0.4,
-    marginLeft: "0.6in",
-    fontSize: "3em",
-    borderWidth: "10px"
-  }, 1500 );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates a div&#39;s left property with a relative value. Click several times on the buttons to see the relative animations queued up.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <style>
-  div {
-    position: absolute;
-    background-color: #abc;
-    left: 50px;
-    width: 90px;
-    height: 90px;
-    margin: 5px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="left">&laquo;</button>
-<button id="right">&raquo;</button>
-<div class="block"></div>
-​
-<script>
-$( "#right" ).click(function() {
-  $( ".block" ).animate({ "left": "+=50px" }, "slow" );
-});
-​
-$( "#left" ).click(function(){
-  $( ".block" ).animate({ "left": "-=50px" }, "slow" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````The first button shows how an unqueued animation works.  It expands the div out to 90% width while the font-size is increasing. Once the font-size change is complete, the border animation will begin.
-
-The second button starts a traditional chained animation, where each animation will start once the previous animation on the element has completed.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <style>
-  div {
-    background-color: #bca;
-    width: 200px;
-    height: 1.1em;
-    text-align: center;
-    border: 2px solid green;
-    margin: 3px;
-    font-size: 14px;
-  }
-  button {
-    font-size: 14px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="go1">&raquo; Animate Block1</button>
-<button id="go2">&raquo; Animate Block2</button>
-<button id="go3">&raquo; Animate Both</button>
-<button id="go4">&raquo; Reset</button>
-<div id="block1">Block1</div>
-<div id="block2">Block2</div>
-​
-<script>
-$( "#go1" ).click(function() {
-  $( "#block1" )
-    .animate({
-      width: "90%"
-    }, {
-      queue: false,
-      duration: 3000
-    })
-    .animate({ fontSize: "24px" }, 1500 )
-    .animate({ borderRightWidth: "15px" }, 1500 );
-});
-​
-$( "#go2" ).click(function() {
-  $( "#block2" )
-    .animate({ width: "90%" }, 1000 )
-    .animate({ fontSize: "24px" }, 1000 )
-    .animate({ borderLeftWidth: "15px" }, 1000 );
-});
-​
-$( "#go3" ).click(function() {
-  $( "#go1" ).add( "#go2" ).click();
-});
-​
-$( "#go4" ).click(function() {
-  $( "div" ).css({
-    width: "",
-    fontSize: "",
-    borderWidth: ""
-  });
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates the first div&#39;s left property and synchronizes the remaining divs, using the step function to set their left properties at each stage of the animation.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <style>
-  div {
-    position: relative;
-    background-color: #abc;
-    width: 40px;
-    height: 40px;
-    float: left;
-    margin: 5px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button id="go">Run »</button></p>
-<div class="block"></div>
-<div class="block"></div>
-<div class="block"></div>
-<div class="block"></div>
-<div class="block"></div>
-<div class="block"></div>
-​
-<script>
-$( "#go" ).click(function() {
-  $( ".block:first" ).animate({
-    left: 100
-  }, {
-    duration: 1000,
-    step: function( now, fx ){
-      $( ".block:gt(0)" ).css( "left", now );
-    }
-  });
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animate all paragraphs to toggle both height and opacity, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  height: "toggle",
-  opacity: "toggle"
-}, "slow" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animate all paragraphs to a left style of 50 and opacity of 1 (opaque, visible), completing the animation within 500 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  left: 50,
-  opacity: 1
-}, 500 );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animate the left and opacity style properties of all paragraphs; run the animation outside the queue, so that it will automatically start without waiting for its turn.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  left: "50px",
-  opacity: 1
-}, {
-  duration: 500,
-  queue: false
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````An example of using an &#39;easing&#39; function to provide a different style of animation. This will only work if you have a plugin that provides this easing function.  Note, this code will do nothing unless the paragraph element is hidden.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  opacity: "show"
-}, "slow", "easein" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates all paragraphs to toggle both height and opacity, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  height: "toggle",
-  opacity: "toggle"
-}, {
-  duration: "slow"
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use an easing function to provide a different style of animation. This will only work if you have a plugin that provides this easing function.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  opacity: "show"
-}, {
-  duration: "slow",
-  easing: "easein"
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animate all paragraphs and execute a callback function when the animation is complete.  The first argument is an object of CSS properties, the second specifies that the animation should take 1000 milliseconds to complete, the third states the easing type, and the fourth argument is an anonymous callback function.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>animate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).animate({
-  height: 200,
-  width: 400,
-  opacity: 0.5
-}, 1000, "linear", function() {
-  alert( "all done" );
-});
-</script>
-</body>
-</html>
-```
      */
     animate(properties: JQuery.PlainObject,
             complete?: (this: TElement) => void): this;
@@ -30968,6 +29583,7 @@ $( "p" ).animate({
 <script>
 $( "p" ).append( "<strong>Hello</strong>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -30992,6 +29608,7 @@ $( "p" ).append( "<strong>Hello</strong>" );
 <script>
 $( "p" ).append( document.createTextNode( "Hello" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -31017,6 +29634,7 @@ $( "p" ).append( document.createTextNode( "Hello" ) );
 <script>
 $( "p" ).append( $( "strong" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -31031,79 +29649,6 @@ $( "p" ).append( $( "strong" ) );
      *           the current element in the set.
      * @see \`{@link https://api.jquery.com/append/ }\`
      * @since 1.4
-     * @example ​ ````Appends some HTML to all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>append demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>I would like to say: </p>
-​
-<script>
-$( "p" ).append( "<strong>Hello</strong>" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Appends an Element to all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>append demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>I would like to say: </p>
-​
-<script>
-$( "p" ).append( document.createTextNode( "Hello" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Appends a jQuery object (similar to an Array of DOM Elements) to all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>append demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<strong>Hello world!!!</strong>
-<p>I would like to say: </p>
-​
-<script>
-$( "p" ).append( $( "strong" ) );
-</script>
-</body>
-</html>
-```
      */
     append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     /**
@@ -31136,6 +29681,7 @@ $( "p" ).append( $( "strong" ) );
 <script>
 $( "span" ).appendTo( "#foo" );
 </script>
+​
 </body>
 </html>
 ```
@@ -31151,110 +29697,6 @@ $( "span" ).appendTo( "#foo" );
      * @see \`{@link https://api.jquery.com/attr/ }\`
      * @since 1.0
      * @since 1.1
-     * @example ​ ````Display the checked attribute and property of a checkbox as it changes.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>attr demo</title>
-  <style>
-  p {
-    margin: 20px 0 0;
-  }
-  b {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<input id="check1" type="checkbox" checked="checked">
-<label for="check1">Check me</label>
-<p></p>
-​
-<script>
-$( "input" )
-  .change(function() {
-    var $input = $( this );
-    $( "p" ).html( ".attr( 'checked' ): <b>" + $input.attr( "checked" ) + "</b><br>" +
-      ".prop( 'checked' ): <b>" + $input.prop( "checked" ) + "</b><br>" +
-      ".is( ':checked' ): <b>" + $input.is( ":checked" ) + "</b>" );
-  })
-  .change();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find the title attribute of the first &lt;em&gt; in the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>attr demo</title>
-  <style>
-  em {
-    color: blue;
-    font-weight: bold;
-  }
-  div {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Once there was a <em title="huge, gigantic">large</em> dinosaur...</p>
-​
-The title of the emphasis is:<div></div>
-​
-<script>
-var title = $( "em" ).attr( "title" );
-$( "div" ).text( title );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Set some attributes for all &lt;img&gt;s in the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>attr demo</title>
-  <style>
-  img {
-    padding: 10px;
-  }
-  div {
-    color: red;
-    font-size: 24px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<img>
-<img>
-<img>
-​
-<div><b>Attribute of Ajax</b></div>
-​
-<script>
-$( "img" ).attr({
-  src: "/resources/hat.gif",
-  title: "jQuery",
-  alt: "jQuery Logo"
-});
-$( "div" ).text( $( "img" ).attr( "alt" ) );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Set the id for divs based on the position in the page.
 ```html
 <!doctype html>
@@ -31290,6 +29732,7 @@ $( "div" )
     $( "span", this ).html( "(id = '<b>" + this.id + "</b>')" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -31311,6 +29754,7 @@ $( "img" ).attr( "src", function() {
   return "/resources/" + this.title;
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -31323,73 +29767,6 @@ $( "img" ).attr( "src", function() {
      * @param attributes An object of attribute-value pairs to set.
      * @see \`{@link https://api.jquery.com/attr/ }\`
      * @since 1.0
-     * @example ​ ````Display the checked attribute and property of a checkbox as it changes.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>attr demo</title>
-  <style>
-  p {
-    margin: 20px 0 0;
-  }
-  b {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<input id="check1" type="checkbox" checked="checked">
-<label for="check1">Check me</label>
-<p></p>
-​
-<script>
-$( "input" )
-  .change(function() {
-    var $input = $( this );
-    $( "p" ).html( ".attr( 'checked' ): <b>" + $input.attr( "checked" ) + "</b><br>" +
-      ".prop( 'checked' ): <b>" + $input.prop( "checked" ) + "</b><br>" +
-      ".is( ':checked' ): <b>" + $input.is( ":checked" ) + "</b>" );
-  })
-  .change();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find the title attribute of the first &lt;em&gt; in the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>attr demo</title>
-  <style>
-  em {
-    color: blue;
-    font-weight: bold;
-  }
-  div {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Once there was a <em title="huge, gigantic">large</em> dinosaur...</p>
-​
-The title of the emphasis is:<div></div>
-​
-<script>
-var title = $( "em" ).attr( "title" );
-$( "div" ).text( title );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Set some attributes for all &lt;img&gt;s in the page.
 ```html
 <!doctype html>
@@ -31424,65 +29801,7 @@ $( "img" ).attr({
 });
 $( "div" ).text( $( "img" ).attr( "alt" ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Set the id for divs based on the position in the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>attr demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  b {
-    font-weight: bolder;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div>Zero-th <span></span></div>
-<div>First <span></span></div>
-<div>Second <span></span></div>
-​
-<script>
-$( "div" )
-  .attr( "id", function( arr ) {
-    return "div-id" + arr;
-  })
-  .each(function() {
-    $( "span", this ).html( "(id = '<b>" + this.id + "</b>')" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Set the src attribute from title attribute on the image.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>attr demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<img title="hat.gif">
-​
-<script>
-$( "img" ).attr( "src", function() {
-  return "/resources/" + this.title;
-});
-</script>
 </body>
 </html>
 ```
@@ -31527,6 +29846,7 @@ $( "input" )
   })
   .change();
 </script>
+​
 </body>
 </html>
 ```
@@ -31558,102 +29878,7 @@ The title of the emphasis is:<div></div>
 var title = $( "em" ).attr( "title" );
 $( "div" ).text( title );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Set some attributes for all &lt;img&gt;s in the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>attr demo</title>
-  <style>
-  img {
-    padding: 10px;
-  }
-  div {
-    color: red;
-    font-size: 24px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<img>
-<img>
-<img>
-​
-<div><b>Attribute of Ajax</b></div>
-​
-<script>
-$( "img" ).attr({
-  src: "/resources/hat.gif",
-  title: "jQuery",
-  alt: "jQuery Logo"
-});
-$( "div" ).text( $( "img" ).attr( "alt" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Set the id for divs based on the position in the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>attr demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  b {
-    font-weight: bolder;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>Zero-th <span></span></div>
-<div>First <span></span></div>
-<div>Second <span></span></div>
-​
-<script>
-$( "div" )
-  .attr( "id", function( arr ) {
-    return "div-id" + arr;
-  })
-  .each(function() {
-    $( "span", this ).html( "(id = '<b>" + this.id + "</b>')" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Set the src attribute from title attribute on the image.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>attr demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<img title="hat.gif">
-​
-<script>
-$( "img" ).attr( "src", function() {
-  return "/resources/" + this.title;
-});
-</script>
 </body>
 </html>
 ```
@@ -31687,6 +29912,7 @@ $( "img" ).attr( "src", function() {
 <script>
 $( "p" ).before( "<b>Hello</b>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -31711,6 +29937,7 @@ $( "p" ).before( "<b>Hello</b>" );
 <script>
 $( "p" ).before( document.createTextNode( "Hello" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -31735,6 +29962,7 @@ $( "p" ).before( document.createTextNode( "Hello" ) );
 <script>
 $( "p" ).before( $( "b" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -31750,78 +29978,6 @@ $( "p" ).before( $( "b" ) );
      * @see \`{@link https://api.jquery.com/before/ }\`
      * @since 1.4
      * @since 1.10
-     * @example ​ ````Inserts some HTML before all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>before demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p> is what I said...</p>
-​
-<script>
-$( "p" ).before( "<b>Hello</b>" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Inserts a DOM element before all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>before demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p> is what I said...</p>
-​
-<script>
-$( "p" ).before( document.createTextNode( "Hello" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Inserts a jQuery object (similar to an Array of DOM Elements) before all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>before demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p> is what I said...</p><b>Hello</b>
-​
-<script>
-$( "p" ).before( $( "b" ) );
-</script>
-</body>
-</html>
-```
      */
     before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     // [bind() overloads] https://github.com/jquery/api.jquery.com/issues/1048
@@ -31839,214 +29995,6 @@ $( "p" ).before( $( "b" ) );
      * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
      * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
-     * @example ​ ````Handle click and double-click for the paragraph.  Note: the coordinates are window relative, so in this case relative to the demo iframe.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-     background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Click or double click here.</p>
-<span></span>
-​
-<script>
-$( "p" ).bind( "click", function( event ) {
-  var str = "( " + event.pageX + ", " + event.pageY + " )";
-  $( "span" ).text( "Click happened! " + str );
-});
-$( "p" ).bind( "dblclick", function() {
-  $( "span" ).text( "Double-click happened in " + this.nodeName );
-});
-$( "p" ).bind( "mouseenter mouseleave", function( event ) {
-  $( this ).toggleClass( "over" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">link trigger
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).bind( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````You can pass some extra data before the event handler:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function handler( event ) {
-  alert( event.data.foo );
-}
-$( "p" ).bind( "click", {
-  foo: "bar"
-}, handler );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a default action and prevent it from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).bind( "submit", function() {
-  return false;
-})
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel only the default action by using the .preventDefault() method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).bind( "submit", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Stop an event from bubbling without preventing the default action by using the .stopPropagation() method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).bind( "submit", function( event ) {
-  event.stopPropagation();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Bind custom events.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display: none;"></span>
-​
-<script>
-$( "p" ).bind( "myCustomEvent", function( e, myName, myValue ) {
-  $( this ).text( myName + ", hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-  });
-$( "button" ).click(function() {
-  $( "p" ).trigger( "myCustomEvent", [ "John" ] );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Bind multiple events simultaneously.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div.test" ).bind({
-  click: function() {
-    $( this ).addClass( "active" );
-  },
-  mouseenter: function() {
-    $( this ).addClass( "inside" );
-  },
-  mouseleave: function() {
-    $( this ).removeClass( "inside" );
-  }
-});
-</script>
-</body>
-</html>
-```
      */
     bind<TData>(eventType: string,
                 eventData: TData,
@@ -32106,106 +30054,33 @@ $( "p" ).bind( "mouseenter mouseleave", function( event ) {
   $( this ).toggleClass( "over" );
 });
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````To display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).bind( "click", function() {
   alert( $( this ).text() );
 });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````You can pass some extra data before the event handler:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function handler( event ) {
-  alert( event.data.foo );
-}
-$( "p" ).bind( "click", {
-  foo: "bar"
-}, handler );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Cancel a default action and prevent it from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "form" ).bind( "submit", function() {
   return false;
 })
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Cancel only the default action by using the .preventDefault() method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "form" ).bind( "submit", function( event ) {
   event.preventDefault();
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Stop an event from bubbling without preventing the default action by using the .stopPropagation() method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "form" ).bind( "submit", function( event ) {
   event.stopPropagation();
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Bind custom events.
 ```html
@@ -32244,33 +30119,7 @@ $( "button" ).click(function() {
   $( "p" ).trigger( "myCustomEvent", [ "John" ] );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Bind multiple events simultaneously.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div.test" ).bind({
-  click: function() {
-    $( this ).addClass( "active" );
-  },
-  mouseenter: function() {
-    $( this ).addClass( "inside" );
-  },
-  mouseleave: function() {
-    $( this ).removeClass( "inside" );
-  }
-});
-</script>
+​
 </body>
 </html>
 ```
@@ -32288,199 +30137,8 @@ $( "div.test" ).bind({
      * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
      * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
-     * @example ​ ````Handle click and double-click for the paragraph.  Note: the coordinates are window relative, so in this case relative to the demo iframe.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-     background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Click or double click here.</p>
-<span></span>
-​
-<script>
-$( "p" ).bind( "click", function( event ) {
-  var str = "( " + event.pageX + ", " + event.pageY + " )";
-  $( "span" ).text( "Click happened! " + str );
-});
-$( "p" ).bind( "dblclick", function() {
-  $( "span" ).text( "Double-click happened in " + this.nodeName );
-});
-$( "p" ).bind( "mouseenter mouseleave", function( event ) {
-  $( this ).toggleClass( "over" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).bind( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````You can pass some extra data before the event handler:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function handler( event ) {
-  alert( event.data.foo );
-}
-$( "p" ).bind( "click", {
-  foo: "bar"
-}, handler );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a default action and prevent it from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).bind( "submit", function() {
-  return false;
-})
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel only the default action by using the .preventDefault() method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).bind( "submit", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Stop an event from bubbling without preventing the default action by using the .stopPropagation() method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).bind( "submit", function( event ) {
-  event.stopPropagation();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Bind custom events.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display: none;"></span>
-​
-<script>
-$( "p" ).bind( "myCustomEvent", function( e, myName, myValue ) {
-  $( this ).text( myName + ", hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-  });
-$( "button" ).click(function() {
-  $( "p" ).trigger( "myCustomEvent", [ "John" ] );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Bind multiple events simultaneously.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>bind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "div.test" ).bind({
   click: function() {
     $( this ).addClass( "active" );
@@ -32492,9 +30150,6 @@ $( "div.test" ).bind({
     $( this ).removeClass( "inside" );
   }
 });
-</script>
-</body>
-</html>
 ```
      */
     bind(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
@@ -32510,23 +30165,6 @@ $( "div.test" ).bind({
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````To trigger the blur event on all paragraphs:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>blur demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).blur();
-</script>
-</body>
-</html>
-```
      */
     blur<TData>(eventData: TData,
                 handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -32542,21 +30180,8 @@ $( "p" ).blur();
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To trigger the blur event on all paragraphs:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>blur demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).blur();
-</script>
-</body>
-</html>
 ```
      */
     blur(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
@@ -32572,65 +30197,6 @@ $( "p" ).blur();
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Attaches a change event to the select that gets the text for each selected option and writes them in the div.  It then triggers the event for the initial text draw.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>change demo</title>
-  <style>
-  div {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<select name="sweets" multiple="multiple">
-  <option>Chocolate</option>
-  <option selected="selected">Candy</option>
-  <option>Taffy</option>
-  <option selected="selected">Caramel</option>
-  <option>Fudge</option>
-  <option>Cookie</option>
-</select>
-<div></div>
-​
-<script>
-$( "select" )
-  .change(function () {
-    var str = "";
-    $( "select option:selected" ).each(function() {
-      str += $( this ).text() + " ";
-    });
-    $( "div" ).text( str );
-  })
-  .change();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To add a validity test to all text input elements:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>change demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "input[type='text']" ).change(function() {
-  // Check input( $( this ).val() ) for validity here
-});
-</script>
-</body>
-</html>
-```
      */
     change<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -32682,27 +30248,15 @@ $( "select" )
   })
   .change();
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````To add a validity test to all text input elements:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>change demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "input[type='text']" ).change(function() {
   // Check input( $( this ).val() ) for validity here
 });
-</script>
-</body>
-</html>
 ```
      */
     change(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
@@ -32797,6 +30351,7 @@ $( "#container" ).click(function ( event ) {
   event.preventDefault();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32833,6 +30388,7 @@ $( "#container" ).click(function ( event ) {
 <script>
 $( "div" ).children().css( "border-bottom", "3px double red" );
 </script>
+​
 </body>
 </html>
 ```
@@ -32866,6 +30422,7 @@ $( "div" ).children().css( "border-bottom", "3px double red" );
 <script>
 $( "div" ).children( ".selected" ).css( "color", "blue" );
 </script>
+​
 </body>
 </html>
 ```
@@ -32938,6 +30495,7 @@ $( "#stop" ).click(function() {
   myDiv.stop();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32955,56 +30513,6 @@ $( "#stop" ).click(function() {
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Hide paragraphs on a page when they are clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>click demo</title>
-  <style>
-  p {
-    color: red;
-    margin: 5px;
-    cursor: pointer;
-  }
-  p:hover {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>First Paragraph</p>
-<p>Second Paragraph</p>
-<p>Yet one more Paragraph</p>
-​
-<script>
-$( "p" ).click(function() {
-  $( this ).slideUp();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Trigger the click event on all of the paragraphs on the page:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>click demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).click();
-</script>
-</body>
-</html>
-```
      */
     click<TData>(eventData: TData,
                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -33049,25 +30557,13 @@ $( "p" ).click(function() {
   $( this ).slideUp();
 });
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Trigger the click event on all of the paragraphs on the page:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>click demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).click();
-</script>
-</body>
-</html>
 ```
      */
     click(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
@@ -33098,6 +30594,7 @@ $( "p" ).click();
 <script>
 $( "b" ).clone().prependTo( "p" );
 </script>
+​
 </body>
 </html>
 ```
@@ -33111,75 +30608,6 @@ $( "b" ).clone().prependTo( "p" );
      * @param context A DOM element within which a matching element may be found.
      * @see \`{@link https://api.jquery.com/closest/ }\`
      * @since 1.4
-     * @example ​ ````Show how event delegation can be done with closest. The closest list element toggles a yellow background when it or its descendent is clicked.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>closest demo</title>
-  <style>
-  li {
-    margin: 3px;
-    padding: 3px;
-    background: #EEEEEE;
-  }
-  li.highlight {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<ul>
-  <li><b>Click me!</b></li>
-  <li>You can also <b>Click me!</b></li>
-</ul>
-​
-<script>
-$( document ).on( "click", function( event ) {
-  $( event.target ).closest( "li" ).toggleClass( "highlight" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass a jQuery object to closest. The closest list element toggles a yellow background when it or its descendent is clicked.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>closest demo</title>
-  <style>
-  li {
-    margin: 3px;
-    padding: 3px;
-    background: #EEEEEE;
-  }
-  li.highlight {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<ul>
-  <li><b>Click me!</b></li>
-  <li>You can also <b>Click me!</b></li>
-</ul>
-​
-<script>
-var listElements = $( "li" ).css( "color", "blue" );
-$( document ).on( "click", function( event ) {
-  $( event.target ).closest( listElements ).toggleClass( "highlight" );
-});
-</script>
-</body>
-</html>
-```
      */
     closest(selector: JQuery.Selector, context: Element): this;
     /**
@@ -33223,6 +30651,7 @@ $( document ).on( "click", function( event ) {
   $( event.target ).closest( "li" ).toggleClass( "highlight" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -33258,6 +30687,7 @@ $( document ).on( "click", function( event ) {
   $( event.target ).closest( listElements ).toggleClass( "highlight" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -33289,6 +30719,7 @@ $( "p" )
   })
   .wrap( "<b></b>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -33308,6 +30739,7 @@ $( "p" )
 <script>
 $( "#frameDemo" ).contents().find( "a" ).css( "background-color", "#BADA55" );
 </script>
+​
 </body>
 </html>
 ```
@@ -33325,60 +30757,6 @@ $( "#frameDemo" ).contents().find( "a" ).css( "background-color", "#BADA55" );
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````To show a &quot;Hello World!&quot; alert box when the contextmenu event is triggered on a paragraph on the page:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>contextmenu demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).contextmenu(function() {
-  alert( "Hello World!" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Right click to toggle background color.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>contextmenu demo</title>
-  <style>
-  div {
-    background: blue;
-    color: white;
-    height: 100px;
-    width: 150px;
- }
-  div.contextmenu {
-    background: yellow;
-    color: black;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-<span>Right click the block</span>
-​
-<script>
-var div = $( "div:first" );
-div.contextmenu(function() {
-  div.toggleClass( "contextmenu" );
-});
-</script>
-</body>
-</html>
-```
      */
     contextmenu<TData>(eventData: TData,
                        handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -33394,23 +30772,10 @@ div.contextmenu(function() {
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To show a &quot;Hello World!&quot; alert box when the contextmenu event is triggered on a paragraph on the page:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>contextmenu demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).contextmenu(function() {
   alert( "Hello World!" );
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Right click to toggle background color.
 ```html
@@ -33444,6 +30809,7 @@ div.contextmenu(function() {
   div.toggleClass( "contextmenu" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -33459,102 +30825,6 @@ div.contextmenu(function() {
      * @see \`{@link https://api.jquery.com/css/ }\`
      * @since 1.0
      * @since 1.4
-     * @example ​ ````Get the background color of a clicked div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  div {
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-    float: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<span id="result">&nbsp;</span>
-<div style="background-color:blue;"></div>
-<div style="background-color:rgb(15,99,30);"></div>
-<div style="background-color:#123456;"></div>
-<div style="background-color:#f11;"></div>
-​
-<script>
-$( "div" ).click(function() {
-  var color = $( this ).css( "background-color" );
-  $( "#result" ).html( "That div is <span style='color:" +
-    color + ";'>" + color + "</span>." );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Get the width, height, text color, and background color of a clicked div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  div {
-    height: 50px;
-    margin: 5px;
-    padding: 5px;
-    float: left;
-  }
-  #box1 {
-    width: 50px;
-    color: yellow;
-    background-color: blue;
-  }
-  #box2 {
-    width: 80px;
-    color: rgb(255, 255, 255);
-    background-color: rgb(15, 99, 30);
-  }
-  #box3 {
-    width: 40px;
-    color: #fcc;
-    background-color: #123456;
-  }
-  #box4 {
-    width: 70px;
-    background-color: #f11;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p id="result">&nbsp;</p>
-<div id="box1">1</div>
-<div id="box2">2</div>
-<div id="box3">3</div>
-<div id="box4">4</div>
-​
-<script>
-$( "div" ).click(function() {
-  var html = [ "The clicked div has the following styles:" ];
-​
-  var styleProps = $( this ).css([
-    "width", "height", "color", "background-color"
-  ]);
-  $.each( styleProps, function( prop, value ) {
-    html.push( prop + ": " + value );
-  });
-​
-  $( "#result" ).html( html.join( "<br>" ) );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Change the color of any paragraph to red on mouseover event.
 ```html
 <!doctype html>
@@ -33582,6 +30852,7 @@ $( "p" ).on( "mouseover", function() {
   $( this ).css( "color", "red" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -33611,6 +30882,7 @@ $( "#box" ).one( "click", function() {
   $( this ).css( "width", "+=200" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -33648,80 +30920,7 @@ $( "span" ).on( "click", function() {
   $( this ).css( "background-color", "yellow" );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Change the font weight and background color on mouseenter and mouseleave.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  p {
-    color: green;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<p>Move the mouse over a paragraph.</p>
-<p>Like this one or the one above.</p>
-​
-<script>
-$( "p" )
-  .on( "mouseenter", function() {
-    $( this ).css({
-      "background-color": "yellow",
-      "font-weight": "bolder"
-    });
-  })
-  .on( "mouseleave", function() {
-    var styles = {
-      backgroundColor : "#ddd",
-      fontWeight: ""
-    };
-    $( this ).css( styles );
-  });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Increase the size of a div when you click it.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  div {
-    width: 20px;
-    height: 15px;
-    background-color: #f33;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>click</div>
-<div>click</div>
-​
-<script>
-$( "div" ).on( "click", function() {
-  $( this ).css({
-    width: function( index, value ) {
-      return parseFloat( value ) * 1.2;
-    },
-    height: function( index, value ) {
-      return parseFloat( value ) * 1.2;
-    }
-  });
-});
-</script>
 </body>
 </html>
 ```
@@ -33734,198 +30933,6 @@ $( "div" ).on( "click", function() {
      * @param properties An object of property-value pairs to set.
      * @see \`{@link https://api.jquery.com/css/ }\`
      * @since 1.0
-     * @example ​ ````Get the background color of a clicked div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  div {
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-    float: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<span id="result">&nbsp;</span>
-<div style="background-color:blue;"></div>
-<div style="background-color:rgb(15,99,30);"></div>
-<div style="background-color:#123456;"></div>
-<div style="background-color:#f11;"></div>
-​
-<script>
-$( "div" ).click(function() {
-  var color = $( this ).css( "background-color" );
-  $( "#result" ).html( "That div is <span style='color:" +
-    color + ";'>" + color + "</span>." );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Get the width, height, text color, and background color of a clicked div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  div {
-    height: 50px;
-    margin: 5px;
-    padding: 5px;
-    float: left;
-  }
-  #box1 {
-    width: 50px;
-    color: yellow;
-    background-color: blue;
-  }
-  #box2 {
-    width: 80px;
-    color: rgb(255, 255, 255);
-    background-color: rgb(15, 99, 30);
-  }
-  #box3 {
-    width: 40px;
-    color: #fcc;
-    background-color: #123456;
-  }
-  #box4 {
-    width: 70px;
-    background-color: #f11;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p id="result">&nbsp;</p>
-<div id="box1">1</div>
-<div id="box2">2</div>
-<div id="box3">3</div>
-<div id="box4">4</div>
-​
-<script>
-$( "div" ).click(function() {
-  var html = [ "The clicked div has the following styles:" ];
-​
-  var styleProps = $( this ).css([
-    "width", "height", "color", "background-color"
-  ]);
-  $.each( styleProps, function( prop, value ) {
-    html.push( prop + ": " + value );
-  });
-​
-  $( "#result" ).html( html.join( "<br>" ) );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the color of any paragraph to red on mouseover event.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  p {
-    color: blue;
-    width: 200px;
-    font-size: 14px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p>Just roll the mouse over me.</p>
-​
-  <p>Or me to see a color change.</p>
-​
-<script>
-$( "p" ).on( "mouseover", function() {
-  $( this ).css( "color", "red" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Increase the width of #box by 200 pixels the first time it is clicked.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  #box {
-    background: black;
-    color: snow;
-    width: 100px;
-    padding: 10px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div id="box">Click me to grow</div>
-​
-<script>
-$( "#box" ).one( "click", function() {
-  $( this ).css( "width", "+=200" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Highlight a clicked word in the paragraph.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  p {
-    color: blue;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>
-  Once upon a time there was a man
-  who lived in a pizza parlor. This
-  man just loved pizza and ate it all
-  the time.  He went on to be the
-  happiest man in the world.  The end.
-</p>
-​
-<script>
-var words = $( "p" ).first().text().split( /\s+/ );
-var text = words.join( "</span> <span>" );
-$( "p" ).first().html( "<span>" + text + "</span>" );
-$( "span" ).on( "click", function() {
-  $( this ).css( "background-color", "yellow" );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Change the font weight and background color on mouseenter and mouseleave.
 ```html
 <!doctype html>
@@ -33961,6 +30968,7 @@ $( "p" )
     $( this ).css( styles );
   });
 </script>
+​
 </body>
 </html>
 ```
@@ -33997,6 +31005,7 @@ $( "div" ).on( "click", function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -34041,237 +31050,7 @@ $( "div" ).click(function() {
     color + ";'>" + color + "</span>." );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Get the width, height, text color, and background color of a clicked div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  div {
-    height: 50px;
-    margin: 5px;
-    padding: 5px;
-    float: left;
-  }
-  #box1 {
-    width: 50px;
-    color: yellow;
-    background-color: blue;
-  }
-  #box2 {
-    width: 80px;
-    color: rgb(255, 255, 255);
-    background-color: rgb(15, 99, 30);
-  }
-  #box3 {
-    width: 40px;
-    color: #fcc;
-    background-color: #123456;
-  }
-  #box4 {
-    width: 70px;
-    background-color: #f11;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<p id="result">&nbsp;</p>
-<div id="box1">1</div>
-<div id="box2">2</div>
-<div id="box3">3</div>
-<div id="box4">4</div>
-​
-<script>
-$( "div" ).click(function() {
-  var html = [ "The clicked div has the following styles:" ];
-​
-  var styleProps = $( this ).css([
-    "width", "height", "color", "background-color"
-  ]);
-  $.each( styleProps, function( prop, value ) {
-    html.push( prop + ": " + value );
-  });
-​
-  $( "#result" ).html( html.join( "<br>" ) );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the color of any paragraph to red on mouseover event.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  p {
-    color: blue;
-    width: 200px;
-    font-size: 14px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p>Just roll the mouse over me.</p>
-​
-  <p>Or me to see a color change.</p>
-​
-<script>
-$( "p" ).on( "mouseover", function() {
-  $( this ).css( "color", "red" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Increase the width of #box by 200 pixels the first time it is clicked.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  #box {
-    background: black;
-    color: snow;
-    width: 100px;
-    padding: 10px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div id="box">Click me to grow</div>
-​
-<script>
-$( "#box" ).one( "click", function() {
-  $( this ).css( "width", "+=200" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Highlight a clicked word in the paragraph.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  p {
-    color: blue;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>
-  Once upon a time there was a man
-  who lived in a pizza parlor. This
-  man just loved pizza and ate it all
-  the time.  He went on to be the
-  happiest man in the world.  The end.
-</p>
-​
-<script>
-var words = $( "p" ).first().text().split( /\s+/ );
-var text = words.join( "</span> <span>" );
-$( "p" ).first().html( "<span>" + text + "</span>" );
-$( "span" ).on( "click", function() {
-  $( this ).css( "background-color", "yellow" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the font weight and background color on mouseenter and mouseleave.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  p {
-    color: green;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Move the mouse over a paragraph.</p>
-<p>Like this one or the one above.</p>
-​
-<script>
-$( "p" )
-  .on( "mouseenter", function() {
-    $( this ).css({
-      "background-color": "yellow",
-      "font-weight": "bolder"
-    });
-  })
-  .on( "mouseleave", function() {
-    var styles = {
-      backgroundColor : "#ddd",
-      fontWeight: ""
-    };
-    $( this ).css( styles );
-  });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Increase the size of a div when you click it.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  div {
-    width: 20px;
-    height: 15px;
-    background-color: #f33;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>click</div>
-<div>click</div>
-​
-<script>
-$( "div" ).on( "click", function() {
-  $( this ).css({
-    width: function( index, value ) {
-      return parseFloat( value ) * 1.2;
-    },
-    height: function( index, value ) {
-      return parseFloat( value ) * 1.2;
-    }
-  });
-});
-</script>
 </body>
 </html>
 ```
@@ -34283,41 +31062,6 @@ $( "div" ).on( "click", function() {
      * @param propertyNames An array of one or more CSS properties.
      * @see \`{@link https://api.jquery.com/css/ }\`
      * @since 1.9
-     * @example ​ ````Get the background color of a clicked div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  div {
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-    float: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<span id="result">&nbsp;</span>
-<div style="background-color:blue;"></div>
-<div style="background-color:rgb(15,99,30);"></div>
-<div style="background-color:#123456;"></div>
-<div style="background-color:#f11;"></div>
-​
-<script>
-$( "div" ).click(function() {
-  var color = $( this ).css( "background-color" );
-  $( "#result" ).html( "That div is <span style='color:" +
-    color + ";'>" + color + "</span>." );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Get the width, height, text color, and background color of a clicked div.
 ```html
 <!doctype html>
@@ -34376,176 +31120,7 @@ $( "div" ).click(function() {
   $( "#result" ).html( html.join( "<br>" ) );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Change the color of any paragraph to red on mouseover event.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  p {
-    color: blue;
-    width: 200px;
-    font-size: 14px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p>Just roll the mouse over me.</p>
-​
-  <p>Or me to see a color change.</p>
-​
-<script>
-$( "p" ).on( "mouseover", function() {
-  $( this ).css( "color", "red" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Increase the width of #box by 200 pixels the first time it is clicked.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  #box {
-    background: black;
-    color: snow;
-    width: 100px;
-    padding: 10px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div id="box">Click me to grow</div>
-​
-<script>
-$( "#box" ).one( "click", function() {
-  $( this ).css( "width", "+=200" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Highlight a clicked word in the paragraph.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  p {
-    color: blue;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>
-  Once upon a time there was a man
-  who lived in a pizza parlor. This
-  man just loved pizza and ate it all
-  the time.  He went on to be the
-  happiest man in the world.  The end.
-</p>
-​
-<script>
-var words = $( "p" ).first().text().split( /\s+/ );
-var text = words.join( "</span> <span>" );
-$( "p" ).first().html( "<span>" + text + "</span>" );
-$( "span" ).on( "click", function() {
-  $( this ).css( "background-color", "yellow" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the font weight and background color on mouseenter and mouseleave.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  p {
-    color: green;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Move the mouse over a paragraph.</p>
-<p>Like this one or the one above.</p>
-​
-<script>
-$( "p" )
-  .on( "mouseenter", function() {
-    $( this ).css({
-      "background-color": "yellow",
-      "font-weight": "bolder"
-    });
-  })
-  .on( "mouseleave", function() {
-    var styles = {
-      backgroundColor : "#ddd",
-      fontWeight: ""
-    };
-    $( this ).css( styles );
-  });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Increase the size of a div when you click it.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>css demo</title>
-  <style>
-  div {
-    width: 20px;
-    height: 15px;
-    background-color: #f33;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>click</div>
-<div>click</div>
-​
-<script>
-$( "div" ).on( "click", function() {
-  $( this ).css({
-    width: function( index, value ) {
-      return parseFloat( value ) * 1.2;
-    },
-    height: function( index, value ) {
-      return parseFloat( value ) * 1.2;
-    }
-  });
-});
-</script>
 </body>
 </html>
 ```
@@ -34589,69 +31164,7 @@ $( "div" ).data( "test", { first: 16, last: "pizza!" } );
 $( "span:first" ).text( $( "div" ).data( "test" ).first );
 $( "span:last" ).text( $( "div" ).data( "test" ).last );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>data demo</title>
-  <style>
-  div {
-    margin: 5px;
-    background: yellow;
-  }
-  button {
-    margin: 5px;
-    font-size: 14px;
-  }
-  p {
-    margin: 5px;
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div>A div</div>
-<button>Get "blah" from the div</button>
-<button>Set "blah" to "hello"</button>
-<button>Set "blah" to 86</button>
-<button>Remove "blah" from the div</button>
-<p>The "blah" value of this div is <span>?</span></p>
-​
-<script>
-$( "button" ).click(function() {
-  var value;
-​
-  switch ( $( "button" ).index( this ) ) {
-    case 0 :
-      value = $( "div" ).data( "blah" );
-      break;
-    case 1 :
-      $( "div" ).data( "blah", "hello" );
-      value = "Stored!";
-      break;
-    case 2 :
-      $( "div" ).data( "blah", 86 );
-      value = "Stored!";
-      break;
-    case 3 :
-      $( "div" ).removeData( "blah" );
-      value = "Removed!";
-      break;
-  }
-​
-  $( "span" ).text( "" + value );
-});
-</script>
 </body>
 </html>
 ```
@@ -34663,103 +31176,6 @@ $( "button" ).click(function() {
      * @param obj An object of key-value pairs of data to update.
      * @see \`{@link https://api.jquery.com/data/ }\`
      * @since 1.4.3
-     * @example ​ ````Store then retrieve a value from the div element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>data demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>
-  The values stored were
-  <span></span>
-  and
-  <span></span>
-</div>
-​
-<script>
-$( "div" ).data( "test", { first: 16, last: "pizza!" } );
-$( "span:first" ).text( $( "div" ).data( "test" ).first );
-$( "span:last" ).text( $( "div" ).data( "test" ).last );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>data demo</title>
-  <style>
-  div {
-    margin: 5px;
-    background: yellow;
-  }
-  button {
-    margin: 5px;
-    font-size: 14px;
-  }
-  p {
-    margin: 5px;
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>A div</div>
-<button>Get "blah" from the div</button>
-<button>Set "blah" to "hello"</button>
-<button>Set "blah" to 86</button>
-<button>Remove "blah" from the div</button>
-<p>The "blah" value of this div is <span>?</span></p>
-​
-<script>
-$( "button" ).click(function() {
-  var value;
-​
-  switch ( $( "button" ).index( this ) ) {
-    case 0 :
-      value = $( "div" ).data( "blah" );
-      break;
-    case 1 :
-      $( "div" ).data( "blah", "hello" );
-      value = "Stored!";
-      break;
-    case 2 :
-      $( "div" ).data( "blah", 86 );
-      value = "Stored!";
-      break;
-    case 3 :
-      $( "div" ).removeData( "blah" );
-      value = "Removed!";
-      break;
-  }
-​
-  $( "span" ).text( "" + value );
-});
-</script>
-</body>
-</html>
-```
      */
     data(obj: JQuery.PlainObject): this;
     /**
@@ -34771,103 +31187,6 @@ $( "button" ).click(function() {
      *              will return the jQuery object that it was called on, allowing for chaining.
      * @see \`{@link https://api.jquery.com/data/ }\`
      * @since 1.2.3
-     * @example ​ ````Store then retrieve a value from the div element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>data demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>
-  The values stored were
-  <span></span>
-  and
-  <span></span>
-</div>
-​
-<script>
-$( "div" ).data( "test", { first: 16, last: "pizza!" } );
-$( "span:first" ).text( $( "div" ).data( "test" ).first );
-$( "span:last" ).text( $( "div" ).data( "test" ).last );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>data demo</title>
-  <style>
-  div {
-    margin: 5px;
-    background: yellow;
-  }
-  button {
-    margin: 5px;
-    font-size: 14px;
-  }
-  p {
-    margin: 5px;
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>A div</div>
-<button>Get "blah" from the div</button>
-<button>Set "blah" to "hello"</button>
-<button>Set "blah" to 86</button>
-<button>Remove "blah" from the div</button>
-<p>The "blah" value of this div is <span>?</span></p>
-​
-<script>
-$( "button" ).click(function() {
-  var value;
-​
-  switch ( $( "button" ).index( this ) ) {
-    case 0 :
-      value = $( "div" ).data( "blah" );
-      break;
-    case 1 :
-      $( "div" ).data( "blah", "hello" );
-      value = "Stored!";
-      break;
-    case 2 :
-      $( "div" ).data( "blah", 86 );
-      value = "Stored!";
-      break;
-    case 3 :
-      $( "div" ).removeData( "blah" );
-      value = "Removed!";
-      break;
-  }
-​
-  $( "span" ).text( "" + value );
-});
-</script>
-</body>
-</html>
-```
      */
     // `unified-signatures` is disabled so that behavior when passing `undefined` to `value` can be documented. Unifying the signatures
     // results in potential confusion for users from an unexpected parameter.
@@ -34880,40 +31199,6 @@ $( "button" ).click(function() {
      * @param key Name of the data stored.
      * @see \`{@link https://api.jquery.com/data/ }\`
      * @since 1.2.3
-     * @example ​ ````Store then retrieve a value from the div element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>data demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>
-  The values stored were
-  <span></span>
-  and
-  <span></span>
-</div>
-​
-<script>
-$( "div" ).data( "test", { first: 16, last: "pizza!" } );
-$( "span:first" ).text( $( "div" ).data( "test" ).first );
-$( "span:last" ).text( $( "div" ).data( "test" ).last );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
 ```html
 <!doctype html>
@@ -34974,6 +31259,7 @@ $( "button" ).click(function() {
   $( "span" ).text( "" + value );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -34985,103 +31271,6 @@ $( "button" ).click(function() {
      *
      * @see \`{@link https://api.jquery.com/data/ }\`
      * @since 1.4
-     * @example ​ ````Store then retrieve a value from the div element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>data demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>
-  The values stored were
-  <span></span>
-  and
-  <span></span>
-</div>
-​
-<script>
-$( "div" ).data( "test", { first: 16, last: "pizza!" } );
-$( "span:first" ).text( $( "div" ).data( "test" ).first );
-$( "span:last" ).text( $( "div" ).data( "test" ).last );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>data demo</title>
-  <style>
-  div {
-    margin: 5px;
-    background: yellow;
-  }
-  button {
-    margin: 5px;
-    font-size: 14px;
-  }
-  p {
-    margin: 5px;
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>A div</div>
-<button>Get "blah" from the div</button>
-<button>Set "blah" to "hello"</button>
-<button>Set "blah" to 86</button>
-<button>Remove "blah" from the div</button>
-<p>The "blah" value of this div is <span>?</span></p>
-​
-<script>
-$( "button" ).click(function() {
-  var value;
-​
-  switch ( $( "button" ).index( this ) ) {
-    case 0 :
-      value = $( "div" ).data( "blah" );
-      break;
-    case 1 :
-      $( "div" ).data( "blah", "hello" );
-      value = "Stored!";
-      break;
-    case 2 :
-      $( "div" ).data( "blah", 86 );
-      value = "Stored!";
-      break;
-    case 3 :
-      $( "div" ).removeData( "blah" );
-      value = "Removed!";
-      break;
-  }
-​
-  $( "span" ).text( "" + value );
-});
-</script>
-</body>
-</html>
-```
      */
     data(): JQuery.PlainObject;
     /**
@@ -35096,60 +31285,6 @@ $( "button" ).click(function() {
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````To bind a &quot;Hello World!&quot; alert box to the dblclick event on every paragraph on the page:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>dblclick demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).dblclick(function() {
-  alert( "Hello World!" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Double click to toggle background color.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>dblclick demo</title>
-  <style>
-  div {
-    background: blue;
-    color: white;
-    height: 100px;
-    width: 150px;
- }
-  div.dbl {
-    background: yellow;
-    color: black;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-<span>Double click the block</span>
-​
-<script>
-var divdbl = $( "div:first" );
-divdbl.dblclick(function() {
-  divdbl.toggleClass( "dbl" );
-});
-</script>
-</body>
-</html>
-```
      */
     dblclick<TData>(eventData: TData,
                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -35165,23 +31300,10 @@ divdbl.dblclick(function() {
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To bind a &quot;Hello World!&quot; alert box to the dblclick event on every paragraph on the page:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>dblclick demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).dblclick(function() {
   alert( "Hello World!" );
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Double click to toggle background color.
 ```html
@@ -35215,6 +31337,7 @@ divdbl.dblclick(function() {
   divdbl.toggleClass( "dbl" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -35264,6 +31387,7 @@ $( "button" ).click(function() {
   $( "div.second" ).slideUp( 300 ).fadeIn( 400 );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -35285,140 +31409,6 @@ $( "button" ).click(function() {
      * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
      * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
-     * @example ​ ````Click a paragraph to add another. Note that .delegate() attaches a click event handler to all paragraphs - even new ones.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>delegate demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-    background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Click me!</p>
-​
-<span></span>
-​
-<script>
-$( "body" ).delegate( "p", "click", function() {
-  $( this ).after( "<p>Another paragraph!</p>" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>delegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).delegate( "p", "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To cancel a default action and prevent it from bubbling up, return false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>delegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).delegate( "a", "click", function() {
-  return false;
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To cancel only the default action by using the preventDefault method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>delegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).delegate( "a", "click", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Can bind custom events too.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>delegate demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display:none;"></span>
-​
-<script>
-$( "body" ).delegate( "p", "myCustomEvent", function( e, myName, myValue ) {
-  $( this ).text( "Hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-});
-$( "button" ).click(function() {
-  $( "p" ).trigger( "myCustomEvent" );
-});
-</script>
-</body>
-</html>
-```
      */
     delegate<TData>(selector: JQuery.Selector,
                     eventType: string,
@@ -35473,65 +31463,27 @@ $( "body" ).delegate( "p", "click", function() {
   $( this ).after( "<p>Another paragraph!</p>" );
 });
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````To display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>delegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "body" ).delegate( "p", "click", function() {
   alert( $( this ).text() );
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````To cancel a default action and prevent it from bubbling up, return false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>delegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "body" ).delegate( "a", "click", function() {
   return false;
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````To cancel only the default action by using the preventDefault method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>delegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "body" ).delegate( "a", "click", function( event ) {
   event.preventDefault();
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Can bind custom events too.
 ```html
@@ -35570,6 +31522,7 @@ $( "button" ).click(function() {
   $( "p" ).trigger( "myCustomEvent" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -35590,140 +31543,6 @@ $( "button" ).click(function() {
      * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
      * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
-     * @example ​ ````Click a paragraph to add another. Note that .delegate() attaches a click event handler to all paragraphs - even new ones.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>delegate demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-    background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Click me!</p>
-​
-<span></span>
-​
-<script>
-$( "body" ).delegate( "p", "click", function() {
-  $( this ).after( "<p>Another paragraph!</p>" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>delegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).delegate( "p", "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To cancel a default action and prevent it from bubbling up, return false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>delegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).delegate( "a", "click", function() {
-  return false;
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To cancel only the default action by using the preventDefault method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>delegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).delegate( "a", "click", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Can bind custom events too.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>delegate demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display:none;"></span>
-​
-<script>
-$( "body" ).delegate( "p", "myCustomEvent", function( e, myName, myValue ) {
-  $( this ).text( "Hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-});
-$( "button" ).click(function() {
-  $( "p" ).trigger( "myCustomEvent" );
-});
-</script>
-</body>
-</html>
-```
      */
     delegate(selector: JQuery.Selector,
              events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
@@ -35772,6 +31591,7 @@ $( "button" ).click(function() {
     .animate({ left:"10px", top:"30px" }, 700 );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -35822,6 +31642,7 @@ $( "button" ).click(function() {
   }
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -35868,6 +31689,7 @@ $( document.body ).click(function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -35910,6 +31732,7 @@ $( "span" ).click(function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -35960,6 +31783,7 @@ $( "button" ).click(function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -35997,6 +31821,7 @@ $( "button" ).click(function() {
   $( "p" ).empty();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -36075,6 +31900,7 @@ $( "p" )
   .showTags( 2 )
   .css( "font-style", "italic" );
 </script>
+​
 </body>
 </html>
 ```
@@ -36103,6 +31929,7 @@ $( "p" )
   .end()
   .css( "border", "2px red solid" );
 </script>
+​
 </body>
 </html>
 ```
@@ -36149,6 +31976,7 @@ $( "p" )
 <script>
 $( "body" ).find( "div" ).eq( 2 ).addClass( "blue" );
 </script>
+​
 </body>
 </html>
 ```
@@ -36197,6 +32025,7 @@ jQuery.fn.extend({
 // Use the newly created .check() method
 $( "input[type='checkbox']" ).check();
 </script>
+​
 </body>
 </html>
 ```
@@ -36210,105 +32039,6 @@ $( "input[type='checkbox']" ).check();
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/fadeIn/ }\`
      * @since 1.4.3
-     * @example ​ ````Animates hidden divs to fade in one by one, completing each animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeIn demo</title>
-  <style>
-  span {
-    color: red;
-    cursor: pointer;
-  }
-  div {
-    margin: 3px;
-    width: 80px;
-    display: none;
-    height: 80px;
-    float: left;
-  }
-  #one {
-    background: #f00;
-  }
-  #two {
-    background: #0f0;
-  }
-  #three {
-    background: #00f;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<span>Click here...</span>
-<div id="one"></div>
-<div id="two"></div>
-<div id="three"></div>
-​
-<script>
-$( document.body ).click(function() {
-  $( "div:hidden:first" ).fadeIn( "slow" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Fades a red block in over the text. Once the animation is done, it quickly fades in more text on top.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeIn demo</title>
-  <style>
-  p {
-    position: relative;
-    width: 400px;
-    height: 90px;
-  }
-  div {
-    position: absolute;
-    width: 400px;
-    height: 65px;
-    font-size: 36px;
-    text-align: center;
-    color: yellow;
-    background: red;
-    padding-top: 25px;
-    top: 0;
-    left: 0;
-    display: none;
-  }
-  span {
-    display: none;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>
-  Let it be known that the party of the first part
-  and the party of the second part are henceforth
-  and hereto directed to assess the allegations
-  for factual correctness... (<a href="#">click!</a>)
-  <div><span>CENSORED!</span></div>
-</p>
-​
-<script>
-$( "a" ).click(function() {
-  $( "div" ).fadeIn( 3000, function() {
-    $( "span" ).fadeIn( 100 );
-  });
-  return false;
-});
-</script>
-</body>
-</html>
-```
      */
     fadeIn(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
     /**
@@ -36320,52 +32050,6 @@ $( "a" ).click(function() {
      * @see \`{@link https://api.jquery.com/fadeIn/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @example ​ ````Animates hidden divs to fade in one by one, completing each animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeIn demo</title>
-  <style>
-  span {
-    color: red;
-    cursor: pointer;
-  }
-  div {
-    margin: 3px;
-    width: 80px;
-    display: none;
-    height: 80px;
-    float: left;
-  }
-  #one {
-    background: #f00;
-  }
-  #two {
-    background: #0f0;
-  }
-  #three {
-    background: #00f;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<span>Click here...</span>
-<div id="one"></div>
-<div id="two"></div>
-<div id="three"></div>
-​
-<script>
-$( document.body ).click(function() {
-  $( "div:hidden:first" ).fadeIn( "slow" );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Fades a red block in over the text. Once the animation is done, it quickly fades in more text on top.
 ```html
 <!doctype html>
@@ -36416,6 +32100,7 @@ $( "a" ).click(function() {
   return false;
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -36474,59 +32159,7 @@ $( document.body ).click(function() {
   $( "div:hidden:first" ).fadeIn( "slow" );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Fades a red block in over the text. Once the animation is done, it quickly fades in more text on top.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeIn demo</title>
-  <style>
-  p {
-    position: relative;
-    width: 400px;
-    height: 90px;
-  }
-  div {
-    position: absolute;
-    width: 400px;
-    height: 65px;
-    font-size: 36px;
-    text-align: center;
-    color: yellow;
-    background: red;
-    padding-top: 25px;
-    top: 0;
-    left: 0;
-    display: none;
-  }
-  span {
-    display: none;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<p>
-  Let it be known that the party of the first part
-  and the party of the second part are henceforth
-  and hereto directed to assess the allegations
-  for factual correctness... (<a href="#">click!</a>)
-  <div><span>CENSORED!</span></div>
-</p>
-​
-<script>
-$( "a" ).click(function() {
-  $( "div" ).fadeIn( 3000, function() {
-    $( "span" ).fadeIn( 100 );
-  });
-  return false;
-});
-</script>
 </body>
 </html>
 ```
@@ -36540,83 +32173,6 @@ $( "a" ).click(function() {
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/fadeOut/ }\`
      * @since 1.4.3
-     * @example ​ ````Animates all paragraphs to fade out, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeOut demo</title>
-  <style>
-  p {
-    font-size: 150%;
-    cursor: pointer;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>
-  If you click on this paragraph
-  you'll see it just fade away.
-</p>
-​
-<script>
-$( "p" ).click(function() {
-  $( "p" ).fadeOut( "slow" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Fades out spans in one section that you click on.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeOut demo</title>
-  <style>
-  span {
-    cursor: pointer;
-  }
-  span.hilite {
-    background: yellow;
-  }
-  div {
-    display: inline;
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<h3>Find the modifiers - <div></div></h3>
-<p>
-  If you <span>really</span> want to go outside
-  <span>in the cold</span> then make sure to wear
-  your <span>warm</span> jacket given to you by
-  your <span>favorite</span> teacher.
-</p>
-​
-<script>
-$( "span" ).click(function() {
-  $( this ).fadeOut( 1000, function() {
-    $( "div" ).text( "'" + $( this ).text() + "' has faded!" );
-    $( this ).remove();
-  });
-});
-$( "span" ).hover(function() {
-  $( this ).addClass( "hilite" );
-}, function() {
-  $( this ).removeClass( "hilite" );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Fades out two divs, one with a &quot;linear&quot; easing and one with the default, &quot;swing,&quot; easing.
 ```html
 <!doctype html>
@@ -36665,6 +32221,7 @@ $( "#btn2" ).click(function() {
   $( "#log" ).empty();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -36679,36 +32236,6 @@ $( "#btn2" ).click(function() {
      * @see \`{@link https://api.jquery.com/fadeOut/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @example ​ ````Animates all paragraphs to fade out, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeOut demo</title>
-  <style>
-  p {
-    font-size: 150%;
-    cursor: pointer;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>
-  If you click on this paragraph
-  you'll see it just fade away.
-</p>
-​
-<script>
-$( "p" ).click(function() {
-  $( "p" ).fadeOut( "slow" );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Fades out spans in one section that you click on.
 ```html
 <!doctype html>
@@ -36753,57 +32280,7 @@ $( "span" ).hover(function() {
   $( this ).removeClass( "hilite" );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Fades out two divs, one with a &quot;linear&quot; easing and one with the default, &quot;swing,&quot; easing.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeOut demo</title>
-  <style>
-  .box,
-  button {
-    float: left;
-    margin: 5px 10px 5px 0;
-  }
-  .box {
-    height: 80px;
-    width: 80px;
-    background: #090;
-  }
-  #log {
-    clear: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<button id="btn1">fade out</button>
-<button id="btn2">show</button>
-​
-<div id="log"></div>
-​
-<div id="box1" class="box">linear</div>
-<div id="box2" class="box">swing</div>
-​
-<script>
-$( "#btn1" ).click(function() {
-  function complete() {
-    $( "<div>" ).text( this.id ).appendTo( "#log" );
-  }
-  $( "#box1" ).fadeOut( 1600, "linear", complete );
-  $( "#box2" ).fadeOut( 1600, complete );
-});
-​
-$( "#btn2" ).click(function() {
-  $( "div" ).show();
-  $( "#log" ).empty();
-});
-</script>
 </body>
 </html>
 ```
@@ -36846,104 +32323,7 @@ $( "p" ).click(function() {
   $( "p" ).fadeOut( "slow" );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Fades out spans in one section that you click on.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeOut demo</title>
-  <style>
-  span {
-    cursor: pointer;
-  }
-  span.hilite {
-    background: yellow;
-  }
-  div {
-    display: inline;
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<h3>Find the modifiers - <div></div></h3>
-<p>
-  If you <span>really</span> want to go outside
-  <span>in the cold</span> then make sure to wear
-  your <span>warm</span> jacket given to you by
-  your <span>favorite</span> teacher.
-</p>
-​
-<script>
-$( "span" ).click(function() {
-  $( this ).fadeOut( 1000, function() {
-    $( "div" ).text( "'" + $( this ).text() + "' has faded!" );
-    $( this ).remove();
-  });
-});
-$( "span" ).hover(function() {
-  $( this ).addClass( "hilite" );
-}, function() {
-  $( this ).removeClass( "hilite" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Fades out two divs, one with a &quot;linear&quot; easing and one with the default, &quot;swing,&quot; easing.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeOut demo</title>
-  <style>
-  .box,
-  button {
-    float: left;
-    margin: 5px 10px 5px 0;
-  }
-  .box {
-    height: 80px;
-    width: 80px;
-    background: #090;
-  }
-  #log {
-    clear: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="btn1">fade out</button>
-<button id="btn2">show</button>
-​
-<div id="log"></div>
-​
-<div id="box1" class="box">linear</div>
-<div id="box2" class="box">swing</div>
-​
-<script>
-$( "#btn1" ).click(function() {
-  function complete() {
-    $( "<div>" ).text( this.id ).appendTo( "#log" );
-  }
-  $( "#box1" ).fadeOut( 1600, "linear", complete );
-  $( "#box2" ).fadeOut( 1600, complete );
-});
-​
-$( "#btn2" ).click(function() {
-  $( "div" ).show();
-  $( "#log" ).empty();
-});
-</script>
 </body>
 </html>
 ```
@@ -36958,151 +32338,6 @@ $( "#btn2" ).click(function() {
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/fadeTo/ }\`
      * @since 1.4.3
-     * @example ​ ````Animates first paragraph to fade to an opacity of 0.33 (33%, about one third visible), completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeTo demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>
-Click this paragraph to see it fade.
-</p>
-​
-<p>
-Compare to this one that won't fade.
-</p>
-​
-<script>
-$( "p:first" ).click(function() {
-  $( this ).fadeTo( "slow", 0.33 );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Fade div to a random opacity on each click, completing the animation within 200 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeTo demo</title>
-  <style>
-  p {
-    width: 80px;
-    margin: 0;
-    padding: 5px;
-  }
-  div {
-    width: 40px;
-    height: 40px;
-    position: absolute;
-  }
-  #one {
-    top: 0;
-    left: 0;
-    background: #f00;
-  }
-  #two {
-    top: 20px;
-    left: 20px;
-    background: #0f0;
-  }
-  #three {
-    top: 40px;
-    left:40px;
-    background:#00f;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>And this is the library that John built...</p>
-​
-<div id="one"></div>
-<div id="two"></div>
-<div id="three"></div>
-​
-<script>
-$( "div" ).click(function() {
-  $( this ).fadeTo( "fast", Math.random() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find the right answer! The fade will take 250 milliseconds and change various styles when it completes.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeTo demo</title>
-  <style>
-  div, p {
-    width: 80px;
-    height: 40px;
-    top: 0;
-    margin: 0;
-    position: absolute;
-    padding-top: 8px;
-  }
-  p {
-    background: #fcc;
-    text-align: center;
-  }
-  div {
-    background: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Wrong</p>
-<div></div>
-<p>Wrong</p>
-<div></div>
-<p>Right!</p>
-<div></div>
-​
-<script>
-var getPos = function( n ) {
-  return (Math.floor( n ) * 90) + "px";
-};
-$( "p" ).each(function( n ) {
-  var r = Math.floor( Math.random() * 3 );
-  var tmp = $( this ).text();
-  $( this ).text( $( "p:eq(" + r + ")" ).text() );
-  $( "p:eq(" + r + ")" ).text( tmp );
-  $( this ).css( "left", getPos( n ) );
-});
-$( "div" )
-  .each(function( n ) {
-    $( this ).css( "left", getPos( n ) );
-  })
-  .css( "cursor", "pointer" )
-  .click( function() {
-    $( this ).fadeTo( 250, 0.25, function() {
-      $( this )
-        .css( "cursor", "" )
-        .prev()
-          .css({
-            "font-weight": "bolder",
-            "font-style": "italic"
-          });
-    });
-  });
-</script>
-</body>
-</html>
-```
      */
     fadeTo(duration: JQuery.Duration, opacity: number, easing: string, complete?: (this: TElement) => void): this;
     /**
@@ -37137,6 +32372,7 @@ $( "p:first" ).click(function() {
   $( this ).fadeTo( "slow", 0.33 );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -37189,6 +32425,7 @@ $( "div" ).click(function() {
   $( this ).fadeTo( "fast", Math.random() );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -37255,6 +32492,7 @@ $( "div" )
     });
   });
 </script>
+​
 </body>
 </html>
 ```
@@ -37295,6 +32533,7 @@ $( "button:last" ).click(function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -37336,6 +32575,7 @@ $( "button:last" ).click(function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -37351,36 +32591,6 @@ $( "button:last" ).click(function() {
      * @see \`{@link https://api.jquery.com/fadeToggle/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @example ​ ````Fades first paragraph in or out, completing the animation within 600 milliseconds and using a linear easing. Fades last paragraph in or out for 200 milliseconds, inserting a &quot;finished&quot; message upon completion.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>fadeToggle demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>fadeToggle p1</button>
-<button>fadeToggle p2</button>
-<p>This paragraph has a slow, linear fade.</p>
-<p>This paragraph has a fast animation.</p>
-<div id="log"></div>
-​
-<script>
-$( "button:first" ).click(function() {
-  $( "p:first" ).fadeToggle( "slow", "linear" );
-});
-$( "button:last" ).click(function() {
-  $( "p:last" ).fadeToggle( "fast", function() {
-    $( "#log" ).append( "<div>finished</div>" );
-  });
-});
-</script>
-</body>
-</html>
-```
      */
     fadeToggle(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
     /**
@@ -37426,6 +32636,7 @@ $( "div" )
   .filter( ".middle" )
     .css( "border-color", "red" );
 </script>
+​
 </body>
 </html>
 ```
@@ -37464,42 +32675,17 @@ $( "div" )
   })
     .css( "border", "3px double red" );
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Select all divs and filter the selection with a DOM element, keeping only the one with an id of &quot;unique&quot;.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>filter demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "div" ).filter( document.getElementById( "unique" ) );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Select all divs and filter the selection with a jQuery object, keeping only the one with an id of &quot;unique&quot;.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>filter demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "div" ).filter( $( "#unique" ) );
-</script>
-</body>
-</html>
 ```
      */
     filter(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): this;
@@ -37529,6 +32715,7 @@ $( "div" ).filter( $( "#unique" ) );
 <script>
 $( "p" ).find( "span" ).css( "color", "red" );
 </script>
+​
 </body>
 </html>
 ```
@@ -37556,6 +32743,7 @@ $( "p" ).find( "span" ).css( "color", "red" );
 var spans = $( "span" );
 $( "p" ).find( spans ).css( "color", "red" );
 </script>
+​
 </body>
 </html>
 ```
@@ -37607,6 +32795,7 @@ $( "p" )
       "font-weight": "bolder"
     });
 </script>
+​
 </body>
 </html>
 ```
@@ -37725,6 +32914,7 @@ $( "#go" ).on( "click", function() {
     }, 3000 );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -37760,6 +32950,7 @@ $( "#go" ).on( "click", function() {
 <script>
 $( "p span" ).first().addClass( "highlight" );
 </script>
+​
 </body>
 </html>
 ```
@@ -37777,71 +32968,6 @@ $( "p span" ).first().addClass( "highlight" );
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Fire focus.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>focus demo</title>
-  <style>
-  span {
-    display: none;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><input type="text"> <span>focus fire</span></p>
-<p><input type="password"> <span>focus fire</span></p>
-​
-<script>
-$( "input" ).focus(function() {
-  $( this ).next( "span" ).css( "display", "inline" ).fadeOut( 1000 );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To stop people from writing in text input boxes, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>focus demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "input[type=text]" ).focus(function() {
-  $( this ).blur();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To focus on a login input box with id &#39;login&#39; on page startup, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>focus demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( document ).ready(function() {
-  $( "#login" ).focus();
-});
-</script>
-</body>
-</html>
-```
      */
     focus<TData>(eventData: TData,
                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -37880,46 +33006,21 @@ $( "input" ).focus(function() {
   $( this ).next( "span" ).css( "display", "inline" ).fadeOut( 1000 );
 });
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````To stop people from writing in text input boxes, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>focus demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "input[type=text]" ).focus(function() {
   $( this ).blur();
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````To focus on a login input box with id &#39;login&#39; on page startup, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>focus demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( document ).ready(function() {
   $( "#login" ).focus();
 });
-</script>
-</body>
-</html>
 ```
      */
     focus(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
@@ -37935,33 +33036,6 @@ $( document ).ready(function() {
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Watch for a focus to occur within the paragraphs on the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>focusin demo</title>
-  <style>
-  span {
-    display: none;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><input type="text"> <span>focusin fire</span></p>
-<p><input type="password"> <span>focusin fire</span></p>
-​
-<script>
-$( "p" ).focusin(function() {
-  $( this ).find( "span" ).css( "display", "inline" ).fadeOut( 1000 );
-});
-</script>
-</body>
-</html>
-```
      */
     focusin<TData>(eventData: TData,
                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -38000,6 +33074,7 @@ $( "p" ).focusin(function() {
   $( this ).find( "span" ).css( "display", "inline" ).fadeOut( 1000 );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -38017,54 +33092,6 @@ $( "p" ).focusin(function() {
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Watch for a loss of focus to occur inside paragraphs and note the difference between the focusout count and the blur count. (The blur count does not change because those events do not bubble.)
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>focusout demo</title>
-  <style>
-  .inputs {
-    float: left;
-    margin-right: 1em;
-  }
-  .inputs p {
-    margin-top: 0;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="inputs">
-  <p>
-    <input type="text"><br>
-    <input type="text">
-  </p>
-  <p>
-    <input type="password">
-  </p>
-</div>
-<div id="focus-count">focusout fire</div>
-<div id="blur-count">blur fire</div>
-​
-<script>
-var focus = 0,
-  blur = 0;
-$( "p" )
-  .focusout(function() {
-    focus++;
-    $( "#focus-count" ).text( "focusout fired: " + focus + "x" );
-  })
-  .blur(function() {
-    blur++;
-    $( "#blur-count" ).text( "blur fired: " + blur + "x" );
-  });
-</script>
-</body>
-</html>
-```
      */
     focusout<TData>(eventData: TData,
                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -38124,6 +33151,7 @@ $( "p" )
     $( "#blur-count" ).text( "blur fired: " + blur + "x" );
   });
 </script>
+​
 </body>
 </html>
 ```
@@ -38165,41 +33193,7 @@ $( "*", document.body ).click(function( event ) {
   $( "span:first" ).text( "Clicked on - " + domElement.nodeName );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Select all divs in the document and return the DOM Elements as an Array; then use the built-in reverse() method to reverse that array.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>get demo</title>
-  <style>
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-Reversed - <span></span>
-​
-<div>One</div>
-<div>Two</div>
-<div>Three</div>
-​
-<script>
-function display( divs ) {
-  var a = [];
-  for ( var i = 0; i < divs.length; i++ ) {
-    a.push( divs[ i ].innerHTML );
-  }
-  $( "span" ).text( a.join(" ") );
-}
-display( $( "div" ).get().reverse() );
-</script>
 </body>
 </html>
 ```
@@ -38210,39 +33204,6 @@ display( $( "div" ).get().reverse() );
      *
      * @see \`{@link https://api.jquery.com/get/ }\`
      * @since 1.0
-     * @example ​ ````Display the tag name of the click element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>get demo</title>
-  <style>
-  span {
-    color: red;
-  }
-  div {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<span>&nbsp;</span>
-<p>In this paragraph is an <span>important</span> section</p>
-<div><input type="text"></div>
-​
-<script>
-$( "*", document.body ).click(function( event ) {
-  event.stopPropagation();
-  var domElement = $( this ).get( 0 );
-  $( "span:first" ).text( "Clicked on - " + domElement.nodeName );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Select all divs in the document and return the DOM Elements as an Array; then use the built-in reverse() method to reverse that array.
 ```html
 <!doctype html>
@@ -38275,6 +33236,7 @@ function display( divs ) {
 }
 display( $( "div" ).get().reverse() );
 </script>
+​
 </body>
 </html>
 ```
@@ -38311,6 +33273,7 @@ $( "ul" ).append( "<li>" +
   "</li>" );
 $( "ul" ).has( "li" ).addClass( "full" );
 </script>
+​
 </body>
 </html>
 ```
@@ -38353,6 +33316,7 @@ $( "#result1" ).append( $( "p:first" ).hasClass( "selected" ).toString() );
 $( "#result2" ).append( $( "p:last" ).hasClass( "selected" ).toString() );
 $( "#result3" ).append( $( "p" ).hasClass( "selected" ).toString() ) ;
 </script>
+​
 </body>
 </html>
 ```
@@ -38368,60 +33332,6 @@ $( "#result3" ).append( $( "p" ).hasClass( "selected" ).toString() ) ;
      * @see \`{@link https://api.jquery.com/height/ }\`
      * @since 1.0
      * @since 1.4.1
-     * @example ​ ````Show various heights.  Note the values are from the iframe so might be smaller than you expected.  The yellow highlight shows the iframe body.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>height demo</title>
-  <style>
-  body {
-    background: yellow;
-  }
-  button {
-    font-size: 12px;
-    margin: 2px;
-  }
-  p {
-    width: 150px;
-    border: 1px red solid;
-  }
-  div {
-    color: red;
-    font-weight: bold;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="getp">Get Paragraph Height</button>
-<button id="getd">Get Document Height</button>
-<button id="getw">Get Window Height</button>
-​
-<div>&nbsp;</div>
-<p>
-  Sample paragraph to test height
-</p>
-​
-<script>
-function showHeight( element, height ) {
-  $( "div" ).text( "The height for the " + element + " is " + height + "px." );
-}
-$( "#getp" ).click(function() {
-  showHeight( "paragraph", $( "p" ).height() );
-});
-$( "#getd" ).click(function() {
-  showHeight( "document", $( document ).height() );
-});
-$( "#getw" ).click(function() {
-  showHeight( "window", $( window ).height() );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````To set the height of each div on click to 30px plus a color change.
 ```html
 <!doctype html>
@@ -38457,6 +33367,7 @@ $( "div" ).one( "click", function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -38518,44 +33429,7 @@ $( "#getw" ).click(function() {
   showHeight( "window", $( window ).height() );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````To set the height of each div on click to 30px plus a color change.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>height demo</title>
-  <style>
-  div {
-    width: 50px;
-    height: 70px;
-    float: left;
-    margin: 5px;
-    background: rgb(255,140,0);
-    cursor: pointer;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-​
-<script>
-$( "div" ).one( "click", function() {
-  $( this ).height( 30 ).css({
-    cursor: "auto",
-    backgroundColor: "green"
-  });
-});
-</script>
 </body>
 </html>
 ```
@@ -38569,135 +33443,6 @@ $( "div" ).one( "click", function() {
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/hide/ }\`
      * @since 1.4.3
-     * @example ​ ````Hides all paragraphs then the link on click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>hide demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Hello</p>
-<a href="#">Click to hide me too</a>
-<p>Here is another paragraph</p>
-​
-<script>
-$( "p" ).hide();
-$( "a" ).click(function( event ) {
-  event.preventDefault();
-  $( this ).hide();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates all shown paragraphs to hide slowly, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>hide demo</title>
-  <style>
-  p {
-    background: #dad;
-    font-weight: bold;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Hide 'em</button>
-<p>Hiya</p>
-<p>Such interesting text, eh?</p>
-​
-<script>
-$( "button" ).click(function() {
-  $( "p" ).hide( "slow" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates all spans (words in this case) to hide fastly, completing each animation within 200 milliseconds. Once each animation is done, it starts the next one.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>hide demo</title>
-  <style>
-  span {
-    background: #def3ca;
-    padding: 3px;
-    float: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="hider">Hide</button>
-<button id="shower">Show</button>
-<div>
-  <span>Once</span> <span>upon</span> <span>a</span>
-  <span>time</span> <span>there</span> <span>were</span>
-  <span>three</span> <span>programmers...</span>
-</div>
-​
-<script>
-$( "#hider" ).click(function() {
-  $( "span:last-child" ).hide( "fast", function() {
-    // Use arguments.callee so we don't need a named function
-    $( this ).prev().hide( "fast", arguments.callee );
-  });
-});
-$( "#shower" ).click(function() {
-  $( "span" ).show( 2000 );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Hides the divs when clicked over 2 seconds, then removes the div element when its hidden.  Try clicking on more than one box at a time.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>hide demo</title>
-  <style>
-  div {
-    background: #ece023;
-    width: 30px;
-    height: 40px;
-    margin: 2px;
-    float: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-​
-<script>
-for ( var i = 0; i < 5; i++ ) {
-  $( "<div>" ).appendTo( document.body );
-}
-$( "div" ).click(function() {
-  $( this ).hide( 2000, function() {
-    $( this ).remove();
-  });
-});
-</script>
-</body>
-</html>
-```
      */
     hide(duration: JQuery.Duration, easing: string, complete: (this: TElement) => void): this;
     /**
@@ -38709,60 +33454,6 @@ $( "div" ).click(function() {
      * @see \`{@link https://api.jquery.com/hide/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @example ​ ````Hides all paragraphs then the link on click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>hide demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Hello</p>
-<a href="#">Click to hide me too</a>
-<p>Here is another paragraph</p>
-​
-<script>
-$( "p" ).hide();
-$( "a" ).click(function( event ) {
-  event.preventDefault();
-  $( this ).hide();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates all shown paragraphs to hide slowly, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>hide demo</title>
-  <style>
-  p {
-    background: #dad;
-    font-weight: bold;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Hide 'em</button>
-<p>Hiya</p>
-<p>Such interesting text, eh?</p>
-​
-<script>
-$( "button" ).click(function() {
-  $( "p" ).hide( "slow" );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Animates all spans (words in this case) to hide fastly, completing each animation within 200 milliseconds. Once each animation is done, it starts the next one.
 ```html
 <!doctype html>
@@ -38800,6 +33491,7 @@ $( "#shower" ).click(function() {
   $( "span" ).show( 2000 );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -38835,6 +33527,7 @@ $( "div" ).click(function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -38870,6 +33563,7 @@ $( "a" ).click(function( event ) {
   $( this ).hide();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -38899,81 +33593,7 @@ $( "button" ).click(function() {
   $( "p" ).hide( "slow" );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Animates all spans (words in this case) to hide fastly, completing each animation within 200 milliseconds. Once each animation is done, it starts the next one.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>hide demo</title>
-  <style>
-  span {
-    background: #def3ca;
-    padding: 3px;
-    float: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<button id="hider">Hide</button>
-<button id="shower">Show</button>
-<div>
-  <span>Once</span> <span>upon</span> <span>a</span>
-  <span>time</span> <span>there</span> <span>were</span>
-  <span>three</span> <span>programmers...</span>
-</div>
-​
-<script>
-$( "#hider" ).click(function() {
-  $( "span:last-child" ).hide( "fast", function() {
-    // Use arguments.callee so we don't need a named function
-    $( this ).prev().hide( "fast", arguments.callee );
-  });
-});
-$( "#shower" ).click(function() {
-  $( "span" ).show( 2000 );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Hides the divs when clicked over 2 seconds, then removes the div element when its hidden.  Try clicking on more than one box at a time.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>hide demo</title>
-  <style>
-  div {
-    background: #ece023;
-    width: 30px;
-    height: 40px;
-    margin: 2px;
-    float: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-​
-<script>
-for ( var i = 0; i < 5; i++ ) {
-  $( "<div>" ).appendTo( document.body );
-}
-$( "div" ).click(function() {
-  $( this ).hide( 2000, function() {
-    $( this ).remove();
-  });
-});
-</script>
 </body>
 </html>
 ```
@@ -39037,21 +33657,12 @@ $( "li.fade" ).hover(function() {
   $( this ).fadeIn( 500 );
 });
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````To add a special style to table cells that are being hovered over, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>hover demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "td" ).hover(
   function() {
     $( this ).addClass( "hover" );
@@ -39059,26 +33670,10 @@ $( "td" ).hover(
     $( this ).removeClass( "hover" );
   }
 );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````To unbind the above example use:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>hover demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "td" ).off( "mouseenter mouseleave" );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Slide the next sibling LI up or down on hover, and toggle a class.
 ```html
@@ -39130,6 +33725,7 @@ $( "li" )
           .slideToggle();
     });
 </script>
+​
 </body>
 </html>
 ```
@@ -39148,50 +33744,6 @@ $( "li" )
      * @see \`{@link https://api.jquery.com/html/ }\`
      * @since 1.0
      * @since 1.4
-     * @example ​ ````Click a paragraph to convert it from html to text.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>html demo</title>
-  <style>
-  p {
-    margin: 8px;
-    font-size: 20px;
-    color: blue;
-    cursor: pointer;
-  }
-  b {
-    text-decoration: underline;
-  }
-  button {
-    cursor: pointer;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>
-  <b>Click</b> to change the <span id="tag">html</span>
-</p>
-<p>
-  to a <span id="text">text</span> node.
-</p>
-<p>
-  This <button name="nada">button</button> does nothing.
-</p>
-​
-<script>
-$( "p" ).click(function() {
-  var htmlString = $( this ).html();
-  $( this ).text( htmlString );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Add some html to each div.
 ```html
 <!doctype html>
@@ -39216,6 +33768,7 @@ $( "p" ).click(function() {
 <script>
 $( "div" ).html( "<span class='red'>Hello <b>Again</b></span>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -39246,6 +33799,7 @@ $( "div b" )
   .append( document.createTextNode( "!!!" ) )
   .css( "color", "red" );
 </script>
+​
 </body>
 </html>
 ```
@@ -39297,63 +33851,7 @@ $( "p" ).click(function() {
   $( this ).text( htmlString );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Add some html to each div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>html demo</title>
-  <style>
-  .red {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<span>Hello</span>
-<div></div>
-<div></div>
-<div></div>
-​
-<script>
-$( "div" ).html( "<span class='red'>Hello <b>Again</b></span>" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Add some html to each div then immediately do further manipulations to the inserted html.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>html demo</title>
-  <style>
-  div {
-    color: blue;
-    font-size: 18px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-<div></div>
-<div></div>
-​
-<script>
-$( "div" ).html( "<b>Wow!</b> Such excitement..." );
-$( "div b" )
-  .append( document.createTextNode( "!!!" ) )
-  .css( "color", "red" );
-</script>
 </body>
 </html>
 ```
@@ -39399,6 +33897,7 @@ $( "div" ).click(function() {
   $( "span" ).text( "That was div index #" + index );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -39430,6 +33929,7 @@ $( "div" ).click(function() {
 var listItem = $( "#bar" );
 $( "div" ).html( "Index: " + $( "li" ).index( listItem ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -39461,6 +33961,7 @@ $( "div" ).html( "Index: " + $( "li" ).index( listItem ) );
 var listItems = $( "li:gt(0)" );
 $( "div" ).html( "Index: " + $( "li" ).index( listItems ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -39491,6 +33992,7 @@ $( "div" ).html( "Index: " + $( "li" ).index( listItems ) );
 <script>
 $( "div" ).html( "Index: " +  $( "#bar" ).index( "li" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -39522,6 +34024,7 @@ $( "div" ).html( "Index: " +  $( "#bar" ).index( "li" ) );
 var barIndex = $( "#bar" ).index();
 $( "div" ).html( "Index: " +  barIndex );
 </script>
+​
 </body>
 </html>
 ```
@@ -39553,6 +34056,7 @@ $( "div" ).html( "Index: " +  barIndex );
 var foobar = $( "li" ).index( $( "#foobar" ) );
 $( "div" ).html( "Index: " + foobar );
 </script>
+​
 </body>
 </html>
 ```
@@ -39568,34 +34072,6 @@ $( "div" ).html( "Index: " + foobar );
      *              refers to the current element in the set.
      * @see \`{@link https://api.jquery.com/innerHeight/ }\`
      * @since 1.8.0
-     * @example ​ ````Get the innerHeight of a paragraph.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>innerHeight demo</title>
-  <style>
-  p {
-    margin: 10px;
-    padding: 5px;
-    border: 2px solid #666;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Hello</p>
-<p></p>
-​
-<script>
-var p = $( "p:first" );
-$( "p:last" ).text( "innerHeight:" + p.innerHeight() );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Change the inner height of each div the first time it is clicked (and change its color).
 ```html
 <!doctype html>
@@ -39635,6 +34111,7 @@ $( "div" ).one( "click", function() {
   modHeight -= 8;
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -39671,48 +34148,7 @@ $( "div" ).one( "click", function() {
 var p = $( "p:first" );
 $( "p:last" ).text( "innerHeight:" + p.innerHeight() );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Change the inner height of each div the first time it is clicked (and change its color).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>innerHeight demo</title>
-  <style>
-div {
-  width: 60px;
-  padding: 10px;
-  height: 70px;
-  float: left;
-  margin: 5px;
-  background: red;
-  cursor: pointer;
-}
-.mod {
-  background: blue;
-  cursor: default;
-}
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div>d</div>
-<div>d</div>
-<div>d</div>
-<div>d</div>
-<div>d</div>
-​
-<script>
-var modHeight = 70;
-$( "div" ).one( "click", function() {
-  $( this ).innerHeight( modHeight ).addClass( "mod" );
-  modHeight -= 8;
-});
-</script>
 </body>
 </html>
 ```
@@ -39728,34 +34164,6 @@ $( "div" ).one( "click", function() {
      *              refers to the current element in the set.
      * @see \`{@link https://api.jquery.com/innerWidth/ }\`
      * @since 1.8.0
-     * @example ​ ````Get the innerWidth of a paragraph.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>innerWidth demo</title>
-  <style>
-  p {
-    margin: 10px;
-    padding: 5px;
-    border: 2px solid #666;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Hello</p>
-<p></p>
-​
-<script>
-var p = $( "p:first" );
-$( "p:last" ).text( "innerWidth:" + p.innerWidth() );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Change the inner width of each div the first time it is clicked (and change its color).
 ```html
 <!doctype html>
@@ -39795,6 +34203,7 @@ $( this ).innerWidth( modWidth ).addClass( "mod" );
 modWidth -= 8;
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -39831,48 +34240,7 @@ modWidth -= 8;
 var p = $( "p:first" );
 $( "p:last" ).text( "innerWidth:" + p.innerWidth() );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Change the inner width of each div the first time it is clicked (and change its color).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>innerWidth demo</title>
-  <style>
-div {
-width: 60px;
-padding: 10px;
-height: 50px;
-float: left;
-margin: 5px;
-background: red;
-cursor: pointer;
-}
-.mod {
-background: blue;
-cursor: default;
-}
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div>d</div>
-<div>d</div>
-<div>d</div>
-<div>d</div>
-<div>d</div>
-​
-<script>
-var modWidth = 60;
-$( "div" ).one( "click", function() {
-$( this ).innerWidth( modWidth ).addClass( "mod" );
-modWidth -= 8;
-});
-</script>
 </body>
 </html>
 ```
@@ -39907,6 +34275,7 @@ modWidth -= 8;
 <script>
 $( "p" ).insertAfter( "#foo" );
 </script>
+​
 </body>
 </html>
 ```
@@ -39941,6 +34310,7 @@ $( "p" ).insertAfter( "#foo" );
 <script>
 $( "p" ).insertBefore( "#foo" );
 </script>
+​
 </body>
 </html>
 ```
@@ -40027,6 +34397,7 @@ $( "div" ).one( "click", function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -40055,6 +34426,7 @@ $( "div" ).one( "click", function() {
 var isFormParent = $( "input[type='checkbox']" ).parent().is( "form" );
 $( "div" ).text( "isFormParent = " + isFormParent );
 </script>
+​
 </body>
 </html>
 ```
@@ -40083,6 +34455,7 @@ $( "div" ).text( "isFormParent = " + isFormParent );
 var isFormParent = $( "input[type='checkbox']" ).parent().is( "form" );
 $( "div" ).text( "isFormParent = " + isFormParent );
 </script>
+​
 </body>
 </html>
 ```
@@ -40120,6 +34493,7 @@ $( "li" ).click(function() {
   }
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -40156,6 +34530,7 @@ $( "li" ).click(function() {
   }
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -40173,65 +34548,6 @@ $( "li" ).click(function() {
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Show the event object for the keydown handler when a key is pressed in the input.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>keydown demo</title>
-  <style>
-  fieldset {
-    margin-bottom: 1em;
-  }
-  input {
-    display: block;
-    margin-bottom: .25em;
-  }
-  #print-output {
-    width: 100%;
-  }
-  .print-output-line {
-    white-space: pre;
-    padding: 5px;
-    font-family: monaco, monospace;
-    font-size: .7em;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<form>
-  <fieldset>
-    <label for="target">Type Something:</label>
-    <input id="target" type="text">
-  </fieldset>
-</form>
-<button id="other">
-  Trigger the handler
-</button>
-<script type="text/javascript" src="/resources/events.js"></script>
-​
-<script>
-var xTriggered = 0;
-$( "#target" ).keydown(function( event ) {
-  if ( event.which == 13 ) {
-   event.preventDefault();
-  }
-  xTriggered++;
-  var msg = "Handler for .keydown() called " + xTriggered + " time(s).";
-  $.print( msg, "html" );
-  $.print( event );
-});
-​
-$( "#other" ).click(function() {
-  $( "#target" ).keydown();
-});
-</script>
-</body>
-</html>
-```
      */
     keydown<TData>(eventData: TData,
                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -40302,6 +34618,7 @@ $( "#other" ).click(function() {
   $( "#target" ).keydown();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -40319,65 +34636,6 @@ $( "#other" ).click(function() {
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Show the event object when a key is pressed in the input. Note: This demo relies on a simple $.print() plugin (https://api.jquery.com/resources/events.js) for the event object&#39;s output.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>keypress demo</title>
-  <style>
-  fieldset {
-    margin-bottom: 1em;
-  }
-  input {
-    display: block;
-    margin-bottom: .25em;
-  }
-  #print-output {
-    width: 100%;
-  }
-  .print-output-line {
-    white-space: pre;
-    padding: 5px;
-    font-family: monaco, monospace;
-    font-size: .7em;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<form>
-  <fieldset>
-    <label for="target">Type Something:</label>
-    <input id="target" type="text">
-  </fieldset>
-</form>
-<button id="other">
-  Trigger the handler
-</button>
-<script src="/resources/events.js"></script>
-​
-<script>
-var xTriggered = 0;
-$( "#target" ).keypress(function( event ) {
-  if ( event.which == 13 ) {
-     event.preventDefault();
-  }
-  xTriggered++;
-  var msg = "Handler for .keypress() called " + xTriggered + " time(s).";
-  $.print( msg, "html" );
-  $.print( event );
-});
-​
-$( "#other" ).click(function() {
-  $( "#target" ).keypress();
-});
-</script>
-</body>
-</html>
-```
      */
     keypress<TData>(eventData: TData,
                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -40448,6 +34706,7 @@ $( "#other" ).click(function() {
   $( "#target" ).keypress();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -40465,66 +34724,6 @@ $( "#other" ).click(function() {
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Show the event object for the keyup handler (using a simple $.print plugin) when a key is released in the input.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>keyup demo</title>
-  <style>
-  fieldset {
-    margin-bottom: 1em;
-  }
-  input {
-    display: block;
-    margin-bottom: .25em;
-  }
-  #print-output {
-    width: 100%;
-  }
-  .print-output-line {
-    white-space: pre;
-    padding: 5px;
-    font-family: monaco, monospace;
-    font-size: .7em;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<form>
-  <fieldset>
-    <label for="target">Type Something:</label>
-    <input id="target" type="text">
-  </fieldset>
-</form>
-<button id="other">
-  Trigger the handler
-</button>
-<script type="text/javascript" src="/resources/events.js"></script>
-​
-<script>
-var xTriggered = 0;
-$( "#target" ).keyup(function( event ) {
-  xTriggered++;
-  var msg = "Handler for .keyup() called " + xTriggered + " time(s).";
-  $.print( msg, "html" );
-  $.print( event );
-}).keydown(function( event ) {
-  if ( event.which == 13 ) {
-    event.preventDefault();
-  }
-});
-​
-$( "#other").click(function() {
-  $( "#target" ).keyup();
-});
-</script>
-</body>
-</html>
-```
      */
     keyup<TData>(eventData: TData,
                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -40596,6 +34795,7 @@ $( "#other").click(function() {
   $( "#target" ).keyup();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -40627,6 +34827,7 @@ $( "#other").click(function() {
 <script>
 $( "p span" ).last().addClass( "highlight" );
 </script>
+​
 </body>
 </html>
 ```
@@ -40640,117 +34841,11 @@ $( "p span" ).last().addClass( "highlight" );
      * @param complete A callback function that is executed when the request completes.
      * @see \`{@link https://api.jquery.com/load/ }\`
      * @since 1.0
-     * @example ​ ````Load another page&#39;s list items into an ordered list.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>load demo</title>
-  <style>
-  body {
-    font-size: 12px;
-    font-family: Arial;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<b>Projects:</b>
-<ol id="new-projects"></ol>
-​
-<script>
-$( "#new-projects" ).load( "/resources/load.html #projects li" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Display a notice if the Ajax request encounters an error.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>load demo</title>
-  <style>
-  body {
-    font-size: 12px;
-    font-family: Arial;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<b>Successful Response (should be blank):</b>
-<div id="success"></div>
-<b>Error Response:</b>
-<div id="error"></div>
-​
-<script>
-$( "#success" ).load( "/not-here.php", function( response, status, xhr ) {
-  if ( status == "error" ) {
-    var msg = "Sorry but there was an error: ";
-    $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
-  }
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Load the feeds.html file into the div with the ID of feeds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>load demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "#feeds" ).load( "feeds.html" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````pass arrays of data to the server.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>load demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "#objectID" ).load( "test.php", { "choices[]": [ "Jon", "Susan" ] } );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Same as above, but will POST the additional parameters to the server and a callback that is executed when the server is finished responding.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>load demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "#feeds" ).load( "feeds.php", { limit: 25 }, function() {
   alert( "The last 25 entries in the feed have been loaded" );
 });
-</script>
-</body>
-</html>
 ```
      */
     load(url: string,
@@ -40787,6 +34882,7 @@ $( "#feeds" ).load( "feeds.php", { limit: 25 }, function() {
 <script>
 $( "#new-projects" ).load( "/resources/load.html #projects li" );
 </script>
+​
 </body>
 </html>
 ```
@@ -40820,61 +34916,17 @@ $( "#success" ).load( "/not-here.php", function( response, status, xhr ) {
   }
 });
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Load the feeds.html file into the div with the ID of feeds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>load demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "#feeds" ).load( "feeds.html" );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````pass arrays of data to the server.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>load demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "#objectID" ).load( "test.php", { "choices[]": [ "Jon", "Susan" ] } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Same as above, but will POST the additional parameters to the server and a callback that is executed when the server is finished responding.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>load demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "#feeds" ).load( "feeds.php", { limit: 25 }, function() {
-  alert( "The last 25 entries in the feed have been loaded" );
-});
-</script>
-</body>
-</html>
 ```
      */
     load(url: string,
@@ -40917,6 +34969,7 @@ $( "p" )
   .get()
   .join( ", " ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -40979,6 +35032,7 @@ var mappedItems = $( "li" ).map(function( index ) {
 });
 $( "#results" ).append( mappedItems );
 </script>
+​
 </body>
 </html>
 ```
@@ -41019,6 +35073,7 @@ $( "input" ).click(function() {
   $( "div" ).equalizeHeights();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -41036,31 +35091,6 @@ $( "input" ).click(function() {
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Show texts when mouseup and mousedown event triggering.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>mousedown demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Press mouse and release here.</p>
-​
-<script>
-$( "p" )
-  .mouseup(function() {
-    $( this ).append( "<span style='color:#f00;'>Mouse up.</span>" );
-  })
-  .mousedown(function() {
-    $( this ).append( "<span style='color:#00f;'>Mouse down.</span>" );
-  });
-</script>
-</body>
-</html>
-```
      */
     mousedown<TData>(eventData: TData,
                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -41097,6 +35127,7 @@ $( "p" )
     $( this ).append( "<span style='color:#00f;'>Mouse down.</span>" );
   });
 </script>
+​
 </body>
 </html>
 ```
@@ -41114,74 +35145,6 @@ $( "p" )
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Show texts when mouseenter and mouseout event triggering.
-    mouseover fires when the pointer moves into the child element as well, while mouseenter fires only when the pointer moves into the bound element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>mouseenter demo</title>
-  <style>
-  div.out {
-    width: 40%;
-    height: 120px;
-    margin: 0 15px;
-    background-color: #d6edfc;
-    float: left;
-  }
-  div.in {
-    width: 60%;
-    height: 60%;
-    background-color: #fc0;
-    margin: 10px auto;
-  }
-  p {
-    line-height: 1em;
-    margin: 0;
-    padding: 0;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="out overout">
-  <p>move your mouse</p>
-  <div class="in overout"><p>move your mouse</p><p>0</p></div>
-  <p>0</p>
-</div>
-​
-<div class="out enterleave">
-  <p>move your mouse</p>
-  <div class="in enterleave"><p>move your mouse</p><p>0</p></div>
-  <p>0</p>
-</div>
-​
-<script>
-var i = 0;
-$( "div.overout" )
-  .mouseover(function() {
-    $( "p:first", this ).text( "mouse over" );
-    $( "p:last", this ).text( ++i );
-  })
-  .mouseout(function() {
-    $( "p:first", this ).text( "mouse out" );
-  });
-​
-var n = 0;
-$( "div.enterleave" )
-  .mouseenter(function() {
-    $( "p:first", this ).text( "mouse enter" );
-    $( "p:last", this ).text( ++n );
-  })
-  .mouseleave(function() {
-    $( "p:first", this ).text( "mouse leave" );
-  });
-</script>
-</body>
-</html>
-```
      */
     mouseenter<TData>(eventData: TData,
                       handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -41261,6 +35224,7 @@ $( "div.enterleave" )
     $( "p:first", this ).text( "mouse leave" );
   });
 </script>
+​
 </body>
 </html>
 ```
@@ -41278,72 +35242,6 @@ $( "div.enterleave" )
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Show number of times mouseout and mouseleave events are triggered. mouseout fires when the pointer moves out of child element as well, while mouseleave fires only when the pointer moves out of the bound element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>mouseleave demo</title>
-  <style>
-  div.out {
-    width: 40%;
-    height: 120px;
-    margin: 0 15px;
-    background-color: #d6edfc;
-    float: left;
-  }
-  div.in {
-    width: 60%;
-    height: 60%;
-    background-color: #fc0;
-    margin: 10px auto;
-  }
-  p {
-    line-height: 1em;
-    margin: 0;
-    padding: 0;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="out overout">
-  <p>move your mouse</p>
-  <div class="in overout"><p>move your mouse</p><p>0</p></div>
-  <p>0</p>
-</div>
-<div class="out enterleave">
-  <p>move your mouse</p>
-  <div class="in enterleave"><p>move your mouse</p><p>0</p></div>
-  <p>0</p>
-</div>
-​
-<script>
-var i = 0;
-$( "div.overout" )
-  .mouseover(function() {
-    $( "p:first", this ).text( "mouse over" );
-  })
-  .mouseout(function() {
-    $( "p:first", this ).text( "mouse out" );
-    $( "p:last", this ).text( ++i );
-  });
-​
-var n = 0;
-$( "div.enterleave" )
-  .mouseenter(function() {
-    $( "p:first", this ).text( "mouse enter" );
-  })
-  .mouseleave(function() {
-    $( "p:first", this ).text( "mouse leave" );
-    $( "p:last", this ).text( ++n );
-  });
-</script>
-</body>
-</html>
-```
      */
     mouseleave<TData>(eventData: TData,
                       handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -41421,6 +35319,7 @@ $( "div.enterleave" )
     $( "p:last", this ).text( ++n );
   });
 </script>
+​
 </body>
 </html>
 ```
@@ -41438,57 +35337,6 @@ $( "div.enterleave" )
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Show the mouse coordinates when the mouse is moved over the yellow div.  Coordinates are relative to the window, which in this case is the iframe.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>mousemove demo</title>
-  <style>
-  div {
-    width: 220px;
-    height: 170px;
-    margin: 10px 50px 10px 10px;
-    background: yellow;
-    border: 2px groove;
-    float: right;
-  }
-  p {
-    margin: 0;
-    margin-left: 10px;
-    color: red;
-    width: 220px;
-    height: 120px;
-    padding-top: 70px;
-    float: left;
-    font-size: 14px;
-  }
-  span {
-    display: block;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>
-  <span>Move the mouse over the div.</span>
-  <span>&nbsp;</span>
-</p>
-<div></div>
-​
-<script>
-$( "div" ).mousemove(function( event ) {
-  var pageCoords = "( " + event.pageX + ", " + event.pageY + " )";
-  var clientCoords = "( " + event.clientX + ", " + event.clientY + " )";
-  $( "span:first" ).text( "( event.pageX, event.pageY ) : " + pageCoords );
-  $( "span:last" ).text( "( event.clientX, event.clientY ) : " + clientCoords );
-});
-</script>
-</body>
-</html>
-```
      */
     mousemove<TData>(eventData: TData,
                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -41551,6 +35399,7 @@ $( "div" ).mousemove(function( event ) {
   $( "span:last" ).text( "( event.clientX, event.clientY ) : " + clientCoords );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -41568,74 +35417,6 @@ $( "div" ).mousemove(function( event ) {
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Show the number of times mouseout and mouseleave events are triggered.
-  mouseout fires when the pointer moves out of the child element as well, while mouseleave fires only when the pointer moves out of the bound element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>mouseout demo</title>
-  <style>
-  div.out {
-    width: 40%;
-    height: 120px;
-    margin: 0 15px;
-    background-color: #d6edfc;
-    float: left;
-  }
-  div.in {
-    width: 60%;
-    height: 60%;
-    background-color: #fc0;
-    margin: 10px auto;
-  }
-  p {
-    line-height: 1em;
-    margin: 0;
-    padding: 0;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="out overout">
-  <p>move your mouse</p>
-  <div class="in overout"><p>move your mouse</p><p>0</p></div>
-  <p>0</p>
-</div>
-​
-<div class="out enterleave">
-  <p>move your mouse</p>
-  <div class="in enterleave"><p>move your mouse</p><p>0</p></div>
-  <p>0</p>
-</div>
-​
-<script>
-var i = 0;
-$( "div.overout" )
-  .mouseout(function() {
-    $( "p:first", this ).text( "mouse out" );
-    $( "p:last", this ).text( ++i );
-  })
-  .mouseover(function() {
-    $( "p:first", this ).text( "mouse over" );
-  });
-​
-var n = 0;
-$( "div.enterleave" )
-  .on( "mouseenter", function() {
-    $( "p:first", this ).text( "mouse enter" );
-  })
-  .on( "mouseleave", function() {
-    $( "p:first", this ).text( "mouse leave" );
-    $( "p:last", this ).text( ++n );
-  });
-</script>
-</body>
-</html>
-```
      */
     mouseout<TData>(eventData: TData,
                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -41715,6 +35496,7 @@ $( "div.enterleave" )
     $( "p:last", this ).text( ++n );
   });
 </script>
+​
 </body>
 </html>
 ```
@@ -41732,74 +35514,6 @@ $( "div.enterleave" )
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Show the number of times mouseover and mouseenter events are triggered.
-mouseover fires when the pointer moves into the child element as well, while mouseenter fires only when the pointer moves into the bound element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>mouseover demo</title>
-  <style>
-  div.out {
-    width: 40%;
-    height: 120px;
-    margin: 0 15px;
-    background-color: #d6edfc;
-    float: left;
-  }
-  div.in {
-    width: 60%;
-    height: 60%;
-    background-color: #fc0;
-    margin: 10px auto;
-  }
-  p {
-    line-height: 1em;
-    margin: 0;
-    padding: 0;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="out overout">
-  <span>move your mouse</span>
-  <div class="in">
-  </div>
-</div>
-​
-<div class="out enterleave">
-  <span>move your mouse</span>
-  <div class="in">
-  </div>
-</div>
-​
-<script>
-var i = 0;
-$( "div.overout" )
-  .mouseover(function() {
-    i += 1;
-    $( this ).find( "span" ).text( "mouse over x " + i );
-  })
-  .mouseout(function() {
-    $( this ).find( "span" ).text( "mouse out " );
-  });
-​
-var n = 0;
-$( "div.enterleave" )
-  .mouseenter(function() {
-    n += 1;
-    $( this ).find( "span" ).text( "mouse enter x " + n );
-  })
-  .mouseleave(function() {
-    $( this ).find( "span" ).text( "mouse leave" );
-  });
-</script>
-</body>
-</html>
-```
      */
     mouseover<TData>(eventData: TData,
                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -41879,6 +35593,7 @@ $( "div.enterleave" )
     $( this ).find( "span" ).text( "mouse leave" );
   });
 </script>
+​
 </body>
 </html>
 ```
@@ -41896,31 +35611,6 @@ $( "div.enterleave" )
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````Show texts when mouseup and mousedown event triggering.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>mouseup demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Press mouse and release here.</p>
-​
-<script>
-$( "p" )
-  .mouseup(function() {
-    $( this ).append( "<span style='color:#f00;'>Mouse up.</span>" );
-  })
-  .mousedown(function() {
-    $( this ).append( "<span style='color:#00f;'>Mouse down.</span>" );
-  });
-</script>
-</body>
-</html>
-```
      */
     mouseup<TData>(eventData: TData,
                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -41957,6 +35647,7 @@ $( "p" )
     $( this ).append( "<span style='color:#00f;'>Mouse down.</span>" );
   });
 </script>
+​
 </body>
 </html>
 ```
@@ -41996,6 +35687,7 @@ $( "p" )
 <script>
 $( "button[disabled]" ).next().text( "this button is disabled" );
 </script>
+​
 </body>
 </html>
 ```
@@ -42017,6 +35709,7 @@ $( "button[disabled]" ).next().text( "this button is disabled" );
 <script>
 $( "p" ).next( ".selected" ).css( "background", "yellow" );
 </script>
+​
 </body>
 </html>
 ```
@@ -42059,6 +35752,7 @@ $( "p" ).next( ".selected" ).css( "background", "yellow" );
 <script>
 $( "div:first" ).nextAll().addClass( "after" );
 </script>
+​
 </body>
 </html>
 ```
@@ -42097,6 +35791,7 @@ $( "div:first" ).nextAll().addClass( "after" );
 <script>
 $( ":nth-child(1)" ).nextAll( "p" ).addClass( "after" );
 </script>
+​
 </body>
 </html>
 ```
@@ -42147,6 +35842,7 @@ $( "#term-1" )
   .nextUntil( term3, "dd" )
     .css( "color", "green" );
 </script>
+​
 </body>
 </html>
 ```
@@ -42205,59 +35901,21 @@ $( "#term-1" )
 $( "div" ).not( ".green, #blueone" )
   .css( "border-color", "red" );
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Removes the element with the ID &quot;selected&quot; from the set of all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>not demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).not( $( "#selected" )[ 0 ] );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Removes the element with the ID &quot;selected&quot; from the set of all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>not demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).not( "#selected" );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Removes all elements that match &quot;div p.selected&quot; from the total set of all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>not demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).not( $( "div p.selected" ) );
-</script>
-</body>
-</html>
 ```
      */
     not(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): this;
@@ -42312,55 +35970,12 @@ $( "#unbind" ).click(function() {
       .text( "Does nothing..." );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Remove all event handlers from all paragraphs:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).off();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Remove all delegated click handlers from all paragraphs:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).off( "click", "**" );
-</script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Remove just one previously bound handler by passing it as the third argument:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var foo = function() {
   // Code to handle some kind of event
 };
@@ -42370,36 +35985,6 @@ $( "body" ).on( "click", "p", foo );
 ​
 // ... Foo will no longer be called.
 $( "body" ).off( "click", "p", foo );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Unbind all delegated event handlers by their namespace:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var validate = function() {
-  // Code to validate form entries
-};
-​
-// Delegate events under the ".validator" namespace
-$( "form" ).on( "click.validator", "button", validate );
-​
-$( "form" ).on( "keypress.validator", "input[type='text']", validate );
-​
-// Remove event handlers in the ".validator" namespace
-$( "form" ).off( ".validator" );
-</script>
-</body>
-</html>
 ```
      */
     off(events: string, selector: JQuery.Selector, handler: JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
@@ -42412,122 +35997,12 @@ $( "form" ).off( ".validator" );
      *                         A function to execute each time the event is triggered.
      * @see \`{@link https://api.jquery.com/off/ }\`
      * @since 1.7
-     * @example ​ ````Add and remove event handlers on the colored button.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <style>
-  button {
-    margin: 5px;
-  }
-  button#theone {
-    color: red;
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="theone">Does nothing...</button>
-<button id="bind">Add Click</button>
-<button id="unbind">Remove Click</button>
-<div style="display:none;">Click!</div>
-​
-<script>
-function flash() {
-  $( "div" ).show().fadeOut( "slow" );
-}
-$( "#bind" ).click(function() {
-  $( "body" )
-    .on( "click", "#theone", flash )
-    .find( "#theone" )
-      .text( "Can Click!" );
-});
-$( "#unbind" ).click(function() {
-  $( "body" )
-    .off( "click", "#theone", flash )
-    .find( "#theone" )
-      .text( "Does nothing..." );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Remove all event handlers from all paragraphs:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).off();
-</script>
-</body>
-</html>
-```
      * @example ​ ````Remove all delegated click handlers from all paragraphs:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).off( "click", "**" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Remove just one previously bound handler by passing it as the third argument:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var foo = function() {
-  // Code to handle some kind of event
-};
-​
-// ... Now foo will be called when paragraphs are clicked ...
-$( "body" ).on( "click", "p", foo );
-​
-// ... Foo will no longer be called.
-$( "body" ).off( "click", "p", foo );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Unbind all delegated event handlers by their namespace:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var validate = function() {
   // Code to validate form entries
 };
@@ -42539,9 +36014,6 @@ $( "form" ).on( "keypress.validator", "input[type='text']", validate );
 ​
 // Remove event handlers in the ".validator" namespace
 $( "form" ).off( ".validator" );
-</script>
-</body>
-</html>
 ```
      */
     off(events: string, selector_handler?: JQuery.Selector | JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
@@ -42553,137 +36025,6 @@ $( "form" ).off( ".validator" );
      * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
      * @see \`{@link https://api.jquery.com/off/ }\`
      * @since 1.7
-     * @example ​ ````Add and remove event handlers on the colored button.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <style>
-  button {
-    margin: 5px;
-  }
-  button#theone {
-    color: red;
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="theone">Does nothing...</button>
-<button id="bind">Add Click</button>
-<button id="unbind">Remove Click</button>
-<div style="display:none;">Click!</div>
-​
-<script>
-function flash() {
-  $( "div" ).show().fadeOut( "slow" );
-}
-$( "#bind" ).click(function() {
-  $( "body" )
-    .on( "click", "#theone", flash )
-    .find( "#theone" )
-      .text( "Can Click!" );
-});
-$( "#unbind" ).click(function() {
-  $( "body" )
-    .off( "click", "#theone", flash )
-    .find( "#theone" )
-      .text( "Does nothing..." );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Remove all event handlers from all paragraphs:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).off();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Remove all delegated click handlers from all paragraphs:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).off( "click", "**" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Remove just one previously bound handler by passing it as the third argument:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var foo = function() {
-  // Code to handle some kind of event
-};
-​
-// ... Now foo will be called when paragraphs are clicked ...
-$( "body" ).on( "click", "p", foo );
-​
-// ... Foo will no longer be called.
-$( "body" ).off( "click", "p", foo );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Unbind all delegated event handlers by their namespace:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var validate = function() {
-  // Code to validate form entries
-};
-​
-// Delegate events under the ".validator" namespace
-$( "form" ).on( "click.validator", "button", validate );
-​
-$( "form" ).on( "keypress.validator", "input[type='text']", validate );
-​
-// Remove event handlers in the ".validator" namespace
-$( "form" ).off( ".validator" );
-</script>
-</body>
-</html>
-```
      */
     off(events: JQuery.PlainObject<JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false>, selector?: JQuery.Selector): this;
     /**
@@ -42692,136 +36033,9 @@ $( "form" ).off( ".validator" );
      * @param event A jQuery.Event object.
      * @see \`{@link https://api.jquery.com/off/ }\`
      * @since 1.7
-     * @example ​ ````Add and remove event handlers on the colored button.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <style>
-  button {
-    margin: 5px;
-  }
-  button#theone {
-    color: red;
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="theone">Does nothing...</button>
-<button id="bind">Add Click</button>
-<button id="unbind">Remove Click</button>
-<div style="display:none;">Click!</div>
-​
-<script>
-function flash() {
-  $( "div" ).show().fadeOut( "slow" );
-}
-$( "#bind" ).click(function() {
-  $( "body" )
-    .on( "click", "#theone", flash )
-    .find( "#theone" )
-      .text( "Can Click!" );
-});
-$( "#unbind" ).click(function() {
-  $( "body" )
-    .off( "click", "#theone", flash )
-    .find( "#theone" )
-      .text( "Does nothing..." );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Remove all event handlers from all paragraphs:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).off();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Remove all delegated click handlers from all paragraphs:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).off( "click", "**" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Remove just one previously bound handler by passing it as the third argument:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var foo = function() {
-  // Code to handle some kind of event
-};
-​
-// ... Now foo will be called when paragraphs are clicked ...
-$( "body" ).on( "click", "p", foo );
-​
-// ... Foo will no longer be called.
-$( "body" ).off( "click", "p", foo );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Unbind all delegated event handlers by their namespace:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>off demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var validate = function() {
-  // Code to validate form entries
-};
-​
-// Delegate events under the ".validator" namespace
-$( "form" ).on( "click.validator", "button", validate );
-​
-$( "form" ).on( "keypress.validator", "input[type='text']", validate );
-​
-// Remove event handlers in the ".validator" namespace
-$( "form" ).off( ".validator" );
-</script>
-</body>
-</html>
 ```
      */
     off(event?: JQuery.Event<TElement>): this;
@@ -42835,82 +36049,6 @@ $( "form" ).off( ".validator" );
      *                    object with the new top and left properties.
      * @see \`{@link https://api.jquery.com/offset/ }\`
      * @since 1.4
-     * @example ​ ````Access the offset of the second paragraph:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>offset demo</title>
-  <style>
-  p {
-    margin-left: 10px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Hello</p><p>2nd Paragraph</p>
-​
-<script>
-var p = $( "p:last" );
-var offset = p.offset();
-p.html( "left: " + offset.left + ", top: " + offset.top );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Click to see the offset.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>offset demo</title>
-  <style>
-  p {
-    margin-left: 10px;
-    color: blue;
-    width: 200px;
-    cursor: pointer;
-  }
-  span {
-    color: red;
-    cursor: pointer;
-  }
-  div.abs {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    left: 220px;
-    top: 35px;
-    background-color: green;
-    cursor: pointer;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div id="result">Click an element.</div>
-<p>
-  This is the best way to <span>find</span> an offset.
-</p>
-<div class="abs">
-</div>
-​
-<script>
-$( "*", document.body ).click(function( event ) {
-  var offset = $( this ).offset();
-  event.stopPropagation();
-  $( "#result" ).text( this.tagName +
-    " coords ( " + offset.left + ", " + offset.top + " )" );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Set the offset of the second paragraph:
 ```html
 <!doctype html>
@@ -42932,6 +36070,7 @@ $( "*", document.body ).click(function( event ) {
 <script>
 $( "p:last" ).offset({ top: 10, left: 30 });
 </script>
+​
 </body>
 </html>
 ```
@@ -42965,6 +36104,7 @@ var p = $( "p:last" );
 var offset = p.offset();
 p.html( "left: " + offset.left + ", top: " + offset.top );
 </script>
+​
 </body>
 </html>
 ```
@@ -43015,30 +36155,7 @@ $( "*", document.body ).click(function( event ) {
     " coords ( " + offset.left + ", " + offset.top + " )" );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Set the offset of the second paragraph:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>offset demo</title>
-  <style>
-  p {
-    margin-left: 10px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<p>Hello</p><p>2nd Paragraph</p>
-​
-<script>
-$( "p:last" ).offset({ top: 10, left: 30 });
-</script>
 </body>
 </html>
 ```
@@ -43079,6 +36196,7 @@ $( "p:last" ).offset({ top: 10, left: 30 });
 </ul>
 ​
 <script>$( "li.item-a" ).offsetParent().css( "background-color", "red" );</script>
+​
 </body>
 </html>
 ```
@@ -43094,314 +36212,6 @@ $( "p:last" ).offset({ top: 10, left: 30 });
      * @param handler A function to execute when the event is triggered.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
-     * @example ​ ````Display a paragraph&#39;s text in an alert when it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).on( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler, which is specified here by name:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function myHandler( event ) {
-  alert( event.data.foo );
-}
-$( "p" ).on( "click", { foo: "bar" }, myHandler );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a form submit action and prevent the event from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", false );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel only the default action by using .preventDefault().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Stop submit events from bubbling without preventing form submit, using .stopPropagation().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.stopPropagation();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler using the second argument to .trigger()
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, person ) {
-  alert( "Hello, " + person.name );
-});
-$( "div" ).trigger( "click", { name: "Jim" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use the the second argument of .trigger() to pass an array of data to the event handler
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, salutation, name ) {
-  alert( salutation + ", " + name );
-});
-$( "div" ).trigger( "click", [ "Goodbye", "Jim" ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach and trigger custom (non-browser) events.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display:none;"></span>
-​
-<script>
-$( "p" ).on( "myCustomEvent", function( event, myName ) {
-  $( this ).text( myName + ", hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-});
-$( "button" ).click(function () {
-  $( "p" ).trigger( "myCustomEvent", [ "John" ] );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple event handlers simultaneously using a plain object.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  .test {
-    color: #000;
-    padding: .5em;
-    border: 1px solid #444;
-  }
-  .active {
-    color: #900;
-  }
-  .inside {
-    background-color: aqua;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="test">test div</div>
-​
-<script>
-$( "div.test" ).on({
-  click: function() {
-    $( this ).toggleClass( "active" );
-  }, mouseenter: function() {
-    $( this ).addClass( "inside" );
-  }, mouseleave: function() {
-    $( this ).removeClass( "inside" );
-  }
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Click any paragraph to add another after it. Note that .on() allows a click event on any paragraph--even new ones--since the event is handled by the ever-present body element after it bubbles to there.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-    background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Click me!</p>
-<span></span>
-​
-<script>
-var count = 0;
-$( "body" ).on( "click", "p", function() {
-  $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "p", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a link&#39;s default action using the .preventDefault() method:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "a", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple events—one on mouseenter and one on mouseleave to the same element:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "#cart" ).on( "mouseenter mouseleave", function( event ) {
-  $( this ).toggleClass( "active" );
-});
-</script>
-</body>
-</html>
-```
      */
     on<TData>(events: string,
               selector: JQuery.Selector | null,
@@ -43417,314 +36227,6 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      * @param handler A function to execute when the event is triggered.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
-     * @example ​ ````Display a paragraph&#39;s text in an alert when it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).on( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler, which is specified here by name:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function myHandler( event ) {
-  alert( event.data.foo );
-}
-$( "p" ).on( "click", { foo: "bar" }, myHandler );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a form submit action and prevent the event from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", false );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel only the default action by using .preventDefault().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Stop submit events from bubbling without preventing form submit, using .stopPropagation().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.stopPropagation();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler using the second argument to .trigger()
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, person ) {
-  alert( "Hello, " + person.name );
-});
-$( "div" ).trigger( "click", { name: "Jim" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use the the second argument of .trigger() to pass an array of data to the event handler
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, salutation, name ) {
-  alert( salutation + ", " + name );
-});
-$( "div" ).trigger( "click", [ "Goodbye", "Jim" ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach and trigger custom (non-browser) events.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display:none;"></span>
-​
-<script>
-$( "p" ).on( "myCustomEvent", function( event, myName ) {
-  $( this ).text( myName + ", hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-});
-$( "button" ).click(function () {
-  $( "p" ).trigger( "myCustomEvent", [ "John" ] );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple event handlers simultaneously using a plain object.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  .test {
-    color: #000;
-    padding: .5em;
-    border: 1px solid #444;
-  }
-  .active {
-    color: #900;
-  }
-  .inside {
-    background-color: aqua;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="test">test div</div>
-​
-<script>
-$( "div.test" ).on({
-  click: function() {
-    $( this ).toggleClass( "active" );
-  }, mouseenter: function() {
-    $( this ).addClass( "inside" );
-  }, mouseleave: function() {
-    $( this ).removeClass( "inside" );
-  }
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Click any paragraph to add another after it. Note that .on() allows a click event on any paragraph--even new ones--since the event is handled by the ever-present body element after it bubbles to there.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-    background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Click me!</p>
-<span></span>
-​
-<script>
-var count = 0;
-$( "body" ).on( "click", "p", function() {
-  $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "p", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a link&#39;s default action using the .preventDefault() method:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "a", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple events—one on mouseenter and one on mouseleave to the same element:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "#cart" ).on( "mouseenter mouseleave", function( event ) {
-  $( this ).toggleClass( "active" );
-});
-</script>
-</body>
-</html>
-```
      */
     on(events: string,
        selector: JQuery.Selector | null,
@@ -43740,220 +36242,6 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      *                for a function that simply does return false.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
-     * @example ​ ````Display a paragraph&#39;s text in an alert when it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).on( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler, which is specified here by name:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function myHandler( event ) {
-  alert( event.data.foo );
-}
-$( "p" ).on( "click", { foo: "bar" }, myHandler );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a form submit action and prevent the event from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", false );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel only the default action by using .preventDefault().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Stop submit events from bubbling without preventing form submit, using .stopPropagation().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.stopPropagation();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler using the second argument to .trigger()
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, person ) {
-  alert( "Hello, " + person.name );
-});
-$( "div" ).trigger( "click", { name: "Jim" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use the the second argument of .trigger() to pass an array of data to the event handler
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, salutation, name ) {
-  alert( salutation + ", " + name );
-});
-$( "div" ).trigger( "click", [ "Goodbye", "Jim" ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach and trigger custom (non-browser) events.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display:none;"></span>
-​
-<script>
-$( "p" ).on( "myCustomEvent", function( event, myName ) {
-  $( this ).text( myName + ", hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-});
-$( "button" ).click(function () {
-  $( "p" ).trigger( "myCustomEvent", [ "John" ] );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple event handlers simultaneously using a plain object.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  .test {
-    color: #000;
-    padding: .5em;
-    border: 1px solid #444;
-  }
-  .active {
-    color: #900;
-  }
-  .inside {
-    background-color: aqua;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="test">test div</div>
-​
-<script>
-$( "div.test" ).on({
-  click: function() {
-    $( this ).toggleClass( "active" );
-  }, mouseenter: function() {
-    $( this ).addClass( "inside" );
-  }, mouseleave: function() {
-    $( this ).removeClass( "inside" );
-  }
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Click any paragraph to add another after it. Note that .on() allows a click event on any paragraph--even new ones--since the event is handled by the ever-present body element after it bubbles to there.
 ```html
 <!doctype html>
@@ -43988,65 +36276,21 @@ $( "body" ).on( "click", "p", function() {
   $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
 });
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "body" ).on( "click", "p", function() {
   alert( $( this ).text() );
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Cancel a link&#39;s default action using the .preventDefault() method:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "body" ).on( "click", "a", function( event ) {
   event.preventDefault();
 });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple events—one on mouseenter and one on mouseleave to the same element:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "#cart" ).on( "mouseenter mouseleave", function( event ) {
-  $( this ).toggleClass( "active" );
-});
-</script>
-</body>
-</html>
 ```
      */
     on(events: string,
@@ -44061,220 +36305,6 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      * @param handler A function to execute when the event is triggered.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
-     * @example ​ ````Display a paragraph&#39;s text in an alert when it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).on( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler, which is specified here by name:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function myHandler( event ) {
-  alert( event.data.foo );
-}
-$( "p" ).on( "click", { foo: "bar" }, myHandler );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a form submit action and prevent the event from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", false );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel only the default action by using .preventDefault().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Stop submit events from bubbling without preventing form submit, using .stopPropagation().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.stopPropagation();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler using the second argument to .trigger()
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, person ) {
-  alert( "Hello, " + person.name );
-});
-$( "div" ).trigger( "click", { name: "Jim" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use the the second argument of .trigger() to pass an array of data to the event handler
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, salutation, name ) {
-  alert( salutation + ", " + name );
-});
-$( "div" ).trigger( "click", [ "Goodbye", "Jim" ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach and trigger custom (non-browser) events.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display:none;"></span>
-​
-<script>
-$( "p" ).on( "myCustomEvent", function( event, myName ) {
-  $( this ).text( myName + ", hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-});
-$( "button" ).click(function () {
-  $( "p" ).trigger( "myCustomEvent", [ "John" ] );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple event handlers simultaneously using a plain object.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  .test {
-    color: #000;
-    padding: .5em;
-    border: 1px solid #444;
-  }
-  .active {
-    color: #900;
-  }
-  .inside {
-    background-color: aqua;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="test">test div</div>
-​
-<script>
-$( "div.test" ).on({
-  click: function() {
-    $( this ).toggleClass( "active" );
-  }, mouseenter: function() {
-    $( this ).addClass( "inside" );
-  }, mouseleave: function() {
-    $( this ).removeClass( "inside" );
-  }
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Click any paragraph to add another after it. Note that .on() allows a click event on any paragraph--even new ones--since the event is handled by the ever-present body element after it bubbles to there.
 ```html
 <!doctype html>
@@ -44309,65 +36339,21 @@ $( "body" ).on( "click", "p", function() {
   $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
 });
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "body" ).on( "click", "p", function() {
   alert( $( this ).text() );
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Cancel a link&#39;s default action using the .preventDefault() method:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "body" ).on( "click", "a", function( event ) {
   event.preventDefault();
 });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple events—one on mouseenter and one on mouseleave to the same element:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "#cart" ).on( "mouseenter mouseleave", function( event ) {
-  $( this ).toggleClass( "active" );
-});
-</script>
-</body>
-</html>
 ```
      */
     on(events: string,
@@ -44381,313 +36367,12 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      * @param handler A function to execute when the event is triggered.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
-     * @example ​ ````Display a paragraph&#39;s text in an alert when it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).on( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Pass data to the event handler, which is specified here by name:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 function myHandler( event ) {
   alert( event.data.foo );
 }
 $( "p" ).on( "click", { foo: "bar" }, myHandler );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a form submit action and prevent the event from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", false );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel only the default action by using .preventDefault().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Stop submit events from bubbling without preventing form submit, using .stopPropagation().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.stopPropagation();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler using the second argument to .trigger()
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, person ) {
-  alert( "Hello, " + person.name );
-});
-$( "div" ).trigger( "click", { name: "Jim" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use the the second argument of .trigger() to pass an array of data to the event handler
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, salutation, name ) {
-  alert( salutation + ", " + name );
-});
-$( "div" ).trigger( "click", [ "Goodbye", "Jim" ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach and trigger custom (non-browser) events.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display:none;"></span>
-​
-<script>
-$( "p" ).on( "myCustomEvent", function( event, myName ) {
-  $( this ).text( myName + ", hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-});
-$( "button" ).click(function () {
-  $( "p" ).trigger( "myCustomEvent", [ "John" ] );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple event handlers simultaneously using a plain object.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  .test {
-    color: #000;
-    padding: .5em;
-    border: 1px solid #444;
-  }
-  .active {
-    color: #900;
-  }
-  .inside {
-    background-color: aqua;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="test">test div</div>
-​
-<script>
-$( "div.test" ).on({
-  click: function() {
-    $( this ).toggleClass( "active" );
-  }, mouseenter: function() {
-    $( this ).addClass( "inside" );
-  }, mouseleave: function() {
-    $( this ).removeClass( "inside" );
-  }
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Click any paragraph to add another after it. Note that .on() allows a click event on any paragraph--even new ones--since the event is handled by the ever-present body element after it bubbles to there.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-    background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Click me!</p>
-<span></span>
-​
-<script>
-var count = 0;
-$( "body" ).on( "click", "p", function() {
-  $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "p", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a link&#39;s default action using the .preventDefault() method:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "a", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple events—one on mouseenter and one on mouseleave to the same element:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "#cart" ).on( "mouseenter mouseleave", function( event ) {
-  $( this ).toggleClass( "active" );
-});
-</script>
-</body>
-</html>
 ```
      */
     on<TData>(events: string,
@@ -44701,313 +36386,12 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      * @param handler A function to execute when the event is triggered.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
-     * @example ​ ````Display a paragraph&#39;s text in an alert when it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).on( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Pass data to the event handler, which is specified here by name:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 function myHandler( event ) {
   alert( event.data.foo );
 }
 $( "p" ).on( "click", { foo: "bar" }, myHandler );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a form submit action and prevent the event from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", false );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel only the default action by using .preventDefault().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Stop submit events from bubbling without preventing form submit, using .stopPropagation().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.stopPropagation();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler using the second argument to .trigger()
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, person ) {
-  alert( "Hello, " + person.name );
-});
-$( "div" ).trigger( "click", { name: "Jim" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use the the second argument of .trigger() to pass an array of data to the event handler
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, salutation, name ) {
-  alert( salutation + ", " + name );
-});
-$( "div" ).trigger( "click", [ "Goodbye", "Jim" ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach and trigger custom (non-browser) events.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display:none;"></span>
-​
-<script>
-$( "p" ).on( "myCustomEvent", function( event, myName ) {
-  $( this ).text( myName + ", hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-});
-$( "button" ).click(function () {
-  $( "p" ).trigger( "myCustomEvent", [ "John" ] );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple event handlers simultaneously using a plain object.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  .test {
-    color: #000;
-    padding: .5em;
-    border: 1px solid #444;
-  }
-  .active {
-    color: #900;
-  }
-  .inside {
-    background-color: aqua;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="test">test div</div>
-​
-<script>
-$( "div.test" ).on({
-  click: function() {
-    $( this ).toggleClass( "active" );
-  }, mouseenter: function() {
-    $( this ).addClass( "inside" );
-  }, mouseleave: function() {
-    $( this ).removeClass( "inside" );
-  }
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Click any paragraph to add another after it. Note that .on() allows a click event on any paragraph--even new ones--since the event is handled by the ever-present body element after it bubbles to there.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-    background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Click me!</p>
-<span></span>
-​
-<script>
-var count = 0;
-$( "body" ).on( "click", "p", function() {
-  $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "p", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a link&#39;s default action using the .preventDefault() method:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "a", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple events—one on mouseenter and one on mouseleave to the same element:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "#cart" ).on( "mouseenter mouseleave", function( event ) {
-  $( this ).toggleClass( "active" );
-});
-</script>
-</body>
-</html>
 ```
      */
     on(events: string,
@@ -45022,138 +36406,40 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
      * @example ​ ````Display a paragraph&#39;s text in an alert when it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).on( "click", function() {
   alert( $( this ).text() );
 });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler, which is specified here by name:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function myHandler( event ) {
-  alert( event.data.foo );
-}
-$( "p" ).on( "click", { foo: "bar" }, myHandler );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Cancel a form submit action and prevent the event from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "form" ).on( "submit", false );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Cancel only the default action by using .preventDefault().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "form" ).on( "submit", function( event ) {
   event.preventDefault();
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Stop submit events from bubbling without preventing form submit, using .stopPropagation().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "form" ).on( "submit", function( event ) {
   event.stopPropagation();
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Pass data to the event handler using the second argument to .trigger()
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "div" ).on( "click", function( event, person ) {
   alert( "Hello, " + person.name );
 });
 $( "div" ).trigger( "click", { name: "Jim" } );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Use the the second argument of .trigger() to pass an array of data to the event handler
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "div" ).on( "click", function( event, salutation, name ) {
   alert( salutation + ", " + name );
 });
 $( "div" ).trigger( "click", [ "Goodbye", "Jim" ] );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Attach and trigger custom (non-browser) events.
 ```html
@@ -45192,142 +36478,15 @@ $( "button" ).click(function () {
   $( "p" ).trigger( "myCustomEvent", [ "John" ] );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple event handlers simultaneously using a plain object.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  .test {
-    color: #000;
-    padding: .5em;
-    border: 1px solid #444;
-  }
-  .active {
-    color: #900;
-  }
-  .inside {
-    background-color: aqua;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div class="test">test div</div>
-​
-<script>
-$( "div.test" ).on({
-  click: function() {
-    $( this ).toggleClass( "active" );
-  }, mouseenter: function() {
-    $( this ).addClass( "inside" );
-  }, mouseleave: function() {
-    $( this ).removeClass( "inside" );
-  }
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Click any paragraph to add another after it. Note that .on() allows a click event on any paragraph--even new ones--since the event is handled by the ever-present body element after it bubbles to there.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-    background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Click me!</p>
-<span></span>
-​
-<script>
-var count = 0;
-$( "body" ).on( "click", "p", function() {
-  $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "p", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a link&#39;s default action using the .preventDefault() method:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "a", function( event ) {
-  event.preventDefault();
-});
-</script>
 </body>
 </html>
 ```
      * @example ​ ````Attach multiple events—one on mouseenter and one on mouseleave to the same element:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
   $( this ).toggleClass( "active" );
 });
-</script>
-</body>
-</html>
 ```
      */
     on(events: string,
@@ -45340,138 +36499,40 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
      * @example ​ ````Display a paragraph&#39;s text in an alert when it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).on( "click", function() {
   alert( $( this ).text() );
 });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler, which is specified here by name:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function myHandler( event ) {
-  alert( event.data.foo );
-}
-$( "p" ).on( "click", { foo: "bar" }, myHandler );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Cancel a form submit action and prevent the event from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "form" ).on( "submit", false );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Cancel only the default action by using .preventDefault().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "form" ).on( "submit", function( event ) {
   event.preventDefault();
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Stop submit events from bubbling without preventing form submit, using .stopPropagation().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "form" ).on( "submit", function( event ) {
   event.stopPropagation();
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Pass data to the event handler using the second argument to .trigger()
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "div" ).on( "click", function( event, person ) {
   alert( "Hello, " + person.name );
 });
 $( "div" ).trigger( "click", { name: "Jim" } );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Use the the second argument of .trigger() to pass an array of data to the event handler
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "div" ).on( "click", function( event, salutation, name ) {
   alert( salutation + ", " + name );
 });
 $( "div" ).trigger( "click", [ "Goodbye", "Jim" ] );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Attach and trigger custom (non-browser) events.
 ```html
@@ -45510,142 +36571,15 @@ $( "button" ).click(function () {
   $( "p" ).trigger( "myCustomEvent", [ "John" ] );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple event handlers simultaneously using a plain object.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  .test {
-    color: #000;
-    padding: .5em;
-    border: 1px solid #444;
-  }
-  .active {
-    color: #900;
-  }
-  .inside {
-    background-color: aqua;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div class="test">test div</div>
-​
-<script>
-$( "div.test" ).on({
-  click: function() {
-    $( this ).toggleClass( "active" );
-  }, mouseenter: function() {
-    $( this ).addClass( "inside" );
-  }, mouseleave: function() {
-    $( this ).removeClass( "inside" );
-  }
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Click any paragraph to add another after it. Note that .on() allows a click event on any paragraph--even new ones--since the event is handled by the ever-present body element after it bubbles to there.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-    background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Click me!</p>
-<span></span>
-​
-<script>
-var count = 0;
-$( "body" ).on( "click", "p", function() {
-  $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "p", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a link&#39;s default action using the .preventDefault() method:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "a", function( event ) {
-  event.preventDefault();
-});
-</script>
 </body>
 </html>
 ```
      * @example ​ ````Attach multiple events—one on mouseenter and one on mouseleave to the same element:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
   $( this ).toggleClass( "active" );
 });
-</script>
-</body>
-</html>
 ```
      */
     on(events: string,
@@ -45660,314 +36594,6 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
-     * @example ​ ````Display a paragraph&#39;s text in an alert when it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).on( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler, which is specified here by name:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function myHandler( event ) {
-  alert( event.data.foo );
-}
-$( "p" ).on( "click", { foo: "bar" }, myHandler );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a form submit action and prevent the event from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", false );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel only the default action by using .preventDefault().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Stop submit events from bubbling without preventing form submit, using .stopPropagation().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.stopPropagation();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler using the second argument to .trigger()
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, person ) {
-  alert( "Hello, " + person.name );
-});
-$( "div" ).trigger( "click", { name: "Jim" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use the the second argument of .trigger() to pass an array of data to the event handler
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, salutation, name ) {
-  alert( salutation + ", " + name );
-});
-$( "div" ).trigger( "click", [ "Goodbye", "Jim" ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach and trigger custom (non-browser) events.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display:none;"></span>
-​
-<script>
-$( "p" ).on( "myCustomEvent", function( event, myName ) {
-  $( this ).text( myName + ", hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-});
-$( "button" ).click(function () {
-  $( "p" ).trigger( "myCustomEvent", [ "John" ] );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple event handlers simultaneously using a plain object.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  .test {
-    color: #000;
-    padding: .5em;
-    border: 1px solid #444;
-  }
-  .active {
-    color: #900;
-  }
-  .inside {
-    background-color: aqua;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="test">test div</div>
-​
-<script>
-$( "div.test" ).on({
-  click: function() {
-    $( this ).toggleClass( "active" );
-  }, mouseenter: function() {
-    $( this ).addClass( "inside" );
-  }, mouseleave: function() {
-    $( this ).removeClass( "inside" );
-  }
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Click any paragraph to add another after it. Note that .on() allows a click event on any paragraph--even new ones--since the event is handled by the ever-present body element after it bubbles to there.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-    background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Click me!</p>
-<span></span>
-​
-<script>
-var count = 0;
-$( "body" ).on( "click", "p", function() {
-  $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "p", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a link&#39;s default action using the .preventDefault() method:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "a", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple events—one on mouseenter and one on mouseleave to the same element:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "#cart" ).on( "mouseenter mouseleave", function( event ) {
-  $( this ).toggleClass( "active" );
-});
-</script>
-</body>
-</html>
-```
      */
     on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
               selector: JQuery.Selector | null,
@@ -45981,314 +36607,6 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
-     * @example ​ ````Display a paragraph&#39;s text in an alert when it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).on( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler, which is specified here by name:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function myHandler( event ) {
-  alert( event.data.foo );
-}
-$( "p" ).on( "click", { foo: "bar" }, myHandler );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a form submit action and prevent the event from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", false );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel only the default action by using .preventDefault().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Stop submit events from bubbling without preventing form submit, using .stopPropagation().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.stopPropagation();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler using the second argument to .trigger()
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, person ) {
-  alert( "Hello, " + person.name );
-});
-$( "div" ).trigger( "click", { name: "Jim" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use the the second argument of .trigger() to pass an array of data to the event handler
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, salutation, name ) {
-  alert( salutation + ", " + name );
-});
-$( "div" ).trigger( "click", [ "Goodbye", "Jim" ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach and trigger custom (non-browser) events.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display:none;"></span>
-​
-<script>
-$( "p" ).on( "myCustomEvent", function( event, myName ) {
-  $( this ).text( myName + ", hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-});
-$( "button" ).click(function () {
-  $( "p" ).trigger( "myCustomEvent", [ "John" ] );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple event handlers simultaneously using a plain object.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  .test {
-    color: #000;
-    padding: .5em;
-    border: 1px solid #444;
-  }
-  .active {
-    color: #900;
-  }
-  .inside {
-    background-color: aqua;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="test">test div</div>
-​
-<script>
-$( "div.test" ).on({
-  click: function() {
-    $( this ).toggleClass( "active" );
-  }, mouseenter: function() {
-    $( this ).addClass( "inside" );
-  }, mouseleave: function() {
-    $( this ).removeClass( "inside" );
-  }
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Click any paragraph to add another after it. Note that .on() allows a click event on any paragraph--even new ones--since the event is handled by the ever-present body element after it bubbles to there.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-    background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Click me!</p>
-<span></span>
-​
-<script>
-var count = 0;
-$( "body" ).on( "click", "p", function() {
-  $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "p", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a link&#39;s default action using the .preventDefault() method:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "a", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple events—one on mouseenter and one on mouseleave to the same element:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "#cart" ).on( "mouseenter mouseleave", function( event ) {
-  $( this ).toggleClass( "active" );
-});
-</script>
-</body>
-</html>
-```
      */
     on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>,
        selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
@@ -46300,314 +36618,6 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
-     * @example ​ ````Display a paragraph&#39;s text in an alert when it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).on( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler, which is specified here by name:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function myHandler( event ) {
-  alert( event.data.foo );
-}
-$( "p" ).on( "click", { foo: "bar" }, myHandler );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a form submit action and prevent the event from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", false );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel only the default action by using .preventDefault().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Stop submit events from bubbling without preventing form submit, using .stopPropagation().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.stopPropagation();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler using the second argument to .trigger()
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, person ) {
-  alert( "Hello, " + person.name );
-});
-$( "div" ).trigger( "click", { name: "Jim" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use the the second argument of .trigger() to pass an array of data to the event handler
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, salutation, name ) {
-  alert( salutation + ", " + name );
-});
-$( "div" ).trigger( "click", [ "Goodbye", "Jim" ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach and trigger custom (non-browser) events.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display:none;"></span>
-​
-<script>
-$( "p" ).on( "myCustomEvent", function( event, myName ) {
-  $( this ).text( myName + ", hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-});
-$( "button" ).click(function () {
-  $( "p" ).trigger( "myCustomEvent", [ "John" ] );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple event handlers simultaneously using a plain object.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  .test {
-    color: #000;
-    padding: .5em;
-    border: 1px solid #444;
-  }
-  .active {
-    color: #900;
-  }
-  .inside {
-    background-color: aqua;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="test">test div</div>
-​
-<script>
-$( "div.test" ).on({
-  click: function() {
-    $( this ).toggleClass( "active" );
-  }, mouseenter: function() {
-    $( this ).addClass( "inside" );
-  }, mouseleave: function() {
-    $( this ).removeClass( "inside" );
-  }
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Click any paragraph to add another after it. Note that .on() allows a click event on any paragraph--even new ones--since the event is handled by the ever-present body element after it bubbles to there.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-    background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Click me!</p>
-<span></span>
-​
-<script>
-var count = 0;
-$( "body" ).on( "click", "p", function() {
-  $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "p", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a link&#39;s default action using the .preventDefault() method:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "a", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple events—one on mouseenter and one on mouseleave to the same element:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "#cart" ).on( "mouseenter mouseleave", function( event ) {
-  $( this ).toggleClass( "active" );
-});
-</script>
-</body>
-</html>
-```
      */
     on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
               data: TData): this;
@@ -46618,180 +36628,6 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      *               namespaces, and the values represent a handler function to be called for the event(s).
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
-     * @example ​ ````Display a paragraph&#39;s text in an alert when it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).on( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler, which is specified here by name:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function myHandler( event ) {
-  alert( event.data.foo );
-}
-$( "p" ).on( "click", { foo: "bar" }, myHandler );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a form submit action and prevent the event from bubbling up by returning false:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", false );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel only the default action by using .preventDefault().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Stop submit events from bubbling without preventing form submit, using .stopPropagation().
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).on( "submit", function( event ) {
-  event.stopPropagation();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass data to the event handler using the second argument to .trigger()
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, person ) {
-  alert( "Hello, " + person.name );
-});
-$( "div" ).trigger( "click", { name: "Jim" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use the the second argument of .trigger() to pass an array of data to the event handler
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div" ).on( "click", function( event, salutation, name ) {
-  alert( salutation + ", " + name );
-});
-$( "div" ).trigger( "click", [ "Goodbye", "Jim" ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach and trigger custom (non-browser) events.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    color: red;
-  }
-  span {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Has an attached custom event.</p>
-<button>Trigger custom event</button>
-<span style="display:none;"></span>
-​
-<script>
-$( "p" ).on( "myCustomEvent", function( event, myName ) {
-  $( this ).text( myName + ", hi there!" );
-  $( "span" )
-    .stop()
-    .css( "opacity", 1 )
-    .text( "myName = " + myName )
-    .fadeIn( 30 )
-    .fadeOut( 1000 );
-});
-$( "button" ).click(function () {
-  $( "p" ).trigger( "myCustomEvent", [ "John" ] );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Attach multiple event handlers simultaneously using a plain object.
 ```html
 <!doctype html>
@@ -46829,100 +36665,7 @@ $( "div.test" ).on({
   }
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Click any paragraph to add another after it. Note that .on() allows a click event on any paragraph--even new ones--since the event is handled by the ever-present body element after it bubbles to there.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <style>
-  p {
-    background: yellow;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px;
-  }
-  p.over {
-    background: #ccc;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<p>Click me!</p>
-<span></span>
-​
-<script>
-var count = 0;
-$( "body" ).on( "click", "p", function() {
-  $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Display each paragraph&#39;s text in an alert box whenever it is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "p", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Cancel a link&#39;s default action using the .preventDefault() method:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "body" ).on( "click", "a", function( event ) {
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Attach multiple events—one on mouseenter and one on mouseleave to the same element:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>on demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "#cart" ).on( "mouseenter mouseleave", function( event ) {
-  $( this ).toggleClass( "active" );
-});
-</script>
 </body>
 </html>
 ```
@@ -46938,97 +36681,6 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      * @param handler A function to execute when the event is triggered.
      * @see \`{@link https://api.jquery.com/one/ }\`
      * @since 1.7
-     * @example ​ ````Tie a one-time click to each div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <style>
-  div {
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-    float: left;
-    background: green;
-    border: 10px outset;
-    cursor:pointer;
-  }
-  p {
-    color: red;
-    margin: 0;
-    clear: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<p>Click a green square...</p>
-​
-<script>
-var n = 0;
-$( "div" ).one( "click", function() {
-  var index = $( "div" ).index( this );
-  $( this ).css({
-    borderStyle: "inset",
-    cursor: "auto"
-  });
-  $( "p" ).text( "Div at index #" + index + " clicked." +
-    " That's " + (++n) + " total clicks." );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To display the text of all paragraphs in an alert box the first time each of them is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).one( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Event handlers will trigger once per element per event type
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="count">0</div>
-<div class="target">Hover/click me</div>
-​
-<script>
-var n = 0;
-$(".target").one("click mouseenter", function() {
-  $(".count").html(++n);
-});
-</script>
-</body>
-</html>
-```
      */
     one<TData>(events: string,
                selector: JQuery.Selector | null,
@@ -47044,97 +36696,6 @@ $(".target").one("click mouseenter", function() {
      *                for a function that simply does return false.
      * @see \`{@link https://api.jquery.com/one/ }\`
      * @since 1.7
-     * @example ​ ````Tie a one-time click to each div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <style>
-  div {
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-    float: left;
-    background: green;
-    border: 10px outset;
-    cursor:pointer;
-  }
-  p {
-    color: red;
-    margin: 0;
-    clear: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<p>Click a green square...</p>
-​
-<script>
-var n = 0;
-$( "div" ).one( "click", function() {
-  var index = $( "div" ).index( this );
-  $( this ).css({
-    borderStyle: "inset",
-    cursor: "auto"
-  });
-  $( "p" ).text( "Div at index #" + index + " clicked." +
-    " That's " + (++n) + " total clicks." );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To display the text of all paragraphs in an alert box the first time each of them is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).one( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Event handlers will trigger once per element per event type
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="count">0</div>
-<div class="target">Hover/click me</div>
-​
-<script>
-var n = 0;
-$(".target").one("click mouseenter", function() {
-  $(".count").html(++n);
-});
-</script>
-</body>
-</html>
-```
      */
     one(events: string,
         selector: JQuery.Selector,
@@ -47147,97 +36708,6 @@ $(".target").one("click mouseenter", function() {
      * @param handler A function to execute when the event is triggered.
      * @see \`{@link https://api.jquery.com/one/ }\`
      * @since 1.7
-     * @example ​ ````Tie a one-time click to each div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <style>
-  div {
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-    float: left;
-    background: green;
-    border: 10px outset;
-    cursor:pointer;
-  }
-  p {
-    color: red;
-    margin: 0;
-    clear: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<p>Click a green square...</p>
-​
-<script>
-var n = 0;
-$( "div" ).one( "click", function() {
-  var index = $( "div" ).index( this );
-  $( this ).css({
-    borderStyle: "inset",
-    cursor: "auto"
-  });
-  $( "p" ).text( "Div at index #" + index + " clicked." +
-    " That's " + (++n) + " total clicks." );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To display the text of all paragraphs in an alert box the first time each of them is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).one( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Event handlers will trigger once per element per event type
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="count">0</div>
-<div class="target">Hover/click me</div>
-​
-<script>
-var n = 0;
-$(".target").one("click mouseenter", function() {
-  $(".count").html(++n);
-});
-</script>
-</body>
-</html>
-```
      */
     one<TData>(events: string,
                data: TData,
@@ -47296,27 +36766,15 @@ $( "div" ).one( "click", function() {
     " That's " + (++n) + " total clicks." );
 });
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````To display the text of all paragraphs in an alert box the first time each of them is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).one( "click", function() {
   alert( $( this ).text() );
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Event handlers will trigger once per element per event type
 ```html
@@ -47338,6 +36796,7 @@ $(".target").one("click mouseenter", function() {
   $(".count").html(++n);
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -47354,97 +36813,6 @@ $(".target").one("click mouseenter", function() {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see \`{@link https://api.jquery.com/one/ }\`
      * @since 1.7
-     * @example ​ ````Tie a one-time click to each div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <style>
-  div {
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-    float: left;
-    background: green;
-    border: 10px outset;
-    cursor:pointer;
-  }
-  p {
-    color: red;
-    margin: 0;
-    clear: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<p>Click a green square...</p>
-​
-<script>
-var n = 0;
-$( "div" ).one( "click", function() {
-  var index = $( "div" ).index( this );
-  $( this ).css({
-    borderStyle: "inset",
-    cursor: "auto"
-  });
-  $( "p" ).text( "Div at index #" + index + " clicked." +
-    " That's " + (++n) + " total clicks." );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To display the text of all paragraphs in an alert box the first time each of them is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).one( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Event handlers will trigger once per element per event type
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="count">0</div>
-<div class="target">Hover/click me</div>
-​
-<script>
-var n = 0;
-$(".target").one("click mouseenter", function() {
-  $(".count").html(++n);
-});
-</script>
-</body>
-</html>
-```
      */
     one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
                selector: JQuery.Selector | null,
@@ -47458,97 +36826,6 @@ $(".target").one("click mouseenter", function() {
      *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
      * @see \`{@link https://api.jquery.com/one/ }\`
      * @since 1.7
-     * @example ​ ````Tie a one-time click to each div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <style>
-  div {
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-    float: left;
-    background: green;
-    border: 10px outset;
-    cursor:pointer;
-  }
-  p {
-    color: red;
-    margin: 0;
-    clear: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<p>Click a green square...</p>
-​
-<script>
-var n = 0;
-$( "div" ).one( "click", function() {
-  var index = $( "div" ).index( this );
-  $( this ).css({
-    borderStyle: "inset",
-    cursor: "auto"
-  });
-  $( "p" ).text( "Div at index #" + index + " clicked." +
-    " That's " + (++n) + " total clicks." );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To display the text of all paragraphs in an alert box the first time each of them is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).one( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Event handlers will trigger once per element per event type
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="count">0</div>
-<div class="target">Hover/click me</div>
-​
-<script>
-var n = 0;
-$(".target").one("click mouseenter", function() {
-  $(".count").html(++n);
-});
-</script>
-</body>
-</html>
-```
      */
     one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>,
         selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
@@ -47560,97 +36837,6 @@ $(".target").one("click mouseenter", function() {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see \`{@link https://api.jquery.com/one/ }\`
      * @since 1.7
-     * @example ​ ````Tie a one-time click to each div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <style>
-  div {
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-    float: left;
-    background: green;
-    border: 10px outset;
-    cursor:pointer;
-  }
-  p {
-    color: red;
-    margin: 0;
-    clear: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<p>Click a green square...</p>
-​
-<script>
-var n = 0;
-$( "div" ).one( "click", function() {
-  var index = $( "div" ).index( this );
-  $( this ).css({
-    borderStyle: "inset",
-    cursor: "auto"
-  });
-  $( "p" ).text( "Div at index #" + index + " clicked." +
-    " That's " + (++n) + " total clicks." );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To display the text of all paragraphs in an alert box the first time each of them is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).one( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Event handlers will trigger once per element per event type
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="count">0</div>
-<div class="target">Hover/click me</div>
-​
-<script>
-var n = 0;
-$(".target").one("click mouseenter", function() {
-  $(".count").html(++n);
-});
-</script>
-</body>
-</html>
-```
      */
     one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
                data: TData): this;
@@ -47661,97 +36847,6 @@ $(".target").one("click mouseenter", function() {
      *               namespaces, and the values represent a handler function to be called for the event(s).
      * @see \`{@link https://api.jquery.com/one/ }\`
      * @since 1.7
-     * @example ​ ````Tie a one-time click to each div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <style>
-  div {
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-    float: left;
-    background: green;
-    border: 10px outset;
-    cursor:pointer;
-  }
-  p {
-    color: red;
-    margin: 0;
-    clear: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<p>Click a green square...</p>
-​
-<script>
-var n = 0;
-$( "div" ).one( "click", function() {
-  var index = $( "div" ).index( this );
-  $( this ).css({
-    borderStyle: "inset",
-    cursor: "auto"
-  });
-  $( "p" ).text( "Div at index #" + index + " clicked." +
-    " That's " + (++n) + " total clicks." );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To display the text of all paragraphs in an alert box the first time each of them is clicked:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).one( "click", function() {
-  alert( $( this ).text() );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Event handlers will trigger once per element per event type
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>one demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="count">0</div>
-<div class="target">Hover/click me</div>
-​
-<script>
-var n = 0;
-$(".target").one("click mouseenter", function() {
-  $(".count").html(++n);
-});
-</script>
-</body>
-</html>
-```
      */
     one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
     /**
@@ -47761,35 +36856,6 @@ $(".target").one("click mouseenter", function() {
      *              appended (as a string).
      * @see \`{@link https://api.jquery.com/outerHeight/ }\`
      * @since 1.8.0
-     * @example ​ ````Get the outerHeight of a paragraph.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>outerHeight demo</title>
-  <style>
-  p {
-    margin: 10px;
-    padding: 5px;
-    border: 2px solid #666;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Hello</p><p></p>
-​
-<script>
-var p = $( "p:first" );
-$( "p:last" ).text(
-  "outerHeight:" + p.outerHeight() +
-  " , outerHeight( true ):" + p.outerHeight( true ) );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Change the outer height of each div the first time it is clicked (and change its color).
 ```html
 <!doctype html>
@@ -47829,6 +36895,7 @@ $( "div" ).one( "click", function() {
   modHeight -= 8;
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -47867,48 +36934,7 @@ $( "p:last" ).text(
   "outerHeight:" + p.outerHeight() +
   " , outerHeight( true ):" + p.outerHeight( true ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Change the outer height of each div the first time it is clicked (and change its color).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>outerHeight demo</title>
-  <style>
-  div {
-    width: 50px;
-    padding: 10px;
-    height: 60px;
-    float: left;
-    margin: 5px;
-    background: red;
-    cursor: pointer;
-  }
-  .mod {
-    background: blue;
-    cursor: default;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div>d</div>
-<div>d</div>
-<div>d</div>
-<div>d</div>
-<div>d</div>
-​
-<script>
-var modHeight = 60;
-$( "div" ).one( "click", function() {
-  $( this ).outerHeight( modHeight ).addClass( "mod" );
-  modHeight -= 8;
-});
-</script>
 </body>
 </html>
 ```
@@ -47923,35 +36949,6 @@ $( "div" ).one( "click", function() {
      *              and the old outer width as arguments. Within the function, this refers to the current element in the set.
      * @see \`{@link https://api.jquery.com/outerWidth/ }\`
      * @since 1.8.0
-     * @example ​ ````Get the outerWidth of a paragraph.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>outerWidth demo</title>
-  <style>
-  p {
-    margin: 10px;
-    padding: 5px;
-    border: 2px solid #666;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Hello</p><p></p>
-​
-<script>
-var p = $( "p:first" );
-$( "p:last" ).text(
-  "outerWidth:" + p.outerWidth() +
-  " , outerWidth( true ):" + p.outerWidth( true ) );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Change the outer width of each div the first time it is clicked (and change its color).
 ```html
 <!doctype html>
@@ -47991,6 +36988,7 @@ $( "div" ).one( "click", function() {
   modWidth -= 8;
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -48029,48 +37027,7 @@ $( "p:last" ).text(
   "outerWidth:" + p.outerWidth() +
   " , outerWidth( true ):" + p.outerWidth( true ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Change the outer width of each div the first time it is clicked (and change its color).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>outerWidth demo</title>
-  <style>
-  div {
-    width: 60px;
-    padding: 10px;
-    height: 50px;
-    float: left;
-    margin: 5px;
-    background: red;
-    cursor: pointer;
-  }
-  .mod {
-    background: blue;
-    cursor: default;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div>d</div>
-<div>d</div>
-<div>d</div>
-<div>d</div>
-<div>d</div>
-​
-<script>
-var modWidth = 60;
-$( "div" ).one( "click", function() {
-  $( this ).outerWidth( modWidth ).addClass( "mod" );
-  modWidth -= 8;
-});
-</script>
 </body>
 </html>
 ```
@@ -48125,6 +37082,7 @@ $( "*", document.body ).each(function() {
   $( this ).prepend( document.createTextNode( parentTag + " > " ) );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -48145,6 +37103,7 @@ $( "*", document.body ).each(function() {
 <script>
 $( "p" ).parent( ".selected" ).css( "background", "yellow" );
 </script>
+​
 </body>
 </html>
 ```
@@ -48196,6 +37155,7 @@ var parentEls = $( "b" ).parents()
   .join( ", " );
 $( "b" ).append( "<strong>" + parentEls + "</strong>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -48256,6 +37216,7 @@ $( "span" ).click(function() {
   showParents();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -48309,6 +37270,7 @@ $( "li.item-2" )
   .parentsUntil( $( "ul.level-1" ), ".yes" )
     .css( "border", "3px solid green" );
 </script>
+​
 </body>
 </html>
 ```
@@ -48348,6 +37310,7 @@ var p = $( "p:first" );
 var position = p.position();
 $( "p:last" ).text( "left: " + position.left + ", top: " + position.top );
 </script>
+​
 </body>
 </html>
 ```
@@ -48382,6 +37345,7 @@ $( "p:last" ).text( "left: " + position.left + ", top: " + position.top );
 <script>
 $( "p" ).prepend( "<b>Hello </b>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -48407,6 +37371,7 @@ $( "p" ).prepend( "<b>Hello </b>" );
 <script>
 $( "p" ).prepend( document.createTextNode( "Hello " ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -48431,6 +37396,7 @@ $( "p" ).prepend( document.createTextNode( "Hello " ) );
 <script>
 $( "p" ).prepend( $( "b" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -48445,80 +37411,6 @@ $( "p" ).prepend( $( "b" ) );
      *           refers to the current element in the set.
      * @see \`{@link https://api.jquery.com/prepend/ }\`
      * @since 1.4
-     * @example ​ ````Prepends some HTML to all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>prepend demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>there, friend!</p>
-<p>amigo!</p>
-​
-<script>
-$( "p" ).prepend( "<b>Hello </b>" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Prepends a DOM Element to all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>prepend demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>is what I'd say</p>
-<p>is what I said</p>
-​
-<script>
-$( "p" ).prepend( document.createTextNode( "Hello " ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Prepends a jQuery object (similar to an Array of DOM Elements) to all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>prepend demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p> is what was said.</p><b>Hello</b>
-​
-<script>
-$( "p" ).prepend( $( "b" ) );
-</script>
-</body>
-</html>
-```
      */
     prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     /**
@@ -48550,6 +37442,7 @@ $( "p" ).prepend( $( "b" ) );
 <script>
 $( "span" ).prependTo( "#foo" );
 </script>
+​
 </body>
 </html>
 ```
@@ -48609,6 +37502,7 @@ $( "button" ).click(function() {
   $curr.css( "background", "#f99" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -48630,6 +37524,7 @@ $( "button" ).click(function() {
 <script>
 $( "p" ).prev( ".selected" ).css( "background", "yellow" );
 </script>
+​
 </body>
 </html>
 ```
@@ -48673,6 +37568,7 @@ $( "p" ).prev( ".selected" ).css( "background", "yellow" );
 <script>
 $( "div:last" ).prevAll().addClass( "before" );
 </script>
+​
 </body>
 </html>
 ```
@@ -48724,6 +37620,7 @@ var term1 = document.getElementById( "term-1" );
 $( "#term-3" ).prevUntil( term1, "dd" )
   .css( "color", "green" );
 </script>
+​
 </body>
 </html>
 ```
@@ -48737,116 +37634,6 @@ $( "#term-3" ).prevUntil( term1, "dd" )
      * @param target Object onto which the promise methods have to be attached
      * @see \`{@link https://api.jquery.com/promise/ }\`
      * @since 1.6
-     * @example ​ ````Using .promise() on a collection with no active animation returns a resolved Promise:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>promise demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var div = $( "<div>" );
-​
-div.promise().done(function( arg1 ) {
-  // Will fire right away and alert "true"
-  alert( this === div && arg1 === div );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Resolve the returned Promise when all animations have ended (including those initiated in the animation callback or added later on):
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>promise demo</title>
-  <style>
-  div {
-    height: 50px;
-    width: 50px;
-    float: left;
-    margin-right: 10px;
-    display: none;
-    background-color: #090;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Go</button>
-<p>Ready...</p>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-​
-<script>
-$( "button" ).on( "click", function() {
-  $( "p" ).append( "Started..." );
-​
-  $( "div" ).each(function( i ) {
-    $( this ).fadeIn().fadeOut( 1000 * ( i + 1 ) );
-  });
-​
-  $( "div" ).promise().done(function() {
-    $( "p" ).append( " Finished! " );
-  });
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Resolve the returned Promise using a $.when() statement (the .promise() method makes it possible to do this with jQuery collections):
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>promise demo</title>
-  <style>
-  div {
-    height: 50px;
-    width: 50px;
-    float: left;
-    margin-right: 10px;
-    display: none;
-    background-color: #090;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Go</button>
-<p>Ready...</p>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-​
-<script>
-var effect = function() {
-  return $( "div" ).fadeIn( 800 ).delay( 1200 ).fadeOut();
-};
-​
-$( "button" ).on( "click", function() {
-  $( "p" ).append( " Started... " );
-​
-  $.when( effect() ).done(function() {
-    $( "p" ).append( " Finished! " );
-  });
-});
-</script>
-</body>
-</html>
-```
      */
     promise<T extends object>(type: string, target: T): T & JQuery.Promise<this>;
     /**
@@ -48856,116 +37643,6 @@ $( "button" ).on( "click", function() {
      * @param target Object onto which the promise methods have to be attached
      * @see \`{@link https://api.jquery.com/promise/ }\`
      * @since 1.6
-     * @example ​ ````Using .promise() on a collection with no active animation returns a resolved Promise:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>promise demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var div = $( "<div>" );
-​
-div.promise().done(function( arg1 ) {
-  // Will fire right away and alert "true"
-  alert( this === div && arg1 === div );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Resolve the returned Promise when all animations have ended (including those initiated in the animation callback or added later on):
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>promise demo</title>
-  <style>
-  div {
-    height: 50px;
-    width: 50px;
-    float: left;
-    margin-right: 10px;
-    display: none;
-    background-color: #090;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Go</button>
-<p>Ready...</p>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-​
-<script>
-$( "button" ).on( "click", function() {
-  $( "p" ).append( "Started..." );
-​
-  $( "div" ).each(function( i ) {
-    $( this ).fadeIn().fadeOut( 1000 * ( i + 1 ) );
-  });
-​
-  $( "div" ).promise().done(function() {
-    $( "p" ).append( " Finished! " );
-  });
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Resolve the returned Promise using a $.when() statement (the .promise() method makes it possible to do this with jQuery collections):
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>promise demo</title>
-  <style>
-  div {
-    height: 50px;
-    width: 50px;
-    float: left;
-    margin-right: 10px;
-    display: none;
-    background-color: #090;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Go</button>
-<p>Ready...</p>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-​
-<script>
-var effect = function() {
-  return $( "div" ).fadeIn( 800 ).delay( 1200 ).fadeOut();
-};
-​
-$( "button" ).on( "click", function() {
-  $( "p" ).append( " Started... " );
-​
-  $.when( effect() ).done(function() {
-    $( "p" ).append( " Finished! " );
-  });
-});
-</script>
-</body>
-</html>
-```
      */
     promise<T extends object>(target: T): T & JQuery.Promise<this>;
     /**
@@ -48976,26 +37653,13 @@ $( "button" ).on( "click", function() {
      * @see \`{@link https://api.jquery.com/promise/ }\`
      * @since 1.6
      * @example ​ ````Using .promise() on a collection with no active animation returns a resolved Promise:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>promise demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var div = $( "<div>" );
 ​
 div.promise().done(function( arg1 ) {
   // Will fire right away and alert "true"
   alert( this === div && arg1 === div );
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Resolve the returned Promise when all animations have ended (including those initiated in the animation callback or added later on):
 ```html
@@ -49038,6 +37702,7 @@ $( "button" ).on( "click", function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -49082,6 +37747,7 @@ $( "button" ).on( "click", function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -49095,74 +37761,6 @@ $( "button" ).on( "click", function() {
      *              old property value as arguments. Within the function, the keyword this refers to the current element.
      * @see \`{@link https://api.jquery.com/prop/ }\`
      * @since 1.6
-     * @example ​ ````Display the checked property and attribute of a checkbox as it changes.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>prop demo</title>
-  <style>
-  p {
-    margin: 20px 0 0;
-  }
-  b {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<input id="check1" type="checkbox" checked="checked">
-<label for="check1">Check me</label>
-<p></p>
-​
-<script>
-$( "input" ).change(function() {
-  var $input = $( this );
-  $( "p" ).html(
-    ".attr( \"checked\" ): <b>" + $input.attr( "checked" ) + "</b><br>" +
-    ".prop( \"checked\" ): <b>" + $input.prop( "checked" ) + "</b><br>" +
-    ".is( \":checked\" ): <b>" + $input.is( ":checked" ) + "</b>" );
-}).change();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Disable all checkboxes on the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>prop demo</title>
-  <style>
-  img {
-    padding: 10px;
-  }
-  div {
-    color: red;
-    font-size: 24px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <input type="checkbox" checked="checked">
-  <input type="checkbox">
-  <input type="checkbox">
-  <input type="checkbox" checked="checked">
-​
-<script>
-$( "input[type='checkbox']" ).prop({
-  disabled: true
-});
-</script>
-</body>
-</html>
-```
      */
     prop(propertyName: string, value: (this: TElement, index: number, oldPropertyValue: any) => any): this;
     /**
@@ -49172,74 +37770,6 @@ $( "input[type='checkbox']" ).prop({
      * @param value A value to set for the property.
      * @see \`{@link https://api.jquery.com/prop/ }\`
      * @since 1.6
-     * @example ​ ````Display the checked property and attribute of a checkbox as it changes.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>prop demo</title>
-  <style>
-  p {
-    margin: 20px 0 0;
-  }
-  b {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<input id="check1" type="checkbox" checked="checked">
-<label for="check1">Check me</label>
-<p></p>
-​
-<script>
-$( "input" ).change(function() {
-  var $input = $( this );
-  $( "p" ).html(
-    ".attr( \"checked\" ): <b>" + $input.attr( "checked" ) + "</b><br>" +
-    ".prop( \"checked\" ): <b>" + $input.prop( "checked" ) + "</b><br>" +
-    ".is( \":checked\" ): <b>" + $input.is( ":checked" ) + "</b>" );
-}).change();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Disable all checkboxes on the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>prop demo</title>
-  <style>
-  img {
-    padding: 10px;
-  }
-  div {
-    color: red;
-    font-size: 24px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <input type="checkbox" checked="checked">
-  <input type="checkbox">
-  <input type="checkbox">
-  <input type="checkbox" checked="checked">
-​
-<script>
-$( "input[type='checkbox']" ).prop({
-  disabled: true
-});
-</script>
-</body>
-</html>
-```
      */
     prop(propertyName: string, value: any): this; // tslint:disable-line:unified-signatures
     /**
@@ -49248,41 +37778,6 @@ $( "input[type='checkbox']" ).prop({
      * @param properties An object of property-value pairs to set.
      * @see \`{@link https://api.jquery.com/prop/ }\`
      * @since 1.6
-     * @example ​ ````Display the checked property and attribute of a checkbox as it changes.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>prop demo</title>
-  <style>
-  p {
-    margin: 20px 0 0;
-  }
-  b {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<input id="check1" type="checkbox" checked="checked">
-<label for="check1">Check me</label>
-<p></p>
-​
-<script>
-$( "input" ).change(function() {
-  var $input = $( this );
-  $( "p" ).html(
-    ".attr( \"checked\" ): <b>" + $input.attr( "checked" ) + "</b><br>" +
-    ".prop( \"checked\" ): <b>" + $input.prop( "checked" ) + "</b><br>" +
-    ".is( \":checked\" ): <b>" + $input.is( ":checked" ) + "</b>" );
-}).change();
-</script>
-</body>
-</html>
-```
      * @example ​ ````Disable all checkboxes on the page.
 ```html
 <!doctype html>
@@ -49313,6 +37808,7 @@ $( "input[type='checkbox']" ).prop({
   disabled: true
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -49356,39 +37852,7 @@ $( "input" ).change(function() {
     ".is( \":checked\" ): <b>" + $input.is( ":checked" ) + "</b>" );
 }).change();
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Disable all checkboxes on the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>prop demo</title>
-  <style>
-  img {
-    padding: 10px;
-  }
-  div {
-    color: red;
-    font-size: 24px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <input type="checkbox" checked="checked">
-  <input type="checkbox">
-  <input type="checkbox">
-  <input type="checkbox" checked="checked">
-​
-<script>
-$( "input[type='checkbox']" ).prop({
-  disabled: true
-});
-</script>
 </body>
 </html>
 ```
@@ -49402,26 +37866,6 @@ $( "input[type='checkbox']" ).prop({
      * @param args The arguments that were passed in to the jQuery method (for serialization).
      * @see \`{@link https://api.jquery.com/pushStack/ }\`
      * @since 1.3
-     * @example ​ ````Add some elements onto the jQuery stack, then pop back off again.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>pushStack demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-jQuery([])
-  .pushStack( document.getElementsByTagName( "div" ) )
-  .remove()
-  .end();
-</script>
-</body>
-</html>
-```
      */
     pushStack(elements: ArrayLike<Element>, name: string, args: any[]): this;
     /**
@@ -49431,24 +37875,11 @@ jQuery([])
      * @see \`{@link https://api.jquery.com/pushStack/ }\`
      * @since 1.0
      * @example ​ ````Add some elements onto the jQuery stack, then pop back off again.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>pushStack demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 jQuery([])
   .pushStack( document.getElementsByTagName( "div" ) )
   .remove()
   .end();
-</script>
-</body>
-</html>
 ```
      */
     pushStack(elements: ArrayLike<Element>): this;
@@ -49460,112 +37891,6 @@ jQuery([])
      *                 An array of functions to replace the current queue contents.
      * @see \`{@link https://api.jquery.com/queue/ }\`
      * @since 1.2
-     * @example ​ ````Show the length of the queue.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>queue demo</title>
-  <style>
-  div {
-    margin: 3px;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    left: 0px;
-    top: 60px;
-    background: green;
-    display: none;
-  }
-  div.newcolor {
-    background: blue;
-  }
-  p {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>The queue length is: <span></span></p>
-<div></div>
-​
-<script>
-var div = $( "div" );
-​
-function runIt() {
-  div
-    .show( "slow" )
-    .animate({ left: "+=200" }, 2000 )
-    .slideToggle( 1000 )
-    .slideToggle( "fast" )
-    .animate({ left: "-=200" }, 1500 )
-    .hide( "slow" )
-    .show( 1200 )
-    .slideUp( "normal", runIt );
-}
-​
-function showIt() {
-  var n = div.queue( "fx" );
-  $( "span" ).text( n.length );
-  setTimeout( showIt, 100 );
-}
-​
-runIt();
-showIt();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Queue a custom function.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>queue demo</title>
-  <style>
-  div {
-    margin: 3px;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    left: 0px;
-    top: 30px;
-    background: green;
-    display: none;
-  }
-  div.newcolor {
-    background: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-Click here...
-<div></div>
-​
-<script>
-$( document.body ).click(function() {
-  $( "div" )
-    .show( "slow" )
-    .animate({ left: "+=200" }, 2000 )
-    .queue(function() {
-      $( this ).addClass( "newcolor" ).dequeue();
-    })
-    .animate({ left: "-=200" }, 500 )
-    .queue(function() {
-      $( this ).removeClass( "newcolor" ).dequeue();
-    })
-    .slideUp();
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Set a queue array to delete the queue.
 ```html
 <!doctype html>
@@ -49616,6 +37941,7 @@ $( "#stop" ).click(function() {
     .stop();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -49628,65 +37954,6 @@ $( "#stop" ).click(function() {
      *                 An array of functions to replace the current queue contents.
      * @see \`{@link https://api.jquery.com/queue/ }\`
      * @since 1.2
-     * @example ​ ````Show the length of the queue.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>queue demo</title>
-  <style>
-  div {
-    margin: 3px;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    left: 0px;
-    top: 60px;
-    background: green;
-    display: none;
-  }
-  div.newcolor {
-    background: blue;
-  }
-  p {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>The queue length is: <span></span></p>
-<div></div>
-​
-<script>
-var div = $( "div" );
-​
-function runIt() {
-  div
-    .show( "slow" )
-    .animate({ left: "+=200" }, 2000 )
-    .slideToggle( 1000 )
-    .slideToggle( "fast" )
-    .animate({ left: "-=200" }, 1500 )
-    .hide( "slow" )
-    .show( 1200 )
-    .slideUp( "normal", runIt );
-}
-​
-function showIt() {
-  var n = div.queue( "fx" );
-  $( "span" ).text( n.length );
-  setTimeout( showIt, 100 );
-}
-​
-runIt();
-showIt();
-</script>
-</body>
-</html>
-```
      * @example ​ ````Queue a custom function.
 ```html
 <!doctype html>
@@ -49731,59 +37998,7 @@ $( document.body ).click(function() {
     .slideUp();
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Set a queue array to delete the queue.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>queue demo</title>
-  <style>
-  div {
-    margin: 3px;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    left: 0px;
-    top: 30px;
-    background: green;
-    display: none;
-  }
-  div.newcolor {
-    background: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<button id="start">Start</button>
-<button id="stop">Stop</button>
-<div></div>
-​
-<script>
-$( "#start" ).click(function() {
-  $( "div" )
-    .show( "slow" )
-    .animate({ left: "+=200" }, 5000 )
-    .queue(function() {
-      $( this ).addClass( "newcolor" ).dequeue();
-    })
-    .animate({ left: '-=200' }, 1500 )
-    .queue(function() {
-      $( this ).removeClass( "newcolor" ).dequeue();
-    })
-    .slideUp();
-});
-$( "#stop" ).click(function() {
-  $( "div" )
-    .queue( "fx", [] )
-    .stop();
-});
-</script>
 </body>
 </html>
 ```
@@ -49851,106 +38066,7 @@ function showIt() {
 runIt();
 showIt();
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Queue a custom function.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>queue demo</title>
-  <style>
-  div {
-    margin: 3px;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    left: 0px;
-    top: 30px;
-    background: green;
-    display: none;
-  }
-  div.newcolor {
-    background: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-Click here...
-<div></div>
-​
-<script>
-$( document.body ).click(function() {
-  $( "div" )
-    .show( "slow" )
-    .animate({ left: "+=200" }, 2000 )
-    .queue(function() {
-      $( this ).addClass( "newcolor" ).dequeue();
-    })
-    .animate({ left: "-=200" }, 500 )
-    .queue(function() {
-      $( this ).removeClass( "newcolor" ).dequeue();
-    })
-    .slideUp();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Set a queue array to delete the queue.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>queue demo</title>
-  <style>
-  div {
-    margin: 3px;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    left: 0px;
-    top: 30px;
-    background: green;
-    display: none;
-  }
-  div.newcolor {
-    background: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="start">Start</button>
-<button id="stop">Stop</button>
-<div></div>
-​
-<script>
-$( "#start" ).click(function() {
-  $( "div" )
-    .show( "slow" )
-    .animate({ left: "+=200" }, 5000 )
-    .queue(function() {
-      $( this ).addClass( "newcolor" ).dequeue();
-    })
-    .animate({ left: '-=200' }, 1500 )
-    .queue(function() {
-      $( this ).removeClass( "newcolor" ).dequeue();
-    })
-    .slideUp();
-});
-$( "#stop" ).click(function() {
-  $( "div" )
-    .queue( "fx", [] )
-    .stop();
-});
-</script>
 </body>
 </html>
 ```
@@ -49975,19 +38091,19 @@ $( "#stop" ).click(function() {
     color: red;
   }
   </style>
-<script>
-
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script>
+​
   $(function() {
     $( "p" ).text( "The DOM is now loaded and can be manipulated." );
   });
-
-</script>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+​
+  </script>
 </head>
 <body>
 ​
 <p>Not loaded yet.</p>
-
+​
 </body>
 </html>
 ```
@@ -50026,6 +38142,7 @@ $( "button" ).click(function() {
   $( "p" ).remove();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -50056,6 +38173,7 @@ $( "button" ).click(function() {
   $( "p" ).remove( ":contains('Hello')" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -50074,7 +38192,6 @@ $( "button" ).click(function() {
 <head>
   <meta charset="utf-8">
   <title>removeAttr demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -50098,6 +38215,7 @@ $( "button" ).click(function() {
   });
 })();
 </script>
+​
 </body>
 </html>
 ```
@@ -50149,6 +38267,7 @@ $( "button" ).click(function() {
 <script>
 $( "p:even" ).removeClass( "blue" );
 </script>
+​
 </body>
 </html>
 ```
@@ -50187,6 +38306,7 @@ $( "p:even" ).removeClass( "blue" );
 <script>
 $( "p:odd" ).removeClass( "blue under" );
 </script>
+​
 </body>
 </html>
 ```
@@ -50225,6 +38345,7 @@ $( "p:odd" ).removeClass( "blue under" );
 <script>
 $( "p:eq(1)" ).removeClass();
 </script>
+​
 </body>
 </html>
 ```
@@ -50272,6 +38393,7 @@ $( "div" ).removeData( "test1" );
 $( "span:eq(2)" ).text( "" + $( "div" ).data( "test1" ) );
 $( "span:eq(3)" ).text( "" + $( "div" ).data( "test2" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -50313,6 +38435,7 @@ para
   .removeProp( "luggageCode" )
   .append( "Now the secret luggage code is: ", String( para.prop( "luggageCode" ) ), ". " );
 </script>
+​
 </body>
 </html>
 ```
@@ -50331,7 +38454,6 @@ para
 <head>
   <meta charset="utf-8">
   <title>replaceAll demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -50342,6 +38464,7 @@ para
 <script>
 $( "<b>Paragraph. </b>" ).replaceAll( "p" );
 </script>
+​
 </body>
 </html>
 ```
@@ -50391,6 +38514,7 @@ $( "button" ).click(function() {
   $( this ).replaceWith( "<div>" + $( this ).text() + "</div>" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -50401,7 +38525,6 @@ $( "button" ).click(function() {
 <head>
   <meta charset="utf-8">
   <title>replaceWith demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -50412,6 +38535,7 @@ $( "button" ).click(function() {
 <script>
 $( "p" ).replaceWith( "<b>Paragraph. </b>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -50449,6 +38573,7 @@ $( "p" ).click(function() {
   $( this ).replaceWith( $( "div" ) );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -50489,6 +38614,7 @@ $( "button" ).on( "click", function() {
   $( "p" ).append( $container.attr( "class" ) );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -50506,25 +38632,6 @@ $( "button" ).on( "click", function() {
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````To see the window width while (or after) it is resized, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>resize demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( window ).resize(function() {
-  $( "body" ).prepend( "<div>" + $( window ).width() + "</div>" );
-});
-</script>
-</body>
-</html>
-```
      */
     resize<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -50540,23 +38647,10 @@ $( window ).resize(function() {
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      * @example ​ ````To see the window width while (or after) it is resized, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>resize demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( window ).resize(function() {
   $( "body" ).prepend( "<div>" + $( window ).width() + "</div>" );
 });
-</script>
-</body>
-</html>
 ```
      */
     resize(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
@@ -50572,43 +38666,6 @@ $( window ).resize(function() {
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````To do something when your page is scrolled:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>scroll demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  p {
-    color: green;
-  }
-  span {
-    color: red;
-    display: none;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>Try scrolling the iframe.</div>
-<p>Paragraph - <span>Scroll happened!</span></p>
-​
-<script>
-$( "p" ).clone().appendTo( document.body );
-$( "p" ).clone().appendTo( document.body );
-$( "p" ).clone().appendTo( document.body );
-$( window ).scroll(function() {
-  $( "span" ).css( "display", "inline" ).fadeOut( "slow" );
-});
-</script>
-</body>
-</html>
-```
      */
     scroll<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -50657,6 +38714,7 @@ $( window ).scroll(function() {
   $( "span" ).css( "display", "inline" ).fadeOut( "slow" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -50668,33 +38726,6 @@ $( window ).scroll(function() {
      * @param value An integer indicating the new position to set the scroll bar to.
      * @see \`{@link https://api.jquery.com/scrollLeft/ }\`
      * @since 1.2.6
-     * @example ​ ````Get the scrollLeft of a paragraph.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>scrollLeft demo</title>
-  <style>
-  p {
-    margin: 10px;
-    padding: 5px;
-    border: 2px solid #666;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Hello</p><p></p>
-​
-<script>
-var p = $( "p:first" );
-$( "p:last" ).text( "scrollLeft:" + p.scrollLeft() );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Set the scrollLeft of a div.
 ```html
 <!doctype html>
@@ -50730,6 +38761,7 @@ $( "p:last" ).text( "scrollLeft:" + p.scrollLeft() );
 <script>
 $( "div.demo" ).scrollLeft( 300 );
 </script>
+​
 </body>
 </html>
 ```
@@ -50764,44 +38796,7 @@ $( "div.demo" ).scrollLeft( 300 );
 var p = $( "p:first" );
 $( "p:last" ).text( "scrollLeft:" + p.scrollLeft() );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Set the scrollLeft of a div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>scrollLeft demo</title>
-  <style>
-  div.demo {
-    background: #ccc none repeat scroll 0 0;
-    border: 3px solid #666;
-    margin: 5px;
-    padding: 5px;
-    position: relative;
-    width: 200px;
-    height: 100px;
-    overflow: auto;
-  }
-  p {
-    margin: 10px;
-    padding: 5px;
-    border: 2px solid #666;
-    width: 1000px;
-    height: 1000px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div class="demo"><h1>lalala</h1><p>Hello</p></div>
-​
-<script>
-$( "div.demo" ).scrollLeft( 300 );
-</script>
 </body>
 </html>
 ```
@@ -50813,33 +38808,6 @@ $( "div.demo" ).scrollLeft( 300 );
      * @param value A number indicating the new position to set the scroll bar to.
      * @see \`{@link https://api.jquery.com/scrollTop/ }\`
      * @since 1.2.6
-     * @example ​ ````Get the scrollTop of a paragraph.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>scrollTop demo</title>
-  <style>
-  p {
-    margin: 10px;
-    padding: 5px;
-    border: 2px solid #666;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Hello</p><p></p>
-​
-<script>
-var p = $( "p:first" );
-$( "p:last" ).text( "scrollTop:" + p.scrollTop() );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Set the scrollTop of a div.
 ```html
 <!doctype html>
@@ -50875,6 +38843,7 @@ $( "p:last" ).text( "scrollTop:" + p.scrollTop() );
 <script>
 $( "div.demo" ).scrollTop( 300 );
 </script>
+​
 </body>
 </html>
 ```
@@ -50910,44 +38879,7 @@ $( "div.demo" ).scrollTop( 300 );
 var p = $( "p:first" );
 $( "p:last" ).text( "scrollTop:" + p.scrollTop() );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Set the scrollTop of a div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>scrollTop demo</title>
-  <style>
-  div.demo {
-    background: #ccc none repeat scroll 0 0;
-    border: 3px solid #666;
-    margin: 5px;
-    padding: 5px;
-    position: relative;
-    width: 200px;
-    height: 100px;
-    overflow: auto;
-  }
-  p {
-    margin: 10px;
-    padding: 5px;
-    border: 2px solid #666;
-    width: 1000px;
-    height: 1000px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div class="demo"><h1>lalala</h1><p>Hello</p></div>
-​
-<script>
-$( "div.demo" ).scrollTop( 300 );
-</script>
 </body>
 </html>
 ```
@@ -50965,55 +38897,6 @@ $( "div.demo" ).scrollTop( 300 );
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````To do something when text in input boxes is selected:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>select demo</title>
-  <style>
-  p {
-    color: blue;
-  }
-  div {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p>Click and drag the mouse to select text in the inputs.</p>
-  <input type="text" value="Some text">
-  <input type="text" value="to test on">
-  <div></div>
-  ​
-<script>
-$( ":input" ).select(function() {
-  $( "div" ).text( "Something was selected" ).show().fadeOut( 1000 );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To trigger the select event on all input elements, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>select demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "input" ).select();
-</script>
-</body>
-</html>
-```
      */
     select<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -51057,25 +38940,13 @@ $( ":input" ).select(function() {
   $( "div" ).text( "Something was selected" ).show().fadeOut( 1000 );
 });
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````To trigger the select event on all input elements, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>select demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "input" ).select();
-</script>
-</body>
-</html>
 ```
      */
     select(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
@@ -51148,6 +39019,7 @@ $( "input" ).select();
   $( "select" ).on( "change", showValues );
   showValues();
 </script>
+​
 </body>
 </html>
 ```
@@ -51219,6 +39091,7 @@ $( "input" ).select();
   $( "select" ).change( showValues );
   showValues();
 </script>
+​
 </body>
 </html>
 ```
@@ -51232,129 +39105,6 @@ $( "input" ).select();
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/show/ }\`
      * @since 1.4.3
-     * @example ​ ````Animates all hidden paragraphs to show slowly, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>show demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Show it</button>
-<p style="display: none">Hello  2</p>
-​
-<script>
-$( "button" ).click(function() {
-  $( "p" ).show( "slow" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Show the first div, followed by each next adjacent sibling div in order, with a 200ms animation. Each animation starts when the previous sibling div&#39;s animation ends.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>show demo</title>
-  <style>
-  div {
-    background: #def3ca;
-    margin: 3px;
-    width: 80px;
-    display: none;
-    float: left;
-    text-align: center;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="showr">Show</button>
-<button id="hidr">Hide</button>
-<div>Hello 3,</div>
-<div>how</div>
-<div>are</div>
-<div>you?</div>
-​
-<script>
-$( "#showr" ).click(function() {
-  $( "div" ).first().show( "fast", function showNext() {
-    $( this ).next( "div" ).show( "fast", showNext );
-  });
-});
-​
-$( "#hidr" ).click(function() {
-  $( "div" ).hide( 1000 );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Show all span and input elements with an animation. Change the text once the animation is done.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>show demo</title>
-  <style>
-  span {
-    display: none;
-  }
-  div {
-    display: none;
-  }
-  p {
-    font-weight: bold;
-    background-color: #fcd;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Do it!</button>
-<span>Are you sure? (type 'yes' if you are) </span>
-<div>
-  <form>
-    <input type="text"  value="as;ldkfjalsdf">
-  </form>
-</div>
-<p style="display:none;">I'm hidden...</p>
-​
-<script>
-function doIt() {
-  $( "span,div" ).show( "slow" );
-}
-// Can pass in function name
-$( "button" ).click( doIt );
-​
-$( "form" ).submit(function( event ) {
-  if ( $( "input" ).val() === "yes" ) {
-    $( "p" ).show( 4000, function() {
-      $( this ).text( "Ok, DONE! (now showing)" );
-    });
-  }
-  $( "span,div" ).hide( "fast" );
-​
-  // Prevent form submission
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
      */
     show(duration: JQuery.Duration, easing: string, complete: (this: TElement) => void): this;
     /**
@@ -51366,33 +39116,6 @@ $( "form" ).submit(function( event ) {
      * @see \`{@link https://api.jquery.com/show/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @example ​ ````Animates all hidden paragraphs to show slowly, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>show demo</title>
-  <style>
-  p {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Show it</button>
-<p style="display: none">Hello  2</p>
-​
-<script>
-$( "button" ).click(function() {
-  $( "p" ).show( "slow" );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Show the first div, followed by each next adjacent sibling div in order, with a 200ms animation. Each animation starts when the previous sibling div&#39;s animation ends.
 ```html
 <!doctype html>
@@ -51432,6 +39155,7 @@ $( "#hidr" ).click(function() {
   $( "div" ).hide( 1000 );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -51486,6 +39210,7 @@ $( "form" ).submit(function( event ) {
   event.preventDefault();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -51523,102 +39248,7 @@ $( "button" ).click(function() {
   $( "p" ).show( "slow" );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Show the first div, followed by each next adjacent sibling div in order, with a 200ms animation. Each animation starts when the previous sibling div&#39;s animation ends.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>show demo</title>
-  <style>
-  div {
-    background: #def3ca;
-    margin: 3px;
-    width: 80px;
-    display: none;
-    float: left;
-    text-align: center;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<button id="showr">Show</button>
-<button id="hidr">Hide</button>
-<div>Hello 3,</div>
-<div>how</div>
-<div>are</div>
-<div>you?</div>
-​
-<script>
-$( "#showr" ).click(function() {
-  $( "div" ).first().show( "fast", function showNext() {
-    $( this ).next( "div" ).show( "fast", showNext );
-  });
-});
-​
-$( "#hidr" ).click(function() {
-  $( "div" ).hide( 1000 );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Show all span and input elements with an animation. Change the text once the animation is done.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>show demo</title>
-  <style>
-  span {
-    display: none;
-  }
-  div {
-    display: none;
-  }
-  p {
-    font-weight: bold;
-    background-color: #fcd;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Do it!</button>
-<span>Are you sure? (type 'yes' if you are) </span>
-<div>
-  <form>
-    <input type="text"  value="as;ldkfjalsdf">
-  </form>
-</div>
-<p style="display:none;">I'm hidden...</p>
-​
-<script>
-function doIt() {
-  $( "span,div" ).show( "slow" );
-}
-// Can pass in function name
-$( "button" ).click( doIt );
-​
-$( "form" ).submit(function( event ) {
-  if ( $( "input" ).val() === "yes" ) {
-    $( "p" ).show( 4000, function() {
-      $( this ).text( "Ok, DONE! (now showing)" );
-    });
-  }
-  $( "span,div" ).hide( "fast" );
-​
-  // Prevent form submission
-  event.preventDefault();
-});
-</script>
 </body>
 </html>
 ```
@@ -51687,6 +39317,7 @@ var len = $( ".hilite" ).siblings()
   .length;
 $( "b" ).text( len );
 </script>
+​
 </body>
 </html>
 ```
@@ -51697,7 +39328,6 @@ $( "b" ).text( len );
 <head>
   <meta charset="utf-8">
   <title>siblings demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -51708,6 +39338,7 @@ $( "b" ).text( len );
 <script>
 $( "p" ).siblings( ".selected" ).css( "background", "yellow" );
 </script>
+​
 </body>
 </html>
 ```
@@ -51783,93 +39414,29 @@ function colorEm() {
 ​
 $( "button" ).click( colorEm );
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Selects all paragraphs, then slices the selection to include only the first element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slice demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).slice( 0, 1 ).wrapInner( "<b></b>" );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Selects all paragraphs, then slices the selection to include only the first and second element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slice demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).slice( 0, 2 ).wrapInner( "<b></b>" );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Selects all paragraphs, then slices the selection to include only the second element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slice demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).slice( 1, 2 ).wrapInner( "<b></b>" );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Selects all paragraphs, then slices the selection to include only the second and third element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slice demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).slice( 1 ).wrapInner( "<b></b>" );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Selects all paragraphs, then slices the selection to include only the third element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slice demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).slice( -1 ).wrapInner( "<b></b>" );
-</script>
-</body>
-</html>
 ```
      */
     slice(start: number, end?: number): this;
@@ -51881,98 +39448,6 @@ $( "p" ).slice( -1 ).wrapInner( "<b></b>" );
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/slideDown/ }\`
      * @since 1.4.3
-     * @example ​ ````Animates all divs to slide down and show themselves over 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slideDown demo</title>
-  <style>
-  div {
-    background: #de9a44;
-    margin: 3px;
-    width: 80px;
-    height: 40px;
-    display: none;
-    float: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-Click me!
-<div></div>
-<div></div>
-<div></div>
-​
-<script>
-$( document.body ).click(function () {
-  if ( $( "div:first" ).is( ":hidden" ) ) {
-    $( "div" ).slideDown( "slow" );
-  } else {
-    $( "div" ).hide();
-  }
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates all inputs to slide down, completing the animation within 1000 milliseconds. Once the animation is done, the input look is changed especially if it is the middle input which gets the focus.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slideDown demo</title>
-  <style>
-  div {
-    background: #cfd;
-    margin: 3px;
-    width: 50px;
-    text-align: center;
-    float: left;
-    cursor: pointer;
-    border: 2px outset black;
-    font-weight: bolder;
-  }
-  input {
-    display: none;
-    width: 120px;
-    float: left;
-    margin: 10px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>Push!</div>
-<input type="text">
-<input type="text" class="middle">
-<input type="text">
-  ​
-<script>
-$( "div" ).click(function() {
-  $( this ).css({
-    borderStyle: "inset",
-    cursor: "wait"
-  });
-  $( "input" ).slideDown( 1000, function() {
-    $( this )
-      .css( "border", "2px red inset" )
-      .filter( ".middle" )
-        .css( "background", "yellow" )
-        .focus();
-    $( "div" ).css( "visibility", "hidden" );
-  });
-});
-​
-</script>
-</body>
-</html>
-```
      */
     slideDown(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
     /**
@@ -51984,44 +39459,6 @@ $( "div" ).click(function() {
      * @see \`{@link https://api.jquery.com/slideDown/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @example ​ ````Animates all divs to slide down and show themselves over 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slideDown demo</title>
-  <style>
-  div {
-    background: #de9a44;
-    margin: 3px;
-    width: 80px;
-    height: 40px;
-    display: none;
-    float: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-Click me!
-<div></div>
-<div></div>
-<div></div>
-​
-<script>
-$( document.body ).click(function () {
-  if ( $( "div:first" ).is( ":hidden" ) ) {
-    $( "div" ).slideDown( "slow" );
-  } else {
-    $( "div" ).hide();
-  }
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Animates all inputs to slide down, completing the animation within 1000 milliseconds. Once the animation is done, the input look is changed especially if it is the middle input which gets the focus.
 ```html
 <!doctype html>
@@ -52073,6 +39510,7 @@ $( "div" ).click(function() {
 });
 ​
 </script>
+​
 </body>
 </html>
 ```
@@ -52123,60 +39561,7 @@ $( document.body ).click(function () {
   }
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Animates all inputs to slide down, completing the animation within 1000 milliseconds. Once the animation is done, the input look is changed especially if it is the middle input which gets the focus.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slideDown demo</title>
-  <style>
-  div {
-    background: #cfd;
-    margin: 3px;
-    width: 50px;
-    text-align: center;
-    float: left;
-    cursor: pointer;
-    border: 2px outset black;
-    font-weight: bolder;
-  }
-  input {
-    display: none;
-    width: 120px;
-    float: left;
-    margin: 10px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div>Push!</div>
-<input type="text">
-<input type="text" class="middle">
-<input type="text">
-  ​
-<script>
-$( "div" ).click(function() {
-  $( this ).css({
-    borderStyle: "inset",
-    cursor: "wait"
-  });
-  $( "input" ).slideDown( 1000, function() {
-    $( this )
-      .css( "border", "2px red inset" )
-      .filter( ".middle" )
-        .css( "background", "yellow" )
-        .focus();
-    $( "div" ).css( "visibility", "hidden" );
-  });
-});
-​
-</script>
 </body>
 </html>
 ```
@@ -52190,94 +39575,6 @@ $( "div" ).click(function() {
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/slideToggle/ }\`
      * @since 1.4.3
-     * @example ​ ````Animates all paragraphs to slide up or down, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slideToggle demo</title>
-  <style>
-  p {
-    width: 400px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Toggle</button>
-<p>
-  This is the paragraph to end all paragraphs.  You
-  should feel <em>lucky</em> to have seen such a paragraph in
-  your life.  Congratulations!
-</p>
-​
-<script>
-$( "button" ).click(function() {
-  $( "p" ).slideToggle( "slow" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates divs between dividers with a toggle that makes some appear and some disappear.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slideToggle demo</title>
-  <style>
-  div {
-    background: #b977d1;
-    margin: 3px;
-    width: 60px;
-    height: 60px;
-    float: left;
-  }
-  div.still {
-    background: #345;
-    width: 5px;
-  }
-  div.hider {
-    display: none;
-  }
-  span {
-    color: red;
-  }
-  p {
-    clear: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-<div class="still"></div>
-<div style="display:none;">
-</div><div class="still"></div>
-<div></div>
-<div class="still"></div>
-<div class="hider"></div>
-<div class="still"></div>
-<div class="hider"></div>
-<div class="still"></div>
-<div></div>
-<p><button id="aa">Toggle</button> There have been <span>0</span> toggled divs.</p>
-​
-<script>
-$( "#aa" ).click(function() {
-  $( "div:not(.still)" ).slideToggle( "slow", function() {
-    var n = parseInt( $( "span" ).text(), 10 );
-    $( "span" ).text( n + 1 );
-  });
-});
-</script>
-</body>
-</html>
-```
      */
     slideToggle(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
     /**
@@ -52289,37 +39586,6 @@ $( "#aa" ).click(function() {
      * @see \`{@link https://api.jquery.com/slideToggle/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @example ​ ````Animates all paragraphs to slide up or down, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slideToggle demo</title>
-  <style>
-  p {
-    width: 400px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Toggle</button>
-<p>
-  This is the paragraph to end all paragraphs.  You
-  should feel <em>lucky</em> to have seen such a paragraph in
-  your life.  Congratulations!
-</p>
-​
-<script>
-$( "button" ).click(function() {
-  $( "p" ).slideToggle( "slow" );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Animates divs between dividers with a toggle that makes some appear and some disappear.
 ```html
 <!doctype html>
@@ -52374,6 +39640,7 @@ $( "#aa" ).click(function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -52417,63 +39684,7 @@ $( "button" ).click(function() {
   $( "p" ).slideToggle( "slow" );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Animates divs between dividers with a toggle that makes some appear and some disappear.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slideToggle demo</title>
-  <style>
-  div {
-    background: #b977d1;
-    margin: 3px;
-    width: 60px;
-    height: 60px;
-    float: left;
-  }
-  div.still {
-    background: #345;
-    width: 5px;
-  }
-  div.hider {
-    display: none;
-  }
-  span {
-    color: red;
-  }
-  p {
-    clear: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div></div>
-<div class="still"></div>
-<div style="display:none;">
-</div><div class="still"></div>
-<div></div>
-<div class="still"></div>
-<div class="hider"></div>
-<div class="still"></div>
-<div class="hider"></div>
-<div class="still"></div>
-<div></div>
-<p><button id="aa">Toggle</button> There have been <span>0</span> toggled divs.</p>
-​
-<script>
-$( "#aa" ).click(function() {
-  $( "div:not(.still)" ).slideToggle( "slow", function() {
-    var n = parseInt( $( "span" ).text(), 10 );
-    $( "span" ).text( n + 1 );
-  });
-});
-</script>
 </body>
 </html>
 ```
@@ -52487,88 +39698,6 @@ $( "#aa" ).click(function() {
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/slideUp/ }\`
      * @since 1.4.3
-     * @example ​ ````Animates all divs to slide up, completing the animation within 400 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slideUp demo</title>
-  <style>
-  div {
-    background: #3d9a44;
-    margin: 3px;
-    width: 80px;
-    height: 40px;
-    float: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-Click me!
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-​
-<script>
-$( document.body ).click(function() {
-  if ( $( "div:first" ).is( ":hidden" ) ) {
-    $( "div" ).show( "slow" );
-  } else {
-    $( "div" ).slideUp();
-  }
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates the parent paragraph to slide up, completing the animation within 200 milliseconds. Once the animation is done, it displays an alert.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slideUp demo</title>
-  <style>
- div {
-   margin: 2px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>
-  <button>Hide One</button>
-  <input type="text" value="One">
-</div>
-​
-<div>
-  <button>Hide Two</button>
-  <input type="text" value="Two">
-</div>
-​
-<div>
-  <button>Hide Three</button>
-  <input type="text" value="Three">
-</div>
-​
-<div id="msg"></div>
-​
-<script>
-$( "button" ).click(function() {
-  $( this ).parent().slideUp( "slow", function() {
-    $( "#msg" ).text( $( "button", this ).text() + " has completed." );
-  });
-});
-</script>
-</body>
-</html>
-```
      */
     slideUp(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
     /**
@@ -52580,45 +39709,6 @@ $( "button" ).click(function() {
      * @see \`{@link https://api.jquery.com/slideUp/ }\`
      * @since 1.0
      * @since 1.4.3
-     * @example ​ ````Animates all divs to slide up, completing the animation within 400 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slideUp demo</title>
-  <style>
-  div {
-    background: #3d9a44;
-    margin: 3px;
-    width: 80px;
-    height: 40px;
-    float: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-Click me!
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-​
-<script>
-$( document.body ).click(function() {
-  if ( $( "div:first" ).is( ":hidden" ) ) {
-    $( "div" ).show( "slow" );
-  } else {
-    $( "div" ).slideUp();
-  }
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Animates the parent paragraph to slide up, completing the animation within 200 milliseconds. Once the animation is done, it displays an alert.
 ```html
 <!doctype html>
@@ -52659,6 +39749,7 @@ $( "button" ).click(function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -52710,49 +39801,7 @@ $( document.body ).click(function() {
   }
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Animates the parent paragraph to slide up, completing the animation within 200 milliseconds. Once the animation is done, it displays an alert.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>slideUp demo</title>
-  <style>
- div {
-   margin: 2px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div>
-  <button>Hide One</button>
-  <input type="text" value="One">
-</div>
-​
-<div>
-  <button>Hide Two</button>
-  <input type="text" value="Two">
-</div>
-​
-<div>
-  <button>Hide Three</button>
-  <input type="text" value="Three">
-</div>
-​
-<div id="msg"></div>
-​
-<script>
-$( "button" ).click(function() {
-  $( this ).parent().slideUp( "slow", function() {
-    $( "#msg" ).text( $( "button", this ).text() + " has completed." );
-  });
-});
-</script>
 </body>
 </html>
 ```
@@ -52766,86 +39815,6 @@ $( "button" ).click(function() {
      * @param jumpToEnd A Boolean indicating whether to complete the current animation immediately. Defaults to false.
      * @see \`{@link https://api.jquery.com/stop/ }\`
      * @since 1.7
-     * @example ​ ````Click the Go button once to start the animation, then click the STOP button to stop it where it&#39;s currently positioned.  Another option is to click several buttons to queue them up and see that stop just kills the currently playing one.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>stop demo</title>
-  <style>
-  div {
-    position: absolute;
-    background-color: #abc;
-    left: 0px;
-    top: 30px;
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="go">Go</button>
-<button id="stop">STOP!</button>
-<button id="back">Back</button>
-<div class="block"></div>
-​
-<script>
-// Start animation
-$( "#go" ).click(function() {
-  $( ".block" ).animate({ left: "+=100px" }, 2000 );
-});
-​
-// Stop animation when button is clicked
-$( "#stop" ).click(function() {
-  $( ".block" ).stop();
-});
-​
-// Start animation in the opposite direction
-$( "#back" ).click(function() {
-  $( ".block" ).animate({ left: "-=100px" }, 2000 );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Click the slideToggle button to start the animation, then click again before the animation is completed. The animation will toggle the other direction from the saved starting point.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>stop demo</title>
-  <style>
-  .block {
-    background-color: #abc;
-    border: 2px solid black;
-    width: 200px;
-    height: 80px;
-    margin: 10px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="toggle">slideToggle</button>
-<div class="block"></div>
-​
-<script>
-var $block = $( ".block" );
-​
-// Toggle a sliding animation animation
-$( "#toggle" ).on( "click", function() {
-  $block.stop().slideToggle( 1000 );
-});
-</script>
-</body>
-</html>
-```
      */
     stop(queue: string, clearQueue?: boolean, jumpToEnd?: boolean): this;
     /**
@@ -52898,6 +39867,7 @@ $( "#back" ).click(function() {
   $( ".block" ).animate({ left: "-=100px" }, 2000 );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -52932,6 +39902,7 @@ $( "#toggle" ).on( "click", function() {
   $block.stop().slideToggle( 1000 );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -52949,88 +39920,6 @@ $( "#toggle" ).on( "click", function() {
      * **Cause**: The `.on()` and `.trigger()` methods can set an event handler or generate an event for any event type, and should be used instead of the shortcut methods. This message also applies to the other event shorthands, including: blur, focus, focusin, focusout, resize, scroll, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, and contextmenu.
      *
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
-     * @example ​ ````If you&#39;d like to prevent forms from being submitted unless a flag variable is set, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>submit demo</title>
-  <style>
-  p {
-    margin: 0;
-    color: blue;
-  }
-  div,p {
-    margin-left: 10px;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Type 'correct' to validate.</p>
-<form action="javascript:alert( 'success!' );">
-  <div>
-    <input type="text">
-    <input type="submit">
-  </div>
-</form>
-<span></span>
-​
-<script>
-$( "form" ).submit(function( event ) {
-  if ( $( "input:first" ).val() === "correct" ) {
-    $( "span" ).text( "Validated..." ).show();
-    return;
-  }
-​
-  $( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
-  event.preventDefault();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````If you&#39;d like to prevent forms from being submitted unless a flag variable is set, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>submit demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form" ).submit(function() {
-  return this.some_flag_variable;
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To trigger the submit event on the first form on the page, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>submit demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "form:first" ).submit();
-</script>
-</body>
-</html>
-```
      */
     submit<TData>(eventData: TData,
                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
@@ -53088,44 +39977,19 @@ $( "form" ).submit(function( event ) {
   event.preventDefault();
 });
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````If you&#39;d like to prevent forms from being submitted unless a flag variable is set, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>submit demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "form" ).submit(function() {
   return this.some_flag_variable;
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````To trigger the submit event on the first form on the page, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>submit demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "form:first" ).submit();
-</script>
-</body>
-</html>
 ```
      */
     submit(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
@@ -53139,36 +40003,6 @@ $( "form:first" ).submit();
      * @see \`{@link https://api.jquery.com/text/ }\`
      * @since 1.0
      * @since 1.4
-     * @example ​ ````Find the text in the first paragraph (stripping out the html), then set the html of the last paragraph to show it is just text (the red bold is gone).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>text demo</title>
-  <style>
-  p {
-    color: blue;
-    margin: 8px;
-  }
-  b {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><b>Test</b> Paragraph.</p>
-<p></p>
-​
-<script>
-var str = $( "p:first" ).text();
-$( "p:last" ).html( str );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Add text to the paragraph (notice the bold tag is escaped).
 ```html
 <!doctype html>
@@ -53191,6 +40025,7 @@ $( "p:last" ).html( str );
 <script>
 $( "p" ).text( "<b>Some</b> new text." );
 </script>
+​
 </body>
 </html>
 ```
@@ -53228,31 +40063,7 @@ $( "p" ).text( "<b>Some</b> new text." );
 var str = $( "p:first" ).text();
 $( "p:last" ).html( str );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Add text to the paragraph (notice the bold tag is escaped).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>text demo</title>
-  <style>
-  p {
-    color: blue;
-    margin: 8px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<p>Test Paragraph.</p>
-​
-<script>
-$( "p" ).text( "<b>Some</b> new text." );
-</script>
 </body>
 </html>
 ```
@@ -53295,6 +40106,7 @@ function disp( divs ) {
 ​
 disp( $( "div" ).toArray().reverse() );
 </script>
+​
 </body>
 </html>
 ```
@@ -53308,83 +40120,6 @@ disp( $( "div" ).toArray().reverse() );
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/toggle/ }\`
      * @since 1.4.3
-     * @example ​ ````Toggles all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>toggle demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Toggle</button>
-<p>Hello</p>
-<p style="display: none">Good Bye</p>
-​
-<script>
-$( "button" ).click(function() {
-  $( "p" ).toggle();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates all paragraphs to be shown if they are hidden and hidden if they are visible, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>toggle demo</title>
-  <style>
-  p {
-    background: #dad;
-    font-weight: bold;
-    font-size: 16px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Toggle 'em</button>
-<p>Hiya</p>
-<p>Such interesting text, eh?</p>
-​
-<script>
-$( "button" ).click(function() {
-  $( "p" ).toggle( "slow" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Shows all paragraphs, then hides them all, back and forth.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>toggle demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Toggle</button>
-<p>Hello</p>
-<p style="display: none">Good Bye</p>
-​
-<script>
-var flip = 0;
-$( "button" ).click(function() {
-  $( "p" ).toggle( flip++ % 2 === 0 );
-});
-</script>
-</body>
-</html>
-```
      */
     toggle(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
     /**
@@ -53394,83 +40129,6 @@ $( "button" ).click(function() {
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/toggle/ }\`
      * @since 1.0
-     * @example ​ ````Toggles all paragraphs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>toggle demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Toggle</button>
-<p>Hello</p>
-<p style="display: none">Good Bye</p>
-​
-<script>
-$( "button" ).click(function() {
-  $( "p" ).toggle();
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Animates all paragraphs to be shown if they are hidden and hidden if they are visible, completing the animation within 600 milliseconds.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>toggle demo</title>
-  <style>
-  p {
-    background: #dad;
-    font-weight: bold;
-    font-size: 16px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Toggle 'em</button>
-<p>Hiya</p>
-<p>Such interesting text, eh?</p>
-​
-<script>
-$( "button" ).click(function() {
-  $( "p" ).toggle( "slow" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Shows all paragraphs, then hides them all, back and forth.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>toggle demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Toggle</button>
-<p>Hello</p>
-<p style="display: none">Good Bye</p>
-​
-<script>
-var flip = 0;
-$( "button" ).click(function() {
-  $( "p" ).toggle( flip++ % 2 === 0 );
-});
-</script>
-</body>
-</html>
-```
      */
     toggle(duration: JQuery.Duration, complete: (this: TElement) => void): this;
     /**
@@ -53490,7 +40148,6 @@ $( "button" ).click(function() {
 <head>
   <meta charset="utf-8">
   <title>toggle demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -53503,6 +40160,7 @@ $( "button" ).click(function() {
   $( "p" ).toggle();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -53533,6 +40191,7 @@ $( "button" ).click(function() {
   $( "p" ).toggle( "slow" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -53543,7 +40202,6 @@ $( "button" ).click(function() {
 <head>
   <meta charset="utf-8">
   <title>toggle demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -53557,6 +40215,7 @@ $( "button" ).click(function() {
   $( "p" ).toggle( flip++ % 2 === 0 );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -53611,6 +40270,7 @@ $( "p" ).click(function() {
   $( this ).toggleClass( "highlight" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -53656,6 +40316,7 @@ $( "p" ).each(function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -53727,6 +40388,7 @@ $( "a" ).on( "click", function( event ) {
   appendClass();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -53745,160 +40407,6 @@ $( "a" ).on( "click", function( event ) {
      * **Cause**: Calling `.toggleClass()` with no arguments, or with a single Boolean `true` or `false` argument, has been deprecated. Its behavior was poorly documented, but essentially the method saved away the current class value in a data item when the class was removed and restored the saved value when it was toggled back. If you do not believe you are specificially trying to use this form of the method, it is possible you are accidentally doing so via an inadvertent undefined value, as `.toggleClass( undefined )` toggles all classes.
      *
      * **Solution**: If this functionality is still needed, save the current full `.attr( "class" )` value in a data item and restore it when required.
-     * @example ​ ````Toggle the class &#39;highlight&#39; when a paragraph is clicked.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>toggleClass demo</title>
-  <style>
-  p {
-    margin: 4px;
-    font-size: 16px;
-    font-weight: bolder;
-    cursor: pointer;
-  }
-  .blue {
-    color: blue;
-  }
-  .highlight {
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p class="blue">Click to toggle</p>
-<p class="blue highlight">highlight</p>
-<p class="blue">on these</p>
-<p class="blue">paragraphs</p>
-​
-<script>
-$( "p" ).click(function() {
-  $( this ).toggleClass( "highlight" );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Add the &quot;highlight&quot; class to the clicked paragraph on every third click of that paragraph, remove it every first and second click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>toggleClass demo</title>
-  <style>
-  p {
-    margin: 4px;
-    font-size: 16px;
-    font-weight: bolder;
-    cursor: pointer;
-  }
-  .blue {
-    color: blue;
-  }
-  .highlight {
-    background: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p class="blue">Click to toggle (<span>clicks: 0</span>)</p>
-<p class="blue highlight">highlight (<span>clicks: 0</span>)</p>
-<p class="blue">on these (<span>clicks: 0</span>)</p>
-<p class="blue">paragraphs (<span>clicks: 0</span>)</p>
-​
-<script>
-var count = 0;
-$( "p" ).each(function() {
-  var $thisParagraph = $( this );
-  var count = 0;
-  $thisParagraph.click(function() {
-    count++;
-    $thisParagraph.find( "span" ).text( "clicks: " + count );
-    $thisParagraph.toggleClass( "highlight", count % 3 === 0 );
-  });
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Toggle the class name(s) indicated on the buttons for each div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>toggleClass demo</title>
-  <style>
-  .wrap > div {
-    float: left;
-    width: 100px;
-    margin: 1em 1em 0 0;
-    padding-left: 3px;
-    border: 1px solid #abc;
-  }
-  div.a {
-    background-color: aqua;
-  }
-  div.b {
-    background-color: burlywood;
-  }
-  div.c {
-    background-color: cornsilk;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div class="buttons">
-  <button>toggle</button>
-  <button class="a">toggle a</button>
-  <button class="a b">toggle a b</button>
-  <button class="a b c">toggle a b c</button>
-  <a href="#">reset</a>
-</div>
-<div class="wrap">
-  <div></div>
-  <div class="b"></div>
-  <div class="a b"></div>
-  <div class="a c"></div>
-</div>
-​
-<script>
-var cls = [ "", "a", "a b", "a b c" ];
-var divs = $( "div.wrap" ).children();
-var appendClass = function() {
-  divs.append(function() {
-    return "<div>" + ( this.className || "none" ) + "</div>";
-  });
-};
-​
-appendClass();
-​
-$( "button" ).on( "click", function() {
-  var tc = this.className || undefined;
-  divs.toggleClass( tc );
-  appendClass();
-});
-​
-$( "a" ).on( "click", function( event ) {
-  event.preventDefault();
-  divs.empty().each(function( i ) {
-    this.className = cls[ i ];
-  });
-  appendClass();
-});
-</script>
-</body>
-</html>
-```
      */
     toggleClass(state?: boolean): this;
     /**
@@ -53953,109 +40461,45 @@ function update( j ) {
   j.text( n + 1 );
 }
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````To submit the first form without using the submit() function, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>trigger demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "form:first" ).trigger( "submit" );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````To submit the first form without using the submit() function, try:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>trigger demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var event = jQuery.Event( "submit" );
 $( "form:first" ).trigger( event );
 if ( event.isDefaultPrevented() ) {
   // Perform an action...
 }
-</script>
-</body>
-</html>
 ```
      * @example ​ ````To pass arbitrary data to an event:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>trigger demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" )
   .click(function( event, a, b ) {
     // When a normal click fires, a and b are undefined
     // for a trigger like below a refers to "foo" and b refers to "bar"
   })
   .trigger( "click", [ "foo", "bar" ] );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````To pass arbitrary data through an event object:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>trigger demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var event = jQuery.Event( "logged" );
 event.user = "foo";
 event.pass = "bar";
 $( "body" ).trigger( event );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Alternative way to pass data through an event object:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>trigger demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "body" ).trigger({
   type:"logged",
   user:"foo",
   pass:"bar"
 });
-</script>
-</body>
-</html>
 ```
      */
     trigger(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number | boolean): this;
@@ -54075,7 +40519,6 @@ $( "body" ).trigger({
 <head>
   <meta charset="utf-8">
   <title>triggerHandler demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -54095,6 +40538,7 @@ $( "input" ).focus(function() {
   $( "<span>Focused!</span>" ).appendTo( "body" ).fadeOut( 1000 );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -54153,55 +40597,12 @@ $( "#unbind" ).click(function() {
     .text( "Does nothing..." );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````To unbind all events from all paragraphs, write:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>unbind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).unbind();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To unbind all click events from all paragraphs, write:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>unbind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).unbind( "click" );
-</script>
+​
 </body>
 </html>
 ```
      * @example ​ ````To unbind just one previously bound handler, pass the function in as the second argument:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>unbind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var foo = function() {
   // Code to handle some kind of event
 };
@@ -54209,9 +40610,6 @@ var foo = function() {
 $( "p" ).bind( "click", foo ); // ... Now foo will be called when paragraphs are clicked ...
 ​
 $( "p" ).unbind( "click", foo ); // ... foo will no longer be called.
-</script>
-</body>
-</html>
 ```
      */
     unbind(event: string, handler: JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
@@ -54227,105 +40625,13 @@ $( "p" ).unbind( "click", foo ); // ... foo will no longer be called.
      * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
      * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
-     * @example ​ ````Can bind and unbind events to the colored button.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>unbind demo</title>
-  <style>
-  button {
-    margin: 5px;
-  }
-  button#theone {
-    color: red;
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="theone">Does nothing...</button>
-<button id="bind">Bind Click</button>
-<button id="unbind">Unbind Click</button>
-<div style="display:none;">Click!</div>
-​
-<script>
-function aClick() {
-  $( "div" ).show().fadeOut( "slow" );
-}
-$( "#bind" ).click(function() {
-  $( "#theone" )
-    .bind( "click", aClick )
-    .text( "Can Click!" );
-});
-$( "#unbind" ).click(function() {
-  $( "#theone" )
-    .unbind( "click", aClick )
-    .text( "Does nothing..." );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````To unbind all events from all paragraphs, write:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>unbind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).unbind();
-</script>
-</body>
-</html>
 ```
      * @example ​ ````To unbind all click events from all paragraphs, write:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>unbind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).unbind( "click" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To unbind just one previously bound handler, pass the function in as the second argument:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>unbind demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var foo = function() {
-  // Code to handle some kind of event
-};
-​
-$( "p" ).bind( "click", foo ); // ... Now foo will be called when paragraphs are clicked ...
-​
-$( "p" ).unbind( "click", foo ); // ... foo will no longer be called.
-</script>
-</body>
-</html>
 ```
      */
     unbind(event?: string | JQuery.Event<TElement>): this;
@@ -54383,55 +40689,12 @@ $( "#unbind" ).click(function() {
     .find( "#theone" ).text( "Does nothing..." );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````To unbind all delegated events from all paragraphs, write:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).undelegate();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To unbind all delegated click events from all paragraphs, write:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).undelegate( "click" );
-</script>
+​
 </body>
 </html>
 ```
      * @example ​ ````To undelegate just one previously bound handler, pass the function in as the third argument:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var foo = function () {
   // Code to handle some kind of event
 };
@@ -54441,36 +40704,6 @@ $( "body" ).delegate( "p", "click", foo );
 ​
 // ... foo will no longer be called.
 $( "body" ).undelegate( "p", "click", foo );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To unbind all delegated events by their namespace:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var foo = function() {
-  // Code to handle some kind of event
-};
-​
-// Delegate events under the ".whatever" namespace
-$( "form" ).delegate( ":button", "click.whatever", foo );
-​
-$( "form" ).delegate( "input[type='text'] ", "keypress.whatever", foo );
-​
-// Unbind all events delegated under the ".whatever" namespace
-$( "form" ).undelegate( ".whatever" );
-</script>
-</body>
-</html>
 ```
      */
     undelegate(selector: JQuery.Selector, eventType: string, handler: JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
@@ -54489,135 +40722,6 @@ $( "form" ).undelegate( ".whatever" );
      * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
      * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
-     * @example ​ ````Can bind and unbind events to the colored button.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <style>
-  button {
-    margin: 5px;
-  }
-  button#theone {
-    color: red;
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="theone">Does nothing...</button>
-<button id="bind">Bind Click</button>
-<button id="unbind">Unbind Click</button>
-<div style="display:none;">Click!</div>
-​
-<script>
-function aClick() {
-  $( "div" ).show().fadeOut( "slow" );
-}
-$( "#bind" ).click(function() {
-  $( "body" )
-    .delegate( "#theone", "click", aClick )
-    .find( "#theone" ).text( "Can Click!" );
-});
-$( "#unbind" ).click(function() {
-  $( "body" )
-    .undelegate( "#theone", "click", aClick )
-    .find( "#theone" ).text( "Does nothing..." );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To unbind all delegated events from all paragraphs, write:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).undelegate();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To unbind all delegated click events from all paragraphs, write:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "p" ).undelegate( "click" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To undelegate just one previously bound handler, pass the function in as the third argument:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var foo = function () {
-  // Code to handle some kind of event
-};
-​
-// ... Now foo will be called when paragraphs are clicked ...
-$( "body" ).delegate( "p", "click", foo );
-​
-// ... foo will no longer be called.
-$( "body" ).undelegate( "p", "click", foo );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To unbind all delegated events by their namespace:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var foo = function() {
-  // Code to handle some kind of event
-};
-​
-// Delegate events under the ".whatever" namespace
-$( "form" ).delegate( ":button", "click.whatever", foo );
-​
-$( "form" ).delegate( "input[type='text'] ", "keypress.whatever", foo );
-​
-// Unbind all events delegated under the ".whatever" namespace
-$( "form" ).undelegate( ".whatever" );
-</script>
-</body>
-</html>
-```
      */
     undelegate(selector: JQuery.Selector, eventTypes: string | JQuery.PlainObject<JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false>): this;
     /**
@@ -54633,120 +40737,16 @@ $( "form" ).undelegate( ".whatever" );
      * **Cause**: These event binding methods have been deprecated in favor of the `.on()` and `.off()` methods which can handle both delegated and direct event binding. Although the older methods are still present in jQuery 3.0, they may be removed as early as the next major-version update.
      *
      * **Solution**: Change the method call to use `.on()` or `.off()`, the documentation for the old methods include specific instructions. In general, the `.bind()` and `.unbind()` methods can be renamed directly to `.on()` and `.off()` respectively since the argument orders are identical.
-     * @example ​ ````Can bind and unbind events to the colored button.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <style>
-  button {
-    margin: 5px;
-  }
-  button#theone {
-    color: red;
-    background: yellow;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="theone">Does nothing...</button>
-<button id="bind">Bind Click</button>
-<button id="unbind">Unbind Click</button>
-<div style="display:none;">Click!</div>
-​
-<script>
-function aClick() {
-  $( "div" ).show().fadeOut( "slow" );
-}
-$( "#bind" ).click(function() {
-  $( "body" )
-    .delegate( "#theone", "click", aClick )
-    .find( "#theone" ).text( "Can Click!" );
-});
-$( "#unbind" ).click(function() {
-  $( "body" )
-    .undelegate( "#theone", "click", aClick )
-    .find( "#theone" ).text( "Does nothing..." );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````To unbind all delegated events from all paragraphs, write:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).undelegate();
-</script>
-</body>
-</html>
 ```
      * @example ​ ````To unbind all delegated click events from all paragraphs, write:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).undelegate( "click" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````To undelegate just one previously bound handler, pass the function in as the third argument:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var foo = function () {
-  // Code to handle some kind of event
-};
-​
-// ... Now foo will be called when paragraphs are clicked ...
-$( "body" ).delegate( "p", "click", foo );
-​
-// ... foo will no longer be called.
-$( "body" ).undelegate( "p", "click", foo );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````To unbind all delegated events by their namespace:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>undelegate demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var foo = function() {
   // Code to handle some kind of event
 };
@@ -54758,9 +40758,6 @@ $( "form" ).delegate( "input[type='text'] ", "keypress.whatever", foo );
 ​
 // Unbind all events delegated under the ".whatever" namespace
 $( "form" ).undelegate( ".whatever" );
-</script>
-</body>
-</html>
 ```
      */
     undelegate(namespace?: string): this;
@@ -54805,6 +40802,7 @@ $( "button" ).click(function() {
   }
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -54820,86 +40818,6 @@ $( "button" ).click(function() {
      * @see \`{@link https://api.jquery.com/val/ }\`
      * @since 1.0
      * @since 1.4
-     * @example ​ ````Get the single value from a single select and an array of values from a multiple select and display their values.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>val demo</title>
-  <style>
-  p {
-    color: red;
-    margin: 4px;
-  }
-  b {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p></p>
-​
-<select id="single">
-  <option>Single</option>
-  <option>Single2</option>
-</select>
-​
-<select id="multiple" multiple="multiple">
-  <option selected="selected">Multiple</option>
-  <option>Multiple2</option>
-  <option selected="selected">Multiple3</option>
-</select>
-​
-<script>
-function displayVals() {
-  var singleValues = $( "#single" ).val();
-  var multipleValues = $( "#multiple" ).val() || [];
-  // When using jQuery 3:
-  // var multipleValues = $( "#multiple" ).val();
-  $( "p" ).html( "<b>Single:</b> " + singleValues +
-    " <b>Multiple:</b> " + multipleValues.join( ", " ) );
-}
-​
-$( "select" ).change( displayVals );
-displayVals();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find the value of an input box.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>val demo</title>
-  <style>
-  p {
-    color: blue;
-    margin: 8px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<input type="text" value="some text">
-<p></p>
-​
-<script>
-$( "input" )
-  .keyup(function() {
-    var value = $( this ).val();
-    $( "p" ).text( value );
-  })
-  .keyup();
-</script>
-</body>
-</html>
-```
      * @example ​ ````Set the value of an input box.
 ```html
 <!doctype html>
@@ -54934,6 +40852,7 @@ $( "button" ).click(function() {
   $( "input" ).val( text );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -54944,7 +40863,6 @@ $( "button" ).click(function() {
 <head>
   <meta charset="utf-8">
   <title>val demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -54958,6 +40876,7 @@ $( "input" ).on( "blur", function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -54999,6 +40918,7 @@ $( "#single" ).val( "Single2" );
 $( "#multiple" ).val([ "Multiple2", "Multiple3" ]);
 $( "input").val([ "check1", "check2", "radio1" ]);
 </script>
+​
 </body>
 </html>
 ```
@@ -55055,6 +40975,7 @@ function displayVals() {
 $( "select" ).change( displayVals );
 displayVals();
 </script>
+​
 </body>
 </html>
 ```
@@ -55086,108 +41007,7 @@ $( "input" )
   })
   .keyup();
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Set the value of an input box.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>val demo</title>
-  <style>
-  button {
-    margin: 4px;
-    cursor: pointer;
-  }
-  input {
-    margin: 4px;
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div>
-  <button>Feed</button>
-  <button>the</button>
-  <button>Input</button>
-</div>
-<input type="text" value="click a button">
-​
-<script>
-$( "button" ).click(function() {
-  var text = $( this ).text();
-  $( "input" ).val( text );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use the function argument to modify the value of an input box.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>val demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>Type something and then click or tab out of the input.</p>
-<input type="text" value="type something">
-​
-<script>
-$( "input" ).on( "blur", function() {
-  $( this ).val(function( i, val ) {
-    return val.toUpperCase();
-  });
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Set a single select, a multiple select, checkboxes and a radio button .
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>val demo</title>
-  <style>
-  body {
-    color: blue;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<select id="single">
-  <option>Single</option>
-  <option>Single2</option>
-</select>
-​
-<select id="multiple" multiple="multiple">
-  <option selected="selected">Multiple</option>
-  <option>Multiple2</option>
-  <option selected="selected">Multiple3</option>
-</select>
-​
-<br>
-<input type="checkbox" name="checkboxname" value="check1"> check1
-<input type="checkbox" name="checkboxname" value="check2"> check2
-<input type="radio" name="r" value="radio1"> radio1
-<input type="radio" name="r" value="radio2"> radio2
-​
-<script>
-$( "#single" ).val( "Single2" );
-$( "#multiple" ).val([ "Multiple2", "Multiple3" ]);
-$( "input").val([ "check1", "check2", "radio1" ]);
-</script>
 </body>
 </html>
 ```
@@ -55203,59 +41023,6 @@ $( "input").val([ "check1", "check2", "radio1" ]);
      * @see \`{@link https://api.jquery.com/width/ }\`
      * @since 1.0
      * @since 1.4.1
-     * @example ​ ````Show various widths.  Note the values are from the iframe so might be smaller than you expected.  The yellow highlight shows the iframe body.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>width demo</title>
-  <style>
-  body {
-    background: yellow;
-  }
-  button {
-    font-size: 12px;
-    margin: 2px;
-  }
-  p {
-    width: 150px;
-    border: 1px red solid;
-  }
-  div {
-    color: red;
-    font-weight: bold;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button id="getp">Get Paragraph Width</button>
-<button id="getd">Get Document Width</button>
-<button id="getw">Get Window Width</button>
-<div>&nbsp;</div>
-<p>
-  Sample paragraph to test width
-</p>
-​
-<script>
-function showWidth( ele, w ) {
-  $( "div" ).text( "The width for the " + ele + " is " + w + "px." );
-}
-$( "#getp" ).click(function() {
-  showWidth( "paragraph", $( "p" ).width() );
-});
-$( "#getd" ).click(function() {
-  showWidth( "document", $( document ).width() );
-});
-$("#getw").click(function() {
-  showWidth( "window", $( window ).width() );
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Change the width of each div the first time it is clicked (and change its color).
 ```html
 <!doctype html>
@@ -55294,6 +41061,7 @@ $( "div" ).one( "click", function() {
   modWidth -= 8;
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -55354,47 +41122,7 @@ $("#getw").click(function() {
   showWidth( "window", $( window ).width() );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Change the width of each div the first time it is clicked (and change its color).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>width demo</title>
-  <style>
-  div {
-    width: 70px;
-    height: 50px;
-    float: left;
-    margin: 5px;
-    background: red;
-    cursor: pointer;
-  }
-  .mod {
-    background: blue;
-    cursor: default;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div>d</div>
-<div>d</div>
-<div>d</div>
-<div>d</div>
-<div>d</div>
-​
-<script>
-var modWidth = 50;
-$( "div" ).one( "click", function() {
-  $( this ).width( modWidth ).addClass( "mod" );
-  modWidth -= 8;
-});
-</script>
 </body>
 </html>
 ```
@@ -55439,6 +41167,7 @@ $( "div" ).one( "click", function() {
 <script>
 $( "p" ).wrap( "<div></div>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -55475,6 +41204,7 @@ $( "p" ).wrap( "<div></div>" );
 <script>
 $( "span" ).wrap( "<div><div><p><em><b></b></em></p></div></div>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -55505,6 +41235,7 @@ $( "span" ).wrap( "<div><div><p><em><b></b></em></p></div></div>" );
 <script>
 $( "p" ).wrap( document.createElement( "div" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -55542,6 +41273,7 @@ $( "p" ).wrap( document.createElement( "div" ) );
 <script>
 $( "p" ).wrap( $( ".doublediv" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -55585,6 +41317,7 @@ $( "p" ).wrap( $( ".doublediv" ) );
 <script>
 $( "p" ).wrapAll( "<div></div>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -55621,6 +41354,7 @@ $( "p" ).wrapAll( "<div></div>" );
 <script>
 $( "span").wrapAll( "<div><div><p><em><b></b></em></p></div></div>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -55651,6 +41385,7 @@ $( "span").wrapAll( "<div><div><p><em><b></b></em></p></div></div>" );
 <script>
 $( "p" ).wrapAll( document.createElement( "div" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -55688,6 +41423,7 @@ $( "p" ).wrapAll( document.createElement( "div" ) );
 <script>
 $( "p" ).wrapAll( $( ".doublediv" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -55727,6 +41463,7 @@ $( "p" ).wrapAll( $( ".doublediv" ) );
 <script>
 $( "p" ).wrapInner( "<b></b>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -55758,6 +41495,7 @@ Plain old text, or is it?
 <script>
 $( "body" ).wrapInner( "<div><div><p><em><b></b></em></p></div></div>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -55784,6 +41522,7 @@ $( "body" ).wrapInner( "<div><div><p><em><b></b></em></p></div></div>" );
 <script>
 $( "p" ).wrapInner( document.createElement( "b" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -55813,6 +41552,7 @@ $( "p" ).wrapInner( document.createElement( "b" ) );
 <script>
 $( "p" ).wrapInner( $( "<span class='red'></span>" ) );
 </script>
+​
 </body>
 </html>
 ```
