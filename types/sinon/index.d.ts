@@ -405,6 +405,10 @@ declare namespace Sinon {
          */
         resolvesArg(index: number): SinonStub;
         /**
+         * Causes the stub to return a Promise which resolves to its this value.
+         */
+        resolvesThis(): SinonStub;
+        /**
          * Causes the stub to throw an exception (Error).
          * @param type
          */

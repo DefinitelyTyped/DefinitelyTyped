@@ -404,6 +404,7 @@ function testStub() {
     stub.resolves();
     stub.resolves('foo');
     stub.resolvesArg(1);
+    stub.resolvesThis();
     stub.throws();
     stub.throws('err');
     stub.throws(new Error('err'));
