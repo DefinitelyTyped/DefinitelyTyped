@@ -61782,17 +61782,17 @@ jQuery.easing.easeInCubic = function ( p, t, b, c, d ) {
     return c * ( t /= d ) * t * t + b;
 }
 ```
-      *
-      * You can achive same effect with this:
-      *
+     *
+     * You can achive same effect with this:
+     *
 ```js
 jQuery.easing.easeInCubic = function ( p ) {
     return Math.pow( p, 3 );
 }
 ```
-      *
-      * See jQuery-ui \`{@link https://github.com/jquery/jquery-ui/commit/c0093b599fcd58b6ad122ab425c4cc1a4da4a520#diff-9cd789a170c765edcf0f4854db386e1a commit}\` for other possible cases.
-      */
+     *
+     * See jQuery-ui \`{@link https://github.com/jquery/jquery-ui/commit/c0093b599fcd58b6ad122ab425c4cc1a4da4a520#diff-9cd789a170c765edcf0f4854db386e1a commit}\` for other possible cases.
+     */
     type EasingMethod = (p: number, t: number, b: number, c: number, d: number) => number;
 
     interface Easings {
@@ -61823,75 +61823,35 @@ jQuery.easing.easeInCubic = function ( p ) {
 
     // Instance members
     interface Event {
-        /**
-         * Indicates whether the META key was pressed when the event fired.
-         *
-         * @see \`{@link https://api.jquery.com/event.metaKey/ }\`
-         * @since 1.0.4
-         * @example ​ ````Determine whether the META key was pressed when the event fired.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>event.metaKey demo</title>
-  <style>
-  body {
-    background-color: #eef;
-  }
-  div {
-    padding: 20px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button value="Test" name="Test" id="checkMetaKey">Click me!</button>
-<div id="display"></div>
-​
-<script>
-$( "#checkMetaKey" ).click(function( event ) {
-  $( "#display" ).text( event.metaKey );
-});
-</script>
-</body>
-</html>
-```
-         */
-        metaKey: boolean;
-        /**
-         * The namespace specified when the event was triggered.
-         *
-         * @see \`{@link https://api.jquery.com/event.namespace/ }\`
-         * @since 1.4.3
-         * @example ​ ````Determine the event namespace used.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>event.namespace demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>display event.namespace</button>
-<p></p>
-​
-<script>
-$( "p" ).on( "test.something", function( event ) {
-  alert( event.namespace );
-});
-$( "button" ).click(function( event ) {
-  $( "p" ).trigger( "test.something" );
-});
-</script>
-</body>
-</html>
-```
-         */
-        namespace: string;
+        // region Copied properties
+        // #region Copied properties
+
+        // region Event
+        // #region Event
+
+        bubbles?: boolean;
+        cancelable?: boolean;
+        eventPhase?: number;
+
+        // #endregion
+
+        // region UIEvent
+        // #region UIEvent
+
+        detail?: number;
+        view?: Window;
+
+        // #endregion
+
+        // region MouseEvent
+        // #region MouseEvent
+
+        button?: number;
+        buttons?: number;
+        clientX?: number;
+        clientY?: number;
+        offsetX?: number;
+        offsetY?: number;
         /**
          * The mouse position relative to the left edge of the document.
          *
@@ -61964,6 +61924,123 @@ $( document ).on( "mousemove", function( event ) {
 ```
          */
         pageY: number;
+        screenX?: number;
+        screenY?: number;
+        /** @deprecated */
+        toElement?: Element;
+
+        // #endregion
+
+        // region PointerEvent
+        // #region PointerEvent
+
+        pointerId?: number;
+        pointerType?: string;
+
+        // #endregion
+
+        // region KeyboardEvent
+        // #region KeyboardEvent
+
+        /** @deprecated */
+        char?: string;
+        /** @deprecated */
+        charCode?: number;
+        key?: string;
+        /** @deprecated */
+        keyCode?: number;
+
+        // #endregion
+
+        // region TouchEvent
+        // #region TouchEvent
+
+        changedTouches?: TouchList;
+        targetTouches?: TouchList;
+        touches?: TouchList;
+
+        // #endregion
+
+        // region MouseEvent, KeyboardEvent, TouchEvent
+        // #region MouseEvent, KeyboardEvent, TouchEvent
+
+        altKey?: boolean;
+        ctrlKey?: boolean;
+        /**
+         * Indicates whether the META key was pressed when the event fired.
+         *
+         * @see \`{@link https://api.jquery.com/event.metaKey/ }\`
+         * @since 1.0.4
+         * @example ​ ````Determine whether the META key was pressed when the event fired.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.metaKey demo</title>
+  <style>
+  body {
+    background-color: #eef;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<button value="Test" name="Test" id="checkMetaKey">Click me!</button>
+<div id="display"></div>
+​
+<script>
+$( "#checkMetaKey" ).click(function( event ) {
+  $( "#display" ).text( event.metaKey );
+});
+</script>
+</body>
+</html>
+```
+         */
+        metaKey: boolean;
+        shiftKey?: boolean;
+
+        // #endregion
+
+        // #endregion
+
+        /**
+         * The namespace specified when the event was triggered.
+         *
+         * @see \`{@link https://api.jquery.com/event.namespace/ }\`
+         * @since 1.4.3
+         * @example ​ ````Determine the event namespace used.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.namespace demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<button>display event.namespace</button>
+<p></p>
+​
+<script>
+$( "p" ).on( "test.something", function( event ) {
+  alert( event.namespace );
+});
+$( "button" ).click(function( event ) {
+  $( "p" ).trigger( "test.something" );
+});
+</script>
+</body>
+</html>
+```
+         */
+        namespace: string;
         /**
          * The last value returned by an event handler that was triggered by this event, unless the value was undefined.
          *
@@ -62339,10 +62416,7 @@ $( "p" ).click(function( event ) {
 
     // Generic members
     interface Event<TTarget = EventTarget,
-        TData = null> extends Partial<Pick<PointerEvent & KeyboardEvent & TouchEvent, 'altKey' | 'bubbles' | 'cancelable' |
-        'changedTouches' | 'ctrlKey' | 'detail' | 'eventPhase' | 'metaKey' | 'pageX' | 'pageY' | 'shiftKey' | 'view' |
-        'char' | 'charCode' | 'key' | 'keyCode' | 'button' | 'buttons' | 'clientX' | 'clientY' | 'offsetX' | 'offsetY' |
-        'pointerId' | 'pointerType' | 'screenX' | 'screenY' | 'targetTouches' | 'toElement' | 'touches'>> {
+        TData = null> {
         /**
          * The current DOM element within the event bubbling phase.
          *

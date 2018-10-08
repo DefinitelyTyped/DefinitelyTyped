@@ -6927,6 +6927,14 @@ function JQuery_Event() {
             type: 'keydown'
         });
     }
+
+    // https://stackoverflow.com/questions/49892574/trigger-a-jquery-3-event-with-ctrlkey-set
+    function stackoverflow_49892574() {
+        const event = $.Event<object, Window>("keydown");
+        event.which = 77;
+        event.ctrlKey = true;
+        $(window).trigger(event);
+    }
 }
 
 function JQuery_jqXHR() {
