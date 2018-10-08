@@ -18,6 +18,7 @@
 //                 Angela-1 <https://github.com/angela-1>
 //                 Mikael Lirbank <https://github.com/lirbank>
 //                 Hector Ribes <https://github.com/hector7>
+//                 Florian Richter <https://github.com/floric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -818,56 +819,65 @@ export interface Collection<TSchema = Default> {
     watch(pipeline?: Object[], options?: ChangeStreamOptions & { startAtClusterTime?: Timestamp, session?: ClientSession }): ChangeStream;
 }
 
+type Condition<T, P extends keyof T> = {
+    $eq?: T[P];
+    $gt?: T[P];
+    $gte?: T[P];
+    $in?: T[P][];
+    $lt?: T[P];
+    $lte?: T[P];
+    $ne?: T[P];
+    $nin?: T[P][];
+    $and?: (FilterQuery<T[P]> | T[P])[];
+    $or?: (FilterQuery<T[P]> | T[P])[];
+    $not?: (FilterQuery<T[P]> | T[P])[] | T[P];
+    $expr?: any;
+    $jsonSchema?: any;
+    $mod?: [number, number];
+    $regex?: RegExp;
+    $options?: string;
+    $text?: {
+        $search: string;
+        $language?: string;
+        $caseSensitive?: boolean;
+        $diacraticSensitive?: boolean;
+    };
+    $where: Object;
+    $geoIntersects?: Object;
+    $geoWithin?: Object;
+    $near?: Object;
+    $nearSphere?: Object;
+    $elemMatch?: Object;
+    $size?: number;
+    $bitsAllClear?: Object;
+    $bitsAllSet?: Object;
+    $bitsAnyClear?: Object;
+    $bitsAnySet?: Object;
+    [key: string]: any;
+};
+
 /** https://docs.mongodb.com/manual/reference/operator/update */
 export type UpdateQuery<T> = {
-    $inc: { [P in keyof T]?: number } | { [key: string]: number },
-    $min: { [P in keyof T]?: number } | { [key: string]: number },
-    $max: { [P in keyof T]?: number } | { [key: string]: number },
-    $mul: { [P in keyof T]?: number } | { [key: string]: number },
-    $set: Partial<T> | { [key: string]: any },
-    $setOnInsert: Partial<T> | { [key: string]: any },
-    $unset: { [P in keyof T]?: '' } | { [key: string]: '' },
-    $rename: { [key: string]: keyof T } | { [key: string]: string },
-    $currentDate: { [P in keyof T]?: (true | { $type: 'timestamp' }) } | { [key: string]: (true | { $type: 'timestamp' }) },
+    $inc?: { [P in keyof T]?: number } | { [key: string]: number };
+    $min?: { [P in keyof T]?: number } | { [key: string]: number };
+    $max?: { [P in keyof T]?: number } | { [key: string]: number };
+    $mul?: { [P in keyof T]?: number } | { [key: string]: number };
+    $set?: Partial<T> | { [key: string]: any };
+    $setOnInsert?: Partial<T> | { [key: string]: any };
+    $unset?: { [P in keyof T]?: '' } | { [key: string]: '' };
+    $rename?: { [key: string]: keyof T } | { [key: string]: string };
+    $currentDate?: { [P in keyof T]?: (true | { $type: 'timestamp' }) } | { [key: string]: (true | { $type: 'timestamp' }) };
+    $addToSet?: Partial<T> | { [key: string]: any };
+    $pop?: { [P in keyof T]?: -1 | 1 } | { [key: string]: -1 | 1 };
+    $pull?: Partial<T> | { [key: string]: Condition<T, keyof T> };
+    $push?: Partial<T> | { [key: string]: any };
+    $pushAll?: Partial<T> | { [key: string]: Array<any> };
+    $each?: Partial<T> | { [key: string]: Array<any> };
+    $bit?: { [P in keyof T]?: any } | { [key: string]: any };
 };
 
 export type FilterQuery<T> = {
-    [P in keyof T]?: T[P] | {
-        $eq?: T[P];
-        $gt?: T[P];
-        $gte?: T[P];
-        $in?: T[P][];
-        $lt?: T[P];
-        $lte?: T[P];
-        $ne?: T[P];
-        $nin?: T[P][];
-        $and?: (FilterQuery<T[P]> | T[P])[];
-        $or?: (FilterQuery<T[P]> | T[P])[];
-        $not?: (FilterQuery<T[P]> | T[P])[] | T[P];
-        $expr?: any;
-        $jsonSchema?: any;
-        $mod?: [number, number];
-        $regex?: RegExp;
-        $options?: string;
-        $text?: {
-            $search: string;
-            $language?: string;
-            $caseSensitive?: boolean;
-            $diacraticSensitive?: boolean;
-        };
-        $where: Object;
-        $geoIntersects?: Object;
-        $geoWithin?: Object;
-        $near?: Object;
-        $nearSphere?: Object;
-        $elemMatch?: Object;
-        $size?: number;
-        $bitsAllClear?: Object;
-        $bitsAllSet?: Object;
-        $bitsAnyClear?: Object;
-        $bitsAnySet?: Object;
-        [key: string]: any;
-    };
+    [P in keyof T]?: T[P] | Condition<T, P>;
 } | { [key: string]: any };
 
 // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
