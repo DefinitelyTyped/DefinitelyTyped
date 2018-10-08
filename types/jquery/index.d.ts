@@ -32288,6 +32288,7 @@ $( document ).on( "mousemove", function( event ) {
   $( "#log" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32324,6 +32325,7 @@ $( document ).on( "mousemove", function( event ) {
   $( "#log" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32403,6 +32405,7 @@ $( "#checkMetaKey" ).click(function( event ) {
   $( "#display" ).text( event.metaKey );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32441,6 +32444,7 @@ $( "button" ).click(function( event ) {
   $( "p" ).trigger( "test.something" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32473,6 +32477,7 @@ $( "button" ).click(function( event ) {
   $( "p" ).html( event.result );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32517,6 +32522,7 @@ $( "div" ).click(function( event ) {
   last = event.timeStamp;
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32528,23 +32534,10 @@ $( "div" ).click(function( event ) {
          * @see \`{@link https://api.jquery.com/event.type/ }\`
          * @since 1.0
          * @example ​ ````On all anchor clicks, alert the event type.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>event.type demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "a" ).click(function( event ) {
   alert( event.type ); // "click"
 });
-</script>
-</body>
-</html>
 ```
          */
         type: string;
@@ -32572,6 +32565,7 @@ $( "#whichkey" ).on( "keydown", function( event ) {
   $( "#log" ).html( event.type + ": " +  event.which );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32594,6 +32588,7 @@ $( "#whichkey" ).on( "mousedown", function( event ) {
   $( "#log" ).html( event.type + ": " +  event.which );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32605,25 +32600,12 @@ $( "#whichkey" ).on( "mousedown", function( event ) {
          * @see \`{@link https://api.jquery.com/event.isDefaultPrevented/ }\`
          * @since 1.3
          * @example ​ ````Checks whether event.preventDefault() was called.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>event.isDefaultPrevented demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "a" ).click(function( event ) {
   alert( event.isDefaultPrevented() ); // false
   event.preventDefault();
   alert( event.isDefaultPrevented() ); // true
 });
-</script>
-</body>
-</html>
 ```
          */
         isDefaultPrevented(): boolean;
@@ -32663,6 +32645,7 @@ $( "button" ).click(function( event ) {
   immediatePropStopped( event );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32704,6 +32687,7 @@ $( "button" ).click(function(event) {
   propStopped( event );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32736,6 +32720,7 @@ $( "a" ).click(function( event ) {
     .appendTo( "#log" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32785,6 +32770,7 @@ $( "div" ).click(function( event ) {
   $( this ).css( "background-color", "#f00" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -32796,24 +32782,11 @@ $( "div" ).click(function( event ) {
          * @see \`{@link https://api.jquery.com/event.stopPropagation/ }\`
          * @since 1.0
          * @example ​ ````Kill the bubbling on the click event.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>event.stopPropagation demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).click(function( event ) {
   event.stopPropagation();
   // Do something
 });
-</script>
-</body>
-</html>
 ```
          */
         stopPropagation(): void;
@@ -32828,23 +32801,10 @@ $( "p" ).click(function( event ) {
          * @see \`{@link https://api.jquery.com/event.currentTarget/ }\`
          * @since 1.3
          * @example ​ ````Alert that currentTarget matches the `this` keyword.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>event.currentTarget demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "p" ).click(function( event ) {
   alert( event.currentTarget === this ); // true
 });
-</script>
-</body>
-</html>
 ```
          */
         currentTarget: TTarget;
@@ -32886,6 +32846,7 @@ for ( var i = 0; i < 5; i++ ) {
   });
 }
 </script>
+​
 </body>
 </html>
 ```
@@ -32897,23 +32858,10 @@ for ( var i = 0; i < 5; i++ ) {
          * @see \`{@link https://api.jquery.com/event.delegateTarget/ }\`
          * @since 1.7
          * @example ​ ````When a button in any box class is clicked, change the box&#39;s background color to red.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>event.delegateTarget demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( ".box" ).on( "click", "button", function( event ) {
   $( event.delegateTarget ).css( "background-color", "red" );
 });
-</script>
-</body>
-</html>
 ```
          */
         delegateTarget: TTarget;
@@ -32924,23 +32872,10 @@ $( ".box" ).on( "click", "button", function( event ) {
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
          * @since 1.1.4
          * @example ​ ````On mouseout of anchors, alert the element type being entered.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>event.relatedTarget demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "a" ).mouseout(function( event ) {
   alert( event.relatedTarget.nodeName ); // "DIV"
 });
-</script>
-</body>
-</html>
 ```
          */
         relatedTarget: TTarget | null;
@@ -32979,6 +32914,7 @@ $( "body" ).click(function( event ) {
   $( "#log" ).html( "clicked: " + event.target.nodeName );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -33017,6 +32953,7 @@ function handler( event ) {
 }
 $( "ul" ).click( handler ).find( "ul" ).hide();
 </script>
+​
 </body>
 </html>
 ```
