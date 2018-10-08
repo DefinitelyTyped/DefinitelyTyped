@@ -5234,12 +5234,12 @@ export class LOD extends Object3D {
 export class Line extends Object3D {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: Material,
+        material?: Material | Material[],
         mode?: number
     );
 
-    geometry: Geometry|BufferGeometry;
-    material: Material;
+    geometry: Geometry | BufferGeometry;
+    material: Material | Material[];
 
     type: "Line";
     isLine: true;
@@ -5260,7 +5260,7 @@ export const LinePieces: number;
 export class LineSegments extends Line {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: Material,
+        material?: Material | Material[],
         mode?: number
     );
 }
@@ -5268,7 +5268,7 @@ export class LineSegments extends Line {
 export class Mesh extends Object3D {
     constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[]);
 
-    geometry: Geometry|BufferGeometry;
+    geometry: Geometry | BufferGeometry;
     material: Material | Material[];
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
@@ -5295,7 +5295,7 @@ export class Points extends Object3D {
      */
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: Material
+        material?: Material | Material[]
     );
 
     type: "Points";
@@ -5309,7 +5309,7 @@ export class Points extends Object3D {
     /**
      * An instance of Material, defining the object's appearance. Default is a PointsMaterial with randomised colour.
      */
-    material: Material;
+    material: Material | Material[];
 
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
 }
@@ -5345,7 +5345,7 @@ export class Skeleton {
 }
 
 export class SkinnedMesh extends Mesh {
-    constructor(geometry?: Geometry|BufferGeometry, material?: Material, useVertexTexture?: boolean);
+    constructor(geometry?: Geometry|BufferGeometry, material?: Material | Material[], useVertexTexture?: boolean);
 
     bindMode: string;
     bindMatrix: Matrix4;
