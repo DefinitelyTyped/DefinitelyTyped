@@ -51,6 +51,7 @@ interface JQueryStatic {
      * @deprecated ​ Deprecated. Use \`{@link ajaxSetup }\`.
      */
     ajaxSettings: JQuery.AjaxSettings;
+    Callbacks: JQuery.CallbacksStatic;
     Deferred: JQuery.DeferredStatic;
     Event: JQuery.EventStatic;
     /**
@@ -1564,15 +1565,6 @@ jQuery(function( $ ) {
      */
     // tslint:disable-next-line:no-unnecessary-generics
     <TElement = HTMLElement>(): JQuery<TElement>;
-    /**
-     * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
-     *
-     * @param flags An optional list of space-separated flags that change how the callback list behaves.
-     * @see \`{@link https://api.jquery.com/jQuery.Callbacks/ }\`
-     * @since 1.7
-     */
-    // tslint:disable-next-line:ban-types no-unnecessary-generics
-    Callbacks<T extends Function>(flags?: string): JQuery.Callbacks<T>;
     /**
      * Perform an asynchronous HTTP (Ajax) request.
      *
@@ -56672,6 +56664,18 @@ declare namespace JQuery {
 
     // region Callbacks
     // #region Callbacks
+
+    interface CallbacksStatic {
+        /**
+         * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
+         *
+         * @param flags An optional list of space-separated flags that change how the callback list behaves.
+         * @see \`{@link https://api.jquery.com/jQuery.Callbacks/ }\`
+         * @since 1.7
+         */
+        // tslint:disable-next-line:ban-types no-unnecessary-generics
+        <T extends Function>(flags?: string): Callbacks<T>;
+    }
 
     // tslint:disable-next-line:ban-types
     interface Callbacks<T extends Function = Function> {

@@ -167,11 +167,8 @@ function JQueryStatic() {
     }
 
     function Callbacks() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks('once');
-
-        // $ExpectType Callbacks<Function>
-        $.Callbacks();
+        // $ExpectType CallbacksStatic
+        $.Callbacks;
     }
 
     function Deferred() {
@@ -6694,6 +6691,14 @@ function JQuery_AjaxSettings() {
     });
 }
 
+function JQuery_CallbacksStatic() {
+    // $ExpectType Callbacks<Function>
+    $.Callbacks('once');
+
+    // $ExpectType Callbacks<Function>
+    $.Callbacks();
+}
+
 function JQuery_Callbacks() {
     function add() {
         const callbacks = $.Callbacks();
@@ -7856,7 +7861,7 @@ function JQuery_DeferredStatic() {
 
     function call_signature() {
         // $ExpectType Deferred<boolean, string, number>
-        $.Deferred<boolean, string, number>(function (deferred) {
+        $.Deferred<boolean, string, number>(function(deferred) {
             // $ExpectType Deferred<boolean, string, number>
             this;
             // $ExpectType Deferred<boolean, string, number>
@@ -7867,7 +7872,7 @@ function JQuery_DeferredStatic() {
         $.Deferred<boolean, string, number>();
 
         // $ExpectType Deferred<boolean, string, any>
-        $.Deferred<boolean, string>(function (deferred) {
+        $.Deferred<boolean, string>(function(deferred) {
             // $ExpectType Deferred<boolean, string, any>
             this;
             // $ExpectType Deferred<boolean, string, any>
@@ -7878,7 +7883,7 @@ function JQuery_DeferredStatic() {
         $.Deferred<boolean, string>();
 
         // $ExpectType Deferred<boolean, any, any>
-        $.Deferred<boolean>(function (deferred) {
+        $.Deferred<boolean>(function(deferred) {
             // $ExpectType Deferred<boolean, any, any>
             this;
             // $ExpectType Deferred<boolean, any, any>
@@ -7889,7 +7894,7 @@ function JQuery_DeferredStatic() {
         $.Deferred<boolean>();
 
         // $ExpectType Deferred<any, any, any>
-        $.Deferred(function (deferred) {
+        $.Deferred(function(deferred) {
             // $ExpectType Deferred<any, any, any>
             this;
             // $ExpectType Deferred<any, any, any>
