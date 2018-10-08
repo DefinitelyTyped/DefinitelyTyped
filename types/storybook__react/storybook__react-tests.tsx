@@ -16,12 +16,12 @@ addDecorator(Decorator);
 
 // setAddon
 interface AnyAddon {
-    addWithSideEffect<T>(this: Story & T, storyName: string, storyFn: RenderFunction): Story & T;
+    addWithSideEffect<T>(this: Story & T, storyName: string, storyFn: RenderFunction, parameters?: any): Story & T;
 }
 const AnyAddon: AnyAddon = {
-    addWithSideEffect<T>(this: Story & T, storyName: string, storyFn: RenderFunction): Story & T {
+    addWithSideEffect<T>(this: Story & T, storyName: string, storyFn: RenderFunction, parameters?: any): Story & T {
         console.log(this.kind === 'withAnyAddon');
-        return this.add(storyName, storyFn);
+        return this.add(storyName, storyFn, parameters);
     }
 };
 setAddon(AnyAddon);
