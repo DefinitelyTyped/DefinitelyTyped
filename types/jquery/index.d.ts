@@ -82,36 +82,13 @@ interface JQueryStatic {
      * @see \`{@link https://api.jquery.com/jQuery.ready/ }\`
      * @since 1.8
      * @example ​ ````Listen for document ready using jQuery.when.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.ready demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when( $.ready ).then(function() {
   // Document is ready.
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Typical usage involving another promise, using jQuery.when.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.ready demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when(
   $.getJSON( "ajax/test.json" ),
   $.ready
@@ -119,9 +96,6 @@ $.when(
   // Document is ready.
   // Value of test.json is passed as `data`.
 });
-</script>
-</body>
-</html>
 ```
      */
     ready: JQuery.Thenable<JQueryStatic>;
@@ -152,124 +126,12 @@ $.when(
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
      * @since 1.4
-     * @example ​ ````Find all p elements that are children of a div element and apply a border to them.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>one</p>
-<div><p>two</p></div>
-<p>three</p>
-​
-<script>
-$( "div > p" ).css( "border", "1px solid gray" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all inputs of type radio within the first form in the document.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "input:radio", document.forms[ 0 ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all div elements within an XML document from an Ajax response.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div", xml.responseXML );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Set the background color of the page to black.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( document.body ).css( "background", "black" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Hide all the input elements within a form.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( myForm.elements ).hide();
-</script>
-</body>
-</html>
-```
      * @example ​ ````Create a div element (and all of its contents) dynamically and append it to the body element. Internally, an element is created and its innerHTML property set to the given markup.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "<div><p>Hello</p></div>" ).appendTo( "body" )
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Create some DOM elements.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "<div/>", {
   "class": "test",
   text: "Click me!",
@@ -278,47 +140,6 @@ $( "<div/>", {
   }
 })
   .appendTo( "body" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Execute the function when the DOM is ready to be used.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$(function() {
-  // Document is ready
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use both the shortcut for $(document).ready() and the argument to write failsafe jQuery code using the $ alias, without relying on the global alias.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-jQuery(function( $ ) {
-  // Your code using failsafe $ alias here...
-});
-</script>
-</body>
-</html>
 ```
      */
     // tslint:disable-next-line:no-unnecessary-generics
@@ -352,151 +173,12 @@ $( "div > p" ).css( "border", "1px solid gray" );
 </html>
 ```
      * @example ​ ````Find all inputs of type radio within the first form in the document.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "input:radio", document.forms[ 0 ] );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Find all div elements within an XML document from an Ajax response.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "div", xml.responseXML );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Set the background color of the page to black.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( document.body ).css( "background", "black" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Hide all the input elements within a form.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( myForm.elements ).hide();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create a div element (and all of its contents) dynamically and append it to the body element. Internally, an element is created and its innerHTML property set to the given markup.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div><p>Hello</p></div>" ).appendTo( "body" )
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create some DOM elements.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div/>", {
-  "class": "test",
-  text: "Click me!",
-  click: function() {
-    $( this ).toggleClass( "test" );
-  }
-})
-  .appendTo( "body" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Execute the function when the DOM is ready to be used.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$(function() {
-  // Document is ready
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use both the shortcut for $(document).ready() and the argument to write failsafe jQuery code using the $ alias, without relying on the global alias.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-jQuery(function( $ ) {
-  // Your code using failsafe $ alias here...
-});
-</script>
-</body>
-</html>
 ```
      */
     // tslint:disable-next-line:no-unnecessary-generics
@@ -508,173 +190,9 @@ jQuery(function( $ ) {
      * @param element A DOM element to wrap in a jQuery object.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
-     * @example ​ ````Find all p elements that are children of a div element and apply a border to them.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>one</p>
-<div><p>two</p></div>
-<p>three</p>
-​
-<script>
-$( "div > p" ).css( "border", "1px solid gray" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all inputs of type radio within the first form in the document.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "input:radio", document.forms[ 0 ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all div elements within an XML document from an Ajax response.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div", xml.responseXML );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Set the background color of the page to black.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( document.body ).css( "background", "black" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Hide all the input elements within a form.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( myForm.elements ).hide();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create a div element (and all of its contents) dynamically and append it to the body element. Internally, an element is created and its innerHTML property set to the given markup.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div><p>Hello</p></div>" ).appendTo( "body" )
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create some DOM elements.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div/>", {
-  "class": "test",
-  text: "Click me!",
-  click: function() {
-    $( this ).toggleClass( "test" );
-  }
-})
-  .appendTo( "body" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Execute the function when the DOM is ready to be used.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$(function() {
-  // Document is ready
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use both the shortcut for $(document).ready() and the argument to write failsafe jQuery code using the $ alias, without relying on the global alias.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-jQuery(function( $ ) {
-  // Your code using failsafe $ alias here...
-});
-</script>
-</body>
-</html>
 ```
      */
     // Using a unified signature is not possible due to a TypeScript 2.4 bug (DefinitelyTyped#27810)
@@ -687,173 +205,9 @@ jQuery(function( $ ) {
      * @param elementArray An array containing a set of DOM elements to wrap in a jQuery object.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
-     * @example ​ ````Find all p elements that are children of a div element and apply a border to them.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>one</p>
-<div><p>two</p></div>
-<p>three</p>
-​
-<script>
-$( "div > p" ).css( "border", "1px solid gray" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all inputs of type radio within the first form in the document.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "input:radio", document.forms[ 0 ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all div elements within an XML document from an Ajax response.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div", xml.responseXML );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Set the background color of the page to black.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( document.body ).css( "background", "black" );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Hide all the input elements within a form.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( myForm.elements ).hide();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create a div element (and all of its contents) dynamically and append it to the body element. Internally, an element is created and its innerHTML property set to the given markup.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div><p>Hello</p></div>" ).appendTo( "body" )
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create some DOM elements.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div/>", {
-  "class": "test",
-  text: "Click me!",
-  click: function() {
-    $( this ).toggleClass( "test" );
-  }
-})
-  .appendTo( "body" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Execute the function when the DOM is ready to be used.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$(function() {
-  // Document is ready
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use both the shortcut for $(document).ready() and the argument to write failsafe jQuery code using the $ alias, without relying on the global alias.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-jQuery(function( $ ) {
-  // Your code using failsafe $ alias here...
-});
-</script>
-</body>
-</html>
 ```
      */
     // Using a unified signature is not possible due to a TypeScript 2.4 bug (DefinitelyTyped#27810)
@@ -866,174 +220,6 @@ jQuery(function( $ ) {
      * @param selection An existing jQuery object to clone.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
-     * @example ​ ````Find all p elements that are children of a div element and apply a border to them.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>one</p>
-<div><p>two</p></div>
-<p>three</p>
-​
-<script>
-$( "div > p" ).css( "border", "1px solid gray" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all inputs of type radio within the first form in the document.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "input:radio", document.forms[ 0 ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all div elements within an XML document from an Ajax response.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div", xml.responseXML );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Set the background color of the page to black.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( document.body ).css( "background", "black" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Hide all the input elements within a form.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( myForm.elements ).hide();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create a div element (and all of its contents) dynamically and append it to the body element. Internally, an element is created and its innerHTML property set to the given markup.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div><p>Hello</p></div>" ).appendTo( "body" )
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create some DOM elements.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div/>", {
-  "class": "test",
-  text: "Click me!",
-  click: function() {
-    $( this ).toggleClass( "test" );
-  }
-})
-  .appendTo( "body" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Execute the function when the DOM is ready to be used.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$(function() {
-  // Document is ready
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use both the shortcut for $(document).ready() and the argument to write failsafe jQuery code using the $ alias, without relying on the global alias.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-jQuery(function( $ ) {
-  // Your code using failsafe $ alias here...
-});
-</script>
-</body>
-</html>
-```
      */
     <T>(selection: JQuery<T>): JQuery<T>;
     /**
@@ -1042,173 +228,17 @@ jQuery(function( $ ) {
      * @param callback The function to execute when the DOM is ready.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
-     * @example ​ ````Find all p elements that are children of a div element and apply a border to them.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>one</p>
-<div><p>two</p></div>
-<p>three</p>
-​
-<script>
-$( "div > p" ).css( "border", "1px solid gray" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all inputs of type radio within the first form in the document.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "input:radio", document.forms[ 0 ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all div elements within an XML document from an Ajax response.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div", xml.responseXML );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Set the background color of the page to black.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( document.body ).css( "background", "black" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Hide all the input elements within a form.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( myForm.elements ).hide();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create a div element (and all of its contents) dynamically and append it to the body element. Internally, an element is created and its innerHTML property set to the given markup.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div><p>Hello</p></div>" ).appendTo( "body" )
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create some DOM elements.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div/>", {
-  "class": "test",
-  text: "Click me!",
-  click: function() {
-    $( this ).toggleClass( "test" );
-  }
-})
-  .appendTo( "body" );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Execute the function when the DOM is ready to be used.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $(function() {
   // Document is ready
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Use both the shortcut for $(document).ready() and the argument to write failsafe jQuery code using the $ alias, without relying on the global alias.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 jQuery(function( $ ) {
   // Your code using failsafe $ alias here...
 });
-</script>
-</body>
-</html>
 ```
      */
     // tslint:disable-next-line:no-unnecessary-generics unified-signatures
@@ -1219,174 +249,6 @@ jQuery(function( $ ) {
      * @param object A plain object to wrap in a jQuery object.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
-     * @example ​ ````Find all p elements that are children of a div element and apply a border to them.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>one</p>
-<div><p>two</p></div>
-<p>three</p>
-​
-<script>
-$( "div > p" ).css( "border", "1px solid gray" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all inputs of type radio within the first form in the document.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "input:radio", document.forms[ 0 ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all div elements within an XML document from an Ajax response.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div", xml.responseXML );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Set the background color of the page to black.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( document.body ).css( "background", "black" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Hide all the input elements within a form.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( myForm.elements ).hide();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create a div element (and all of its contents) dynamically and append it to the body element. Internally, an element is created and its innerHTML property set to the given markup.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div><p>Hello</p></div>" ).appendTo( "body" )
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create some DOM elements.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div/>", {
-  "class": "test",
-  text: "Click me!",
-  click: function() {
-    $( this ).toggleClass( "test" );
-  }
-})
-  .appendTo( "body" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Execute the function when the DOM is ready to be used.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$(function() {
-  // Document is ready
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use both the shortcut for $(document).ready() and the argument to write failsafe jQuery code using the $ alias, without relying on the global alias.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-jQuery(function( $ ) {
-  // Your code using failsafe $ alias here...
-});
-</script>
-</body>
-</html>
-```
      */
     <T extends JQuery.PlainObject>(object: T): JQuery<T>;
     /**
@@ -1394,174 +256,6 @@ jQuery(function( $ ) {
      *
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.4
-     * @example ​ ````Find all p elements that are children of a div element and apply a border to them.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>one</p>
-<div><p>two</p></div>
-<p>three</p>
-​
-<script>
-$( "div > p" ).css( "border", "1px solid gray" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all inputs of type radio within the first form in the document.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "input:radio", document.forms[ 0 ] );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Find all div elements within an XML document from an Ajax response.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "div", xml.responseXML );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Set the background color of the page to black.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( document.body ).css( "background", "black" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Hide all the input elements within a form.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( myForm.elements ).hide();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create a div element (and all of its contents) dynamically and append it to the body element. Internally, an element is created and its innerHTML property set to the given markup.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div><p>Hello</p></div>" ).appendTo( "body" )
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Create some DOM elements.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$( "<div/>", {
-  "class": "test",
-  text: "Click me!",
-  click: function() {
-    $( this ).toggleClass( "test" );
-  }
-})
-  .appendTo( "body" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Execute the function when the DOM is ready to be used.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$(function() {
-  // Document is ready
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Use both the shortcut for $(document).ready() and the argument to write failsafe jQuery code using the $ alias, without relying on the global alias.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-jQuery(function( $ ) {
-  // Your code using failsafe $ alias here...
-});
-</script>
-</body>
-</html>
-```
      */
     // tslint:disable-next-line:no-unnecessary-generics
     <TElement = HTMLElement>(): JQuery<TElement>;
@@ -1573,130 +267,6 @@ jQuery(function( $ ) {
      *                 be set for any option with $.ajaxSetup(). See jQuery.ajax( settings ) below for a complete list of all settings.
      * @see \`{@link https://api.jquery.com/jQuery.ajax/ }\`
      * @since 1.5
-     * @example ​ ````Save some data to the server and notify the user once it&#39;s complete.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.ajax demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.ajax({
-  method: "POST",
-  url: "some.php",
-  data: { name: "John", location: "Boston" }
-})
-  .done(function( msg ) {
-    alert( "Data Saved: " + msg );
-  });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Retrieve the latest version of an HTML page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.ajax demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.ajax({
-  url: "test.html",
-  cache: false
-})
-  .done(function( html ) {
-    $( "#results" ).append( html );
-  });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Send an xml document as data to the server. By setting the processData
-    option to false, the automatic conversion of data to strings is prevented.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.ajax demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var xmlDocument = [create xml document];
-var xmlRequest = $.ajax({
-  url: "page.php",
-  processData: false,
-  data: xmlDocument
-});
-​
-xmlRequest.done( handleResponse );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Send an id as data to the server, save some data to the server, and notify the user once it&#39;s complete. If the request fails, alert the user.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.ajax demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var menuId = $( "ul.nav" ).first().attr( "id" );
-var request = $.ajax({
-  url: "script.php",
-  method: "POST",
-  data: { id : menuId },
-  dataType: "html"
-});
-​
-request.done(function( msg ) {
-  $( "#log" ).html( msg );
-});
-​
-request.fail(function( jqXHR, textStatus ) {
-  alert( "Request failed: " + textStatus );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Load and execute a JavaScript file.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.ajax demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.ajax({
-  method: "GET",
-  url: "test.js",
-  dataType: "script"
-});
-</script>
-</body>
-</html>
-```
      */
     ajax(url: string, settings?: JQuery.AjaxSettings): JQuery.jqXHR;
     /**
@@ -1707,17 +277,7 @@ $.ajax({
      * @see \`{@link https://api.jquery.com/jQuery.ajax/ }\`
      * @since 1.0
      * @example ​ ````Save some data to the server and notify the user once it&#39;s complete.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.ajax demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.ajax({
   method: "POST",
   url: "some.php",
@@ -1726,22 +286,9 @@ $.ajax({
   .done(function( msg ) {
     alert( "Data Saved: " + msg );
   });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Retrieve the latest version of an HTML page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.ajax demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.ajax({
   url: "test.html",
   cache: false
@@ -1749,23 +296,10 @@ $.ajax({
   .done(function( html ) {
     $( "#results" ).append( html );
   });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Send an xml document as data to the server. By setting the processData
     option to false, the automatic conversion of data to strings is prevented.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.ajax demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var xmlDocument = [create xml document];
 var xmlRequest = $.ajax({
   url: "page.php",
@@ -1774,22 +308,9 @@ var xmlRequest = $.ajax({
 });
 ​
 xmlRequest.done( handleResponse );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Send an id as data to the server, save some data to the server, and notify the user once it&#39;s complete. If the request fails, alert the user.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.ajax demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var menuId = $( "ul.nav" ).first().attr( "id" );
 var request = $.ajax({
   url: "script.php",
@@ -1805,30 +326,14 @@ request.done(function( msg ) {
 request.fail(function( jqXHR, textStatus ) {
   alert( "Request failed: " + textStatus );
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Load and execute a JavaScript file.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.ajax demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.ajax({
   method: "GET",
   url: "test.js",
   dataType: "script"
 });
-</script>
-</body>
-</html>
 ```
      */
     ajax(settings?: JQuery.AjaxSettings): JQuery.jqXHR;
@@ -1859,26 +364,13 @@ $.ajax({
      * @see \`{@link https://api.jquery.com/jQuery.ajaxSetup/ }\`
      * @since 1.1
      * @example ​ ````Sets the defaults for Ajax requests to the url &quot;/xmlhttp/&quot;, disables global handlers and uses POST instead of GET. The following Ajax requests then sends some data without having to set anything else.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.ajaxSetup demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.ajaxSetup({
   url: "/xmlhttp/",
   global: false,
   type: "POST"
 });
 $.ajax({ data: myData });
-</script>
-</body>
-</html>
 ```
      */
     ajaxSetup(options: JQuery.AjaxSettings): JQuery.AjaxSettings;
@@ -1904,22 +396,9 @@ $.ajax({ data: myData });
      * @see \`{@link https://api.jquery.com/jQuery.contains/ }\`
      * @since 1.4
      * @example ​ ````Check if an element is a descendant of another.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.contains demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.contains( document.documentElement, document.body ); // true
 $.contains( document.body, document.documentElement ); // false
-</script>
-</body>
-</html>
 ```
      */
     contains(container: Element, contained: Element): boolean;
@@ -1932,44 +411,6 @@ $.contains( document.body, document.documentElement ); // false
      * @param value The new data value; this can be any Javascript type except `undefined`.
      * @see \`{@link https://api.jquery.com/jQuery.data/ }\`
      * @since 1.2.3
-     * @example ​ ````Store then retrieve a value from the div element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.data demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>
-  The values stored were
-  <span></span>
-  and
-  <span></span>
-</div>
-​
-<script>
-var div = $( "div" )[ 0 ];
-jQuery.data( div, "test", {
-  first: 16,
-  last: "pizza!"
-});
-$( "span:first" ).text( jQuery.data( div, "test" ).first );
-$( "span:last" ).text( jQuery.data( div, "test" ).last );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
 ```html
 <!doctype html>
@@ -2029,6 +470,7 @@ $( "button" ).click( function() {
   $( "span" ).text( "" + value );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -2044,106 +486,6 @@ $( "button" ).click( function() {
      *              will return the corresponding data for "name", and is therefore the same as `jQuery.data( el, "name" )`
      * @see \`{@link https://api.jquery.com/jQuery.data/ }\`
      * @since 1.2.3
-     * @example ​ ````Store then retrieve a value from the div element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.data demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>
-  The values stored were
-  <span></span>
-  and
-  <span></span>
-</div>
-​
-<script>
-var div = $( "div" )[ 0 ];
-jQuery.data( div, "test", {
-  first: 16,
-  last: "pizza!"
-});
-$( "span:first" ).text( jQuery.data( div, "test" ).first );
-$( "span:last" ).text( jQuery.data( div, "test" ).last );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.data demo</title>
-  <style>
-  div {
-    margin: 5px;
-    background: yellow;
-  }
-  button {
-    margin: 5px;
-    font-size: 14px;
-  }
-  p {
-    margin: 5px;
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div>A div</div>
-<button>Get "blah" from the div</button>
-<button>Set "blah" to "hello"</button>
-<button>Set "blah" to 86</button>
-<button>Remove "blah" from the div</button>
-<p>The "blah" value of this div is <span>?</span></p>
-​
-<script>
-$( "button" ).click( function() {
-  var value,
-    div = $( "div" )[ 0 ];
-  switch ( $( "button" ).index( this ) ) {
-  case 0 :
-    value = jQuery.data( div, "blah" );
-    break;
-  case 1 :
-    jQuery.data( div, "blah", "hello" );
-    value = "Stored!";
-    break;
-  case 2 :
-    jQuery.data( div, "blah", 86 );
-    value = "Stored!";
-    break;
-  case 3 :
-    jQuery.removeData( div, "blah" );
-    value = "Removed!";
-    break;
-  }
-  $( "span" ).text( "" + value );
-});
-</script>
-</body>
-</html>
-```
      */
     // `unified-signatures` is disabled so that behavior when passing `undefined` to `value` can be documented. Unifying the signatures
     // results in potential confusion for users from an unexpected parameter.
@@ -2193,68 +535,7 @@ jQuery.data( div, "test", {
 $( "span:first" ).text( jQuery.data( div, "test" ).first );
 $( "span:last" ).text( jQuery.data( div, "test" ).last );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Get the data named &quot;blah&quot; stored at for an element.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.data demo</title>
-  <style>
-  div {
-    margin: 5px;
-    background: yellow;
-  }
-  button {
-    margin: 5px;
-    font-size: 14px;
-  }
-  p {
-    margin: 5px;
-    color: blue;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div>A div</div>
-<button>Get "blah" from the div</button>
-<button>Set "blah" to "hello"</button>
-<button>Set "blah" to 86</button>
-<button>Remove "blah" from the div</button>
-<p>The "blah" value of this div is <span>?</span></p>
-​
-<script>
-$( "button" ).click( function() {
-  var value,
-    div = $( "div" )[ 0 ];
-  switch ( $( "button" ).index( this ) ) {
-  case 0 :
-    value = jQuery.data( div, "blah" );
-    break;
-  case 1 :
-    jQuery.data( div, "blah", "hello" );
-    value = "Stored!";
-    break;
-  case 2 :
-    jQuery.data( div, "blah", 86 );
-    value = "Stored!";
-    break;
-  case 3 :
-    jQuery.removeData( div, "blah" );
-    value = "Removed!";
-    break;
-  }
-  $( "span" ).text( "" + value );
-});
-</script>
 </body>
 </html>
 ```
@@ -2307,6 +588,7 @@ $( "button" ).click(function() {
     .animate({ left:'10px', top:'30px' }, 700 );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -2361,46 +643,15 @@ jQuery.each( obj, function( i, val ) {
   $( "#" + i ).append( document.createTextNode( " - " + val ) );
 });
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Iterates over items in an array, accessing both the current item and its index.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.each demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.each( [ "a", "b", "c" ], function( i, l ){
   alert( "Index #" + i + ": " + l );
 });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Iterates over the properties in an object, accessing both the current item and its key.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.each demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.each({ name: "John", lang: "JS" }, function( k, v ) {
-  alert( "Key: " + k + ", Value: " + v );
-});
-</script>
-</body>
-</html>
 ```
      */
     each<T>(array: ArrayLike<T>, callback: (this: T, indexInArray: number, value: T) => false | any): ArrayLike<T>;
@@ -2453,46 +704,15 @@ jQuery.each( obj, function( i, val ) {
   $( "#" + i ).append( document.createTextNode( " - " + val ) );
 });
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Iterates over items in an array, accessing both the current item and its index.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.each demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.each( [ "a", "b", "c" ], function( i, l ){
-  alert( "Index #" + i + ": " + l );
-});
-</script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Iterates over the properties in an object, accessing both the current item and its key.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.each demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.each({ name: "John", lang: "JS" }, function( k, v ) {
   alert( "Key: " + k + ", Value: " + v );
 });
-</script>
-</body>
-</html>
 ```
      */
     each<T, K extends keyof T>(obj: T, callback: (this: T[K], propertyName: K, valueOfProperty: T[K]) => false | any): T;
@@ -2503,21 +723,8 @@ $.each({ name: "John", lang: "JS" }, function( k, v ) {
      * @see \`{@link https://api.jquery.com/jQuery.error/ }\`
      * @since 1.4.1
      * @example ​ ````Override jQuery.error for display in Firebug.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.error demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 jQuery.error = console.error;
-</script>
-</body>
-</html>
 ```
      */
     error(message: string): any;
@@ -2528,38 +735,12 @@ jQuery.error = console.error;
      * @see \`{@link https://api.jquery.com/jQuery.escapeSelector/ }\`
      * @since 3.0
      * @example ​ ````Escape an ID containing a hash.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.escapeSelector demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.escapeSelector( "#target" ); // "\#target"
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Select all the elements having a class name of .box inside a div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.escapeSelector demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $( "div" ).find( "." + $.escapeSelector( ".box" ) );
-</script>
-</body>
-</html>
 ```
      */
     escapeSelector(selector: JQuery.Selector): JQuery.Selector;
@@ -2576,39 +757,6 @@ $( "div" ).find( "." + $.escapeSelector( ".box" ) );
      * @param object6 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
-     * @example ​ ````Merge two objects, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1
-$.extend( object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Merge two objects recursively, modifying the first.
 ```html
 <!doctype html>
@@ -2639,34 +787,7 @@ $.extend( true, object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge defaults and options, without modifying the defaults. This is a common plugin development pattern.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var defaults = { validate: false, limit: 5, name: "foo" };
-var options = { validate: true, name: "bar" };
-​
-// Merge defaults and options, without modifying defaults
-var settings = $.extend( {}, defaults, options );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "</div>" );
-$( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
-$( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
-</script>
 </body>
 </html>
 ```
@@ -2684,39 +805,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      * @param object5 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
-     * @example ​ ````Merge two objects, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1
-$.extend( object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Merge two objects recursively, modifying the first.
 ```html
 <!doctype html>
@@ -2747,34 +835,7 @@ $.extend( true, object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge defaults and options, without modifying the defaults. This is a common plugin development pattern.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var defaults = { validate: false, limit: 5, name: "foo" };
-var options = { validate: true, name: "bar" };
-​
-// Merge defaults and options, without modifying defaults
-var settings = $.extend( {}, defaults, options );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "</div>" );
-$( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
-$( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
-</script>
 </body>
 </html>
 ```
@@ -2791,39 +852,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      * @param object4 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
-     * @example ​ ````Merge two objects, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1
-$.extend( object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Merge two objects recursively, modifying the first.
 ```html
 <!doctype html>
@@ -2854,34 +882,7 @@ $.extend( true, object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge defaults and options, without modifying the defaults. This is a common plugin development pattern.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var defaults = { validate: false, limit: 5, name: "foo" };
-var options = { validate: true, name: "bar" };
-​
-// Merge defaults and options, without modifying defaults
-var settings = $.extend( {}, defaults, options );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "</div>" );
-$( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
-$( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
-</script>
 </body>
 </html>
 ```
@@ -2897,39 +898,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      * @param object3 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
-     * @example ​ ````Merge two objects, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1
-$.extend( object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Merge two objects recursively, modifying the first.
 ```html
 <!doctype html>
@@ -2960,34 +928,7 @@ $.extend( true, object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge defaults and options, without modifying the defaults. This is a common plugin development pattern.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var defaults = { validate: false, limit: 5, name: "foo" };
-var options = { validate: true, name: "bar" };
-​
-// Merge defaults and options, without modifying defaults
-var settings = $.extend( {}, defaults, options );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "</div>" );
-$( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
-$( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
-</script>
 </body>
 </html>
 ```
@@ -3002,39 +943,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      * @param object2 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
-     * @example ​ ````Merge two objects, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1
-$.extend( object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Merge two objects recursively, modifying the first.
 ```html
 <!doctype html>
@@ -3065,34 +973,7 @@ $.extend( true, object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge defaults and options, without modifying the defaults. This is a common plugin development pattern.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var defaults = { validate: false, limit: 5, name: "foo" };
-var options = { validate: true, name: "bar" };
-​
-// Merge defaults and options, without modifying defaults
-var settings = $.extend( {}, defaults, options );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "</div>" );
-$( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
-$( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
-</script>
 </body>
 </html>
 ```
@@ -3106,39 +987,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      * @param object1 An object containing additional properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
-     * @example ​ ````Merge two objects, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1
-$.extend( object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Merge two objects recursively, modifying the first.
 ```html
 <!doctype html>
@@ -3169,34 +1017,7 @@ $.extend( true, object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge defaults and options, without modifying the defaults. This is a common plugin development pattern.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var defaults = { validate: false, limit: 5, name: "foo" };
-var options = { validate: true, name: "bar" };
-​
-// Merge defaults and options, without modifying defaults
-var settings = $.extend( {}, defaults, options );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "</div>" );
-$( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
-$( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
-</script>
 </body>
 </html>
 ```
@@ -3211,39 +1032,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      * @param objectN Additional objects containing properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
      * @since 1.1.4
-     * @example ​ ````Merge two objects, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1
-$.extend( object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Merge two objects recursively, modifying the first.
 ```html
 <!doctype html>
@@ -3274,34 +1062,7 @@ $.extend( true, object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge defaults and options, without modifying the defaults. This is a common plugin development pattern.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var defaults = { validate: false, limit: 5, name: "foo" };
-var options = { validate: true, name: "bar" };
-​
-// Merge defaults and options, without modifying defaults
-var settings = $.extend( {}, defaults, options );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "</div>" );
-$( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
-$( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
-</script>
 </body>
 </html>
 ```
@@ -3350,39 +1111,7 @@ $.extend( object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge two objects recursively, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1, recursively
-$.extend( true, object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
 </body>
 </html>
 ```
@@ -3411,6 +1140,7 @@ $( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "<
 $( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
 $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -3458,39 +1188,7 @@ $.extend( object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge two objects recursively, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1, recursively
-$.extend( true, object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
 </body>
 </html>
 ```
@@ -3519,6 +1217,7 @@ $( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "<
 $( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
 $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -3565,39 +1264,7 @@ $.extend( object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge two objects recursively, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1, recursively
-$.extend( true, object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
 </body>
 </html>
 ```
@@ -3626,6 +1293,7 @@ $( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "<
 $( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
 $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -3671,39 +1339,7 @@ $.extend( object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge two objects recursively, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1, recursively
-$.extend( true, object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
 </body>
 </html>
 ```
@@ -3732,6 +1368,7 @@ $( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "<
 $( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
 $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -3776,39 +1413,7 @@ $.extend( object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge two objects recursively, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1, recursively
-$.extend( true, object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
 </body>
 </html>
 ```
@@ -3837,6 +1442,7 @@ $( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "<
 $( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
 $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -3880,39 +1486,7 @@ $.extend( object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge two objects recursively, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1, recursively
-$.extend( true, object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
 </body>
 </html>
 ```
@@ -3941,6 +1515,7 @@ $( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "<
 $( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
 $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -3985,39 +1560,7 @@ $.extend( object1, object2 );
 // Assuming JSON.stringify - not available in IE<8
 $( "#log" ).append( JSON.stringify( object1 ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Merge two objects recursively, modifying the first.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.extend demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<div id="log"></div>
-​
-<script>
-var object1 = {
-  apple: 0,
-  banana: { weight: 52, price: 100 },
-  cherry: 97
-};
-var object2 = {
-  banana: { price: 200 },
-  durian: 100
-};
-​
-// Merge object2 into object1, recursively
-$.extend( true, object1, object2 );
-​
-// Assuming JSON.stringify - not available in IE<8
-$( "#log" ).append( JSON.stringify( object1 ) );
-</script>
 </body>
 </html>
 ```
@@ -4046,6 +1589,7 @@ $( "#log" ).append( "<div><b>defaults -- </b>" + JSON.stringify( defaults ) + "<
 $( "#log" ).append( "<div><b>options -- </b>" + JSON.stringify( options ) + "</div>" );
 $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "</div>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -4061,117 +1605,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      * @see \`{@link https://api.jquery.com/jQuery.get/ }\`
      * @since 1.0
-     * @example ​ ````Request the test.php page, but ignore the return results.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Request the test.php page and send some additional data along (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php", { name: "John", time: "2pm" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass arrays of data to the server (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php", { "choices[]": ["Jon", "Susan"] } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Alert the results from requesting test.php (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php", function( data ) {
-  alert( "Data Loaded: " + data );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Alert the results from requesting test.cgi with an additional payload of data (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.cgi", { name: "John", time: "2pm" } )
-  .done(function( data ) {
-    alert( "Data Loaded: " + data );
-  });
-</script>
-</body>
-</html>
-```
-     * @example ​ ```` Get the test.php page contents, which has been returned in json format (&lt;?php echo json_encode( array( &quot;name&quot;=&gt;&quot;John&quot;,&quot;time&quot;=&gt;&quot;2pm&quot; ) ); ?&gt;), and add it to the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php", function( data ) {
-  $( "body" )
-    .append( "Name: " + data.name ) // John
-    .append( "Time: " + data.time ); //  2pm
-}, "json" );
-</script>
-</body>
-</html>
-```
      */
     get(url: string,
         data: JQuery.PlainObject | string,
@@ -4186,116 +1619,13 @@ $.get( "test.php", function( data ) {
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      * @see \`{@link https://api.jquery.com/jQuery.get/ }\`
      * @since 1.0
-     * @example ​ ````Request the test.php page, but ignore the return results.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Request the test.php page and send some additional data along (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php", { name: "John", time: "2pm" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass arrays of data to the server (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php", { "choices[]": ["Jon", "Susan"] } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Alert the results from requesting test.php (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php", function( data ) {
-  alert( "Data Loaded: " + data );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Alert the results from requesting test.cgi with an additional payload of data (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.cgi", { name: "John", time: "2pm" } )
-  .done(function( data ) {
-    alert( "Data Loaded: " + data );
-  });
-</script>
-</body>
-</html>
-```
-     * @example ​ ```` Get the test.php page contents, which has been returned in json format (&lt;?php echo json_encode( array( &quot;name&quot;=&gt;&quot;John&quot;,&quot;time&quot;=&gt;&quot;2pm&quot; ) ); ?&gt;), and add it to the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+     * @example ​ ````Get the test.php page contents, which has been returned in json format (&lt;?php echo json_encode( array( &quot;name&quot;=&gt;&quot;John&quot;,&quot;time&quot;=&gt;&quot;2pm&quot; ) ); ?&gt;), and add it to the page.
+```javascript
 $.get( "test.php", function( data ) {
   $( "body" )
     .append( "Name: " + data.name ) // John
     .append( "Time: " + data.time ); //  2pm
 }, "json" );
-</script>
-</body>
-</html>
 ```
      */
     get(url: string,
@@ -4310,116 +1640,26 @@ $.get( "test.php", function( data ) {
      *                     A plain object or string that is sent to the server with the request.
      * @see \`{@link https://api.jquery.com/jQuery.get/ }\`
      * @since 1.0
-     * @example ​ ````Request the test.php page, but ignore the return results.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php" );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Request the test.php page and send some additional data along (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php", { name: "John", time: "2pm" } );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Pass arrays of data to the server (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php", { "choices[]": ["Jon", "Susan"] } );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Alert the results from requesting test.php (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php", function( data ) {
   alert( "Data Loaded: " + data );
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Alert the results from requesting test.cgi with an additional payload of data (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.cgi", { name: "John", time: "2pm" } )
   .done(function( data ) {
     alert( "Data Loaded: " + data );
   });
-</script>
-</body>
-</html>
-```
-     * @example ​ ```` Get the test.php page contents, which has been returned in json format (&lt;?php echo json_encode( array( &quot;name&quot;=&gt;&quot;John&quot;,&quot;time&quot;=&gt;&quot;2pm&quot; ) ); ?&gt;), and add it to the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php", function( data ) {
-  $( "body" )
-    .append( "Name: " + data.name ) // John
-    .append( "Time: " + data.time ); //  2pm
-}, "json" );
-</script>
-</body>
-</html>
 ```
      */
     get(url: string,
@@ -4436,115 +1676,8 @@ $.get( "test.php", function( data ) {
      * @since 1.12
      * @since 2.2
      * @example ​ ````Request the test.php page, but ignore the return results.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Request the test.php page and send some additional data along (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php", { name: "John", time: "2pm" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass arrays of data to the server (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php", { "choices[]": ["Jon", "Susan"] } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Alert the results from requesting test.php (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php", function( data ) {
-  alert( "Data Loaded: " + data );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Alert the results from requesting test.cgi with an additional payload of data (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.cgi", { name: "John", time: "2pm" } )
-  .done(function( data ) {
-    alert( "Data Loaded: " + data );
-  });
-</script>
-</body>
-</html>
-```
-     * @example ​ ```` Get the test.php page contents, which has been returned in json format (&lt;?php echo json_encode( array( &quot;name&quot;=&gt;&quot;John&quot;,&quot;time&quot;=&gt;&quot;2pm&quot; ) ); ?&gt;), and add it to the page.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.get demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php", function( data ) {
-  $( "body" )
-    .append( "Name: " + data.name ) // John
-    .append( "Time: " + data.time ); //  2pm
-}, "json" );
-</script>
-</body>
-</html>
 ```
      */
     get(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
@@ -4556,90 +1689,6 @@ $.get( "test.php", function( data ) {
      * @param success A callback function that is executed if the request succeeds.
      * @see \`{@link https://api.jquery.com/jQuery.getJSON/ }\`
      * @since 1.0
-     * @example ​ ````Loads the four most recent pictures of Mount Rainier from the Flickr JSONP API.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.getJSON demo</title>
-  <style>
-  img {
-    height: 100px;
-    float: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div id="images"></div>
-​
-<script>
-(function() {
-  var flickerAPI = "https://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
-  $.getJSON( flickerAPI, {
-    tags: "mount rainier",
-    tagmode: "any",
-    format: "json"
-  })
-    .done(function( data ) {
-      $.each( data.items, function( i, item ) {
-        $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
-        if ( i === 3 ) {
-          return false;
-        }
-      });
-    });
-})();
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Load the JSON data from test.js and access a name from the returned JSON data.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.getJSON demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.getJSON( "test.js", function( json ) {
-  console.log( "JSON Data: " + json.users[ 3 ].name );
- });
- </script>
-</body>
-</html>
-```
-     * @example ​ ````Load the JSON data from test.js, passing along additional data, and access a name from the returned JSON data.
-      If an error occurs, log an error message instead.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.getJSON demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.getJSON( "test.js", { name: "John", time: "2pm" } )
-  .done(function( json ) {
-    console.log( "JSON Data: " + json.users[ 3 ].name );
-  })
-  .fail(function( jqxhr, textStatus, error ) {
-    var err = textStatus + ", " + error;
-    console.log( "Request Failed: " + err );
-});
-</script>
-</body>
-</html>
-```
      */
     getJSON(url: string,
             data: JQuery.PlainObject | string,
@@ -4689,41 +1738,19 @@ $.getJSON( "test.js", { name: "John", time: "2pm" } )
     });
 })();
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Load the JSON data from test.js and access a name from the returned JSON data.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.getJSON demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.getJSON( "test.js", function( json ) {
   console.log( "JSON Data: " + json.users[ 3 ].name );
  });
- </script>
-</body>
-</html>
-```
+ ```
      * @example ​ ````Load the JSON data from test.js, passing along additional data, and access a name from the returned JSON data.
       If an error occurs, log an error message instead.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.getJSON demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.getJSON( "test.js", { name: "John", time: "2pm" } )
   .done(function( json ) {
     console.log( "JSON Data: " + json.users[ 3 ].name );
@@ -4732,9 +1759,6 @@ $.getJSON( "test.js", { name: "John", time: "2pm" } )
     var err = textStatus + ", " + error;
     console.log( "Request Failed: " + err );
 });
-</script>
-</body>
-</html>
 ```
      */
     getJSON(url: string,
@@ -4747,17 +1771,7 @@ $.getJSON( "test.js", { name: "John", time: "2pm" } )
      * @see \`{@link https://api.jquery.com/jQuery.getScript/ }\`
      * @since 1.0
      * @example ​ ````Define a $.cachedScript() method that allows fetching a cached script:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.getScript demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 jQuery.cachedScript = function( url, options ) {
 ​
   // Allow user to set any option except for dataType, cache, and url
@@ -4776,9 +1790,6 @@ jQuery.cachedScript = function( url, options ) {
 $.cachedScript( "ajax/test.js" ).done(function( script, textStatus ) {
   console.log( textStatus );
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Load the official jQuery Color Animation plugin dynamically and bind some color animations to occur once the new functionality is loaded.
 ```html
@@ -4821,6 +1832,7 @@ $.getScript( url, function() {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -4834,25 +1846,12 @@ $.getScript( url, function() {
      * @see \`{@link https://api.jquery.com/jQuery.globalEval/ }\`
      * @since 1.0.4
      * @example ​ ````Execute a script in the global context.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.globalEval demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 function test() {
   jQuery.globalEval( "var newVar = true;" )
 }
 test();
 // newVar === true
-</script>
-</body>
-</html>
 ```
      */
     globalEval(code: string): void;
@@ -4909,46 +1908,21 @@ arr = jQuery.grep(arr, function( a ) {
 ​
 $( "span" ).text( arr.join( ", " ) );
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Filter an array of numbers to include only numbers bigger then zero.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.grep demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.grep( [ 0, 1, 2 ], function( n, i ) {
   return n > 0;
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Filter an array of numbers to include numbers that are not bigger than zero.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.grep demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.grep( [ 0, 1, 2 ], function( n, i ) {
     return n > 0;
 }, true );
-</script>
-</body>
-</html>
 ```
      */
     grep<T>(array: ArrayLike<T>,
@@ -4989,6 +1963,7 @@ $p.append( jQuery.hasData( p ) + " " ); // true
 $p.off( "click" );
 $p.append( jQuery.hasData( p ) + " " ); // false
 </script>
+​
 </body>
 </html>
 ```
@@ -5006,24 +1981,11 @@ $p.append( jQuery.hasData( p ) + " " ); // false
      *
      * **Solution**: Rewrite the page so that it does not require all jQuery ready handlers to be delayed. This might be accomplished, for example, by late-loading only the code that requires the delay when it is safe to run. Due to the complexity of this method, jQuery Migrate does not attempt to fill the functionality. If the underlying version of jQuery used with jQuery Migrate no longer contains `jQuery.holdReady()` the code will fail shortly after this warning appears.
      * @example ​ ````Delay the ready event until a custom plugin has loaded.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.holdReady demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.holdReady( true );
 $.getScript( "myplugin.js", function() {
   $.holdReady( false );
 });
-</script>
-</body>
-</html>
 ```
      */
     holdReady(hold: boolean): void;
@@ -5075,6 +2037,7 @@ $spans.eq( 1 ).text( jQuery.inArray( 4, arr ) );
 $spans.eq( 2 ).text( jQuery.inArray( "Karl", arr ) );
 $spans.eq( 3 ).text( jQuery.inArray( "Pete", arr, 2 ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -5103,6 +2066,7 @@ Is [] an Array? <b></b>
 <script>
 $( "b" ).append( "" + $.isArray([]) );
 </script>
+​
 </body>
 </html>
 ```
@@ -5115,22 +2079,9 @@ $( "b" ).append( "" + $.isArray([]) );
      * @see \`{@link https://api.jquery.com/jQuery.isEmptyObject/ }\`
      * @since 1.4
      * @example ​ ````Check an object to see if it&#39;s empty.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.isEmptyObject demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 jQuery.isEmptyObject({}); // true
 jQuery.isEmptyObject({ foo: "bar" }); // false
-</script>
-</body>
-</html>
 ```
      */
     isEmptyObject(obj: any): boolean;
@@ -5183,25 +2134,13 @@ jQuery.each( objs, function( i ) {
   $( "span" ).eq( i ).text( isFunc );
 });
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Finds out if the parameter is a function.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.isFunction demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.isFunction(function() {});
-</script>
-</body>
-</html>
 ```
      */
     // tslint:disable-next-line:ban-types
@@ -5214,17 +2153,7 @@ $.isFunction(function() {});
      * @since 1.7
      * @deprecated ​ Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/2960 }\`.
      * @example ​ ````Sample return values of $.isNumeric with various inputs.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.isNumeric demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // true (numeric)
 $.isNumeric( "-10" )
 $.isNumeric( "0" )
@@ -5245,9 +2174,6 @@ $.isNumeric( null )
 $.isNumeric( true )
 $.isNumeric( Infinity )
 $.isNumeric( undefined )
-</script>
-</body>
-</html>
 ```
      */
     isNumeric(value: any): boolean;
@@ -5258,22 +2184,9 @@ $.isNumeric( undefined )
      * @see \`{@link https://api.jquery.com/jQuery.isPlainObject/ }\`
      * @since 1.4
      * @example ​ ````Check an object to see if it&#39;s a plain object.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.isPlainObject demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 jQuery.isPlainObject({}) // true
 jQuery.isPlainObject( "test" ) // false
-</script>
-</body>
-</html>
 ```
      */
     isPlainObject(obj: any): boolean;
@@ -5285,11 +2198,9 @@ jQuery.isPlainObject( "test" ) // false
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/3629 }\`.
      *
-     * **Cause**: This method returns `true` if its argument is thought to be a `window` element. It was
-     * created for internal use and is not a reliable way of detecting `window` for public needs.
+     * **Cause**: This method returns `true` if its argument is thought to be a `window` element. It was created for internal use and is not a reliable way of detecting `window` for public needs.
      *
-     * **Solution**: Remove any use of `jQuery.isWindow()` from code. If it is truly needed it can be
-     * replaced with a check for `obj != null && obj === obj.window` which was the test used inside this method.
+     * **Solution**: Remove any use of `jQuery.isWindow()` from code. If it is truly needed it can be replaced with a check for `obj != null && obj === obj.window` which was the test used inside this method.
      * @example ​ ````Finds out if the parameter is a window.
 ```html
 <!doctype html>
@@ -5306,6 +2217,7 @@ Is 'window' a window? <b></b>
 <script>
 $( "b" ).append( "" + $.isWindow( window ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -5318,22 +2230,9 @@ $( "b" ).append( "" + $.isWindow( window ) );
      * @see \`{@link https://api.jquery.com/jQuery.isXMLDoc/ }\`
      * @since 1.1.4
      * @example ​ ````Check an object to see if it&#39;s in an XML document.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.isXMLDoc demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 jQuery.isXMLDoc( document ) // false
 jQuery.isXMLDoc( document.body ) // false
-</script>
-</body>
-</html>
 ```
      */
     isXMLDoc(node: Node): boolean;
@@ -5373,26 +2272,14 @@ var arr = jQuery.makeArray( elems );
 arr.reverse();
 $( arr ).appendTo( document.body );
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Turn a jQuery object into an array
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.makeArray demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var obj = $( "li" );
 var arr = $.makeArray( obj );
-</script>
-</body>
-</html>
 ```
      */
     makeArray<T>(obj: ArrayLike<T>): T[];
@@ -5446,163 +2333,46 @@ arr = jQuery.map( arr, function( a ) {
 });
 $( "span" ).text( arr.join( ", " ) );
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Map the original array to a new one and add 4 to each value.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.map( [ 0, 1, 2 ], function( n ) {
   return n + 4;
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Map the original array to a new one, adding 1 to each value if it is bigger then zero and removing it if not.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.map( [ 0, 1, 2 ], function( n ) {
   return n > 0 ? n + 1 : null;
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Map the original array to a new one; each element is added with its original value and the value plus one.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.map( [ 0, 1, 2 ], function( n ) {
     return [ n, n + 1 ];
 });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Map the original object to a new array and double each value.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var dimensions = { width: 10, height: 15, length: 20 };
-dimensions = $.map( dimensions, function( value, index ) {
-  return value * 2;
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Map an object&#39;s keys to an array.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var dimensions = { width: 10, height: 15, length: 20 };
-var keys = $.map( dimensions, function( value, key ) {
-  return key;
-});
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Map the original array to a new one; each element is squared.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.map( [ 0, 1, 2, 3 ], function( a ) {
   return a * a;
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Map the original array to a new one, removing numbers less than 50 by returning null and subtracting 45 from the rest.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.map( [ 0, 1, 52, 97 ], function( a ) {
   return (a > 50 ? a - 45 : null);
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Augment the resulting array by returning an array inside the function.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var array = [ 0, 1, 52, 97 ];
 array = $.map( array, function( a, index ) {
   return [ a - 45, index ];
 });
-</script>
-</body>
-</html>
 ```
      */
     map<T, TReturn>(array: T[], callback: (this: Window, elementOfArray: T, indexInArray: number) => JQuery.TypeOrArray<TReturn> | null | undefined): TReturn[];
@@ -5616,204 +2386,19 @@ array = $.map( array, function( a, index ) {
      *                 to the global (window) object.
      * @see \`{@link https://api.jquery.com/jQuery.map/ }\`
      * @since 1.6
-     * @example ​ ````Use $.map() to change the values of an array.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <style>
-  div {
-    color: blue;
-  }
-  p {
-    color: green;
-    margin: 0;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div></div>
-<p></p>
-<span></span>
-​
-<script>
-var arr = [ "a", "b", "c", "d", "e" ];
-$( "div" ).text( arr.join( ", " ) );
-​
-arr = jQuery.map( arr, function( n, i ) {
-  return ( n.toUpperCase() + i );
-});
-$( "p" ).text( arr.join( ", " ) );
-​
-arr = jQuery.map( arr, function( a ) {
-  return a + a;
-});
-$( "span" ).text( arr.join( ", " ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Map the original array to a new one and add 4 to each value.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.map( [ 0, 1, 2 ], function( n ) {
-  return n + 4;
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Map the original array to a new one, adding 1 to each value if it is bigger then zero and removing it if not.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.map( [ 0, 1, 2 ], function( n ) {
-  return n > 0 ? n + 1 : null;
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Map the original array to a new one; each element is added with its original value and the value plus one.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.map( [ 0, 1, 2 ], function( n ) {
-    return [ n, n + 1 ];
-});
-</script>
-</body>
-</html>
-```
      * @example ​ ````Map the original object to a new array and double each value.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var dimensions = { width: 10, height: 15, length: 20 };
 dimensions = $.map( dimensions, function( value, index ) {
   return value * 2;
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Map an object&#39;s keys to an array.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var dimensions = { width: 10, height: 15, length: 20 };
 var keys = $.map( dimensions, function( value, key ) {
   return key;
 });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Map the original array to a new one; each element is squared.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.map( [ 0, 1, 2, 3 ], function( a ) {
-  return a * a;
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Map the original array to a new one, removing numbers less than 50 by returning null and subtracting 45 from the rest.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.map( [ 0, 1, 52, 97 ], function( a ) {
-  return (a > 50 ? a - 45 : null);
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Augment the resulting array by returning an array inside the function.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.map demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var array = [ 0, 1, 52, 97 ];
-array = $.map( array, function( a, index ) {
-  return [ a - 45, index ];
-});
-</script>
-</body>
-</html>
 ```
      */
     map<T, K extends keyof T, TReturn>(obj: T, callback: (this: Window, propertyOfObject: T[K], key: K) => JQuery.TypeOrArray<TReturn> | null | undefined): TReturn[];
@@ -5825,57 +2410,18 @@ array = $.map( array, function( a, index ) {
      * @see \`{@link https://api.jquery.com/jQuery.merge/ }\`
      * @since 1.0
      * @example ​ ````Merges two arrays, altering the first argument.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.merge demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.merge( [ 0, 1, 2 ], [ 2, 3, 4 ] )
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Merges two arrays, altering the first argument.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.merge demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.merge( [ 3, 2, 1 ], [ 4, 3, 2 ] )
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Merges two arrays, but uses a copy, so the original isn&#39;t altered.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.merge demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var first = [ "a", "b", "c" ];
 var second = [ "d", "e", "f" ];
 $.merge( $.merge( [], first ), second );
-</script>
-</body>
-</html>
 ```
      */
     merge<T, U>(first: ArrayLike<T>, second: ArrayLike<U>): Array<T | U>;
@@ -5886,38 +2432,15 @@ $.merge( $.merge( [], first ), second );
      * @see \`{@link https://api.jquery.com/jQuery.noConflict/ }\`
      * @since 1.0
      * @example ​ ````Map the original object that was referenced by $ back to $.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.noConflict demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 jQuery.noConflict();
 // Do something with jQuery
 jQuery( "div p" ).hide();
 // Do something with another library's $()
 $( "content" ).style.display = "none";
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Revert the $ alias and then create and execute a function to provide the $ as a jQuery alias inside the function&#39;s scope. Inside the function the original $ object is not available. This works well for most plugins that don&#39;t rely on any other library.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.noConflict demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 jQuery.noConflict();
 (function( $ ) {
   $(function() {
@@ -5926,22 +2449,9 @@ jQuery.noConflict();
 })(jQuery);
 ​
 // Other code using $ as an alias to the other library
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Create a different alias instead of jQuery to use in the rest of the script.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.noConflict demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var j = jQuery.noConflict();
 ​
 // Do something with jQuery
@@ -5949,27 +2459,11 @@ j( "div p" ).hide();
 ​
 // Do something with another library's $()
 $( "content" ).style.display = "none";
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Completely move jQuery to a new namespace in another object.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.noConflict demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var dom = {};
 dom.query = jQuery.noConflict( true );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Load two versions of jQuery (not recommended). Then, restore jQuery&#39;s globally scoped variables to the first loaded jQuery.
 ```html
@@ -6001,6 +2495,7 @@ $log.append( "<h3>After $.noConflict(true)</h3>" );
 $log.append( "1st loaded jQuery version ($): " + $.fn.jquery + "<br>" );
 $log.append( "2nd loaded jQuery version (jq162): " + jq162.fn.jquery + "<br>" );
 </script>
+​
 </body>
 </html>
 ```
@@ -6062,6 +2557,7 @@ var params = { width:1680, height:1050 };
 var str = jQuery.param( params );
 $( "#results" ).text( str );
 </script>
+​
 </body>
 </html>
 ```
@@ -6095,6 +2591,7 @@ $.param({ a: { b: 1, c: 2 }, d: [ 3, 4, { e: 5 } ] });
 $.param({ a: { b: 1, c: 2 }, d: [ 3, 4, { e: 5 } ] });
 // "a[b]=1&a[c]=2&d[]=3&d[]=4&d[2][e]=5"
 </script>
+​
 </body>
 </html>
 ```
@@ -6108,44 +2605,6 @@ $.param({ a: { b: 1, c: 2 }, d: [ 3, 4, { e: 5 } ] });
      * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
      * @see \`{@link https://api.jquery.com/jQuery.parseHTML/ }\`
      * @since 1.8
-     * @example ​ ````Create an array of DOM nodes using an HTML string and insert it into a div.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.parseHTML demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<div id="log">
-  <h3>Content:</h3>
-</div>
-​
-<script>
-var $log = $( "#log" ),
-  str = "hello, <b>my name is</b> jQuery.",
-  html = $.parseHTML( str ),
-  nodeNames = [];
-​
-// Append the parsed HTML
-$log.append( html );
-​
-// Gather the parsed HTML's node names
-$.each( html, function( i, el ) {
-  nodeNames[ i ] = "<li>" + el.nodeName + "</li>";
-});
-​
-// Insert the node names
-$log.append( "<h3>Node Names:</h3>" );
-$( "<ol></ol>" )
-  .append( nodeNames.join( "" ) )
-  .appendTo( $log );
-</script>
-</body>
-</html>
-```
      */
     parseHTML(data: string, context: Document | null | undefined, keepScripts: boolean): JQuery.Node[];
     /**
@@ -6191,6 +2650,7 @@ $( "<ol></ol>" )
   .append( nodeNames.join( "" ) )
   .appendTo( $log );
 </script>
+​
 </body>
 </html>
 ```
@@ -6208,22 +2668,9 @@ $( "<ol></ol>" )
      *
      * **Solution**: Replace any use of `jQuery.parseJSON` with `JSON.parse`.
      * @example ​ ````Parse a JSON string.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.parseJSON demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var obj = jQuery.parseJSON( '{ "name": "John" }' );
 alert( obj.name === "John" );
-</script>
-</body>
-</html>
 ```
      */
     parseJSON(json: string): any;
@@ -6262,6 +2709,7 @@ $title.text( "XML Title" );
 // Append "XML Title" to #anotherElement
 $( "#anotherElement" ).append( $title.text() );
 </script>
+​
 </body>
 </html>
 ```
@@ -6277,175 +2725,12 @@ $( "#anotherElement" ).append( $title.text() );
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      * @see \`{@link https://api.jquery.com/jQuery.post/ }\`
      * @since 1.0
-     * @example ​ ````Request the test.php page, but ignore the return results.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Request the test.php page and send some additional data along (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", { name: "John", time: "2pm" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass arrays of data to the server (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", { 'choices[]': [ "Jon", "Susan" ] } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Send form data using Ajax requests
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", $( "#testform" ).serialize() );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Alert the results from requesting test.php (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", function( data ) {
-  alert( "Data Loaded: " + data );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Alert the results from requesting test.php with an additional payload of data (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", { name: "John", time: "2pm" })
-  .done(function( data ) {
-    alert( "Data Loaded: " + data );
-  });
-</script>
-</body>
-</html>
-```
      * @example ​ ````Post to the test.php page and get content which has been returned in json format (&lt;?php echo json_encode(array(&quot;name&quot;=&gt;&quot;John&quot;,&quot;time&quot;=&gt;&quot;2pm&quot;)); ?&gt;).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.post( "test.php", { func: "getNameAndTime" }, function( data ) {
   console.log( data.name ); // John
   console.log( data.time ); // 2pm
 }, "json");
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Post a form using Ajax and put results in a div
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<form action="/" id="searchForm">
-  <input type="text" name="s" placeholder="Search...">
-  <input type="submit" value="Search">
-</form>
-<!-- the result of the search will be rendered inside this div -->
-<div id="result"></div>
-​
-<script>
-// Attach a submit handler to the form
-$( "#searchForm" ).submit(function( event ) {
-​
-  // Stop form from submitting normally
-  event.preventDefault();
-​
-  // Get some values from elements on the page:
-  var $form = $( this ),
-    term = $form.find( "input[name='s']" ).val(),
-    url = $form.attr( "action" );
-​
-  // Send the data using post
-  var posting = $.post( url, { s: term } );
-​
-  // Put the results in a div
-  posting.done(function( data ) {
-    var content = $( data ).find( "#content" );
-    $( "#result" ).empty().append( content );
-  });
-});
-</script>
-</body>
-</html>
 ```
      */
     post(url: string,
@@ -6461,176 +2746,6 @@ $( "#searchForm" ).submit(function( event ) {
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      * @see \`{@link https://api.jquery.com/jQuery.post/ }\`
      * @since 1.0
-     * @example ​ ````Request the test.php page, but ignore the return results.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Request the test.php page and send some additional data along (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", { name: "John", time: "2pm" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass arrays of data to the server (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", { 'choices[]': [ "Jon", "Susan" ] } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Send form data using Ajax requests
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", $( "#testform" ).serialize() );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Alert the results from requesting test.php (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", function( data ) {
-  alert( "Data Loaded: " + data );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Alert the results from requesting test.php with an additional payload of data (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", { name: "John", time: "2pm" })
-  .done(function( data ) {
-    alert( "Data Loaded: " + data );
-  });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Post to the test.php page and get content which has been returned in json format (&lt;?php echo json_encode(array(&quot;name&quot;=&gt;&quot;John&quot;,&quot;time&quot;=&gt;&quot;2pm&quot;)); ?&gt;).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", { func: "getNameAndTime" }, function( data ) {
-  console.log( data.name ); // John
-  console.log( data.time ); // 2pm
-}, "json");
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Post a form using Ajax and put results in a div
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<form action="/" id="searchForm">
-  <input type="text" name="s" placeholder="Search...">
-  <input type="submit" value="Search">
-</form>
-<!-- the result of the search will be rendered inside this div -->
-<div id="result"></div>
-​
-<script>
-// Attach a submit handler to the form
-$( "#searchForm" ).submit(function( event ) {
-​
-  // Stop form from submitting normally
-  event.preventDefault();
-​
-  // Get some values from elements on the page:
-  var $form = $( this ),
-    term = $form.find( "input[name='s']" ).val(),
-    url = $form.attr( "action" );
-​
-  // Send the data using post
-  var posting = $.post( url, { s: term } );
-​
-  // Put the results in a div
-  posting.done(function( data ) {
-    var content = $( data ).find( "#content" );
-    $( "#result" ).empty().append( content );
-  });
-});
-</script>
-</body>
-</html>
-```
      */
     post(url: string,
          success: JQuery.jqXHR.DoneCallback | null,
@@ -6644,132 +2759,30 @@ $( "#searchForm" ).submit(function( event ) {
      *                     A plain object or string that is sent to the server with the request.
      * @see \`{@link https://api.jquery.com/jQuery.post/ }\`
      * @since 1.0
-     * @example ​ ````Request the test.php page, but ignore the return results.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php" );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Request the test.php page and send some additional data along (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.post( "test.php", { name: "John", time: "2pm" } );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Pass arrays of data to the server (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.post( "test.php", { 'choices[]': [ "Jon", "Susan" ] } );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Send form data using Ajax requests
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.post( "test.php", $( "#testform" ).serialize() );
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Alert the results from requesting test.php (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.post( "test.php", function( data ) {
   alert( "Data Loaded: " + data );
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Alert the results from requesting test.php with an additional payload of data (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.post( "test.php", { name: "John", time: "2pm" })
   .done(function( data ) {
     alert( "Data Loaded: " + data );
   });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Post to the test.php page and get content which has been returned in json format (&lt;?php echo json_encode(array(&quot;name&quot;=&gt;&quot;John&quot;,&quot;time&quot;=&gt;&quot;2pm&quot;)); ?&gt;).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", { func: "getNameAndTime" }, function( data ) {
-  console.log( data.name ); // John
-  console.log( data.time ); // 2pm
-}, "json");
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Post a form using Ajax and put results in a div
 ```html
@@ -6811,6 +2824,7 @@ $( "#searchForm" ).submit(function( event ) {
   });
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -6829,174 +2843,8 @@ $( "#searchForm" ).submit(function( event ) {
      * @since 1.12
      * @since 2.2
      * @example ​ ````Request the test.php page, but ignore the return results.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.post( "test.php" );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Request the test.php page and send some additional data along (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", { name: "John", time: "2pm" } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Pass arrays of data to the server (while still ignoring the return results).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", { 'choices[]': [ "Jon", "Susan" ] } );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Send form data using Ajax requests
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", $( "#testform" ).serialize() );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Alert the results from requesting test.php (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", function( data ) {
-  alert( "Data Loaded: " + data );
-});
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Alert the results from requesting test.php with an additional payload of data (HTML or XML, depending on what was returned).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", { name: "John", time: "2pm" })
-  .done(function( data ) {
-    alert( "Data Loaded: " + data );
-  });
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Post to the test.php page and get content which has been returned in json format (&lt;?php echo json_encode(array(&quot;name&quot;=&gt;&quot;John&quot;,&quot;time&quot;=&gt;&quot;2pm&quot;)); ?&gt;).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.post( "test.php", { func: "getNameAndTime" }, function( data ) {
-  console.log( data.name ); // John
-  console.log( data.time ); // 2pm
-}, "json");
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Post a form using Ajax and put results in a div
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.post demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<form action="/" id="searchForm">
-  <input type="text" name="s" placeholder="Search...">
-  <input type="submit" value="Search">
-</form>
-<!-- the result of the search will be rendered inside this div -->
-<div id="result"></div>
-​
-<script>
-// Attach a submit handler to the form
-$( "#searchForm" ).submit(function( event ) {
-​
-  // Stop form from submitting normally
-  event.preventDefault();
-​
-  // Get some values from elements on the page:
-  var $form = $( this ),
-    term = $form.find( "input[name='s']" ).val(),
-    url = $form.attr( "action" );
-​
-  // Send the data using post
-  var posting = $.post( url, { s: term } );
-​
-  // Put the results in a div
-  posting.done(function( data ) {
-    var content = $( data ).find( "#content" );
-    $( "#result" ).empty().append( content );
-  });
-});
-</script>
-</body>
-</html>
 ```
      */
     post(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
@@ -7021,149 +2869,6 @@ $( "#searchForm" ).submit(function( event ) {
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F, G>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
@@ -7177,149 +2882,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F>(fn: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
@@ -7333,149 +2895,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E>(fn: (a: A, b: B, c: C, d: D, e: E) => TReturn,
@@ -7489,149 +2908,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D>(fn: (a: A, b: B, c: C, d: D) => TReturn,
@@ -7645,149 +2921,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C>(fn: (a: A, b: B, c: C) => TReturn,
@@ -7801,149 +2934,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B>(fn: (a: A, b: B) => TReturn,
@@ -7958,149 +2948,6 @@ $( "#test" )
      * @since 1.4`
      * @since 1.6
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A>(fn: (a: A) => TReturn,
@@ -8114,149 +2961,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn>(fn: () => TReturn,
                    context: null | undefined): () => TReturn;
@@ -8274,149 +2978,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -8432,149 +2993,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -8590,149 +3008,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -8748,149 +3023,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D,
@@ -8906,149 +3038,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C,
@@ -9064,149 +3053,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B,
@@ -9222,149 +3068,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A,
@@ -9380,149 +3083,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         T>(fn: (t: T) => TReturn,
@@ -9541,149 +3101,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -9699,149 +3116,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -9857,149 +3131,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -10015,149 +3146,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D,
@@ -10173,149 +3161,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C,
@@ -10331,149 +3176,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B,
@@ -10489,149 +3191,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A,
@@ -10647,149 +3206,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         T, U>(fn: (t: T, u: U) => TReturn,
@@ -10808,149 +3224,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -10966,149 +3239,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -11124,149 +3254,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -11282,149 +3269,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D,
@@ -11440,149 +3284,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C,
@@ -11598,149 +3299,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B,
@@ -11756,149 +3314,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A,
@@ -11914,149 +3329,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         T, U, V>(fn: (t: T, u: U, v: V) => TReturn,
@@ -12075,149 +3347,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -12233,149 +3362,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -12391,149 +3377,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -12549,149 +3392,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D,
@@ -12707,149 +3407,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C,
@@ -12865,149 +3422,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B,
@@ -13023,149 +3437,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A,
@@ -13181,149 +3452,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         T, U, V, W>(fn: (t: T, u: U, v: V, w: W) => TReturn,
@@ -13342,149 +3470,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -13500,149 +3485,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -13658,149 +3500,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -13816,149 +3515,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D,
@@ -13974,149 +3530,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C,
@@ -14132,149 +3545,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B,
@@ -14290,149 +3560,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A,
@@ -14448,149 +3575,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         T, U, V, W, X>(fn: (t: T, u: U, v: V, w: W, x: X) => TReturn,
@@ -14609,149 +3593,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -14767,149 +3608,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -14925,149 +3623,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -15083,149 +3638,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D,
@@ -15241,149 +3653,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C,
@@ -15399,149 +3668,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B,
@@ -15557,149 +3683,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A,
@@ -15715,149 +3698,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         T, U, V, W, X, Y>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
@@ -15876,149 +3716,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F, G,
@@ -16034,149 +3731,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E, F,
@@ -16192,149 +3746,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D, E,
@@ -16350,149 +3761,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C, D,
@@ -16508,149 +3776,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B, C,
@@ -16666,149 +3791,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A, B,
@@ -16824,149 +3806,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         A,
@@ -16982,149 +3821,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn,
         T, U, V, W, X, Y, Z>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
@@ -17146,149 +3842,6 @@ $( "#test" )
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
-</body>
-</html>
-```
      */
     proxy<TReturn>(fn: (...args: any[]) => TReturn,
                    context: null | undefined,
@@ -17372,33 +3925,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -17456,6 +3983,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -17530,33 +4058,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -17614,6 +4116,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -17688,33 +4191,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -17772,6 +4249,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -17846,33 +4324,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -17930,6 +4382,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -18004,33 +4457,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -18088,6 +4515,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -18162,33 +4590,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -18246,6 +4648,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -18320,33 +4723,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -18404,6 +4781,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -18478,33 +4856,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -18562,6 +4914,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -18640,33 +4993,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -18724,6 +5051,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -18800,33 +5128,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -18884,6 +5186,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -18960,33 +5263,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -19044,6 +5321,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -19120,33 +5398,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -19204,6 +5456,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -19280,33 +5533,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -19364,6 +5591,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -19440,33 +5668,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -19524,6 +5726,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -19600,33 +5803,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -19684,6 +5861,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -19760,33 +5938,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -19844,6 +5996,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -19923,33 +6076,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -20007,6 +6134,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -20083,33 +6211,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -20167,6 +6269,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -20243,33 +6346,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -20327,6 +6404,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -20403,33 +6481,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -20487,6 +6539,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -20563,33 +6616,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -20647,6 +6674,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -20723,33 +6751,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -20807,6 +6809,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -20883,33 +6886,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -20967,6 +6944,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -21043,33 +7021,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -21127,6 +7079,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -21206,33 +7159,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -21290,6 +7217,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -21366,33 +7294,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -21450,6 +7352,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -21526,33 +7429,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -21610,6 +7487,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -21686,33 +7564,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -21770,6 +7622,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -21846,33 +7699,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -21930,6 +7757,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -22006,33 +7834,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -22090,6 +7892,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -22166,33 +7969,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -22250,6 +8027,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -22326,33 +8104,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -22410,6 +8162,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -22489,33 +8242,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -22573,6 +8300,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -22649,33 +8377,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -22733,6 +8435,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -22809,33 +8512,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -22893,6 +8570,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -22969,33 +8647,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -23053,6 +8705,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -23129,33 +8782,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -23213,6 +8840,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -23289,33 +8917,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -23373,6 +8975,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -23449,33 +9052,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -23533,6 +9110,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -23609,33 +9187,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -23693,6 +9245,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -23772,33 +9325,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -23856,6 +9383,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -23932,33 +9460,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -24016,6 +9518,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -24092,33 +9595,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -24176,6 +9653,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -24252,33 +9730,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -24336,6 +9788,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -24412,33 +9865,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -24496,6 +9923,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -24572,33 +10000,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -24656,6 +10058,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -24732,33 +10135,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -24816,6 +10193,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -24892,33 +10270,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -24976,6 +10328,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -25055,33 +10408,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -25139,6 +10466,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -25215,33 +10543,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -25299,6 +10601,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -25375,33 +10678,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -25459,6 +10736,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -25535,33 +10813,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -25619,6 +10871,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -25695,33 +10948,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -25779,6 +11006,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -25855,33 +11083,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -25939,6 +11141,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -26015,33 +11218,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -26099,6 +11276,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -26175,33 +11353,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -26259,6 +11411,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -26338,33 +11491,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -26422,6 +11549,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -26498,33 +11626,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -26582,6 +11684,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -26658,33 +11761,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -26742,6 +11819,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -26818,33 +11896,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -26902,6 +11954,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -26978,33 +12031,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -27062,6 +12089,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -27138,33 +12166,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -27222,6 +12224,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -27298,33 +12301,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -27382,6 +12359,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -27458,33 +12436,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -27542,6 +12494,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -27624,33 +12577,7 @@ $( "#test" )
   // this === "<button> element"
   .on( "click", you.test );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-  <p><button id="test">Test</button></p>
-  <p id="log"></p>
-​
-<script>
-var obj = {
-  name: "John",
-  test: function() {
-    $( "#log" ).append( this.name );
-    $( "#test" ).off( "click", obj.test );
-  }
-};
-$( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
-</script>
 </body>
 </html>
 ```
@@ -27708,6 +12635,7 @@ var proxy = $.proxy( me.test, me, you, they );
 $( "#test" )
   .on( "click", proxy );
 </script>
+​
 </body>
 </html>
 ```
@@ -27734,65 +12662,6 @@ $( "#test" )
      * @since 1.4
      * @since 1.6
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
-     * @example ​ ````Change the context of functions bound to a click handler using the &quot;function, context&quot; signature. Unbind the first handler after first click.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  type: "zombie",
-  test: function( event ) {
-    // Without proxy, `this` would refer to the event target
-    // use event.target to reference that element.
-    var element = event.target;
-    $( element ).css( "background-color", "red" );
-​
-    // With proxy, `this` refers to the me object encapsulating
-    // this function.
-    $( "#log" ).append( "Hello " + this.type + "<br>" );
-    $( "#test" ).off( "click", this.test );
-  }
-};
-​
-var you = {
-  type: "person",
-  test: function( event ) {
-    $( "#log" ).append( this.type + " " );
-  }
-};
-​
-// Execute you.test() in the context of the `you` object
-// no matter where it is called
-// i.e. the `this` keyword will refer to `you`
-var youClick = $.proxy( you.test, you );
-​
-// attach click handlers to #test
-$( "#test" )
-  // this === "zombie"; handler unbound after first click
-  .on( "click", $.proxy( me.test, me ) )
-​
-  // this === "person"
-  .on( "click", youClick )
-​
-  // this === "zombie"
-  .on( "click", $.proxy( you.test, me ) )
-​
-  // this === "<button> element"
-  .on( "click", you.test );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Enforce the context of the function using the &quot;context, function name&quot; signature. Unbind the handler after first click.
 ```html
 <!doctype html>
@@ -27817,63 +12686,7 @@ var obj = {
 };
 $( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
 </script>
-</body>
-</html>
-```
-     * @example ​ ````Change the context of a function bound to the click handler,
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.proxy demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
 ​
-<p><button type="button" id="test">Test</button></p>
-<div id="log"></div>
-​
-<script>
-var me = {
-  // I'm a dog
-  type: "dog",
-​
-  // Note that event comes *after* one and two
-  test: function( one, two, event ) {
-    $( "#log" )
-​
-      // `one` maps to `you`, the 1st additional
-      // argument in the $.proxy function call
-      .append( "<h3>Hello " + one.type + ":</h3>" )
-​
-      // The `this` keyword refers to `me`
-      // (the 2nd, context, argument of $.proxy)
-      .append( "I am a " + this.type + ", " )
-​
-      // `two` maps to `they`, the 2nd additional
-      // argument in the $.proxy function call
-      .append( "and they are " + two.type + ".<br>" )
-​
-      // The event type is "click"
-      .append( "Thanks for " + event.type + "ing." )
-​
-      // The clicked element is `event.target`,
-      // and its type is "button"
-      .append( "the " + event.target.type + "." );
-  }
-};
-​
-var you = { type: "cat" };
-var they = { type: "fish" };
-​
-// Set up handler to execute me.test() in the context
-// of `me`, with `you` and `they` as additional arguments
-var proxy = $.proxy( me.test, me, you, they );
-​
-$( "#test" )
-  .on( "click", proxy );
-</script>
 </body>
 </html>
 ```
@@ -27952,6 +12765,7 @@ function runIt() {
 ​
 runIt();
 </script>
+​
 </body>
 </html>
 ```
@@ -28001,6 +12815,7 @@ $( document.body ).click(function() {
   divs.slideUp();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -28055,6 +12870,7 @@ $( "#stop" ).click(function() {
   $( "div" ).stop();
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -28067,23 +12883,10 @@ $( "#stop" ).click(function() {
      * @see \`{@link https://api.jquery.com/jQuery.readyException/ }\`
      * @since 3.1
      * @example ​ ````Pass the received error to console.error.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.readyException demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 jQuery.readyException = function( error ) {
   console.error( error );
 };
-</script>
-</body>
-</html>
 ```
      */
     readyException(error: Error): any;
@@ -28129,6 +12932,7 @@ jQuery.removeData( div, "test1" );
 $( "span:eq(2)" ).text( "" + jQuery.data( div, "test1" ) );
 $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -28191,25 +12995,17 @@ var str = "         lots of spaces before and after         ";
 $( "#original" ).html( "Original String: '" + str + "'" );
 $( "#trimmed" ).html( "$.trim()'ed: '" + $.trim(str) + "'" );
 </script>
+​
 </body>
 </html>
 ```
      * @example ​ ````Remove the white spaces at the start and at the end of the string.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.trim demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.trim("    hello, how are you?    ");
-</script>
-</body>
-</html>
+```
+     * @example ​ ````Remove the white spaces at the start and at the end of the string.
+```javascript
+$.trim("    hello, how are you?    ");
 ```
      */
     trim(str: string): string;
@@ -28236,6 +13032,7 @@ Is it a RegExp? <b></b>
 <script>
 $( "b" ).append( "" + jQuery.type( /test/ ) );
 </script>
+​
 </body>
 </html>
 ```
@@ -28288,6 +13085,7 @@ divs = jQuery.unique( divs );
 $( "div:eq(2)" ).text( "Post-unique there are " + divs.length + " elements." )
   .css( "color", "red" );
 </script>
+​
 </body>
 </html>
 ```
@@ -28336,6 +13134,7 @@ divs = jQuery.uniqueSort( divs );
 $( "div:eq(2)" ).text( "Post-unique there are " + divs.length + " elements." )
   .css( "color", "red" );
 </script>
+​
 </body>
 </html>
 ```
@@ -28348,17 +13147,7 @@ $( "div:eq(2)" ).text( "Post-unique there are " + divs.length + " elements." )
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
      * @example ​ ````Execute a function after two Ajax requests are successful. (See the jQuery.ajax() documentation for a complete description of success and error cases for an ajax request).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.when demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) ).done(function( a1, a2 ) {
   // a1 and a2 are arguments resolved for the page1 and page2 ajax requests, respectively.
   // Each argument is an array with the following structure: [ data, statusText, jqXHR ]
@@ -28367,34 +13156,20 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) ).done(function( a1, a2 )
     alert( "We got what we came for!" );
   }
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Execute the function myFunc when both ajax requests are successful, or myFailure if either one has an error.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.when demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
   .then( myFunc, myFailure );
-</script>
-</body>
-</html>
 ```
      */
     when<TR1, UR1, VR1,
         TJ1 = any, UJ1 = any, VJ1 = any>(
-            deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1, // tslint:disable-line:use-default-type-parameter
-            deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1, // tslint:disable-line:use-default-type-parameter
-            deferredV: JQuery.Promise<VR1, VJ1, any> | JQuery.Thenable<VR1> | VR1): JQuery.Promise3<TR1, TJ1, never,  // tslint:disable-line:use-default-type-parameter
+            deferredT: JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1,
+            deferredU: JQuery.Promise<UR1, UJ1> | JQuery.Thenable<UR1> | UR1,
+            deferredV: JQuery.Promise<VR1, VJ1> | JQuery.Thenable<VR1> | VR1,
+    ): JQuery.Promise3<
+        TR1, TJ1, never,
         UR1, UJ1, never,
         VR1, VJ1, never>;
     /**
@@ -28404,17 +13179,7 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
      * @example ​ ````Execute a function after two Ajax requests are successful. (See the jQuery.ajax() documentation for a complete description of success and error cases for an ajax request).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.when demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) ).done(function( a1, a2 ) {
   // a1 and a2 are arguments resolved for the page1 and page2 ajax requests, respectively.
   // Each argument is an array with the following structure: [ data, statusText, jqXHR ]
@@ -28423,33 +13188,19 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) ).done(function( a1, a2 )
     alert( "We got what we came for!" );
   }
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Execute the function myFunc when both ajax requests are successful, or myFailure if either one has an error.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.when demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
   .then( myFunc, myFailure );
-</script>
-</body>
-</html>
 ```
      */
     when<TR1, UR1,
         TJ1 = any, UJ1 = any>(
-            deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1, // tslint:disable-line:use-default-type-parameter
-            deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1): JQuery.Promise2<TR1, TJ1, never, // tslint:disable-line:use-default-type-parameter
+            deferredT: JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1,
+            deferredU: JQuery.Promise<UR1, UJ1> | JQuery.Thenable<UR1> | UR1,
+    ): JQuery.Promise2<
+        TR1, TJ1, never,
         UR1, UJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
@@ -28458,17 +13209,7 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
      * @example ​ ````Execute a function after two Ajax requests are successful. (See the jQuery.ajax() documentation for a complete description of success and error cases for an ajax request).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.when demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) ).done(function( a1, a2 ) {
   // a1 and a2 are arguments resolved for the page1 and page2 ajax requests, respectively.
   // Each argument is an array with the following structure: [ data, statusText, jqXHR ]
@@ -28477,34 +13218,22 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) ).done(function( a1, a2 )
     alert( "We got what we came for!" );
   }
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Execute the function myFunc when both ajax requests are successful, or myFailure if either one has an error.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.when demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
   .then( myFunc, myFailure );
-</script>
-</body>
-</html>
 ```
      */
     when<TR1, TJ1,
         TR2, TJ2,
         TR3 = never, TJ3 = never>(
             deferredT: JQuery.Promise3<TR1, TJ1, any, TR2, TJ2, any, TR3, TJ3, any> |
-                       JQuery.Promise2<TR1, TJ1, any, TR2, TJ2, any>): JQuery.Promise3<TR1, TJ1, never, TR2, TJ2, never, TR3, TJ3, never>;
+                       JQuery.Promise2<TR1, TJ1, any, TR2, TJ2, any>
+    ): JQuery.Promise3<
+        TR1, TJ1, never,
+        TR2, TJ2, never,
+        TR3, TJ3, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -28512,17 +13241,7 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
      * @example ​ ````Execute a function after two Ajax requests are successful. (See the jQuery.ajax() documentation for a complete description of success and error cases for an ajax request).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.when demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) ).done(function( a1, a2 ) {
   // a1 and a2 are arguments resolved for the page1 and page2 ajax requests, respectively.
   // Each argument is an array with the following structure: [ data, statusText, jqXHR ]
@@ -28531,30 +13250,14 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) ).done(function( a1, a2 )
     alert( "We got what we came for!" );
   }
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Execute the function myFunc when both ajax requests are successful, or myFailure if either one has an error.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.when demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
   .then( myFunc, myFailure );
-</script>
-</body>
-</html>
 ```
      */
-    when<TR1, TJ1 = any>(deferred: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>; // tslint:disable-line:use-default-type-parameter
+    when<TR1, TJ1 = any>(deferred: JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -28563,17 +13266,7 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
      * @example ​ ````Execute a function after two Ajax requests are successful. (See the jQuery.ajax() documentation for a complete description of success and error cases for an ajax request).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.when demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) ).done(function( a1, a2 ) {
   // a1 and a2 are arguments resolved for the page1 and page2 ajax requests, respectively.
   // Each argument is an array with the following structure: [ data, statusText, jqXHR ]
@@ -28582,30 +13275,14 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) ).done(function( a1, a2 )
     alert( "We got what we came for!" );
   }
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Execute the function myFunc when both ajax requests are successful, or myFailure if either one has an error.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.when demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
   .then( myFunc, myFailure );
-</script>
-</body>
-</html>
 ```
      */
-    when<TR1 = never, TJ1 = never>(...deferreds: Array<JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1>): JQuery.Promise<TR1, TJ1, never>; // tslint:disable-line:use-default-type-parameter
+    when<TR1 = never, TJ1 = never>(...deferreds: Array<JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1>): JQuery.Promise<TR1, TJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -28614,17 +13291,7 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
      * @example ​ ````Execute a function after two Ajax requests are successful. (See the jQuery.ajax() documentation for a complete description of success and error cases for an ajax request).
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.when demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) ).done(function( a1, a2 ) {
   // a1 and a2 are arguments resolved for the page1 and page2 ajax requests, respectively.
   // Each argument is an array with the following structure: [ data, statusText, jqXHR ]
@@ -28633,27 +13300,11 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) ).done(function( a1, a2 )
     alert( "We got what we came for!" );
   }
 });
-</script>
-</body>
-</html>
 ```
      * @example ​ ````Execute the function myFunc when both ajax requests are successful, or myFailure if either one has an error.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.when demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
   .then( myFunc, myFailure );
-</script>
-</body>
-</html>
 ```
      */
     when(...deferreds: any[]): JQuery.Promise<any, any, never>;
@@ -38192,6 +22843,7 @@ $( "button" ).click(function() {
 <head>
   <meta charset="utf-8">
   <title>removeAttr demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -38454,6 +23106,7 @@ para
 <head>
   <meta charset="utf-8">
   <title>replaceAll demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -38525,6 +23178,7 @@ $( "button" ).click(function() {
 <head>
   <meta charset="utf-8">
   <title>replaceWith demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -39328,6 +23982,7 @@ $( "b" ).text( len );
 <head>
   <meta charset="utf-8">
   <title>siblings demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -40148,6 +24803,7 @@ disp( $( "div" ).toArray().reverse() );
 <head>
   <meta charset="utf-8">
   <title>toggle demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -40202,6 +24858,7 @@ $( "button" ).click(function() {
 <head>
   <meta charset="utf-8">
   <title>toggle demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -40519,6 +25176,7 @@ $( "body" ).trigger({
 <head>
   <meta charset="utf-8">
   <title>triggerHandler demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
@@ -40863,6 +25521,7 @@ $( "button" ).click(function() {
 <head>
   <meta charset="utf-8">
   <title>val demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
 ​
