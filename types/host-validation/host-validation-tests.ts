@@ -43,7 +43,7 @@ app.use(hostValidation({ hosts: ['trusted-host.com'],
 		referers: ['https://trusted-host.com/login.php'] }));
 
 // you can use the { mode: 'either' } value in the config accept requests that match
-// either the hosts or the referers requirements. Accepted values for mode include 
+// either the hosts or the referers requirements. Accepted values for mode include
 // 'both' and 'either'. The default value is 'both' if none is specified.
 app.use(hostValidation({ hosts: ['trusted-host.com'],
         referers: ['https://trusted-host.com/login.php'],
