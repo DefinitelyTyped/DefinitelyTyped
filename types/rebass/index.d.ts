@@ -2,116 +2,121 @@
 // Project: https://github.com/jxnblk/rebass
 // Definitions by: rhysd <https://rhysd.github.io>
 //                 ryee-dev <https://github.com/ryee-dev>
+//                 alexdriaguine <https://github.com/alexdriaguine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react'
+import {
+    WidthProps,
+    FontSizeProps,
+    SpaceProps,
+    TextColorProps,
+    BgColorProps,
+    AlignItemsProps,
+    JustifyContentProps,
+    FlexDirectionProps,
+    FlexWrapProps,
+    FontFamilyProps,
+    FontWeightProps,
+    TextAlignProps,
+    LineHeightProps,
+    LetterSpacingProps,
+    BorderProps,
+    BorderColorProps,
+    BorderRadiusProps,
+    Variant,
+    HeightProps,
+    BoxShadowProps,
+    BackgroundImageProps,
+    BackgroundSizeProps,
+    BackgroundRepeatProps,
+    OpacityProps,
+} from 'styled-system'
 
-export interface BaseProps<C> extends React.ClassAttributes<C> {
-  className?: string;
-  m?: number;
-  mt?: number;
-  mr?: number;
-  mb?: number;
-  ml?: number;
-  mx?: number;
-  my?: number;
-  p?: number;
-  pt?: number;
-  pr?: number;
-  pb?: number;
-  pl?: number;
-  px?: number;
-  py?: number;
-}
+export interface BaseProps<C>
+    extends React.ClassAttributes<C>,
+        SpaceProps,
+        TextColorProps,
+        BgColorProps {}
 
-export interface BoxProps extends BaseProps<BoxClass> {
-    className?: string;
-    width?: number | number[];
-    fontSize?: number | number[];
-    css?: Object;
-    color?: string;
-    bg?: string;
+interface BaseBoxProps extends WidthProps, FontSizeProps {
+    css?: Object
 }
-type BoxClass = React.StatelessComponent<BoxProps>;
-export declare const Box: BoxClass;
+export interface BoxProps
+    extends BaseProps<BoxClass>,
+        WidthProps,
+        FontSizeProps,
+        BaseBoxProps {}
+type BoxClass = React.StatelessComponent<BoxProps>
+export declare const Box: BoxClass
 
-export interface ButtonProps extends BaseProps<ButtonClass> {
-  fontWeight?: string;
-  border?: number;
-  borderColor?: string;
-  borderRadius?: number;
-  variant?: string;
-  bg?: string;
-  color?: string;
+export interface ButtonProps
+    extends BaseProps<ButtonClass>,
+        FontWeightProps,
+        BorderProps,
+        BorderColorProps,
+        BorderRadiusProps {
+    variant?: Variant
 }
-type ButtonClass = React.StatelessComponent<ButtonProps>;
-export declare const Button: ButtonClass;
+type ButtonClass = React.StatelessComponent<ButtonProps>
+export declare const Button: ButtonClass
 
-export interface CardProps extends BaseProps<CardClass> {
-  border?: number;
-  borderColor?: string;
-  borderRadius?: number;
-  boxShadow?: string;
-  bg?: string;
-  backgroundImage?: string;
-  backgroundSize?: string;
-  backgroundPosition?: string;
-  backgroundRepeat?: string;
-  opacity?: number;
-  fontSize?: number | number[];
-  fontWeight?: string;
-  width?: number | number[];
+export interface CardProps
+    extends BaseProps<CardClass>,
+        BaseBoxProps,
+        BorderProps,
+        BorderColorProps,
+        BorderRadiusProps,
+        BoxShadowProps,
+        BackgroundImageProps,
+        BackgroundSizeProps,
+        BackgroundRepeatProps,
+        OpacityProps,
+        FontWeightProps {
+    variant?: Variant
 }
-type CardClass = React.StatelessComponent<CardProps>;
-export declare const Card: CardClass;
+type CardClass = React.StatelessComponent<CardProps>
+export declare const Card: CardClass
 
-export interface FlexProps extends BaseProps<FlexClass> {
-  alignItems?: string;
-  justifyContent?: string,
-  flexDirection?: string,
-  flexWrap?: string,
-  width?: number | number[];
-}
+export interface FlexProps
+    extends BaseProps<FlexClass>,
+        BaseBoxProps,
+        AlignItemsProps,
+        JustifyContentProps,
+        FlexDirectionProps,
+        FlexWrapProps,
+        WidthProps {}
 type FlexClass = React.StatelessComponent<FlexProps>
-export declare const Flex: FlexClass;
+export declare const Flex: FlexClass
 
-export interface HeadingProps extends BaseProps<ImageClass> {
-  fontSize?: number | number[];
-  fontWeight?: string;
-  color?: string;
-  fontFamily?: string;
-  textAlign?: string;
-  lineHeight?: number;
-  letterSpacing?: number;
-}
+export interface HeadingProps extends BaseProps<HeadingClass>, TextProps {}
 type HeadingClass = React.StatelessComponent<HeadingProps>
-export declare const Heading: HeadingClass;
+export declare const Heading: HeadingClass
 
-export interface ImageProps extends BaseProps<ImageClass> {
-    height?: number;
-    borderRadius?: number;
-    src?: string;
-    alt?: string;
-    width?: number | number[];
+export interface ImageProps
+    extends BaseProps<ImageClass>,
+        BaseBoxProps,
+        HeightProps,
+        BorderRadiusProps {
+    src: string
 }
 type ImageClass = React.StatelessComponent<ImageProps>
-export declare const Image: ImageClass;
+export declare const Image: ImageClass
 
-export interface LinkProps extends BaseProps<LinkClass> {
-  href?: string;
+export interface LinkProps extends BaseProps<LinkClass>, BaseBoxProps {
+    href?: string
 }
 type LinkClass = React.StatelessComponent<LinkProps>
-export declare const Link: LinkClass;
+export declare const Link: LinkClass
 
-export interface TextProps extends BaseProps<ImageClass> {
-  fontSize?: number | number[];
-  fontWeight?: string;
-  color?: string;
-  fontFamily?: string;
-  textAlign?: string;
-  lineHeight?: number;
-  letterSpacing?: number;
-}
+export interface TextProps
+    extends BaseProps<TextClass>,
+        BaseBoxProps,
+        FontFamilyProps,
+        FontWeightProps,
+        TextAlignProps,
+        LineHeightProps,
+        LetterSpacingProps {}
 type TextClass = React.StatelessComponent<TextProps>
-export declare const Text: TextClass;
+export declare const Text: TextClass
