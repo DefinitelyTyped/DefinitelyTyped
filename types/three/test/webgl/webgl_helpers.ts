@@ -50,9 +50,10 @@
             scene.add(new THREE.VertexNormalsHelper(mesh, 10));
 
             var helper = new THREE.WireframeHelper(mesh);
-            helper.material.depthTest = false;
-            helper.material.opacity = 0.25;
-            helper.material.transparent = true;
+            var material = helper.material as THREE.Material;
+            material.depthTest = false;
+            material.opacity = 0.25;
+            material.transparent = true;
             scene.add(helper);
 
             scene.add(new THREE.BoxHelper(mesh));
