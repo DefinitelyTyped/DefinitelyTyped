@@ -813,3 +813,7 @@ const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent", 
 const SwitchColorTest = () => (
     <Switch trackColor={{ true: 'pink', false: 'red'}} />
 )
+
+const SwitchThumbColorTest = () => (
+    <Switch thumbColor={'red'} />
+)
