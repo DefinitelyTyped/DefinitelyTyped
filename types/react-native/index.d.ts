@@ -8087,16 +8087,25 @@ export interface SwitchPropsIOS extends ViewProps {
 
     /**
      * Color of the foreground switch grip.
+     *
+     * @deprecated
      */
     thumbTintColor?: string;
 
     /**
      * Background color when the switch is turned off.
+     *
+     * @deprecated
      */
     tintColor?: string;
 }
 
 export interface SwitchProps extends SwitchPropsIOS {
+    /**
+     * Color of the foreground switch grip.
+     */
+    thumbColor?: string;
+
     /**
      * Custom colors for the switch track
      *
