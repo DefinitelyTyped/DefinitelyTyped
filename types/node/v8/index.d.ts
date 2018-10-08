@@ -2434,6 +2434,7 @@ declare module "dns" {
         family?: number;
         hints?: number;
         all?: boolean;
+        verbatim?: boolean;
     }
 
     export interface LookupOneOptions extends LookupOptions {
