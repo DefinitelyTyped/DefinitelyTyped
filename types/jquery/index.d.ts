@@ -52,8 +52,6 @@ interface JQueryStatic {
      */
     ajaxSettings: JQuery.AjaxSettings;
     Callbacks: JQuery.CallbacksStatic;
-    Deferred: JQuery.DeferredStatic;
-    Event: JQuery.EventStatic;
     /**
      * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize
      * CSS property naming, or create custom properties.
@@ -71,7 +69,9 @@ interface JQueryStatic {
      * @since 1.4.3
      */
     cssNumber: JQuery.PlainObject<boolean>;
+    Deferred: JQuery.DeferredStatic;
     easing: JQuery.Easings;
+    Event: JQuery.EventStatic;
     expr: JQuery.Selectors;
     // Set to HTMLElement to minimize breaks but should probably be Element.
     readonly fn: JQuery;
@@ -27251,6 +27251,32 @@ callbacks.fire( "hello again" );
          */
         fire(...args: any[]): this;
         /**
+         * Determine if the callbacks have already been called at least once.
+         *
+         * @see \`{@link https://api.jquery.com/callbacks.fired/ }\`
+         * @since 1.7
+         * @example ​ ````Use callbacks.fired() to determine if the callbacks in a list have been called at least once:
+```javascript
+// A sample logging function to be added to a callbacks list
+var foo = function( value ) {
+  console.log( "foo:" + value );
+};
+​
+var callbacks = $.Callbacks();
+​
+// Add the function "foo" to the list
+callbacks.add( foo );
+​
+// Fire the items on the list
+callbacks.fire( "hello" ); // Outputs: "foo: hello"
+callbacks.fire( "world" ); // Outputs: "foo: world"
+​
+// Test to establish if the callbacks have been called
+console.log( callbacks.fired() );
+```
+         */
+        fired(): boolean;
+        /**
          * Call all callbacks in a list with the given context and arguments.
          *
          * @param context A reference to the context in which the callbacks in the list should be fired.
@@ -27277,32 +27303,6 @@ callbacks.fireWith( window, [ "foo","bar" ] );
 ```
          */
         fireWith(context: object, args?: ArrayLike<any>): this;
-        /**
-         * Determine if the callbacks have already been called at least once.
-         *
-         * @see \`{@link https://api.jquery.com/callbacks.fired/ }\`
-         * @since 1.7
-         * @example ​ ````Use callbacks.fired() to determine if the callbacks in a list have been called at least once:
-```javascript
-// A sample logging function to be added to a callbacks list
-var foo = function( value ) {
-  console.log( "foo:" + value );
-};
-​
-var callbacks = $.Callbacks();
-​
-// Add the function "foo" to the list
-callbacks.add( foo );
-​
-// Fire the items on the list
-callbacks.fire( "hello" ); // Outputs: "foo: hello"
-callbacks.fire( "world" ); // Outputs: "foo: world"
-​
-// Test to establish if the callbacks have been called
-console.log( callbacks.fired() );
-```
-         */
-        fired(): boolean;
         /**
          * Determine whether or not the list has any callbacks attached. If a callback is provided as an
          * argument, determine whether it is in a list.

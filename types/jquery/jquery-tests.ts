@@ -3,6 +3,71 @@ function JQueryStatic() {
         const jq: JQueryStatic = $;
     }
 
+    function ajaxSettings() {
+        // $ExpectType AjaxSettings<any>
+        $.ajaxSettings;
+    }
+
+    function Callbacks() {
+        // $ExpectType CallbacksStatic
+        $.Callbacks;
+    }
+
+    function cssHooks() {
+        // $ExpectType PlainObject<CSSHook<HTMLElement>>
+        $.cssHooks;
+    }
+
+    function cssNumber() {
+        // $ExpectType PlainObject<boolean>
+        $.cssNumber;
+    }
+
+    function Deferred() {
+        // $ExpectType DeferredStatic
+        $.Deferred;
+    }
+
+    function easing() {
+        // $ExpectType Easings
+        $.easing;
+    }
+
+    function Event() {
+        // $ExpectType EventStatic
+        $.Event;
+    }
+
+    function expr() {
+        // $ExpectType Selectors
+        $.expr;
+    }
+
+    function fn() {
+        // $ExpectType JQuery<HTMLElement>
+        $.fn;
+    }
+
+    function fx() {
+        // $ExpectType Effects
+        $.fx;
+    }
+
+    function ready() {
+        // $ExpectType Thenable<JQueryStatic>
+        $.ready;
+    }
+
+    function support() {
+        // $ExpectType PlainObject<any>
+        $.support;
+    }
+
+    function valHooks() {
+        // $ExpectType PlainObject<ValHook<HTMLElement>>
+        $.valHooks;
+    }
+
     function call_signature() {
         // $ExpectType JQuery<HTMLElement>
         $('<p></p>', new Document());
@@ -109,71 +174,6 @@ function JQueryStatic() {
             // $ExpectType JQuery<Window>
             myWindowForced;
         }
-    }
-
-    function ajaxSettings() {
-        // $ExpectType AjaxSettings<any>
-        $.ajaxSettings;
-    }
-
-    function Event() {
-        // $ExpectType EventStatic
-        $.Event;
-    }
-
-    function cssHooks() {
-        // $ExpectType PlainObject<CSSHook<HTMLElement>>
-        $.cssHooks;
-    }
-
-    function cssNumber() {
-        // $ExpectType PlainObject<boolean>
-        $.cssNumber;
-    }
-
-    function easing() {
-        // $ExpectType Easings
-        $.easing;
-    }
-
-    function expr() {
-        // $ExpectType Selectors
-        $.expr;
-    }
-
-    function fn() {
-        // $ExpectType JQuery<HTMLElement>
-        $.fn;
-    }
-
-    function fx() {
-        // $ExpectType Effects
-        $.fx;
-    }
-
-    function ready() {
-        // $ExpectType Thenable<JQueryStatic>
-        $.ready;
-    }
-
-    function support() {
-        // $ExpectType PlainObject<any>
-        $.support;
-    }
-
-    function valHooks() {
-        // $ExpectType PlainObject<ValHook<HTMLElement>>
-        $.valHooks;
-    }
-
-    function Callbacks() {
-        // $ExpectType CallbacksStatic
-        $.Callbacks;
-    }
-
-    function Deferred() {
-        // $ExpectType DeferredStatic
-        $.Deferred;
     }
 
     function ajax() {
@@ -6691,215 +6691,6 @@ function JQuery_AjaxSettings() {
     });
 }
 
-function JQuery_CallbacksStatic() {
-    // $ExpectType Callbacks<Function>
-    $.Callbacks('once');
-
-    // $ExpectType Callbacks<Function>
-    $.Callbacks();
-}
-
-function JQuery_Callbacks() {
-    function add() {
-        const callbacks = $.Callbacks();
-
-        // $ExpectType Callbacks<Function>
-        callbacks.add(() => { }, [() => { }], () => { });
-
-        // $ExpectType Callbacks<Function>
-        callbacks.add(() => { }, [() => { }]);
-
-        // $ExpectType Callbacks<Function>
-        callbacks.add(() => { }, () => { });
-
-        // $ExpectType Callbacks<Function>
-        callbacks.add(() => { });
-
-        // $ExpectType Callbacks<Function>
-        callbacks.add([() => { }]);
-    }
-
-    function disable() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().disable();
-    }
-
-    function disabled() {
-        // $ExpectType boolean
-        $.Callbacks().disabled();
-    }
-
-    function empty() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().empty();
-    }
-
-    function fire() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().fire(1);
-
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().fire();
-    }
-
-    function fireWith() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().fireWith(window, [1]);
-
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().fireWith(window);
-    }
-
-    function fired() {
-        // $ExpectType boolean
-        $.Callbacks().fired();
-    }
-
-    function has() {
-        // $ExpectType boolean
-        $.Callbacks().has(() => { });
-
-        // $ExpectType boolean
-        $.Callbacks().has();
-    }
-
-    function lock() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().lock();
-    }
-
-    function locked() {
-        // $ExpectType boolean
-        $.Callbacks().locked();
-    }
-
-    function remove() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().remove(() => { }, () => { });
-    }
-}
-
-function JQuery_Effects() {
-    function interval() {
-        // $ExpectType number
-        $.fx.interval;
-    }
-
-    function off() {
-        // $ExpectType boolean
-        $.fx.off;
-    }
-
-    function step() {
-        // $ExpectType PlainObject<AnimationHook<Node>>
-        $.fx.step;
-    }
-}
-
-function JQuery_EffectsOptions() {
-    $('p').show({
-        always(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        complete() {
-            // $ExpectType HTMLElement
-            this;
-        },
-        done(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        duration: 5000,
-        easing: 'linear',
-        fail(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        progress(animation, progress, remainingMs) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType number
-            progress;
-            // $ExpectType number
-            remainingMs;
-        },
-        queue: true,
-        specialEasing: {
-            width: 'linear',
-            height: 'easeOutBounce'
-        },
-        start(animation) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-        },
-        step(now, tween) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType number
-            now;
-            // $ExpectType Tween<HTMLElement>
-            tween;
-        }
-    });
-}
-
-function JQuery_Easings() {
-    jQuery.easing.easeInCubic = (p: number, t: number, b: number, c: number, d: number) => {
-        return c * (t /= d) * t * t + b;
-    };
-
-    jQuery.easing.easeInCubic = (p: number) => {
-        return Math.pow(p, 3);
-    };
-}
-
-function JQuery_Event() {
-    function call_signature() {
-        // $ExpectType Event<HTMLElement, null> & Coordinates
-        $.Event('keydown', $('p').offset());
-
-        // $ExpectType Event<HTMLElement, null> & { type: string; }
-        $.Event({
-            type: 'keydown'
-        });
-    }
-
-    function constructor() {
-        // $ExpectType Event<HTMLElement, null> & Coordinates
-        new $.Event('keydown', $('p').offset());
-
-        // $ExpectType Event<HTMLElement, null> & { type: string; }
-        new $.Event({
-            type: 'keydown'
-        });
-    }
-
-    // https://stackoverflow.com/questions/49892574/trigger-a-jquery-3-event-with-ctrlkey-set
-    function stackoverflow_49892574() {
-        const event = $.Event<object, Window>("keydown");
-        event.which = 77;
-        event.ctrlKey = true;
-        $(window).trigger(event);
-    }
-}
-
 function JQuery_jqXHR() {
     const p: JQuery.jqXHR = {} as any;
 
@@ -7165,6 +6956,94 @@ function JQuery_jqXHR() {
 
     function compatibleWithJQueryPromise(): JQuery.Promise<any> {
         return p;
+    }
+}
+
+function JQuery_CallbacksStatic() {
+    // $ExpectType Callbacks<Function>
+    $.Callbacks('once');
+
+    // $ExpectType Callbacks<Function>
+    $.Callbacks();
+}
+
+function JQuery_Callbacks() {
+    function add() {
+        const callbacks = $.Callbacks();
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add(() => { }, [() => { }], () => { });
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add(() => { }, [() => { }]);
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add(() => { }, () => { });
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add(() => { });
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add([() => { }]);
+    }
+
+    function disable() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().disable();
+    }
+
+    function disabled() {
+        // $ExpectType boolean
+        $.Callbacks().disabled();
+    }
+
+    function empty() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().empty();
+    }
+
+    function fire() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().fire(1);
+
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().fire();
+    }
+
+    function fired() {
+        // $ExpectType boolean
+        $.Callbacks().fired();
+    }
+
+    function fireWith() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().fireWith(window, [1]);
+
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().fireWith(window);
+    }
+
+    function has() {
+        // $ExpectType boolean
+        $.Callbacks().has(() => { });
+
+        // $ExpectType boolean
+        $.Callbacks().has();
+    }
+
+    function lock() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().lock();
+    }
+
+    function locked() {
+        // $ExpectType boolean
+        $.Callbacks().locked();
+    }
+
+    function remove() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().remove(() => { }, () => { });
     }
 }
 
@@ -7919,5 +7798,126 @@ function JQuery_Deferred() {
         d1.promise(target); // $ExpectType Promise<I1, I2, I3> & I1
 
         d1.promise(); // $ExpectType Promise<I1, I2, I3>
+    }
+}
+
+function JQuery_Effects() {
+    function interval() {
+        // $ExpectType number
+        $.fx.interval;
+    }
+
+    function off() {
+        // $ExpectType boolean
+        $.fx.off;
+    }
+
+    function step() {
+        // $ExpectType PlainObject<AnimationHook<Node>>
+        $.fx.step;
+    }
+}
+
+function JQuery_EffectsOptions() {
+    $('p').show({
+        always(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        complete() {
+            // $ExpectType HTMLElement
+            this;
+        },
+        done(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        duration: 5000,
+        easing: 'linear',
+        fail(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        progress(animation, progress, remainingMs) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+            // $ExpectType number
+            progress;
+            // $ExpectType number
+            remainingMs;
+        },
+        queue: true,
+        specialEasing: {
+            width: 'linear',
+            height: 'easeOutBounce'
+        },
+        start(animation) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+        },
+        step(now, tween) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType number
+            now;
+            // $ExpectType Tween<HTMLElement>
+            tween;
+        }
+    });
+}
+
+function JQuery_Easings() {
+    jQuery.easing.easeInCubic = (p: number, t: number, b: number, c: number, d: number) => {
+        return c * (t /= d) * t * t + b;
+    };
+
+    jQuery.easing.easeInCubic = (p: number) => {
+        return Math.pow(p, 3);
+    };
+}
+
+function JQuery_Event() {
+    function call_signature() {
+        // $ExpectType Event<HTMLElement, null> & Coordinates
+        $.Event('keydown', $('p').offset());
+
+        // $ExpectType Event<HTMLElement, null> & { type: string; }
+        $.Event({
+            type: 'keydown'
+        });
+    }
+
+    function constructor() {
+        // $ExpectType Event<HTMLElement, null> & Coordinates
+        new $.Event('keydown', $('p').offset());
+
+        // $ExpectType Event<HTMLElement, null> & { type: string; }
+        new $.Event({
+            type: 'keydown'
+        });
+    }
+
+    // https://stackoverflow.com/questions/49892574/trigger-a-jquery-3-event-with-ctrlkey-set
+    function stackoverflow_49892574() {
+        const event = $.Event<object, Window>("keydown");
+        event.which = 77;
+        event.ctrlKey = true;
+        $(window).trigger(event);
     }
 }
