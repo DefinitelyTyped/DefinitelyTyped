@@ -21,7 +21,10 @@
         "lint": "dtslint types"
     },
     "devDependencies": {
+        "ava": "^0.25.0",
+        "ava-ts": "^0.25.2",
         "dtslint": "github:Microsoft/dtslint#production",
+        "ts-node": "^7.0.1",
         "types-publisher": "Microsoft/types-publisher#production"
     }
 }
