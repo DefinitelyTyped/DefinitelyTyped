@@ -313,6 +313,11 @@ const spy3Mock: jest.Mock<() => string> = spy3
     .mockRejectedValue("value")
     .mockRejectedValueOnce("value");
 
+let spy4: jest.SpyInstance;
+
+spy4 = jest.spyOn(spiedTarget, "returnsString");
+spy4.mockRestore();
+
 /* Snapshot serialization */
 
 const snapshotSerializerPlugin: jest.SnapshotSerializerPlugin = {
