@@ -576,6 +576,11 @@ function JQueryStatic() {
             // $ExpectType jqXHR<string | undefined>
             jqXHR;
         });
+
+        // $ExpectType jqXHR<string | undefined>
+        $.getScript({
+            url: 'url',
+        });
     }
 
     function globalEval() {

@@ -1840,6 +1840,14 @@ $.getScript( url, function() {
     getScript(url: string,
               success?: JQuery.jqXHR.DoneCallback<string | undefined>): JQuery.jqXHR<string | undefined>;
     /**
+     * Load a JavaScript file from the server using a GET HTTP request, then execute it.
+     *
+     * @see \`{@link https://api.jquery.com/jQuery.getScript/ }\`
+     * @since 1.12
+     * @since 2.2
+     */
+    getScript(options: JQuery.UrlAjaxSettings): JQuery.jqXHR<string | undefined>;
+    /**
      * Execute some JavaScript code globally.
      *
      * @param code The JavaScript code to execute.
