@@ -16,7 +16,7 @@ export type StoryDecorator = (story: RenderFunction, context: { kind: string, st
 
 export interface Story {
     readonly kind: string;
-    add(storyName: string, callback: RenderFunction): this;
+    add(storyName: string, callback: RenderFunction, parameters?: any): this;
     addDecorator(decorator: StoryDecorator): this;
 }
 
