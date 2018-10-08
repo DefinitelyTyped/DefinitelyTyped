@@ -1335,3 +1335,50 @@ const basic_auth: swagger.Spec = {
   },
   "security": [{basicAuth: []}]
 };
+
+const reference_support: swagger.Spec = {
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Swagger Petstore"
+    },
+    "parameters": {
+        "operationParameter": {
+            "in": "query",
+            "name": "operationParameter",
+            "type": "integer",
+            "description": "A sample operation parameter"
+        },
+        "pathParameter": {
+            "in": "query",
+            "name": "pathParameter",
+            "type": "string",
+            "description": "A sample path parameter"
+        }
+    },
+    "paths": {
+        "/path": {
+            "get": {
+                "parameters": [
+                    {"$ref": "#/parameters/operationParameter"}
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/responses/sampleResponse"
+                    }
+                }
+            },
+            "parameters": [
+                {"$ref": "#/parameters/pathParameter"}
+            ]
+        }
+    },
+    "responses": {
+        "sampleResponse" : {
+            "description": "A sample response.",
+            "schema": {
+                "type": "string"
+            }
+        }
+    }
+};

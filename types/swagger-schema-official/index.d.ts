@@ -87,23 +87,28 @@ export interface Path {
   options?: Operation;
   head?: Operation;
   patch?: Operation;
-  parameters?: Parameter[];
+  parameters?: Parameter[] | Reference[];
 }
 
 // ----------------------------- Operation -----------------------------------
 export interface Operation {
-  responses: { [responseName: string]: Response };
+  responses: { [responseName: string]: Response | Reference};
   summary?: string;
   description?: string;
   externalDocs?: ExternalDocs;
   operationId?: string;
   produces?: string[];
   consumes?: string[];
-  parameters?: Parameter[];
+  parameters?: Parameter[] | Reference[];
   schemes?: string[];
   deprecated?: boolean;
   security?: Security[];
   tags?: string[];
+}
+
+// ----------------------------- Reference -----------------------------------
+export interface Reference {
+    $ref: string;
 }
 
 // ----------------------------- Response ------------------------------------
