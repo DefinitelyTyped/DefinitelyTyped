@@ -3491,6 +3491,10 @@ import * as p from "process";
         const _err: NodeJS.ErrnoException = err;
         const _address: dns.LookupAddress[] = addresses;
     });
+    dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: dns.LookupAddress[] = addresses;
+    });
 
     function trueOrFalse(): boolean {
         return Math.random() > 0.5 ? true : false;
