@@ -1,5 +1,5 @@
 // Type definitions for storybook/readme 4.0
-// Project: https://github.com/storybooks/storybook
+// Project: https://github.com/tuchk4/storybook-readme
 // Definitions by: Taeheon Kim  <https://github.com/lonyele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
@@ -16,5 +16,5 @@ export const doc: Doc;
 // This worked for my local testing environment. It doesn't look right with DefinitelyTyped.
 // I think It would be better If I can just import at the top level such as withReadme, withDocs, or doc.
 // declare module "storybook-readme/components/Marked" {
-//     function Marked(props: { md: string }): JSX.Element;
+//     function default Marked(props: { md: string }): JSX.Element;
 // }
