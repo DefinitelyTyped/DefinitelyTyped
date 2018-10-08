@@ -27570,23 +27570,10 @@ callbacks.fire( "world" );
          * @see \`{@link https://api.jquery.com/deferred.always/ }\`
          * @since 1.6
          * @example ​ ````Since the jQuery.get() method returns a jqXHR object, which is derived from a Deferred object, we can attach a callback for both success and error using the deferred.always() method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.always demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php" ).always(function() {
   alert( "$.get completed with success or error callback arguments" );
 });
-</script>
-</body>
-</html>
 ```
          */
         always(alwaysCallback: TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>,
@@ -27599,23 +27586,10 @@ $.get( "test.php" ).always(function() {
          * @see \`{@link https://api.jquery.com/deferred.done/ }\`
          * @since 1.5
          * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach a success callback using the .done() method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.done demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php" ).done(function() {
   alert( "$.get succeeded" );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Resolve a Deferred object when the user clicks a button, triggering a number of callback functions:
 ```html
@@ -27660,6 +27634,7 @@ $( "button" ).on( "click", function() {
   dfd.resolve( "and" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -27674,17 +27649,7 @@ $( "button" ).on( "click", function() {
          * @see \`{@link https://api.jquery.com/deferred.fail/ }\`
          * @since 1.5
          * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred, you can attach a success and failure callback using the deferred.done() and deferred.fail() methods.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.fail demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php" )
   .done(function() {
     alert( "$.get succeeded" );
@@ -27692,9 +27657,6 @@ $.get( "test.php" )
   .fail(function() {
     alert( "$.get failed!" );
   });
-</script>
-</body>
-</html>
 ```
          */
         fail(failCallback: TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>,
@@ -27717,17 +27679,7 @@ $.get( "test.php" )
          * @see \`{@link https://api.jquery.com/deferred.promise/ }\`
          * @since 1.5
          * @example ​ ````Create a Deferred and set two timer-based functions to either resolve or reject the Deferred after a random interval. Whichever one fires first &quot;wins&quot; and will call one of the callbacks. The second timeout has no effect since the Deferred is already complete (in a resolved or rejected state) from the first timeout action. Also set a timer-based progress notification function, and call a progress handler that adds &quot;working...&quot; to the document body.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.promise demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 function asyncEvent() {
   var dfd = jQuery.Deferred();
 ​
@@ -27765,44 +27717,6 @@ $.when( asyncEvent() ).then(
     $( "body" ).append( status );
   }
 );
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Use the target argument to promote an existing object to a Promise:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.promise demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-// Existing object
-var obj = {
-    hello: function( name ) {
-      alert( "Hello " + name );
-    }
-  },
-  // Create a Deferred
-  defer = $.Deferred();
-​
-// Set object as a promise
-defer.promise( obj );
-​
-// Resolve the deferred
-defer.resolve( "John" );
-​
-// Use the object as a Promise
-obj.done(function( name ) {
-  obj.hello( name ); // Will alert "Hello John"
-}).hello( "Karl" ); // Will alert "Hello Karl"
-</script>
-</body>
-</html>
 ```
          */
         promise<TTarget extends object>(target: TTarget): this & TTarget;
@@ -27811,71 +27725,8 @@ obj.done(function( name ) {
          *
          * @see \`{@link https://api.jquery.com/deferred.promise/ }\`
          * @since 1.5
-         * @example ​ ````Create a Deferred and set two timer-based functions to either resolve or reject the Deferred after a random interval. Whichever one fires first &quot;wins&quot; and will call one of the callbacks. The second timeout has no effect since the Deferred is already complete (in a resolved or rejected state) from the first timeout action. Also set a timer-based progress notification function, and call a progress handler that adds &quot;working...&quot; to the document body.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.promise demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function asyncEvent() {
-  var dfd = jQuery.Deferred();
-​
-  // Resolve after a random interval
-  setTimeout(function() {
-    dfd.resolve( "hurray" );
-  }, Math.floor( 400 + Math.random() * 2000 ) );
-​
-  // Reject after a random interval
-  setTimeout(function() {
-    dfd.reject( "sorry" );
-  }, Math.floor( 400 + Math.random() * 2000 ) );
-​
-  // Show a "working..." message every half-second
-  setTimeout(function working() {
-    if ( dfd.state() === "pending" ) {
-      dfd.notify( "working... " );
-      setTimeout( working, 500 );
-    }
-  }, 1 );
-​
-  // Return the Promise so caller can't change the Deferred
-  return dfd.promise();
-}
-​
-// Attach a done, fail, and progress handler for the asyncEvent
-$.when( asyncEvent() ).then(
-  function( status ) {
-    alert( status + ", things are going well" );
-  },
-  function( status ) {
-    alert( status + ", you fail this time" );
-  },
-  function( status ) {
-    $( "body" ).append( status );
-  }
-);
-</script>
-</body>
-</html>
-```
          * @example ​ ````Use the target argument to promote an existing object to a Promise:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.promise demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // Existing object
 var obj = {
     hello: function( name ) {
@@ -27895,9 +27746,6 @@ defer.resolve( "John" );
 obj.done(function( name ) {
   obj.hello( name ); // Will alert "Hello John"
 }).hello( "Karl" ); // Will alert "Hello Karl"
-</script>
-</body>
-</html>
 ```
          */
         promise(): this;
@@ -27927,17 +27775,7 @@ obj.done(function( name ) {
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe(function( value ) {
     return value * 2;
@@ -27947,22 +27785,9 @@ defer.resolve( 5 );
 filtered.done(function( value ) {
   alert( "Value is ( 2*5 = ) 10: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe( null, function( value ) {
     return value * 3;
@@ -27972,22 +27797,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -27996,9 +27808,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARD = never, AJD = never, AND = never,
@@ -28042,43 +27851,8 @@ chained.done(function( data ) {
          * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
-         * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.pipe(function( value ) {
-    return value * 2;
-  });
-​
-defer.resolve( 5 );
-filtered.done(function( value ) {
-  alert( "Value is ( 2*5 = ) 10: " + value );
-});
-</script>
-</body>
-</html>
-```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe( null, function( value ) {
     return value * 3;
@@ -28088,22 +27862,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -28112,9 +27873,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARF = never, AJF = never, ANF = never,
@@ -28152,17 +27910,7 @@ chained.done(function( data ) {
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe(function( value ) {
     return value * 2;
@@ -28172,47 +27920,9 @@ defer.resolve( 5 );
 filtered.done(function( value ) {
   alert( "Value is ( 2*5 = ) 10: " + value );
 });
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.pipe( null, function( value ) {
-    return value * 3;
-  });
-​
-defer.reject( 6 );
-filtered.fail(function( value ) {
-  alert( "Value is ( 3*6 = ) 18: " + value );
-});
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -28221,9 +27931,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARD = never, AJD = never, AND = never,
@@ -28260,68 +27967,8 @@ chained.done(function( data ) {
          * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
-         * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.pipe(function( value ) {
-    return value * 2;
-  });
-​
-defer.resolve( 5 );
-filtered.done(function( value ) {
-  alert( "Value is ( 2*5 = ) 10: " + value );
-});
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.pipe( null, function( value ) {
-    return value * 3;
-  });
-​
-defer.reject( 6 );
-filtered.fail(function( value ) {
-  alert( "Value is ( 3*6 = ) 18: " + value );
-});
-</script>
-</body>
-</html>
-```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -28330,9 +27977,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARP = never, AJP = never, ANP = never,
@@ -28363,17 +28007,7 @@ chained.done(function( data ) {
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe(function( value ) {
     return value * 2;
@@ -28383,22 +28017,9 @@ defer.resolve( 5 );
 filtered.done(function( value ) {
   alert( "Value is ( 2*5 = ) 10: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe( null, function( value ) {
     return value * 3;
@@ -28408,22 +28029,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -28432,9 +28040,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARD = never, AJD = never, AND = never,
@@ -28471,43 +28076,8 @@ chained.done(function( data ) {
          * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
-         * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.pipe(function( value ) {
-    return value * 2;
-  });
-​
-defer.resolve( 5 );
-filtered.done(function( value ) {
-  alert( "Value is ( 2*5 = ) 10: " + value );
-});
-</script>
-</body>
-</html>
-```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe( null, function( value ) {
     return value * 3;
@@ -28517,22 +28087,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -28541,9 +28098,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARF = never, AJF = never, ANF = never,
@@ -28574,17 +28128,7 @@ chained.done(function( data ) {
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe(function( value ) {
     return value * 2;
@@ -28594,47 +28138,9 @@ defer.resolve( 5 );
 filtered.done(function( value ) {
   alert( "Value is ( 2*5 = ) 10: " + value );
 });
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.pipe( null, function( value ) {
-    return value * 3;
-  });
-​
-defer.reject( 6 );
-filtered.fail(function( value ) {
-  alert( "Value is ( 3*6 = ) 18: " + value );
-});
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -28643,9 +28149,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARD = never, AJD = never, AND = never,
@@ -28676,17 +28179,7 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
          * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php" ).then(
   function() {
     alert( "$.get succeeded" );
@@ -28694,9 +28187,6 @@ $.get( "test.php" ).then(
     alert( "$.get failed!" );
   }
 );
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Filter the resolve value:
 ```html
@@ -28727,21 +28217,12 @@ var filterResolve = function() {
 ​
 $( "button" ).on( "click", filterResolve );
 </script>
+​
 </body>
 </html>
 ```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.then( null, function( value ) {
     return value * 3;
@@ -28751,22 +28232,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -28775,9 +28243,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARD = never, AJD = never, AND = never,
@@ -28815,73 +28280,8 @@ chained.done(function( data ) {
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
-         * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php" ).then(
-  function() {
-    alert( "$.get succeeded" );
-  }, function() {
-    alert( "$.get failed!" );
-  }
-);
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter the resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Filter Resolve</button>
-<p></p>
-​
-<script>
-var filterResolve = function() {
-  var defer = $.Deferred(),
-    filtered = defer.then(function( value ) {
-      return value * 2;
-    });
-​
-  defer.resolve( 5 );
-  filtered.done(function( value ) {
-    $( "p" ).html( "Value is ( 2*5 = ) 10: " + value );
-  });
-};
-​
-$( "button" ).on( "click", filterResolve );
-</script>
-</body>
-</html>
-```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.then( null, function( value ) {
     return value * 3;
@@ -28891,22 +28291,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -28915,9 +28302,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARF = never, AJF = never, ANF = never,
@@ -28948,29 +28332,6 @@ chained.done(function( data ) {
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
-         * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php" ).then(
-  function() {
-    alert( "$.get succeeded" );
-  }, function() {
-    alert( "$.get failed!" );
-  }
-);
-</script>
-</body>
-</html>
-```
          * @example ​ ````Filter the resolve value:
 ```html
 <!doctype html>
@@ -29000,46 +28361,12 @@ var filterResolve = function() {
 ​
 $( "button" ).on( "click", filterResolve );
 </script>
-</body>
-</html>
-```
-         * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.then( null, function( value ) {
-    return value * 3;
-  });
 ​
-defer.reject( 6 );
-filtered.fail(function( value ) {
-  alert( "Value is ( 3*6 = ) 18: " + value );
-});
-</script>
 </body>
 </html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -29048,9 +28375,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARD = never, AJD = never, AND = never,
@@ -29081,98 +28405,8 @@ chained.done(function( data ) {
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
-         * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php" ).then(
-  function() {
-    alert( "$.get succeeded" );
-  }, function() {
-    alert( "$.get failed!" );
-  }
-);
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter the resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Filter Resolve</button>
-<p></p>
-​
-<script>
-var filterResolve = function() {
-  var defer = $.Deferred(),
-    filtered = defer.then(function( value ) {
-      return value * 2;
-    });
-​
-  defer.resolve( 5 );
-  filtered.done(function( value ) {
-    $( "p" ).html( "Value is ( 2*5 = ) 10: " + value );
-  });
-};
-​
-$( "button" ).on( "click", filterResolve );
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.then( null, function( value ) {
-    return value * 3;
-  });
-​
-defer.reject( 6 );
-filtered.fail(function( value ) {
-  alert( "Value is ( 3*6 = ) 18: " + value );
-});
-</script>
-</body>
-</html>
-```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -29181,9 +28415,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARP = never, AJP = never, ANP = never,
@@ -29208,17 +28439,7 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
          * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php" ).then(
   function() {
     alert( "$.get succeeded" );
@@ -29226,9 +28447,6 @@ $.get( "test.php" ).then(
     alert( "$.get failed!" );
   }
 );
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Filter the resolve value:
 ```html
@@ -29259,21 +28477,12 @@ var filterResolve = function() {
 ​
 $( "button" ).on( "click", filterResolve );
 </script>
+​
 </body>
 </html>
 ```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.then( null, function( value ) {
     return value * 3;
@@ -29283,22 +28492,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -29307,9 +28503,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARD = never, AJD = never, AND = never,
@@ -29340,73 +28533,8 @@ chained.done(function( data ) {
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
-         * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php" ).then(
-  function() {
-    alert( "$.get succeeded" );
-  }, function() {
-    alert( "$.get failed!" );
-  }
-);
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter the resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Filter Resolve</button>
-<p></p>
-​
-<script>
-var filterResolve = function() {
-  var defer = $.Deferred(),
-    filtered = defer.then(function( value ) {
-      return value * 2;
-    });
-​
-  defer.resolve( 5 );
-  filtered.done(function( value ) {
-    $( "p" ).html( "Value is ( 2*5 = ) 10: " + value );
-  });
-};
-​
-$( "button" ).on( "click", filterResolve );
-</script>
-</body>
-</html>
-```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.then( null, function( value ) {
     return value * 3;
@@ -29416,22 +28544,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -29440,9 +28555,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARF = never, AJF = never, ANF = never,
@@ -29466,29 +28578,6 @@ chained.done(function( data ) {
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
-         * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php" ).then(
-  function() {
-    alert( "$.get succeeded" );
-  }, function() {
-    alert( "$.get failed!" );
-  }
-);
-</script>
-</body>
-</html>
-```
          * @example ​ ````Filter the resolve value:
 ```html
 <!doctype html>
@@ -29518,46 +28607,12 @@ var filterResolve = function() {
 ​
 $( "button" ).on( "click", filterResolve );
 </script>
-</body>
-</html>
-```
-         * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.then( null, function( value ) {
-    return value * 3;
-  });
 ​
-defer.reject( 6 );
-filtered.fail(function( value ) {
-  alert( "Value is ( 3*6 = ) 18: " + value );
-});
-</script>
 </body>
 </html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -29566,9 +28621,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARD = never, AJD = never, AND = never,
@@ -29594,17 +28646,7 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.catch/ }\`
          * @since 3.0
          * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can rejection handlers using the .catch method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.catch demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php" )
   .then( function() {
     alert( "$.get succeeded" );
@@ -29612,9 +28654,6 @@ $.get( "test.php" )
   .catch( function() {
     alert( "$.get failed!" );
   } );
-</script>
-</body>
-</html>
 ```
          */
         catch<ARF = never, AJF = never, ANF = never,
@@ -29742,23 +28781,10 @@ $.get( "test.php" )
          * @see \`{@link https://api.jquery.com/deferred.always/ }\`
          * @since 1.6
          * @example ​ ````Since the jQuery.get() method returns a jqXHR object, which is derived from a Deferred object, we can attach a callback for both success and error using the deferred.always() method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.always demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php" ).always(function() {
   alert( "$.get completed with success or error callback arguments" );
 });
-</script>
-</body>
-</html>
 ```
          */
         always(alwaysCallback: TypeOrArray<Deferred.Callback<TR | TJ>>,
@@ -29771,23 +28797,10 @@ $.get( "test.php" ).always(function() {
          * @see \`{@link https://api.jquery.com/deferred.done/ }\`
          * @since 1.5
          * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach a success callback using the .done() method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.done demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php" ).done(function() {
   alert( "$.get succeeded" );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Resolve a Deferred object when the user clicks a button, triggering a number of callback functions:
 ```html
@@ -29832,6 +28845,7 @@ $( "button" ).on( "click", function() {
   dfd.resolve( "and" );
 });
 </script>
+​
 </body>
 </html>
 ```
@@ -29846,17 +28860,7 @@ $( "button" ).on( "click", function() {
          * @see \`{@link https://api.jquery.com/deferred.fail/ }\`
          * @since 1.5
          * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred, you can attach a success and failure callback using the deferred.done() and deferred.fail() methods.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.fail demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php" )
   .done(function() {
     alert( "$.get succeeded" );
@@ -29864,9 +28868,6 @@ $.get( "test.php" )
   .fail(function() {
     alert( "$.get failed!" );
   });
-</script>
-</body>
-</html>
 ```
          */
         fail(failCallback: TypeOrArray<Deferred.Callback<TJ>>,
@@ -29888,71 +28889,8 @@ $.get( "test.php" )
          * @param target Object onto which the promise methods have to be attached
          * @see \`{@link https://api.jquery.com/deferred.promise/ }\`
          * @since 1.5
-         * @example ​ ````Create a Deferred and set two timer-based functions to either resolve or reject the Deferred after a random interval. Whichever one fires first &quot;wins&quot; and will call one of the callbacks. The second timeout has no effect since the Deferred is already complete (in a resolved or rejected state) from the first timeout action. Also set a timer-based progress notification function, and call a progress handler that adds &quot;working...&quot; to the document body.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.promise demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-function asyncEvent() {
-  var dfd = jQuery.Deferred();
-​
-  // Resolve after a random interval
-  setTimeout(function() {
-    dfd.resolve( "hurray" );
-  }, Math.floor( 400 + Math.random() * 2000 ) );
-​
-  // Reject after a random interval
-  setTimeout(function() {
-    dfd.reject( "sorry" );
-  }, Math.floor( 400 + Math.random() * 2000 ) );
-​
-  // Show a "working..." message every half-second
-  setTimeout(function working() {
-    if ( dfd.state() === "pending" ) {
-      dfd.notify( "working... " );
-      setTimeout( working, 500 );
-    }
-  }, 1 );
-​
-  // Return the Promise so caller can't change the Deferred
-  return dfd.promise();
-}
-​
-// Attach a done, fail, and progress handler for the asyncEvent
-$.when( asyncEvent() ).then(
-  function( status ) {
-    alert( status + ", things are going well" );
-  },
-  function( status ) {
-    alert( status + ", you fail this time" );
-  },
-  function( status ) {
-    $( "body" ).append( status );
-  }
-);
-</script>
-</body>
-</html>
-```
          * @example ​ ````Use the target argument to promote an existing object to a Promise:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.promise demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 // Existing object
 var obj = {
     hello: function( name ) {
@@ -29972,9 +28910,6 @@ defer.resolve( "John" );
 obj.done(function( name ) {
   obj.hello( name ); // Will alert "Hello John"
 }).hello( "Karl" ); // Will alert "Hello Karl"
-</script>
-</body>
-</html>
 ```
          */
         promise<TTarget extends object>(target: TTarget): Promise<TR, TJ, TN> & TTarget;
@@ -29984,17 +28919,7 @@ obj.done(function( name ) {
          * @see \`{@link https://api.jquery.com/deferred.promise/ }\`
          * @since 1.5
          * @example ​ ````Create a Deferred and set two timer-based functions to either resolve or reject the Deferred after a random interval. Whichever one fires first &quot;wins&quot; and will call one of the callbacks. The second timeout has no effect since the Deferred is already complete (in a resolved or rejected state) from the first timeout action. Also set a timer-based progress notification function, and call a progress handler that adds &quot;working...&quot; to the document body.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.promise demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 function asyncEvent() {
   var dfd = jQuery.Deferred();
 ​
@@ -30032,44 +28957,6 @@ $.when( asyncEvent() ).then(
     $( "body" ).append( status );
   }
 );
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Use the target argument to promote an existing object to a Promise:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.promise demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-// Existing object
-var obj = {
-    hello: function( name ) {
-      alert( "Hello " + name );
-    }
-  },
-  // Create a Deferred
-  defer = $.Deferred();
-​
-// Set object as a promise
-defer.promise( obj );
-​
-// Resolve the deferred
-defer.resolve( "John" );
-​
-// Use the object as a Promise
-obj.done(function( name ) {
-  obj.hello( name ); // Will alert "Hello John"
-}).hello( "Karl" ); // Will alert "Hello Karl"
-</script>
-</body>
-</html>
 ```
          */
         promise(): Promise<TR, TJ, TN>;
@@ -30099,17 +28986,7 @@ obj.done(function( name ) {
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe(function( value ) {
     return value * 2;
@@ -30119,22 +28996,9 @@ defer.resolve( 5 );
 filtered.done(function( value ) {
   alert( "Value is ( 2*5 = ) 10: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe( null, function( value ) {
     return value * 3;
@@ -30144,22 +29008,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -30168,9 +29019,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARD = never, AJD = never, AND = never,
@@ -30214,43 +29062,8 @@ chained.done(function( data ) {
          * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
-         * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.pipe(function( value ) {
-    return value * 2;
-  });
-​
-defer.resolve( 5 );
-filtered.done(function( value ) {
-  alert( "Value is ( 2*5 = ) 10: " + value );
-});
-</script>
-</body>
-</html>
-```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe( null, function( value ) {
     return value * 3;
@@ -30260,22 +29073,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -30284,9 +29084,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARF = never, AJF = never, ANF = never,
@@ -30324,17 +29121,7 @@ chained.done(function( data ) {
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe(function( value ) {
     return value * 2;
@@ -30344,47 +29131,9 @@ defer.resolve( 5 );
 filtered.done(function( value ) {
   alert( "Value is ( 2*5 = ) 10: " + value );
 });
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.pipe( null, function( value ) {
-    return value * 3;
-  });
-​
-defer.reject( 6 );
-filtered.fail(function( value ) {
-  alert( "Value is ( 3*6 = ) 18: " + value );
-});
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -30393,9 +29142,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARD = never, AJD = never, AND = never,
@@ -30432,68 +29178,8 @@ chained.done(function( data ) {
          * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
-         * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.pipe(function( value ) {
-    return value * 2;
-  });
-​
-defer.resolve( 5 );
-filtered.done(function( value ) {
-  alert( "Value is ( 2*5 = ) 10: " + value );
-});
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.pipe( null, function( value ) {
-    return value * 3;
-  });
-​
-defer.reject( 6 );
-filtered.fail(function( value ) {
-  alert( "Value is ( 3*6 = ) 18: " + value );
-});
-</script>
-</body>
-</html>
-```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -30502,9 +29188,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARP = never, AJP = never, ANP = never,
@@ -30535,17 +29218,7 @@ chained.done(function( data ) {
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe(function( value ) {
     return value * 2;
@@ -30555,22 +29228,9 @@ defer.resolve( 5 );
 filtered.done(function( value ) {
   alert( "Value is ( 2*5 = ) 10: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe( null, function( value ) {
     return value * 3;
@@ -30580,22 +29240,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -30604,9 +29251,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARD = never, AJD = never, AND = never,
@@ -30643,43 +29287,8 @@ chained.done(function( data ) {
          * **Cause**: The `.pipe()` method on a `jQuery.Deferred` object was deprecated as of jQuery 1.8, when the `.then()` method was changed to perform the same function.
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
-         * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.pipe(function( value ) {
-    return value * 2;
-  });
-​
-defer.resolve( 5 );
-filtered.done(function( value ) {
-  alert( "Value is ( 2*5 = ) 10: " + value );
-});
-</script>
-</body>
-</html>
-```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe( null, function( value ) {
     return value * 3;
@@ -30689,22 +29298,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -30713,9 +29309,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARF = never, AJF = never, ANF = never,
@@ -30746,17 +29339,7 @@ chained.done(function( data ) {
          *
          * **Solution**: In most cases it is sufficient to change all occurrences of `.pipe()` to `.then()`. Ensure that you aren't relying on context/state propagation (e.g., using `this`) or synchronous callback invocation, which were dropped from `.then()` for Promises/A+ interoperability as of jQuery 3.0.
          * @example ​ ````Filter resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.pipe(function( value ) {
     return value * 2;
@@ -30766,47 +29349,9 @@ defer.resolve( 5 );
 filtered.done(function( value ) {
   alert( "Value is ( 2*5 = ) 10: " + value );
 });
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.pipe( null, function( value ) {
-    return value * 3;
-  });
-​
-defer.reject( 6 );
-filtered.fail(function( value ) {
-  alert( "Value is ( 3*6 = ) 18: " + value );
-});
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.pipe demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.pipe(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -30815,9 +29360,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         pipe<ARD = never, AJD = never, AND = never,
@@ -30848,17 +29390,7 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
          * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php" ).then(
   function() {
     alert( "$.get succeeded" );
@@ -30866,9 +29398,6 @@ $.get( "test.php" ).then(
     alert( "$.get failed!" );
   }
 );
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Filter the resolve value:
 ```html
@@ -30899,21 +29428,12 @@ var filterResolve = function() {
 ​
 $( "button" ).on( "click", filterResolve );
 </script>
+​
 </body>
 </html>
 ```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.then( null, function( value ) {
     return value * 3;
@@ -30923,22 +29443,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -30947,9 +29454,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARD = never, AJD = never, AND = never,
@@ -30987,73 +29491,8 @@ chained.done(function( data ) {
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
-         * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php" ).then(
-  function() {
-    alert( "$.get succeeded" );
-  }, function() {
-    alert( "$.get failed!" );
-  }
-);
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter the resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Filter Resolve</button>
-<p></p>
-​
-<script>
-var filterResolve = function() {
-  var defer = $.Deferred(),
-    filtered = defer.then(function( value ) {
-      return value * 2;
-    });
-​
-  defer.resolve( 5 );
-  filtered.done(function( value ) {
-    $( "p" ).html( "Value is ( 2*5 = ) 10: " + value );
-  });
-};
-​
-$( "button" ).on( "click", filterResolve );
-</script>
-</body>
-</html>
-```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.then( null, function( value ) {
     return value * 3;
@@ -31063,22 +29502,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -31087,9 +29513,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARF = never, AJF = never, ANF = never,
@@ -31120,29 +29543,6 @@ chained.done(function( data ) {
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
-         * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php" ).then(
-  function() {
-    alert( "$.get succeeded" );
-  }, function() {
-    alert( "$.get failed!" );
-  }
-);
-</script>
-</body>
-</html>
-```
          * @example ​ ````Filter the resolve value:
 ```html
 <!doctype html>
@@ -31172,46 +29572,12 @@ var filterResolve = function() {
 ​
 $( "button" ).on( "click", filterResolve );
 </script>
-</body>
-</html>
-```
-         * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.then( null, function( value ) {
-    return value * 3;
-  });
 ​
-defer.reject( 6 );
-filtered.fail(function( value ) {
-  alert( "Value is ( 3*6 = ) 18: " + value );
-});
-</script>
 </body>
 </html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -31220,9 +29586,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARD = never, AJD = never, AND = never,
@@ -31253,98 +29616,8 @@ chained.done(function( data ) {
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
-         * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php" ).then(
-  function() {
-    alert( "$.get succeeded" );
-  }, function() {
-    alert( "$.get failed!" );
-  }
-);
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter the resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Filter Resolve</button>
-<p></p>
-​
-<script>
-var filterResolve = function() {
-  var defer = $.Deferred(),
-    filtered = defer.then(function( value ) {
-      return value * 2;
-    });
-​
-  defer.resolve( 5 );
-  filtered.done(function( value ) {
-    $( "p" ).html( "Value is ( 2*5 = ) 10: " + value );
-  });
-};
-​
-$( "button" ).on( "click", filterResolve );
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.then( null, function( value ) {
-    return value * 3;
-  });
-​
-defer.reject( 6 );
-filtered.fail(function( value ) {
-  alert( "Value is ( 3*6 = ) 18: " + value );
-});
-</script>
-</body>
-</html>
-```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -31353,9 +29626,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARP = never, AJP = never, ANP = never,
@@ -31380,17 +29650,7 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
          * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php" ).then(
   function() {
     alert( "$.get succeeded" );
@@ -31398,9 +29658,6 @@ $.get( "test.php" ).then(
     alert( "$.get failed!" );
   }
 );
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Filter the resolve value:
 ```html
@@ -31431,21 +29688,12 @@ var filterResolve = function() {
 ​
 $( "button" ).on( "click", filterResolve );
 </script>
+​
 </body>
 </html>
 ```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.then( null, function( value ) {
     return value * 3;
@@ -31455,22 +29703,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -31479,9 +29714,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARD = never, AJD = never, AND = never,
@@ -31512,73 +29744,8 @@ chained.done(function( data ) {
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
-         * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php" ).then(
-  function() {
-    alert( "$.get succeeded" );
-  }, function() {
-    alert( "$.get failed!" );
-  }
-);
-</script>
-</body>
-</html>
-```
-         * @example ​ ````Filter the resolve value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<button>Filter Resolve</button>
-<p></p>
-​
-<script>
-var filterResolve = function() {
-  var defer = $.Deferred(),
-    filtered = defer.then(function( value ) {
-      return value * 2;
-    });
-​
-  defer.resolve( 5 );
-  filtered.done(function( value ) {
-    $( "p" ).html( "Value is ( 2*5 = ) 10: " + value );
-  });
-};
-​
-$( "button" ).on( "click", filterResolve );
-</script>
-</body>
-</html>
-```
          * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var defer = $.Deferred(),
   filtered = defer.then( null, function( value ) {
     return value * 3;
@@ -31588,22 +29755,9 @@ defer.reject( 6 );
 filtered.fail(function( value ) {
   alert( "Value is ( 3*6 = ) 18: " + value );
 });
-</script>
-</body>
-</html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -31612,9 +29766,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARF = never, AJF = never, ANF = never,
@@ -31638,29 +29789,6 @@ chained.done(function( data ) {
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see \`{@link https://api.jquery.com/deferred.then/ }\`
          * @since 1.8
-         * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can attach handlers using the .then method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-$.get( "test.php" ).then(
-  function() {
-    alert( "$.get succeeded" );
-  }, function() {
-    alert( "$.get failed!" );
-  }
-);
-</script>
-</body>
-</html>
-```
          * @example ​ ````Filter the resolve value:
 ```html
 <!doctype html>
@@ -31690,46 +29818,12 @@ var filterResolve = function() {
 ​
 $( "button" ).on( "click", filterResolve );
 </script>
-</body>
-</html>
-```
-         * @example ​ ````Filter reject value:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
-var defer = $.Deferred(),
-  filtered = defer.then( null, function( value ) {
-    return value * 3;
-  });
 ​
-defer.reject( 6 );
-filtered.fail(function( value ) {
-  alert( "Value is ( 3*6 = ) 18: " + value );
-});
-</script>
 </body>
 </html>
 ```
          * @example ​ ````Chain tasks:
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.then demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 var request = $.ajax( url, { dataType: "json" } ),
   chained = request.then(function( data ) {
     return $.ajax( url2, { data: { user: data.userId } } );
@@ -31738,9 +29832,6 @@ var request = $.ajax( url, { dataType: "json" } ),
 chained.done(function( data ) {
   // data retrieved from url2 as provided by the first request
 });
-</script>
-</body>
-</html>
 ```
          */
         then<ARD = never, AJD = never, AND = never,
@@ -31766,17 +29857,7 @@ chained.done(function( data ) {
          * @see \`{@link https://api.jquery.com/deferred.catch/ }\`
          * @since 3.0
          * @example ​ ````Since the jQuery.get method returns a jqXHR object, which is derived from a Deferred object, we can rejection handlers using the .catch method.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>deferred.catch demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​​
-<script>
+```javascript
 $.get( "test.php" )
   .then( function() {
     alert( "$.get succeeded" );
@@ -31784,9 +29865,6 @@ $.get( "test.php" )
   .catch( function() {
     alert( "$.get failed!" );
   } );
-</script>
-</body>
-</html>
 ```
          */
         catch<ARF = never, AJF = never, ANF = never,
