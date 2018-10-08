@@ -1,4 +1,4 @@
-// Type definitions for Rebass 0.3.7
+// Type definitions for Rebass 0.4.0
 // Project: https://github.com/jxnblk/rebass
 // Definitions by: rhysd <https://rhysd.github.io>
 //                 ryee-dev <https://github.com/ryee-dev>
@@ -36,7 +36,7 @@ import {
 
 export interface BaseProps<C>
     extends React.ClassAttributes<C>,
-        SpaceProps,
+     	  SpaceProps,
         TextColorProps,
         BgColorProps {}
 
