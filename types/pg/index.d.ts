@@ -18,6 +18,7 @@ export interface ConnectionConfig {
     connectionString?: string;
     keepAlive?: boolean;
     stream?: stream.Duplex;
+    statement_timeout?: false | number;
 }
 
 export interface Defaults extends ConnectionConfig {
