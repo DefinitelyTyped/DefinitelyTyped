@@ -19,3 +19,10 @@ dateArithmetic.subtract(new Date(2010, 7, 24), 6, 'month');
 dateArithmetic.subtract(new Date(2010, 7, 23), 7, 'year');
 dateArithmetic.subtract(new Date(2010, 7, 22), 8, 'decade');
 dateArithmetic.subtract(new Date(2010, 7, 21), 9, 'century');
+
+dateArithmetic.eq(new Date(), new Date());
+dateArithmetic.neq(new Date(), new Date());
+dateArithmetic.gt(new Date(), new Date());
+dateArithmetic.gte(new Date(), new Date());
+dateArithmetic.lt(new Date(), new Date());
+dateArithmetic.lte(new Date(), new Date());

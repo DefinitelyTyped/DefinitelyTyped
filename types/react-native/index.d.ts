@@ -8080,21 +8080,39 @@ export interface UIManagerStatic {
 export interface SwitchPropsIOS extends ViewProps {
     /**
      * Background color when the switch is turned on.
+     *
+     * @deprecated
      */
     onTintColor?: string;
 
     /**
      * Color of the foreground switch grip.
+     *
+     * @deprecated
      */
     thumbTintColor?: string;
 
     /**
      * Background color when the switch is turned off.
+     *
+     * @deprecated
      */
     tintColor?: string;
 }
 
 export interface SwitchProps extends SwitchPropsIOS {
+    /**
+     * Color of the foreground switch grip.
+     */
+    thumbColor?: string;
+
+    /**
+     * Custom colors for the switch track
+     *
+     * Color when false and color when true
+     */
+    trackColor?: { false: string, true: string };
+
     /**
      * If true the user won't be able to toggle the switch.
      * Default value is false.

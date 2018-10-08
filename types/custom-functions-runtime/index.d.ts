@@ -1,5 +1,5 @@
 // Type definitions for Custom Functions 1.4
-// Project: http://dev.office.com
+// Project: https://github.com/OfficeDev/office-js-docs-reference
 // Definitions by: OfficeDev <https://github.com/OfficeDev>, Michael Zlatkovsky <https://github.com/Zlatkovsky>, Michelle Scharlock <https://github.com/mscharlock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4

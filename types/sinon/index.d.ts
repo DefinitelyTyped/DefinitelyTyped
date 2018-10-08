@@ -296,6 +296,11 @@ declare namespace Sinon {
          */
         invokeCallback(...args: any[]): void;
         /**
+         * Set the displayName of the spy or stub.
+         * @param name
+         */
+        named(name: string): SinonSpy;
+        /**
          * Returns the nth call.
          * Accessing individual calls helps with more detailed behavior verification when the spy is called more than once.
          * @param n
@@ -399,6 +404,10 @@ declare namespace Sinon {
          * If the argument at the provided index is not available, a TypeError will be thrown.
          */
         resolvesArg(index: number): SinonStub;
+        /**
+         * Causes the stub to return a Promise which resolves to its this value.
+         */
+        resolvesThis(): SinonStub;
         /**
          * Causes the stub to throw an exception (Error).
          * @param type
@@ -530,6 +539,11 @@ declare namespace Sinon {
          * @param val
          */
         value(val: any): SinonStub;
+        /**
+         * Set the displayName of the spy or stub.
+         * @param name
+         */
+        named(name: string): SinonStub;
         /**
          * Similar to callsArg.
          * Causes the stub to call the first callback it receives with the provided arguments (if any).

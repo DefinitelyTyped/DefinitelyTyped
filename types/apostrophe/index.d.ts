@@ -124,8 +124,15 @@ declare namespace apostrophe {
         name: string;
         type: string;
         label: string;
+        help?: string;
         required?: boolean;
         options?: AposObject;
+        choices?: SelectChoice[];
+    }
+
+    interface SelectChoice {
+        label: string;
+        value: string;
     }
 
     type Fields = Field[];

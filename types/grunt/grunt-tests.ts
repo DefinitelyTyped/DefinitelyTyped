@@ -133,4 +133,9 @@ exports.exports = function(grunt: IGrunt) {
 let myTest = function (grunt: IGrunt) {
     grunt.file.expand(['*.ts']);
     grunt.file.expand('*.ts');
+
+    // 'cwd' in options, and string pattern
+    grunt.file.expand({
+        cwd: '.'
+    }, '*.ts');
 }

@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 1.8
+// Type definitions for puppeteer 1.9
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
@@ -291,6 +291,8 @@ export interface TracingStartOptions {
   categories?: string[];
 }
 
+export type DialogType = "alert" | "beforeunload" | "confirm" | "prompt";
+
 /** Dialog objects are dispatched by page via the 'dialog' event. */
 export interface Dialog {
   /**
@@ -309,8 +311,27 @@ export interface Dialog {
   message(): string;
 
   /** The dialog type. Dialog's type, can be one of `alert`, `beforeunload`, `confirm` or `prompt`. */
-  type(): "alert" | "beforeunload" | "confirm" | "prompt";
+  type(): DialogType;
 }
+
+export type ConsoleMessageType = "log"
+  | "debug"
+  | "info"
+  | "error"
+  | "warning"
+  | "dir"
+  | "dirxml"
+  | "table"
+  | "trace"
+  | "clear"
+  | "startGroup"
+  | "startGroupCollapsed"
+  | "endGroup"
+  | "assert"
+  | "profile"
+  | "profileEnd"
+  | "count"
+  | "timeEnd";
 
 /** ConsoleMessage objects are dispatched by page via the 'console' event. */
 export interface ConsoleMessage {
@@ -318,9 +339,7 @@ export interface ConsoleMessage {
   args(): JSHandle[];
   /** The message text. */
   text(): string;
-  type(): 'log' | 'debug' | 'info' | 'error' | 'warning' | 'dir' | 'dirxml' | 'table' |
-  'trace' | 'clear' | 'startGroup' | 'startGroupCollapsed' | 'endGroup' | 'assert' |
-  'profile' | 'profileEnd' | 'count' | 'timeEnd';
+  type(): ConsoleMessageType;
 }
 
 export type PageEvents =
@@ -365,6 +384,8 @@ export interface ClickOptions {
   delay?: number;
 }
 
+export type SameSiteSetting = "Strict" | "Lax";
+
 /** Represents a browser cookie. */
 export interface Cookie {
   /** The cookie name. */
@@ -384,7 +405,7 @@ export interface Cookie {
   /** The cookie secure flag. */
   secure: boolean;
   /** The cookie same site definition. */
-  sameSite: "Strict" | "Lax";
+  sameSite: SameSiteSetting;
 }
 
 export interface DeleteCookie {
@@ -416,7 +437,7 @@ export interface SetCookie {
   /** The cookie secure flag. */
   secure?: boolean;
   /** The cookie same site definition. */
-  sameSite?: "Strict" | "Lax";
+  sameSite?: SameSiteSetting;
 }
 
 export interface Viewport {
@@ -1018,6 +1039,8 @@ export interface RemoteInfo {
 export interface Response {
   /** Promise which resolves to a buffer with response body. */
   buffer(): Promise<Buffer>;
+  /** A Frame that initiated this response, or null if navigating to error pages. */
+  frame(): Frame | null;
   /** True if the response was served from either the browser's disk cache or memory cache. */
   fromCache(): boolean;
   /** True if the response was served by a service worker. */
@@ -1104,6 +1127,13 @@ export interface FrameBase extends Evalable {
   content(): Promise<string>;
 
   /**
+   * Navigates to a URL.
+   * @param url URL to navigate page to. The url should include scheme, e.g. `https://`
+   * @param options The navigation parameters.
+   */
+  goto(url: string, options?: DirectNavigationOptions): Promise<Response | null>;
+
+  /**
    * Evaluates a function in the browser context.
    * If the function, passed to the frame.evaluate, returns a Promise, then frame.evaluate would wait for the promise to resolve and return its value.
    * If the function passed into frame.evaluate returns a non-Serializable value, then frame.evaluate resolves to undefined.
@@ -1176,16 +1206,26 @@ export interface FrameBase extends Evalable {
    * Shortcut for waitForSelector and waitForXPath
    */
   waitFor(selector: string, options?: WaitForSelectorOptions): Promise<ElementHandle>;
+
   /**
    * Shortcut for waitForFunction.
    */
   waitFor(selector: ((...args: any[]) => any) | string, options?: WaitForSelectorOptions, ...args: any[]): Promise<any>;
 
+  /**
+   * Allows waiting for various conditions.
+   */
   waitForFunction(
     fn: string | ((...args: any[]) => any),
     options?: PageFnOptions,
     ...args: any[]
   ): Promise<any>;
+
+  /**
+   * Wait for the page navigation occur.
+   * @param options The navigation parameters.
+   */
+  waitForNavigation(options?: NavigationOptions): Promise<Response>;
 
   waitForSelector(
     selector: string,
@@ -1280,6 +1320,8 @@ export interface GeoOptions {
   accuracy?: number;
 }
 
+export type MediaType = "screen" | "print";
+
 /** Page provides methods to interact with a single tab in Chromium. One Browser instance might have multiple Page instances. */
 export interface Page extends EventEmitter, FrameBase {
   /**
@@ -1338,7 +1380,7 @@ export interface Page extends EventEmitter, FrameBase {
   emulate(options: EmulateOptions): Promise<void>;
 
   /** Emulates the media. */
-  emulateMedia(mediaType: 'screen' | 'print' | null): Promise<void>;
+  emulateMedia(mediaType: MediaType | null): Promise<void>;
 
   /**
    * Evaluates a function in the page context.
@@ -1387,13 +1429,6 @@ export interface Page extends EventEmitter, FrameBase {
    * @param options The navigation parameters.
    */
   goForward(options?: NavigationOptions): Promise<Response | null>;
-
-  /**
-   * Navigates to a URL.
-   * @param url URL to navigate page to. The url should include scheme, e.g. `https://`
-   * @param options The navigation parameters.
-   */
-  goto(url: string, options?: DirectNavigationOptions): Promise<Response | null>;
 
   /** Returns the virtual keyboard. */
   keyboard: Keyboard;
@@ -1536,12 +1571,6 @@ export interface Page extends EventEmitter, FrameBase {
   /** Gets the page viewport. */
   viewport(): Viewport;
 
-  /**
-   * Wait for the page navigation occur.
-   * @param options The navigation parameters.
-   */
-  waitForNavigation(options?: NavigationOptions): Promise<Response>;
-
   waitForRequest(
     urlOrPredicate: string | ((req: Request) => boolean),
     options?: { timeout?: number }
@@ -1620,6 +1649,9 @@ export interface Browser extends EventEmitter {
   /** Spawned browser process. Returns `null` if the browser instance was created with `puppeteer.connect` method */
   process(): ChildProcess;
 
+  /** A target associated with the browser. */
+  target(): Target;
+
   /** Promise which resolves to an array of all active targets. */
   targets(): Promise<Target[]>;
 
@@ -1651,22 +1683,22 @@ export interface BrowserEventObj {
 }
 
 export type Permission =
-    'geolocation' |
-    'midi' |
-    'midi-sysex' |
-    'notifications' |
-    'push' |
-    'camera' |
-    'microphone' |
-    'background-sync' |
-    'ambient-light-sensor' |
-    'accelerometer' |
-    'gyroscope' |
-    'magnetometer' |
-    'accessibility-events' |
-    'clipboard-read' |
-    'clipboard-write' |
-    'payment-handler';
+  "geolocation" |
+  "midi" |
+  "midi-sysex" |
+  "notifications" |
+  "push" |
+  "camera" |
+  "microphone" |
+  "background-sync" |
+  "ambient-light-sensor" |
+  "accelerometer" |
+  "gyroscope" |
+  "magnetometer" |
+  "accessibility-events" |
+  "clipboard-read" |
+  "clipboard-write" |
+  "payment-handler";
 
 /**
  * BrowserContexts provide a way to operate multiple independent browser sessions.
@@ -1743,6 +1775,8 @@ export interface BrowserContextEventObj {
   targetdestroyed: Target;
 }
 
+export type TargetType = "page" | "background_page" | "service_worker" | "browser" | "other";
+
 export interface Target {
   /** Get the browser the target belongs to. */
   browser(): Browser;
@@ -1760,7 +1794,7 @@ export interface Target {
   page(): Promise<Page>;
 
   /** Identifies what kind of target this is.  */
-  type(): "page" | "background_page" | "service_worker" | "browser" | "other";
+  type(): TargetType;
 
   /** Returns the target URL. */
   url(): string;
