@@ -1,4 +1,4 @@
-import TZ from 'texzilla';
+import * as TZ from 'texzilla';
 
 TZ.setDOMParser(new DOMParser());
 TZ.setXMLSerializer(new XMLSerializer());
