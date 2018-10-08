@@ -13,6 +13,6 @@ interface config {
     fail?(req: Request, res: Response, next: NextFunction): void;
 }
 
-declare function hostValidation(hosts: config): (req: Request, res: Response, next: NextFunction) => void;
+declare function hostValidation(opts: config): (req: Request, res: Response, next: NextFunction) => void;
 
 export = hostValidation;
