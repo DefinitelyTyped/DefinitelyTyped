@@ -819,7 +819,7 @@ export interface Collection<TSchema = Default> {
     watch(pipeline?: Object[], options?: ChangeStreamOptions & { startAtClusterTime?: Timestamp, session?: ClientSession }): ChangeStream;
 }
 
-export type Condition<T, P extends keyof T> = {
+type Condition<T, P extends keyof T> = {
     $eq?: T[P];
     $gt?: T[P];
     $gte?: T[P];
@@ -877,7 +877,7 @@ export type UpdateQuery<T> = {
 };
 
 export type FilterQuery<T> = {
-    [P in keyof T]?: T[P] | Condition<T, keyof T>;
+    [P in keyof T]?: T[P] | Condition<T, P>;
 } | { [key: string]: any };
 
 // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
