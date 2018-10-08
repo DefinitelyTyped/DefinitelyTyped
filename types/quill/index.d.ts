@@ -6,7 +6,7 @@
 //                 Aniello Falcone <https://github.com/AnielloFalcone>
 //                 Mohammad Hossein Amri <https://github.com/mhamri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9.1
+// TypeScript Version: 2.9
 
 import { Blot } from 'parchment/dist/src/blot/abstract/blot';
 import Delta = require('quill-delta');
