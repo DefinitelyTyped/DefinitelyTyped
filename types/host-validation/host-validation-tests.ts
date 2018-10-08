@@ -30,7 +30,7 @@ app.use(hostValidation({ hosts: ['127.0.0.1:3000',
         'mydomain.com',
 		/.*\.mydomain\.com/] }));
 
-// referrer headers can accept strings or regular expressions
+// referer headers can accept strings or regular expressions
 app.use(hostValidation({ referers: ['http://trusted-site.com/login.php',
 		/^http:\/\/othersite\.com\/login\/.*/] }));
 
