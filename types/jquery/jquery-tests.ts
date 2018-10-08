@@ -147,20 +147,8 @@ function JQueryStatic() {
     }
 
     function fx() {
-        function interval() {
-            // $ExpectType number
-            $.fx.interval;
-        }
-
-        function off() {
-            // $ExpectType boolean
-            $.fx.off;
-        }
-
-        function step() {
-            // $ExpectType PlainObject<AnimationHook<Node>>
-            $.fx.step;
-        }
+        // $ExpectType Effects
+        $.fx;
     }
 
     function ready() {
@@ -6830,6 +6818,23 @@ function JQuery_Callbacks() {
     function remove() {
         // $ExpectType Callbacks<Function>
         $.Callbacks().remove(() => { }, () => { });
+    }
+}
+
+function JQuery_Effects() {
+    function interval() {
+        // $ExpectType number
+        $.fx.interval;
+    }
+
+    function off() {
+        // $ExpectType boolean
+        $.fx.off;
+    }
+
+    function step() {
+        // $ExpectType PlainObject<AnimationHook<Node>>
+        $.fx.step;
     }
 }
 

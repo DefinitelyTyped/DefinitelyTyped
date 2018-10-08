@@ -83,97 +83,7 @@ interface JQueryStatic {
     expr: JQuery.Selectors;
     // Set to HTMLElement to minimize breaks but should probably be Element.
     readonly fn: JQuery;
-    fx: {
-        /**
-         * The rate (in milliseconds) at which animations fire.
-         *
-         * @see \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`
-         * @since 1.4.3
-         * @deprecated ​ Deprecated since 3.0. See \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`.
-         *
-         * **Cause**: As of jQuery 3.0 the `jQuery.fx.interval` property can be used to change the animation interval only on browsers that do not support the `window.requestAnimationFrame()` method. That is currently only Internet Explorer 9 and the Android Browser. Once support is dropped for these browsers, the property will serve no purpose and it will be removed.
-         *
-         * **Solution**: Find and remove code that changes or uses `jQuery.fx.interval`. If the value is being used by code in your page or a plugin, the code may be making assumptions that are no longer valid. The default value of `jQuery.fx.interval` is `13` (milliseconds), which could be used instead of accessing this property.
-         * @example ​ ````Cause all animations to run with less frames.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.fx.interval demo</title>
-  <style>
-  div {
-    width: 50px;
-    height: 30px;
-    margin: 5px;
-    float: left;
-    background: green;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><input type="button" value="Run"></p>
-<div></div>
-​
-<script>
-jQuery.fx.interval = 100;
-$( "input" ).click(function() {
-  $( "div" ).toggle( 3000 );
-});
-</script>
-</body>
-</html>
-```
-         */
-        interval: number;
-        /**
-         * Globally disable all animations.
-         *
-         * @see \`{@link https://api.jquery.com/jQuery.fx.off/ }\`
-         * @since 1.3
-         * @example ​ ````Toggle animation on and off
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.fx.off demo</title>
-  <style>
-  div {
-    width: 50px;
-    height: 30px;
-    margin: 5px;
-    float: left;
-    background: green;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<input type="button" value="Run">
-<button>Toggle fx</button>
-<div></div>
-​
-<script>
-var toggleFx = function() {
-  $.fx.off = !$.fx.off;
-};
-toggleFx();
-$( "button" ).click( toggleFx );
-$( "input" ).click(function() {
-  $( "div" ).toggle( "slow" );
-});
-</script>
-</body>
-</html>
-```
-         */
-        off: boolean;
-        step: JQuery.PlainObject<JQuery.AnimationHook<Node>>;
-    };
+    fx: JQuery.Effects;
     /**
      * A Promise-like object (or "thenable") that resolves when the document is ready.
      *
@@ -61667,6 +61577,98 @@ $.get( "test.php" )
 
     // region Effects
     // #region Effects
+
+    interface Effects {
+        /**
+         * The rate (in milliseconds) at which animations fire.
+         *
+         * @see \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`
+         * @since 1.4.3
+         * @deprecated ​ Deprecated since 3.0. See \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`.
+         *
+         * **Cause**: As of jQuery 3.0 the `jQuery.fx.interval` property can be used to change the animation interval only on browsers that do not support the `window.requestAnimationFrame()` method. That is currently only Internet Explorer 9 and the Android Browser. Once support is dropped for these browsers, the property will serve no purpose and it will be removed.
+         *
+         * **Solution**: Find and remove code that changes or uses `jQuery.fx.interval`. If the value is being used by code in your page or a plugin, the code may be making assumptions that are no longer valid. The default value of `jQuery.fx.interval` is `13` (milliseconds), which could be used instead of accessing this property.
+         * @example ​ ````Cause all animations to run with less frames.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.fx.interval demo</title>
+  <style>
+  div {
+    width: 50px;
+    height: 30px;
+    margin: 5px;
+    float: left;
+    background: green;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<p><input type="button" value="Run"></p>
+<div></div>
+​
+<script>
+jQuery.fx.interval = 100;
+$( "input" ).click(function() {
+  $( "div" ).toggle( 3000 );
+});
+</script>
+</body>
+</html>
+```
+        */
+        interval: number;
+        /**
+         * Globally disable all animations.
+         *
+         * @see \`{@link https://api.jquery.com/jQuery.fx.off/ }\`
+         * @since 1.3
+         * @example ​ ````Toggle animation on and off
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.fx.off demo</title>
+  <style>
+  div {
+    width: 50px;
+    height: 30px;
+    margin: 5px;
+    float: left;
+    background: green;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<input type="button" value="Run">
+<button>Toggle fx</button>
+<div></div>
+​
+<script>
+var toggleFx = function() {
+  $.fx.off = !$.fx.off;
+};
+toggleFx();
+$( "button" ).click( toggleFx );
+$( "input" ).click(function() {
+  $( "div" ).toggle( "slow" );
+});
+</script>
+</body>
+</html>
+```
+        */
+        off: boolean;
+        step: PlainObject<AnimationHook<Node>>;
+    }
 
     type Duration = number | 'fast' | 'slow';
     // TODO: Is the first element always a string or is that specific to the 'fx' queue?
