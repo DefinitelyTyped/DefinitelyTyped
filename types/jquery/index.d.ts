@@ -51,15 +51,6 @@ interface JQueryStatic {
      * @deprecated ​ Deprecated. Use \`{@link ajaxSetup }\`.
      */
     ajaxSettings: JQuery.AjaxSettings;
-    /**
-     * A factory function that returns a chainable utility object with methods to register multiple
-     * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
-     * any synchronous or asynchronous function.
-     *
-     * @param beforeStart A function that is called just before the constructor returns.
-     * @see \`{@link https://api.jquery.com/jQuery.Deferred/ }\`
-     * @since 1.5
-     */
     Deferred: JQuery.DeferredStatic;
     Event: JQuery.EventStatic;
     /**
@@ -59417,6 +59408,15 @@ $.get( "test.php" )
     interface DeferredStatic {
         // https://jquery.com/upgrade-guide/3.0/#callback-exit
         exceptionHook: any;
+        /**
+         * A factory function that returns a chainable utility object with methods to register multiple
+         * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
+         * any synchronous or asynchronous function.
+         *
+         * @param beforeStart A function that is called just before the constructor returns.
+         * @see \`{@link https://api.jquery.com/jQuery.Deferred/ }\`
+         * @since 1.5
+         */
         <TR = any, TJ = any, TN = any>(beforeStart?: (this: Deferred<TR, TJ, TN>, deferred: Deferred<TR, TJ, TN>) => void): Deferred<TR, TJ, TN>;
     }
 

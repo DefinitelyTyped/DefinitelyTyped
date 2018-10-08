@@ -175,55 +175,8 @@ function JQueryStatic() {
     }
 
     function Deferred() {
-        function call_signature() {
-            // $ExpectType Deferred<boolean, string, number>
-            $.Deferred<boolean, string, number>(function(deferred) {
-                // $ExpectType Deferred<boolean, string, number>
-                this;
-                // $ExpectType Deferred<boolean, string, number>
-                deferred;
-            });
-
-            // $ExpectType Deferred<boolean, string, number>
-            $.Deferred<boolean, string, number>();
-
-            // $ExpectType Deferred<boolean, string, any>
-            $.Deferred<boolean, string>(function(deferred) {
-                // $ExpectType Deferred<boolean, string, any>
-                this;
-                // $ExpectType Deferred<boolean, string, any>
-                deferred;
-            });
-
-            // $ExpectType Deferred<boolean, string, any>
-            $.Deferred<boolean, string>();
-
-            // $ExpectType Deferred<boolean, any, any>
-            $.Deferred<boolean>(function(deferred) {
-                // $ExpectType Deferred<boolean, any, any>
-                this;
-                // $ExpectType Deferred<boolean, any, any>
-                deferred;
-            });
-
-            // $ExpectType Deferred<boolean, any, any>
-            $.Deferred<boolean>();
-
-            // $ExpectType Deferred<any, any, any>
-            $.Deferred(function(deferred) {
-                // $ExpectType Deferred<any, any, any>
-                this;
-                // $ExpectType Deferred<any, any, any>
-                deferred;
-            });
-
-            // $ExpectType Deferred<any, any, any>
-            $.Deferred();
-        }
-
-        function exceptionHook() {
-            $.Deferred.exceptionHook = undefined;
-        }
+        // $ExpectType DeferredStatic
+        $.Deferred;
     }
 
     function ajax() {
@@ -7893,6 +7846,58 @@ function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
 
     function compatibleWithPromise(): Promise<any> {
         return p;
+    }
+}
+
+function JQuery_DeferredStatic() {
+    function exceptionHook() {
+        $.Deferred.exceptionHook = undefined;
+    }
+
+    function call_signature() {
+        // $ExpectType Deferred<boolean, string, number>
+        $.Deferred<boolean, string, number>(function (deferred) {
+            // $ExpectType Deferred<boolean, string, number>
+            this;
+            // $ExpectType Deferred<boolean, string, number>
+            deferred;
+        });
+
+        // $ExpectType Deferred<boolean, string, number>
+        $.Deferred<boolean, string, number>();
+
+        // $ExpectType Deferred<boolean, string, any>
+        $.Deferred<boolean, string>(function (deferred) {
+            // $ExpectType Deferred<boolean, string, any>
+            this;
+            // $ExpectType Deferred<boolean, string, any>
+            deferred;
+        });
+
+        // $ExpectType Deferred<boolean, string, any>
+        $.Deferred<boolean, string>();
+
+        // $ExpectType Deferred<boolean, any, any>
+        $.Deferred<boolean>(function (deferred) {
+            // $ExpectType Deferred<boolean, any, any>
+            this;
+            // $ExpectType Deferred<boolean, any, any>
+            deferred;
+        });
+
+        // $ExpectType Deferred<boolean, any, any>
+        $.Deferred<boolean>();
+
+        // $ExpectType Deferred<any, any, any>
+        $.Deferred(function (deferred) {
+            // $ExpectType Deferred<any, any, any>
+            this;
+            // $ExpectType Deferred<any, any, any>
+            deferred;
+        });
+
+        // $ExpectType Deferred<any, any, any>
+        $.Deferred();
     }
 }
 
