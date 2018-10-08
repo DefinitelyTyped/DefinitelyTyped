@@ -1,11 +1,11 @@
-interface JsonRPCRequest {
+export interface JsonRPCRequest {
     jsonrpc: string;
     method: string;
     params: any[];
     id: number;
 }
 
-interface JsonRPCResponse {
+export interface JsonRPCResponse {
     jsonrpc: string;
     id: number;
     result?: any;
@@ -33,6 +33,7 @@ export class WebsocketProvider extends Provider {
     removeAllListeners(type: string): void;
     reset(): void;
 }
+
 export class HttpProvider extends Provider {
     responseCallbacks: undefined;
     notificationCallbacks: undefined;
@@ -43,6 +44,7 @@ export class HttpProvider extends Provider {
     removeAllListeners(type: string): undefined;
     reset(): undefined;
 }
+
 export class IpcProvider extends Provider {
     responseCallbacks: undefined;
     notificationCallbacks: undefined;

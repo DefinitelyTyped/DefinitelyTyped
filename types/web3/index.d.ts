@@ -17,6 +17,7 @@
 //                 Konstantin Melnikov <https://github.com/archangel-irk>
 //                 Asgeir Sognefest <https://github.com/sogasg>
 //                 Donam Kim <https://github.com/donamk>
+//                 Eswara Sai <https://github.com/eswarasai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 

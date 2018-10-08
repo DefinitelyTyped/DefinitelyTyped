@@ -1,3 +1,5 @@
+import { BlockType } from "./eth/types";
+
 export type Callback<T> = (error: Error, result: T) => void;
 
 export interface EventEmitter {
@@ -56,10 +58,15 @@ export interface EncodedTransaction {
 }
 
 export interface Logs {
-    fromBlock?: number;
     address?: string;
+    fromBlock?: BlockType;
     topics?: Array<string | string[]>;
 }
+
+export interface PastLogs extends Logs {
+    toBlock?: BlockType;
+}
+
 export interface Log {
     address: string;
     data: string;
@@ -70,6 +77,7 @@ export interface Log {
     blockHash: string;
     blockNumber: number;
 }
+
 export interface Subscribe<T> {
     subscription: {
         id: string;
@@ -89,4 +97,5 @@ export interface Shh {
     ): void;
     // TODO: type every method
 }
+
 export class Bzz {} // TODO: Type

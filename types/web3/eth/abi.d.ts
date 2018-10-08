@@ -32,9 +32,11 @@ interface EthAbiDecodeParametersType {
     name: string;
     type: string;
 }
+
 interface EthAbiDecodeParametersResultArray {
     [index: number]: any;
 }
+
 type EthAbiDecodeParametersResultObject = EthAbiDecodeParametersResultArray & {
     [key: string]: any;
 };

@@ -1,5 +1,5 @@
 import { Callback, EventLog, EventEmitter } from "../types";
-import { TransactionObject, BlockType } from "./types";
+import { TransactionObject, BlockType, EventFilters, PastEventFilters } from "./types";
 import { ABIDefinition } from "./abi";
 import { Provider } from "../providers";
 
@@ -37,30 +37,17 @@ export default class Contract {
     }): TransactionObject<Contract>;
     events: {
         [eventName: string]: (
-            options?: {
-                filter?: object;
-                fromBlock?: BlockType;
-                topics?: string[];
-            },
+            options?: EventFilters,
             cb?: Callback<EventLog>
         ) => EventEmitter;
         allEvents: (
-            options?: {
-                filter?: object;
-                fromBlock?: BlockType;
-                topics?: string[];
-            },
+            options?: EventFilters,
             cb?: Callback<EventLog>
         ) => EventEmitter;
     };
     getPastEvents(
         event: string,
-        options?: {
-            filter?: object;
-            fromBlock?: BlockType;
-            toBlock?: BlockType;
-            topics?: string[];
-        },
+        options?: PastEventFilters,
         cb?: Callback<EventLog[]>
     ): Promise<EventLog[]>;
     setProvider(provider: Provider): void;
