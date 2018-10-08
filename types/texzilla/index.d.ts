@@ -1,6 +1,6 @@
 // Type definitions for texzilla 0.9
 // Project: https://github.com/fred-wang/TeXZilla/
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Michal Grňo <https://github.com/m93a>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
