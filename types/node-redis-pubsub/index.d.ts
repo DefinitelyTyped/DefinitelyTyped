@@ -1,29 +1,37 @@
 // Type definitions for node-redis-pubsub 3.0
 // Project: https://github.com/louischatriot/node-redis-pubsub#readme
 // Definitions by: Rene Keijzer <https://github.com/renekeijzer>
+//                 Martin Loeper <https://github.com/MartinLoeper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import * as redis from "redis";
+import { Callback, RedisClient } from "redis";
 
-declare function NRP(options: object): NRP.NodeRedisPubSub;
+declare function NRP(options?: NRP.RedisPubsubOptions): NRP.NodeRedisPubSub;
 declare namespace NRP {
-    function initClient(options: object): NodeRedisPubSub;
+    interface RedisPubsubOptions {
+        port?: number;
+        scope?: string;
+        emitter?: RedisClient;
+        receiver?: RedisClient;
+        auth?: string;
+    }
+    function initClient(options?: RedisPubsubOptions): NodeRedisPubSub;
     class NodeRedisPubSub {
-        constructor(options: object);
-        getRedisClient(): redis.RedisClient;
-        on(
+        constructor(options?: RedisPubsubOptions);
+        getRedisClient(): RedisClient;
+        on<T>(
             channel: string,
-            handler: (data: string, channel: string) => void,
-            callback?: () => void
-        ): () => void;
-        subscribe(
+            handler: (message: T, channel: string) => void,
+            callback?: () => void,
+        ): () => Callback<any>;
+        subscribe<T>(
             channel: string,
-            handler: (data: string, channel: string) => void,
-            callback?: () => void
-        ): () => void;
-        emit(channel: string, message: string): void;
-        publish(channel: string, message: string): void;
+            handler: (message: T, channel: string) => void,
+            callback?: () => void,
+        ): () => Callback<any>;
+        emit<T>(channel: string, message: T): boolean;
+        publish<T>(channel: string, message: T): boolean;
         quit(): void;
         end(): void;
     }

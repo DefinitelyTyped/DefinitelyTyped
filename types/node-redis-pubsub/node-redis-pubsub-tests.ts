@@ -6,14 +6,14 @@ const options = {
 };
 const nrp: NRP.NodeRedisPubSub = NRP(options);
 
-nrp.on("message:*", (data, channel) => {});
+nrp.on<string>("message:*", (data, channel) => {});
 
-nrp.subscribe("message:*", (data, channel) => {});
+nrp.subscribe<string>("message:*", (data, channel) => {});
 
 const redis: RedisClient = nrp.getRedisClient();
 
-nrp.emit("message:test", "hello world");
-nrp.publish("message:test2", "hello world2");
+nrp.emit<string>("message:test", "hello world");
+nrp.publish<string>("message:test2", "hello world2");
 
 nrp.quit();
 nrp.end();
