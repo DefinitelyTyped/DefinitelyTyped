@@ -47,7 +47,7 @@ export interface BaseParameter {
 }
 
 export interface BodyParameter extends BaseParameter {
-  schema?: Schema;
+  schema?: Referenceable<Schema>;
 }
 
 export interface QueryParameter extends BaseParameter, BaseSchema {
@@ -87,19 +87,19 @@ export interface Path {
   options?: Operation;
   head?: Operation;
   patch?: Operation;
-  parameters?: Parameter[] | Reference[];
+  parameters?: Array<Referenceable<Parameter>>;
 }
 
 // ----------------------------- Operation -----------------------------------
 export interface Operation {
-  responses: { [responseName: string]: Response | Reference};
+  responses: { [responseName: string]: Referenceable<Response>};
   summary?: string;
   description?: string;
   externalDocs?: ExternalDocs;
   operationId?: string;
   produces?: string[];
   consumes?: string[];
-  parameters?: Parameter[] | Reference[];
+  parameters?: Array<Referenceable<Parameter>>;
   schemes?: string[];
   deprecated?: boolean;
   security?: Security[];
@@ -107,14 +107,12 @@ export interface Operation {
 }
 
 // ----------------------------- Reference -----------------------------------
-export interface Reference {
-    $ref: string;
-}
+export type Referenceable<T> = { $ref: string; } | T;
 
 // ----------------------------- Response ------------------------------------
 export interface Response {
   description: string;
-  schema?: Schema;
+  schema?: Referenceable<Schema>;
   headers?: { [headerName: string]: Header };
   examples?: { [exampleName: string]: {} };
 }
@@ -140,14 +138,14 @@ export interface BaseSchema {
   minProperties?: number;
   enum?: Array<string | boolean | number | {}>;
   type?: string;
-  items?: Schema|Schema[];
+  items?: Referenceable<Schema>|Array<Referenceable<Schema>>;
 }
 
 export interface Schema extends BaseSchema {
   $ref?: string;
-  allOf?: Schema[];
-  additionalProperties?: Schema;
-  properties?: {[propertyName: string]: Schema};
+  allOf?: Array<Referenceable<Schema>>;
+  additionalProperties?: Referenceable<Schema>;
+  properties?: {[propertyName: string]: Referenceable<Schema>};
   discriminator?: string;
   readOnly?: boolean;
   xml?: XML;
@@ -226,8 +224,8 @@ export interface Spec {
   schemes?: string[];
   consumes?: string[];
   produces?: string[];
-  paths: {[pathName: string]: Path};
-  definitions?: {[definitionsName: string]: Schema };
+  paths: {[pathName: string]: Referenceable<Path>};
+  definitions?: {[definitionsName: string]: Referenceable<Schema> };
   parameters?: {[parameterName: string]: BodyParameter|QueryParameter};
   responses?: {[responseName: string]: Response };
   security?: Array<{[securityDefinitionName: string]: string[]}>;

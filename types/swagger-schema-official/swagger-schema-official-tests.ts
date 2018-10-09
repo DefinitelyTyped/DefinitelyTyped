@@ -1342,6 +1342,11 @@ const reference_support: swagger.Spec = {
         "version": "1.0.0",
         "title": "Swagger Petstore"
     },
+    "definitions": {
+        "stringSchema": {
+            "type": "string"
+        }
+    },
     "parameters": {
         "operationParameter": {
             "in": "query",
@@ -1365,6 +1370,12 @@ const reference_support: swagger.Spec = {
                 "responses": {
                     "200": {
                         "$ref": "#/responses/sampleResponse"
+                    },
+                    "404": {
+                      "description": "A sample response with a Schema reference.",
+                      "schema": {
+                          "$ref": "stringSchema"
+                      }
                     }
                 }
             },
