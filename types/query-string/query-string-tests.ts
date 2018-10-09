@@ -24,7 +24,6 @@ import * as queryString from 'query-string';
 
 // parse
 {
-
     let fooBar = queryString.parse('?foo=bar');
     fooBar = {foo: "bar"};
 
@@ -41,5 +40,5 @@ import * as queryString from 'query-string';
     result1 = 'abc=def&hij=klm';
 
     let result2 = queryString.extract('http://foo.bar/?foo=bar');
-    result2 = 'foo=bar'
+    result2 = 'foo=bar';
 }
