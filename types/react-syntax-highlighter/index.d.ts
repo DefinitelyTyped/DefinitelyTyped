@@ -1,8 +1,21 @@
 // Type definitions for react-syntax-highlighter
 // Project: https://github.com/conorhastings/react-syntax-highlighter
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
+//                 Aimee Gamble-Milner <https://github.com/ajgamble-milner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+interface SyntaxHighlighterProps {
+    language?: string;
+    style?: any;
+    customStyle?: any;
+    codeTagProps?: HTMLElement;
+    useInlineStyles?: boolean;
+    showLineNumbers?: boolean;
+    startingLineNumber?: number;
+    lineNumberStyle?: any;
+    [spread: string]: any;
+}
 
 declare module 'react-syntax-highlighter' {
     import SyntaxHighlighter from 'react-syntax-highlighter/light';
@@ -11,24 +24,19 @@ declare module 'react-syntax-highlighter' {
 
 declare module 'react-syntax-highlighter/light' {
     import * as React from 'react';
-
     export function registerLanguage(name: string, func: any): void;
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
+}
 
-    interface SyntaxHighlighterProps {
-        language?: string;
-        style?: any;
-        customStyle?: any;
-        codeTagProps?: HTMLElement;
-        useInlineStyles?: boolean;
-        showLineNumbers?: boolean;
-        startingLineNumber?: number;
-        lineNumberStyle?: any;
-        [spread: string]: any;
-    }
+declare module 'react-syntax-highlighter/prism' {
+    import SyntaxHighlighter from 'react-syntax-highlighter/prism-light';
+    export default SyntaxHighlighter;
+}
 
-    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
-
-    }
+declare module 'react-syntax-highlighter/prism-light' {
+    import * as React from 'react';
+    export function registerLanguage(name: string, func: any): void;
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
 }
 
 declare module 'react-syntax-highlighter/styles/hljs' {
@@ -513,6 +521,7 @@ declare module 'react-syntax-highlighter/styles/hljs/zenburn' {
     const style: any;
     export default style;
 }
+
 declare module 'react-syntax-highlighter/styles/prism' {
     export { default as atomDark } from 'react-syntax-highlighter/styles/prism/atom-dark';
     export { default as base16AteliersulphurpoolLight } from 'react-syntax-highlighter/styles/prism/base16-ateliersulphurpool.light';
