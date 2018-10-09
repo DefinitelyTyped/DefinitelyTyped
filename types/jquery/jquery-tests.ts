@@ -284,21 +284,23 @@ function JQueryStatic() {
     }
 
     function data() {
+        const element: Element | Document | Window | JQuery.PlainObject = {} as any;
+
         const value: string | undefined = {} as any;
         // $ExpectError
-        $.data(new HTMLElement(), 'myKey', value);
+        $.data(element, 'myKey', value);
 
         // $ExpectType "myValue"
-        $.data(new HTMLElement(), 'myKey', 'myValue');
+        $.data(element, 'myKey', 'myValue');
 
         // $ExpectType any
-        $.data(new HTMLElement(), 'myKey', undefined);
+        $.data(element, 'myKey', undefined);
 
         // $ExpectType any
-        $.data(new HTMLElement(), 'myKey');
+        $.data(element, 'myKey');
 
         // $ExpectType any
-        $.data(new HTMLElement());
+        $.data(element);
     }
 
     function dequeue() {
@@ -611,8 +613,10 @@ function JQueryStatic() {
     }
 
     function hasData() {
+        const element: Element | Document | Window | JQuery.PlainObject = {} as any;
+
         // $ExpectType boolean
-        $.hasData(new HTMLElement());
+        $.hasData(element);
     }
 
     function holdReady() {
@@ -1731,11 +1735,13 @@ function JQueryStatic() {
     }
 
     function removeData() {
-        // $ExpectType void
-        $.removeData(new HTMLElement(), 'test1');
+        const element: Element | Document | Window | JQuery.PlainObject = {} as any;
 
         // $ExpectType void
-        $.removeData(new HTMLElement());
+        $.removeData(element, 'test1');
+
+        // $ExpectType void
+        $.removeData(element);
     }
 
     function speed() {

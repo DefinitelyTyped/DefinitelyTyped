@@ -475,7 +475,7 @@ $( "button" ).click( function() {
 </html>
 ```
      */
-    data<T extends string | number | boolean | symbol | object | null>(element: Element, key: string, value: T): T;
+    data<T extends string | number | boolean | symbol | object | null>(element: Element | Document | Window | JQuery.PlainObject, key: string, value: T): T;
     /**
      * Returns value at named data store for the element, as set by `jQuery.data(element, name, value)`, or
      * the full data store for the element.
@@ -490,7 +490,7 @@ $( "button" ).click( function() {
     // `unified-signatures` is disabled so that behavior when passing `undefined` to `value` can be documented. Unifying the signatures
     // results in potential confusion for users from an unexpected parameter.
     // tslint:disable-next-line:unified-signatures
-    data(element: Element, key: string, value: undefined): any;
+    data(element: Element | Document | Window | JQuery.PlainObject, key: string, value: undefined): any;
     /**
      * Returns value at named data store for the element, as set by `jQuery.data(element, name, value)`, or
      * the full data store for the element.
@@ -540,7 +540,7 @@ $( "span:last" ).text( jQuery.data( div, "test" ).last );
 </html>
 ```
      */
-    data(element: Element, key?: string): any;
+    data(element: Element | Document | Window | JQuery.PlainObject, key?: string): any;
     /**
      * Execute the next function on the queue for the matched element.
      *
@@ -1976,7 +1976,7 @@ $p.append( jQuery.hasData( p ) + " " ); // false
 </html>
 ```
      */
-    hasData(element: Element): boolean;
+    hasData(element: Element | Document | Window | JQuery.PlainObject): boolean;
     /**
      * Holds or releases the execution of jQuery's ready event.
      *
@@ -12944,7 +12944,7 @@ $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
 </html>
 ```
      */
-    removeData(element: Element, name?: string): void;
+    removeData(element: Element | Document | Window | JQuery.PlainObject, name?: string): void;
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      *
