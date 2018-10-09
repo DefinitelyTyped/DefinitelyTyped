@@ -166,6 +166,7 @@ export interface PlotlyHTMLElement extends HTMLElement {
 	on(event: 'plotly_afterexport' | 'plotly_afterplot' | 'plotly_animated' | 'plotly_animationinterrupted' | 'plotly_autosize' |
 		'plotly_beforeexport' | 'plotly_deselect' | 'plotly_doubleclick' | 'plotly_framework' | 'plotly_redraw' |
 		'plotly_transitioning' | 'plotly_transitioninterrupted', callback: () => void): void;
+	removeAllListeners: (handler: string) => void;
 }
 
 export interface ToImgopts {
@@ -350,6 +351,7 @@ export interface LayoutAxis extends Axis {
 	position: number;
 	rangeslider: Partial<RangeSlider>;
 	rangeselector: Partial<RangeSelector>;
+	automargin: boolean;
 }
 
 export interface SceneAxis extends Axis {
@@ -560,6 +562,54 @@ export interface Transform {
 	value: any;
 	order: 'ascending' | 'descending';
 }
+
+export interface ColorBar {
+	thicknessmode: 'fraction' | 'pixels';
+	thickness: number;
+	lenmode: 'fraction' | 'pixels';
+	len: number;
+	x: number;
+	xanchor: 'left' | 'center' | 'right';
+	xpad: number;
+	y: number;
+	yanchor: 'top' | 'middle' | 'bottom';
+	ypad: number;
+	outlinecolor: Color;
+	outlinewidth: number;
+	bordercolor: Color;
+	borderwidth: Color;
+	bgcolor: Color;
+	tickmode: 'auto' | 'linear' | 'array';
+	nticks: number;
+	tick0: number | string;
+	dtick: number | string;
+	tickvals: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+	ticktext: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+	ticks: 'outside' | 'inside' | '';
+	ticklen: number;
+	tickwidth: number;
+	tickcolor: Color;
+	showticklabels: boolean;
+	tickfont: Font;
+	tickangle: number;
+	tickformat: string;
+	tickformatstops: {
+		dtickrange: any[];
+		value: string;
+	};
+	tickprefix: string;
+	showtickprefix: 'all' | 'first' | 'last' | 'none';
+	ticksuffix: string;
+	showticksuffix: 'all' | 'first' | 'last' | 'none';
+	separatethousands: boolean;
+	exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B';
+	showexponent: 'all' | 'first' | 'last' | 'none';
+	title: string;
+	titlefont: Font;
+	titleside: 'right' | 'top' | 'bottom';
+	tickvalssrc: any;
+	ticktextsrc: any;
+}
 /**
  * Any combination of "x", "y", "z", "text", "name" joined with a "+" OR "all" or "none" or "skip".
  * examples: "x", "y", "x+y", "x+y+z", "all"
@@ -584,53 +634,7 @@ export interface PlotMarker {
 	showscale: boolean;
 	line: Partial<ScatterMarkerLine>;
 	width: number;
-	colorbar: {
-		thicknessmode: 'fraction' | 'pixels',
-		thickness: number,
-		lenmode: 'fraction' | 'pixels',
-		len: number,
-		x: number,
-		xanchor: 'left' | 'center' | 'right',
-		xpad: number,
-		y: number,
-		yanchor: 'top' | 'middle' | 'bottom',
-		ypad: number,
-		outlinecolor: Color,
-		outlinewidth: number,
-		bordercolor: Color,
-		borderwidth: Color,
-		bgcolor: Color,
-		tickmode: 'auto' | 'linear' | 'array',
-		nticks: number,
-		tick0: number | string,
-		dtick: number | string,
-		tickvals: Datum[] | Datum[][] | Datum[][][] | TypedArray,
-		ticktext: Datum[] | Datum[][] | Datum[][][] | TypedArray,
-		ticks: 'outside' | 'inside' | '',
-		ticklen: number,
-		tickwidth: number,
-		tickcolor: Color,
-		showticklabels: boolean,
-		tickfont: Font,
-		tickangle: number,
-		tickformat: string,
-		tickformatstops: {
-			dtickrange: any[],
-			value: string,
-		},
-		tickprefix: string,
-		showtickprefix: 'all' | 'first' | 'last' | 'none',
-		ticksuffix: string,
-		showticksuffix: 'all' | 'first' | 'last' | 'none',
-		separatethousands: boolean,
-		exponentformat: 'none' | 'e' | 'E' | 'power' | 'SI' | 'B',
-		showexponent: 'all' | 'first' | 'last' | 'none',
-		title: string,
-		titlefont: Font,
-		titleside: 'right' | 'top' | 'bottom',
-		tickvalssrc: any,
-		ticktextsrc: any,
-	};
+	colorbar: Partial<ColorBar>;
 	gradient: {
 		type: 'radial' | 'horizontal' | 'vertical' | 'none',
 		color: Color,
