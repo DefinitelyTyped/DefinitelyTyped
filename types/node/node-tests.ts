@@ -3100,7 +3100,7 @@ import * as p from "process";
         const b: boolean = process.hasUncaughtExceptionCaptureCallback();
     }
     {
-        process.allowedNodeEnvironmentFlags.has('asdf');
+        // process.allowedNodeEnvironmentFlags.has('asdf');
     }
 }
 
