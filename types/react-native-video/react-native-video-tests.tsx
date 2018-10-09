@@ -54,8 +54,9 @@ class VideoTest extends React.Component {
     onProgress = (data: {
         currentTime: number,
         playableDuration: number,
+        seekableDuration: number
     }): void => {
-        console.log(data.currentTime, data.playableDuration);
+        console.log(data.currentTime, data.playableDuration, data.seekableDuration);
     }
 }
 
