@@ -3,6 +3,7 @@
 // Definitions by: Ozytis <https://ozytis.fr>,
 //                 Salim <https://github.com/salim7>,
 //                 Jemmyw <https://github.com/jemmyw>
+//                 Mikael Lirbank <https://github.com/lirbank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -439,6 +440,7 @@ export class ListHeader extends Component<{
 }, any> {}
 
 export class ListItem extends Component<{
+    id?: string,
     modifier?: string,
     tappable?: boolean,
     tapBackgroundColor?: string,
