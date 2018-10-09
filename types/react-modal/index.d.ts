@@ -5,7 +5,8 @@
 //                 Thomas B Homburg <https://github.com/homburg>,
 //                 Tatu Tamminen <https://github.com/ttamminen>,
 //                 Uwe Wiemer <https://github.com/hallowatcher>,
-//                 Peter Blazejewicz <https://github.com/peterblazejewicz>
+//                 Peter Blazejewicz <https://github.com/peterblazejewicz>,
+//                 Justin Powell <https://github.com/jpowell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
