@@ -2953,8 +2953,7 @@ $.post( "test.php" );
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
-     * @since 1.4`
-     * @since 1.6
+     * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
      */
     proxy<TReturn,
