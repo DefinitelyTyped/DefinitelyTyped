@@ -317,6 +317,7 @@ declare namespace jest {
     }
 
     interface MatcherUtils {
+        readonly expand: boolean;
         readonly isNot: boolean;
         utils: {
             readonly EXPECTED_COLOR: (text: string) => string;

@@ -866,7 +866,7 @@ export type UpdateQuery<T> = {
     $setOnInsert?: Partial<T> | { [key: string]: any };
     $unset?: { [P in keyof T]?: '' } | { [key: string]: '' };
     $rename?: { [key: string]: keyof T } | { [key: string]: string };
-    $currentDate?: { [P in keyof T]?: (true | { $type: 'timestamp' }) } | { [key: string]: (true | { $type: 'timestamp' }) };
+    $currentDate?: { [P in keyof T]?: (true | { $type: 'date' | 'timestamp' }) } | { [key: string]: (true | { $type: 'date' | 'timestamp' }) };
     $addToSet?: Partial<T> | { [key: string]: any };
     $pop?: { [P in keyof T]?: -1 | 1 } | { [key: string]: -1 | 1 };
     $pull?: Partial<T> | { [key: string]: Condition<T, keyof T> };

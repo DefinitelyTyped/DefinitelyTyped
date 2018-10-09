@@ -444,6 +444,7 @@ expect.extend({
 expect.extend({
     foo(this: jest.MatcherUtils) {
         const isNot: boolean = this.isNot;
+        const expand: boolean = this.expand;
 
         const expectedColor = this.utils.EXPECTED_COLOR("blue");
         const receivedColor = this.utils.EXPECTED_COLOR("red");

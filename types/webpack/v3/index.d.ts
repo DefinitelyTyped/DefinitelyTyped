@@ -10,6 +10,7 @@
 //                 Spencer Elliott <https://github.com/elliottsj>
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
+//                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -338,7 +339,7 @@ declare namespace webpack {
     type ExternalsElement = string | RegExp | ExternalsObjectElement | ExternalsFunctionElement;
 
     interface ExternalsObjectElement {
-        [key: string]: boolean | string;
+        [key: string]: boolean | string | string[] | Record<string, string | string[]>;
     }
 
     type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
