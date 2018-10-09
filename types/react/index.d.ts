@@ -341,7 +341,7 @@ declare namespace React {
     type SFC<P = {}> = StatelessComponent<P>;
     interface StatelessComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
-        propTypes?: Partial<ValidationMap<P>>;
+        propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
@@ -349,7 +349,7 @@ declare namespace React {
 
     interface RefForwardingComponent<T, P = {}> {
         (props: P & { children?: ReactNode }, ref?: Ref<T>): ReactElement<any> | null;
-        propTypes?: Partial<ValidationMap<P>>;
+        propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
         displayName?: string;
@@ -357,7 +357,7 @@ declare namespace React {
 
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
-        propTypes?: Partial<ValidationMap<P>>;
+        propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -542,7 +542,7 @@ declare namespace React {
         };
 
         displayName?: string;
-        propTypes?: Partial<ValidationMap<any>>;
+        propTypes?: ValidationMap<any>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
 
@@ -2309,9 +2309,9 @@ declare global {
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
-        type LibraryManagedAttributes<C, P> = C extends { propTypes: Partial<infer T>; defaultProps: infer D; }
+        type LibraryManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D; }
             ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
-            : C extends { propTypes: Partial<infer T>; }
+            : C extends { propTypes: infer T; }
                 ? MergePropTypes<P, PropTypes.InferProps<T>>
                 : C extends { defaultProps: infer D; }
                     ? Defaultize<P, D>

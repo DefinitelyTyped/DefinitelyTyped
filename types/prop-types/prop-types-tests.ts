@@ -47,6 +47,7 @@ const arrayOfTypes = [PropTypes.string, PropTypes.bool, PropTypes.shape({
     bar: PropTypes.number.isRequired
 })];
 type PropTypesMap = PropTypes.ValidationMap<Props>;
+type ShapeTypesMap = PropTypes.ShapeValidationMap<Props>;
 
 // TS checking
 const propTypes: PropTypesMap = {
@@ -69,6 +70,31 @@ const propTypes: PropTypesMap = {
     // Which widens the array literal of validators to just Array<Requireable<() => any>>
     // It's too risky to change ReactNode to exclude {} even though it's invalid, as it's required for children-as-function props to work
     // So we assert the explicit tuple type
+    nodeOrRenderFn: PropTypes.oneOfType([PropTypes.node, PropTypes.func] as [PropTypes.Requireable<ReactNode>, PropTypes.Requireable<() => any>]),
+    arrayOf: PropTypes.arrayOf(PropTypes.bool.isRequired).isRequired,
+    objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
+    shape: PropTypes.shape(innerProps).isRequired,
+    optionalNumber: PropTypes.number,
+    customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
+};
+
+const propTypesWithShapeAnnotation: ShapeTypesMap = {
+    any: PropTypes.any,
+    array: PropTypes.array.isRequired,
+    bool: PropTypes.bool.isRequired,
+    element: PropTypes.element.isRequired,
+    func: PropTypes.func.isRequired,
+    node: PropTypes.node,
+    requiredNode: PropTypes.node.isRequired,
+    number: PropTypes.number.isRequired,
+    object: PropTypes.object.isRequired,
+    string: PropTypes.string.isRequired,
+    symbol: PropTypes.symbol.isRequired,
+    instanceOf: PropTypes.instanceOf(TestClass).isRequired,
+    // required generic specification because of array type widening
+    oneOf: PropTypes.oneOf<'a' | 'b' | 'c'>(['a', 'b', 'c']).isRequired,
+    oneOfType: PropTypes.oneOfType(arrayOfTypes).isRequired,
+    numberOrFalse: PropTypes.oneOfType([PropTypes.oneOf<false>([false]), PropTypes.number]).isRequired,
     nodeOrRenderFn: PropTypes.oneOfType([PropTypes.node, PropTypes.func] as [PropTypes.Requireable<ReactNode>, PropTypes.Requireable<() => any>]),
     arrayOf: PropTypes.arrayOf(PropTypes.bool.isRequired).isRequired,
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
@@ -111,7 +137,7 @@ const partialPropTypes = {
 };
 
 const outerPropTypes = {
-    props: PropTypes.shape(propTypes).isRequired
+    props: PropTypes.shape(propTypesWithShapeAnnotation).isRequired
 };
 
 const outerPropTypesWithoutAnnotation = {
