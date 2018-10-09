@@ -140,7 +140,7 @@ export class FluxibleContext {
     /**
      * Getter for store from dispatcher
      */
-    getStore<T extends BaseStore>(store: { new(dispatcher?: DispatcherInterface): T; }): T;
+    getStore<T extends BaseStore>(store: { new(dispatcher: DispatcherInterface): T; }): T;
 }
 
 export class ActionContext {
@@ -162,7 +162,7 @@ export class ActionContext {
     /**
      * Getter for store from dispatcher
      */
-    getStore<T extends BaseStore>(store: { new(dispatcher?: DispatcherInterface): T; }): T;
+    getStore<T extends BaseStore>(store: { new(dispatcher: DispatcherInterface): T; }): T;
 
     /**
      * Data service. available only if fetch plugin is added
@@ -213,7 +213,7 @@ export class ComponentContext {
     /**
      * Getter for store from dispatcher
      */
-    getStore<T extends BaseStore>(store: { new(dispatcher?: DispatcherInterface): T; }): T;
+    getStore<T extends BaseStore>(store: { new(dispatcher: DispatcherInterface): T; }): T;
 }
 
 export class StoreContext {
