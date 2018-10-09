@@ -1,4 +1,4 @@
-// Type definitions for react-modal 3.2
+// Type definitions for react-modal 3.6
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Drew Noakes <https://github.com/drewnoakes>,
@@ -48,6 +48,9 @@ declare namespace ReactModal {
         /* String className to be applied to the document.body. */
         bodyOpenClassName?: string;
 
+        /* String className to be applied to the document.html. */
+        htmlOpenClassName?: string;
+
         /* String or object className to be applied to the modal content. */
         className?: string | Classes;
 
@@ -86,6 +89,9 @@ declare namespace ReactModal {
 
         /* Additional aria attributes. */
         aria?: Aria;
+        
+        /* Additional data attributes to be applied to to the modal content in the form of "data-*" */
+        data?: any;
 
         /* String indicating the role of the modal, allowing the 'dialog' role to be applied if desired. */
         role?: string;
