@@ -1,6 +1,6 @@
-// Type definitions for detox 7.3
+// Type definitions for detox 9.0
 // Project: https://github.com/wix/detox
-// Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>
+// Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>, Steve Chun <https://github.com/stevechun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const detox: Detox.Detox;
