@@ -12,7 +12,7 @@
 import { EventEmitter } from 'events';
 import * as self from '@feathersjs/feathers';
 
-declare const feathers: (() => Application<any>) & typeof self;
+declare const feathers: (() => Application) & typeof self;
 export default feathers;
 
 export const version: string;
