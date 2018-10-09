@@ -168,26 +168,6 @@ declare namespace Detox {
         (by: Matchers): Matchers;
 
         /**
-         * Match with parent matcher
-         * @param parentBy
-         * @example await element(by.id('Grandson883').withAncestor(by.id('Son883')));
-         */
-        withAncestor(parentBy: Matchers): Matchers;
-        /**
-         * Match with child matcher
-         * @param childBy
-         * @example await element(by.id('Son883').withDescendant(by.id('Grandson883')));
-         */
-        withDescendant(childBy: Matchers): Matchers;
-        /**
-         * Match with another matcher
-         * @param by
-         * @example await element(by.text('Product').and(by.id('product_name'));
-         */
-        and(by: Matchers): Matchers;
-    }
-    interface Matchers {
-        /**
          * by.id will match an id that is given to the view via testID prop.
          * @param id
          * @example // In a React Native component add testID like so:
@@ -219,6 +199,24 @@ declare namespace Detox {
          * @example await element(by.traits(['button']));
          */
         traits(traits: string[]): Matchers;
+        /**
+         * Match with parent matcher
+         * @param parentBy
+         * @example await element(by.id('Grandson883').withAncestor(by.id('Son883')));
+         */
+        withAncestor(parentBy: Matchers): Matchers;
+        /**
+         * Match with child matcher
+         * @param childBy
+         * @example await element(by.id('Son883').withDescendant(by.id('Grandson883')));
+         */
+        withDescendant(childBy: Matchers): Matchers;
+        /**
+         * Match with another matcher
+         * @param by
+         * @example await element(by.text('Product').and(by.id('product_name'));
+         */
+        and(by: Matchers): Matchers;
     }
     interface Expect<R> {
         (element: Element): Expect<any>;
