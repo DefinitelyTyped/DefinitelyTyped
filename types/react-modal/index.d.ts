@@ -90,7 +90,7 @@ declare namespace ReactModal {
 
         /* Additional aria attributes. */
         aria?: Aria;
-        
+
         /* Additional data attributes to be applied to to the modal content in the form of "data-*" */
         data?: any;
 
