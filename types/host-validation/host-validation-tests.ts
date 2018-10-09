@@ -19,7 +19,7 @@
 // SOFTWARE.
 
 import * as express from 'express';
-import hostValidation = require('host-validation');
+import * as hostValidation from 'host-validation';
 
 const app = express();
 
