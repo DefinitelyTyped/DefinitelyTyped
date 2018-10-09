@@ -39,8 +39,19 @@ export interface PlotScatterDataPoint {
 	yaxis: LayoutAxis;
 }
 
+export interface PlotDatum {
+	curveNumber: number;
+	data: PlotData;
+	pointIndex: number;
+	pointNumber: number;
+	x: Datum;
+	xaxis: LayoutAxis;
+	y: Datum;
+	yaxis: LayoutAxis;
+}
+
 export interface PlotMouseEvent {
-	points: PlotScatterDataPoint[];
+	points: PlotDatum[];
 	event: MouseEvent;
 }
 
@@ -55,10 +66,10 @@ export interface SelectionRange {
 	y: number[];
 }
 
-export type PlotSelectedData = Partial<PlotScatterDataPoint>;
+export type PlotSelectedData = Partial<PlotDatum>;
 
 export interface PlotSelectionEvent {
-	points: PlotScatterDataPoint[];
+	points: PlotDatum[];
 	range?: SelectionRange;
 	lassoPoints?: SelectionRange;
 }
