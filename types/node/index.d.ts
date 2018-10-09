@@ -154,13 +154,16 @@ interface ErrorConstructor {
     stackTraceLimit: number;
 }
 
-// compat for TypeScript 1.8
+// compat for TypeScript 1.8 and default es5 target
 // if you use with --target es3 or --target es5 and use below definitions,
 // use the lib.es6.d.ts that is bundled with TypeScript 1.8.
 interface MapConstructor { }
 interface WeakMapConstructor { }
 interface SetConstructor { }
 interface WeakSetConstructor { }
+
+interface Set<T> {}
+interface ReadonlySet<T> {}
 
 // Forward-declare needed types from lib.es2015.d.ts (in case users are using `--lib es5`)
 interface Iterable<T> { }
@@ -811,8 +814,7 @@ declare namespace NodeJS {
          * read-only `Set` of flags allowable within the [`NODE_OPTIONS`][]
          * environment variable.
          */
-        // TODO: This Set is readonly
-        allowedNodeEnvironmentFlags: Set<string>;
+        allowedNodeEnvironmentFlags: ReadonlySet<string>;
 
         /**
          * EventEmitter
