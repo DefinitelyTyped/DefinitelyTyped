@@ -1,16 +1,16 @@
 interface LeaveMeAloneDtslint { foo: string; }
-// // Re-enable when we move @types/react to TS 3.0
+// Re-enable when we move @types/react to TS 3.0
 
 // import * as React from 'react';
 // import * as PropTypes from 'prop-types';
 
 // interface Props {
-//     bool?: boolean
-//     fnc: () => any
-//     node?: React.ReactNode
-//     num?: number
-//     reqNode: NonNullable<React.ReactNode>
-//     str: string
+//     bool?: boolean;
+//     fnc: () => any;
+//     node?: React.ReactNode;
+//     num?: number;
+//     reqNode: NonNullable<React.ReactNode>;
+//     str: string;
 // }
 
 // const propTypes = {
@@ -24,7 +24,7 @@ interface LeaveMeAloneDtslint { foo: string; }
 // };
 
 // const defaultProps = {
-//     fnc: function() { return 'abc' } as () => any,
+//     fnc: (() => 'abc') as () => any,
 //     extraBool: false,
 //     reqNode: 'text_node' as React.ReactNode
 // };
@@ -60,7 +60,7 @@ interface LeaveMeAloneDtslint { foo: string; }
 
 // const unannotatedPropTypesAndDefaultPropsTests = [
 //     // $ExpectError
-//     <UnannotatedPropTypesAndDefaultProps />, // stra and extraStr are required
+//     <UnannotatedPropTypesAndDefaultProps />, // stra and extraStr are required // <-- ERROR
 //     <UnannotatedPropTypesAndDefaultProps extraStr='abc' str='abc' />,
 //     // $ExpectError
 //     <UnannotatedPropTypesAndDefaultProps extraBool={0} />, // extraBool type mismatch
@@ -107,7 +107,7 @@ interface LeaveMeAloneDtslint { foo: string; }
 
 // const unannotatedPropTypesTests = [
 //     // $ExpectError
-//     <UnannotatedPropTypes />, // str, extraStr and fnc are required
+//     <UnannotatedPropTypes />, // str, extraStr and fnc are required // <-- ERROR
 //     <UnannotatedPropTypes fnc={console.log} extraStr='abc' str='abc' />,
 //     // $ExpectError
 //     <UnannotatedPropTypes fnc={console.log} extraStr='abc' str='abc' reqNode={<span />} />, // reqNode doesn't exist
