@@ -903,3 +903,12 @@ export namespace xdr {
     class SignatureHint { }
     class Signature { }
 }
+
+export namespace StellarTomlResolver {
+    interface StellarTomlResolveOptions {
+        allowHttp?: boolean;
+        timeout?: number;
+    }
+
+    function resolve(domain: string, options?: StellarTomlResolveOptions): Promise<{ [key: string]: any }>;
+}
