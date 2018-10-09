@@ -7,6 +7,7 @@
 //                 Kalley Powell <https://github.com/kalley>
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Irwan Fario Subastian <https://github.com/isubasti>
+//                 Rene Klacan <https://github.com/reneklacan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 import * as Immutable from "immutable";
@@ -768,7 +769,7 @@ export class Change extends Immutable.Record({}) {
 
     moveToRangeOfDocument(): Change;
     moveToRangeOfNode(node: Node): Change;
-    select(properties: Range | RangeProperties, options: ChangeOption): Change;
+    select(properties: Range | RangeProperties): Change;
     setAnchor(point: Point): Change;
     setEnd(point: Point): Change;
     setFocus(point: Point): Change;

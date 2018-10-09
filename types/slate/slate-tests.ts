@@ -2,6 +2,7 @@ import { Value, Data, BlockJSON, Document } from "slate";
 
 const data = Data.create({ foo: "bar " });
 const value = Value.create({ data });
+const selection = value.selection;
 const change = value
 	.change()
 	.focus()
@@ -22,7 +23,8 @@ const change = value
 			className: "img-responsive"
 		}
 	})
-	.insertBlock("paragraph");
+	.insertBlock("paragraph")
+  .select(selection);
 
 const node: BlockJSON = {
 	object: "block",
