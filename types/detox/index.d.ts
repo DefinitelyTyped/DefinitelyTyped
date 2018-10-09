@@ -179,10 +179,6 @@ declare namespace Detox {
          * @example await element(by.id('Son883').withDescendant(by.id('Grandson883')));
          */
         withDescendant(childBy: Matchers): Matchers;
-    }
-    interface Matchers {
-        (by: any): Matchers;
-
         /**
          * Match with another matcher
          * @param by
@@ -289,53 +285,52 @@ declare namespace Detox {
         withTimeout(millis: number): Promise<void>;
         /**
          * Performs the action repeatedly on the element until an expectation is met
-         * @param element
+         * @param by
          * @example await waitFor(element(by.text('Text5'))).toBeVisible().whileElement(by.id('ScrollView630')).scroll(50, 'down');
          */
-        whileElement(by: Matchers): Element;
+        whileElement(by: Matchers): DetoxAny;
     }
     interface Actions<R> {
-        (element: Element): Promise<Actions<any>>;
         /**
          * Simulate tap on an element
          * @example await element(by.id('tappable')).tap();
          */
-        tap(): R;
+        tap(): Promise<Actions<R>>;
         /**
          * Simulate long press on an element
          * @example await element(by.id('tappable')).longPress();
          */
-        longPress(): R;
+        longPress(): Promise<Actions<R>>;
         /**
          * Simulate multiple taps on an element.
          * @param times number
          * @example await element(by.id('tappable')).multiTap(3);
          */
-        multiTap(times: number): R;
+        multiTap(times: number): Promise<Actions<R>>;
         /**
          * Simulate tap at a specific point on an element.
          * Note: The point coordinates are relative to the matched element and the element size could changes on different devices or even when changing the device font size.
          * @param point
          * @example await element(by.id('tappable')).tapAtPoint({ x:5, y:10 });
          */
-        tapAtPoint(point: { x: number, y: number }): R;
+        tapAtPoint(point: { x: number, y: number }): Promise<Actions<R>>;
         /**
          * Use the builtin keyboard to type text into a text field.
          * @param text
          * @example await element(by.id('textField')).typeText('passcode');
          */
-        typeText(text: string): R;
+        typeText(text: string): Promise<Actions<R>>;
         /**
          * Paste text into a text field.
          * @param text
          * @example await element(by.id('textField')).replaceText('passcode again');
          */
-        replaceText(text: string): R;
+        replaceText(text: string): Promise<Actions<R>>;
         /**
          * Clear text from a text field.
          * @example await element(by.id('textField')).clearText();
          */
-        clearText(): R;
+        clearText(): Promise<Actions<R>>;
         /**
          *
          * @param pixels
@@ -344,14 +339,14 @@ declare namespace Detox {
          * await element(by.id('scrollView')).scroll(100, 'down');
          * await element(by.id('scrollView')).scroll(100, 'up');
          */
-        scroll(pixels: number, direction: Direction): R;
+        scroll(pixels: number, direction: Direction): Promise<Actions<R>>;
         /**
          * Scroll to edge.
          * @param edge
          * @example await element(by.id('scrollView')).scrollTo('bottom');
          * await element(by.id('scrollView')).scrollTo('top');
          */
-        scrollTo(edge: Direction): R;
+        scrollTo(edge: Direction): Promise<Actions<R>>;
         /**
          *
          * @param direction
@@ -361,7 +356,7 @@ declare namespace Detox {
          * await element(by.id('scrollView')).swipe('down', 'fast');
          * await element(by.id('scrollView')).swipe('down', 'fast', 0.5);
          */
-        swipe(direction: Direction, speed?: Speed, percentage?: number): R;
+        swipe(direction: Direction, speed?: Speed, percentage?: number): Promise<Actions<R>>;
         /**
          * (iOS Only) column - number of datepicker column (starts from 0) value - string value in setted column (must be correct)
          * @param column
@@ -370,7 +365,7 @@ declare namespace Detox {
          * await element(by.type('UIPickerView')).setColumnToValue(1,"6");
          * await element(by.type('UIPickerView')).setColumnToValue(2,"34");
          */
-        setColumnToValue(column: number, value: string): R;
+        setColumnToValue(column: number, value: string): Promise<Actions<R>>;
     }
 
     type Direction = "left" | "right" | "top" | "bottom" | "up" | "down";
