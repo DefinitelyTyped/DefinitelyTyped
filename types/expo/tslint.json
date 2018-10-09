@@ -2,8 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "void-return": false,
-        "max-line-length": false,
-        "file-name-casing": false,
-        "eofline": false
+        "max-line-length": false
     }
 }
