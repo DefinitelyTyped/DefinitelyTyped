@@ -1254,7 +1254,7 @@ export function withNavigation<T extends React.ComponentType<NavigationInjectedP
 
 // For backwards compatibility
 export function withNavigation<T = {}, P = NavigationParams>(
-  Component: React.ComponentType<T & NavigationInjectedProps<P>>,
+  Component: React.ComponentType<T | (T & NavigationInjectedProps<P>)>,
 ): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationInjectedProps<P>>> }>;
 
 export interface NavigationFocusInjectedProps<P = NavigationParams> extends NavigationInjectedProps<P> {

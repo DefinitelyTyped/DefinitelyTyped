@@ -53,6 +53,7 @@ import {
     ScrollView,
     ScrollViewProps,
     SectionListRenderItemInfo,
+    Switch,
     RefreshControl,
     TabBarIOS,
     NativeModules,
@@ -668,6 +669,7 @@ class WebViewTest extends React.Component {
                 originWhitelist={['https://origin.test']}
                 saveFormDataDisabled={false}
                 useWebKit={true}
+                allowFileAccess={true}
             />
         );
     }
@@ -806,3 +808,12 @@ const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent", 
         nativeProp: true,
     }
 });
+
+
+const SwitchColorTest = () => (
+    <Switch trackColor={{ true: 'pink', false: 'red'}} />
+)
+
+const SwitchThumbColorTest = () => (
+    <Switch thumbColor={'red'} />
+)

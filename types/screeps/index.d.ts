@@ -1,11 +1,11 @@
-// Type definitions for Screeps 2.4
+// Type definitions for Screeps 2.5
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
 //                 Bryan <https://github.com/bryanbecker>
 //                 Resi Respati <https://github.com/resir014>
 //                 Adam Laycock <https://github.com/Arcath>
-//                 Dominic Marcuse <https://github.com/apemanzilla>
+//                 Dominic Marcuse <https://github.com/dmarcuse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -258,11 +258,18 @@ declare const CONTROLLER_LEVELS: {[level: number]: number};
 declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, {[level: number]: number}>;
 
 declare const CONTROLLER_DOWNGRADE: {[level: number]: number};
+declare const CONTROLLER_DOWNGRADE_RESTORE: number;
+declare const CONTROLLER_DOWNGRADE_SAFEMODE_THRESHOLD: number;
 declare const CONTROLLER_CLAIM_DOWNGRADE: number;
 declare const CONTROLLER_RESERVE: number;
 declare const CONTROLLER_RESERVE_MAX: number;
 declare const CONTROLLER_MAX_UPGRADE_PER_TICK: number;
 declare const CONTROLLER_ATTACK_BLOCKED_UPGRADE: number;
+declare const CONTROLLER_NUKE_BLOCKED_UPGRADE: number;
+
+declare const SAFE_MODE_DURATION: 20000;
+declare const SAFE_MODE_COOLDOWN: 50000;
+declare const SAFE_MODE_COST: 1000;
 
 declare const TOWER_HITS: number;
 declare const TOWER_CAPACITY: number;
@@ -639,6 +646,12 @@ declare const INVADERS_ENERGY_GOAL: number;
 declare const SYSTEM_USERNAME: string;
 
 declare const TOMBSTONE_DECAY_PER_PART: 5;
+
+declare const EVENT_ATTACK: 1;
+declare const EVENT_HEAL: 6;
+declare const EVENT_HARVEST: 5;
+declare const EVENT_REPAIR: 7;
+declare const EVENT_UPGRADE_CONTROLLER: 9;
 /**
  * A site of a structure which is currently under construction.
  */
@@ -1599,9 +1612,11 @@ type FIND_MINERALS = 116;
 type FIND_NUKES = 117;
 type FIND_TOMBSTONES = 118;
 
-type FilterOptions<T extends FindConstant> = string | FilterFunction<T> | { filter: FilterFunction<T> };
+// Filter Options
 
+interface FilterOptions<T extends FindConstant> { filter: FilterFunction<T> | FilterObject | string; }
 type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
+interface FilterObject { [key: string]: any; }
 
 // Body Part Constants
 
@@ -1899,6 +1914,65 @@ type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
 type SUBSCRIPTION_TOKEN = "token";
 
 type TOMBSTONE_DECAY_PER_PART = 5;
+
+type EventConstant =
+  EVENT_ATTACK |
+  EVENT_HEAL |
+  EVENT_HARVEST |
+  EVENT_REPAIR |
+  EVENT_UPGRADE_CONTROLLER;
+
+type EVENT_ATTACK = 1;
+type EVENT_HEAL = 6;
+type EVENT_HARVEST = 5;
+type EVENT_REPAIR = 7;
+type EVENT_UPGRADE_CONTROLLER = 9;
+
+type EventAttackType =
+  "attack" |
+  "rangedAttack" |
+  "rangedMassAttack" |
+  "dismantle" |
+  "nuke";
+
+type EventItem = {
+  type: EVENT_ATTACK;
+  objectId: string;
+  data: {
+    targetId: string;
+    attackType: EventAttackType;
+  }
+} | {
+  type: EVENT_HEAL;
+  objectId: string;
+  data: {
+    targetId: string;
+    healed: number;
+  }
+} | {
+  type: EVENT_HARVEST;
+  objectId: string;
+  data: {
+    targetId: string;
+    harvested: number;
+  }
+} | {
+  type: EVENT_REPAIR;
+  objectId: string;
+  data: {
+    targetId: string;
+    repaired: number;
+    energySpent: number;
+  }
+} | {
+  type: EVENT_UPGRADE_CONTROLLER;
+  objectId: string;
+  data: {
+    targetId: string;
+    upgraded: number;
+    energySpent: number;
+  }
+};
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -1959,7 +2033,11 @@ interface GameMap {
      * @param pos The position object.
      */
     getTerrainAt(pos: RoomPosition): Terrain;
-
+    /**
+     * Get room terrain for the specified room. This method works for any room in the world even if you have no access to it.
+     * @param roomName String name of the room.
+     */
+    getRoomTerrain(roomName: string): RoomTerrain;
     /**
      * Returns the world size as a number of rooms between world corners. For example, for a world with rooms from W50N50 to E50S50 this method will return 102.
      */
@@ -2504,10 +2582,10 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
-    findClosestByPath<K extends FindConstant>(type: K, opts?: FindPathOpts & { filter?: FilterFunction<K>, algorithm?: string }): FindTypes[K] | null;
+    findClosestByPath<K extends FindConstant>(type: K, opts?: FindPathOpts & FilterOptions<K> & { algorithm?: string }): FindTypes[K] | null;
     findClosestByPath<T extends Structure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FindPathOpts & { filter?: FilterFunction<FIND_STRUCTURES>, algorithm?: string}
+        opts?: FindPathOpts & FilterOptions<FIND_STRUCTURES> & { algorithm?: string }
     ): T | null;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
@@ -2521,8 +2599,11 @@ interface RoomPosition {
      * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<K extends FindConstant>(type: K, opts?: {filter: FilterFunction<K>}): FindTypes[K] | null;
-    findClosestByRange<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, opts?: {filter: FilterFunction<FIND_STRUCTURES>}): T | null;
+    findClosestByRange<K extends FindConstant>(type: K, opts?: FilterOptions<K>): FindTypes[K] | null;
+    findClosestByRange<T extends Structure>(
+        type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
+        opts?: FilterOptions<FIND_STRUCTURES>
+    ): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param objects An array of RoomPositions or objects with a RoomPosition.
@@ -2535,8 +2616,12 @@ interface RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<K extends FindConstant>(type: K, range: number, opts?: {filter: any| string}): Array<FindTypes[K]>;
-    findInRange<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, range: number, opts?: {filter: FilterFunction<FIND_STRUCTURES>}): T[];
+    findInRange<K extends FindConstant>(type: K, range: number, opts?: FilterOptions<K>): Array<FindTypes[K]>;
+    findInRange<T extends Structure>(
+        type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
+        range: number,
+        opts?: FilterOptions<FIND_STRUCTURES>
+    ): T[];
     /**
      * Find all objects in the specified linear range.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
@@ -2641,6 +2726,18 @@ interface RoomPositionConstructor extends _Constructor<RoomPosition> {
 }
 
 declare const RoomPosition: RoomPositionConstructor;
+/**
+ * Result of Object that contains all terrain for a room
+ */
+interface RoomTerrain {
+    /**
+     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     * @return number Number of terrain mask like: TERRAIN_MASK_SWAMP | TERRAIN_MASK_WALL
+     */
+    get(x: number, y: number): number;
+}
 declare class RoomVisual {
     /**
      * You can create new RoomVisual object using its constructor.
@@ -2858,6 +2955,8 @@ interface Room {
      * Total amount of energyCapacity of all spawns and extensions in the room.
      */
     energyCapacityAvailable: number;
+
+    eventLog: EventItem[];
     /**
      * A shorthand to `Memory.rooms[room.name]`. You can use it for quick access the room’s specific memory data object.
      */
@@ -2905,7 +3004,12 @@ interface Room {
      * @param name The name of the structure, for structures that support it (currently only spawns).
      * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
      */
-    createConstructionSite(x: number, y: number, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    createConstructionSite(
+        x: number,
+        y: number,
+        structureType: STRUCTURE_SPAWN,
+        name?: string
+    ): ScreepsReturnCode;
     /**
      * Create new ConstructionSite at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -3053,12 +3157,12 @@ interface Room {
      * @returns An object with the sstructure object[X coord][y coord] as an array of found objects.
      */
     lookForAtArea<T extends keyof AllLookAtTypes>(
-      type: T,
-      top: number,
-      left: number,
-      bottom: number,
-      right: number,
-      asArray?: false
+        type: T,
+        top: number,
+        left: number,
+        bottom: number,
+        right: number,
+        asArray?: false
     ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
     /**
      * Get the given objets in the supplied area.
@@ -3071,12 +3175,12 @@ interface Room {
      * @returns An array of found objects with an x & y property for their position
      */
     lookForAtArea<T extends keyof AllLookAtTypes>(
-      type: T,
-      top: number,
-      left: number,
-      bottom: number,
-      right: number,
-      asArray: true
+        type: T,
+        top: number,
+        left: number,
+        bottom: number,
+        right: number,
+        asArray: true
     ): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
 
     /**

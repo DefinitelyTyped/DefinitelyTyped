@@ -10,6 +10,7 @@
 //                 Michael Prokopchuk <https://github.com/prokopcm>
 //                 Tina Roh <https://github.com/tinaroh>
 //                 Nathan Phillip Brink <https://github.com/binki>
+//                 Martin Olsson <https://github.com/mo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1602,6 +1603,8 @@ export namespace ImagePicker {
         allowsEditing?: boolean;
         aspect?: [number, number];
         quality?: number;
+        base64?: boolean;
+        exif?: boolean;
     }
 
     /**
@@ -2057,6 +2060,7 @@ export interface SvgCommonProps {
     strokeLineJoin?: string;
     strokeDasharray?: any[];
     strokeDashoffset?: any;
+    transform?: string | object;
     x?: number | string;
     y?: number | string;
     rotate?: number | string;

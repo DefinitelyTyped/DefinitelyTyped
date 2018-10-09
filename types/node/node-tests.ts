@@ -3100,7 +3100,7 @@ import * as p from "process";
         const b: boolean = process.hasUncaughtExceptionCaptureCallback();
     }
     {
-        process.allowedNodeEnvironmentFlags.has('asdf');
+        // process.allowedNodeEnvironmentFlags.has('asdf');
     }
 }
 
@@ -3488,6 +3488,10 @@ import * as p from "process";
         }
     );
     dns.lookup("nodejs.org", { all: true }, (err, addresses) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: dns.LookupAddress[] = addresses;
+    });
+    dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
         const _err: NodeJS.ErrnoException = err;
         const _address: dns.LookupAddress[] = addresses;
     });

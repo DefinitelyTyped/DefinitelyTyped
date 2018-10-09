@@ -1,11 +1,10 @@
-/* Note that this is a sample function for the purpose of running the below CustomFunctionsMappings test */
-function ADD10(n: number) {
+/* Note that this is a sample function for the purpose of running the below CustomFunctionsMappings test. */
+function addTen(n: number) {
     return n + 10;
 }
 
-CustomFunctionMappings = {
-    addTen: ADD10
-};
+/* Assume that the function id for addTen in the function's JSON metadata is specified as ADDTEN. */
+CustomFunctionMappings.ADDTEN = addTen;
 
 async function getStockValues(ticker: string): Promise<number> {
     const response = await fetch(`myService.com/prices/${ticker}`);

@@ -75,6 +75,7 @@ export interface VideoProperties extends ViewProps {
     onProgress?(data: {
         currentTime: number;
         playableDuration: number;
+        seekableDuration: number;
     }): void;
     onSeek?(): void;
     onEnd?(): void;

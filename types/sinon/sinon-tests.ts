@@ -296,7 +296,7 @@ function testSpy() {
     const instance = new obj();
 
     let spy = sinon.spy();
-    const spyTwo = sinon.spy();
+    const spyTwo = sinon.spy().named('spyTwo');
 
     spy = sinon.spy(fn);
     spy = sinon.spy(instance, 'foo');
@@ -386,7 +386,7 @@ function testStub() {
     const instance = new obj();
 
     let stub = sinon.stub();
-    stub = sinon.stub(instance, 'foo');
+    stub = sinon.stub(instance, 'foo').named('namedStub');
 
     const spy: sinon.SinonSpy = stub;
 
@@ -403,6 +403,8 @@ function testStub() {
     stub.returnsThis();
     stub.resolves();
     stub.resolves('foo');
+    stub.resolvesArg(1);
+    stub.resolvesThis();
     stub.throws();
     stub.throws('err');
     stub.throws(new Error('err'));

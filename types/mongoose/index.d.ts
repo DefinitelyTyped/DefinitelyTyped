@@ -12,6 +12,7 @@
 //                 alfirin <https://github.com/alfirin>
 //                 Idan Dardikman <https://github.com/idandrd>
 //                 Dominik Heigl <https://github.com/various89>
+//                 Fazendaaa <https://github.com/Fazendaaa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -387,6 +388,8 @@ declare module "mongoose" {
 
     /** Flag for using new URL string parser instead of current (deprecated) one */
     useNewUrlParser?: boolean;
+    /** Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify(). */
+    useFindAndModify?: boolean;
 
     // TODO
     safe?: any;
@@ -405,6 +408,11 @@ declare module "mongoose" {
        * models associated with this connection.
        */
       autoIndex?: boolean;
+
+      /**
+       * If true, this connection will use createIndex() instead of ensureIndex() for automatic index builds via Model.init().
+       */
+      useCreateIndex?: boolean;
     };
   }
 
@@ -1683,7 +1691,7 @@ declare module "mongoose" {
     elemMatch(path: string | any | Function, criteria: any): this;
 
     /** Specifies the complementary comparison value for paths specified with where() */
-    equals(val: any): this;
+    equals<T>(val: T): this;
 
     /** Executes the query */
     exec(callback?: (err: any, res: T) => void): Promise<T>;
@@ -1763,15 +1771,15 @@ declare module "mongoose" {
      * Specifies a $gt query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
-    gt(val: number): this;
-    gt(path: string, val: number): this;
+    gt<T>(val: T): this;
+    gt<T>(path: string, val: T): this;
 
     /**
      * Specifies a $gte query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
-    gte(val: number): this;
-    gte(path: string, val: number): this;
+    gte<T>(val: T): this;
+    gte<T>(path: string, val: T): this;
 
     /**
      * Sets query hints.
@@ -1805,15 +1813,15 @@ declare module "mongoose" {
      * Specifies a $lt query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
-    lt(val: number): this;
-    lt(path: string, val: number): this;
+    lt<T>(val: T): this;
+    lt<T>(path: string, val: T): this;
 
     /**
      * Specifies a $lte query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
-    lte(val: number): this;
-    lte(path: string, val: number): this;
+    lte<T>(val: T): this;
+    lte<T>(path: string, val: T): this;
 
     /**
      * Specifies a $maxDistance query condition.
@@ -2832,7 +2840,7 @@ declare module "mongoose" {
       /** sets the document fields to return */
       select?: any;
     }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
-    
+
     /**
      * Issues a mongodb findOneAndDelete command.
      * Finds a matching document, removes it, passing the found document (if any) to the
@@ -2850,13 +2858,13 @@ declare module "mongoose" {
       /** puts a time limit on the query - requires mongodb >= 2.6.0 */
       maxTimeMS?: number;
       /** sets the document fields to return */
-      select?: any;             
-      /** like select, it determines which fields to return */          
+      select?: any;
+      /** like select, it determines which fields to return */
       projection?: any;
-      /** if true, returns the raw result from the MongoDB driver */                     
+      /** if true, returns the raw result from the MongoDB driver */
       rawResult?: boolean;
-      /** overwrites the schema's strict mode option for this update */                     
-      strict?: boolean|string;                      
+      /** overwrites the schema's strict mode option for this update */
+      strict?: boolean|string;
     }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     /**

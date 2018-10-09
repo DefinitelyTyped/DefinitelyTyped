@@ -154,13 +154,16 @@ interface ErrorConstructor {
     stackTraceLimit: number;
 }
 
-// compat for TypeScript 1.8
+// compat for TypeScript 1.8 and default es5 target
 // if you use with --target es3 or --target es5 and use below definitions,
 // use the lib.es6.d.ts that is bundled with TypeScript 1.8.
 interface MapConstructor { }
 interface WeakMapConstructor { }
 interface SetConstructor { }
 interface WeakSetConstructor { }
+
+interface Set<T> {}
+interface ReadonlySet<T> {}
 
 // Forward-declare needed types from lib.es2015.d.ts (in case users are using `--lib es5`)
 interface Iterable<T> { }
@@ -174,7 +177,7 @@ interface SymbolConstructor {
     readonly iterator: symbol;
     readonly asyncIterator: symbol;
 }
-// declare const Symbol: SymbolConstructor;
+declare var Symbol: SymbolConstructor;
 interface SharedArrayBuffer {
     readonly byteLength: number;
     slice(begin?: number, end?: number): SharedArrayBuffer;
@@ -194,11 +197,11 @@ interface String {
  *                                               *
  ------------------------------------------------*/
 declare var process: NodeJS.Process;
-declare const global: NodeJS.Global;
+declare var global: NodeJS.Global;
 declare var console: Console;
 
-declare const __filename: string;
-declare const __dirname: string;
+declare var __filename: string;
+declare var __dirname: string;
 
 declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
 declare namespace setTimeout {
@@ -256,7 +259,7 @@ interface NodeModule {
 declare var module: NodeModule;
 
 // Same as module.exports
-declare const exports: any;
+declare var exports: any;
 declare const SlowBuffer: {
     new(str: string, encoding?: string): Buffer;
     new(size: number): Buffer;
@@ -811,8 +814,7 @@ declare namespace NodeJS {
          * read-only `Set` of flags allowable within the [`NODE_OPTIONS`][]
          * environment variable.
          */
-        // TODO: This Set is readonly
-        allowedNodeEnvironmentFlags: Set<string>;
+        allowedNodeEnvironmentFlags: ReadonlySet<string>;
 
         /**
          * EventEmitter
@@ -2651,6 +2653,7 @@ declare module "dns" {
         family?: number;
         hints?: number;
         all?: boolean;
+        verbatim?: boolean;
     }
 
     interface LookupOneOptions extends LookupOptions {
@@ -7879,7 +7882,8 @@ declare module "http2" {
         prependOnceListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
     }
 
-    export interface Http2ServerRequest extends stream.Readable {
+    export class Http2ServerRequest extends stream.Readable {
+        private constructor();
         headers: IncomingHttpHeaders;
         httpVersion: string;
         method: string;
@@ -7910,7 +7914,8 @@ declare module "http2" {
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
     }
 
-    export interface Http2ServerResponse extends events.EventEmitter {
+    export class Http2ServerResponse extends events.EventEmitter {
+        private constructor();
         addTrailers(trailers: OutgoingHttpHeaders): void;
         connection: net.Socket | tls.TLSSocket;
         end(callback?: () => void): void;

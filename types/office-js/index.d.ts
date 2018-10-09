@@ -1,5 +1,5 @@
 // Type definitions for Office.js
-// Project: http://dev.office.com
+// Project: https://github.com/OfficeDev/office-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>, Lance Austin <https://github.com/LanceEA>, Michael Zlatkovsky <https://github.com/Zlatkovsky>, Kim Brandl <https://github.com/kbrandl>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>, Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -16204,7 +16204,7 @@ declare namespace Office {
          * The set method creates a new setting of the specified name if it does not already exist, or sets an existing setting of the specified name. 
          * The value is stored in the document as the serialized JSON representation of its data type.
          *
-         * A maximum of 2MB is available for the settings of each add-in, and each individual setting is limited to 32KB.
+         * A maximum of 32KB is available for the settings of each add-in.
          *
          * Any changes made to settings using the set function will not be saved to the server until the saveAsync function is called.
          *
