@@ -388,6 +388,7 @@ $.ajax({ data: myData });
      * @deprecated ​ Deprecated since 3.3. Internal. See \`{@link https://github.com/jquery/jquery/issues/3384 }\`.
      */
     camelCase(value: string): string;
+    cleanData(elems: ArrayLike<Element | Document | Window | JQuery.PlainObject>): void;
     /**
      * Check to see if a DOM element is a descendant of another DOM element.
      *

@@ -273,6 +273,13 @@ function JQueryStatic() {
         $.camelCase('foo-bar');
     }
 
+    function cleanData() {
+        const elems: ArrayLike<Element | Document | Window | JQuery.PlainObject> = {} as any;
+
+        // $ExpectType void
+        $.cleanData(elems);
+    }
+
     function contains() {
         // $ExpectType boolean
         $.contains(new HTMLElement(), new HTMLElement());
