@@ -293,15 +293,15 @@ barStream = fooStream.flatten<Bar>();
 
 fooStream = fooStream.fork();
 
-fooStream = _<Foo>([fooStream, fooStream]).merge();
+fooStream = fooStreamStream.merge();
 
 fooStream = fooStream.observe();
 
 fooStream = fooStream.otherwise(fooStream);
 
-fooStream = fooStream.parallel(num);
+fooStream = fooStreamStream.parallel(num);
 
-barStream = fooStream.sequence<Bar>();
+barStream = barStreamStream.sequence();
 
 barStream = fooStream.series<Bar>();
 

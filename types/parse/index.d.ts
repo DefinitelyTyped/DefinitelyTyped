@@ -634,6 +634,7 @@ declare namespace Parse {
         exists(key: string): Query<T>;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
+        fullText(key: string, value: string, options?: Query.FullTextOptions): Query<T>;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
         greaterThan(key: string, value: any): Query<T>;
         greaterThanOrEqualTo(key: string, value: any): Query<T>;
@@ -674,6 +675,13 @@ declare namespace Parse {
             skip?: number;
             // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
             sort?: {[key: string]: 1|-1};
+        }
+
+        // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
+        interface FullTextOptions {
+          language?: string;
+          caseSensitive?: boolean;
+          diacriticSensitive?: boolean;
         }
     }
 
@@ -1169,6 +1177,12 @@ declare namespace Parse {
      */
     function initialize(applicationId: string, javaScriptKey?: string, masterKey?: string): void;
 
+    /**
+     * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
+     * @param AsyncStorage AsyncStorage from 'react-native' package
+     */
+    function setAsyncStorage(AsyncStorage: any): void;
+
 }
 
 declare module "parse/node" {
@@ -1176,6 +1190,11 @@ declare module "parse/node" {
 }
 
 declare module "parse" {
+    import * as parse from "parse/node";
+    export = parse
+}
+
+declare module "parse/react-native" {
     import * as parse from "parse/node";
     export = parse
 }

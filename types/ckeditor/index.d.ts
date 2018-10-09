@@ -8,7 +8,7 @@
 // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/1827 for more informations.
 
 interface Window {
-    CKEDITOR_BASEPATH: string;
+    CKEDITOR_BASEPATH?: string;
 }
 
 declare namespace CKEDITOR {
@@ -2530,7 +2530,7 @@ declare namespace CKEDITOR {
                 accessKeyUp(dialog: dialog, key: string): void;
                 disable(): void;
                 enable(): void;
-                focus(): ui.dialog.uiElement;
+                focus(): ui.dialog.uiElement | undefined;
                 getDialog(): dialog;
                 getElement(): dom.element;
                 getInputElement(): dom.element;
@@ -2541,7 +2541,7 @@ declare namespace CKEDITOR {
                 isVisible(): boolean;
                 registerEvents(definition: CKEDITOR.dialog.definition.uiElement): ui.dialog.uiElement;
                 selectParentTab(): ui.dialog.uiElement;
-                setValue(value: any, noChangeEvent: boolean): ui.dialog.uiElement;
+                setValue(value: any, noChangeEvent: boolean): ui.dialog.uiElement | undefined;
             }
 
             class vbox extends hbox {

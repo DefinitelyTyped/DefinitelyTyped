@@ -1,4 +1,19 @@
 import * as React from "react";
-import ErrorComponent from "next/error";
+import Error from "next/error";
 
-const result = <ErrorComponent statusCode={404} />;
+interface WithFooProps {
+    foo: string;
+}
+
+const result = <Error statusCode={404} />;
+
+class MyError extends Error<WithFooProps> {
+    static getInitialProps() {
+        return { statusCode: 404, foo: 'bar'};
+    }
+
+    render() {
+        const { statusCode, foo } = this.props;
+        return <div>{statusCode} {foo}</div>;
+    }
+}

@@ -1,4 +1,4 @@
-// Type definitions for luxon 1.2
+// Type definitions for luxon 1.4
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
@@ -154,6 +154,7 @@ declare module 'luxon' {
             hour: number;
             invalidReason: string;
             isInDST: boolean;
+            isInLeapYear: boolean;
             isOffsetFixed: boolean;
             isValid: boolean;
             locale: string;

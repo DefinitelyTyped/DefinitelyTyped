@@ -1,3 +1,3 @@
-import Ember from 'ember';
+import EmberObject from '@ember/object';
 
-export default class Resolver extends Ember.Resolver { }
+export default class Resolver extends EmberObject {}

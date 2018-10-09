@@ -12,7 +12,7 @@ const Person = Ember.Object.extend({
 assertType<Person>(Person.reopen());
 
 assertType<string>(Person.create().name);
-assertType<void>(Person.create().sayHello());
+Person.create().sayHello(); // $ExpectType void
 
 const Person2 = Person.reopenClass({
     species: 'Homo sapiens',
@@ -23,16 +23,16 @@ const Person2 = Person.reopenClass({
 });
 
 assertType<string>(Person2.create().name);
-assertType<void>(Person2.create().sayHello());
+Person2.create().sayHello(); // $ExpectType void
 assertType<string>(Person2.species);
 
-let tom = Person2.create({
+const tom = Person2.create({
     name: 'Tom Dale'
 });
 
-let badTom = Person2.create({ name: 99 }); // $ExpectError
+const badTom = Person2.create({ name: 99 }); // $ExpectError
 
-let yehuda = Person2.createPerson('Yehuda Katz');
+const yehuda = Person2.createPerson('Yehuda Katz');
 
 tom.sayHello(); // "Hello. My name is Tom Dale"
 yehuda.sayHello(); // "Hello. My name is Yehuda Katz"

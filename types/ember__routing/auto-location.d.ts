@@ -1,3 +1,6 @@
-import Ember from 'ember';
+import EmberObject from "@ember/object";
 
-export default class AutoLocation extends Ember.AutoLocation { }
+/**
+ * AutoLocation will select the best location option based off browser support with the priority order: history, hash, none.
+ */
+export default class AutoLocation extends EmberObject {}

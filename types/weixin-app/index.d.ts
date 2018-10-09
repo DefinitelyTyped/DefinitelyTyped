@@ -4095,6 +4095,58 @@ declare namespace wx {
 		"referrerInfo.extraData": object;
 		// #endregion
 	}
+
+	// 云开发
+	// 文档：https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html
+	interface cloud {
+		/**
+		 * 初始化方法（全局只需一次）
+		 */
+		init: (options: initCloudOptions) => void;
+		/**
+		 * 接受一个可选对象参数 env：环境 ID，获取数据库的引用
+		 */
+		database: (options: { env: string }) => {};
+		/**
+		 * 接受一个 name 参数，指定需引用的集合名称
+		 */
+		collection: (name: string) => {};
+	}
+	/**
+	 * 定义了云开发的默认配置，该配置会作为之后调用其他所有云 API 的默认配置
+	 */
+	interface initCloudOptions {
+		/**
+		 * 默认环境配置，传入字符串形式的环境 ID 可以指定所有服务的默认环境，传入对象 initCloudEnvOptions 可以分别指定各个服务的默认环境
+		 * 默认值： default
+		 */
+		env?: string | initCloudEnvOptions;
+		/**
+		 * 是否在将用户访问记录到用户管理中，在控制台中可见
+		 * 默认值： false
+		 */
+		traceUser?: boolean;
+	}
+	/**
+	 * initCloudOptions 的 env 参数，可以指定各个服务的默认环境
+	 */
+	interface initCloudEnvOptions {
+		/**
+		 * 数据库 API 默认环境配置
+		 * 默认值： default
+		 */
+		database?: string;
+		/**
+		 * 存储 API 默认环境配置
+		 * 默认值： default
+		 */
+		storage?: string;
+		/**
+		 * 云函数 API 默认环境配置
+		 * 默认值： default
+		 */
+		functions?: string;
+	}
 	// #region App 函数及参数
 }
 /**

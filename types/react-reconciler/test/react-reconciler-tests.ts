@@ -1,4 +1,4 @@
-import ReactFiberReconciler from 'react-reconciler';
+import ReactFiberReconciler = require("react-reconciler");
 import * as ReactTestHostConfig from './ReactTestHostConfig';
 
 // $ExpectType Reconciler<Instance, TextInstance, Container, HydratableInstance>

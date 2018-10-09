@@ -1,4 +1,4 @@
-// Type definitions for ArcGIS API for JavaScript 3.25
+// Type definitions for ArcGIS API for JavaScript 3.26
 // Project: https://developers.arcgis.com/javascript/3/
 // Definitions by: Esri <https://github.com/Esri>
 //                 Bjorn Svensson <https://github.com/bsvensson>
@@ -1897,6 +1897,8 @@ declare module "esri" {
   export interface ReportPlayerOptions {
     /** Indicates whether left and right arrows key can be used to paginate when viewMode is set to PlayerViewModes.PANELS_IN_SLIDES. */
     allowKeyboardNavigation?: boolean;
+    /** As of version 3.26 Configuration to specify the location of the JavaScript API to use when exporting an Infographic to Dynamic HTML. */
+    config?: any;
     /** Specifies which export options are available for the report. */
     dataProvider?: DataProviderGE;
     /** Specifies how the ReportPlayer should zoom by default. */
@@ -3506,7 +3508,7 @@ declare module "esri/dijit/Attribution" {
     /**
      * Creates a new Attribution object.
      * @param options An object that defines the attribution options.
-     * @param srcNodeRef HTML element where the time slider should be rendered.
+     * @param srcNodeRef HTML element where the attribution widget should be rendered.
      */
     constructor(options: esri.AttributionOptions, srcNodeRef: Node | string);
     /** Destroy the attribution widget. */
@@ -7584,6 +7586,8 @@ declare module "esri/dijit/geoenrichment/ReportPlayer/ReportPlayer" {
   class ReportPlayer {
     /** Indicates whether left and right arrows key can be used to paginate when viewMode is set to PlayerViewModes.PANELS_IN_SLIDES. */
     allowKeyboardNavigation: boolean;
+    /** Configuration to specify the location of the JavaScript API to use when exporting an Infographic to Dynamic HTML. */
+    config: any;
     /** Data Provider for the ReportPlayer which allows you to specify which export options are available when running the report. */
     dataProvider: DataProviderGE;
     /** Specifies how the ReportPlayer should zoom by default. */
@@ -7607,7 +7611,7 @@ declare module "esri/dijit/geoenrichment/ReportPlayer/ReportPlayer" {
      * @param params Various parameters that can be used to configure the ReportPlayer.
      * @param srcNode Reference or id of the HTML element where the widget should be rendered.
      */
-    constructor(params: esri.ReportPlayerOptions, srcNode?: Node | string);
+    constructor(params?: esri.ReportPlayerOptions, srcNode?: Node | string);
     /**
      * Generates the report for the supplied parameters.
      * @param dataProviderParams See the object specifications table below for the structure of the dataProviderParams object.

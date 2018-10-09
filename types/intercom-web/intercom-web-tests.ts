@@ -26,6 +26,7 @@ Intercom('onHide', () => { /* Do stuff */ });
 Intercom('onUnreadCountChange', (unreadCount: number) => { /* Do stuff */ });
 Intercom('onActivatorClick', () => { /* Do stuff */ });
 Intercom('trackEvent', 'invited-friend');
+const visitorId = Intercom('getVisitorId');
 
 const metadata = {
   invitee_email: 'pi@example.org',

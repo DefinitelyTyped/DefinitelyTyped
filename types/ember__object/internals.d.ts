@@ -14,6 +14,7 @@ export function cacheFor<T, K extends keyof T>(
  * Creates a shallow copy of the passed object. A deep copy of the object is
  * returned if the optional `deep` argument is `true`.
  */
+export function copy<T>(obj: T, deep: true): T;
 export function copy(obj: any, deep?: boolean): any;
 /**
  * Returns a unique id for the object. If the object does not yet have a guid,

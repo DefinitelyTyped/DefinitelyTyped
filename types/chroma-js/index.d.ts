@@ -1,4 +1,4 @@
-// Type definitions for Chroma.js 1.3
+// Type definitions for Chroma.js 1.4
 // Project: https://github.com/gka/chroma.js
 // Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -260,9 +260,18 @@ declare namespace chroma {
         luminance(l: number, colorSpace?: keyof ColorSpaces): Color;
 
         /**
-         * Get color as hexadecimal string. E.g. '#ffa500'
+         * Get color as hexadecimal string.
+         *
+         * @param mode `auto` - string will include alpha channel only if it's less than 1.
+         *             `rgb`  - string will not include alpha channel.
+         *             `rgba` - string will include alpha channel.
+         *
+         * @example
+         * chroma('orange').hex() === '#ffa500'
+         * chroma('orange').alpha(0.5).hex() === '#ffa50080'
+         * chroma('orange').alpha(0.5).hex('rgb') === '#ffa500'
          */
-        hex(): string;
+        hex(mode?: 'auto' | 'rgb' | 'rgba'): string;
 
         /**
          * Returns the named color. Falls back to hexadecimal RGB string, if the color isn't present.
@@ -280,6 +289,17 @@ declare namespace chroma {
          * [temperature gradient]{@link ChromaStatic.temperature} above.
          */
         temperature(): number;
+
+        /**
+         * Returns the numeric representation of the hexadecimal RGB color.
+         *
+         * @example
+         * chroma('#000000').num() === 0
+         * chroma('#0000ff').num() === 255
+         * chroma('#00ff00').num() === 65280
+         * chroma('#ff0000').num() === 16711680
+         */
+        num(): number;
     } & {
         [K in keyof ColorSpaces]: () => ColorSpaces[K];
     };
@@ -322,6 +342,7 @@ declare namespace chroma {
          */
         out(format: null): Scale;
         out<K extends keyof ColorSpaces>(format: K): Scale<ColorSpaces[K]>;
+        out(format: 'hex'): Scale<string>;
     }
 
     interface Cubehelix {

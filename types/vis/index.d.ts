@@ -1784,7 +1784,7 @@ export interface NodeOptions {
 
   brokenImage?: string;
 
-  color?: Color;
+  color?: string | Color;
 
   fixed?: boolean | {
     x?: boolean,

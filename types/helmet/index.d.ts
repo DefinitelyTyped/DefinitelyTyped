@@ -69,8 +69,8 @@ declare namespace helmet {
         objectSrc?: HelmetCspDirectiveValue[];
         pluginTypes?: HelmetCspDirectiveValue[];
         prefetchSrc?: HelmetCspDirectiveValue[];
-        reportTo?: string;
-        reportUri?: string;
+        reportTo?: HelmetCspDirectiveValue;
+        reportUri?: HelmetCspDirectiveValue;
         requireSriFor?: HelmetCspRequireSriForValue[];
         sandbox?: HelmetCspSandboxDirective[];
         scriptSrc?: HelmetCspDirectiveValue[];
@@ -95,8 +95,8 @@ declare namespace helmet {
         'object-src'?: HelmetCspDirectiveValue[];
         'plugin-types'?: HelmetCspDirectiveValue[];
         'prefetch-src'?: HelmetCspDirectiveValue[];
-        'report-to'?: string;
-        'report-uri'?: string;
+        'report-to'?: HelmetCspDirectiveValue;
+        'report-uri'?: HelmetCspDirectiveValue;
         'require-sri-for'?: HelmetCspRequireSriForValue[];
         'sandbox'?: HelmetCspSandboxDirective[];
         'script-src'?: HelmetCspDirectiveValue;
@@ -106,7 +106,7 @@ declare namespace helmet {
     }
 
     export interface IHelmetContentSecurityPolicyConfiguration {
-        reportOnly?: boolean;
+        reportOnly?: boolean | ((req: express.Request, res: express.Response) => boolean);
         setAllHeaders?: boolean;
         disableAndroid?: boolean;
         browserSniff?: boolean;
