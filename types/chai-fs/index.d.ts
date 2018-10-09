@@ -1,9 +1,8 @@
 // Type definitions for chai-fs 2.0
 // Project: https://github.com/chaijs/chai-fs
 // Definitions by: Dimitar Danailov <https://github.com/Nemo157>
-//
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0.1
+// TypeScript Version: 2.0.0
 
 /// <reference types="node" />
 /// <reference types="chai" />
