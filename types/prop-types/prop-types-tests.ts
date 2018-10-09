@@ -172,6 +172,8 @@ type ExtractFromOuterPropsMatch3 = ExtractedPropsFromOuterProps extends Props ? 
 // $ExpectType true
 type ExtractFromOuterPropsMatch4 = Props extends ExtractedPropsFromOuterPropsWithoutAnnotation ? true : false;
 
+// $ExpectType true
+type ExtractPropsPartialMatch = Props extends ExtractedPartialProps ? true : false;
 // $ExpectType false
 type ExtractPropsMismatch = ExtractedPartialProps extends Props ? true : false;
 
