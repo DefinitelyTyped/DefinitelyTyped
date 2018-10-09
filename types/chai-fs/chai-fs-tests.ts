@@ -4,13 +4,13 @@ import Chaifs = require('chai-fs');
 use(Chaifs);
 should();
 
-const name: string = 'name';
-const path: string = 'tmp/';
-const otherPath: string = 'otherPath/';
-const msg: string = 'message';
+const name = 'name';
+const path = 'tmp/';
+const otherPath = 'otherPath/';
+const msg = 'message';
 const array: any[] = [1, 2, 3, 4];
 const data: ArrayBuffer = new ArrayBuffer(512);
-const obj: object = { 'key': 'value' };
+const obj: object = { key: 'value' };
 const schema = JSON.parse('{ "name":"John", "age":30, "city":"New York"}');
 
 // basename()

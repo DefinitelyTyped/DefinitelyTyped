@@ -9,7 +9,6 @@
 
 declare global {
     namespace Chai {
-
         interface TypeComparison {
             path(msg?: string): Assertion;
             directory(msg?: string): Assertion;
@@ -35,8 +34,7 @@ declare global {
 
         interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
             // Basename
-            basename(name: string, msg?: string): Assertion;
-            basename(path: string, name: string, msg?: string): Assertion;
+            basename(path?: string, name?: string, msg?: string): Assertion;
             notBasename(path: string, name: string, msg?: string): Assertion;
 
             // Dirname
@@ -44,8 +42,7 @@ declare global {
             notDirname(path: string, name: string, msg?: string): Assertion;
 
             // Еxtname
-            extname(name: string, msg?: string): Assertion;
-            extname(path: string, name: string, msg?: string): Assertion;
+            extname(path: string, name?: string, msg?: string): Assertion;
             notExtname(path: string, name: string, msg?: string): Assertion;
 
             // Path
@@ -79,7 +76,7 @@ declare global {
             notDirectoryIncludeFiles(path: string, array: any[], msg?: string): Assertion;
 
             // directory().with.subDirs([...])
-            subDirs(array: any[], msg? :string): Assertion;
+            subDirs(array: any[], msg?: string): Assertion;
             directorySubDirs(path: string, array: any[], msg?: string): Assertion;
             notDirectorySubDirs(path: string, array: any[], msg?: string): Assertion;
             directoryDeepSubDirs(path: string, array: any[], msg?: string): Assertion;
@@ -118,26 +115,22 @@ declare global {
             jsonFile(path: string, msg?: string): Assertion;
             notJsonFile(path: string, msg?: string): Assertion;
 
-            //file().using.json.schema(obj)
+            // file().using.json.schema(obj)
             jsonSchemaFile(path: string, schema: any, msg?: string): Assertion;
             notJsonSchemaFile(path: string, schema: any, msg?: string): Assertion;
             schema(obj: object): Assertion;
         }
 
-        export interface Assert {
-
+        interface Assert {
             // Basename
-            basename(name: string, msg?: string): void;
-            basename(path: string, name: string, msg: string): void;
+            basename(path: string, name: string, msg?: string): void;
             notBasename(path: string, name: string, msg?: string): void;
 
             // Dirname
-            dirname(name: string, msg?: string): void;
-            dirname(path: string, name: string, msg?: string): void;
+            dirname(path: string, name?: string, msg?: string): void;
             notDirname(path: string, name: string, msg?: string): void;
 
             // Еxtname
-            extname(name: string, msg?: string): void;
             extname(path: string, name: string, msg?: string): void;
             notExtname(path: string, name: string, msg?: string): void;
 
@@ -174,7 +167,7 @@ declare global {
             notDirectoryIncludeFiles(path: string, array: any[], msg?: string): void;
 
             // directory().with.subDirs([...])
-            subDirs(array: any[], msg? :string): void;
+            subDirs(array: any[], msg?: string): void;
             directorySubDirs(path: string, array: any[], msg?: string): void;
             notDirectorySubDirs(path: string, array: any[], msg?: string): void;
             directoryDeepSubDirs(path: string, array: any[], msg?: string): void;
@@ -213,14 +206,13 @@ declare global {
             jsonFile(path: string, msg?: string): void;
             notJsonFile(path: string, msg?: string): void;
 
-            //file().using.json.schema(obj)
+            // file().using.json.schema(obj)
             jsonSchemaFile(path: string, schema: any, msg?: string): void;
             notJsonSchemaFile(path: string, schema: any, msg?: string): void;
             schema(obj: object): void;
         }
     }
 }
-
 
 declare function chaiFs(chai: any, utils: any): void;
 export = chaiFs;
