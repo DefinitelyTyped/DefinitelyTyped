@@ -15,6 +15,9 @@ describe('Test', () => {
     test('Test', async () => {
         await element(by.id('element')).replaceText('text');
         await element(by.id('element')).tap();
+
+        await expect(element(by.id('element').withAncestor(by.id('parent_element')))).toNotExist();
+        await expect(element(by.id('element').withDescendant(by.id('child_element')))).toNotExist();
         await expect(element(by.id('element')).atIndex(0)).toNotExist();
 
         await waitFor(element(by.id('element'))).toBeVisible().withTimeout(2000);
