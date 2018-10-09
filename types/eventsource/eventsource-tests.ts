@@ -1,4 +1,4 @@
-import EventSource = require("eventsource");
+import EventSource = require("../eventsource");
 
 const eventSource = new EventSource("http://foobar");
 let readyState: number = eventSource.readyState;
@@ -18,7 +18,7 @@ eventSource.dispatchEvent = (event: Event) => true;
 eventSource.removeEventListener = (type: string, listener: (e: Event) => void) => {};
 eventSource.close();
 
-import EventSourcePolyfill = require("eventsource/lib/eventsource-polyfill");
+import EventSourcePolyfill = require("../eventsource/lib/eventsource-polyfill");
 
 const eventSourcePolyfill = new EventSourcePolyfill("http://foobar");
 readyState = eventSourcePolyfill.readyState;
