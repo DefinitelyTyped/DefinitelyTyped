@@ -8,3 +8,7 @@ const transaction = new StellarSdk.TransactionBuilder(account)
     .addMemo(new StellarSdk.Memo(StellarSdk.MemoText, "memo"))
     .build(); // $ExpectType () => Transaction
 transaction; // $ExpectType Transaction
+
+const sig = StellarSdk.xdr.DecoratedSignature.fromXDR(Buffer.of(1, 2)) as StellarSdk.xdr.DecoratedSignature;
+sig.hint(); // $ExpectType Buffer
+sig.signature(); // $ExpectType Buffer

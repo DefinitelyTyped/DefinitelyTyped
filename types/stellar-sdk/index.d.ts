@@ -873,6 +873,8 @@ export class Keypair {
 
 export namespace xdr {
     class XDRStruct {
+        static fromXDR(xdr: Buffer): XDRStruct;
+
         toXDR(): Buffer;
     }
     class Operation<T extends Operation.Operation> extends XDRStruct { }
@@ -881,7 +883,10 @@ export namespace xdr {
     class TransactionEnvelope extends XDRStruct { }
     class DecoratedSignature extends XDRStruct {
       constructor(keys: { hint: SignatureHint, signature: Signature })
+
+      hint(): SignatureHint;
+      signature(): Buffer;
     }
-    class SignatureHint { }
-    class Signature { }
+    type SignatureHint = Buffer;
+    type Signature = Buffer;
 }
