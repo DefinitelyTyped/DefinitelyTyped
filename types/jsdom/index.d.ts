@@ -295,10 +295,10 @@ export interface FetchOptions {
     element?: HTMLScriptElement | HTMLLinkElement | HTMLIFrameElement | HTMLImageElement;
 }
 
-interface ResourceLoaderConstructorOptions {
-    strictSSL?: boolean,
-    proxy?: string,
-    userAgent?: string,
+export interface ResourceLoaderConstructorOptions {
+    strictSSL?: boolean;
+    proxy?: string;
+    userAgent?: string;
 }
 
 export class ResourceLoader {

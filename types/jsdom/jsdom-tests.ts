@@ -179,5 +179,5 @@ function test_custom_resource_loader() {
           return super.fetch(url, options);
         }
     }
-    new JSDOM('', { resources: new CustomResourceLoader() })
+    new JSDOM('', { resources: new CustomResourceLoader() });
 }
