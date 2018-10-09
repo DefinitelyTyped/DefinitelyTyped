@@ -143,6 +143,10 @@ declare namespace Detox {
          */
         getPlatform(): "ios" | "android";
         /**
+         * Simulate press back button (Android Only)
+         */
+        pressBack(): Promise<void>;
+        /**
          * Simulate shake (iOS Only)
          */
         shake(): Promise<void>;
