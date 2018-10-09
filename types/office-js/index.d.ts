@@ -22167,8 +22167,7 @@ declare namespace Excel {
         readonly worksheet: Excel.Worksheet;
         /**
          *
-         * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to
-            the level of where the category labels are being sourced from. Read/Write.
+         * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to the level of where the category labels are being sourced from. Read/Write.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -22231,8 +22230,7 @@ declare namespace Excel {
         plotVisibleOnly: boolean;
         /**
          *
-         * Returns or sets a ChartSeriesNameLevel enumeration constant referring to
-            the level of where the series names are being sourced from. Read/Write.
+         * Returns or sets a ChartSeriesNameLevel enumeration constant referring to the level of where the series names are being sourced from. Read/Write.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23316,7 +23314,7 @@ declare namespace Excel {
         position: Excel.ChartAxisPosition | "Automatic" | "Maximum" | "Minimum" | "Custom";
         /**
          *
-         * Represents the specified axis position where the other axis crosses at. Read Only. Set to this property should use SetPositionAt(double) method.
+         * Represents the specified axis position where the other axis crosses at. You should use the SetPositionAt(double) method to set this property.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23682,15 +23680,14 @@ declare namespace Excel {
         readonly format: Excel.ChartDataLabelFormat;
         /**
          *
-         * Represents whether data labels automatically generates appropriate text based on context.
+         * Represents whether data labels automatically generate appropriate text based on context.
          *
          * [Api set: ExcelApi 1.8]
          */
         autoText: boolean;
         /**
          *
-         * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is 0.
+         * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details. This property is valid only when TextOrientation of data label is 0.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23767,8 +23764,7 @@ declare namespace Excel {
         textOrientation: number;
         /**
          *
-         * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+         * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details. This property is valid only when TextOrientation of data label is -90, 90, or 180.
          *
          * [Api set: ExcelApi 1.8]
          */
