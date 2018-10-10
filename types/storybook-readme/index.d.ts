@@ -2,7 +2,7 @@
 // Project: https://github.com/tuchk4/storybook-readme
 // Definitions by: Taeheon Kim  <https://github.com/lonyele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 2.3
 
 // Shared Types
 export type Renderable = React.ComponentType | JSX.Element;
@@ -17,13 +17,11 @@ export type DecoratorPattern = (
 export type HOCPattern = (story: RenderFunction) => Renderable | null;
 
 // WithReadme Types
-export type WithReadmeAsDecorator = (readme: Readme) => DecoratorPattern;
-export type WithReadmeAsHOC = (
+export function withReadme(readme: Readme): DecoratorPattern;
+export function withReadme(
   readme: Readme,
   story: RenderFunction
-) => RenderFunction;
-
-export const withReadme: WithReadmeAsDecorator & WithReadmeAsHOC;
+): RenderFunction;
 
 // WithDocs Types
 export interface CustomComponents {
@@ -31,18 +29,14 @@ export interface CustomComponents {
   FooterComponent: (props: { children: JSX.Element }) => JSX.Element;
 }
 
-export interface AddFooterDocs {
-  addFooterDocs: (footerDoc: string) => void;
+export function withDocs(
+  custom: CustomComponents
+): (readme: Readme) => HOCPattern;
+export function withDocs(readme: Readme, story: RenderFunction): RenderFunction;
+export function withDocs(readme: Readme): DecoratorPattern;
+export namespace withDocs {
+  function addFooterDocs(footerDoc: string): void;
 }
-
-export interface WithDocsAsHOC {
-  (custom: CustomComponents): (readme: Readme) => HOCPattern;
-  (readme: Readme, story: RenderFunction): RenderFunction;
-}
-
-export type WithDocsAsDecorator = (readme: Readme) => DecoratorPattern;
-
-export const withDocs: AddFooterDocs & WithDocsAsHOC & WithDocsAsDecorator;
 
 // Doc Types
 export function doc(readme: string): RenderFunction;
