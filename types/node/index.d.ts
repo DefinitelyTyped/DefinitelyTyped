@@ -109,6 +109,10 @@ interface Console {
      */
     timeEnd(label?: string): void;
     /**
+     * For a timer that was previously started by calling {@link console.time()}, prints the elapsed time and other `data` arguments to `stdout`.
+     */
+    timeLog(label: string, ...data: any[]): void;
+    /**
      * Prints to `stderr` the string 'Trace :', followed by the {@link util.format()} formatted message and stack trace to the current position in the code.
      */
     trace(message?: any, ...optionalParams: any[]): void;
