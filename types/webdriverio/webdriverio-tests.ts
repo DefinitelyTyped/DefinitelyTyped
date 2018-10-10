@@ -99,7 +99,7 @@ webdriverio
     .init()
     .url("https://news.ycombinator.com/")
     .selectorExecute("//div", (inputs: HTMLElement[], message: string) => {
-        return inputs.length + " " + message;
+        return `${inputs.length} ${message}`;
     }, "divs on the page")
     .then((res: string) => {
         console.log(res);
@@ -115,3 +115,22 @@ webdriverio
         console.log(visible); // Should return true
     })
     .end();
+
+let hooks: webdriverio.Hooks  = {};
+
+hooks = {
+  // Hooks can be a noop function
+  onPrepare: () => undefined,
+  onError() {
+    // Hooks don't have to return a value
+  }
+};
+
+hooks.onComplete = async () => {
+    // Hooks can return a promise but the promise can be void
+};
+
+hooks.afterTest = async () => {
+    // Hooks can have a promise with a result but it is not typically used
+    return false;
+};
