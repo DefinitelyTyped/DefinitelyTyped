@@ -37,6 +37,7 @@ export type InterpolationValue =
     | number
     | Styles
     | FalseyValue
+    | Keyframes
     | StyledComponentClass<any, any>;
 export type SimpleInterpolation =
     | InterpolationValue
