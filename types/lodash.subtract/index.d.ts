@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { subtract } from "lodash";
-export = subtract;
+declare namespace _ {
+  type Subtract = typeof subtract;
+}
+declare const _subtract: _.Subtract;
+export = _subtract;

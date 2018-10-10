@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { times } from "lodash";
-export = times;
+declare namespace _ {
+  type Times = typeof times;
+}
+declare const _times: _.Times;
+export = _times;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { inRange } from "lodash";
-export = inRange;
+declare namespace _ {
+  type InRange = typeof inRange;
+}
+declare const _inRange: _.InRange;
+export = _inRange;

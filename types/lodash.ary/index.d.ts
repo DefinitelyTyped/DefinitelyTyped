@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { ary } from "lodash";
-export = ary;
+declare namespace _ {
+  type Ary = typeof ary;
+}
+declare const _ary: _.Ary;
+export = _ary;

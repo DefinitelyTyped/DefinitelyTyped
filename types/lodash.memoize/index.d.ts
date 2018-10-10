@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { memoize } from "lodash";
-export = memoize;
+declare namespace _ {
+  type Memoize = typeof memoize;
+}
+declare const _memoize: _.Memoize;
+export = _memoize;

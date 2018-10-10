@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { startCase } from "lodash";
-export = startCase;
+declare namespace _ {
+  type StartCase = typeof startCase;
+}
+declare const _startCase: _.StartCase;
+export = _startCase;

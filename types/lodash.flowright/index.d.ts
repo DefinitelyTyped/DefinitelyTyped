@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { flowRight } from "lodash";
-export = flowRight;
+declare namespace _ {
+  type FlowRight = typeof flowRight;
+}
+declare const _flowRight: _.FlowRight;
+export = _flowRight;

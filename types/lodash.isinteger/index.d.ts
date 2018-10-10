@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isInteger } from "lodash";
-export = isInteger;
+declare namespace _ {
+  type IsInteger = typeof isInteger;
+}
+declare const _isInteger: _.IsInteger;
+export = _isInteger;

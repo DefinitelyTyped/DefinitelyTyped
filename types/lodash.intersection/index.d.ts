@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { intersection } from "lodash";
-export = intersection;
+declare namespace _ {
+  type Intersection = typeof intersection;
+}
+declare const _intersection: _.Intersection;
+export = _intersection;

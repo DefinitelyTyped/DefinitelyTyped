@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { toInteger } from "lodash";
-export = toInteger;
+declare namespace _ {
+  type ToInteger = typeof toInteger;
+}
+declare const _toInteger: _.ToInteger;
+export = _toInteger;

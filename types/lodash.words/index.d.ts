@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { words } from "lodash";
-export = words;
+declare namespace _ {
+  type Words = typeof words;
+}
+declare const _words: _.Words;
+export = _words;

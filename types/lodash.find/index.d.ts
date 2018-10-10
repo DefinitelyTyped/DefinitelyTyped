@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { find } from "lodash";
-export = find;
+declare namespace _ {
+  type Find = typeof find;
+}
+declare const _find: _.Find;
+export = _find;

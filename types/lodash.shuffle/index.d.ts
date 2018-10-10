@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { shuffle } from "lodash";
-export = shuffle;
+declare namespace _ {
+  type Shuffle = typeof shuffle;
+}
+declare const _shuffle: _.Shuffle;
+export = _shuffle;

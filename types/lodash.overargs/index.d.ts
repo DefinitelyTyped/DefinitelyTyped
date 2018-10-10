@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { overArgs } from "lodash";
-export = overArgs;
+declare namespace _ {
+  type OverArgs = typeof overArgs;
+}
+declare const _overArgs: _.OverArgs;
+export = _overArgs;

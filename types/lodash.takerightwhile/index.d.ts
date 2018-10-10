@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { takeRightWhile } from "lodash";
-export = takeRightWhile;
+declare namespace _ {
+  type TakeRightWhile = typeof takeRightWhile;
+}
+declare const _takeRightWhile: _.TakeRightWhile;
+export = _takeRightWhile;

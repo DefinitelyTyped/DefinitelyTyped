@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { flattenDepth } from "lodash";
-export = flattenDepth;
+declare namespace _ {
+  type FlattenDepth = typeof flattenDepth;
+}
+declare const _flattenDepth: _.FlattenDepth;
+export = _flattenDepth;

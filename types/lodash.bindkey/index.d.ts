@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { bindKey } from "lodash";
-export = bindKey;
+declare namespace _ {
+  type BindKey = typeof bindKey;
+}
+declare const _bindKey: _.BindKey;
+export = _bindKey;

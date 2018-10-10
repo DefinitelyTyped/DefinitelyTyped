@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { rearg } from "lodash";
-export = rearg;
+declare namespace _ {
+  type Rearg = typeof rearg;
+}
+declare const _rearg: _.Rearg;
+export = _rearg;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { groupBy } from "lodash";
-export = groupBy;
+declare namespace _ {
+  type GroupBy = typeof groupBy;
+}
+declare const _groupBy: _.GroupBy;
+export = _groupBy;

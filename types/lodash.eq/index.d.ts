@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { eq } from "lodash";
-export = eq;
+declare namespace _ {
+  type Eq = typeof eq;
+}
+declare const _eq: _.Eq;
+export = _eq;

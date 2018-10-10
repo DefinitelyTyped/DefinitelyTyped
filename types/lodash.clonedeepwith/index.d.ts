@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { cloneDeepWith } from "lodash";
-export = cloneDeepWith;
+declare namespace _ {
+  type CloneDeepWith = typeof cloneDeepWith;
+}
+declare const _cloneDeepWith: _.CloneDeepWith;
+export = _cloneDeepWith;

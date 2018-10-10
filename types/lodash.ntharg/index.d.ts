@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { nthArg } from "lodash";
-export = nthArg;
+declare namespace _ {
+  type NthArg = typeof nthArg;
+}
+declare const _nthArg: _.NthArg;
+export = _nthArg;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { overEvery } from "lodash";
-export = overEvery;
+declare namespace _ {
+  type OverEvery = typeof overEvery;
+}
+declare const _overEvery: _.OverEvery;
+export = _overEvery;

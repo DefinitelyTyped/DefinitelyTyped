@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { cond } from "lodash";
-export = cond;
+declare namespace _ {
+  type Cond = typeof cond;
+}
+declare const _cond: _.Cond;
+export = _cond;

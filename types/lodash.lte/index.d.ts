@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { lte } from "lodash";
-export = lte;
+declare namespace _ {
+  type Lte = typeof lte;
+}
+declare const _lte: _.Lte;
+export = _lte;

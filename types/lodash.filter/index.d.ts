@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { filter } from "lodash";
-export = filter;
+declare namespace _ {
+  type Filter = typeof filter;
+}
+declare const _filter: _.Filter;
+export = _filter;

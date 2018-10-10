@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { toString } from "lodash";
-export = toString;
+declare namespace _ {
+  type ToString = typeof toString;
+}
+declare const _toString: _.ToString;
+export = _toString;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isEqual } from "lodash";
-export = isEqual;
+declare namespace _ {
+  type IsEqual = typeof isEqual;
+}
+declare const _isEqual: _.IsEqual;
+export = _isEqual;

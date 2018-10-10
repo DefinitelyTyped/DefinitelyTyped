@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { toNumber } from "lodash";
-export = toNumber;
+declare namespace _ {
+  type ToNumber = typeof toNumber;
+}
+declare const _toNumber: _.ToNumber;
+export = _toNumber;

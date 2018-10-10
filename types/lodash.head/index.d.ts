@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { head } from "lodash";
-export = head;
+declare namespace _ {
+  type Head = typeof head;
+}
+declare const _head: _.Head;
+export = _head;

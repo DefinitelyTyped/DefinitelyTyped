@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { flatMapDeep } from "lodash";
-export = flatMapDeep;
+declare namespace _ {
+  type FlatMapDeep = typeof flatMapDeep;
+}
+declare const _flatMapDeep: _.FlatMapDeep;
+export = _flatMapDeep;

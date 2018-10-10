@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isBoolean } from "lodash";
-export = isBoolean;
+declare namespace _ {
+  type IsBoolean = typeof isBoolean;
+}
+declare const _isBoolean: _.IsBoolean;
+export = _isBoolean;

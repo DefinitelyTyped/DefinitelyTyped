@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { last } from "lodash";
-export = last;
+declare namespace _ {
+  type Last = typeof last;
+}
+declare const _last: _.Last;
+export = _last;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { meanBy } from "lodash";
-export = meanBy;
+declare namespace _ {
+  type MeanBy = typeof meanBy;
+}
+declare const _meanBy: _.MeanBy;
+export = _meanBy;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { omit } from "lodash";
-export = omit;
+declare namespace _ {
+  type Omit = typeof omit;
+}
+declare const _omit: _.Omit;
+export = _omit;

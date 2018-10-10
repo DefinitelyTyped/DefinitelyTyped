@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { deburr } from "lodash";
-export = deburr;
+declare namespace _ {
+  type Deburr = typeof deburr;
+}
+declare const _deburr: _.Deburr;
+export = _deburr;

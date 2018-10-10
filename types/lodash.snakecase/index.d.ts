@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { snakeCase } from "lodash";
-export = snakeCase;
+declare namespace _ {
+  type SnakeCase = typeof snakeCase;
+}
+declare const _snakeCase: _.SnakeCase;
+export = _snakeCase;

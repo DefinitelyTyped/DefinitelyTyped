@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { merge } from "lodash";
-export = merge;
+declare namespace _ {
+  type Merge = typeof merge;
+}
+declare const _merge: _.Merge;
+export = _merge;

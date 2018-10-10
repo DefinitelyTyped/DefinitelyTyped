@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { updateWith } from "lodash";
-export = updateWith;
+declare namespace _ {
+  type UpdateWith = typeof updateWith;
+}
+declare const _updateWith: _.UpdateWith;
+export = _updateWith;

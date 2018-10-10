@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { concat } from "lodash";
-export = concat;
+declare namespace _ {
+  type Concat = typeof concat;
+}
+declare const _concat: _.Concat;
+export = _concat;

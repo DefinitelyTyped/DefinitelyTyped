@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { compact } from "lodash";
-export = compact;
+declare namespace _ {
+  type Compact = typeof compact;
+}
+declare const _compact: _.Compact;
+export = _compact;

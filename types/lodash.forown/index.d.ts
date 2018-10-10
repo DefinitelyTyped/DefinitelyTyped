@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { forOwn } from "lodash";
-export = forOwn;
+declare namespace _ {
+  type ForOwn = typeof forOwn;
+}
+declare const _forOwn: _.ForOwn;
+export = _forOwn;

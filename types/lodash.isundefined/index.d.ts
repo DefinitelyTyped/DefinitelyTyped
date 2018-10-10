@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isUndefined } from "lodash";
-export = isUndefined;
+declare namespace _ {
+  type IsUndefined = typeof isUndefined;
+}
+declare const _isUndefined: _.IsUndefined;
+export = _isUndefined;

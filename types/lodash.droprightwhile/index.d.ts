@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { dropRightWhile } from "lodash";
-export = dropRightWhile;
+declare namespace _ {
+  type DropRightWhile = typeof dropRightWhile;
+}
+declare const _dropRightWhile: _.DropRightWhile;
+export = _dropRightWhile;

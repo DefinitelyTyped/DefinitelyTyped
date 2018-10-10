@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { lastIndexOf } from "lodash";
-export = lastIndexOf;
+declare namespace _ {
+  type LastIndexOf = typeof lastIndexOf;
+}
+declare const _lastIndexOf: _.LastIndexOf;
+export = _lastIndexOf;

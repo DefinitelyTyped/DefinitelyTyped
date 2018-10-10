@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { replace } from "lodash";
-export = replace;
+declare namespace _ {
+  type Replace = typeof replace;
+}
+declare const _replace: _.Replace;
+export = _replace;

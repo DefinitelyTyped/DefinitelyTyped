@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isRegExp } from "lodash";
-export = isRegExp;
+declare namespace _ {
+  type IsRegExp = typeof isRegExp;
+}
+declare const _isRegExp: _.IsRegExp;
+export = _isRegExp;

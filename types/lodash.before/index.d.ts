@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { before } from "lodash";
-export = before;
+declare namespace _ {
+  type Before = typeof before;
+}
+declare const _before: _.Before;
+export = _before;

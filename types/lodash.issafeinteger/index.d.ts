@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isSafeInteger } from "lodash";
-export = isSafeInteger;
+declare namespace _ {
+  type IsSafeInteger = typeof isSafeInteger;
+}
+declare const _isSafeInteger: _.IsSafeInteger;
+export = _isSafeInteger;

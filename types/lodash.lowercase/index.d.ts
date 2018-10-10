@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { lowerCase } from "lodash";
-export = lowerCase;
+declare namespace _ {
+  type LowerCase = typeof lowerCase;
+}
+declare const _lowerCase: _.LowerCase;
+export = _lowerCase;

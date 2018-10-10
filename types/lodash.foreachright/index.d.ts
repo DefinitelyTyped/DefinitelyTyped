@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { forEachRight } from "lodash";
-export = forEachRight;
+declare namespace _ {
+  type ForEachRight = typeof forEachRight;
+}
+declare const _forEachRight: _.ForEachRight;
+export = _forEachRight;

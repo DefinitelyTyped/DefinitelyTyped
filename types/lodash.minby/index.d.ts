@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { minBy } from "lodash";
-export = minBy;
+declare namespace _ {
+  type MinBy = typeof minBy;
+}
+declare const _minBy: _.MinBy;
+export = _minBy;

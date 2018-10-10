@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { sum } from "lodash";
-export = sum;
+declare namespace _ {
+  type Sum = typeof sum;
+}
+declare const _sum: _.Sum;
+export = _sum;

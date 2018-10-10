@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { startsWith } from "lodash";
-export = startsWith;
+declare namespace _ {
+  type StartsWith = typeof startsWith;
+}
+declare const _startsWith: _.StartsWith;
+export = _startsWith;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { partialRight } from "lodash";
-export = partialRight;
+declare namespace _ {
+  type PartialRight = typeof partialRight;
+}
+declare const _partialRight: _.PartialRight;
+export = _partialRight;

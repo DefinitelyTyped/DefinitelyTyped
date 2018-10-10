@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { upperFirst } from "lodash";
-export = upperFirst;
+declare namespace _ {
+  type UpperFirst = typeof upperFirst;
+}
+declare const _upperFirst: _.UpperFirst;
+export = _upperFirst;

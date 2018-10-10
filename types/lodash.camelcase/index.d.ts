@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { camelCase } from "lodash";
-export = camelCase;
+declare namespace _ {
+  type CamelCase = typeof camelCase;
+}
+declare const _camelCase: _.CamelCase;
+export = _camelCase;

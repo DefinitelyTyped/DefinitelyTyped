@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { remove } from "lodash";
-export = remove;
+declare namespace _ {
+  type Remove = typeof remove;
+}
+declare const _remove: _.Remove;
+export = _remove;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { endsWith } from "lodash";
-export = endsWith;
+declare namespace _ {
+  type EndsWith = typeof endsWith;
+}
+declare const _endsWith: _.EndsWith;
+export = _endsWith;

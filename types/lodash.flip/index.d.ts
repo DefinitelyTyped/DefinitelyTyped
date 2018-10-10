@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { flip } from "lodash";
-export = flip;
+declare namespace _ {
+  type Flip = typeof flip;
+}
+declare const _flip: _.Flip;
+export = _flip;

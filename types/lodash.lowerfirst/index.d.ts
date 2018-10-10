@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { lowerFirst } from "lodash";
-export = lowerFirst;
+declare namespace _ {
+  type LowerFirst = typeof lowerFirst;
+}
+declare const _lowerFirst: _.LowerFirst;
+export = _lowerFirst;

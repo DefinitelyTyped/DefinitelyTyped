@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { maxBy } from "lodash";
-export = maxBy;
+declare namespace _ {
+  type MaxBy = typeof maxBy;
+}
+declare const _maxBy: _.MaxBy;
+export = _maxBy;

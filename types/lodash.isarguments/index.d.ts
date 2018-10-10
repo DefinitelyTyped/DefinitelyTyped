@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isArguments } from "lodash";
-export = isArguments;
+declare namespace _ {
+  type IsArguments = typeof isArguments;
+}
+declare const _isArguments: _.IsArguments;
+export = _isArguments;

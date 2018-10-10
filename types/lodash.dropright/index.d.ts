@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { dropRight } from "lodash";
-export = dropRight;
+declare namespace _ {
+  type DropRight = typeof dropRight;
+}
+declare const _dropRight: _.DropRight;
+export = _dropRight;

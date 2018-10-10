@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { invertBy } from "lodash";
-export = invertBy;
+declare namespace _ {
+  type InvertBy = typeof invertBy;
+}
+declare const _invertBy: _.InvertBy;
+export = _invertBy;

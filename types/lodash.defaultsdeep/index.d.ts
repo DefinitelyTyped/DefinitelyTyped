@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { defaultsDeep } from "lodash";
-export = defaultsDeep;
+declare namespace _ {
+  type DefaultsDeep = typeof defaultsDeep;
+}
+declare const _defaultsDeep: _.DefaultsDeep;
+export = _defaultsDeep;

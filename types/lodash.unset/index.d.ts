@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { unset } from "lodash";
-export = unset;
+declare namespace _ {
+  type Unset = typeof unset;
+}
+declare const _unset: _.Unset;
+export = _unset;

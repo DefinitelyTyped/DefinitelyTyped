@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { sortBy } from "lodash";
-export = sortBy;
+declare namespace _ {
+  type SortBy = typeof sortBy;
+}
+declare const _sortBy: _.SortBy;
+export = _sortBy;

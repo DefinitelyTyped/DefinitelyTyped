@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { negate } from "lodash";
-export = negate;
+declare namespace _ {
+  type Negate = typeof negate;
+}
+declare const _negate: _.Negate;
+export = _negate;

@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { findLast } from "lodash";
-export = findLast;
+declare namespace _ {
+  type FindLast = typeof findLast;
+}
+declare const _findLast: _.FindLast;
+export = _findLast;

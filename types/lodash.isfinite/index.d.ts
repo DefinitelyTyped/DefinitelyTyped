@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isFinite } from "lodash";
-export = isFinite;
+declare namespace _ {
+  type IsFinite = typeof isFinite;
+}
+declare const _isFinite: _.IsFinite;
+export = _isFinite;

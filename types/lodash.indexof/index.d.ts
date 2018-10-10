@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { indexOf } from "lodash";
-export = indexOf;
+declare namespace _ {
+  type IndexOf = typeof indexOf;
+}
+declare const _indexOf: _.IndexOf;
+export = _indexOf;

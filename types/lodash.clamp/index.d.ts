@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { clamp } from "lodash";
-export = clamp;
+declare namespace _ {
+  type Clamp = typeof clamp;
+}
+declare const _clamp: _.Clamp;
+export = _clamp;

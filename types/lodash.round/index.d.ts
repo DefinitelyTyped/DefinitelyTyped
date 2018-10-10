@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { round } from "lodash";
-export = round;
+declare namespace _ {
+  type Round = typeof round;
+}
+declare const _round: _.Round;
+export = _round;

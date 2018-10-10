@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { at } from "lodash";
-export = at;
+declare namespace _ {
+  type At = typeof at;
+}
+declare const _at: _.At;
+export = _at;

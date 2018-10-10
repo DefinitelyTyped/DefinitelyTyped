@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isNative } from "lodash";
-export = isNative;
+declare namespace _ {
+  type IsNative = typeof isNative;
+}
+declare const _isNative: _.IsNative;
+export = _isNative;

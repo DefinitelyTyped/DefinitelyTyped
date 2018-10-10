@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { uniq } from "lodash";
-export = uniq;
+declare namespace _ {
+  type Uniq = typeof uniq;
+}
+declare const _uniq: _.Uniq;
+export = _uniq;

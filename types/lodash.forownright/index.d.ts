@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { forOwnRight } from "lodash";
-export = forOwnRight;
+declare namespace _ {
+  type ForOwnRight = typeof forOwnRight;
+}
+declare const _forOwnRight: _.ForOwnRight;
+export = _forOwnRight;

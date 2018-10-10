@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { partial } from "lodash";
-export = partial;
+declare namespace _ {
+  type Partial = typeof partial;
+}
+declare const _partial: _.Partial;
+export = _partial;

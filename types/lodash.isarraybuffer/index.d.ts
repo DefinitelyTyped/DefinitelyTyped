@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isArrayBuffer } from "lodash";
-export = isArrayBuffer;
+declare namespace _ {
+  type IsArrayBuffer = typeof isArrayBuffer;
+}
+declare const _isArrayBuffer: _.IsArrayBuffer;
+export = _isArrayBuffer;

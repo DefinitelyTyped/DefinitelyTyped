@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { isString } from "lodash";
-export = isString;
+declare namespace _ {
+  type IsString = typeof isString;
+}
+declare const _isString: _.IsString;
+export = _isString;

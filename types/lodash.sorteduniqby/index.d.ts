@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { sortedUniqBy } from "lodash";
-export = sortedUniqBy;
+declare namespace _ {
+  type SortedUniqBy = typeof sortedUniqBy;
+}
+declare const _sortedUniqBy: _.SortedUniqBy;
+export = _sortedUniqBy;

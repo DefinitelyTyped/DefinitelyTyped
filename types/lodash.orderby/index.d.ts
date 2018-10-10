@@ -7,4 +7,8 @@
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
 import { orderBy } from "lodash";
-export = orderBy;
+declare namespace _ {
+  type OrderBy = typeof orderBy;
+}
+declare const _orderBy: _.OrderBy;
+export = _orderBy;
