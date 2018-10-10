@@ -956,8 +956,8 @@ declare namespace NodeJS {
         WeakMap: WeakMapConstructor;
         WeakSet: WeakSetConstructor;
         clearImmediate: (immediateId: Immediate) => void;
-        clearInterval: (intervalId: Timer) => void;
-        clearTimeout: (timeoutId: Timer) => void;
+        clearInterval: (intervalId: Timeout) => void;
+        clearTimeout: (timeoutId: Timeout) => void;
         console: typeof console;
         decodeURI: typeof decodeURI;
         decodeURIComponent: typeof decodeURIComponent;
@@ -973,8 +973,8 @@ declare namespace NodeJS {
         process: Process;
         root: Global;
         setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => Immediate;
-        setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timer;
-        setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timer;
+        setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
+        setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
         undefined: typeof undefined;
         unescape: (str: string) => string;
         gc: () => void;
