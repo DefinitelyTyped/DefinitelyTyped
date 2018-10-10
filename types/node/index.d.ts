@@ -983,20 +983,20 @@ declare namespace NodeJS {
 
     interface Timer {
         ref(): void;
+        refresh(): void;
         unref(): void;
     }
 
-    class Immediate implements Timer {
+    class Immediate {
         ref(): void;
         unref(): void;
-        _onImmediate: Function;
+        _onImmediate: Function; // to distinguish it from the Timeout class
     }
 
     class Timeout implements Timer {
         ref(): void;
         refresh(): void;
         unref(): void;
-        _onTimeout: Function;
     }
 
     class Module {
