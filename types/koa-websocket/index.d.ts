@@ -24,10 +24,13 @@ declare namespace KoaWebsocket {
     type Middleware = compose.Middleware<MiddlewareContext>;
 
     interface MiddlewareContext extends Koa.Context {
+        // Limitation: Declaration merging cannot overwrap existing properties.
+        // That's why this property is here, not in the merged declaration above.
+        app: App;
     }
 
     class Server {
-        app: Koa;
+        app: App;
         middleware: Middleware[];
         server?: ws.Server;
 
