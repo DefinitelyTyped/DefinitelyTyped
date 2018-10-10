@@ -4,7 +4,7 @@
 //                 Steven Masala <https://github.com/smasala>
 //                 Grant Hutchins <https://github.com/nertzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery"/>
 import moment = require('moment');
