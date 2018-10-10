@@ -3,7 +3,8 @@ import { createClient } from '@google/maps';
 const client = createClient({
     key: 'my-google-maps-api-key',
     language: 'ja',
-    Promise: Promise
+    // tslint:disable-next-line
+    Promise: Promise,
 });
 
 client
@@ -14,5 +15,5 @@ client
             console.log(
                 result.geometry.location
             );
-        })
+        });
     });
