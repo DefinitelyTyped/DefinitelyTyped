@@ -1,6 +1,6 @@
 // Type definitions for Hammer.js 2.0.8
 // Project: http://hammerjs.github.io/
-// Definitions by: Philip Bulley <https://github.com/milkisevil/>, Han Lin Yap <https://github.com/codler>
+// Definitions by: Philip Bulley <https://github.com/milkisevil>, Han Lin Yap <https://github.com/codler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Hammer:HammerStatic;
@@ -263,19 +263,15 @@ interface Recognizer
 
   canEmit():boolean;
   canRecognizeWith( otherRecognizer:Recognizer ):boolean;
-  dropRecognizeWith( otherRecognizer:Recognizer ):Recognizer;
-  dropRecognizeWith( otherRecognizer:string ):Recognizer;
-  dropRequireFailure( otherRecognizer:Recognizer ):Recognizer;
-  dropRequireFailure( otherRecognizer:string ):Recognizer;
+  dropRecognizeWith( otherRecognizer:Recognizer | Recognizer[] | string):Recognizer;
+  dropRequireFailure( otherRecognizer:Recognizer | Recognizer[] | string):Recognizer;
   emit( input:HammerInput ):void;
   getTouchAction():any[];
   hasRequireFailures():boolean;
   process( inputData:HammerInput ):string;
   recognize( inputData:HammerInput ):void;
-  recognizeWith( otherRecognizer:Recognizer ):Recognizer;
-  recognizeWith( otherRecognizer:string ):Recognizer;
-  requireFailure( otherRecognizer:Recognizer ):Recognizer;
-  requireFailure( otherRecognizer:string ):Recognizer;
+  recognizeWith( otherRecognizer:Recognizer | Recognizer[] | string):Recognizer;
+  requireFailure( otherRecognizer:Recognizer | Recognizer[] | string):Recognizer;
   reset():void;
   set( options?:RecognizerOptions ):Recognizer;
   tryEmit( input:HammerInput ):void;

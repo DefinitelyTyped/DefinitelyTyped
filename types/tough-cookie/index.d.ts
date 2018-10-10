@@ -1,6 +1,8 @@
 // Type definitions for tough-cookie 2.3
 // Project: https://github.com/salesforce/tough-cookie
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
+//                 LiJinyao <https://github.com/LiJinyao>
+//                 Michael Wei <https://github.com/no2chem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -150,7 +152,7 @@ export class CookieJar {
     static deserialize(serialized: CookieJar.Serialized | string, store: Store, cb: (err: Error | null, object: CookieJar) => void): void;
     static deserialize(serialized: CookieJar.Serialized | string, cb: (err: Error | null, object: CookieJar) => void): void;
 
-    static deserializeSync(serialized: CookieJar.Serialized | string): CookieJar;
+    static deserializeSync(serialized: CookieJar.Serialized | string, store?: Store): CookieJar;
 
     static fromJSON(string: string): CookieJar;
 
@@ -159,7 +161,7 @@ export class CookieJar {
     setCookie(cookieOrString: Cookie | string, currentUrl: string, options: CookieJar.SetCookieOptions, cb: (err: Error | null, cookie: Cookie) => void): void;
     setCookie(cookieOrString: Cookie | string, currentUrl: string, cb: (err: Error, cookie: Cookie) => void): void;
 
-    setCookieSync(cookieOrString: Cookie | string, currentUrl: string, options: CookieJar.SetCookieOptions): void;
+    setCookieSync(cookieOrString: Cookie | string, currentUrl: string, options?: CookieJar.SetCookieOptions): void;
 
     getCookies(currentUrl: string, options: CookieJar.GetCookiesOptions, cb: (err: Error | null, cookies: Cookie[]) => void): void;
     getCookies(currentUrl: string, cb: (err: Error | null, cookies: Cookie[]) => void): void;

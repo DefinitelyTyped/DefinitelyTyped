@@ -1,5 +1,5 @@
-export { default as Alpha } from "react-color/lib/components/common/Alpha";
-export { default as Checkboard } from "react-color/lib/components/common/Checkboard";
-export { default as EditableInput } from "react-color/lib/components/common/EditableInput";
-export { default as Hue } from "react-color/lib/components/common/Hue";
-export { default as Saturation } from "react-color/lib/components/common/Saturation";
+export { default as Alpha } from "./Alpha";
+export { default as Checkboard } from "./Checkboard";
+export { default as EditableInput } from "./EditableInput";
+export { default as Hue } from "./Hue";
+export { default as Saturation } from "./Saturation";

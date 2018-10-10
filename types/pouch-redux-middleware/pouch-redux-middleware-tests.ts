@@ -1,6 +1,6 @@
 import * as redux from 'redux';
 import makePouchMiddleware, { Document, Path } from 'pouch-redux-middleware';
-import * as PouchDB from 'pouchdb';
+import PouchDB = require('pouchdb');
 
 const types = {
     DELETE_TODO: 'delete-todo',

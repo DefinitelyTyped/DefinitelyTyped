@@ -76,11 +76,11 @@ export interface Twix {
     simpleFormat(format: string): string;
     simpleFormat(format: string, options: TwixSimpleFormatOptions): string;
 
-    format(): string;
-    format(options: TwixFormatOptions): string;
+    format(options?: TwixFormatOptions | string): string;
 
     asDuration(period: string): Duration;
     isValid(): boolean;
+    toDate(): Date;
 }
 
 export interface TwixStatic {

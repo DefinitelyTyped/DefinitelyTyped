@@ -1,29 +1,19 @@
-import {
-  UncontrolledProps as AlertUncontrolledProps
-} from './Alert';
-import {
-  UncontrolledProps as ButtonDropdownUncontrolledProps
-} from './ButtonDropdown';
-import {
-  UncontrolledProps as DropdownUncontrolledProps
-} from './Dropdown';
-import {
-  UncontrolledProps as NavDropdownUncontrolledProps
-} from './NavDropdown';
-import {
-  UncontrolledProps as TooltipUncontrolledProps
-} from './Tooltip';
+import * as React from 'react';
 
-declare var UncontrolledAlert: React.StatelessComponent<AlertUncontrolledProps>;
-declare var UncontrolledButtonDropdown: React.StatelessComponent<ButtonDropdownUncontrolledProps>;
-declare var UncontrolledDropdown: React.StatelessComponent<DropdownUncontrolledProps>;
-declare var UncontrolledNavDropdown: React.StatelessComponent<NavDropdownUncontrolledProps>;
-declare var UncontrolledTooltip: React.StatelessComponent<TooltipUncontrolledProps>;
+import { UncontrolledAlertProps          } from './Alert';
+import { UncontrolledButtonDropdownProps } from './ButtonDropdown';
+import { UncontrolledDropdownProps       } from './Dropdown';
+import { UncontrolledTooltipProps        } from './Tooltip';
+import { UncontrolledCollapseProps       } from './Collapse';
 
-export {
-  UncontrolledAlert,
-  UncontrolledButtonDropdown,
-  UncontrolledDropdown,
-  UncontrolledNavDropdown,
-  UncontrolledTooltip
-}
+export class UncontrolledAlert<T = {}> extends React.Component<UncontrolledAlertProps<T>> {}
+export class UncontrolledButtonDropdown<T = {}> extends React.Component<UncontrolledButtonDropdownProps<T>> {}
+export class UncontrolledDropdown<T = {}> extends React.Component<UncontrolledDropdownProps<T>> {}
+export class UncontrolledTooltip<T = {}> extends React.Component<UncontrolledTooltipProps<T>> {}
+export class UncontrolledCollapse<T = {}> extends React.Component<UncontrolledCollapseProps<T>> {}
+
+export { UncontrolledAlertProps          } from './Alert';
+export { UncontrolledButtonDropdownProps } from './ButtonDropdown';
+export { UncontrolledDropdownProps       } from './Dropdown';
+export { UncontrolledTooltipProps        } from './Tooltip';
+export { UncontrolledCollapseProps       } from './Collapse';

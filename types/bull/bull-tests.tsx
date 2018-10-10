@@ -2,12 +2,15 @@
  * Created by Bruno Grieder
  */
 
-import * as Redis from "ioredis";
-import * as Queue from "bull";
+import Redis = require("ioredis");
+import Queue = require("bull");
 
 const videoQueue = new Queue('video transcoding', 'redis://127.0.0.1:6379');
-const audioQueue = new Queue('audio transcoding', {redis: {port: 6379, host: '127.0.0.1'}}); // Specify Redis connection using object
-const imageQueue = new Queue('image transcoding');
+const audioQueue = new Queue('audio transcoding', {
+    redis: {port: 6379, host: '127.0.0.1'}, // Specify Redis connection using object
+    settings: {},
+});
+const imageQueue: Queue.Queue<{ image: string }> = new Queue('image transcoding');
 
 videoQueue.process((job, done) => {
     // job.data contains the custom data passed when the job was created

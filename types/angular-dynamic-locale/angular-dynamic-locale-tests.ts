@@ -5,6 +5,7 @@ app.config((localStorageServiceProvider: angular.dynamicLocale.tmhDynamicLocaleP
 	localStorageServiceProvider
 		.localeLocationPattern("app/config/locales/")
 		.useCookieStorage();
+    localStorageServiceProvider.defaultLocale('en');
 });
 
 class LocaleTestController {

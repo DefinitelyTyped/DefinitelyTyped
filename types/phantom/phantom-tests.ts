@@ -2,7 +2,9 @@ import phantom = require("phantom");
 
 phantom.create().then((ph: phantom.PhantomJS): void => {
     ph.createPage().then((page): void => {
-        page.open("http://www.google.com").then((status: string) => {
+        page.open("http://www.google.com", {
+          operation: "GET"
+        }).then((status: string) => {
             console.log("opened google? ", status);
             return page.evaluate((): string => {
                 return document.title;

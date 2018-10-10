@@ -2,16 +2,17 @@
 // Project: https://github.com/coderhaoxin/react-flatpickr
 // Definitions by: begincalendar <https://github.com/begincalendar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import { Component } from 'react';
-import { EventCallback, Options } from 'flatpickr';
+import flatpickr from 'flatpickr';
 
 export interface DateTimePickerProps {
     defaultValue?: string;
-    options?: Options;
-    onChange?: EventCallback;
+    options?: flatpickr.Options.Options;
+    onChange?: flatpickr.Options.Hook;
     value?: string;
+    className?: string;
 }
 
 export default class DatePicker extends Component<DateTimePickerProps> {}

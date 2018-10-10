@@ -2,6 +2,9 @@
 // Project: https://github.com/eclipse/paho.mqtt.javascript#readme
 // Definitions by: Alex Mikhalev <https://github.com/amikhalev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
+
+/// <reference path="module.d.ts"/>
 
 declare namespace Paho {
     /**
@@ -36,8 +39,6 @@ declare namespace Paho {
      * an Error containing an error message intended for developer use, if it detects
      * an error with any parameter.
      * <p>
-     *
-     * @namespace Paho.MQTT
      */
     namespace MQTT {
         /**
@@ -232,16 +233,16 @@ declare namespace Paho {
          *
          */
         class Client {
-            /** <i>read only</i> used when connecting to the server. */
+            /** used when connecting to the server. */
             readonly clientId: string;
 
-            /** <i>read only</i> the server's DNS hostname or dotted decimal IP address. */
+            /** the server's DNS hostname or dotted decimal IP address. */
             readonly host: string;
 
-            /** <i>read only</i> the server's path. */
+            /** the server's path. */
             readonly path: string;
 
-            /** <i>read only</i> the server's port. */
+            /** the server's port. */
             readonly port: number;
 
             /** function called with trace information, if set */
@@ -278,16 +279,13 @@ declare namespace Paho {
              */
             onMessageArrived: OnMessageHandler;
 
-            /* tslint:disable:unified-signatures */
-            /* these cannot actually be neatly unified */
-
             /**
              * @param host - the address of the messaging server as a DNS name or dotted decimal IP address.
              * @param port - the port number to connect to
              * @param path - the path on the host to connect to - only used if host is not a URI. Default: '/mqtt'.
              * @param clientId - the Messaging client identifier, between 1 and 23 characters in length.
              */
-            constructor(host: string, port: number, path: string, clientId: string);
+            constructor(host: string, port: number, path: string, clientId: string); // tslint:disable-line unified-signatures (these cannot actually be neatly unified)
 
             /**
              * @param host - the address of the messaging server as a DNS name or dotted decimal IP address.
@@ -301,8 +299,6 @@ declare namespace Paho {
              * @param clientId - the Messaging client identifier, between 1 and 23 characters in length.
              */
             constructor(hostUri: string, clientId: string);
-
-            /* tslint:enable:unified-signatures */
 
             /**
              * Connect this Messaging client to its server.
@@ -326,7 +322,7 @@ declare namespace Paho {
             /**
              * Get the contents of the trace log.
              *
-             *  @return {Object[]} tracebuffer containing the time ordered trace records.
+             *  @return tracebuffer containing the time ordered trace records.
              */
             getTraceLog(): any[];
 
@@ -343,7 +339,7 @@ declare namespace Paho {
             /**
              * Send a message to the consumers of the destination in the Message.
              *
-             * @param {Paho.MQTT.Message} message - <b>mandatory</b> The {@link Paho.MQTT.Message} object to be sent.
+             * @param message - <b>mandatory</b> The {@link Paho.MQTT.Message} object to be sent.
              * @throws {InvalidState} if the client is not connected.
              */
             send(message: Message): void;
@@ -351,15 +347,15 @@ declare namespace Paho {
             /**
              * Send a message to the consumers of the destination in the Message.
              *
-             * @param {string} topic - <b>mandatory</b> The name of the destination to which the message is to be sent.
-             * @param {string|ArrayBuffer} payload - The message data to be sent.
-             * @param {number} qos The Quality of Service used to deliver the message.
+             * @param topic - <b>mandatory</b> The name of the destination to which the message is to be sent.
+             * @param payload - The message data to be sent.
+             * @param qos The Quality of Service used to deliver the message.
              *        <dl>
              *            <dt>0 Best effort (default).
              *            <dt>1 At least once.
              *            <dt>2 Exactly once.
              *        </dl>
-             * @param {Boolean} retained If true, the message is to be retained by the server and delivered to both
+             * @param retained If true, the message is to be retained by the server and delivered to both
              * current and future subscriptions. If false the server only delivers the message to current subscribers,
              * this is the default for new Messages. A received message has the retained boolean set to true if the
              * message was published with the retained boolean set to true and the subscrption was made after the
@@ -388,28 +384,42 @@ declare namespace Paho {
             unsubscribe(filter: string, unsubcribeOptions?: UnsubscribeOptions): void;
         }
 
+        type TypedArray =
+            | Int8Array
+            | Uint8Array
+            | Uint8ClampedArray
+            | Int16Array
+            | Uint16Array
+            | Int32Array
+            | Uint32Array
+            | Float32Array
+            | Float64Array;
+
         /**
          * An application message, sent or received.
          */
         class Message {
             /**
-             * <b>mandatory</b> The name of the destination to which the message is to be sent
+             * The name of the destination to which the message is to be sent
              * (for messages about to be sent) or the name of the destination from which the message has been received.
              * (for messages received by the onMessage function).
              */
-            destinationName?: string;
+            destinationName: string;
 
             /**
-             * <i>read only</i> If true, this message might be a duplicate of one which has already been received.
+             * If true, this message might be a duplicate of one which has already been received.
              * This is only set on messages received from the server.
              */
             readonly duplicate: boolean;
 
-            /** <i>read only</i> The payload as an ArrayBuffer. */
-            readonly payloadBytes: ArrayBuffer;
+            /**
+             * The payload.
+             * @return if payload is a string. Return the original otherwise.
+             */
+            readonly payloadBytes: ArrayBuffer | TypedArray;
 
             /**
-             *  <i>read only</i> The payload as a string if the payload consists of valid UTF-8 characters.
+             *  The payload as a string if the payload consists of valid UTF-8 characters.
              *  @throw {Error} if the payload is not valid UTF-8
              */
             readonly payloadString: string;
@@ -424,7 +434,7 @@ declare namespace Paho {
              *
              * @default 0
              */
-            qos: number;
+            qos: Qos;
 
             /**
              * If true, the message is to be retained by the server and delivered to both current and future
@@ -437,9 +447,9 @@ declare namespace Paho {
             retained: boolean;
 
             /**
-             * @param {String|ArrayBuffer} payload The message data to be sent.
+             * @param payload The message data to be sent.
              */
-            constructor(payload: string | ArrayBuffer);
+            constructor(payload: string | ArrayBuffer | TypedArray);
         }
     }
 }

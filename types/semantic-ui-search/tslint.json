@@ -1,6 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "no-any-union": false,
         "no-empty-interface": false,
         "unified-signatures": false
     }

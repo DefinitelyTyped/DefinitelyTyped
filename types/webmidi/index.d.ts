@@ -145,7 +145,7 @@ declare namespace WebMidi {
      * to zero (or another time in the past), the data is to be sent as soon as
      * possible.
      */
-    send(data: number[], timestamp?: number): void;
+    send(data: number[] | Uint8Array, timestamp?: number): void;
 
     /**
      * Clears any pending send data that has not yet been sent from the MIDIOutput 's

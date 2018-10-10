@@ -1,10 +1,10 @@
-// Type definitions for Zynga Scroller
-// Project: https://github.com/zynga/scroller
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
+// Type definitions for Zynga Scroller 0.1
+// Project: http://zynga.github.com/scroller/
+// Definitions by: Marcelo Haskell Camargo <https://github.com/haskellcamargo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-interface ScrollerOptions {
+declare namespace Scroller {
+  interface Options {
     scrollingX?: boolean;
     scrollingY?: boolean;
     animating?: boolean;
@@ -13,46 +13,48 @@ interface ScrollerOptions {
     locking?: boolean;
     paging?: boolean;
     snapping?: boolean;
-    zooming?: boolean;
+    zooming?: number;
     minZoom?: number;
     maxZoom?: number;
-    speedMultiplier?: number;
-}
-
-interface ScrollValues {
-    left: number;
-    top: number;
-}
-
-interface ScrollValuesWithZoom extends ScrollValues {
-    zoom: number;
+  }
 }
 
 declare class Scroller {
-    constructor (callback: (left: number, top: number, zoom: number) => void , options: ScrollerOptions);
+  constructor(callback: (left: number, top: number, zoom: number) => void, options?: Scroller.Options);
+  setDimensions(clientWidth: number, clientHeight: number, contentWidth: number, contentHeight: number): void;
+  setPosition(clientLeft: number, clientTop: number): void;
+  setSnapSize(width: number, height: number): void;
+  activatePullToRefresh(height: number, activate: () => void, deactivate: () => void, start: () => void): void;
+  finishPullToRefresh(): void;
+  getValues(): {
+    left: number;
+    top: number;
+    zoom: number
+  };
+  getScrollMax(): { left: number; top: number; };
+  zoomTo(level: number, animate?: boolean, originLeft?: number,
+    originTop?: number, callback?: () => void): void;
+  zoomBy(factor: number, animate?: boolean, originLeft?: number,
+    originTop?: number, callback?: () => void): void;
+  scrollTo(left: number, top: number, animate?: boolean, zoom?: number): void;
+  scrollBy(leftOffset: number, topOffset: number, animate?: boolean): void;
 
-    setDimensions(clientWidth: number, clientHeight: number, contentWidth: number, contentHeight: number): void;
-    setPosition(left: number, top: number): void;
-    setSnapSize(width: number, height: number): void;
-    activatePullToRefresh(height: number, activateCallback: Function, deactivateCallback: Function, startCallback: Function): void;
-    finishPullToRefresh(): void;
-    getValues(): ScrollValuesWithZoom;
-    getScrollMax(): ScrollValues;
-    zoomTo(level: number, animate?: boolean, originLeft?: number, originTop?: number, callback?: Function): void;
-    zoomBy(factor: number, animate?: boolean, originLeft?: number, originTop?: number, callback?: Function): void;
-    scrollTo(left?: number, top?: number, animate?: boolean, zoom?: number): void;
-    scrollBy(left?: number, top?: number, animate?: boolean): void;
-
-    doMouseZoom(wheelDelta: number, timeStamp: number, pageX: number, pageY: number): void;
-    doTouchStart(touches: any[], timeStamp: number): void;
-    doTouchMove(touches: any[], timeStamp: number, scale?: number): void;
-    doTouchEnd(timeStamp: number): void;
+  doMouseZoom(wheelData: number, timeStamp: number, pageX: number, pageY: number): void;
+  doTouchStart(touches: Array<{
+    pageX: number;
+    pageY: number
+  }>, timeStamp: number): void;
+  doTouchMove(touches: Array<{
+    pageX: number;
+    pageY: number
+  }>, timeStamp: number, scale?: number): void;
+  doTouchEnd(timeStamp: number): void;
 }
 
 declare class EasyScroller  {
-    constructor (content: any, options: ScrollerOptions);
+  constructor(content: any, options: Scroller.Options);
 
-    render(): void;
-    reflow(): void;
-    bindEvents(): void;
+  render(): void;
+  reflow(): void;
+  bindEvents(): void;
 }

@@ -200,7 +200,7 @@ export interface VastRequestOptions {
      * A VAST XML document. When response is provided, no Ajax request is made and thus the url parameter is ignored.
      */
     response?: string;
-    /**a
+    /**
      * A URL handler module, used to fetch the VAST document instead of the default ones.
      */
     urlhandler?: any;

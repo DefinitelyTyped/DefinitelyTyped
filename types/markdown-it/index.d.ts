@@ -1,6 +1,6 @@
 // Type definitions for markdown-it
 // Project: https://github.com/markdown-it/markdown-it
-// Definitions by: York Yao <https://github.com/plantain-00/>, Robert Coie <https://github.com/rapropos/>
+// Definitions by: York Yao <https://github.com/plantain-00/>, Robert Coie <https://github.com/rapropos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface MarkdownItStatic {
@@ -14,6 +14,7 @@ interface MarkdownItStatic {
 
 declare var MarkdownIt: MarkdownItStatic;
 export = MarkdownIt;
+export as namespace markdownit;
 
 declare module MarkdownIt {
     interface MarkdownIt {
@@ -96,7 +97,7 @@ declare module MarkdownIt {
     type TokenRender = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => void;
 
     interface Rule {
-        (state: any): void;
+        (state: any, silent?: boolean): void;
     }
 
     interface Ruler {

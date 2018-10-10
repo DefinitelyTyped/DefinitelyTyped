@@ -83,12 +83,14 @@ link = stateNavigator.fluent()
 
 // State Context
 let state: State = stateNavigator.stateContext.state;
-const url: string = stateNavigator.stateContext.url;
+let url: string = stateNavigator.stateContext.url;
 const title: string = stateNavigator.stateContext.title;
 let page: number = stateNavigator.stateContext.data.page;
 state = stateNavigator.stateContext.oldState;
+url = stateNavigator.stateContext.oldUrl;
 page = stateNavigator.stateContext.oldData.page;
 state = stateNavigator.stateContext.previousState;
+url = stateNavigator.stateContext.previousUrl;
 page = stateNavigator.stateContext.previousData.page;
 
 // Navigation Data

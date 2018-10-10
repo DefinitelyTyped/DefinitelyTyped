@@ -1051,7 +1051,7 @@ namespace forceCollapsable {
     var force = d3.layout.force<Node>()
         .on("tick", tick)
         .charge(function (d) { return d._children ? -d.size / 100 : -30; } )
-        .linkDistance(function (d) { return d.target._children ? 80 : 30; } )
+        .linkDistance(function (d) { return (d.target as Node)._children ? 80 : 30; } )
         .size([w, h - 160]);
 
     var vis = d3.select("body").append("svg:svg")
@@ -1083,10 +1083,10 @@ namespace forceCollapsable {
         // Enter any new links.
         link.enter().insert("svg:line", ".node")
             .attr("class", "link")
-            .attr("x1", function (d) { return d.source.x; } )
-            .attr("y1", function (d) { return d.source.y; } )
-            .attr("x2", function (d) { return d.target.x; } )
-            .attr("y2", function (d) { return d.target.y; } );
+            .attr("x1", function (d) { return (d.source as Node).x; } )
+            .attr("y1", function (d) { return (d.source as Node).y; } )
+            .attr("x2", function (d) { return (d.target as Node).x; } )
+            .attr("y2", function (d) { return (d.target as Node).y; } );
 
         // Exit any old links.
         link.exit().remove();
@@ -1114,10 +1114,10 @@ namespace forceCollapsable {
     }
 
     function tick() {
-        link.attr("x1", function (d) { return d.source.x; } )
-            .attr("y1", function (d) { return d.source.y; } )
-            .attr("x2", function (d) { return d.target.x; } )
-            .attr("y2", function (d) { return d.target.y; } );
+        link.attr("x1", function (d) { return (d.source as Node).x; } )
+            .attr("y1", function (d) { return (d.source as Node).y; } )
+            .attr("x2", function (d) { return (d.target as Node).x; } )
+            .attr("y2", function (d) { return (d.target as Node).y; } );
 
         node.attr("cx", function (d) { return d.x; } )
             .attr("cy", function (d) { return d.y; } );
@@ -1738,7 +1738,7 @@ namespace forceCollapsable2 {
     var force = d3.layout.force<Node>()
         .on("tick", tick)
         .charge(function (d) { return d._children ? -d.size / 100 : -30; } )
-        .linkDistance(function (d) { return d.target._children ? 80 : 30; } )
+        .linkDistance(function (d) { return (d.target as Node)._children ? 80 : 30; } )
         .size([w, h - 160]);
 
     var vis = d3.select("body").append("svg:svg")
@@ -1770,10 +1770,10 @@ namespace forceCollapsable2 {
         // Enter any new links.
         link.enter().insert("svg:line", ".node")
             .attr("class", "link")
-            .attr("x1", function (d) { return d.source.x; } )
-            .attr("y1", function (d) { return d.source.y; } )
-            .attr("x2", function (d) { return d.target.x; } )
-            .attr("y2", function (d) { return d.target.y; } );
+            .attr("x1", function (d) { return (d.source as Node).x; } )
+            .attr("y1", function (d) { return (d.source as Node).y; } )
+            .attr("x2", function (d) { return (d.target as Node).x; } )
+            .attr("y2", function (d) { return (d.target as Node).y; } );
 
         // Exit any old links.
         link.exit().remove();
@@ -1801,11 +1801,11 @@ namespace forceCollapsable2 {
     }
 
     function tick() {
-        link.attr("x1", function (d) { return d.source.x; } )
-            .attr("y1", function (d) { return d.source.y; } )
-            .attr("x2", function (d) { return d.target.x; } )
-            .attr("y2", function (d) { return d.target.y; } );
-
+        link.attr("x1", function (d) { return (d.source as Node).x; } )
+            .attr("y1", function (d) { return (d.source as Node).y; } )
+            .attr("x2", function (d) { return (d.target as Node).x; } )
+            .attr("y2", function (d) { return (d.target as Node).y; } );
+        
         node.attr("cx", function (d) { return d.x; } )
             .attr("cy", function (d) { return d.y; } );
     }
@@ -2719,4 +2719,35 @@ function testEnterSizeEmpty() {
     emptyStatus = newNodes.empty();
     selectionSize = newNodes.size();
 
+}
+
+// Example from Matthias Jobst http://github.com/MatthiasJobst
+// Checks the brush with different Axis types
+class BrushAxisTest {
+    brush: d3.svg.Brush<any,Date,Date>;
+    constructor() {
+        let scale = d3.time.scale<Date,Date>();
+        this.brush = d3.svg.brush<any,Date>()
+            .x(scale) // the x accessor accepts time scales
+            .y(scale); // as does y
+    }
+    brushes = () => {
+        let extent = this.brush.extent();
+        let brush = d3.svg.brush();
+        brush.x(d3.scale.linear()); // Linear scale
+        brush.y(d3.scale.log());    // Logarithmic scale
+        // Does not work:
+        // brush.extent(this.brush.extent());
+        // From https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md#ordinal_rangePoints
+        let ordinalScale = d3.scale.ordinal<number,number>()
+            .domain([1, 2, 3, 4])
+            .rangePoints([0, 100]);
+        let ordinalBrush = d3.svg.brush()
+            .x(ordinalScale) // Ordinal scale
+            .y(d3.scale.linear());
+        let colorScale = d3.scale.category10();
+        let colorBrush = d3.svg.brush<any,string,number>()
+            .x(colorScale) // Color scale
+            .y(d3.scale.pow());
+    }
 }

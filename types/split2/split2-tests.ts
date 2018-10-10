@@ -1,4 +1,4 @@
-import * as split from 'split2';
+import split = require('split2');
 import * as fs from 'fs';
 import { Transform, TransformOptions } from 'stream';
 

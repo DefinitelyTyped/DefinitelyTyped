@@ -35,6 +35,11 @@ interface IsStatic {
     /**
      * Checks if the given value type is function.
      */
+    fn(value: any): boolean;
+
+    /**
+     * Checks if the given value type is function.
+     */
     function(value: any): boolean;
 
     /**
@@ -81,6 +86,11 @@ interface IsStatic {
      * Checks if the given value type is undefined.
      */
     undefined(value: any): boolean;
+
+    /**
+     * Checks if the given value type is defined.
+     */
+    defined(value: any): boolean;
 
     /**
      * Checks if the given value types are same type.
@@ -587,7 +597,7 @@ interface IsStaticApi {
      * Checks if the given value type is arguments.
      */
     arguments(...value: any[]): boolean;
-    
+
     /**
      * Checks if the given value type is arguments.
      */
@@ -632,6 +642,16 @@ interface IsStaticApi {
      * Checks if the given value type is error.
      */
     error(value: any[]): boolean;
+
+    /**
+     * Checks if the given value type is function.
+     */
+    fn(...value: any[]): boolean;
+
+    /**
+     * Checks if the given value type is function.
+     */
+    fn(value: any[]): boolean;
 
     /**
      * Checks if the given value type is function.
@@ -732,6 +752,16 @@ interface IsStaticApi {
      * Checks if the given value type is undefined.
      */
     undefined(value: any[]): boolean;
+
+    /**
+     * Checks if the given value type is defined.
+     */
+    defined(...value: any[]): boolean;
+
+    /**
+     * Checks if the given value type is defined.
+     */
+    defined(value: any[]): boolean;
 
     //#endregion
 
@@ -1234,12 +1264,12 @@ interface Is extends IsStatic {
      * Override RegExps if you think they suck.
      */
     setRegexp(value: RegExp, regexp: 'url'): boolean;
-    
+
     /**
      * Override RegExps if you think they suck.
      */
     setRegexp(value: RegExp, regexp: 'email'): boolean;
-    
+
     /**
      * Override RegExps if you think they suck.
      */
@@ -1319,5 +1349,9 @@ interface Is extends IsStatic {
 declare var is: Is;
 
 declare module 'is' {
+    export = is;
+}
+
+declare module 'is_js' {
     export = is;
 }

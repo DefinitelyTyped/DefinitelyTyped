@@ -1,4 +1,4 @@
-$("#tree").fancytree({
+$("#tree").fancytree(<Fancytree.FancytreeOptions>{
 	source: [
 		{ title: "Node 1", key: "1" },
 		{
@@ -12,19 +12,24 @@ $("#tree").fancytree({
 						{ title: "Node 1", key: "1" },
 						{
 							title: "Folder 2", key: "2", folder: true, children: [
-							{ title: "Node 2.1", key: "3" },
-							{ title: "Node 2.2", key: "4" }
-						]
+								{ title: "Node 2.1", key: "3" },
+								{ title: "Node 2.2", key: "4" },
+								{ title: "NOde 2.3", key: "5", icon: "./icon.svg", checkbox: "radio" }
+							]
 						}
 					]
 				}
 			]
 		}
 	],
+	extensions: ['dnd5'],
+	dnd5: {
+		dragDrag: (node, data) => { }
+	},
 	click: (ev: JQueryEventObject, node: Fancytree.EventData) => {
 		return true;
 	},
-	checkbox: true,
+	checkbox: "radio",//boolean or "radio"
 	expand: () => {
 		console.log("expanded");
 	},
@@ -38,15 +43,21 @@ $("#tree").fancytree({
 		if (data.node.isFolder()) {
 			return false;
 		}
+	},
+	unselectable: function (event, data) {
+		return true;
+	},
+	unselectableIgnore: false,
+	unselectableStatus: function (event, data) {
+		return false;
 	}
-
 });
 
 //$("#tree").fancytree();
 
-var tree : Fancytree.Fancytree = $("#tree").fancytree("getTree");
+var tree: Fancytree.Fancytree = $("#tree").fancytree("getTree");
 
-var activeNode : Fancytree.FancytreeNode = tree.getRootNode();
+var activeNode: Fancytree.FancytreeNode = tree.getRootNode();
 
 // Sort children of active node:
 activeNode.sortChildren();
@@ -65,15 +76,15 @@ activeNode.addChildren({
 tree.loadKeyPath("/1/2", function (node, status) {
 	if (status === "loaded") {
 		console.log("loaded intermiediate node " + node);
-	} else if (status === "ok") {                
+	} else if (status === "ok") {
 		node.setActive();
 	}
 });
 
-var node = $.ui.fancytree.getNode($("#tree"));        
+var node = $.ui.fancytree.getNode($("#tree"));
 alert($.ui.fancytree.version);
-var f = $.ui.fancytree.debounce(50, (a : number) => { console.log(a); }, true);        
-f(2);   
+var f = $.ui.fancytree.debounce(50, (a: number) => { console.log(a); }, true);
+f(2);
 
 node = tree.getFirstChild();
 node.setExpanded().done(function () {
@@ -91,3 +102,26 @@ alert("We have " + tree.count() + " nodes.");
 
 // Use the API
 node.setTitle("New title");
+
+// add/remove/toggle class
+activeNode.addClass("test-class");
+activeNode.removeClass("test-class");
+activeNode.toggleClass("test-class");
+activeNode.toggleClass("test-class", true);
+
+// Fancytree.findAll()
+var nodes: Fancytree.FancytreeNode[];
+nodes = tree.findAll((node) => {
+	return true;
+});
+nodes = tree.findAll("Node");
+
+node.addChildren({
+	title: "New Node",
+	key: "15",
+	type: "book",
+	iconTooltip: "Icon toolip",
+	statusNodeType: "loading",
+	unselectableIgnore: true,
+	unselectableStatus: false,
+}, 0);

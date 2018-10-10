@@ -1,4 +1,4 @@
-import * as touch from 'touch';
+import touch = require('touch');
 
 // type value definitions
 const boolVal = true;
@@ -7,7 +7,7 @@ const strVal = "string";
 const dateVal = new Date();
 
 // Options tests
-let opts: touch.Options = {};
+const opts: touch.Options = {};
 
 opts.force = boolVal;
 
@@ -25,9 +25,11 @@ opts.ref = strVal;
 
 opts.nocreate = boolVal;
 
+let str: string;
 // touch API tests
 touch(strVal, (e) => console.log(e));
 touch(strVal, opts, (e) => console.log(e));
+touch(strVal, opts, (e) => 'hi').then(s => str = s);
 
 touch.sync(strVal);
 touch.sync(strVal, opts);
@@ -35,10 +37,7 @@ touch.sync(strVal, opts);
 // ftouch API tests
 touch.ftouch(numVal, (e) => console.log(e));
 touch.ftouch(numVal, opts, (e) => console.log(e));
-
-touch.ftouch.sync(numVal);
-touch.ftouch.sync(numVal, opts);
+touch.ftouch(numVal, opts, (e) => 'hi').then(s => str = s);
 
 touch.ftouchSync(numVal);
 touch.ftouchSync(numVal, opts);
-

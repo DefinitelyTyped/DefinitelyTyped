@@ -2,18 +2,18 @@
 
 import * as spdy from 'spdy';
 
-let describe: any;
-let it: any;
-let fixtures: any;
-let http: any;
-let https: any;
-let util: any;
-let assert: any;
-let afterEach: any;
-let beforeEach: any;
-let net: any;
-let tls: any;
-let transport: any;
+declare var describe: any;
+declare var it: any;
+declare var fixtures: any;
+declare var http: any;
+declare var https: any;
+declare var util: any;
+declare var assert: any;
+declare var afterEach: any;
+declare var beforeEach: any;
+declare var net: any;
+declare var tls: any;
+declare var transport: any;
 
 describe('SPDY Client', () => {
   describe('regular', () => {
@@ -27,7 +27,7 @@ describe('SPDY Client', () => {
 
         const options = util._extend({
                                      spdy: {
-                                       plain: plain
+                                       plain
                                      }
                                    }, fixtures.keys);
         server = spdy.createServer(options, (req: any, res: any) => {
@@ -58,9 +58,9 @@ describe('SPDY Client', () => {
         server.listen(fixtures.port, () => {
           agent = spdy.createAgent({
                                      rejectUnauthorized: false,
-                                     port: <number>fixtures.port,
+                                     port: <number> fixtures.port,
                                      spdy: {
-                                       plain: plain,
+                                       plain,
                                        protocol: plain ? npn : null,
                                        protocols: [ npn ]
                                      }
@@ -83,7 +83,7 @@ describe('SPDY Client', () => {
 
       it('should send GET request', (done: any) => {
         const req = hmodule.request({
-                                    agent: agent,
+                                    agent,
 
                                     method: 'GET',
                                     path: '/get',
@@ -101,7 +101,7 @@ describe('SPDY Client', () => {
 
       it('should send POST request', (done: any) => {
         const req = hmodule.request({
-                                    agent: agent,
+                                    agent,
 
                                     method: 'POST',
                                     path: '/post',
@@ -124,7 +124,7 @@ describe('SPDY Client', () => {
 
       it('should receive PUSH_PROMISE', (done: any) => {
         const req = hmodule.request({
-                                    agent: agent,
+                                    agent,
 
                                     method: 'GET',
                                     path: '/get'
@@ -144,8 +144,8 @@ describe('SPDY Client', () => {
       });
 
       it('should receive trailing headers', (done: any) => {
-        var req = hmodule.request({
-                                    agent: agent,
+        const req = hmodule.request({
+                                    agent,
 
                                     method: 'GET',
                                     path: '/get'
@@ -173,7 +173,7 @@ describe('SPDY Client', () => {
 
         const options = util._extend({
                                      spdy: {
-                                       plain: plain,
+                                       plain,
                                        'x-forwarded-for': true
                                      }
                                    }, fixtures.keys);
@@ -188,7 +188,7 @@ describe('SPDY Client', () => {
                                      port: fixtures.port,
                                      spdy: {
                                        'x-forwarded-for': '1.2.3.4',
-                                       plain: plain,
+                                       plain,
                                        protocol: plain ? npn : null,
                                        protocols: [ npn ]
                                      }
@@ -210,8 +210,8 @@ describe('SPDY Client', () => {
       });
 
       it('should send x-forwarded-for', (done: any) => {
-        var req = hmodule.request({
-                                    agent: agent,
+        const req = hmodule.request({
+                                    agent,
 
                                     method: 'GET',
                                     path: '/get'
@@ -237,7 +237,7 @@ describe('SPDY Server', () => {
       server = spdy.createServer(util._extend({
                                                 spdy: {
                                                   'x-forwarded-for': true,
-                                                  plain: plain
+                                                  plain
                                                 }
                                               }, fixtures.keys));
 
@@ -248,7 +248,7 @@ describe('SPDY Server', () => {
                                                    NPNProtocols: [ npn ]
                                                  }, () => {
           client = transport.connection.create(socket, {
-            protocol: protocol,
+            protocol,
             isServer: false
           });
           client.start(version);
@@ -287,7 +287,7 @@ describe('SPDY Server', () => {
         assert.equal(req.spdyVersion, res.spdyVersion);
         assert(req.isSpdy);
         if (!plain) {
-          const socket = <any>req.socket;
+          const socket = req.socket;
           assert(socket.encrypted);
           assert(socket.getPeerCertificate());
         }
@@ -643,7 +643,7 @@ describe('SPDY Server', () => {
   });
 
   it('should support custom base', (done: any) => {
-    function Pseuver(options: spdy.ServerOptions, listener: Function) {
+    function Pseuver(options: spdy.ServerOptions, listener: () => void) {
       https.Server.call(this, options, listener);
     }
     util.inherits(Pseuver, https.Server);
@@ -676,5 +676,11 @@ describe('SPDY Server', () => {
 
       req.end();
     });
+  });
+
+  it('should accept express app', () => {
+    const express = require('express');
+    const app = express();
+    spdy.createServer({}, app);
   });
 });

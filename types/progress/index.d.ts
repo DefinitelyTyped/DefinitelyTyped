@@ -120,13 +120,16 @@ declare class ProgressBar {
      *   overall completion to.
      */
     update(ratio: number, tokens?: any): void;
-
+    
+    /**
+     * "interrupt" the progress bar and write a message above it.
+     */
+    interrupt(message: string): void;
 
     /**
      * Terminates a progress bar.
-     */
+     */ 
     terminate(): void;
-
 
     /**
      * Completed status of progress (Boolean)

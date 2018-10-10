@@ -213,10 +213,11 @@ function test_bloodhout() {
         // search
         var sync: (datums: string[]) => {};
         var async: (datums: string[]) => {};
-        var data2: string[] = engine.search("query", sync, async);
+        var data2: string[] = engine.search("query", sync);
+        var data3: string[] = engine.search("query", sync, async);
 
         // all
-        var data3: string[] = engine.all();
+        var data4: string[] = engine.all();
 
         // clear
         var engine1: Bloodhound<string> = engine.clear();
@@ -458,8 +459,8 @@ function test_bloodhout() {
             whitespace: (str: string) => { return new Array<string>(); },
             nonword: (str: string) => { return new Array<string>(); },
             obj: {
-                whitespace: (str: string) => { return new Array<string>(); },
-                nonword: (str: string) => { return new Array<string>(); }
+                whitespace: (str: string) => (obj: any) => { return new Array<string>(); },
+                nonword: (str: string) => (obj: any) => { return new Array<string>(); }
             }
         };
     }

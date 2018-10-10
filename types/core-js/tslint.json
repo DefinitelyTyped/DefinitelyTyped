@@ -1,6 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "ban-types": false
+        "ban-types": false,
+        "no-declare-current-package": false,
+        "no-unnecessary-generics": false
     }
 }

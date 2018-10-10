@@ -1,14 +1,14 @@
 
-
+import { publishComposite } from 'meteor/reywood:publish-composite';
 import User = Meteor.User;
-interface IPost { _id : string, authorId : string };
-interface IComment { authorId : string };
-var Posts : Mongo.Collection<IPost> = new Mongo.Collection<IPost>('Posts');
-var Comments : Mongo.Collection<IComment> = new Mongo.Collection<IComment>('Comments');
+interface IPost { _id: string, authorId: string };
+interface IComment { authorId: string };
+var Posts: Mongo.Collection<IPost> = new Mongo.Collection<IPost>('Posts');
+var Comments: Mongo.Collection<IComment> = new Mongo.Collection<IComment>('Comments');
 
 // Server
-Meteor.publishComposite('topTenPosts', {
-    find: function() : Mongo.Cursor<IPost> {
+publishComposite('topTenPosts', {
+    find: function(): Mongo.Cursor<IPost> {
         // Find top ten highest scoring posts
         return Posts.find({}, { sort: { score: -1 }, limit: 10 });
     },
@@ -45,15 +45,23 @@ Meteor.publishComposite('topTenPosts', {
 });
 
 // Server
-Meteor.publishComposite('postsByUser', function(userId, limit) {
+publishComposite('postsByUser', function(userId, limit) {
     return {
         find: function() {
             // Find posts made by user. Note arguments for callback function
             // being used in query.
             return Posts.find({ authorId: userId }, { limit: limit });
         },
-        children: [
-            // This section will be similar to that of the previous example.
+        children: [ 
+						{
+								// Set a collection for an "alternative client side collections" as shown
+								// here: http://braindump.io/meteor/2014/09/20/publishing-to-an-alternative-clientside-collection-in-meteor.html
+								collectionName: 'user-post-comments',
+								find: function(post) {
+										// Find all comments from these posts too
+										return Comments.find( { postId: post._id } );
+								}
+						},
         ]
     }
 });

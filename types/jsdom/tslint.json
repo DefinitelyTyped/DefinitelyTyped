@@ -1,6 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-empty-interface": false
+        // TODOs
+        "no-empty-interface": false,
+        "no-object-literal-type-assertion": false
     }
 }

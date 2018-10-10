@@ -1,23 +1,17 @@
-
 import mkdirp = require('mkdirp');
 
-var str: string;
-var num: number;
-var opts = {
-    mode: num,
-    fs: {}
-};
+mkdirp('str', (err, made) => {
+    const str: string = made;
+});
+mkdirp('str', '0777', (err, made) => {});
+mkdirp('str', {}, (err, made) => {});
+mkdirp('str', { mode: '0777' }, (err, made) => {});
 
-mkdirp(str, num, (err, made) => {
-	str = made;
-});
-mkdirp(str, opts, (err, made) => {
-	str = made;
-});
-mkdirp(str, (err, made) => {
-	str = made;
-});
+// $ExpectType string
+mkdirp.sync('str');
+mkdirp.sync('str', '0777');
+mkdirp.sync('str', {});
+mkdirp.sync('str', { mode: '0777' });
 
-str = mkdirp.sync(str, num);
-str = mkdirp.sync(str, opts);
-str = mkdirp.sync(str);
+// $ExpectError
+mkdirp.sync('str', { mode: '0777', fs: {} });

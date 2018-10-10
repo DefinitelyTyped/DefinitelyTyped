@@ -1,8 +1,12 @@
-export { Field } from "../lib/Field";
-export { FieldArray } from "../lib/FieldArray";
-export { Fields } from '../lib/Fields';
-
 export {
+    Field,
+    FieldArray,
+    Fields,
+    Form,
+    FormName,
+    FormSection,
+    reduxForm,
+    reducer,
     formValueSelector,
     getFormAsyncErrors,
     getFormInitialValues,
@@ -18,11 +22,7 @@ export {
     isInvalid,
     isPristine,
     isSubmitting,
+    isAsyncValidating,
     isValid,
-} from "../lib/selectors";
-export {
-    reduxForm,
-} from "../lib/reduxForm";
-export {
-    reducer,
-} from "../lib/reducer";
+    SubmissionError
+} from "../";

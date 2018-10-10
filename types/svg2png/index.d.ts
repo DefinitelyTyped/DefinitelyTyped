@@ -1,10 +1,20 @@
-// Type definitions for svg2png node package 
+// Type definitions for svg2png 4.1
 // Project: https://github.com/domenic/svg2png
-// Definitions by: hans windhoff <https://github.com/hansrwindhoff>
+// Definitions by: hans windhoff <https://github.com/hansrwindhoff>, songChengcheng <https://github.com/sccgithub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function svg2png(srcFile: string, destFile: string, scale: number, cb: (err:Error) => void):void;
-declare function svg2png(srcFile: string, destFile: string, cb: (err:Error) => void):void;
+/// <reference types="node" />
 
+interface opts {
+  fileName?: string;
+  width?: number;
+  height?: number;
+  url?: string;
+}
 
+declare function svg2png(sourceBuffer: Buffer, opts?: opts): Promise<Buffer>;
+
+declare namespace svg2png {
+  function sync(sourceBuffer: Buffer, opts?: opts): Buffer;
+}
 export = svg2png;

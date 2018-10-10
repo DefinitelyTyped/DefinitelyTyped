@@ -89,6 +89,7 @@ declare var awaitExpression: ESTree.AwaitExpression;
 declare var toplevelStatement: ESTree.Statement | ESTree.ModuleDeclaration;
 declare var expressionOrPattern: ESTree.Expression | ESTree.Pattern;
 declare var variableDeclaratorOrExpression: ESTree.VariableDeclaration | ESTree.Expression;
+declare var variableDeclaratorOrPattern: ESTree.VariableDeclaration | ESTree.Pattern;
 declare var literalOrIdentifier: ESTree.Literal | ESTree.Identifier;
 declare var blockStatementOrExpression: ESTree.BlockStatement | ESTree.Expression;
 declare var identifierOrExpression: ESTree.Identifier | ESTree.Expression;
@@ -156,7 +157,7 @@ var expressionMaybe: ESTree.Expression | null | undefined = forStatement.update;
 
 // ForInStatement
 var forInStatement: ESTree.ForInStatement;
-variableDeclaratorOrExpression = forInStatement.left;
+variableDeclaratorOrPattern = forInStatement.left;
 expression = forInStatement.right;
 
 // Expression
@@ -222,7 +223,8 @@ boolean = memberExpression.computed;
 
 // Declarations
 var functionDeclaration: ESTree.FunctionDeclaration;
-identifier = functionDeclaration.id;
+var identifierOrNull: ESTree.Identifier | null = functionDeclaration.id;
+functionDeclaration.id = null;
 var params: Array<ESTree.Pattern> = functionDeclaration.params;
 blockStatement = functionDeclaration.body;
 booleanMaybe = functionDeclaration.generator;
@@ -235,6 +237,10 @@ string = variableDeclaration.kind; // "var" | "let" | "const"
 var variableDeclarator: ESTree.VariableDeclarator;
 pattern = variableDeclarator.id; // Pattern
 expressionMaybe = variableDeclarator.init;
+
+var classDeclaration: ESTree.ClassDeclaration;
+identifierOrNull = classDeclaration.id;
+classDeclaration.id = null;
 
 // Clauses
 // SwitchCase
@@ -271,9 +277,6 @@ switch (node.type) {
     break;
   case 'Program':
     program = node;
-    break;
-  case 'FunctionDeclaration':
-    functionDeclaration = node
     break;
   case 'FunctionExpression':
     functionExpression = node
@@ -366,17 +369,11 @@ switch (node.type) {
   case 'ObjectExpression':
     objectExpression = node;
     break;
-  case 'FunctionExpression':
-    functionExpression = node;
-    break;
   case 'ArrowFunctionExpression':
     arrowFunctionExpression = node;
     break;
   case 'YieldExpression':
     yieldExpression = node;
-    break;
-  case 'Literal':
-    literal = node;
     break;
   case 'UnaryExpression':
     unaryExpression = node;
@@ -420,9 +417,6 @@ switch (node.type) {
   case 'MetaProperty':
     metaProperty = node;
     break;
-  case 'Identifier':
-    identifier = node;
-    break;
   case 'AwaitExpression':
     awaitExpression = node;
     break;
@@ -442,9 +436,6 @@ switch (node.type) {
     break;
 
   // narrowing of Pattern
-  case 'Identifier':
-    identifier = node;
-    break;
   case 'ObjectPattern':
     objectPattern = node;
     break;
@@ -457,19 +448,10 @@ switch (node.type) {
   case 'AssignmentPattern':
     assignmentPattern = node;
     break;
-  case 'MemberExpression':
-    memberExpression = node;
-    break;
   // end narrowing of Pattern
 
   case 'ClassBody':
     classBody = node
-    break;
-  case 'ClassDeclaration':
-    classDeclaration = node
-    break;
-  case 'ClassExpression':
-    classExpression = node
     break;
   case 'MethodDefinition':
     methodDefinition = node
@@ -722,4 +704,34 @@ switch (moduleSpecifier.type) {
     break;
   default:
     never = moduleSpecifier;
+}
+
+switch (forInStatement.left.type) {
+  case 'Identifier':
+    identifier = forInStatement.left;
+    break;
+  case 'ObjectPattern':
+    objectPattern = forInStatement.left;
+    break;
+  case 'ArrayPattern':
+    arrayPattern = forInStatement.left;
+    break;
+  case 'MemberExpression':
+    memberExpression = forInStatement.left;
+    break;
+}
+
+switch (forOfStatement.left.type) {
+  case 'Identifier':
+    identifier = forOfStatement.left;
+    break;
+  case 'ObjectPattern':
+    objectPattern = forOfStatement.left;
+    break;
+  case 'ArrayPattern':
+    arrayPattern = forOfStatement.left;
+    break;
+  case 'MemberExpression':
+    memberExpression = forOfStatement.left;
+    break;
 }

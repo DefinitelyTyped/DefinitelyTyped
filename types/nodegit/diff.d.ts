@@ -7,56 +7,15 @@ import { DiffDelta } from './diff-delta';
 import { DiffPerfdata } from './diff-perf-data';
 import { DiffOptions } from './diff-options';
 import { Buf } from './buf';
+import { ConvenientPatch } from './convenient-patch';
 
 export interface DiffFindOptions {
-    /**
-     *
-     *
-     * @type {number}
-     * @memberof DiffFindOptions
-     */
     version?: number;
-    /**
-     *
-     *
-     * @type {number}
-     * @memberof DiffFindOptions
-     */
     flags?: number;
-    /**
-     *
-     *
-     * @type {number}
-     * @memberof DiffFindOptions
-     */
     renameThreshold?: number;
-    /**
-     *
-     *
-     * @type {number}
-     * @memberof DiffFindOptions
-     */
     renameFromRewriteThreshold?: number;
-    /**
-     *
-     *
-     * @type {number}
-     * @memberof DiffFindOptions
-     */
     copyThreshold?: number;
-    /**
-     *
-     *
-     * @type {number}
-     * @memberof DiffFindOptions
-     */
     breakRewriteThreshold?: number;
-    /**
-     *
-     *
-     * @type {number}
-     * @memberof DiffFindOptions
-     */
     renameLimit?: number;
 }
 
@@ -171,167 +130,28 @@ export class Diff {
     /**
      * Directly run a diff between a blob and a buffer.
      *
-     * @static
-     * @param {Blob} oldBlob
-     * @param {string} oldAsPath
-     * @param {string} buffer
-     * @param {string} bufferAsPath
-     * @param {DiffOptions} opts
-     * @param {Function} fileCb
-     * @param {Function} binaryCb
-     * @param {Function} hunkCb
-     * @param {Function} lineCb
-     * @returns {Promise<any>}
      *
-     * @memberof Diff
      */
     static blobToBuffer(oldBlob: Blob, oldAsPath: string,
                         buffer: string, bufferAsPath: string, opts: DiffOptions, fileCb: Function, binaryCb: Function, hunkCb: Function, lineCb: Function): Promise<any>;
-    /**
-     *
-     *
-     * @static
-     * @param {string} content
-     * @param {number} contentLen
-     * @returns {Promise<Diff>}
-     *
-     * @memberof Diff
-     */
     static fromBuffer(content: string, contentLen: number): Promise<Diff>;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Index} index
-     * @param {DiffOptions} opts
-     * @returns {Promise<Diff>}
-     *
-     * @memberof Diff
-     */
-    static indexToWorkdir(repo: Repository, index: Index, opts: DiffOptions): Promise<Diff>;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Index} oldIndex
-     * @param {Index} newIndex
-     * @param {DiffOptions} opts
-     * @returns {Promise<Diff>}
-     *
-     * @memberof Diff
-     */
-    static indexToIndex(repo: Repository, oldIndex: Index, newIndex: Index, opts: DiffOptions): Promise<Diff>;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Tree} oldTree
-     * @param {Index} index
-     * @param {DiffOptions} opts
-     * @returns {Promise<Diff>}
-     *
-     * @memberof Diff
-     */
-    static treeToIndex(repo: Repository, oldTree: Tree, index: Index, opts: DiffOptions): Promise<Diff>;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Tree} oldTree
-     * @param {Tree} new_tree
-     * @param {DiffOptions} opts
-     * @returns {Promise<Diff>}
-     *
-     * @memberof Diff
-     */
-    static treeToTree(repo: Repository, oldTree: Tree, new_tree: Tree, opts: DiffOptions): Promise<Diff>;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Tree} oldTree
-     * @param {DiffOptions} opts
-     * @returns {Promise<Diff>}
-     *
-     * @memberof Diff
-     */
-    static treeToWorkdir(repo: Repository, oldTree: Tree, opts: DiffOptions): Promise<Diff>;
-    /**
-     *
-     *
-     * @static
-     * @param {Repository} repo
-     * @param {Tree} oldTree
-     * @param {DiffOptions} opts
-     * @returns {Promise<Diff>}
-     *
-     * @memberof Diff
-     */
-    static treeToWorkdirWithIndex(repo: Repository, oldTree: Tree, opts: DiffOptions): Promise<Diff>;
+    static indexToWorkdir(repo: Repository, index: Index, opts?: DiffOptions): Promise<Diff>;
+    static indexToIndex(repo: Repository, oldIndex: Index, newIndex: Index, opts?: DiffOptions): Promise<Diff>;
+    static treeToIndex(repo: Repository, oldTree: Tree, index: Index, opts?: DiffOptions): Promise<Diff>;
+    static treeToTree(repo: Repository, oldTree: Tree, new_tree: Tree, opts?: DiffOptions): Promise<Diff>;
+    static treeToWorkdir(repo: Repository, oldTree: Tree, opts?: DiffOptions): Promise<Diff>;
+    static treeToWorkdirWithIndex(repo: Repository, oldTree: Tree, opts?: DiffOptions): Promise<Diff>;
 
-    /**
-     *
-     *
-     * @param {DiffFindOptions} options
-     * @returns {Promise<number>}
-     *
-     * @memberof Diff
-     */
     findSimilar(options: DiffFindOptions): Promise<number>;
-    /**
-     *
-     *
-     * @param {number} idx
-     * @returns {DiffDelta}
-     *
-     * @memberof Diff
-     */
     getDelta(idx: number): DiffDelta;
-    /**
-     *
-     *
-     * @returns {Promise<DiffPerfdata>}
-     *
-     * @memberof Diff
-     */
     getPerfdata(): Promise<DiffPerfdata>;
-    /**
-     *
-     *
-     * @returns {number}
-     *
-     * @memberof Diff
-     */
     numDeltas(): number;
     /**
      * Retrieve patches in this difflist
      *
-     * @returns {Promise<any[]>}
      *
-     * @memberof Diff
      */
-    patches(): Promise<any[]>;
-    /**
-     *
-     *
-     * @param {Diff} from
-     * @returns {Promise<number>}
-     *
-     * @memberof Diff
-     */
+    patches(): Promise<ConvenientPatch[]>;
     merge(from: Diff): Promise<number>;
-    /**
-     *
-     *
-     * @param {Diff.FORMAT} format
-     * @returns {Promise<Buf>}
-     *
-     * @memberof Diff
-     */
     toBuf(format: Diff.FORMAT): Promise<Buf>;
 }

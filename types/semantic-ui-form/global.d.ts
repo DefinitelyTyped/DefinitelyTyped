@@ -15,6 +15,47 @@ declare namespace SemanticUI {
          */
         (behavior: 'is valid'): boolean;
         /**
+         * Returns true/false whether a field passes its validation rules
+         */
+        (behavior: 'is valid', field: string): boolean;
+        /**
+         * Adds rule to existing rules for field
+         * @since 2.2.11
+         */
+        (behavior: 'add rule', field: string, rules: string | string[] | Form.Rules): JQuery;
+        /**
+         * Adds rule to existing rules for field
+         * @since 2.2.11
+         */
+        (behavior: 'add field', field: string, rules: string | string[] | Form.Rules): JQuery;
+        /**
+         * Adds fields object to existing fields
+         * @since 2.2.11
+         */
+        (behavior: 'add fields', fields: Form.Fields): JQuery;
+        /**
+         * Removes specific rule from field leaving other rules
+         * @since 2.2.11
+         */
+        (behavior: 'remove rule', field: string, rule: Form.Rule): JQuery;
+        /**
+         * Remove all validation for a field
+         * @since 2.2.11
+         */
+        (behavior: 'remove field', field: string): JQuery;
+        /**
+         * @since 2.2.11
+         */
+        (behavior: 'remove rules', fields: string | string[], rules: Form.Rule[]): JQuery;
+        /**
+         * @since 2.2.11
+         */
+        (behavior: 'remove fields', fields: string[]): JQuery;
+        /**
+         * Adds error prompt to the field with the given identifier
+         */
+        (behavior: 'add prompt', identifier: string, errors: string | string[]): JQuery;
+        /**
          * Validates form and calls onSuccess or onFailure
          */
         (behavior: 'validate form'): JQuery;
@@ -58,7 +99,7 @@ declare namespace SemanticUI {
         <K extends keyof FormSettings>(behavior: 'setting', name: K, value?: undefined): FormSettings._Impl[K];
         <K extends keyof FormSettings>(behavior: 'setting', name: K, value: FormSettings._Impl[K]): JQuery;
         (behavior: 'setting', value: FormSettings): JQuery;
-        (settings?: FormSettings): JQuery;
+        (settings?: FormSettings | Form.Fields): JQuery;
     }
 
     /**
@@ -96,6 +137,10 @@ declare namespace SemanticUI {
             Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
+            defaults: {
+                [name: string]: Form.Field;
+            };
+
             // region Form Settings
 
             /**
@@ -255,12 +300,21 @@ declare namespace SemanticUI {
     namespace Form {
         interface Field {
             identifier: string;
+            optional?: boolean;
             rules: Rule[];
         }
 
         interface Rule {
             type: string;
             prompt: string;
+        }
+
+        interface Fields {
+            [name: string]: string | string[];
+        }
+
+        interface Rules {
+            rules: Rule[];
         }
 
         type TextSettings = TextSettings.Param;

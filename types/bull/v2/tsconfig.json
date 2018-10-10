@@ -1,16 +1,25 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [ "es6" ],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "baseUrl": "../../",
-        "typeRoots": [ "../../" ],
+        "typeRoots": [
+            "../../"
+        ],
         "types": [],
         "paths": {
-            "bull": [ "bull/v2" ],
-            "bull/*": [ "bull/v2/*" ]
+            "bull": [
+                "bull/v2"
+            ],
+            "bull/*": [
+                "bull/v2/*"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

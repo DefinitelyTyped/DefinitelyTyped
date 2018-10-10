@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "jsx": "react",
+        "typeRoots": ["../"],
+        "paths": {
+            "@storybook/addon-centered": ["storybook__addon-centered"],
+            "@storybook/react": ["storybook__react"]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "angular.d.ts",
+        "index.d.ts",
+        "mithril.d.ts",
+        "storybook__addon-centered-tests.tsx"
+    ]
+}

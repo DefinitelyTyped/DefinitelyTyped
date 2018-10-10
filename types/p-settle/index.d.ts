@@ -22,8 +22,6 @@ declare namespace pSettle {
  * * `isFulfilled`
  * * `isRejected`
  * * `value` or `reason` (Depending on whether the promise fulfilled or rejected)
- *
- * @param input
  */
 declare function pSettle<T>(input: Iterable<PromiseLike<T>>): Promise<Array<pSettle.SettledResult<T>>>;
 

@@ -8,5 +8,5 @@ interface TokenDto {
   iat: number;
 }
 
-const decodedTokenOld = jwtDecode(token) as TokenDto;
+const decodedTokenOld = jwtDecode(token);
 const decodedToken = jwtDecode<TokenDto>(token);

@@ -1,4 +1,4 @@
-import * as Timer from "timer-machine";
+import Timer = require("timer-machine");
 
 let myTimer = new Timer();
 
@@ -12,10 +12,10 @@ Timer.destroy('my');
 
 myTimer = Timer.get('my');
 
-let timer1 = new Timer();
+const timer1 = new Timer();
 timer1.start();
 
-let timer2 = new Timer(true);
+const timer2 = new Timer(true);
 timer2.start();
 
 let timer = new Timer();

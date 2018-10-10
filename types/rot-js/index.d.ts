@@ -1,7 +1,8 @@
 // Type definitions for rot-js 0.6
 // Project: https://github.com/ondras/rot.js
-// Definitions by: Roger Ostrander <https://github.com/atiaxi/>
+// Definitions by: Roger Ostrander <https://github.com/atiaxi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 // Extensions (thanks, https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html )
 declare global {
@@ -97,25 +98,15 @@ export const VK_PRINTSCREEN: number;
 export const VK_INSERT: number;
 /** Del(ete) key. */
 export const VK_DELETE: number;
-/***/
 export const VK_0: number;
-/***/
 export const VK_1: number;
-/***/
 export const VK_2: number;
-/***/
 export const VK_3: number;
-/***/
 export const VK_4: number;
-/***/
 export const VK_5: number;
-/***/
 export const VK_6: number;
-/***/
 export const VK_7: number;
-/***/
 export const VK_8: number;
-/***/
 export const VK_9: number;
 /** Colon (:) key. Requires Gecko 15.0 */
 export const VK_COLON: number;
@@ -131,59 +122,32 @@ export const VK_GREATER_THAN: number;
 export const VK_QUESTION_MARK: number;
 /** Atmark (@) key. Requires Gecko 15.0 */
 export const VK_AT: number;
-/***/
 export const VK_A: number;
-/***/
 export const VK_B: number;
-/***/
 export const VK_C: number;
-/***/
 export const VK_D: number;
-/***/
 export const VK_E: number;
-/***/
 export const VK_F: number;
-/***/
 export const VK_G: number;
-/***/
 export const VK_H: number;
-/***/
 export const VK_I: number;
-/***/
 export const VK_J: number;
-/***/
 export const VK_K: number;
-/***/
 export const VK_L: number;
-/***/
 export const VK_M: number;
-/***/
 export const VK_N: number;
-/***/
 export const VK_O: number;
-/***/
 export const VK_P: number;
-/***/
 export const VK_Q: number;
-/***/
 export const VK_R: number;
-/***/
 export const VK_S: number;
-/***/
 export const VK_T: number;
-/***/
 export const VK_U: number;
-/***/
 export const VK_V: number;
-/***/
 export const VK_W: number;
-/***/
 export const VK_X: number;
-/***/
 export const VK_Y: number;
-/***/
 export const VK_Z: number;
-/***/
 export const VK_CONTEXT_MENU: number;
 /** 0 on the numeric keypad. */
 export const VK_NUMPAD0: number;
@@ -209,7 +173,6 @@ export const VK_NUMPAD9: number;
 export const VK_MULTIPLY: number;
 /** + on the numeric keypad. */
 export const VK_ADD: number;
-/***/
 export const VK_SEPARATOR: number;
 /** - on the numeric keypad. */
 export const VK_SUBTRACT: number;
@@ -391,7 +354,7 @@ export interface RNGable {
     getUniformInt(lowerBound: number, upperBound: number): number;
     getNormal(mean?: number, stddev?: number): number;
     getPercentage(): number;
-    getWeightedValue<T>(data: { T: number }): T;
+    getWeightedValue<K extends string>(data: Record<K, number>): K;
     getState(): [number, number, number, number];
     setState(state: [number, number, number, number]): RNGable;
     clone(): RNGable;
@@ -444,7 +407,7 @@ export class Display {
     clear(): void;
     computeSize(availWidth: number, availHeight: number): [number, number];
     computeFontSize(availWidth: number, availHeight: number): number;
-    draw(x: number, y: number, character: string | string[], fg?: string, bg?: string): void;
+    draw(x: number, y: number, character: string | string[], fg?: string | string[], bg?: string | string[]): void;
     drawText(x: number, y: number, text: string, maxWidth?: number): number;
     eventToPosition(e: UIEvent): [number, number] | number;
     getContainer(): Node;
@@ -520,8 +483,8 @@ export namespace Map {
         connect(callback: DigCallback, value?: number, connectionCallback?: DoorCallback): void;
     }
     class Dungeon extends Map {
-        getRooms(): Map.Feature.Room[];
-        getCorridors(): Map.Feature.Corridor[];
+        getRooms(): Feature.Room[];
+        getCorridors(): Feature.Corridor[];
     }
 
     class Digger extends Dungeon {

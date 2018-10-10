@@ -47,13 +47,13 @@ interface NumberCallback { (err?: Error, result?: number): void; }
 interface AsyncNumberGetter { (callback: NumberCallback): void; }
 
 var taskDict: Lookup<AsyncNumberGetter> = {
-    one: function(callback){
-        setTimeout(function(){
+    one: function(callback) {
+        setTimeout(function() {
             callback(undefined, 1);
         }, 200);
     },
-    two: function(callback){
-        setTimeout(function(){
+    two: function(callback) {
+        setTimeout(function() {
             callback(undefined, 2);
         }, 100);
     }

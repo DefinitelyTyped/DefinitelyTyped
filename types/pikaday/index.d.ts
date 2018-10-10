@@ -1,6 +1,8 @@
-// Type definitions for pikaday
+// Type definitions for pikaday 1.7
 // Project: https://github.com/dbushell/Pikaday
-// Definitions by: Rudolph Gottesheim <http://midnight-design.at/>
+// Definitions by: Rudolph Gottesheim <https://github.com/MidnightDesign>
+//                 Åke Wivänge <https://github.com/wake42>
+//                 Istvan Mezo <https://github.com/mezoistvan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -19,7 +21,7 @@ declare class Pikaday {
      * Extends the existing configuration options for Pikaday object with the options provided.
      * Can be used to change/extend the configurations on runtime.
      * @param options full/partial configuration options.
-     * @returns {} extended configurations.
+     * @returns extended configurations.
      */
     config(options: Pikaday.PikadayOptions): Pikaday.PikadayOptions;
 
@@ -53,7 +55,7 @@ declare class Pikaday {
     /**
      * Set the current selection with a Moment.js object (see setDate).
      */
-    setMoment(moment: any): void;
+    setMoment(moment: any, preventOnSelect?: boolean): void;
 
     /**
      * Change the current view to see a specific date.
@@ -173,6 +175,11 @@ declare namespace Pikaday {
         bound?: boolean;
 
         /**
+         * Data-attribute on the input field with an aria assistance test (only applied when bound is set)
+         */
+        ariaLabel?: string;
+
+        /**
          * Preferred position of the datepicker relative to the form field
          * (e.g. 'top right'). Automatic adjustment may occur to avoid
          * displaying outside the viewport. Default: 'bottom left'.
@@ -227,7 +234,7 @@ declare namespace Pikaday {
          * Callback function that gets passed a Date object for each day
          * in view. Should return true to disable selection of that day.
          */
-        disableDayFn?: (date: Date) => boolean;
+        disableDayFn?(date: Date): boolean;
 
         /**
          * Number of years either side (e.g. 10) or array of upper/lower range
@@ -239,6 +246,11 @@ declare namespace Pikaday {
          * Show the ISO week number at the head of the row. Default: false.
          */
         showWeekNumber?: boolean;
+
+        /**
+         * Select a whole week instead of a day (default false)
+         */
+        pickWholeWeek?: boolean;
 
         /**
          * Reverse the calendar for right-to-left languages. Default: false.
@@ -259,11 +271,16 @@ declare namespace Pikaday {
          * Render the month after the year in the title. Default: false.
          */
         showMonthAfterYear?: boolean;
-		
+
         /**
          * Render days of the calendar grid that fall in the next or previous months to the current month instead of rendering an empty table cell. Default: false.
          */
         showDaysInNextAndPreviousMonths?: boolean;
+
+        /**
+         * Allows user to select date that is in the next or previous months (default: false)
+         */
+        enableSelectionDaysInNextAndPreviousMonths?: boolean;
 
         /**
          * Number of visible calendars.
@@ -278,30 +295,61 @@ declare namespace Pikaday {
         mainCalendar?: string;
 
         /**
+         * Array of dates that you would like to differentiate from regular days (e.g. ['Sat Jun 28 2017', 'Sun Jun 29 2017', 'Tue Jul 01 2017',])
+         */
+        events?: string[];
+
+        /**
          * Define a class name that can be used as a hook for styling different
          * themes. Default: null.
          */
         theme?: string;
 
         /**
+         * Defines if the field is blurred when a date is selected (default true)
+         */
+        blurFieldOnSelect?: boolean;
+
+        /**
+         * The default flag for moment's strict date parsing (requires Moment.js for custom formatting). Default: false
+         */
+        formatStrict?: boolean;
+
+        /**
+         * Function which will be used for formatting date object to string.
+         * This function will take precedence over moment.
+         */
+        toString?(date: Date, format?: string): string;
+
+        /**
+         * Function which will be used for parsing input string and getting a date object from it.
+         * This function will take precedence over moment.
+         */
+        parse?(date: string, format: string): Date;
+
+        /**
          * Callback function for when a date is selected.
          */
-        onSelect?: (date: Date) => void;
+        onSelect?(date: Date): void;
 
         /**
          * Callback function for when the picker becomes visible.
          */
-        onOpen?: () => void;
+        onOpen?(): void;
 
         /**
          * Callback function for when the picker is hidden.
          */
-        onClose?: () => void;
+        onClose?(): void;
 
         /**
          * Callback function for when the picker draws a new month.
          */
-        onDraw?: () => void;
+        onDraw?(): void;
+
+        /**
+         * Enable keyboard input support. Default: true
+         */
+        keyboardInput?: boolean;
     }
 }
-

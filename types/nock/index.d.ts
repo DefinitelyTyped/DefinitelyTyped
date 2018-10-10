@@ -1,13 +1,20 @@
-// Type definitions for nock v8.2.0
+// Type definitions for nock v9.3.3
 // Project: https://github.com/node-nock/nock
-// Definitions by: bonnici <https://github.com/bonnici>, Horiuchi_H <https://github.com/horiuchi>
+// Definitions by: bonnici <https://github.com/bonnici>
+//                 Horiuchi_H <https://github.com/horiuchi>
+//                 afharo <https://github.com/afharo>
+//                 Matt R. Wilson <https://github.com/mastermatt>
+//                 Garanzha Dmitriy <https://github.com/damour>
+//                 GP <https://github.com/paambaati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
+import { Url } from 'url';
+
 export = nock;
 
-declare function nock(basePath: string | RegExp, options?: nock.Options): nock.Scope;
+declare function nock(basePath: string | RegExp | Url, options?: nock.Options): nock.Scope;
 
 declare namespace nock {
     export function cleanAll(): void;
@@ -15,7 +22,7 @@ declare namespace nock {
     export function activate(): void;
     export function isActive(): boolean;
     export function isDone(): boolean;
-    export function pendingMocks(): void;
+    export function pendingMocks(): string[];
     export function removeInterceptor(interceptor: Interceptor | RequestOptions): boolean;
     export function disableNetConnect(): void;
     export function enableNetConnect(matcher?: string | RegExp): void;
@@ -31,7 +38,7 @@ declare namespace nock {
 
     export var back: NockBack;
 
-    type HttpHeaders = { [key: string]: string | { (req: any, res: any, body: string): any; }; };
+    type HttpHeaders = { [key: string]: string | string[] | { (req: any, res: any, body: string): any; }; };
     type InterceptFunction = (
         uri: string | RegExp | { (uri: string): boolean; },
         requestBody?: string | RegExp | { (body: any): boolean; } | any,
@@ -67,7 +74,7 @@ declare namespace nock {
         filteringRequestBody(fn: (body: string) => string): this;
 
         log(out: () => void): this;
-        persist(): this;
+        persist(flag?: boolean): this;
         shouldPersist(): boolean;
         replyContentLength(): this;
         replyDate(d?: Date): this;
@@ -154,6 +161,13 @@ declare namespace nock {
 
         (fixtureName: string, nockedFn: (nockDone: () => void) => void): void;
         (fixtureName: string, options: NockBackOptions, nockedFn: (nockDone: () => void) => void): void;
+        (fixtureName: string, options?: NockBackOptions): Promise<{ nockDone: () => void, context: NockBackContext }>;
+    }
+
+    export interface NockBackContext {
+      scopes: Scope[];
+      assertScopesFinished(): void;
+      isLoaded: boolean;
     }
 
     export interface NockBackOptions {

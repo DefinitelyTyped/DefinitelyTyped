@@ -1,7 +1,8 @@
-// Type definitions for history 4.6.2
+// Type definitions for history 4.7.2
 // Project: https://github.com/mjackson/history
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Nathan Brown <https://github.com/ngbrown>, Young Rok Kim <https://github.com/rokoroku>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 export as namespace History;
 
 export type Action = 'PUSH' | 'POP' | 'REPLACE';
@@ -18,29 +19,29 @@ export interface History {
     go(n: number): void;
     goBack(): void;
     goForward(): void;
-    block(prompt?: boolean): UnregisterCallback;
+    block(prompt?: boolean | string | TransitionPromptHook): UnregisterCallback;
     listen(listener: LocationListener): UnregisterCallback;
     createHref(location: LocationDescriptorObject): Href;
 }
 
-export interface Location {
+export interface Location<S = LocationState> {
     pathname: Pathname;
     search: Search;
-    state: LocationState;
+    state: S;
     hash: Hash;
-    key: LocationKey;
+    key?: LocationKey;
 }
 
-export interface LocationDescriptorObject {
+export interface LocationDescriptorObject<S = LocationState> {
     pathname?: Pathname;
     search?: Search;
-    state?: LocationState;
+    state?: S;
     hash?: Hash;
     key?: LocationKey;
 }
 
 export namespace History {
-    export type LocationDescriptor = Path | LocationDescriptorObject;
+    export type LocationDescriptor<S = LocationState> = Path | LocationDescriptorObject<S>;
     export type LocationKey = string;
     export type LocationListener = (location: Location, action: Action) => void;
     export type LocationState = any;
@@ -48,11 +49,12 @@ export namespace History {
     export type Pathname = string;
     export type Search = string;
     export type TransitionHook = (location: Location, callback: (result: any) => void) => any;
+    export type TransitionPromptHook = (location: Location, action: Action) => string | false | void;
     export type Hash = string;
     export type Href = string;
 }
 
-export type LocationDescriptor = History.LocationDescriptor;
+export type LocationDescriptor<S = LocationState> = History.LocationDescriptor<S>;
 export type LocationKey = History.LocationKey;
 export type LocationListener = History.LocationListener;
 export type LocationState = History.LocationState;
@@ -60,6 +62,7 @@ export type Path = History.Path;
 export type Pathname = History.Pathname;
 export type Search = History.Search;
 export type TransitionHook = History.TransitionHook;
+export type TransitionPromptHook = History.TransitionPromptHook;
 export type Hash = History.Hash;
 export type Href = History.Href;
 

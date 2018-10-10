@@ -1,8 +1,8 @@
 import { Progressbar, create } from 'progressbar';
 
-let str: string = '';
+let str = '';
 let progressbar: Progressbar;
-let num: number = 1;
+let num = 1;
 const fn: () => void = () => {};
 
 progressbar = create();

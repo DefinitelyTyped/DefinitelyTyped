@@ -1,6 +1,8 @@
 // Type definitions for Angular UI Bootstrap 0.13.3
 // Project: https://github.com/angular-ui/bootstrap
-// Definitions by: Brian Surowiec <https://github.com/xt0rted>, Ryan Southgate <https://github.com/ry8806>
+// Definitions by:  Brian Surowiec <https://github.com/xt0rted>,
+//                  Ryan Southgate <https://github.com/ry8806>
+//                  Alfie Johnson <https://github.com/alfiej>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -62,6 +64,15 @@ declare module 'angular' {
             timezone?: string;
         }
 
+        type DatepickerCallback<T> = (args: IDatepickerCellArgs) => T;
+
+        type DatepickerMode = "day" | "month" | "year";
+
+        interface IDatepickerCellArgs {
+            date: Date;
+            mode: DatepickerMode;
+        }
+
         interface IDatepickerConfig {
             /**
              * Format of day in month.
@@ -110,7 +121,7 @@ declare module 'angular' {
              *
              * @default 'day'
              */
-            datepickerMode?: string;
+            datepickerMode?: DatepickerMode;
 
             /**
              * Set a lower limit for mode.
@@ -201,10 +212,24 @@ declare module 'angular' {
              *
              * @default {}
              */
-            ngModelOptions?: IDropdownConfigNgOptions
+            ngModelOptions?: IDropdownConfigNgOptions;
+
+            /**
+             * Defines an optional expression to disable visible options based on passing an object with date and current mode properties.
+             *
+             * @default null
+             */
+            dateDisabled?: DatepickerCallback<boolean>;
+            
+            /**
+             * Defines an optional expression to add classes based on passing an object with date and current mode properties.
+             *
+             * @default null
+             */
+            customClass?: DatepickerCallback<string>;
         }
 
-        interface IDatepickerPopupConfig {
+        interface IDatepickerPopupConfig extends IDatepickerConfig {
 
             /**
              * A list of alternate formats acceptable for manual entry.
@@ -312,7 +337,7 @@ declare module 'angular' {
             openClass?: string;
         }
 
-        interface IModalProvider extends IServiceProvider {
+        interface IModalProvider extends angular.IServiceProvider {
             /**
              * Default options all modals will use.
              */
@@ -320,6 +345,11 @@ declare module 'angular' {
         }
 
         interface IModalService {
+            /**
+             * @returns {IPromise}
+             */
+            getPromiseChain(): IPromise<any>;
+
             /**
              * @param {IModalSettings} options
              * @returns {IModalInstanceService}
@@ -389,7 +419,7 @@ declare module 'angular' {
             /**
              * inline template representing the modal's content
              */
-            template?: string;
+            template?: string | (() => string);
 
             /**
              * a scope instance to be used for the modal's content (actually the $modal service is going to create a child scope of a provided scope).
@@ -876,7 +906,7 @@ declare module 'angular' {
             useContentExp?: boolean;
         }
 
-        interface ITooltipProvider extends IServiceProvider {
+        interface ITooltipProvider extends angular.IServiceProvider {
             /**
              * Provide a set of defaults for certain tooltip and popover attributes.
              */

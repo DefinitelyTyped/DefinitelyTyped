@@ -1,8 +1,8 @@
 // via: http://visionmedia.github.io/superagent/
 
-import * as request from 'superagent';
+import request = require('superagent');
 import * as fs from 'fs';
-import * as assert from 'assert';
+import assert = require('assert');
 import { Agent } from 'https';
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
@@ -34,7 +34,7 @@ agent
         if (res.error) {
             console.log('oh no ' + res.error.message);
         } else {
-            console.log('got ' + res.status + ' response');
+            console.log(`got ${res.status} response`);
         }
     });
 
@@ -212,7 +212,7 @@ const reqUrl: string = req.url;
 const reqMethod: string = req.method;
 const reqCookies: string = req.cookies;
 
-console.log(reqMethod + ' request to ' + reqUrl + ' cookies ' + reqCookies);
+console.log(`${reqMethod} request to ${reqUrl} cookies ${reqCookies}`);
 
 // Basic authentication
 request.get('http://tobi:learnboost@local').end(callback);

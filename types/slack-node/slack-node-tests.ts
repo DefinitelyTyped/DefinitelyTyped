@@ -1,4 +1,4 @@
-import * as Slack from "slack-node";
+import Slack = require("slack-node");
 
 let webhookUri = "__uri___";
 

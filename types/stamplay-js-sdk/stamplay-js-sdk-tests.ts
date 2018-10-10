@@ -11,7 +11,7 @@ const registrationData = {
  };
 
 user.signup(registrationData).then(() => {
-  user.set('phoneNumber', '020 123 4567' );
+  user.set('phoneNumber', '020 123 4567');
   return user.save();
 }).then(() => {
   const number = user.get('phoneNumber');

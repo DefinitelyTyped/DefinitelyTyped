@@ -109,6 +109,32 @@ function originalTests() {
         }]
     });
 
+    const chart3 = new Highcharts.Chart({
+        chart: {
+            renderTo: "container"
+        },
+        xAxis: {},
+        series: [<Highcharts.ColumnRangeChartSeriesOptions> {
+            data: [[1, 1, 2], [2, 2, 3], [3, 2, 3]],
+            description: "foo",
+            type: "columnrange",
+            allowPointSelect: true
+        }]
+    });
+
+    const chart4 = new Highcharts.Chart({
+        chart: {
+            renderTo: "container"
+        },
+        xAxis: {},
+        series: [<Highcharts.ColumnRangeChartSeriesOptions> {
+            data: [["01-01-2018", 1, 2], ["02-01-2018", 2, 3], ["03-01-2018", 2, 3]],
+            description: "column range data",
+            type: "columnrange",
+            allowPointSelect: true
+        }]
+    });
+
     const div: HTMLDivElement = null as any;
     const r = new Highcharts.Renderer(div, 20, 30);
     const box = r.text("Hello", 10, 10).getBBox();
@@ -242,6 +268,7 @@ function test_ChartOptions() {
             click: () => { },
             drilldown: () => { },
             drillup: () => { },
+            drillupall: () => { },
             load: () => { },
             redraw: () => { },
             selection: () => { }
@@ -354,7 +381,7 @@ function test_ChartOptions() {
         },
         tooltip: {
             formatter() {
-                return '<b> ' + this.series.name + '</b> <br/> ' + this.x + ': ' + this.y;
+                return `<b> ${this.series.name}</b> <br/> ${this.x}: ${this.y}`;
             }
         },
         plotOptions: {},
@@ -1344,11 +1371,11 @@ function test_BoxPlot() {
         series: [{
             name: 'Observations',
             data: [
-                [760, 801, 848, 895, 965],
-                [733, 853, 939, 980, 1080],
-                [714, 762, 817, 870, 918],
-                [724, 802, 806, 871, 950],
-                [834, 836, 864, 882, 910]
+                760, 801, 848, 895, 965,
+                733, 853, 939, 980, 1080,
+                714, 762, 817, 870, 918,
+                724, 802, 806, 871, 950,
+                834, 836, 864, 882, 910
             ]
         }]
     });
@@ -1446,7 +1473,7 @@ function test_Column() {
 function test_ColumnCrispFalse() {
     // conform example: http://jsfiddle.net/gh/get/jquery/3.1.1/highslide-software/highcharts.com/tree/master/samples/highcharts/plotoptions/column-crisp-false/
     const numbers = () => {
-        let arr = [];
+        const arr = [];
         for (let i = 0; i < 100; i++) {
             arr.push(i);
         }
@@ -1630,12 +1657,18 @@ function test_Gauge() {
             type: 'gauge'
         },
         pane: {
+            center: ['50%', '85%'],
             startAngle: -150,
             endAngle: 150
         },
         yAxis: {
             min: 0,
-            max: 100
+            max: 100,
+            stops: [
+                [0.1, '#DF5353'],
+                [0.5, '#DDDF0D'],
+                [0.9, '#55BF3B'],
+            ],
         },
         plotOptions: {
             gauge: {
@@ -2151,7 +2184,7 @@ function test_AccessibilityOptions() {
 
 function test_AddAndUpdateCredits() {
     // example based on: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/credits/credits-update/
-    let chart = new Highcharts.Chart({
+    const chart = new Highcharts.Chart({
         title: {
             text: 'Credits update'
         },
@@ -2246,7 +2279,7 @@ function test_AxisOptions() {
             distance: 10,
             enabled: true,
             format: "format",
-            formatter() { return this.value; },
+            formatter() { return String(this.value); },
             maxStaggerLines: 5,
             overflow: false,
             padding: 10,
@@ -2383,10 +2416,10 @@ function test_AxisObject() {
     });
     axis.removePlotLine('plot-line-1');
     const extremes = axis.getExtremes();
-    console.log('dataMax: ' + extremes.dataMax + '<br/> ' +
-        'dataMin: ' + extremes.dataMin + '<br/> ' +
-        'max: ' + extremes.max + '<br/> ' +
-        'min: ' + extremes.min + '<br/> ');
+    console.log(`dataMax: ${extremes.dataMax}<br/> ` +
+        `dataMin: ${extremes.dataMin}<br/> ` +
+        `max: ${extremes.max}<br/> ` +
+        `min: ${extremes.min}<br/> `);
     axis.remove();
     axis.remove(false);
     axis.setCategories(['A', 'B', 'C']);
@@ -2447,6 +2480,13 @@ function test_ChartObject() {
     const firstXAxis = chart.xAxis[0];
     const firstYAxis = chart.yAxis[0];
     const legend = chart.legend;
+    chart.update(<Highcharts.Options> {});
+    chart.update(<Highcharts.Options> {}, true);
+    chart.update(<Highcharts.Options> {}, true, true);
+    chart.update(<Highcharts.Options> {}, true, true, true);
+    chart.update(<Highcharts.Options> {}, true, true, {
+        duration: 3000,
+    });
 }
 
 function test_ElementObject() {
@@ -2494,7 +2534,7 @@ function test_ElementObject() {
 function test_NumericSymbolMagnitude() {
     // conform example: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/lang/numericsymbolmagnitude/
 
-    let chart = new Highcharts.Chart({
+    const chart = new Highcharts.Chart({
         title: {
             text: 'Numeric symbols magnitude'
         },
@@ -2515,7 +2555,7 @@ function test_NumericSymbolMagnitude() {
         }]
     });
 
-    chart.update(<Highcharts.ChartOptions> {
+    chart.update({
         lang: {
             numericSymbols: ['万', '億'],
             numericSymbolMagnitude: 10000
@@ -2579,10 +2619,12 @@ function test_RendererObject() {
 
 function test_ResponsiveOptions() {
     const responsiveOptions: Highcharts.ResponsiveOptions = <Highcharts.ResponsiveOptions> {
-        rules: <Highcharts.RulesOptions[]> [
+        rules: [
             <Highcharts.RulesOptions> {
-                chartOptions: <Highcharts.ChartOptions> {
-                    description: 'just a test'
+                chartOptions: <Highcharts.Options> {
+                    chart: {
+                        description: 'just a test'
+                    }
                 },
                 condition: <Highcharts.ConditionOptions> {
                     callback: () => { },
@@ -2681,7 +2723,7 @@ function test_SeriesDataLabel() {
 
 function test_SoftMinSoftMax() {
     // conform example: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/yaxis/softmin-softmax/
-    let chart: Highcharts.ChartObject = new Highcharts.Chart({
+    const chart: Highcharts.ChartObject = new Highcharts.Chart({
         title: {
             text: 'Y axis softMax is 100'
         },
@@ -2706,8 +2748,7 @@ function test_SoftMinSoftMax() {
         }]
     });
 
-    let toggle = false;
-    chart.series[0].data[11].update((toggle = (!toggle)) ? 120 : 54);
+    chart.series[0].data[11].update(120);
 }
 
 function test_StyledColorZones() {
@@ -2749,7 +2790,7 @@ function test_TitleUpdate() {
     // conform example: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/members/title-update/
     let i = 1;
 
-    let chart = new Highcharts.Chart({
+    const chart = new Highcharts.Chart({
         subtitle: {
             text: 'Subtitle'
         },
@@ -2778,5 +2819,40 @@ function test_TitleUpdate() {
         style: {
             color: 'green'
         }
+    });
+}
+
+function test_AddAndFireEvent() {
+    const chart = $('#container').highcharts();
+    const type = 'drilldown';
+    const evt = Highcharts.addEvent(chart, type, it => {});
+    Highcharts.fireEvent(chart, type);
+}
+
+function test_WordCloud() {
+    const allDefaults: Highcharts.WordCloudChartSeriesOptions = {};
+
+    // partial wordcloud demo
+    const series: Highcharts.WordCloudChartSeriesOptions = {
+        type: 'wordcloud',
+        data: [],
+        name: 'Occurrences',
+        rotation: {
+            to: 0
+        },
+        tooltip: {
+            headerFormat: null,
+            pointFormatter() {
+                return `<strong>${this.name}</strong>: Occurrence ${this.weight}`;
+            }
+        }
+    };
+}
+
+// Test wrapping the tooltip refresh behavior.
+function test_WrapTooltipBehavior() {
+    Highcharts.wrap(Highcharts.Tooltip.prototype, 'refresh', (proceed, points) => {
+        // When refresh is called, code inside this wrap is executed.
+        // Many prototype functions use this so arrow functions should only be used to replace behaviors.
     });
 }

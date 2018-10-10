@@ -1,0 +1,12 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "strict-export-declare-modifiers": false,
+    "no-trailing-whitespace": false,
+    "jsdoc-format": false,
+    "no-reference-import": false,
+    "prefer-declare-function": false,
+    "no-duplicate-imports": false,
+    "no-empty-interface": false
+  }
+}

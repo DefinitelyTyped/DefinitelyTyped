@@ -1,5 +1,5 @@
-import * as express from 'express';
-import * as serveStatic from 'serve-static';
+import express = require('express');
+import serveStatic = require('serve-static');
 var app = express();
 
 app.use(serveStatic('/1'));

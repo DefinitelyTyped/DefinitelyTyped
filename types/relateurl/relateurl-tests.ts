@@ -1,5 +1,4 @@
-
-import * as RelateUrl from 'relateurl';
+import RelateUrl = require('relateurl');
 
 var from = "http://www.domain.com/asdf/";
 var to = "http://www.domain.com/asdf/asdf";

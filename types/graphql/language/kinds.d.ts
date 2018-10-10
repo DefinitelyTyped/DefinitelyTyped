@@ -1,66 +1,77 @@
-// Name
+/**
+ * The set of allowed kind values for AST nodes.
+ */
+export const Kind: _Kind;
 
-export const NAME: 'Name';
+// @internal
+type _Kind = {
+    // Name
+    NAME: "Name";
 
-// Document
+    // Document
+    DOCUMENT: "Document";
+    OPERATION_DEFINITION: "OperationDefinition";
+    VARIABLE_DEFINITION: "VariableDefinition";
+    SELECTION_SET: "SelectionSet";
+    FIELD: "Field";
+    ARGUMENT: "Argument";
 
-export const DOCUMENT: 'Document';
-export const OPERATION_DEFINITION: 'OperationDefinition';
-export const VARIABLE_DEFINITION: 'VariableDefinition';
-export const VARIABLE: 'Variable';
-export const SELECTION_SET: 'SelectionSet';
-export const FIELD: 'Field';
-export const ARGUMENT: 'Argument';
+    // Fragments
+    FRAGMENT_SPREAD: "FragmentSpread";
+    INLINE_FRAGMENT: "InlineFragment";
+    FRAGMENT_DEFINITION: "FragmentDefinition";
 
-// Fragments
+    // Values
+    VARIABLE: "Variable";
+    INT: "IntValue";
+    FLOAT: "FloatValue";
+    STRING: "StringValue";
+    BOOLEAN: "BooleanValue";
+    NULL: "NullValue";
+    ENUM: "EnumValue";
+    LIST: "ListValue";
+    OBJECT: "ObjectValue";
+    OBJECT_FIELD: "ObjectField";
 
-export const FRAGMENT_SPREAD: 'FragmentSpread';
-export const INLINE_FRAGMENT: 'InlineFragment';
-export const FRAGMENT_DEFINITION: 'FragmentDefinition';
+    // Directives
+    DIRECTIVE: "Directive";
 
-// Values
+    // Types
+    NAMED_TYPE: "NamedType";
+    LIST_TYPE: "ListType";
+    NON_NULL_TYPE: "NonNullType";
 
-export const INT: 'IntValue';
-export const FLOAT: 'FloatValue';
-export const STRING: 'StringValue';
-export const BOOLEAN: 'BooleanValue';
-export const NULL: 'NullValue';
-export const ENUM: 'EnumValue';
-export const LIST: 'ListValue';
-export const OBJECT: 'ObjectValue';
-export const OBJECT_FIELD: 'ObjectField';
+    // Type System Definitions
+    SCHEMA_DEFINITION: "SchemaDefinition";
+    OPERATION_TYPE_DEFINITION: "OperationTypeDefinition";
 
-// Directives
+    // Type Definitions
+    SCALAR_TYPE_DEFINITION: "ScalarTypeDefinition";
+    OBJECT_TYPE_DEFINITION: "ObjectTypeDefinition";
+    FIELD_DEFINITION: "FieldDefinition";
+    INPUT_VALUE_DEFINITION: "InputValueDefinition";
+    INTERFACE_TYPE_DEFINITION: "InterfaceTypeDefinition";
+    UNION_TYPE_DEFINITION: "UnionTypeDefinition";
+    ENUM_TYPE_DEFINITION: "EnumTypeDefinition";
+    ENUM_VALUE_DEFINITION: "EnumValueDefinition";
+    INPUT_OBJECT_TYPE_DEFINITION: "InputObjectTypeDefinition";
 
-export const DIRECTIVE: 'Directive';
+    // Directive Definitions
+    DIRECTIVE_DEFINITION: "DirectiveDefinition";
 
-// Types
+    // Type System Extensions
+    SCHEMA_EXTENSION: "SchemaExtension";
 
-export const NAMED_TYPE: 'NamedType';
-export const LIST_TYPE: 'ListType';
-export const NON_NULL_TYPE: 'NonNullType';
+    // Type Extensions
+    SCALAR_TYPE_EXTENSION: "ScalarTypeExtension";
+    OBJECT_TYPE_EXTENSION: "ObjectTypeExtension";
+    INTERFACE_TYPE_EXTENSION: "InterfaceTypeExtension";
+    UNION_TYPE_EXTENSION: "UnionTypeExtension";
+    ENUM_TYPE_EXTENSION: "EnumTypeExtension";
+    INPUT_OBJECT_TYPE_EXTENSION: "InputObjectTypeExtension";
+};
 
-// Type System Definitions
-
-export const SCHEMA_DEFINITION: 'SchemaDefinition';
-export const OPERATION_TYPE_DEFINITION: 'OperationTypeDefinition';
-
-// Type Definitions
-
-export const SCALAR_TYPE_DEFINITION: 'ScalarTypeDefinition';
-export const OBJECT_TYPE_DEFINITION: 'ObjectTypeDefinition';
-export const FIELD_DEFINITION: 'FieldDefinition';
-export const INPUT_VALUE_DEFINITION: 'InputValueDefinition';
-export const INTERFACE_TYPE_DEFINITION: 'InterfaceTypeDefinition';
-export const UNION_TYPE_DEFINITION: 'UnionTypeDefinition';
-export const ENUM_TYPE_DEFINITION: 'EnumTypeDefinition';
-export const ENUM_VALUE_DEFINITION: 'EnumValueDefinition';
-export const INPUT_OBJECT_TYPE_DEFINITION: 'InputObjectTypeDefinition';
-
-// Type Extensions
-
-export const TYPE_EXTENSION_DEFINITION: 'TypeExtensionDefinition';
-
-// Directive Definitions
-
-export const DIRECTIVE_DEFINITION: 'DirectiveDefinition';
+/**
+ * The enum type representing the possible kind values of AST nodes.
+ */
+export type KindEnum = _Kind[keyof _Kind];

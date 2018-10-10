@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@babel/generator": [
+                "babel__generator"
+            ],
+            "@babel/parser": [
+                "babel__parser"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "babel__generator-tests.ts"
+    ]
+}

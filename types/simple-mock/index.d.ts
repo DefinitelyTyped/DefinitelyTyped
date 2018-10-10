@@ -1,4 +1,4 @@
-// Type definitions for simple-mock
+// Type definitions for simple-mock v0.8.0
 // Project: https://github.com/jupiter/simple-mock
 // Definitions by: Leon Yu <https://github.com/leonyu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,6 +13,11 @@ declare namespace Simple {
      * Restores all current mocks.
      */
     restore(): void;
+
+    /**
+     * Use this if you need to restore only a single mock value or function on an object.
+     */
+    restore(obj: any, key: string): void;
 
     /**
      * Wraps fn in a spy and sets this on the obj, restorable with all mocks.
@@ -101,7 +106,7 @@ declare namespace Simple {
     reset(): void;
   }
 
-  interface Action<T> {
+  export interface Action<T> {
     /**
      * arguments to call back with
      */
@@ -176,7 +181,23 @@ declare namespace Simple {
     rejectWith<V>(val: V): Stub<PromiseLike<V>>;
 
     /**
-     * An array of behaviours, each having one of these properties:
+     * Configures this stub to use the specified array of actions.
+     */
+    withActions(actions?: Action<T>[]): Stub<T>;
+
+    /**
+     * Configures the stub to enable looping.
+     */
+    withLoop(): Stub<T>;
+
+    /**
+     * Configures the stub to disable looping.
+     */
+    noLoop(): Stub<T>;
+
+    /**
+     * An array of behaviours.
+     * Note: modifying this array directly is not supported, rather use stub.withActions(actions) if you need to add actions.
      */
     actions: Action<T>[];
 

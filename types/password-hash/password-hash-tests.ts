@@ -1,7 +1,7 @@
 
 'use strict';
 
-import {generate, verify, isHashed} from 'password-hash';
+import { generate, verify, isHashed } from 'password-hash';
 
 let password = 'raw-password';
 let hashed: string;

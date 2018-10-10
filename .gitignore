@@ -49,3 +49,6 @@ npm-debug.log
 
 # yarn
 yarn.lock
+
+# pnpm
+shrinkwrap.yaml

@@ -10,7 +10,9 @@ interface CustomRouteInterface extends RouteProps {
 // React advocates composition over inheritance, but doesn't prevent us from using it
 export default class CustomRoute extends Route<CustomRouteInterface> {
   render() {
-    const maybeElement = super.render();
+    // react-fiber's render function can also return an array of elements,
+    // but in this case it's assumed that a JSX.Element is returned.
+    const maybeElement = super.render() as JSX.Element;
     return maybeElement && <div className="meaningfulClass">{React.cloneElement(maybeElement, this.props)}</div>;
   }
 }

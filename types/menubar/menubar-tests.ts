@@ -1,4 +1,4 @@
-import * as menubar from "menubar";
+import menubar = require("menubar");
 
 var mb1 = menubar();
 

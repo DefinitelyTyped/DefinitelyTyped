@@ -253,7 +253,7 @@ declare namespace fm {
             /**
              * Subscribers extension. The active subscribed clients on the just-subscribed channel(s).
              */
-            subscribedClients: fm.websync.subscribedClient[];
+            subscribedClients: subscribedClient[];
         }
 
         interface subscribeCompleteArgs extends baseResponseArgs {
@@ -281,7 +281,7 @@ declare namespace fm {
             /**
              * The singleton client.
              */
-            client: fm.websync.client;
+            client: client;
 
             /**
              * The ID of the singleton client.
@@ -356,14 +356,14 @@ declare namespace fm {
             /**
              * Details about the client publishing the data.
              */
-            publishingClient: fm.websync.publishingClient;
+            publishingClient: publishingClient;
         }
 
         interface subscribersChangeArgs extends baseResponseArgs {
             /**
              * The details of the change that occurred.
              */
-            change?: fm.websync.subscribersChange;
+            change?: subscribersChange;
 
             /**
              * The channel on which the change occurred.
@@ -387,7 +387,7 @@ declare namespace fm {
             /**
              * The clients who subscribed to or unsubscribed from the channel.
              */
-            clients: fm.websync.subscribedClient[];
+            clients: subscribedClient[];
 
             /**
              * The type of the change, either "subscribe" or "unsubscribe".
@@ -469,8 +469,6 @@ declare namespace fm {
              * While this method will typically run asychronously, the WebSync client is designed to be used without (much) consideration for its asynchronous nature.
              * To that end, any calls to methods that require an active connection, like bind, subscribe and publish, will be queued automatically and executed once this
              * method has completed successfully.
-             *
-             * @param connectConfig
              */
             connect(config: connectConfig): client;
 
@@ -493,7 +491,7 @@ declare namespace fm {
              * This method should only be called from the callback specified by onSreamFailure and only if the args.willReconnect flag is set to false.
              * Otherwise, the client will reconnect automatically.
              */
-             reconnect( config?: connectConfig ): client;
+             reconnect(config?: connectConfig): client;
 
             /**
              * Subscribes the client to receive messages on one or more channels.
@@ -506,7 +504,6 @@ declare namespace fm {
              * Unsubscribes the client from receiving messages on one or more channels.
              * When the unsubscribe completes successfully, the callback specified by onSuccess will be invoked, passing in the unsubscribed channel(s),
              * including any modifications made on the server.
-             * @param config
              */
             unsubscribe(config: unsubscribeConfig): client;
         }

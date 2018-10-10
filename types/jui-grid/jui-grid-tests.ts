@@ -1,7 +1,7 @@
 /// <reference types="jquery" />
 
-import {jui} from 'jui-core';
-import {GridTable, GridXTable, GridRow} from "jui-grid";
+import { jui } from 'jui-core';
+import { GridTable, GridXTable, GridRow } from "jui-grid";
 
 jui.ready([ "grid.table" ], (table: GridTable) => {
     const table_1: GridTable = table("#table_1", {

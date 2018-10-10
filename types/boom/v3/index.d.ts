@@ -1,6 +1,6 @@
 // Type definitions for boom 3.2
-// Project: http://github.com/hapijs/boom
-// Definitions by: Igor Rogatty <http://github.com/rogatty>
+// Project: https://github.com/hapijs/boom
+// Definitions by: Igor Rogatty <https://github.com/rogatty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -48,6 +48,7 @@ declare namespace Boom {
     export function expectationFailed(message?: string, data?: any): BoomError;
     export function badData(message?: string, data?: any): BoomError;
     export function locked(message?: string, data?: any): BoomError;
+    export function failedDependency(message?: string, data?: any): BoomError;
     export function preconditionRequired(message?: string, data?: any): BoomError;
     export function tooManyRequests(message?: string, data?: any): BoomError;
     export function illegal(message?: string, data?: any): BoomError;

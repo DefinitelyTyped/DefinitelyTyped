@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as SwaggerExpressMiddleware from "swagger-express-middleware";
+import express = require("express");
+import SwaggerExpressMiddleware = require("swagger-express-middleware");
 
 let app = express();
 let router = express.Router();
@@ -128,7 +128,7 @@ let petstoreExpandedApiDefinition: SwaggerExpressMiddleware.SwaggerObject = {
     },
     "license": {
       "name": "MIT",
-      "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+      "url": "https://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
     }
   },
   "host": "petstore.swagger.io",
@@ -400,7 +400,7 @@ let petStoreWithExternalDocs: SwaggerExpressMiddleware.SwaggerObject =
       },
       "license": {
         "name": "MIT",
-        "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+        "url": "https://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
       }
     },
     "externalDocs": {

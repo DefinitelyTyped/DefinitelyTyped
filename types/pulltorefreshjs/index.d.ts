@@ -1,9 +1,14 @@
 // Type definitions for pulltorefreshjs 0.1
 // Project: https://github.com/BoxFactura/pulltorefresh.js
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
+//                 Tamas Kinsztler <https://github.com/humpedli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function init(options?: Options): void;
+
+export function destroyAll(): void;
+
+export function setPassiveMode(isPassive: boolean): void;
 
 export interface Options {
     /**
@@ -108,6 +113,21 @@ export interface Options {
      * Defaults to `t => Math.min(1, t / 2.5)`
      */
     resistanceFunction?(input: number): number;
+
+    /**
+     * Which condition should be met for pullToRefresh to trigger?
+     *
+     * Defaults to `!window.scrollY`
+     */
+    shouldPullToRefresh?(): boolean;
+
+    /**
+     * This value will be passed as `{ passive: true|false }` to `touchmove`
+     * listeners if passive-handlers are supported.
+     *
+     * Defaults to `false`
+     */
+    passive?: boolean;
 }
 
 /**

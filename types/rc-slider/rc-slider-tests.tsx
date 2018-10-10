@@ -1,6 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Slider, { Range, Handle } from 'rc-slider';
+import Slider, { Range, Handle, createSliderWithTooltip } from 'rc-slider';
+
+const SliderWithTooltip = createSliderWithTooltip(Slider);
+const RangeWithTooltip = createSliderWithTooltip(Range);
 
 ReactDOM.render(
     <Slider defaultValue={1} max={2} step={0.01} min={0.01} />,
@@ -15,6 +18,11 @@ ReactDOM.render(
     />,
     document.querySelector('.another-app')
 );
+
+const onChangeFunc1 = (string: number) => {};
+
+const onChangeFunc2 = (string: number[]) => {};
+
 ReactDOM.render(
     <Slider
         className="bottomRight"
@@ -27,11 +35,14 @@ ReactDOM.render(
         included={true}
         disabled={false}
         dots={true}
-        onBeforeChange={() => { }}
-        onChange={() => { }}
-        onAfterChange={() => { }}
+        onBeforeChange={onChangeFunc1}
+        onChange={onChangeFunc1}
+        onAfterChange={onChangeFunc1}
         defaultValue={0.1}
         value={0.1}
+        style={{backgroundColor: 'plum'}}
+        dotStyle={{backgroundColor: 'antiquewhite'}}
+        activeDotStyle={{backgroundColor: 'antiquewhite'}}
     />,
     document.querySelector('.another-app')
 );
@@ -42,6 +53,25 @@ ReactDOM.render(
         value={[0, 1]}
         count={3}
         allowCross={false}
-        pushable={true} />,
+        pushable={true}
+        onChange={onChangeFunc2}
+        onAfterChange={onChangeFunc2}
+        onBeforeChange={onChangeFunc2}
+    />,
+    document.querySelector('.app')
+);
+
+ReactDOM.render(
+    <SliderWithTooltip defaultValue={1} max={2} step={0.01} min={0.01} />,
+    document.querySelector('.app')
+);
+
+ReactDOM.render(
+    <RangeWithTooltip defaultValue={[1]} max={2} step={0.01} min={0.01} />,
+    document.querySelector('.app')
+);
+
+ReactDOM.render(
+    <SliderWithTooltip defaultValue={1} max={2} step={0.01} min={0.01} tipProps={{ placement: 'right' }}/>,
     document.querySelector('.app')
 );

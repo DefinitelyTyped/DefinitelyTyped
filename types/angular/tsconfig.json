@@ -3,6 +3,7 @@
         "index.d.ts",
         "jqlite.d.ts",
         "angular-tests.ts",
+        "test/jqlite-tests.ts",
         "test/jquery3-merging-tests.ts"
     ],
     "compilerOptions": {
@@ -15,6 +16,7 @@
         "noImplicitAny": false,
         "noImplicitThis": false,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

@@ -7,13 +7,18 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
+        "strictFunctionTypes": true,
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
         ],
         "paths": {
-          "sparkpost": ["sparkpost/v1"],
-          "sparkpost/*": ["sparkpost/v1/*"]
+            "sparkpost": [
+                "sparkpost/v1"
+            ],
+            "sparkpost/*": [
+                "sparkpost/v1/*"
+            ]
         },
         "types": [],
         "noEmit": true,

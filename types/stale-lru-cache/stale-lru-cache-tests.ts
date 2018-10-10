@@ -1,4 +1,4 @@
-import * as Cache from 'stale-lru-cache';
+import Cache = require('stale-lru-cache');
 
 const cache = new Cache<string, string>({
     maxSize: 100,
@@ -27,7 +27,7 @@ const revalidate = (url: string, callback: (error: any, value?: string, options?
     });
 };
 
-let request: (url: string, cb: (error: any, response: any, html: string) => any) => any;
+declare const request: (url: string, cb: (error: any, response: any, html: string) => any) => any;
 cache.wrap('http://www.google.com', revalidate, (error, html) => {
     // Do something with cached response
 });

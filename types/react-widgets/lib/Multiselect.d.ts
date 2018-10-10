@@ -1,7 +1,12 @@
 import * as React from 'react';
-import {ReactWidgetsCommonDropdownProps} from './CommonProps';
+import { ReactWidgetsCommonDropdownProps, AutoFocus } from './CommonProps';
 
-interface MultiselectProps extends ReactWidgetsCommonDropdownProps<MultiselectClass> {
+interface MultiselectProps extends ReactWidgetsCommonDropdownProps<MultiselectClass>, AutoFocus {
+    /**
+     * Enables the list option creation UI. onFilter will only the UI when actively filtering for a list item.
+     * @default 'onFilter'
+     */
+    allowCreate?: boolean | 'onFilter';
     /**
      * The current values of the Multiselect. The value should can null, or an array of
      * valueField values, or an array of objects (such as a few items in the data array)
@@ -15,12 +20,20 @@ interface MultiselectProps extends ReactWidgetsCommonDropdownProps<MultiselectCl
      * Change event Handler that is called when the value is changed. The handler is called with
      * an array of values.
      */
-    onChange?: (values: any[]) => void;
+    onChange?: (dataItems: any[], metadata: {
+        dataItem: any;
+        action: 'insert' | 'remove';
+        originalEvent?: any;
+        lastValue?: any[];
+        searchTerm?: string;
+    }) => void;
     /**
      * This handler fires when an item has been selected from the list. It fires before the
      * onChange handler, and fires regardless of whether the value has actually changed
      */
-    onSelect?: (value: any) => void;
+    onSelect?: (value: any, metadata: {
+        originalEvent: any;
+    }) => void;
     /**
      * This handler fires when the user chooses to create a new tag, not in the data list. It is
      * up to the widget parent to implement creation logic, a common implementation is shown
@@ -51,7 +64,11 @@ interface MultiselectProps extends ReactWidgetsCommonDropdownProps<MultiselectCl
      * This component is used to render each selected item. The default component renders the
      * text of the selected item (specified by textfield).
      */
-    tagComponent?: React.ReactType;
+    tagComponent?: React.ReactType | string;
+    /**
+     * An object of props that is passed directly to the underlying input component.
+     */
+    inputProps?: object;
     /**
      * This component is used to render each possible item in the list. The default component
      * renders the text of the selected item (specified by textfield).
@@ -83,7 +100,11 @@ interface MultiselectProps extends ReactWidgetsCommonDropdownProps<MultiselectCl
      * Called when the value of the text box changes either from typing or a pasted value.
      * onSearch should be used when the searchTerm prop is set.
      */
-    onSearch?: (searchTerm: string) => void;
+    onSearch?: (searchTerm: string, metadata: {
+        action: 'clear' | 'input';
+        lastSearchTerm?: string;
+        originalEvent?: any;
+    }) => void;
     /**
      * Whether or not the Multiselect is open. When unset (undefined) the Multiselect will
      * handle the opening and closing internally. The defaultOpen prop can be used to set an
@@ -133,9 +154,29 @@ interface MultiselectProps extends ReactWidgetsCommonDropdownProps<MultiselectCl
      * object to localize widget text and increase accessibility.
      */
     messages?: MultiselectMessages;
+    /**
+     * @default List
+     */
+    listComponent?: React.ReactType | string;
+    /**
+     * An object of props that is passed directly to the underlying List component.
+     */
+    listProps?: object;
+    /**
+     * A Transition component from react-transition-group v2.
+     * The provided component will be used instead of the default SlideDownTransition for fully customizable animations.
+     * The transition component is also injected with a dropUp prop indicating the direction it should open.
+     */
+    popupTransition?: React.ReactType | string;
 }
 
 interface MultiselectMessages {
+    open?: string | ((props: MultiselectProps) => string);
+    createOption?: string | ((props: MultiselectProps) => string);
+    tagsLabel?: string | ((props: MultiselectProps) => string);
+    selectedItems?: string | ((props: MultiselectProps) => string);
+    noneSelected?: string | ((props: MultiselectProps) => string);
+    removeLabel?: string | ((props: MultiselectProps) => string);
     /**
      * The text label for creating new tags.
      * @default "(create new tag)"

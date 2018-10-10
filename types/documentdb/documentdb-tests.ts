@@ -240,3 +240,15 @@ const rpr2 = new ddb.RangePartitionResolver((obj: any) => obj.foo, [ partitionKe
 const rangePartitionKey1: any = rpr1.getPartitionKey(document1);
 const rangeCollectionLink1: string = rpr1.resolveForCreate(hashPartitionKey1);
 const rangeCollectionLinks1: string[] = rpr1.resolveForRead(hashPartitionKey1);
+
+/** UriFactory methods */
+const dbUri = ddb.UriFactory.createDatabaseUri('dbfoo');
+const colUri = ddb.UriFactory.createDocumentCollectionUri('dbfoo', 'colbar');
+const docUri = ddb.UriFactory.createDocumentUri('dbfoo', 'colbar', 'doc1');
+const permUri = ddb.UriFactory.createPermissionUri('dbfoo', 'userId', 'permission1');
+const sprocUri = ddb.UriFactory.createStoredProcedureUri('dbfoo', 'colbar', 'sproc1');
+const triggerUri = ddb.UriFactory.createTriggerUri('dbfoo', 'colbar', 'trigger1');
+const udfUri = ddb.UriFactory.createUserDefinedFunctionUri('dbfoo', 'colbar', 'udf1');
+const conflictUri = ddb.UriFactory.createConflictUri('dbfoo', 'colbar', 'conflict1');
+const attachUri = ddb.UriFactory.createAttachmentUri('dbfoo', 'colbar', 'doc1', 'attachment1');
+const partitionKeyRangeUri = ddb.UriFactory.createPartitionKeyRangesUri('dbfoo', 'colbar');

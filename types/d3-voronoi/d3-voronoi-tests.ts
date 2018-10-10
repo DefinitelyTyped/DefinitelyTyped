@@ -12,8 +12,8 @@ import * as d3Voronoi from 'd3-voronoi';
 // Preparatory Steps
 // ---------------------------------------------------------------------
 
-let extent: [[number, number], [number, number]];
-let size: [number, number];
+let extent: [[number, number], [number, number]] | null;
+let size: [number, number] | null;
 let coordinates: [number, number];
 
 let num: number;
@@ -24,7 +24,7 @@ interface VoronoiTestDatum {
     y: number;
 }
 
-let testData: VoronoiTestDatum[] = [
+const testData: VoronoiTestDatum[] = [
     { x: 10, y: 10 },
     { x: 20, y: 10 },
     { x: 10, y: 20 },
@@ -38,9 +38,11 @@ let numberAccessor: (d: VoronoiTestDatum) => number;
 
 let edges: Array<d3Voronoi.VoronoiEdge<VoronoiTestDatum>>;
 let edge: d3Voronoi.VoronoiEdge<VoronoiTestDatum>;
-let cells: Array<d3Voronoi.VoronoiCell<VoronoiTestDatum>>;
+let cells: Array<d3Voronoi.VoronoiCell<VoronoiTestDatum> | null>;
 let cell: d3Voronoi.VoronoiCell<VoronoiTestDatum>;
+let cellOrNull: d3Voronoi.VoronoiCell<VoronoiTestDatum> | null;
 let site: d3Voronoi.VoronoiSite<VoronoiTestDatum>;
+let siteOrNull: d3Voronoi.VoronoiSite<VoronoiTestDatum> | null;
 
 let polygons: Array<d3Voronoi.VoronoiPolygon<VoronoiTestDatum>>;
 let polygon: d3Voronoi.VoronoiPolygon<VoronoiTestDatum>;
@@ -57,18 +59,20 @@ let link: d3Voronoi.VoronoiLink<VoronoiTestDatum>;
 
 // VoronoiPoint -------------------------------------------------------
 
-let point: d3Voronoi.VoronoiPoint;
+declare let point: d3Voronoi.VoronoiPoint;
 
 point[0] = 10; // x-coordinate
 point[1] = 10; // y-coordinate
 
 point = [10, 10];
-// point = [10]; // fails, second element for y-coordinate missing
-// point = ['a', 'b']; // fails, wrong element type
+// $ExpectError
+point = [10]; // fails, second element for y-coordinate missing
+// $ExpectError
+point = ['a', 'b']; // fails, wrong element type
 
 // VoronoiPointPair ---------------------------------------------------
 
-let pointPair: d3Voronoi.VoronoiPointPair;
+declare let pointPair: d3Voronoi.VoronoiPointPair;
 
 pointPair[0][0] = 10; // x-coordinate of first point
 pointPair[0][1] = 10; // y-coordinate of first point
@@ -77,14 +81,18 @@ pointPair[1][1] = 10; // y-coordinate of second point
 
 pointPair = [[10, 10], [50, 50]];
 
-// pointPair = [[10, 10]]; // fails, second point coordinates missing
-// pointPair = [[10, 10], [50]]; // fails, one element is not of type [number, number]
-// pointPair = [[10], [50, 50]]; // fails, one element is not of type [number, number]
-// pointPair = [['a', 10], [50, 50]]; // fails, one element is not of type [number, number]
+// $ExpectError
+pointPair = [[10, 10]]; // fails, second point coordinates missing
+// $ExpectError
+pointPair = [[10, 10], [50]]; // fails, one element is not of type [number, number]
+// $ExpectError
+pointPair = [[10], [50, 50]]; // fails, one element is not of type [number, number]
+// $ExpectError
+pointPair = [['a', 10], [50, 50]]; // fails, one element is not of type [number, number]
 
 // VoronoiPolygon -------------------------------------------------------
 
-let voronoiPolygon: d3Voronoi.VoronoiPolygon<VoronoiTestDatum>;
+declare const voronoiPolygon: d3Voronoi.VoronoiPolygon<VoronoiTestDatum>;
 
 voronoiPolygon[0][0] = 10; // x-coordinate of first point
 voronoiPolygon[0][1] = 10; // y-coordinate of first point
@@ -173,17 +181,18 @@ coordinates = edge[0]; // source point coordinates
 coordinates = edge[1]; // source point coordinates
 
 site = edge.left;
-site = edge.right;
+siteOrNull = edge.right;
 
 // cells() VoronoiCell =================================================
 
 cells = voronoiDiagram.cells;
 
-cell = cells[0];
+cellOrNull = cells[0];
+cell = cells[0]!;
 
 site = cell.site;
 
-numArray = cell.halfEdges;
+numArray = cell.halfedges;
 
 // VoronoiSite interface ===============================================
 
@@ -229,7 +238,6 @@ testDatum = link.target;
 // find() ===============================================================
 
 let nearestSite: d3Voronoi.VoronoiSite<VoronoiTestDatum> | null;
-let wrongSiteDataType: d3Voronoi.VoronoiSite<[number, number]> | null;
 
 // Without search radius
 nearestSite = voronoiDiagram.find(10, 50);
@@ -238,4 +246,5 @@ nearestSite = voronoiDiagram.find(10, 50);
 nearestSite = voronoiDiagram.find(10, 50, 20);
 
 // wrong data type
-// wrongSiteDataType = voronoiDiagram.find(10, 50); // fails, due to data type mismatch
+// $ExpectError
+const wrongSiteDataType: d3Voronoi.VoronoiSite<[number, number]> | null = voronoiDiagram.find(10, 50); // fails, due to data type mismatch

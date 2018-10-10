@@ -1,5 +1,3 @@
-/* tslint:disable */
-
 import * as remote from "selenium-webdriver/remote";
 import * as webdriver from "selenium-webdriver";
 

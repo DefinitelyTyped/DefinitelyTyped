@@ -2,159 +2,91 @@ import { Action } from "redux";
 import { FormErrors, FormWarnings, FieldType } from "../index";
 
 export interface FormAction extends Action {
-    meta: {
-        form: string;
-    };
+    meta?: any;
+    payload?: any;
+    error?: any;
 }
 
-/**
- * Inserts an item into a field array at the specified index
- */
-export function arrayInsert(form: string, field: string, index: number, value: any): FormAction;
+export declare function arrayInsert(form: string, field: string, index: number, value: any): FormAction;
+export declare function arrayMove(form: string, field: string, from: number, to: number): FormAction;
+export declare function arrayPop(form: string, field: string): FormAction;
+export declare function arrayPush(form: string, field: string, value: any): FormAction;
+export declare function arrayRemove(form: string, field: string, index: number): FormAction;
+export declare function arrayRemoveAll(form: string, field: string): FormAction;
+export declare function arrayShift(form: string, field: string): FormAction;
+export declare function arraySplice(form: string, field: string, index: number, removeNum: number, value: any): FormAction;
+export declare function arraySwap(form: string, field: string, indexA: number, indexB: number): FormAction;
+export declare function arrayUnshift(form: string, field: string, value: any): FormAction;
+export declare function autofill(form: string, field: string, value: any): FormAction;
+export declare function blur(form: string, field: string, value: any): FormAction;
+export declare function change(form: string, field: string, value: any): FormAction;
+export declare function destroy(...form: string[]): FormAction;
+export declare function focus(form: string, field: string): FormAction;
 
-/**
- * Moves an item from one index in the array to another. In effect, it performs a remove and an
- * insert, so the item already at the `to` position will be bumped to a higher index, not overwritten.
- */
-export function arrayMove(form: string, field: string, from: number, to: number): FormAction;
-
-/**
- * Removes an item from the end of a field array
- */
-export function arrayPop(form: string, field: string): FormAction;
-
-/**
- * Appends an item to the end of a field array
- */
-export function arrayPush(form: string, field: string, value: any): FormAction;
-
-/**
- * Removes an item at the specified index from a field array
- */
-export function arrayRemove(form: string, field: string, index: number): FormAction;
-
-/**
- * Removes all items from a field array
- */
-export function arrayRemoveAll(form: string, field: string): FormAction;
-
-/**
- * Removes an item from the beginning of a field array
- */
-export function arrayShift(form: string, field: string): FormAction;
-
-/**
- * ADVANCED USAGE - Inserts and/or removes items from a field array. Works similarly to Array.splice.
- */
-export function arraySplice(form: string, field: string, index: number, removeNum: number, value: any): FormAction;
-
-/**
- * Swaps two items at the specified indexes in a field array
- */
-export function arraySwap(form: string, field: string, indexA: number, indexB: number): FormAction;
-
-/**
- * Inserts an item at the beginning of a field array
- */
-export function arrayUnshift(form: string, field: string, value: any): FormAction;
-
-/**
- * Saves the value to the field and sets its `autofilled` property to `true`.
- */
-export function autofill(form: string, field: string, value: any): FormAction;
-
-/**
- * Saves the value to the field
- */
-export function blur(form: string, field: string, value: any): FormAction;
-
-/**
- * Saves the value to the field
- */
-export function change(form: string, field: string, value: any): FormAction;
-
-/**
- * Destroys the form, removing all it's state
- */
-export function destroy(...form: string[]): FormAction;
-
-/**
- * Marks the given field as active and visited
- */
-export function focus(form: string, field: string): FormAction;
-
-/**
- * Sets the initial values in the form with which future data values will be compared to calculate dirty and pristine.
- * The data parameter may contain deep nested array and object values that match the shape of your form fields.
- * If the keepDirty parameter is true, the values of the currently dirty fields will be retained to avoid overwriting
- * user edits.
- */
-interface InitializeOptions {
-    keepDirty : boolean;
+export interface InitializeOptions {
+    keepDirty: boolean;
     keepSubmitSucceeded: boolean;
+    updateUnregisteredFields: boolean;
+    keepValues: boolean;
 }
 
-export function initialize(form: string, data: any, keepDirty?: boolean | InitializeOptions, options?: InitializeOptions): FormAction;
+export declare function initialize(form: string, data: any, keepDirty?: boolean, options?: Partial<InitializeOptions>): FormAction;
+export declare function initialize(form: string, data: any, options?: Partial<InitializeOptions>): FormAction;
+export declare function registerField(form: string, name: string, type: FieldType): FormAction;
+export declare function reset(form: string): FormAction;
+export declare function resetSection(form: string, ...sections: string[]): FormAction;
+export declare function startAsyncValidation(form: string): FormAction;
+export declare function stopAsyncValidation(form: string, errors?: FormErrors<FormData, any>): FormAction;
+export declare function setSubmitFailed(form: string, ...fields: string[]): FormAction;
+export declare function setSubmitSucceeded(form: string, ...fields: string[]): FormAction;
+export declare function startSubmit(form: string): FormAction;
+export declare function stopSubmit(form: string, errors?: FormErrors<FormData, any>): FormAction;
+export declare function submit(form: string): FormAction;
+export declare function clearSubmit(form: string): FormAction;
+export declare function clearSubmitErrors(form: string): FormAction;
+export declare function clearAsyncError(form: string, field: string): FormAction;
+export declare function clearFields(form: string, keepTouched: boolean, persistentSubmitErrors: boolean, ...fields: string[]): FormAction;
+export declare function touch(form: string, ...fields: string[]): FormAction;
+export declare function unregisterField(form: string, name: string): FormAction;
+export declare function untouch(form: string, ...fields: string[]): FormAction;
+export declare function updateSyncErrors<T = any>(from: string, syncErrors: FormErrors<FormData, T>, error: T): FormAction;
+export declare function updateSyncWarnings<T = any>(form: string, syncWarnings: FormWarnings<FormData, T>, warning: T): FormAction;
 
-/**
- * Registers a field with the form.
- */
-export function registerField(form: string, name: string, type: FieldType): FormAction;
+declare const actions: {
+    arrayInsert: typeof arrayInsert,
+    arrayMove: typeof arrayMove,
+    arrayPop: typeof arrayPop,
+    arrayPush: typeof arrayPush,
+    arrayRemove: typeof arrayRemove,
+    arrayRemoveAll: typeof arrayRemoveAll,
+    arrayShift: typeof arrayShift,
+    arraySplice: typeof arraySplice,
+    arraySwap: typeof arraySwap,
+    arrayUnshift: typeof arrayUnshift,
+    autofill: typeof autofill,
+    blur: typeof blur,
+    change: typeof change,
+    clearSubmit: typeof clearSubmit,
+    clearSubmitErrors: typeof clearSubmitErrors,
+    clearAsyncError: typeof clearAsyncError,
+    clearFields: typeof clearFields,
+    destroy: typeof destroy,
+    focus: typeof focus,
+    initialize: typeof initialize,
+    registerField: typeof registerField,
+    reset: typeof reset,
+    startAsyncValidation: typeof startAsyncValidation,
+    startSubmit: typeof startSubmit,
+    stopAsyncValidation: typeof stopAsyncValidation,
+    stopSubmit: typeof stopSubmit,
+    submit: typeof submit,
+    setSubmitFailed: typeof setSubmitFailed,
+    setSubmitSucceeded: typeof setSubmitSucceeded,
+    touch: typeof touch,
+    unregisterField: typeof unregisterField,
+    untouch: typeof untouch,
+    updateSyncErrors: typeof updateSyncErrors,
+    updateSyncWarnings: typeof updateSyncWarnings
+};
 
-/**
- * Resets the values in the form back to the values past in with the most recent initialize action.
- */
-export function reset(form: string): FormAction;
-
-/**
- * Flips the asyncValidating flag true
- */
-export function startAsyncValidation(form: string): FormAction;
-
-/**
- * Flips the asyncValidating flag false and populates asyncError for each field.
- */
-export function stopAsyncValidation(form: string, errors?: any): FormAction;
-
-export function setSubmitFailed(form: string, ...fields: string[]): FormAction;
-
-export function setSubmitSucceeded(form: string, ...fields: string[]): FormAction;
-
-/**
- * Flips the submitting flag true.
- */
-export function startSubmit(form: string): FormAction;
-
-/**
- * Flips the submitting flag false and populates submitError for each field.
- */
-export function stopSubmit(form: string, errors?: any): FormAction;
-
-/**
- * Flips the asyncValidating flag false and populates asyncError for each field.
- */
-export function stopAsyncValidation(form: string, errors?: any): FormAction;
-
-/**
- * Triggers a submission of the specified form.
- */
-export function submit(form: string): FormAction;
-
-/**
- * Marks all the fields passed in as touched.
- */
-export function touch(form: string, ...fields: string[]): FormAction;
-
-/**
- * Unregisters a field with the form.
- */
-export function unregisterField(form: string, name: string): FormAction;
-
-/**
- * Resets the 'touched' flag for all the fields passed in.
- */
-export function untouch(form: string, ...fields: string[]): FormAction;
-
-export function updateSyncErrors(from: string, syncErrors: FormErrors<FormData>, error: any): FormAction;
-
-export function updateSyncWarnings(form: string, syncWarnings: FormWarnings<FormData>, warning: any): FormAction;
+export default actions;

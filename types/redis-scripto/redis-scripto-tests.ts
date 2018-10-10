@@ -1,5 +1,5 @@
 import * as redis from 'redis';
-import * as Scripto from 'redis-scripto';
+import Scripto = require('redis-scripto');
 
 var num: number;
 var str: string;

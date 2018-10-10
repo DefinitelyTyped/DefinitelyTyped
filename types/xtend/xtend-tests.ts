@@ -1,4 +1,4 @@
-import * as xtend from "xtend";
+import xtend = require("xtend");
 
 interface Target {
   hellow: string;

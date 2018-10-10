@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as templateCache from 'gulp-angular-templatecache';
+import templateCache = require('gulp-angular-templatecache');
 
 gulp.task('templatecache:no-arguments', function () {
     return gulp.src('templates/**/*.html')

@@ -1,6 +1,6 @@
 // Type definitions for swagger-schema-official 2.0
 // Project: http://swagger.io/specification/
-// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>, Nicholas Merritt <https://github.com/nimerritt>
+// Definitions by: Mohsen Azimi <https://github.com/mohsen1>, Ben Southgate <https://github.com/bsouthga>, Nicholas Merritt <https://github.com/nimerritt>, Mauri Edo <https://github.com/mauriedo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Info {
@@ -47,7 +47,7 @@ export interface BaseParameter {
 }
 
 export interface BodyParameter extends BaseParameter {
-  schema?: Schema;
+  schema?: Referenceable<Schema>;
 }
 
 export interface QueryParameter extends BaseParameter, BaseSchema {
@@ -55,18 +55,19 @@ export interface QueryParameter extends BaseParameter, BaseSchema {
   allowEmptyValue?: boolean;
 }
 
-export interface PathParameter extends BaseParameter {
+export interface PathParameter extends BaseParameter, BaseSchema {
   type: string;
   required: boolean;
 }
 
-export interface HeaderParameter extends BaseParameter {
+export interface HeaderParameter extends BaseParameter, BaseSchema {
   type: string;
 }
 
 export interface FormDataParameter extends BaseParameter, BaseSchema {
   type: string;
   collectionFormat?: string;
+  allowEmptyValue?: boolean;
 }
 
 export type Parameter =
@@ -86,29 +87,32 @@ export interface Path {
   options?: Operation;
   head?: Operation;
   patch?: Operation;
-  parameters?: [Parameter];
+  parameters?: Array<Referenceable<Parameter>>;
 }
 
 // ----------------------------- Operation -----------------------------------
 export interface Operation {
-  responses: { [responseName: string]: Response };
+  responses: { [responseName: string]: Referenceable<Response>};
   summary?: string;
   description?: string;
   externalDocs?: ExternalDocs;
   operationId?: string;
   produces?: string[];
   consumes?: string[];
-  parameters?: Parameter[];
+  parameters?: Array<Referenceable<Parameter>>;
   schemes?: string[];
   deprecated?: boolean;
   security?: Security[];
   tags?: string[];
 }
 
+// ----------------------------- Reference -----------------------------------
+export type Referenceable<T> = { $ref: string; } | T;
+
 // ----------------------------- Response ------------------------------------
 export interface Response {
   description: string;
-  schema?: Schema;
+  schema?: Referenceable<Schema>;
   headers?: { [headerName: string]: Header };
   examples?: { [exampleName: string]: {} };
 }
@@ -134,27 +138,27 @@ export interface BaseSchema {
   minProperties?: number;
   enum?: Array<string | boolean | number | {}>;
   type?: string;
-  items?: Schema|Schema[];
+  items?: Referenceable<Schema>|Array<Referenceable<Schema>>;
 }
 
 export interface Schema extends BaseSchema {
   $ref?: string;
-  allOf?: Schema[];
-  additionalProperties?: Schema;
-  properties?: {[propertyName: string]: Schema};
+  allOf?: Array<Referenceable<Schema>>;
+  additionalProperties?: Referenceable<Schema>;
+  properties?: {[propertyName: string]: Referenceable<Schema>};
   discriminator?: string;
   readOnly?: boolean;
   xml?: XML;
   externalDocs?: ExternalDocs;
-  example?: {[exampleName: string]: {}};
+  example?: any;
   required?: string[];
 }
 
 export interface XML {
-  type?: string;
+  name?: string;
   namespace?: string;
   prefix?: string;
-  attribute?: string;
+  attribute?: boolean;
   wrapped?: boolean;
 }
 
@@ -164,7 +168,7 @@ export interface BaseSecurity {
   description?: string;
 }
 
-// tslint:disable:no-empty-interface
+// tslint:disable-next-line no-empty-interface
 export interface BasicAuthenticationSecurity extends BaseSecurity {
   // It's the exact same interface as BaseSecurity
 }
@@ -220,8 +224,8 @@ export interface Spec {
   schemes?: string[];
   consumes?: string[];
   produces?: string[];
-  paths: {[pathName: string]: Path};
-  definitions?: {[definitionsName: string]: Schema };
+  paths: {[pathName: string]: Referenceable<Path>};
+  definitions?: {[definitionsName: string]: Referenceable<Schema> };
   parameters?: {[parameterName: string]: BodyParameter|QueryParameter};
   responses?: {[responseName: string]: Response };
   security?: Array<{[securityDefinitionName: string]: string[]}>;

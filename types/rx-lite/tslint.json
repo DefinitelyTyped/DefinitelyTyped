@@ -1,12 +1,17 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        // TODOs
+        "dt-header": false,
         "unified-signatures": false,
+        "no-declare-current-package": false,
         "no-empty-interface": false,
         "ban-types": false,
         "interface-name": false,
         "array-type": false,
         "max-line-length": false,
-        "no-single-declare-module": false
+        "no-mergeable-namespace": false,
+        "no-single-declare-module": false,
+        "no-unnecessary-generics": false
     }
 }

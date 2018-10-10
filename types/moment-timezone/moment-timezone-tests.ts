@@ -23,6 +23,7 @@ const language = "en";
 
 moment.tz();
 moment.tz("America/Los_Angeles");
+moment.tz("America/Los_Angeles").tz("Asia/Tomsk", true);
 
 moment.tz(num, "America/Los_Angeles");
 moment.tz(arr, "America/Los_Angeles");
@@ -49,7 +50,7 @@ moment.tz(mo, "America/Los_Angeles");
 moment.tz(obj, "America/Los_Angeles");
 
 moment.tz.zone('America/Los_Angeles').abbr(1403465838805);
-moment.tz.zone('America/Los_Angeles').offset(1403465838805);
+moment.tz.zone('America/Los_Angeles').utcOffset(1403465838805);
 
 const zone = moment.tz.zone('America/New_York');
 zone.parse(Date.UTC(2012, 2, 19, 8, 30)); // 240
@@ -78,6 +79,10 @@ moment.tz.setDefault('America/Los_Angeles');
 
 moment.tz.guess();
 
+moment.tz.guess(true);
+
 const zoneAbbr: string = moment.tz('America/Los_Angeles').zoneAbbr();
 
 const zoneName: string = moment.tz('America/Los_Angeles').zoneName();
+
+const zoneType: string | undefined = moment.tz('2013-11-18 11:55').tz();

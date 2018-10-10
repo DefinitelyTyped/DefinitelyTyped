@@ -64,7 +64,7 @@ export class Node {
     /**
      * either Bullet or Ordered (or undefined).
      */
-    listType: 'Bullet' | 'Ordered';
+    listType: 'bullet' | 'ordered';
     /**
      * true if list is tight
      */

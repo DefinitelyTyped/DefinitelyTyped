@@ -48,7 +48,7 @@ interface Rsync {
         stdout: StreamDataHandler,
         stderr: StreamDataHandler
     ): child_process.ChildProcess;
-    
+
     // cwd
     cwd(cwd: string): string;
 
@@ -63,6 +63,7 @@ interface Rsync {
     quiet(): Rsync;
     dirs(): Rsync;
     links(): Rsync;
+    chmod(flags: string): Rsync;
     dry(): Rsync;
 
     // accessor methods

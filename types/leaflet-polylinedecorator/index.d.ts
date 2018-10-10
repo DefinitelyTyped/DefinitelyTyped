@@ -2,10 +2,11 @@
 // Project: https://github.com/bbecquet/Leaflet.PolylineDecorator#readme
 // Definitions by: Viktor Soucek <https://github.com/soucekv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
     namespace Symbol {
         interface DashOptions {
             pixelSize?: number;
@@ -37,10 +38,10 @@ declare namespace L {
         }
 
         class Marker {
-            constructor(options?: L.Symbol.MarkerOptions);
+            constructor(options?: MarkerOptions);
         }
 
-        function marker(options?: L.Symbol.MarkerOptions): L.Symbol.Marker;
+        function marker(options?: MarkerOptions): Marker;
     }
 
     interface Pattern {

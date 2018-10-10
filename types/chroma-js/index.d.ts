@@ -1,4 +1,4 @@
-// Type definitions for Chroma.js 1.3
+// Type definitions for Chroma.js 1.4
 // Project: https://github.com/gka/chroma.js
 // Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 /**
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
  */
-declare namespace Chroma {
+declare namespace chroma {
     interface ColorSpaces {
         rgb: [number, number, number];
         rgba: [number, number, number, number];
@@ -34,9 +34,6 @@ declare namespace Chroma {
         /**
          * Create a color in the specified color space using a, b and c as values.
          *
-         * @param a
-         * @param b
-         * @param c
          * @param colorSpace The color space to use. Defaults to "rgb".
          * @return the color object.
          */
@@ -109,7 +106,7 @@ declare namespace Chroma {
          * Blends two colors using RGB channel-wise blend functions.
          */
         blend(color1: string | Color, color2: string | Color,
-              blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dogde'): Color;
+              blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge'): Color;
 
         /**
          * Returns a random color.
@@ -127,7 +124,7 @@ declare namespace Chroma {
          * Computes the eucledian distance between two colors in a given color space (default is 'lab').
          * {@link https://en.wikipedia.org/wiki/Euclidean_distance#Three_dimensions}
          */
-        distance(color1: string | Color, color2: string | Color, colorSpace?: keyof ColorSpaces): Color;
+        distance(color1: string | Color, color2: string | Color, colorSpace?: keyof ColorSpaces): number;
 
         /**
          * Computes color difference {@link https://en.wikipedia.org/wiki/Color_difference#CMC_l:c_.281984.29} as
@@ -136,7 +133,7 @@ declare namespace Chroma {
          * {@link https://web.archive.org/web/20160306044036/http://www.brucelindbloom.com/javascript/ColorDiff.js}
          * The parameters L (default 1) and C (default 1) are weighting factors for lightness and chromacity.
          */
-        deltaE(color1: string | Color, color2: string | Color, L?: number, C?: number): Color;
+        deltaE(color1: string | Color, color2: string | Color, L?: number, C?: number): number;
 
         /**
          * chroma.brewer is an map of ColorBrewer scales that are included in chroma.js for convenience.
@@ -263,9 +260,18 @@ declare namespace Chroma {
         luminance(l: number, colorSpace?: keyof ColorSpaces): Color;
 
         /**
-         * Get color as hexadecimal string. E.g. '#ffa500'
+         * Get color as hexadecimal string.
+         *
+         * @param mode `auto` - string will include alpha channel only if it's less than 1.
+         *             `rgb`  - string will not include alpha channel.
+         *             `rgba` - string will include alpha channel.
+         *
+         * @example
+         * chroma('orange').hex() === '#ffa500'
+         * chroma('orange').alpha(0.5).hex() === '#ffa50080'
+         * chroma('orange').alpha(0.5).hex('rgb') === '#ffa500'
          */
-        hex(): string;
+        hex(mode?: 'auto' | 'rgb' | 'rgba'): string;
 
         /**
          * Returns the named color. Falls back to hexadecimal RGB string, if the color isn't present.
@@ -283,6 +289,17 @@ declare namespace Chroma {
          * [temperature gradient]{@link ChromaStatic.temperature} above.
          */
         temperature(): number;
+
+        /**
+         * Returns the numeric representation of the hexadecimal RGB color.
+         *
+         * @example
+         * chroma('#000000').num() === 0
+         * chroma('#0000ff').num() === 255
+         * chroma('#00ff00').num() === 65280
+         * chroma('#ff0000').num() === 16711680
+         */
+        num(): number;
     } & {
         [K in keyof ColorSpaces]: () => ColorSpaces[K];
     };
@@ -296,6 +313,8 @@ declare namespace Chroma {
 
         mode(mode: keyof ColorSpaces): this;
 
+        gamma(g: number): this;
+
         cache(use: boolean): boolean;
 
         correctLightness(enable?: boolean): this;
@@ -306,10 +325,10 @@ declare namespace Chroma {
          * You can call scale.colors(n) to quickly grab `c` equi-distant colors from a color scale. If called with no
          * arguments, scale.colors returns the original array of colors used to create the scale.
          */
-        colors(c?: number, format?: 'hex' | 'name'): string[];
-        colors(c?: number, format?: null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
-        colors(c?: number, format?: 'luminance' | 'temperature'): number[];
-        colors<K extends keyof ColorSpaces>(c?: number, format?: K): Array<ColorSpaces[K]>;
+        colors(c: number | undefined, format: undefined | null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
+        colors(c: number | undefined, format: 'luminance' | 'temperature'): number[];
+        colors<K extends keyof ColorSpaces>(c: number | undefined, format: K): Array<ColorSpaces[K]>;
+        colors(c: number | undefined, format?: 'hex' | 'name'): string[];
 
         /**
          * If you want the scale function to return a distinct set of colors instead of a continuous gradient, you can
@@ -323,6 +342,7 @@ declare namespace Chroma {
          */
         out(format: null): Scale;
         out<K extends keyof ColorSpaces>(format: K): Scale<ColorSpaces[K]>;
+        out(format: 'hex'): Scale<string>;
     }
 
     interface Cubehelix {
@@ -353,7 +373,7 @@ declare namespace Chroma {
     }
 }
 
-declare var chroma: Chroma.ChromaStatic;
+declare var chroma: chroma.ChromaStatic;
 
 export = chroma;
 export as namespace chroma;

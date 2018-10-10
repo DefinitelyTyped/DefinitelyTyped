@@ -1,8 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        // TODOs
         "align": false,
         "comment-format": false,
+        "dt-header": false,
         "eofline": false,
         "jsdoc-format": false,
         "max-line-length": false,
@@ -12,6 +14,7 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-method-signature": false,
+        "prefer-template": false,
         "space-before-function-paren": false
     }
 }

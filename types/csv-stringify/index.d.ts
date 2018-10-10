@@ -13,7 +13,7 @@ declare namespace stringify {
          * Order matters, read the transformer documentation for additionnal information,
          * columns are auto discovered when the user write object, see the "header" option on how to print columns names on the first line.
          */
-        columns?: string[];
+        columns?: { [index: string]: string } | string[];
         /**
          * Set the field delimiter, one character only, defaults to a comma.
          */
@@ -85,7 +85,7 @@ declare function stringify(opts?: stringify.StringifyOpts): stringify.Stringifie
 /**
  * Callback version: string in --> callback with string out
  */
-declare function stringify(input: any[][], opts: stringify.StringifyOpts, callback: (error: Error | undefined, output: string) => void): void;
-declare function stringify(input: any[][], callback: (error: Error | undefined, output: string) => void): void;
+declare function stringify(input: any[][] | Array<{}>, opts: stringify.StringifyOpts, callback: (error: Error | undefined, output: string) => void): void;
+declare function stringify(input: any[][] | Array<{}>, callback: (error: Error | undefined, output: string) => void): void;
 
 export = stringify;

@@ -5,5 +5,5 @@ getStdin().then(str => {
 });
 
 getStdin.buffer().then(buffer => {
-    console.log("Length " + buffer.length + buffer.toString());
+    console.log(`Length ${buffer.length}${buffer.toString()}`);
 });

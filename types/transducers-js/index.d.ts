@@ -2,6 +2,7 @@
 // Project: https://github.com/cognitect-labs/transducers-js
 // Definitions by: Colin Kahn <https://github.com/colinkahn>
 //                 David Philipson <https://github.com/dphilipson>
+//                 Adrian Leonhard <https://github.com/NaridaL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Reduced<TResult> {
@@ -13,10 +14,12 @@ export type Reducer<TResult, TInput> = (result: TResult, input: TInput) => TResu
 
 // Common case: Transducer<TInput, TOutput> =
 //   Transformer<TResult, TOutput> => Transformer<TResult, TInput>.
-export type Transducer<TInput, TOutput> =
-    <TResult, TCompleteResult>(
-        xf: CompletingTransformer<TResult, TCompleteResult, TOutput>
-    ) => CompletingTransformer<TResult, TCompleteResult, TInput>;
+export interface Transducer<TInput, TOutput> {
+    <TResult>(xf: Transformer<TResult, TOutput>)
+        : Transformer<TResult, TInput>;
+    <TResult, TCompleteResult>(xf: CompletingTransformer<TResult, TCompleteResult, TOutput>)
+        : CompletingTransformer<TResult, TCompleteResult, TInput>;
+}
 
 export interface CompletingTransformer <TResult, TCompleteResult, TInput> {
   ['@@transducer/init'](): TResult | void;
@@ -39,8 +42,18 @@ export function isReduced(x: any): boolean;
 /**
  * Function composition. Take N function and return their composition.
  */
-// Infers correct return type when all arguments have same type.
-export function comp<T extends (x: any) => any>(...args: T[]): T;
+// 2-4 Transducers
+export function comp<A, B, C>(a: Transducer<A, B>, b: Transducer<B, C>): Transducer<A, C>;
+export function comp<A, B, C, D>(a: Transducer<A, B>, b: Transducer<B, C>, c: Transducer<C, D>): Transducer<A, D>;
+export function comp<A, B, C, D, E>(a: Transducer<A, B>, b: Transducer<B, C>, c: Transducer<C, D>, d: Transducer<D, E>): Transducer<A, E>;
+// N identical Transducers
+export function comp<A>(...args: Array<Transducer<A, A>>): Transducer<A, A>;
+// 2-4 arbitrary functions
+export function comp<A, B, C>(b: (b: B) => C, a: (a: A) => B): (a: A) => C;
+export function comp<A, B, C, D>(c: (c: C) => D, b: (b: B) => C, a: (a: A) => B): (a: A) => D;
+export function comp<A, B, C, D, E>(d: (d: D) => E, c: (c: C) => D, b: (b: B) => C, a: (a: A) => B): (a: A) => E;
+// N identical functions
+export function comp<A>(...args: Array<(a: A) => A>): A;
 // Falls back to (any => any) when argument types differ.
 export function comp(...args: Array<(x: any) => any>): (x: any) => any;
 

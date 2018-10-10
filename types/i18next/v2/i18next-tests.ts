@@ -34,7 +34,7 @@ i18n.init({
     saveMissing: true,
     saveMissingTo: 'all',
     missingKeyHandler: (lng: string, ns: string, key: string, fallbackValue: string) => {
-        console.log('Lng: ' + lng + ', ns: ' + ns + ', key' + key + ', fallbackValue: ' + fallbackValue);
+        console.log(`Lng: ${lng}, ns: ${ns}, key: ${key}, fallbackValue: ${fallbackValue}`);
     },
     parseMissingKeyHandler: (key: string) => {
         console.log(key);
@@ -49,7 +49,7 @@ i18n.init({
     overloadTranslationOptionHandler: (args: any[]) => {
         return translationOptions;
     },
-    interpolation: translationOptions,
+    interpolation: { prefix: "foo-" },
     detection: null,
     backend: null,
     cache: null,
@@ -71,21 +71,21 @@ i18n.init({
 i18n.t('helloWorld', {
     defaultValue: 'default',
     count: 10
-} as i18n.TranslationOptions);
+});
 
 i18n.t('helloWorldInterpolated', {
     defaultValue: 'default',
     count: 10,
     name: "world"
-} as i18n.TranslationOptions);
+});
 
 i18n.t('helloSingleFallbackLng', {
     fallbackLng: 'en'
-} as i18n.TranslationOptions);
+});
 
 i18n.t('helloMultiFallbackLng', {
     fallbackLng: ['en', 'ru']
-} as i18n.TranslationOptions);
+});
 
 i18n.t('helloObjectFallbackLng', {
     fallbackLng: {
@@ -93,7 +93,7 @@ i18n.t('helloObjectFallbackLng', {
         'zh-HANT': ['zh-HANS', 'en'],
         default: ['en']
     },
-} as i18n.TranslationOptions);
+});
 
 i18n.exists("helloWorld");
 

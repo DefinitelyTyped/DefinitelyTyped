@@ -57,7 +57,7 @@ export const randomNormal: RandomNormal;
  */
 export interface RandomLogNormal extends RandomNumberGenerationSource {
     /**
-     * Returns a function for generating random numbers with a log-normal distribution. The expected value of the random variable’s natural logrithm is mu,
+     * Returns a function for generating random numbers with a log-normal distribution. The expected value of the random variable’s natural logarithm is mu,
      * with the given standard deviation sigma. If mu is not specified, it defaults to 0; if sigma is not specified, it defaults to 1.
      *
      * @param mu Expected value, defaults to 0.

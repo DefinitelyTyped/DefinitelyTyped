@@ -2,7 +2,7 @@
  * Created by Bruno Grieder
  */
 
-import * as Queue from "bull"
+import Queue = require("bull");
 
 var videoQueue = Queue( 'video transcoding', 6379, '127.0.0.1' );
 var audioQueue = Queue( 'audio transcoding', 6379, '127.0.0.1' );

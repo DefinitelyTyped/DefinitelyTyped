@@ -1,30 +1,8 @@
+import { Object } from './object';
+
 export class DiffBinaryFile {
-    /**
-     *
-     *
-     * @type {number}
-     * @memberof DiffBinaryFile
-     */
-    type: number;
-    /**
-     *
-     *
-     * @type {string}
-     * @memberof DiffBinaryFile
-     */
+    type: Object.TYPE;
     data: string;
-    /**
-     *
-     *
-     * @type {number}
-     * @memberof DiffBinaryFile
-     */
     datalen: number;
-    /**
-     *
-     *
-     * @type {number}
-     * @memberof DiffBinaryFile
-     */
     inflatedlen: number;
 }

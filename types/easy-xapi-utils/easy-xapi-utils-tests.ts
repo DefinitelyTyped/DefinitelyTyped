@@ -2,9 +2,6 @@
  * Created by karl on 14/07/15.
  */
 
-
-/// <reference types="easy-xapi" />
-
 import express = require('express');
 import eXapi = require('easy-xapi');
 import eUtils = require('easy-xapi-utils');

@@ -52,6 +52,10 @@ declare namespace AceAjax {
     export interface TokenInfo {
 
         value: string;
+
+        index?: number;
+
+        start?: number;
     }
 
     export interface Position {
@@ -95,6 +99,29 @@ declare namespace AceAjax {
         createModeDelegates (mapping: any): void;
 
         transformAction(state: any, action: any, editor: any, session: any, param: any): any;
+    }
+
+    export interface OptionProvider {
+
+        /**
+         * Sets a Configuration Option
+        **/
+        setOption(optionName: string, optionValue: any): void;
+
+        /**
+         * Sets Configuration Options
+        **/
+        setOptions(keyValueTuples: any): void;
+
+        /**
+         * Get a Configuration Option
+        **/
+        getOption(name: string):any;
+
+        /**
+         * Get Configuration Options
+        **/
+        getOptions():any;
     }
 
     ////////////////
@@ -345,17 +372,46 @@ declare namespace AceAjax {
         insert(position: Position, text: string): any;
 
         /**
-         * Inserts the elements in `lines` into the document, starting at the row index given by `row`. This method also triggers the `'change'` event.
-         * @param row The index of the row to insert at
-         * @param lines An array of strings
-        **/
+         * @deprecated Use the insertFullLines method instead.
+         */
         insertLines(row: number, lines: string[]): any;
 
         /**
-         * Inserts a new line into the document at the current row's `position`. This method also triggers the `'change'` event.
-         * @param position The position to insert at
-        **/
+         * Inserts the elements in `lines` into the document as full lines (does not merge with existing line), starting at the row index given by `row`. This method also triggers the `"change"` event.
+         * @param {Number} row The index of the row to insert at
+         * @param {Array} lines An array of strings
+         * @returns {Object} Contains the final row and column, like this:
+         *   ```
+         *   {row: endRow, column: 0}
+         *   ```
+         *   If `lines` is empty, this function returns an object containing the current row, and column, like this:
+         *   ```
+         *   {row: row, column: 0}
+         *   ```
+         *
+         **/
+        insertFullLines(row: number, lines: string[]): any;
+
+        /**
+         * @deprecated Use insertMergedLines(position, ['', '']) instead.
+         */
         insertNewLine(position: Position): any;
+
+        /**
+         * Inserts the elements in `lines` into the document, starting at the position index given by `row`. This method also triggers the `"change"` event.
+         * @param {Number} row The index of the row to insert at
+         * @param {Array} lines An array of strings
+         * @returns {Object} Contains the final row and column, like this:
+         *   ```
+         *   {row: endRow, column: 0}
+         *   ```
+         *   If `lines` is empty, this function returns an object containing the current row, and column, like this:
+         *   ```
+         *   {row: row, column: 0}
+         *   ```
+         *
+         **/
+        insertMergedLines(row: number, lines: string[]): any;
 
         /**
          * Inserts `text` into the `position` at the current row. This method also triggers the `'change'` event.
@@ -379,11 +435,18 @@ declare namespace AceAjax {
         removeInLine(row: number, startColumn: number, endColumn: number): any;
 
         /**
-         * Removes a range of full lines. This method also triggers the `'change'` event.
-         * @param firstRow The first row to be removed
-         * @param lastRow The last row to be removed
-        **/
+         * @deprecated Use the removeFullLines method instead.
+         */
         removeLines(firstRow: number, lastRow: number): string[];
+
+        /**
+         * Removes a range of full lines. This method also triggers the `"change"` event.
+         * @param {Number} firstRow The first row to be removed
+         * @param {Number} lastRow The last row to be removed
+         * @returns {[String]} Returns all the removed lines.
+         *
+         **/
+        removeFullLines(firstRow: number, lastRow: number): string[];
 
         /**
          * Removes the new line between `row` and the row immediately following it. This method also triggers the `'change'` event.
@@ -455,7 +518,7 @@ declare namespace AceAjax {
      * Stores all the data about [[Editor `Editor`]] state providing easy way to change editors state.
      * `EditSession` can be attached to only one [[Document `Document`]]. Same `Document` can be attached to several `EditSession`s.
     **/
-    export interface IEditSession {
+    export interface IEditSession extends OptionProvider {
 
         selection: Selection;
 
@@ -474,9 +537,9 @@ declare namespace AceAjax {
         removeFold(arg: any): void;
 
         expandFold(arg: any): void;
-        
+
         foldAll(startRow?: number, endRow?: number, depth?: number): void
-        
+
         unfold(arg1: any, arg2: boolean): void;
 
         screenToDocumentColumn(row: number, column: number): void;
@@ -539,7 +602,7 @@ declare namespace AceAjax {
          * @param row The row number to retrieve from
          * @param column The column number to retrieve from
         **/
-        getTokenAt(row: number, column: number): TokenInfo;
+        getTokenAt(row: number, column: number): TokenInfo|null;
 
         /**
          * Sets the undo manager.
@@ -769,8 +832,9 @@ declare namespace AceAjax {
 
         /**
          * [Sets the value of the distance between the left of the editor and the leftmost part of the visible content.]{: #EditSession.setScrollLeft}
+         * @param scrollLeft The new scroll left value
         **/
-        setScrollLeft(): void;
+        setScrollLeft(scrollLeft: number): void;
 
         /**
          * [Returns the value of the distance between the left of the editor and the leftmost part of the visible content.]{: #EditSession.getScrollLeft}
@@ -1034,7 +1098,7 @@ declare namespace AceAjax {
      * The `Editor` manages the [[EditSession]] (which manages [[Document]]s), as well as the [[VirtualRenderer]], which draws everything to the screen.
      * Event sessions dealing with the mouse and keyboard are bubbled up from `Document` to the `Editor`, which decides what to do with them.
     **/
-    export interface Editor {
+    export interface Editor extends OptionProvider {
 
         on(ev: string, callback: (e: any) => any): void;
 
@@ -1072,26 +1136,6 @@ declare namespace AceAjax {
         onChangeMode(e?: any): void;
 
         execCommand(command:string, args?: any): void;
-
-        /**
-         * Sets a Configuration Option
-         **/
-        setOption(optionName: any, optionValue: any): void;
-
-        /**
-         * Sets Configuration Options
-         **/
-        setOptions(keyValueTuples: any): void;
-
-        /**
-         * Get a Configuration Option
-         **/
-        getOption(name: any):any;
-
-        /**
-         * Get Configuration Options
-         **/
-        getOptions():any;
 
         /**
          * Get rid of console warning by setting this to Infinity
@@ -2652,16 +2696,16 @@ declare namespace AceAjax {
     /**
      * The class that is responsible for drawing everything you see on the screen!
     **/
-    export interface VirtualRenderer {
+    export interface VirtualRenderer extends OptionProvider {
 
         scroller: any;
 
         characterWidth: number;
 
         lineHeight: number;
-        
+
         setScrollMargin(top:number, bottom:number, left: number, right: number): void;
-        
+
         screenToTextCoordinates(left: number, top: number): void;
 
         /**
@@ -2996,6 +3040,37 @@ declare namespace AceAjax {
         **/
         new(container: HTMLElement, theme?: string): VirtualRenderer;
     }
+
+    export interface Completer {
+        /**
+         * Provides possible completion results asynchronously using the given callback.
+         * @param editor The editor to associate with
+         * @param session The `EditSession` to refer to
+         * @param pos An object containing the row and column
+         * @param prefix The prefixing string before the current position
+         * @param callback Function to provide the results or error
+         */
+        getCompletions: (editor: Editor, session: IEditSession, pos: Position, prefix: string, callback: CompletionCallback) => void;
+
+        /**
+         * Provides tooltip information about a completion result.
+         * @param item The completion result
+         */
+        getDocTooltip?: (item: Completion) => void;
+      }
+      
+      export interface Completion {
+        value: string;
+        meta: string;
+        type?: string;
+        caption?: string;
+        snippet?: any;
+        score?: number;
+        exactMatch?: number;
+        docHTML?: string;
+      }
+      
+      export type CompletionCallback = (error: Error, results: Completion[]) => void;
 }
 
 declare var ace: AceAjax.Ace;

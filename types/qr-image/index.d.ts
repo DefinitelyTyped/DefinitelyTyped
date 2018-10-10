@@ -10,16 +10,9 @@
  */
 export type ec_level = 'L' | 'M' | 'Q' | 'H';
 
-/**
- * image type. Possible values png (default), svg, pdf and eps.
- */
+/** @default 'png' */
 export type image_type = 'png' | 'svg' | 'pdf' | 'eps';
 
-/**
- * image options object:
- *
- * @interface IOptions
- */
 export interface Options {
 	ec_level?: ec_level;	// error correction level. One of L, M, Q, H. Default M.
 	type?: image_type;		// image type. Possible values png(default), svg, pdf and eps.
@@ -29,12 +22,12 @@ export interface Options {
 }
 
 export function image(text: string, level?: ec_level): NodeJS.ReadableStream;
-export function image(text: string, optoins?: Options): NodeJS.ReadableStream;
+export function image(text: string, options?: Options): NodeJS.ReadableStream;
 
 export function imageSync(text: string, level?: ec_level): Buffer;
-export function imageSync(text: string, optoins?: Options): string | Buffer;
+export function imageSync(text: string, options?: Options): string | Buffer;
 
 export function svgObject(text: string, level?: ec_level): any;
-export function svgObject(text: string, optoins?: Options): any;
+export function svgObject(text: string, options?: Options): any;
 
 export function matrix(text: string, level?: ec_level): any[][];

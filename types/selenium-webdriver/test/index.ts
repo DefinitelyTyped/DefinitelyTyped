@@ -1,8 +1,10 @@
 import * as webdriver from 'selenium-webdriver';
 import * as chrome from 'selenium-webdriver/chrome';
+import * as edge from 'selenium-webdriver/edge';
 import * as firefox from 'selenium-webdriver/firefox';
 import * as http from 'selenium-webdriver/http';
 import * as remote from 'selenium-webdriver/remote';
+import * as safari from 'selenium-webdriver/safari';
 import * as testing from 'selenium-webdriver/testing';
 
 function TestBuilder() {
@@ -18,17 +20,28 @@ function TestBuilder() {
 
     builder = builder.setAlertBehavior('behavior');
     builder = builder.setChromeOptions(new chrome.Options());
+    builder = builder.setChromeService(new chrome.ServiceBuilder());
     builder = builder.setControlFlow(new webdriver.promise.ControlFlow());
+    builder = builder.setEdgeOptions(new edge.Options());
+    builder = builder.setEdgeService(new edge.ServiceBuilder());
     builder = builder.setEnableNativeEvents(true);
     builder = builder.setFirefoxOptions(new firefox.Options());
+    builder = builder.setFirefoxService(new firefox.ServiceBuilder());
     builder = builder.setLoggingPrefs(new webdriver.logging.Preferences());
     builder = builder.setLoggingPrefs({ key: 'value' });
     builder = builder.setProxy({ proxyType: 'type' });
+    builder = builder.setSafariOptions(new safari.Options());
     builder = builder.setScrollBehavior(1);
     builder = builder.usingServer('http://someserver');
     builder = builder.withCapabilities(new webdriver.Capabilities());
     builder = builder.withCapabilities({ something: true });
+
+    const chromeOptions: chrome.Options = builder.getChromeOptions();
+    const firefoxOptions: firefox.Options = builder.getFirefoxOptions();
+    const safariOptions: safari.Options = builder.getSafariOptions();
 }
+
+declare const promise: webdriver.promise.Promise<string>;
 
 function TestActionSequence() {
     let driver: webdriver.WebDriver = new webdriver.Builder().
@@ -37,7 +50,6 @@ function TestActionSequence() {
 
     let sequence: webdriver.ActionSequence = new webdriver.ActionSequence(driver);
     let element: webdriver.WebElement = new webdriver.WebElement(driver, 'elementId');
-    let promise: webdriver.promise.Promise<string>;
     element = new webdriver.WebElement(driver, promise);
 
     // Click
@@ -519,7 +531,7 @@ function TestWebDriverOptions() {
     promise = options.deleteAllCookies();
     promise = options.deleteCookie('name');
     options.getCookie('name').then((cookie: webdriver.IWebDriverCookie) => {
-        let expiry: number = cookie.expiry;
+        let expiry: number | undefined = cookie.expiry;
      });
     options.getCookies().then((cookies: webdriver.IWebDriverCookie[]) => { });
 
@@ -573,9 +585,13 @@ function TestWebDriverWindow() {
     voidPromise = window.setSize(12, 34);
 }
 
+declare const sessionPromise: webdriver.promise.Promise<webdriver.Session>;
+declare let booleanPromise: webdriver.promise.Promise<boolean>;
+declare const booleanCondition: webdriver.Condition<boolean>;
+declare const webElementCondition: webdriver.WebElementCondition;
+
 function TestWebDriver() {
     let session: webdriver.Session = new webdriver.Session('ABC', webdriver.Capabilities.android());
-    let sessionPromise: webdriver.promise.Promise<webdriver.Session>;
     let httpClient: http.HttpClient = new http.HttpClient('http://someserver');
     let executor: http.Executor = new http.Executor(httpClient);
     let flow: webdriver.promise.ControlFlow = new webdriver.promise.ControlFlow();
@@ -586,7 +602,6 @@ function TestWebDriver() {
 
     let voidPromise: webdriver.promise.Promise<void>;
     let stringPromise: webdriver.promise.Promise<string>;
-    let booleanPromise: webdriver.promise.Promise<boolean>;
     let webElementPromise: webdriver.WebElementPromise;
 
     let actions: webdriver.ActionSequence = driver.actions();
@@ -595,7 +610,7 @@ function TestWebDriver() {
     // call
     stringPromise = driver.call<string>(() => 'value');
     stringPromise = driver.call<string>(() => stringPromise);
-    stringPromise = driver.call<string>(() => { let d: any = this; return 'value'; }, driver);
+    stringPromise = driver.call<string>(() => 'value', driver);
     stringPromise = driver.call<string>((a: number) => 'value', driver, 1);
 
     voidPromise = driver.close();
@@ -643,7 +658,6 @@ function TestWebDriver() {
     voidPromise = driver.sleep(123);
     stringPromise = driver.takeScreenshot();
 
-    let booleanCondition: webdriver.Condition<boolean>;
     booleanPromise = driver.wait(booleanPromise);
     booleanPromise = driver.wait(booleanCondition);
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => true);
@@ -651,7 +665,6 @@ function TestWebDriver() {
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => webdriver.promise.Promise.resolve(true));
     booleanPromise = driver.wait(booleanPromise, 123);
     booleanPromise = driver.wait(booleanPromise, 123, 'Message');
-    let webElementCondition: webdriver.WebElementCondition;
     webElementPromise = driver.wait(webElementCondition);
     voidPromise = driver.wait(webElementCondition).click();
 
@@ -659,8 +672,9 @@ function TestWebDriver() {
     driver = webdriver.WebDriver.createSession(executor, webdriver.Capabilities.android());
 }
 
+declare const serializable: webdriver.Serializable<string>;
+
 function TestSerializable() {
-    let serializable: webdriver.Serializable<string>;
     let serial: string | webdriver.promise.IThenable<string> = serializable.serialize();
 }
 
@@ -669,7 +683,6 @@ function TestWebElement() {
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
 
-    let promise: webdriver.promise.Promise<string>;
     let element: webdriver.WebElement;
 
     element = new webdriver.WebElement(driver, 'elementId');
@@ -764,13 +777,14 @@ function TestLoggingEntry() {
     let type: string = entry.type;
 }
 
+declare let stringPromise: webdriver.promise.Promise<string>;
+
 function TestPromiseModule() {
     let cancellationError: webdriver.promise.CancellationError = new webdriver.promise.CancellationError();
     cancellationError = new webdriver.promise.CancellationError('message');
     let str: string = cancellationError.message;
     str = cancellationError.name;
 
-    let stringPromise: webdriver.promise.Promise<string>;
     let numberPromise: webdriver.promise.Promise<number>;
     let booleanPromise: webdriver.promise.Promise<boolean>;
     let voidPromise: webdriver.promise.Promise<void>;
@@ -932,8 +946,9 @@ function TestDeferred() {
     deferred.removeAll();
 }
 
+declare const controlFlow: webdriver.promise.ControlFlow;
+
 function TestPromiseClass() {
-    let controlFlow: webdriver.promise.ControlFlow;
     let promise: webdriver.promise.Promise<string>;
     promise = new webdriver.promise.Promise<string>((resolve, reject) => {
         resolve("");
@@ -943,18 +958,21 @@ function TestPromiseClass() {
 
     promise = promise.then<string>();
     promise = promise.then((a: string) => 'cde');
-    promise = promise.then((a: string) => 'cde', (e: any) => {});
-    promise = promise.then((a: string) => 'cde', (e: any) => 123);
+    // tslint:disable-next-line void-return (need `--strictNullChecks` to change `void` to `undefined`)
+    const promiseOrVoid: webdriver.promise.Promise<string | void> = promise.then((a: string) => 'cde', (e: any) => {});
+    const promiseOrNumber: webdriver.promise.Promise<string | number> = promise.then((a: string) => 'cde', (e: any) => 123);
 }
 
 function TestThenableClass() {
+    // TODO: this doesn't test the Thenable class, it uses a Promise!
     let thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => {
         resolve('a');
     });
 
     thenable = thenable.then((a: string) => 'cde');
-    thenable = thenable.then((a: string) => 'cde', (e: any) => {});
-    thenable = thenable.then((a: string) => 'cde', (e: any) => 123);
+    // tslint:disable-next-line void-return (need `--strictNullChecks` to change `void` to `undefined`)
+    const thenableOrVoid: webdriver.promise.Promise<string | void> = thenable.then((a: string) => 'cde', (e: any) => {});
+    const thenableOrNumber: webdriver.promise.Promise<string | number> = thenable.then((a: string) => 'cde', (e: any) => 123);
 }
 
 async function TestAsyncAwaitable() {

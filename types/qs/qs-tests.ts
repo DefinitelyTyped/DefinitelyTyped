@@ -287,3 +287,7 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 () => {
     assert.equal(qs.stringify({ a: 'b' }, { addQueryPrefix: true }), '?a=b');
 }
+
+() => {
+    assert.equal(qs.stringify({ a: { b: { c: 'd', e: 'f' } } }, { allowDots: true }), 'a.b.c=d&a.b.e=f');
+}

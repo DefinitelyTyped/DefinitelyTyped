@@ -1,1 +1,10 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODOs
+        "no-declare-current-package": false,
+        "no-unnecessary-generics": false,
+        // TODO: Fixing this lint error will require a large refactor
+        "no-single-declare-module": false
+    }
+}

@@ -1,3 +1,3 @@
-import { Hyperscript } from "mithril";
+import { Hyperscript } from ".";
 declare const h: Hyperscript;
 export = h;

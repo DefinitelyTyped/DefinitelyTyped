@@ -1,6 +1,6 @@
 // Type definitions for SlickGrid 2.1.0
 // Project: https://github.com/mleibman/SlickGrid
-// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1623,7 +1623,7 @@ declare namespace Slick {
 			public getRowById(id: string): number;
 			public getItemById(id: any): T;
 			public getItemByIdx(idx: number): T;
-			public mapRowsToIds(rowArray: T[]): string[];
+			public mapRowsToIds(rowArray: number[]): string[];
 			public setRefreshHints(hints: RefreshHints): void;
 			public setFilterArgs(args: any): void;
 			public refresh(): void;

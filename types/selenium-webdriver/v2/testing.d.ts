@@ -1,4 +1,3 @@
-/* tslint:disable */
 /**
 * Registers a new test suite.
 * @param name The suite name.

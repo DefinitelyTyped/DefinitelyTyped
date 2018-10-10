@@ -1,4 +1,4 @@
-
+import * as Lime from 'lime-js';
 
 var transport = new Lime.WebSocketTransport(true);
 var clientChannel = new Lime.ClientChannel(transport, true, true);

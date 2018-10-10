@@ -6,5 +6,6 @@
 declare function Given(func: (done?: () => void) => void): void;
 declare function When(func: (done?: () => void) => void): void;
 declare function Then(func: (done?: () => void) => void): void;
+declare function Then(label: string, func: (done?: () => void) => void): void;
 declare function And(func: (done?: () => void) => void): void;
 declare function Invariant(func: (done?: () => void) => void): void;

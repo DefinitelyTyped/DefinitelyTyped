@@ -1,9 +1,9 @@
-import * as msgpack from 'msgpack5';
+import msgpack = require('msgpack5');
 
 // msgpack()
 let packer = msgpack();
 packer = msgpack({ forceFloat64: true });
-packer = msgpack({ compatibilityMode: true }); 
+packer = msgpack({ compatibilityMode: true });
 
 class InputType {
   number: number;
