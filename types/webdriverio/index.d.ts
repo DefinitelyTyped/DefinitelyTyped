@@ -363,7 +363,6 @@ declare namespace WebdriverIO {
             args: any[]
         ): Promise<any> | void;
 
-        
         beforeHook?(): Promise<any> | void;
 
         beforeSession?(
@@ -371,7 +370,7 @@ declare namespace WebdriverIO {
             capabilities: DesiredCapabilities,
             specs: string[]
         ): Promise<any> | void;
-        
+
         beforeSuite?(suite: Suite): Promise<any> | void;
         beforeTest?(test: Test): Promise<any> | void;
         afterHook?(): Promise<any> | void;
@@ -395,7 +394,6 @@ declare namespace WebdriverIO {
             specs: string[]
         ): Promise<any> | void;
 
-        
         afterSuite?(suite: Suite): Promise<any> | void;
         afterTest?(test: Test): Promise<any> | void;
 
