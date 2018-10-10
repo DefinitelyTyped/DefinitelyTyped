@@ -4,7 +4,7 @@
 //                 Tony Curtis <https://github.com/daltin>
 //                 Georgii Dolzhykov <https://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference path="mocks.d.ts" />
 
