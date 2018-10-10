@@ -1,10 +1,71 @@
 function JQueryStatic() {
-    function type_assertion() {
-        const $Canvas = $ as JQueryStatic<HTMLCanvasElement>;
-    }
-
     function type_annotation() {
         const jq: JQueryStatic = $;
+    }
+
+    function ajaxSettings() {
+        // $ExpectType AjaxSettings<any>
+        $.ajaxSettings;
+    }
+
+    function Callbacks() {
+        // $ExpectType CallbacksStatic
+        $.Callbacks;
+    }
+
+    function cssHooks() {
+        // $ExpectType PlainObject<CSSHook<HTMLElement>>
+        $.cssHooks;
+    }
+
+    function cssNumber() {
+        // $ExpectType PlainObject<boolean>
+        $.cssNumber;
+    }
+
+    function Deferred() {
+        // $ExpectType DeferredStatic
+        $.Deferred;
+    }
+
+    function easing() {
+        // $ExpectType Easings
+        $.easing;
+    }
+
+    function Event() {
+        // $ExpectType EventStatic
+        $.Event;
+    }
+
+    function expr() {
+        // $ExpectType Selectors
+        $.expr;
+    }
+
+    function fn() {
+        // $ExpectType JQuery<HTMLElement>
+        $.fn;
+    }
+
+    function fx() {
+        // $ExpectType Effects
+        $.fx;
+    }
+
+    function ready() {
+        // $ExpectType Thenable<JQueryStatic>
+        $.ready;
+    }
+
+    function support() {
+        // $ExpectType PlainObject<any>
+        $.support;
+    }
+
+    function valHooks() {
+        // $ExpectType PlainObject<ValHook<HTMLElement>>
+        $.valHooks;
     }
 
     function call_signature() {
@@ -21,6 +82,9 @@ function JQueryStatic() {
             }
         });
 
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $<HTMLParagraphElement>('<p></p>');
+
         // $ExpectType JQuery<HTMLElement>
         $('span', new HTMLElement());
 
@@ -33,147 +97,82 @@ function JQueryStatic() {
         // $ExpectType JQuery<HTMLElement>
         $('span');
 
-        // $ExpectType JQuery<HTMLElement>
-        $('<p></p>');
+        // $ExpectType JQuery<SVGLineElement>
+        $<SVGLineElement>('.mysvgline');
 
-        // $ExpectType JQuery<HTMLElement>
-        $(new HTMLElement());
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $(new HTMLParagraphElement());
 
-        // $ExpectType JQuery<HTMLElement>
-        $([new HTMLElement()]);
+        // $ExpectType JQuery<HTMLParagraphElement>
+        $([new HTMLParagraphElement()]);
 
-        // $ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<{ foo: string; hello: string; }>
         $({ foo: 'bar', hello: 'world' });
 
-        // $ExpectType JQuery<HTMLElement>
-        $($('p'));
+        // $ExpectType JQuery<SVGSVGElement>
+        $($(document.createElementNS("http://www.w3.org/2000/svg", "svg")));
 
         // $ExpectType JQuery<HTMLElement>
         $(function($) {
             // $ExpectType Document
             this;
-            // $ExpectType JQueryStatic<HTMLElement>
+            // $ExpectType JQueryStatic
+            $;
+        });
+
+        // $ExpectType JQuery<Element>
+        $<Element>(function($) {
+            // $ExpectType Document
+            this;
+            // $ExpectType JQueryStatic
             $;
         });
 
         // $ExpectType JQuery<HTMLElement>
         $();
-    }
 
-    function ajaxSettings() {
-        // $ExpectType AjaxSettings<any>
-        $.ajaxSettings;
-    }
+        // $ExpectType JQuery<Element>
+        $<Element>();
 
-    function Event() {
-        // $ExpectType EventStatic<HTMLElement>
-        $.Event;
-    }
+        // $ExpectType JQuery<HTMLSelectElement>
+        $(new HTMLSelectElement());
 
-    function cssHooks() {
-        // $ExpectType PlainObject<CSSHook<HTMLElement>>
-        $.cssHooks;
-    }
+        // $ExpectType JQuery<HTMLSelectElement>
+        $([new HTMLSelectElement()]);
 
-    function cssNumber() {
-        // $ExpectType PlainObject<boolean>
-        $.cssNumber;
-    }
-
-    function fn() {
-        // $ExpectType JQuery<HTMLElement>
-        $.fn;
-    }
-
-    function fx() {
-        function interval() {
-            // $ExpectType number
-            $.fx.interval;
-        }
-
-        function off() {
-            // $ExpectType boolean
-            $.fx.off;
-        }
-
-        function step() {
-            // $ExpectType PlainObject<AnimationHook<Node>>
-            $.fx.step;
-        }
-    }
-
-    function ready() {
-        // $ExpectType Thenable<JQueryStatic<HTMLElement>>
-        $.ready;
-    }
-
-    function support() {
-        // $ExpectType PlainObject<any>
-        $.support;
-    }
-
-    function valHooks() {
-        // $ExpectType PlainObject<ValHook<HTMLElement>>
-        $.valHooks;
-    }
-
-    function Callbacks() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks('once');
-
-        // $ExpectType Callbacks<Function>
-        $.Callbacks();
-    }
-
-    function Deferred() {
-        function call_signature() {
-            // $ExpectType Deferred<boolean, string, number>
-            $.Deferred<boolean, string, number>(function(deferred) {
-                // $ExpectType Deferred<boolean, string, number>
-                this;
-                // $ExpectType Deferred<boolean, string, number>
-                deferred;
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19597#issuecomment-378218432
+        function issue_19597_378218432() {
+            const myDiv = $(document.createElement('div'));
+            // $ExpectType JQuery<HTMLDivElement>
+            myDiv;
+            myDiv.on('click', (evt) => {
+                const target = evt.target;
+                // $ExpectType HTMLDivElement
+                target;
             });
+            const myDiv1 = $<HTMLDivElement>(document.createElement('div'));
 
-            // $ExpectType Deferred<boolean, string, number>
-            $.Deferred<boolean, string, number>();
-
-            // $ExpectType Deferred<boolean, string, any>
-            $.Deferred<boolean, string>(function(deferred) {
-                // $ExpectType Deferred<boolean, string, any>
-                this;
-                // $ExpectType Deferred<boolean, string, any>
-                deferred;
+            const myForcedDiv: JQuery<HTMLDivElement> = $(document.createElement('div')) as any;
+            myForcedDiv.on('click', (evt) => {
+                const target = evt.target; // HTMLDivElement
+                // $ExpectType HTMLDivElement
+                target;
             });
-
-            // $ExpectType Deferred<boolean, string, any>
-            $.Deferred<boolean, string>();
-
-            // $ExpectType Deferred<boolean, any, any>
-            $.Deferred<boolean>(function(deferred) {
-                // $ExpectType Deferred<boolean, any, any>
-                this;
-                // $ExpectType Deferred<boolean, any, any>
-                deferred;
+            const myDoc = $(document);
+            // $ExpectType JQuery<Document>
+            myDoc;
+            myDoc.on('click', (evt) => {
+                const target = evt.target;
+                // $ExpectType Document
+                target;
             });
-
-            // $ExpectType Deferred<boolean, any, any>
-            $.Deferred<boolean>();
-
-            // $ExpectType Deferred<any, any, any>
-            $.Deferred(function(deferred) {
-                // $ExpectType Deferred<any, any, any>
-                this;
-                // $ExpectType Deferred<any, any, any>
-                deferred;
-            });
-
-            // $ExpectType Deferred<any, any, any>
-            $.Deferred();
-        }
-
-        function exceptionHook() {
-            $.Deferred.exceptionHook = undefined;
+            const myDocForced: JQuery<Document> = $(document);
+            const myWindow = $(window);
+            // $ExpectType JQuery<Window>
+            myWindow;
+            const myWindowForced: JQuery<Window> = $(window);
+            // $ExpectType JQuery<Window>
+            myWindowForced;
         }
     }
 
@@ -274,6 +273,13 @@ function JQueryStatic() {
         $.camelCase('foo-bar');
     }
 
+    function cleanData() {
+        const elems: ArrayLike<Element | Document | Window | JQuery.PlainObject> = {} as any;
+
+        // $ExpectType void
+        $.cleanData(elems);
+    }
+
     function contains() {
         // $ExpectType boolean
         $.contains(new HTMLElement(), new HTMLElement());
@@ -281,21 +287,27 @@ function JQueryStatic() {
 
     function css() {
         // $ExpectType any
-        $.css(new HTMLElement(), {});
+        $.css(new HTMLElement(), 'borderRadius');
     }
 
     function data() {
-        // $ExpectType any
-        $.data(new HTMLElement(), 'myKey', undefined);
+        const element: Element | Document | Window | JQuery.PlainObject = {} as any;
+
+        const value: string | undefined = {} as any;
+        // $ExpectError
+        $.data(element, 'myKey', value);
 
         // $ExpectType "myValue"
-        $.data(new HTMLElement(), 'myKey', 'myValue');
+        $.data(element, 'myKey', 'myValue');
 
         // $ExpectType any
-        $.data(new HTMLElement(), 'myKey');
+        $.data(element, 'myKey', undefined);
 
         // $ExpectType any
-        $.data(new HTMLElement());
+        $.data(element, 'myKey');
+
+        // $ExpectType any
+        $.data(element);
     }
 
     function dequeue() {
@@ -573,6 +585,11 @@ function JQueryStatic() {
             // $ExpectType jqXHR<string | undefined>
             jqXHR;
         });
+
+        // $ExpectType jqXHR<string | undefined>
+        $.getScript({
+            url: 'url',
+        });
     }
 
     function globalEval() {
@@ -603,8 +620,10 @@ function JQueryStatic() {
     }
 
     function hasData() {
+        const element: Element | Document | Window | JQuery.PlainObject = {} as any;
+
         // $ExpectType boolean
-        $.hasData(new HTMLElement());
+        $.hasData(element);
     }
 
     function holdReady() {
@@ -655,24 +674,31 @@ function JQueryStatic() {
     }
 
     function isNumeric() {
-        function type_guard(obj: boolean) {
-            if ($.isNumeric(obj)) {
-                // $ExpectType (true & number) | (false & number)
-                obj;
-            } else {
-                // $ExpectType boolean
-                obj;
-            }
-        }
+        // $ExpectType boolean
+        $.isNumeric(123);   // true
+
+        // $ExpectType boolean
+        $.isNumeric(0 / 0); // false
+
+        // $ExpectType boolean
+        $.isNumeric('123'); // true
+
+        // $ExpectType boolean
+        $.isNumeric('1s3'); // false
     }
 
     function isPlainObject() {
-        function type_guard(obj: object) {
-            if ($.isPlainObject(obj)) {
-                // $ExpectType PlainObject<any>
-                obj;
-            }
-        }
+        // $ExpectType boolean
+        $.isPlainObject({});                    // true
+
+        // $ExpectType boolean
+        $.isPlainObject(new Object());          // true
+
+        // $ExpectType boolean
+        $.isPlainObject(document);              // false
+
+        // $ExpectType boolean
+        $.isPlainObject(Object.create(null));   // true
     }
 
     function isWindow() {
@@ -699,7 +725,9 @@ function JQueryStatic() {
 
     function map() {
         // $ExpectType number[]
-        $.map([1, 2, 3], (elementOfArray, indexInArray) => {
+        $.map([1, 2, 3], function(elementOfArray, indexInArray) {
+            // $ExpectType Window
+            this;
             // $ExpectType number
             elementOfArray;
             // $ExpectType number
@@ -708,11 +736,49 @@ function JQueryStatic() {
             return 200 + 10;
         });
 
+        // $ExpectType number[]
+        $.map([1, 2, 3], function(elementOfArray, indexInArray) {
+            // $ExpectType Window
+            this;
+            // $ExpectType number
+            elementOfArray;
+            // $ExpectType number
+            indexInArray;
+
+            return [200, 10];
+        });
+
+        // $ExpectType (number | null)[]
+        $.map([1, 2, 3], function(elementOfArray, indexInArray) {
+            // $ExpectType Window
+            this;
+            // $ExpectType number
+            elementOfArray;
+            // $ExpectType number
+            indexInArray;
+
+            return [200, 10, null];
+        });
+
+        // $ExpectType (number | undefined)[]
+        $.map([1, 2, 3], function(elementOfArray, indexInArray) {
+            // $ExpectType Window
+            this;
+            // $ExpectType number
+            elementOfArray;
+            // $ExpectType number
+            indexInArray;
+
+            return [200, 10, undefined];
+        });
+
         // $ExpectType (false | 1)[]
         $.map({
             myProp: true,
             name: 'Rogers',
-        }, (propertyOfObject, key) => {
+        }, function(propertyOfObject, key) {
+            // $ExpectType Window
+            this;
             // $ExpectType string | boolean
             propertyOfObject;
             // $ExpectType "myProp" | "name"
@@ -725,6 +791,67 @@ function JQueryStatic() {
                     return false;
             }
         });
+
+        // $ExpectType (string | number | boolean)[]
+        $.map({
+            myProp: true,
+            name: 'Rogers',
+        }, function(propertyOfObject, key) {
+            // $ExpectType Window
+            this;
+            // $ExpectType string | boolean
+            propertyOfObject;
+            // $ExpectType "myProp" | "name"
+            key;
+
+            return [propertyOfObject, 24];
+        });
+
+        // $ExpectType (false | 1)[]
+        $.map({
+            myProp: true,
+            name: 'Rogers',
+            anotherProp: 70,
+        }, function(propertyOfObject, key) {
+            // $ExpectType Window
+            this;
+            // $ExpectType string | number | boolean
+            propertyOfObject;
+            // $ExpectType "myProp" | "name" | "anotherProp"
+            key;
+
+            switch (key) {
+                case 'myProp':
+                    return 1;
+                case 'name':
+                    return false;
+            }
+
+            return null;
+        });
+
+        // $ExpectType (false | 1)[]
+        $.map({
+            myProp: true,
+            name: 'Rogers',
+            anotherProp: 70,
+        }, function(propertyOfObject, key) {
+            // $ExpectType Window
+            this;
+            // $ExpectType string | number | boolean
+            propertyOfObject;
+            // $ExpectType "myProp" | "name" | "anotherProp"
+            key;
+
+            switch (key) {
+                case 'myProp':
+                    return 1;
+                case 'name':
+                    return false;
+            }
+
+            return undefined;
+        });
     }
 
     function merge() {
@@ -733,11 +860,16 @@ function JQueryStatic() {
     }
 
     function noConflict() {
-        // $ExpectType JQueryStatic<HTMLElement>
+        // $ExpectType JQueryStatic
         $.noConflict(true);
 
-        // $ExpectType JQueryStatic<HTMLElement>
+        // $ExpectType JQueryStatic
         $.noConflict();
+    }
+
+    function nodeName() {
+        // $ExpectType boolean
+        $.nodeName({} as Node, 'name');
     }
 
     function noop() {
@@ -1610,11 +1742,13 @@ function JQueryStatic() {
     }
 
     function removeData() {
-        // $ExpectType void
-        $.removeData(new HTMLElement(), 'test1');
+        const element: Element | Document | Window | JQuery.PlainObject = {} as any;
 
         // $ExpectType void
-        $.removeData(new HTMLElement());
+        $.removeData(element, 'test1');
+
+        // $ExpectType void
+        $.removeData(element);
     }
 
     function speed() {
@@ -2021,9 +2155,8 @@ function JQueryStatic() {
 }
 
 function JQuery() {
-    function type_assertion() {
-        const $el = $(document.createElement('canvas'));
-        const $canvas = $el as JQuery<HTMLCanvasElement>;
+    function type_annotation() {
+        const $canvas: JQuery<Element> = $(document.createElement('canvas'));
     }
 
     function iterable() {
@@ -2041,7 +2174,7 @@ function JQuery() {
 
     function ajax() {
         function ajaxComplete() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxComplete(function(event, jqXHR, ajaxOptions) {
                 // $ExpectType Document
                 this;
@@ -2057,7 +2190,7 @@ function JQuery() {
         }
 
         function ajaxError() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
                 // $ExpectType Document
                 this;
@@ -2075,7 +2208,7 @@ function JQuery() {
         }
 
         function ajaxSend() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxSend(function(event, jqXHR, ajaxOptions) {
                 // $ExpectType Document
                 this;
@@ -2091,7 +2224,7 @@ function JQuery() {
         }
 
         function ajaxStart() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxStart(function() {
                 // $ExpectType Document
                 this;
@@ -2101,7 +2234,7 @@ function JQuery() {
         }
 
         function ajaxStop() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxStop(function() {
                 // $ExpectType Document
                 this;
@@ -2111,7 +2244,7 @@ function JQuery() {
         }
 
         function ajaxSuccess() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<Document>
             $(document).ajaxSuccess(function(event, jqXHR, ajaxOptions, data) {
                 // $ExpectType Document
                 this;
@@ -2612,6 +2745,18 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').offset({
+                left: 20
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').offset({});
+
+            // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+            // $ExpectError
+            $('p').offset(20);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').offset(function(index, coords) {
                 // $ExpectType HTMLElement
                 this;
@@ -2622,6 +2767,20 @@ function JQuery() {
 
                 return {
                     left: 20,
+                    top: 50
+                };
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').offset(function(index, coords) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType Coordinates
+                coords;
+
+                return {
                     top: 50
                 };
             });
@@ -2753,8 +2912,9 @@ function JQuery() {
 
     function data() {
         function data() {
-            // $ExpectType any
-            $('p').data('myData', undefined);
+            const value: string | undefined = {} as any;
+            // $ExpectError
+            $('p').data('myData', value);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').data('myData', {});
@@ -2764,6 +2924,9 @@ function JQuery() {
                 myData1: {},
                 myData2: false
             });
+
+            // $ExpectType any
+            $('p').data('myData', undefined);
 
             // $ExpectType any
             $('p').data('myData');
@@ -3635,6 +3798,14 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 'td', 'myData', function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', 'td', 'myData', function(this: I1, event) {
                 // $ExpectType I1
                 this;
@@ -3651,6 +3822,14 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', null, 'myData', function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', null, 'myData', function(this: I1, event) {
                 // $ExpectType I1
                 this;
@@ -3663,6 +3842,14 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 this;
                 // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 'td', function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
                 event;
             });
 
@@ -3686,6 +3873,14 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 3, function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', 3, function(this: I1, event) {
                 // $ExpectType I1
                 this;
@@ -3698,6 +3893,38 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 this;
                 // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', function(event: JQueryEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', function(event: JQueryInputEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryInputEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', function(event: JQueryMouseEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryMouseEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', function(event: JQueryKeyEventObject) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryKeyEventObject
                 event;
             });
 
@@ -3987,6 +4214,9 @@ function JQuery() {
             $('p').trigger('myEvent', 3);
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').trigger('myEvent', true);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').trigger($.Event('myEvent'), ['Custom', 'Event']);
 
             // $ExpectType JQuery<HTMLElement>
@@ -3997,6 +4227,9 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('p').trigger($.Event('myEvent'), 3);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').trigger($.Event('myEvent'), true);
         }
 
         function triggerHandler() {
@@ -4013,6 +4246,9 @@ function JQuery() {
             $('p').triggerHandler('myEvent', 3);
 
             // $ExpectType any
+            $('p').triggerHandler('myEvent', true);
+
+            // $ExpectType any
             $('p').triggerHandler($.Event('myEvent'), ['Custom', 'Event']);
 
             // $ExpectType any
@@ -4023,6 +4259,9 @@ function JQuery() {
 
             // $ExpectType any
             $('p').triggerHandler($.Event('myEvent'), 3);
+
+            // $ExpectType any
+            $('p').triggerHandler($.Event('myEvent'), true);
         }
 
         function unbind() {
@@ -5144,7 +5383,7 @@ function JQuery() {
         function ready() {
             // $ExpectType JQuery<HTMLElement>
             $('p').ready(($) => {
-                // $ExpectType JQueryStatic<HTMLElement>
+                // $ExpectType JQueryStatic
                 $;
             });
         }
@@ -5153,7 +5392,7 @@ function JQuery() {
     function manipulation() {
         function after() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').after('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
+            $('p').after('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()], document.createDocumentFragment());
 
             // $ExpectType JQuery<HTMLElement>
             $('p').after(function(index, html) {
@@ -5218,7 +5457,7 @@ function JQuery() {
 
         function append() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').append('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
+            $('p').append('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()], document.createDocumentFragment());
 
             // $ExpectType JQuery<HTMLElement>
             $('p').append(function(index, html) {
@@ -5286,7 +5525,7 @@ function JQuery() {
 
         function before() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').before('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()]);
+            $('p').before('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text(), $('p').contents()], document.createDocumentFragment());
 
             // $ExpectType JQuery<HTMLElement>
             $('p').before(function(index, html) {
@@ -5351,7 +5590,7 @@ function JQuery() {
 
         function prepend() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').prepend('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()], [new Element(), $('p').contents()]);
+            $('p').prepend('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()], [new Element(), $('p').contents()], document.createDocumentFragment());
 
             // $ExpectType JQuery<HTMLElement>
             $('p').prepend(function(index, html) {
@@ -5429,6 +5668,9 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('span').appendTo($('p'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').appendTo(document.createDocumentFragment());
         }
 
         function insertAfter() {
@@ -5446,6 +5688,12 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('span').insertAfter($('p'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter(new Text('hello!'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter($(new Text('hello!')));
         }
 
         function insertBefore() {
@@ -5463,6 +5711,12 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('span').insertBefore($('p'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore(new Text('hello!'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore($(new Text('hello!')));
         }
 
         function prependTo() {
@@ -5480,6 +5734,9 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('span').prependTo($('p'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').prependTo(document.createDocumentFragment());
         }
 
         function clone() {
@@ -5834,8 +6091,9 @@ function JQuery() {
         }
 
         function contents() {
-            // $ExpectType JQuery<HTMLElement | Comment | Text>
-            $('p').contents();
+            // TODO: Flaky test due to type ordering.
+            // // $ExpectType JQuery<HTMLElement | Comment | Text>
+            // $('p').contents();
         }
 
         function end() {
@@ -6067,7 +6325,7 @@ function JQuery() {
         }
 
         function map() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6079,7 +6337,7 @@ function JQuery() {
                 return 'myVal';
             });
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6091,7 +6349,7 @@ function JQuery() {
                 return ['myVal1', 'myVal2'];
             });
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string | null>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6100,10 +6358,10 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 domElement;
 
-                return null;
+                return ['myVal1', 'myVal2', null];
             });
 
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<string | undefined>
             $('p').map(function(index, domElement) {
                 // $ExpectType HTMLElement
                 this;
@@ -6112,8 +6370,72 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 domElement;
 
-                return undefined;
+                return ['myVal1', 'myVal2', undefined];
             });
+
+            // $ExpectType JQuery<string>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                let value: string;
+
+                if (index % 2 === 0) {
+                    return null;
+                }
+
+                value = 'myVal';
+
+                return value;
+            });
+
+            // $ExpectType JQuery<string>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                let value: string;
+
+                if (index % 2 === 0) {
+                    return undefined;
+                }
+
+                value = 'myVal';
+
+                return value;
+            });
+
+            // // $ExpectType JQuery<never>
+            // $('p').map(function(index, domElement) {
+            //     // $ExpectType HTMLElement
+            //     this;
+            //     // $ExpectType number
+            //     index;
+            //     // $ExpectType HTMLElement
+            //     domElement;
+            //
+            //     return null;
+            // });
+
+            // // $ExpectType JQuery<never>
+            // $('p').map(function(index, domElement) {
+            //     // $ExpectType HTMLElement
+            //     this;
+            //     // $ExpectType number
+            //     index;
+            //     // $ExpectType HTMLElement
+            //     domElement;
+            //
+            //     return undefined;
+            // });
         }
 
         function slice() {
@@ -6199,6 +6521,25 @@ function JQuery() {
             // $ExpectType HTMLElement[]
             $('p').toArray();
         }
+    }
+}
+
+function JQuery_Selectors() {
+    function pseudos_colon() {
+        // $ExpectType PseudoFunctions
+        $.expr[':'];
+    }
+
+    function filter() {
+        // $ExpectType FilterFunctions
+        $.expr.filter;
+    }
+
+    function stackoverflow_50727144() {
+        $.extend($.expr[":"], {
+            containsCaseInsensitive: (elem: any, i: number, match: any, array: any) =>
+                (elem.textContent || elem.innerText || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0
+        });
     }
 }
 
@@ -6366,172 +6707,6 @@ function JQuery_AjaxSettings() {
             jqXHR;
         }]
     });
-}
-
-function JQuery_Callbacks() {
-    function add() {
-        const callbacks = $.Callbacks();
-
-        // $ExpectType Callbacks<Function>
-        callbacks.add(() => { }, [() => { }], () => { });
-
-        // $ExpectType Callbacks<Function>
-        callbacks.add(() => { }, [() => { }]);
-
-        // $ExpectType Callbacks<Function>
-        callbacks.add(() => { }, () => { });
-
-        // $ExpectType Callbacks<Function>
-        callbacks.add(() => { });
-
-        // $ExpectType Callbacks<Function>
-        callbacks.add([() => { }]);
-    }
-
-    function disable() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().disable();
-    }
-
-    function disabled() {
-        // $ExpectType boolean
-        $.Callbacks().disabled();
-    }
-
-    function empty() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().empty();
-    }
-
-    function fire() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().fire(1);
-
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().fire();
-    }
-
-    function fireWith() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().fireWith(window, [1]);
-
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().fireWith(window);
-    }
-
-    function fired() {
-        // $ExpectType boolean
-        $.Callbacks().fired();
-    }
-
-    function has() {
-        // $ExpectType boolean
-        $.Callbacks().has(() => { });
-
-        // $ExpectType boolean
-        $.Callbacks().has();
-    }
-
-    function lock() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().lock();
-    }
-
-    function locked() {
-        // $ExpectType boolean
-        $.Callbacks().locked();
-    }
-
-    function remove() {
-        // $ExpectType Callbacks<Function>
-        $.Callbacks().remove(() => { }, () => { });
-    }
-}
-
-function JQuery_EffectsOptions() {
-    $('p').show({
-        always(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        complete() {
-            // $ExpectType HTMLElement
-            this;
-        },
-        done(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        duration: 5000,
-        easing: 'linear',
-        fail(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        progress(animation, progress, remainingMs) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType number
-            progress;
-            // $ExpectType number
-            remainingMs;
-        },
-        queue: true,
-        specialEasing: {
-            width: 'linear',
-            height: 'easeOutBounce'
-        },
-        start(animation) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-        },
-        step(now, tween) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType number
-            now;
-            // $ExpectType Tween<HTMLElement>
-            tween;
-        }
-    });
-}
-
-function JQuery_Event() {
-    function call_signature() {
-        // $ExpectType Event<HTMLElement, null> & Coordinates
-        $.Event('keydown', $('p').offset());
-
-        // $ExpectType Event<HTMLElement, null> & { type: string; }
-        $.Event({
-            type: 'keydown'
-        });
-    }
-
-    function constructor() {
-        // $ExpectType Event<HTMLElement, null> & Coordinates
-        new $.Event('keydown', $('p').offset());
-
-        // $ExpectType Event<HTMLElement, null> & { type: string; }
-        new $.Event({
-            type: 'keydown'
-        });
-    }
 }
 
 function JQuery_jqXHR() {
@@ -6802,6 +6977,94 @@ function JQuery_jqXHR() {
     }
 }
 
+function JQuery_CallbacksStatic() {
+    // $ExpectType Callbacks<Function>
+    $.Callbacks('once');
+
+    // $ExpectType Callbacks<Function>
+    $.Callbacks();
+}
+
+function JQuery_Callbacks() {
+    function add() {
+        const callbacks = $.Callbacks();
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add(() => { }, [() => { }], () => { });
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add(() => { }, [() => { }]);
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add(() => { }, () => { });
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add(() => { });
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add([() => { }]);
+    }
+
+    function disable() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().disable();
+    }
+
+    function disabled() {
+        // $ExpectType boolean
+        $.Callbacks().disabled();
+    }
+
+    function empty() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().empty();
+    }
+
+    function fire() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().fire(1);
+
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().fire();
+    }
+
+    function fired() {
+        // $ExpectType boolean
+        $.Callbacks().fired();
+    }
+
+    function fireWith() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().fireWith(window, [1]);
+
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().fireWith(window);
+    }
+
+    function has() {
+        // $ExpectType boolean
+        $.Callbacks().has(() => { });
+
+        // $ExpectType boolean
+        $.Callbacks().has();
+    }
+
+    function lock() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().lock();
+    }
+
+    function locked() {
+        // $ExpectType boolean
+        $.Callbacks().locked();
+    }
+
+    function remove() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().remove(() => { }, () => { });
+    }
+}
+
 function JQuery_Promise3() {
     interface I1 { kind: 'I1'; }
     interface I2 { kind: 'I2'; }
@@ -6813,6 +7076,7 @@ function JQuery_Promise3() {
     interface I8 { kind: 'I8'; }
     interface I9 { kind: 'I9'; }
 
+    // tslint:disable-next-line:ban-types
     const p: JQuery.Promise3<string, Error, number, JQuery, string, boolean, any, Function, never> = {} as any;
     const p1: JQuery.Promise3<I1, I2, I3, I4, I5, I6, I7, I8, I9> = {} as any;
     const p2: JQuery.Promise3<I2, I3, I4, I5, I6, I7, I8, I9, I1> = {} as any;
@@ -6923,7 +7187,7 @@ function JQuery_Promise3() {
             p.then(() => {
                 return $.ready;
             }).then((a) => {
-                a; // $ExpectType JQueryStatic<HTMLElement>
+                a; // $ExpectType JQueryStatic
             });
 
             p.then(() => {
@@ -6953,7 +7217,7 @@ function JQuery_Promise3() {
             p.then(null, () => {
                 return $.ready;
             }).then((a) => {
-                a; // $ExpectType JQueryStatic<HTMLElement>
+                a; // $ExpectType JQueryStatic
             });
 
             p.then(null, () => {
@@ -7190,7 +7454,7 @@ function JQuery_Promise3() {
             });
             // $ExpectType PromiseBase<any, jqXHR<any>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<any>, string, never, never, never, never>
             a;
-            const b: JQuery.Promise3<any, JQuery.jqXHR<any>, never, JQuery.Ajax.SuccessTextStatus, JQuery.Ajax.ErrorTextStatus, never, JQuery.jqXHR<any>, string, never> = a;
+            const b: JQuery.Promise3<any, JQuery.jqXHR, never, JQuery.Ajax.SuccessTextStatus, JQuery.Ajax.ErrorTextStatus, never, JQuery.jqXHR, string, never> = a;
         }
 
         // $ExpectType PromiseBase<never, never, never, never, never, never, never, never, never, never, never, never>
@@ -7211,6 +7475,7 @@ function JQuery_Promise3() {
     }
 
     async function testAsync(p: JQuery.Promise3<string, {}, {}, {}, {}, {}, {}, {}, {}>): Promise<string> {
+        // tslint:disable-next-line:await-promise
         const s: string = await p;
         return s;
     }
@@ -7309,7 +7574,7 @@ function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, strin
             p.then(() => {
                 return $.ready;
             }).then((a) => {
-                a; // $ExpectType JQueryStatic<HTMLElement>
+                a; // $ExpectType JQueryStatic
             });
 
             p.then(() => {
@@ -7336,7 +7601,7 @@ function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, strin
             p.then(null, () => {
                 return $.ready;
             }).then((a) => {
-                a; // $ExpectType JQueryStatic<HTMLElement>
+                a; // $ExpectType JQueryStatic
             });
 
             p.then(null, () => {
@@ -7355,6 +7620,7 @@ function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, strin
     }
 
     async function testAsync(p: JQuery.Promise2<string, {}, {}, {}, {}, {}>): Promise<string> {
+        // tslint:disable-next-line:await-promise
         const s: string = await p;
         return s;
     }
@@ -7436,7 +7702,7 @@ function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
             p.then(() => {
                 return $.ready;
             }).then((a) => {
-                a; // $ExpectType JQueryStatic<HTMLElement>
+                a; // $ExpectType JQueryStatic
             });
 
             p.then(() => {
@@ -7460,7 +7726,7 @@ function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
             p.then(null, () => {
                 return $.ready;
             }).then((a) => {
-                a; // $ExpectType JQueryStatic<HTMLElement>
+                a; // $ExpectType JQueryStatic
             });
 
             p.then(null, () => {
@@ -7485,6 +7751,58 @@ function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
     }
 }
 
+function JQuery_DeferredStatic() {
+    function exceptionHook() {
+        $.Deferred.exceptionHook = undefined;
+    }
+
+    function call_signature() {
+        // $ExpectType Deferred<boolean, string, number>
+        $.Deferred<boolean, string, number>(function(deferred) {
+            // $ExpectType Deferred<boolean, string, number>
+            this;
+            // $ExpectType Deferred<boolean, string, number>
+            deferred;
+        });
+
+        // $ExpectType Deferred<boolean, string, number>
+        $.Deferred<boolean, string, number>();
+
+        // $ExpectType Deferred<boolean, string, any>
+        $.Deferred<boolean, string>(function(deferred) {
+            // $ExpectType Deferred<boolean, string, any>
+            this;
+            // $ExpectType Deferred<boolean, string, any>
+            deferred;
+        });
+
+        // $ExpectType Deferred<boolean, string, any>
+        $.Deferred<boolean, string>();
+
+        // $ExpectType Deferred<boolean, any, any>
+        $.Deferred<boolean>(function(deferred) {
+            // $ExpectType Deferred<boolean, any, any>
+            this;
+            // $ExpectType Deferred<boolean, any, any>
+            deferred;
+        });
+
+        // $ExpectType Deferred<boolean, any, any>
+        $.Deferred<boolean>();
+
+        // $ExpectType Deferred<any, any, any>
+        $.Deferred(function(deferred) {
+            // $ExpectType Deferred<any, any, any>
+            this;
+            // $ExpectType Deferred<any, any, any>
+            deferred;
+        });
+
+        // $ExpectType Deferred<any, any, any>
+        $.Deferred();
+    }
+}
+
 function JQuery_Deferred() {
     interface I1 { kind: 'I1'; }
     interface I2 { kind: 'I2'; }
@@ -7498,5 +7816,126 @@ function JQuery_Deferred() {
         d1.promise(target); // $ExpectType Promise<I1, I2, I3> & I1
 
         d1.promise(); // $ExpectType Promise<I1, I2, I3>
+    }
+}
+
+function JQuery_Effects() {
+    function interval() {
+        // $ExpectType number
+        $.fx.interval;
+    }
+
+    function off() {
+        // $ExpectType boolean
+        $.fx.off;
+    }
+
+    function step() {
+        // $ExpectType PlainObject<AnimationHook<Node>>
+        $.fx.step;
+    }
+}
+
+function JQuery_EffectsOptions() {
+    $('p').show({
+        always(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        complete() {
+            // $ExpectType HTMLElement
+            this;
+        },
+        done(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        duration: 5000,
+        easing: 'linear',
+        fail(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        progress(animation, progress, remainingMs) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+            // $ExpectType number
+            progress;
+            // $ExpectType number
+            remainingMs;
+        },
+        queue: true,
+        specialEasing: {
+            width: 'linear',
+            height: 'easeOutBounce'
+        },
+        start(animation) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+        },
+        step(now, tween) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType number
+            now;
+            // $ExpectType Tween<HTMLElement>
+            tween;
+        }
+    });
+}
+
+function JQuery_Easings() {
+    jQuery.easing.easeInCubic = (p: number, t: number, b: number, c: number, d: number) => {
+        return c * (t /= d) * t * t + b;
+    };
+
+    jQuery.easing.easeInCubic = (p: number) => {
+        return Math.pow(p, 3);
+    };
+}
+
+function JQuery_Event() {
+    function call_signature() {
+        // $ExpectType Event<HTMLElement, null> & Coordinates
+        $.Event('keydown', $('p').offset());
+
+        // $ExpectType Event<HTMLElement, null> & { type: string; }
+        $.Event({
+            type: 'keydown'
+        });
+    }
+
+    function constructor() {
+        // $ExpectType Event<HTMLElement, null> & Coordinates
+        new $.Event('keydown', $('p').offset());
+
+        // $ExpectType Event<HTMLElement, null> & { type: string; }
+        new $.Event({
+            type: 'keydown'
+        });
+    }
+
+    // https://stackoverflow.com/questions/49892574/trigger-a-jquery-3-event-with-ctrlkey-set
+    function stackoverflow_49892574() {
+        const event = $.Event<object, Window>("keydown");
+        event.which = 77;
+        event.ctrlKey = true;
+        $(window).trigger(event);
     }
 }

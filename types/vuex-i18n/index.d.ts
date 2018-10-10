@@ -1,6 +1,7 @@
 // Type definitions for vuex-i18n 1.7
 // Project: https://github.com/dkfbasel/vuex-i18n
 // Definitions by: Cedric Kemp <https://github.com/jaeggerr>
+//                 Noam Kfir <https://github.com/noamkfir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -17,12 +18,15 @@ declare module "vue/types/vue" {
 }
 
 export interface Translations {
-  [key: string]: string;
+  [key: string]: string | Translations;
 }
 
 export interface Ii18n {
   /** get the current locale */
   locale(): string;
+
+  /** get all the registered locales */
+  locales(): string[];
 
   /** set the current locale (i.e. 'de', 'en') */
   set(locale: string): void;
@@ -64,12 +68,12 @@ export interface Ii18n {
   /**
    * get localized string from store in a given language if available.
    */
-  translateIn(locale: string, key: string, options: any, pluralization?: number): string | undefined;
+  translateIn(locale: string, key: string, options?: any, pluralization?: number): string | undefined;
 
   /**
    * get localized string from store in a given language if available.
    */
-  translateIn(locale: string, key: string, defaultValue: string, options: any, pluralization?: number): string | undefined;
+  translateIn(locale: string, key: string, defaultValue: string, options?: any, pluralization?: number): string | undefined;
 
   /**
    * check if the given locale translations are present in the store

@@ -1,10 +1,12 @@
-// Type definitions for react-native-snap-carousel 3.6
+// Type definitions for react-native-snap-carousel 3.7
 // Project: https://github.com/archriss/react-native-snap-carousel
 // Definitions by: jnbt <https://github.com/jnbt>
 //                 Jacob Froman <https://github.com/j-fro>
 //                 Nikolay Polukhin <https://github.com/gazaret>
+//                 Guillaume Amat <https://github.com/GuillaumeAmat>
+//                 Vitor Luiz Cavalcanti <https://github.com/VitorLuizC>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import {
@@ -13,15 +15,14 @@ import {
     NativeSyntheticEvent,
     NativeScrollEvent,
     StyleProp,
-    ScrollViewProperties,
-    ScrollViewStyle,
+    ScrollViewProps,
     ViewStyle,
-    ImageProperties,
-    FlatListProperties
+    ImageProps,
+    FlatListProps
 } from 'react-native';
 
 export interface AdditionalParallaxProps {
-    carouselRef?: React.Component<FlatListProperties<any>>;
+    carouselRef?: React.Component<FlatListProps<any>>;
     itemHeight?: number;
     itemWidth?: number;
     scrollPosition?: Animated.Value;
@@ -30,7 +31,7 @@ export interface AdditionalParallaxProps {
     vertical?: boolean;
 }
 
-export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
+export interface CarouselProps<T> extends React.Props<ScrollViewProps> {
     // Required
 
     /**
@@ -46,6 +47,10 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
      * Width in pixels of your slides, must be the same for all of them
      * Note: Required with horizontal carousel
      */
+    /**
+     * Reverses the direction of scroll. Uses scale transforms of -1.
+     */
+    inverted?: boolean;
     itemWidth?: number;
     /**
      * Height in pixels of carousel's items, must be the same for all of them
@@ -104,12 +109,20 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
      */
     lockScrollWhileSnapping?: boolean;
     /**
+     * Changes default lock's timeout duration in ms.
+     */
+    lockScrollTimeoutDuration?: number;
+    /**
      * When momentum is disabled, this prop defines the timeframe during which multiple
      * callback calls should be "grouped" into a single one. This debounce also helps
      * smoothing the snap effect by providing a bit of inertia when touch is released..
      * Note that this will delay callback's execution.
      */
     scrollEndDragDebounceValue?: number;
+    /**
+     * Allow scroll independently of user interaction on carousel. `false` as default.
+     */
+    scrollEnabled?: boolean;
     /**
      * Whether to implement a shouldComponentUpdate strategy to minimize updates
      */
@@ -180,11 +193,11 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
     /**
      * Optional styles for Scrollview's global wrapper
      */
-    containerCustomStyle?: StyleProp<ScrollViewStyle>;
+    containerCustomStyle?: StyleProp<ViewStyle>;
     /**
      * Optional styles for Scrollview's items container
      */
-    contentContainerCustomStyle?: StyleProp<ScrollViewStyle>;
+    contentContainerCustomStyle?: StyleProp<ViewStyle>;
     /**
      * Value of the opacity effect applied to inactive slides
      */
@@ -217,7 +230,7 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
     /**
      * Used to define custom interpolations
      */
-    slideInterpolatedStyle?(animatedValue: number, carouselProps: CarouselProps<any>): StyleProp<ViewStyle>;
+    slideInterpolatedStyle?(index: number, animatedValue: Animated.AnimatedValue, carouselProps: CarouselProps<any>): StyleProp<ViewStyle>;
     /**
      * Optional style for each item's container (the one whose scale and opacity are animated)
      */
@@ -238,6 +251,11 @@ export interface CarouselProps<T> extends React.Props<ScrollViewProperties> {
      * Callback fired when navigating to an item
      */
     onSnapToItem?(slideIndex: number): void;
+
+    /**
+     * Callback fired before navigating to an item
+     */
+    onBeforeSnapToItem?(slideIndex: number): void;
 }
 
 export interface CarouselStatic<T> extends React.ComponentClass<CarouselProps<T>> {
@@ -261,15 +279,15 @@ export interface CarouselStatic<T> extends React.ComponentClass<CarouselProps<T>
     /**
      * Snap to an item manually
      */
-    snapToItem(index: number, animated?: boolean, fireCallback?: boolean, initial?: boolean): void;
+    snapToItem(index: number, animated?: boolean, fireCallback?: boolean): void;
     /**
      * Snap to next item manually
      */
-    snapToNext(animated?: boolean): void;
+    snapToNext(animated?: boolean, fireCallback?: boolean): void;
     /**
      * Snap to previous item manually
      */
-    snapToPrev(animated?: boolean): void;
+    snapToPrev(animated?: boolean, fireCallback?: boolean): void;
     /**
      * Call this when needed to work around a random FlatList bug that keeps content hidden until the carousel is scrolled
      * (see #238). Note that the offset parameter is not required and will default to either 1 or -1 depending
@@ -278,9 +296,9 @@ export interface CarouselStatic<T> extends React.ComponentClass<CarouselProps<T>
     triggerRenderingHack(offset: number): void;
 }
 
-export type CarouselProperties<T> = ScrollViewProperties & CarouselProps<T> & React.Props<CarouselStatic<T>>;
+export type CarouselProperties<T> = ScrollViewProps & CarouselProps<T> & React.Props<CarouselStatic<T>>;
 
-export interface ParallaxImageProps extends ImageProperties, AdditionalParallaxProps {
+export interface ParallaxImageProps extends ImageProps, AdditionalParallaxProps {
     /**
      * Optional style for image's container
      */
@@ -330,7 +348,7 @@ export interface PaginationProps {
      * Reference to the Carousel component to which pagination is linked.
      * Needed only when setting tappableDots to true
      */
-    carouselRef?: React.Component<FlatListProperties<any>>;
+    carouselRef?: React.Component<FlatListProps<any>>;
     /**
      * Style for dots' container that will be merged with the default one
      */

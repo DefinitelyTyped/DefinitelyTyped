@@ -7,6 +7,7 @@
 //                 Christopher Currens <https://github.com/ccurrens>,
 //                 Jon Stevens <https://github.com/lookfirst>,
 //                 Matt R. Wilson <https://github.com/mastermatt>
+//                 Jose Colella <https://github.com/josecolella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -139,6 +140,7 @@ declare namespace request {
         method?: string;
         headers?: Headers;
         body?: any;
+        family?: 4 | 6;
         followRedirect?: boolean | ((response: http.IncomingMessage) => boolean);
         followAllRedirects?: boolean;
         followOriginalHttpMethod?: boolean;

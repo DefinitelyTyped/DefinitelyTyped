@@ -12,6 +12,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+import HttpConnector = require("./src/lib/connectors/http");
+
 export class Client {
     constructor(params: ConfigOptions);
     cat: Cat;
@@ -89,8 +91,8 @@ export class Client {
     termvectors(params: TermvectorsParams, callback: (error: any, response: any) => void): void;
     update(params: UpdateDocumentParams): Promise<any>;
     update(params: UpdateDocumentParams, callback: (error: any, response: any) => void): void;
-    updateByQuery(params: UpdateDocumentByQueryParams): Promise<any>;
-    updateByQuery(params: UpdateDocumentByQueryParams, callback: (error: any, response: any) => void): void;
+    updateByQuery(params: UpdateDocumentByQueryParams): Promise<UpdateDocumentByQueryResponse>;
+    updateByQuery(params: UpdateDocumentByQueryParams, callback: (error: any, response: UpdateDocumentByQueryResponse) => void): void;
     close(): void;
 }
 
@@ -111,7 +113,7 @@ export interface ConfigOptions {
     keepAlive?: boolean;
     maxSockets?: number;
     suggestCompression?: boolean;
-    connectionClass?: string;
+    connectionClass?: string | typeof HttpConnector;
     sniffedNodesProtocol?: string;
     ssl?: object;
     selector?: any;
@@ -463,7 +465,7 @@ export interface MGetParams extends GenericParams {
     preference?: string;
     realtime?: boolean;
     refresh?: boolean;
-    source?: NameList;
+    _source?: NameList;
     _sourceExclude?: NameList;
     _sourceInclude?: NameList;
     index?: string;
@@ -643,6 +645,7 @@ export interface SearchResponse<T> {
             fields?: any;
             highlight?: any;
             inner_hits?: any;
+            matched_queries?: string[];
             sort?: string[];
         }>;
     };
@@ -783,6 +786,25 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     requestsPerSecond?: number;
     index: NameList;
     type: NameList;
+}
+
+export interface UpdateDocumentByQueryResponse {
+    took: number;
+    timed_out: boolean;
+    updated: number;
+    deleted: number;
+    batches: number;
+    version_conflicts: number;
+    noops: number;
+    retries: {
+        bulk: number;
+        search: number;
+    };
+    throttled_millis: number;
+    requests_per_second: number;
+    throttled_until_millis: number;
+    total: number;
+    failures: any[];
 }
 
 export interface Cat {
@@ -1122,6 +1144,7 @@ export interface IndicesDeleteParams extends GenericParams {
     timeout?: TimeSpan;
     masterTimeout?: TimeSpan;
     index: NameList;
+    ignoreUnavailable?: boolean;
 }
 
 export interface IndicesDeleteAliasParams extends GenericParams {

@@ -7,7 +7,11 @@ namespace adoneTests.regex {
     regex.filename().test("a");
     regex.idn().test("a");
     regex.ip4().test("a");
+    regex.ip4({ exact: true }).test("a");
     regex.ip6().test("a");
+    regex.ip6({ exact: true }).test("a");
+    regex.ip().test("a");
+    regex.ip({ exact: true }).test("a");
     regex.protocol().test("a");
     regex.punycode().test("a");
     regex.shebang().test("a");

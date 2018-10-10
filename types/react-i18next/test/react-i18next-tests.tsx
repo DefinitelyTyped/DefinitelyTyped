@@ -107,6 +107,10 @@ class App extends React.Component {
     <App/>
 </I18nextProvider>;
 
+<I18nextProvider i18n={i18n} initialLanguage={'en'} initialI18nStore={{}}>
+    123
+</I18nextProvider>;
+
 loadNamespaces({components: [App], i18n}).then(() => {
 }).catch(error => {
 });
@@ -114,11 +118,23 @@ loadNamespaces({components: [App], i18n}).then(() => {
 <Trans count={5}/>;
 <Trans count={5} i18nKey="key"/>;
 <Trans parent={'span'}/>;
+<Trans parent={<div />}/>;
+<Trans parent={() => <div />}/>;
 <Trans i18n={i18n.init()}/>;
 <Trans t={i18n.getFixedT('en')}/>;
 <Trans count={5}>
     <App/>
 </Trans>;
+<Trans i18nKey="hello" tOptions={{hello: "world", count: 42}}/>;
+<Trans
+    defaults="Hello <0>{{universe}}</0>!"
+    components={[
+        <strong>placeholder</strong>
+    ]}
+    values={{
+        universe: "World"
+    }}
+/>;
 
 type Key = "view" | "nav";
 
@@ -168,6 +184,10 @@ interface CustomTranslateFunctionProps {
             </div>
         )
     }
+</I18n>;
+
+<I18n>
+    {t => '123'}
 </I18n>;
 
 const defaults: ReactI18NextOptions = {

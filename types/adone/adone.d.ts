@@ -1,4 +1,7 @@
 /// <reference types="node" />
+/// <reference types="lodash" />
+/// <reference types="benchmark" />
+/// <reference types="async" />
 
 declare namespace adone {
     const _null: symbol;
@@ -104,4 +107,10 @@ declare namespace adone {
     export const expect: assertion.I.ExpectFunction;
 
     export const std: typeof nodestd;
+
+    export const lodash: _.LoDashStatic;
+
+    export const benchmark: typeof tbenchmark;
+
+    export const async: typeof tasync;
 }

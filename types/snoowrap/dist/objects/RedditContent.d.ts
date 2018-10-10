@@ -1,6 +1,6 @@
 import * as Snoowrap from '../..';
 
-export default class RedditContent<T> {
+export default class RedditContent<T> extends Promise<T> {
   created_utc: number;
   created: number;
   id: string;

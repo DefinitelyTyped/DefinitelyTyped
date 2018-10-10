@@ -31,6 +31,8 @@ export class TrackballControls extends EventDispatcher {
 
     reset(): void;
 
+    dispose(): void;
+
     checkDistances(): void;
 
     zoomCamera(): void;

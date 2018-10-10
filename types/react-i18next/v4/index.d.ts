@@ -1,8 +1,9 @@
 // Type definitions for react-i18next 4.6
 // Project: https://github.com/i18next/react-i18next
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+//                 Netanel Gilad <https://github.com/netanelgilad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { TranslationFunction } from "i18next";
 
@@ -31,7 +32,7 @@ export {
  * interface MyComponentProps extends ReactI18next.InjectedTranslateProps {}
  */
 export interface InjectedTranslateProps {
-    t?: TranslationFunction;
+    t: TranslationFunction;
 }
 
 export as namespace reactI18Next;

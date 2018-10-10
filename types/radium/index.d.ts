@@ -1,12 +1,12 @@
-// Type definitions for radium 0.18.1
+// Type definitions for radium 0.24.0
 // Project: https://github.com/formidablelabs/radium
-// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev>, Philipp Holzer <https://github.com/nupplaphil>, Alexey Svetliakov <https://github.com/asvetliakov>, Mikael Hermansson <https://github.com/mihe>
+// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev>, Philipp Holzer <https://github.com/nupplaphil>, Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
-export = Radium;
+export default Radium;
 
 // @Radium decorator
 declare function Radium<TElement extends Function>(component: TElement): TElement;

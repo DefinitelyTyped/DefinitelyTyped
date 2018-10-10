@@ -255,7 +255,7 @@ const str: string = ReactDOMServer.renderToString(element);
 const markup: string = ReactDOMServer.renderToStaticMarkup(element);
 const notValid: boolean = React.isValidElement(props); // false
 const isValid = React.isValidElement(element); // true
-let domNode: Element = ReactDOM.findDOMNode(component);
+let domNode = ReactDOM.findDOMNode(component);
 domNode = ReactDOM.findDOMNode(domNode);
 
 //

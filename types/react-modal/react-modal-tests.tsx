@@ -8,6 +8,8 @@ ReactModal.setAppElement("#main");
 ReactModal.setAppElement(document.getElementById("#main"));
 
 class ExampleOfUsingReactModal extends React.Component {
+  contentRef: HTMLDivElement;
+  overlayRef: HTMLDivElement;
   render() {
     const onAfterOpenFn = () => { };
     const onRequestCloseFn = () => { };
@@ -61,6 +63,8 @@ class ExampleOfUsingReactModal extends React.Component {
         overlayClassName={customOverlayClasses}
         bodyOpenClassName={'bodyOpenClassName'}
         aria={customAriaVariables}
+        contentRef={instance => this.contentRef = instance}
+        overlayRef={instance => this.overlayRef = instance}
         >
         <h1>Modal Content</h1>
         <p>Etc.</p>

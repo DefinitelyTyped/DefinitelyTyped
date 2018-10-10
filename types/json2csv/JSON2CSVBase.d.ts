@@ -10,9 +10,10 @@ export declare namespace json2csv {
     }
 
     export interface Options<T> {
-        fields?: (string | FieldInfo<T>);
+        fields?: Array<string | FieldInfo<T>>;
         ndjson?: boolean;
-        unwind?: string | string[];
+        unwind?: string | Array<string>;
+        unwindBlank?: boolean;
         flatten?: boolean;
         defaultValue?: string;
         quote?: string;
@@ -91,9 +92,10 @@ declare abstract class JSON2CSVBase<T> {
      * Performs the flattening of a data row recursively
      *
      * @param {object} dataRow Original JSON object
+     * @param {string} separator Separator to be used as the flattened field name
      * @returns {object} Flattened object
      */
-    protected flatten(dataRow: T): object;
+    protected flatten(dataRow: T, separator: string): object;
 
     /**
      * Performs the unwind recursively in specified sequence

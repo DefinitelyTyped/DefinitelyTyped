@@ -11,10 +11,7 @@ interface State {
 }
 
 class StatefulComponent extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = { isOpened: true };
-    }
+    state = { isOpened: true };
 
     handleClickOutside() {
         this.setState({ isOpened: false });

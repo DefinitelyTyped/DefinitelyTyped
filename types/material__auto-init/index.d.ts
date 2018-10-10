@@ -1,6 +1,6 @@
-// Type definitions for Material Components Web 0.26
+// Type definitions for Material Components Web 0.35
 // Project: https://material.io/components/
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>
+// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -32,6 +32,8 @@ export interface MDCAutoInit {
 /**
  * Auto-initializes all mdc components on a page.
  */
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare const mdcAutoInit: MDCAutoInit;
 
+// tslint:disable-next-line:strict-export-declare-modifiers
 export default mdcAutoInit;

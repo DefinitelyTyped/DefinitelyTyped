@@ -2,10 +2,10 @@
 // Project: https://github.com/react-native-community/react-native-drawer-layout
 // Definitions by: Justin Firth <https://github.com/jmfirth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
-import { ViewProperties } from 'react-native';
+import { ViewProps } from 'react-native';
 
 export type DrawerLayoutOpenEventHandler = () => void;
 
@@ -21,7 +21,7 @@ export type DrawerLayoutSlideEventHandler = (event: DrawerLayoutSlideEvent) => v
 
 export type DrawerLayoutStateChangeEventHandler = (state: string) => void;
 
-export interface DrawerLayoutProperties extends ViewProperties {
+export interface DrawerLayoutProperties extends ViewProps {
   /**
    * Child content.
    */

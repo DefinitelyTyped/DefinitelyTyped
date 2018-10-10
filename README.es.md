@@ -87,6 +87,7 @@ Primero, haz un [fork](https://guides.github.com/activities/forking/) en este re
 
 * `cd types/my-package-to-edit`
 * Haz cambios. Recuerda editar las pruebas.
+  Si realiza cambios importantes, no olvide [actualizar una versión principal](#quiero-actualizar-un-paquete-a-una-nueva-versión-principal).
 * También puede que quieras añadirte la sección "Definitions by" en el encabezado del paquete.
   - Esto hará que seas notificado (a través de tu nombre de usuario en GitHub) cada vez que alguien haga un pull request o issue sobre el paquete.
   - Haz esto añadiendo tu nombre al final de la línea, así como en `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.

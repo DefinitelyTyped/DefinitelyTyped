@@ -48,6 +48,10 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
     /*
      * Default value for current date. Useful for suggesting a date when the caldenar opens without keep forcing it once 'value' is set.
      */
+    dateIcon?: any;
+    /*
+     * Specify the element used to render the calendar dropdown icon
+     */
     defaultCurrentDate?: Date;
     /**
      * Change event Handler that is called when the currentDate is changed. The handler is
@@ -77,7 +81,7 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
      * parsing yourself. When parse is unspecified and the format prop is a String parse will
      * automatically use that format as its default
      */
-    parse?: (str: string) => Date | string[];
+    parse?: ((str: string) => Date) | string[] | string;
     /**
      * The starting and lowest level view the calendar can navigate down to.
      * @enum "month" "year" "decade" "century"

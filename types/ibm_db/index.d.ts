@@ -104,9 +104,9 @@ export class Database implements Options {
 
     rollbackTransactionSync(): Database;
 
-    columns(catalog: string | null, schema: string | null, table: string | null, column: string | null, cb: (error: Error, res: ODBCResult) => void): void;
+    columns(catalog: string | null, schema: string | null, table: string | null, column: string | null, cb: (error: Error, res: any[]) => void): void;
 
-    tables(catalog: string | null, schema: string | null, table: string | null, type: string | null, cb: (error: Error, res: ODBCResult) => void): void;
+    tables(catalog: string | null, schema: string | null, table: string | null, type: string | null, cb: (error: Error, res: any[]) => void): void;
 
     describe(obj: DescribeObject,  cb: (error: Error, res: any[]) => void): void;
 
@@ -187,6 +187,10 @@ export class ODBCStatement {
 
 export class ODBCResult {
     fetchMode: number;
+    fetchSync(): any[];
+    fetchAllSync(): any[];
+    moreResultsSync(): any[];
+    closeSync(): void;
 } // Class ODBCResult
 
 export function getElapsedTime(): string;

@@ -59,6 +59,7 @@ stripe.charges.create({
     // asynchronously called
 
     charge.refunds.create().then(function (refund) {
+        const reason = refund.failure_reason;
         // asynchronously called
     });
     charge.refunds.create({ amount: 100 }).then(function (refund) {
@@ -66,7 +67,7 @@ stripe.charges.create({
     });
 
     charge.refunds.retrieve("re_15jzA4Ee31JkLCeQcxbTbjaL").then(function (refund) {
-
+        var status: "pending" | "succeeded" | "failed" | "canceled" = refund.status;
     });
 
     charge.refunds.update("re_15jzA4Ee31JkLCeQcxbTbjaL", { metadata: { test: "data" } }).then(function (refund) {
@@ -252,14 +253,14 @@ stripe.customers.create({
     customer.cards.del("card_17xMvXBoqMA9o2xkq6W5gamx").then(function (confirmation) {});
 
     customer.subscriptions.create({ items: [{ plan: "gold" }], trial_period_days: 7 }).then(function (subscription) { });
-    customer.subscriptions.create({ items: [{ plan: "gold" }], trial_end: "now", billing_cycle_anchor: 1516881177 }).then(function (subscription) { });
+    customer.subscriptions.create({ items: [{ plan: "gold" }], trial_end: "now", billing_cycle_anchor: 1516881177, prorate: true }).then(function (subscription) { });
     customer.subscriptions.create({ items: [{ plan: "gold" }], trial_end: 1516881177, billing: "send_invoice", days_until_due: 7 }).then(function (subscription) { });
     customer.subscriptions.create({ items: [{ plan: "gold" }], billing: "charge_automatically" }).then(function (subscription) { });
     customer.subscriptions.retrieve("sub_8Eluur5KoIKxuy").then(function (subscription) {
         customer.subscriptions.update("sub_8Eluur5KoIKxuy", { items: [{ id: subscription.items.data[0].id, plan: "silver" }] }).then(function (subscription) { });
      });
     customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: "now", billing_cycle_anchor: "now" });
-    customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: 1516881177, billing: "send_invoice", days_until_due: 7, billing_cycle_anchor: "unchanged" });
+    customer.subscriptions.update("sub_8Eluur5KoIKxuy", { trial_end: 1516881177, billing: "send_invoice", days_until_due: 7, billing_cycle_anchor: "unchanged", cancel_at_period_end: false });
     customer.subscriptions.list().then(function (subscriptions) { });
     customer.subscriptions.del("sub_8Eluur5KoIKxuy").then(function (subscription) { });
     customer.subscriptions.deleteDiscount("sub_8Eluur5KoIKxuy").then(function (confirmation) { });
@@ -362,6 +363,10 @@ stripe.customers.list({ limit: 3 }, function (err, customers) {
 });
 stripe.customers.list({ limit: 3 }).then(function (customers) {
     // asynchronously called
+});
+
+stripe.customers.list({ email: "test@example.com" }).then(function (customers) {
+	// asynchronously called
 });
 
 stripe.customers.createCard(
@@ -492,6 +497,25 @@ stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc', function (err, cards) 
     // asynchronously called
 });
 stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc').then(function (cards) {
+    // asynchronously called
+});
+
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', null, function (err, cards) {
+    // asynchronously called
+});
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', null).then(function (cards) {
+    // asynchronously called
+});
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', {
+    object: "card",
+    limit: 100
+}).then(function (cards) {
+    // asynchronously called
+});
+stripe.customers.listSources('cu_15fvyVEe31JkLCeQvr155iqc', {
+    object: "bank_account",
+    limit: 100
+}).then(function (cards) {
     // asynchronously called
 });
 
@@ -779,7 +803,10 @@ stripe.accounts.createExternalAccount("", { external_account: "tok_15V2YhEe31JkL
 
 //#region Orders tests
 // ##################################################################################
-
+stripe.orders.retrieve("or_1C8XKwEe31JkLCeQHg0jcisf", function (err, order) {
+    // asynchronously called
+    var amount_returned: number = order.amount_returned;
+});
 
 
 //#endregion
@@ -796,13 +823,15 @@ stripe.accounts.createExternalAccount("", { external_account: "tok_15V2YhEe31JkL
 
 stripe.products.create({
     name: "My amazing product",
-    type: "service"
+    type: "service",
+    attributes: ["color"]
 }, function (err, coupon) {
     // asynchronously called
 });
 stripe.products.create({
     name: "My amazing product",
-    type: "service"
+    type: "service",
+    attributes: ["color"]
 }).then(function (product) {
     // asynchronously called
     const prodType: "service" | "good" = product.type;
@@ -994,6 +1023,10 @@ stripe.invoices.list({ customer: "cus_5rfJKDJkuxzh5Q", limit: 3 }).then(function
     // asynchronously called
 });
 
+stripe.invoices.retrieve("in_15fvyXEe31JkLCeQH7QbgZZb", { expand: ["subscription"] }).then(function (invoice) {
+  invoice.subscription
+})
+
 //#endregion
 
 //#region Invoice Items tests
@@ -1131,7 +1164,9 @@ stripe.plans.create({
     },
     nickname: "Something to remember me by",
     currency: "usd",
-    id: "gold-plan"
+    id: "gold-plan",
+    usage_type: 'metered',
+    billing_scheme: 'per_unit'
 }, function (err, plan) {
     // asynchronously called
 });
@@ -1189,6 +1224,13 @@ stripe.plans.del(
     }
 );
 stripe.plans.del("gold-plan").then(function (confirmation) {
+    // asynchronously called
+});
+
+stripe.plans.list({ active: true, product: 'prod_someproduct' }, function(err, plans) {
+    // asynchronously called
+});
+stripe.plans.list({ active: true, product: 'prod_someproduct' }).then(function (plans) {
     // asynchronously called
 });
 
@@ -1304,3 +1346,10 @@ stripe.subscriptionItems.list({ subscription: "si_C9gimdd2l9qvCU" }).then(functi
 stripe.ephemeralKeys.create({ customer: "cus_5rfJKDJkuxzh5Q" }, { stripe_version: "2017-08-15" }).then(function(ephemeralKeys) {
     // asynchronously called
 });
+
+
+stripe.usageRecords.create('sub_8QwCiwZ9tmMSpt', { action: 'set', quantity: 10000, timestamp: 1537006853 }).then((usageRecord: Stripe.usageRecords.IUsageRecord) => {});
+stripe.usageRecords.create('sub_8QwCiwZ9tmMSpt', { action: 'set', quantity: 10000, timestamp: 1537006853 }, (err, usageRecord: Stripe.usageRecords.IUsageRecord) => {})
+
+stripe.usageRecordSummarys.list({ subscription_item: 'si_C9gimdd2l9qvCU', limit: 10 }).then((usageRecordSummarys: Stripe.usageRecordSummarys.IUsageRecordSummarys) => {});
+stripe.usageRecordSummarys.list({ subscription_item: 'si_C9gimdd2l9qvCU', limit: 10 }, (err, usageRecordSummarys: Stripe.usageRecordSummarys.IUsageRecordSummarys) => {})

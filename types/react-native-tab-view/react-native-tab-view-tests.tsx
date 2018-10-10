@@ -1,7 +1,7 @@
 import { PureComponent, Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import {
-  TabViewAnimated,
+  TabView,
   TabBar,
   SceneMap,
   TabBarProps,
@@ -31,7 +31,7 @@ class TabViewExample extends PureComponent {
 
   _handleIndexChange = (index: number) => this.setState({ index })
 
-  _renderHeader = (props: TabBarProps) => <TabBar {...props} />
+  _renderTabBar = (props: TabBarProps) => <TabBar {...props} />
 
   _renderScene = SceneMap({
     first: FirstRoute,
@@ -40,11 +40,12 @@ class TabViewExample extends PureComponent {
 
   render() {
     return (
-      <TabViewAnimated
+      <TabView
         style={styles.container}
         navigationState={this.state}
         renderScene={this._renderScene}
-        renderHeader={this._renderHeader}
+        renderTabBar={this._renderTabBar}
+        tabBarPosition="top"
         onIndexChange={this._handleIndexChange}
       />
     )

@@ -760,6 +760,10 @@ export interface AuthorizeOptions {
     nonce?: string;
     scope?: string;
     audience?: string;
+	language?: string;
+    login_hint?: string;
+	prompt?: string;
+    mode?: "login" | "signUp";
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {

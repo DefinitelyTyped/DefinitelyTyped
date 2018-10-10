@@ -1,11 +1,11 @@
-// Type definitions for stylelint 7.11
+// Type definitions for stylelint 9.4
 // Project: https://github.com/stylelint/stylelint
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type FormatterType = "json" | "string" | "verbose";
+export type FormatterType = "json" | "string" | "verbose" | "compact";
 
-export type SyntaxType = "scss" | "less" | "sugarss";
+export type SyntaxType = "scss" | "sass" | "less" | "sugarss";
 
 export interface LinterOptions {
     code?: string;
@@ -45,6 +45,7 @@ export interface LintResult {
 export namespace formatters {
     function json(results: LintResult[]): string;
     function string(results: LintResult[]): string;
+    function compact(results: LintResult[]): string;
     function verbose(results: LintResult[]): string;
 }
 

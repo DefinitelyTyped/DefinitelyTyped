@@ -14,23 +14,20 @@
  * limitations under the License.
  */
 
-import { getCorrectPropertyName } from 'material__animation';
 import MDCComponent from 'material__base/component';
 
-import { MDCTabBar } from '../tab-bar/index';
+import { MDCTabBar } from '../tab-bar';
 import MDCTabBarScrollerFoundation from './foundation';
-import { MDCTabBarScrollerAdapter } from './adapter';
+import MDCTabBarScrollerAdapter from './adapter';
 
-export {MDCTabBarScrollerAdapter, MDCTabBarScrollerFoundation};
+export { MDCTabBarScrollerAdapter, MDCTabBarScrollerFoundation };
 
 export class MDCTabBarScroller extends MDCComponent<MDCTabBarScrollerAdapter, MDCTabBarScrollerFoundation> {
-  static attachTo(root: Element): MDCTabBarScroller;
+    static attachTo(root: Element): MDCTabBarScroller;
 
-  readonly tabBar: MDCTabBar;
+    readonly tabBar: MDCTabBar;
 
-  initialize(tabBarFactory?: (el: Element) => MDCTabBar): void;
+    initialize(tabBarFactory?: (root: Element) => MDCTabBar): void;
 
-  getDefaultFoundation(): MDCTabBarScrollerFoundation;
-
-  layout(): void;
+    layout(): void;
 }

@@ -3,7 +3,7 @@
 // Definitions by:  David-LeBlanc-git <https://github.com/David-LeBlanc-git>
 //                  kittimiyo <https://github.com/kittimiyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -44,8 +44,8 @@ declare module "react-custom-scrollbars" {
         universal?: boolean;
 
         autoHeight?: boolean;
-        autoHeightMin?: number;
-        autoHeightMax?: number;
+        autoHeightMin?: number | string;
+        autoHeightMax?: number | string;
     }
 
     export default class Scrollbars extends React.Component<ScrollbarProps> {

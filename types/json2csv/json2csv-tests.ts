@@ -17,9 +17,27 @@ parse({});
 parse([]);
 parse({}, {});
 
+interface Car {
+    car: string;
+    price: number;
+}
+
 new Parser();
 const parser: Parser<ExampleObj> = new Parser({});
 s = parser.parse({ str: '', num: 1, obj: {} });
+
+const opts: json2csv.Options<Car> = {
+    fields: [{
+        label: 'Car Name',
+        value: 'car'
+    }, {
+        label: 'Price USD',
+        value: 'price'
+    }]
+};
+
+const json2csvParser = new Parser<Car>(opts);
+
 parser.parse([]);
 const transform: Transform<ExampleObj> = new Transform<ExampleObj>({ quote: '' });
 const nodeTransform: NodeTransform = transform;
@@ -58,7 +76,7 @@ class ParserExt extends Parser<ExampleObj> {
         s = this.processValue(new Date(), true);
         s = this.processValue({}, true);
         s = this.processValue([], true);
-        const flattenedData: object = this.flatten({});
+        const flattenedData: object = this.flatten({}, '.');
         const unwindedData: object[] = this.unwindData([], []);
     }
 }
@@ -92,7 +110,7 @@ class TransformExt extends Transform<ExampleObj> {
         s = this.processValue(new Date(), true);
         s = this.processValue({}, true);
         s = this.processValue([], true);
-        const flattenedData: object = this.flatten({});
+        const flattenedData: object = this.flatten({}, '.');
         const unwindedData: object[] = this.unwindData([], []);
     }
 }

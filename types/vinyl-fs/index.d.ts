@@ -9,7 +9,7 @@
 declare global {
    namespace NodeJS {
       interface WritableStream {
-         write(buffer: any/* Vinyl.File */, cb?: (err?: Error) => void): boolean;
+         write(buffer: any/* Vinyl.File */, cb?: (err?: Error | null) => void): boolean;
       }
    }
 }

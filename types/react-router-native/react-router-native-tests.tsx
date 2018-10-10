@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { NativeRouter as Router, Route, Link, AndroidBackButton, BackButton } from 'react-router-native';
+import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { AndroidBackButton, BackButton, Link, NativeRouter as Router, Route } from 'react-router-native';
 
 const Home: React.SFC = () => {
   return (
@@ -24,6 +24,14 @@ const About: React.SFC = () => {
  );
 };
 
+interface ButtonTextProps extends TouchableOpacityProps {
+    text: string;
+}
+
+const ButtonText: React.SFC<ButtonTextProps> = ({ text, ...props }) => (
+  <TouchableOpacity {...props}><Text>{text}</Text></TouchableOpacity>
+);
+
 export default class App extends React.Component {
   render() {
     return (
@@ -35,9 +43,7 @@ export default class App extends React.Component {
               <Link to="/" style={styles.navItem}>
                 <Text>Home</Text>
               </Link>
-              <Link to="/about" style={styles.navItem}>
-                <Text>About</Text>
-              </Link>
+              <Link to="/about" style={styles.navItem} component={ButtonText} text="About" />
             </View>
             <Route exact path="/" component={Home} />
             <Route path="/about" component={About} />

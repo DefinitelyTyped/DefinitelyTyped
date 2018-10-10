@@ -2,7 +2,7 @@
 // Project: https://github.com/jasmine/jasmine-ajax
 // Definitions by: Louis Grignon <https://github.com/lgrignon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 interface JasmineAjaxResponse {
 	status?: number;

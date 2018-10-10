@@ -525,6 +525,8 @@ declare namespace UniversalAnalytics {
         socialTarget?: string;
         some?: string;
         step?: boolean | number;
+        storage?: string;
+        storeGac?: boolean;
         tax?: string;
         timingCategory?: string;
         timingLabel?: string;

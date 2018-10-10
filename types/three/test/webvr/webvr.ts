@@ -10,4 +10,10 @@
     const obj = new THREE.Object3D();
     renderer.vr.setPoseTarget(obj);
     renderer.vr.dispose();
+    
+    const scene = new THREE.Scene();
+    const render = function() {
+        renderer.render(scene, camera);
+    }
+    renderer.animate(render);
 }

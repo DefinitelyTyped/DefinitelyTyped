@@ -102,6 +102,7 @@ export interface BoardOption {
     repl?: boolean;
     debug?: boolean;
     timeout?: number;
+    io?: any;
 }
 
 export declare class Board {
@@ -377,6 +378,8 @@ export declare class LCD {
     autoscroll(): void;
     noAutoscroll(): void;
     bgColor(color: any): void;
+    noBacklight(): void;
+    backlight(): void;
 }
 
 export interface LedOption {
@@ -597,12 +600,12 @@ export declare class Pin {
     mode: number;
 
     static write(pin: number, value: number): void;
-    static read(pin: number, cb: (data: number) => void): void;
+    static read(pin: number, cb: (error: Error, data: number) => void): void;
     query(cb: (pin: PinState) => void): void;
     high(): void;
     low(): void;
     write(value: number): void;
-    read(cb: (value: number) => void): void;
+    read(cb: (error: Error, value: number) => void): void;
     on(event: string, cb: () => void): this;
     on(event: "high", cb: () => void): this;
     on(event: "low", cb: () => void): this;

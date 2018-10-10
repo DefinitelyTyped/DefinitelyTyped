@@ -1,4 +1,5 @@
 import webpack = require('webpack');
+import { Tapable } from 'tapable';
 import { RawSourceMap } from 'source-map';
 
 const {
@@ -55,11 +56,112 @@ configuration = {
 };
 
 configuration = {
+    entry: () => ({
+        p1: "./page1",
+        p2: "./page2",
+        p3: "./page3"
+    })
+};
+
+configuration = {
     entry: () => new Promise((resolve) => resolve('./demo'))
 };
 
 configuration = {
     entry: () => new Promise((resolve) => resolve(['./demo', './demo2']))
+};
+
+configuration = {
+    entry: () => new Promise((resolve) => resolve({
+        p1: "./page1",
+        p2: "./page2",
+        p3: "./page3"
+    }))
+};
+
+//
+// https://webpack.js.org/configuration/externals/
+//
+configuration = {
+    externals : {
+        react: 'react'
+    },
+};
+
+configuration = {
+    externals : {
+        lodash : {
+            commonjs: 'lodash',
+            amd: 'lodash',
+            root: '_' // indicates global variable
+        }
+      },
+};
+
+configuration = {
+    externals : {
+        subtract : {
+            root: ['math', 'subtract']
+        }
+    }
+};
+
+configuration = {
+    externals: [
+        // Disable TSLint for allowing non-arrow functions
+        /* tslint:disable-next-line */
+        function(context, request, callback) {
+          if (/^yourregex$/.test(request)) {
+            // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
+            /* tslint:disable-next-line */
+            return callback(null, 'commonjs ' + request);
+          }
+          callback({}, {});
+        }
+      ]
+};
+
+configuration = {
+    externals: [
+        {
+            // String
+            react: 'react',
+            // Object
+            lodash : {
+                commonjs: 'lodash',
+                amd: 'lodash',
+                root: '_' // indicates global variable
+            },
+            // Array
+            subtract: ['./math', 'subtract']
+            },
+            // Disable TSLint for allowing non-arrow functions
+            /* tslint:disable-next-line */
+            function(context, request, callback) {
+              if (/^yourregex$/.test(request)) {
+                // Disable TSLint for bypassing 'no-void-expression' to align with Webpack documentation
+                /* tslint:disable-next-line */
+                return callback(null, 'commonjs ' + request);
+              }
+              callback({}, {});
+            },
+            // Regex
+            /^(jquery|\$)$/i
+    ]
+};
+
+configuration = {
+    externals: [
+        "add",
+        {
+            subtract: {
+                root: "subtract",
+                commonjs2: "./subtract",
+                commonjs: ["./math", "subtract"],
+                amd: "subtract"
+            }
+        }
+    ]
 };
 
 //
@@ -99,7 +201,9 @@ configuration = {
         path: path.join(__dirname, "assets", "[hash]"),
         publicPath: "assets/[hash]/",
         filename: "output.[hash].bundle.js",
-        chunkFilename: "[id].[hash].bundle.js"
+        chunkFilename: "[id].[hash].bundle.js",
+        hashFunction: 'sha256',
+        hashDigestLength: 64,
     }
 };
 
@@ -142,15 +246,43 @@ rule = {
     loader: "babel-loader"
 };
 
+rule = {
+    test: /\.css$/,
+    resourceQuery: /module/,
+    loader: 'css-loader',
+    options: {
+        modules: true
+    }
+};
+
 declare const require: any;
 declare const path: any;
 configuration = {
     plugins: [
-        function(this: webpack.Compiler) {
-            this.plugin("done", stats => {
-                require("fs").writeFileSync(
+        function apply(this: webpack.Compiler) {
+            const prevTimestamps = new Map<string, number>();
+            const startTime = Date.now();
+
+            this.hooks.emit.tap("SomePlugin", (compilation: webpack.compilation.Compilation) => {
+                for (const filepath in compilation.fileTimestamps.keys()) {
+                    const prevTimestamp = prevTimestamps.get(filepath) || startTime;
+                    const newTimestamp = compilation.fileTimestamps.get(filepath) || Infinity;
+                    if (prevTimestamp < newTimestamp) {
+                        this.inputFileSystem.readFileSync(filepath).toString('utf-8');
+                    }
+                }
+            });
+
+            compiler.hooks.afterCompile.tap("SomePlugin", (compilation: webpack.compilation.Compilation) => {
+                ['path/to/extra/dep', 'another/extra/dep'].forEach(path => compilation.fileDependencies.add(path));
+              });
+
+            this.hooks.afterEmit.tapAsync("afterEmit", (stats, callback) => {
+                this.outputFileSystem.writeFile(
                     path.join(__dirname, "...", "stats.json"),
-                    JSON.stringify(stats.toJson()));
+                    JSON.stringify(stats.getStats().toJson()),
+                    callback
+                );
             });
         }
     ]
@@ -259,7 +391,7 @@ plugin = new webpack.optimize.UglifyJsPlugin({
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
     mangle: {
-        except: ['$super', '$', 'exports', 'require']
+        reserved: ['$super', '$', 'exports', 'require']
     }
 });
 plugin = new webpack.optimize.UglifyJsPlugin({
@@ -371,6 +503,7 @@ webpack({
     const jsonStatsWithAllOptions = stats.toJson({
         assets: true,
         assetsSort: "field",
+        builtAt: true,
         cached: true,
         children: true,
         chunks: true,
@@ -503,6 +636,7 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 
     this.addDependency('');
 
+    this.loadModule('path', (err: Error | null, result: string, sourceMap: RawSourceMap, module: webpack.Module) => { });
     this.resolve('context', 'request', (err: Error, result: string) => { });
 
     this.emitWarning('warning message');
@@ -579,4 +713,177 @@ configuration = {
     }
 };
 
+configuration = {
+    mode: "production",
+    optimization: {
+        splitChunks: {
+            minSize: 30000,
+            maxSize: 50000,
+            cacheGroups: {
+                default: false,
+                vendor: {
+                    chunks: "initial",
+                    test: "node_modules",
+                    name: "vendor",
+                    minSize: 30000,
+                    maxSize: 50000,
+                    enforce: true
+                }
+            }
+        }
+    },
+};
+
+configuration = {
+    mode: "production",
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                common: {
+                    name: 'common',
+                    chunks(chunk: webpack.compilation.Chunk) {
+                        const allowedChunks = [
+                            'renderer',
+                            'component-window',
+                        ];
+                        return allowedChunks.indexOf(chunk.name) >= 0;
+                    },
+                    minChunks: 2
+                }
+            }
+        }
+    },
+};
+
 plugin = new webpack.SplitChunksPlugin({ chunks: "async", minChunks: 2 });
+
+class SingleEntryDependency extends webpack.compilation.Dependency {}
+class MultiEntryDependency extends webpack.compilation.Dependency {}
+class MultiModuleFactory extends Tapable {}
+class MultiEntryPlugin extends webpack.Plugin {
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap(
+            "MultiEntryPlugin",
+            (compilation, { normalModuleFactory }) => {
+                compilation.dependencyFactories.set(MultiEntryDependency, new MultiModuleFactory());
+            }
+        );
+        compiler.hooks.make.tapAsync(
+            "MultiEntryPlugin",
+            (compilation, callback) => {
+                const dep = new MultiEntryPlugin();
+                compilation.addEntry("", {}, "", () => {});
+            }
+        );
+    }
+}
+
+class IgnorePlugin extends webpack.Plugin {
+    checkIgnore(result: any) {
+    }
+
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.normalModuleFactory.tap("IgnorePlugin", nmf => {
+            nmf.hooks.beforeResolve.tap("IgnorePlugin", this.checkIgnore);
+        });
+        compiler.hooks.contextModuleFactory.tap("IgnorePlugin", cmf => {
+            cmf.hooks.beforeResolve.tap("IgnorePlugin", this.checkIgnore);
+        });
+    }
+}
+
+class DllEntryDependency extends webpack.compilation.Dependency {}
+class DllModuleFactory extends Tapable {}
+class DllEntryPlugin extends webpack.Plugin {
+	apply(compiler: webpack.Compiler) {
+		compiler.hooks.compilation.tap(
+			"DllEntryPlugin",
+			(compilation, { normalModuleFactory }) => {
+				const dllModuleFactory = new DllModuleFactory();
+				compilation.dependencyFactories.set(
+					DllEntryDependency,
+					dllModuleFactory
+				);
+				compilation.dependencyFactories.set(
+					SingleEntryDependency,
+					normalModuleFactory
+				);
+			}
+		);
+		compiler.hooks.make.tapAsync("DllEntryPlugin", (compilation, callback) => {
+			compilation.addEntry("", new DllEntryDependency(), "", callback);
+		});
+	}
+}
+
+class BannerPlugin extends webpack.Plugin {
+	apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap("BannerPlugin", compilation  => {
+            compilation.hooks.optimizeChunkAssets.tap("BannerPlugin", chunks => {
+                for (const chunk of chunks) {
+                    if (!chunk.canBeInitial()) {
+                        continue;
+                    }
+                    for (const file of chunk.files) {
+                        compilation.getPath("", {});
+                    }
+                }
+            });
+        });
+    }
+}
+
+configuration = {
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                oneOf: [
+                    { resourceQuery: /global/, use: ["style-loader", "css-loader"] },
+                    { use: ["to-string-loader", "css-loader"] }
+                ]
+            }
+        ]
+    }
+};
+
+configuration = {
+    module: {
+        rules: [
+            {
+                test: /\.ts$/,
+                include: '/foo/bar',
+                exclude: path => path.startsWith('/foo'),
+                resourceQuery: ['foo', 'bar'],
+                resolve: {
+                    mainFields: ['foo'],
+                    aliasFields: [['bar']],
+                },
+                loader: 'foo-loader',
+                loaders: [
+                    'foo-loader',
+                    {
+                        loader: 'bar-loader',
+                        query: 'baz'
+                    }
+                ],
+                use: () => ([
+                    'foo-loader',
+                    {
+                        loader: 'bar-loader',
+                        query: {
+                            baz: 'qux'
+                        }
+                    },
+                ])
+            }
+        ]
+    }
+};
+
+let profiling = new webpack.debug.ProfilingPlugin();
+profiling = new webpack.debug.ProfilingPlugin({ outputPath: './path.json' });
+
+configuration = {
+    plugins: [profiling]
+};

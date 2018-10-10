@@ -1,4 +1,4 @@
-// Type definitions for jsreport-html-to-xlsx 1.4
+// Type definitions for jsreport-html-to-xlsx 2.0
 // Project: https://github.com/jsreport/jsreport-html-to-xlsx
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,9 @@ import { ExtensionDefinition } from 'jsreport-core';
 import { Options as BaseOptions } from 'jsreport-xlsx';
 
 declare module 'jsreport-core' {
+	type htmlEngine = 'phantom' | 'chrome';
 	interface Template {
+		htmlToXlsx: { htmlEngine: htmlEngine; };
 		recipe: 'html-to-xlsx' | string;
 	}
 }

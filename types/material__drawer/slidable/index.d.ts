@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-export {FOCUSABLE_ELEMENTS} from './constants';
-export {MDCSlidableDrawerFoundation} from './foundation';
-export {MDCSlidableDrawerAdapter} from './adapter';
+export { FOCUSABLE_ELEMENTS } from './constants';
+export { MDCSlidableDrawerFoundation } from './foundation';
+export { MDCSlidableDrawerAdapter } from './adapter';

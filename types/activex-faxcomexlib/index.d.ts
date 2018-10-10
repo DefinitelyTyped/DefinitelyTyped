@@ -2011,7 +2011,6 @@ interface ActiveXObject {
             this: FAXCOMEXLib.FaxServer, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
     on(obj: FAXCOMEXLib.FaxAccount, event: 'AddRef' | 'Release', handler: (this: FAXCOMEXLib.FaxAccount, parameter: {}) => void): void;
     on(obj: FAXCOMEXLib.FaxServer, event: 'AddRef' | 'Release', handler: (this: FAXCOMEXLib.FaxServer, parameter: {}) => void): void;
-    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {

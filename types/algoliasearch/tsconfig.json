@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "lite/index.d.ts",
         "algoliasearch-tests.ts"
     ]
 }

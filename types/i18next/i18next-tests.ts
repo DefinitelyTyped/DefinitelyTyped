@@ -386,8 +386,9 @@ i18next
         interpolation: {
             escapeValue: false, // not needed for react!!
             formatSeparator: ',',
-            format: (value: string, format: string, lng: string) => {
+            format: (value, format, lng) => {
                 if (format === 'uppercase') return value.toUpperCase();
+                if (value instanceof Date) return value.toLocaleString();
                 return value;
             }
         }

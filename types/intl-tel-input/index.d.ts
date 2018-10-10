@@ -172,15 +172,26 @@ declare namespace IntlTelInput {
      */
     nationalMode?: boolean;
     /**
-     * Specify one of the keys from the global enum intlTelInputUtils.numberType
-     *  e.g. "FIXED_LINE" to tell the plugin you're expecting that type of number.
-     * Currently this is only used to set the placeholder to the right type of number.
-     */
-    numberType?: string;
-    /**
      * Display only the countries you specify.
      */
     onlyCountries?: Array<string>;
+    /**
+     * Specify one of the keys from the global enum intlTelInputUtils.numberType
+     * e.g. "FIXED_LINE" to set the number type to use for the placeholder.
+     */
+    placeholderNumberType?:
+      | "FIXED_LINE_OR_MOBILE"
+      | "FIXED_LINE"
+      | "MOBILE"
+      | "PAGER"
+      | "PERSONAL_NUMBER"
+      | "PREMIUM_RATE"
+      | "SHARED_COST"
+      | "TOLL_FREE"
+      | "UAN"
+      | "UNKNOWN"
+      | "VOICEMAIL"
+      | "VOIP";
     /**
      * Specify the countries to appear at the top of the list.
      */

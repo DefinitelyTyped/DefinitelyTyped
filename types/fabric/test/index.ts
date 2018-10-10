@@ -872,7 +872,7 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration === 'underline' ? '' : 'underline');
-        this.className = activeObject.textDecoration ? 'selected' : '';
+        (this as HTMLElement).className = activeObject.textDecoration ? 'selected' : '';
         canvas.renderAll();
       }
     };
@@ -885,7 +885,7 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration === 'line-through' ? '' : 'line-through');
-        this.className = activeObject.textDecoration ? 'selected' : '';
+        (this as HTMLElement).className = activeObject.textDecoration ? 'selected' : '';
         canvas.renderAll();
       }
     };
@@ -898,7 +898,7 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textDecoration = (activeObject.textDecoration === 'overline' ? '' : 'overline');
-        this.className = activeObject.textDecoration ? 'selected' : '';
+        (this as HTMLElement).className = activeObject.textDecoration ? 'selected' : '';
         canvas.renderAll();
       }
     };
@@ -911,7 +911,7 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.fontWeight = (activeObject.fontWeight === 'bold' ? '' : 'bold');
-        this.className = activeObject.fontWeight ? 'selected' : '';
+        (this as HTMLElement).className = activeObject.fontWeight ? 'selected' : '';
         canvas.renderAll();
       }
     };
@@ -924,7 +924,7 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.fontStyle = (activeObject.fontStyle === 'italic' ? '' : 'italic');
-        this.className = activeObject.fontStyle ? 'selected' : '';
+        (this as HTMLElement).className = activeObject.fontStyle ? 'selected' : '';
         canvas.renderAll();
       }
     };
@@ -937,7 +937,7 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
       const activeObject = <fabric.Text> canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.shadow = !activeObject.shadow ? 'rgba(0,0,0,0.2) 2px 2px 10px' : '';
-        this.className = activeObject.shadow ? 'selected' : '';
+        (this as HTMLElement).className = activeObject.shadow ? 'selected' : '';
         canvas.renderAll();
       }
     };
@@ -1031,4 +1031,39 @@ function sample9() {
   const canvas = new fabric.Canvas('c');
   canvas.setBackgroundImage('yolo.jpg', () => { "a"; }, { opacity: 45 });
   canvas.setBackgroundImage('yolo.jpg', () => { "a"; });
+}
+
+function sample10() {
+  const canvas = new fabric.Canvas('c');
+  const objR = new fabric.Rect({
+    top: 10,
+    left: 10,
+    width: 10,
+    height: 10,
+    fill: "#FF0000",
+  });
+  const objG = new fabric.Rect({
+    top: 15,
+    left: 15,
+    width: 10,
+    height: 10,
+    fill: "#00FF00",
+  });
+  const objB = new fabric.Rect({
+    top: 20,
+    left: 20,
+    width: 10,
+    height: 10,
+    fill: "#0000FF",
+  });
+  canvas.add(objR);
+  canvas.add(objG);
+  canvas.add(objB);
+  const objArray = canvas.getActiveObjects();
+}
+
+function sample11() {
+   const canvas2dFilterBackend = new fabric.Canvas2dFilterBackend();
+   const webglFilterBackend = new fabric.WebglFilterBackend();
+   fabric.filterBackend = new fabric.Canvas2dFilterBackend();
 }
