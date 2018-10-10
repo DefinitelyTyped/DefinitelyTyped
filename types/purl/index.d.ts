@@ -2,7 +2,7 @@
 // Project: https://github.com/allmarkedup/purl
 // Definitions by: Daniel Ferreira Monteiro Alves <https://github.com/danfma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare namespace purl {
 
