@@ -13,12 +13,17 @@ import * as ws from 'ws';
 import * as http from 'http';
 import * as https from 'https';
 
+declare module "koa" {
+    interface Context {
+        websocket: ws;
+        path: string;
+    }
+}
+
 declare namespace KoaWebsocket {
     type Middleware = compose.Middleware<MiddlewareContext>;
 
     interface MiddlewareContext extends Koa.Context {
-        websocket: ws;
-        path: string;
     }
 
     class Server {
