@@ -4,7 +4,7 @@
 //                  Timo Mühlbach <https://github.com/Anticom>
 //                  Ariel Kuechler <https://github.com/admiralsmaster> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 
 /// <reference types="jquery" />
