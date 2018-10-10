@@ -14,6 +14,7 @@
 //                 ZSkycat <https://github.com/ZSkycat>
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
+//                 Kyle Uehlein <https://github.com/kuehlein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -24,6 +25,7 @@ import { Tapable, HookMap,
          AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook } from 'tapable';
 import * as UglifyJS from 'uglify-js';
 import { RawSourceMap } from 'source-map';
+import * as WebpackDevServer from 'webpack-dev-server';
 
 export = webpack;
 
@@ -109,9 +111,10 @@ declare namespace webpack {
         performance?: Options.Performance;
         /** Limit the number of parallel processed modules. Can be used to fine tune performance or to get more reliable profiling results */
         parallelism?: number;
-
         /** Optimization options */
         optimization?: Options.Optimization;
+        /** A set of options picked up by `webpack-dev-server` to change the dev server's default behavior. */
+        devServer?: WebpackDevServer.Configuration;
     }
 
     interface Entry {
