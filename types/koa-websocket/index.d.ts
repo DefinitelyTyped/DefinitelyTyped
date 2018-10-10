@@ -3,18 +3,18 @@
 // Definitions by: Maël Lavault <https://github.com/moimael>
 //                 Jaco Greeff <https://github.com/jacogr>
 //                 Martin Ždila <https://github.com/zdila>
+//                 Eunchong Yu <https://github.com/Kroisse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import Koa = require('koa');
+import compose = require('koa-compose');
 import * as ws from 'ws';
 import * as http from 'http';
 import * as https from 'https';
 
 declare namespace KoaWebsocket {
-    type ConnectionHandler = (socket: ws) => void;
-
-    type Middleware = (this: MiddlewareContext, context: Koa.Context, next: () => Promise<any>) => any;
+    type Middleware = compose.Middleware<MiddlewareContext>;
 
     interface MiddlewareContext extends Koa.Context {
         websocket: ws;
@@ -23,12 +23,13 @@ declare namespace KoaWebsocket {
 
     class Server {
         app: Koa;
-        middleware: Koa.Middleware[];
+        middleware: Middleware[];
+        server?: ws.Server;
 
         constructor(app: Koa);
 
         listen(options: ws.ServerOptions): ws.Server;
-        onConnection(handler: ConnectionHandler): void;
+        onConnection(socket: ws, request: http.IncomingMessage): void;
         use(middleware: Middleware): this;
     }
 
