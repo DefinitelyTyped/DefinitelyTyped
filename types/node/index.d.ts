@@ -211,12 +211,12 @@ declare namespace setTimeout {
 declare function clearTimeout(timeoutId: NodeJS.Timer): void;
 declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
 declare function clearInterval(intervalId: NodeJS.Timer): void;
-declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
+declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
 declare namespace setImmediate {
     function __promisify__(): Promise<void>;
     function __promisify__<T>(value: T): Promise<T>;
 }
-declare function clearImmediate(immediateId: any): void;
+declare function clearImmediate(immediateId: NodeJS.Immediate): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
@@ -955,7 +955,7 @@ declare namespace NodeJS {
         Uint8ClampedArray: Function;
         WeakMap: WeakMapConstructor;
         WeakSet: WeakSetConstructor;
-        clearImmediate: (immediateId: any) => void;
+        clearImmediate: (immediateId: Immediate) => void;
         clearInterval: (intervalId: Timer) => void;
         clearTimeout: (timeoutId: Timer) => void;
         console: typeof console;
@@ -972,13 +972,18 @@ declare namespace NodeJS {
         parseInt: typeof parseInt;
         process: Process;
         root: Global;
-        setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => any;
+        setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => Immediate;
         setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timer;
         setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timer;
         undefined: typeof undefined;
         unescape: (str: string) => string;
         gc: () => void;
         v8debug?: any;
+    }
+
+    interface Immediate {
+        ref(): void;
+        unref(): void;
     }
 
     interface Timer {
@@ -7215,12 +7220,12 @@ declare module "timers" {
     function clearTimeout(timeoutId: NodeJS.Timer): void;
     function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
     function clearInterval(intervalId: NodeJS.Timer): void;
-    function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
+    function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
     namespace setImmediate {
         function __promisify__(): Promise<void>;
         function __promisify__<T>(value: T): Promise<T>;
     }
-    function clearImmediate(immediateId: any): void;
+    function clearImmediate(immediateId: NodeJS.Immediate): void;
 }
 
 declare module "console" {
