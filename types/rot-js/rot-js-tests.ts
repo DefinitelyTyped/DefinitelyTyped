@@ -160,6 +160,9 @@ ROT.RNG.setSeed(123);
 SHOW(ROT.RNG.getUniform());
 SHOW(clone.getUniform());
 
+clone.getWeightedValue({} as any); // $ExpectType string
+clone.getWeightedValue({ a: 1, b: 2 }); // $ExpectType "a" | "b"
+
 // RNG / Picking a weighted value
 const monsters = {
     orc: 3,

@@ -5,6 +5,7 @@
 //                 Kurt Preston <https://github.com/KurtPreston>
 //                 Philippe Bourdages <https://github.com/phbou72>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
+//                 Sylvain Thénault <https://github.com/sthenault>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -227,4 +228,16 @@ declare module "react-jsonschema-form" {
     type FormSubmit<T> = {
         formData: T;
     };
+}
+
+declare module "react-jsonschema-form/lib/utils" {
+    import { JSONSchema6 } from "json-schema";
+
+    export interface IRangeSpec {
+        min?: number;
+        max?: number;
+        step?: number;
+    }
+
+    export function rangeSpec(schema: JSONSchema6): IRangeSpec;
 }

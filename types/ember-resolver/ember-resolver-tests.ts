@@ -1,5 +1,5 @@
 import EmberResolver from 'ember-resolver';
-import { Ember } from 'ember';
+import Ember from 'ember';
 
 const MyResolver = EmberResolver.extend({
     pluralizedTypes: {

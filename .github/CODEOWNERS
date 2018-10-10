@@ -725,6 +725,7 @@
 /types/cucumber/                                    @abraaoalves @jan-molak @isoung @BendingBender @ErikSchierboom
 /types/currency-formatter/                          @mhegazy @davidmpaz
 /types/custom-error-generator/                      @thmiceli
+/types/custom-functions-runtime/                    @OfficeDev @Zlatkovsky @mscharlock @kbrandl
 /types/cwise/                                       @taoqf
 /types/cwise-compiler/                              @taoqf
 /types/cwise-parser/                                @taoqf
@@ -3011,7 +3012,7 @@
 /types/node/v7/                                     @parambirs @tellnes @WilcoBakker @eps1lon @KSXGitHub @Archcry
 /types/node/v8/                                     @parambirs @tellnes @WilcoBakker @octo-sniffle @smac89 @Flarna @mwiktorczyk @wwwy3y3 @DeividasBakanas @kjin @alvis @eps1lon @Hannes-Magnusson-CK @jkomyno @hoo29 @n-e @brunoscheufler @KSXGitHub @islishude @r3nya
 /types/node/v9/                                     @parambirs @tellnes @WilcoBakker @octo-sniffle @smac89 @Flarna @mwiktorczyk @wwwy3y3 @DeividasBakanas @kjin @alvis @eps1lon @Hannes-Magnusson-CK @jkomyno @ajafff @hoo29 @n-e @brunoscheufler @mohsen1 @KSXGitHub @a-tarasyuk @islishude @r3nya @eyqs
-/types/node/                                        @parambirs @tellnes @WilcoBakker @octo-sniffle @smac89 @Flarna @mwiktorczyk @wwwy3y3 @DeividasBakanas @kjin @alvis @eps1lon @Hannes-Magnusson-CK @jkomyno @ajafff @hoo29 @n-e @brunoscheufler @mohsen1 @KSXGitHub @a-tarasyuk @islishude @r3nya @ZaneHannanAU @ThomasdenH @eyqs @matthieusieben
+/types/node/                                        @parambirs @tellnes @WilcoBakker @octo-sniffle @smac89 @Flarna @mwiktorczyk @wwwy3y3 @DeividasBakanas @kjin @alvis @eps1lon @Hannes-Magnusson-CK @jkomyno @ajafff @hoo29 @n-e @brunoscheufler @mohsen1 @KSXGitHub @a-tarasyuk @islishude @r3nya @ZaneHannanAU @ThomasdenH @eyqs
 /types/node-7z/                                     @erkie
 /types/node-array-ext/                              @Beng89
 /types/node-cache/                                  @chrootsu @dthunell @useltmann
@@ -3132,7 +3133,8 @@
 /types/oclazyload/                                  @rolandzwaga
 /types/odata/                                       @janhommes @jcchalte
 /types/ofe/                                         @Morfent
-/types/office-js/                                   @OfficeDev @LanceEA @Zlatkovsky @kbrandl @Rick-Kirkham @AlexJerabek @ElizabethSamuel-MSFT
+/types/office-js/                                   @OfficeDev @LanceEA @Zlatkovsky @kbrandl @Rick-Kirkham @AlexJerabek @ElizabethSamuel-MSFT @mscharlock
+/types/office-runtime/                              @OfficeDev @mscharlock @kbrandl @Zlatkovsky
 /types/offline-js/                                  @cgwrench
 /types/oibackoff/                                   @geoffreak
 /types/oidc-token-manager/                          @rosieks
@@ -3683,7 +3685,7 @@
 /types/react-json/                                  @spielc
 /types/react-json-pretty/                           @LKay
 /types/react-json-tree/                             @gnestor
-/types/react-jsonschema-form/                       @iamdanfox @sirreal @iplus26 @KurtPreston @phbou72 @LucianBuzzo
+/types/react-jsonschema-form/                       @iamdanfox @iplus26 @KurtPreston @phbou72 @LucianBuzzo
 /types/react-lazyload/                              @m0a
 /types/react-lazylog/                               @benjaminRomano
 /types/react-leaflet/                               @danzel @davschne @yuit

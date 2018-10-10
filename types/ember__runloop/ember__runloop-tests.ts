@@ -1,9 +1,8 @@
-import Ember from 'ember';
-import RSVP from 'rsvp';
 import { run } from '@ember/runloop';
+import EmberObject from '@ember/object';
 
-Ember.run.queues; // $ExpectType EmberRunQueues[]
-const queues: string[] = Ember.run.queues;
+run.queues; // $ExpectType EmberRunQueues[]
+const queues: string[] = run.queues;
 
 function testRun() {
     run(() => { // $ExpectType number
@@ -11,8 +10,8 @@ function testRun() {
         return 123;
     });
 
-    function destroyApp(application: Ember.Application) {
-        Ember.run(application, 'destroy');
+    function destroyApp(application: EmberObject) {
+        run(application, 'destroy');
         run(application, function() {
             this.destroy();
         });
@@ -20,9 +19,9 @@ function testRun() {
 }
 
 function testBind() {
-    Ember.Component.extend({
+    EmberObject.extend({
         init() {
-            const bound = Ember.run.bind(this, this.setupEditor);
+            const bound = run.bind(this, this.setupEditor);
             bound();
         },
 
@@ -91,14 +90,14 @@ function testDebounce() {
     run.debounce(myContext, runIt, 150);
     run.debounce(myContext, runIt, 150, true);
 
-    Ember.Component.extend({
+    EmberObject.extend({
         searchValue: 'test',
         fetchResults(value: string) {},
 
         actions: {
             handleTyping() {
                 // the fetchResults function is passed into the component from its parent
-                Ember.run.debounce(this, this.get('fetchResults'), this.get('searchValue'), 250);
+                run.debounce(this, this.get('fetchResults'), this.get('searchValue'), 250);
             }
         }
     });
@@ -123,11 +122,9 @@ function testJoin() {
         });
     });
 
-    new RSVP.Promise((resolve) => {
-        Ember.run.later(() => {
-            resolve({ msg: 'Hold Your Horses' });
-        }, 3000);
-    });
+    run.later(() => {
+        console.log({ msg: 'Hold Your Horses' });
+    }, 3000);
 }
 
 function testLater() {
@@ -146,9 +143,9 @@ function testNext() {
 }
 
 function testOnce() {
-    Ember.Component.extend({
+    EmberObject.extend({
         init() {
-            Ember.run.once(this, 'processFullName');
+            run.once(this, 'processFullName');
         },
 
         processFullName() {
@@ -157,7 +154,7 @@ function testOnce() {
 }
 
 function testSchedule() {
-    Ember.Component.extend({
+    EmberObject.extend({
         init() {
             run.schedule('sync', this, () => {
                 // this will be executed in the first RunLoop queue, when bindings are synced
@@ -171,7 +168,7 @@ function testSchedule() {
         }
     });
 
-    Ember.run.schedule('actions', () => {
+    run.schedule('actions', () => {
         // Do more things
     });
 }

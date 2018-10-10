@@ -11,6 +11,7 @@ webAuth.authorize({
     responseType: 'token',
     redirectUri: 'https://example.com/auth/callback',
 	language: 'en',
+    login_hint: "email@email.com",
 	prompt: 'login',
 });
 

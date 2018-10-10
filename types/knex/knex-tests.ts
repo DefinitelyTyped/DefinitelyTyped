@@ -496,6 +496,13 @@ knex.select('*').from('users').leftJoin('accounts', (join: Knex.JoinClause) => {
   join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
+knex.select('*').from('users').leftJoin('accounts', (join) => {
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  .andOn((join2) => {
+    join2.on('col1', 'col2').orOn('col3', 'col4');
+  });
+});
+
 knex.select('*').from('users').leftOuterJoin('accounts', 'users.id', 'accounts.user_id');
 
 knex.select('*').from('users').leftOuterJoin('accounts', function() {
@@ -641,6 +648,9 @@ knex.with('new_books', 'select * from books where published_date >= :year', { ye
 knex.with('new_books', 'select * from books where published_date >= ?', [2016])
   .select('*').from('new_books');
 
+knex.with('new_books', knex.select('*').from('books').where("published_date", ">=", 2016))
+  .select('*').from('new_books');
+
 knex.withRaw('recent_books', 'select * from books where published_date >= :year', { year: 2013 })
   .select('*').from('recent_books');
 
@@ -650,6 +660,9 @@ knex.withRaw('recent_books', knex.raw('select * from books where published_date 
 knex.withWrapped("antique_books", function (qb) {
   qb.select('*').from('books').where('published_date', '<', 1899);
 }).select('*').from('antique_books');
+
+knex.withWrapped('new_books', knex.select('*').from('books').where("published_date", ">=", 2016))
+  .select('*').from('new_books');
 
 var someExternalMethod: Function;
 
@@ -1029,13 +1042,13 @@ knex('users')
   .select('*')
   .join('contacts', function(builder) {
     this.on(function(builder) {
-      let self: Knex.QueryBuilder = this;
+      let self: Knex.JoinClause = this;
       self = builder;
     }).andOn(function(builder) {
-      let self: Knex.QueryBuilder = this;
+      let self: Knex.JoinClause = this;
       self = builder;
     }).orOn(function(builder) {
-      let self: Knex.QueryBuilder = this;
+      let self: Knex.JoinClause = this;
       self = builder;
     }).onExists(function(builder) {
       let self: Knex.QueryBuilder = this;

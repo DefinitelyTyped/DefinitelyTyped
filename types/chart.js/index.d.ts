@@ -493,6 +493,7 @@ declare namespace Chart {
         fontSize?: number;
         fontStyle?: string;
         labelOffset?: number;
+        lineHeight?: number;
         max?: any;
         maxRotation?: number;
         maxTicksLimit?: number;
@@ -503,6 +504,9 @@ declare namespace Chart {
         reverse?: boolean;
         showLabelBackdrop?: boolean;
         source?: 'auto' | 'data' | 'labels';
+        stepSize?: number;
+        suggestedMax?: number;
+        suggestedMin?: number;
     }
 
     interface AngleLineOptions {

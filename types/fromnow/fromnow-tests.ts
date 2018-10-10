@@ -1,29 +1,35 @@
 
 
-import fromnow = require( 'fromnow' );
+import fromnow = require('fromnow');
 
 function dateOnly() {
-    fromnow( '2015-12-31' );
+    fromnow('2015-12-31');
 }
 
 function dateObjectOnly() {
-    fromnow( new Date() );
+    fromnow(new Date());
 }
 
-function maxChunks() {
-    fromnow( '2015-12-31', {
-        maxChunks: 12
+function max() {
+    fromnow('2015-12-31', {
+        max: 12
     });
 }
 
-function useAgo() {
-    fromnow( '2015-12-31', {
-        useAgo: true
+function suffix() {
+    fromnow('2015-12-31', {
+        suffix: true
     });
 }
 
-function useAnd() {
-    fromnow( '2015-12-31', {
-        useAnd: true
+function and() {
+    fromnow('2015-12-31', {
+        and: true
+    });
+}
+
+function zero() {
+    fromnow('2015-12-31', {
+        zero: true
     });
 }

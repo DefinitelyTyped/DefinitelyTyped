@@ -29,5 +29,6 @@ const Glob = glob.Glob;
 	console.log("after");
 })();
 
+declare const ignore: ReadonlyArray<string>;
 glob.sync('/foo/*', {realpath: true, realpathCache: {'/foo/bar': '/bar'}, ignore: '/foo/baz'});
-glob.sync('/*', {nodir: true, cache: {'/': ['bar', 'baz']}, statCache: {'/foo/bar': false, '/foo/baz': {isDirectory() { return true; }}}});
+glob.sync('/*', {ignore, nodir: true, cache: {'/': ['bar', 'baz']}, statCache: {'/foo/bar': false, '/foo/baz': {isDirectory() { return true; }}}});

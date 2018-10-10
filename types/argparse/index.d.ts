@@ -69,6 +69,7 @@ export interface ArgumentParserOptions {
     prog?: string;
     usage?: string;
     version?: string;
+    debug?: boolean;
 }
 
 export interface ArgumentGroupOptions {

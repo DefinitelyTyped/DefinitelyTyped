@@ -1,3 +1,7 @@
-import Ember from 'ember';
+import EngineInstance from "@ember/engine/instance";
 
-export default class ApplicationInstance extends Ember.ApplicationInstance { }
+/**
+ * The `ApplicationInstance` encapsulates all of the stateful aspects of a
+ * running `Application`.
+ */
+export default class ApplicationInstance extends EngineInstance {}

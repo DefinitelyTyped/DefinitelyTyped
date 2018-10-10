@@ -4,20 +4,17 @@ Copyright (c) Microsoft Corporation
 */
 
 OfficeRuntime.AsyncStorage.getItem("foo", () => {
-   // perform an action
+    // perform an action
 });
 OfficeRuntime.AsyncStorage.getItem("foo").then(value => console.log(value));
 
 OfficeRuntime.AsyncStorage.setItem("foo", "bar");
-OfficeRuntime.AsyncStorage.setItem("foo", "bar").then(error => console.log(error));
+OfficeRuntime.AsyncStorage.setItem("foo", "bar").then(error =>
+    console.log(error)
+);
 
 OfficeRuntime.AsyncStorage.removeItem("foo");
 OfficeRuntime.AsyncStorage.removeItem("foo", () => {
-   // perform an action
-});
-
-OfficeRuntime.AsyncStorage.clear();
-OfficeRuntime.AsyncStorage.clear(() => {
     // perform an action
 });
 
@@ -36,12 +33,16 @@ OfficeRuntime.AsyncStorage.getAllKeys((error, keys) => {
 OfficeRuntime.AsyncStorage.multiSet(
     [["username", "foo"], ["yearOfBirth", "2001"]],
     errors => {
-        errors.filter(error => error != null).forEach(error => console.log(error));
+        errors
+            .filter(error => error != null)
+            .forEach(error => console.log(error));
     }
 );
 
 OfficeRuntime.AsyncStorage.multiRemove(["foo", "bar"]);
-OfficeRuntime.AsyncStorage.multiRemove(["foo", "bar"]).then(value => console.log(value));
+OfficeRuntime.AsyncStorage.multiRemove(["foo", "bar"]).then(value =>
+    console.log(value)
+);
 
 OfficeRuntime.AsyncStorage.multiGet(["username", "yearOfBirth"]).then(
     values => {
@@ -51,11 +52,24 @@ OfficeRuntime.AsyncStorage.multiGet(["username", "yearOfBirth"]).then(
 );
 
 OfficeRuntime.displayWebDialog("https://localhost:3000", {
-    displayInIFrame: false
+    displayInIFrame: false,
+    onMessage: (message: string, dialog: OfficeRuntime.Dialog) => {
+        console.log(message);
+        if (message === "close") {
+            dialog.close();
+        }
+    },
+    onRuntimeError: (error: Error) => {
+        console.error(error);
+    }
 });
 
 OfficeRuntime.displayWebDialog("https://localhost:3000", {
-   onClose: () => {
-       console.log("closed");
-   }
+    onClose: () => {
+        console.log("closed");
+    }
+});
+
+OfficeRuntime.displayWebDialog("https://localhost:3000", {
+    displayInIFrame: false
 });
