@@ -2,7 +2,7 @@
 // Project: https://github.com/btmills/geopattern
 // Definitions by: Gaelan <https://github.com/Gaelan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <references types="jquery" />
 
