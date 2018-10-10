@@ -7,7 +7,12 @@
 /// <reference types="node" />
 
 declare const out: Mailgun.MailgunExport;
-export = out;
+
+// tslint:disable:no-declare-current-package
+// tslint:disable:no-single-declare-module
+declare module "mailgun-js" {
+    export = out;
+}
 
 declare namespace Mailgun {
     interface ConstructorParams {
