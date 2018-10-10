@@ -203,14 +203,14 @@ declare var console: Console;
 declare var __filename: string;
 declare var __dirname: string;
 
-declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
 declare namespace setTimeout {
     function __promisify__(ms: number): Promise<void>;
     function __promisify__<T>(ms: number, value: T): Promise<T>;
 }
-declare function clearTimeout(timeoutId: NodeJS.Timer): void;
-declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
-declare function clearInterval(intervalId: NodeJS.Timer): void;
+declare function clearTimeout(timeoutId: NodeJS.Timeout): void;
+declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
+declare function clearInterval(intervalId: NodeJS.Timeout): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
 declare namespace setImmediate {
     function __promisify__(): Promise<void>;
@@ -981,14 +981,22 @@ declare namespace NodeJS {
         v8debug?: any;
     }
 
-    interface Immediate {
+    interface Timer {
         ref(): void;
         unref(): void;
     }
 
-    interface Timer {
+    class Immediate implements Timer {
         ref(): void;
         unref(): void;
+        _onImmediate: Function;
+    }
+
+    class Timeout implements Timer {
+        ref(): void;
+        refresh(): void;
+        unref(): void;
+        _onTimeout: Function;
     }
 
     class Module {
@@ -7212,14 +7220,14 @@ declare module "v8" {
 }
 
 declare module "timers" {
-    function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+    function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
     namespace setTimeout {
         function __promisify__(ms: number): Promise<void>;
         function __promisify__<T>(ms: number, value: T): Promise<T>;
     }
-    function clearTimeout(timeoutId: NodeJS.Timer): void;
-    function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
-    function clearInterval(intervalId: NodeJS.Timer): void;
+    function clearTimeout(timeoutId: NodeJS.Timeout): void;
+    function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
+    function clearInterval(intervalId: NodeJS.Timeout): void;
     function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
     namespace setImmediate {
         function __promisify__(): Promise<void>;
