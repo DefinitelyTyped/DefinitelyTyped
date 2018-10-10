@@ -2,7 +2,7 @@
 // Project: https://silviomoreto.github.io/bootstrap-select/
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery"/>
 
