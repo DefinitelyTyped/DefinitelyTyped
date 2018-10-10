@@ -3,7 +3,7 @@
 // Definitions by: Chris McGrath <https://github.com/clmcgrath>
 //                 Michael Wagner <https://github.com/wagich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export as namespace Flickity;
 export = Flickity;
