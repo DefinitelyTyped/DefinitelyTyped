@@ -2,7 +2,7 @@
 // Project: http://www.ericmmartin.com/projects/simplemodal/
 // Definitions by: Friedrich von Never <https://github.com/ForNeVeR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 
