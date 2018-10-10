@@ -2,7 +2,7 @@
 // Project: http://720kb.github.io/angular-tooltips
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare const AngularTooltips: '720kb.tooltips';
 export = AngularTooltips;
