@@ -2,7 +2,7 @@
 // Project: https://github.com/Galadirith/markdown-it-lazy-headers
 // Definitions by: Knom <https://github.com/knom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { MarkdownIt } from 'markdown-it';
 
