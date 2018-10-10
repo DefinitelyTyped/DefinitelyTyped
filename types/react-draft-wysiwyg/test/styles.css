@@ -1,0 +1,31 @@
+.rdw-storybook-custom-option {
+    border: 1px solid #f1f1f1;
+    padding: 3px 10px;
+    height: 22px;
+}
+.rdw-storybook-locale-wrapper {
+    margin-bottom: 20px;
+}
+.rdw-storybook-locale-lbl {
+    margin-right: 10px;
+}
+.rdw-storybook-root {
+    margin: 50px;
+    width: 90%;
+}
+.rdw-storybook-editor {
+    border: 1px solid #F1F1F1;
+    padding: 5px;
+    border-radius: 2px;
+    height: 200px;
+}
+.rdw-storybook-toolbar {
+    top: -130px;
+}
+.rdw-storybook-textarea {
+    margin-top: 20px;
+    resize: none;
+    width: 100%;
+    border: 1px solid #F1F1F1;
+    height: 100px;
+}
