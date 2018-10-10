@@ -5890,7 +5890,7 @@ declare namespace browser.contextMenus {
         /** A list of all contexts that apply to the menu. */
         contexts: ContextType[];
         editable: boolean;
-        mediaType: string;
+        mediaType?: string;
         linkUrl?: string;
         linkText?: string;
         srcUrl?: string;
@@ -6131,7 +6131,7 @@ declare namespace browser.menus {
         /** A list of all contexts that apply to the menu. */
         contexts: ContextType[];
         editable: boolean;
-        mediaType: string;
+        mediaType?: string;
         linkUrl?: string;
         linkText?: string;
         srcUrl?: string;
