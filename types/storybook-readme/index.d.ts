@@ -2,7 +2,7 @@
 // Project: https://github.com/tuchk4/storybook-readme
 // Definitions by: Taeheon Kim  <https://github.com/lonyele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Shared Types
 export type Renderable = React.ComponentType | JSX.Element;
