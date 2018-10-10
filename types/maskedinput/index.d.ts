@@ -2,7 +2,7 @@
 // Project: http://digitalbush.com/projects/masked-input-plugin
 // Definitions by: Lokesh Peta <https://github.com/lokeshpeta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 ///<reference types="jquery" />
 
