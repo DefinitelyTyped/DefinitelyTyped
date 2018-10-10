@@ -2,7 +2,7 @@
 // Project: https://github.com/legalthings/angular-pdfjs-viewer
 // Definitions by: Bastien Moulia <https://github.com/bastienmoulia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as angular from 'angular';
 
