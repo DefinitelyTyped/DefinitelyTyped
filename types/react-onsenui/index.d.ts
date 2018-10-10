@@ -152,8 +152,8 @@ export class Carousel extends Component<{
     fullscreen?: boolean,
     overscrollable?: boolean,
     centered?: boolean,
-    itemWidth?: number,
-    itemHeight?: number,
+    itemWidth?: number | string,
+    itemHeight?: number | string,
     autoScroll?: boolean,
     autoScrollRatio?: number,
     swipeable?: boolean,
@@ -167,7 +167,7 @@ export class Carousel extends Component<{
 }, any> {}
 
 export class CarouselItem extends Component<{
-    modifier: string
+    modifier?: string
 }, any> {}
 
 /*** AlertDialog ***/
