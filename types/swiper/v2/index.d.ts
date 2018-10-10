@@ -2,7 +2,7 @@
 // Project: https://github.com/nolimits4web/Swiper
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 interface SwiperOptions {
     speed?: number;
