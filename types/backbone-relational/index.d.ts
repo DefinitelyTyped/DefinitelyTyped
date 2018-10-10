@@ -2,7 +2,7 @@
 // Project: http://backbonerelational.org/
 // Definitions by: Eirik Hoem <https://github.com/eirikhm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 
