@@ -4,8 +4,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Editor, RawDraftContentState } from 'react-draft-wysiwyg';
 
-import './styles.css';
-
 class BasicContentState extends React.Component<{}, {contentState: RawDraftContentState}> {
     constructor(props: any) {
         super(props);
@@ -28,7 +26,7 @@ class BasicContentState extends React.Component<{}, {contentState: RawDraftConte
 
     render() {
         const {contentState} = this.state;
-        return (<div className="rdw-storybook-root">
+        return (<div>
             <span>Content state is JSON
                 <pre>
                 {'{"entityMap":{},"blocks":[{"key":"1ljs","text":"Initializing from content state","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]}'}
@@ -36,9 +34,6 @@ class BasicContentState extends React.Component<{}, {contentState: RawDraftConte
             </span>
             <Editor
                 defaultContentState={contentState}
-                toolbarClassName="rdw-storybook-toolbar"
-                wrapperClassName="rdw-storybook-wrapper"
-                editorClassName="rdw-storybook-editor"
             />
         </div>);
     }

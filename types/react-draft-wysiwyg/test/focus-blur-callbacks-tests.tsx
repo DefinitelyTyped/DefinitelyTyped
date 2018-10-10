@@ -2,8 +2,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Editor } from 'react-draft-wysiwyg';
 
-import './styles.css';
-
 class FocusBlurCallbacks extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
@@ -30,14 +28,11 @@ class FocusBlurCallbacks extends React.Component<any, any> {
     render() {
         const { state } = this.state;
         return (
-            <div className="rdw-storybook-root">
+            <div>
                 <h3>State right now <span style={{ color: 'blue' }}>{state}</span></h3>
                 <Editor
                     onBlur={this.onBlur}
                     onFocus={this.onFocus}
-                    toolbarClassName="rdw-storybook-toolbar"
-                    wrapperClassName="rdw-storybook-wrapper"
-                    editorClassName="rdw-storybook-editor"
                 />
             </div>
         );

@@ -4,14 +4,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Editor } from 'react-draft-wysiwyg';
 
-import './styles.css';
-
-const Basic = () => (<div className="rdw-storybook-root">
+const Basic = () => (<div>
   <Editor
-    ref={(ref: Editor) => {console.log('hey ref', ref.focusEditor()); }}
-    toolbarClassName="rdw-storybook-toolbar"
-    wrapperClassName="rdw-storybook-wrapper"
-    editorClassName="rdw-storybook-editor"
+      ref={(ref: Editor) => {console.log('hey ref', ref.focusEditor()); }}
   />
 </div>);
 

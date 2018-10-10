@@ -5,8 +5,6 @@ import * as ReactDOM from 'react-dom';
 import { Editor } from 'react-draft-wysiwyg';
 import { RichUtils } from 'draft-js';
 
-import './styles.css';
-
 class CustomOption extends React.Component<any, any> {
     toggleBold() {
         const {editorState, onChange} = this.props;
@@ -18,7 +16,7 @@ class CustomOption extends React.Component<any, any> {
             onChange(newState);
         }
     }
-    
+
     render() {
         return (
             <div className="rdw-storybook-custom-option" onClick={this.toggleBold}>B</div>
@@ -27,12 +25,9 @@ class CustomOption extends React.Component<any, any> {
 }
 
 const CustomToolbar = () =>
-    (<div className="rdw-storybook-root">
+    (<div>
         <h3>Last option marked as B is custom option for making test BOLD.</h3>
         <Editor
-            toolbarClassName="rdw-storybook-toolbar"
-            wrapperClassName="rdw-storybook-wrapper"
-            editorClassName="rdw-storybook-editor"
             toolbarCustomButtons={[<CustomOption />]}
         />
     </div>);

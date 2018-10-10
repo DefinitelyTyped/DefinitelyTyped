@@ -4,8 +4,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Editor, EditorState } from 'react-draft-wysiwyg';
 
-import './styles.css';
-
 class BasicControlled extends React.Component<{}, {editorState: EditorState}> {
     constructor(props: any) {
         super(props);
@@ -16,12 +14,9 @@ class BasicControlled extends React.Component<{}, {editorState: EditorState}> {
 
     render() {
         const {editorState} = this.state;
-        return (<div className="rdw-storybook-root">
+        return (<div>
             <Editor
                 editorState={editorState}
-                toolbarClassName="rdw-storybook-toolbar"
-                wrapperClassName="rdw-storybook-wrapper"
-                editorClassName="rdw-storybook-editor"
                 onEditorStateChange={this.onEditorStateChange}
             />
         </div>);
