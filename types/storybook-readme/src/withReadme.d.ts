@@ -2,8 +2,8 @@ import { DecoratorPattern, HOCPattern, Readme, RenderFunction } from "./common";
 
 export type WithReadmeAsDecorator = (readme: Readme) => DecoratorPattern;
 export type WithReadmeAsHOC = (
-    readme: Readme,
-    story: RenderFunction
-) => HOCPattern;
+  readme: Readme,
+  story: RenderFunction
+) => RenderFunction;
 
 export type WithReadme = WithReadmeAsDecorator & WithReadmeAsHOC;
