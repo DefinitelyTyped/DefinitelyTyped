@@ -2,7 +2,6 @@ import * as Utils from "./common/utils";
 import Renderer = require("./renderer");
 import Ruler = require("./ruler");
 
-
 export = Remarkable;
 
 declare class Remarkable {
