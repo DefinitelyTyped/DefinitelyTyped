@@ -1,43 +1,77 @@
-// somehow It can't find @storybook/react module, thus I couldn't write tests with storiesOf.
-// I tested with my local environment, though there always can be a mistake.
-// import { storiesOf } from "@storybook/react";
 import * as React from "react";
+import { storiesOf } from "@storybook/react";
 import { withDocs, withReadme, doc } from "storybook-readme";
+import Marked from "storybook-readme/components/Marked";
 
-// Also I don't know how to write test with this style. Please look index.d.ts for more details
-// import Marked from "storybook-readme/components/Marked";
-
-// possibly any .md files or strings
-const docExample1 = `
-## Markdown for component 1
+// Possibly any .md files or strings
+const DocExample1 = `
+## Eaxmple Markdown 1 for component
 A very simple component with markdown
 `;
 
-const docExample2 = `
-## Markdown for component 2
+const DocExample2 = `
+## Example Markdown 2 for component
 A very simple component with markdown
 `;
 
-// withDocs Examples
-withDocs(docExample1);
-withDocs([docExample1, docExample2]);
-withDocs(docExample1, () => <div>react component</div>);
+// Here are the examples for a type compatibility. Please look https://github.com/tuchk4/storybook-readme for actual usages
 
+// withReadme usages. Both Decorator/HOC style
+storiesOf("withReadme Example", module)
+  .addDecorator(withReadme(DocExample1))
+  .addDecorator(withReadme([DocExample1, DocExample2]))
+  .add(
+    "StoryName Here",
+    withReadme(DocExample1, () => <div>your react component</div>)
+  )
+  .add(
+    "StoryName Here",
+    withReadme([DocExample1, DocExample2], () => (
+      <div>your react component</div>
+    ))
+  );
+
+// withDocs usages.
 const withDocsCustom = withDocs({
-    FooterComponent: ({ children }) => <div>{children}</div>,
-    PreviewComponent: ({ children }) => <div>{children}</div>
+  PreviewComponent: ({ children }) => <div>{children}</div>,
+  FooterComponent: ({ children }) => <div>{children}</div>
 });
-withDocsCustom(docExample1);
 
-withDocs.addFooterDocs(docExample1);
+withDocs.addFooterDocs(DocExample1);
 
-// withReadme Examples
-withReadme(docExample1);
-withReadme([docExample1, docExample2]);
-withReadme(docExample1, () => <div>react component</div>);
+storiesOf("withDocs Example", module)
+  .addDecorator(withDocs(DocExample1))
+  .addDecorator(withDocs([DocExample1, DocExample2]))
+  .addDecorator(withDocsCustom(DocExample1))
+  .addDecorator(withDocsCustom([DocExample1, DocExample2]))
+  .add(
+    "StoryName Here",
+    withDocs(DocExample1, () => <div>your react component</div>)
+  )
+  .add(
+    "StoryName Here",
+    withDocs([DocExample1, DocExample2], () => <div>your react component</div>)
+  );
 
-// doc Example
-doc(docExample1);
+// doc usage.
+storiesOf("Doc", module).add("StoryName Here", doc(DocExample1));
 
-// Marked Example
-// <Marked md="docExample 1">
+// Marked usage.
+storiesOf("Custom Layout", module).add("StoryName Here", () => {
+  return (
+    <React.Fragment>
+      <div>
+        <div>your react component</div>
+      </div>
+      <Marked md={"### INTRO "} />
+      <div>
+        <div>your react component</div>
+      </div>
+      <Marked md={DocExample1} />
+      <div>
+        <div>your react component</div>
+      </div>
+      <Marked md={"### OUTRO "} />
+    </React.Fragment>
+  );
+});
