@@ -2,7 +2,7 @@
 // Project: https://github.com/timdown/rangyinputs
 // Definitions by: Eric Simonton <https://github.com/ersimont>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 
 /// <reference types="jquery" />
