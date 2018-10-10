@@ -200,19 +200,19 @@ declare namespace Detox {
          */
         traits(traits: string[]): Matchers;
         /**
-         * Match with parent matcher
+         * Find an element by a matcher with a parent matcher
          * @param parentBy
          * @example await element(by.id('Grandson883').withAncestor(by.id('Son883')));
          */
         withAncestor(parentBy: Matchers): Matchers;
         /**
-         * Match with child matcher
+         * Find an element by a matcher with a child matcher
          * @param childBy
          * @example await element(by.id('Son883').withDescendant(by.id('Grandson883')));
          */
         withDescendant(childBy: Matchers): Matchers;
         /**
-         * Match with another matcher
+         * Find an element by multiple matchers
          * @param by
          * @example await element(by.text('Product').and(by.id('product_name'));
          */
