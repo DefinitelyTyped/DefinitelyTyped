@@ -655,3 +655,10 @@ function keys<T>(o: T): Array<keyof T> {
         }
     }
 }
+
+// Room event log
+
+{
+    room.getEventLog();
+    room.getEventLog(true);
+}
