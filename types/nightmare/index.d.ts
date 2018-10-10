@@ -4,7 +4,7 @@
 //                 Sam Yang <https://github.com/samyang-au>
 //                 Bleser   <https://github.com/Bleser92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
