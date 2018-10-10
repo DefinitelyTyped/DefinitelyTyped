@@ -2,6 +2,7 @@
 // Project: https://github.com/wouter2203/fuzzy-search#readme
 // Definitions by: Alex Deas <https://github.com/alex-deas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 declare class FuzzySearch<T> {
     constructor(haystack: T[], keys?: string[], options?: FuzzySearch.Options);
@@ -15,4 +16,4 @@ declare namespace FuzzySearch {
     }
 }
 
-export default FuzzySearch;
+export = FuzzySearch;
