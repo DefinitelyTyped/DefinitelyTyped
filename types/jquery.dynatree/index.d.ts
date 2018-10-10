@@ -2,7 +2,7 @@
 // Project: http://code.google.com/p/dynatree/
 // Definitions by: François de Campredon <https://github.com/fdecampredon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 
 /// <reference types="jquery"/>
