@@ -4,7 +4,7 @@
 //                 Igor Escobar <http://www.igorescobar.com/>
 //                 Anderson Friaça <https://github.com/AndersonFriaca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 
