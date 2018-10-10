@@ -2,7 +2,7 @@
 // Project: https://github.com/brianreavis/selectize.js
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>, Natalie Bausch <https://github.com/naBausch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare namespace Selectize {
     // see https://github.com/brianreavis/selectize.js/blob/master/docs/usage.md
