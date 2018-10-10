@@ -1,7 +1,7 @@
-declare module "jest-cli" {
-  type Argv = string[];
-  type Path = string;
-  type AggregatedResultWithoutCoverage = {
+
+export type Argv = string[];
+export type Path = string;
+export type AggregatedResultWithoutCoverage = {
     numFailedTests: number,
     numFailedTestSuites: number,
     numPassedTests: number,
@@ -19,7 +19,7 @@ declare module "jest-cli" {
     testResults: Array<TestResult>,
     wasInterrupted: boolean,
   }
-  type CoverageMap = {
+export type CoverageMap = {
     merge: (data: Object) => void,
     getCoverageSummary: () => FileCoverage,
     data: RawCoverage,
@@ -27,10 +27,10 @@ declare module "jest-cli" {
     files: () => Array<string>,
     fileCoverageFor: (file: string) => FileCoverage,
   }
-  type AggregatedResult = AggregatedResultWithoutCoverage & {
+export type AggregatedResult = AggregatedResultWithoutCoverage & {
     coverageMap?: ?CoverageMap,
   };
-  type GlobalConfig = {
+export type GlobalConfig = {
     bail: boolean,
     changedSince: string,
     changedFilesWithAncestor: boolean,
@@ -84,9 +84,8 @@ declare module "jest-cli" {
     watchman: boolean,
     watchPlugins: ?Array<{path: string, config: Object}>,
   };
-  function run(maybeArgv?: Argv, project?: Path): Promise<void>;
-  function runCLI(
+export function run(maybeArgv?: Argv, project?: Path): Promise<void>;
+export function runCLI(
     argv: Argv,
     projects: Path[]
   ): Promise<{ results: AggregatedResult; globalConfig: GlobalConfig }>;
-}
