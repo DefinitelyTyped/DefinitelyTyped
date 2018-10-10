@@ -3,7 +3,7 @@
 // Definitions by: Sam Herrmann <https://github.com/samherrmann>
 //                 Matthias Kannwischer <https://github.com/mkannwischer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="angular" />
 
