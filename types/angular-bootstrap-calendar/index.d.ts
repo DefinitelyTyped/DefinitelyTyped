@@ -2,7 +2,7 @@
 // Project: https://github.com/mattlewis92/angular-bootstrap-calendar
 // Definitions by: Egor Komarov <https://github.com/Odrin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as moment from 'moment';
 import * as angular from 'angular';
