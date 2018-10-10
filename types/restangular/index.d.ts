@@ -2,7 +2,7 @@
 // Project: https://github.com/mgonto/restangular
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="angular" />
 
