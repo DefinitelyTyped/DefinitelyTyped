@@ -628,8 +628,16 @@ describe("", () => {
         expect({
             one: 1,
             two: "2",
+            three: 3,
+            four: { four: 3 },
             date: new Date(),
-        }).toMatchSnapshot({ one: expect.any(Number), date: expect.any(Date) });
+        }).toMatchSnapshot({
+            one: expect.any(Number),
+            // Leave 'two' to the auto-generated snapshot
+            three: 3,
+            four: { four: expect.any(Number) },
+            date: expect.any(Date),
+        });
 
         expect({}).toMatchInlineSnapshot();
         expect({}).toMatchInlineSnapshot("snapshot");
@@ -637,8 +645,16 @@ describe("", () => {
         expect({
             one: 1,
             two: "2",
+            three: 3,
+            four: { four: 3 },
             date: new Date(),
-        }).toMatchInlineSnapshot({ one: expect.any(Number), date: expect.any(Date) });
+        }).toMatchInlineSnapshot({
+            one: expect.any(Number),
+            // leave out two
+            three: 3,
+            four: { four: expect.any(Number) },
+            date: expect.any(Date),
+        });
 
         expect(jest.fn()).toReturn();
 
