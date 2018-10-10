@@ -5,7 +5,7 @@
 //                 Armin Sander <https://github.com/pragmatrix>
 //                 Craig Boland <https://github.com/CNBoland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 // missing:
 // - Some return types are not fully working
