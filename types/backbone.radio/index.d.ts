@@ -2,7 +2,7 @@
 // Project: https://github.com/marionettejs/backbone.radio
 // Definitions by: Peter Palotas <https://github.com/alphaleonis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Backbone from 'backbone';
 
