@@ -5,15 +5,40 @@
 // TypeScript Version: 2.7
 
 export interface ReplaceStreamOptions {
-    /** Sets a limit on the number of times the replacement will be made. This is forced to one when a regex without the global flag is provided. Default: `Infinity` */
+    /**
+     * Sets a limit on the number of times the replacement will be made. This
+     * is forced to one when a regex without the global flag is provided.
+     *
+     * Default: `Infinity`
+     */
     limit?: number;
-    /** The text encoding used during search and replace. Default: `"utf8"` */
+    /**
+     * The text encoding used during search and replace.
+     *
+     * Default: `"utf8"`
+     */
     encoding?: string;
-    /** When doing cross-chunk replacing, this sets the maximum length match that will be supported. Default: `100` */
+    /**
+     * When doing cross-chunk replacing, this sets the maximum length match
+     * that will be supported.
+     *
+     * Default: `100`
+     */
     maxMatchLen?: number;
-    /** When doing string match (not relevant for regex matching) whether to do a case insensitive search. Default: `true` */
+    /**
+     * When doing string match (not relevant for regex matching) whether to do a
+     * case insensitive search.
+     *
+     * Default: `true`
+     */
     ignoreCase?: boolean;
-    /** @deprecated When provided, these flags will be used when creating the search regexes internally. This functionality is deprecated as the flags set on the regex provided are no longer mutated if this is not provided. */
+    /**
+     * When provided, these flags will be used when creating the search regexes
+     * internally.
+     *
+     * @deprecated as the flags set on the regex provided are no longer mutated
+     * if this is not provided.
+     */
     regExpOptions?: string;
 }
 
