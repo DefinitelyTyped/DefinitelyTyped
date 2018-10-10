@@ -3,7 +3,7 @@
 // Definitions by: Wouter Staelens <https://github.com/wstaelens>
 //                 Denny Harijanto <https://github.com/nusantara-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 /// <reference types="jquery"/>
 
