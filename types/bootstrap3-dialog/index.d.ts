@@ -3,7 +3,7 @@
 // Definitions by: Dante <https://github.com/nakupanda>
 //                 Craig Boland <https://github.com/cnboland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 
