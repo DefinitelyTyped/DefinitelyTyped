@@ -1,4 +1,4 @@
-// Type definitions for @reach/router 1.2.1
+// Type definitions for @reach/router 1.2
 // Project: https://github.com/reach/router
 // Definitions by: Kingdaro <https://github.com/kingdaro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -24,7 +24,7 @@ export interface RouterProps {
     basepath?: string;
     primary?: boolean;
     location?: WindowLocation;
-    component?: React.ComponentType | string
+    component?: React.ComponentType | string;
 }
 
 export type RouteComponentProps<TParams = {}> = Partial<TParams> & {
