@@ -2,7 +2,7 @@
 // Project: https://github.com/carhartl/jquery-cookie
 // Definitions by: Roy Goode <https://github.com/RoyGoode>, Ben Lorantfy <https://github.com/BenLorantfy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 ///<reference types="jquery" />
 
