@@ -6,7 +6,7 @@
 import { Plugin } from "postcss";
 
 declare namespace autoprefixer {
-    interface AutoprefixerOptions {
+    interface Options {
         browsers?: string[] | string;
         env?: string;
         cascade?: boolean;
@@ -19,7 +19,7 @@ declare namespace autoprefixer {
         ignoreUnknownVersions?: boolean;
     }
 
-    type Autoprefixer = Plugin<AutoprefixerOptions>;
+    type Autoprefixer = Plugin<Options>;
 }
 
 declare const autoprefixer: autoprefixer.Autoprefixer;
