@@ -43,12 +43,15 @@ type Mixed =
     v: string;
 };
 
+type Hex = string | number;
+
 export default interface Utils {
     BN: BigNumber; // TODO only static-definition
     isBN(any: any): boolean;
     isBigNumber(any: any): boolean;
     isAddress(any: any): boolean;
     isHex(any: any): boolean;
+    isHexStrict(val: Hex): boolean;
     _: us.UnderscoreStatic;
     asciiToHex(val: string): string;
     hexToAscii(val: string): string;

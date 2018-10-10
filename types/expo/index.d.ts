@@ -1603,6 +1603,8 @@ export namespace ImagePicker {
         allowsEditing?: boolean;
         aspect?: [number, number];
         quality?: number;
+        base64?: boolean;
+        exif?: boolean;
     }
 
     /**

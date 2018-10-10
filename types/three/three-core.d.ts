@@ -1857,6 +1857,7 @@ export interface Intersection {
     face?: Face3 | null;
     faceIndex?: number;
     object: Object3D;
+    uv: Vector2;
 }
 
 export interface RaycasterParameters {

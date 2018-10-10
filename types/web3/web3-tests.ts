@@ -109,3 +109,5 @@ const weiStr: string = web3.utils.toWei("100", "gwei");
 const weiBn: BigNumber = web3.utils.toWei(web3.utils.toBN("1"));
 const rndHex: string = Web3.utils.randomHex(10);
 const sha3: string = web3.utils.soliditySha3(0, 1, "abc");
+const isStrictHexString: boolean = web3.utils.isHexStrict("0xc1912");
+const isStrictHexNumber: boolean = web3.utils.isHexStrict(0xc1912);

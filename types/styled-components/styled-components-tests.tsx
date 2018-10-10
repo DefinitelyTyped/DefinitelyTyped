@@ -4,7 +4,7 @@ import * as ReactDOMServer from 'react-dom/server';
 
 import styled, {
     css,
-    injectGlobal,
+    createGlobalStyle,
     isStyledComponent,
     keyframes,
     ServerStyleSheet,
@@ -12,6 +12,7 @@ import styled, {
     ThemeProps,
     ThemeProvider,
     withTheme,
+    ThemeConsumer,
 } from 'styled-components';
 
 /**
@@ -100,7 +101,7 @@ const theme = {
     main: 'mediumseagreen',
 };
 
-injectGlobal`
+const ExampleGlobalStyle = createGlobalStyle`
   @font-face {
       font-family: 'Operator Mono';
       src: url('../fonts/Operator-Mono.ttf');
@@ -115,6 +116,7 @@ class Example extends React.Component {
     render() {
         return (
             <ThemeProvider theme={theme}>
+                <ExampleGlobalStyle />
                 <Wrapper>
                     <Title>
                         Hello World, this is my first styled component!
@@ -139,12 +141,6 @@ const cssWithValues2 = css`
   ${[cssWithValues1, cssWithValues1]}
   font-weight: ${'bold'};
 `;
-// injectGlobal accepts simple interpolations if they're not using functions
-injectGlobal`
-  ${'font-size'}: ${10}pt;
-  ${cssWithValues1}
-  ${[cssWithValues1, cssWithValues2]}
-`;
 
 // css which uses function interpolations with common props
 const cssWithFunc1 = css`
@@ -161,12 +157,6 @@ const styledButton = styled.button`
   ${cssWithFunc1} ${[cssWithFunc1, cssWithFunc2]}
   ${() => [cssWithFunc1, cssWithFunc2]}
 `;
-// css with function interpolations cannot be used in injectGlobal
-/*
-injectGlobal`
-  ${cssWithFunc1}
-`;
-*/
 
 const name = 'hey';
 
@@ -333,25 +323,6 @@ styled(C); // used to fail; see issue trail linked below
 // https://github.com/styled-components/styled-components/pull/1427
 
 /**
- * extend
- */
-
-const ExtendButton = styled.button`
-    color: palevioletred;
-    font-size: 1em;
-    margin: 1em;
-    padding: 0.25em 1em;
-    border: 2px solid palevioletred;
-    border-radius: 3px;
-`;
-
-// We're extending Button with some extra styles
-const TomatoExtendButton = ExtendButton.extend`
-    color: tomato;
-    border-color: tomato;
-`;
-
-/**
  * function themes
  */
 
@@ -422,6 +393,10 @@ const ComponentWithTheme = withTheme(Component);
 
 <ComponentWithTheme text={'hi'} />; // ok
 <ComponentWithTheme text={'hi'} theme={{ color: 'red' }} />; // ok
+
+<ThemeConsumer>
+    {(theme) => <Component text="hi" theme={theme} />}
+</ThemeConsumer>;
 
 /**
  * isStyledComponent utility
@@ -546,3 +521,37 @@ const test = () => [
     <WithComponentFirstStyledA color={'black'} />,
     <WithComponentFirstStyledB b={2} color={'black'} />,
 ];
+
+// 4.0 With Component
+
+const asTest = (
+    <>
+        <WithComponentH1 as="h2" />
+        <WithComponentH1 as={WithComponentH2} />
+    </>
+);
+
+interface TestContainerProps {
+    size: 'big' | 'small';
+    test?: boolean;
+}
+const TestContainer = ({ size, test }: TestContainerProps) => {
+    return null;
+};
+
+const StyledTestContainer = styled(TestContainer)`
+    background: red;
+`;
+
+interface Test2ContainerProps {
+    type: 'foo' | 'bar';
+}
+class Test2Container extends React.Component<Test2ContainerProps> {
+    render() {
+        return null;
+    }
+}
+
+const containerTest = (
+    <StyledTestContainer as={Test2Container} size="small" />
+);
