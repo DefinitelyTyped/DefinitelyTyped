@@ -667,7 +667,7 @@ declare namespace Office {
         * Gets the locale (language) specified by the user for editing the document or item.
         * 
         * @remarks
-        * The `contentLanguage` value reflects the **Editing Language** setting specified with **File > Options > Language** in the Office host 
+        * The `contentLanguage` value reflects the **Editing Language** setting specified with **File \> Options \> Language** in the Office host 
         * application.
         * 
         * In content add-ins for Access web apps, the `contentLanguage` property gets the add-in culture (e.g., "en-GB").
@@ -703,7 +703,7 @@ declare namespace Office {
         * 
         * The returned value is a string in the RFC 1766 Language tag format, such as en-US.
         * 
-        * The `displayLanguage` value reflects the current **Display Language** setting specified with **File > Options > Language** in the Office 
+        * The `displayLanguage` value reflects the current **Display Language** setting specified with **File \> Options \> Language** in the Office 
         * host application.
         * 
         * In content add-ins for Access web apps, the `displayLanguage property` gets the add-in language (e.g., "en-US").
@@ -1250,17 +1250,17 @@ declare namespace Office {
      */
     interface RangeFormatConfiguration {
         /**
-         * Specifies the range. Example of using Office.Table enum: Office.Table.All. Example of using RangeCoordinates: {row: 3, column: 4} specifies 
+         * Specifies the range. Example of using Office.Table enum: Office.Table.All. Example of using RangeCoordinates: \{row: 3, column: 4\} specifies 
          * the cell in the 3rd (zero-based) row in the 4th (zero-based) column.
          */
          cells: Office.Table | RangeCoordinates
         /**
-         * Specifies the formatting as key-value pairs. Example: {borderColor: "white", fontStyle: "bold"}
+         * Specifies the formatting as key-value pairs. Example: \{borderColor: "white", fontStyle: "bold"\}
          */
          format: object
     }
     /**
-     * Specifies a cell, or row, or column, by its zero-based row and/or column number. Example: {row: 3, column: 4} specifies the cell in the 3rd 
+     * Specifies a cell, or row, or column, by its zero-based row and/or column number. Example: \{row: 3, column: 4\} specifies the cell in the 3rd 
      * (zero-based) row in the 4th (zero-based) column.
      */
     interface RangeCoordinates {
@@ -1405,7 +1405,7 @@ declare namespace Office {
          * Use only with binding type table and when a TableData object is passed for the data parameter. An array of objects that specify a range of 
          * columns, rows, or cells and specify, as key-value pairs, the cell formatting to apply to that range. 
          * 
-         * Example: `[{cells: Office.Table.Data, format: {fontColor: "yellow"}}, {cells: {row: 3, column: 4}, format: {borderColor: "white", fontStyle: "bold"}}]`
+         * Example: `[\{cells: Office.Table.Data, format: \{fontColor: "yellow"\}\}, \{cells: \{row: 3, column: 4\}, format: \{borderColor: "white", fontStyle: "bold"\}\}]`
          */
         cellFormat?: Array<RangeFormatConfiguration>
         /**
@@ -1460,8 +1460,8 @@ declare namespace Office {
     /**
      * Provides access to the properties for Office theme colors.
      *
-     * Using Office theme colors lets you coordinate the color scheme of your add-in with the current Office theme selected by the user with File > 
-     * Office Account > Office Theme UI, which is applied across all Office host applications. Using Office theme colors is appropriate for mail and 
+     * Using Office theme colors lets you coordinate the color scheme of your add-in with the current Office theme selected by the user with File \> 
+     * Office Account \> Office Theme UI, which is applied across all Office host applications. Using Office theme colors is appropriate for mail and 
      * task pane add-ins.
      *
      * @remarks
@@ -4847,7 +4847,7 @@ declare namespace Office {
          * 
          * **Returned format structure**
          * 
-         * Each JavaScript object in the return value array has this form: `{cells:{ cell_range }, format:{ format_definition }}`
+         * Each JavaScript object in the return value array has this form: `\{cells:\{ cell_range \}, format:\{ format_definition \}\}`
          * 
          * The `cells:` property specifies the range you want format using one of the following values:
          * 
@@ -4859,15 +4859,15 @@ declare namespace Office {
          *     <th>Description</th>
          *   </tr>
          *   <tr>
-         *     <td>{row: n}</td>
+         *     <td>\{row: n\}</td>
          *     <td>Specifies the range that is the zero-based nth row of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>{column: n}</td>
+         *     <td>\{column: n\}</td>
          *     <td>Specifies the range that is the zero-based nth column of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>{row: i, column: j}</td>
+         *     <td>\{row: i, column: j\}</td>
          *     <td>Specifies the single cell that is the ith row and jth column of the table.</td>
          *   </tr>
          *   <tr>
@@ -4884,7 +4884,8 @@ declare namespace Office {
          *   </tr>
          * </table>
          * 
-         * The `format:` property specifies values that correspond to a subset of the settings available in the Format Cells dialog box in Excel (Right-click > Format Cells or Home > Format > Format Cells).
+         * The `format:` property specifies values that correspond to a subset of the settings available in the Format Cells dialog box in Excel 
+         * (Right-click \> Format Cells or Home \> Format \> Format Cells).
          * 
          * @param cellReference An object literal containing name-value pairs that specify the range of cells to get formatting from.
          * @param formats An array specifying the format properties to get.
@@ -4904,7 +4905,7 @@ declare namespace Office {
          * The value you pass as the cellFormat parameter is an array that contains a list of one or more JavaScript objects that specify which cells 
          * to target (`cells:`) and the formats (`format:`) to apply to them.
          * 
-         * Each JavaScript object in the cellFormat array has this form: `{cells:{ cell_range }, format:{ format_definition }}`
+         * Each JavaScript object in the cellFormat array has this form: `\{cells:\{ cell_range \}, format:\{ format_definition \}\}`
          * 
          * The `cells:` property specifies the range you want format using one of the following values:
          * 
@@ -4916,15 +4917,15 @@ declare namespace Office {
          *     <th>Description</th>
          *   </tr>
          *   <tr>
-         *     <td>{row: n}</td>
+         *     <td>\{row: n\}</td>
          *     <td>Specifies the range that is the zero-based nth row of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>{column: n}</td>
+         *     <td>\{column: n\}</td>
          *     <td>Specifies the range that is the zero-based nth column of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>{row: i, column: j}</td>
+         *     <td>\{row: i, column: j\}</td>
          *     <td>Specifies the single cell that is the ith row and jth column of the table.</td>
          *   </tr>
          *   <tr>
@@ -4942,7 +4943,7 @@ declare namespace Office {
          * </table>
          * 
          * The `format:` property specifies values that correspond to a subset of the settings available in the Format Cells dialog box in Excel 
-         * (Right-click > Format Cells or Home > Format > Format Cells).
+         * (Right-click \> Format Cells or Home \> Format \> Format Cells).
          * 
          * You specify the value of the `format:` property as a list of one or more property name - value pairs in a JavaScript object literal. The 
          * property name specifies the name of the formatting property to set, and value specifies the property value. 
@@ -4952,22 +4953,22 @@ declare namespace Office {
          * 
          * `//Set cells: font color to green and size to 15 points.`
          * 
-         * `format: {fontColor : "green", fontSize : 15}`
+         * `format: \{fontColor : "green", fontSize : 15\}`
          * 
          * `//Set cells: border to dotted blue.`
          * 
-         * `format: {borderStyle: "dotted", borderColor: "blue"}`
+         * `format: \{borderStyle: "dotted", borderColor: "blue"\}`
          * 
          * `//Set cells: background to red and alignment to centered.`
          * 
-         * `format: {backgroundColor: "red", alignHorizontal: "center"}`
+         * `format: \{backgroundColor: "red", alignHorizontal: "center"\}`
          * 
          * 
          * You can specify number formats by specifying the number formatting "code" string in the `numberFormat:` property. 
          * The number format strings you can specify correspond to those you can set in Excel using the Custom category on the Number tab of the Format Cells dialog box. 
          * This example shows how to format a number as a percentage with two decimal places:
          * 
-         * `format: {numberFormat:"0.00%"}`
+         * `format: \{numberFormat:"0.00%"\}`
          * 
          * For more detail, see how to {@link https://support.office.com/article/create-or-delete-a-custom-number-format-78f2a361-936b-4c03-8772-09fab54be7f4 | Create a custom number format}.
          * 
@@ -5091,8 +5092,8 @@ declare namespace Office {
          */
         headers: any[];
         /**
-         * Gets or sets the rows in the table. Returns an array of arrays that contains the data in the table. Returns an empty array ``, if there are 
-         * no rows.
+         * Gets or sets the rows in the table. Returns an array of arrays that contains the data in the table. 
+         * Returns an empty array if there are no rows.
          * 
          * @remarks
          * <table><tr><td>Hosts</td><td>Excel, Word</td></tr>
@@ -15094,7 +15095,7 @@ declare namespace Office {
          *
          * You cannot request Folder Associated Items with the makeEwsRequestAsync method.
          *
-         * The XML request must specify UTF-8 encoding. <?xml version="1.0" encoding="utf-8"?>
+         * The XML request must specify UTF-8 encoding. \<?xml version="1.0" encoding="utf-8"?\>
          *
          * Your add-in must have the ReadWriteMailbox permission to use the makeEwsRequestAsync method. 
          * For information about using the ReadWriteMailbox permission and the EWS operations that you can call with the makeEwsRequestAsync method, 
@@ -22167,8 +22168,7 @@ declare namespace Excel {
         readonly worksheet: Excel.Worksheet;
         /**
          *
-         * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to
-            the level of where the category labels are being sourced from. Read/Write.
+         * Returns or sets a ChartCategoryLabelLevel enumeration constant referring to the level of where the category labels are being sourced from. Read/Write.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -22231,8 +22231,7 @@ declare namespace Excel {
         plotVisibleOnly: boolean;
         /**
          *
-         * Returns or sets a ChartSeriesNameLevel enumeration constant referring to
-            the level of where the series names are being sourced from. Read/Write.
+         * Returns or sets a ChartSeriesNameLevel enumeration constant referring to the level of where the series names are being sourced from. Read/Write.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23316,7 +23315,7 @@ declare namespace Excel {
         position: Excel.ChartAxisPosition | "Automatic" | "Maximum" | "Minimum" | "Custom";
         /**
          *
-         * Represents the specified axis position where the other axis crosses at. Read Only. Set to this property should use SetPositionAt(double) method.
+         * Represents the specified axis position where the other axis crosses at. You should use the SetPositionAt(double) method to set this property.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23682,15 +23681,14 @@ declare namespace Excel {
         readonly format: Excel.ChartDataLabelFormat;
         /**
          *
-         * Represents whether data labels automatically generates appropriate text based on context.
+         * Represents whether data labels automatically generate appropriate text based on context.
          *
          * [Api set: ExcelApi 1.8]
          */
         autoText: boolean;
         /**
          *
-         * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details.
-            This property is valid only when TextOrientation of data label is 0.
+         * Represents the horizontal alignment for chart data label. See Excel.ChartTextHorizontalAlignment for details. This property is valid only when TextOrientation of data label is 0.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -23767,8 +23765,7 @@ declare namespace Excel {
         textOrientation: number;
         /**
          *
-         * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details.
-            This property is valid only when TextOrientation of data label is 90, -90 or 180.
+         * Represents the vertical alignment of chart data label. See Excel.ChartTextVerticalAlignment for details. This property is valid only when TextOrientation of data label is -90, 90, or 180.
          *
          * [Api set: ExcelApi 1.8]
          */
