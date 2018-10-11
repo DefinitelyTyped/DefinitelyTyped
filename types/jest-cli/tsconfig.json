@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "jest-tests.ts"]
+    "files": ["index.d.ts", "jest-cli-tests.ts"]
 }
