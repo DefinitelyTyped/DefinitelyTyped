@@ -19,6 +19,7 @@ const config = (nextConfig: any = {}) => {
 
         webpack(config: any, options: any) {
             // do something here which only gets applied during development server phase
+
             if (typeof nextConfig.webpack === "function") {
                 return nextConfig.webpack(config, options);
             }
