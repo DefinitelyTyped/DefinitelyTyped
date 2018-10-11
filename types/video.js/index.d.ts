@@ -3746,7 +3746,6 @@ declare namespace videojs {
 		 *         - undefined when setting
 		 */
 		aspectRatio(ratio: string): void;
-
 		aspectRatio(): string;
 
 		/**
@@ -3764,9 +3763,8 @@ declare namespace videojs {
 		 *
 		 * @return The current value of autoplay when getting
 		 */
-		autoplay(value?: boolean | string): void;
-
-		autoplay(): boolean | string;
+		autoplay(value: boolean | 'play' | 'muted' | 'any'): void;
+		autoplay(): boolean | 'play' | 'muted' | 'any';
 
 		/**
 		 * Get the remote {@link TextTrackList}
@@ -3858,7 +3856,6 @@ declare namespace videojs {
 		 * @return 'probably', 'maybe', or '' (empty string)
 		 */
 		canPlayType(type: string): 'probably' | 'maybe' | '';
-
 		cancelFullScreen(): Player;
 
 		/**
@@ -3872,8 +3869,7 @@ declare namespace videojs {
 		 *
 		 * @return The current value of controls when getting
 		 */
-		controls(bool?: boolean): void;
-
+		controls(bool: boolean): void;
 		controls(): boolean;
 
 		/**
@@ -3931,7 +3927,6 @@ declare namespace videojs {
 		 * @return - the current time in seconds when getting
 		 */
 		currentTime(seconds: number): void;
-
 		currentTime(): number;
 
 		/**
@@ -3969,7 +3964,6 @@ declare namespace videojs {
 		 *         - A reference to the current player when setting
 		 */
 		defaultMuted(defaultMuted: boolean): void;
-
 		defaultMuted(): boolean;
 
 		/**
@@ -3987,7 +3981,6 @@ declare namespace videojs {
 		 *         - the player when setting
 		 */
 		defaultPlaybackRate(rate: number): Player;
-
 		defaultPlaybackRate(): boolean;
 
 		/**
@@ -4004,7 +3997,6 @@ declare namespace videojs {
 		 * @return The dimension arguments value when getting (width/height).
 		 */
 		dimension(dimension: 'width' | 'height', value: number): void;
-
 		dimension(dimension: 'width' | 'height'): number;
 
 		/**
@@ -4034,7 +4026,6 @@ declare namespace videojs {
 		 * @return - The duration of the video in seconds when getting
 		 */
 		duration(seconds: number): void;
-
 		duration(): number;
 
 		/**
@@ -4049,7 +4040,6 @@ declare namespace videojs {
 		 *         - `undefined` when setting.
 		 */
 		fluid(bool: boolean): void;
-
 		fluid(): boolean;
 
 		/**
@@ -4102,7 +4092,6 @@ declare namespace videojs {
 		 * @return The current MediaError when getting (or null)
 		 */
 		error(err: MediaError | string | number | null): void;
-
 		error(): MediaError | null;
 
 		/**
@@ -4144,7 +4133,6 @@ declare namespace videojs {
 		 * @return the boolean value of hasStarted_
 		 */
 		hasStarted(request: boolean): void;
-
 		hasStarted(): boolean;
 
 		/**
@@ -4157,7 +4145,6 @@ declare namespace videojs {
 		 * @return The current height of the `Player` when getting.
 		 */
 		height(value: number): void;
-
 		height(): number;
 
 		/**
@@ -4170,7 +4157,6 @@ declare namespace videojs {
 		 * @return The current value of isAudio when getting
 		 */
 		isAudio(bool: boolean): void;
-
 		isAudio(): boolean;
 
 		/**
@@ -4188,7 +4174,6 @@ declare namespace videojs {
 		 *         - false if fullscreen is off and getting
 		 */
 		isFullscreen(isFS: boolean): void;
-
 		isFullscreen(): boolean;
 
 		/**
@@ -4203,7 +4188,6 @@ declare namespace videojs {
 		 * @return The current language code when getting
 		 */
 		language(code: string): void;
-
 		language(): string;
 
 		/**
@@ -4231,8 +4215,7 @@ declare namespace videojs {
 		 *
 		 * @return The current value of loop when getting
 		 */
-		loop(value?: boolean): void;
-
+		loop(value: boolean): void;
 		loop(): string;
 
 		/**
@@ -4246,7 +4229,6 @@ declare namespace videojs {
 		 *         - false if mute is off and getting
 		 */
 		muted(muted: boolean): void;
-
 		muted(): boolean;
 
 		/**
@@ -4285,8 +4267,7 @@ declare namespace videojs {
 		 *
 		 * @return The current playback rate when getting or 1.0
 		 */
-		playbackRate(rate?: number): void;
-
+		playbackRate(rate: number): void;
 		playbackRate(): number;
 
 		/**
@@ -4314,7 +4295,6 @@ declare namespace videojs {
 		 * @see [Spec]{@link https://html.spec.whatwg.org/#attr-video-playsinline}
 		 */
 		playsinline(value: boolean): Player;
-
 		playsinline(): string;
 
 		/**
@@ -4328,7 +4308,6 @@ declare namespace videojs {
 		 * @return The current value of poster when getting
 		 */
 		poster(src: string): void;
-
 		poster(): string;
 
 		/**
@@ -4340,7 +4319,8 @@ declare namespace videojs {
 		 *
 		 * @return The preload attribute value when getting
 		 */
-		preload(value?: boolean): string;
+		preload(value: boolean): string;
+		preload(): string;
 
 		/**
 		 * Calculates how much time is left in the video. Not part
@@ -4402,7 +4382,7 @@ declare namespace videojs {
 		 * @return boolean True if the player is in the seeking state, false if not.
 		 */
 		seeking(): boolean;
-
+        
 		/**
 		 * Returns the TimeRanges of the media that are currently available for seeking to.
 		 *
@@ -4433,7 +4413,6 @@ declare namespace videojs {
 		 * @return The value of scrubbing when getting
 		 */
 		scrubbing(isScrubbing: boolean): void;
-
 		scrubbing(): boolean;
 
 		/**
@@ -4451,7 +4430,6 @@ declare namespace videojs {
 		 *         URL. Otherwise, returns nothing/undefined.
 		 */
 		src(source: string | Tech.SourceObject | Tech.SourceObject[]): void;
-
 		src(): string;
 
 		/**
@@ -4495,7 +4473,6 @@ declare namespace videojs {
 		 * @return The current value of userActive when getting
 		 */
 		userActive(bool: boolean): void;
-
 		userActive(): boolean;
 
 		/**
@@ -4515,7 +4492,6 @@ declare namespace videojs {
 		 * @return The current value of native controls when getting
 		 */
 		usingNativeControls(bool: boolean): void;
-
 		usingNativeControls(): boolean;
 
 		/**
@@ -4557,7 +4533,6 @@ declare namespace videojs {
 		 * @return The current volume as a percent when getting
 		 */
 		volume(percentAsDecimal: number): TimeRange;
-
 		volume(): number;
 
 		/**
@@ -4570,7 +4545,6 @@ declare namespace videojs {
 		 * @return The current width of the `Player` when getting.
 		 */
 		width(value: number): void;
-
 		width(): number;
 	}
 
