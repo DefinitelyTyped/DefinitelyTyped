@@ -30179,32 +30179,7 @@ $( "input" ).click(function() {
         (fx: Tween<TElement>): void;
     }
 
-    /**
-     * @deprecated ​ Deprecated.
-     *
-     * **Cause**: Additional arguments for `jQuery.easing` methods were never documented and are redundant since the same behavior can be easily achieved without them. When Migrate detects this case, the specified easing function is not used and `"linear"` easing is used instead for the animation.
-     *
-     * **Solution**: Rewrite the easing function to only use one argument. If you are using the \`{@link http://gsgd.co.uk/sandbox/jquery/easing jQuery Easing plugin}\`, upgrade to \`{@link https://github.com/gdsmith/jquery.easing/releases version 1.4.0 or higher}\`.
-     *
-     * For example, to implement \`{@link https://en.wikipedia.org/wiki/Cubic_function Cubic easing}\`, the old function might be:
-     *
-```js
-jQuery.easing.easeInCubic = function ( p, t, b, c, d ) {
-    return c * ( t /= d ) * t * t + b;
-}
-```
-     *
-     * You can achive same effect with this:
-     *
-```js
-jQuery.easing.easeInCubic = function ( p ) {
-    return Math.pow( p, 3 );
-}
-```
-     *
-     * See jQuery-ui \`{@link https://github.com/jquery/jquery-ui/commit/c0093b599fcd58b6ad122ab425c4cc1a4da4a520#diff-9cd789a170c765edcf0f4854db386e1a commit}\` for other possible cases.
-     */
-    type EasingMethod = (p: number, t: number, b: number, c: number, d: number) => number;
+    type EasingMethod = (percent: number) => number;
 
     interface Easings {
         [name: string]: EasingMethod;
