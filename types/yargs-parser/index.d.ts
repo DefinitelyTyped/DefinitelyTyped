@@ -1,4 +1,4 @@
-// Type definitions for yargs-parser 10.1
+// Type definitions for yargs-parser 11.0
 // Project: https://github.com/yargs/yargs-parser#readme
 // Definitions by: Miles Johnson <https://github.com/milesj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -37,7 +37,7 @@ declare namespace yargsParser {
         'short-option-groups': boolean;
     }
 
-    interface ParserOptions {
+    interface Options {
         alias?: { [key: string]: string | string[] };
         array?: string[];
         boolean?: string[];
@@ -55,10 +55,10 @@ declare namespace yargsParser {
     }
 
     interface Parser {
-        (argv: string | string[], opts?: ParserOptions): Arguments;
-        detailed(argv: string | string[], opts?: ParserOptions): DetailedArguments;
+        (argv: string | string[], opts?: Options): Arguments;
+        detailed(argv: string | string[], opts?: Options): DetailedArguments;
     }
 }
 
-declare var parse: yargsParser.Parser;
-export = parse;
+declare var yargsParser: yargsParser.Parser;
+export = yargsParser;

@@ -9,7 +9,8 @@ parse(['--foo', '-bar'], {
 });
 
 // prettier-ignore
-parse(['--foo', '-bar'], { // $ExpectError
+// $ExpectError
+parse(['--foo', '-bar'], {
     string: 123,
 });
 
