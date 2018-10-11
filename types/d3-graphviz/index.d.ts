@@ -3,6 +3,24 @@
 // Definitions by: Dom Parfitt <https://github.com/DomParfitt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export function extractElementData(element: any): any;
+export function extractAllElementsData(element: any): any;
+export function createElement(data: any): any;
+export function createElementWithAttributes(data: any): any;
+export function replaceElement(element: any, data: any): any;
+export function insertElementData(element: any, datum: any): void;
+export function insertAllElementsData(element: any, datum: any): void;
+export function insertChildren(element: any, index: any): void;
+export function attributeElement(data: any): void;
+export function shallowCopyObject(obj: any): any;
+export function roundTo4Decimals(x: number): number;
+// var zoom$1 = function (enable)
+export function createZoomBehavior(): any;
+export function getTranslatedZoomTransform(selection$$1: any): any;
+export function translateZoomBehaviorTransform(selection$$1: any): any;
+
+// ========================================================================
+
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.
