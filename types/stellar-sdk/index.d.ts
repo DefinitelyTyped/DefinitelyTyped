@@ -895,6 +895,7 @@ export namespace xdr {
         static fromXDR(xdr: Buffer): XDRStruct;
 
         toXDR(): Buffer;
+        toXDR(encoding: string): string;
     }
     class Operation<T extends Operation.Operation> extends XDRStruct { }
     class Asset extends XDRStruct { }
