@@ -493,4 +493,3 @@ declare module "cash" {
     export = CashStatic;
 }
 declare var cash: CashStatic;
-declare var $: CashStatic;
