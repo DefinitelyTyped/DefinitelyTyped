@@ -119,10 +119,14 @@ $.when(
     /**
      * Creates DOM elements on the fly from the provided string of raw HTML.
      *
-     * @param html A string of HTML to create on the fly. Note that this parses HTML, not XML.
-     *             A string defining a single, standalone, HTML element (e.g. <div/> or <div></div>).
-     * @param ownerDocument_attributes A document in which the new elements will be created.
-     *                                 An object of attributes, events, and methods to call on the newly-created element.
+     * @param html _&#x40;param_ `html`
+     * <br>
+     * * `html (ownerDocument)` — A string of HTML to create on the fly. Note that this parses HTML, not XML. <br>
+     * * `html (attributes)` — A string defining a single, standalone, HTML element (e.g. &lt;div/&gt; or &lt;div&gt;&lt;/div&gt;).
+     * @param ownerDocument_attributes _&#x40;param_ `ownerDocument_attributes`
+     * <br>
+     * * `ownerDocument` — A document in which the new elements will be created. <br>
+     * * `attributes` — An object of attributes, events, and methods to call on the newly-created element.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
      * @since 1.4
@@ -180,6 +184,7 @@ $( "input:radio", document.forms[ 0 ] );
 ```javascript
 $( "div", xml.responseXML );
 ```
+​
      */
     // tslint:disable-next-line:no-unnecessary-generics
     <TElement extends Element = HTMLElement>(selector: JQuery.Selector, context?: Element | Document | JQuery): JQuery<TElement>;
@@ -1601,8 +1606,8 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      *
      * @param url A string containing the URL to which the request is sent.
      * @param data A plain object or string that is sent to the server with the request.
-     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
-     *                you can use null or jQuery.noop as a placeholder.
+     * @param success A callback function that is executed if the request succeeds. Required if `dataType` is provided,
+     *                but you can use `null` or \`{@link noop jQuery.noop}\` as a placeholder.
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      * @see \`{@link https://api.jquery.com/jQuery.get/ }\`
      * @since 1.0
@@ -1615,8 +1620,8 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
      * Load data from the server using a HTTP GET request.
      *
      * @param url A string containing the URL to which the request is sent.
-     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
-     *                you can use null or jQuery.noop as a placeholder.
+     * @param success A callback function that is executed if the request succeeds. Required if `dataType` is provided,
+     *                but you can use `null` or \`{@link noop jQuery.noop}\` as a placeholder.
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      * @see \`{@link https://api.jquery.com/jQuery.get/ }\`
      * @since 1.0
@@ -1636,9 +1641,11 @@ $.get( "test.php", function( data ) {
      * Load data from the server using a HTTP GET request.
      *
      * @param url A string containing the URL to which the request is sent.
-     * @param success_data A callback function that is executed if the request succeeds. Required if dataType is provided, but
-     *                     you can use null or jQuery.noop as a placeholder.
-     *                     A plain object or string that is sent to the server with the request.
+     * @param success_data _&#x40;param_ `success_data`
+     * <br>
+     * * `success` — A callback function that is executed if the request succeeds. Required if `dataType` is provided,
+     *               but you can use `null` or \`{@link noop jQuery.noop}\` as a placeholder. <br>
+     * * `data` — A plain object or string that is sent to the server with the request.
      * @see \`{@link https://api.jquery.com/jQuery.get/ }\`
      * @since 1.0
      * @example ​ ````Request the test.php page and send some additional data along (while still ignoring the return results).
@@ -1668,10 +1675,12 @@ $.get( "test.cgi", { name: "John", time: "2pm" } )
     /**
      * Load data from the server using a HTTP GET request.
      *
-     * @param url_settings A string containing the URL to which the request is sent.
-     *                     A set of key/value pairs that configure the Ajax request. All properties except for url are
-     *                     optional. A default can be set for any option with $.ajaxSetup(). See jQuery.ajax( settings ) for a
-     *                     complete list of all settings. The type option will automatically be set to GET.
+     * @param url_settings _&#x40;param_ `url_settings`
+     * <br>
+     * * `url` — A string containing the URL to which the request is sent. <br>
+     * * `settings` — A set of key/value pairs that configure the Ajax request. All properties except for `url` are
+     *                optional. A default can be set for any option with \`{@link ajaxSetup $.ajaxSetup()}\`. See \`{@link https://api.jquery.com/jquery.ajax/#jQuery-ajax-settings jQuery.ajax( settings )}\`
+     *                for a complete list of all settings. The type option will automatically be set to `GET`.
      * @see \`{@link https://api.jquery.com/jQuery.get/ }\`
      * @since 1.0
      * @since 1.12
@@ -1698,8 +1707,10 @@ $.get( "test.php" );
      * Load JSON-encoded data from the server using a GET HTTP request.
      *
      * @param url A string containing the URL to which the request is sent.
-     * @param success_data A callback function that is executed if the request succeeds.
-     *                     A plain object or string that is sent to the server with the request.
+     * @param success_data _&#x40;param_ `url_settings`
+     * <br>
+     * * `success` — A callback function that is executed if the request succeeds. <br>
+     * * `data` — A plain object or string that is sent to the server with the request.
      * @see \`{@link https://api.jquery.com/jQuery.getJSON/ }\`
      * @since 1.0
      * @example ​ ````Loads the four most recent pictures of Mount Rainier from the Flickr JSONP API.
@@ -2620,8 +2631,10 @@ $.param({ a: { b: 1, c: 2 }, d: [ 3, 4, { e: 5 } ] });
      * Parses a string into an array of DOM nodes.
      *
      * @param data HTML string to be parsed
-     * @param context_keepScripts Document element to serve as the context in which the HTML fragment will be created
-     *                            A Boolean indicating whether to include scripts passed in the HTML string
+     * @param context_keepScripts _&#x40;param_ `context_keepScripts`
+     * <br>
+     * * `context` — Document element to serve as the context in which the HTML fragment will be created <br>
+     * * `keepScripts` — A Boolean indicating whether to include scripts passed in the HTML string
      * @see \`{@link https://api.jquery.com/jQuery.parseHTML/ }\`
      * @since 1.8
      * @example ​ ````Create an array of DOM nodes using an HTML string and insert it into a div.
@@ -2763,9 +2776,11 @@ $.post( "test.php", { func: "getNameAndTime" }, function( data ) {
      * Load data from the server using a HTTP POST request.
      *
      * @param url A string containing the URL to which the request is sent.
-     * @param success_data A callback function that is executed if the request succeeds. Required if dataType is provided, but
-     *                     can be null in that case.
-     *                     A plain object or string that is sent to the server with the request.
+     * @param success_data _&#x40;param_ `success_data`
+     * <br>
+     * * `success` — A callback function that is executed if the request succeeds. Required if `dataType` is provided,
+     *               but can be `null` in that case. <br>
+     * * `data` — A plain object or string that is sent to the server with the request.
      * @see \`{@link https://api.jquery.com/jQuery.post/ }\`
      * @since 1.0
      * @example ​ ````Request the test.php page and send some additional data along (while still ignoring the return results).
@@ -2843,10 +2858,12 @@ $( "#searchForm" ).submit(function( event ) {
     /**
      * Load data from the server using a HTTP POST request.
      *
-     * @param url_settings A string containing the URL to which the request is sent.
-     *                     A set of key/value pairs that configure the Ajax request. All properties except for url are
-     *                     optional. A default can be set for any option with $.ajaxSetup(). See jQuery.ajax( settings ) for a
-     *                     complete list of all settings. Type will automatically be set to POST.
+     * @param url_settings _&#x40;param_ `url_settings`
+     * <br>
+     * * `url` — A string containing the URL to which the request is sent. <br>
+     * * `settings` — A set of key/value pairs that configure the Ajax request. All properties except for `url` are optional.
+     *                A default can be set for any option with \`{@link ajaxSetup $.ajaxSetup()}\`. See \`{@link https://api.jquery.com/jquery.ajax/#jQuery-ajax-settings jQuery.ajax( settings )}\`
+     *                for a complete list of all settings. Type will automatically be set to `POST`.
      * @see \`{@link https://api.jquery.com/jQuery.post/ }\`
      * @since 1.0
      * @since 1.12
@@ -12960,8 +12977,10 @@ $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      *
      * @param duration A string or number determining how long the animation will run.
-     * @param easing_complete A string indicating which easing function to use for the transition.
-     *                        A function to call once the animation is complete, called once per matched element.
+     * @param easing_complete _&#x40;param_ `easing_complete`
+     * <br>
+     * * `easing` — A string indicating which easing function to use for the transition. <br>
+     * * `complete` — A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/jQuery.speed/ }\`
      * @since 1.0
      * @since 1.1
@@ -12971,8 +12990,11 @@ $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      *
-     * @param duration_complete_settings A string or number determining how long the animation will run.
-     *                                   A function to call once the animation is complete, called once per matched element.
+     * @param duration_complete_settings _&#x40;param_ `duration_complete_settings`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `complete` — A function to call once the animation is complete, called once per matched element. <br>
+     * * `settings` —
      * @see \`{@link https://api.jquery.com/jQuery.speed/ }\`
      * @since 1.0
      * @since 1.1
@@ -13952,8 +13974,10 @@ $( "p" ).animate({
      * Perform a custom animation of a set of CSS properties.
      *
      * @param properties An object of CSS properties and values that the animation will move toward.
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
+     * @param duration_easing _&#x40;param_ `duration_easing`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `easing` — A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/animate/ }\`
      * @since 1.0
@@ -16703,8 +16727,10 @@ $( "input[type='checkbox']" ).check();
     /**
      * Display the matched elements by fading them to opaque.
      *
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
+     * @param duration_easing _&#x40;param_ `duration_easing`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `easing` — A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/fadeIn/ }\`
      * @since 1.0
@@ -16768,10 +16794,12 @@ $( "a" ).click(function() {
     /**
      * Display the matched elements by fading them to opaque.
      *
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
+     * @param duration_easing_complete_options _&#x40;param_ `duration_easing_complete_options`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `easing` — A string indicating which easing function to use for the transition. <br>
+     * * `complete` — A function to call once the animation is complete, called once per matched element. <br>
+     * * `options` — A map of additional options to pass to the method.
      * @see \`{@link https://api.jquery.com/fadeIn/ }\`
      * @since 1.0
      * @since 1.4.3
@@ -16889,8 +16917,10 @@ $( "#btn2" ).click(function() {
     /**
      * Hide the matched elements by fading them to transparent.
      *
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
+     * @param duration_easing _&#x40;param_ `duration_easing`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `easing` — A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/fadeOut/ }\`
      * @since 1.0
@@ -16948,10 +16978,12 @@ $( "span" ).hover(function() {
     /**
      * Hide the matched elements by fading them to transparent.
      *
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
+     * @param duration_easing_complete_options _&#x40;param_ `duration_easing_complete_options`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `easing` — A string indicating which easing function to use for the transition. <br>
+     * * `complete` — A function to call once the animation is complete, called once per matched element. <br>
+     * * `options` — A map of additional options to pass to the method.
      * @see \`{@link https://api.jquery.com/fadeOut/ }\`
      * @since 1.0
      * @since 1.4.3
@@ -17201,8 +17233,10 @@ $( "button:last" ).click(function() {
     /**
      * Display or hide the matched elements by animating their opacity.
      *
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
+     * @param duration_easing _&#x40;param_ `duration_easing`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `easing` — A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/fadeToggle/ }\`
      * @since 1.0
@@ -17243,10 +17277,12 @@ $( "button:last" ).click(function() {
     /**
      * Display or hide the matched elements by animating their opacity.
      *
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
+     * @param duration_easing_complete_options _&#x40;param_ `duration_easing_complete_options`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `easing` — A string indicating which easing function to use for the transition. <br>
+     * * `complete` — A function to call once the animation is complete, called once per matched element. <br>
+     * * `options` — A map of additional options to pass to the method.
      * @see \`{@link https://api.jquery.com/fadeToggle/ }\`
      * @since 1.0
      * @since 1.4.3
@@ -18108,8 +18144,10 @@ $( "#getw" ).click(function() {
      * Hide the matched elements.
      *
      * @param duration A string or number determining how long the animation will run.
-     * @param easing_complete A string indicating which easing function to use for the transition.
-     *                        A function to call once the animation is complete, called once per matched element.
+     * @param easing_complete _&#x40;param_ `easing_complete`
+     * <br>
+     * * `easing` — A string indicating which easing function to use for the transition. <br>
+     * * `complete` — A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/hide/ }\`
      * @since 1.0
      * @since 1.4.3
@@ -18195,9 +18233,11 @@ $( "div" ).click(function() {
     /**
      * Hide the matched elements.
      *
-     * @param duration_complete_options A string or number determining how long the animation will run.
-     *                                  A function to call once the animation is complete, called once per matched element.
-     *                                  A map of additional options to pass to the method.
+     * @param duration_complete_options _&#x40;param_ `duration_complete_options`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `complete` — A function to call once the animation is complete, called once per matched element. <br>
+     * * `options` — A map of additional options to pass to the method.
      * @see \`{@link https://api.jquery.com/hide/ }\`
      * @since 1.0
      * @example ​ ````Hides all paragraphs then the link on click.
@@ -19514,8 +19554,10 @@ $( "#feeds" ).load( "feeds.php", { limit: 25 }, function() {
      * Load data from the server and place the returned HTML into the matched element.
      *
      * @param url A string containing the URL to which the request is sent.
-     * @param complete_data A callback function that is executed when the request completes.
-     *                      A plain object or string that is sent to the server with the request.
+     * @param complete_data _&#x40;param_ `complete_data`
+     * <br>
+     * * `complete` — A callback function that is executed when the request completes. <br>
+     * * `data` — A plain object or string that is sent to the server with the request.
      * @see \`{@link https://api.jquery.com/load/ }\`
      * @since 1.0
      * @example ​ ````Load another page&#39;s list items into an ordered list.
@@ -20652,8 +20694,10 @@ $( "body" ).off( "click", "p", foo );
      *
      * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as
      *               "click", "keydown.myPlugin", or ".myPlugin".
-     * @param selector_handler A selector which should match the one originally passed to .on() when attaching event handlers.
-     *                         A function to execute each time the event is triggered.
+     * @param selector_handler _&#x40;param_ `selector_handler`
+     * <br>
+     * * `selector` — A selector which should match the one originally passed to `.on()` when attaching event handlers. <br>
+     * * `handler` — A handler function previously attached for the event(s), or the special value `false`.
      * @see \`{@link https://api.jquery.com/off/ }\`
      * @since 1.7
      * @example ​ ````Remove all delegated click handlers from all paragraphs:
@@ -23773,8 +23817,10 @@ $( "input" ).select();
      * Display the matched elements.
      *
      * @param duration A string or number determining how long the animation will run.
-     * @param easing_complete A string indicating which easing function to use for the transition.
-     *                        A function to call once the animation is complete, called once per matched element.
+     * @param easing_complete _&#x40;param_ `easing_complete`
+     * <br>
+     * * `easing` — A string indicating which easing function to use for the transition. <br>
+     * * `complete` — A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/show/ }\`
      * @since 1.0
      * @since 1.4.3
@@ -23881,9 +23927,11 @@ $( "form" ).submit(function( event ) {
     /**
      * Display the matched elements.
      *
-     * @param duration_complete_options A string or number determining how long the animation will run.
-     *                                  A function to call once the animation is complete, called once per matched element.
-     *                                  A map of additional options to pass to the method.
+     * @param duration_complete_options _&#x40;param_ `duration_complete_options`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `complete` — A function to call once the animation is complete, called once per matched element. <br>
+     * * `options` — A map of additional options to pass to the method.
      * @see \`{@link https://api.jquery.com/show/ }\`
      * @since 1.0
      * @example ​ ````Animates all hidden paragraphs to show slowly, completing the animation within 600 milliseconds.
@@ -24116,8 +24164,10 @@ $( "p" ).slice( -1 ).wrapInner( "<b></b>" );
     /**
      * Display the matched elements with a sliding motion.
      *
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
+     * @param duration_easing _&#x40;param_ `duration_easing`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `easing` — A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/slideDown/ }\`
      * @since 1.0
@@ -24182,10 +24232,12 @@ $( "div" ).click(function() {
     /**
      * Display the matched elements with a sliding motion.
      *
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
+     * @param duration_easing_complete_options _&#x40;param_ `duration_easing_complete_options`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `easing` — A string indicating which easing function to use for the transition. <br>
+     * * `complete` — A function to call once the animation is complete, called once per matched element. <br>
+     * * `options` — A map of additional options to pass to the method.
      * @see \`{@link https://api.jquery.com/slideDown/ }\`
      * @since 1.0
      * @since 1.4.3
@@ -24243,8 +24295,10 @@ $( document.body ).click(function () {
     /**
      * Display or hide the matched elements with a sliding motion.
      *
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
+     * @param duration_easing _&#x40;param_ `duration_easing`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `easing` — A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/slideToggle/ }\`
      * @since 1.0
@@ -24312,10 +24366,12 @@ $( "#aa" ).click(function() {
     /**
      * Display or hide the matched elements with a sliding motion.
      *
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
+     * @param duration_easing_complete_options _&#x40;param_ `duration_easing_complete_options`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `easing` — A string indicating which easing function to use for the transition. <br>
+     * * `complete` — A function to call once the animation is complete, called once per matched element. <br>
+     * * `options` — A map of additional options to pass to the method.
      * @see \`{@link https://api.jquery.com/slideToggle/ }\`
      * @since 1.0
      * @since 1.4.3
@@ -24366,8 +24422,10 @@ $( "button" ).click(function() {
     /**
      * Hide the matched elements with a sliding motion.
      *
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
+     * @param duration_easing _&#x40;param_ `duration_easing`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `easing` — A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete, called once per matched element.
      * @see \`{@link https://api.jquery.com/slideUp/ }\`
      * @since 1.0
@@ -24421,10 +24479,12 @@ $( "button" ).click(function() {
     /**
      * Hide the matched elements with a sliding motion.
      *
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
+     * @param duration_easing_complete_options _&#x40;param_ `duration_easing_complete_options`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `easing` — A string indicating which easing function to use for the transition. <br>
+     * * `complete` — A function to call once the animation is complete, called once per matched element. <br>
+     * * `options` — A map of additional options to pass to the method.
      * @see \`{@link https://api.jquery.com/slideUp/ }\`
      * @since 1.0
      * @since 1.4.3
@@ -24797,10 +24857,12 @@ disp( $( "div" ).toArray().reverse() );
     /**
      * Display or hide the matched elements.
      *
-     * @param duration_complete_options_display A string or number determining how long the animation will run.
-     *                                          A function to call once the animation is complete, called once per matched element.
-     *                                          A map of additional options to pass to the method.
-     *                                          Use true to show the element or false to hide it.
+     * @param duration_complete_options_display _&#x40;param_ `duration_complete_options_display`
+     * <br>
+     * * `duration` — A string or number determining how long the animation will run. <br>
+     * * `complete` — A function to call once the animation is complete, called once per matched element. <br>
+     * * `options` — A map of additional options to pass to the method. <br>
+     * * `display` — Use true to show the element or false to hide it.
      * @see \`{@link https://api.jquery.com/toggle/ }\`
      * @since 1.0
      * @since 1.3
