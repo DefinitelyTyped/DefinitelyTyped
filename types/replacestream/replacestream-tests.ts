@@ -1,8 +1,8 @@
 /// <reference types="node"/>
 
-import fs from 'fs';
-import path from 'path';
-import replaceStream from 'replacestream';
+import * as fs from 'fs';
+import * as path from 'path';
+import replaceStream = require('replacestream');
 
 fs.createReadStream(path.join(__dirname, 'happybirthday.txt'))
     .pipe(replaceStream('birthday', 'earthday'))
