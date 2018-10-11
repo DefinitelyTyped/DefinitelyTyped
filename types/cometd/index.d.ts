@@ -211,14 +211,14 @@ export class CometD {
      * @param callback the callback to call when a message is sent to the channel
      * @returns the subscription handle to be passed to `removeListener`
      */
-    addListener(channel: string, callback: Listener): Listener;
+    addListener(channel: string, callback: Listener): SubscriptionHandle;
 
     /**
      * Removes the subscription obtained with a call to `addListener`.
      *
      * @param subscription the subscription to unsubscribe.
      */
-    removeListener(subscription: Listener): void;
+    removeListener(subscription: SubscriptionHandle): void;
 
     /**
      * Removes all listeners registered with `addListener` or `subscribe`.
@@ -472,5 +472,5 @@ export class CometD {
      * @param isListener whether it was a listener
      * @param message the message received from the Bayeux server
      */
-    onListenerException: (exception: any, subscriptionHandle: Listener, isListener: boolean, message: string) => void;
+    onListenerException: (exception: any, subscriptionHandle: SubscriptionHandle, isListener: boolean, message: string) => void;
 }
