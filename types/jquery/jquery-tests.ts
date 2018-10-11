@@ -7901,11 +7901,7 @@ function JQuery_EffectsOptions() {
 }
 
 function JQuery_Easings() {
-    jQuery.easing.easeInCubic = (p: number, t: number, b: number, c: number, d: number) => {
-        return c * (t /= d) * t * t + b;
-    };
-
-    jQuery.easing.easeInCubic = (p: number) => {
+    jQuery.easing.easeInCubic = (p) => {
         return Math.pow(p, 3);
     };
 }
