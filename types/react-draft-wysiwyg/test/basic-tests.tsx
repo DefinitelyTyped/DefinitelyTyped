@@ -6,7 +6,9 @@ import { Editor } from 'react-draft-wysiwyg';
 
 const Basic = () => (<div>
   <Editor
-      ref={(ref: Editor) => {console.log('hey ref', ref.focusEditor()); }}
+      ref={(ref: Editor): void => {
+        console.log('hey ref', ref.focusEditor());
+      }}
   />
 </div>);
 

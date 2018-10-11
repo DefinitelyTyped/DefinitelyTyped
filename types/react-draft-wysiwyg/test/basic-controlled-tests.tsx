@@ -22,7 +22,7 @@ class BasicControlled extends React.Component<{}, {editorState: EditorState}> {
         </div>);
     }
 
-    onEditorStateChange(editorState: EditorState) {
+    onEditorStateChange(editorState: EditorState): void {
         this.setState({editorState});
     }
 }

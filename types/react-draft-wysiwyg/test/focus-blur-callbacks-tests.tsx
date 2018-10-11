@@ -11,14 +11,14 @@ class FocusBlurCallbacks extends React.Component<any, any> {
         };
     }
 
-    onFocus() {
+    onFocus(): void {
         console.log('into onFocus');
         this.setState({
             state: 'focused',
         });
     }
 
-    onBlur() {
+    onBlur(): void {
         console.log('into onBlur');
         this.setState({
             state: 'blurred',

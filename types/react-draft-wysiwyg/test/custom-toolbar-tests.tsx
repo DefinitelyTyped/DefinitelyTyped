@@ -6,7 +6,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import { RichUtils } from 'draft-js';
 
 class CustomOption extends React.Component<any, any> {
-    toggleBold() {
+    toggleBold(): void {
         const {editorState, onChange} = this.props;
         const newState = RichUtils.toggleInlineStyle(
             editorState,
