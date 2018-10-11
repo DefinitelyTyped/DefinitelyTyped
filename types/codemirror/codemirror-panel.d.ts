@@ -16,11 +16,11 @@ declare module "codemirror" {
     }
 
     interface ShowPanelOptions {
-        /**Controls the position of the newly added panel. The following values are recognized:
-         * `top` (default): Adds the panel at the very top.
-         *  `after-top`: Adds the panel at the bottom of the top panels.
-         *  `bottom`: Adds the panel at the very bottom.
-         *  `before-bottom`: Adds the panel at the top of the bottom panels.
+        /**Controls the position of the newly added panel. The following values are recognized:  
+         * `top` (default): Adds the panel at the very top.  
+         *  `after-top`: Adds the panel at the bottom of the top panels.  
+         *  `bottom`: Adds the panel at the very bottom.  
+         *  `before-bottom`: Adds the panel at the top of the bottom panels.  
         */
         position?: "top" | "after-top" | "bottom" | "before-bottom";
         /**The new panel will be added before the given panel. */
