@@ -1,6 +1,6 @@
 // Type definitions for CometD 4.0
 // Project: http://cometd.org
-// Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Daniel Perez Alvarez <https://github.com/unindented>
+// Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Daniel Perez Alvarez <https://github.com/unindented>, Alex Henry <https://github.com/alxHenry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -75,6 +75,15 @@ export interface Message {
 }
 
 export type Listener = (message: Message) => void;
+export type Callback = (data: any) => void;
+
+export interface SubscriptionHandle {
+    id: number;
+    channel: string;
+    listener: boolean;
+    callback: Callback;
+    scope?: Function;
+}
 
 export interface Extension {
     incoming?: Listener;
@@ -234,7 +243,7 @@ export class CometD {
      * @param subscribeCallback a function to be invoked when the subscription is acknowledged
      * @return the subscription handle to be passed to `unsubscribe`
      */
-    subscribe(channel: string, callback: Listener, subscribeCallback?: Listener): Listener;
+    subscribe(channel: string, callback: Callback, subscribeCallback?: Listener): SubscriptionHandle;
 
     /**
      * Subscribes to the given channel, performing the given callback in the given scope when a
@@ -255,7 +264,7 @@ export class CometD {
      * @param subscribeCallback a function to be invoked when the subscription is acknowledged
      * @return the subscription handle to be passed to `unsubscribe`
      */
-    subscribe(channel: string, callback: Listener, subscribeProps: object, subscribeCallback?: Listener): Listener;
+    subscribe(channel: string, callback: Callback, subscribeProps: object, subscribeCallback?: Listener): SubscriptionHandle;
 
     /**
      * Unsubscribes the subscription obtained with a call to `subscribe`.
@@ -263,7 +272,7 @@ export class CometD {
      * @param subscription the subscription to unsubscribe.
      * @param unsubscribeCallback a function to be invoked when the unsubscription is acknowledged
      */
-    unsubscribe(subscription: Listener, unsubscribeCallback?: Listener): void;
+    unsubscribe(subscription: SubscriptionHandle, unsubscribeCallback?: Listener): void;
 
     /**
      * Unsubscribes the subscription obtained with a call to `subscribe`.
@@ -272,12 +281,12 @@ export class CometD {
      * @param unsubscribeProps an object to be merged with the unsubscribe message
      * @param unsubscribeCallback a function to be invoked when the unsubscription is acknowledged
      */
-    unsubscribe(subscription: Listener, unsubscribeProps: object, unsubscribeCallback?: Listener): void;
+    unsubscribe(subscription: SubscriptionHandle, unsubscribeProps: object, unsubscribeCallback?: Listener): void;
 
     /**
      * Resubscribes as necessary in case of a re-handshake.
      */
-    resubscribe(subscription: Listener, subscribeProps?: object): Listener;
+    resubscribe(subscription: SubscriptionHandle, subscribeProps?: object): SubscriptionHandle;
 
     /**
      * Removes all subscriptions added via `subscribe`, but does not remove the listeners added via
