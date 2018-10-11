@@ -180,6 +180,7 @@ $( "input:radio", document.forms[ 0 ] );
 ```javascript
 $( "div", xml.responseXML );
 ```
+​
      */
     // tslint:disable-next-line:no-unnecessary-generics
     <TElement extends Element = HTMLElement>(selector: JQuery.Selector, context?: Element | Document | JQuery): JQuery<TElement>;
