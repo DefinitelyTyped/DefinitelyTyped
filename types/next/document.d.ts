@@ -37,7 +37,7 @@ export interface NextDocumentContext<Q extends DefaultQuery = DefaultQuery> exte
  * https://github.com/zeit/next.js/blob/7.0.0/server/document.js#L16
  */
 export interface DefaultDocumentIProps extends RenderPageResponse {
-    styles?: Array<React.ReactElement<any>>;
+    styles?: React.ReactNode;
 }
 
 /**
@@ -104,5 +104,7 @@ export class NextScript extends React.Component<NextScriptProps> {}
 export default class Document<P = {}> extends React.Component<
     P & DefaultDocumentIProps & DocumentProps
 > {
-    static getInitialProps(context: NextDocumentContext): DefaultDocumentIProps | Promise<DefaultDocumentIProps>;
+    static getInitialProps(
+        context: NextDocumentContext
+    ): DefaultDocumentIProps | Promise<DefaultDocumentIProps>;
 }
