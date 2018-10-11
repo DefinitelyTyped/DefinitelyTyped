@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-type Optional<T> = { [P in keyof T]?: T[P] };
-type HTMLAttributes<K extends keyof React.HTMLAttributes<{}>> = Optional<Pick<React.HTMLAttributes<{}>, K>>
-type InputHTMLAttributes<K extends keyof React.InputHTMLAttributes<{}>> = Optional<Pick<React.InputHTMLAttributes<{}>, K>>
+export type Optional<T> = { [P in keyof T]?: T[P] };
+export type HTMLAttributes<K extends keyof React.HTMLAttributes<{}>> = Optional<Pick<React.HTMLAttributes<{}>, K>>;
+export type InputHTMLAttributes<K extends keyof React.InputHTMLAttributes<{}>> = Optional<Pick<React.InputHTMLAttributes<{}>, K>>;
 
 export class Component<P = {}, S = {}> extends React.Component<HTMLAttributes<'id'> & P, S> {}
 
