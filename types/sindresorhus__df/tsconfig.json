@@ -17,7 +17,7 @@
         "paths": {
             "@sindresorhus/df": [
                 "sindresorhus__df"
-            ],
+            ]
         }
     },
     "files": [
