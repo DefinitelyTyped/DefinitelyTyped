@@ -53,13 +53,15 @@ export namespace formatters {
 
 export function lint(options?: LinterOptions): Promise<LinterResult>;
 
-export type RuleOption = {
-    actual: any;
-    possible?: any;
+export type RuleOption = any;
+
+export type RuleValidationOption = {
+    actual: RuleOption;
+    possible?: RuleOption;
     optional?: false;
 } | {
-    actual?: any;
-    possible: any;
+    actual?: RuleOption;
+    possible: RuleOption;
     optional: true;
 };
 
@@ -76,7 +78,7 @@ export namespace utils {
 
     function ruleMessages(ruleName: string, messages: { [key: string]: any; }): typeof messages;
 
-    function validateOptions(result: LintResult, ruleName: string, ...options: RuleOption[]): boolean;
+    function validateOptions(result: LintResult, ruleName: string, ...options: RuleValidationOption[]): boolean;
 
     function checkAgainstRule(options: { ruleName: string; ruleSettings: any; root: any; }, callback: (warning: string) => void): void;
 }
