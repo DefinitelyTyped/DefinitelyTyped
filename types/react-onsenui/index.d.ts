@@ -8,7 +8,11 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import Component = React.Component;
+
+type Optional<T> = { [P in keyof T]?: T[P] };
+type HTMLAttributes<K extends keyof React.HTMLAttributes<{}>> = Optional<Pick<React.HTMLAttributes<{}>, K>>
+
+export class Component<P = {}, S = {}> extends React.Component<HTMLAttributes<'id'> & P, S> {}
 
 export interface Modifiers_string {
     default?: string;
@@ -448,7 +452,6 @@ export class ListHeader extends Component<{
 }, any> {}
 
 export class ListItem extends Component<{
-    id?: string,
     modifier?: string,
     tappable?: boolean,
     tapBackgroundColor?: string,
