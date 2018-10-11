@@ -7,13 +7,30 @@
 export = apostrophe;
 export as namespace apos;
 
-declare function apostrophe(options: any, ...args: any[]): any;
+declare function apostrophe(
+    options: apostrophe.AposConstructor,
+    ...args: any[]
+): any;
 
 declare namespace apostrophe {
     const moogBundle: {
         directory: string;
         modules: string[];
     };
+
+    // Pass in custom modules as first argument
+    // second argument is additional custom options e.g. restApi exposed by apostrophe-headless
+    interface AposConstructor<M = {}, O = {}> {
+        afterInit?: () => void;
+        afterListen?: () => void;
+        initFailed?: (error: any) => void;
+        baseUrl?: string;
+        modules: { [K in AposCoreModules & M]?: AposModuleOptions | O };
+        prefix?: string;
+        root?: string;
+        rootDir?: string;
+        shortName: string;
+    }
 
     const ui: {
         globalBusy: (state: any) => any;
@@ -297,6 +314,7 @@ declare namespace apostrophe {
             label: string;
             fields: string[];
         }[];
+        beforeConstruct?: (self: any, options: any) => any;
         defer?: boolean;
         filters?: {
             projection?: {
