@@ -82,7 +82,7 @@ export interface SubscriptionHandle {
     channel: string;
     listener: boolean;
     callback: Callback;
-    scope?: Function;
+    scope?: any;
 }
 
 export interface Extension {
