@@ -1,4 +1,4 @@
-// Type definitions for React Onsen UI (react-onsenui) 2.9.4
+// Type definitions for React Onsen UI (react-onsenui) 2.9.5
 // Project: https://onsen.io/v2/docs/guide/react/
 // Definitions by: Ozytis <https://ozytis.fr>,
 //                 Salim <https://github.com/salim7>,
@@ -152,8 +152,8 @@ export class Carousel extends Component<{
     fullscreen?: boolean,
     overscrollable?: boolean,
     centered?: boolean,
-    itemWidth?: number,
-    itemHeight?: number,
+    itemWidth?: number | string,
+    itemHeight?: number | string,
     autoScroll?: boolean,
     autoScrollRatio?: number,
     swipeable?: boolean,
@@ -167,7 +167,7 @@ export class Carousel extends Component<{
 }, any> {}
 
 export class CarouselItem extends Component<{
-    modifier: string
+    modifier?: string
 }, any> {}
 
 /*** AlertDialog ***/
