@@ -3,18 +3,20 @@
 // Definitions by: KnisterPeter <https://github.com/KnisterPeter>
 //                 Lindsey Smith <https://github.com/praxxis>
 //                 Jason Dreyzehner <https://github.com/bitjson>
+//                 Daniel Perez Alvarez <https://github.com/danielpa9708>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 import * as buildOptions from 'minimist-options';
 
-declare function meow(
+declare function meow<O extends meow.Options>(
     helpMessage: string | ReadonlyArray<string>,
-    options: meow.Options
-): meow.Result;
-declare function meow(
-    options: string | ReadonlyArray<string> | meow.Options
-): meow.Result;
+    options: O
+): meow.Result<O>;
+
+declare function meow<O extends meow.Options>(
+    options: string | ReadonlyArray<string> | O
+): meow.Result<O>;
 declare namespace meow {
     interface Options {
         description?: string | boolean;
@@ -33,14 +35,32 @@ declare namespace meow {
         booleanDefault?: boolean | null;
     }
 
-    interface Result {
+    type Result<O extends meow.Options, F = $PropertyType<O, 'flags'>> = {
         input: string[];
-        flags: { [name: string]: any };
+        flags: {
+            [id in keyof F]: F[id] extends GenericOption<infer T>
+                ? MapTypeToRealType<T>
+                : never
+        };
         pkg: any;
         help: string;
         showHelp(code?: number): void;
         showVersion(): void;
+    };
+
+  type GenericOption<T extends buildOptions.Type = any> =
+    | {
+      type: buildOptions.Type;
+      alias?: string | string[];
+      default?: any;
     }
+    | T;
+
+  type MapTypeToRealType<T extends buildOptions.Type> = T extends 'string'
+    ? string
+    : T extends 'boolean' ? boolean : never;
+
+  type $PropertyType<T extends object, K extends keyof T> = T[K]; // from utility-types
 }
 
 export = meow;
