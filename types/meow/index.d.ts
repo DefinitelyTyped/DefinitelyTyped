@@ -35,7 +35,7 @@ declare namespace meow {
         booleanDefault?: boolean | null;
     }
 
-    interface Result<O extends meow.Options, F = $PropertyType<O, 'flags'>> {
+    interface Result<O extends Options, F = $PropertyType<O, 'flags'>> {
         input: string[];
         flags: {
             [id in keyof F]: F[id] extends GenericOption<infer T>
@@ -46,15 +46,15 @@ declare namespace meow {
         help: string;
         showHelp(code?: number): void;
         showVersion(): void;
-    };
-
-  type GenericOption<T extends buildOptions.Type> =
-    | {
-      type: buildOptions.Type;
-      alias?: string | string[];
-      default?: any;
     }
-    | T;
+
+    type GenericOption<T extends buildOptions.Type> =
+      | {
+        type: buildOptions.Type;
+        alias?: string | string[];
+        default?: any;
+      }
+      | T;
 
   type MapTypeToRealType<T extends buildOptions.Type> = T extends 'string'
     ? string
