@@ -443,7 +443,7 @@ export interface IndexDocumentParams<T> extends GenericParams {
     waitForActiveShards?: string;
     opType?: "index" | "create";
     parent?: string;
-    refresh?: string;
+    refresh?: Refresh;
     routing?: string;
     timeout?: TimeSpan;
     timestamp?: Date | number;
