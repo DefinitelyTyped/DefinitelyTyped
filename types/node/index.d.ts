@@ -1169,8 +1169,8 @@ declare module "http" {
     class Server extends net.Server {
         constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
 
-        setTimeout(msecs?: number, callback?: () => void): this;
-        setTimeout(callback: () => void): this;
+        setTimeout(msecs?: number, callback?: (socket: net.Socket) => void): this;
+        setTimeout(callback: (socket: net.Socket) => void): this;
         maxHeadersCount: number;
         timeout: number;
         keepAliveTimeout: number;
@@ -1942,8 +1942,8 @@ declare module "https" {
     }
 
     class Server extends tls.Server {
-        setTimeout(callback: () => void): this;
-        setTimeout(msecs?: number, callback?: () => void): this;
+        setTimeout(callback: (socket: net.Socket) => void): this;
+        setTimeout(msecs?: number, callback?: (socket: net.Socket) => void): this;
         timeout: number;
         keepAliveTimeout: number;
     }
