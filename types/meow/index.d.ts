@@ -5,7 +5,7 @@
 //                 Jason Dreyzehner <https://github.com/bitjson>
 //                 Daniel Perez Alvarez <https://github.com/danielpa9708>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
 
 import * as buildOptions from 'minimist-options';
 
@@ -35,7 +35,7 @@ declare namespace meow {
         booleanDefault?: boolean | null;
     }
 
-    type Result<O extends meow.Options, F = $PropertyType<O, 'flags'>> = {
+    interface Result<O extends meow.Options, F = $PropertyType<O, 'flags'>> {
         input: string[];
         flags: {
             [id in keyof F]: F[id] extends GenericOption<infer T>
@@ -48,7 +48,7 @@ declare namespace meow {
         showVersion(): void;
     };
 
-  type GenericOption<T extends buildOptions.Type = any> =
+  type GenericOption<T extends buildOptions.Type> =
     | {
       type: buildOptions.Type;
       alias?: string | string[];
