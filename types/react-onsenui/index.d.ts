@@ -11,6 +11,7 @@ import * as React from 'react';
 
 type Optional<T> = { [P in keyof T]?: T[P] };
 type HTMLAttributes<K extends keyof React.HTMLAttributes<{}>> = Optional<Pick<React.HTMLAttributes<{}>, K>>
+type InputHTMLAttributes<K extends keyof React.InputHTMLAttributes<{}>> = Optional<Pick<React.InputHTMLAttributes<{}>, K>>
 
 export class Component<P = {}, S = {}> extends React.Component<HTMLAttributes<'id'> & P, S> {}
 
@@ -311,7 +312,7 @@ export class Button extends Component<{
     onClick?(e?: React.MouseEvent<HTMLElement>): void
 }, any> {}
 
-export class Input extends Component<{
+export class Input extends Component<InputHTMLAttributes<'min' | 'max' | 'step'> & {
     modifier?: string,
     disabled?: boolean,
     readOnly?: boolean,
