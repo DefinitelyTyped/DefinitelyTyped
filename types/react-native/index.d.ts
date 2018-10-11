@@ -1844,7 +1844,35 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
      * label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
      */
     accessibilityLabel?: string;
+
+    /**
+     * Accessibility Role tells a person using either VoiceOver on iOS or TalkBack on Android the type of element that is focused on.
+     */
+    accessibilityRole?: AccessibilityRole;
+    /**
+     * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
+     */
+    accessibilityStates?: "selected" | "disabled";
+
+    /**
+     * An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.
+     */
+    accessibilityHint?: string;
 }
+
+export type AccessibilityRole =
+    | "none"
+    | "button"
+    | "link"
+    | "search"
+    | "image"
+    | "keyboardkey"
+    | "text"
+    | "adjustable"
+    | "header"
+    | "summary"
+    | "imagebutton";
+
 
 export interface AccessibilityPropsAndroid {
     /**
@@ -1904,6 +1932,12 @@ export interface AccessibilityPropsIOS {
      * @platform ios
      */
     onMagicTap?: () => void;
+
+    /**
+     * https://facebook.github.io/react-native/docs/accessibility#accessibilityignoresinvertcolorsios
+     * @platform ios
+     */
+    accessibilityIgnoresInvertColors?: boolean;
 }
 
 type AccessibilityTrait =
