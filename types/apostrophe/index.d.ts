@@ -21,8 +21,15 @@ declare namespace apostrophe {
     // Pass in custom modules as first argument
     // second argument is additional custom options e.g. restApi exposed by apostrophe-headless
     interface AposConstructor<M = {}, O = {}> {
-        shortName: string;
+        afterInit?: () => void;
+        afterListen?: () => void;
+        initFailed?: (error: any) => void;
+        baseUrl?: string;
         modules: { [K in AposCoreModules & M]?: AposModuleOptions | O };
+        prefix?: string;
+        root?: string;
+        rootDir?: string;
+        shortName: string;
     }
 
     const ui: {
