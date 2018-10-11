@@ -1,14 +1,13 @@
 import df from '@sindresorhus/df';
 
 (async () => {
-
     const disks  = await df();
     disks.forEach(disk => {
         const {filesystem, size, used, available, capacity, mountpoint} = disk;
         return {
             filesystem, size, used, available, capacity, mountpoint
-        }
-    })
+        };
+    });
 	/*
 	[{
 		filesystem: '/dev/disk1',
