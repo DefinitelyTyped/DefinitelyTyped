@@ -4,7 +4,7 @@
 //                 Stephen Traiforos <https://github.com/straiforos>
 //                 Rosana Ruiz <https://github.com/totemika>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 /**
  * The JS Buy SDK is a lightweight library that allows you to build ecommerce into any website.

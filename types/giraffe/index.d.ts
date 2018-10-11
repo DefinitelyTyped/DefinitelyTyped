@@ -2,7 +2,7 @@
 // Project: https://github.com/barc/backbone.giraffe
 // Definitions by: Matt McCray <https://github.com/darthapo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="backbone" />
 /// <reference types="jquery" />

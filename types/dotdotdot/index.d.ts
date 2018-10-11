@@ -2,7 +2,7 @@
 // Project: http://dotdotdot.frebsite.nl/
 // Definitions by: Milan Jaros <https://github.com/milanjaros>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 interface JQuery {
     /**

@@ -4,7 +4,7 @@
 //                 Ivan Matiishyn <https://github.com/matiishyn>
 //                 Mike Haas <https://github.com/mikehaas763>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as angular from 'angular';
 

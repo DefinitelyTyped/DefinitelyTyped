@@ -2,7 +2,7 @@
 // Project: http://qtip2.com/
 // Definitions by: Nathan Pitman <https://github.com/Seltzer>, Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 // Notes:
 //   - Type bindings for the QTip2 API and options are included. Bindings for global settings aren't required.
 //   - Deprecated functionality is not supported.

@@ -6,7 +6,9 @@
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 //                 Steffen Kowalski <https://github.com/scipper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
+
+// NOTE: @types/angular only requires TypeScript 2.8 for testing merging with @types/jquery. Its declarations only require TypeScript 2.3.
 
 /// <reference path="jqlite.d.ts" />
 

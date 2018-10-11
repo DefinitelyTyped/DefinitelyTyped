@@ -2,10 +2,12 @@
 // Project: https://github.com/velesin/jasmine-jquery
 // Definitions by: Gregor Stamac <https://github.com/gstamac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jasmine"/>
 /// <reference types="jquery"/>
+
+declare function expect<T extends JQuery<Element>>(actual: T): jasmine.Matchers<T>;
 
 declare function sandbox(attributes?: any): string;
 
@@ -241,7 +243,7 @@ declare namespace jasmine {
          * // returns true
          * expect($('<div><span class="some-class"></span></div>')).toContain('some-class')
          */
-        toContain(selector: any): boolean;
+        toContain(selector: string): boolean;
 
         /**
          * Check if DOM element exists inside the given parent element.

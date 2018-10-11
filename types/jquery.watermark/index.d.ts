@@ -2,7 +2,7 @@
 // Project: http://jquery-watermark.googlecode.com
 // Definitions by: Anwar Javed <https://github.com/anwarjaved>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 
 /// <reference types="jquery"/>

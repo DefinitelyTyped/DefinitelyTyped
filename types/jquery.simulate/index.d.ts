@@ -2,7 +2,7 @@
 // Project: https://github.com/jquery/jquery-simulate
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery"/>
 

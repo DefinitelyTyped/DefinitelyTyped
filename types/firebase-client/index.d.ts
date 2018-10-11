@@ -2,7 +2,7 @@
 // Project: https://www.github.com/jpstevens/firebase-client
 // Definitions by: Andrew Breen <https://github.com/fpsscarecrow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Q from "q";
 

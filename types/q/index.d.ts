@@ -6,7 +6,7 @@
 //                 Michel Boudreau <https://github.com/mboudreau>
 //                 TeamworkGuy2 <https://github.com/TeamworkGuy2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export = Q;
 export as namespace Q;

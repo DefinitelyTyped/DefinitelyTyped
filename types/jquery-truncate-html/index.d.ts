@@ -2,7 +2,7 @@
 // Project: https://github.com/kbwood/timeentry
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery"/>
 

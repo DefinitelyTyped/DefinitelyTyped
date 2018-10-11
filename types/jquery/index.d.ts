@@ -23,7 +23,7 @@
 //                 Thomas Schulz <https://github.com/King2500>
 //                 Terry Mun <https://github.com/terrymun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // tslint:disable:jsdoc-format
 // tslint:disable:max-line-length
@@ -119,17 +119,13 @@ $.when(
     /**
      * Creates DOM elements on the fly from the provided string of raw HTML.
      *
-     * @param html A string of HTML to create on the fly. Note that this parses HTML, not XML.
-     *             A string defining a single, standalone, HTML element (e.g. <div/> or <div></div>).
+     * @param html A string of HTML to create on the fly. Note that this parses HTML, **not** XML.
+     *             A string defining a single, standalone, HTML element (e.g. &lt;div/&gt; or &lt;div&gt;&lt;/div&gt;).
      * @param ownerDocument_attributes A document in which the new elements will be created.
      *                                 An object of attributes, events, and methods to call on the newly-created element.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
      * @since 1.4
-     * @example ​ ````Create a div element (and all of its contents) dynamically and append it to the body element. Internally, an element is created and its innerHTML property set to the given markup.
-```javascript
-$( "<div><p>Hello</p></div>" ).appendTo( "body" )
-```
      * @example ​ ````Create some DOM elements.
 ```javascript
 $( "<div/>", {
@@ -143,7 +139,7 @@ $( "<div/>", {
 ```
      */
     // tslint:disable-next-line:no-unnecessary-generics
-    <TElement extends HTMLElement = HTMLElement>(html: JQuery.htmlString, ownerDocument_attributes?: Document | JQuery.PlainObject): JQuery<TElement>;
+    <TElement extends HTMLElement = HTMLElement>(html: JQuery.htmlString, ownerDocument_attributes: Document | JQuery.PlainObject): JQuery<TElement>;
     /**
      * Accepts a string containing a CSS selector which is then used to match a set of elements.
      *
@@ -151,27 +147,6 @@ $( "<div/>", {
      * @param context A DOM Element, Document, or jQuery to use as context
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
-     * @example ​ ````Find all p elements that are children of a div element and apply a border to them.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery demo</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p>one</p>
-<div><p>two</p></div>
-<p>three</p>
-​
-<script>
-$( "div > p" ).css( "border", "1px solid gray" );
-</script>
-</body>
-</html>
-```
      * @example ​ ````Find all inputs of type radio within the first form in the document.
 ```javascript
 $( "input:radio", document.forms[ 0 ] );
@@ -182,46 +157,7 @@ $( "div", xml.responseXML );
 ```
      */
     // tslint:disable-next-line:no-unnecessary-generics
-    <TElement extends Element = HTMLElement>(selector: JQuery.Selector, context?: Element | Document | JQuery): JQuery<TElement>;
-    /**
-     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
-     * by passing an HTML string.
-     *
-     * @param element A DOM element to wrap in a jQuery object.
-     * @see \`{@link https://api.jquery.com/jQuery/ }\`
-     * @since 1.0
-     * @example ​ ````Set the background color of the page to black.
-```javascript
-$( document.body ).css( "background", "black" );
-```
-     */
-    // Using a unified signature is not possible due to a TypeScript 2.4 bug (DefinitelyTyped#27810)
-    // tslint:disable-next-line:unified-signatures
-    <T extends Element>(element: T): JQuery<T>;
-    /**
-     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
-     * by passing an HTML string.
-     *
-     * @param elementArray An array containing a set of DOM elements to wrap in a jQuery object.
-     * @see \`{@link https://api.jquery.com/jQuery/ }\`
-     * @since 1.0
-     * @example ​ ````Hide all the input elements within a form.
-```javascript
-$( myForm.elements ).hide();
-```
-     */
-    // Using a unified signature is not possible due to a TypeScript 2.4 bug (DefinitelyTyped#27810)
-    // tslint:disable-next-line:unified-signatures
-    <T extends Element>(elementArray: T[]): JQuery<T>;
-    /**
-     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
-     * by passing an HTML string.
-     *
-     * @param selection An existing jQuery object to clone.
-     * @see \`{@link https://api.jquery.com/jQuery/ }\`
-     * @since 1.0
-     */
-    <T>(selection: JQuery<T>): JQuery<T>;
+    <TElement extends Element = HTMLElement>(selector: JQuery.Selector, context: Element | Document | JQuery): JQuery<TElement>;
     /**
      * Binds a function to be executed when the DOM has finished loading.
      *
@@ -244,13 +180,64 @@ jQuery(function( $ ) {
     // tslint:disable-next-line:no-unnecessary-generics unified-signatures
     <TElement = HTMLElement>(callback: ((this: Document, $: JQueryStatic) => void)): JQuery<TElement>;
     /**
-     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
+     * Creates DOM elements on the fly from the provided string of raw HTML.
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
      *
-     * @param object A plain object to wrap in a jQuery object.
+     * @param html_selector_element_elementArray_object_selection A string of HTML to create on the fly. Note that this parses HTML, **not** XML.
+     *                                                            A string containing a selector expression
+     *                                                            A DOM element to wrap in a jQuery object.
+     *                                                            An array containing a set of DOM elements to wrap in a jQuery object.
+     *                                                            A plain object to wrap in a jQuery object.
+     *                                                            An existing jQuery object to clone.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
+     * @example ​ ````Create a div element (and all of its contents) dynamically and append it to the body element. Internally, an element is created and its innerHTML property set to the given markup.
+```javascript
+$( "<div><p>Hello</p></div>" ).appendTo( "body" )
+```
+     * @example ​ ````Find all p elements that are children of a div element and apply a border to them.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<p>one</p>
+<div><p>two</p></div>
+<p>three</p>
+​
+<script>
+$( "div > p" ).css( "border", "1px solid gray" );
+</script>
+</body>
+</html>
+```
+     * @example ​ ````Set the background color of the page to black.
+```javascript
+$( document.body ).css( "background", "black" );
+```
+     * @example ​ ````Hide all the input elements within a form.
+```javascript
+$( myForm.elements ).hide();
+```
      */
-    <T extends JQuery.PlainObject>(object: T): JQuery<T>;
+    // tslint:disable-next-line:no-unnecessary-generics
+    <TDeclared = JQuery._Unknown,
+    T extends JQuery.htmlString | JQuery.Selector | Element[] | JQuery<any> | Element | JQuery.PlainObject =
+              JQuery.htmlString | JQuery.Selector | Element[] | JQuery<any> | Element | JQuery.PlainObject,
+    TReturn =
+        TDeclared extends JQuery._Unknown ?
+            T extends JQuery.htmlString ? HTMLElement :
+            T extends JQuery.Selector ? Element :
+            T extends Element[] | JQuery<any> ? T[number] :
+            T extends Element | JQuery.PlainObject ? T :
+            never :
+        // tslint:disable-next-line:no-unnecessary-generics
+        TDeclared>(html_selector_element_elementArray_object_selection: T): JQuery<TReturn>;
     /**
      * Returns an empty jQuery set.
      *
@@ -30939,6 +30926,10 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
     interface ValHook<TElement> {
         get?(elem: TElement): any;
         set?(elem: TElement, value: any): any;
+    }
+
+    interface _Unknown {
+        __unknown: never;
     }
 }
 

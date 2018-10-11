@@ -2,7 +2,7 @@
 // Project: https://github.com/travist/seamless.js
 // Definitions by: Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 

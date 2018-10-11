@@ -2,7 +2,7 @@
 // Project: https://github.com/omichelsen/angular-clipboard
 // Definitions by: Bradford Wagner <https://github.com/bradfordwagner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /**
  * Definition of the Clipboard Service

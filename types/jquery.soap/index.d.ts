@@ -2,7 +2,7 @@
 // Project: https://github.com/doedje/jquery.soap
 // Definitions by: Roland Greim <https://github.com/tigerxy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery"/>
 

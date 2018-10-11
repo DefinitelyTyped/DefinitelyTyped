@@ -2,7 +2,7 @@
 // Project: https://github.com/niqdev/angular-q-extras
 // Definitions by: Damien Sorel <https://github.com/mistic100>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare var _: string;
 export = _;

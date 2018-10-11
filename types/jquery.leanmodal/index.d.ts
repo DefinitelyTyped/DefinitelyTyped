@@ -2,7 +2,7 @@
 // Project: http://leanmodal.finelysliced.com.au/
 // Definitions by: FinelySliced <https://github.com/FinelySliced>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 ///<reference types="jquery" />
 

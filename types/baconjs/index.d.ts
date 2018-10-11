@@ -2,7 +2,7 @@
 // Project: https://baconjs.github.io/
 // Definitions by: Alexander Matsievsky <https://github.com/alexander-matsievsky>, Joonas Javanainen <https://github.com/gekkio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 /// <reference types="node" />

@@ -4,7 +4,7 @@
 //                  Ryan Southgate <https://github.com/ry8806>
 //                  Alfie Johnson <https://github.com/alfiej>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="angular" />
 

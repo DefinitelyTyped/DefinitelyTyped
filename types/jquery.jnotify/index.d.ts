@@ -2,7 +2,7 @@
 // Project: http://jnotify.codeplex.com
 // Definitions by: James Curran <https://github.com/jamescurran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 // Project by: Fabio Franzini
 
 /// <reference types="jquery"/>

@@ -3,7 +3,7 @@
 // Definitions by: Jonathan Park <https://github.com/park9140>
 //                 George Kalpakas <https://github.com/gkalpak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare var _: string;
 export = _;

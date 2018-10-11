@@ -2,7 +2,7 @@
 // Project: http://backgridjs.com/
 // Definitions by: Jeremy Lujan <https://github.com/jlujan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Backbone from 'backbone';
 

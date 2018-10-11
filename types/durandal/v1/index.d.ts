@@ -2,7 +2,7 @@
 // Project: http://durandaljs.com
 // Definitions by: Evan Larsen <http://nouvosoft.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 /// <reference types="knockout" />

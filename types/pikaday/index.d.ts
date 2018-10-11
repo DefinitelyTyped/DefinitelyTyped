@@ -4,7 +4,7 @@
 //                 Åke Wivänge <https://github.com/wake42>
 //                 Istvan Mezo <https://github.com/mezoistvan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as moment from 'moment';
 

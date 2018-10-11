@@ -2,7 +2,7 @@
 // Project: https://github.com/invertase/angular-toasty
 // Definitions by: Dominik Muench <https://github.com/muenchdo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="angular" />
 

@@ -174,6 +174,13 @@ function JQueryStatic() {
             // $ExpectType JQuery<Window>
             myWindowForced;
         }
+
+        function issue_29312() {
+            const selector: string | HTMLParagraphElement | SVGElement[] | JQuery | JQuery.PlainObject = {} as any;
+
+            // $ExpectType JQuery<HTMLElement | PlainObject<any> | HTMLParagraphElement | SVGElement>
+            $(selector);
+        }
     }
 
     function ajax() {

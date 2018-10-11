@@ -3,7 +3,7 @@
 // Definitions by: John Reilly <https://github.com/johnnyreilly>,
 //   Eduardo Garcia <https://github.com/thewarpaint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="angular" />
 import * as angular from 'angular';

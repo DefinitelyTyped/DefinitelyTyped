@@ -2,7 +2,7 @@
 // Project: https://github.com/jmsanpascual/angular-desktop-notification#readme
 // Definitions by: Davide Donadello <https://github.com/Dona278>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as angular from 'angular';
 

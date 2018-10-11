@@ -2,7 +2,7 @@
 // Project: http://jqueryvalidation.org/
 // Definitions by: François de Campredon <https://github.com/fdecampredon>, John Reilly <https://github.com/johnnyreilly>, Anže Videnič <https://github.com/avidenic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery"/>
 

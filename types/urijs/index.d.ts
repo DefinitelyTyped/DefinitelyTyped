@@ -2,7 +2,7 @@
 // Project: https://github.com/medialize/URI.js
 // Definitions by: RodneyJT <https://github.com/RodneyJT>, Brian Surowiec <https://github.com/xt0rted>, Pete Johanson <https://github.com/petejohanson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jquery" />
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/mbenford/ngTagsInput
 // Definitions by: George Pap <https://github.com/GiorgosPap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as angular from 'angular';
 
