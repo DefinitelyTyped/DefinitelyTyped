@@ -5214,12 +5214,12 @@ interface SubscribableMixin {
 
 // @see https://github.com/facebook/react-native/blob/0.34-stable\Libraries\StyleSheet\StyleSheetTypes.js
 export namespace StyleSheet {
-    type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle };
+    type NamedStyles = { [key: string]: ViewStyle | TextStyle | ImageStyle };
 
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T extends NamedStyles<T>>(styles: T): { [P in keyof T]: RegisteredStyle<T[P]> };
+    export function create<T extends NamedStyles>(styles: T): { [P in keyof T]: RegisteredStyle<T[P]> };
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
