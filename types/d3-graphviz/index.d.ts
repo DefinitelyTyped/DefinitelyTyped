@@ -49,7 +49,7 @@ declare module 'd3-graphviz' {
         scale(scale: number): Graphviz;
 
         //Control Flow
-        on(typenames: string, callback?: () => void): any;
+        on(typenames: TypeNames, callback?: () => void): any;
         logEvents(enable: boolean): Graphviz;
 
         //Controlling Fade
@@ -104,6 +104,11 @@ declare module 'd3-graphviz' {
     }
 
     type Engine = 'circo' | 'dot' | 'fdp' | 'neato' | 'osage' | 'patchwork' | 'twopi';
+
+    type TypeNames = 'initEnd' | 'start' | 'layoutStart' | 'layoutEnd' | 'dataExtractEnd' | 
+                        'dataProcessPass1End' | 'dataProcessPass2End' | 'dataProcessEnd' | 
+                        'renderStart' | 'renderEnd' | 'transitionStart' | 'transitionEnd' |
+                        'resotreEnd' | 'end';
     
     export interface GraphvizOptions {
         useWorker?: boolean,
