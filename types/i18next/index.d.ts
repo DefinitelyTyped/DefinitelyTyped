@@ -466,6 +466,17 @@ declare namespace i18next {
         [key: string]: any;
     }
 
+    interface Services {
+      backendConnector: any;
+      i18nFormat: any;
+      interpolator: any;
+      languageDetector: any;
+      languageUtils: any;
+      logger: any;
+      pluralResolver: any;
+      resourceStore: Resource;
+    }
+
     interface i18n {
         /**
          * The default export of the i18next module is an i18next instance ready to be initialized by calling init.
@@ -484,6 +495,11 @@ declare namespace i18next {
          * For available module see the plugins page and don't forget to read the documentation of the plugin.
          */
         use(module: any): i18n;
+
+        /**
+         * Internal container for all used plugins and implmentation details like languageUtils, pluralResolvers, etc.
+         */
+        services: Services;
 
         /**
          * Please have a look at the translation functions like interpolation, formatting and plurals for more details on using it.
