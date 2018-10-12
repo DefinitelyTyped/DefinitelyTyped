@@ -11,7 +11,8 @@ import {
     loadNamespaces,
     Trans,
     I18n,
-    ReactI18NextOptions
+    ReactI18NextOptions,
+    NamespacesConsumer
 } from 'react-i18next';
 import { InjectedI18nProps } from 'react-i18next/src/props';
 
@@ -189,6 +190,14 @@ interface CustomTranslateFunctionProps {
 <I18n>
     {t => '123'}
 </I18n>;
+
+<NamespacesConsumer
+    ns={['translations']}
+>
+    {
+        t => <div>{t('test')}</div>
+    }
+</NamespacesConsumer>;
 
 const defaults: ReactI18NextOptions = {
     wait: true,
