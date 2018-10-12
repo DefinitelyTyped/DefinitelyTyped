@@ -75,7 +75,7 @@ declare module 'd3-graphviz' {
         resetZoom(transition?: any): any;
 
         //Maintaining Object Constancy
-        keyMode(keyMode: string): Graphviz; //keyMode should be an enum
+        keyMode(keyMode: KeyMode): Graphviz; //keyMode should be an enum
 
         //Customizing Graph Attributes
         attributer(callback: Function | null): Graphviz;
@@ -109,12 +109,14 @@ declare module 'd3-graphviz' {
                         'dataProcessPass1End' | 'dataProcessPass2End' | 'dataProcessEnd' | 
                         'renderStart' | 'renderEnd' | 'transitionStart' | 'transitionEnd' |
                         'resotreEnd' | 'end';
+
+    type KeyMode = 'title' | 'id' | 'tag-index' | 'index';
     
     export interface GraphvizOptions {
         useWorker?: boolean,
         engine?: Engine,
         totalMemory?: number,
-        keyMode?: string,
+        keyMode?: KeyMode,
         fade?: boolean,
         tweenPaths?: boolean,
         tweenShapes?: boolean,
