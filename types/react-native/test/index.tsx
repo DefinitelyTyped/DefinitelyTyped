@@ -744,8 +744,16 @@ class AccessibilityTest extends React.Component {
                 importantForAccessibility={"no-hide-descendants"}
                 accessibilityTraits={'none'}
                 onAccessibilityTap={() => {}}
+                accessibilityRole="header"
+                accessibilityStates="selected"
+                accessibilityHint="Very importent header"
             >
-                <Text accessibilityTraits={['key', 'text']}>Text</Text>
+                <Text
+                    accessibilityTraits={['key', 'text']}
+                    accessibilityIgnoresInvertColors
+                >
+                    Text
+                </Text>
                 <View />
             </View>
         );
