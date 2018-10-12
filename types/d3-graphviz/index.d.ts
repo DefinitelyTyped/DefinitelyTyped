@@ -1,7 +1,10 @@
+import { IEdgeOptions, IGraphviz, INodeOptions } from './index.d';
 // Type definitions for d3-graphviz 2.6
 // Project: https://github.com/magjac/d3-graphviz
 // Definitions by: Dom Parfitt <https://github.com/DomParfitt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+import { ZoomBehavior } from 'd3-zoom'
 
 /**
  * 
@@ -30,9 +33,28 @@ export interface IGraphvizOptions {
     fit?: boolean,
 }
 
+export interface IEdgeAttributes {
+    style: any;
+    URL: any;
+    tooltip: any;
+}
+
+export interface IEdgeOptions {
+    shortening: number;
+}
+
+export interface INodeAttributes {
+    URL: any;
+    tooltip: any;
+}
+
+export interface INodeOptions {
+
+}
+
 export interface IGraphviz {
     engine(engine: string): IGraphviz;
-    addImage(path: any, width: any, height: any): any;
+    addImage(path: string, width: number, height: number): IGraphviz;
     totalMemory(size: number): IGraphviz;
     keyMode(keyMode: any): any;
     fade(enable: boolean): IGraphviz;
@@ -43,11 +65,11 @@ export interface IGraphviz {
     growEnteringEdges(enable: boolean): IGraphviz;
     zoom(enable: boolean): IGraphviz;
     resetZoom(transition: any): any;
-    zoomBehavior(): any;
-    zoomSelection(): any;
+    zoomBehavior(): ZoomBehavior<any, any> | null;
+    zoomSelection(): any | null;
     zoomScaleExtent(extent: number[]): IGraphviz;
     zoomTranslateExtent(extent: number[][]): IGraphviz;
-    render(callback: any): IGraphviz;
+    render(callback: Function): IGraphviz;
     dot: any;
     data(): any;
     renderDot(src: string, callback: any): any;
@@ -62,7 +84,16 @@ export interface IGraphviz {
     on(typenames: string, callback: () => void): any;
     onerror: any;
     logEvents(enable: boolean): IGraphviz;
-    drawEdge: any;
-    updateDrawnEdge(x1: any, x2: any, y1: any, y2: any, attributes?: any, options?: any): any;
-
+    drawEdge(x1: number, x2: number, y1: number, y2: number, attributes?: IEdgeAttributes, options?: IEdgeOptions): IGraphviz;
+    updateDrawnEdge(x1: number, x2: number, y1: number, y2: number, attributes?: IEdgeAttributes, options?: IEdgeOptions): IGraphviz;
+    moveDrawnEdgeEndPoint(x2: number, y2: number, options?: IEdgeOptions): IGraphviz;
+    insertDrawnEdge: any;
+    removeDrawnEdge: any;
+    drawnEdgeSelection(): any;
+    drawNode(x: number, y: number, nodeId: string, attributes?: INodeAttributes, options?: INodeOptions): IGraphviz;
+    updateDrawnNode(x: number, y: number, nodeId: string, attributes?: INodeAttributes, options?: INodeOptions): IGraphviz;
+    moveDrawnNode(x: number, y: number, options?: INodeOptions): IGraphviz;
+    inserDrawnNode: any;
+    removeDrawnNode: any;
+    drawnNodeSelection(): any;
 }
