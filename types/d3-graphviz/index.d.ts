@@ -2,6 +2,7 @@
 // Project: https://github.com/magjac/d3-graphviz
 // Definitions by: Dom Parfitt <https://github.com/DomParfitt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { ZoomBehavior } from 'd3-zoom'
 import { Selection } from 'd3-selection'
