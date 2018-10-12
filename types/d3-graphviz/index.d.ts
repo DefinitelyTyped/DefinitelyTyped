@@ -11,7 +11,7 @@ declare module 'd3-graphviz' {
 
     module 'd3-selection' {
         interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
-            graphviz(options?: IGraphvizOptions | boolean): IGraphviz;
+            graphviz(options?: GraphvizOptions | boolean): Graphviz;
             selectWithoutDataPropagation(): Selection<GElement, Datum, PElement, PDatum>;
         }
     }
@@ -21,9 +21,9 @@ declare module 'd3-graphviz' {
      * @param selector 
      * @param options 
      */
-    export function graphviz(selector: string, options?: IGraphvizOptions | boolean): IGraphviz;
+    export function graphviz(selector: string, options?: GraphvizOptions | boolean): Graphviz;
 
-    export interface IGraphvizOptions {
+    export interface GraphvizOptions {
         useWorker?: boolean,
         engine?: string,
         totalMemory?: number,
@@ -43,64 +43,64 @@ declare module 'd3-graphviz' {
         fit?: boolean,
     }
 
-    export interface IDotAttributes {
+    export interface DotAttributes {
         style: any;
         URL: any;
         tooltip: any;
     }
 
-    export interface IEdgeOptions {
+    export interface EdgeOptions {
         shortening: number;
     }
 
-    export interface INodeOptions {
+    export interface NodeOptions {
 
     }
 
-    export interface IGraphviz {
-        engine(engine: string): IGraphviz; //engine should be an enum
-        addImage(path: string, width: number, height: number): IGraphviz; //Width & height can be strings, i.e. '100px'
-        totalMemory(size: number): IGraphviz;
-        keyMode(keyMode: string): IGraphviz; //keyMode should be an enum
-        fade(enable: boolean): IGraphviz;
-        tweenPaths(enable: boolean): IGraphviz;
-        tweenShapes(enable: boolean): IGraphviz;
-        convertEqualSidedPolygons(enable: boolean): IGraphviz;
-        tweenPrecision(precision: number): IGraphviz; //precision can be a string, i.e. '50%'
-        growEnteringEdges(enable: boolean): IGraphviz;
-        zoom(enable: boolean): IGraphviz;
+    export interface Graphviz {
+        engine(engine: string): Graphviz; //engine should be an enum
+        addImage(path: string, width: number, height: number): Graphviz; //Width & height can be strings, i.e. '100px'
+        totalMemory(size: number): Graphviz;
+        keyMode(keyMode: string): Graphviz; //keyMode should be an enum
+        fade(enable: boolean): Graphviz;
+        tweenPaths(enable: boolean): Graphviz;
+        tweenShapes(enable: boolean): Graphviz;
+        convertEqualSidedPolygons(enable: boolean): Graphviz;
+        tweenPrecision(precision: number): Graphviz; //precision can be a string, i.e. '50%'
+        growEnteringEdges(enable: boolean): Graphviz;
+        zoom(enable: boolean): Graphviz;
         resetZoom(transition?: any): any;
         zoomBehavior(): ZoomBehavior<any, any> | null;
         zoomSelection(): any | null;
-        zoomScaleExtent(extent?: number[]): IGraphviz;
-        zoomTranslateExtent(extent?: number[][]): IGraphviz;
-        render(callback?: Function): IGraphviz;
-        dot(src: any, callback?: () => void): IGraphviz;
+        zoomScaleExtent(extent?: number[]): Graphviz;
+        zoomTranslateExtent(extent?: number[][]): Graphviz;
+        render(callback?: Function): Graphviz;
+        dot(src: any, callback?: () => void): Graphviz;
         data(): any;
-        renderDot(src: string, callback?: any): IGraphviz;
-        transition(name: any): IGraphviz;
+        renderDot(src: string, callback?: any): Graphviz;
+        transition(name: any): Graphviz;
         active(name?: any): any; //Returns a transition, what type?
-        options(): IGraphvizOptions;
-        options(options: IGraphvizOptions): IGraphviz;
-        width(width: number): IGraphviz;
-        height(height: number): IGraphviz;
-        scale(scale: number): IGraphviz;
-        fit(fit: boolean): IGraphviz;
-        attributer(callback: Function | null): IGraphviz;
+        options(): GraphvizOptions;
+        options(options: GraphvizOptions): Graphviz;
+        width(width: number): Graphviz;
+        height(height: number): Graphviz;
+        scale(scale: number): Graphviz;
+        fit(fit: boolean): Graphviz;
+        attributer(callback: Function | null): Graphviz;
         on(typenames: string, callback?: () => void): any;
         onerror(callback: any): any;
-        logEvents(enable: boolean): IGraphviz;
-        drawEdge(x1: number, x2: number, y1: number, y2: number, attributes?: IDotAttributes, options?: IEdgeOptions): IGraphviz;
-        updateDrawnEdge(x1: number, x2: number, y1: number, y2: number, attributes?: IDotAttributes, options?: IEdgeOptions): IGraphviz;
-        moveDrawnEdgeEndPoint(x2: number, y2: number, options?: IEdgeOptions): IGraphviz;
-        insertDrawnEdge(name: string): IGraphviz;
-        removeDrawnEdge(): IGraphviz;
+        logEvents(enable: boolean): Graphviz;
+        drawEdge(x1: number, x2: number, y1: number, y2: number, attributes?: DotAttributes, options?: EdgeOptions): Graphviz;
+        updateDrawnEdge(x1: number, x2: number, y1: number, y2: number, attributes?: DotAttributes, options?: EdgeOptions): Graphviz;
+        moveDrawnEdgeEndPoint(x2: number, y2: number, options?: EdgeOptions): Graphviz;
+        insertDrawnEdge(name: string): Graphviz;
+        removeDrawnEdge(): Graphviz;
         drawnEdgeSelection(): any;
-        drawNode(x: number, y: number, nodeId: string, attributes?: IDotAttributes, options?: INodeOptions): IGraphviz;
-        updateDrawnNode(x: number, y: number, nodeId: string, attributes?: IDotAttributes, options?: INodeOptions): IGraphviz;
-        moveDrawnNode(x: number, y: number, options?: INodeOptions): IGraphviz;
-        inserDrawnNode(nodeId: string): IGraphviz;
-        removeDrawnNode(): IGraphviz;
+        drawNode(x: number, y: number, nodeId: string, attributes?: DotAttributes, options?: NodeOptions): Graphviz;
+        updateDrawnNode(x: number, y: number, nodeId: string, attributes?: DotAttributes, options?: NodeOptions): Graphviz;
+        moveDrawnNode(x: number, y: number, options?: NodeOptions): Graphviz;
+        inserDrawnNode(nodeId: string): Graphviz;
+        removeDrawnNode(): Graphviz;
         drawnNodeSelection(): Selection<any, any, HTMLElement, any>;
     }
 }
