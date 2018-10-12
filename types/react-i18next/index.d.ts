@@ -23,6 +23,7 @@ import Interpolate from "./src/interpolate";
 import loadNamespaces from "./src/loadNamespaces";
 import Trans from "./src/trans";
 import translate from "./src/translate";
+import NamespacesConsumer from "./src/NamespacesConsumer";
 
 export {
     setDefaults,
@@ -37,7 +38,8 @@ export {
     loadNamespaces,
     Trans,
     translate,
-    TranslationFunction
+    TranslationFunction,
+    NamespacesConsumer
 };
 
 export { InjectedI18nProps, InjectedTranslateProps } from "./src/props";
