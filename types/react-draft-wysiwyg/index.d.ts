@@ -61,6 +61,7 @@ export interface EditorProps {
     handlePastedText?(text: string, html: string, editorState: EditorState, onChange: (editorState: EditorState) => void): boolean;
 }
 
-export class Editor extends React.Component<EditorProps, {}> {
+export class Editor extends React.Component<EditorProps> {
+    constructor(props: Readonly<EditorProps>);
     focusEditor(): void;
 }
