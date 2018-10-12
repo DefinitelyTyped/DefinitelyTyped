@@ -1,8 +1,8 @@
-import df from '@sindresorhus/df';
+import df = require('@sindresorhus/df');
 
 (async () => {
     const disks  = await df();
-    disks.forEach(disk => {
+    disks.forEach((disk: df.SpaceInfo) => {
         const {filesystem, size, used, available, capacity, mountpoint} = disk;
         return {
             filesystem, size, used, available, capacity, mountpoint
