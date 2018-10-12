@@ -6,7 +6,6 @@ import Select from 'react-select';
 export default () => (
   <Select
     defaultValue={flavourOptions[2]}
-    label="Single select"
     options={flavourOptions}
     theme={(theme) => ({
       ...theme,
