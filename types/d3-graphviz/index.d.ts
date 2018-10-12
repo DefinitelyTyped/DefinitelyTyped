@@ -32,7 +32,7 @@ declare module 'd3-graphviz' {
         renderDot(src: string, callback?: any): Graphviz;
         dot(src: any, callback?: () => void): Graphviz;
         render(callback?: Function): Graphviz;
-        engine(engine: string): Graphviz; //engine should be an enum
+        engine(engine: Engine): Graphviz;
         onerror(callback: any): any;
 
         //Images
@@ -102,10 +102,12 @@ declare module 'd3-graphviz' {
         //Large Graphs
         totalMemory(size: number): Graphviz;
     }
+
+    type Engine = 'circo' | 'dot' | 'fdp' | 'neato' | 'osage' | 'patchwork' | 'twopi';
     
     export interface GraphvizOptions {
         useWorker?: boolean,
-        engine?: string,
+        engine?: Engine,
         totalMemory?: number,
         keyMode?: string,
         fade?: boolean,
