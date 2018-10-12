@@ -2239,7 +2239,7 @@ export class FileLoader {
     setPath(path: string) : FileLoader;
     setResponseType(responseType: string) : FileLoader;
     setWithCredentials(value: string): FileLoader;
-    setRequestHeader(value: {[header: string]: string}: FileLoader;
+    setRequestHeader(value: {[header: string]: string}): FileLoader;
 }
 
 export class FontLoader {
