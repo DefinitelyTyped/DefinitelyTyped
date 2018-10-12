@@ -4,10 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+declare module 'd3-graphviz' {
+
 import { ZoomBehavior } from 'd3-zoom'
 import { Selection } from 'd3-selection'
 
-declare module 'd3-selection' {
+module 'd3-selection' {
     interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
         graphviz(options?: IGraphvizOptions | boolean): IGraphviz;
         selectWithoutDataPropagation(): Selection<GElement, Datum, PElement, PDatum>;
@@ -100,4 +102,5 @@ export interface IGraphviz {
     inserDrawnNode(nodeId: string): IGraphviz;
     removeDrawnNode(): IGraphviz;
     drawnNodeSelection(): Selection<any, any, HTMLElement, any>;
+}
 }
