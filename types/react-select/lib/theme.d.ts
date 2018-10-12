@@ -1,4 +1,4 @@
-import {Theme} from './types';
+import { Theme } from './types';
 export const borderRadius: number;
 
 export const colors: {

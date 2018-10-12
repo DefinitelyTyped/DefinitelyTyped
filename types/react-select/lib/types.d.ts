@@ -99,14 +99,14 @@ export type OptionProps = PropsWithInnerRef & {
   value: any,
 };
 
-export type ThemeSpacing = {
-  baseUnit: number,
-  controlHeight: number,
-  menuGutter: number,
-};
+export interface ThemeSpacing {
+  baseUnit: number;
+  controlHeight: number;
+  menuGutter: number;
+}
 
-export type Theme = {
-  borderRadius: number,
-  colors: { [key: string]: string },
-  spacing: ThemeSpacing,
-};
+export interface Theme {
+  borderRadius: number;
+  colors: { [key: string]: string };
+  spacing: ThemeSpacing;
+}
