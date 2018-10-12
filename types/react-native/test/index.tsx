@@ -330,6 +330,8 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 data={[1, 2, 3, 4, 5]}
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
+                ListFooterComponent={null}
+                ListHeaderComponent={null}
             />
         );
     }
