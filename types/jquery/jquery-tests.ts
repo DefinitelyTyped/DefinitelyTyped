@@ -38,6 +38,11 @@ function JQueryStatic() {
         $.Event;
     }
 
+    function event() {
+        // $ExpectType EventExtensions
+        $.event;
+    }
+
     function expr() {
         // $ExpectType Selectors
         $.expr;

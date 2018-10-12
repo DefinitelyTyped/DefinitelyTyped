@@ -72,6 +72,10 @@ interface JQueryStatic {
     Deferred: JQuery.DeferredStatic;
     easing: JQuery.Easings;
     Event: JQuery.EventStatic;
+    /**
+     * @see \`{@link https://learn.jquery.com/events/event-extensions/ }\`
+     */
+    event: JQuery.EventExtensions;
     expr: JQuery.Selectors;
     // Set to HTMLElement to minimize breaks but should probably be Element.
     readonly fn: JQuery;
@@ -30774,8 +30778,10 @@ $( "p" ).click(function( event ) {
     }
 
     // Generic members
-    interface Event<TTarget = EventTarget,
-        TData = null> {
+    interface Event<
+        TTarget = EventTarget,
+        TData = null
+    > {
         /**
          * The current DOM element within the event bubbling phase.
          *
@@ -30954,6 +30960,317 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
         // Extra parameters can be passed from trigger()
         (this: TContext, t: T, ...args: any[]): void | false | any;
     }
+
+    // region Event extensions
+    // #region Event extensions
+
+    interface EventExtensions {
+        /**
+         * jQuery defines an \`@{link https://api.jquery.com/category/events/event-object/ Event object}\` that
+         * represents a cross-browser subset of the information available when an event occurs. The `jQuery.event.props`
+         * property is an array of string names for properties that are always copied when jQuery processes a
+         * native browser event. (Events fired in code by `.trigger()` do not use this list, since the code can
+         * construct a `jQuery.Event` object with the needed values and trigger using that object.)
+         *
+         * To add a property name to this list, use `jQuery.event.props.push( "newPropertyName" )`. However, be
+         * aware that every event processed by jQuery will now attempt to copy this property name from the native
+         * browser event to jQuery's constructed event. If the property does not exist for that event type, it
+         * will get an undefined value. Adding many properties to this list can significantly reduce event
+         * delivery performance, so for infrequently-needed properties it is more efficient to use the value
+         * directly from `event.originalEvent` instead. If properties must be copied, you are strongly advised
+         * to use `jQuery.event.fixHooks` as of version 1.7.
+         *
+         * @see \`{@link https://learn.jquery.com/events/event-extensions/#jquery-event-props-array }\`
+         */
+        props: string[];
+        /**
+         * The `fixHooks` interface provides a per-event-type way to extend or normalize the event object that
+         * jQuery creates when it processes a _native_ browser event.
+         *
+         * @see \`{@link https://learn.jquery.com/events/event-extensions/#jquery-event-fixhooks-object }\`
+         */
+        fixHooks: FixHooks;
+        /**
+         * The jQuery special event hooks are a set of per-event-name functions and properties that allow code
+         * to control the behavior of event processing within jQuery. The mechanism is similar to `fixHooks` in
+         * that the special event information is stored in `jQuery.event.special.NAME`, where `NAME` is the
+         * name of the special event. Event names are case sensitive.
+         *
+         * As with `fixHooks`, the special event hooks design assumes it will be very rare that two unrelated
+         * pieces of code want to process the same event name. Special event authors who need to modify events
+         * with existing hooks will need to take precautions to avoid introducing unwanted side-effects by
+         * clobbering those hooks.
+         *
+         * @see \`{@link https://learn.jquery.com/events/event-extensions/#special-event-hooks }\`
+         */
+        special: SpecialEventHooks;
+    }
+
+    interface FixHook {
+        /**
+         * Strings representing properties that should be copied from the browser's event object to the jQuery
+         * event object. If omitted, no additional properties are copied beyond the standard ones that jQuery
+         * copies and normalizes (e.g. `event.target` and `event.relatedTarget`).
+         */
+        props?: string[];
+        /**
+         * jQuery calls this function after it constructs the `jQuery.Event` object, copies standard properties
+         * from `jQuery.event.props`, and copies the `fixHooks`-specific props (if any) specified above. The
+         * function can create new properties on the event object or modify existing ones. The second argument
+         * is the browser's native event object, which is also available in `event.originalEvent`.
+         *
+         * Note that for all events, the browser's native event object is available in `event.originalEvent`;
+         * if the jQuery event handler examines the properties there instead of jQuery's normalized `event`
+         * object, there is no need to create a `fixHooks` entry to copy or modify the properties.
+         *
+         * @example ​ ````For example, to set a hook for the "drop" event that copies the `dataTransfer` property, assign an object to `jQuery.event.fixHooks.drop`:
+```javascript
+jQuery.event.fixHooks.drop = {
+    props: [ "dataTransfer" ]
+};
+```
+
+Since fixHooks is an advanced feature and rarely used externally, jQuery does not include code or
+interfaces to deal with conflict resolution. If there is a chance that some other code may be assigning
+`fixHooks` to the same events, the code should check for an existing hook and take appropriate measures.
+A simple solution might look like this:
+
+```javascript
+if ( jQuery.event.fixHooks.drop ) {
+    throw new Error( "Someone else took the jQuery.event.fixHooks.drop hook!" );
+}
+
+jQuery.event.fixHooks.drop = {
+    props: [ "dataTransfer" ]
+};
+```
+
+When there are known cases of different plugins wanting to attach to the drop hook, this solution might be more appropriate:
+
+```javascript
+var existingHook = jQuery.event.fixHooks.drop;
+
+if ( !existingHook ) {
+    jQuery.event.fixHooks.drop = {
+        props: [ "dataTransfer" ]
+    };
+} else {
+    if ( existingHook.props ) {
+        existingHook.props.push( "dataTransfer" );
+    } else {
+        existingHook.props = [ "dataTransfer" ];
+    }
+}
+```
+         */
+        filter?(event: Event, originalEvent: _Event): void;
+    }
+
+    /**
+     * The `fixHooks` interface provides a per-event-type way to extend or normalize the event object that
+     * jQuery creates when it processes a _native_ browser event.
+     *
+     * @see \`{@link https://learn.jquery.com/events/event-extensions/#jquery-event-fixhooks-object }\`
+     */
+    interface FixHooks {
+        [event: string]: FixHook;
+    }
+
+    // region Special event hooks
+    // #region Special event hooks
+
+    /**
+     * The jQuery special event hooks are a set of per-event-name functions and properties that allow code
+     * to control the behavior of event processing within jQuery. The mechanism is similar to `fixHooks` in
+     * that the special event information is stored in `jQuery.event.special.NAME`, where `NAME` is the
+     * name of the special event. Event names are case sensitive.
+     *
+     * As with `fixHooks`, the special event hooks design assumes it will be very rare that two unrelated
+     * pieces of code want to process the same event name. Special event authors who need to modify events
+     * with existing hooks will need to take precautions to avoid introducing unwanted side-effects by
+     * clobbering those hooks.
+     *
+     * @see \`{@link https://learn.jquery.com/events/event-extensions/#special-event-hooks }\`
+     */
+    interface SpecialEventHook<TTarget, TData> {
+        /**
+         * Indicates whether this event type should be bubbled when the `.trigger()` method is called; by
+         * default it is `false`, meaning that a triggered event will bubble to the element's parents up to the
+         * document (if attached to a document) and then to the window. Note that defining `noBubble` on an
+         * event will effectively prevent that event from being used for delegated events with `.trigger()`.
+         *
+         * @see \`{@link https://learn.jquery.com/events/event-extensions/#nobubble-boolean }\`
+         */
+        noBubble?: boolean;
+        /**
+         * When defined, these string properties specify that a special event should be handled like another
+         * event type until the event is delivered. The `bindType` is used if the event is attached directly,
+         * and the `delegateType` is used for delegated events. These types are generally DOM event types,
+         * and _should not_ be a special event themselves.
+         *
+         * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
+         */
+        bindType?: string;
+        /**
+         * When defined, these string properties specify that a special event should be handled like another
+         * event type until the event is delivered. The `bindType` is used if the event is attached directly,
+         * and the `delegateType` is used for delegated events. These types are generally DOM event types,
+         * and _should not_ be a special event themselves.
+         *
+         * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
+         */
+        delegateType?: string;
+        /**
+         * The setup hook is called the first time an event of a particular type is attached to an element;
+         * this provides the hook an opportunity to do processing that will apply to all events of this type on
+         * this element. The `this` keyword will be a reference to the element where the event is being attached
+         * and `eventHandle` is jQuery's event handler function. In most cases the `namespaces` argument should
+         * not be used, since it only represents the namespaces of the _first_ event being attached; subsequent
+         * events may not have this same namespaces.
+         *
+         * This hook can perform whatever processing it desires, including attaching its own event handlers to
+         * the element or to other elements and recording setup information on the element using the `jQuery.data()`
+         * method. If the setup hook wants jQuery to add a browser event (via `addEventListener` or `attachEvent`,
+         * depending on browser) it should return `false`. In all other cases, jQuery will not add the browser
+         * event, but will continue all its other bookkeeping for the event. This would be appropriate, for
+         * example, if the event was never fired by the browser but invoked by `.trigger()`. To attach the jQuery
+         * event handler in the setup hook, use the `eventHandle` argument.
+         *
+         * @see \`{@link https://learn.jquery.com/events/event-extensions/#setup-function-data-object-namespaces-eventhandle-function }\`
+         */
+        setup?(this: TTarget, data: TData, namespaces: string, eventHandle: EventHandler<TTarget, TData>): void | false;
+        /**
+         * The teardown hook is called when the final event of a particular type is removed from an element.
+         * The `this` keyword will be a reference to the element where the event is being cleaned up. This hook
+         * should return `false` if it wants jQuery to remove the event from the browser's event system (via
+         * `removeEventListener` or `detachEvent`). In most cases, the setup and teardown hooks should return
+         * the same value.
+         *
+         * If the setup hook attached event handlers or added data to an element through a mechanism such as
+         * `jQuery.data()`, the teardown hook should reverse the process and remove them. jQuery will generally
+         * remove the data and events when an element is totally removed from the document, but failing to
+         * remove data or events on teardown will cause a memory leak if the element stays in the document.
+         *
+         * @see \`{@link https://learn.jquery.com/events/event-extensions/#teardown-function }\`
+         */
+        teardown?(this: TTarget): void | false;
+        /**
+         * Each time an event handler is added to an element through an API such as `.on()`, jQuery calls this
+         * hook. The `this` keyword will be the element to which the event handler is being added, and the
+         * `handleObj` argument is as described in the section above. The return value of this hook is ignored.
+         *
+         * @see \`{@link https://learn.jquery.com/events/event-extensions/#add-function-handleobj }\`
+         */
+        add?(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
+        /**
+         * When an event handler is removed from an element using an API such as `.off()`, this hook is called.
+         * The `this` keyword will be the element where the handler is being removed, and the `handleObj`
+         * argument is as described in the section above. The return value of this hook is ignored.
+         *
+         * @see \`{@link https://learn.jquery.com/events/event-extensions/#remove-function-handleobj }\`
+         */
+        remove?(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
+        /**
+         * Called when the `.trigger()` or `.triggerHandler()` methods are used to trigger an event for the
+         * special type from code, as opposed to events that originate from within the browser. The `this`
+         * keyword will be the element being triggered, and the event argument will be a `jQuery.Event` object
+         * constructed from the caller's input. At minimum, the event type, data, namespace, and target
+         * properties are set on the event. The data argument represents additional data passed by `.trigger()`
+         * if present.
+         *
+         * The trigger hook is called early in the process of triggering an event, just after the `jQuery.Event`
+         * object is constructed and before any handlers have been called. It can process the triggered event
+         * in any way, for example by calling `event.stopPropagation()` or `event.preventDefault()` before
+         * returning. If the hook returns `false`, jQuery does not perform any further event triggering actions
+         * and returns immediately. Otherwise, it performs the normal trigger processing, calling any event
+         * handlers for the element and bubbling the event (unless propagation is stopped in advance or `noBubble`
+         * was specified for the special event) to call event handlers attached to parent elements.
+         *
+         * @see \`{@link https://learn.jquery.com/events/event-extensions/#trigger-function-event-jquery-event-data-object }\`
+         */
+        trigger?(this: TTarget, event: Event<TTarget, TData>, data: TData): void | false;
+        /**
+         * When the `.trigger()` method finishes running all the event handlers for an event, it also looks for
+         * and runs any method on the target object by the same name unless of the handlers called `event.preventDefault()`.
+         * So, `.trigger( "submit" )` will execute the `submit()` method on the element if one exists. When a
+         * `_default` hook is specified, the hook is called just prior to checking for and executing the element's
+         * default method. If this hook returns the value `false` the element's default method will be called;
+         * otherwise it is not.
+         *
+         * @see \`{@link https://learn.jquery.com/events/event-extensions/#_default-function-event-jquery-event-data-object }\`
+         */
+        _default?(event: Event<TTarget, TData>, data: TData): void | false;
+        /**
+         * jQuery calls a handle hook when the event has occurred and jQuery would normally call the user's event
+         * handler specified by `.on()` or another event binding method. If the hook exists, jQuery calls it
+         * _instead_ of that event handler, passing it the event and any data passed from `.trigger()` if it was
+         * not a native event. The `this` keyword is the DOM element being handled, and `event.handleObj`
+         * property has the detailed event information.
+         *
+         * Based in the information it has, the handle hook should decide whether to call the original handler
+         * function which is in `event.handleObj.handler`. It can modify information in the event object before
+         * calling the original handler, but _must restore_ that data before returning or subsequent unrelated
+         * event handlers may act unpredictably. In most cases, the handle hook should return the result of the
+         * original handler, but that is at the discretion of the hook. The handle hook is unique in that it is
+         * the only special event function hook that is called under its original special event name when the
+         * type is mapped using `bindType` and `delegateType`. For that reason, it is almost always an error to
+         * have anything other than a handle hook present if the special event defines a `bindType` and
+         * `delegateType`, since those other hooks will never be called.
+         *
+         * @see \`{@link https://learn.jquery.com/events/event-extensions/#handle-function-event-jquery-event-data-object }\`
+         */
+        handle?(this: TTarget, event: Event<TTarget, TData> & { handleObj: HandleObject<TTarget, TData>; }, ...data: TData[]): void;
+    }
+
+    interface SpecialEventHooks {
+        [event: string]: SpecialEventHook<EventTarget, any>;
+    }
+
+    /**
+     * Many of the special event hook functions below are passed a `handleObj` object that provides more
+     * information about the event, how it was attached, and its current state. This object and its contents
+     * should be treated as read-only data, and only the properties below are documented for use by special
+     * event handlers.
+     *
+     * @see \`{@link https://learn.jquery.com/events/event-extensions/#the-handleobj-object }\`
+     */
+    interface HandleObject<TTarget, TData> {
+        /**
+         * The type of event, such as `"click"`. When special event mapping is used via `bindType` or
+         * `delegateType`, this will be the mapped type.
+         */
+        readonly type: string;
+        /**
+         * The original type name regardless of whether it was mapped via `bindType` or `delegateType`. So when
+         * a "pushy" event is mapped to "click" its `origType` would be "pushy".
+         */
+        readonly origType: string;
+        /**
+         * Namespace(s), if any, provided when the event was attached, such as `"myPlugin"`. When multiple
+         * namespaces are given, they are separated by periods and sorted in ascending alphabetical order. If
+         * no namespaces are provided, this property is an empty string.
+         */
+        readonly namespace: string;
+        /**
+         * For delegated events, this is the selector used to filter descendant elements and determine if the
+         * handler should be called. For directly bound events, this property is `null`.
+         */
+        readonly selector: string | undefined | null;
+        /**
+         * The data, if any, passed to jQuery during event binding, e.g. `{ myData: 42 }`. If the data argument
+         * was omitted or `undefined`, this property is `undefined` as well.
+         */
+        readonly data: TData;
+        /**
+         * Event handler function passed to jQuery during event binding. If `false` was passed during event
+         * binding, the handler refers to a single shared function that simply returns `false`.
+         */
+        readonly handler: EventHandler<TTarget, TData>;
+    }
+
+    // #endregion
+
+    // #endregion
 
     // #endregion
 
