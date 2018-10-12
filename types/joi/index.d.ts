@@ -669,6 +669,11 @@ export interface StringSchema extends AnySchema {
     isoDate(): this;
 
     /**
+     * Requires the string value to be a valid ISO 8601 duration format.
+     */
+    isoDuration(): this;
+
+    /**
      * Requires the string value to be all lowercase. If the validation convert option is on (enabled by default), the string will be forced to lowercase.
      */
     lowercase(): this;
