@@ -7,12 +7,12 @@
 import { ZoomBehavior } from 'd3-zoom'
 import { Selection } from 'd3-selection'
 
-//This should be extending d3-selection, need to check it is correct
-export interface ISelection extends Selection<any, any, HTMLElement, any> {
-    graphviz(options?: IGraphvizOptions | boolean): IGraphviz;
-    selectWithoutDataPropagation(): ISelection;
+declare module 'd3-selection' {
+    interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
+        graphviz(options?: IGraphvizOptions | boolean): IGraphviz;
+        selectWithoutDataPropagation(): Selection<GElement, Datum, PElement, PDatum>;
+    }
 }
-
 
 /**
  * 
