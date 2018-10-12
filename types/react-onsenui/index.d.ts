@@ -12,7 +12,7 @@ import * as React from 'react';
 export type HTMLAttributes<K extends keyof React.HTMLAttributes<{}>> = Partial<Pick<React.HTMLAttributes<{}>, K>>;
 export type InputHTMLAttributes<K extends keyof React.InputHTMLAttributes<{}>> = Partial<Pick<React.InputHTMLAttributes<{}>, K>>;
 
-export class Component<P = {}, S = {}> extends React.Component<HTMLAttributes<'id' | 'className'> & P, S> {}
+export class Component<P = {}, S = {}> extends React.Component<HTMLAttributes<'id' | 'className' | 'style'> & P, S> {}
 
 export interface Modifiers_string {
     default?: string;
@@ -115,12 +115,10 @@ export class Page extends Component<{
 export class Col extends Component<{
     verticalAlign?: "top" | "bottom" | "center",
     width?: string,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class Row extends Component<{
     verticalAlign?: "top" | "bottom" | "center",
-    style?: React.CSSProperties,
 }, any> {}
 
 /*** Navigation ***/
@@ -240,7 +238,6 @@ export class Toast extends Component<{
     onPreHide?(): void,
     onPostHide?(): void,
     onDeviceBackButton?(): void,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class ActionSheet extends Component<{
@@ -430,12 +427,10 @@ export class List extends Component<{
     renderRow?(row: any, index?: number): JSX.Element | undefined,
     renderFooter?(): JSX.Element | undefined,
     renderHeader?(): JSX.Element | undefined,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class ListHeader extends Component<{
     modifier?: string,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class ListItem extends Component<{
@@ -444,13 +439,11 @@ export class ListItem extends Component<{
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
     onClick?: React.MouseEventHandler<any>,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class ListTitle extends Component<{
     modifier?: string,
     onClick?: React.MouseEventHandler<any>,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class Card extends Component<{
@@ -477,7 +470,6 @@ export class Segment extends Component<{
     tabbarId?: string,
     modifier?: string,
     onPostChange?(): void,
-    style?: React.CSSProperties,
 }, any> {}
 
 export type SpeedDialPosition = 'top' | 'right' | 'bottom' | 'left' |
@@ -489,11 +481,9 @@ export class SpeedDial extends Component<{
     position?: SpeedDialPosition,
     direction?: SpeedDialDirection,
     disabled?: boolean,
-    style?: React.CSSProperties,
 }, any> {}
 
 export class SpeedDialItem extends Component<{
     modifier?: string;
     onClick?(e?: React.MouseEvent<HTMLElement>): void,
-    style?: React.CSSProperties,
 }, any> {}
