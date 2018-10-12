@@ -38,14 +38,12 @@ declare namespace windowsauth {
     type Verified = (err: Error | undefined | null, user?: object, info?: object) => void;
     type Verify = (profile: passport.Profile, done: Verified) => void;
     type VerifyWithReq = (req: express.Request, profile: passport.Profile, done: Verified) => void;
-
-    interface Strategy {
-        new(options: Options & {passReqToCallback: true}, verify: VerifyWithReq): passport.Strategy;
-        new(options: Options, verify: Verify): passport.Strategy;
-        new(verify: Verify): passport.Strategy;
-    }
 }
 
-declare const windowsauth: windowsauth.Strategy;
+declare class windowsauth extends passport.Strategy {
+    constructor(options: windowsauth.Options & {passReqToCallback: true}, verify: windowsauth.VerifyWithReq);
+    constructor(options: windowsauth.Options, verify: windowsauth.Verify);
+    constructor(verify: windowsauth.Verify);
+}
 
 export = windowsauth;
