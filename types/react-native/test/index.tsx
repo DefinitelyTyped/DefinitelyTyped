@@ -112,7 +112,7 @@ BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
 
 BackAndroid.addEventListener("hardwareBackPress", () => {});
 
-interface LocalStyles {
+type LocalStyles = {
     container: ViewStyle;
     welcome: TextStyle;
     instructions: TextStyle;
