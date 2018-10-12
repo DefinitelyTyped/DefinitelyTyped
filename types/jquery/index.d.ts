@@ -30852,7 +30852,6 @@ $( ".box" ).on( "click", "button", function( event ) {
 ```
          */
         delegateTarget: TTarget;
-        handleObj: HandleObject<TTarget, TData>;
         originalEvent: _Event;
         /**
          * The other DOM element involved in the event, if any.
@@ -31220,7 +31219,7 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#handle-function-event-jquery-event-data-object }\`
          */
-        handle?(this: TTarget, event: Event<TTarget, TData>, ...data: TData[]): void;
+        handle?(this: TTarget, event: Event<TTarget, TData> & { handleObj: HandleObject<TTarget, TData>; }, ...data: TData[]): void;
     }
 
     interface SpecialEventHooks {
