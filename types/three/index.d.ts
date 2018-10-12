@@ -1,4 +1,4 @@
-// Type definitions for three.js 0.92
+// Type definitions for three.js 0.93
 // Project: https://threejs.org
 // Definitions by: Kon <http://phyzkit.net/>,
 //                 Satoru Kimura <https://github.com/gyohk>,
