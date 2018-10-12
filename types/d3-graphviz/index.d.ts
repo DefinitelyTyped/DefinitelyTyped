@@ -1,10 +1,11 @@
-import { IEdgeOptions, IGraphviz, INodeOptions } from './index.d';
 // Type definitions for d3-graphviz 2.6
 // Project: https://github.com/magjac/d3-graphviz
 // Definitions by: Dom Parfitt <https://github.com/DomParfitt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ZoomBehavior } from 'd3-zoom'
+import { Selection } from 'd3-selection'
+
 
 /**
  * 
@@ -56,7 +57,7 @@ export interface IGraphviz {
     engine(engine: string): IGraphviz;
     addImage(path: string, width: number, height: number): IGraphviz;
     totalMemory(size: number): IGraphviz;
-    keyMode(keyMode: any): any;
+    keyMode(keyMode: string): IGraphviz;
     fade(enable: boolean): IGraphviz;
     tweenPaths(enable: boolean): IGraphviz;
     tweenShapes(enable: boolean): IGraphviz;
@@ -70,9 +71,9 @@ export interface IGraphviz {
     zoomScaleExtent(extent: number[]): IGraphviz;
     zoomTranslateExtent(extent: number[][]): IGraphviz;
     render(callback: Function): IGraphviz;
-    dot: any;
+    dot(src: any, callback: () => void): any;
     data(): any;
-    renderDot(src: string, callback: any): any;
+    renderDot(src: string, callback: any): IGraphviz;
     transition: any;
     active(name: any): any;
     options(options: IGraphvizOptions | undefined): IGraphviz;
@@ -80,20 +81,20 @@ export interface IGraphviz {
     height(height: number): IGraphviz;
     scale(scale: number): IGraphviz;
     fit(fit: boolean): IGraphviz;
-    attributer: any;
+    attributer(callback: any): any;
     on(typenames: string, callback: () => void): any;
-    onerror: any;
+    onerror(callback: any): any;
     logEvents(enable: boolean): IGraphviz;
     drawEdge(x1: number, x2: number, y1: number, y2: number, attributes?: IEdgeAttributes, options?: IEdgeOptions): IGraphviz;
     updateDrawnEdge(x1: number, x2: number, y1: number, y2: number, attributes?: IEdgeAttributes, options?: IEdgeOptions): IGraphviz;
     moveDrawnEdgeEndPoint(x2: number, y2: number, options?: IEdgeOptions): IGraphviz;
-    insertDrawnEdge: any;
-    removeDrawnEdge: any;
+    insertDrawnEdge(name: string): IGraphviz;
+    removeDrawnEdge(): IGraphviz;
     drawnEdgeSelection(): any;
     drawNode(x: number, y: number, nodeId: string, attributes?: INodeAttributes, options?: INodeOptions): IGraphviz;
     updateDrawnNode(x: number, y: number, nodeId: string, attributes?: INodeAttributes, options?: INodeOptions): IGraphviz;
     moveDrawnNode(x: number, y: number, options?: INodeOptions): IGraphviz;
-    inserDrawnNode: any;
-    removeDrawnNode: any;
-    drawnNodeSelection(): any;
+    inserDrawnNode(nodeId: string): IGraphviz;
+    removeDrawnNode(): IGraphviz;
+    drawnNodeSelection(): Selection<any, any, HTMLElement, any>;
 }
