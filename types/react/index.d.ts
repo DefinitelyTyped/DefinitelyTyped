@@ -2240,6 +2240,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
+        map<T, C extends ReactElement<any>>(children: Array<C>, fn: (child: C, index: number) => T): T[];
         map<T>(children: ReactNode, fn: (child: ReactChild, index: number) => T): T[];
         forEach(children: ReactNode, fn: (child: ReactChild, index: number) => void): void;
         count(children: ReactNode): number;
