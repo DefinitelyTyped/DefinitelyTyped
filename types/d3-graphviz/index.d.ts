@@ -7,13 +7,12 @@
 import { ZoomBehavior } from 'd3-zoom'
 import { Selection } from 'd3-selection'
 
-
 /**
  * 
  * @param selector 
  * @param options 
  */
-export function graphviz(selector: string, options: IGraphvizOptions | boolean): IGraphviz;
+export function graphviz(selector: string, options?: IGraphvizOptions | boolean): IGraphviz;
 
 export interface IGraphvizOptions {
     useWorker?: boolean,
@@ -74,7 +73,7 @@ export interface IGraphviz {
     render(callback: Function): IGraphviz;
     dot(src: any, callback: () => void): any;
     data(): any;
-    renderDot(src: string, callback: any): IGraphviz;
+    renderDot(src: string, callback?: any): IGraphviz;
     transition: any;
     active(name: any): any;
     options(options: IGraphvizOptions | undefined): IGraphviz;
