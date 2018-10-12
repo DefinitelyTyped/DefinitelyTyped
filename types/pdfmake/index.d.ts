@@ -24,6 +24,33 @@ declare module 'pdfmake/build/pdfmake' {
         'SRA0' | 'SRA1' | 'SRA2' | 'SRA3' | 'SRA4' |
         'EXECUTIVE' | 'FOLIO' | 'LEGAL' | 'LETTER' | 'TABLOID';
 
+    enum PageSize {
+        A0_x_4 = '4A0',
+        A0_x_2 = '2A0',
+        AO = 'A0',
+        A1 = 'A1',
+        A2 = 'A2',
+        A3 = 'A3',
+        A4 = 'A4',
+        A5 = 'A5',
+        A6 = 'A6',
+        A7 = 'A7',
+        A8 = 'A8',
+        A9 = 'A9',
+        A1O = 'A10',
+        BO = 'B0',
+        B1 = 'B1',
+        B2 = 'B2',
+        B3 = 'B3',
+        B4 = 'B4',
+        B5 = 'B5',
+        B6 = 'B6',
+        B7 = 'B7',
+        B8 = 'B8',
+        B9 = 'B9',
+        B1O = 'B10'
+    }
+
     type pageOrientationType = "portrait" | "landscape";
 
     let pdfMake: pdfMakeStatic;
@@ -48,15 +75,44 @@ declare module 'pdfmake/build/pdfmake' {
 
     type TDocumentHeaderFooterFunction = (currentPage: number, pageCount: number) => any;
 
+    type Margins = number | [number, number] | [number, number, number, number];
+
+    interface Styles {
+        [key: string]: Style;
+    }
+
+    type Alignment = 'left' | 'right' | 'justify' | 'center';
+
+    interface Style {
+        font?: any;
+		fontSize?: number;
+		fontFeatures?: any;
+		bold?: boolean;
+		italics?: boolean;
+		alignment?: Alignment;
+		color?: string;
+		columnGap?: any;
+		fillColor?: string;
+		decoration?: any;
+		decorationany?: any;
+		decorationColor?: string;
+		background?: any;
+		lineHeight?: number;
+		characterSpacing?: number;
+		noWrap?: boolean;
+		markerColor?: string;
+		leadingIndent?: any;
+    }
+
     interface TDocumentDefinitions {
         info?: TDocumentInformation;
-        header?: any;
-        footer?: any;
+        header?: TDocumentHeaderFooterFunction;
+        footer?: TDocumentHeaderFooterFunction;
         content: any;
-        styles?: any;
-        pageSize?: pageSizeType;
+        styles?: Styles;
+        pageSize?: PageSize;
         pageOrientation?: pageOrientationType;
-        pageMargins?: [number, number, number, number];
+        pageMargins?: Margins;
         defaultStyle?: {
             font?: string;
         };
