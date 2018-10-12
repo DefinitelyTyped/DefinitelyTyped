@@ -3,55 +3,66 @@
 // Definitions by: Dom Parfitt <https://github.com/DomParfitt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function extractElementData(element: any): any;
-export function extractAllElementsData(element: any): any;
-export function createElement(data: any): any;
-export function createElementWithAttributes(data: any): any;
-export function replaceElement(element: any, data: any): any;
-export function insertElementData(element: any, datum: any): void;
-export function insertAllElementsData(element: any, datum: any): void;
-export function insertChildren(element: any, index: any): void;
-export function attributeElement(data: any): void;
-export function shallowCopyObject(obj: any): any;
-export function roundTo4Decimals(x: number): number;
-// var zoom$1 = function (enable)
-export function createZoomBehavior(): any;
-export function getTranslatedZoomTransform(selection$$1: any): any;
-export function translateZoomBehaviorTransform(selection$$1: any): any;
-
-// ========================================================================
-
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
+/**
+ * 
+ * @param selector 
+ * @param options 
  */
-export as namespace myLib;
+export function graphviz(selector: string, options: IGraphvizOptions | boolean): IGraphviz;
 
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
-
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
+export interface IGraphvizOptions {
+    useWorker?: boolean,
+    engine?: string,
+    totalMemory?: number,
+    keyMode?: string,
+    fade?: boolean,
+    tweenPaths?: boolean,
+    tweenShapes?: boolean,
+    convertEqualSidedPolygons?: boolean,
+    tweenPrecision?: number,
+    growEnteringEdges?: boolean,
+    zoom?: boolean,
+    zoomScaleExtent?: number[],
+    zoomTranslateExtent?: number[][],
+    width?: number,
+    height?: number,
+    scale?: number,
+    fit?: boolean,
 }
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
+export interface IGraphviz {
+    engine(engine: string): IGraphviz;
+    addImage(path: any, width: any, height: any): any;
+    totalMemory(size: number): IGraphviz;
+    keyMode(keyMode: any): any;
+    fade(enable: boolean): IGraphviz;
+    tweenPaths(enable: boolean): IGraphviz;
+    tweenShapes(enable: boolean): IGraphviz;
+    convertEqualSidedPolygons(enable: boolean): IGraphviz;
+    tweenPrecision(precision: number): IGraphviz;
+    growEnteringEdges(enable: boolean): IGraphviz;
+    zoom(enable: boolean): IGraphviz;
+    resetZoom(transition: any): any;
+    zoomBehavior(): any;
+    zoomSelection(): any;
+    zoomScaleExtent(extent: number[]): IGraphviz;
+    zoomTranslateExtent(extent: number[][]): IGraphviz;
+    render(callback: any): IGraphviz;
+    dot: any;
+    data(): any;
+    renderDot(src: string, callback: any): any;
+    transition: any;
+    active(name: any): any;
+    options(options: IGraphvizOptions | undefined): IGraphviz;
+    width(width: number): IGraphviz;
+    height(height: number): IGraphviz;
+    scale(scale: number): IGraphviz;
+    fit(fit: boolean): IGraphviz;
+    attributer: any;
+    on(typenames: string, callback: () => void): any;
+    onerror: any;
+    logEvents(enable: boolean): IGraphviz;
+    drawEdge: any;
+    updateDrawnEdge(x1: any, x2: any, y1: any, y2: any, attributes?: any, options?: any): any;
 
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
-     */
-    export function foo(): void;
 }
