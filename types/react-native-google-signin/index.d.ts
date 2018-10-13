@@ -12,6 +12,7 @@ import { ViewProps } from 'react-native';
 export interface GoogleSigninButtonProps extends ViewProps {
     size?: GoogleSigninButton.Size;
     color?: GoogleSigninButton.Color;
+    disabled?: boolean;
     onPress?(): void;
 }
 
