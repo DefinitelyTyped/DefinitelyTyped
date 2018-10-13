@@ -1,4 +1,4 @@
-// Type definitions for ost-sdk-js
+// Type definitions for ost-sdk-js 1.1
 // Project: https://github.com/OpenSTFoundation/ost-sdk-js
 // Definitions by: Lukas "Deathrage" Prochazka <https://gitlab.com/Deathrage>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,10 +6,10 @@
 // TypeScript Version: 2.1
 
 declare module "@ostdotcom/ost-sdk-js" {
-    export = OSTSDK
+    export = OSTSDK;
 }
-//core
-declare class OSTSDK {
+// core
+export class OSTSDK {
     constructor(params :{
         apiKey: string,
         apiSecret: string,
@@ -29,8 +29,8 @@ declare class OSTSDK {
 }
 
 
-//services
-declare interface ActionService {
+// services
+interface ActionService {
     create(arg: {
         name: string,
         kind: "user_to_user"|"company_to_user"|"user_to_company",
@@ -47,7 +47,7 @@ declare interface ActionService {
     list(): Promise<OstResponse<ActionListResponse>>;
     urlPrefix: string;
 }
-declare interface AirdropService {
+interface AirdropService {
     execute(arg: {
         amount: number,
         user_ids: string,
@@ -56,19 +56,19 @@ declare interface AirdropService {
     list(): Promise<OstResponse<AirdropListResponse>>;
     urlPrefix: string;
 } 
-declare interface BalanceService {
+interface BalanceService {
     get(arg: {id: string}): Promise<OstResponse<BalanceResponse>>;
     urlPrefix: string;
 }
-declare interface LedgerService {
+interface LedgerService {
     get(arg: {id: string}): Promise<OstResponse<TransactionListResponse>>;
     urlPrefix: string;
 }
-declare interface TokenService{
+interface TokenService{
     get(): Promise<OstResponse<TokenResponse>>;
     urlPrefix: string;
 }
-declare interface TransactionService {
+interface TransactionService {
     execute(arg: {
         from_user_id: string,
         to_user_id: string,
@@ -78,7 +78,7 @@ declare interface TransactionService {
     list(arg: {page_no: number, limit: number}): Promise<OstResponse<TransactionListResponse>>;
     urlPrefix: string;
 }
-declare interface TransferService {
+interface TransferService {
     execute(arg: {
         to_address: string,
         amount: number
@@ -87,7 +87,7 @@ declare interface TransferService {
     list(): Promise<OstResponse<TransferListResponse>>;
     urlPrefix: string;
 }
-declare interface UserService {
+interface UserService {
     create(arg: {name: string}): Promise<OstResponse<UserResponse>>;
     edit(arg: {id: string, name: string}): Promise<OstResponse<UserResponse>>;
     get(arg: {id: string}): Promise<OstResponse<UserResponse>>;
@@ -95,30 +95,30 @@ declare interface UserService {
     urlPrefix: string;
 }
 
-//responses
-export declare interface OstResponse<T> {
+// responses
+export interface OstResponse<T> {
     success: boolean
     data?: T,
     err?: OstError
 }
 
-export declare interface OstError {
+export interface OstError {
     code: string;
     msg: string;
     error_data: Array<Object>;
     internal_id: string
 }
 
-//users
-export declare interface UserResponse {
+// users
+export interface UserResponse {
     result_type: "user";
     user: OstUser
 }
-export declare interface UserListResponse {
+export interface UserListResponse {
     result_type: "users";
     users: Array<OstUser>
 }
-export declare interface OstUser {
+export interface OstUser {
     id: string;
     addresses: [
        [
@@ -130,30 +130,30 @@ export declare interface OstUser {
     airdropped_tokens: number,
     token_balance: number
 }
-//aidrdrops
-export declare interface AirdropResponse {
+// aidrdrops
+export interface AirdropResponse {
     result_type: "airdrop";
     airdrop: Airdrop
 }
-export declare interface AirdropListResponse {
+export interface AirdropListResponse {
     result_type: "airdrops";
     airdrops: Array<Airdrop>
 }
-export declare interface Airdrop {
+export interface Airdrop {
     id: string;
     current_status: string;
     steps_complete: string|Array<string>;
 }
-//actions
-export declare interface ActionResponse {
+// actions
+export interface ActionResponse {
     result_type: "action";
     action: Action
 }
-export declare interface ActionListResponse {
+export interface ActionListResponse {
     result_type: "actions";
     actions: Array<Action>
 }
-export declare interface Action {
+export interface Action {
     id: string;
     name: string;
     kind: "user_to_user"|"company_to_user"|"user_to_company";
@@ -163,16 +163,16 @@ export declare interface Action {
     arbitrary_commission?: number;
     commission_percent?: number;
 }
-//transactions
-export declare interface TransactionResponse {
+// transactions
+export interface TransactionResponse {
     result_type: "transaction";
     transaction: Transaction
 }
-export declare interface TransactionListResponse {
+export interface TransactionListResponse {
     result_type: "transactions";
     transactions: Array<Transaction>
 }
-export declare interface Transaction {
+export interface Transaction {
     id: string;
     from_user_id: string;
     to_user_id: string;
@@ -188,27 +188,27 @@ export declare interface Transaction {
     commission_amount?: number;
     airdropped_amount: number;
 }
-//ballance
-export declare interface BalanceResponse {
+// ballance
+export interface BalanceResponse {
     result_type: "balance";
     balance: Balance
 }
-export declare interface Balance {
+export interface Balance {
     available_balance: number;
     airdropped_balance: number;
     token_balance: number;
 }
-//ledeger = transctions
-//transfer
-export declare interface TransferResponse {
+// ledeger = transctions
+// transfer
+export interface TransferResponse {
     result_type: "transfer";
     transfer: Transfer
 }
-export declare interface TransferListResponse {
+export interface TransferListResponse {
     result_type: "transfers";
     transfers: Array<Transfer>
 }
-export declare interface Transfer {
+export interface Transfer {
     id: string;
     from_address: string;
     to_address: string;
@@ -221,13 +221,13 @@ export declare interface Transfer {
     block_number?: number;
     chain_id: number;
 }
-//token
-export declare interface TokenResponse {
+// token
+export interface TokenResponse {
     result_type: "token";
     token: Token,
     price_points: Object;
 }
-export declare interface Token {
+export interface Token {
     company_uuid: string,
     name: string,
     symbol: string,

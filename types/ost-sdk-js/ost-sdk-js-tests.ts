@@ -16,7 +16,7 @@ user.list().then((result)=>{
 });
 
 
-actions.get({id: ""}).then((result)=>{
+actions.get({id: 0}).then((result)=>{
     if (result.success) {
         let data = result.data as ActionResponse;
         console.log(data.action.name);
