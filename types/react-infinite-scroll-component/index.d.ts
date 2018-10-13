@@ -30,7 +30,7 @@ declare namespace InfiniteScroll {
         /**
          * This message is shown to the user when he has seen all the records which means he's at the bottom and hasMore is false
          */
-        endMessage: React.ReactNode;
+        endMessage?: React.ReactNode;
 
         /**
          * You can send a loader component to show while the component waits for the next load of data. e.g. <h3>Loading...</h3> or any fancy loader element
