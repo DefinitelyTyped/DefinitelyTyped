@@ -1,4 +1,4 @@
-import { OSTSDK, ActionResponse } from "./index";
+import { OSTSDK, ActionResponse } from "ost-sdk-js";
 
 const ostsdk = new OSTSDK({apiKey: "", apiEndpoint: "", apiSecret: ""});
 

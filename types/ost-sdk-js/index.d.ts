@@ -11,11 +11,10 @@ declare module "@ostdotcom/ost-sdk-js" {
 // core
 export class OSTSDK {
     constructor(params :{
-        apiKey: string,
-        apiSecret: string,
-        apiEndpoint: string
+        apiKey: string;
+        apiSecret: string;
+        apiEndpoint: string;
     });
-
     services: {
         users: UserService;
         actions: ActionService;
@@ -28,9 +27,8 @@ export class OSTSDK {
     } 
 }
 
-
 // services
-interface ActionService {
+export interface ActionService {
     create(arg: {
         name: string,
         kind: "user_to_user"|"company_to_user"|"user_to_company",
@@ -47,7 +45,7 @@ interface ActionService {
     list(): Promise<OstResponse<ActionListResponse>>;
     urlPrefix: string;
 }
-interface AirdropService {
+export interface AirdropService {
     execute(arg: {
         amount: number,
         user_ids: string,
@@ -56,19 +54,19 @@ interface AirdropService {
     list(): Promise<OstResponse<AirdropListResponse>>;
     urlPrefix: string;
 } 
-interface BalanceService {
+export interface BalanceService {
     get(arg: {id: string}): Promise<OstResponse<BalanceResponse>>;
     urlPrefix: string;
 }
-interface LedgerService {
+export interface LedgerService {
     get(arg: {id: string}): Promise<OstResponse<TransactionListResponse>>;
     urlPrefix: string;
 }
-interface TokenService{
+export interface TokenService{
     get(): Promise<OstResponse<TokenResponse>>;
     urlPrefix: string;
 }
-interface TransactionService {
+export interface TransactionService {
     execute(arg: {
         from_user_id: string,
         to_user_id: string,
@@ -78,7 +76,7 @@ interface TransactionService {
     list(arg: {page_no: number, limit: number}): Promise<OstResponse<TransactionListResponse>>;
     urlPrefix: string;
 }
-interface TransferService {
+export interface TransferService {
     execute(arg: {
         to_address: string,
         amount: number
@@ -87,7 +85,7 @@ interface TransferService {
     list(): Promise<OstResponse<TransferListResponse>>;
     urlPrefix: string;
 }
-interface UserService {
+export interface UserService {
     create(arg: {name: string}): Promise<OstResponse<UserResponse>>;
     edit(arg: {id: string, name: string}): Promise<OstResponse<UserResponse>>;
     get(arg: {id: string}): Promise<OstResponse<UserResponse>>;
@@ -105,7 +103,7 @@ export interface OstResponse<T> {
 export interface OstError {
     code: string;
     msg: string;
-    error_data: Array<Object>;
+    error_data: Object[];
     internal_id: string
 }
 
@@ -116,7 +114,7 @@ export interface UserResponse {
 }
 export interface UserListResponse {
     result_type: "users";
-    users: Array<OstUser>
+    users: OstUser[]
 }
 export interface OstUser {
     id: string;
@@ -137,12 +135,12 @@ export interface AirdropResponse {
 }
 export interface AirdropListResponse {
     result_type: "airdrops";
-    airdrops: Array<Airdrop>
+    airdrops: Airdrop[]
 }
 export interface Airdrop {
     id: string;
     current_status: string;
-    steps_complete: string|Array<string>;
+    steps_complete: string|string[];
 }
 // actions
 export interface ActionResponse {
@@ -151,7 +149,7 @@ export interface ActionResponse {
 }
 export interface ActionListResponse {
     result_type: "actions";
-    actions: Array<Action>
+    actions: Action[]
 }
 export interface Action {
     id: string;
@@ -170,7 +168,7 @@ export interface TransactionResponse {
 }
 export interface TransactionListResponse {
     result_type: "transactions";
-    transactions: Array<Transaction>
+    transactions: Transaction[]
 }
 export interface Transaction {
     id: string;
@@ -206,7 +204,7 @@ export interface TransferResponse {
 }
 export interface TransferListResponse {
     result_type: "transfers";
-    transfers: Array<Transfer>
+    transfers: Transfer[]
 }
 export interface Transfer {
     id: string;
