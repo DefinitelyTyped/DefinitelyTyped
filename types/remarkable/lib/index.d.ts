@@ -134,24 +134,24 @@ declare namespace Remarkable {
         options: Options;
     }
 
-    export type ParsingState = {
-        src:         string,
-        env:         Env,
-        options:     Options,
-        tokens:      [ ContentToken ],
-        inlineMode:  boolean,
+    interface ParsingState {
+        src: string;
+        env: Env;
+        options: Options;
+        tokens: [ContentToken];
+        inlineMode: boolean;
 
-        pos:         number,
-        posMax:      number,
-        pending:     string,
-        level:       number,
+        pos: number;
+        posMax: number;
+        pending: string;
+        level: number;
 
-        inline:      ParserInline,
-        block:       ParserBlock,
-        renderer:    Renderer,
-        typographer: boolean,
+        inline: ParserInline;
+        block: ParserBlock;
+        renderer: Renderer;
+        typographer: boolean;
 
-        push:        (token: ContentToken) => void
+        push: (token: ContentToken) => void;
     }
 
     /**
@@ -170,7 +170,6 @@ declare namespace Remarkable {
          * token.
          */
         silent: boolean
-
     ) => boolean;
 
     type Rule = (
@@ -285,7 +284,6 @@ declare namespace Remarkable {
         lines?: [number, number];
     }
 
-
     interface BlockContentToken extends TagToken {
         /**
          * The content of the block. This might include inline mardown syntax
@@ -298,7 +296,6 @@ declare namespace Remarkable {
          * with the inline parser tokens as the inline parsing rules are applied.
          */
         children: Token[];
-
     }
 
     interface ContentToken extends TagToken {
@@ -318,7 +315,6 @@ declare namespace Remarkable {
          */
         block: boolean;
     }
-
 
     interface MiscTokenProps {
         /**
@@ -383,27 +379,17 @@ declare namespace Remarkable {
         title?: string;
     }
 
-    // this was:
-    //
-    //     type Token = (BlockContentToken | ContentToken | TagToken ) & MiscTokenProps;
-    //
-    // This didn't work, as every single access to real token required a cast.
-    //
-    // what follows is a hacky workaround:
-
-    type Token = BlockContentToken & ContentToken & MiscTokenProps;
-
+    type Token = (BlockContentToken | ContentToken | TagToken) & MiscTokenProps;
 }
 
 declare class ParserBlock {
-    tokenize(state: Remarkable.ParsingState, startLine: number, endLine: number) : void;
-    parse(str: string, options: Remarkable.Options, env: Remarkable.Env, tokens: [ Remarkable.Token ]): void;
-  }
+    tokenize(state: Remarkable.ParsingState, startLine: number, endLine: number): void;
+    parse(str: string, options: Remarkable.Options, env: Remarkable.Env, tokens: [Remarkable.Token]): void;
+}
 
-
-  declare class ParserInline {
-    skipToken(state: Remarkable.ParsingState) : void;
-    tokenize(state: Remarkable.ParsingState)  : void;
-    parse(str: string, options: Remarkable.Options, env: Remarkable.Env, tokens: [Remarkable.Token]) : void;
-    validateLink(url: string) : boolean;
-  }
+declare class ParserInline {
+    skipToken(state: Remarkable.ParsingState): void;
+    tokenize(state: Remarkable.ParsingState): void;
+    parse(str: string, options: Remarkable.Options, env: Remarkable.Env, tokens: [Remarkable.Token]): void;
+    validateLink(url: string): boolean;
+}
