@@ -9,6 +9,7 @@ import SelectBase from './lib/Select';
 import { StateManager } from './lib/stateManager';
 
 export default SelectBase;
+export * from './lib/Select';
 // export default StateManager;
 
 export { SelectBase };
