@@ -56,9 +56,11 @@ declare namespace Highcharts {
     }
 
     interface AxisLabelFormatterOptions {
-        value: number;
+        value: any;
         isFirst: number;
         isLast: number;
+        chart: ChartObject;
+        axis: AxisObject;
     }
 
     interface AxisLabels {
@@ -103,7 +105,8 @@ declare namespace Highcharts {
         format?: string;
         /**
          * Callback JavaScript function to format the label. The value is given by this.value. Additional properties for
-         * this are axis, chart, isFirst and isLast.
+         * this are axis, chart, isFirst and isLast. The value of the default label formatter can be retrieved by calling
+         * this.axis.defaultLabelFormatter.call(this) within the function.
          * @default function() {return this.value;}
          */
         formatter?(this: AxisLabelFormatterOptions): string;
@@ -174,7 +177,7 @@ declare namespace Highcharts {
          * font size on bottom axis.
          * @default null
          */
-        y?: number;
+        y?: number | null;
         /**
          * The Z index for the axis labels.
          * @default 7
@@ -256,7 +259,7 @@ declare namespace Highcharts {
          * Border color for the plot band. Also requires borderWidth to be set.
          * @default null
          */
-        borderColor?: Color;
+        borderColor?: Color | null;
         /**
          * Border width for the plot band. Also requires borderColor to be set.
          * @default 0
@@ -289,7 +292,7 @@ declare namespace Highcharts {
          * @default null
          * @since 2.3
          */
-        innerRadius?: number | string;
+        innerRadius?: number | string  | null;
         /**
          * Text labels for the plot bands
          */
@@ -372,6 +375,316 @@ declare namespace Highcharts {
         /**
          * The z index of the plot line within the chart.
          * @since 1.2
+         */
+        zIndex?: number;
+    }
+
+    interface AnnotationsPoint {
+        /**
+         * The x position of the point. Units can be either in axis or chart pixel coordinates.
+         * @default undefined
+         * @since 6.0.0
+         */
+        x?: number;
+        /**
+         * This number defines which xAxis the point is connected to.
+         * It refers to either the axis id or the index of the axis in the xAxis array.
+         * If the option is not configured or the axis is not found the point's x coordinate refers to the chart pixels.
+         * @default undefined
+         * @since 6.0.0
+         */
+        xAxis?: number | string;
+        /**
+         * The y position of the point. Units can be either in axis or chart pixel coordinates.
+         * @default undefined
+         * @since 6.0.0
+         */
+        y?: number;
+        /**
+         * This number defines which yAxis the point is connected to.
+         * It refers to either the axis id or the index of the axis in the yAxis array.
+         * If the option is not configured or the axis is not found the point's y coordinate refers to the chart pixels.
+         * @default undefined
+         * @since 6.0.0
+         */
+        yAxis?: number;
+    }
+
+    interface AnnotationsLabelOptions {
+        /**
+         * The alignment of the annotation's label. If right, the right side of the label should be touching the point.
+         * @default "center"
+         * @since 6.0.0
+         */
+        align?: "left" | "center" | "right";
+        /**
+         * The alignment of the annotation's label. If right, the right side of the label should be touching the point.
+         * @default false
+         * @since 6.0.0
+         */
+        allowOverlap?: boolean;
+        /**
+         * The background color or gradient for the annotation's label.
+         * @default rgba(0, 0, 0, 0.75)
+         * @since 6.0.0
+         */
+        backgroundColor?: string | Gradient;
+        /**
+         * The border color for the annotation's label.
+         * @default "black"
+         * @since 6.0.0
+         */
+        borderColor?: string | Gradient;
+        /**
+         * The border radius in pixels for the annotation's label.
+         * @default 1
+         * @since 6.0.0
+         */
+        borderRadius?: number;
+        /**
+         * The border width in pixels for the annotation's label.
+         * @default 1
+         * @since 6.0.0
+         */
+        borderWidth?: number;
+        /**
+         * Whether to hide the annotation's label that is outside the plot area.
+         * @default false
+         * @since 6.0.0
+         */
+        crop?: boolean;
+        /**
+         * The label's pixel distance from the point.
+         * @default undefined
+         * @since 6.0.0
+         */
+        distance?: number;
+        /**
+         * A format string for the data label.
+         * @default undefined
+         * @since 6.0.0
+         */
+        format?: string;
+        /**
+         * Callback JavaScript function to format the annotation's label.
+         * Note that if a format or text are defined, the format or text take precedence and the formatter is ignored.
+         * This refers to a point object.
+         * @default function () { return defined(this.y) ? this.y : 'Annotation label'; }
+         * @since 6.0.0
+         */
+        formatter?: Function;
+        /**
+         * How to handle the annotation's label that flow outside the plot area.
+         * The justify option aligns the label inside the plot area.
+         * @default "justify
+         * @since 6.0.0
+         */
+        overflow?: "justify" | "none";
+        /**
+         * When either the borderWidth or the backgroundColor is set, this is the padding within the box.
+         * @default 5
+         * @since 6.0.0
+         */
+        padding?: number;
+        /**
+         * The shadow of the box. The shadow can be an object configuration containing color, offsetX, offsetY, opacity and width.
+         * @default false
+         * @since 6.0.0
+         */
+        shadow?:
+            | boolean
+            | {
+            color?: string | Gradient;
+            offsetX?: number;
+            offsetY?: number;
+            opacity?: number;
+            width?: number;
+        };
+        /**
+         * The name of a symbol to use for the border around the label. Symbols are predefined functions on the Renderer object.
+         * @default "callout"
+         * @since 6.0.0
+         */
+        shape?: "connector" | "rect" | "circle" | "diamond" | "triangle";
+        /**
+         * Styles for the annotation's label.
+         * @default "callout"
+         * @since 6.0.0
+         */
+        style?: {
+            /**
+             * @default "contrast"
+             * @since 6.0.0
+             */
+            color?: string;
+            fontFamily?: string;
+            /**
+             * @default "11px"
+             * @since 6.0.0
+             */
+            fontSize?: string;
+            /**
+             * @default "normal"
+             * @since 6.0.0
+             */
+            fontWeight?: string;
+            textAlign?: string;
+        };
+        /**
+         * Alias for the format option.
+         * @default undefined
+         * @since 6.0.0
+         */
+        text?: string;
+        /**
+         * Whether to use HTML to render the annotation's label.
+         * @default false
+         * @since 6.0.0
+         */
+        useHTML?: boolean;
+        /**
+         * The vertical alignment of the annotation's label.
+         * @default "bottom"
+         * @since 6.0.0
+         */
+        verticalAlign?: "bottom" | "middle" | "top";
+        /**
+         * The x position offset of the label relative to the point.
+         * Note that if a distance is defined, the distance takes precedence over x and y options.
+         * @default 0
+         * @since 6.0.0
+         */
+        x?: number;
+        /**
+         * The y position offset of the label relative to the point.
+         * Note that if a distance is defined, the distance takes precedence over x and y options.
+         * @default -16
+         * @since 6.0.0
+         */
+        y?: number;
+    }
+
+    interface AnnotationsLabel extends AnnotationsLabelOptions {
+        /**
+         * This option defines the point to which the label will be connected.
+         * It can be either the point which exists in the series - it is referenced by the point's id
+         * - or a new point with defined x, y properties and optionally axes.
+         * @since 6.0.0
+         */
+        point?: string | AnnotationsPoint;
+    }
+
+    interface AnnotationsShapeOptions {
+        /**
+         * The color of the shape's fill.
+         * @default rgba(0, 0, 0, 0.75)
+         * @since 6.0.0
+         */
+        fill?: string;
+        /**
+         * The height of the shape.
+         * @default undefined
+         * @since 6.0.0
+         */
+        height?: number;
+        /**
+         * The radius of the shape.
+         * @default 0
+         * @since 6.0.0
+         */
+        r?: number;
+        /**
+         * The color of the shape's stroke.
+         * @default rgba(0, 0, 0, 0.75)
+         * @since 6.0.0
+         */
+        stroke?: string;
+        /**
+         * The pixel stroke width of the shape.
+         * @default 1
+         * @since 6.0.0
+         */
+        strokeWidth?: number;
+        /**
+         * The type of the shape, e.g. circle or rectangle.
+         * @default "rect"
+         * @since 6.0.0
+         */
+        type?: "circle" | "path" | "rect";
+        /**
+         * The width of the shape.
+         * @default undefined
+         * @since 6.0.0
+         */
+        width?: number;
+    }
+
+    interface AnnotationsShape extends AnnotationsShapeOptions {
+        /**
+         * Id of the marker which will be drawn at the final vertex of the path. Custom markers can be defined in defs property.
+         * @default undefined
+         * @since 6.0.0
+         */
+        markerEnd?: string;
+        /**
+         * Id of the marker which will be drawn at the final vertex of the path. Custom markers can be defined in defs property.
+         * @default undefined
+         * @since 6.0.0
+         */
+        markerStart?: string;
+        /**
+         * This option defines the point to which the shape will be connected.
+         * It can be either the point which exists in the series - it is referenced by the point's id
+         * - or a new point with defined x, y properties and optionally axes.
+         * @since 6.0.0
+         */
+        point?: string | AnnotationsPoint;
+        /**
+         * An array of points for the shape. This option is available for shapes which can use multiple points such as path.
+         * A point can be either a point object or a point's id.
+         * @default undefined
+         * @since 6.0.0
+         */
+        points?: Array<string | AnnotationsPoint>;
+    }
+
+    /**
+     * Options for configuring annotations, for example labels, arrows or shapes. Annotations can be tied to points,
+     * axis coordinates or chart pixel coordinates.
+     */
+    interface AnnotationsOptions {
+        /**
+         * Options for annotation's labels. Each label inherits options from the labelOptions object.
+         * An option from the labelOptions can be overwritten by config for a specific label.
+         * @since 6.0.0
+         */
+        labelOptions?: AnnotationsLabelOptions;
+        /**
+         * An array of labels for the annotation. For options that apply to multiple labels, they can be added to the labelOptions.
+         * @since 6.0.0
+         */
+        labels?: AnnotationsLabel[];
+        /**
+         * Options for annotation's shapes. Each shape inherits options from the shapeOptions object.
+         * An option from the shapeOptions can be overwritten by config for a specific shape.
+         * @since 6.0.0
+         */
+        shapeOptions?: AnnotationsShapeOptions;
+        /**
+         * An array of shapes for the annotation. For options that apply to multiple shapes, they can be added to the shapeOptions.
+         * @since 6.0.0
+         */
+        shapes?: AnnotationsShape[];
+        /**
+         * Whether the annotation is visible.
+         * @default true
+         * @since 6.0.0
+         */
+        visible?: boolean;
+        /**
+         * The Z index of the annotation.
+         * @default 6
+         * @since 6.0.0
          */
         zIndex?: number;
     }
@@ -474,6 +787,26 @@ declare namespace Highcharts {
         skipNullPoints?: boolean;
     }
 
+    interface AnimationOptions {
+        /**
+         * The animation duration in milliseconds.
+         */
+        duration: number;
+        /**
+         * The name of an easing function as defined on the Math object.
+         */
+        easing?: string;
+        /**
+         * A callback function to exectute when the animation finishes.
+         */
+        complete?: () => void;
+        /**
+         * A callback function to execute on each step of each attribute or CSS property that's being animated.
+         * The first argument contains information about the animation and progress.
+         */
+        step?: () => void;
+    }
+
     interface AxisTitle {
         /**
          * Alignment of the title relative to the axis values. Possible values are 'low', 'middle' or 'high'.
@@ -485,7 +818,7 @@ declare namespace Highcharts {
          * @default 'middle'
          * @deprecated
          */
-        enabled?: string;
+        enabled?: string | null;
         /**
          * The pixel distance between the axis labels or line and the title.
          * @default xAxis: 0 for horizontal axes, 10 for vertical axes, yAxis: 40
@@ -581,7 +914,7 @@ declare namespace Highcharts {
          * categories: ['Apples', 'Bananas', 'Oranges']
          * @default null
          */
-        categories?: any[];
+        categories?: any[] | null;
         /**
          * The highest allowed value for automatically computed axis extremes.
          * @since 4.0
@@ -652,7 +985,7 @@ declare namespace Highcharts {
          * @default null
          * @since 4.0
          */
-        floor?: number;
+        floor?: number | null;
         /**
          * Color of the grid lines extending the ticks across the plot area.
          * @defaults to '#D8D8D8'.
@@ -705,7 +1038,7 @@ declare namespace Highcharts {
          * The maximum value of the axis. If null, the max value is automatically calculated. If the endOnTick option is
          * true, the max value might be rounded up. The actual maximum value is also influenced by chart.alignTicks.
          */
-        max?: number;
+        max?: number | null;
         /**
          * Padding of the max value relative to the length of the axis. A padding of 0.05 will make a 100px axis 5px longer.
          * This is useful when you don't want the highest data value to appear on the edge of the plot area. When the axis'
@@ -723,7 +1056,7 @@ declare namespace Highcharts {
          * The minimum value of the axis. If null the min value is automatically calculated. If the startOnTick option is
          * true, the min value might be rounded down.
          */
-        min?: number;
+        min?: number | null;
         /**
          * Padding of the min value relative to the length of the axis. A padding of 0.05 will make a 100px axis 5px longer.
          * This is useful when you don't want the lowest data value to appear on the edge of the plot area. When the axis'
@@ -787,7 +1120,7 @@ declare namespace Highcharts {
          *
          * On axes using categories, minor ticks are not supported.
          */
-        minorTickInterval?: number | string;
+        minorTickInterval?: number | string | null;
         /**
          * The pixel length of the minor tick marks.
          * @default 2
@@ -961,7 +1294,7 @@ declare namespace Highcharts {
          * Use this in cases where a linear gradient between a minColor and maxColor is not sufficient.
          * The stops is an array of tuples, where the first item is a float between 0 and 1 assigning the relative position in the gradient, and the second item is the color.
          */
-        stops?: Array<[number, string]>;
+        stops?: Array<Array<number|string>>;
         /**
          * The amount of ticks to draw on the axis. This opens up for aligning the ticks of multiple charts or panes within
          * a chart. This option overrides the tickPixelInterval option.
@@ -986,7 +1319,7 @@ declare namespace Highcharts {
          *
          * If the tickInterval is too dense for labels to be drawn, Highcharts may remove ticks.
          */
-        tickInterval?: number;
+        tickInterval?: number | null;
         /**
          * The pixel length of the main tick marks.
          * @default 10
@@ -998,7 +1331,7 @@ declare namespace Highcharts {
          *
          * @default 72 for the Y axis, 100 for the X axis.
          */
-        tickPixelInterval?: number;
+        tickPixelInterval?: number | null;
         /**
          * The position of the major tick marks relative to the axis line. Can be one of 'inside' and 'outside'.
          * @default 'outside'
@@ -1025,7 +1358,7 @@ declare namespace Highcharts {
          * mark is placed between categories. The default is 'between' if the tickInterval is 1, else 'on'.
          * @default null
          */
-        tickmarkPlacement?: string;
+        tickmarkPlacement?: string | null;
         /**
          * The axis title, showing next to the axis line. To disable the title, set the text to null.
          */
@@ -1161,12 +1494,12 @@ declare namespace Highcharts {
              * @default 'gray'
              */
             color?: string | Gradient;
-        };
+        } | null;
         /**
          * The maximum value of the axis in terms of map point values. If null, the max value is automatically calculated.
          * If the endOnTick option is true, the max value might be rounded up.
          */
-        max?: number;
+        max?: number | null;
         /**
          * The color to represent the maximum of the color axis. Unless dataClasses or stops are set, the gradient ends at
          * this value.
@@ -1185,7 +1518,7 @@ declare namespace Highcharts {
          * The minimum value of the axis in terms of map point values. If null, the min value is automatically calculated.
          * If the startOnTick option is true, the min value might be rounded down.
          */
-        min?: number;
+        min?: number | null;
         /**
          * The color to represent the minimum of the color axis. Unless dataClasses or stops are set, the gradient starts at
          * this value.
@@ -1232,7 +1565,7 @@ declare namespace Highcharts {
          * If user settings dictate minor ticks to become too dense, they don't make sense, and will be ignored to prevent
          * performance problems.
          */
-        minorTickInterval?: string | number;
+        minorTickInterval?: string | number | null;
         /**
          * The pixel length of the minor tick marks.
          * @default 2
@@ -1284,7 +1617,7 @@ declare namespace Highcharts {
          * The interval of the tick marks in axis units. When null, the tick interval is computed to approximately follow
          * the tickPixelInterval.
          */
-        tickInterval?: number;
+        tickInterval?: number | null;
         /**
          * The pixel length of the main tick marks.
          * @default 10
@@ -1294,7 +1627,7 @@ declare namespace Highcharts {
          * If tickInterval is null this option sets the approximate pixel interval of the tick marks.
          * @default 72
          */
-        tickPixelInterval?: number;
+        tickPixelInterval?: number | null;
         /**
          * The position of the major tick marks relative to the axis line. Can be one of 'inside' and 'outside'.
          * @default 'outside'
@@ -1486,6 +1819,13 @@ declare namespace Highcharts {
          * @since 1.2.0
          */
         redraw?(event: Event): void;
+        /**
+         * Fires after initial load of the chart (directly after the load
+         * event), and after each redraw (directly after the redraw event).
+         *
+         * @since 5.0.7
+         */
+        render?(event: Event): void;
         /**
          * Fires when an area of the chart has been selected. Selection is enabled by setting the chart's zoomType. One
          * parameter, event, is passed to the function. This contains common event information based on jQuery or MooTools
@@ -1771,7 +2111,7 @@ declare namespace Highcharts {
          * @default null
          * @since 5.0.8
          */
-        height?: number | string;
+        height?: number | string | null;
         /**
          * If true, the axes will scale to the remaining visible series once one series is hidden. If false, hiding and
          * showing a series will not affect the axes or the other series. For stacks, once one series within the stack is
@@ -1843,7 +2183,7 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        pinchType?: string;
+        pinchType?: string | null;
         /**
          * The background color or gradient for the plot area.
          */
@@ -1988,6 +2328,7 @@ declare namespace Highcharts {
         fontWeight?: string;
         left?: string;
         opacity?: number;
+        overflow?: string;
         padding?: string | number;
         position?: string;
         top?: string;
@@ -2310,7 +2651,7 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        text?: string;
+        text?: string | null;
         /**
          * A configuration object for the button theme. The object accepts SVG properties like stroke-width, stroke and
          * fill. Tri-state button styles are supported by the states.hover and states.select objects.
@@ -2346,7 +2687,7 @@ declare namespace Highcharts {
          * can be customized by defining a new array of items and assigning null to unwanted positions.
          * @since 2.0
          */
-        menuItems?: MenuItem[];
+        menuItems?: string[] | MenuItem[];
         /**
          * A click handler callback to use on the button directly instead of the popup menu.
          * @since 2.0
@@ -2390,7 +2731,7 @@ declare namespace Highcharts {
          * specific width and height, or a printer-friendly color scheme.
          * @default null
          */
-        chartOptions?: Options;
+        chartOptions?: Options | null;
         /**
          * Whether to enable the exporting module. Disabling the module will hide the context button, but API methods will
          * still be available.
@@ -2628,7 +2969,7 @@ declare namespace Highcharts {
          * @default ['k', 'M', 'G', 'T', 'P', 'E']
          * @since 2.3.0
          */
-        numericSymbols?: string[];
+        numericSymbols?: string[] | null;
         /**
          * Exporting module only. The text for the menu item to print the chart.
          * @default 'Print chart'
@@ -2653,6 +2994,12 @@ declare namespace Highcharts {
          * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
          */
         shortMonths?: string[];
+        /**
+         * Short week days, starting Sunday. If not specified, Highcharts uses the first three letters of the lang.weekdays option.
+         * @default undefined
+         * @since 4.2.4
+         */
+        shortWeekdays?: string[];
         /**
          * The default thousands separator used in the Highcharts.numberFormat method unless otherwise specified in the
          * function arguments. Since Highcharts 4.1 it defaults to a single space character, which is compatible with ISO
@@ -2712,7 +3059,7 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        text?: string;
+        text?: string | null;
     }
 
     interface LegendOptions {
@@ -3069,7 +3416,7 @@ declare namespace Highcharts {
          * @default ['50%', '50%']
          * @since 2.3.0
          */
-        center?: [number | string, number | string];
+        center?: Array<number|string>;
         /**
          * The end angle of the polar X axis or gauge value axis, given in degrees where 0 is north.
          * @default startAngle + 360
@@ -3116,7 +3463,7 @@ declare namespace Highcharts {
          * chart's two series to be updated with respective options.
          * @since 5.0.0
          */
-        chartOptions?: ChartOptions;
+        chartOptions?: Options;
 
         /**
          * Under which conditions the rule applies.
@@ -3220,7 +3567,7 @@ declare namespace Highcharts {
          * The text color for the data labels.
          * @default null
          */
-        color?: string | Gradient;
+        color?: string | Gradient | null;
         /**
          * Whether to hide data labels that are outside the plot area. By default, the data label is moved inside the plot
          * area according to the overflow option.
@@ -3464,16 +3811,16 @@ declare namespace Highcharts {
          * widespread data points.
          * @default null, true for hover and select
          */
-        enabled?: boolean;
+        enabled?: boolean | null;
         /**
          * The fill color of the point marker. When null, the series' or point's color is used.
          */
-        fillColor?: string;
+        fillColor?: string | null;
         /**
          * The color of the point marker's outline. When null, the series' or point's color is used.
          * @default '#FFFFFF', '#000000' for select state
          */
-        lineColor?: string | Gradient;
+        lineColor?: string | Gradient | null;
         /**
          * The width of the point marker's outline.
          * @default 0
@@ -3507,7 +3854,7 @@ declare namespace Highcharts {
          * @default null
          * @since 4.0.4
          */
-        height?: number;
+        height?: number | null;
         states?: {
             hover?: MarkerHoverState;
             /**
@@ -3526,13 +3873,13 @@ declare namespace Highcharts {
          * Custom callbacks for symbol path generation can also be added to Highcharts.SVGRenderer.prototype.symbols. The
          * callback is then used by its method name.
          */
-        symbol?: string; // null, 'circle', 'square', 'diamond', 'triangle' 'triangle-down' or 'url(graphic.png)'
+        symbol?: string | null; // null, 'circle', 'square', 'diamond', 'triangle' 'triangle-down' or 'url(graphic.png)'
         /**
          * Image markers only. Set the image width explicitly. When using this option, a height must also be set.
          * @default null.
          * @since 4.0.4
          */
-        width?: number;
+        width?: number | null;
     }
 
     interface PointEvents {
@@ -3760,7 +4107,7 @@ declare namespace Highcharts {
          * The text color for the data labels.
          * @default null
          */
-        color?: string | Gradient;
+        color?: string | Gradient | null;
         /**
          * Whether to hide data labels that are outside the plot area. By default, the data label is moved inside the plot
          * area according to the overflow option.
@@ -4139,7 +4486,7 @@ declare namespace Highcharts {
          * @default null.
          * @since 3.0
          */
-        negativeColor?: string;
+        negativeColor?: string | null;
         point?: {
             events: PointEvents;
         };
@@ -4175,7 +4522,7 @@ declare namespace Highcharts {
          * Defaults to null in cartesian charts, 'between' in polar charts.
          * @since 2.3.0
          */
-        pointPlacement?: string | number;
+        pointPlacement?: string | number | null;
         /**
          * If no x values are given for the points in a series, pointStart defines on what value to start. For example, if a
          * series contains one yearly value starting from 1945, set pointStart to 1945.
@@ -4221,7 +4568,7 @@ declare namespace Highcharts {
          * Whether to stack the values of each series on top of each other. Possible values are null to disable, 'normal' to
          * stack by value or 'percent'.
          */
-        stacking?: string;
+        stacking?: string | null;
         /**
          * A wrapper object for all the series options in specific states.
          */
@@ -4247,7 +4594,7 @@ declare namespace Highcharts {
          * @default 0
          * @since 2.0
          */
-        threshold?: number;
+        threshold?: number | null;
         /**
          * A configuration object for the tooltip rendering of each single series. Properties are inherited from tooltip,
          * but only the following properties can be defined on a series level.
@@ -4285,7 +4632,7 @@ declare namespace Highcharts {
         /**
          * Fill color or gradient for the area. When null, the series' color is used with the series' fillOpacity.
          */
-        fillColor?: string | Gradient;
+        fillColor?: string | Gradient | null;
         /**
          * Fill opacity for the area. Note that when you set an explicit fillColor, the fillOpacity is not applied. Instead,
          * you should define the opacity in the fillColor with an rgba color definition.
@@ -4401,7 +4748,7 @@ declare namespace Highcharts {
          * @default null
          * @since 4.1.8
          */
-        maxPointWidth?: number;
+        maxPointWidth?: number | null;
         /**
          * The minimal height for a column or width for a bar. By default, 0 values are not shown. To visualize a 0 (or
          * close to zero) point, set the minimal point length to a pixel value like 3. In stacked column charts,
@@ -4426,7 +4773,7 @@ declare namespace Highcharts {
          * pointPadding and groupPadding.
          * @since 1.2.5
          */
-        pointWidth?: number;
+        pointWidth?: number | null;
         /**
          * A wrapper object for all the series options in specific states.
          */
@@ -4474,13 +4821,13 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        medianColor?: string;
+        medianColor?: string | null;
         /**
          * The pixel width of the median line. If null, the lineWidth is used.
          * @default 2
          * @since 3.0
          */
-        medianWidth?: number;
+        medianWidth?: number | null;
     }
 
     /**
@@ -4517,7 +4864,7 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        negativeColor?: string;
+        negativeColor?: string | null;
         /**
          * Whether the bubble's value should be represented by the area or the width of the bubble. The default, area,
          * corresponds best to the human perception of the size of each bubble.
@@ -4538,13 +4885,13 @@ declare namespace Highcharts {
          * @default null
          * @since 4.0.3
          */
-        zMax?: number;
+        zMax?: number | null;
         /**
          * The minimum for the Z value range. Defaults to the lowest Z value in the data.
          * @default null
          * @since 4.0.3
          */
-        zMin?: number;
+        zMin?: number | null;
         /**
          * When displayNegative is false, bubbles with lower Z values are skipped. When displayNegative is true and a
          * negativeColor is given, points with lower Z is colored.
@@ -4617,7 +4964,7 @@ declare namespace Highcharts {
          * @default null
          * @since 4.1.8
          */
-        maxPointWidth?: number;
+        maxPointWidth?: number | null;
         /**
          * Padding between each column or bar, in x axis units.
          * @default 0.1
@@ -4635,7 +4982,7 @@ declare namespace Highcharts {
          * pointPadding and groupPadding.
          * @since 1.2.5
          */
-        pointWidth?: number;
+        pointWidth?: number | null;
         /**
          * A wrapper object for all the series options in specific states.
          */
@@ -4651,7 +4998,7 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        stemColor?: string;
+        stemColor?: string | null;
         /**
          * The dash style of the stem, the vertical line extending from the box to the whiskers.
          * @default 'Solid'
@@ -4664,14 +5011,14 @@ declare namespace Highcharts {
          * @default null
          * @since 3.0
          */
-        stemWidth?: number;
+        stemWidth?: number | null;
         /**
          * The color of the whiskers, the horizontal lines marking low and high values. When null, the general series color
          * is used.
          * @default null
          * @since 3.0
          */
-        whiskerColor?: string;
+        whiskerColor?: string | null;
         /**
          * The length of the whiskers, the horizontal lines marking low and high values. It can be a numerical pixel value,
          * or a percentage value of the box width. Set 0 to disable whiskers.
@@ -4685,7 +5032,7 @@ declare namespace Highcharts {
          * @default 2
          * @since 3.0
          */
-        whiskerWidth?: number;
+        whiskerWidth?: number | null;
     }
 
     /**
@@ -4863,7 +5210,7 @@ declare namespace Highcharts {
          * @default null
          * @since 4.1.8
          */
-        maxPointWidth?: number;
+        maxPointWidth?: number | null;
         /**
          * The row size - how many Y axis units each heatmap row should span.
          * @default 1
@@ -4901,7 +5248,7 @@ declare namespace Highcharts {
          * borderless pies.
          * @default '#FFFFFF'
          */
-        borderColor?: string | Gradient;
+        borderColor?: string | Gradient | null;
         /**
          * The width of the border surrounding each column or bar.
          * @default 1
@@ -4914,7 +5261,7 @@ declare namespace Highcharts {
          * center should be explicitly set, for example to ['50%', '50%'].
          * @default [null, null]
          */
-        center?: [string | number, string | number];
+        center?: [string | number | null, string | number | null];
         /**
          * A series specific or series type specific color set to apply instead of the global colors when colorByPoint is true.
          * @since 3.0
@@ -4932,7 +5279,7 @@ declare namespace Highcharts {
          * @default null
          * @since 1.3.6
          */
-        endAngle?: number;
+        endAngle?: number | null;
         /**
          * Equivalent to chart.ignoreHiddenSeries, this option tells whether the series shall be redrawn as if the hidden
          * point were null.
@@ -5099,7 +5446,7 @@ declare namespace Highcharts {
          * @default null
          * @since 5.0.3
          */
-        threshold?: number;
+        threshold?: number | null;
         /**
          * When this option is true, the dial will wrap around the axes. For instance, in a full-range gauge going from 0 to
          * 360, a value of 400 will point to 40. When wrap is false, the dial stops at 360.
@@ -5187,7 +5534,7 @@ declare namespace Highcharts {
          * @default null
          * @since 4.1.8
          */
-        maxPointWidth?: number;
+        maxPointWidth?: number | null;
         /**
          * The sort index of the point inside the treemap level.
          * @since 4.1.10
@@ -5232,6 +5579,96 @@ declare namespace Highcharts {
          * The color used specifically for positive point columns. When not specified, the general series color is used.
          */
         upColor?: Color;
+    }
+
+    interface WordCloudChart extends BarChart {
+        /**
+         * For some series, there is a limit that shuts down initial animation by default when the total number of points
+         * in the chart is too high. For example, for a column chart and its derivatives, animation doesn't run if there
+         * is more than 250 points totally. To disable this cap, set animationLimit to Infinity.
+         * @default undefined
+         * @since 6.0.0
+         */
+        animationLimit?: number;
+        /**
+         * By default, series are exposed to screen readers as regions. By enabling this option, the series element itself
+         * will be exposed in the same way as the data points. This is useful if the series is not used as a grouping entity
+         * in the chart, but you still want to attach a description to the series.
+         * Requires the Accessibility module.
+         * @default undefined
+         * @since 5.0.12
+         */
+        exposeElementToA11y?: boolean;
+        /**
+         * This option decides which algorithm is used for placement, and rotation of a word. The choice of algorith is
+         * therefore a crucial part of the resulting layout of the wordcloud. It is possible for users to add their own
+         * custom placement strategies for use in word cloud. Read more about it in our documentation
+         * @default center
+         * @since 6.0.0
+         */
+        placementStrategy?: string;
+        /**
+         * Same as accessibility.pointDescriptionFormatter, but for an individual series. Overrides the chart wide
+         * configuration.
+         * @default undefined
+         * @since 5.0.12
+         */
+        pointDescriptionFormatter?: () => string;
+        /**
+         * Rotation options for the words in the wordcloud.
+         * @since 6.0.0
+         */
+        rotation?: {
+            /**
+             * The smallest degree of rotation for a
+             * @default 0
+             * @since 6.0.0
+             */
+            from?: number;
+            /**
+             * The largest degree of rotation for a word.
+             * @default 90
+             * @since 6.0.0
+             */
+            to?: number;
+            /**
+             * The number of possible orientations for a word, within the range of rotation.from and rotation.to.
+             * @default 2
+             * @since 6.0.0
+             */
+            orientations?: number;
+        };
+
+        /**
+         * If set to True, the accessibility module will skip past the points in this series for keyboard navigation.
+         * @default undefined
+         * @since 5.0.12
+         */
+        skipKeyboardNavigation?: boolean;
+        /**
+         * Spiral used for placing a word after the inital position experienced a collision with either another word or the
+         * borders. It is possible for users to add their own custom spiralling algorithms for use in word cloud. Read more
+         * about it in our documentation
+         * @default rectangular
+         * @since 6.0.0
+         */
+        spiral?: string;
+        /**
+         * CSS styles for the words.
+         * @since 6.0.0
+         */
+        style?: {
+            /**
+             * @default sans-serif
+             * @since 6.0.0
+             */
+            fontFamily?: string;
+            /**
+             * @default 900
+             * @since 6.0.0
+             */
+            fontWeight?: number | string;
+        };
     }
 
     /**
@@ -5330,8 +5767,16 @@ declare namespace Highcharts {
          *            name: 'Point1',
          *            color: '#FF00FF'
          *        }]
+         *
+         * 4. An array of arrays with three values for ranges. In this case the values correspond x, yMin and yMax. If the
+         *    first value is a string it is applied as the name of the point, and the x value is inferred.
+         *        data: [
+         *            [1, 2, 3],
+         *            [2, 4, 6],
+         *            [3, 7, 8]
+         *
          */
-        data?: Array<number | [number, number] | [string, number] | DataPoint>;
+        data?: Array<number | [number, number] | [string, number] | [string, number, number] | [number, number, number] | DataPoint>;
         /**
          * A description of the series to add to the screen reader information about the series.
          * @since 5.0.0
@@ -5362,7 +5807,7 @@ declare namespace Highcharts {
          * A pixel value specifying a fixed width for each column or bar. When null, the width is calculated from
          * the pointPadding and groupPadding.
          */
-        pointWidth?: number;
+        pointWidth?: number | null;
         /**
          * This option allows grouping series in a stacked chart. The stack option can be a string or a number or anything
          * else, as long as the grouped series' stack options match each other.
@@ -5415,6 +5860,7 @@ declare namespace Highcharts {
     interface SplineChartSeriesOptions extends IndividualSeriesOptions, SplineChart { }
     interface TreeMapChartSeriesOptions extends IndividualSeriesOptions, TreeMapChart { }
     interface WaterFallChartSeriesOptions extends IndividualSeriesOptions, WaterFallChart { }
+    interface WordCloudChartSeriesOptions extends IndividualSeriesOptions, WordCloudChart { }
 
     interface DataPoint {
         /**
@@ -5432,6 +5878,12 @@ declare namespace Highcharts {
          * Individual data label for each point. The options are the same as the ones for plotOptions.series.dataLabels
          */
         dataLabels?: DataLabels;
+        /**
+         * A description of the point to add to the screen reader information about the point.
+         * @default undefined
+         * @since 5.0.0
+         */
+        description?: string;
         /**
          * The id of a series in the drilldown.series array to use for a drilldown for this point.
          * @since 3.0.8
@@ -5584,7 +6036,47 @@ declare namespace Highcharts {
          * @default null
          * @since 2.0
          */
-        y?: number;
+        y?: number | null;
+    }
+
+    interface TimeOptions {
+        /**
+         * A custom Date class for advanced date handling. For example, JDate can be hooked in to handle Jalali dates.
+         * @default undefined
+         * @since 4.0.4
+         */
+        Date?: Date;
+        /**
+         * A callback to return the time zone offset for a given datetime. It takes the timestamp in terms of milliseconds since
+         * January 1 1970, and returns the timezone offset in minutes. This provides a hook for drawing time based charts in
+         * specific time zones using their local DST crossover dates, with the help of external libraries.
+         * @default undefined
+         * @since 4.1.0
+         */
+        getTimezoneOffset?: (timestamp: Date) => number;
+        /**
+         * Requires moment.js. If the timezone option is specified, it creates a default getTimezoneOffset function that looks
+         * up the specified timezone in moment.js. If moment.js is not included, this throws a Highcharts error in the console,
+         * but does not crash the chart.
+         * @default undefined
+         * @since 5.0.7
+         */
+        timezone?: string;
+        /**
+         * The timezone offset in minutes. Positive values are west, negative values are east of UTC, as in the ECMAScript
+         * getTimezoneOffset method. Use this to display UTC based data in a predefined time zone.
+         * @default 0
+         * @since 3.0.8
+         */
+        timezoneOffset?: number;
+        /**
+         * Whether to use UTC time for axis scaling, tickmark placement and time display in Highcharts.dateFormat.
+         * Advantages of using UTC is that the time displays equally regardless of the user agent's time zone settings.
+         * Local time can be used when the data is loaded in real time or when correct Daylight Saving Time transitions are required.
+         * @default undefined
+         * @since 6.0.5
+         */
+        useUTC?: boolean;
     }
 
     interface TitleOptions {
@@ -5641,7 +6133,7 @@ declare namespace Highcharts {
          * @default null
          * @since 2.0
          */
-        y?: number;
+        y?: number | null;
     }
 
     interface CrosshairObject {
@@ -5695,7 +6187,7 @@ declare namespace Highcharts {
          * The color of the tooltip border. When null, the border takes the color of the corresponding series or point.
          * @default null
          */
-        borderColor?: string | Gradient;
+        borderColor?: string | Gradient | null;
         /**
          * The radius of the rounded border corners.
          * @default 3
@@ -5723,7 +6215,7 @@ declare namespace Highcharts {
          *
          * @default null
          */
-        crosshairs?: boolean | [boolean, boolean] | CrosshairObject | [CrosshairObject, CrosshairObject];
+        crosshairs?: boolean | [boolean, boolean] | CrosshairObject | [CrosshairObject, CrosshairObject] | null;
         /**
          * Enable or disable the tooltip.
          * @default true
@@ -5758,6 +6250,16 @@ declare namespace Highcharts {
          *   The y value.
          */
         formatter?(): boolean | string;
+        /**
+         * Whether to allow the tooltip to render outside the chart's SVG element box.
+         * By default (false), the tooltip is rendered within the chart's SVG element, which results in
+         * the tooltip being aligned inside the chart area. For small charts, this may result in
+         * clipping or overlapping. When true, a separate SVG element is created and overlaid on the
+         * page, allowing the tooltip to be aligned inside the page itself.
+         * @default false
+         * @since 6.1.1
+         */
+        outside?: boolean;
         /**
          * Padding inside the tooltip, in pixels.
          * @since 5.0.0
@@ -5915,6 +6417,10 @@ declare namespace Highcharts {
          */
         accessibility?: AccessibilityOptions;
         /**
+         * Options for configuring annotations, for example labels, arrows or shapes.
+         */
+        annotations?: AnnotationsOptions[];
+        /**
          * Options regarding the chart area and plot area as well as general chart options.
          */
         chart?: ChartOptions;
@@ -6002,7 +6508,7 @@ declare namespace Highcharts {
          * Allows setting a set of rules to apply for different screen or chart sizes. Each rule specifies additional chart options.
          * @since 5.0.0
          */
-        responsive?: ResponsiveOptions[];
+        responsive?: ResponsiveOptions;
         /**
          * The actual series to append to the chart. In addition to the members listed below, any member of the plotOptions
          * for that specific type of plot can be added to a series individually. For example, even though a general
@@ -6013,6 +6519,10 @@ declare namespace Highcharts {
          * The chart's subtitle
          */
         subtitle?: SubtitleOptions;
+        /**
+         * The chart's time options
+         */
+        time?: TimeOptions;
         /**
          * The chart's main title.
          */
@@ -6067,6 +6577,13 @@ declare namespace Highcharts {
      * Configuration options for the axes are given in options.xAxis and options.yAxis.
      */
     interface AxisObject {
+        dataMin: number;
+        dataMax: number;
+        userMin: number;
+        userMax: number;
+        bottom: number;
+        left: number;
+        width: number;
         /**
          * Add a plot band after render time.
          * @param options A configuration object consisting of the same members as options.xAxis.plotBands
@@ -6079,6 +6596,7 @@ declare namespace Highcharts {
          * @since 1.2.0
          */
         addPlotLine(options: PlotLines): void;
+        defaultLabelFormatter(this: AxisLabelFormatterOptions): string;
         /**
          * Get the current extremes for the axis.
          * @since 1.2.0
@@ -6201,6 +6719,8 @@ declare namespace Highcharts {
          * @since 3.0.8
          */
         addSeriesAsDrilldown(point: PointObject, seriesOptions: IndividualSeriesOptions): void;
+        chartHeight?: number;
+        chartWidth?: number;
         /**
          * A reference to the containing HTML element, dynamically inserted into the element given in chart.renderTo.
          * @since 1.2.5
@@ -6310,6 +6830,10 @@ declare namespace Highcharts {
          * @since 1.2.0
          */
         options: Options;
+        plotLeft?: number;
+        plotSizeX?: number;
+        plotSizeY?: number;
+        plotTop?: number;
         /**
          * Exporting module required. Clears away other elements in the page and prints the chart as it is displayed. By
          * default, when the exporting module is enabled, a button at the upper left calls this method.
@@ -6382,9 +6906,10 @@ declare namespace Highcharts {
          * @param [boolean] redraw Whether to redraw the chart. Defaults to true.
          * @param [boolean] oneToOne When true, the series, xAxis and yAxis collections will be updated one to one, and
          * items will be either added or removed to match the new updated options. Defaults to false.
+         * @param [(boolean | AnimationOptions)] animation Whether to apply animation, and optionally animation configuration.
          * @since 5.0.0
          */
-        update(options: Options, redraw?: boolean, oneToOne?: boolean): void;
+        update(options: Options, redraw?: boolean, oneToOne?: boolean, animation?: boolean | AnimationOptions): void;
         /**
          * This method is deprecated as of 2.0.1. Updating the chart position after a move operation is no longer necessary.
          * @since 1.2.5
@@ -6547,6 +7072,13 @@ declare namespace Highcharts {
          */
         definition(def: object): ElementObject;
         /**
+         * Utility to return the baseline offset and total line height from the font size.
+         *
+         * @param fontSize The current font size to inspect. If not given, the font size will be found from the DOM element.
+         * @param elem The element to inspect for a current font size.
+         */
+        fontMetrics(fontSize: string, elem: ElementObject): FontMetrics;
+        /**
          * Add an SVG/VML group.
          * @param [string] name The name of the group. This will be used in the class name, which will be 'highcharts-'+ name.
          * Other Element objects are added to the group by using the group as the first parameter in .add() for the wrappers
@@ -6606,6 +7138,21 @@ declare namespace Highcharts {
          * @since 2.0
          */
         text(str: string, x: number, y: number): ElementObject;
+    }
+
+    interface FontMetrics {
+        /**
+         * The baseline relative to the top of the box.
+         */
+        b: number;
+        /**
+         * The font size.
+         */
+        f: number;
+        /**
+         * The line height.
+         */
+        h: number;
     }
 
     interface Renderer {
@@ -6680,7 +7227,56 @@ declare namespace Highcharts {
 
         map(array: any[], fn: Function): any[];
 
+        /**
+         * Wrap an existing behavior of a part of the chart to extend or replace it.
+         * @since 2.3.0
+         *
+         * @see {@link https://www.highcharts.com/docs/extending-highcharts/extending-highcharts}
+         *
+         * @param prototype The prototype for the part of the chart to extend.
+         * @param type The type of behavior you are extending.
+         * @param cb The function that executes when the behavior occurs.
+         */
         wrap(prototype: any, type: string, cb: (proceed: Function, ...args: any[]) => void): void;
+
+        /**
+         * Add an event listener.
+         *
+         * @see {@link https://api.highcharts.com/class-reference/Highcharts#addEvent}
+         * @see {@link https://www.highcharts.com/docs/extending-highcharts/extending-highcharts}
+         *
+         * @param element The element or object to add a listener to. It can be a HTMLDOMElement, an Highcharts.SVGElement or any other object.
+         * @param type    The event type.
+         * @param cb      The function callback to execute when the event is fired.
+         * @returns A callback function to remove the added event.
+         */
+        addEvent(element: HTMLElement | ElementObject | object,
+                 type: string,
+                 cb: (evt: Event) => void): () => void;
+
+        /**
+         * Fire an event that was registered with
+         *
+         * @see {@link https://api.highcharts.com/class-reference/Highcharts#fireEvent}
+         *
+         * @param element         The element or object to add a listener to. It can be a HTMLDOMElement, an Highcharts.SVGElement or any other object.
+         * @param type            The event type.
+         * @param eventArguments  Custom event arguments that are passed on as an argument to the event handler.
+         * @param defaultFunction The default function to execute if the other listeners haven't returned false.
+         */
+        fireEvent(element: HTMLElement | ElementObject | object,
+                  type: string,
+                  eventArguments?: any,
+                  defaultFunction?: () => void): void;
+
+        distribute(array: any[], value: number): void;
+
+        /**
+         * Prototype used to extend tooltip behavior in a chart.
+         *
+         * @see {@link https://www.highcharts.com/docs/extending-highcharts/extending-highcharts}
+         */
+        Tooltip: TooltipPrototype;
     }
 
     /**
@@ -6921,6 +7517,19 @@ declare namespace Highcharts {
          * @since 5.0.0
          */
         update(options: LegendOptions, redraw?: boolean): void;
+    }
+
+    /**
+     * The Tooltip prototype is used to to wrap and extend tooltip behaviors.
+     *
+     * @see {@link https://www.highcharts.com/docs/extending-highcharts/extending-highcharts}
+     */
+    interface TooltipPrototype {
+        /**
+         * The behavior prototypes for the tooltips in a chart.
+         * @since 2.3.0
+         */
+        prototype: any;
     }
 }
 

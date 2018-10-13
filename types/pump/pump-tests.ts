@@ -1,4 +1,4 @@
-import * as pump from 'pump';
+import pump = require('pump');
 import { createReadStream, createWriteStream } from 'fs';
 import { Transform } from 'stream';
 

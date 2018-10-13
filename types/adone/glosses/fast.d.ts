@@ -152,7 +152,7 @@ declare namespace adone {
             type SymbolicFile = File;
 
             /* tslint:disable-next-line:no-empty-interface */
-            interface Stream<S, T = File> extends stream.CoreStream<S, T> {
+            interface Stream<S, T = File> extends stream.core.Stream<S, T> {
                 //
             }
         }
@@ -160,7 +160,7 @@ declare namespace adone {
         export const File: I.FileConstructor;
 
         namespace I {
-            type CoreStreamSource = stream.I.CoreStream.Source<any, File>;
+            type CoreStreamSource = stream.core.I.Source<any, File>;
 
             interface LocalStreamConstructorOptions {
                 /**
@@ -586,7 +586,7 @@ declare namespace adone {
                     /**
                      * Read JSON manifests written out by revisionHash
                      */
-                    manifest?: File[] | stream.CoreStream<any, File>,
+                    manifest?: File[] | stream.core.Stream<any, File>,
 
                     /**
                      * Modify the name of the unreved files before using them

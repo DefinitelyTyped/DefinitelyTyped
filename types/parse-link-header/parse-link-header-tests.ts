@@ -1,4 +1,4 @@
-import * as parse from "parse-link-header";
+import parse = require("parse-link-header");
 
 const linkHeader =
     '<https://api.github.com/user/9287/repos?page=3&per_page=100>; rel="next", ' +

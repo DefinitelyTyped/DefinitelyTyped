@@ -1,5 +1,5 @@
 import stickyCluster = require('sticky-cluster');
-import * as express from 'express';
+import express = require('express');
 import * as http from 'http';
 
 /** test with all params */

@@ -39,9 +39,9 @@ const github = (path) => new Promise((resolve, reject) => {
     }).on('error', reject)
 })
 
-const categories = () => github(`/repos/callemall/material-ui/contents/src/svg-icons?ref=master&access_token=${token}`)
+const categories = () => github(`/repos/mui-org/material-ui/contents/src/svg-icons?ref=master&access_token=${token}`)
 
-const contents = (path) => github(`/repos/callemall/material-ui/contents/${path}?ref=master&access_token=${token}`)
+const contents = (path) => github(`/repos/mui-org/material-ui/contents/${path}?ref=master&access_token=${token}`)
 
 const collator = new Intl.Collator()
 

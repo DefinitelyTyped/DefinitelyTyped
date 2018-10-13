@@ -19,6 +19,7 @@
     "files": [
         "index.d.ts",
         "test/big.js-module-tests.ts",
-        "test/big.js-global-tests.ts"
+        "test/big.js-global-tests.ts",
+        "test/big.js-import-default-tests.ts"
     ]
 }

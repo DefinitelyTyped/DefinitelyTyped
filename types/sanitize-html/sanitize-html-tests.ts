@@ -1,13 +1,21 @@
-
-import * as sanitize from 'sanitize-html';
+import sanitize = require('sanitize-html');
 
 let options: sanitize.IOptions = {
   allowedTags: sanitize.defaults.allowedTags.concat('h1', 'h2', 'img'),
   allowedAttributes: {
     'a': sanitize.defaults.allowedAttributes['a'].concat('rel'),
-    'img': ['src', 'height', 'width', 'alt']
+    'img': ['src', 'height', 'width', 'alt', 'style']
   },
-	transformTags: { 
+  allowedStyles: {
+    '*': {
+        color: [/^red$/],
+        background: [/^green$/],
+        'background-color': [/^#0000FF$/]
+      }
+  },
+  allowedIframeHostnames: ['www.youtube.com'],
+  allowedSchemesAppliedToAttributes: [ 'href', 'src', 'cite' ],
+	transformTags: {
     'a': sanitize.simpleTransform('a', { 'rel': 'nofollow' }),
     'img': (tagName: string, attribs: sanitize.Attributes) => {
       let img = { tagName, attribs };
@@ -27,3 +35,9 @@ let options: sanitize.IOptions = {
 let unsafe = '<div><script>alert("hello");</script></div>';
 
 let safe = sanitize(unsafe, options);
+
+options.parser = {
+    decodeEntities: true
+};
+
+safe = sanitize(unsafe, options);

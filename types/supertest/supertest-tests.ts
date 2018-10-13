@@ -1,6 +1,5 @@
-
-import * as supertest from 'supertest';
-import * as express from 'express';
+import supertest = require('supertest');
+import express = require('express');
 
 const app = express();
 const request: supertest.SuperTest<supertest.Test> = supertest(app);
@@ -59,6 +58,17 @@ function hasPreviousAndNextKeys(res: supertest.Response) {
   if (!('next' in res.body)) return "missing next key";
   if (!('prev' in res.body)) throw new Error("missing prev key");
 }
+
+// functional expect without response type
+(request
+  .get('/') as supertest.Test)
+  .expect(res => {
+    if (!('next' in res.body)) return "missing next key";
+    if (!('prev' in res.body)) throw new Error("missing prev key");
+  })
+  .end((err: any, res: supertest.Response) => {
+    if (err) throw err;
+  });
 
 // object expect
 (request

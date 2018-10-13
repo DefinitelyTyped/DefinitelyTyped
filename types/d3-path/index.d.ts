@@ -95,7 +95,7 @@ export interface Path {
     rect(x: number, y: number, w: number, h: number): void;
 
     /**
-     * Returns the string representation of this path according to SVG’s path data specficiation.
+     * Returns the string representation of this path according to SVG’s path data specification.
      */
     toString(): string;
 }

@@ -1,8 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-        // TODOs
-        "no-declare-current-package": false,
-        "no-single-declare-module": false
-    }
+    "extends": "dtslint/dt.json"
 }

@@ -13,7 +13,9 @@
             "../../"
         ],
         "paths": {
-            "serialport": ["serialport/v4"]
+            "serialport": [
+                "serialport/v4"
+            ]
         },
         "types": [],
         "noEmit": true,

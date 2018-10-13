@@ -27,6 +27,10 @@ declare namespace Chai {
         disabled(): Assertion;
         (selector: string): Assertion;
     }
+
+    interface Match {
+        (selector: string): Assertion;
+    }
 }
 
 /**

@@ -1771,7 +1771,7 @@ interface JQuery {
      * Get the current coordinates of the first element in the set of matched elements, relative to the document.
      * @see {@link https://api.jquery.com/offset/#offset}
      */
-    offset(): JQueryCoordinates;
+    offset(): JQueryCoordinates | undefined;
     /**
      * An object containing the properties top and left, which are integers indicating the new top and left coordinates for the elements.
      *

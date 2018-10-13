@@ -50,6 +50,7 @@
         "no-unnecessary-type-assertion": false,
         "no-useless-files": false,
         "no-var-keyword": false,
+        "no-var": false,
         "no-var-requires": false,
         "no-void-expression": false,
         "no-trailing-whitespace": false,
@@ -65,15 +66,11 @@
         "prefer-method-signature": false,
         "prefer-template": false,
         "radix": false,
-        "semicolon": false,
         "space-before-function-paren": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
         "trim-file": false,
         "triple-equals": false,
-        "typedef-whitespace": false,
-        "unified-signatures": false,
-        "void-return": false,
-        "whitespace": false
+        "unified-signatures": false
     }
 }

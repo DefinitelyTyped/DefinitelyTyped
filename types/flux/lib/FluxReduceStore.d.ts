@@ -1,4 +1,4 @@
-import * as Store from "./FluxStore";
+import Store = require("./FluxStore");
 
 declare namespace FluxReduceStore { }
 

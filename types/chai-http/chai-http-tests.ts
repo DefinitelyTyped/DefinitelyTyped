@@ -37,6 +37,25 @@ chai.request(app)
 	.get('/protected')
 	.auth('user', 'pass');
 
+// HTTPS request, from: https://github.com/visionmedia/superagent/commit/6158efbf42cb93d77c1a70887284be783dd7dabe
+const ca = fs.readFileSync('ca.cert.pem');
+const key = fs.readFileSync('key.pem');
+const cert = fs.readFileSync('cert.pem');
+const callback = (err: any, res: ChaiHttp.Response) => {};
+
+chai.request(app)
+	.post('/secure')
+	.ca(ca)
+	.key(key)
+	.cert(cert)
+	.end(callback);
+
+const pfx = fs.readFileSync('cert.pfx');
+chai.request(app)
+	.post('/secure')
+	.pfx(pfx)
+	.end(callback);
+
 chai.request(app)
 	.get('/search')
 	.query({ name: 'foo', limit: 10 });
@@ -65,6 +84,10 @@ chai.request(app)
 	.then((res: ChaiHttp.Response) => chai.expect(res).to.have.status(200))
 	.catch((err: any) => { throw err; });
 
+chai.request(app)
+	.keepOpen()
+	.close((err: any) => { throw err; });
+
 const agent = chai.request.agent(app);
 
 agent
@@ -77,6 +100,8 @@ agent
 		return agent.get('/user/me')
 			.then((res: ChaiHttp.Response) => chai.expect(res).to.have.status(200));
 	});
+
+agent.close((err: any) => { throw err; });
 
 function test1() {
 	const req = chai.request(app).get('/');

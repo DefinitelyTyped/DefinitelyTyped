@@ -10,9 +10,15 @@
         "strictNullChecks": true,
         "strictFunctionTypes": false,
         "baseUrl": "../../",
-        "typeRoots": ["../../"],
+        "typeRoots": [
+            "../../"
+        ],
         "paths": {
-            "ember-qunit": ["ember-qunit/v2"]
+            "ember-qunit": [
+                "ember-qunit/v2"
+            ],
+            "ember": ["ember/v2"],
+            "ember-test-helpers": ["ember-test-helpers/v0"]
         },
         "types": [],
         "noEmit": true,

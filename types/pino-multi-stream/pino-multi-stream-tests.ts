@@ -1,6 +1,6 @@
 import * as fs from 'fs';
-import * as pino from 'pino';
-import * as pinoms from 'pino-multi-stream';
+import pino = require('pino');
+import pinoms = require('pino-multi-stream');
 
 const streams: pinoms.Streams = [
     { stream: process.stdout }, // an "info" level destination stream

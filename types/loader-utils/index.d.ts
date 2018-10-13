@@ -3,9 +3,11 @@
 // Definitions by: Gyusun Yeom <https://github.com/Perlmint>
 //                 Totooria Hyperion <https://github.com/TotooriaHyperion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
 /// <reference types="node" />
 
-import { loader } from "webpack";
+import { loader } from 'webpack';
 
 export interface InterpolateOption {
     context?: string;

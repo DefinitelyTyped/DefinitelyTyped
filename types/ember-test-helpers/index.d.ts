@@ -1,14 +1,22 @@
-// Type definitions for ember-test-helpers 0.7
+// Type definitions for ember-test-helpers 1.0
 // Project: https://github.com/emberjs/ember-test-helpers#readme
 // Definitions by: Derek Wickern <https://github.com/dwickern>
+//                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
+
+// NOTE: These types apply to ember-test-helper v0.7. The major
+// version had to be bumped for SemVer due to a breaking change
+// in TypeScript 3.1
+//
+// In the future, we'll use another versioning strategy that
+// provides safety from breaking changes without bumping the major
+// version number
 
 /// <reference types="jquery" />
 
 declare module 'ember-test-helpers' {
     import Ember from 'ember';
-    import DS from 'ember-data';
     import { TemplateFactory } from 'htmlbars-inline-precompile';
     import RSVP from "rsvp";
 
@@ -40,7 +48,6 @@ declare module 'ember-test-helpers' {
         container: Ember.Container;
         dispatcher: Ember.EventDispatcher;
         application: Ember.Application;
-        store: DS.Store;
         register(fullName: string, factory: any): void;
         factory(fullName: string): any;
         inject: {

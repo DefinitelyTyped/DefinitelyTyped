@@ -1,4 +1,4 @@
-import * as warning from "warning";
+import warning = require("warning");
 
 // this will pass without warning.
 warning(true, 'Warning, read all about it');

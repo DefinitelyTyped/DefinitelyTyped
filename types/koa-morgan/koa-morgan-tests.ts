@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import * as Koa from 'koa';
-import * as morgan from 'koa-morgan';
+import Koa = require('koa');
+import morgan = require('koa-morgan');
 
 const app = new Koa();
 

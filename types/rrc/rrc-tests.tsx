@@ -13,7 +13,7 @@ import {
     OnUpdateCall
 } from "rrc";
 
-class RouteOne extends React.Component<RouteComponentProps<{}>> {
+class RouteOne extends React.Component<RouteComponentProps> {
     render() {
         return <div>
             <ConfigSwitch location={this.props.location} routes={[
@@ -29,8 +29,8 @@ class RouteOne extends React.Component<RouteComponentProps<{}>> {
     }
 }
 
-class RouteTwo extends React.Component<RouteComponentProps<{}>> {
-    private onUpdate: OnUpdateCall = (location) => { console.log("update"); };
+class RouteTwo extends React.Component<RouteComponentProps> {
+    private readonly onUpdate: OnUpdateCall = (location) => { console.log("update"); };
 
     render() {
         return <div>
@@ -64,12 +64,12 @@ interface Params {
     page: number;
 }
 
-class RouteFour extends React.Component<RouteComponentProps<{}>> {
-    private routes: RouteConfiguration[] = [
+class RouteFour extends React.Component<RouteComponentProps> {
+    private readonly routes: RouteConfiguration[] = [
         { path: "/four/something/:page", component: RouteTwo }
     ];
 
-    private getKey: GetKeyFunction<Params> = (match, route, location) => {
+    private readonly getKey: GetKeyFunction<Params> = (match, route, location) => {
         return "my-key-" + match.url;
     }
 

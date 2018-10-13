@@ -590,7 +590,7 @@ export interface Auth0UserProfile {
     given_name?: string;
     family_name?: string;
     email?: string;
-    email_verified?: string;
+    email_verified?: boolean;
     clientID: string;
     gender?: string;
     locale?: string;
@@ -760,6 +760,10 @@ export interface AuthorizeOptions {
     nonce?: string;
     scope?: string;
     audience?: string;
+	language?: string;
+    login_hint?: string;
+	prompt?: string;
+    mode?: "login" | "signUp";
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {

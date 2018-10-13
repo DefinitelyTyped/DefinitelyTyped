@@ -8,7 +8,7 @@ var client = new Nes.Client('ws://localhost');
 
 client.connect({ auth: { headers: { authorization: 'Basic am9objpzZWNyZXQ=' } } }).then(() => {
 
-    var handler: Nes.Handler = (update) => {
+    const handler: Nes.Handler = (update) => {
 
         // First publish is not received (filtered due to updater key)
         // update -> { id: 6, status: 'initial', updater: 'steve' }
@@ -27,7 +27,7 @@ var client = new NesClient('ws://localhost');
 
 client.connect({ auth: { headers: { authorization: 'Basic am9objpzZWNyZXQ=' } } }).then(() => {
 
-    var handler: NesClient.Handler = (update) => {
+    const handler: NesClient.Handler = (update) => {
 
         // First publish is not received (filtered due to updater key)
         // update -> { id: 6, status: 'initial', updater: 'steve' }

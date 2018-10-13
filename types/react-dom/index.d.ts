@@ -6,7 +6,7 @@
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Josh Rutherford <https://github.com/theruther4d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export as namespace ReactDOM;
 
@@ -16,10 +16,10 @@ import {
     DOMAttributes, DOMElement, ReactNode, ReactPortal
 } from 'react';
 
-export function findDOMNode(instance: ReactInstance): Element;
+export function findDOMNode(instance: ReactInstance): Element | null | Text;
 export function unmountComponentAtNode(container: Element): boolean;
 
-export function createPortal(children: ReactNode, container: Element): ReactPortal;
+export function createPortal(children: ReactNode, container: Element, key?: null | string): ReactPortal;
 
 export const version: string;
 export const render: Renderer;

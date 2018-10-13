@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 import {
   BrowserRouter as Router,
   RouteComponentProps,
@@ -67,9 +67,9 @@ const NavLink: React.SFC<LinkProps> = (props) => (
 );
 
 interface HSLParams {
-  h: number;
-  s: number;
-  l: number;
+  h: string;
+  s: string;
+  l: string;
 }
 
 const HSL: React.SFC<RouteComponentProps<HSLParams>> = ({ match: { params } }) => (

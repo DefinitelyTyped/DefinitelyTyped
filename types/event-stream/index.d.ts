@@ -36,7 +36,7 @@ export declare function mapSync(syncFunction: Function):  MapStream;
  * 
  * @param matcher
  */
-export declare function split(matcher: string | RegExp):  MapStream;
+export declare function split(matcher?: string | RegExp):  MapStream;
 
 /**
  * Create a through stream that emits separator between each chunk, just like Array#join

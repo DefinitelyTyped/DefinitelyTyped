@@ -388,7 +388,7 @@ new ssh2.Server({
             var session = accept();
             session.on('sftp', (accept: any, reject: any) => {
                 console.log('Client SFTP session');
-                var openFiles: any = {};
+                var openFiles = new Set<number>();
                 var handleCount = 0;
                 // `sftpStream` is an `SFTPStream` instance in server mode
                 // see: https://github.com/mscdex/ssh2-streams/blob/master/SFTPStream.md
@@ -401,12 +401,12 @@ new ssh2.Server({
                     // be a real file descriptor number for example if actually opening
                     // the file on the disk
                     var handle = new Buffer(4);
-                    openFiles[handleCount] = true;
+                    openFiles.add(handleCount);
                     handle.writeUInt32BE(handleCount++, 0, true);
                     sftpStream.handle(reqid, handle);
                     console.log('Opening file for write')
                 }).on('WRITE', (reqid: any, handle: any, offset: any, data: any) => {
-                    if (handle.length !== 4 || !openFiles[handle.readUInt32BE(0, true)])
+                    if (handle.length !== 4 || !openFiles.has(handle.readUInt32BE(0, true)))
                         return sftpStream.status(reqid, STATUS_CODE.FAILURE);
                     // fake the write
                     sftpStream.status(reqid, STATUS_CODE.OK);
@@ -414,9 +414,9 @@ new ssh2.Server({
                     console.log('Write to file at offset %d: %s', offset, inspected);
                 }).on('CLOSE', (reqid: any, handle: any) => {
                     var fnum: any;
-                    if (handle.length !== 4 || !openFiles[(fnum = handle.readUInt32BE(0, true))])
+                    if (handle.length !== 4 || !openFiles.has((fnum = handle.readUInt32BE(0, true))))
                         return sftpStream.status(reqid, STATUS_CODE.FAILURE);
-                    delete openFiles[fnum];
+                    openFiles.delete(fnum);
                     sftpStream.status(reqid, STATUS_CODE.OK);
                     console.log('Closing file');
                 });

@@ -7,8 +7,12 @@
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Ahmad Ferdous Bin Alam <https://github.com/ahmadferdous>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Paul Brabban <https://github.com/brabster>
+//                 Budi Irawan <https://github.com/deerawan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
+import HttpConnector = require("./src/lib/connectors/http");
 
 export class Client {
     constructor(params: ConfigOptions);
@@ -35,8 +39,8 @@ export class Client {
     deleteScript(params: DeleteScriptParams, callback: (error: any, response: any) => void): void;
     deleteTemplate(params: DeleteTemplateParams): Promise<any>;
     deleteTemplate(params: DeleteTemplateParams, callback: (error: any, response: any) => void): void;
-    exists(params: ExistsParams): Promise<any>;
-    exists(params: ExistsParams, callback: (error: any, response: any, status?: any) => void): void;
+    exists(params: ExistsParams): Promise<boolean>;
+    exists(params: ExistsParams, callback: (error: any, response: boolean, status?: any) => void): void;
     explain(params: ExplainParams): Promise<ExplainResponse>;
     explain(params: ExplainParams, callback: (error: any, response: ExplainResponse) => void): void;
     fieldStats(params: FieldStatsParams): Promise<FieldStatsResponse>;
@@ -87,8 +91,8 @@ export class Client {
     termvectors(params: TermvectorsParams, callback: (error: any, response: any) => void): void;
     update(params: UpdateDocumentParams): Promise<any>;
     update(params: UpdateDocumentParams, callback: (error: any, response: any) => void): void;
-    updateByQuery(params: UpdateDocumentByQueryParams): Promise<any>;
-    updateByQuery(params: UpdateDocumentByQueryParams, callback: (error: any, response: any) => void): void;
+    updateByQuery(params: UpdateDocumentByQueryParams): Promise<UpdateDocumentByQueryResponse>;
+    updateByQuery(params: UpdateDocumentByQueryParams, callback: (error: any, response: UpdateDocumentByQueryResponse) => void): void;
     close(): void;
 }
 
@@ -109,7 +113,7 @@ export interface ConfigOptions {
     keepAlive?: boolean;
     maxSockets?: number;
     suggestCompression?: boolean;
-    connectionClass?: string;
+    connectionClass?: string | typeof HttpConnector;
     sniffedNodesProtocol?: string;
     ssl?: object;
     selector?: any;
@@ -199,6 +203,7 @@ export interface CreateDocumentParams extends GenericParams {
     waitForActiveShards?: string;
     parent?: string;
     refresh?: Refresh;
+    routing?: string;
     timeout?: TimeSpan;
     timestamp?: Date | number;
     ttl?: TimeSpan;
@@ -405,6 +410,7 @@ export interface GetResponse<T> {
     _type: string;
     _id: string;
     _version: number;
+    _routing?: string;
     found: boolean;
     _source: T;
 }
@@ -437,7 +443,7 @@ export interface IndexDocumentParams<T> extends GenericParams {
     waitForActiveShards?: string;
     opType?: "index" | "create";
     parent?: string;
-    refresh?: string;
+    refresh?: Refresh;
     routing?: string;
     timeout?: TimeSpan;
     timestamp?: Date | number;
@@ -459,7 +465,7 @@ export interface MGetParams extends GenericParams {
     preference?: string;
     realtime?: boolean;
     refresh?: boolean;
-    source?: NameList;
+    _source?: NameList;
     _sourceExclude?: NameList;
     _sourceInclude?: NameList;
     index?: string;
@@ -639,6 +645,7 @@ export interface SearchResponse<T> {
             fields?: any;
             highlight?: any;
             inner_hits?: any;
+            matched_queries?: string[];
             sort?: string[];
         }>;
     };
@@ -779,6 +786,25 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     requestsPerSecond?: number;
     index: NameList;
     type: NameList;
+}
+
+export interface UpdateDocumentByQueryResponse {
+    took: number;
+    timed_out: boolean;
+    updated: number;
+    deleted: number;
+    batches: number;
+    version_conflicts: number;
+    noops: number;
+    retries: {
+        bulk: number;
+        search: number;
+    };
+    throttled_millis: number;
+    requests_per_second: number;
+    throttled_until_millis: number;
+    total: number;
+    failures: any[];
 }
 
 export interface Cat {
@@ -1010,14 +1036,14 @@ export class Indices {
     deleteAlias(params: IndicesDeleteAliasParams): Promise<any>;
     deleteTemplate(params: IndicesDeleteTemplateParams, callback: (error: any, response: any, status: any) => void): void;
     deleteTemplate(params: IndicesDeleteTemplateParams): Promise<any>;
-    exists(params: IndicesExistsParams, callback: (error: any, response: any, status: any) => void): void;
-    exists(params: IndicesExistsParams): Promise<any>;
-    existsAlias(params: IndicesExistsAliasParams, callback: (error: any, response: any, status: any) => void): void;
-    existsAlias(params: IndicesExistsAliasParams): Promise<any>;
-    existsTemplate(params: IndicesExistsTemplateParams, callback: (error: any, response: any, status: any) => void): void;
-    existsTemplate(params: IndicesExistsTemplateParams): Promise<any>;
-    existsType(params: IndicesExistsTypeParams, callback: (error: any, response: any, status: any) => void): void;
-    existsType(params: IndicesExistsTypeParams): Promise<any>;
+    exists(params: IndicesExistsParams, callback: (error: any, response: boolean, status: any) => void): void;
+    exists(params: IndicesExistsParams): Promise<boolean>;
+    existsAlias(params: IndicesExistsAliasParams, callback: (error: any, response: boolean, status: any) => void): void;
+    existsAlias(params: IndicesExistsAliasParams): Promise<boolean>;
+    existsTemplate(params: IndicesExistsTemplateParams, callback: (error: any, response: boolean, status: any) => void): void;
+    existsTemplate(params: IndicesExistsTemplateParams): Promise<boolean>;
+    existsType(params: IndicesExistsTypeParams, callback: (error: any, response: boolean, status: any) => void): void;
+    existsType(params: IndicesExistsTypeParams): Promise<boolean>;
     flush(params: IndicesFlushParams, callback: (error: any, response: any, status: any) => void): void;
     flush(params: IndicesFlushParams): Promise<any>;
     flushSynced(params: IndicesFlushSyncedParams, callback: (error: any, response: any, status: any) => void): void;
@@ -1118,6 +1144,7 @@ export interface IndicesDeleteParams extends GenericParams {
     timeout?: TimeSpan;
     masterTimeout?: TimeSpan;
     index: NameList;
+    ignoreUnavailable?: boolean;
 }
 
 export interface IndicesDeleteAliasParams extends GenericParams {

@@ -1,4 +1,4 @@
-// Type definitions for conf 1.1
+// Type definitions for conf 1.4
 // Project: https://github.com/sindresorhus/conf
 // Definitions by: Sam Verschueren <https://github.com/SamVerschueren>
 //                 BendingBender <https://github.com/BendingBender>
@@ -24,6 +24,7 @@ declare class Conf<T = any> implements Iterable<[string, T]> {
 	has(key: string): boolean;
 	delete(key: string): void;
 	clear(): void;
+	onDidChange(key: string, callback: (oldVal: any, newVal: any) => void): void;
 	[Symbol.iterator](): Iterator<[string, T]>;
 }
 

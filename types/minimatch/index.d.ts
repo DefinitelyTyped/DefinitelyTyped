@@ -15,12 +15,12 @@ declare namespace M {
      * If nothing is matched, and options.nonull is set,
      * then return a list containing the pattern itself.
      */
-    function match(list: string[], pattern: string, options?: IOptions): string[];
+    function match(list: ReadonlyArray<string>, pattern: string, options?: IOptions): string[];
 
     /**
      * Returns a function that tests its supplied argument, suitable for use with Array.filter
      */
-    function filter(pattern: string, options?: IOptions): (element: string, indexed: number, array: string[]) => boolean;
+    function filter(pattern: string, options?: IOptions): (element: string, indexed: number, array: ReadonlyArray<string>) => boolean;
 
     /**
      * Make a regular expression object from the pattern.

@@ -19,6 +19,7 @@ value = nconf.get (str, callback);
 value = nconf.merge(str, value, callback);
 value = nconf.set (str, value, callback);
 value = nconf.reset(callback);
+value = nconf.any([str], callback);
 
 value = nconf.load(callback);
 nconf.mergeSources(value);
@@ -33,6 +34,7 @@ p = nconf.argv(opts);
 
 p = nconf.env();
 p = nconf.env(opts);
+p = nconf.env(str);
 
 p = nconf.file(str);
 p = nconf.file(str, str);
@@ -56,7 +58,7 @@ nconf.init(opts);
 p = nconf.overrides();
 p = nconf.overrides(opts);
 nconf.remove(str);
-bool = nconf.required(strArr);
+p = nconf.required(strArr);
 store = nconf.create(str, opts);
 
 str = nconf.key(value, value);
@@ -84,6 +86,7 @@ value = p.get(str, callback);
 value = p.merge(str,value,callback);
 value = p.set(str,value,callback);
 value = p.reset(callback);
+value = p.any([str], callback);
 
 value = p.load(callback);
 p.mergeSources(value);
@@ -118,7 +121,7 @@ p = p.defaults(opts);
 p.init(opts);
 p = p.overrides(opts);
 p.remove(str);
-bool = p.required(strArr);
+p = p.required(strArr);
 store = p.create(str, opts);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - -

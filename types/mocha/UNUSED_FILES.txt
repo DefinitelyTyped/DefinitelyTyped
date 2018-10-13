@@ -1,2 +1,0 @@
-mocha-node.d.ts
-mocha-node-tests.ts

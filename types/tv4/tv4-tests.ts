@@ -129,7 +129,7 @@ schema = {
     alert("data 2 error: " + JSON.stringify(validator.error, null, 4));
 
     schema = {
-        "type": "array",
+        "type": ["array"],
         "items": {"$ref": "#"}
     };
 }

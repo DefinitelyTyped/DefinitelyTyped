@@ -1,4 +1,4 @@
-// Type definitions for semver 5.4
+// Type definitions for semver 5.5
 // Project: https://github.com/npm/node-semver
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 BendingBender <https://github.com/BendingBender>
@@ -142,6 +142,12 @@ export function outside(version: string | SemVer, range: string | Range, hilo: '
  * Return true if any of the ranges comparators intersect
  */
 export function intersects(range1: string | Range, range2: string | Range, loose?: boolean): boolean;
+
+// Coercion
+/**
+ * Coerces a string to semver if possible
+ */
+export function coerce(version: string | SemVer): SemVer | null;
 
 export class SemVer {
     constructor(version: string | SemVer, loose?: boolean);

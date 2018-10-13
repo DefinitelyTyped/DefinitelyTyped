@@ -1,0 +1,17 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "comment-format": false,
+        "strict-export-declare-modifiers": false,
+        "semicolon": false,
+        "max-line-length": false,
+        "no-consecutive-blank-lines": false,
+        "typedef-whitespace": false,
+        "whitespace": false,
+        "ban-types": false,
+        "no-unnecessary-qualifier": false,
+        "jsdoc-format": false,
+        "no-var-keyword": false,
+        "unified-signatures": false
+    }
+}

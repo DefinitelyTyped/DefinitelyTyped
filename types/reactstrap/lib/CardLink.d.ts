@@ -1,12 +1,13 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
 
-export interface CardLinkProps {
+export type CardLinkProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   tag?: React.ReactType;
-  innerRef?: string | ((instance: HTMLButtonElement) => any);
+  innerRef?: React.Ref<HTMLAnchorElement>;
   className?: string;
   cssModule?: CSSModule;
   href?: string;
-}
+} & T;
 
-declare const CardLink: React.StatelessComponent<CardLinkProps>;
+declare class CardLink<T = {[key: string]: any}> extends React.Component<CardLinkProps<T>> {}
 export default CardLink;

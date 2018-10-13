@@ -12,7 +12,9 @@
             "../../"
         ],
         "paths": {
-          "massive": [ "massive/v3" ]
+            "massive": [
+                "massive/v3"
+            ]
         },
         "types": [],
         "noEmit": true,

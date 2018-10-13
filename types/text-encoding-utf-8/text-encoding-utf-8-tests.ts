@@ -1,3 +1,5 @@
+import { TextDecoder, TextEncoder } from "text-encoding-utf-8";
+
 function test_encoder() {
     const text = "plain text";
     let uint8array: Uint8Array;

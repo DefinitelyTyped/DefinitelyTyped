@@ -1,7 +1,12 @@
 // Type definitions for speakeasy v2.0.0
-// Project: https://github.com/markbao/speakeasy
-// Definitions by: Lucas Woo <https://github.com/legendecas>, Alexander Batukhtin <https://github.com/mrOlorin>
+// Project: https://github.com/speakeasyjs/speakeasy
+// Definitions by: Lucas Woo <https://github.com/legendecas>, Alexander Batukhtin <https://github.com/mrOlorin>, Aayush Kapoor <https://github.com/xeoneux>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+interface SharedOptions {
+    encoding?: string;
+    algorithm?: string;
+}
 
 interface Key {
     ascii: string;
@@ -14,11 +19,9 @@ interface Key {
     otpauth_url?: string;
 }
 
-interface DigestOptions {
+interface DigestOptions extends SharedOptions {
     secret: string;
     counter: string;
-    encoding?: string;
-    algorithm?: string;
     key?: string;
 }
 
@@ -39,56 +42,78 @@ interface GenerateSecretOptions {
     symbols?: boolean;
 }
 
-interface TotpOptions {
+interface TotpOptions extends SharedOptions {
     key?: string;
     step?: number;
     time?: number;
     initial_time?: number;
     length?: number;
-    encoding?: string;
     counter?: number;
     epoch?: number;
     secret?: string;
     digits?: number;
     digest?: () => string;
-    algorithm?: string;
 }
 
-interface HotpOptions {
+interface TotpVerifyOptions extends SharedOptions {
+    secret: string;
+    token: string;
+    time?: number;
+    step?: number;
+    epoch?: number;
+    counter?: number;
+    digits?: number;
+    window?: number;
+}
+
+interface HotpOptions extends SharedOptions {
     key: string;
     counter: number;
     length?: number;
-    encoding?: string;
     digits?: number;
     digest?: () => string;
 }
 
-interface OtpauthURLOptions {
+interface HotpVerifyOptions extends SharedOptions {
+    secret: string;
+    token: string;
+    counter: number;
+    digits?: number;
+    window?: number;
+}
+
+interface OtpauthURLOptions extends SharedOptions {
     secret: string;
     label: string;
     issuer?: any;
     type?: string;
     counter?: number;
-    algorithm?: string;
     digits?: number;
     period?: number;
-    encoding?: string;
 }
 
-export declare function digest(options: DigestOptions): string;
+interface Hotp {
+    (options: HotpOptions): string;
+    verifyDelta: (options: HotpVerifyOptions) => boolean;
+    verify: (options: HotpVerifyOptions) => boolean;
+}
 
-export declare function generate_key(options: GenerateOptions): Key;
+interface Totp {
+    (options: TotpOptions): string;
+    verifyDelta: (options: TotpVerifyOptions) => boolean;
+    verify: (options: TotpVerifyOptions) => boolean;
+}
 
-export declare function generateSecret(options: GenerateSecretOptions): Key;
-
-export declare function generateSecretASCII(length?: number, symbols?: boolean): string;
-
-export declare function otpauthURL(options: OtpauthURLOptions): string;
-
-export declare function hotp(options: HotpOptions): string;
-
-export declare function counter(options: HotpOptions): string;
-
-export declare function totp(options: TotpOptions): string;
+export declare const hotp: Hotp;
+export declare const totp: Totp;
 
 export declare function time(options: TotpOptions): string;
+export declare function counter(options: HotpOptions): string;
+export declare function digest(options: DigestOptions): string;
+export declare function generate_key(options: GenerateOptions): Key;
+export declare function generateSecret(options?: GenerateSecretOptions): Key;
+export declare function generateSecretASCII(
+    length?: number,
+    symbols?: boolean
+): string;
+export declare function otpauthURL(options: OtpauthURLOptions): string;

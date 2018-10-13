@@ -40,7 +40,7 @@ declare namespace LRU {
          * `max` like-sized things. The item is passed as the first argument,
          * and the key is passed as the second argument.
          */
-        length?(value: V): number;
+        length?(value: V, key?: K): number;
 
         /**
          * Function that is called on items when they are dropped from the cache.

@@ -3,8 +3,8 @@
 // Definitions by: Ian Clanton-Thuon <https://github.com/iclanton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="globalize" />
 import * as ESTree from "estree";
+import globalize = require("globalize");
 
 interface CompileTemplateOptions {
   /**
@@ -35,7 +35,7 @@ interface ExtractFunction {
    *
    * @returns an Array with the formatters and parsers created using the passed Globalize.
    */
-  (globalize: GlobalizeStatic): FormatterOrParserFunction[];
+  (globalize: Globalize.Static): FormatterOrParserFunction[];
 }
 
 interface CompileExtractsAttributes extends CompileOptions {

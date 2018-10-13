@@ -51,8 +51,9 @@ export type GrammarError = PegjsError;
 export var GrammarError: any;
 
 export interface ParserOptions {
-    startRule: string;
-    tracer: any;
+    startRule?: string;
+    tracer?: any;
+    [key: string]: any;
 }
 
 export interface Parser {

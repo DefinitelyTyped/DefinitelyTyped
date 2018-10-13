@@ -1,4 +1,4 @@
-import * as httpAssert from 'http-assert';
+import httpAssert = require('http-assert');
 import { HttpError } from 'http-errors';
 
 try {

@@ -1,6 +1,6 @@
 // 2.0 examples from https://github.com/apigee-127/swagger-tools/blob/master/examples/2.0/index.js
 
-import * as connect from 'connect';
+import connect = require('connect');
 import { createServer } from 'http';
 import * as swaggerTools from 'swagger-tools';
 
@@ -46,8 +46,8 @@ swaggerTools.initializeMiddleware(swaggerDoc20, middleware => {
                 req.swagger.operation = {
                     security: [
                         {
-                            oauth2: ["read"]
-                        }
+                        oauth2: ["read"]
+                    }
                     ],
                     tags: [ "Pet Operations" ],
                     operationId: "getPetById",
@@ -59,52 +59,52 @@ swaggerTools.initializeMiddleware(swaggerDoc20, middleware => {
                                 $ref: "#/definitions/Pet"
                             }
                         },
-                        default: {
-                            description: "Unexpected error",
-                            schema: {
-                                $ref: "#/definitions/Error"
-                            }
+                    default: {
+                        description: "Unexpected error",
+                        schema: {
+                            $ref: "#/definitions/Error"
                         }
+                    }
                     },
                     parameters: [
                         {
-                            in: 'query',
-                            name: 'mock',
-                            description: 'Mock mode',
-                            required: false,
-                            type: 'boolean'
-                        }
+                        in: 'query',
+                        name: 'mock',
+                        description: 'Mock mode',
+                        required: false,
+                        type: 'boolean'
+                    }
                     ]
                 };
 
                 req.swagger.operationParameters = [
                     {
-                        path: ['paths', '/pets/{id}', 'get', 'parameters', '0'],
-                        schema: {
-                            in: 'query',
-                            name: 'mock',
-                            description: 'Mock mode',
-                            required: false,
-                            type: 'boolean'
-                        },
+                    path: ['paths', '/pets/{id}', 'get', 'parameters', '0'],
+                    schema: {
+                        in: 'query',
+                        name: 'mock',
+                        description: 'Mock mode',
+                        required: false,
+                        type: 'boolean'
                     },
+                },
                     {
-                        path: ['paths', '/pets/{id}', 'parameters', '0'],
-                        schema: {
-                            name: "id",
-                            in: "path",
-                            description: "ID of pet",
-                            required: true,
-                            type: "integer",
-                            format: "int64"
-                        }
+                    path: ['paths', '/pets/{id}', 'parameters', '0'],
+                    schema: {
+                        name: "id",
+                        in: "path",
+                        description: "ID of pet",
+                        required: true,
+                        type: "integer",
+                        format: "int64"
                     }
+                }
                 ];
                 req.swagger.operationPath = ['paths', '/pets/{id}', 'get'];
                 req.swagger.security = [
                     {
-                        oauth2: [ 'read' ]
-                    }
+                    oauth2: [ 'read' ]
+                }
                 ];
                 req.swagger.params = {
                     id: {
@@ -324,4 +324,21 @@ swaggerTools.initializeMiddleware(apiDoc12, apiDeclarations, middleware => {
     createServer(app).listen(serverPort, () => {
         console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
     });
+});
+
+// Testing that handler functions can type the incoming request
+type TypedRequest = swaggerTools.Swagger20Request<{
+    foo: swaggerTools.SwaggerRequestParameter<number>;
+    bar?: swaggerTools.SwaggerRequestParameter<string>;
+}>;
+
+swaggerTools.initializeMiddleware(swaggerDoc20, middleware => {
+    app.use(middleware.swaggerRouter({
+        controllers: {
+            foo_bar: (req: TypedRequest, res, next) => {
+                req.swagger.params.foo.value + 2;
+                req.swagger.params.bar && req.swagger.params.bar.value.replace('a', 'b');
+            },
+        }
+    }));
 });

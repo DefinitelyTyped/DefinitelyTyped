@@ -28,7 +28,7 @@ export interface SwaggerRequestParameter<T> {
 }
 
 export interface SwaggerRequestParameters {
-    [paramName: string]: SwaggerRequestParameter<any>;
+    [paramName: string]: SwaggerRequestParameter<any> | undefined;
 }
 
 export interface Swagger12Request extends IncomingMessage {
@@ -82,14 +82,14 @@ export interface Swagger20Operation {
     tags?: string[];
 }
 
-export interface Swagger20Request extends IncomingMessage {
+export interface Swagger20Request<P extends SwaggerRequestParameters> extends IncomingMessage {
     swagger: {
         apiPath: string;
         operation?: Swagger20Operation;
         operationPath?: string[];
         operationParameters?: OperationParameter[];
         path: any;
-        params: SwaggerRequestParameters;
+        params: P;
         security: any[];
         swaggerObject: any;
         swaggerVersion: string;
@@ -97,7 +97,7 @@ export interface Swagger20Request extends IncomingMessage {
     };
 }
 
-export type SwaggerRouter20HandlerFunction = (req: Swagger20Request, res: ServerResponse, next: (arg?: any) => void) => void;
+export type SwaggerRouter20HandlerFunction = (req: Swagger20Request<any>, res: ServerResponse, next: (arg?: any) => void) => void;
 
 export interface SwaggerRouter20OptionsControllers {
     [handlerName: string]: SwaggerRouter20HandlerFunction;

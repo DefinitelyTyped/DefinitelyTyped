@@ -1,4 +1,4 @@
-import * as jQuery from "jquery";
+import jQuery = require("jquery");
 import { KeyboardOptions, NavigateOptions } from "virtual-keyboard";
 
 const kbOptions: KeyboardOptions = {

@@ -1,4 +1,4 @@
-import { JSDOM, VirtualConsole, CookieJar, FromUrlOptions, FromFileOptions, DOMWindow } from 'jsdom';
+import { JSDOM, VirtualConsole, CookieJar, FromUrlOptions, FromFileOptions, DOMWindow, ResourceLoader, FetchOptions } from 'jsdom';
 import { CookieJar as ToughCookieJar, MemoryCookieStore } from 'tough-cookie';
 import { Script } from 'vm';
 
@@ -68,13 +68,21 @@ function test_beforeParse() {
     });
 }
 
+function test_storageQuota() {
+    new JSDOM('', { storageQuota: 1337 });
+}
+
+function test_pretendToBeVisual() {
+    new JSDOM('', { pretendToBeVisual: true });
+}
+
 function test_serialize() {
     const dom = new JSDOM(`<!DOCTYPE html>hello`);
 
     dom.serialize() === '<!DOCTYPE html><html><head></head><body>hello</body></html>';
 
     // Contrast with:
-    dom.window.document.documentElement.outerHTML === '<html><head></head><body>hello</body></html>';
+    dom.window.document.documentElement!.outerHTML === '<html><head></head><body>hello</body></html>';
 }
 
 function test_nodeLocation() {
@@ -159,4 +167,17 @@ function test_fragment_serialization() {
             console.log(frag.firstChild.outerHTML); // logs "<p>Hello</p>"
         }
     }
+}
+
+function test_custom_resource_loader() {
+    class CustomResourceLoader extends ResourceLoader {
+        fetch(url: string, options: FetchOptions) {
+          if (options.element) {
+            console.log(`Element ${options.element.localName} is requesting the url ${url}`);
+          }
+
+          return super.fetch(url, options);
+        }
+    }
+    new JSDOM('', { resources: new CustomResourceLoader() });
 }

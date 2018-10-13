@@ -1,6 +1,6 @@
 import * as SwaggerNodeRunner from "swagger-node-runner";
-import * as express from "express";
-import * as connect from "connect";
+import express = require("express");
+import connect = require("connect");
 import * as Hapi from "hapi";
 import * as restify from "restify";
 import * as sails from "sails.io.js";

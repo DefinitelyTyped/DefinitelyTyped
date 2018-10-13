@@ -8,6 +8,9 @@
 //                 Matthieu Maitre <https://github.com/mmaitre314>
 //                 Adam Lewis <https://github.com/supercargo>
 //                 Alex Soh <https://github.com/takato1314>
+//                 Oleksii Kachura <https://github.com/alex-kachura>
+//                 dcop <https://github.com/dcop>
+//                 Avraham Essoudry <https://github.com/avrahamcool>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { MomentInput, MomentFormatSpecification, Moment } from 'moment';
@@ -88,6 +91,10 @@ export interface PointItem extends DataItem {
   y: number;
 }
 
+export interface SubGroupStackOptions {
+  [name: string]: boolean;
+}
+
 export interface DataGroup {
   className?: string;
   content: string;
@@ -97,6 +104,7 @@ export interface DataGroup {
   subgroupOrder?: string | (() => void);
   title?: string;
   nestedGroups?: number[];
+  subgroupStack?: SubGroupStackOptions | boolean;
 }
 
 export interface DataGroupOptions {
@@ -290,7 +298,7 @@ export interface TimelineEventPropertiesResult {
   /**
    * The id of the clicked item.
    */
-  item?: number | null;
+  item?: IdType | null;
 
   /**
    * Absolute horizontal position of the click event.
@@ -969,6 +977,7 @@ export interface TimelineGroup {
   content: string | HTMLElement;
   id: IdType;
   style?: string;
+  order?: number;
   subgroupOrder?: TimelineOptionsGroupOrderType;
   title?: string;
   visible?: boolean;
@@ -1679,19 +1688,11 @@ export interface Data {
   edges?: Edge[] | DataSet<Edge>;
 }
 
-export interface Node {
-  group?: string;
+export interface Node extends NodeOptions {
   id?: IdType;
-  label?: string;
-  x?: number;
-  y?: number;
-  fixed?: boolean;
-  image?: string;
-  shape?: string;
-  color?: string | Color;
 }
 
-export interface Edge {
+export interface Edge extends EdgeOptions {
   from?: IdType;
   to?: IdType;
   id?: IdType;
@@ -1755,6 +1756,11 @@ export interface Options {
   physics?: any; // http://visjs.org/docs/network/physics.html#
 }
 
+export interface Image {
+  unselected?: string;
+  selected?: string;
+}
+
 export interface Color {
   border?: string;
 
@@ -1778,7 +1784,7 @@ export interface NodeOptions {
 
   brokenImage?: string;
 
-  color?: Color;
+  color?: string | Color;
 
   fixed?: boolean | {
     x?: boolean,
@@ -1793,6 +1799,12 @@ export interface NodeOptions {
     strokeWidth?: number, // px
     strokeColor?: string,
     align?: string,
+    vadjust?: string,
+    multi?: string,
+    bold?: string | FontOptions,
+    ital?: string | FontOptions,
+    boldital?: string | FontOptions,
+    mono?: string | FontOptions,
   };
 
   group?: string;
@@ -1806,9 +1818,7 @@ export interface NodeOptions {
     color?: string,
   };
 
-  id?: string;
-
-  image?: string;
+  image?: string | Image;
 
   label?: string;
 
@@ -1855,7 +1865,7 @@ export interface EdgeOptions {
       enabled?: boolean,
       scaleFactor?: number,
     },
-    from: boolean | {
+    from?: boolean | {
       enabled?: boolean,
       scaleFactor?: number,
     }
@@ -1881,15 +1891,17 @@ export interface EdgeOptions {
     strokeWidth?: number, // px
     strokeColor?: string,
     align?: string,
+    vadjust?: string,
+    multi?: string,
+    bold?: string | FontOptions,
+    ital?: string | FontOptions,
+    boldital?: string | FontOptions,
+    mono?: string | FontOptions,
   };
-
-  from?: number | string;
 
   hidden?: boolean;
 
   hoverWidth?: number; // please note, hoverWidth could be also a function. This case is not represented here
-
-  id?: string;
 
   label?: string;
 
@@ -1916,11 +1928,17 @@ export interface EdgeOptions {
 
   title?: string;
 
-  to?: number | string;
-
   value?: number;
 
   width?: number;
+}
+
+export interface FontOptions {
+  color?: string;
+  size?: number;
+  face?: string;
+  mod?: string;
+  vadjust?: string;
 }
 
 export interface OptionsScaling {

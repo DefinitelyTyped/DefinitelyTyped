@@ -1,4 +1,4 @@
-// Type definitions for sparqljs 1.5
+// Type definitions for sparqljs 2.1
 // Project: https://github.com/RubenVerborgh/SPARQL.js
 // Definitions by: Alexey Morozov <https://github.com/AlexeyMz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,18 +8,12 @@ export const Parser: {
     new (
         prefixes?: { [prefix: string]: string },
         baseIRI?: string,
-        options?: ParserOptions,
     ): SparqlParser;
 };
 
 export const Generator: {
     new (options?: GeneratorOptions): SparqlGenerator;
 };
-
-export interface ParserOptions {
-    /** @default true */
-    collapseGroups?: boolean;
-}
 
 export interface GeneratorOptions {
     allPrefixes?: boolean;
@@ -94,6 +88,7 @@ export type UpdateOperation = InsertDeleteOperation | ManagementOperation;
 
 export interface InsertDeleteOperation {
     updateType: 'insert' | 'delete' | 'deletewhere' | 'insertdelete';
+    graph?: string;
     insert?: Quads[];
     delete?: Quads[];
     where?: Pattern[];
@@ -101,17 +96,47 @@ export interface InsertDeleteOperation {
 
 export type Quads = BgpPattern | GraphQuads;
 
-export interface ManagementOperation {
-    type: 'load' | 'copy' | 'move' | 'add';
+export type ManagementOperation =
+    | CopyMoveAddOperation
+    | LoadOperation
+    | CreateOperation
+    | ClearDropOperation;
+
+export interface CopyMoveAddOperation {
+    type: 'copy' | 'move' | 'add';
     silent: boolean;
-    source: string | {
-        type: 'graph';
-        default: boolean;
-    };
-    destination?: string | {
-        type: 'graph';
-        name: string;
-    };
+    source: GraphOrDefault;
+    destination: GraphOrDefault;
+}
+
+export interface LoadOperation {
+    type: 'load';
+    silent: boolean;
+    source: string;
+    destination: string | false;
+}
+
+export interface CreateOperation {
+    type: 'create';
+    silent: boolean;
+    graph: string;
+}
+
+export interface ClearDropOperation {
+    type: 'clear' | 'drop';
+    silent: boolean;
+    graph: GraphReference;
+}
+
+export interface GraphOrDefault {
+    type: 'graph';
+    name?: string;
+    default?: boolean;
+}
+
+export interface GraphReference extends GraphOrDefault {
+    named?: boolean;
+    all?: boolean;
 }
 
 /**

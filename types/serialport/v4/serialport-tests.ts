@@ -1,6 +1,6 @@
 // Tests taken from documentation samples.
 
-import * as SerialPort from 'serialport';
+import SerialPort = require('serialport');
 
 function test_basic_connect() {
     const port = new SerialPort('');

@@ -1,5 +1,5 @@
 import * as awsServerlessExpress from 'aws-serverless-express';
-import * as express from 'express';
+import express = require('express');
 import { eventContext } from 'aws-serverless-express/middleware';
 
 const app = express();
@@ -27,3 +27,6 @@ const mockContext = {
 };
 
 awsServerlessExpress.proxy(server, mockEvent, mockContext);
+awsServerlessExpress.proxy(server, mockEvent, mockContext, 'CALLBACK', () => {});
+awsServerlessExpress.proxy(server, mockEvent, mockContext, 'CONTEXT_SUCCEED');
+awsServerlessExpress.proxy(server, mockEvent, mockContext, 'PROMISE').promise.then((response: awsServerlessExpress.Response) => {}).catch(err => {});

@@ -7,8 +7,10 @@
 //                 Karol Janyst <https://github.com/LKay>,
 //                 Brian Houser <https://github.com/bhouser>,
 //                 Krister Kari <https://github.com/kristerkari>
+//                 Martin Raedlinger <https://github.com/formatlos>
+//                 Kanitkorn Sujautra <https://github.com/lukyth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare namespace ReactIntl {
     type DateSource = Date | string | number;
@@ -27,10 +29,8 @@ declare namespace ReactIntl {
         withRef?: boolean;
     }
 
-    type ComponentConstructor<P> = React.ComponentClass<P> | React.StatelessComponent<P>;
-
-    function injectIntl<P>(component: ComponentConstructor<P & InjectedIntlProps>, options?: InjectIntlConfig):
-        React.ComponentClass<P> & { WrappedComponent: ComponentConstructor<P & InjectedIntlProps> };
+    function injectIntl<P extends InjectedIntlProps>(component: React.ComponentType<P>, options?: InjectIntlConfig):
+        React.ComponentClass<Pick<P, Exclude<keyof P, keyof InjectedIntlProps>>> & { WrappedComponent: React.ComponentType<P> };
 
     function addLocaleData(data: Locale[] | Locale): void;
 
@@ -95,6 +95,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: DateSource;
+            children?: (formattedDate: string) => React.ReactNode;
         }
     }
 
@@ -105,6 +106,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: DateSource;
+            children?: (formattedTime: string) => React.ReactNode;
         }
     }
     class FormattedTime extends React.Component<FormattedTime.Props> { }
@@ -126,6 +128,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: DateSource;
+            children?: (formattedRelative: string) => React.ReactNode;
         }
     }
 
@@ -141,6 +144,7 @@ declare namespace ReactIntl {
         interface Props extends MessageDescriptor {
             values?: {[key: string]: MessageValue | JSX.Element};
             tagName?: string;
+            children?: (...formattedMessage: Array<string | JSX.Element>) => React.ReactNode;
         }
     }
     class FormattedMessage extends React.Component<FormattedMessage.Props> { }
@@ -154,6 +158,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: number;
+            children?: (formattedNumber: string) => React.ReactNode;
         }
     }
     class FormattedNumber extends React.Component<FormattedNumber.Props> { }
@@ -177,6 +182,7 @@ declare namespace ReactIntl {
 
         interface Props extends PropsBase {
             value: number;
+            children?: (formattedPlural: React.ReactNode) => React.ReactNode;
         }
     }
     class FormattedPlural extends React.Component<FormattedPlural.Props> { }
@@ -189,6 +195,7 @@ declare namespace ReactIntl {
             defaultLocale?: string;
             defaultFormats?: any;
             textComponent?: any;
+            initialNow?: any;
         }
     }
 

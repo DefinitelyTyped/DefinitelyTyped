@@ -1,4 +1,4 @@
-// Type definitions for Moment-range.js 3.0
+// Type definitions for Moment-range.js 3.1
 // Project: https://github.com/gf3/moment-range
 // Definitions by: Bart van den Burg <https://github.com/Burgov>
 //                 Wilgert Velinga <https://github.com/wilgert>
@@ -6,7 +6,7 @@
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as moment from 'moment';
+import moment = require('moment');
 
 export class DateRange {
     start: moment.Moment;
@@ -21,7 +21,7 @@ export class DateRange {
 
     intersect(other: DateRange): DateRange;
 
-    add(other: DateRange): DateRange;
+    add(other: DateRange, options?: { adjacent?: boolean }): DateRange;
 
     subtract(other: DateRange): DateRange[];
 

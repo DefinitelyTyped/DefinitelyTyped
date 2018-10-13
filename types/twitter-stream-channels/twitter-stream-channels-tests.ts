@@ -1,4 +1,4 @@
-import * as TwitterStreamChannels from "twitter-stream-channels";
+import TwitterStreamChannels = require("twitter-stream-channels");
 
 const tsc = new TwitterStreamChannels({
   consumer_key: '',

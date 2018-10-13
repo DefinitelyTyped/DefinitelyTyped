@@ -3,15 +3,15 @@
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import {
     ViewStyle,
     TextStyle,
-    TextInputProperties,
-    TouchableWithoutFeedbackProperties,
-    ViewProperties,
+    TextInputProps,
+    TouchableWithoutFeedbackProps,
+    ViewProps,
 } from 'react-native';
 
 ///////////////////////////////
@@ -178,7 +178,7 @@ export namespace MKPropTypes {
     type rippleLocation = 'tapLocation' | 'center';
 }
 
-export interface TickProperties extends ViewProperties {
+export interface TickProperties extends ViewProps {
     fillColor?: string;
     inset?: number;
 }
@@ -251,12 +251,12 @@ export interface MKColorStatic {
 }
 
 export interface MKButtonProperties extends
-    TouchableWithoutFeedbackProperties, MKRippleProperties {
+    TouchableWithoutFeedbackProps, MKRippleProperties {
         fab?: boolean;
         enabled?: boolean;
 }
 
-export interface MKTextFieldProperties extends TextInputProperties, FloatingLabelProperties {
+export interface MKTextFieldProperties extends TextInputProps, FloatingLabelProperties {
     text?: string;
     password?: boolean;
     underlineEnabled?: boolean;
@@ -265,11 +265,11 @@ export interface MKTextFieldProperties extends TextInputProperties, FloatingLabe
     tintColor?: string;
     textInputStyle?: TextStyle;
     allowFontScaling?: boolean;
-    additionalInputProps?: TextInputProperties;
+    additionalInputProps?: TextInputProps;
     onTextChange?(val: string): void;
 }
 
-export interface MKSwitchProperties extends TouchableWithoutFeedbackProperties {
+export interface MKSwitchProperties extends TouchableWithoutFeedbackProps {
     checked?: boolean;
     onColor?: string;
     offColor?: string;
@@ -284,12 +284,12 @@ export interface MKSwitchProperties extends TouchableWithoutFeedbackProperties {
     onCheckedChange?(checked: boolean): void;
 }
 
-export interface MKIconToggleProperties extends MKRippleProperties, TouchableWithoutFeedbackProperties {
+export interface MKIconToggleProperties extends MKRippleProperties, TouchableWithoutFeedbackProps {
     checked?: boolean;
     onCheckedChange?(checked: boolean): void;
 }
 
-export interface MKRippleProperties extends ViewProperties {
+export interface MKRippleProperties extends ViewProps {
     rippleColor?: string;
     rippleDuration?: number;
     rippleLocation?: MKPropTypes.rippleLocation;
@@ -301,7 +301,7 @@ export interface MKRippleProperties extends ViewProperties {
     shadowAniEnabled?: boolean;
 }
 
-export interface MKProgressProperties extends ViewProperties {
+export interface MKProgressProperties extends ViewProps {
     progress?: number;
     buffer?: number;
     progressColor?: string;
@@ -310,12 +310,12 @@ export interface MKProgressProperties extends ViewProperties {
     bufferAniDuration?: number;
 }
 
-export interface IndeterminateProgressProperties extends ViewProperties {
+export interface IndeterminateProgressProperties extends ViewProps {
     progressColor?: string;
     progressAniDuration?: number;
 }
 
-export interface BaseSlider extends ViewProperties {
+export interface BaseSlider extends ViewProps {
     min?: number;
     max?: number;
     value?: number;
@@ -340,13 +340,13 @@ export interface MKRangeSliderProperties extends BaseSlider {
     onChange?(curValue: { min: number, max: number }): void;
 }
 
-export interface MKSpinnerProperties extends ViewProperties {
+export interface MKSpinnerProperties extends ViewProps {
     strokeColor?: string;
     strokeWidth?: number;
     spinnerAniDuration?: number;
 }
 
-export interface MKRadioButtonProperties extends MKRippleProperties, TouchableWithoutFeedbackProperties {
+export interface MKRadioButtonProperties extends MKRippleProperties, TouchableWithoutFeedbackProps {
     borderOnColor?: string;
     borderOffColor?: string;
     fillColor?: string;
@@ -356,7 +356,7 @@ export interface MKRadioButtonProperties extends MKRippleProperties, TouchableWi
     onCheckedChange?(opts: { checked: boolean }): void;
 }
 
-export interface MKCheckboxProperties extends MKRippleProperties, TickProperties, TouchableWithoutFeedbackProperties {
+export interface MKCheckboxProperties extends MKRippleProperties, TickProperties, TouchableWithoutFeedbackProps {
     borderOnColor?: string;
     borderOffColor?: string;
     fillColor?: string;

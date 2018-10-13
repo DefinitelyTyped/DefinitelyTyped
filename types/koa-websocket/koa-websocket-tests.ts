@@ -1,5 +1,5 @@
-import * as Koa from 'koa';
-import * as websocket from 'koa-websocket';
+import Koa = require('koa');
+import websocket = require('koa-websocket');
 
 const app = websocket(new Koa());
 

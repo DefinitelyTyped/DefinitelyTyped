@@ -39,9 +39,8 @@ interface GoogleAnalytics {
 declare namespace UniversalAnalytics {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
 
-    enum HitType {
-        'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'
-    }
+    // https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#hitType
+    type HitType = 'pageview' | 'screenview' | 'event' | 'transaction' | 'item' | 'social' | 'exception' | 'timing';
 
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference
 
@@ -294,7 +293,7 @@ declare namespace UniversalAnalytics {
         flashVersion?: string;
         forceSSL?: boolean;
         hitCallback?(): void;
-        hitType?: string;
+        hitType?: HitType;
         hostname?: string;
         id?: string;
         javaEnabled?: boolean;
@@ -526,6 +525,8 @@ declare namespace UniversalAnalytics {
         socialTarget?: string;
         some?: string;
         step?: boolean | number;
+        storage?: string;
+        storeGac?: boolean;
         tax?: string;
         timingCategory?: string;
         timingLabel?: string;
@@ -602,6 +603,8 @@ declare namespace UniversalAnalytics {
             }): void;
         (command: 'send', fieldsObject: FieldsObject): void;
         (command: string, hitType: HitType, ...fields: any[]): void;
+        (command: 'require', pluginName: string, pluginOptions?: any): void;
+        (command: 'provide', pluginName: string, pluginConstructor: (tracker: Tracker, pluginOptions?: Object) => void): void;
 
         (command: 'create', trackingId: string, cookieDomain?: string, name?: string, fieldsObject?: FieldsObject): void;
         (command: 'remove'): void;

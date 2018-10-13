@@ -1,6 +1,6 @@
 import * as GeoJSON from 'geojson';
-import * as Knex from 'knex';
-import * as KPG from 'knex-postgis';
+import Knex = require('knex');
+import KPG = require('knex-postgis');
 
 const knex: Knex = Knex({ dialect: 'pg' });
 const st: KPG.KnexPostgis = KPG(knex);

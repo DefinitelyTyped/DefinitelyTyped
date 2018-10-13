@@ -1,15 +1,49 @@
-// Type definitions for Handlebars v4.0.5
+// Type definitions for Handlebars v4.0.11
 // Project: http://handlebarsjs.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Sergei Dorogin <https://github.com/evil-shrike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 declare namespace Handlebars {
-    export function registerHelper(name: string, fn: Function, inverse?: boolean): void;
-    export function registerHelper(name: Object): void;
-    export function registerPartial(name: string, str: any): void;
+    export interface TemplateDelegate<T = any> {
+        (context: T, options?: RuntimeOptions): string;
+    }
+
+    export type Template<T = any> = TemplateDelegate<T>|string;
+
+    export interface RuntimeOptions {
+        partial?: boolean;
+        depths?: any[];
+        helpers?: { [name: string]: Function };
+        partials?: { [name: string]: HandlebarsTemplateDelegate };
+        decorators?: { [name: string]: Function };
+        data?: any;
+        blockParams?: any[];
+    }
+
+    export interface HelperOptions {
+        fn: TemplateDelegate;
+        inverse: TemplateDelegate;
+        hash: any;
+        data?: any;
+    }
+
+    export interface HelperDelegate {
+        (context?: any, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any, options?: HelperOptions): any;
+    }
+    export interface HelperDeclareSpec {
+        [key: string]: HelperDelegate;
+    }
+
+    export function registerHelper(name: string, fn: HelperDelegate): void;
+    export function registerHelper(name: HelperDeclareSpec): void;
     export function unregisterHelper(name: string): void;
+
+    export function registerPartial(name: string, fn: Template): void;
+    export function registerPartial(spec: { [name: string]: HandlebarsTemplateDelegate }): void;
     export function unregisterPartial(name: string): void;
+
+    // TODO: replace Function with actual signature
     export function registerDecorator(name: string, fn: Function): void;
     export function unregisterDecorator(name: string): void;
 
@@ -25,23 +59,36 @@ declare namespace Handlebars {
 
     export function create(): typeof Handlebars;
 
-    export var SafeString: typeof hbs.SafeString;
-    export var escapeExpression: typeof hbs.Utils.escapeExpression;
-    export var Utils: typeof hbs.Utils;
-    export var logger: Logger;
-    export var templates: HandlebarsTemplates;
-    export var helpers: { [name: string]: Function };
-    export var partials: { [name: string]: any };
-    export var decorators: { [name: string]: Function };
-
-    export function registerDecorator(name: string, fn: Function): void;
-    export function registerDecorator(obj: {[name: string] : Function}): void;
-    export function unregisterDecorator(name: string): void;
+    export const escapeExpression: typeof Utils.escapeExpression;
+    //export const Utils: typeof hbs.Utils;
+    export const logger: Logger;
+    export const templates: HandlebarsTemplates;
+    export const helpers: { [name: string]: HelperDelegate };
+    export const partials: { [name: string]: any };
+    // TODO: replace Function with actual signature
+    export const decorators: { [name: string]: Function };
 
     export function noConflict(): typeof Handlebars;
 
-    export module AST {
-        export var helpers: hbs.AST.helpers;
+    export class SafeString {
+        constructor(str: string);
+        toString(): string;
+        toHTML(): string;
+    }
+
+    export namespace Utils {
+        export function escapeExpression(str: string): string;
+        export function createFrame(object: any): any;
+        export function blockParams(obj: any[], ids: any[]): any[];
+        export function isEmpty(obj: any) : boolean;
+        export function extend(obj: any, ...source: any[]): any;
+        export function toString(obj: any): string;
+        export function isArray(obj: any): boolean;
+        export function isFunction(obj: any): boolean;
+    }
+
+    export namespace AST {
+        export const helpers: hbs.AST.helpers;
     }
 
     interface ICompiler {
@@ -96,9 +143,8 @@ interface HandlebarsTemplatable {
     template: HandlebarsTemplateDelegate;
 }
 
-interface HandlebarsTemplateDelegate<T = any> {
-    (context: T, options?: RuntimeOptions): string;
-}
+// NOTE: for backward compatibility of this typing
+type HandlebarsTemplateDelegate<T = any> = Handlebars.TemplateDelegate<T>;
 
 interface HandlebarsTemplates {
     [index: string]: HandlebarsTemplateDelegate;
@@ -108,13 +154,8 @@ interface TemplateSpecification {
 
 }
 
-interface RuntimeOptions {
-    partial?: boolean;
-    depths?: any[];
-    helpers?: { [name: string]: Function }
-    partials?: { [name: string]: HandlebarsTemplateDelegate }
-    decorators?: { [name: string]: Function }
-}
+// for backward compatibility of this typing
+type RuntimeOptions = Handlebars.RuntimeOptions;
 
 interface CompileOptions {
     data?: boolean;
@@ -128,7 +169,7 @@ interface CompileOptions {
         with?: boolean;
         log?: boolean;
         lookup?: boolean;
-    }
+    };
     knownHelpersOnly?: boolean;
     noEscape?: boolean;
     strict?: boolean;
@@ -144,21 +185,10 @@ interface PrecompileOptions extends CompileOptions {
 }
 
 declare namespace hbs {
-    class SafeString {
-        constructor(str: string);
-        static toString(): string;
-    }
+    // for backward compatibility of this typing
+    type SafeString = Handlebars.SafeString;
 
-    namespace Utils {
-        function escapeExpression(str: string): string;
-        function createFrame(object: any): any;
-        function blockParams(obj: any[], ids: any[]): any[];
-        function isEmpty(obj: any) : boolean;
-        function extend(obj: any, ...source: any[]): any;
-        function toString(obj: any): string;
-        function isArray(obj: any): boolean;
-        function isFunction(obj: any): boolean;
-    }
+    type Utils = typeof Handlebars.Utils;
 }
 
 interface Logger {
@@ -231,11 +261,11 @@ declare namespace hbs {
 
         interface PartialBlockStatement extends Statement {
             name: PathExpression | SubExpression;
-            params: Expression[],
-            hash: Hash,
-            program: Program,
-            openStrip: StripFlags,
-            closeStrip: StripFlags
+            params: Expression[];
+            hash: Hash;
+            program: Program;
+            openStrip: StripFlags;
+            closeStrip: StripFlags;
         }
 
         interface ContentStatement extends Statement {
@@ -309,6 +339,6 @@ declare module "handlebars" {
     export = Handlebars;
 }
 
-declare module "handlebars/handlebars.runtime" {
+declare module "handlebars/runtime" {
     export = Handlebars;
 }

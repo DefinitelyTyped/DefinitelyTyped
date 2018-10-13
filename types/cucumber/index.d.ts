@@ -1,4 +1,4 @@
-// Type definitions for cucumber-js 3.2
+// Type definitions for cucumber-js 4.0
 // Project: https://github.com/cucumber/cucumber-js
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 //                 Jan Molak <https://github.com/jan-molak>
@@ -49,23 +49,89 @@ export interface StepDefinitions {
     setDefaultTimeout(time: number): void;
 }
 
+export function After(code: HookCode): void;
+export function After(options: HookOptions | string, code: HookCode): void;
+export function AfterAll(code: GlobalHookCode): void;
+export function AfterAll(options: HookOptions | string, code: GlobalHookCode): void;
+export function Before(code: HookCode): void;
+export function Before(options: HookOptions | string, code: HookCode): void;
+export function BeforeAll(code: GlobalHookCode): void;
+export function BeforeAll(options: HookOptions | string, code: GlobalHookCode): void;
+
+export function defineParameterType(transform: Transform): void;
+export function defineStep(pattern: RegExp | string, code: StepDefinitionCode): void;
+export function defineStep(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
+
+export function Given(pattern: RegExp | string, code: StepDefinitionCode): void;
+export function Given(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
+export function setDefaultTimeout(time: number): void;
+export function setDefinitionFunctionWrapper(fn: () => void, options?: {[key: string]: any}): void;
+// tslint:disable-next-line ban-types
+export function setWorldConstructor(world: ((this: World, init: {attach: Function, parameters: {[key: string]: any}}) => void) | {}): void;
+export function Then(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
+export function Then(pattern: RegExp | string, code: StepDefinitionCode): void;
+export function When(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
+export function When(pattern: RegExp | string, code: StepDefinitionCode): void;
+
 export interface HookScenarioResult {
+    sourceLocation: SourceLocation;
+    result: ScenarioResult;
+    pickle: pickle.Pickle;
+}
+
+export interface SourceLocation {
+    line: number;
+    uri: string;
+}
+
+export interface ScenarioResult {
     duration: number;
-    failureException: Error;
-    scenario: Scenario;
     status: Status;
-    stepsResults: any;
+}
+
+export namespace pickle {
+    interface Pickle {
+        language: string;
+        locations: Location[];
+        name: string;
+        steps: Step[];
+        tags: Tag[];
+    }
+
+    interface Location {
+        column: number;
+        line: number;
+    }
+
+    interface Step {
+        arguments: Argument[];
+        locations: Location[];
+        text: string;
+    }
+
+    interface Argument {
+        rows: Cell[];
+    }
+
+    interface Cell {
+        location: Location;
+        value: string;
+    }
+
+    interface Tag {
+        name: string;
+        location: Location;
+    }
 }
 
 export type HookCode = (this: World, scenario: HookScenarioResult, callback?: CallbackStepDefinition) => void;
 export type GlobalHookCode = (callback?: CallbackStepDefinition) => void;
 
-// tslint:disable-next-line ban-types
-export type AroundCode = (scenario: HookScenarioResult, runScenario?: (error: string, callback?: Function) => void) => void;
-
 export interface Transform {
     regexp: RegExp;
-    transformer(arg: string): any;
+    transformer(this: World, ...arg: string[]): any;
+    useForSnippets?: boolean;
+    preferForRegexpMatch?: boolean;
     name?: string;
     typeName?: string; // deprecated
 }
@@ -84,12 +150,9 @@ export interface Hooks {
     After(options: HookOptions | string, code: HookCode): void;
     AfterAll(code: GlobalHookCode): void;
     AfterAll(options: HookOptions | string, code: GlobalHookCode): void;
-    Around(code: AroundCode): void;
     setDefaultTimeout(time: number): void;
     // tslint:disable-next-line ban-types
     setWorldConstructor(world: ((this: World, init: {attach: Function, parameters: {[key: string]: any}}) => void) | {}): void;
-    registerHandler(handlerOption: string, code: (event: any, callback: CallbackStepDefinition) => void): void;
-    registerListener(listener: EventListener): void;
     defineParameterType(transform: Transform): void;
 }
 

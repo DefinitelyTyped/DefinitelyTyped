@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import * as fs from "fs";
+import { Stats } from "fs";
 import { Readable, ReadableOptions } from 'stream';
 
 declare function K(root: string, options?: K.Options): K.Walker;
@@ -13,16 +13,16 @@ declare function K(root: string, options?: K.Options): K.Walker;
 declare namespace K {
     interface Item {
         path: string;
-        stats: fs.Stats;
+        stats: Stats;
     }
 
     type QueueMethod = "shift" | "pop";
 
     interface Options extends ReadableOptions {
         queueMethod?: QueueMethod;
-        pathSorter?: (pathA: string, pathB: string) => number;
+        pathSorter?(pathA: string, pathB: string): number;
         fs?: any; // fs or mock-fs
-        filter?: (path: string) => boolean;
+        filter?(path: string): boolean;
     }
 
     type Event = "close" | "data" | "end" | "readable" | "error";

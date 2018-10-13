@@ -4,6 +4,7 @@ import {
     reduxForm,
     InjectedFormProps,
     Form,
+    FormName,
     GenericForm,
     FormSection,
     GenericFormSection,
@@ -22,7 +23,9 @@ import {
     reducer,
     FormAction,
     actionTypes,
-    submit
+    submit,
+    SubmissionError,
+    FieldArrayFieldsProps
 } from "redux-form";
 import {
     Field as ImmutableField,
@@ -37,6 +40,7 @@ import LibFormSection from "redux-form/lib/FormSection";
 import libFormValueSelector from "redux-form/lib/formValueSelector";
 import libReduxForm from "redux-form/lib/reduxForm";
 import libActions from "redux-form/lib/actions";
+import LibSubmissionError from "redux-form/lib/SubmissionError";
 
 /* Decorated components */
 interface TestFormData {
@@ -58,8 +62,9 @@ type InjectedProps = InjectedFormProps<TestFormData, TestFormComponentProps>;
 
 class TestFormComponent extends React.Component<TestFormComponentProps & InjectedProps> {
     render() {
-        const { form, initialValues } = this.props;
+        const { form, initialValues, error } = this.props;
         const foo = initialValues.foo;
+        const errorIsString = error + 'test';
         return null;
     }
 }
@@ -235,7 +240,7 @@ const Test = reduxForm<TestFormData>({
 
         render() {
             const { handleSubmit } = this.props;
-            const FormCustom = Form as new () => GenericForm<TestFormData, {}>;
+            const FormCustom = Form as new () => GenericForm<TestFormData, {}, string>;
 
             return (
                 <div>
@@ -261,6 +266,13 @@ const Test = reduxForm<TestFormData>({
                             <Field
                                 name="field3"
                                 component="select"
+                            />
+
+                            <Field
+                                name="field4"
+                                component="input"
+                                onChange={(event, newValue, previousValue) => {}}
+                                onBlur={(event, newValue, previousValue) => {}}
                             />
 
                             <ImmutableField
@@ -334,6 +346,14 @@ reducer.plugin({
     }
 });
 
+try {
+    throw new SubmissionError({_error: "Submission failed."});
+} catch (error) {
+    if (!(error instanceof SubmissionError)) {
+        throw new Error("SubmissionError not imported correctly");
+    }
+}
+
 /* Test using versions imported directly/as defaults from lib */
 const DefaultField = (
     <LibField
@@ -358,3 +378,71 @@ const TestLibForm = libReduxForm<TestFormData, TestFormComponentProps>({ form : 
 
 const testSubmit = submit("test");
 const testLibSubmit = libActions.submit("test");
+
+try {
+    throw new LibSubmissionError({_error: "Submission failed."});
+} catch (error) {
+    if (!(error instanceof LibSubmissionError)) {
+        throw new Error("SubmissionError from lib not imported correctly");
+    }
+}
+
+/* Test handleSubmit prop using as onSubmit handler */
+type HandleSubmitTestProps = {} & InjectedFormProps<TestFormData>;
+const HandleSubmitTestForm = reduxForm<TestFormData>({
+    form : "test"
+})(
+    (props: HandleSubmitTestProps) => <form onSubmit={ props.handleSubmit } />
+);
+
+class HandleSubmitTest extends React.Component {
+    handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
+    render() {
+        return <HandleSubmitTestForm onSubmit={this.handleSubmit} />;
+    }
+}
+
+class FormNameTest extends React.Component {
+    render() {
+        return (
+            <FormName>
+                {({ form }) => <span>Form Name is: {form}</span>}
+            </FormName>
+        );
+    }
+}
+
+// Test SubmissionError with custom error format
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/26494
+// Note: explicit parameters not needed in TS 2.7
+new LibSubmissionError<{ myField: any }, string[]>({
+    _error: ["First form-level error", "Second form-level error"],
+    myField: ["Field-level error"]
+});
+
+new SubmissionError({
+    _error: ["First form-level error", "Second form-level error"]
+});
+
+// Test forms with custom error format.
+const HandleSubmitTestForm2 = reduxForm<TestFormData, {}, string[]>({ form : "test" })(
+    (props: InjectedFormProps<TestFormData, {}, string[]>) => <form onSubmit={ props.handleSubmit } />
+);
+
+class HandleSubmitTest2 extends React.Component {
+    handleSubmit = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
+    render() {
+        return <HandleSubmitTestForm2 onSubmit={this.handleSubmit} />;
+    }
+}
+
+type InjectedProps2 = InjectedFormProps<TestFormData, TestFormComponentProps, string[]>;
+class TestFormComponent2 extends React.Component<TestFormComponentProps & InjectedProps2> {
+    render() {
+        const { error, initialValues, handleSubmit } = this.props;
+        error.concat(['error is a string array']);
+
+        handleSubmit((values) => ({ foo: ['string'], _error: [] }));
+        return null;
+    }
+}

@@ -824,7 +824,7 @@ interface JQueryStatic {
      * @see {@link https://api.jquery.com/jQuery.ajaxTransport/}
      */
     ajaxTransport(dataType: string, handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
-    
+
     ajaxSettings: JQueryAjaxSettings;
 
      /**
@@ -1411,16 +1411,6 @@ interface JQueryStatic {
      * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
      * @see {@link https://api.jquery.com/jQuery.parseHTML/}
      */
-    parseHTML(data: string, context?: HTMLElement, keepScripts?: boolean): any[];
-
-    /**
-     * Parses a string into an array of DOM nodes.
-     *
-     * @param data HTML string to be parsed
-     * @param context DOM element to serve as the context in which the HTML fragment will be created
-     * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
-     * @see {@link https://api.jquery.com/jQuery.parseHTML/}
-     */
     parseHTML(data: string, context?: Document, keepScripts?: boolean): any[];
 }
 
@@ -1771,7 +1761,7 @@ interface JQuery {
      * Get the current coordinates of the first element in the set of matched elements, relative to the document.
      * @see {@link https://api.jquery.com/offset/#offset}
      */
-    offset(): JQueryCoordinates;
+    offset(): JQueryCoordinates | undefined;
     /**
      * An object containing the properties top and left, which are integers indicating the new top and left coordinates for the elements.
      *
@@ -3286,7 +3276,7 @@ interface JQuery {
      * @name toArray
      * @see {@link https://api.jquery.com/toArray/}
      */
-    toArray(): HTMLElement[];
+    toArray(): Element[];
 
     /**
      * Remove the parents of the set of matched elements from the DOM, leaving the matched elements in their place.
@@ -3353,13 +3343,13 @@ interface JQuery {
      * @param index A zero-based integer indicating which element to retrieve.
      * @see {@link https://api.jquery.com/get/#get-index}
      */
-    get(index: number): HTMLElement;
+    get(index: number): Element;
     /**
      * Retrieve the elements matched by the jQuery object.
      * @alias toArray
      * @see {@link https://api.jquery.com/get/#get}
      */
-    get(): HTMLElement[];
+    get(): Element[];
 
     /**
      * Search for a given element from among the matched elements.
@@ -3385,7 +3375,7 @@ interface JQuery {
      * @see {@link https://api.jquery.com/selector/}
      */
     selector: string;
-    [index: number]: HTMLElement;
+    [index: number]: Element;
 
     /**
      * Add elements to the set of matched elements.
