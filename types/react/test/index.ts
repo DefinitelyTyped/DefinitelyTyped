@@ -446,8 +446,8 @@ DOM.svg({
 
 const mappedChildrenArray: number[] =
     React.Children.map<number>(children, (child) => 42);
-const childrenArray = Array<ReactElement<{ p: number }>>;
-const mappedChildrenArray: number[] =
+const childrenArray: Array<React.ReactElement<{ p: number }>> = children;
+const mappedChildrenArrayWithKnownChildren: number[] =
     React.Children.map(childrenArray, (child) => child.props.p);
 React.Children.forEach(children, (child) => { });
 const nChildren: number = React.Children.count(children);
