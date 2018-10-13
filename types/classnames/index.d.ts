@@ -27,5 +27,5 @@ export = classNames;
 export as namespace classNames;
 
 declare namespace classNames {
-	export type ClassValue = string | number | ClassDictionary | ClassArray | undefined | null | boolean;
+	type ClassValue = string | number | ClassDictionary | ClassArray | undefined | null | boolean;
 }
