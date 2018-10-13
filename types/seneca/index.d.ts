@@ -1,9 +1,9 @@
-// Type definitions for seneca v2.1.0
+// Type definitions for seneca v3.7.0
 // Project: https://www.npmjs.com/package/seneca
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 Kevyn Bruyere <https://github.com/kevynb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/seneca
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0.1
 
 
 declare module "seneca" {
@@ -198,8 +198,12 @@ declare module "seneca" {
 
         interface Instance {
             version: string;
+                         
+            id: string;
 
             options(options: Options): void;
+            list_plugins(): Object;
+                         
 
             error(handler: GlobalErrorHandler): void;
             on(eventName: string, callback: (error: Error) => void): any;
