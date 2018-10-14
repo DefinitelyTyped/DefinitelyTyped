@@ -800,7 +800,7 @@ export interface SliceUpdateResponse extends GenericUpdateResponse {
     slice_id: number;
 }
 
-interface GenericUpdateResponse {
+export interface GenericUpdateResponse {
     total: number;
     updated: number;
     deleted: number;
