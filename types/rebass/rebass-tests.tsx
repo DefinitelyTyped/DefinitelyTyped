@@ -27,6 +27,7 @@ const RebassTests = () => (
         Card
       </Card>
       <Image
+        alt="Random image from unsplash.com"
         height={1}
         width={[ 1, 1, 1/2 ]}
         src='https://source.unsplash.com/random/1280x720'

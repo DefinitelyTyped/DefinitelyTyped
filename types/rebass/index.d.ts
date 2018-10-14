@@ -100,6 +100,7 @@ export interface ImageProps
         HeightProps,
         BorderRadiusProps {
     src: string
+    alt?: string
 }
 type ImageClass = React.StatelessComponent<ImageProps>
 export declare const Image: ImageClass
