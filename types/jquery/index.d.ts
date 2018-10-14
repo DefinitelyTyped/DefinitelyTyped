@@ -13052,7 +13052,7 @@ $.trim("    hello, how are you?    ");
      * @param obj Object to get the internal JavaScript [[Class]] of.
      * @see \`{@link https://api.jquery.com/jQuery.type/ }\`
      * @since 1.4.3
-     * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/jquery/issues/3605 }`.
+     * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/jquery/issues/3605 }\`.
      * @example ​ ````Find out if the parameter is a RegExp.
 ```html
 <!doctype html>
@@ -31300,7 +31300,7 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
 
     interface EventExtensions {
         /**
-         * jQuery defines an \`@{link https://api.jquery.com/category/events/event-object/ Event object}\` that
+         * jQuery defines an \`{@link https://api.jquery.com/category/events/event-object/ Event object}\` that
          * represents a cross-browser subset of the information available when an event occurs. The `jQuery.event.props`
          * property is an array of string names for properties that are always copied when jQuery processes a
          * native browser event. (Events fired in code by `.trigger()` do not use this list, since the code can
