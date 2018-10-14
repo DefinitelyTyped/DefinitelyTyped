@@ -1699,7 +1699,7 @@ async function asyncStreamPipelineFinished() {
         const timeout: number = server.timeout;
         const listening: boolean = server.listening;
         const keepAliveTimeout: number = server.keepAliveTimeout;
-        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {}).setTimeout((socket) => {})..setTimeout(100, (socket) => {});
+        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {}).setTimeout((socket: net.Socket) => {}).setTimeout(100, (socket: net.Socket) => {});
     }
 
     // http IncomingMessage
@@ -1911,7 +1911,7 @@ async function asyncStreamPipelineFinished() {
         const timeout: number = server.timeout;
         const listening: boolean = server.listening;
         const keepAliveTimeout: number = server.keepAliveTimeout;
-        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {}).setTimeout((socket) => {})..setTimeout(100, (socket) => {});
+        server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {}).setTimeout((socket: net.Socket) => {}).setTimeout(100, (socket: net.Socket) => {});
     }
 }
 
