@@ -2,5 +2,7 @@
 // Project: https://github.com/sindresorhus/is-docker#readme
 // Definitions by: Yash Kulshrestha <https://github.com/YashdalfTheGray>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
-export default function isDocker(): boolean;
+declare function isDocker(): boolean;
+export = isDocker;
