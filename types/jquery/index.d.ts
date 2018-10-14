@@ -31556,6 +31556,8 @@ if ( !existingHook ) {
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#handle-function-event-jquery-event-data-object }\`
          */
         handle?(this: TTarget, event: Event<TTarget, TData> & { handleObj: HandleObject<TTarget, TData>; }, ...data: TData[]): void;
+        preDispatch?(this: TTarget, event: Event<TTarget, TData>): false | void;
+        postDispatch?(this: TTarget, event: Event<TTarget, TData>): void;
     }
 
     interface SpecialEventHooks {
