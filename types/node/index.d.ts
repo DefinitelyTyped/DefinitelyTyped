@@ -30,6 +30,7 @@
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
+//                 Daniel Kontorovskyi <https://github.com/dkontorovskyy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -1169,8 +1170,8 @@ declare module "http" {
     class Server extends net.Server {
         constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
 
-        setTimeout(msecs?: number, callback?: (socket: net.Socket) => void): this;
-        setTimeout(callback: (socket: net.Socket) => void): this;
+        setTimeout(msecs?: number, callback?: (socket?: net.Socket) => void): this;
+        setTimeout(callback: (socket?: net.Socket) => void): this;
         maxHeadersCount: number;
         timeout: number;
         keepAliveTimeout: number;
@@ -1919,6 +1920,7 @@ declare module "os" {
 }
 
 declare module "https" {
+    import * as net from "net";
     import * as tls from "tls";
     import * as events from "events";
     import * as http from "http";
@@ -1942,8 +1944,8 @@ declare module "https" {
     }
 
     class Server extends tls.Server {
-        setTimeout(callback: (socket: net.Socket) => void): this;
-        setTimeout(msecs?: number, callback?: (socket: net.Socket) => void): this;
+        setTimeout(callback: (socket?: net.Socket) => void): this;
+        setTimeout(msecs?: number, callback?: (socket?: net.Socket) => void): this;
         timeout: number;
         keepAliveTimeout: number;
     }
