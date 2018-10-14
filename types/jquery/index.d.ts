@@ -30501,20 +30501,25 @@ $( "input" ).click(function() {
     // region Speed
     // #region Speed
 
-    interface SpeedSettings<TElement> {
+    // Workaround for TypeScript 2.3 which does not have support for weak types handling.
+    type SpeedSettings<TElement> = {
         /**
          * A string or number determining how long the animation will run.
          */
-        duration?: Duration;
+        duration: Duration;
+    } | {
         /**
          * A string indicating which easing function to use for the transition.
          */
-        easing?: string;
+        easing: string;
+    } | {
         /**
          * A function to call once the animation is complete.
          */
-        complete?(this: TElement): void;
-    }
+        complete(this: TElement): void;
+    } | {
+        [key: string]: never;
+    };
 
     // #endregion
 
