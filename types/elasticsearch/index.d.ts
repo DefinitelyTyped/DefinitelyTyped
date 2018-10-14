@@ -784,13 +784,24 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     scrollSize?: number;
     waitForCompletion?: boolean;
     requestsPerSecond?: number;
+    slices?: number;
     index: NameList;
     type: NameList;
 }
 
-export interface UpdateDocumentByQueryResponse {
+export interface UpdateDocumentByQueryResponse extends GenericUpdateResponse {
     took: number;
     timed_out: boolean;
+    failures: any[];
+    slices?: SliceUpdateResponse[];
+}
+
+export interface SliceUpdateResponse extends GenericUpdateResponse {
+    slice_id: number;
+}
+
+interface GenericUpdateResponse {
+    total: number;
     updated: number;
     deleted: number;
     batches: number;
@@ -803,8 +814,6 @@ export interface UpdateDocumentByQueryResponse {
     throttled_millis: number;
     requests_per_second: number;
     throttled_until_millis: number;
-    total: number;
-    failures: any[];
 }
 
 export interface Cat {
