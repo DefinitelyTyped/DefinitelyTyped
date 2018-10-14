@@ -36,18 +36,18 @@ import {
 
 export interface BaseProps<C>
     extends React.ClassAttributes<C>,
-     	  SpaceProps,
+        SpaceProps,
         TextColorProps,
-        BgColorProps {}
-
-interface BaseBoxProps extends WidthProps, FontSizeProps {
+        BgColorProps,
+        WidthProps,
+        FontSizeProps {
     css?: Object
 }
+
 export interface BoxProps
     extends BaseProps<BoxClass>,
         WidthProps,
-        FontSizeProps,
-        BaseBoxProps {}
+        FontSizeProps {}
 type BoxClass = React.StatelessComponent<BoxProps>
 export declare const Box: BoxClass
 
@@ -64,7 +64,6 @@ export declare const Button: ButtonClass
 
 export interface CardProps
     extends BaseProps<CardClass>,
-        BaseBoxProps,
         BorderProps,
         BorderColorProps,
         BorderRadiusProps,
@@ -81,7 +80,6 @@ export declare const Card: CardClass
 
 export interface FlexProps
     extends BaseProps<FlexClass>,
-        BaseBoxProps,
         AlignItemsProps,
         JustifyContentProps,
         FlexDirectionProps,
@@ -96,7 +94,6 @@ export declare const Heading: HeadingClass
 
 export interface ImageProps
     extends BaseProps<ImageClass>,
-        BaseBoxProps,
         HeightProps,
         BorderRadiusProps {
     src: string
@@ -105,7 +102,7 @@ export interface ImageProps
 type ImageClass = React.StatelessComponent<ImageProps>
 export declare const Image: ImageClass
 
-export interface LinkProps extends BaseProps<LinkClass>, BaseBoxProps {
+export interface LinkProps extends BaseProps<LinkClass> {
     href?: string
 }
 type LinkClass = React.StatelessComponent<LinkProps>
@@ -113,7 +110,6 @@ export declare const Link: LinkClass
 
 export interface TextProps
     extends BaseProps<TextClass>,
-        BaseBoxProps,
         FontFamilyProps,
         FontWeightProps,
         TextAlignProps,
