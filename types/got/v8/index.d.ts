@@ -1,9 +1,8 @@
-// Type definitions for got 9.2
+// Type definitions for got 8.3
 // Project: https://github.com/sindresorhus/got#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Konstantin Ikonnikov <https://github.com/ikokostya>
-//                 Stijn Van Nieuwenhuyse <https://github.com/stijnvn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -13,7 +12,6 @@ import { Url, URL } from 'url';
 import * as http from 'http';
 import * as https from 'https';
 import * as nodeStream from 'stream';
-import { CookieJar } from 'tough-cookie';
 
 export = got;
 
@@ -114,22 +112,17 @@ declare namespace got {
         json?: boolean;
     }
 
-    type Hook = (options?: https.RequestOptions) => any;
-
     interface GotOptions<E extends string | null> extends InternalRequestOptions {
-        baseUrl?: string;
-        cookieJar?: CookieJar;
         encoding?: E;
         query?: string | object;
         timeout?: number | TimeoutOptions;
-        retry?: number | RetryOptions;
+        retries?: number | RetryFunction;
         followRedirect?: boolean;
         decompress?: boolean;
         useElectronNet?: boolean;
-        throwHttpErrors?: boolean;
-        agent?: http.Agent | boolean | AgentOptions;
-        hooks?: Record<'beforeRequest', Hook[]>;
         cache?: Cache;
+        agent?: http.Agent | boolean | AgentOptions;
+        throwHttpErrors?: boolean;
     }
 
     interface TimeoutOptions {
@@ -138,19 +131,12 @@ declare namespace got {
         request?: number;
     }
 
-    type RetryFunction = (retry: number, error: any) => number;
-
-    interface RetryOptions {
-        retries?: number | RetryFunction;
-        methods?: Array<'GET' | 'PUT' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'TRACE'>;
-        statusCodes?: Array<408 | 413 | 429 | 500 | 502 | 503 | 504>;
-        maxRetryAfter?: number;
-    }
-
     interface AgentOptions {
         http: http.Agent;
         https: https.Agent;
     }
+
+    type RetryFunction = (retry: number, error: any) => number;
 
     interface Cache {
         set(key: string, value: any, ttl?: number): any;

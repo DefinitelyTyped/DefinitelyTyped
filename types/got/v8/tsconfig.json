@@ -2,27 +2,28 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
         "paths": {
             "got": [
                 "got/v8"
             ]
-        }
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "download-tests.ts"
+        "got-tests.ts"
     ]
 }
