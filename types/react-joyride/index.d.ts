@@ -1,6 +1,7 @@
-// Type definitions for react-joyride 2.0
+// Type definitions for react-joyride 2.0.0-15
 // Project: https://github.com/gilbarbara/react-joyride
 // Definitions by: DongYoon Kang <https://github.com/kdy1>
+//                 Kamran Ayub <https://github.com/kamranayub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -106,7 +107,7 @@ export interface Props extends OverridableProps {
     /**
      * It will be called when Joyride's state changes. It returns a single parameter with the state.
      */
-    callback?(options: (data: State) => any): void;
+    callback?: (data: State) => any;
 
     /**
      * The tour is played sequentially with the Next button. Defaults to false.
