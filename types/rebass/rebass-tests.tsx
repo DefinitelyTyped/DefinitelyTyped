@@ -225,3 +225,34 @@ const BgImage = () => (
         </Heading>
     </Card>
 )
+
+const ReactHTMLAttributes = () => (
+    <React.Fragment>
+        <Box onMouseDown={() => console.log('Mouse down works!')}>
+            <Card
+                backgroundImage="url(https://source.unsplash.com/random/1024x768)"
+                onMouseOver={() => {}}
+                onClick={e => console.log(e.target)}
+            />
+            <Button
+                onClick={e => {
+                    e.preventDefault()
+                    return e.target
+                }}
+                style={{width: 100}}
+            >
+                I am button
+            </Button>
+            <Image
+                src="source.unsplash.com/random/1024x768"
+                alt="randomm image"
+                onMouseOver={() => {}}
+            />
+            <Flex style={{flex: '0 0 25%'}}>
+                <Link href="https://github.com" rel="noopener">
+                    Github
+                </Link>
+            </Flex>
+        </Box>
+    </React.Fragment>
+)

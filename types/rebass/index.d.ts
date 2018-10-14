@@ -34,6 +34,21 @@ import {
     OpacityProps,
 } from 'styled-system'
 
+// Util type to remove properties from a type
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
+
+// Remove HTML attributes from types that are clashing with rebass own
+// responsive props
+type RebassHTMLAttributes<T> = Omit<React.HTMLAttributes<T>, 'color'>
+type RebassAnchorHTMLAttributes<T> = Omit<
+    React.AnchorHTMLAttributes<T>,
+    'color'
+>
+type RebassImageHTMLAttributes<T> = Omit<
+    React.ImgHTMLAttributes<T>,
+    'color' | 'height' | 'width'
+>
+
 export interface BaseProps<C>
     extends React.ClassAttributes<C>,
         SpaceProps,
@@ -47,7 +62,8 @@ export interface BaseProps<C>
 export interface BoxProps
     extends BaseProps<BoxClass>,
         WidthProps,
-        FontSizeProps {}
+        FontSizeProps,
+        RebassHTMLAttributes<HTMLDivElement> {}
 type BoxClass = React.StatelessComponent<BoxProps>
 export declare const Box: BoxClass
 
@@ -56,7 +72,8 @@ export interface ButtonProps
         FontWeightProps,
         BorderProps,
         BorderColorProps,
-        BorderRadiusProps {
+        BorderRadiusProps,
+        RebassHTMLAttributes<HTMLButtonElement> {
     variant?: Variant
 }
 type ButtonClass = React.StatelessComponent<ButtonProps>
@@ -72,7 +89,8 @@ export interface CardProps
         BackgroundSizeProps,
         BackgroundRepeatProps,
         OpacityProps,
-        FontWeightProps {
+        FontWeightProps,
+        RebassHTMLAttributes<HTMLDivElement> {
     variant?: Variant
 }
 type CardClass = React.StatelessComponent<CardProps>
@@ -84,36 +102,41 @@ export interface FlexProps
         JustifyContentProps,
         FlexDirectionProps,
         FlexWrapProps,
-        WidthProps {}
+        WidthProps,
+        RebassHTMLAttributes<HTMLDivElement> {}
 type FlexClass = React.StatelessComponent<FlexProps>
 export declare const Flex: FlexClass
 
-export interface HeadingProps extends BaseProps<HeadingClass>, TextProps {}
+export interface HeadingProps
+    extends BaseProps<HeadingClass>,
+        BaseTextProps,
+        RebassHTMLAttributes<HTMLHeadingElement> {}
 type HeadingClass = React.StatelessComponent<HeadingProps>
 export declare const Heading: HeadingClass
 
 export interface ImageProps
     extends BaseProps<ImageClass>,
         HeightProps,
-        BorderRadiusProps {
-    src: string
-    alt?: string
-}
+        BorderRadiusProps,
+        RebassImageHTMLAttributes<HTMLImageElement> {}
 type ImageClass = React.StatelessComponent<ImageProps>
 export declare const Image: ImageClass
 
-export interface LinkProps extends BaseProps<LinkClass> {
-    href?: string
-}
+export interface LinkProps
+    extends BaseProps<LinkClass>,
+        RebassAnchorHTMLAttributes<HTMLAnchorElement> {}
 type LinkClass = React.StatelessComponent<LinkProps>
 export declare const Link: LinkClass
 
-export interface TextProps
-    extends BaseProps<TextClass>,
-        FontFamilyProps,
+export interface BaseTextProps
+    extends FontFamilyProps,
         FontWeightProps,
         TextAlignProps,
         LineHeightProps,
         LetterSpacingProps {}
+interface TextProps
+    extends BaseProps<TextClass>,
+        BaseTextProps,
+        RebassHTMLAttributes<HTMLDivElement> {}
 type TextClass = React.StatelessComponent<TextProps>
 export declare const Text: TextClass
