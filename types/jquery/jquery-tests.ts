@@ -7839,6 +7839,70 @@ function JQuery_Deferred() {
     }
 }
 
+function JQuery_EffectsOptions() {
+    $('p').show({
+        always(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        complete() {
+            // $ExpectType HTMLElement
+            this;
+        },
+        done(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        duration: 5000,
+        easing: 'linear',
+        fail(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        progress(animation, progress, remainingMs) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+            // $ExpectType number
+            progress;
+            // $ExpectType number
+            remainingMs;
+        },
+        queue: true,
+        specialEasing: {
+            width: 'linear',
+            height: 'easeOutBounce'
+        },
+        start(animation) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+        },
+        step(now, tween) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType number
+            now;
+            // $ExpectType Tween<HTMLElement>
+            tween;
+        }
+    });
+}
+
 function JQuery_AnimationStatic() {
     function call_signature() {
         // $ExpectType Animation<HTMLElement>
@@ -7926,7 +7990,45 @@ function JQuery_Animation() {
         // $ExpectType number
         remainingMs;
     });
- }
+}
+
+function JQuery_TweenStatic() {
+    function propHooks() {
+        $.Tween.propHooks['myProp'] = {
+            get(tween) {
+                // $ExpectType Tween<Node>
+                tween;
+
+                return tween.elem[tween.prop as keyof typeof tween.elem];
+            },
+            set(tween) {
+                // $ExpectType Tween<Node>
+                tween;
+            },
+        };
+
+        // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+        // $ExpectError
+        $.Tween.propHooks['myProp'] = 1;
+    }
+
+    function call_signature() {
+        // $ExpectType Tween<HTMLElement>
+        $.Tween({} as HTMLElement, {}, 'myProp', 1, 'myEasing', 'myUnit');
+
+        // $ExpectType Tween<HTMLElement>
+        $.Tween({} as HTMLElement, {}, 'myProp', 1, 'myEasing');
+
+        // $ExpectType Tween<HTMLElement>
+        $.Tween({} as HTMLElement, {}, 'myProp', 1);
+    }
+}
+
+function JQuery_Easings() {
+    jQuery.easing.easeInCubic = (p) => {
+        return Math.pow(p, 3);
+    };
+}
 
 function JQuery_Effects() {
     function interval() {
@@ -7976,108 +8078,6 @@ function JQuery_Effects() {
             };
         }
     }
-}
-
-function JQuery_EffectsOptions() {
-    $('p').show({
-        always(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Animation<HTMLElement>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        complete() {
-            // $ExpectType HTMLElement
-            this;
-        },
-        done(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Animation<HTMLElement>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        duration: 5000,
-        easing: 'linear',
-        fail(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Animation<HTMLElement>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        progress(animation, progress, remainingMs) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Animation<HTMLElement>
-            animation;
-            // $ExpectType number
-            progress;
-            // $ExpectType number
-            remainingMs;
-        },
-        queue: true,
-        specialEasing: {
-            width: 'linear',
-            height: 'easeOutBounce'
-        },
-        start(animation) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Animation<HTMLElement>
-            animation;
-        },
-        step(now, tween) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType number
-            now;
-            // $ExpectType Tween<HTMLElement>
-            tween;
-        }
-    });
-}
-
-function JQuery_TweenStatic() {
-    function propHooks() {
-        $.Tween.propHooks['myProp'] = {
-            get(tween) {
-                // $ExpectType Tween<Node>
-                tween;
-
-                return tween.elem[tween.prop as keyof typeof tween.elem];
-            },
-            set(tween) {
-                // $ExpectType Tween<Node>
-                tween;
-            },
-        };
-
-        // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-        // $ExpectError
-        $.Tween.propHooks['myProp'] = 1;
-    }
-
-    function call_signature() {
-        // $ExpectType Tween<HTMLElement>
-        $.Tween({} as HTMLElement, {}, 'myProp', 1, 'myEasing', 'myUnit');
-
-        // $ExpectType Tween<HTMLElement>
-        $.Tween({} as HTMLElement, {}, 'myProp', 1, 'myEasing');
-
-        // $ExpectType Tween<HTMLElement>
-        $.Tween({} as HTMLElement, {}, 'myProp', 1);
-    }
-}
-
-function JQuery_Easings() {
-    jQuery.easing.easeInCubic = (p) => {
-        return Math.pow(p, 3);
-    };
 }
 
 function JQuery_Event() {

@@ -29994,6 +29994,68 @@ $.get( "test.php" )
     // region Effects
     // #region Effects
 
+    type Duration = number | 'fast' | 'slow';
+
+    /**
+     * @see \`{@link https://api.jquery.com/animate/#animate-properties-options }\`
+     */
+    interface EffectsOptions<TElement> extends PlainObject {
+        /**
+         * A function to be called when the animation on an element completes or stops without completing (its
+         * Promise object is either resolved or rejected).
+         */
+        always?(this: TElement, animation: Animation<TElement>, jumpedToEnd: boolean): void;
+        /**
+         * A function that is called once the animation on an element is complete.
+         */
+        complete?(this: TElement): void;
+        /**
+         * A function to be called when the animation on an element completes (its Promise object is resolved).
+         */
+        done?(this: TElement, animation: Animation<TElement>, jumpedToEnd: boolean): void;
+        /**
+         * A string or number determining how long the animation will run.
+         */
+        duration?: Duration;
+        /**
+         * A string indicating which easing function to use for the transition.
+         */
+        easing?: string;
+        /**
+         * A function to be called when the animation on an element fails to complete (its Promise object is rejected).
+         */
+        fail?(this: TElement, animation: Animation<TElement>, jumpedToEnd: boolean): void;
+        /**
+         * A function to be called after each step of the animation, only once per animated element regardless
+         * of the number of animated properties.
+         */
+        progress?(this: TElement, animation: Animation<TElement>, progress: number, remainingMs: number): void;
+        /**
+         * A Boolean indicating whether to place the animation in the effects queue. If false, the animation
+         * will begin immediately. As of jQuery 1.7, the queue option can also accept a string, in which case
+         * the animation is added to the queue represented by that string. When a custom queue name is used the
+         * animation does not automatically start; you must call .dequeue("queuename") to start it.
+         */
+        queue?: boolean | string;
+        /**
+         * An object containing one or more of the CSS properties defined by the properties argument and their
+         * corresponding easing functions.
+         */
+        specialEasing?: PlainObject<string>;
+        /**
+         * A function to call when the animation on an element begins.
+         */
+        start?(this: TElement, animation: Animation<TElement>): void;
+        /**
+         * A function to be called for each animated property of each animated element. This function provides
+         * an opportunity to modify the Tween object to change the value of the property before it is set.
+         */
+        step?(this: TElement, now: number, tween: Tween<TElement>): void;
+    }
+
+    // region Animation
+    // #region Animation
+
     /**
      * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
      * @since 1.8
@@ -30115,215 +30177,13 @@ $.get( "test.php" )
         stop(gotoEnd: boolean): this;
     }
 
-    interface Effects {
-        /**
-         * The rate (in milliseconds) at which animations fire.
-         *
-         * @see \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`
-         * @since 1.4.3
-         * @deprecated ​ Deprecated since 3.0. See \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`.
-         *
-         * **Cause**: As of jQuery 3.0 the `jQuery.fx.interval` property can be used to change the animation interval only on browsers that do not support the `window.requestAnimationFrame()` method. That is currently only Internet Explorer 9 and the Android Browser. Once support is dropped for these browsers, the property will serve no purpose and it will be removed.
-         *
-         * **Solution**: Find and remove code that changes or uses `jQuery.fx.interval`. If the value is being used by code in your page or a plugin, the code may be making assumptions that are no longer valid. The default value of `jQuery.fx.interval` is `13` (milliseconds), which could be used instead of accessing this property.
-         * @example ​ ````Cause all animations to run with less frames.
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.fx.interval demo</title>
-  <style>
-  div {
-    width: 50px;
-    height: 30px;
-    margin: 5px;
-    float: left;
-    background: green;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<p><input type="button" value="Run"></p>
-<div></div>
-​
-<script>
-jQuery.fx.interval = 100;
-$( "input" ).click(function() {
-  $( "div" ).toggle( 3000 );
-});
-</script>
-</body>
-</html>
-```
-        */
-        interval: number;
-        /**
-         * Globally disable all animations.
-         *
-         * @see \`{@link https://api.jquery.com/jQuery.fx.off/ }\`
-         * @since 1.3
-         * @example ​ ````Toggle animation on and off
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery.fx.off demo</title>
-  <style>
-  div {
-    width: 50px;
-    height: 30px;
-    margin: 5px;
-    float: left;
-    background: green;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-</head>
-<body>
-​
-<input type="button" value="Run">
-<button>Toggle fx</button>
-<div></div>
-​
-<script>
-var toggleFx = function() {
-  $.fx.off = !$.fx.off;
-};
-toggleFx();
-$( "button" ).click( toggleFx );
-$( "input" ).click(function() {
-  $( "div" ).toggle( "slow" );
-});
-</script>
-</body>
-</html>
-```
-        */
-        off: boolean;
-        /**
-         * @deprecated ​ Deprecated since 1.8. Use \`{@link Tween.propHooks jQuery.Tween.propHooks}\`.
-         *
-         * `jQuery.fx.step` functions are being replaced by `jQuery.Tween.propHooks` and may eventually be removed, but are still supported via the default tween propHook.
-         */
-        step: PlainObject<AnimationHook<Node>>;
-        /**
-         * _overridable_ Clears up the `setInterval`
-         *
-         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
-         * @since 1.8
-         */
-        stop(): void;
-        /**
-         * Calls `.run()` on each object in the `jQuery.timers` array, removing it from the array if `.run()` returns a falsy value. Calls `jQuery.fx.stop()` whenever there are no timers remaining.
-         *
-         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
-         * @since 1.8
-         */
-        tick(): void;
-        /**
-         * _overridable_ Creates a `setInterval` if one doesn't already exist, and pushes `tickFunction` to the `jQuery.timers` array. `tickFunction` should also have `anim`, `elem`, and `queue` properties that reference the animation object, animated element, and queue option to facilitate `jQuery.fn.stop()`
-         *
-         * By overriding `fx.timer` and `fx.stop` you should be able to implement any animation tick behaviour you desire. (like using `requestAnimationFrame` instead of `setTimeout`.)
-         *
-         * There is an example of overriding the timer loop in \`{@link https://github.com/gnarf37/jquery-requestAnimationFrame jquery.requestAnimationFrame}\`
-         *
-         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
-         * @since 1.8
-         */
-        timer(tickFunction: TickFunction<any>): void;
-    }
-
-    interface TickFunction<TElement> {
-        anim: Animation<TElement>;
-        elem: TElement;
-        queue: boolean | string;
-        (): any;
-    }
-
-    type Duration = number | 'fast' | 'slow';
-
-    // TODO: Is the first element always a string or is that specific to the 'fx' queue?
-    type Queue<TElement> = { 0: string; } & Array<QueueFunction<TElement>>;
-
-    interface QueueFunction<TElement> {
-        (this: TElement, next: () => void): void;
-    }
-
     /**
-     * @see \`{@link https://api.jquery.com/animate/#animate-properties-options }\`
+     * A "Tweener" is a function responsible for creating a tween object, and you might want to override these if you want to implement complex values ( like a clip/transform array matrix ) in a single property.
+     *
+     * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweeners }\`
+     * @since 1.8
      */
-    interface EffectsOptions<TElement> extends PlainObject {
-        /**
-         * A function to be called when the animation on an element completes or stops without completing (its
-         * Promise object is either resolved or rejected).
-         */
-        always?(this: TElement, animation: Animation<TElement>, jumpedToEnd: boolean): void;
-        /**
-         * A function that is called once the animation on an element is complete.
-         */
-        complete?(this: TElement): void;
-        /**
-         * A function to be called when the animation on an element completes (its Promise object is resolved).
-         */
-        done?(this: TElement, animation: Animation<TElement>, jumpedToEnd: boolean): void;
-        /**
-         * A string or number determining how long the animation will run.
-         */
-        duration?: Duration;
-        /**
-         * A string indicating which easing function to use for the transition.
-         */
-        easing?: string;
-        /**
-         * A function to be called when the animation on an element fails to complete (its Promise object is rejected).
-         */
-        fail?(this: TElement, animation: Animation<TElement>, jumpedToEnd: boolean): void;
-        /**
-         * A function to be called after each step of the animation, only once per animated element regardless
-         * of the number of animated properties.
-         */
-        progress?(this: TElement, animation: Animation<TElement>, progress: number, remainingMs: number): void;
-        /**
-         * A Boolean indicating whether to place the animation in the effects queue. If false, the animation
-         * will begin immediately. As of jQuery 1.7, the queue option can also accept a string, in which case
-         * the animation is added to the queue represented by that string. When a custom queue name is used the
-         * animation does not automatically start; you must call .dequeue("queuename") to start it.
-         */
-        queue?: boolean | string;
-        /**
-         * An object containing one or more of the CSS properties defined by the properties argument and their
-         * corresponding easing functions.
-         */
-        specialEasing?: PlainObject<string>;
-        /**
-         * A function to call when the animation on an element begins.
-         */
-        start?(this: TElement, animation: Animation<TElement>): void;
-        /**
-         * A function to be called for each animated property of each animated element. This function provides
-         * an opportunity to modify the Tween object to change the value of the property before it is set.
-         */
-        step?(this: TElement, now: number, tween: Tween<TElement>): void;
-    }
-
-    interface SpeedSettings<TElement> {
-        /**
-         * A string or number determining how long the animation will run.
-         */
-        duration?: Duration;
-        /**
-         * A string indicating which easing function to use for the transition.
-         */
-        easing?: string;
-        /**
-         * A function to call once the animation is complete.
-         */
-        complete?(this: TElement): void;
-    }
+    type Tweener<TElement> = (this: Animation<TElement>, propName: string, finalValue: number) => Tween<TElement>;
 
     /**
      * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
@@ -30437,14 +30297,6 @@ jQuery.Tween.propHooks[ property ] = {
     }
 
     /**
-     * A "Tweener" is a function responsible for creating a tween object, and you might want to override these if you want to implement complex values ( like a clip/transform array matrix ) in a single property.
-     *
-     * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweeners }\`
-     * @since 1.8
-     */
-    type Tweener<TElement> = (this: Animation<TElement>, propName: string, finalValue: number) => Tween<TElement>;
-
-    /**
      * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tween-hooks }\`
      * @since 1.8
      */
@@ -30473,6 +30325,144 @@ jQuery.Tween.propHooks[ property ] = {
         [property: string]: PropHook<Node>;
     }
 
+    // #endregion
+
+    // region Easing
+    // #region Easing
+
+    type EasingMethod = (percent: number) => number;
+
+    interface Easings {
+        [name: string]: EasingMethod;
+    }
+
+    // #endregion
+
+    // region Effects (fx)
+    // #region Effects (fx)
+
+    interface Effects {
+        /**
+         * The rate (in milliseconds) at which animations fire.
+         *
+         * @see \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`
+         * @since 1.4.3
+         * @deprecated ​ Deprecated since 3.0. See \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`.
+         *
+         * **Cause**: As of jQuery 3.0 the `jQuery.fx.interval` property can be used to change the animation interval only on browsers that do not support the `window.requestAnimationFrame()` method. That is currently only Internet Explorer 9 and the Android Browser. Once support is dropped for these browsers, the property will serve no purpose and it will be removed.
+         *
+         * **Solution**: Find and remove code that changes or uses `jQuery.fx.interval`. If the value is being used by code in your page or a plugin, the code may be making assumptions that are no longer valid. The default value of `jQuery.fx.interval` is `13` (milliseconds), which could be used instead of accessing this property.
+         * @example ​ ````Cause all animations to run with less frames.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.fx.interval demo</title>
+  <style>
+  div {
+    width: 50px;
+    height: 30px;
+    margin: 5px;
+    float: left;
+    background: green;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<p><input type="button" value="Run"></p>
+<div></div>
+​
+<script>
+jQuery.fx.interval = 100;
+$( "input" ).click(function() {
+  $( "div" ).toggle( 3000 );
+});
+</script>
+</body>
+</html>
+```
+        */
+        interval: number;
+        /**
+         * Globally disable all animations.
+         *
+         * @see \`{@link https://api.jquery.com/jQuery.fx.off/ }\`
+         * @since 1.3
+         * @example ​ ````Toggle animation on and off
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.fx.off demo</title>
+  <style>
+  div {
+    width: 50px;
+    height: 30px;
+    margin: 5px;
+    float: left;
+    background: green;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<input type="button" value="Run">
+<button>Toggle fx</button>
+<div></div>
+​
+<script>
+var toggleFx = function() {
+  $.fx.off = !$.fx.off;
+};
+toggleFx();
+$( "button" ).click( toggleFx );
+$( "input" ).click(function() {
+  $( "div" ).toggle( "slow" );
+});
+</script>
+</body>
+</html>
+```
+        */
+        off: boolean;
+        /**
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link Tween.propHooks jQuery.Tween.propHooks}\`.
+         *
+         * `jQuery.fx.step` functions are being replaced by `jQuery.Tween.propHooks` and may eventually be removed, but are still supported via the default tween propHook.
+         */
+        step: PlainObject<AnimationHook<Node>>;
+        /**
+         * _overridable_ Clears up the `setInterval`
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
+         * @since 1.8
+         */
+        stop: () => void;
+        /**
+         * Calls `.run()` on each object in the `jQuery.timers` array, removing it from the array if `.run()` returns a falsy value. Calls `jQuery.fx.stop()` whenever there are no timers remaining.
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
+         * @since 1.8
+         */
+        tick(): void;
+        /**
+         * _overridable_ Creates a `setInterval` if one doesn't already exist, and pushes `tickFunction` to the `jQuery.timers` array. `tickFunction` should also have `anim`, `elem`, and `queue` properties that reference the animation object, animated element, and queue option to facilitate `jQuery.fn.stop()`
+         *
+         * By overriding `fx.timer` and `fx.stop` you should be able to implement any animation tick behaviour you desire. (like using `requestAnimationFrame` instead of `setTimeout`.)
+         *
+         * There is an example of overriding the timer loop in \`{@link https://github.com/gnarf37/jquery-requestAnimationFrame jquery.requestAnimationFrame}\`
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
+         * @since 1.8
+         */
+        timer: (tickFunction: TickFunction<any>) => void;
+    }
+
     /**
      * @deprecated ​ Deprecated since 1.8. Use \`{@link Tween.propHooks jQuery.Tween.propHooks}\`.
      *
@@ -30487,11 +30477,46 @@ jQuery.Tween.propHooks[ property ] = {
         (fx: Tween<TElement>): void;
     }
 
-    type EasingMethod = (percent: number) => number;
-
-    interface Easings {
-        [name: string]: EasingMethod;
+    interface TickFunction<TElement> {
+        anim: Animation<TElement>;
+        elem: TElement;
+        queue: boolean | string;
+        (): any;
     }
+
+    // #endregion
+
+    // region Queue
+    // #region Queue
+
+    // TODO: Is the first element always a string or is that specific to the 'fx' queue?
+    type Queue<TElement> = { 0: string; } & Array<QueueFunction<TElement>>;
+
+    interface QueueFunction<TElement> {
+        (this: TElement, next: () => void): void;
+    }
+
+    // #endregion
+
+    // region Speed
+    // #region Speed
+
+    interface SpeedSettings<TElement> {
+        /**
+         * A string or number determining how long the animation will run.
+         */
+        duration?: Duration;
+        /**
+         * A string indicating which easing function to use for the transition.
+         */
+        easing?: string;
+        /**
+         * A function to call once the animation is complete.
+         */
+        complete?(this: TElement): void;
+    }
+
+    // #endregion
 
     // #endregion
 
