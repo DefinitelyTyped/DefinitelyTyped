@@ -262,7 +262,7 @@ declare module 'd3-graphviz' {
          * 
          * @param callback 
          */
-        attributer(callback: Function | null): this;
+        attributer(callback?: Function): this;
 
         //Accessing Extracted Data
         /**
