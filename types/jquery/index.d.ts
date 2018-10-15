@@ -2019,7 +2019,8 @@ $.getScript( "myplugin.js", function() {
      *
      * @param html The HTML string on which to operate.
      * @see \`{@link https://api.jquery.com/jQuery.htmlPrefilter/ }\`
-     * @since 1.12/2.2
+     * @since 1.12
+     * @since 2.2
      */
     htmlPrefilter(html: JQuery.htmlString): JQuery.htmlString;
     /**
