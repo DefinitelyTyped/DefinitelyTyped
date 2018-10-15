@@ -31342,13 +31342,18 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
         special: SpecialEventHooks;
     }
 
-    interface FixHook {
+    // region Fix hooks
+    // #region Fix hooks
+
+    // Workaround for TypeScript 2.3 which does not have support for weak types handling.
+    type FixHook = {
         /**
          * Strings representing properties that should be copied from the browser's event object to the jQuery
          * event object. If omitted, no additional properties are copied beyond the standard ones that jQuery
          * copies and normalizes (e.g. `event.target` and `event.relatedTarget`).
          */
-        props?: string[];
+        props: string[];
+    } | {
         /**
          * jQuery calls this function after it constructs the `jQuery.Event` object, copies standard properties
          * from `jQuery.event.props`, and copies the `fixHooks`-specific props (if any) specified above. The
@@ -31399,8 +31404,10 @@ if ( !existingHook ) {
 }
 ```
          */
-        filter?(event: Event, originalEvent: _Event): void;
-    }
+        filter(event: Event, originalEvent: _Event): void;
+    } | {
+        [key: string]: never;
+    };
 
     /**
      * The `fixHooks` interface provides a per-event-type way to extend or normalize the event object that
@@ -31411,6 +31418,8 @@ if ( !existingHook ) {
     interface FixHooks {
         [event: string]: FixHook;
     }
+
+    // #endregion
 
     // region Special event hooks
     // #region Special event hooks
