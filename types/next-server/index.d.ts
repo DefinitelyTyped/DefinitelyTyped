@@ -30,7 +30,7 @@ declare namespace next {
         conf?: NextConfig;
     }
 
-    type ServerParams = Record<string | number, string | string[] | undefined>;
+    type ServerParams = Record<string, string | string[] | undefined>;
 
     interface ServerRoute {
         match(pathname: string, params?: ServerParams): ServerParams;
