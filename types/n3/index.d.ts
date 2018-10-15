@@ -113,6 +113,7 @@ export type ParseCallback = (error: Error, quad: Quad, prefixes: Prefixes) => vo
 
 export interface N3Parser {
     parse(input: string, callback: ParseCallback): void;
+    parse(input: string): Quad[];
 }
 
 export interface StreamParserConstructor {
