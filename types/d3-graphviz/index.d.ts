@@ -43,7 +43,7 @@ declare module 'd3-graphviz' {
         options(options: GraphvizOptions): this;
 
         //Rendering
-        renderDot(src: string, callback?: any): this;
+        renderDot(src: string, callback?: Function): this;
         dot(src: string, callback?: () => void): this;
         render(callback?: Function): this;
         engine(engine: Engine): this;
@@ -90,8 +90,8 @@ declare module 'd3-graphviz' {
         zoom(enable: boolean): this;
         zoomBehavior(): ZoomBehavior<Element, any> | null;
         zoomSelection(): Element | null;
-        zoomScaleExtent(extent?: number[]): this;
-        zoomTranslateExtent(extent?: number[][]): this;
+        zoomScaleExtent(extent?: [number, number]): this;
+        zoomTranslateExtent(extent?: [[number, number], [number, number]]): this;
         resetZoom(transition?: string | Transition<GElement, Datum, PElement, PDatum>): this;
 
         //Maintaining Object Constancy
@@ -134,7 +134,7 @@ declare module 'd3-graphviz' {
                         'resotreEnd' | 'end';
 
     type KeyMode = 'title' | 'id' | 'tag-index' | 'index';
-    
+
     /**
      * Interface defining the options present on the Graphviz Renderer.
      * Most map directly to methods that can be used to set their values.
@@ -151,8 +151,8 @@ declare module 'd3-graphviz' {
         tweenPrecision?: number,
         growEnteringEdges?: boolean,
         zoom?: boolean,
-        zoomScaleExtent?: number[],
-        zoomTranslateExtent?: number[][],
+        zoomScaleExtent?: [number, number],
+        zoomTranslateExtent?: [[number, number], [number, number]],
         width?: number | string,
         height?: number | string,
         scale?: number,
