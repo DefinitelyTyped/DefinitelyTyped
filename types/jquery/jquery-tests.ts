@@ -84,7 +84,7 @@ function JQueryStatic() {
     }
 
     function valHooks() {
-        // $ExpectType PlainObject<ValHook<HTMLElement>>
+        // $ExpectType ValHooks
         $.valHooks;
     }
 
@@ -8240,4 +8240,27 @@ function JQuery_EventExtensions() {
         // $ExpectError
         jQuery.event.special.multiclick = 1;
     }
+}
+
+declare namespace JQuery {
+    interface ValHooks {
+        textarea: ValHook<HTMLTextAreaElement>;
+    }
+}
+
+function JQuery_ValHooks() {
+    jQuery.valHooks.textarea = {
+        get(elem) {
+            // $ExpectType HTMLTextAreaElement
+            elem;
+
+            return elem.value.replace(/\r?\n/g, "\r\n");
+        },
+        set(elem) {
+            // $ExpectType HTMLTextAreaElement
+            elem;
+
+            return elem.value;
+        }
+    };
 }

@@ -118,8 +118,7 @@ $.when(
     support: JQuery.PlainObject;
     timers: Array<JQuery.TickFunction<any>>;
     Tween: JQuery.TweenStatic;
-    // Set to HTMLElement to minimize breaks but should probably be Element.
-    valHooks: JQuery.PlainObject<JQuery.ValHook<HTMLElement>>;
+    valHooks: JQuery.ValHooks;
     // HACK: This is the factory function returned when importing jQuery without a DOM. Declaring it separately breaks using the type parameter on JQueryStatic.
     // HACK: The discriminator parameter handles the edge case of passing a Window object to JQueryStatic. It doesn't actually exist on the factory function.
     (window: Window, discriminator: boolean): JQueryStatic;
@@ -31640,6 +31639,9 @@ if ( !existingHook ) {
         value: string;
     }
 
+    // region Coordinates
+    // #region Coordinates
+
     interface Coordinates {
         left: number;
         top: number;
@@ -31651,10 +31653,22 @@ if ( !existingHook ) {
         Pick<Coordinates, 'top'> |
         { [key: string]: never; };
 
+    // #endregion
+
+    // region Val hooks
+    // #region Val hooks
+
     interface ValHook<TElement> {
         get?(elem: TElement): any;
         set?(elem: TElement, value: any): any;
     }
+
+    interface ValHooks {
+        // Set to HTMLElement to minimize breaks but should probably be Element.
+        [nodeName: string]: ValHook<HTMLElement>;
+    }
+
+    // #endregion
 
     type _Falsy = false | null | undefined | 0 | '' | typeof document.all;
 }
