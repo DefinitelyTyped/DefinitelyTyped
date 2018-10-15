@@ -248,6 +248,6 @@ describe('rendering test', function() {
         // render the component
         await this.render(hbs`{{ x-foo value=value}}`);
 
-        chai.expect(this.element.querySelector('div>.value').textContent.trim()).to.equal('cat', 'The component shows the correct value');
+        chai.expect(this.element.querySelector('div>.value')!.textContent!.trim()).to.equal('cat', 'The component shows the correct value');
     });
 });
