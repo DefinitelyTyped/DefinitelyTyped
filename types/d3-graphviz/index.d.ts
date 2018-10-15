@@ -12,7 +12,7 @@ declare module 'd3-graphviz' {
 
     module 'd3-selection' {
         interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
-            graphviz(options?: GraphvizOptions | boolean): Graphviz;
+            graphviz(options?: GraphvizOptions | boolean): Graphviz<GElement, Datum, BaseType, PDatum>;
             selectWithoutDataPropagation(): Selection<GElement, Datum, PElement, PDatum>;
         }
     }
@@ -22,13 +22,13 @@ declare module 'd3-graphviz' {
      * @param selector 
      * @param options 
      */
-    export function graphviz(selector: string, options?: GraphvizOptions | boolean): Graphviz;
+    export function graphviz<GElement extends BaseType, Datum, PElement extends BaseType, PDatum>(selector: string | GElement, options?: GraphvizOptions | boolean): Graphviz<GElement, Datum, PElement, PDatum>;
 
     /**
      * Interface representing the Graphviz Renderer. Methods generally return the instance of the
      * object they were called on (i.e this) in order to allow for easy method chaining.
      */
-    export interface Graphviz {
+    export interface Graphviz<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
         //Options
         /**
          * Gets the currently set options object on the renderer
@@ -59,8 +59,8 @@ declare module 'd3-graphviz' {
         addImage(path: string, width: number | string, height: number | string): this;
 
         //Creating Transitions
-        transition(name?: Function | string | Transition<BaseType, any, BaseType, any>): this;
-        active(name?: string): Transition<BaseType, any, BaseType, any> | null;
+        transition(name?: Function | string | Transition<GElement, Datum, PElement, PDatum>): this;
+        active(name?: string): Transition<GElement, Datum, PElement, PDatum> | null;
 
         //Controlling SVG and Graph Size
         width(width: number | string): this;
@@ -88,11 +88,11 @@ declare module 'd3-graphviz' {
 
         //Controlling Panning & Zooming
         zoom(enable: boolean): this;
-        zoomBehavior(): ZoomBehavior<any, any> | null;
+        zoomBehavior(): ZoomBehavior<Element, any> | null;
         zoomSelection(): Element | null;
         zoomScaleExtent(extent?: number[]): this;
         zoomTranslateExtent(extent?: number[][]): this;
-        resetZoom(transition?: string | Transition<BaseType, any, BaseType, any>): this;
+        resetZoom(transition?: string | Transition<GElement, Datum, PElement, PDatum>): this;
 
         //Maintaining Object Constancy
         keyMode(keyMode: KeyMode): this; //keyMode should be an enum
@@ -110,14 +110,14 @@ declare module 'd3-graphviz' {
         moveDrawnEdgeEndPoint(x2: number, y2: number, options?: EdgeOptions): this;
         insertDrawnEdge(name: string): this;
         removeDrawnEdge(): this;
-        drawnEdgeSelection(): Selection<any, any, HTMLElement, any>;
+        drawnEdgeSelection(): Selection<GElement, Datum, PElement, PDatum>;
             //Nodes
         drawNode(x: number, y: number, nodeId: string, attributes?: DotAttributes, options?: NodeOptions): this;
         updateDrawnNode(x: number, y: number, nodeId: string, attributes?: DotAttributes, options?: NodeOptions): this;
         moveDrawnNode(x: number, y: number, options?: NodeOptions): this;
         inserDrawnNode(nodeId: string): this;
         removeDrawnNode(): this;
-        drawnNodeSelection(): Selection<any, any, HTMLElement, any>;
+        drawnNodeSelection(): Selection<GElement, Datum, PElement, PDatum>;
 
         //Large Graphs
         totalMemory(size: number): this;
