@@ -436,9 +436,9 @@ declare module 'd3-graphviz' {
      * Interface defining the attributes available per the DOT language
      */
     export interface DotAttributes {
-        style: any;
-        URL: any;
-        tooltip: any;
+        style?: any;
+        URL?: any;
+        tooltip?: any;
     }
 
     /**
