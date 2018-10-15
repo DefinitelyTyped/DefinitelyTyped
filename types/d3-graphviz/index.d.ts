@@ -7,7 +7,8 @@
 declare module 'd3-graphviz' {
 
     import { ZoomBehavior } from 'd3-zoom'
-    import { Selection } from 'd3-selection'
+    import { Selection, BaseType } from 'd3-selection'
+    import { Transition } from 'd3-transition'
 
     module 'd3-selection' {
         interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
@@ -23,86 +24,108 @@ declare module 'd3-graphviz' {
      */
     export function graphviz(selector: string, options?: GraphvizOptions | boolean): Graphviz;
 
+    /**
+     * Interface representing the Graphviz Renderer. Methods generally return the instance of the
+     * object they were called on (i.e this) in order to allow for easy method chaining.
+     */
     export interface Graphviz {
         //Options
+        /**
+         * Gets the currently set options object on the renderer
+         */
         options(): GraphvizOptions;
-        options(options: GraphvizOptions): Graphviz;
+        
+        /**
+         * Sets the options provided. Does not overwrite existing options that are not
+         * provided in the options parameter.
+         * @param options the options to set on the renderer
+         */
+        options(options: GraphvizOptions): this;
 
         //Rendering
-        renderDot(src: string, callback?: any): Graphviz;
-        dot(src: any, callback?: () => void): Graphviz;
-        render(callback?: Function): Graphviz;
-        engine(engine: Engine): Graphviz;
-        onerror(callback: any): any;
+        renderDot(src: string, callback?: any): this;
+        dot(src: string, callback?: () => void): this;
+        render(callback?: Function): this;
+        engine(engine: Engine): this;
+        onerror(callback: Function): this;
 
         //Images
-        addImage(path: string, width: number, height: number): Graphviz; //Width & height can be strings, i.e. '100px'
+        /**
+         * 
+         * @param path 
+         * @param width 
+         * @param height 
+         */
+        addImage(path: string, width: number | string, height: number | string): this;
 
         //Creating Transitions
-        transition(name: any): Graphviz;
-        active(name?: any): any; //Returns a transition, what type?
+        transition(name?: Function | string | Transition<BaseType, any, BaseType, any>): this;
+        active(name?: string): Transition<BaseType, any, BaseType, any> | null;
 
         //Controlling SVG and Graph Size
-        width(width: number): Graphviz;
-        height(height: number): Graphviz;
-        fit(fit: boolean): Graphviz;
-        scale(scale: number): Graphviz;
+        width(width: number | string): this;
+        height(height: number | string): this;
+        fit(fit: boolean): this;
+        scale(scale: number): this;
 
         //Control Flow
-        on(typenames: TypeNames, callback?: () => void): any;
-        logEvents(enable: boolean): Graphviz;
+        on(typenames: TypeNames, callback?: () => void): this;
+        logEvents(enable: boolean): this;
 
         //Controlling Fade
-        fade(enable: boolean): Graphviz;
+        fade(enable: boolean): this;
 
         //Controlling Animated Growth of Entering Edges
-        growEnteringEdges(enable: boolean): Graphviz;
+        growEnteringEdges(enable: boolean): this;
 
         //Controlling Path Tweening
-        tweenPaths(enable: boolean): Graphviz;
-        tweenPrecision(precision: number): Graphviz; //precision can be a string, i.e. '50%'
+        tweenPaths(enable: boolean): this;
+        tweenPrecision(precision: number): this; //precision can be a string, i.e. '50%'
 
         //Controlling Shape Tweening
-        tweenShapes(enable: boolean): Graphviz;
-        convertEqualSidedPolygons(enable: boolean): Graphviz;
+        tweenShapes(enable: boolean): this;
+        convertEqualSidedPolygons(enable: boolean): this;
 
         //Controlling Panning & Zooming
-        zoom(enable: boolean): Graphviz;
+        zoom(enable: boolean): this;
         zoomBehavior(): ZoomBehavior<any, any> | null;
-        zoomSelection(): any | null;
-        zoomScaleExtent(extent?: number[]): Graphviz;
-        zoomTranslateExtent(extent?: number[][]): Graphviz;
-        resetZoom(transition?: any): any;
+        zoomSelection(): Element | null;
+        zoomScaleExtent(extent?: number[]): this;
+        zoomTranslateExtent(extent?: number[][]): this;
+        resetZoom(transition?: string | Transition<BaseType, any, BaseType, any>): this;
 
         //Maintaining Object Constancy
-        keyMode(keyMode: KeyMode): Graphviz; //keyMode should be an enum
+        keyMode(keyMode: KeyMode): this; //keyMode should be an enum
 
         //Customizing Graph Attributes
-        attributer(callback: Function | null): Graphviz;
+        attributer(callback: Function | null): this;
 
         //Accessing Extracted Data
         data(): any;
         
         //Modifying an Existing Graph and Animating the Changes
             //Edges
-        drawEdge(x1: number, x2: number, y1: number, y2: number, attributes?: DotAttributes, options?: EdgeOptions): Graphviz;
-        updateDrawnEdge(x1: number, x2: number, y1: number, y2: number, attributes?: DotAttributes, options?: EdgeOptions): Graphviz;
-        moveDrawnEdgeEndPoint(x2: number, y2: number, options?: EdgeOptions): Graphviz;
-        insertDrawnEdge(name: string): Graphviz;
-        removeDrawnEdge(): Graphviz;
-        drawnEdgeSelection(): any;
+        drawEdge(x1: number, x2: number, y1: number, y2: number, attributes?: DotAttributes, options?: EdgeOptions): this;
+        updateDrawnEdge(x1: number, x2: number, y1: number, y2: number, attributes?: DotAttributes, options?: EdgeOptions): this;
+        moveDrawnEdgeEndPoint(x2: number, y2: number, options?: EdgeOptions): this;
+        insertDrawnEdge(name: string): this;
+        removeDrawnEdge(): this;
+        drawnEdgeSelection(): Selection<any, any, HTMLElement, any>;
             //Nodes
-        drawNode(x: number, y: number, nodeId: string, attributes?: DotAttributes, options?: NodeOptions): Graphviz;
-        updateDrawnNode(x: number, y: number, nodeId: string, attributes?: DotAttributes, options?: NodeOptions): Graphviz;
-        moveDrawnNode(x: number, y: number, options?: NodeOptions): Graphviz;
-        inserDrawnNode(nodeId: string): Graphviz;
-        removeDrawnNode(): Graphviz;
+        drawNode(x: number, y: number, nodeId: string, attributes?: DotAttributes, options?: NodeOptions): this;
+        updateDrawnNode(x: number, y: number, nodeId: string, attributes?: DotAttributes, options?: NodeOptions): this;
+        moveDrawnNode(x: number, y: number, options?: NodeOptions): this;
+        inserDrawnNode(nodeId: string): this;
+        removeDrawnNode(): this;
         drawnNodeSelection(): Selection<any, any, HTMLElement, any>;
 
         //Large Graphs
-        totalMemory(size: number): Graphviz;
+        totalMemory(size: number): this;
     }
 
+    /**
+     * Enum defining the valid strings that can be passed in as an engine
+     */
     type Engine = 'circo' | 'dot' | 'fdp' | 'neato' | 'osage' | 'patchwork' | 'twopi';
 
     type TypeNames = 'initEnd' | 'start' | 'layoutStart' | 'layoutEnd' | 'dataExtractEnd' | 
@@ -112,6 +135,10 @@ declare module 'd3-graphviz' {
 
     type KeyMode = 'title' | 'id' | 'tag-index' | 'index';
     
+    /**
+     * Interface defining the options present on the Graphviz Renderer.
+     * Most map directly to methods that can be used to set their values.
+     */
     export interface GraphvizOptions {
         useWorker?: boolean,
         engine?: Engine,
@@ -126,8 +153,8 @@ declare module 'd3-graphviz' {
         zoom?: boolean,
         zoomScaleExtent?: number[],
         zoomTranslateExtent?: number[][],
-        width?: number,
-        height?: number,
+        width?: number | string,
+        height?: number | string,
         scale?: number,
         fit?: boolean,
     }
