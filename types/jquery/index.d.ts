@@ -27576,9 +27576,16 @@ callbacks.fire( "world" );
     // region CSS hooks
     // #region CSS hooks
 
-    interface CSSHook<TElement> {
-        get(this: this, elem: TElement, computed: any, extra: any): any;
-        set(this: this, elem: TElement, value: any): void;
+    // Workaround for TypeScript 2.3 which does not have support for weak types handling.
+    type CSSHook<TElement> =
+        Partial<_CSSHook<TElement>> & (
+            Pick<_CSSHook<TElement>, 'get'> |
+            Pick<_CSSHook<TElement>, 'set'>
+        );
+
+    interface _CSSHook<TElement> {
+        get(elem: TElement, computed: any, extra: any): any;
+        set(elem: TElement, value: any): void;
     }
 
     interface CSSHooks {

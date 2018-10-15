@@ -7136,6 +7136,32 @@ function JQuery_CSSHooks() {
             value;
         }
     };
+
+    $.cssHooks.borderRadius = {
+        get(elem, computed, extra) {
+            // $ExpectedType HTMLElement
+            elem;
+            // $ExpectedType any
+            computed;
+            // $ExpectedType any
+            extra;
+        }
+    };
+
+    $.cssHooks.borderRadius = {
+        set(elem, value) {
+            // $ExpectedType HTMLElement
+            elem;
+            // $ExpectedType any
+            value;
+        }
+    };
+
+    // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+    // $ExpectError
+    $.cssHooks.borderRadius = function get(elem: HTMLElement, computed: any, extra: any) {
+        return 1;
+    };
 }
 
 function JQuery_Promise3() {
