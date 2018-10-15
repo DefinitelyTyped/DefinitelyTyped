@@ -26,7 +26,7 @@ export interface ImageTabText {
     [key: string]: string;
 }
 
-export interface ImageTab {
+export interface ImageTabs {
     acTL?: ImageTabACTL;
     pHYs?: number[];
     cHRM?: number[];
@@ -46,7 +46,7 @@ export interface Image {
     depth: number;
     ctype: number;
     frames: ImageFrame[];
-    tabs: ImageTab;
+    tabs: ImageTabs;
     data: ArrayBuffer;
 }
 
