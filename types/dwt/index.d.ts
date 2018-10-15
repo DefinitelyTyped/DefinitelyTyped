@@ -14,7 +14,7 @@
 *
 * Copyright 2018, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
-* Version: 13.4
+* Version: 14.2
 */
 
 /**
@@ -2490,7 +2490,8 @@ interface WebTwain {
      * @param {Array} indices indices specifies which images are to be converted to base64.
      * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be converted to base64.
      * @return {Base64Result}
-     */
+    */
+ 
     ConvertToBase64(indices: number[], enumImageType: EnumDWT_ImageType): Base64Result;
 
     /**
@@ -2502,7 +2503,7 @@ interface WebTwain {
      * @param {function} asyncFailureFunc the function to call when the upload fails. Please refer to the function prototype OnFailure.
      * @return {boolean}
      */
-    ConvertToBase64(indices: number[], enumImageType: EnumDWT_ImageType, asyncSuccessFunc: (result: any) => void, asyncFailureFunc: (errorCode: number, errorString: string) => void): boolean;
+    ConvertToBase64(indices: number[], enumImageType: EnumDWT_ImageType, asyncSuccessFunc: (result: Base64Result) => void, asyncFailureFunc: (errorCode: number, errorString: string) => void): boolean;
 
     /**
      * Converts the images specified by the indices to blob synchronously.
@@ -2893,7 +2894,7 @@ interface WebTwain {
      * Return the runtime license info.
      * @method WebTwain#GetLicenseInfo
      */
-    GetLicenseInfo(): { Domain: string, Detail: LicenseDetailItem[] };
+    GetLicenseInfo(optionalAsyncSuccessFunc?: (result: any) => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
 
     /**
      * Returns the index of the selected image.
