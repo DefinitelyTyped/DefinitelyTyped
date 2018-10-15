@@ -19,7 +19,7 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
                 backgroundColor: "#000000",
                 borderWidth: 1,
                 label: "test",
-                data: [1]
+                data: [1, null, 3]
             }
         ]
     },
