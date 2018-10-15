@@ -158,7 +158,7 @@ export class Fragment<S extends Schema = any> {
    * same. Since this position will not be the same in both nodes, an
    * object with two separate positions is returned.
    */
-  findDiffEnd(other: ProsemirrorNode<S>): { a: number; b: number } | null | undefined;
+  findDiffEnd(other: Fragment<S>): { a: number; b: number } | null | undefined;
   /**
    * Return a debugging string that describes this fragment.
    */
