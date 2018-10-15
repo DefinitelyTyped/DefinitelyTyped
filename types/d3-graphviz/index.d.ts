@@ -221,7 +221,7 @@ declare module 'd3-graphviz' {
          * Returns the zoom behaviour of a graph. If the zoom is disable or the graph has not
          * yet been rendered then returns null.
          */
-        zoomBehavior(): ZoomBehavior<Element, any> | null;
+        zoomBehavior(): ZoomBehavior<Element, Datum> | null;
 
         /**
          * Returns the selection to which zoom behaviour has been applied. If zoom is disabled
