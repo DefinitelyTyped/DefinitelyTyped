@@ -1,4 +1,4 @@
-// Type definitions for node-cron v2.0
+// Type definitions for node-cron 2.0
 // Project: https://github.com/node-cron/node-cron
 // Definitions by: morsic <https://github.com/maximelkin>,
 //                 burtek <https://github.com/burtek>
