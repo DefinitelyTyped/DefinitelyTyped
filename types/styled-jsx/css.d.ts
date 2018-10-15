@@ -1,8 +1,6 @@
-type Tag = {
-    (chunks: TemplateStringsArray, ...args: any[]): string;
-    global: (chunks: TemplateStringsArray, ...args: any[]) => string;
-    resolve: (chunks: TemplateStringsArray, ...args: any[]) => { className: string; styles: string };
-};
-
-declare let css: Tag;
+declare function css(chunks: TemplateStringsArray, ...args: any[]): string;
+declare namespace css {
+    export function global(chunks: TemplateStringsArray, ...args: any[]): string;
+    export function resolve(chunks: TemplateStringsArray, ...args: any[]): { className: string; styles: string };
+}
 export = css;
