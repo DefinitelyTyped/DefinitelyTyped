@@ -2,6 +2,7 @@
 // Project: https://react-countup.now.sh
 // Definitions by: Daniel Brodin <https://github.com/danielbrodin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -12,10 +13,10 @@ export = ReactCountUp;
 declare namespace ReactCountUp {
     interface RenderProps {
         countUpRef: React.RefObject<any>;
-        pauseResume: () => void;
-        reset: () => void;
-        start: () => void;
-        update: (newEnd?: number) => void;
+        pauseResume(): void;
+        reset(): void;
+        start(): void;
+        update(newEnd?: number): void;
     }
 
     interface Props {
