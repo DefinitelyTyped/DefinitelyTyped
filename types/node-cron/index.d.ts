@@ -17,12 +17,12 @@ export interface ScheduledTask {
 export interface ScheduleOptions {
     /**
      * A boolean to set if the created task is scheduled.
-     * 
+     *
      * Defaults to `true`
      */
-    scheduled?: boolean,
+    scheduled?: boolean;
     /**
      * The timezone that is used for job scheduling
      */
-    timezone?: string
+    timezone?: string;
 }
