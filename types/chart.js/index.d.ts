@@ -548,7 +548,7 @@ declare namespace Chart {
         borderDashOffset?: number;
         borderJoinStyle?: 'bevel' | 'round' | 'miter';
         borderSkipped?: PositionType;
-        data?: number[] | ChartPoint[];
+        data?: Array<number | null | undefined> | ChartPoint[];
         fill?: boolean | number | string;
         hoverBackgroundColor?: string | string[];
         hoverBorderColor?: string | string[];
