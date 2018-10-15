@@ -73,7 +73,7 @@ declare module 'd3-graphviz' {
          * @param src a string representing a valid string in the DOT language
          * @param callback 
          */
-        dot(src: string, callback?: () => void): this;
+        dot(src: string, callback?: Function): this;
 
         /**
          * Starts rendering of an SVG graph from data saved by {@link dot} and appends it to the selection 
@@ -157,7 +157,7 @@ declare module 'd3-graphviz' {
          * @param typenames 
          * @param callback 
          */
-        on(typenames: TypeNames, callback?: () => void): this;
+        on(typenames: TypeNames, callback?: Function): this;
 
         /**
          * Sets whether events are logged or not.
