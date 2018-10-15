@@ -8,7 +8,6 @@
 import { EnzymeAdapter } from 'enzyme';
 
 declare class ReactSixteenAdapter extends EnzymeAdapter {
-    constructor();
 }
 
 declare const Adapter: typeof ReactSixteenAdapter;
