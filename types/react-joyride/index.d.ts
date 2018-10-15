@@ -137,6 +137,11 @@ export interface OverridableProps {
     showProgress?: boolean;
 
     /**
+     * Display a button to skip the tour.
+     */
+    showSkipButton?: boolean;
+
+    /**
      * Disable closing the tooltip on ESC. Defaults to false.
      */
     disableCloseOnEsc?: boolean;
@@ -150,6 +155,11 @@ export interface OverridableProps {
      * Don't close the tooltip when clicking the overlay. Defaults to false.
      */
     disableOverlayClose?: boolean;
+
+    /**
+     * Disable auto scrolling between steps.
+     */    
+    disableScrolling?: boolean;
 
     /**
      * The strings used in the tooltip. Defaults to `{ back: 'Back', close: 'Close', last: 'Last', next: 'Next', skip: 'Skip' }`
@@ -221,7 +231,7 @@ export interface Step extends OverridableProps {
     /**
      * The placement of the beacon. It will use the placement if nothing is passed and it can be: top, bottom, left, right.
      */
-    placementBeacon?: 'top' | 'bottom' | 'left' | 'right';
+    placementBeacon?: 'top' | 'bottom' | 'left' | 'right';    
 }
 export interface StepStyles {
     /**
