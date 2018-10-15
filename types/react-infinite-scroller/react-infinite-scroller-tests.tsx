@@ -32,16 +32,3 @@ class Test2 extends React.Component {
         );
     }
 }
-
-class InfiniteScrollOverride extends InfiniteScroll {
-    getParentElement(el: HTMLElement) {
-        if (document.getElementById("scroll-header")) {
-            return document.getElementById("scroll-header");
-        }
-        return super.getParentElement(el);
-    }
-
-    render() {
-        return super.render();
-    }
-}

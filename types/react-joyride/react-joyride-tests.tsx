@@ -5,13 +5,12 @@ class NewComponent extends React.Component<undefined, undefined> {
     j: Joyride;
 
     steps: Step[] = [{
-        title: "Title",
-        content: "Hurray",
-        target: ".selectable",
-        placement: "top-end",
-        event: "click",
-        styles: {
-            options: {
+            title: "Title",
+            text: "Hurray",
+            target: ".selectable",
+            position: "top-right",
+            type: "click",
+            style: {
                 backgroundColor: "#000",
                 borderRadius: "0",
                 color: "#000",
@@ -33,16 +32,17 @@ class NewComponent extends React.Component<undefined, undefined> {
                 hole: {
                     backgroundColor: "#000",
                 }
-            }
+            },
+            name: "my-name",
+            parent: "MyParent"
         },
-    },
-    {
-        target: ".other-selectable",
-        content: (<div>Also works</div>)
-    }];
+        {
+            target: ".other-selectable",
+            text: (<div>Also works</div>)
+        }];
 
     render() {
-        return <Joyride ref="j" run={true} steps={this.steps} />;
+        return <Joyride ref="j" run={true} holePadding={4} resizeDebounceDelay={100} steps={this.steps} autoStart={true} />;
     }
 
     doStuff() {
@@ -54,6 +54,6 @@ class NewComponent extends React.Component<undefined, undefined> {
 
         this.j.addTooltip(this.steps[0]);
 
-        const { title, placement } = this.j.getProgress().step;
+        const { title, position } = this.j.getProgress().step;
     }
 }

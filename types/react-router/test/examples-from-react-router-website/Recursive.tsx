@@ -15,28 +15,24 @@ const PEEPS = [
   { id: 3, name: 'David', friends: [ 1, 2 ] }
 ];
 
-const find = (id: string) => PEEPS.find(p => p.id === parseInt(id, 10));
-// original code example relies upon == rather than === for comparison;
-// allowing for string / number coercion in comparison; the change to use
-// parseInt and === above makes this behaviour explicit
-// const find = id => PEEPS.find(p => p.id == id);
+const find = (id: number) => PEEPS.find(p => p.id === id);
 
 const RecursiveExample = () => (
   <Router>
-    <Person match={{ params: { id: '0' }, url: '' }}/>
+    <Person match={{ params: { id: 0 }, url: '' }}/>
   </Router>
 );
 
 interface InitialPersonProps {
   match: {
     params: {
-      id: string;
+      id: number;
     };
     url: string;
   };
 }
 
-type PersonProps = RouteComponentProps<{ id: string }>;
+type PersonProps = RouteComponentProps<{ id: number }>;
 
 const Person: React.SFC<InitialPersonProps | PersonProps> = ({ match }) => {
   const person = find(match.params.id);
@@ -48,7 +44,7 @@ const Person: React.SFC<InitialPersonProps | PersonProps> = ({ match }) => {
         {person!.friends.map(id => (
           <li key={id}>
             <Link to={`${match.url}/${id}`}>
-              {find(id.toString())!.name}
+              {find(id)!.name}
             </Link>
           </li>
         ))}

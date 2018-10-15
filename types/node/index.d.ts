@@ -1,35 +1,34 @@
-// Type definitions for Node.js 10.11
+// Type definitions for Node.js 10.9.x
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
-//                 DefinitelyTyped <https://github.com/DefinitelyTyped>
-//                 Alberto Schiabel <https://github.com/jkomyno>
-//                 Alexander T. <https://github.com/a-tarasyuk>
-//                 Alvis HT Tang <https://github.com/alvis>
-//                 Andrew Makarov <https://github.com/r3nya>
-//                 Bruno Scheufler <https://github.com/brunoscheufler>
-//                 Chigozirim C. <https://github.com/smac89>
-//                 Christian Vaagland Tellnes <https://github.com/tellnes>
-//                 Deividas Bakanas <https://github.com/DeividasBakanas>
-//                 Eugene Y. Q. Shen <https://github.com/eyqs>
-//                 Flarna <https://github.com/Flarna>
-//                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
-//                 Hoàng Văn Khải <https://github.com/KSXGitHub>
-//                 Huw <https://github.com/hoo29>
-//                 Kelvin Jin <https://github.com/kjin>
-//                 Klaus Meinhardt <https://github.com/ajafff>
-//                 Lishude <https://github.com/islishude>
-//                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
-//                 Matthieu Sieben <https://github.com/matthieusieben>
-//                 Mohsen Azimi <https://github.com/mohsen1>
-//                 Nicolas Even <https://github.com/n-e>
-//                 Nicolas Voigt <https://github.com/octo-sniffle>
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 //                 Parambir Singh <https://github.com/parambirs>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Simon Schick <https://github.com/SimonSchick>
-//                 Thomas den Hollander <https://github.com/ThomasdenH>
+//                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
+//                 Nicolas Voigt <https://github.com/octo-sniffle>
+//                 Chigozirim C. <https://github.com/smac89>
+//                 Flarna <https://github.com/Flarna>
+//                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
+//                 Deividas Bakanas <https://github.com/DeividasBakanas>
+//                 Kelvin Jin <https://github.com/kjin>
+//                 Alvis HT Tang <https://github.com/alvis>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Hannes Magnusson <https://github.com/Hannes-Magnusson-CK>
+//                 Alberto Schiabel <https://github.com/jkomyno>
+//                 Klaus Meinhardt <https://github.com/ajafff>
+//                 Huw <https://github.com/hoo29>
+//                 Nicolas Even <https://github.com/n-e>
+//                 Bruno Scheufler <https://github.com/brunoscheufler>
+//                 Mohsen Azimi <https://github.com/mohsen1>
+//                 Hoàng Văn Khải <https://github.com/KSXGitHub>
+//                 Alexander T. <https://github.com/a-tarasyuk>
+//                 Lishude <https://github.com/islishude>
+//                 Andrew Makarov <https://github.com/r3nya>
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
+//                 Thomas den Hollander <https://github.com/ThomasdenH>
+//                 Eugene Y. Q. Shen <https://github.com/eyqs>
+//                 Matthieu Sieben <https://github.com/matthieusieben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -109,10 +108,6 @@ interface Console {
      */
     timeEnd(label?: string): void;
     /**
-     * For a timer that was previously started by calling {@link console.time()}, prints the elapsed time and other `data` arguments to `stdout`.
-     */
-    timeLog(label: string, ...data: any[]): void;
-    /**
      * Prints to `stderr` the string 'Trace :', followed by the {@link util.format()} formatted message and stack trace to the current position in the code.
      */
     trace(message?: any, ...optionalParams: any[]): void;
@@ -158,16 +153,13 @@ interface ErrorConstructor {
     stackTraceLimit: number;
 }
 
-// compat for TypeScript 1.8 and default es5 target
+// compat for TypeScript 1.8
 // if you use with --target es3 or --target es5 and use below definitions,
 // use the lib.es6.d.ts that is bundled with TypeScript 1.8.
 interface MapConstructor { }
 interface WeakMapConstructor { }
 interface SetConstructor { }
 interface WeakSetConstructor { }
-
-interface Set<T> {}
-interface ReadonlySet<T> {}
 
 // Forward-declare needed types from lib.es2015.d.ts (in case users are using `--lib es5`)
 interface Iterable<T> { }
@@ -207,20 +199,20 @@ declare var console: Console;
 declare var __filename: string;
 declare var __dirname: string;
 
-declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
+declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
 declare namespace setTimeout {
-    function __promisify__(ms: number): Promise<void>;
-    function __promisify__<T>(ms: number, value: T): Promise<T>;
+    export function __promisify__(ms: number): Promise<void>;
+    export function __promisify__<T>(ms: number, value: T): Promise<T>;
 }
-declare function clearTimeout(timeoutId: NodeJS.Timeout): void;
-declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
-declare function clearInterval(intervalId: NodeJS.Timeout): void;
-declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
+declare function clearTimeout(timeoutId: NodeJS.Timer): void;
+declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+declare function clearInterval(intervalId: NodeJS.Timer): void;
+declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
 declare namespace setImmediate {
-    function __promisify__(): Promise<void>;
-    function __promisify__<T>(value: T): Promise<T>;
+    export function __promisify__(): Promise<void>;
+    export function __promisify__<T>(value: T): Promise<T>;
 }
-declare function clearImmediate(immediateId: NodeJS.Immediate): void;
+declare function clearImmediate(immediateId: any): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
@@ -264,7 +256,7 @@ declare var module: NodeModule;
 
 // Same as module.exports
 declare var exports: any;
-declare const SlowBuffer: {
+declare var SlowBuffer: {
     new(str: string, encoding?: string): Buffer;
     new(size: number): Buffer;
     new(size: Uint8Array): Buffer;
@@ -278,7 +270,6 @@ declare const SlowBuffer: {
 // Buffer class
 type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
 interface Buffer extends Uint8Array {
-    constructor: typeof Buffer;
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): { type: 'Buffer', data: any[] };
@@ -339,7 +330,7 @@ interface Buffer extends Uint8Array {
  * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
  * Valid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
  */
-declare const Buffer: {
+declare var Buffer: {
     /**
      * Allocates a new buffer containing the given {str}.
      *
@@ -484,7 +475,7 @@ declare const Buffer: {
 *                                               *
 *-----------------------------------------------*/
 declare namespace NodeJS {
-    interface InspectOptions {
+    export interface InspectOptions {
         showHidden?: boolean;
         depth?: number | null;
         colors?: boolean;
@@ -495,12 +486,12 @@ declare namespace NodeJS {
         compact?: boolean;
     }
 
-    interface ConsoleConstructor {
+    export interface ConsoleConstructor {
         prototype: Console;
         new(stdout: WritableStream, stderr?: WritableStream): Console;
     }
 
-    interface CallSite {
+    export interface CallSite {
         /**
          * Value of "this"
          */
@@ -574,7 +565,7 @@ declare namespace NodeJS {
         isConstructor(): boolean;
     }
 
-    interface ErrnoException extends Error {
+    export interface ErrnoException extends Error {
         errno?: number;
         code?: string;
         path?: string;
@@ -582,7 +573,7 @@ declare namespace NodeJS {
         stack?: string;
     }
 
-    class EventEmitter {
+    export class EventEmitter {
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -601,7 +592,7 @@ declare namespace NodeJS {
         eventNames(): Array<string | symbol>;
     }
 
-    interface ReadableStream extends EventEmitter {
+    export interface ReadableStream extends EventEmitter {
         readable: boolean;
         read(size?: number): string | Buffer;
         setEncoding(encoding: string): this;
@@ -609,14 +600,14 @@ declare namespace NodeJS {
         resume(): this;
         isPaused(): boolean;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
-        unpipe(destination?: WritableStream): this;
+        unpipe<T extends WritableStream>(destination?: T): this;
         unshift(chunk: string): void;
         unshift(chunk: Buffer): void;
         wrap(oldStream: ReadableStream): this;
         [Symbol.asyncIterator](): AsyncIterableIterator<string | Buffer>;
     }
 
-    interface WritableStream extends EventEmitter {
+    export interface WritableStream extends EventEmitter {
         writable: boolean;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
@@ -626,11 +617,11 @@ declare namespace NodeJS {
         end(str: string, encoding?: string, cb?: Function): void;
     }
 
-    interface ReadWriteStream extends ReadableStream, WritableStream { }
+    export interface ReadWriteStream extends ReadableStream, WritableStream { }
 
-    interface Events extends EventEmitter { }
+    export interface Events extends EventEmitter { }
 
-    interface Domain extends Events {
+    export interface Domain extends Events {
         run(fn: Function): void;
         add(emitter: Events): void;
         remove(emitter: Events): void;
@@ -644,27 +635,19 @@ declare namespace NodeJS {
         removeAllListeners(event?: string): this;
     }
 
-    interface MemoryUsage {
+    export interface MemoryUsage {
         rss: number;
         heapTotal: number;
         heapUsed: number;
         external: number;
     }
 
-    interface CpuUsage {
+    export interface CpuUsage {
         user: number;
         system: number;
     }
 
-    interface ProcessRelease {
-        name: string;
-        sourceUrl?: string;
-        headersUrl?: string;
-        libUrl?: string;
-        lts?: string;
-    }
-
-    interface ProcessVersions {
+    export interface ProcessVersions {
         http_parser: string;
         node: string;
         v8: string;
@@ -703,15 +686,15 @@ declare namespace NodeJS {
     type NewListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
     type RemoveListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
 
-    interface Socket extends ReadWriteStream {
+    export interface Socket extends ReadWriteStream {
         isTTY?: true;
     }
 
-    interface ProcessEnv {
+    export interface ProcessEnv {
         [key: string]: string | undefined;
     }
 
-    interface WriteStream extends Socket {
+    export interface WriteStream extends Socket {
         readonly writableHighWaterMark: number;
         readonly writableLength: number;
         columns?: number;
@@ -724,7 +707,7 @@ declare namespace NodeJS {
         uncork(): void;
         destroy(error?: Error): void;
     }
-    interface ReadStream extends Socket {
+    export interface ReadStream extends Socket {
         readonly readableHighWaterMark: number;
         readonly readableLength: number;
         isRaw?: boolean;
@@ -735,7 +718,7 @@ declare namespace NodeJS {
         destroy(error?: Error): void;
     }
 
-    interface Process extends EventEmitter {
+    export interface Process extends EventEmitter {
         stdout: WriteStream;
         stderr: WriteStream;
         stdin: ReadStream;
@@ -802,7 +785,6 @@ declare namespace NodeJS {
         memoryUsage(): MemoryUsage;
         cpuUsage(previousValue?: CpuUsage): CpuUsage;
         nextTick(callback: Function, ...args: any[]): void;
-        release: ProcessRelease;
         umask(mask?: number): number;
         uptime(): number;
         hrtime(time?: [number, number]): [number, number];
@@ -812,13 +794,6 @@ declare namespace NodeJS {
         send?(message: any, sendHandle?: any): void;
         disconnect(): void;
         connected: boolean;
-
-        /**
-         * The `process.allowedNodeEnvironmentFlags` property is a special,
-         * read-only `Set` of flags allowable within the [`NODE_OPTIONS`][]
-         * environment variable.
-         */
-        allowedNodeEnvironmentFlags: ReadonlySet<string>;
 
         /**
          * EventEmitter
@@ -919,7 +894,7 @@ declare namespace NodeJS {
         listeners(event: "removeListener"): RemoveListenerListener[];
     }
 
-    interface Global {
+    export interface Global {
         Array: typeof Array;
         ArrayBuffer: typeof ArrayBuffer;
         Boolean: typeof Boolean;
@@ -959,9 +934,9 @@ declare namespace NodeJS {
         Uint8ClampedArray: Function;
         WeakMap: WeakMapConstructor;
         WeakSet: WeakSetConstructor;
-        clearImmediate: (immediateId: Immediate) => void;
-        clearInterval: (intervalId: Timeout) => void;
-        clearTimeout: (timeoutId: Timeout) => void;
+        clearImmediate: (immediateId: any) => void;
+        clearInterval: (intervalId: NodeJS.Timer) => void;
+        clearTimeout: (timeoutId: NodeJS.Timer) => void;
         console: typeof console;
         decodeURI: typeof decodeURI;
         decodeURIComponent: typeof decodeURIComponent;
@@ -976,30 +951,17 @@ declare namespace NodeJS {
         parseInt: typeof parseInt;
         process: Process;
         root: Global;
-        setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => Immediate;
-        setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
-        setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
+        setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => any;
+        setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => NodeJS.Timer;
+        setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => NodeJS.Timer;
         undefined: typeof undefined;
         unescape: (str: string) => string;
         gc: () => void;
         v8debug?: any;
     }
 
-    interface Timer {
+    export interface Timer {
         ref(): void;
-        refresh(): void;
-        unref(): void;
-    }
-
-    class Immediate {
-        ref(): void;
-        unref(): void;
-        _onImmediate: Function; // to distinguish it from the Timeout class
-    }
-
-    class Timeout implements Timer {
-        ref(): void;
-        refresh(): void;
         unref(): void;
     }
 
@@ -1033,35 +995,36 @@ interface IterableIterator<T> { }
 *                                               *
 *-----------------------------------------------*/
 declare module "buffer" {
-    export const INSPECT_MAX_BYTES: number;
-    const BuffType: typeof Buffer;
-    const SlowBuffType: typeof SlowBuffer;
+    export var INSPECT_MAX_BYTES: number;
+    var BuffType: typeof Buffer;
+    var SlowBuffType: typeof SlowBuffer;
     export { BuffType as Buffer, SlowBuffType as SlowBuffer };
 }
 
 declare module "querystring" {
-    interface StringifyOptions {
+    export interface StringifyOptions {
         encodeURIComponent?: Function;
     }
 
-    interface ParseOptions {
+    export interface ParseOptions {
         maxKeys?: number;
         decodeURIComponent?: Function;
     }
 
-    interface ParsedUrlQuery { [key: string]: string | string[]; }
+    interface ParsedUrlQuery { [key: string]: string | string[] | undefined; }
 
-    function stringify(obj?: {}, sep?: string, eq?: string, options?: StringifyOptions): string;
-    function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
-    function escape(str: string): string;
-    function unescape(str: string): string;
+    export function stringify<T>(obj: T, sep?: string, eq?: string, options?: StringifyOptions): string;
+    export function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
+    export function parse<T extends {}>(str: string, sep?: string, eq?: string, options?: ParseOptions): T;
+    export function escape(str: string): string;
+    export function unescape(str: string): string;
 }
 
 declare module "events" {
     class internal extends NodeJS.EventEmitter { }
 
     namespace internal {
-         class EventEmitter extends internal {
+        export class EventEmitter extends internal {
             /** @deprecated since v4.0.0 */
             static listenerCount(emitter: EventEmitter, event: string | symbol): number;
             static defaultMaxListeners: number;
@@ -1094,7 +1057,7 @@ declare module "http" {
     import { URL } from "url";
 
     // incoming headers will never contain number
-    interface IncomingHttpHeaders {
+    export interface IncomingHttpHeaders {
         'accept'?: string;
         'access-control-allow-origin'?: string;
         'access-control-allow-credentials'?: string;
@@ -1125,7 +1088,6 @@ declare module "http" {
         'pragma'?: string;
         'proxy-authenticate'?: string;
         'public-key-pins'?: string;
-        'referer'?: string;
         'retry-after'?: string;
         'set-cookie'?: string[];
         'strict-transport-security'?: string;
@@ -1142,11 +1104,11 @@ declare module "http" {
     }
 
     // outgoing headers allows numbers (as they are converted internally to strings)
-    interface OutgoingHttpHeaders {
+    export interface OutgoingHttpHeaders {
         [header: string]: number | string | string[] | undefined;
     }
 
-    interface ClientRequestArgs {
+    export interface ClientRequestArgs {
         protocol?: string;
         host?: string;
         hostname?: string;
@@ -1166,7 +1128,7 @@ declare module "http" {
         createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: net.Socket) => void) => net.Socket;
     }
 
-    class Server extends net.Server {
+    export class Server extends net.Server {
         constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
 
         setTimeout(msecs?: number, callback?: () => void): this;
@@ -1175,9 +1137,15 @@ declare module "http" {
         timeout: number;
         keepAliveTimeout: number;
     }
+    /**
+     * @deprecated Use IncomingMessage
+     */
+    export class ServerRequest extends IncomingMessage {
+        connection: net.Socket;
+    }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
-    class OutgoingMessage extends stream.Writable {
+    export class OutgoingMessage extends stream.Writable {
         upgrading: boolean;
         chunkedEncoding: boolean;
         shouldKeepAlive: boolean;
@@ -1201,7 +1169,7 @@ declare module "http" {
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_server.js#L108-L256
-    class ServerResponse extends OutgoingMessage {
+    export class ServerResponse extends OutgoingMessage {
         statusCode: number;
         statusMessage: string;
 
@@ -1217,7 +1185,7 @@ declare module "http" {
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
-    class ClientRequest extends OutgoingMessage {
+    export class ClientRequest extends OutgoingMessage {
         connection: net.Socket;
         socket: net.Socket;
         aborted: number;
@@ -1231,7 +1199,7 @@ declare module "http" {
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
     }
 
-    class IncomingMessage extends stream.Readable {
+    export class IncomingMessage extends stream.Readable {
         constructor(socket: net.Socket);
 
         httpVersion: string;
@@ -1263,7 +1231,12 @@ declare module "http" {
         destroy(error?: Error): void;
     }
 
-    interface AgentOptions {
+    /**
+     * @deprecated Use IncomingMessage
+     */
+    export class ClientResponse extends IncomingMessage { }
+
+    export interface AgentOptions {
         /**
          * Keep sockets around in a pool to be used by other requests in the future. Default = false
          */
@@ -1287,7 +1260,7 @@ declare module "http" {
         timeout?: number;
     }
 
-    class Agent {
+    export class Agent {
         maxFreeSockets: number;
         maxSockets: number;
         sockets: any;
@@ -1304,24 +1277,24 @@ declare module "http" {
         destroy(): void;
     }
 
-    const METHODS: string[];
+    export var METHODS: string[];
 
-    const STATUS_CODES: {
+    export var STATUS_CODES: {
         [errorCode: number]: string | undefined;
         [errorCode: string]: string | undefined;
     };
 
-    function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
-    function createClient(port?: number, host?: string): any;
+    export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
+    export function createClient(port?: number, host?: string): any;
 
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
     // create interface RequestOptions would make the naming more clear to developers
-    interface RequestOptions extends ClientRequestArgs { }
-    function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
-    function request(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
-    function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
-    function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
-    let globalAgent: Agent;
+    export interface RequestOptions extends ClientRequestArgs { }
+    export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export var globalAgent: Agent;
 }
 
 declare module "cluster" {
@@ -1330,7 +1303,7 @@ declare module "cluster" {
     import * as net from "net";
 
     // interfaces
-    interface ClusterSettings {
+    export interface ClusterSettings {
         execArgv?: string[]; // default: process.execArgv
         exec?: string;
         args?: string[];
@@ -1341,13 +1314,13 @@ declare module "cluster" {
         inspectPort?: number | (() => number);
     }
 
-    interface Address {
+    export interface Address {
         address: string;
         port: number;
         addressType: number | "udp4" | "udp6";  // 4, 6, -1, "udp4", "udp6"
     }
 
-    class Worker extends events.EventEmitter {
+    export class Worker extends events.EventEmitter {
         id: number;
         process: child.ChildProcess;
         suicide: boolean;
@@ -1417,7 +1390,7 @@ declare module "cluster" {
         prependOnceListener(event: "online", listener: () => void): this;
     }
 
-    interface Cluster extends events.EventEmitter {
+    export interface Cluster extends events.EventEmitter {
         Worker: Worker;
         disconnect(callback?: Function): void;
         fork(env?: any): Worker;
@@ -1491,21 +1464,20 @@ declare module "cluster" {
         prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
         prependOnceListener(event: "fork", listener: (worker: Worker) => void): this;
         prependOnceListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        // the handle is a net.Socket or net.Server object, or undefined.
-        prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;
+        prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         prependOnceListener(event: "online", listener: (worker: Worker) => void): this;
         prependOnceListener(event: "setup", listener: (settings: any) => void): this;
     }
 
-    function disconnect(callback?: Function): void;
-    function fork(env?: any): Worker;
-    const isMaster: boolean;
-    const isWorker: boolean;
+    export function disconnect(callback?: Function): void;
+    export function fork(env?: any): Worker;
+    export var isMaster: boolean;
+    export var isWorker: boolean;
     // TODO: cluster.schedulingPolicy
-    const settings: ClusterSettings;
-    function setupMaster(settings?: ClusterSettings): void;
-    const worker: Worker;
-    const workers: {
+    export var settings: ClusterSettings;
+    export function setupMaster(settings?: ClusterSettings): void;
+    export var worker: Worker;
+    export var workers: {
         [index: string]: Worker | undefined
     };
 
@@ -1519,77 +1491,74 @@ declare module "cluster" {
      *   6. online
      *   7. setup
      */
-    function addListener(event: string, listener: (...args: any[]) => void): Cluster;
-    function addListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-    function addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-    function addListener(event: "fork", listener: (worker: Worker) => void): Cluster;
-    function addListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-     // the handle is a net.Socket or net.Server object, or undefined.
-    function addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
-    function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
-    function addListener(event: "setup", listener: (settings: any) => void): Cluster;
+    export function addListener(event: string, listener: (...args: any[]) => void): Cluster;
+    export function addListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    export function addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    export function addListener(event: "fork", listener: (worker: Worker) => void): Cluster;
+    export function addListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    export function addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
+    export function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
+    export function addListener(event: "setup", listener: (settings: any) => void): Cluster;
 
-    function emit(event: string | symbol, ...args: any[]): boolean;
-    function emit(event: "disconnect", worker: Worker): boolean;
-    function emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
-    function emit(event: "fork", worker: Worker): boolean;
-    function emit(event: "listening", worker: Worker, address: Address): boolean;
-    function emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
-    function emit(event: "online", worker: Worker): boolean;
-    function emit(event: "setup", settings: any): boolean;
+    export function emit(event: string | symbol, ...args: any[]): boolean;
+    export function emit(event: "disconnect", worker: Worker): boolean;
+    export function emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
+    export function emit(event: "fork", worker: Worker): boolean;
+    export function emit(event: "listening", worker: Worker, address: Address): boolean;
+    export function emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
+    export function emit(event: "online", worker: Worker): boolean;
+    export function emit(event: "setup", settings: any): boolean;
 
-    function on(event: string, listener: (...args: any[]) => void): Cluster;
-    function on(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-    function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-    function on(event: "fork", listener: (worker: Worker) => void): Cluster;
-    function on(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-    function on(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
-    function on(event: "online", listener: (worker: Worker) => void): Cluster;
-    function on(event: "setup", listener: (settings: any) => void): Cluster;
+    export function on(event: string, listener: (...args: any[]) => void): Cluster;
+    export function on(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    export function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    export function on(event: "fork", listener: (worker: Worker) => void): Cluster;
+    export function on(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    export function on(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
+    export function on(event: "online", listener: (worker: Worker) => void): Cluster;
+    export function on(event: "setup", listener: (settings: any) => void): Cluster;
 
-    function once(event: string, listener: (...args: any[]) => void): Cluster;
-    function once(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-    function once(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-    function once(event: "fork", listener: (worker: Worker) => void): Cluster;
-    function once(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-    function once(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
-    function once(event: "online", listener: (worker: Worker) => void): Cluster;
-    function once(event: "setup", listener: (settings: any) => void): Cluster;
+    export function once(event: string, listener: (...args: any[]) => void): Cluster;
+    export function once(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    export function once(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    export function once(event: "fork", listener: (worker: Worker) => void): Cluster;
+    export function once(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    export function once(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
+    export function once(event: "online", listener: (worker: Worker) => void): Cluster;
+    export function once(event: "setup", listener: (settings: any) => void): Cluster;
 
-    function removeListener(event: string, listener: (...args: any[]) => void): Cluster;
-    function removeAllListeners(event?: string): Cluster;
-    function setMaxListeners(n: number): Cluster;
-    function getMaxListeners(): number;
-    function listeners(event: string): Function[];
-    function listenerCount(type: string): number;
+    export function removeListener(event: string, listener: (...args: any[]) => void): Cluster;
+    export function removeAllListeners(event?: string): Cluster;
+    export function setMaxListeners(n: number): Cluster;
+    export function getMaxListeners(): number;
+    export function listeners(event: string): Function[];
+    export function listenerCount(type: string): number;
 
-    function prependListener(event: string, listener: (...args: any[]) => void): Cluster;
-    function prependListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-    function prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-    function prependListener(event: "fork", listener: (worker: Worker) => void): Cluster;
-    function prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-     // the handle is a net.Socket or net.Server object, or undefined.
-    function prependListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
-    function prependListener(event: "online", listener: (worker: Worker) => void): Cluster;
-    function prependListener(event: "setup", listener: (settings: any) => void): Cluster;
+    export function prependListener(event: string, listener: (...args: any[]) => void): Cluster;
+    export function prependListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    export function prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    export function prependListener(event: "fork", listener: (worker: Worker) => void): Cluster;
+    export function prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    export function prependListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
+    export function prependListener(event: "online", listener: (worker: Worker) => void): Cluster;
+    export function prependListener(event: "setup", listener: (settings: any) => void): Cluster;
 
-    function prependOnceListener(event: string, listener: (...args: any[]) => void): Cluster;
-    function prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
-    function prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
-    function prependOnceListener(event: "fork", listener: (worker: Worker) => void): Cluster;
-    function prependOnceListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
-     // the handle is a net.Socket or net.Server object, or undefined.
-    function prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;
-    function prependOnceListener(event: "online", listener: (worker: Worker) => void): Cluster;
-    function prependOnceListener(event: "setup", listener: (settings: any) => void): Cluster;
+    export function prependOnceListener(event: string, listener: (...args: any[]) => void): Cluster;
+    export function prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    export function prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    export function prependOnceListener(event: "fork", listener: (worker: Worker) => void): Cluster;
+    export function prependOnceListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    export function prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
+    export function prependOnceListener(event: "online", listener: (worker: Worker) => void): Cluster;
+    export function prependOnceListener(event: "setup", listener: (settings: any) => void): Cluster;
 
-    function eventNames(): string[];
+    export function eventNames(): string[];
 }
 
 declare module "zlib" {
     import * as stream from "stream";
 
-    interface ZlibOptions {
+    export interface ZlibOptions {
         flush?: number; // default: zlib.constants.Z_NO_FLUSH
         finishFlush?: number; // default: zlib.constants.Z_FINISH
         chunkSize?: number; // default: 16*1024
@@ -1600,133 +1569,133 @@ declare module "zlib" {
         dictionary?: Buffer | NodeJS.TypedArray | DataView | ArrayBuffer; // deflate/inflate only, empty dictionary by default
     }
 
-    interface Zlib {
+    export interface Zlib {
         readonly bytesRead: number;
         close(callback?: () => void): void;
         flush(kind?: number | (() => void), callback?: () => void): void;
     }
 
-    interface ZlibParams {
+    export interface ZlibParams {
         params(level: number, strategy: number, callback: () => void): void;
     }
 
-    interface ZlibReset {
+    export interface ZlibReset {
         reset(): void;
     }
 
-    interface Gzip extends stream.Transform, Zlib { }
-    interface Gunzip extends stream.Transform, Zlib { }
-    interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
-    interface Inflate extends stream.Transform, Zlib, ZlibReset { }
-    interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
-    interface InflateRaw extends stream.Transform, Zlib, ZlibReset { }
-    interface Unzip extends stream.Transform, Zlib { }
+    export interface Gzip extends stream.Transform, Zlib { }
+    export interface Gunzip extends stream.Transform, Zlib { }
+    export interface Deflate extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
+    export interface Inflate extends stream.Transform, Zlib, ZlibReset { }
+    export interface DeflateRaw extends stream.Transform, Zlib, ZlibReset, ZlibParams { }
+    export interface InflateRaw extends stream.Transform, Zlib, ZlibReset { }
+    export interface Unzip extends stream.Transform, Zlib { }
 
-    function createGzip(options?: ZlibOptions): Gzip;
-    function createGunzip(options?: ZlibOptions): Gunzip;
-    function createDeflate(options?: ZlibOptions): Deflate;
-    function createInflate(options?: ZlibOptions): Inflate;
-    function createDeflateRaw(options?: ZlibOptions): DeflateRaw;
-    function createInflateRaw(options?: ZlibOptions): InflateRaw;
-    function createUnzip(options?: ZlibOptions): Unzip;
+    export function createGzip(options?: ZlibOptions): Gzip;
+    export function createGunzip(options?: ZlibOptions): Gunzip;
+    export function createDeflate(options?: ZlibOptions): Deflate;
+    export function createInflate(options?: ZlibOptions): Inflate;
+    export function createDeflateRaw(options?: ZlibOptions): DeflateRaw;
+    export function createInflateRaw(options?: ZlibOptions): InflateRaw;
+    export function createUnzip(options?: ZlibOptions): Unzip;
 
     type InputType = string | Buffer | DataView | ArrayBuffer | NodeJS.TypedArray;
-    function deflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
-    function deflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    function deflateSync(buf: InputType, options?: ZlibOptions): Buffer;
-    function deflateRaw(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
-    function deflateRaw(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    function deflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
-    function gzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
-    function gzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    function gzipSync(buf: InputType, options?: ZlibOptions): Buffer;
-    function gunzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
-    function gunzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    function gunzipSync(buf: InputType, options?: ZlibOptions): Buffer;
-    function inflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
-    function inflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    function inflateSync(buf: InputType, options?: ZlibOptions): Buffer;
-    function inflateRaw(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
-    function inflateRaw(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    function inflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
-    function unzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
-    function unzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
-    function unzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function deflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflateSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function deflateRaw(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflateRaw(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function deflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function gzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function gunzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gunzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function gunzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function inflate(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflate(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflateSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function inflateRaw(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflateRaw(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function inflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
+    export function unzip(buf: InputType, callback: (error: Error | null, result: Buffer) => void): void;
+    export function unzip(buf: InputType, options: ZlibOptions, callback: (error: Error | null, result: Buffer) => void): void;
+    export function unzipSync(buf: InputType, options?: ZlibOptions): Buffer;
 
-    namespace constants {
+    export namespace constants {
         // Allowed flush values.
 
-        const Z_NO_FLUSH: number;
-        const Z_PARTIAL_FLUSH: number;
-        const Z_SYNC_FLUSH: number;
-        const Z_FULL_FLUSH: number;
-        const Z_FINISH: number;
-        const Z_BLOCK: number;
-        const Z_TREES: number;
+        export const Z_NO_FLUSH: number;
+        export const Z_PARTIAL_FLUSH: number;
+        export const Z_SYNC_FLUSH: number;
+        export const Z_FULL_FLUSH: number;
+        export const Z_FINISH: number;
+        export const Z_BLOCK: number;
+        export const Z_TREES: number;
 
         // Return codes for the compression/decompression functions. Negative values are errors, positive values are used for special but normal events.
 
-        const Z_OK: number;
-        const Z_STREAM_END: number;
-        const Z_NEED_DICT: number;
-        const Z_ERRNO: number;
-        const Z_STREAM_ERROR: number;
-        const Z_DATA_ERROR: number;
-        const Z_MEM_ERROR: number;
-        const Z_BUF_ERROR: number;
-        const Z_VERSION_ERROR: number;
+        export const Z_OK: number;
+        export const Z_STREAM_END: number;
+        export const Z_NEED_DICT: number;
+        export const Z_ERRNO: number;
+        export const Z_STREAM_ERROR: number;
+        export const Z_DATA_ERROR: number;
+        export const Z_MEM_ERROR: number;
+        export const Z_BUF_ERROR: number;
+        export const Z_VERSION_ERROR: number;
 
         // Compression levels.
 
-        const Z_NO_COMPRESSION: number;
-        const Z_BEST_SPEED: number;
-        const Z_BEST_COMPRESSION: number;
-        const Z_DEFAULT_COMPRESSION: number;
+        export const Z_NO_COMPRESSION: number;
+        export const Z_BEST_SPEED: number;
+        export const Z_BEST_COMPRESSION: number;
+        export const Z_DEFAULT_COMPRESSION: number;
 
         // Compression strategy.
 
-        const Z_FILTERED: number;
-        const Z_HUFFMAN_ONLY: number;
-        const Z_RLE: number;
-        const Z_FIXED: number;
-        const Z_DEFAULT_STRATEGY: number;
+        export const Z_FILTERED: number;
+        export const Z_HUFFMAN_ONLY: number;
+        export const Z_RLE: number;
+        export const Z_FIXED: number;
+        export const Z_DEFAULT_STRATEGY: number;
     }
 
     // Constants
-    const Z_NO_FLUSH: number;
-    const Z_PARTIAL_FLUSH: number;
-    const Z_SYNC_FLUSH: number;
-    const Z_FULL_FLUSH: number;
-    const Z_FINISH: number;
-    const Z_BLOCK: number;
-    const Z_TREES: number;
-    const Z_OK: number;
-    const Z_STREAM_END: number;
-    const Z_NEED_DICT: number;
-    const Z_ERRNO: number;
-    const Z_STREAM_ERROR: number;
-    const Z_DATA_ERROR: number;
-    const Z_MEM_ERROR: number;
-    const Z_BUF_ERROR: number;
-    const Z_VERSION_ERROR: number;
-    const Z_NO_COMPRESSION: number;
-    const Z_BEST_SPEED: number;
-    const Z_BEST_COMPRESSION: number;
-    const Z_DEFAULT_COMPRESSION: number;
-    const Z_FILTERED: number;
-    const Z_HUFFMAN_ONLY: number;
-    const Z_RLE: number;
-    const Z_FIXED: number;
-    const Z_DEFAULT_STRATEGY: number;
-    const Z_BINARY: number;
-    const Z_TEXT: number;
-    const Z_ASCII: number;
-    const Z_UNKNOWN: number;
-    const Z_DEFLATED: number;
+    export var Z_NO_FLUSH: number;
+    export var Z_PARTIAL_FLUSH: number;
+    export var Z_SYNC_FLUSH: number;
+    export var Z_FULL_FLUSH: number;
+    export var Z_FINISH: number;
+    export var Z_BLOCK: number;
+    export var Z_TREES: number;
+    export var Z_OK: number;
+    export var Z_STREAM_END: number;
+    export var Z_NEED_DICT: number;
+    export var Z_ERRNO: number;
+    export var Z_STREAM_ERROR: number;
+    export var Z_DATA_ERROR: number;
+    export var Z_MEM_ERROR: number;
+    export var Z_BUF_ERROR: number;
+    export var Z_VERSION_ERROR: number;
+    export var Z_NO_COMPRESSION: number;
+    export var Z_BEST_SPEED: number;
+    export var Z_BEST_COMPRESSION: number;
+    export var Z_DEFAULT_COMPRESSION: number;
+    export var Z_FILTERED: number;
+    export var Z_HUFFMAN_ONLY: number;
+    export var Z_RLE: number;
+    export var Z_FIXED: number;
+    export var Z_DEFAULT_STRATEGY: number;
+    export var Z_BINARY: number;
+    export var Z_TEXT: number;
+    export var Z_ASCII: number;
+    export var Z_UNKNOWN: number;
+    export var Z_DEFLATED: number;
 }
 
 declare module "os" {
-    interface CpuInfo {
+    export interface CpuInfo {
         model: string;
         speed: number;
         times: {
@@ -1738,7 +1707,7 @@ declare module "os" {
         };
     }
 
-    interface NetworkInterfaceBase {
+    export interface NetworkInterfaceBase {
         address: string;
         netmask: string;
         mac: string;
@@ -1746,30 +1715,30 @@ declare module "os" {
         cidr: string | null;
     }
 
-    interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
+    export interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
         family: "IPv4";
     }
 
-    interface NetworkInterfaceInfoIPv6 extends NetworkInterfaceBase {
+    export interface NetworkInterfaceInfoIPv6 extends NetworkInterfaceBase {
         family: "IPv6";
         scopeid: number;
     }
 
-    type NetworkInterfaceInfo = NetworkInterfaceInfoIPv4 | NetworkInterfaceInfoIPv6;
+    export type NetworkInterfaceInfo = NetworkInterfaceInfoIPv4 | NetworkInterfaceInfoIPv6;
 
-    function hostname(): string;
-    function loadavg(): number[];
-    function uptime(): number;
-    function freemem(): number;
-    function totalmem(): number;
-    function cpus(): CpuInfo[];
-    function type(): string;
-    function release(): string;
-    function networkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
-    function homedir(): string;
-    function userInfo(options?: { encoding: string }): { username: string, uid: number, gid: number, shell: any, homedir: string };
-    const constants: {
-        UV_UDP_REUSEADDR: number;
+    export function hostname(): string;
+    export function loadavg(): number[];
+    export function uptime(): number;
+    export function freemem(): number;
+    export function totalmem(): number;
+    export function cpus(): CpuInfo[];
+    export function type(): string;
+    export function release(): string;
+    export function networkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
+    export function homedir(): string;
+    export function userInfo(options?: { encoding: string }): { username: string, uid: number, gid: number, shell: any, homedir: string };
+    export var constants: {
+        UV_UDP_REUSEADDR: number,
         signals: {
             SIGHUP: number;
             SIGINT: number;
@@ -1805,7 +1774,7 @@ declare module "os" {
             SIGPWR: number;
             SIGSYS: number;
             SIGUNUSED: number;
-        };
+        },
         errno: {
             E2BIG: number;
             EACCES: number;
@@ -1886,36 +1855,13 @@ declare module "os" {
             ETXTBSY: number;
             EWOULDBLOCK: number;
             EXDEV: number;
-        };
-        priority: {
-            PRIORITY_LOW: number;
-            PRIORITY_BELOW_NORMAL: number;
-            PRIORITY_NORMAL: number;
-            PRIORITY_ABOVE_NORMAL: number;
-            PRIORITY_HIGH: number;
-            PRIORITY_HIGHEST: number;
-        }
+        },
     };
-    function arch(): string;
-    function platform(): NodeJS.Platform;
-    function tmpdir(): string;
-    const EOL: string;
-    function endianness(): "BE" | "LE";
-    /**
-     * Gets the priority of a process.
-     * Defaults to current process.
-     */
-    function getPriority(pid?: number): number;
-    /**
-     * Sets the priority of the current process.
-     * @param priority Must be in range of -20 to 19
-     */
-    function setPriority(priority: number): void;
-    /**
-     * Sets the priority of the process specified process.
-     * @param priority Must be in range of -20 to 19
-     */
-    function setPriority(pid: number, priority: number): void;
+    export function arch(): string;
+    export function platform(): NodeJS.Platform;
+    export function tmpdir(): string;
+    export const EOL: string;
+    export function endianness(): "BE" | "LE";
 }
 
 declare module "https" {
@@ -1924,56 +1870,56 @@ declare module "https" {
     import * as http from "http";
     import { URL } from "url";
 
-    type ServerOptions = tls.SecureContextOptions & tls.TlsOptions;
+    export type ServerOptions = tls.SecureContextOptions & tls.TlsOptions;
 
-    type RequestOptions = http.RequestOptions & tls.SecureContextOptions & {
+    export type RequestOptions = http.RequestOptions & tls.SecureContextOptions & {
         rejectUnauthorized?: boolean; // Defaults to true
         servername?: string; // SNI TLS Extension
     };
 
-    interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
+    export interface AgentOptions extends http.AgentOptions, tls.ConnectionOptions {
         rejectUnauthorized?: boolean;
         maxCachedSessions?: number;
     }
 
-    class Agent extends http.Agent {
+    export class Agent extends http.Agent {
         constructor(options?: AgentOptions);
         options: AgentOptions;
     }
 
-    class Server extends tls.Server {
+    export class Server extends tls.Server {
         setTimeout(callback: () => void): this;
         setTimeout(msecs?: number, callback?: () => void): this;
         timeout: number;
         keepAliveTimeout: number;
     }
 
-    function createServer(options: ServerOptions, requestListener?: (req: http.IncomingMessage, res: http.ServerResponse) => void): Server;
-    function request(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
-    function request(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
-    function get(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
-    function get(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
-    let globalAgent: Agent;
+    export function createServer(options: ServerOptions, requestListener?: (req: http.IncomingMessage, res: http.ServerResponse) => void): Server;
+    export function request(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function request(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function get(options: RequestOptions | string | URL, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function get(url: string | URL, options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export var globalAgent: Agent;
 }
 
 declare module "punycode" {
-    function decode(string: string): string;
-    function encode(string: string): string;
-    function toUnicode(domain: string): string;
-    function toASCII(domain: string): string;
-    const ucs2: ucs2;
+    export function decode(string: string): string;
+    export function encode(string: string): string;
+    export function toUnicode(domain: string): string;
+    export function toASCII(domain: string): string;
+    export var ucs2: ucs2;
     interface ucs2 {
         decode(string: string): number[];
         encode(codePoints: number[]): string;
     }
-    const version: any;
+    export var version: any;
 }
 
 declare module "repl" {
     import * as stream from "stream";
     import * as readline from "readline";
 
-    interface ReplOptions {
+    export interface ReplOptions {
         prompt?: string;
         input?: NodeJS.ReadableStream;
         output?: NodeJS.WritableStream;
@@ -1988,7 +1934,7 @@ declare module "repl" {
         breakEvalOnSigint?: any;
     }
 
-    interface REPLServer extends readline.ReadLine {
+    export interface REPLServer extends readline.ReadLine {
         context: any;
         inputStream: NodeJS.ReadableStream;
         outputStream: NodeJS.WritableStream;
@@ -2027,9 +1973,9 @@ declare module "repl" {
         prependOnceListener(event: "reset", listener: (...args: any[]) => void): this;
     }
 
-    function start(options?: string | ReplOptions): REPLServer;
+    export function start(options?: string | ReplOptions): REPLServer;
 
-    class Recoverable extends SyntaxError {
+    export class Recoverable extends SyntaxError {
         err: Error;
 
         constructor(err: Error);
@@ -2040,7 +1986,7 @@ declare module "readline" {
     import * as events from "events";
     import * as stream from "stream";
 
-    interface Key {
+    export interface Key {
         sequence?: string;
         name?: string;
         ctrl?: boolean;
@@ -2048,7 +1994,7 @@ declare module "readline" {
         shift?: boolean;
     }
 
-    interface ReadLine extends events.EventEmitter {
+    export interface ReadLine extends events.EventEmitter {
         setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: (answer: string) => void): void;
@@ -2126,9 +2072,9 @@ declare module "readline" {
     type Completer = (line: string) => CompleterResult;
     type AsyncCompleter = (line: string, callback: (err: any, result: CompleterResult) => void) => any;
 
-    type CompleterResult = [string[], string];
+    export type CompleterResult = [string[], string];
 
-    interface ReadLineOptions {
+    export interface ReadLineOptions {
         input: NodeJS.ReadableStream;
         output?: NodeJS.WritableStream;
         completer?: Completer | AsyncCompleter;
@@ -2139,77 +2085,47 @@ declare module "readline" {
         removeHistoryDuplicates?: boolean;
     }
 
-    function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): ReadLine;
-    function createInterface(options: ReadLineOptions): ReadLine;
+    export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): ReadLine;
+    export function createInterface(options: ReadLineOptions): ReadLine;
 
-    function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number): void;
-    function emitKeypressEvents(stream: NodeJS.ReadableStream, interface?: ReadLine): void;
-    function moveCursor(stream: NodeJS.WritableStream, dx: number | string, dy: number | string): void;
-    function clearLine(stream: NodeJS.WritableStream, dir: number): void;
-    function clearScreenDown(stream: NodeJS.WritableStream): void;
+    export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number): void;
+    export function emitKeypressEvents(stream: NodeJS.ReadableStream, interface?: ReadLine): void;
+    export function moveCursor(stream: NodeJS.WritableStream, dx: number | string, dy: number | string): void;
+    export function clearLine(stream: NodeJS.WritableStream, dir: number): void;
+    export function clearScreenDown(stream: NodeJS.WritableStream): void;
 }
 
 declare module "vm" {
-    interface Context { }
-    interface BaseOptions {
-        /**
-         * Specifies the filename used in stack traces produced by this script.
-         * Default: `''`.
-         */
+    export interface Context { }
+    export interface ScriptOptions {
         filename?: string;
-        /**
-         * Specifies the line number offset that is displayed in stack traces produced by this script.
-         * Default: `0`.
-         */
         lineOffset?: number;
-        /**
-         * Specifies the column number offset that is displayed in stack traces produced by this script.
-         * Default: `0`
-         */
         columnOffset?: number;
-    }
-    interface ScriptOptions extends BaseOptions {
         displayErrors?: boolean;
         timeout?: number;
         cachedData?: Buffer;
         produceCachedData?: boolean;
     }
-    interface RunningScriptOptions extends BaseOptions {
+    export interface RunningScriptOptions {
+        filename?: string;
+        lineOffset?: number;
+        columnOffset?: number;
         displayErrors?: boolean;
         timeout?: number;
     }
-    interface CompileFunctionOptions extends BaseOptions {
-        /**
-         * Provides an optional data with V8's code cache data for the supplied source.
-         */
-        cachedData?: Buffer;
-        /**
-         * Specifies whether to produce new cache data.
-         * Default: `false`,
-         */
-        produceCachedData?: boolean;
-        /**
-         * The sandbox/context in which the said function should be compiled in.
-         */
-        parsingContext?: Context;
-
-        /**
-         * An array containing a collection of context extensions (objects wrapping the current scope) to be applied while compiling
-         */
-        contextExtensions?: Object[];
-    }
-    class Script {
+    export class Script {
         constructor(code: string, options?: ScriptOptions);
         runInContext(contextifiedSandbox: Context, options?: RunningScriptOptions): any;
         runInNewContext(sandbox?: Context, options?: RunningScriptOptions): any;
         runInThisContext(options?: RunningScriptOptions): any;
     }
-    function createContext(sandbox?: Context): Context;
-    function isContext(sandbox: Context): boolean;
-    function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions | string): any;
-    function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions | string): any;
-    function runInThisContext(code: string, options?: RunningScriptOptions | string): any;
-    function compileFunction(code: string, params: string[], options: CompileFunctionOptions): Function;
+    export function createContext(sandbox?: Context): Context;
+    export function isContext(sandbox: Context): boolean;
+    export function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions | string): any;
+    /** @deprecated */
+    export function runInDebugContext(code: string): any;
+    export function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions | string): any;
+    export function runInThisContext(code: string, options?: RunningScriptOptions | string): any;
 }
 
 declare module "child_process" {
@@ -2217,7 +2133,7 @@ declare module "child_process" {
     import * as stream from "stream";
     import * as net from "net";
 
-    interface ChildProcess extends events.EventEmitter {
+    export interface ChildProcess extends events.EventEmitter {
         stdin: stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
@@ -2285,13 +2201,13 @@ declare module "child_process" {
         prependOnceListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
     }
 
-    interface MessageOptions {
+    export interface MessageOptions {
         keepOpen?: boolean;
     }
 
-    type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | stream.Stream | number | null | undefined)>;
+    export type StdioOptions = "pipe" | "ignore" | "inherit" | Array<("pipe" | "ipc" | "ignore" | "inherit" | stream.Stream | number | null | undefined)>;
 
-    interface SpawnOptions {
+    export interface SpawnOptions {
         cwd?: string;
         env?: NodeJS.ProcessEnv;
         argv0?: string;
@@ -2304,9 +2220,9 @@ declare module "child_process" {
         windowsHide?: boolean;
     }
 
-    function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
+    export function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
-    interface ExecOptions {
+    export interface ExecOptions {
         cwd?: string;
         env?: NodeJS.ProcessEnv;
         shell?: string;
@@ -2318,15 +2234,15 @@ declare module "child_process" {
         windowsHide?: boolean;
     }
 
-    interface ExecOptionsWithStringEncoding extends ExecOptions {
+    export interface ExecOptionsWithStringEncoding extends ExecOptions {
         encoding: BufferEncoding;
     }
 
-    interface ExecOptionsWithBufferEncoding extends ExecOptions {
+    export interface ExecOptionsWithBufferEncoding extends ExecOptions {
         encoding: string | null; // specify `null`.
     }
 
-    interface ExecException extends Error {
+    export interface ExecException extends Error {
         cmd?: string;
         killed?: boolean;
         code?: number;
@@ -2334,38 +2250,34 @@ declare module "child_process" {
     }
 
     // no `options` definitely means stdout/stderr are `string`.
-    function exec(command: string, callback?: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function exec(command: string, callback?: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
-    function exec(command: string, options: { encoding: "buffer" | null } & ExecOptions, callback?: (error: ExecException | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function exec(command: string, options: { encoding: "buffer" | null } & ExecOptions, callback?: (error: ExecException | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
 
     // `options` with well known `encoding` means stdout/stderr are definitely `string`.
-    function exec(command: string, options: { encoding: BufferEncoding } & ExecOptions, callback?: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function exec(command: string, options: { encoding: BufferEncoding } & ExecOptions, callback?: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
     // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
-    function exec(command: string, options: { encoding: string } & ExecOptions, callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function exec(command: string, options: { encoding: string } & ExecOptions, callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // `options` without an `encoding` means stdout/stderr are definitely `string`.
-    function exec(command: string, options: ExecOptions, callback?: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function exec(command: string, options: ExecOptions, callback?: (error: ExecException | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
-    function exec(
-        command: string,
-        options: ({ encoding?: string | null } & ExecOptions) | undefined | null,
-        callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
-    ): ChildProcess;
+    export function exec(command: string, options: ({ encoding?: string | null } & ExecOptions) | undefined | null, callback?: (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace exec {
-        function __promisify__(command: string): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(command: string, options: { encoding: "buffer" | null } & ExecOptions): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        function __promisify__(command: string, options: { encoding: BufferEncoding } & ExecOptions): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(command: string, options: ExecOptions): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(command: string, options?: ({ encoding?: string | null } & ExecOptions) | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+    export namespace exec {
+        export function __promisify__(command: string): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(command: string, options: { encoding: "buffer" | null } & ExecOptions): Promise<{ stdout: Buffer, stderr: Buffer }>;
+        export function __promisify__(command: string, options: { encoding: BufferEncoding } & ExecOptions): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(command: string, options: ExecOptions): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(command: string, options?: ({ encoding?: string | null } & ExecOptions) | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
-    interface ExecFileOptions {
+    export interface ExecFileOptions {
         cwd?: string;
         env?: NodeJS.ProcessEnv;
         timeout?: number;
@@ -2376,95 +2288,63 @@ declare module "child_process" {
         windowsHide?: boolean;
         windowsVerbatimArguments?: boolean;
     }
-    interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
+    export interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
         encoding: BufferEncoding;
     }
-    interface ExecFileOptionsWithBufferEncoding extends ExecFileOptions {
+    export interface ExecFileOptionsWithBufferEncoding extends ExecFileOptions {
         encoding: 'buffer' | null;
     }
-    interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {
+    export interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {
         encoding: string;
     }
 
-    function execFile(file: string): ChildProcess;
-    function execFile(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
-    function execFile(file: string, args?: ReadonlyArray<string> | null): ChildProcess;
-    function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
+    export function execFile(file: string): ChildProcess;
+    export function execFile(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
+    export function execFile(file: string, args?: ReadonlyArray<string> | null): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
 
     // no `options` definitely means stdout/stderr are `string`.
-    function execFile(file: string, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    function execFile(file: string, args: ReadonlyArray<string> | undefined | null, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
-    function execFile(file: string, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
-    function execFile(
-        file: string,
-        args: ReadonlyArray<string> | undefined | null,
-        options: ExecFileOptionsWithBufferEncoding,
-        callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void,
-    ): ChildProcess;
+    export function execFile(file: string, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithBufferEncoding, callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
 
     // `options` with well known `encoding` means stdout/stderr are definitely `string`.
-    function execFile(file: string, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    function execFile(
-        file: string,
-        args: ReadonlyArray<string> | undefined | null,
-        options: ExecFileOptionsWithStringEncoding,
-        callback: (error: Error | null, stdout: string, stderr: string) => void,
-    ): ChildProcess;
+    export function execFile(file: string, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithStringEncoding, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
     // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
-    function execFile(
-        file: string,
-        options: ExecFileOptionsWithOtherEncoding,
-        callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void,
-    ): ChildProcess;
-    function execFile(
-        file: string,
-        args: ReadonlyArray<string> | undefined | null,
-        options: ExecFileOptionsWithOtherEncoding,
-        callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void,
-    ): ChildProcess;
+    export function execFile(file: string, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptionsWithOtherEncoding, callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
 
     // `options` without an `encoding` means stdout/stderr are definitely `string`.
-    function execFile(file: string, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
-    function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ExecFileOptions, callback: (error: Error | null, stdout: string, stderr: string) => void): ChildProcess;
 
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
-    function execFile(
-        file: string,
-        options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null,
-        callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null,
-    ): ChildProcess;
-    function execFile(
-        file: string,
-        args: ReadonlyArray<string> | undefined | null,
-        options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null,
-        callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null,
-    ): ChildProcess;
+    export function execFile(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
+    export function execFile(file: string, args: ReadonlyArray<string> | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace execFile {
-        function __promisify__(file: string): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, args: string[] | undefined | null): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
-        function __promisify__(file: string, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
-        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
-        function __promisify__(file: string, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
-        function __promisify__(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
-        function __promisify__(
-            file: string,
-            args: string[] | undefined | null,
-            options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null,
-        ): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+    export namespace execFile {
+        export function __promisify__(file: string): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, args: string[] | undefined | null): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithBufferEncoding): Promise<{ stdout: Buffer, stderr: Buffer }>;
+        export function __promisify__(file: string, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithStringEncoding): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptionsWithOtherEncoding): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        export function __promisify__(file: string, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
     }
 
-    interface ForkOptions {
+    export interface ForkOptions {
         cwd?: string;
         env?: NodeJS.ProcessEnv;
         execPath?: string;
@@ -2475,12 +2355,12 @@ declare module "child_process" {
         uid?: number;
         gid?: number;
     }
-    function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
+    export function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
 
-    interface SpawnSyncOptions {
+    export interface SpawnSyncOptions {
         argv0?: string; // Not specified in the docs
         cwd?: string;
-        input?: string | Buffer | NodeJS.TypedArray | DataView;
+        input?: string | Buffer | Uint8Array;
         stdio?: StdioOptions;
         env?: NodeJS.ProcessEnv;
         uid?: number;
@@ -2493,13 +2373,13 @@ declare module "child_process" {
         windowsVerbatimArguments?: boolean;
         windowsHide?: boolean;
     }
-    interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
+    export interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
         encoding: BufferEncoding;
     }
-    interface SpawnSyncOptionsWithBufferEncoding extends SpawnSyncOptions {
+    export interface SpawnSyncOptionsWithBufferEncoding extends SpawnSyncOptions {
         encoding: string; // specify `null`.
     }
-    interface SpawnSyncReturns<T> {
+    export interface SpawnSyncReturns<T> {
         pid: number;
         output: string[];
         stdout: T;
@@ -2508,15 +2388,15 @@ declare module "child_process" {
         signal: string;
         error: Error;
     }
-    function spawnSync(command: string): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
-    function spawnSync(command: string, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
-    function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
-    function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    export function spawnSync(command: string, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: ReadonlyArray<string>, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
 
-    interface ExecSyncOptions {
+    export interface ExecSyncOptions {
         cwd?: string;
         input?: string | Buffer | Uint8Array;
         stdio?: StdioOptions;
@@ -2530,20 +2410,20 @@ declare module "child_process" {
         encoding?: string;
         windowsHide?: boolean;
     }
-    interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
+    export interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
         encoding: BufferEncoding;
     }
-    interface ExecSyncOptionsWithBufferEncoding extends ExecSyncOptions {
+    export interface ExecSyncOptionsWithBufferEncoding extends ExecSyncOptions {
         encoding: string; // specify `null`.
     }
-    function execSync(command: string): Buffer;
-    function execSync(command: string, options?: ExecSyncOptionsWithStringEncoding): string;
-    function execSync(command: string, options?: ExecSyncOptionsWithBufferEncoding): Buffer;
-    function execSync(command: string, options?: ExecSyncOptions): Buffer;
+    export function execSync(command: string): Buffer;
+    export function execSync(command: string, options?: ExecSyncOptionsWithStringEncoding): string;
+    export function execSync(command: string, options?: ExecSyncOptionsWithBufferEncoding): Buffer;
+    export function execSync(command: string, options?: ExecSyncOptions): Buffer;
 
-    interface ExecFileSyncOptions {
+    export interface ExecFileSyncOptions {
         cwd?: string;
-        input?: string | Buffer | NodeJS.TypedArray | DataView;
+        input?: string | Buffer | Uint8Array;
         stdio?: StdioOptions;
         env?: NodeJS.ProcessEnv;
         uid?: number;
@@ -2555,25 +2435,25 @@ declare module "child_process" {
         windowsHide?: boolean;
         shell?: boolean | string;
     }
-    interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {
+    export interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {
         encoding: BufferEncoding;
     }
-    interface ExecFileSyncOptionsWithBufferEncoding extends ExecFileSyncOptions {
+    export interface ExecFileSyncOptionsWithBufferEncoding extends ExecFileSyncOptions {
         encoding: string; // specify `null`.
     }
-    function execFileSync(command: string): Buffer;
-    function execFileSync(command: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(command: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    function execFileSync(command: string, options?: ExecFileSyncOptions): Buffer;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
-    function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
+    export function execFileSync(command: string): Buffer;
+    export function execFileSync(command: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
+    export function execFileSync(command: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    export function execFileSync(command: string, options?: ExecFileSyncOptions): Buffer;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithStringEncoding): string;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    export function execFileSync(command: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): Buffer;
 }
 
 declare module "url" {
     import { ParsedUrlQuery } from 'querystring';
 
-    interface UrlObjectCommon {
+    export interface UrlObjectCommon {
         auth?: string;
         hash?: string;
         host?: string;
@@ -2587,45 +2467,45 @@ declare module "url" {
     }
 
     // Input to `url.format`
-    interface UrlObject extends UrlObjectCommon {
+    export interface UrlObject extends UrlObjectCommon {
         port?: string | number;
         query?: string | null | { [key: string]: any };
     }
 
     // Output of `url.parse`
-    interface Url extends UrlObjectCommon {
+    export interface Url extends UrlObjectCommon {
         port?: string;
         query?: string | null | ParsedUrlQuery;
     }
 
-    interface UrlWithParsedQuery extends Url {
+    export interface UrlWithParsedQuery extends Url {
         query: ParsedUrlQuery;
     }
 
-    interface UrlWithStringQuery extends Url {
+    export interface UrlWithStringQuery extends Url {
         query: string | null;
     }
 
-    function parse(urlStr: string): UrlWithStringQuery;
-    function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
-    function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
-    function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
+    export function parse(urlStr: string): UrlWithStringQuery;
+    export function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    export function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
+    export function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
 
-    function format(URL: URL, options?: URLFormatOptions): string;
-    function format(urlObject: UrlObject | string): string;
-    function resolve(from: string, to: string): string;
+    export function format(URL: URL, options?: URLFormatOptions): string;
+    export function format(urlObject: UrlObject | string): string;
+    export function resolve(from: string, to: string): string;
 
-    function domainToASCII(domain: string): string;
-    function domainToUnicode(domain: string): string;
+    export function domainToASCII(domain: string): string;
+    export function domainToUnicode(domain: string): string;
 
-    interface URLFormatOptions {
+    export interface URLFormatOptions {
         auth?: boolean;
         fragment?: boolean;
         search?: boolean;
         unicode?: boolean;
     }
 
-    class URL {
+    export class URL {
         constructor(input: string, base?: string | URL);
         hash: string;
         host: string;
@@ -2643,7 +2523,7 @@ declare module "url" {
         toJSON(): string;
     }
 
-    class URLSearchParams implements Iterable<[string, string]> {
+    export class URLSearchParams implements Iterable<[string, string]> {
         constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
@@ -2663,82 +2543,81 @@ declare module "url" {
 
 declare module "dns" {
     // Supported getaddrinfo flags.
-    const ADDRCONFIG: number;
-    const V4MAPPED: number;
+    export const ADDRCONFIG: number;
+    export const V4MAPPED: number;
 
-    interface LookupOptions {
+    export interface LookupOptions {
         family?: number;
         hints?: number;
         all?: boolean;
-        verbatim?: boolean;
     }
 
-    interface LookupOneOptions extends LookupOptions {
+    export interface LookupOneOptions extends LookupOptions {
         all?: false;
     }
 
-    interface LookupAllOptions extends LookupOptions {
+    export interface LookupAllOptions extends LookupOptions {
         all: true;
     }
 
-    interface LookupAddress {
+    export interface LookupAddress {
         address: string;
         family: number;
     }
 
-    function lookup(hostname: string, family: number, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
-    function lookup(hostname: string, options: LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
-    function lookup(hostname: string, options: LookupAllOptions, callback: (err: NodeJS.ErrnoException, addresses: LookupAddress[]) => void): void;
-    function lookup(hostname: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string | LookupAddress[], family: number) => void): void;
-    function lookup(hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+    export function lookup(hostname: string, family: number, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+    export function lookup(hostname: string, options: LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+    export function lookup(hostname: string, options: LookupAllOptions, callback: (err: NodeJS.ErrnoException, addresses: LookupAddress[]) => void): void;
+    export function lookup(hostname: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string | LookupAddress[], family: number) => void): void;
+    export function lookup(hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace lookup {
-        function __promisify__(hostname: string, options: LookupAllOptions): Promise<{ address: LookupAddress[] }>;
-        function __promisify__(hostname: string, options?: LookupOneOptions | number): Promise<{ address: string, family: number }>;
-        function __promisify__(hostname: string, options?: LookupOptions | number): Promise<{ address: string | LookupAddress[], family?: number }>;
+    export namespace lookup {
+        export function __promisify__(hostname: string, options: LookupAllOptions): Promise<{ address: LookupAddress[] }>;
+        export function __promisify__(hostname: string, options?: LookupOneOptions | number): Promise<{ address: string, family: number }>;
+        export function __promisify__(hostname: string, options?: LookupOptions | number): Promise<{ address: string | LookupAddress[], family?: number }>;
     }
 
-    function lookupService(address: string, port: number, callback: (err: NodeJS.ErrnoException, hostname: string, service: string) => void): void;
+    export function lookupService(address: string, port: number, callback: (err: NodeJS.ErrnoException, hostname: string, service: string) => void): void;
 
-    namespace lookupService {
-        function __promisify__(address: string, port: number): Promise<{ hostname: string, service: string }>;
+    export namespace lookupService {
+        export function __promisify__(address: string, port: number): Promise<{ hostname: string, service: string }>;
     }
 
-    interface ResolveOptions {
+    export interface ResolveOptions {
         ttl: boolean;
     }
 
-    interface ResolveWithTtlOptions extends ResolveOptions {
+    export interface ResolveWithTtlOptions extends ResolveOptions {
         ttl: true;
     }
 
-    interface RecordWithTtl {
+    export interface RecordWithTtl {
         address: string;
         ttl: number;
     }
 
     /** @deprecated Use AnyARecord or AnyAaaaRecord instead. */
-    type AnyRecordWithTtl = AnyARecord | AnyAaaaRecord;
+    export type AnyRecordWithTtl = AnyARecord | AnyAaaaRecord;
 
-    interface AnyARecord extends RecordWithTtl {
+    export interface AnyARecord extends RecordWithTtl {
         type: "A";
     }
 
-    interface AnyAaaaRecord extends RecordWithTtl {
+    export interface AnyAaaaRecord extends RecordWithTtl {
         type: "AAAA";
     }
 
-    interface MxRecord {
+    export interface MxRecord {
         priority: number;
         exchange: string;
     }
 
-    interface AnyMxRecord extends MxRecord {
+    export interface AnyMxRecord extends MxRecord {
         type: "MX";
     }
 
-    interface NaptrRecord {
+    export interface NaptrRecord {
         flags: string;
         service: string;
         regexp: string;
@@ -2747,11 +2626,11 @@ declare module "dns" {
         preference: number;
     }
 
-    interface AnyNaptrRecord extends NaptrRecord {
+    export interface AnyNaptrRecord extends NaptrRecord {
         type: "NAPTR";
     }
 
-    interface SoaRecord {
+    export interface SoaRecord {
         nsname: string;
         hostmaster: string;
         serial: number;
@@ -2761,42 +2640,42 @@ declare module "dns" {
         minttl: number;
     }
 
-    interface AnySoaRecord extends SoaRecord {
+    export interface AnySoaRecord extends SoaRecord {
         type: "SOA";
     }
 
-    interface SrvRecord {
+    export interface SrvRecord {
         priority: number;
         weight: number;
         port: number;
         name: string;
     }
 
-    interface AnySrvRecord extends SrvRecord {
+    export interface AnySrvRecord extends SrvRecord {
         type: "SRV";
     }
 
-    interface AnyTxtRecord {
+    export interface AnyTxtRecord {
         type: "TXT";
         entries: string[];
     }
 
-    interface AnyNsRecord {
+    export interface AnyNsRecord {
         type: "NS";
         value: string;
     }
 
-    interface AnyPtrRecord {
+    export interface AnyPtrRecord {
         type: "PTR";
         value: string;
     }
 
-    interface AnyCnameRecord {
+    export interface AnyCnameRecord {
         type: "CNAME";
         value: string;
     }
 
-    type AnyRecord = AnyARecord |
+    export type AnyRecord = AnyARecord |
         AnyAaaaRecord |
         AnyCnameRecord |
         AnyMxRecord |
@@ -2807,134 +2686,130 @@ declare module "dns" {
         AnySrvRecord |
         AnyTxtRecord;
 
-    function resolve(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    function resolve(hostname: string, rrtype: "A", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    function resolve(hostname: string, rrtype: "AAAA", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    function resolve(hostname: string, rrtype: "ANY", callback: (err: NodeJS.ErrnoException, addresses: AnyRecord[]) => void): void;
-    function resolve(hostname: string, rrtype: "CNAME", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    function resolve(hostname: string, rrtype: "MX", callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
-    function resolve(hostname: string, rrtype: "NAPTR", callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
-    function resolve(hostname: string, rrtype: "NS", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    function resolve(hostname: string, rrtype: "PTR", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    function resolve(hostname: string, rrtype: "SOA", callback: (err: NodeJS.ErrnoException, addresses: SoaRecord) => void): void;
-    function resolve(hostname: string, rrtype: "SRV", callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
-    function resolve(hostname: string, rrtype: "TXT", callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
-    function resolve(
-        hostname: string,
-        rrtype: string,
-        callback: (err: NodeJS.ErrnoException, addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]) => void,
-    ): void;
+    export function resolve(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "A", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "AAAA", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "ANY", callback: (err: NodeJS.ErrnoException, addresses: AnyRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "CNAME", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "MX", callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "NAPTR", callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "NS", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "PTR", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "SOA", callback: (err: NodeJS.ErrnoException, addresses: SoaRecord) => void): void;
+    export function resolve(hostname: string, rrtype: "SRV", callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "TXT", callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
+    export function resolve(hostname: string, rrtype: string, callback: (err: NodeJS.ErrnoException, addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace resolve {
-        function __promisify__(hostname: string, rrtype?: "A" | "AAAA" | "CNAME" | "NS" | "PTR"): Promise<string[]>;
-        function __promisify__(hostname: string, rrtype: "ANY"): Promise<AnyRecord[]>;
-        function __promisify__(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
-        function __promisify__(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
-        function __promisify__(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
-        function __promisify__(hostname: string, rrtype: "SRV"): Promise<SrvRecord[]>;
-        function __promisify__(hostname: string, rrtype: "TXT"): Promise<string[][]>;
-        function __promisify__(hostname: string, rrtype: string): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
+    export namespace resolve {
+        export function __promisify__(hostname: string, rrtype?: "A" | "AAAA" | "CNAME" | "NS" | "PTR"): Promise<string[]>;
+        export function __promisify__(hostname: string, rrtype: "ANY"): Promise<AnyRecord[]>;
+        export function __promisify__(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
+        export function __promisify__(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
+        export function __promisify__(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
+        export function __promisify__(hostname: string, rrtype: "SRV"): Promise<SrvRecord[]>;
+        export function __promisify__(hostname: string, rrtype: "TXT"): Promise<string[][]>;
+        export function __promisify__(hostname: string, rrtype: string): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
     }
 
-    function resolve4(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    function resolve4(hostname: string, options: ResolveWithTtlOptions, callback: (err: NodeJS.ErrnoException, addresses: RecordWithTtl[]) => void): void;
-    function resolve4(hostname: string, options: ResolveOptions, callback: (err: NodeJS.ErrnoException, addresses: string[] | RecordWithTtl[]) => void): void;
+    export function resolve4(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve4(hostname: string, options: ResolveWithTtlOptions, callback: (err: NodeJS.ErrnoException, addresses: RecordWithTtl[]) => void): void;
+    export function resolve4(hostname: string, options: ResolveOptions, callback: (err: NodeJS.ErrnoException, addresses: string[] | RecordWithTtl[]) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace resolve4 {
-        function __promisify__(hostname: string): Promise<string[]>;
-        function __promisify__(hostname: string, options: ResolveWithTtlOptions): Promise<RecordWithTtl[]>;
-        function __promisify__(hostname: string, options?: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
+    export namespace resolve4 {
+        export function __promisify__(hostname: string): Promise<string[]>;
+        export function __promisify__(hostname: string, options: ResolveWithTtlOptions): Promise<RecordWithTtl[]>;
+        export function __promisify__(hostname: string, options?: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
     }
 
-    function resolve6(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    function resolve6(hostname: string, options: ResolveWithTtlOptions, callback: (err: NodeJS.ErrnoException, addresses: RecordWithTtl[]) => void): void;
-    function resolve6(hostname: string, options: ResolveOptions, callback: (err: NodeJS.ErrnoException, addresses: string[] | RecordWithTtl[]) => void): void;
+    export function resolve6(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve6(hostname: string, options: ResolveWithTtlOptions, callback: (err: NodeJS.ErrnoException, addresses: RecordWithTtl[]) => void): void;
+    export function resolve6(hostname: string, options: ResolveOptions, callback: (err: NodeJS.ErrnoException, addresses: string[] | RecordWithTtl[]) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace resolve6 {
-        function __promisify__(hostname: string): Promise<string[]>;
-        function __promisify__(hostname: string, options: ResolveWithTtlOptions): Promise<RecordWithTtl[]>;
-        function __promisify__(hostname: string, options?: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
+    export namespace resolve6 {
+        export function __promisify__(hostname: string): Promise<string[]>;
+        export function __promisify__(hostname: string, options: ResolveWithTtlOptions): Promise<RecordWithTtl[]>;
+        export function __promisify__(hostname: string, options?: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
     }
 
-    function resolveCname(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    namespace resolveCname {
-        function __promisify__(hostname: string): Promise<string[]>;
+    export function resolveCname(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export namespace resolveCname {
+        export function __promisify__(hostname: string): Promise<string[]>;
     }
 
-    function resolveMx(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
-    namespace resolveMx {
-        function __promisify__(hostname: string): Promise<MxRecord[]>;
+    export function resolveMx(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
+    export namespace resolveMx {
+        export function __promisify__(hostname: string): Promise<MxRecord[]>;
     }
 
-    function resolveNaptr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
-    namespace resolveNaptr {
-        function __promisify__(hostname: string): Promise<NaptrRecord[]>;
+    export function resolveNaptr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
+    export namespace resolveNaptr {
+        export function __promisify__(hostname: string): Promise<NaptrRecord[]>;
     }
 
-    function resolveNs(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    namespace resolveNs {
-        function __promisify__(hostname: string): Promise<string[]>;
+    export function resolveNs(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export namespace resolveNs {
+        export function __promisify__(hostname: string): Promise<string[]>;
     }
 
-    function resolvePtr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
-    namespace resolvePtr {
-        function __promisify__(hostname: string): Promise<string[]>;
+    export function resolvePtr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export namespace resolvePtr {
+        export function __promisify__(hostname: string): Promise<string[]>;
     }
 
-    function resolveSoa(hostname: string, callback: (err: NodeJS.ErrnoException, address: SoaRecord) => void): void;
-    namespace resolveSoa {
-        function __promisify__(hostname: string): Promise<SoaRecord>;
+    export function resolveSoa(hostname: string, callback: (err: NodeJS.ErrnoException, address: SoaRecord) => void): void;
+    export namespace resolveSoa {
+        export function __promisify__(hostname: string): Promise<SoaRecord>;
     }
 
-    function resolveSrv(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
-    namespace resolveSrv {
-        function __promisify__(hostname: string): Promise<SrvRecord[]>;
+    export function resolveSrv(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
+    export namespace resolveSrv {
+        export function __promisify__(hostname: string): Promise<SrvRecord[]>;
     }
 
-    function resolveTxt(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
-    namespace resolveTxt {
-        function __promisify__(hostname: string): Promise<string[][]>;
+    export function resolveTxt(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
+    export namespace resolveTxt {
+        export function __promisify__(hostname: string): Promise<string[][]>;
     }
 
-    function resolveAny(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: AnyRecord[]) => void): void;
-    namespace resolveAny {
-        function __promisify__(hostname: string): Promise<AnyRecord[]>;
+    export function resolveAny(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: AnyRecord[]) => void): void;
+    export namespace resolveAny {
+        export function __promisify__(hostname: string): Promise<AnyRecord[]>;
     }
 
-    function reverse(ip: string, callback: (err: NodeJS.ErrnoException, hostnames: string[]) => void): void;
-    function setServers(servers: string[]): void;
-    function getServers(): string[];
+    export function reverse(ip: string, callback: (err: NodeJS.ErrnoException, hostnames: string[]) => void): void;
+    export function setServers(servers: string[]): void;
+    export function getServers(): string[];
 
     // Error codes
-    const NODATA: string;
-    const FORMERR: string;
-    const SERVFAIL: string;
-    const NOTFOUND: string;
-    const NOTIMP: string;
-    const REFUSED: string;
-    const BADQUERY: string;
-    const BADNAME: string;
-    const BADFAMILY: string;
-    const BADRESP: string;
-    const CONNREFUSED: string;
-    const TIMEOUT: string;
-    const EOF: string;
-    const FILE: string;
-    const NOMEM: string;
-    const DESTRUCTION: string;
-    const BADSTR: string;
-    const BADFLAGS: string;
-    const NONAME: string;
-    const BADHINTS: string;
-    const NOTINITIALIZED: string;
-    const LOADIPHLPAPI: string;
-    const ADDRGETNETWORKPARAMS: string;
-    const CANCELLED: string;
+    export var NODATA: string;
+    export var FORMERR: string;
+    export var SERVFAIL: string;
+    export var NOTFOUND: string;
+    export var NOTIMP: string;
+    export var REFUSED: string;
+    export var BADQUERY: string;
+    export var BADNAME: string;
+    export var BADFAMILY: string;
+    export var BADRESP: string;
+    export var CONNREFUSED: string;
+    export var TIMEOUT: string;
+    export var EOF: string;
+    export var FILE: string;
+    export var NOMEM: string;
+    export var DESTRUCTION: string;
+    export var BADSTR: string;
+    export var BADFLAGS: string;
+    export var NONAME: string;
+    export var BADHINTS: string;
+    export var NOTINITIALIZED: string;
+    export var LOADIPHLPAPI: string;
+    export var ADDRGETNETWORKPARAMS: string;
+    export var CANCELLED: string;
 
-    class Resolver {
+    export class Resolver {
         getServers: typeof getServers;
         setServers: typeof setServers;
         resolve: typeof resolve;
@@ -2961,20 +2836,20 @@ declare module "net" {
 
     type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
 
-    interface AddressInfo {
+    export interface AddressInfo {
         address: string;
         family: string;
         port: number;
     }
 
-    interface SocketConstructorOpts {
+    export interface SocketConstructorOpts {
         fd?: number;
         allowHalfOpen?: boolean;
         readable?: boolean;
         writable?: boolean;
     }
 
-    interface TcpSocketConnectOpts {
+    export interface TcpSocketConnectOpts {
         port: number;
         host?: string;
         localAddress?: string;
@@ -2984,13 +2859,13 @@ declare module "net" {
         lookup?: LookupFunction;
     }
 
-    interface IpcSocketConnectOpts {
+    export interface IpcSocketConnectOpts {
         path: string;
     }
 
-    type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
+    export type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
 
-    class Socket extends stream.Duplex {
+    export class Socket extends stream.Duplex {
         constructor(options?: SocketConstructorOpts);
 
         // Extended base methods
@@ -3006,6 +2881,7 @@ declare module "net" {
         connect(port: number, connectionListener?: Function): this;
         connect(path: string, connectionListener?: Function): this;
 
+        bufferSize: number;
         setEncoding(encoding?: string): this;
         pause(): this;
         resume(): this;
@@ -3016,16 +2892,15 @@ declare module "net" {
         unref(): void;
         ref(): void;
 
-        readonly bufferSize: number;
-        readonly bytesRead: number;
-        readonly bytesWritten: number;
-        readonly connecting: boolean;
-        readonly destroyed: boolean;
-        readonly localAddress: string;
-        readonly localPort: number;
-        readonly remoteAddress?: string;
-        readonly remoteFamily?: string;
-        readonly remotePort?: number;
+        remoteAddress?: string;
+        remoteFamily?: string;
+        remotePort?: number;
+        localAddress: string;
+        localPort: number;
+        bytesRead: number;
+        bytesWritten: number;
+        connecting: boolean;
+        destroyed: boolean;
 
         // Extended base methods
         end(): void;
@@ -3106,7 +2981,7 @@ declare module "net" {
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
 
-    interface ListenOptions {
+    export interface ListenOptions {
         port?: number;
         host?: string;
         backlog?: number;
@@ -3117,7 +2992,7 @@ declare module "net" {
     }
 
     // https://github.com/nodejs/node/blob/master/lib/net.js
-    class Server extends events.EventEmitter {
+    export class Server extends events.EventEmitter {
         constructor(connectionListener?: (socket: Socket) => void);
         constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
 
@@ -3183,27 +3058,27 @@ declare module "net" {
         prependOnceListener(event: "listening", listener: () => void): this;
     }
 
-    interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
+    export interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
         timeout?: number;
     }
 
-    interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
+    export interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
         timeout?: number;
     }
 
-    type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
+    export type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
 
-    function createServer(connectionListener?: (socket: Socket) => void): Server;
-    function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
-    function connect(options: NetConnectOpts, connectionListener?: Function): Socket;
-    function connect(port: number, host?: string, connectionListener?: Function): Socket;
-    function connect(path: string, connectionListener?: Function): Socket;
-    function createConnection(options: NetConnectOpts, connectionListener?: Function): Socket;
-    function createConnection(port: number, host?: string, connectionListener?: Function): Socket;
-    function createConnection(path: string, connectionListener?: Function): Socket;
-    function isIP(input: string): number;
-    function isIPv4(input: string): boolean;
-    function isIPv6(input: string): boolean;
+    export function createServer(connectionListener?: (socket: Socket) => void): Server;
+    export function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
+    export function connect(options: NetConnectOpts, connectionListener?: Function): Socket;
+    export function connect(port: number, host?: string, connectionListener?: Function): Socket;
+    export function connect(path: string, connectionListener?: Function): Socket;
+    export function createConnection(options: NetConnectOpts, connectionListener?: Function): Socket;
+    export function createConnection(port: number, host?: string, connectionListener?: Function): Socket;
+    export function createConnection(path: string, connectionListener?: Function): Socket;
+    export function isIP(input: string): number;
+    export function isIPv4(input: string): boolean;
+    export function isIPv6(input: string): boolean;
 }
 
 declare module "dgram" {
@@ -3211,13 +3086,13 @@ declare module "dgram" {
     import * as dns from "dns";
     import * as events from "events";
 
-    interface RemoteInfo {
+    export interface RemoteInfo {
         address: string;
         family: string;
         port: number;
     }
 
-    interface BindOptions {
+    export interface BindOptions {
         port: number;
         address?: string;
         exclusive?: boolean;
@@ -3225,7 +3100,7 @@ declare module "dgram" {
 
     type SocketType = "udp4" | "udp6";
 
-    interface SocketOptions {
+    export interface SocketOptions {
         type: SocketType;
         reuseAddr?: boolean;
         recvBufferSize?: number;
@@ -3233,10 +3108,10 @@ declare module "dgram" {
         lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
     }
 
-    function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
-    function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
+    export function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
+    export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
-    class Socket extends events.EventEmitter {
+    export class Socket extends events.EventEmitter {
         send(msg: Buffer | string | Uint8Array | any[], port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: Buffer | string | Uint8Array, offset: number, length: number, port: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
@@ -3312,10 +3187,9 @@ declare module "fs" {
     /**
      * Valid types for path values in "fs".
      */
-    type PathLike = string | Buffer | URL;
+    export type PathLike = string | Buffer | URL;
 
-    type BinaryData = Buffer | DataView | NodeJS.TypedArray;
-    class Stats {
+    export class Stats {
         isFile(): boolean;
         isDirectory(): boolean;
         isBlockDevice(): boolean;
@@ -3343,18 +3217,7 @@ declare module "fs" {
         birthtime: Date;
     }
 
-    class Dirent {
-        isFile(): boolean;
-        isDirectory(): boolean;
-        isBlockDevice(): boolean;
-        isCharacterDevice(): boolean;
-        isSymbolicLink(): boolean;
-        isFIFO(): boolean;
-        isSocket(): boolean;
-        name: string;
-    }
-
-    interface FSWatcher extends events.EventEmitter {
+    export interface FSWatcher extends events.EventEmitter {
         close(): void;
 
         /**
@@ -3383,7 +3246,7 @@ declare module "fs" {
         prependOnceListener(event: "error", listener: (error: Error) => void): this;
     }
 
-    class ReadStream extends stream.Readable {
+    export class ReadStream extends stream.Readable {
         close(): void;
         bytesRead: number;
         path: string | Buffer;
@@ -3414,7 +3277,7 @@ declare module "fs" {
         prependOnceListener(event: "close", listener: () => void): this;
     }
 
-    class WriteStream extends stream.Writable {
+    export class WriteStream extends stream.Writable {
         close(): void;
         bytesWritten: number;
         path: string | Buffer;
@@ -3452,10 +3315,10 @@ declare module "fs" {
      * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function rename(oldPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function rename(oldPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace rename {
+    export namespace rename {
         /**
          * Asynchronous rename(2) - Change the name or location of a file or directory.
          * @param oldPath A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -3463,7 +3326,7 @@ declare module "fs" {
          * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          * URL support is _experimental_.
          */
-        function __promisify__(oldPath: PathLike, newPath: PathLike): Promise<void>;
+        export function __promisify__(oldPath: PathLike, newPath: PathLike): Promise<void>;
     }
 
     /**
@@ -3473,30 +3336,30 @@ declare module "fs" {
      * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function renameSync(oldPath: PathLike, newPath: PathLike): void;
+    export function renameSync(oldPath: PathLike, newPath: PathLike): void;
 
     /**
      * Asynchronous truncate(2) - Truncate a file to a specified length.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param len If not specified, defaults to `0`.
      */
-    function truncate(path: PathLike, len: number | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function truncate(path: PathLike, len: number | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronous truncate(2) - Truncate a file to a specified length.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function truncate(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function truncate(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace truncate {
+    export namespace truncate {
         /**
          * Asynchronous truncate(2) - Truncate a file to a specified length.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param len If not specified, defaults to `0`.
          */
-        function __promisify__(path: PathLike, len?: number | null): Promise<void>;
+        export function __promisify__(path: PathLike, len?: number | null): Promise<void>;
     }
 
     /**
@@ -3504,29 +3367,29 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param len If not specified, defaults to `0`.
      */
-    function truncateSync(path: PathLike, len?: number | null): void;
+    export function truncateSync(path: PathLike, len?: number | null): void;
 
     /**
      * Asynchronous ftruncate(2) - Truncate a file to a specified length.
      * @param fd A file descriptor.
      * @param len If not specified, defaults to `0`.
      */
-    function ftruncate(fd: number, len: number | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function ftruncate(fd: number, len: number | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronous ftruncate(2) - Truncate a file to a specified length.
      * @param fd A file descriptor.
      */
-    function ftruncate(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function ftruncate(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace ftruncate {
+    export namespace ftruncate {
         /**
          * Asynchronous ftruncate(2) - Truncate a file to a specified length.
          * @param fd A file descriptor.
          * @param len If not specified, defaults to `0`.
          */
-        function __promisify__(fd: number, len?: number | null): Promise<void>;
+        export function __promisify__(fd: number, len?: number | null): Promise<void>;
     }
 
     /**
@@ -3534,86 +3397,86 @@ declare module "fs" {
      * @param fd A file descriptor.
      * @param len If not specified, defaults to `0`.
      */
-    function ftruncateSync(fd: number, len?: number | null): void;
+    export function ftruncateSync(fd: number, len?: number | null): void;
 
     /**
      * Asynchronous chown(2) - Change ownership of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function chown(path: PathLike, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function chown(path: PathLike, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace chown {
+    export namespace chown {
         /**
          * Asynchronous chown(2) - Change ownership of a file.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike, uid: number, gid: number): Promise<void>;
+        export function __promisify__(path: PathLike, uid: number, gid: number): Promise<void>;
     }
 
     /**
      * Synchronous chown(2) - Change ownership of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function chownSync(path: PathLike, uid: number, gid: number): void;
+    export function chownSync(path: PathLike, uid: number, gid: number): void;
 
     /**
      * Asynchronous fchown(2) - Change ownership of a file.
      * @param fd A file descriptor.
      */
-    function fchown(fd: number, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function fchown(fd: number, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace fchown {
+    export namespace fchown {
         /**
          * Asynchronous fchown(2) - Change ownership of a file.
          * @param fd A file descriptor.
          */
-        function __promisify__(fd: number, uid: number, gid: number): Promise<void>;
+        export function __promisify__(fd: number, uid: number, gid: number): Promise<void>;
     }
 
     /**
      * Synchronous fchown(2) - Change ownership of a file.
      * @param fd A file descriptor.
      */
-    function fchownSync(fd: number, uid: number, gid: number): void;
+    export function fchownSync(fd: number, uid: number, gid: number): void;
 
     /**
      * Asynchronous lchown(2) - Change ownership of a file. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function lchown(path: PathLike, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function lchown(path: PathLike, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace lchown {
+    export namespace lchown {
         /**
          * Asynchronous lchown(2) - Change ownership of a file. Does not dereference symbolic links.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike, uid: number, gid: number): Promise<void>;
+        export function __promisify__(path: PathLike, uid: number, gid: number): Promise<void>;
     }
 
     /**
      * Synchronous lchown(2) - Change ownership of a file. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function lchownSync(path: PathLike, uid: number, gid: number): void;
+    export function lchownSync(path: PathLike, uid: number, gid: number): void;
 
     /**
      * Asynchronous chmod(2) - Change permissions of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
      */
-    function chmod(path: PathLike, mode: string | number, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function chmod(path: PathLike, mode: string | number, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace chmod {
+    export namespace chmod {
         /**
          * Asynchronous chmod(2) - Change permissions of a file.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
          */
-        function __promisify__(path: PathLike, mode: string | number): Promise<void>;
+        export function __promisify__(path: PathLike, mode: string | number): Promise<void>;
     }
 
     /**
@@ -3621,23 +3484,23 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
      */
-    function chmodSync(path: PathLike, mode: string | number): void;
+    export function chmodSync(path: PathLike, mode: string | number): void;
 
     /**
      * Asynchronous fchmod(2) - Change permissions of a file.
      * @param fd A file descriptor.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
      */
-    function fchmod(fd: number, mode: string | number, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function fchmod(fd: number, mode: string | number, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace fchmod {
+    export namespace fchmod {
         /**
          * Asynchronous fchmod(2) - Change permissions of a file.
          * @param fd A file descriptor.
          * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
          */
-        function __promisify__(fd: number, mode: string | number): Promise<void>;
+        export function __promisify__(fd: number, mode: string | number): Promise<void>;
     }
 
     /**
@@ -3645,23 +3508,23 @@ declare module "fs" {
      * @param fd A file descriptor.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
      */
-    function fchmodSync(fd: number, mode: string | number): void;
+    export function fchmodSync(fd: number, mode: string | number): void;
 
     /**
      * Asynchronous lchmod(2) - Change permissions of a file. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
      */
-    function lchmod(path: PathLike, mode: string | number, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function lchmod(path: PathLike, mode: string | number, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace lchmod {
+    export namespace lchmod {
         /**
          * Asynchronous lchmod(2) - Change permissions of a file. Does not dereference symbolic links.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
          */
-        function __promisify__(path: PathLike, mode: string | number): Promise<void>;
+        export function __promisify__(path: PathLike, mode: string | number): Promise<void>;
     }
 
     /**
@@ -3669,86 +3532,86 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
      */
-    function lchmodSync(path: PathLike, mode: string | number): void;
+    export function lchmodSync(path: PathLike, mode: string | number): void;
 
     /**
      * Asynchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function stat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
+    export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace stat {
+    export namespace stat {
         /**
          * Asynchronous stat(2) - Get file status.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike): Promise<Stats>;
+        export function __promisify__(path: PathLike): Promise<Stats>;
     }
 
     /**
      * Synchronous stat(2) - Get file status.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function statSync(path: PathLike): Stats;
+    export function statSync(path: PathLike): Stats;
 
     /**
      * Asynchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
-    function fstat(fd: number, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
+    export function fstat(fd: number, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace fstat {
+    export namespace fstat {
         /**
          * Asynchronous fstat(2) - Get file status.
          * @param fd A file descriptor.
          */
-        function __promisify__(fd: number): Promise<Stats>;
+        export function __promisify__(fd: number): Promise<Stats>;
     }
 
     /**
      * Synchronous fstat(2) - Get file status.
      * @param fd A file descriptor.
      */
-    function fstatSync(fd: number): Stats;
+    export function fstatSync(fd: number): Stats;
 
     /**
      * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function lstat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
+    export function lstat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace lstat {
+    export namespace lstat {
         /**
          * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike): Promise<Stats>;
+        export function __promisify__(path: PathLike): Promise<Stats>;
     }
 
     /**
      * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function lstatSync(path: PathLike): Stats;
+    export function lstatSync(path: PathLike): Stats;
 
     /**
      * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
      * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function link(existingPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function link(existingPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace link {
+    export namespace link {
         /**
          * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
          * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
+        export function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
     }
 
     /**
@@ -3756,7 +3619,7 @@ declare module "fs" {
      * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function linkSync(existingPath: PathLike, newPath: PathLike): void;
+    export function linkSync(existingPath: PathLike, newPath: PathLike): void;
 
     /**
      * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
@@ -3765,17 +3628,17 @@ declare module "fs" {
      * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
      * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
      */
-    function symlink(target: PathLike, path: PathLike, type: symlink.Type | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function symlink(target: PathLike, path: PathLike, type: symlink.Type | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
      * @param target A path to an existing file. If a URL is provided, it must use the `file:` protocol.
      * @param path A path to the new symlink. If a URL is provided, it must use the `file:` protocol.
      */
-    function symlink(target: PathLike, path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function symlink(target: PathLike, path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace symlink {
+    export namespace symlink {
         /**
          * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
          * @param target A path to an existing file. If a URL is provided, it must use the `file:` protocol.
@@ -3783,9 +3646,9 @@ declare module "fs" {
          * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
          * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
          */
-        function __promisify__(target: PathLike, path: PathLike, type?: string | null): Promise<void>;
+        export function __promisify__(target: PathLike, path: PathLike, type?: string | null): Promise<void>;
 
-        type Type = "dir" | "file" | "junction";
+        export type Type = "dir" | "file" | "junction";
     }
 
     /**
@@ -3795,57 +3658,57 @@ declare module "fs" {
      * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
      * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
      */
-    function symlinkSync(target: PathLike, path: PathLike, type?: symlink.Type | null): void;
+    export function symlinkSync(target: PathLike, path: PathLike, type?: symlink.Type | null): void;
 
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readlink(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, linkString: string) => void): void;
+    export function readlink(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, linkString: string) => void): void;
 
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readlink(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, linkString: Buffer) => void): void;
+    export function readlink(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, linkString: Buffer) => void): void;
 
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readlink(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, linkString: string | Buffer) => void): void;
+    export function readlink(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, linkString: string | Buffer) => void): void;
 
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function readlink(path: PathLike, callback: (err: NodeJS.ErrnoException, linkString: string) => void): void;
+    export function readlink(path: PathLike, callback: (err: NodeJS.ErrnoException, linkString: string) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace readlink {
+    export namespace readlink {
         /**
          * Asynchronous readlink(2) - read value of a symbolic link.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
+        export function __promisify__(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
 
         /**
          * Asynchronous readlink(2) - read value of a symbolic link.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+        export function __promisify__(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
 
         /**
          * Asynchronous readlink(2) - read value of a symbolic link.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+        export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
     }
 
     /**
@@ -3853,76 +3716,76 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readlinkSync(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
+    export function readlinkSync(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
 
     /**
      * Synchronous readlink(2) - read value of a symbolic link.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readlinkSync(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
+    export function readlinkSync(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
 
     /**
      * Synchronous readlink(2) - read value of a symbolic link.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readlinkSync(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+    export function readlinkSync(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
 
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function realpath(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
+    export function realpath(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
 
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function realpath(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, resolvedPath: Buffer) => void): void;
+    export function realpath(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, resolvedPath: Buffer) => void): void;
 
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function realpath(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string | Buffer) => void): void;
+    export function realpath(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string | Buffer) => void): void;
 
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function realpath(path: PathLike, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
+    export function realpath(path: PathLike, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace realpath {
+    export namespace realpath {
         /**
          * Asynchronous realpath(3) - return the canonicalized absolute pathname.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
+        export function __promisify__(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
 
         /**
          * Asynchronous realpath(3) - return the canonicalized absolute pathname.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+        export function __promisify__(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
 
         /**
          * Asynchronous realpath(3) - return the canonicalized absolute pathname.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+        export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
 
-        function native(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
-        function native(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, resolvedPath: Buffer) => void): void;
-        function native(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string | Buffer) => void): void;
-        function native(path: PathLike, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
+        export function native(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
+        export function native(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, resolvedPath: Buffer) => void): void;
+        export function native(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string | Buffer) => void): void;
+        export function native(path: PathLike, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
     }
 
     /**
@@ -3930,91 +3793,91 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function realpathSync(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
+    export function realpathSync(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
 
     /**
      * Synchronous realpath(3) - return the canonicalized absolute pathname.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function realpathSync(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
+    export function realpathSync(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
 
     /**
      * Synchronous realpath(3) - return the canonicalized absolute pathname.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function realpathSync(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+    export function realpathSync(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
 
-    namespace realpathSync {
-        function native(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
-        function native(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
-        function native(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+    export namespace realpathSync {
+        export function native(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
+        export function native(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
+        export function native(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
     }
 
     /**
      * Asynchronous unlink(2) - delete a name and possibly the file it refers to.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function unlink(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function unlink(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace unlink {
+    export namespace unlink {
         /**
          * Asynchronous unlink(2) - delete a name and possibly the file it refers to.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike): Promise<void>;
+        export function __promisify__(path: PathLike): Promise<void>;
     }
 
     /**
      * Synchronous unlink(2) - delete a name and possibly the file it refers to.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function unlinkSync(path: PathLike): void;
+    export function unlinkSync(path: PathLike): void;
 
     /**
      * Asynchronous rmdir(2) - delete a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function rmdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function rmdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace rmdir {
+    export namespace rmdir {
         /**
          * Asynchronous rmdir(2) - delete a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike): Promise<void>;
+        export function __promisify__(path: PathLike): Promise<void>;
     }
 
     /**
      * Synchronous rmdir(2) - delete a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function rmdirSync(path: PathLike): void;
+    export function rmdirSync(path: PathLike): void;
 
     /**
      * Asynchronous mkdir(2) - create a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdir(path: PathLike, mode: number | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function mkdir(path: PathLike, mode: number | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronous mkdir(2) - create a directory with a mode of `0o777`.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace mkdir {
+    export namespace mkdir {
         /**
          * Asynchronous mkdir(2) - create a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
-        function __promisify__(path: PathLike, mode?: number | string | null): Promise<void>;
+        export function __promisify__(path: PathLike, mode?: number | string | null): Promise<void>;
     }
 
     /**
@@ -4022,57 +3885,57 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdirSync(path: PathLike, mode?: number | string | null): void;
+    export function mkdirSync(path: PathLike, mode?: number | string | null): void;
 
     /**
      * Asynchronously creates a unique temporary directory.
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function mkdtemp(prefix: string, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, folder: string) => void): void;
+    export function mkdtemp(prefix: string, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, folder: string) => void): void;
 
     /**
      * Asynchronously creates a unique temporary directory.
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function mkdtemp(prefix: string, options: "buffer" | { encoding: "buffer" }, callback: (err: NodeJS.ErrnoException, folder: Buffer) => void): void;
+    export function mkdtemp(prefix: string, options: "buffer" | { encoding: "buffer" }, callback: (err: NodeJS.ErrnoException, folder: Buffer) => void): void;
 
     /**
      * Asynchronously creates a unique temporary directory.
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function mkdtemp(prefix: string, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, folder: string | Buffer) => void): void;
+    export function mkdtemp(prefix: string, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, folder: string | Buffer) => void): void;
 
     /**
      * Asynchronously creates a unique temporary directory.
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      */
-    function mkdtemp(prefix: string, callback: (err: NodeJS.ErrnoException, folder: string) => void): void;
+    export function mkdtemp(prefix: string, callback: (err: NodeJS.ErrnoException, folder: string) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace mkdtemp {
+    export namespace mkdtemp {
         /**
          * Asynchronously creates a unique temporary directory.
          * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(prefix: string, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
+        export function __promisify__(prefix: string, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
 
         /**
          * Asynchronously creates a unique temporary directory.
          * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(prefix: string, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+        export function __promisify__(prefix: string, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
 
         /**
          * Asynchronously creates a unique temporary directory.
          * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(prefix: string, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+        export function __promisify__(prefix: string, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
     }
 
     /**
@@ -4080,93 +3943,71 @@ declare module "fs" {
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function mkdtempSync(prefix: string, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
+    export function mkdtempSync(prefix: string, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
 
     /**
      * Synchronously creates a unique temporary directory.
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function mkdtempSync(prefix: string, options: { encoding: "buffer" } | "buffer"): Buffer;
+    export function mkdtempSync(prefix: string, options: { encoding: "buffer" } | "buffer"): Buffer;
 
     /**
      * Synchronously creates a unique temporary directory.
      * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function mkdtempSync(prefix: string, options?: { encoding?: string | null } | string | null): string | Buffer;
+    export function mkdtempSync(prefix: string, options?: { encoding?: string | null } | string | null): string | Buffer;
 
     /**
      * Asynchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readdir(
-        path: PathLike,
-        options: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | undefined | null,
-        callback: (err: NodeJS.ErrnoException, files: string[]) => void,
-    ): void;
+    export function readdir(path: PathLike, options: { encoding: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readdir(path: PathLike, options: { encoding: "buffer"; withFileTypes?: false } | "buffer", callback: (err: NodeJS.ErrnoException, files: Buffer[]) => void): void;
+    export function readdir(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, files: Buffer[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readdir(
-        path: PathLike,
-        options: { encoding?: string | null; withFileTypes?: false } | string | undefined | null,
-        callback: (err: NodeJS.ErrnoException, files: string[] | Buffer[]) => void,
-    ): void;
+    export function readdir(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[] | Buffer[]) => void): void;
 
     /**
      * Asynchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function readdir(path: PathLike, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
-
-    /**
-     * Asynchronous readdir(3) - read a directory.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
-     */
-    function readdir(path: PathLike, options: { withFileTypes: true }, callback: (err: NodeJS.ErrnoException, files: Dirent[]) => void): void;
+    export function readdir(path: PathLike, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace readdir {
+    export namespace readdir {
         /**
          * Asynchronous readdir(3) - read a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options?: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null): Promise<string[]>;
+        export function __promisify__(path: PathLike, options?: { encoding: BufferEncoding | null } | BufferEncoding | null): Promise<string[]>;
 
         /**
          * Asynchronous readdir(3) - read a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options: "buffer" | { encoding: "buffer"; withFileTypes?: false }): Promise<Buffer[]>;
+        export function __promisify__(path: PathLike, options: "buffer" | { encoding: "buffer" }): Promise<Buffer[]>;
 
         /**
          * Asynchronous readdir(3) - read a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function __promisify__(path: PathLike, options?: { encoding?: string | null; withFileTypes?: false } | string | null): Promise<string[] | Buffer[]>;
-
-        /**
-         * Asynchronous readdir(3) - read a directory.
-         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-         * @param options If called with `withFileTypes: true` the result data will be an array of Dirent
-         */
-        function __promisify__(path: PathLike, options: { withFileTypes: true }): Promise<Dirent[]>;
+        export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string[] | Buffer[]>;
     }
 
     /**
@@ -4174,71 +4015,64 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readdirSync(path: PathLike, options?: { encoding: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null): string[];
+    export function readdirSync(path: PathLike, options?: { encoding: BufferEncoding | null } | BufferEncoding | null): string[];
 
     /**
      * Synchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readdirSync(path: PathLike, options: { encoding: "buffer"; withFileTypes?: false } | "buffer"): Buffer[];
+    export function readdirSync(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer[];
 
     /**
      * Synchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    function readdirSync(path: PathLike, options?: { encoding?: string | null; withFileTypes?: false } | string | null): string[] | Buffer[];
-
-    /**
-     * Asynchronous readdir(3) - read a directory.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
-     */
-    function readdirSync(path: PathLike, options: { withFileTypes: true }): Dirent[];
+    export function readdirSync(path: PathLike, options?: { encoding?: string | null } | string | null): string[] | Buffer[];
 
     /**
      * Asynchronous close(2) - close a file descriptor.
      * @param fd A file descriptor.
      */
-    function close(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function close(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace close {
+    export namespace close {
         /**
          * Asynchronous close(2) - close a file descriptor.
          * @param fd A file descriptor.
          */
-        function __promisify__(fd: number): Promise<void>;
+        export function __promisify__(fd: number): Promise<void>;
     }
 
     /**
      * Synchronous close(2) - close a file descriptor.
      * @param fd A file descriptor.
      */
-    function closeSync(fd: number): void;
+    export function closeSync(fd: number): void;
 
     /**
      * Asynchronous open(2) - open and possibly create a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not supplied, defaults to `0o666`.
      */
-    function open(path: PathLike, flags: string | number, mode: string | number | undefined | null, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
+    export function open(path: PathLike, flags: string | number, mode: string | number | undefined | null, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
 
     /**
      * Asynchronous open(2) - open and possibly create a file. If the file is created, its mode will be `0o666`.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function open(path: PathLike, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
+    export function open(path: PathLike, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace open {
+    export namespace open {
         /**
          * Asynchronous open(2) - open and possibly create a file.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not supplied, defaults to `0o666`.
          */
-        function __promisify__(path: PathLike, flags: string | number, mode?: string | number | null): Promise<number>;
+        export function __promisify__(path: PathLike, flags: string | number, mode?: string | number | null): Promise<number>;
     }
 
     /**
@@ -4246,7 +4080,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not supplied, defaults to `0o666`.
      */
-    function openSync(path: PathLike, flags: string | number, mode?: string | number | null): number;
+    export function openSync(path: PathLike, flags: string | number, mode?: string | number | null): number;
 
     /**
      * Asynchronously change file timestamps of the file referenced by the supplied path.
@@ -4254,17 +4088,17 @@ declare module "fs" {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    function utimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function utimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace utimes {
+    export namespace utimes {
         /**
          * Asynchronously change file timestamps of the file referenced by the supplied path.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param atime The last access time. If a string is provided, it will be coerced to number.
          * @param mtime The last modified time. If a string is provided, it will be coerced to number.
          */
-        function __promisify__(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+        export function __promisify__(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
     }
 
     /**
@@ -4273,7 +4107,7 @@ declare module "fs" {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    function utimesSync(path: PathLike, atime: string | number | Date, mtime: string | number | Date): void;
+    export function utimesSync(path: PathLike, atime: string | number | Date, mtime: string | number | Date): void;
 
     /**
      * Asynchronously change file timestamps of the file referenced by the supplied file descriptor.
@@ -4281,17 +4115,17 @@ declare module "fs" {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    function futimes(fd: number, atime: string | number | Date, mtime: string | number | Date, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function futimes(fd: number, atime: string | number | Date, mtime: string | number | Date, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace futimes {
+    export namespace futimes {
         /**
          * Asynchronously change file timestamps of the file referenced by the supplied file descriptor.
          * @param fd A file descriptor.
          * @param atime The last access time. If a string is provided, it will be coerced to number.
          * @param mtime The last modified time. If a string is provided, it will be coerced to number.
          */
-        function __promisify__(fd: number, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+        export function __promisify__(fd: number, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
     }
 
     /**
@@ -4300,28 +4134,28 @@ declare module "fs" {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    function futimesSync(fd: number, atime: string | number | Date, mtime: string | number | Date): void;
+    export function futimesSync(fd: number, atime: string | number | Date, mtime: string | number | Date): void;
 
     /**
      * Asynchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
      * @param fd A file descriptor.
      */
-    function fsync(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function fsync(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace fsync {
+    export namespace fsync {
         /**
          * Asynchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
          * @param fd A file descriptor.
          */
-        function __promisify__(fd: number): Promise<void>;
+        export function __promisify__(fd: number): Promise<void>;
     }
 
     /**
      * Synchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
      * @param fd A file descriptor.
      */
-    function fsyncSync(fd: number): void;
+    export function fsyncSync(fd: number): void;
 
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
@@ -4330,14 +4164,7 @@ declare module "fs" {
      * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
      * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      */
-    function write<TBuffer extends BinaryData>(
-        fd: number,
-        buffer: TBuffer,
-        offset: number | undefined | null,
-        length: number | undefined | null,
-        position: number | undefined | null,
-        callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void,
-    ): void;
+    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number | undefined | null, length: number | undefined | null, position: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
 
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
@@ -4345,26 +4172,20 @@ declare module "fs" {
      * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
      * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
      */
-    function write<TBuffer extends BinaryData>(
-        fd: number,
-        buffer: TBuffer,
-        offset: number | undefined | null,
-        length: number | undefined | null,
-        callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void,
-    ): void;
+    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number | undefined | null, length: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
 
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
      * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
      */
-    function write<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
 
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
      */
-    function write<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
 
     /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
@@ -4373,13 +4194,7 @@ declare module "fs" {
      * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      * @param encoding The expected string encoding.
      */
-    function write(
-        fd: number,
-        string: any,
-        position: number | undefined | null,
-        encoding: string | undefined | null,
-        callback: (err: NodeJS.ErrnoException, written: number, str: string) => void,
-    ): void;
+    export function write(fd: number, string: any, position: number | undefined | null, encoding: string | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 
     /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
@@ -4387,17 +4202,17 @@ declare module "fs" {
      * @param string A string to write. If something other than a string is supplied it will be coerced to a string.
      * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      */
-    function write(fd: number, string: any, position: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
+    export function write(fd: number, string: any, position: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 
     /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
      * @param string A string to write. If something other than a string is supplied it will be coerced to a string.
      */
-    function write(fd: number, string: any, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
+    export function write(fd: number, string: any, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace write {
+    export namespace write {
         /**
          * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
          * @param fd A file descriptor.
@@ -4405,13 +4220,7 @@ declare module "fs" {
          * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
          * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
          */
-        function __promisify__<TBuffer extends BinaryData>(
-            fd: number,
-            buffer?: TBuffer,
-            offset?: number,
-            length?: number,
-            position?: number | null,
-        ): Promise<{ bytesWritten: number, buffer: TBuffer }>;
+        export function __promisify__<TBuffer extends Buffer | Uint8Array>(fd: number, buffer?: TBuffer, offset?: number, length?: number, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
 
         /**
          * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
@@ -4420,7 +4229,7 @@ declare module "fs" {
          * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
          * @param encoding The expected string encoding.
          */
-        function __promisify__(fd: number, string: any, position?: number | null, encoding?: string | null): Promise<{ bytesWritten: number, buffer: string }>;
+        export function __promisify__(fd: number, string: any, position?: number | null, encoding?: string | null): Promise<{ bytesWritten: number, buffer: string }>;
     }
 
     /**
@@ -4430,7 +4239,7 @@ declare module "fs" {
      * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
      * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      */
-    function writeSync(fd: number, buffer: BinaryData, offset?: number | null, length?: number | null, position?: number | null): number;
+    export function writeSync(fd: number, buffer: Buffer | Uint8Array, offset?: number | null, length?: number | null, position?: number | null): number;
 
     /**
      * Synchronously writes `string` to the file referenced by the supplied file descriptor, returning the number of bytes written.
@@ -4439,7 +4248,7 @@ declare module "fs" {
      * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      * @param encoding The expected string encoding.
      */
-    function writeSync(fd: number, string: any, position?: number | null, encoding?: string | null): number;
+    export function writeSync(fd: number, string: any, position?: number | null, encoding?: string | null): number;
 
     /**
      * Asynchronously reads data from the file referenced by the supplied file descriptor.
@@ -4449,17 +4258,10 @@ declare module "fs" {
      * @param length The number of bytes to read.
      * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
      */
-    function read<TBuffer extends BinaryData>(
-        fd: number,
-        buffer: TBuffer,
-        offset: number,
-        length: number,
-        position: number | null,
-        callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void,
-    ): void;
+    export function read<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace read {
+    export namespace read {
         /**
          * @param fd A file descriptor.
          * @param buffer The buffer that the data will be written to.
@@ -4467,7 +4269,7 @@ declare module "fs" {
          * @param length The number of bytes to read.
          * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
          */
-        function __promisify__<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
+        export function __promisify__<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
     }
 
     /**
@@ -4478,7 +4280,7 @@ declare module "fs" {
      * @param length The number of bytes to read.
      * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
      */
-    function readSync(fd: number, buffer: BinaryData, offset: number, length: number, position: number | null): number;
+    export function readSync(fd: number, buffer: Buffer | Uint8Array, offset: number, length: number, position: number | null): number;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -4487,7 +4289,7 @@ declare module "fs" {
      * @param options An object that may contain an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | number, options: { encoding?: null; flag?: string; } | undefined | null, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+    export function readFile(path: PathLike | number, options: { encoding?: null; flag?: string; } | undefined | null, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -4497,7 +4299,7 @@ declare module "fs" {
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(path: PathLike | number, options: { encoding: string; flag?: string; } | string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+    export function readFile(path: PathLike | number, options: { encoding: string; flag?: string; } | string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -4507,21 +4309,17 @@ declare module "fs" {
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFile(
-        path: PathLike | number,
-        options: { encoding?: string | null; flag?: string; } | string | undefined | null,
-        callback: (err: NodeJS.ErrnoException, data: string | Buffer) => void,
-    ): void;
+    export function readFile(path: PathLike | number, options: { encoding?: string | null; flag?: string; } | string | undefined | null, callback: (err: NodeJS.ErrnoException, data: string | Buffer) => void): void;
 
     /**
      * Asynchronously reads the entire contents of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      */
-    function readFile(path: PathLike | number, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+    export function readFile(path: PathLike | number, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace readFile {
+    export namespace readFile {
         /**
          * Asynchronously reads the entire contents of a file.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -4529,7 +4327,7 @@ declare module "fs" {
          * @param options An object that may contain an optional flag.
          * If a flag is not provided, it defaults to `'r'`.
          */
-        function __promisify__(path: PathLike | number, options?: { encoding?: null; flag?: string; } | null): Promise<Buffer>;
+        export function __promisify__(path: PathLike | number, options?: { encoding?: null; flag?: string; } | null): Promise<Buffer>;
 
         /**
          * Asynchronously reads the entire contents of a file.
@@ -4539,7 +4337,7 @@ declare module "fs" {
          * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
          * If a flag is not provided, it defaults to `'r'`.
          */
-        function __promisify__(path: PathLike | number, options: { encoding: string; flag?: string; } | string): Promise<string>;
+        export function __promisify__(path: PathLike | number, options: { encoding: string; flag?: string; } | string): Promise<string>;
 
         /**
          * Asynchronously reads the entire contents of a file.
@@ -4549,7 +4347,7 @@ declare module "fs" {
          * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
          * If a flag is not provided, it defaults to `'r'`.
          */
-        function __promisify__(path: PathLike | number, options?: { encoding?: string | null; flag?: string; } | string | null): Promise<string | Buffer>;
+        export function __promisify__(path: PathLike | number, options?: { encoding?: string | null; flag?: string; } | string | null): Promise<string | Buffer>;
     }
 
     /**
@@ -4559,7 +4357,7 @@ declare module "fs" {
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param options An object that may contain an optional flag. If a flag is not provided, it defaults to `'r'`.
      */
-    function readFileSync(path: PathLike | number, options?: { encoding?: null; flag?: string; } | null): Buffer;
+    export function readFileSync(path: PathLike | number, options?: { encoding?: null; flag?: string; } | null): Buffer;
 
     /**
      * Synchronously reads the entire contents of a file.
@@ -4569,7 +4367,7 @@ declare module "fs" {
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFileSync(path: PathLike | number, options: { encoding: string; flag?: string; } | string): string;
+    export function readFileSync(path: PathLike | number, options: { encoding: string; flag?: string; } | string): string;
 
     /**
      * Synchronously reads the entire contents of a file.
@@ -4579,9 +4377,7 @@ declare module "fs" {
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    function readFileSync(path: PathLike | number, options?: { encoding?: string | null; flag?: string; } | string | null): string | Buffer;
-
-    type WriteFileOptions = { encoding?: string | null; mode?: number | string; flag?: string; } | string | null;
+    export function readFileSync(path: PathLike | number, options?: { encoding?: string | null; flag?: string; } | string | null): string | Buffer;
 
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
@@ -4595,7 +4391,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    function writeFile(path: PathLike | number, data: any, options: WriteFileOptions, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFile(path: PathLike | number, data: any, options: { encoding?: string | null; mode?: number | string; flag?: string; } | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
@@ -4604,10 +4400,10 @@ declare module "fs" {
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      */
-    function writeFile(path: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFile(path: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace writeFile {
+    export namespace writeFile {
         /**
          * Asynchronously writes data to a file, replacing the file if it already exists.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -4620,7 +4416,7 @@ declare module "fs" {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'w'` is used.
          */
-        function __promisify__(path: PathLike | number, data: any, options?: WriteFileOptions): Promise<void>;
+        export function __promisify__(path: PathLike | number, data: any, options?: { encoding?: string | null; mode?: number | string; flag?: string; } | string | null): Promise<void>;
     }
 
     /**
@@ -4635,7 +4431,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    function writeFileSync(path: PathLike | number, data: any, options?: WriteFileOptions): void;
+    export function writeFileSync(path: PathLike | number, data: any, options?: { encoding?: string | null; mode?: number | string; flag?: string; } | string | null): void;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -4649,7 +4445,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'a'` is used.
      */
-    function appendFile(file: PathLike | number, data: any, options: WriteFileOptions, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function appendFile(file: PathLike | number, data: any, options: { encoding?: string | null, mode?: string | number, flag?: string } | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -4658,10 +4454,10 @@ declare module "fs" {
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      */
-    function appendFile(file: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function appendFile(file: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace appendFile {
+    export namespace appendFile {
         /**
          * Asynchronously append data to a file, creating the file if it does not exist.
          * @param file A path to a file. If a URL is provided, it must use the `file:` protocol.
@@ -4674,7 +4470,7 @@ declare module "fs" {
          * If `mode` is a string, it is parsed as an octal integer.
          * If `flag` is not supplied, the default of `'a'` is used.
          */
-        function __promisify__(file: PathLike | number, data: any, options?: WriteFileOptions): Promise<void>;
+        export function __promisify__(file: PathLike | number, data: any, options?: { encoding?: string | null, mode?: string | number, flag?: string } | string | null): Promise<void>;
     }
 
     /**
@@ -4689,26 +4485,26 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'a'` is used.
      */
-    function appendFileSync(file: PathLike | number, data: any, options?: WriteFileOptions): void;
+    export function appendFileSync(file: PathLike | number, data: any, options?: { encoding?: string | null; mode?: number | string; flag?: string; } | string | null): void;
 
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
      */
-    function watchFile(filename: PathLike, options: { persistent?: boolean; interval?: number; } | undefined, listener: (curr: Stats, prev: Stats) => void): void;
+    export function watchFile(filename: PathLike, options: { persistent?: boolean; interval?: number; } | undefined, listener: (curr: Stats, prev: Stats) => void): void;
 
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function watchFile(filename: PathLike, listener: (curr: Stats, prev: Stats) => void): void;
+    export function watchFile(filename: PathLike, listener: (curr: Stats, prev: Stats) => void): void;
 
     /**
      * Stop watching for changes on `filename`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function unwatchFile(filename: PathLike, listener?: (curr: Stats, prev: Stats) => void): void;
+    export function unwatchFile(filename: PathLike, listener?: (curr: Stats, prev: Stats) => void): void;
 
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -4719,11 +4515,7 @@ declare module "fs" {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    function watch(
-        filename: PathLike,
-        options: { encoding?: BufferEncoding | null, persistent?: boolean, recursive?: boolean } | BufferEncoding | undefined | null,
-        listener?: (event: string, filename: string) => void,
-    ): FSWatcher;
+    export function watch(filename: PathLike, options: { encoding?: BufferEncoding | null, persistent?: boolean, recursive?: boolean } | BufferEncoding | undefined | null, listener?: (event: string, filename: string) => void): FSWatcher;
 
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -4734,7 +4526,7 @@ declare module "fs" {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    function watch(filename: PathLike, options: { encoding: "buffer", persistent?: boolean, recursive?: boolean } | "buffer", listener?: (event: string, filename: Buffer) => void): FSWatcher;
+    export function watch(filename: PathLike, options: { encoding: "buffer", persistent?: boolean, recursive?: boolean } | "buffer", listener?: (event: string, filename: Buffer) => void): FSWatcher;
 
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -4745,18 +4537,14 @@ declare module "fs" {
      * If `persistent` is not supplied, the default of `true` is used.
      * If `recursive` is not supplied, the default of `false` is used.
      */
-    function watch(
-        filename: PathLike,
-        options: { encoding?: string | null, persistent?: boolean, recursive?: boolean } | string | null,
-        listener?: (event: string, filename: string | Buffer) => void,
-    ): FSWatcher;
+    export function watch(filename: PathLike, options: { encoding?: string | null, persistent?: boolean, recursive?: boolean } | string | null, listener?: (event: string, filename: string | Buffer) => void): FSWatcher;
 
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function watch(filename: PathLike, listener?: (event: string, filename: string) => any): FSWatcher;
+    export function watch(filename: PathLike, listener?: (event: string, filename: string) => any): FSWatcher;
 
     /**
      * Asynchronously tests whether or not the given path exists by checking with the file system.
@@ -4764,10 +4552,10 @@ declare module "fs" {
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function exists(path: PathLike, callback: (exists: boolean) => void): void;
+    export function exists(path: PathLike, callback: (exists: boolean) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace exists {
+    export namespace exists {
         /**
          * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
          * URL support is _experimental_.
@@ -4780,162 +4568,147 @@ declare module "fs" {
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function existsSync(path: PathLike): boolean;
+    export function existsSync(path: PathLike): boolean;
 
-    namespace constants {
+    export namespace constants {
         // File Access Constants
 
         /** Constant for fs.access(). File is visible to the calling process. */
-        const F_OK: number;
+        export const F_OK: number;
 
         /** Constant for fs.access(). File can be read by the calling process. */
-        const R_OK: number;
+        export const R_OK: number;
 
         /** Constant for fs.access(). File can be written by the calling process. */
-        const W_OK: number;
+        export const W_OK: number;
 
         /** Constant for fs.access(). File can be executed by the calling process. */
-        const X_OK: number;
+        export const X_OK: number;
 
         // File Copy Constants
 
         /** Constant for fs.copyFile. Flag indicating the destination file should not be overwritten if it already exists. */
-        const COPYFILE_EXCL: number;
+        export const COPYFILE_EXCL: number;
 
-        /**
-         * Constant for fs.copyFile. copy operation will attempt to create a copy-on-write reflink.
-         * If the underlying platform does not support copy-on-write, then a fallback copy mechanism is used.
-         */
-        const COPYFILE_FICLONE: number;
+        /** Constant for fs.copyFile. copy operation will attempt to create a copy-on-write reflink. If the underlying platform does not support copy-on-write, then a fallback copy mechanism is used. */
+        export const COPYFILE_FICLONE: number;
 
-        /**
-         * Constant for fs.copyFile. Copy operation will attempt to create a copy-on-write reflink.
-         * If the underlying platform does not support copy-on-write, then the operation will fail with an error.
-         */
-        const COPYFILE_FICLONE_FORCE: number;
+        /** Constant for fs.copyFile. Copy operation will attempt to create a copy-on-write reflink. If the underlying platform does not support copy-on-write, then the operation will fail with an error. */
+        export const COPYFILE_FICLONE_FORCE: number;
 
         // File Open Constants
 
         /** Constant for fs.open(). Flag indicating to open a file for read-only access. */
-        const O_RDONLY: number;
+        export const O_RDONLY: number;
 
         /** Constant for fs.open(). Flag indicating to open a file for write-only access. */
-        const O_WRONLY: number;
+        export const O_WRONLY: number;
 
         /** Constant for fs.open(). Flag indicating to open a file for read-write access. */
-        const O_RDWR: number;
+        export const O_RDWR: number;
 
         /** Constant for fs.open(). Flag indicating to create the file if it does not already exist. */
-        const O_CREAT: number;
+        export const O_CREAT: number;
 
         /** Constant for fs.open(). Flag indicating that opening a file should fail if the O_CREAT flag is set and the file already exists. */
-        const O_EXCL: number;
+        export const O_EXCL: number;
 
-        /**
-         * Constant for fs.open(). Flag indicating that if path identifies a terminal device,
-         * opening the path shall not cause that terminal to become the controlling terminal for the process
-         * (if the process does not already have one).
-         */
-        const O_NOCTTY: number;
+        /** Constant for fs.open(). Flag indicating that if path identifies a terminal device, opening the path shall not cause that terminal to become the controlling terminal for the process (if the process does not already have one). */
+        export const O_NOCTTY: number;
 
         /** Constant for fs.open(). Flag indicating that if the file exists and is a regular file, and the file is opened successfully for write access, its length shall be truncated to zero. */
-        const O_TRUNC: number;
+        export const O_TRUNC: number;
 
         /** Constant for fs.open(). Flag indicating that data will be appended to the end of the file. */
-        const O_APPEND: number;
+        export const O_APPEND: number;
 
         /** Constant for fs.open(). Flag indicating that the open should fail if the path is not a directory. */
-        const O_DIRECTORY: number;
+        export const O_DIRECTORY: number;
 
-        /**
-         * constant for fs.open().
-         * Flag indicating reading accesses to the file system will no longer result in
-         * an update to the atime information associated with the file.
-         * This flag is available on Linux operating systems only.
-         */
-        const O_NOATIME: number;
+        /** Constant for fs.open(). Flag indicating reading accesses to the file system will no longer result in an update to the atime information associated with the file. This flag is available on Linux operating systems only. */
+        export const O_NOATIME: number;
 
         /** Constant for fs.open(). Flag indicating that the open should fail if the path is a symbolic link. */
-        const O_NOFOLLOW: number;
+        export const O_NOFOLLOW: number;
 
         /** Constant for fs.open(). Flag indicating that the file is opened for synchronous I/O. */
-        const O_SYNC: number;
+        export const O_SYNC: number;
 
         /** Constant for fs.open(). Flag indicating that the file is opened for synchronous I/O with write operations waiting for data integrity. */
-        const O_DSYNC: number;
+        export const O_DSYNC: number;
 
         /** Constant for fs.open(). Flag indicating to open the symbolic link itself rather than the resource it is pointing to. */
-        const O_SYMLINK: number;
+        export const O_SYMLINK: number;
 
         /** Constant for fs.open(). When set, an attempt will be made to minimize caching effects of file I/O. */
-        const O_DIRECT: number;
+        export const O_DIRECT: number;
 
         /** Constant for fs.open(). Flag indicating to open the file in nonblocking mode when possible. */
-        const O_NONBLOCK: number;
+        export const O_NONBLOCK: number;
 
         // File Type Constants
 
         /** Constant for fs.Stats mode property for determining a file's type. Bit mask used to extract the file type code. */
-        const S_IFMT: number;
+        export const S_IFMT: number;
 
         /** Constant for fs.Stats mode property for determining a file's type. File type constant for a regular file. */
-        const S_IFREG: number;
+        export const S_IFREG: number;
 
         /** Constant for fs.Stats mode property for determining a file's type. File type constant for a directory. */
-        const S_IFDIR: number;
+        export const S_IFDIR: number;
 
         /** Constant for fs.Stats mode property for determining a file's type. File type constant for a character-oriented device file. */
-        const S_IFCHR: number;
+        export const S_IFCHR: number;
 
         /** Constant for fs.Stats mode property for determining a file's type. File type constant for a block-oriented device file. */
-        const S_IFBLK: number;
+        export const S_IFBLK: number;
 
         /** Constant for fs.Stats mode property for determining a file's type. File type constant for a FIFO/pipe. */
-        const S_IFIFO: number;
+        export const S_IFIFO: number;
 
         /** Constant for fs.Stats mode property for determining a file's type. File type constant for a symbolic link. */
-        const S_IFLNK: number;
+        export const S_IFLNK: number;
 
         /** Constant for fs.Stats mode property for determining a file's type. File type constant for a socket. */
-        const S_IFSOCK: number;
+        export const S_IFSOCK: number;
 
         // File Mode Constants
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating readable, writable and executable by owner. */
-        const S_IRWXU: number;
+        export const S_IRWXU: number;
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating readable by owner. */
-        const S_IRUSR: number;
+        export const S_IRUSR: number;
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating writable by owner. */
-        const S_IWUSR: number;
+        export const S_IWUSR: number;
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating executable by owner. */
-        const S_IXUSR: number;
+        export const S_IXUSR: number;
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating readable, writable and executable by group. */
-        const S_IRWXG: number;
+        export const S_IRWXG: number;
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating readable by group. */
-        const S_IRGRP: number;
+        export const S_IRGRP: number;
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating writable by group. */
-        const S_IWGRP: number;
+        export const S_IWGRP: number;
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating executable by group. */
-        const S_IXGRP: number;
+        export const S_IXGRP: number;
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating readable, writable and executable by others. */
-        const S_IRWXO: number;
+        export const S_IRWXO: number;
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating readable by others. */
-        const S_IROTH: number;
+        export const S_IROTH: number;
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating writable by others. */
-        const S_IWOTH: number;
+        export const S_IWOTH: number;
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating executable by others. */
-        const S_IXOTH: number;
+        export const S_IXOTH: number;
     }
 
     /**
@@ -4943,23 +4716,23 @@ declare module "fs" {
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function access(path: PathLike, mode: number | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function access(path: PathLike, mode: number | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronously tests a user's permissions for the file specified by path.
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function access(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function access(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace access {
+    export namespace access {
         /**
          * Asynchronously tests a user's permissions for the file specified by path.
          * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
          * URL support is _experimental_.
          */
-        function __promisify__(path: PathLike, mode?: number): Promise<void>;
+        export function __promisify__(path: PathLike, mode?: number): Promise<void>;
     }
 
     /**
@@ -4967,14 +4740,14 @@ declare module "fs" {
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function accessSync(path: PathLike, mode?: number): void;
+    export function accessSync(path: PathLike, mode?: number): void;
 
     /**
      * Returns a new `ReadStream` object.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function createReadStream(path: PathLike, options?: string | {
+    export function createReadStream(path: PathLike, options?: string | {
         flags?: string;
         encoding?: string;
         fd?: number;
@@ -4990,7 +4763,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function createWriteStream(path: PathLike, options?: string | {
+    export function createWriteStream(path: PathLike, options?: string | {
         flags?: string;
         encoding?: string;
         fd?: number;
@@ -5003,22 +4776,22 @@ declare module "fs" {
      * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
      * @param fd A file descriptor.
      */
-    function fdatasync(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function fdatasync(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace fdatasync {
+    export namespace fdatasync {
         /**
          * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
          * @param fd A file descriptor.
          */
-        function __promisify__(fd: number): Promise<void>;
+        export function __promisify__(fd: number): Promise<void>;
     }
 
     /**
      * Synchronous fdatasync(2) - synchronize a file's in-core state with storage device.
      * @param fd A file descriptor.
      */
-    function fdatasyncSync(fd: number): void;
+    export function fdatasyncSync(fd: number): void;
 
     /**
      * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
@@ -5029,7 +4802,7 @@ declare module "fs" {
      * @param src A path to the source file.
      * @param dest A path to the destination file.
      */
-    function copyFile(src: PathLike, dest: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function copyFile(src: PathLike, dest: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
     /**
      * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
      * No arguments other than a possible exception are given to the callback function.
@@ -5040,10 +4813,10 @@ declare module "fs" {
      * @param dest A path to the destination file.
      * @param flags An integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
      */
-    function copyFile(src: PathLike, dest: PathLike, flags: number, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function copyFile(src: PathLike, dest: PathLike, flags: number, callback: (err: NodeJS.ErrnoException) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
-    namespace copyFile {
+    export namespace copyFile {
         /**
          * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
          * No arguments other than a possible exception are given to the callback function.
@@ -5052,11 +4825,9 @@ declare module "fs" {
          * to remove the destination.
          * @param src A path to the source file.
          * @param dest A path to the destination file.
-         * @param flags An optional integer that specifies the behavior of the copy operation.
-         * The only supported flag is fs.constants.COPYFILE_EXCL,
-         * which causes the copy operation to fail if dest already exists.
+         * @param flags An optional integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
          */
-        function __promisify__(src: PathLike, dst: PathLike, flags?: number): Promise<void>;
+        export function __promisify__(src: PathLike, dst: PathLike, flags?: number): Promise<void>;
     }
 
     /**
@@ -5066,12 +4837,11 @@ declare module "fs" {
      * to remove the destination.
      * @param src A path to the source file.
      * @param dest A path to the destination file.
-     * @param flags An optional integer that specifies the behavior of the copy operation.
-     * The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
+     * @param flags An optional integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
      */
-    function copyFileSync(src: PathLike, dest: PathLike, flags?: number): void;
+    export function copyFileSync(src: PathLike, dest: PathLike, flags?: number): void;
 
-    namespace promises {
+    export namespace promises {
         interface FileHandle {
             /**
              * Gets the file descriptor for this file handle.
@@ -5176,8 +4946,7 @@ declare module "fs" {
             /**
              * Asynchronously writes `string` to the file.
              * The `FileHandle` must have been opened for writing.
-             * It is unsafe to call `write()` multiple times on the same file without waiting for the `Promise`
-             * to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
+             * It is unsafe to call `write()` multiple times on the same file without waiting for the `Promise` to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
              * @param string A string to write. If something other than a string is supplied it will be coerced to a string.
              * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
              * @param encoding The expected string encoding.
@@ -5240,34 +5009,22 @@ declare module "fs" {
          * @param position The offset from the beginning of the file from which data should be read. If
          * `null`, data will be read from the current position.
          */
-        function read<TBuffer extends Buffer | Uint8Array>(
-            handle: FileHandle,
-            buffer: TBuffer,
-            offset?: number | null,
-            length?: number | null,
-            position?: number | null,
-        ): Promise<{ bytesRead: number, buffer: TBuffer }>;
+        function read<TBuffer extends Buffer | Uint8Array>(handle: FileHandle, buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
 
         /**
          * Asynchronously writes `buffer` to the file referenced by the supplied `FileHandle`.
-         * It is unsafe to call `fsPromises.write()` multiple times on the same file without waiting for the `Promise`
-         * to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
+         * It is unsafe to call `fsPromises.write()` multiple times on the same file without waiting for the `Promise` to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
          * @param handle A `FileHandle`.
          * @param buffer The buffer that the data will be written to.
          * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
          * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
          * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
          */
-        function write<TBuffer extends Buffer | Uint8Array>(
-            handle: FileHandle,
-            buffer: TBuffer,
-            offset?: number | null,
-            length?: number | null, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
+        function write<TBuffer extends Buffer | Uint8Array>(handle: FileHandle, buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
 
         /**
          * Asynchronously writes `string` to the file referenced by the supplied `FileHandle`.
-         * It is unsafe to call `fsPromises.write()` multiple times on the same file without waiting for the `Promise`
-         * to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
+         * It is unsafe to call `fsPromises.write()` multiple times on the same file without waiting for the `Promise` to be resolved (or rejected). For this scenario, `fs.createWriteStream` is strongly recommended.
          * @param handle A `FileHandle`.
          * @param string A string to write. If something other than a string is supplied it will be coerced to a string.
          * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
@@ -5564,7 +5321,7 @@ declare module "path" {
     /**
      * A parsed path object generated by path.parse() or consumed by path.format().
      */
-    interface ParsedPath {
+    export interface ParsedPath {
         /**
          * The root of the path such as '/' or 'c:\'
          */
@@ -5586,7 +5343,7 @@ declare module "path" {
          */
         name: string;
     }
-    interface FormatInputPathObject {
+    export interface FormatInputPathObject {
         /**
          * The root of the path such as '/' or 'c:\'
          */
@@ -5615,44 +5372,41 @@ declare module "path" {
      *
      * @param p string path to normalize.
      */
-    function normalize(p: string): string;
+    export function normalize(p: string): string;
     /**
      * Join all arguments together and normalize the resulting path.
      * Arguments must be strings. In v0.8, non-string arguments were silently ignored. In v0.10 and up, an exception is thrown.
      *
      * @param paths paths to join.
      */
-    function join(...paths: string[]): string;
+    export function join(...paths: string[]): string;
     /**
      * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
      *
      * Starting from leftmost {from} paramter, resolves {to} to an absolute path.
      *
-     * If {to} isn't already absolute, {from} arguments are prepended in right to left order,
-     * until an absolute path is found. If after using all {from} paths still no absolute path is found,
-     * the current working directory is used as well. The resulting path is normalized,
-     * and trailing slashes are removed unless the path gets resolved to the root directory.
+     * If {to} isn't already absolute, {from} arguments are prepended in right to left order, until an absolute path is found. If after using all {from} paths still no absolute path is found, the current working directory is used as well. The resulting path is normalized, and trailing slashes are removed unless the path gets resolved to the root directory.
      *
      * @param pathSegments string paths to join.  Non-string arguments are ignored.
      */
-    function resolve(...pathSegments: string[]): string;
+    export function resolve(...pathSegments: string[]): string;
     /**
      * Determines whether {path} is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory.
      *
      * @param path path to test.
      */
-    function isAbsolute(path: string): boolean;
+    export function isAbsolute(path: string): boolean;
     /**
      * Solve the relative path from {from} to {to}.
      * At times we have two absolute paths, and we need to derive the relative path from one to the other. This is actually the reverse transform of path.resolve.
      */
-    function relative(from: string, to: string): string;
+    export function relative(from: string, to: string): string;
     /**
      * Return the directory name of a path. Similar to the Unix dirname command.
      *
      * @param p the path to evaluate.
      */
-    function dirname(p: string): string;
+    export function dirname(p: string): string;
     /**
      * Return the last portion of a path. Similar to the Unix basename command.
      * Often used to extract the file name from a fully qualified path.
@@ -5660,72 +5414,72 @@ declare module "path" {
      * @param p the path to evaluate.
      * @param ext optionally, an extension to remove from the result.
      */
-    function basename(p: string, ext?: string): string;
+    export function basename(p: string, ext?: string): string;
     /**
      * Return the extension of the path, from the last '.' to end of string in the last portion of the path.
      * If there is no '.' in the last portion of the path or the first character of it is '.', then it returns an empty string
      *
      * @param p the path to evaluate.
      */
-    function extname(p: string): string;
+    export function extname(p: string): string;
     /**
      * The platform-specific file separator. '\\' or '/'.
      */
-    const sep: '\\' | '/';
+    export var sep: '\\' | '/';
     /**
      * The platform-specific file delimiter. ';' or ':'.
      */
-    const delimiter: ';' | ':';
+    export var delimiter: ';' | ':';
     /**
      * Returns an object from a path string - the opposite of format().
      *
      * @param pathString path to evaluate.
      */
-    function parse(pathString: string): ParsedPath;
+    export function parse(pathString: string): ParsedPath;
     /**
      * Returns a path string from an object - the opposite of parse().
      *
      * @param pathString path to evaluate.
      */
-    function format(pathObject: FormatInputPathObject): string;
+    export function format(pathObject: FormatInputPathObject): string;
 
-    namespace posix {
-        function normalize(p: string): string;
-        function join(...paths: any[]): string;
-        function resolve(...pathSegments: any[]): string;
-        function isAbsolute(p: string): boolean;
-        function relative(from: string, to: string): string;
-        function dirname(p: string): string;
-        function basename(p: string, ext?: string): string;
-        function extname(p: string): string;
-        const sep: string;
-        const delimiter: string;
-        function parse(p: string): ParsedPath;
-        function format(pP: FormatInputPathObject): string;
+    export module posix {
+        export function normalize(p: string): string;
+        export function join(...paths: any[]): string;
+        export function resolve(...pathSegments: any[]): string;
+        export function isAbsolute(p: string): boolean;
+        export function relative(from: string, to: string): string;
+        export function dirname(p: string): string;
+        export function basename(p: string, ext?: string): string;
+        export function extname(p: string): string;
+        export var sep: string;
+        export var delimiter: string;
+        export function parse(p: string): ParsedPath;
+        export function format(pP: FormatInputPathObject): string;
     }
 
-    namespace win32 {
-        function normalize(p: string): string;
-        function join(...paths: any[]): string;
-        function resolve(...pathSegments: any[]): string;
-        function isAbsolute(p: string): boolean;
-        function relative(from: string, to: string): string;
-        function dirname(p: string): string;
-        function basename(p: string, ext?: string): string;
-        function extname(p: string): string;
-        const sep: string;
-        const delimiter: string;
-        function parse(p: string): ParsedPath;
-        function format(pP: FormatInputPathObject): string;
+    export module win32 {
+        export function normalize(p: string): string;
+        export function join(...paths: any[]): string;
+        export function resolve(...pathSegments: any[]): string;
+        export function isAbsolute(p: string): boolean;
+        export function relative(from: string, to: string): string;
+        export function dirname(p: string): string;
+        export function basename(p: string, ext?: string): string;
+        export function extname(p: string): string;
+        export var sep: string;
+        export var delimiter: string;
+        export function parse(p: string): ParsedPath;
+        export function format(pP: FormatInputPathObject): string;
     }
 }
 
 declare module "string_decoder" {
-    interface NodeStringDecoder {
+    export interface NodeStringDecoder {
         write(buffer: Buffer): string;
         end(buffer?: Buffer): string;
     }
-    const StringDecoder: {
+    export var StringDecoder: {
         new(encoding?: string): NodeStringDecoder;
     };
 }
@@ -5736,10 +5490,10 @@ declare module "tls" {
     import * as net from "net";
     import * as stream from "stream";
 
-    const CLIENT_RENEG_LIMIT: number;
-    const CLIENT_RENEG_WINDOW: number;
+    var CLIENT_RENEG_LIMIT: number;
+    var CLIENT_RENEG_WINDOW: number;
 
-    interface Certificate {
+    export interface Certificate {
         /**
          * Country code.
          */
@@ -5766,7 +5520,7 @@ declare module "tls" {
         CN: string;
     }
 
-    interface PeerCertificate {
+    export interface PeerCertificate {
         subject: Certificate;
         issuer: Certificate;
         subjectaltname: string;
@@ -5781,11 +5535,11 @@ declare module "tls" {
         raw: Buffer;
     }
 
-    interface DetailedPeerCertificate extends PeerCertificate {
+    export interface DetailedPeerCertificate extends PeerCertificate {
         issuerCertificate: DetailedPeerCertificate;
     }
 
-    interface CipherNameAndProtocol {
+    export interface CipherNameAndProtocol {
         /**
          * The cipher name.
          */
@@ -5796,7 +5550,7 @@ declare module "tls" {
         version: string;
     }
 
-    class TLSSocket extends net.Socket {
+    export class TLSSocket extends net.Socket {
         /**
          * Construct a new tls.TLSSocket object from an existing TCP socket.
          */
@@ -5965,7 +5719,7 @@ declare module "tls" {
         prependOnceListener(event: "secureConnect", listener: () => void): this;
     }
 
-    interface TlsOptions extends SecureContextOptions {
+    export interface TlsOptions extends SecureContextOptions {
         handshakeTimeout?: number;
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
@@ -5976,7 +5730,7 @@ declare module "tls" {
         ticketKeys?: Buffer;
     }
 
-    interface ConnectionOptions extends SecureContextOptions {
+    export interface ConnectionOptions extends SecureContextOptions {
         host?: string;
         port?: number;
         path?: string; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
@@ -5992,7 +5746,7 @@ declare module "tls" {
         lookup?: net.LookupFunction;
     }
 
-    class Server extends net.Server {
+    export class Server extends net.Server {
         addContext(hostName: string, credentials: {
             key: string;
             cert: string;
@@ -6050,12 +5804,12 @@ declare module "tls" {
         prependOnceListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
     }
 
-    interface SecurePair {
+    export interface SecurePair {
         encrypted: any;
         cleartext: any;
     }
 
-    interface SecureContextOptions {
+    export interface SecureContextOptions {
         pfx?: string | Buffer | Array<string | Buffer | Object>;
         key?: string | Buffer | Array<Buffer | Object>;
         passphrase?: string;
@@ -6072,7 +5826,7 @@ declare module "tls" {
         sessionIdContext?: string;
     }
 
-    interface SecureContext {
+    export interface SecureContext {
         context: any;
     }
 
@@ -6083,35 +5837,35 @@ declare module "tls" {
      *
      * Returns Error object, populating it with the reason, host and cert on failure.  On success, returns undefined.
      */
-    function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
-    function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
-    function connect(options: ConnectionOptions, secureConnectionListener?: () => void): TLSSocket;
-    function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
-    function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
-    function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
-    function createSecureContext(details: SecureContextOptions): SecureContext;
-    function getCiphers(): string[];
+    export function checkServerIdentity(host: string, cert: PeerCertificate): Error | undefined;
+    export function createServer(options: TlsOptions, secureConnectionListener?: (socket: TLSSocket) => void): Server;
+    export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): TLSSocket;
+    export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
+    export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
+    export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
+    export function createSecureContext(details: SecureContextOptions): SecureContext;
+    export function getCiphers(): string[];
 
-    const DEFAULT_ECDH_CURVE: string;
+    export var DEFAULT_ECDH_CURVE: string;
 }
 
 declare module "crypto" {
     import * as stream from "stream";
 
-    interface Certificate {
+    export interface Certificate {
         exportChallenge(spkac: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
         exportPublicKey(spkac: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
         verifySpkac(spkac: Buffer | NodeJS.TypedArray | DataView): boolean;
     }
-    const Certificate: {
+    export var Certificate: {
         new(): Certificate;
         (): Certificate;
     };
 
     /** @deprecated since v10.0.0 */
-    const fips: boolean;
+    export var fips: boolean;
 
-    interface CredentialDetails {
+    export interface CredentialDetails {
         pfx: string;
         key: string;
         passphrase: string;
@@ -6120,10 +5874,10 @@ declare module "crypto" {
         crl: string | string[];
         ciphers: string;
     }
-    interface Credentials { context?: any; }
-    function createCredentials(details: CredentialDetails): Credentials;
-    function createHash(algorithm: string, options?: stream.TransformOptions): Hash;
-    function createHmac(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Hmac;
+    export interface Credentials { context?: any; }
+    export function createCredentials(details: CredentialDetails): Credentials;
+    export function createHash(algorithm: string, options?: stream.TransformOptions): Hash;
+    export function createHmac(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Hmac;
 
     type Utf8AsciiLatin1Encoding = "utf8" | "ascii" | "latin1";
     type HexBase64Latin1Encoding = "latin1" | "hex" | "base64";
@@ -6131,38 +5885,38 @@ declare module "crypto" {
     type HexBase64BinaryEncoding = "binary" | "base64" | "hex";
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
 
-    interface Hash extends NodeJS.ReadWriteStream {
+    export interface Hash extends NodeJS.ReadWriteStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Hash;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
-    interface Hmac extends NodeJS.ReadWriteStream {
+    export interface Hmac extends NodeJS.ReadWriteStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Hmac;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
         digest(): Buffer;
         digest(encoding: HexBase64Latin1Encoding): string;
     }
-    type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm';
-    type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
-    interface CipherCCMOptions extends stream.TransformOptions {
+    export type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm';
+    export type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
+    export interface CipherCCMOptions extends stream.TransformOptions {
         authTagLength: number;
     }
-    interface CipherGCMOptions extends stream.TransformOptions {
+    export interface CipherGCMOptions extends stream.TransformOptions {
         authTagLength?: number;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    function createCipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
+    export function createCipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
     /** @deprecated since v10.0.0 use createCipheriv() */
-    function createCipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): CipherGCM;
+    export function createCipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): CipherGCM;
     /** @deprecated since v10.0.0 use createCipheriv() */
-    function createCipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
+    export function createCipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
 
-    function createCipheriv(algorithm: CipherCCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
-    function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): CipherGCM;
-    function createCipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
+    export function createCipheriv(algorithm: CipherCCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): CipherCCM;
+    export function createCipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): CipherGCM;
+    export function createCipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Cipher;
 
-    interface Cipher extends NodeJS.ReadWriteStream {
+    export interface Cipher extends NodeJS.ReadWriteStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Buffer;
         update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
         update(data: Buffer | NodeJS.TypedArray | DataView, output_encoding: HexBase64BinaryEncoding): string;
@@ -6175,36 +5929,26 @@ declare module "crypto" {
         // getAuthTag(): Buffer;
         // setAAD(buffer: Buffer): this; // docs only say buffer
     }
-    interface CipherCCM extends Cipher {
+    export interface CipherCCM extends Cipher {
         setAAD(buffer: Buffer, options: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
-    interface CipherGCM extends Cipher {
+    export interface CipherGCM extends Cipher {
         setAAD(buffer: Buffer, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
     /** @deprecated since v10.0.0 use createCipheriv() */
-    function createDecipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
+    export function createDecipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
     /** @deprecated since v10.0.0 use createCipheriv() */
-    function createDecipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): DecipherGCM;
+    export function createDecipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): DecipherGCM;
     /** @deprecated since v10.0.0 use createCipheriv() */
-    function createDecipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
+    export function createDecipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
 
-    function createDecipheriv(
-        algorithm: CipherCCMTypes,
-        key: string | Buffer | NodeJS.TypedArray | DataView,
-        iv: string | Buffer | NodeJS.TypedArray | DataView,
-        options: CipherCCMOptions,
-    ): DecipherCCM;
-    function createDecipheriv(
-        algorithm: CipherGCMTypes,
-        key: string | Buffer | NodeJS.TypedArray | DataView,
-        iv: string | Buffer | NodeJS.TypedArray | DataView,
-        options?: CipherGCMOptions,
-    ): DecipherGCM;
-    function createDecipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
+    export function createDecipheriv(algorithm: CipherCCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
+    export function createDecipheriv(algorithm: CipherGCMTypes, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): DecipherGCM;
+    export function createDecipheriv(algorithm: string, key: string | Buffer | NodeJS.TypedArray | DataView, iv: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
 
-    interface Decipher extends NodeJS.ReadWriteStream {
+    export interface Decipher extends NodeJS.ReadWriteStream {
         update(data: Buffer | NodeJS.TypedArray | DataView): Buffer;
         update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
         update(data: Buffer | NodeJS.TypedArray | DataView, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
@@ -6216,24 +5960,24 @@ declare module "crypto" {
         // setAuthTag(tag: Buffer | NodeJS.TypedArray | DataView): this;
         // setAAD(buffer: Buffer | NodeJS.TypedArray | DataView): this;
     }
-    interface DecipherCCM extends Decipher {
+    export interface DecipherCCM extends Decipher {
         setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView): this;
         setAAD(buffer: Buffer | NodeJS.TypedArray | DataView, options: { plaintextLength: number }): this;
     }
-    interface DecipherGCM extends Decipher {
+    export interface DecipherGCM extends Decipher {
         setAuthTag(buffer: Buffer | NodeJS.TypedArray | DataView): this;
         setAAD(buffer: Buffer | NodeJS.TypedArray | DataView, options?: { plaintextLength: number }): this;
     }
 
-    function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
-    interface Signer extends NodeJS.WritableStream {
+    export function createSign(algorithm: string, options?: stream.WritableOptions): Signer;
+    export interface Signer extends NodeJS.WritableStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Signer;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Signer;
         sign(private_key: string | { key: string; passphrase: string, padding?: number, saltLength?: number }): Buffer;
         sign(private_key: string | { key: string; passphrase: string, padding?: number, saltLength?: number }, output_format: HexBase64Latin1Encoding): string;
     }
-    function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
-    interface Verify extends NodeJS.WritableStream {
+    export function createVerify(algorith: string, options?: stream.WritableOptions): Verify;
+    export interface Verify extends NodeJS.WritableStream {
         update(data: string | Buffer | NodeJS.TypedArray | DataView): Verify;
         update(data: string, input_encoding: Utf8AsciiLatin1Encoding): Verify;
         verify(object: string | Object, signature: Buffer | NodeJS.TypedArray | DataView): boolean;
@@ -6241,12 +5985,12 @@ declare module "crypto" {
         // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
         // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
-    function createDiffieHellman(prime_length: number, generator?: number | Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
-    function createDiffieHellman(prime: Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
-    function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding): DiffieHellman;
-    function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: number | Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
-    function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: string, generator_encoding: HexBase64Latin1Encoding): DiffieHellman;
-    interface DiffieHellman {
+    export function createDiffieHellman(prime_length: number, generator?: number | Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
+    export function createDiffieHellman(prime: Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
+    export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding): DiffieHellman;
+    export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: number | Buffer | NodeJS.TypedArray | DataView): DiffieHellman;
+    export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: string, generator_encoding: HexBase64Latin1Encoding): DiffieHellman;
+    export interface DiffieHellman {
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding): string;
         computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView): Buffer;
@@ -6267,71 +6011,48 @@ declare module "crypto" {
         setPrivateKey(private_key: string, encoding: string): void;
         verifyError: number;
     }
-    function getDiffieHellman(group_name: string): DiffieHellman;
-    function pbkdf2(
-        password: string | Buffer | NodeJS.TypedArray | DataView,
-        salt: string | Buffer | NodeJS.TypedArray | DataView,
-        iterations: number,
-        keylen: number,
-        digest: string,
-        callback: (err: Error | null, derivedKey: Buffer) => any,
-    ): void;
-    function pbkdf2Sync(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, iterations: number, keylen: number, digest: string): Buffer;
+    export function getDiffieHellman(group_name: string): DiffieHellman;
+    export function pbkdf2(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, iterations: number, keylen: number, digest: string, callback: (err: Error | null, derivedKey: Buffer) => any): void;
+    export function pbkdf2Sync(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, iterations: number, keylen: number, digest: string): Buffer;
 
-    function randomBytes(size: number): Buffer;
-    function randomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
-    function pseudoRandomBytes(size: number): Buffer;
-    function pseudoRandomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
+    export function randomBytes(size: number): Buffer;
+    export function randomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
+    export function pseudoRandomBytes(size: number): Buffer;
+    export function pseudoRandomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
 
-    function randomFillSync<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset?: number, size?: number): T;
-    function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
-    function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;
-    function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset: number, size: number, callback: (err: Error | null, buf: T) => void): void;
+    export function randomFillSync<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset?: number, size?: number): T;
+    export function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, callback: (err: Error | null, buf: T) => void): void;
+    export function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset: number, callback: (err: Error | null, buf: T) => void): void;
+    export function randomFill<T extends Buffer | NodeJS.TypedArray | DataView>(buffer: T, offset: number, size: number, callback: (err: Error | null, buf: T) => void): void;
 
-    interface ScryptOptions {
+    export interface ScryptOptions {
         N?: number;
         r?: number;
         p?: number;
         maxmem?: number;
     }
-    function scrypt(
-        password: string | Buffer | NodeJS.TypedArray | DataView,
-        salt: string | Buffer | NodeJS.TypedArray | DataView,
-        keylen: number, callback: (err: Error | null, derivedKey: Buffer) => void,
-    ): void;
-    function scrypt(
-        password: string | Buffer | NodeJS.TypedArray | DataView,
-        salt: string | Buffer | NodeJS.TypedArray | DataView,
-        keylen: number,
-        options: ScryptOptions,
-        callback: (err: Error | null, derivedKey: Buffer) => void,
-    ): void;
-    function scryptSync(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, keylen: number, options?: ScryptOptions): Buffer;
+    export function scrypt(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, keylen: number, callback: (err: Error | null, derivedKey: Buffer) => void): void;
+    export function scrypt(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, keylen: number, options: ScryptOptions, callback: (err: Error | null, derivedKey: Buffer) => void): void;
+    export function scryptSync(password: string | Buffer | NodeJS.TypedArray | DataView, salt: string | Buffer | NodeJS.TypedArray | DataView, keylen: number, options?: ScryptOptions): Buffer;
 
-    interface RsaPublicKey {
+    export interface RsaPublicKey {
         key: string;
         padding?: number;
     }
-    interface RsaPrivateKey {
+    export interface RsaPrivateKey {
         key: string;
         passphrase?: string;
         padding?: number;
     }
-    function publicEncrypt(public_key: string | RsaPublicKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
-    function privateDecrypt(private_key: string | RsaPrivateKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
-    function privateEncrypt(private_key: string | RsaPrivateKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
-    function publicDecrypt(public_key: string | RsaPublicKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
-    function getCiphers(): string[];
-    function getCurves(): string[];
-    function getHashes(): string[];
-    class ECDH {
-        static convertKey(
-            key: string | Buffer | NodeJS.TypedArray | DataView,
-            curve: string,
-            inputEncoding?: HexBase64Latin1Encoding,
-            outputEncoding?: "latin1" | "hex" | "base64",
-            format?: "uncompressed" | "compressed" | "hybrid",
-        ): Buffer | string;
+    export function publicEncrypt(public_key: string | RsaPublicKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    export function privateDecrypt(private_key: string | RsaPrivateKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    export function privateEncrypt(private_key: string | RsaPrivateKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    export function publicDecrypt(public_key: string | RsaPublicKey, buffer: Buffer | NodeJS.TypedArray | DataView): Buffer;
+    export function getCiphers(): string[];
+    export function getCurves(): string[];
+    export function getHashes(): string[];
+    export class ECDH {
+        static convertKey(key: string | Buffer | NodeJS.TypedArray | DataView, curve: string, inputEncoding?: HexBase64Latin1Encoding, outputEncoding?: "latin1" | "hex" | "base64", format?: "uncompressed" | "compressed" | "hybrid"): Buffer | string;
         generateKeys(): Buffer;
         generateKeys(encoding: HexBase64Latin1Encoding, format?: ECDHKeyFormat): string;
         computeSecret(other_public_key: Buffer | NodeJS.TypedArray | DataView): Buffer;
@@ -6345,10 +6066,10 @@ declare module "crypto" {
         setPrivateKey(private_key: Buffer | NodeJS.TypedArray | DataView): void;
         setPrivateKey(private_key: string, encoding: HexBase64Latin1Encoding): void;
     }
-    function createECDH(curve_name: string): ECDH;
-    function timingSafeEqual(a: Buffer | NodeJS.TypedArray | DataView, b: Buffer | NodeJS.TypedArray | DataView): boolean;
+    export function createECDH(curve_name: string): ECDH;
+    export function timingSafeEqual(a: Buffer | NodeJS.TypedArray | DataView, b: Buffer | NodeJS.TypedArray | DataView): boolean;
     /** @deprecated since v10.0.0 */
-    const DEFAULT_ENCODING: string;
+    export var DEFAULT_ENCODING: string;
 }
 
 declare module "stream" {
@@ -6359,9 +6080,9 @@ declare module "stream" {
     }
 
     namespace internal {
-        class Stream extends internal { }
+        export class Stream extends internal { }
 
-        interface ReadableOptions {
+        export interface ReadableOptions {
             highWaterMark?: number;
             encoding?: string;
             objectMode?: boolean;
@@ -6369,7 +6090,7 @@ declare module "stream" {
             destroy?(this: Readable, error: Error | null, callback: (error: Error | null) => void): void;
         }
 
-        class Readable extends Stream implements NodeJS.ReadableStream {
+        export class Readable extends Stream implements NodeJS.ReadableStream {
             readable: boolean;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;
@@ -6380,7 +6101,7 @@ declare module "stream" {
             pause(): this;
             resume(): this;
             isPaused(): boolean;
-            unpipe(destination?: NodeJS.WritableStream): this;
+            unpipe<T extends NodeJS.WritableStream>(destination?: T): this;
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
@@ -6448,7 +6169,7 @@ declare module "stream" {
             [Symbol.asyncIterator](): AsyncIterableIterator<any>;
         }
 
-        interface WritableOptions {
+        export interface WritableOptions {
             highWaterMark?: number;
             decodeStrings?: boolean;
             objectMode?: boolean;
@@ -6458,7 +6179,7 @@ declare module "stream" {
             final?(this: Writable, callback: (error?: Error | null) => void): void;
         }
 
-        class Writable extends Stream implements NodeJS.WritableStream {
+        export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
@@ -6544,7 +6265,7 @@ declare module "stream" {
             removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
         }
 
-        interface DuplexOptions extends ReadableOptions, WritableOptions {
+        export interface DuplexOptions extends ReadableOptions, WritableOptions {
             allowHalfOpen?: boolean;
             readableObjectMode?: boolean;
             writableObjectMode?: boolean;
@@ -6556,7 +6277,7 @@ declare module "stream" {
         }
 
         // Note: Duplex extends both Readable and Writable.
-        class Duplex extends Readable implements Writable {
+        export class Duplex extends Readable implements Writable {
             writable: boolean;
             readonly writableHighWaterMark: number;
             readonly writableLength: number;
@@ -6577,7 +6298,7 @@ declare module "stream" {
 
         type TransformCallback = (error?: Error, data?: any) => void;
 
-        interface TransformOptions extends DuplexOptions {
+        export interface TransformOptions extends DuplexOptions {
             read?(this: Transform, size: number): void;
             write?(this: Transform, chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
             writev?(this: Transform, chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -6587,59 +6308,27 @@ declare module "stream" {
             flush?(this: Transform, callback: TransformCallback): void;
         }
 
-        class Transform extends Duplex {
+        export class Transform extends Duplex {
             constructor(opts?: TransformOptions);
             _transform(chunk: any, encoding: string, callback: TransformCallback): void;
             _flush(callback: TransformCallback): void;
         }
 
-        class PassThrough extends Transform { }
+        export class PassThrough extends Transform { }
 
-        function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, callback: (err?: NodeJS.ErrnoException) => void): () => void;
-        namespace finished {
-            function __promisify__(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream): Promise<void>;
-        }
-
-        function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: T, callback?: (err: NodeJS.ErrnoException) => void): T;
-        function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: T, callback?: (err: NodeJS.ErrnoException) => void): T;
-        function pipeline<T extends NodeJS.WritableStream>(
-            stream1: NodeJS.ReadableStream,
-            stream2: NodeJS.ReadWriteStream,
-            stream3: NodeJS.ReadWriteStream,
-            stream4: T,
-            callback?: (err: NodeJS.ErrnoException) => void,
-        ): T;
-        function pipeline<T extends NodeJS.WritableStream>(
-            stream1: NodeJS.ReadableStream,
-            stream2: NodeJS.ReadWriteStream,
-            stream3: NodeJS.ReadWriteStream,
-            stream4: NodeJS.ReadWriteStream,
-            stream5: T,
-            callback?: (err: NodeJS.ErrnoException) => void,
-        ): T;
-        function pipeline(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>, callback?: (err: NodeJS.ErrnoException) => void): NodeJS.WritableStream;
-        function pipeline(
-            stream1: NodeJS.ReadableStream,
-            stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,
-            ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | ((err: NodeJS.ErrnoException) => void)>,
-        ): NodeJS.WritableStream;
-        namespace pipeline {
-            function __promisify__(stream1: NodeJS.ReadableStream, stream2: NodeJS.WritableStream): Promise<void>;
-            function __promisify__(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: NodeJS.WritableStream): Promise<void>;
-            function __promisify__(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: NodeJS.ReadWriteStream, stream4: NodeJS.WritableStream): Promise<void>;
-            function __promisify__(
-                stream1: NodeJS.ReadableStream,
-                stream2: NodeJS.ReadWriteStream,
-                stream3: NodeJS.ReadWriteStream,
-                stream4: NodeJS.ReadWriteStream,
-                stream5: NodeJS.WritableStream,
-            ): Promise<void>;
-            function __promisify__(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
-            function __promisify__(
-                stream1: NodeJS.ReadableStream,
-                stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,
-                ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream>,
-            ): Promise<void>;
+        export function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: T, callback?: (err: NodeJS.ErrnoException) => void): T;
+        export function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: T, callback?: (err: NodeJS.ErrnoException) => void): T;
+        export function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: NodeJS.ReadWriteStream, stream4: T, callback?: (err: NodeJS.ErrnoException) => void): T;
+        export function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: NodeJS.ReadWriteStream, stream4: NodeJS.ReadWriteStream, stream5: T, callback?: (err: NodeJS.ErrnoException) => void): T;
+        export function pipeline(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>, callback?: (err: NodeJS.ErrnoException) => void): NodeJS.WritableStream;
+        export function pipeline(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream, ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream | ((err: NodeJS.ErrnoException) => void)>): NodeJS.WritableStream;
+        export namespace pipeline {
+            export function __promisify__<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: T): Promise<void>;
+            export function __promisify__<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: T): Promise<void>;
+            export function __promisify__<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: NodeJS.ReadWriteStream, stream4: T): Promise<void>;
+            export function __promisify__<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream, stream3: NodeJS.ReadWriteStream, stream4: NodeJS.ReadWriteStream, stream5: T): Promise<void>;
+            export function __promisify__(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
+            export function __promisify__(stream1: NodeJS.ReadableStream, stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream, ...streams: Array<NodeJS.ReadWriteStream | NodeJS.WritableStream>): Promise<void>;
         }
     }
 
@@ -6647,20 +6336,20 @@ declare module "stream" {
 }
 
 declare module "util" {
-    interface InspectOptions extends NodeJS.InspectOptions { }
-    function format(format: any, ...param: any[]): string;
-    function formatWithOptions(inspectOptions: InspectOptions, format: string, ...param: any[]): string;
+    export interface InspectOptions extends NodeJS.InspectOptions { }
+    export function format(format: any, ...param: any[]): string;
+    export function formatWithOptions(inspectOptions: InspectOptions, format: string, ...param: any[]): string;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */
-    function debug(string: string): void;
+    export function debug(string: string): void;
     /** @deprecated since v0.11.3 - use `console.error()` instead. */
-    function error(...param: any[]): void;
+    export function error(...param: any[]): void;
     /** @deprecated since v0.11.3 - use `console.log()` instead. */
-    function puts(...param: any[]): void;
+    export function puts(...param: any[]): void;
     /** @deprecated since v0.11.3 - use `console.log()` instead. */
-    function print(...param: any[]): void;
+    export function print(...param: any[]): void;
     /** @deprecated since v0.11.3 - use a third party module instead. */
-    function log(string: string): void;
-    const inspect: {
+    export function log(string: string): void;
+    export var inspect: {
         (object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
         (object: any, options: InspectOptions): string;
         colors: {
@@ -6673,133 +6362,116 @@ declare module "util" {
         custom: symbol;
     };
     /** @deprecated since v4.0.0 - use `Array.isArray()` instead. */
-    function isArray(object: any): object is any[];
+    export function isArray(object: any): object is any[];
     /** @deprecated since v4.0.0 - use `util.types.isRegExp()` instead. */
-    function isRegExp(object: any): object is RegExp;
+    export function isRegExp(object: any): object is RegExp;
     /** @deprecated since v4.0.0 - use `util.types.isDate()` instead. */
-    function isDate(object: any): object is Date;
+    export function isDate(object: any): object is Date;
     /** @deprecated since v4.0.0 - use `util.types.isNativeError()` instead. */
-    function isError(object: any): object is Error;
-    function inherits(constructor: any, superConstructor: any): void;
-    function debuglog(key: string): (msg: string, ...param: any[]) => void;
+    export function isError(object: any): object is Error;
+    export function inherits(constructor: any, superConstructor: any): void;
+    export function debuglog(key: string): (msg: string, ...param: any[]) => void;
     /** @deprecated since v4.0.0 - use `typeof value === 'boolean'` instead. */
-    function isBoolean(object: any): object is boolean;
+    export function isBoolean(object: any): object is boolean;
     /** @deprecated since v4.0.0 - use `Buffer.isBuffer()` instead. */
-    function isBuffer(object: any): object is Buffer;
+    export function isBuffer(object: any): object is Buffer;
     /** @deprecated since v4.0.0 - use `typeof value === 'function'` instead. */
-    function isFunction(object: any): boolean;
+    export function isFunction(object: any): boolean;
     /** @deprecated since v4.0.0 - use `value === null` instead. */
-    function isNull(object: any): object is null;
+    export function isNull(object: any): object is null;
     /** @deprecated since v4.0.0 - use `value === null || value === undefined` instead. */
-    function isNullOrUndefined(object: any): object is null | undefined;
+    export function isNullOrUndefined(object: any): object is null | undefined;
     /** @deprecated since v4.0.0 - use `typeof value === 'number'` instead. */
-    function isNumber(object: any): object is number;
+    export function isNumber(object: any): object is number;
     /** @deprecated since v4.0.0 - use `value !== null && typeof value === 'object'` instead. */
-    function isObject(object: any): boolean;
+    export function isObject(object: any): boolean;
     /** @deprecated since v4.0.0 - use `(typeof value !== 'object' && typeof value !== 'function') || value === null` instead. */
-    function isPrimitive(object: any): boolean;
+    export function isPrimitive(object: any): boolean;
     /** @deprecated since v4.0.0 - use `typeof value === 'string'` instead. */
-    function isString(object: any): object is string;
+    export function isString(object: any): object is string;
     /** @deprecated since v4.0.0 - use `typeof value === 'symbol'` instead. */
-    function isSymbol(object: any): object is symbol;
+    export function isSymbol(object: any): object is symbol;
     /** @deprecated since v4.0.0 - use `value === undefined` instead. */
-    function isUndefined(object: any): object is undefined;
-    function deprecate<T extends Function>(fn: T, message: string): T;
-    function isDeepStrictEqual(val1: any, val2: any): boolean;
+    export function isUndefined(object: any): object is undefined;
+    export function deprecate<T extends Function>(fn: T, message: string): T;
+    export function isDeepStrictEqual(val1: any, val2: any): boolean;
 
-    interface CustomPromisify<TCustom extends Function> extends Function {
+    export interface CustomPromisify<TCustom extends Function> extends Function {
         __promisify__: TCustom;
     }
 
-    function callbackify(fn: () => Promise<void>): (callback: (err: NodeJS.ErrnoException) => void) => void;
-    function callbackify<TResult>(fn: () => Promise<TResult>): (callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
-    function callbackify<T1>(fn: (arg1: T1) => Promise<void>): (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void;
-    function callbackify<T1, TResult>(fn: (arg1: T1) => Promise<TResult>): (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
-    function callbackify<T1, T2>(fn: (arg1: T1, arg2: T2) => Promise<void>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void;
-    function callbackify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2) => Promise<TResult>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
-    function callbackify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void;
-    function callbackify<T1, T2, T3, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
-    function callbackify<T1, T2, T3, T4>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException) => void) => void;
-    function callbackify<T1, T2, T3, T4, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
-    function callbackify<T1, T2, T3, T4, T5>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException) => void) => void;
-    function callbackify<T1, T2, T3, T4, T5, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>,
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
-    function callbackify<T1, T2, T3, T4, T5, T6>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<void>,
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException) => void) => void;
-    function callbackify<T1, T2, T3, T4, T5, T6, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<TResult>
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify(fn: () => Promise<void>): (callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<TResult>(fn: () => Promise<TResult>): (callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1>(fn: (arg1: T1) => Promise<void>): (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, TResult>(fn: (arg1: T1) => Promise<TResult>): (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2>(fn: (arg1: T1, arg2: T2) => Promise<void>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2) => Promise<TResult>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3, T4, T5, T6>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, T3, T4, T5, T6, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<TResult>): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
 
-    function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
-    function promisify<TResult>(fn: (callback: (err: Error | null, result: TResult) => void) => void): () => Promise<TResult>;
-    function promisify(fn: (callback: (err?: Error | null) => void) => void): () => Promise<void>;
-    function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
-    function promisify<T1>(fn: (arg1: T1, callback: (err?: Error | null) => void) => void): (arg1: T1) => Promise<void>;
-    function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
-    function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
-    function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
-    function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
-    function promisify<T1, T2, T3, T4, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error | null, result: TResult) => void) => void,
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
-    function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
-    function promisify<T1, T2, T3, T4, T5, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error | null, result: TResult) => void) => void,
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
-    function promisify<T1, T2, T3, T4, T5>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: Error | null) => void) => void,
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
-    function promisify(fn: Function): Function;
-    namespace promisify {
+    export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
+    export function promisify<TResult>(fn: (callback: (err: Error | null, result: TResult) => void) => void): () => Promise<TResult>;
+    export function promisify(fn: (callback: (err?: Error | null) => void) => void): () => Promise<void>;
+    export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
+    export function promisify<T1>(fn: (arg1: T1, callback: (err?: Error | null) => void) => void): (arg1: T1) => Promise<void>;
+    export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
+    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
+    export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
+    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
+    export function promisify(fn: Function): Function;
+    export namespace promisify {
         const custom: symbol;
     }
 
-    namespace types {
-        function isAnyArrayBuffer(object: any): boolean;
-        function isArgumentsObject(object: any): object is IArguments;
-        function isArrayBuffer(object: any): object is ArrayBuffer;
-        function isAsyncFunction(object: any): boolean;
-        function isBooleanObject(object: any): object is Boolean;
-        function isBoxedPrimitive(object: any): object is (Number | Boolean | String | Symbol /* BigInt */);
-        function isDataView(object: any): object is DataView;
-        function isDate(object: any): object is Date;
-        function isExternal(object: any): boolean;
-        function isFloat32Array(object: any): object is Float32Array;
-        function isFloat64Array(object: any): object is Float64Array;
-        function isGeneratorFunction(object: any): boolean;
-        function isGeneratorObject(object: any): boolean;
-        function isInt8Array(object: any): object is Int8Array;
-        function isInt16Array(object: any): object is Int16Array;
-        function isInt32Array(object: any): object is Int32Array;
-        function isMap(object: any): boolean;
-        function isMapIterator(object: any): boolean;
-        function isNativeError(object: any): object is Error;
-        function isNumberObject(object: any): object is Number;
-        function isPromise(object: any): boolean;
-        function isProxy(object: any): boolean;
-        function isRegExp(object: any): object is RegExp;
-        function isSet(object: any): boolean;
-        function isSetIterator(object: any): boolean;
-        function isSharedArrayBuffer(object: any): boolean;
-        function isStringObject(object: any): boolean;
-        function isSymbolObject(object: any): boolean;
-        function isTypedArray(object: any): object is NodeJS.TypedArray;
-        function isUint8Array(object: any): object is Uint8Array;
-        function isUint8ClampedArray(object: any): object is Uint8ClampedArray;
-        function isUint16Array(object: any): object is Uint16Array;
-        function isUint32Array(object: any): object is Uint32Array;
-        function isWeakMap(object: any): boolean;
-        function isWeakSet(object: any): boolean;
-        function isWebAssemblyCompiledModule(object: any): boolean;
+    export namespace types {
+        export function isAnyArrayBuffer(object: any): boolean;
+        export function isArgumentsObject(object: any): object is IArguments;
+        export function isArrayBuffer(object: any): object is ArrayBuffer;
+        export function isAsyncFunction(object: any): boolean;
+        export function isBooleanObject(object: any): object is Boolean;
+        export function isDataView(object: any): object is DataView;
+        export function isDate(object: any): object is Date;
+        export function isExternal(object: any): boolean;
+        export function isFloat32Array(object: any): object is Float32Array;
+        export function isFloat64Array(object: any): object is Float64Array;
+        export function isGeneratorFunction(object: any): boolean;
+        export function isGeneratorObject(object: any): boolean;
+        export function isInt8Array(object: any): object is Int8Array;
+        export function isInt16Array(object: any): object is Int16Array;
+        export function isInt32Array(object: any): object is Int32Array;
+        export function isMap(object: any): boolean;
+        export function isMapIterator(object: any): boolean;
+        export function isNativeError(object: any): object is Error;
+        export function isNumberObject(object: any): object is Number;
+        export function isPromise(object: any): boolean;
+        export function isProxy(object: any): boolean;
+        export function isRegExp(object: any): object is RegExp;
+        export function isSet(object: any): boolean;
+        export function isSetIterator(object: any): boolean;
+        export function isSharedArrayBuffer(object: any): boolean;
+        export function isStringObject(object: any): boolean;
+        export function isSymbolObject(object: any): boolean;
+        export function isTypedArray(object: any): object is NodeJS.TypedArray;
+        export function isUint8Array(object: any): object is Uint8Array;
+        export function isUint8ClampedArray(object: any): object is Uint8ClampedArray;
+        export function isUint16Array(object: any): object is Uint16Array;
+        export function isUint32Array(object: any): object is Uint32Array;
+        export function isWeakMap(object: any): boolean;
+        export function isWeakSet(object: any): boolean;
+        export function isWebAssemblyCompiledModule(object: any): boolean;
     }
 
-    class TextDecoder {
+    export class TextDecoder {
         readonly encoding: string;
         readonly fatal: boolean;
         readonly ignoreBOM: boolean;
@@ -6813,7 +6485,7 @@ declare module "util" {
         ): string;
     }
 
-    class TextEncoder {
+    export class TextEncoder {
         readonly encoding: string;
         constructor();
         encode(input?: string): Uint8Array;
@@ -6823,7 +6495,7 @@ declare module "util" {
 declare module "assert" {
     function internal(value: any, message?: string | Error): void;
     namespace internal {
-        class AssertionError implements Error {
+        export class AssertionError implements Error {
             name: string;
             message: string;
             actual: any;
@@ -6838,36 +6510,36 @@ declare module "assert" {
             });
         }
 
-        function fail(message?: string | Error): never;
+        export function fail(message?: string | Error): never;
         /** @deprecated since v10.0.0 - use fail([message]) or other assert functions instead. */
-        function fail(actual: any, expected: any, message?: string | Error, operator?: string, stackStartFn?: Function): never;
-        function ok(value: any, message?: string | Error): void;
+        export function fail(actual: any, expected: any, message?: string | Error, operator?: string, stackStartFn?: Function): never;
+        export function ok(value: any, message?: string | Error): void;
         /** @deprecated since v9.9.0 - use strictEqual() instead. */
-        function equal(actual: any, expected: any, message?: string | Error): void;
+        export function equal(actual: any, expected: any, message?: string | Error): void;
         /** @deprecated since v9.9.0 - use notStrictEqual() instead. */
-        function notEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notEqual(actual: any, expected: any, message?: string | Error): void;
         /** @deprecated since v9.9.0 - use deepStrictEqual() instead. */
-        function deepEqual(actual: any, expected: any, message?: string | Error): void;
+        export function deepEqual(actual: any, expected: any, message?: string | Error): void;
         /** @deprecated since v9.9.0 - use notDeepStrictEqual() instead. */
-        function notDeepEqual(actual: any, expected: any, message?: string | Error): void;
-        function strictEqual(actual: any, expected: any, message?: string | Error): void;
-        function notStrictEqual(actual: any, expected: any, message?: string | Error): void;
-        function deepStrictEqual(actual: any, expected: any, message?: string | Error): void;
-        function notDeepStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notDeepEqual(actual: any, expected: any, message?: string | Error): void;
+        export function strictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function deepStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notDeepStrictEqual(actual: any, expected: any, message?: string | Error): void;
 
-        function throws(block: Function, message?: string | Error): void;
-        function throws(block: Function, error: RegExp | Function | Object | Error, message?: string | Error): void;
-        function doesNotThrow(block: Function, message?: string | Error): void;
-        function doesNotThrow(block: Function, error: RegExp | Function, message?: string | Error): void;
+        export function throws(block: Function, message?: string | Error): void;
+        export function throws(block: Function, error: RegExp | Function | Object | Error, message?: string | Error): void;
+        export function doesNotThrow(block: Function, message?: string | Error): void;
+        export function doesNotThrow(block: Function, error: RegExp | Function, message?: string | Error): void;
 
-        function ifError(value: any): void;
+        export function ifError(value: any): void;
 
-        function rejects(block: Function | Promise<any>, message?: string | Error): Promise<void>;
-        function rejects(block: Function | Promise<any>, error: RegExp | Function | Object | Error, message?: string | Error): Promise<void>;
-        function doesNotReject(block: Function | Promise<any>, message?: string | Error): Promise<void>;
-        function doesNotReject(block: Function | Promise<any>, error: RegExp | Function, message?: string | Error): Promise<void>;
+        export function rejects(block: Function | Promise<any>, message?: string | Error): Promise<void>;
+        export function rejects(block: Function | Promise<any>, error: RegExp | Function | Object | Error, message?: string | Error): Promise<void>;
+        export function doesNotReject(block: Function | Promise<any>, message?: string | Error): Promise<void>;
+        export function doesNotReject(block: Function | Promise<any>, error: RegExp | Function, message?: string | Error): Promise<void>;
 
-        const strict: typeof internal;
+        export var strict: typeof internal;
     }
 
     export = internal;
@@ -6876,13 +6548,13 @@ declare module "assert" {
 declare module "tty" {
     import * as net from "net";
 
-    function isatty(fd: number): boolean;
-    class ReadStream extends net.Socket {
+    export function isatty(fd: number): boolean;
+    export class ReadStream extends net.Socket {
         isRaw: boolean;
         setRawMode(mode: boolean): void;
         isTTY: boolean;
     }
-    class WriteStream extends net.Socket {
+    export class WriteStream extends net.Socket {
         columns: number;
         rows: number;
         isTTY: boolean;
@@ -6892,7 +6564,7 @@ declare module "tty" {
 declare module "domain" {
     import * as events from "events";
 
-    class Domain extends events.EventEmitter implements NodeJS.Domain {
+    export class Domain extends events.EventEmitter implements NodeJS.Domain {
         run(fn: Function): void;
         add(emitter: events.EventEmitter): void;
         remove(emitter: events.EventEmitter): void;
@@ -6903,287 +6575,287 @@ declare module "domain" {
         exit(): void;
     }
 
-    function create(): Domain;
+    export function create(): Domain;
 }
 
 declare module "constants" {
-    const E2BIG: number;
-    const EACCES: number;
-    const EADDRINUSE: number;
-    const EADDRNOTAVAIL: number;
-    const EAFNOSUPPORT: number;
-    const EAGAIN: number;
-    const EALREADY: number;
-    const EBADF: number;
-    const EBADMSG: number;
-    const EBUSY: number;
-    const ECANCELED: number;
-    const ECHILD: number;
-    const ECONNABORTED: number;
-    const ECONNREFUSED: number;
-    const ECONNRESET: number;
-    const EDEADLK: number;
-    const EDESTADDRREQ: number;
-    const EDOM: number;
-    const EEXIST: number;
-    const EFAULT: number;
-    const EFBIG: number;
-    const EHOSTUNREACH: number;
-    const EIDRM: number;
-    const EILSEQ: number;
-    const EINPROGRESS: number;
-    const EINTR: number;
-    const EINVAL: number;
-    const EIO: number;
-    const EISCONN: number;
-    const EISDIR: number;
-    const ELOOP: number;
-    const EMFILE: number;
-    const EMLINK: number;
-    const EMSGSIZE: number;
-    const ENAMETOOLONG: number;
-    const ENETDOWN: number;
-    const ENETRESET: number;
-    const ENETUNREACH: number;
-    const ENFILE: number;
-    const ENOBUFS: number;
-    const ENODATA: number;
-    const ENODEV: number;
-    const ENOENT: number;
-    const ENOEXEC: number;
-    const ENOLCK: number;
-    const ENOLINK: number;
-    const ENOMEM: number;
-    const ENOMSG: number;
-    const ENOPROTOOPT: number;
-    const ENOSPC: number;
-    const ENOSR: number;
-    const ENOSTR: number;
-    const ENOSYS: number;
-    const ENOTCONN: number;
-    const ENOTDIR: number;
-    const ENOTEMPTY: number;
-    const ENOTSOCK: number;
-    const ENOTSUP: number;
-    const ENOTTY: number;
-    const ENXIO: number;
-    const EOPNOTSUPP: number;
-    const EOVERFLOW: number;
-    const EPERM: number;
-    const EPIPE: number;
-    const EPROTO: number;
-    const EPROTONOSUPPORT: number;
-    const EPROTOTYPE: number;
-    const ERANGE: number;
-    const EROFS: number;
-    const ESPIPE: number;
-    const ESRCH: number;
-    const ETIME: number;
-    const ETIMEDOUT: number;
-    const ETXTBSY: number;
-    const EWOULDBLOCK: number;
-    const EXDEV: number;
-    const WSAEINTR: number;
-    const WSAEBADF: number;
-    const WSAEACCES: number;
-    const WSAEFAULT: number;
-    const WSAEINVAL: number;
-    const WSAEMFILE: number;
-    const WSAEWOULDBLOCK: number;
-    const WSAEINPROGRESS: number;
-    const WSAEALREADY: number;
-    const WSAENOTSOCK: number;
-    const WSAEDESTADDRREQ: number;
-    const WSAEMSGSIZE: number;
-    const WSAEPROTOTYPE: number;
-    const WSAENOPROTOOPT: number;
-    const WSAEPROTONOSUPPORT: number;
-    const WSAESOCKTNOSUPPORT: number;
-    const WSAEOPNOTSUPP: number;
-    const WSAEPFNOSUPPORT: number;
-    const WSAEAFNOSUPPORT: number;
-    const WSAEADDRINUSE: number;
-    const WSAEADDRNOTAVAIL: number;
-    const WSAENETDOWN: number;
-    const WSAENETUNREACH: number;
-    const WSAENETRESET: number;
-    const WSAECONNABORTED: number;
-    const WSAECONNRESET: number;
-    const WSAENOBUFS: number;
-    const WSAEISCONN: number;
-    const WSAENOTCONN: number;
-    const WSAESHUTDOWN: number;
-    const WSAETOOMANYREFS: number;
-    const WSAETIMEDOUT: number;
-    const WSAECONNREFUSED: number;
-    const WSAELOOP: number;
-    const WSAENAMETOOLONG: number;
-    const WSAEHOSTDOWN: number;
-    const WSAEHOSTUNREACH: number;
-    const WSAENOTEMPTY: number;
-    const WSAEPROCLIM: number;
-    const WSAEUSERS: number;
-    const WSAEDQUOT: number;
-    const WSAESTALE: number;
-    const WSAEREMOTE: number;
-    const WSASYSNOTREADY: number;
-    const WSAVERNOTSUPPORTED: number;
-    const WSANOTINITIALISED: number;
-    const WSAEDISCON: number;
-    const WSAENOMORE: number;
-    const WSAECANCELLED: number;
-    const WSAEINVALIDPROCTABLE: number;
-    const WSAEINVALIDPROVIDER: number;
-    const WSAEPROVIDERFAILEDINIT: number;
-    const WSASYSCALLFAILURE: number;
-    const WSASERVICE_NOT_FOUND: number;
-    const WSATYPE_NOT_FOUND: number;
-    const WSA_E_NO_MORE: number;
-    const WSA_E_CANCELLED: number;
-    const WSAEREFUSED: number;
-    const SIGHUP: number;
-    const SIGINT: number;
-    const SIGILL: number;
-    const SIGABRT: number;
-    const SIGFPE: number;
-    const SIGKILL: number;
-    const SIGSEGV: number;
-    const SIGTERM: number;
-    const SIGBREAK: number;
-    const SIGWINCH: number;
-    const SSL_OP_ALL: number;
-    const SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION: number;
-    const SSL_OP_CIPHER_SERVER_PREFERENCE: number;
-    const SSL_OP_CISCO_ANYCONNECT: number;
-    const SSL_OP_COOKIE_EXCHANGE: number;
-    const SSL_OP_CRYPTOPRO_TLSEXT_BUG: number;
-    const SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS: number;
-    const SSL_OP_EPHEMERAL_RSA: number;
-    const SSL_OP_LEGACY_SERVER_CONNECT: number;
-    const SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER: number;
-    const SSL_OP_MICROSOFT_SESS_ID_BUG: number;
-    const SSL_OP_MSIE_SSLV2_RSA_PADDING: number;
-    const SSL_OP_NETSCAPE_CA_DN_BUG: number;
-    const SSL_OP_NETSCAPE_CHALLENGE_BUG: number;
-    const SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG: number;
-    const SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG: number;
-    const SSL_OP_NO_COMPRESSION: number;
-    const SSL_OP_NO_QUERY_MTU: number;
-    const SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION: number;
-    const SSL_OP_NO_SSLv2: number;
-    const SSL_OP_NO_SSLv3: number;
-    const SSL_OP_NO_TICKET: number;
-    const SSL_OP_NO_TLSv1: number;
-    const SSL_OP_NO_TLSv1_1: number;
-    const SSL_OP_NO_TLSv1_2: number;
-    const SSL_OP_PKCS1_CHECK_1: number;
-    const SSL_OP_PKCS1_CHECK_2: number;
-    const SSL_OP_SINGLE_DH_USE: number;
-    const SSL_OP_SINGLE_ECDH_USE: number;
-    const SSL_OP_SSLEAY_080_CLIENT_DH_BUG: number;
-    const SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG: number;
-    const SSL_OP_TLS_BLOCK_PADDING_BUG: number;
-    const SSL_OP_TLS_D5_BUG: number;
-    const SSL_OP_TLS_ROLLBACK_BUG: number;
-    const ENGINE_METHOD_DSA: number;
-    const ENGINE_METHOD_DH: number;
-    const ENGINE_METHOD_RAND: number;
-    const ENGINE_METHOD_ECDH: number;
-    const ENGINE_METHOD_ECDSA: number;
-    const ENGINE_METHOD_CIPHERS: number;
-    const ENGINE_METHOD_DIGESTS: number;
-    const ENGINE_METHOD_STORE: number;
-    const ENGINE_METHOD_PKEY_METHS: number;
-    const ENGINE_METHOD_PKEY_ASN1_METHS: number;
-    const ENGINE_METHOD_ALL: number;
-    const ENGINE_METHOD_NONE: number;
-    const DH_CHECK_P_NOT_SAFE_PRIME: number;
-    const DH_CHECK_P_NOT_PRIME: number;
-    const DH_UNABLE_TO_CHECK_GENERATOR: number;
-    const DH_NOT_SUITABLE_GENERATOR: number;
-    const NPN_ENABLED: number;
-    const RSA_PKCS1_PADDING: number;
-    const RSA_SSLV23_PADDING: number;
-    const RSA_NO_PADDING: number;
-    const RSA_PKCS1_OAEP_PADDING: number;
-    const RSA_X931_PADDING: number;
-    const RSA_PKCS1_PSS_PADDING: number;
-    const POINT_CONVERSION_COMPRESSED: number;
-    const POINT_CONVERSION_UNCOMPRESSED: number;
-    const POINT_CONVERSION_HYBRID: number;
-    const O_RDONLY: number;
-    const O_WRONLY: number;
-    const O_RDWR: number;
-    const S_IFMT: number;
-    const S_IFREG: number;
-    const S_IFDIR: number;
-    const S_IFCHR: number;
-    const S_IFBLK: number;
-    const S_IFIFO: number;
-    const S_IFSOCK: number;
-    const S_IRWXU: number;
-    const S_IRUSR: number;
-    const S_IWUSR: number;
-    const S_IXUSR: number;
-    const S_IRWXG: number;
-    const S_IRGRP: number;
-    const S_IWGRP: number;
-    const S_IXGRP: number;
-    const S_IRWXO: number;
-    const S_IROTH: number;
-    const S_IWOTH: number;
-    const S_IXOTH: number;
-    const S_IFLNK: number;
-    const O_CREAT: number;
-    const O_EXCL: number;
-    const O_NOCTTY: number;
-    const O_DIRECTORY: number;
-    const O_NOATIME: number;
-    const O_NOFOLLOW: number;
-    const O_SYNC: number;
-    const O_DSYNC: number;
-    const O_SYMLINK: number;
-    const O_DIRECT: number;
-    const O_NONBLOCK: number;
-    const O_TRUNC: number;
-    const O_APPEND: number;
-    const F_OK: number;
-    const R_OK: number;
-    const W_OK: number;
-    const X_OK: number;
-    const COPYFILE_EXCL: number;
-    const COPYFILE_FICLONE: number;
-    const COPYFILE_FICLONE_FORCE: number;
-    const UV_UDP_REUSEADDR: number;
-    const SIGQUIT: number;
-    const SIGTRAP: number;
-    const SIGIOT: number;
-    const SIGBUS: number;
-    const SIGUSR1: number;
-    const SIGUSR2: number;
-    const SIGPIPE: number;
-    const SIGALRM: number;
-    const SIGCHLD: number;
-    const SIGSTKFLT: number;
-    const SIGCONT: number;
-    const SIGSTOP: number;
-    const SIGTSTP: number;
-    const SIGTTIN: number;
-    const SIGTTOU: number;
-    const SIGURG: number;
-    const SIGXCPU: number;
-    const SIGXFSZ: number;
-    const SIGVTALRM: number;
-    const SIGPROF: number;
-    const SIGIO: number;
-    const SIGPOLL: number;
-    const SIGPWR: number;
-    const SIGSYS: number;
-    const SIGUNUSED: number;
-    const defaultCoreCipherList: string;
-    const defaultCipherList: string;
-    const ENGINE_METHOD_RSA: number;
-    const ALPN_ENABLED: number;
+    export var E2BIG: number;
+    export var EACCES: number;
+    export var EADDRINUSE: number;
+    export var EADDRNOTAVAIL: number;
+    export var EAFNOSUPPORT: number;
+    export var EAGAIN: number;
+    export var EALREADY: number;
+    export var EBADF: number;
+    export var EBADMSG: number;
+    export var EBUSY: number;
+    export var ECANCELED: number;
+    export var ECHILD: number;
+    export var ECONNABORTED: number;
+    export var ECONNREFUSED: number;
+    export var ECONNRESET: number;
+    export var EDEADLK: number;
+    export var EDESTADDRREQ: number;
+    export var EDOM: number;
+    export var EEXIST: number;
+    export var EFAULT: number;
+    export var EFBIG: number;
+    export var EHOSTUNREACH: number;
+    export var EIDRM: number;
+    export var EILSEQ: number;
+    export var EINPROGRESS: number;
+    export var EINTR: number;
+    export var EINVAL: number;
+    export var EIO: number;
+    export var EISCONN: number;
+    export var EISDIR: number;
+    export var ELOOP: number;
+    export var EMFILE: number;
+    export var EMLINK: number;
+    export var EMSGSIZE: number;
+    export var ENAMETOOLONG: number;
+    export var ENETDOWN: number;
+    export var ENETRESET: number;
+    export var ENETUNREACH: number;
+    export var ENFILE: number;
+    export var ENOBUFS: number;
+    export var ENODATA: number;
+    export var ENODEV: number;
+    export var ENOENT: number;
+    export var ENOEXEC: number;
+    export var ENOLCK: number;
+    export var ENOLINK: number;
+    export var ENOMEM: number;
+    export var ENOMSG: number;
+    export var ENOPROTOOPT: number;
+    export var ENOSPC: number;
+    export var ENOSR: number;
+    export var ENOSTR: number;
+    export var ENOSYS: number;
+    export var ENOTCONN: number;
+    export var ENOTDIR: number;
+    export var ENOTEMPTY: number;
+    export var ENOTSOCK: number;
+    export var ENOTSUP: number;
+    export var ENOTTY: number;
+    export var ENXIO: number;
+    export var EOPNOTSUPP: number;
+    export var EOVERFLOW: number;
+    export var EPERM: number;
+    export var EPIPE: number;
+    export var EPROTO: number;
+    export var EPROTONOSUPPORT: number;
+    export var EPROTOTYPE: number;
+    export var ERANGE: number;
+    export var EROFS: number;
+    export var ESPIPE: number;
+    export var ESRCH: number;
+    export var ETIME: number;
+    export var ETIMEDOUT: number;
+    export var ETXTBSY: number;
+    export var EWOULDBLOCK: number;
+    export var EXDEV: number;
+    export var WSAEINTR: number;
+    export var WSAEBADF: number;
+    export var WSAEACCES: number;
+    export var WSAEFAULT: number;
+    export var WSAEINVAL: number;
+    export var WSAEMFILE: number;
+    export var WSAEWOULDBLOCK: number;
+    export var WSAEINPROGRESS: number;
+    export var WSAEALREADY: number;
+    export var WSAENOTSOCK: number;
+    export var WSAEDESTADDRREQ: number;
+    export var WSAEMSGSIZE: number;
+    export var WSAEPROTOTYPE: number;
+    export var WSAENOPROTOOPT: number;
+    export var WSAEPROTONOSUPPORT: number;
+    export var WSAESOCKTNOSUPPORT: number;
+    export var WSAEOPNOTSUPP: number;
+    export var WSAEPFNOSUPPORT: number;
+    export var WSAEAFNOSUPPORT: number;
+    export var WSAEADDRINUSE: number;
+    export var WSAEADDRNOTAVAIL: number;
+    export var WSAENETDOWN: number;
+    export var WSAENETUNREACH: number;
+    export var WSAENETRESET: number;
+    export var WSAECONNABORTED: number;
+    export var WSAECONNRESET: number;
+    export var WSAENOBUFS: number;
+    export var WSAEISCONN: number;
+    export var WSAENOTCONN: number;
+    export var WSAESHUTDOWN: number;
+    export var WSAETOOMANYREFS: number;
+    export var WSAETIMEDOUT: number;
+    export var WSAECONNREFUSED: number;
+    export var WSAELOOP: number;
+    export var WSAENAMETOOLONG: number;
+    export var WSAEHOSTDOWN: number;
+    export var WSAEHOSTUNREACH: number;
+    export var WSAENOTEMPTY: number;
+    export var WSAEPROCLIM: number;
+    export var WSAEUSERS: number;
+    export var WSAEDQUOT: number;
+    export var WSAESTALE: number;
+    export var WSAEREMOTE: number;
+    export var WSASYSNOTREADY: number;
+    export var WSAVERNOTSUPPORTED: number;
+    export var WSANOTINITIALISED: number;
+    export var WSAEDISCON: number;
+    export var WSAENOMORE: number;
+    export var WSAECANCELLED: number;
+    export var WSAEINVALIDPROCTABLE: number;
+    export var WSAEINVALIDPROVIDER: number;
+    export var WSAEPROVIDERFAILEDINIT: number;
+    export var WSASYSCALLFAILURE: number;
+    export var WSASERVICE_NOT_FOUND: number;
+    export var WSATYPE_NOT_FOUND: number;
+    export var WSA_E_NO_MORE: number;
+    export var WSA_E_CANCELLED: number;
+    export var WSAEREFUSED: number;
+    export var SIGHUP: number;
+    export var SIGINT: number;
+    export var SIGILL: number;
+    export var SIGABRT: number;
+    export var SIGFPE: number;
+    export var SIGKILL: number;
+    export var SIGSEGV: number;
+    export var SIGTERM: number;
+    export var SIGBREAK: number;
+    export var SIGWINCH: number;
+    export var SSL_OP_ALL: number;
+    export var SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION: number;
+    export var SSL_OP_CIPHER_SERVER_PREFERENCE: number;
+    export var SSL_OP_CISCO_ANYCONNECT: number;
+    export var SSL_OP_COOKIE_EXCHANGE: number;
+    export var SSL_OP_CRYPTOPRO_TLSEXT_BUG: number;
+    export var SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS: number;
+    export var SSL_OP_EPHEMERAL_RSA: number;
+    export var SSL_OP_LEGACY_SERVER_CONNECT: number;
+    export var SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER: number;
+    export var SSL_OP_MICROSOFT_SESS_ID_BUG: number;
+    export var SSL_OP_MSIE_SSLV2_RSA_PADDING: number;
+    export var SSL_OP_NETSCAPE_CA_DN_BUG: number;
+    export var SSL_OP_NETSCAPE_CHALLENGE_BUG: number;
+    export var SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG: number;
+    export var SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG: number;
+    export var SSL_OP_NO_COMPRESSION: number;
+    export var SSL_OP_NO_QUERY_MTU: number;
+    export var SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION: number;
+    export var SSL_OP_NO_SSLv2: number;
+    export var SSL_OP_NO_SSLv3: number;
+    export var SSL_OP_NO_TICKET: number;
+    export var SSL_OP_NO_TLSv1: number;
+    export var SSL_OP_NO_TLSv1_1: number;
+    export var SSL_OP_NO_TLSv1_2: number;
+    export var SSL_OP_PKCS1_CHECK_1: number;
+    export var SSL_OP_PKCS1_CHECK_2: number;
+    export var SSL_OP_SINGLE_DH_USE: number;
+    export var SSL_OP_SINGLE_ECDH_USE: number;
+    export var SSL_OP_SSLEAY_080_CLIENT_DH_BUG: number;
+    export var SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG: number;
+    export var SSL_OP_TLS_BLOCK_PADDING_BUG: number;
+    export var SSL_OP_TLS_D5_BUG: number;
+    export var SSL_OP_TLS_ROLLBACK_BUG: number;
+    export var ENGINE_METHOD_DSA: number;
+    export var ENGINE_METHOD_DH: number;
+    export var ENGINE_METHOD_RAND: number;
+    export var ENGINE_METHOD_ECDH: number;
+    export var ENGINE_METHOD_ECDSA: number;
+    export var ENGINE_METHOD_CIPHERS: number;
+    export var ENGINE_METHOD_DIGESTS: number;
+    export var ENGINE_METHOD_STORE: number;
+    export var ENGINE_METHOD_PKEY_METHS: number;
+    export var ENGINE_METHOD_PKEY_ASN1_METHS: number;
+    export var ENGINE_METHOD_ALL: number;
+    export var ENGINE_METHOD_NONE: number;
+    export var DH_CHECK_P_NOT_SAFE_PRIME: number;
+    export var DH_CHECK_P_NOT_PRIME: number;
+    export var DH_UNABLE_TO_CHECK_GENERATOR: number;
+    export var DH_NOT_SUITABLE_GENERATOR: number;
+    export var NPN_ENABLED: number;
+    export var RSA_PKCS1_PADDING: number;
+    export var RSA_SSLV23_PADDING: number;
+    export var RSA_NO_PADDING: number;
+    export var RSA_PKCS1_OAEP_PADDING: number;
+    export var RSA_X931_PADDING: number;
+    export var RSA_PKCS1_PSS_PADDING: number;
+    export var POINT_CONVERSION_COMPRESSED: number;
+    export var POINT_CONVERSION_UNCOMPRESSED: number;
+    export var POINT_CONVERSION_HYBRID: number;
+    export var O_RDONLY: number;
+    export var O_WRONLY: number;
+    export var O_RDWR: number;
+    export var S_IFMT: number;
+    export var S_IFREG: number;
+    export var S_IFDIR: number;
+    export var S_IFCHR: number;
+    export var S_IFBLK: number;
+    export var S_IFIFO: number;
+    export var S_IFSOCK: number;
+    export var S_IRWXU: number;
+    export var S_IRUSR: number;
+    export var S_IWUSR: number;
+    export var S_IXUSR: number;
+    export var S_IRWXG: number;
+    export var S_IRGRP: number;
+    export var S_IWGRP: number;
+    export var S_IXGRP: number;
+    export var S_IRWXO: number;
+    export var S_IROTH: number;
+    export var S_IWOTH: number;
+    export var S_IXOTH: number;
+    export var S_IFLNK: number;
+    export var O_CREAT: number;
+    export var O_EXCL: number;
+    export var O_NOCTTY: number;
+    export var O_DIRECTORY: number;
+    export var O_NOATIME: number;
+    export var O_NOFOLLOW: number;
+    export var O_SYNC: number;
+    export var O_DSYNC: number;
+    export var O_SYMLINK: number;
+    export var O_DIRECT: number;
+    export var O_NONBLOCK: number;
+    export var O_TRUNC: number;
+    export var O_APPEND: number;
+    export var F_OK: number;
+    export var R_OK: number;
+    export var W_OK: number;
+    export var X_OK: number;
+    export var COPYFILE_EXCL: number;
+    export var COPYFILE_FICLONE: number;
+    export var COPYFILE_FICLONE_FORCE: number;
+    export var UV_UDP_REUSEADDR: number;
+    export var SIGQUIT: number;
+    export var SIGTRAP: number;
+    export var SIGIOT: number;
+    export var SIGBUS: number;
+    export var SIGUSR1: number;
+    export var SIGUSR2: number;
+    export var SIGPIPE: number;
+    export var SIGALRM: number;
+    export var SIGCHLD: number;
+    export var SIGSTKFLT: number;
+    export var SIGCONT: number;
+    export var SIGSTOP: number;
+    export var SIGTSTP: number;
+    export var SIGTTIN: number;
+    export var SIGTTOU: number;
+    export var SIGURG: number;
+    export var SIGXCPU: number;
+    export var SIGXFSZ: number;
+    export var SIGVTALRM: number;
+    export var SIGPROF: number;
+    export var SIGIO: number;
+    export var SIGPOLL: number;
+    export var SIGPWR: number;
+    export var SIGSYS: number;
+    export var SIGUNUSED: number;
+    export var defaultCoreCipherList: string;
+    export var defaultCipherList: string;
+    export var ENGINE_METHOD_RSA: number;
+    export var ALPN_ENABLED: number;
 }
 
 declare module "module" {
@@ -7218,26 +6890,26 @@ declare module "v8" {
         does_zap_garbage: DoesZapCodeSpaceFlag;
     }
 
-    function getHeapStatistics(): HeapInfo;
-    function getHeapSpaceStatistics(): HeapSpaceInfo[];
-    function setFlagsFromString(flags: string): void;
+    export function getHeapStatistics(): HeapInfo;
+    export function getHeapSpaceStatistics(): HeapSpaceInfo[];
+    export function setFlagsFromString(flags: string): void;
 }
 
 declare module "timers" {
-    function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
-    namespace setTimeout {
-        function __promisify__(ms: number): Promise<void>;
-        function __promisify__<T>(ms: number, value: T): Promise<T>;
+    export function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+    export namespace setTimeout {
+        export function __promisify__(ms: number): Promise<void>;
+        export function __promisify__<T>(ms: number, value: T): Promise<T>;
     }
-    function clearTimeout(timeoutId: NodeJS.Timeout): void;
-    function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
-    function clearInterval(intervalId: NodeJS.Timeout): void;
-    function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
-    namespace setImmediate {
-        function __promisify__(): Promise<void>;
-        function __promisify__<T>(value: T): Promise<T>;
+    export function clearTimeout(timeoutId: NodeJS.Timer): void;
+    export function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+    export function clearInterval(intervalId: NodeJS.Timer): void;
+    export function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
+    export namespace setImmediate {
+        export function __promisify__(): Promise<void>;
+        export function __promisify__<T>(value: T): Promise<T>;
     }
-    function clearImmediate(immediateId: NodeJS.Immediate): void;
+    export function clearImmediate(immediateId: any): void;
 }
 
 declare module "console" {
@@ -7251,14 +6923,14 @@ declare module "async_hooks" {
     /**
      * Returns the asyncId of the current execution context.
      */
-    function executionAsyncId(): number;
+    export function executionAsyncId(): number;
 
     /**
      * Returns the ID of the resource responsible for calling the callback that is currently being executed.
      */
-    function triggerAsyncId(): number;
+    export function triggerAsyncId(): number;
 
-    interface HookCallbacks {
+    export interface HookCallbacks {
         /**
          * Called when a class is constructed that has the possibility to emit an asynchronous event.
          * @param asyncId a unique ID for the async resource
@@ -7295,7 +6967,7 @@ declare module "async_hooks" {
         destroy?(asyncId: number): void;
     }
 
-    interface AsyncHook {
+    export interface AsyncHook {
         /**
          * Enable the callbacks for a given AsyncHook instance. If no callbacks are provided enabling is a noop.
          */
@@ -7312,9 +6984,9 @@ declare module "async_hooks" {
      * @param options the callbacks to register
      * @return an AsyncHooks instance used for disabling and enabling hooks
      */
-    function createHook(options: HookCallbacks): AsyncHook;
+    export function createHook(options: HookCallbacks): AsyncHook;
 
-    interface AsyncResourceOptions {
+    export interface AsyncResourceOptions {
       /**
        * The ID of the execution context that created this async event.
        * Default: `executionAsyncId()`
@@ -7335,7 +7007,7 @@ declare module "async_hooks" {
      * The class AsyncResource was designed to be extended by the embedder's async resources.
      * Using this users can easily trigger the lifetime events of their own resources.
      */
-    class AsyncResource {
+    export class AsyncResource {
         /**
          * AsyncResource() is meant to be extended. Instantiating a
          * new AsyncResource() also triggers init. If triggerAsyncId is omitted then
@@ -7452,20 +7124,15 @@ declare module "http2" {
 
     export interface Http2Stream extends stream.Duplex {
         readonly aborted: boolean;
+        close(code?: number, callback?: () => void): void;
         readonly closed: boolean;
         readonly destroyed: boolean;
         readonly pending: boolean;
+        priority(options: StreamPriorityOptions): void;
         readonly rstCode: number;
         readonly session: Http2Session;
-        readonly state: StreamState;
-        /**
-         * Set the true if the END_STREAM flag was set in the request or response HEADERS frame received,
-         * indicating that no additional data should be received and the readable side of the Http2Stream will be closed.
-         */
-        readonly endAfterHeaders: boolean;
-        close(code?: number, callback?: () => void): void;
-        priority(options: StreamPriorityOptions): void;
         setTimeout(msecs: number, callback?: () => void): void;
+        readonly state: StreamState;
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "aborted", listener: () => void): this;
@@ -7899,8 +7566,7 @@ declare module "http2" {
         prependOnceListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
     }
 
-    export class Http2ServerRequest extends stream.Readable {
-        private constructor();
+    export interface Http2ServerRequest extends stream.Readable {
         headers: IncomingHttpHeaders;
         httpVersion: string;
         method: string;
@@ -7931,8 +7597,7 @@ declare module "http2" {
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
     }
 
-    export class Http2ServerResponse extends events.EventEmitter {
-        private constructor();
+    export interface Http2ServerResponse extends events.EventEmitter {
         addTrailers(trailers: OutgoingHttpHeaders): void;
         connection: net.Socket | tls.TLSSocket;
         end(callback?: () => void): void;
@@ -8005,214 +7670,214 @@ declare module "http2" {
     // Public API
 
     export namespace constants {
-        const NGHTTP2_SESSION_SERVER: number;
-        const NGHTTP2_SESSION_CLIENT: number;
-        const NGHTTP2_STREAM_STATE_IDLE: number;
-        const NGHTTP2_STREAM_STATE_OPEN: number;
-        const NGHTTP2_STREAM_STATE_RESERVED_LOCAL: number;
-        const NGHTTP2_STREAM_STATE_RESERVED_REMOTE: number;
-        const NGHTTP2_STREAM_STATE_HALF_CLOSED_LOCAL: number;
-        const NGHTTP2_STREAM_STATE_HALF_CLOSED_REMOTE: number;
-        const NGHTTP2_STREAM_STATE_CLOSED: number;
-        const NGHTTP2_NO_ERROR: number;
-        const NGHTTP2_PROTOCOL_ERROR: number;
-        const NGHTTP2_INTERNAL_ERROR: number;
-        const NGHTTP2_FLOW_CONTROL_ERROR: number;
-        const NGHTTP2_SETTINGS_TIMEOUT: number;
-        const NGHTTP2_STREAM_CLOSED: number;
-        const NGHTTP2_FRAME_SIZE_ERROR: number;
-        const NGHTTP2_REFUSED_STREAM: number;
-        const NGHTTP2_CANCEL: number;
-        const NGHTTP2_COMPRESSION_ERROR: number;
-        const NGHTTP2_CONNECT_ERROR: number;
-        const NGHTTP2_ENHANCE_YOUR_CALM: number;
-        const NGHTTP2_INADEQUATE_SECURITY: number;
-        const NGHTTP2_HTTP_1_1_REQUIRED: number;
-        const NGHTTP2_ERR_FRAME_SIZE_ERROR: number;
-        const NGHTTP2_FLAG_NONE: number;
-        const NGHTTP2_FLAG_END_STREAM: number;
-        const NGHTTP2_FLAG_END_HEADERS: number;
-        const NGHTTP2_FLAG_ACK: number;
-        const NGHTTP2_FLAG_PADDED: number;
-        const NGHTTP2_FLAG_PRIORITY: number;
-        const DEFAULT_SETTINGS_HEADER_TABLE_SIZE: number;
-        const DEFAULT_SETTINGS_ENABLE_PUSH: number;
-        const DEFAULT_SETTINGS_INITIAL_WINDOW_SIZE: number;
-        const DEFAULT_SETTINGS_MAX_FRAME_SIZE: number;
-        const MAX_MAX_FRAME_SIZE: number;
-        const MIN_MAX_FRAME_SIZE: number;
-        const MAX_INITIAL_WINDOW_SIZE: number;
-        const NGHTTP2_DEFAULT_WEIGHT: number;
-        const NGHTTP2_SETTINGS_HEADER_TABLE_SIZE: number;
-        const NGHTTP2_SETTINGS_ENABLE_PUSH: number;
-        const NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS: number;
-        const NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE: number;
-        const NGHTTP2_SETTINGS_MAX_FRAME_SIZE: number;
-        const NGHTTP2_SETTINGS_MAX_HEADER_LIST_SIZE: number;
-        const PADDING_STRATEGY_NONE: number;
-        const PADDING_STRATEGY_MAX: number;
-        const PADDING_STRATEGY_CALLBACK: number;
-        const HTTP2_HEADER_STATUS: string;
-        const HTTP2_HEADER_METHOD: string;
-        const HTTP2_HEADER_AUTHORITY: string;
-        const HTTP2_HEADER_SCHEME: string;
-        const HTTP2_HEADER_PATH: string;
-        const HTTP2_HEADER_ACCEPT_CHARSET: string;
-        const HTTP2_HEADER_ACCEPT_ENCODING: string;
-        const HTTP2_HEADER_ACCEPT_LANGUAGE: string;
-        const HTTP2_HEADER_ACCEPT_RANGES: string;
-        const HTTP2_HEADER_ACCEPT: string;
-        const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: string;
-        const HTTP2_HEADER_AGE: string;
-        const HTTP2_HEADER_ALLOW: string;
-        const HTTP2_HEADER_AUTHORIZATION: string;
-        const HTTP2_HEADER_CACHE_CONTROL: string;
-        const HTTP2_HEADER_CONNECTION: string;
-        const HTTP2_HEADER_CONTENT_DISPOSITION: string;
-        const HTTP2_HEADER_CONTENT_ENCODING: string;
-        const HTTP2_HEADER_CONTENT_LANGUAGE: string;
-        const HTTP2_HEADER_CONTENT_LENGTH: string;
-        const HTTP2_HEADER_CONTENT_LOCATION: string;
-        const HTTP2_HEADER_CONTENT_MD5: string;
-        const HTTP2_HEADER_CONTENT_RANGE: string;
-        const HTTP2_HEADER_CONTENT_TYPE: string;
-        const HTTP2_HEADER_COOKIE: string;
-        const HTTP2_HEADER_DATE: string;
-        const HTTP2_HEADER_ETAG: string;
-        const HTTP2_HEADER_EXPECT: string;
-        const HTTP2_HEADER_EXPIRES: string;
-        const HTTP2_HEADER_FROM: string;
-        const HTTP2_HEADER_HOST: string;
-        const HTTP2_HEADER_IF_MATCH: string;
-        const HTTP2_HEADER_IF_MODIFIED_SINCE: string;
-        const HTTP2_HEADER_IF_NONE_MATCH: string;
-        const HTTP2_HEADER_IF_RANGE: string;
-        const HTTP2_HEADER_IF_UNMODIFIED_SINCE: string;
-        const HTTP2_HEADER_LAST_MODIFIED: string;
-        const HTTP2_HEADER_LINK: string;
-        const HTTP2_HEADER_LOCATION: string;
-        const HTTP2_HEADER_MAX_FORWARDS: string;
-        const HTTP2_HEADER_PREFER: string;
-        const HTTP2_HEADER_PROXY_AUTHENTICATE: string;
-        const HTTP2_HEADER_PROXY_AUTHORIZATION: string;
-        const HTTP2_HEADER_RANGE: string;
-        const HTTP2_HEADER_REFERER: string;
-        const HTTP2_HEADER_REFRESH: string;
-        const HTTP2_HEADER_RETRY_AFTER: string;
-        const HTTP2_HEADER_SERVER: string;
-        const HTTP2_HEADER_SET_COOKIE: string;
-        const HTTP2_HEADER_STRICT_TRANSPORT_SECURITY: string;
-        const HTTP2_HEADER_TRANSFER_ENCODING: string;
-        const HTTP2_HEADER_TE: string;
-        const HTTP2_HEADER_UPGRADE: string;
-        const HTTP2_HEADER_USER_AGENT: string;
-        const HTTP2_HEADER_VARY: string;
-        const HTTP2_HEADER_VIA: string;
-        const HTTP2_HEADER_WWW_AUTHENTICATE: string;
-        const HTTP2_HEADER_HTTP2_SETTINGS: string;
-        const HTTP2_HEADER_KEEP_ALIVE: string;
-        const HTTP2_HEADER_PROXY_CONNECTION: string;
-        const HTTP2_METHOD_ACL: string;
-        const HTTP2_METHOD_BASELINE_CONTROL: string;
-        const HTTP2_METHOD_BIND: string;
-        const HTTP2_METHOD_CHECKIN: string;
-        const HTTP2_METHOD_CHECKOUT: string;
-        const HTTP2_METHOD_CONNECT: string;
-        const HTTP2_METHOD_COPY: string;
-        const HTTP2_METHOD_DELETE: string;
-        const HTTP2_METHOD_GET: string;
-        const HTTP2_METHOD_HEAD: string;
-        const HTTP2_METHOD_LABEL: string;
-        const HTTP2_METHOD_LINK: string;
-        const HTTP2_METHOD_LOCK: string;
-        const HTTP2_METHOD_MERGE: string;
-        const HTTP2_METHOD_MKACTIVITY: string;
-        const HTTP2_METHOD_MKCALENDAR: string;
-        const HTTP2_METHOD_MKCOL: string;
-        const HTTP2_METHOD_MKREDIRECTREF: string;
-        const HTTP2_METHOD_MKWORKSPACE: string;
-        const HTTP2_METHOD_MOVE: string;
-        const HTTP2_METHOD_OPTIONS: string;
-        const HTTP2_METHOD_ORDERPATCH: string;
-        const HTTP2_METHOD_PATCH: string;
-        const HTTP2_METHOD_POST: string;
-        const HTTP2_METHOD_PRI: string;
-        const HTTP2_METHOD_PROPFIND: string;
-        const HTTP2_METHOD_PROPPATCH: string;
-        const HTTP2_METHOD_PUT: string;
-        const HTTP2_METHOD_REBIND: string;
-        const HTTP2_METHOD_REPORT: string;
-        const HTTP2_METHOD_SEARCH: string;
-        const HTTP2_METHOD_TRACE: string;
-        const HTTP2_METHOD_UNBIND: string;
-        const HTTP2_METHOD_UNCHECKOUT: string;
-        const HTTP2_METHOD_UNLINK: string;
-        const HTTP2_METHOD_UNLOCK: string;
-        const HTTP2_METHOD_UPDATE: string;
-        const HTTP2_METHOD_UPDATEREDIRECTREF: string;
-        const HTTP2_METHOD_VERSION_CONTROL: string;
-        const HTTP_STATUS_CONTINUE: number;
-        const HTTP_STATUS_SWITCHING_PROTOCOLS: number;
-        const HTTP_STATUS_PROCESSING: number;
-        const HTTP_STATUS_OK: number;
-        const HTTP_STATUS_CREATED: number;
-        const HTTP_STATUS_ACCEPTED: number;
-        const HTTP_STATUS_NON_AUTHORITATIVE_INFORMATION: number;
-        const HTTP_STATUS_NO_CONTENT: number;
-        const HTTP_STATUS_RESET_CONTENT: number;
-        const HTTP_STATUS_PARTIAL_CONTENT: number;
-        const HTTP_STATUS_MULTI_STATUS: number;
-        const HTTP_STATUS_ALREADY_REPORTED: number;
-        const HTTP_STATUS_IM_USED: number;
-        const HTTP_STATUS_MULTIPLE_CHOICES: number;
-        const HTTP_STATUS_MOVED_PERMANENTLY: number;
-        const HTTP_STATUS_FOUND: number;
-        const HTTP_STATUS_SEE_OTHER: number;
-        const HTTP_STATUS_NOT_MODIFIED: number;
-        const HTTP_STATUS_USE_PROXY: number;
-        const HTTP_STATUS_TEMPORARY_REDIRECT: number;
-        const HTTP_STATUS_PERMANENT_REDIRECT: number;
-        const HTTP_STATUS_BAD_REQUEST: number;
-        const HTTP_STATUS_UNAUTHORIZED: number;
-        const HTTP_STATUS_PAYMENT_REQUIRED: number;
-        const HTTP_STATUS_FORBIDDEN: number;
-        const HTTP_STATUS_NOT_FOUND: number;
-        const HTTP_STATUS_METHOD_NOT_ALLOWED: number;
-        const HTTP_STATUS_NOT_ACCEPTABLE: number;
-        const HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED: number;
-        const HTTP_STATUS_REQUEST_TIMEOUT: number;
-        const HTTP_STATUS_CONFLICT: number;
-        const HTTP_STATUS_GONE: number;
-        const HTTP_STATUS_LENGTH_REQUIRED: number;
-        const HTTP_STATUS_PRECONDITION_FAILED: number;
-        const HTTP_STATUS_PAYLOAD_TOO_LARGE: number;
-        const HTTP_STATUS_URI_TOO_LONG: number;
-        const HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE: number;
-        const HTTP_STATUS_RANGE_NOT_SATISFIABLE: number;
-        const HTTP_STATUS_EXPECTATION_FAILED: number;
-        const HTTP_STATUS_TEAPOT: number;
-        const HTTP_STATUS_MISDIRECTED_REQUEST: number;
-        const HTTP_STATUS_UNPROCESSABLE_ENTITY: number;
-        const HTTP_STATUS_LOCKED: number;
-        const HTTP_STATUS_FAILED_DEPENDENCY: number;
-        const HTTP_STATUS_UNORDERED_COLLECTION: number;
-        const HTTP_STATUS_UPGRADE_REQUIRED: number;
-        const HTTP_STATUS_PRECONDITION_REQUIRED: number;
-        const HTTP_STATUS_TOO_MANY_REQUESTS: number;
-        const HTTP_STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE: number;
-        const HTTP_STATUS_UNAVAILABLE_FOR_LEGAL_REASONS: number;
-        const HTTP_STATUS_INTERNAL_SERVER_ERROR: number;
-        const HTTP_STATUS_NOT_IMPLEMENTED: number;
-        const HTTP_STATUS_BAD_GATEWAY: number;
-        const HTTP_STATUS_SERVICE_UNAVAILABLE: number;
-        const HTTP_STATUS_GATEWAY_TIMEOUT: number;
-        const HTTP_STATUS_HTTP_VERSION_NOT_SUPPORTED: number;
-        const HTTP_STATUS_VARIANT_ALSO_NEGOTIATES: number;
-        const HTTP_STATUS_INSUFFICIENT_STORAGE: number;
-        const HTTP_STATUS_LOOP_DETECTED: number;
-        const HTTP_STATUS_BANDWIDTH_LIMIT_EXCEEDED: number;
-        const HTTP_STATUS_NOT_EXTENDED: number;
-        const HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
+        export const NGHTTP2_SESSION_SERVER: number;
+        export const NGHTTP2_SESSION_CLIENT: number;
+        export const NGHTTP2_STREAM_STATE_IDLE: number;
+        export const NGHTTP2_STREAM_STATE_OPEN: number;
+        export const NGHTTP2_STREAM_STATE_RESERVED_LOCAL: number;
+        export const NGHTTP2_STREAM_STATE_RESERVED_REMOTE: number;
+        export const NGHTTP2_STREAM_STATE_HALF_CLOSED_LOCAL: number;
+        export const NGHTTP2_STREAM_STATE_HALF_CLOSED_REMOTE: number;
+        export const NGHTTP2_STREAM_STATE_CLOSED: number;
+        export const NGHTTP2_NO_ERROR: number;
+        export const NGHTTP2_PROTOCOL_ERROR: number;
+        export const NGHTTP2_INTERNAL_ERROR: number;
+        export const NGHTTP2_FLOW_CONTROL_ERROR: number;
+        export const NGHTTP2_SETTINGS_TIMEOUT: number;
+        export const NGHTTP2_STREAM_CLOSED: number;
+        export const NGHTTP2_FRAME_SIZE_ERROR: number;
+        export const NGHTTP2_REFUSED_STREAM: number;
+        export const NGHTTP2_CANCEL: number;
+        export const NGHTTP2_COMPRESSION_ERROR: number;
+        export const NGHTTP2_CONNECT_ERROR: number;
+        export const NGHTTP2_ENHANCE_YOUR_CALM: number;
+        export const NGHTTP2_INADEQUATE_SECURITY: number;
+        export const NGHTTP2_HTTP_1_1_REQUIRED: number;
+        export const NGHTTP2_ERR_FRAME_SIZE_ERROR: number;
+        export const NGHTTP2_FLAG_NONE: number;
+        export const NGHTTP2_FLAG_END_STREAM: number;
+        export const NGHTTP2_FLAG_END_HEADERS: number;
+        export const NGHTTP2_FLAG_ACK: number;
+        export const NGHTTP2_FLAG_PADDED: number;
+        export const NGHTTP2_FLAG_PRIORITY: number;
+        export const DEFAULT_SETTINGS_HEADER_TABLE_SIZE: number;
+        export const DEFAULT_SETTINGS_ENABLE_PUSH: number;
+        export const DEFAULT_SETTINGS_INITIAL_WINDOW_SIZE: number;
+        export const DEFAULT_SETTINGS_MAX_FRAME_SIZE: number;
+        export const MAX_MAX_FRAME_SIZE: number;
+        export const MIN_MAX_FRAME_SIZE: number;
+        export const MAX_INITIAL_WINDOW_SIZE: number;
+        export const NGHTTP2_DEFAULT_WEIGHT: number;
+        export const NGHTTP2_SETTINGS_HEADER_TABLE_SIZE: number;
+        export const NGHTTP2_SETTINGS_ENABLE_PUSH: number;
+        export const NGHTTP2_SETTINGS_MAX_CONCURRENT_STREAMS: number;
+        export const NGHTTP2_SETTINGS_INITIAL_WINDOW_SIZE: number;
+        export const NGHTTP2_SETTINGS_MAX_FRAME_SIZE: number;
+        export const NGHTTP2_SETTINGS_MAX_HEADER_LIST_SIZE: number;
+        export const PADDING_STRATEGY_NONE: number;
+        export const PADDING_STRATEGY_MAX: number;
+        export const PADDING_STRATEGY_CALLBACK: number;
+        export const HTTP2_HEADER_STATUS: string;
+        export const HTTP2_HEADER_METHOD: string;
+        export const HTTP2_HEADER_AUTHORITY: string;
+        export const HTTP2_HEADER_SCHEME: string;
+        export const HTTP2_HEADER_PATH: string;
+        export const HTTP2_HEADER_ACCEPT_CHARSET: string;
+        export const HTTP2_HEADER_ACCEPT_ENCODING: string;
+        export const HTTP2_HEADER_ACCEPT_LANGUAGE: string;
+        export const HTTP2_HEADER_ACCEPT_RANGES: string;
+        export const HTTP2_HEADER_ACCEPT: string;
+        export const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: string;
+        export const HTTP2_HEADER_AGE: string;
+        export const HTTP2_HEADER_ALLOW: string;
+        export const HTTP2_HEADER_AUTHORIZATION: string;
+        export const HTTP2_HEADER_CACHE_CONTROL: string;
+        export const HTTP2_HEADER_CONNECTION: string;
+        export const HTTP2_HEADER_CONTENT_DISPOSITION: string;
+        export const HTTP2_HEADER_CONTENT_ENCODING: string;
+        export const HTTP2_HEADER_CONTENT_LANGUAGE: string;
+        export const HTTP2_HEADER_CONTENT_LENGTH: string;
+        export const HTTP2_HEADER_CONTENT_LOCATION: string;
+        export const HTTP2_HEADER_CONTENT_MD5: string;
+        export const HTTP2_HEADER_CONTENT_RANGE: string;
+        export const HTTP2_HEADER_CONTENT_TYPE: string;
+        export const HTTP2_HEADER_COOKIE: string;
+        export const HTTP2_HEADER_DATE: string;
+        export const HTTP2_HEADER_ETAG: string;
+        export const HTTP2_HEADER_EXPECT: string;
+        export const HTTP2_HEADER_EXPIRES: string;
+        export const HTTP2_HEADER_FROM: string;
+        export const HTTP2_HEADER_HOST: string;
+        export const HTTP2_HEADER_IF_MATCH: string;
+        export const HTTP2_HEADER_IF_MODIFIED_SINCE: string;
+        export const HTTP2_HEADER_IF_NONE_MATCH: string;
+        export const HTTP2_HEADER_IF_RANGE: string;
+        export const HTTP2_HEADER_IF_UNMODIFIED_SINCE: string;
+        export const HTTP2_HEADER_LAST_MODIFIED: string;
+        export const HTTP2_HEADER_LINK: string;
+        export const HTTP2_HEADER_LOCATION: string;
+        export const HTTP2_HEADER_MAX_FORWARDS: string;
+        export const HTTP2_HEADER_PREFER: string;
+        export const HTTP2_HEADER_PROXY_AUTHENTICATE: string;
+        export const HTTP2_HEADER_PROXY_AUTHORIZATION: string;
+        export const HTTP2_HEADER_RANGE: string;
+        export const HTTP2_HEADER_REFERER: string;
+        export const HTTP2_HEADER_REFRESH: string;
+        export const HTTP2_HEADER_RETRY_AFTER: string;
+        export const HTTP2_HEADER_SERVER: string;
+        export const HTTP2_HEADER_SET_COOKIE: string;
+        export const HTTP2_HEADER_STRICT_TRANSPORT_SECURITY: string;
+        export const HTTP2_HEADER_TRANSFER_ENCODING: string;
+        export const HTTP2_HEADER_TE: string;
+        export const HTTP2_HEADER_UPGRADE: string;
+        export const HTTP2_HEADER_USER_AGENT: string;
+        export const HTTP2_HEADER_VARY: string;
+        export const HTTP2_HEADER_VIA: string;
+        export const HTTP2_HEADER_WWW_AUTHENTICATE: string;
+        export const HTTP2_HEADER_HTTP2_SETTINGS: string;
+        export const HTTP2_HEADER_KEEP_ALIVE: string;
+        export const HTTP2_HEADER_PROXY_CONNECTION: string;
+        export const HTTP2_METHOD_ACL: string;
+        export const HTTP2_METHOD_BASELINE_CONTROL: string;
+        export const HTTP2_METHOD_BIND: string;
+        export const HTTP2_METHOD_CHECKIN: string;
+        export const HTTP2_METHOD_CHECKOUT: string;
+        export const HTTP2_METHOD_CONNECT: string;
+        export const HTTP2_METHOD_COPY: string;
+        export const HTTP2_METHOD_DELETE: string;
+        export const HTTP2_METHOD_GET: string;
+        export const HTTP2_METHOD_HEAD: string;
+        export const HTTP2_METHOD_LABEL: string;
+        export const HTTP2_METHOD_LINK: string;
+        export const HTTP2_METHOD_LOCK: string;
+        export const HTTP2_METHOD_MERGE: string;
+        export const HTTP2_METHOD_MKACTIVITY: string;
+        export const HTTP2_METHOD_MKCALENDAR: string;
+        export const HTTP2_METHOD_MKCOL: string;
+        export const HTTP2_METHOD_MKREDIRECTREF: string;
+        export const HTTP2_METHOD_MKWORKSPACE: string;
+        export const HTTP2_METHOD_MOVE: string;
+        export const HTTP2_METHOD_OPTIONS: string;
+        export const HTTP2_METHOD_ORDERPATCH: string;
+        export const HTTP2_METHOD_PATCH: string;
+        export const HTTP2_METHOD_POST: string;
+        export const HTTP2_METHOD_PRI: string;
+        export const HTTP2_METHOD_PROPFIND: string;
+        export const HTTP2_METHOD_PROPPATCH: string;
+        export const HTTP2_METHOD_PUT: string;
+        export const HTTP2_METHOD_REBIND: string;
+        export const HTTP2_METHOD_REPORT: string;
+        export const HTTP2_METHOD_SEARCH: string;
+        export const HTTP2_METHOD_TRACE: string;
+        export const HTTP2_METHOD_UNBIND: string;
+        export const HTTP2_METHOD_UNCHECKOUT: string;
+        export const HTTP2_METHOD_UNLINK: string;
+        export const HTTP2_METHOD_UNLOCK: string;
+        export const HTTP2_METHOD_UPDATE: string;
+        export const HTTP2_METHOD_UPDATEREDIRECTREF: string;
+        export const HTTP2_METHOD_VERSION_CONTROL: string;
+        export const HTTP_STATUS_CONTINUE: number;
+        export const HTTP_STATUS_SWITCHING_PROTOCOLS: number;
+        export const HTTP_STATUS_PROCESSING: number;
+        export const HTTP_STATUS_OK: number;
+        export const HTTP_STATUS_CREATED: number;
+        export const HTTP_STATUS_ACCEPTED: number;
+        export const HTTP_STATUS_NON_AUTHORITATIVE_INFORMATION: number;
+        export const HTTP_STATUS_NO_CONTENT: number;
+        export const HTTP_STATUS_RESET_CONTENT: number;
+        export const HTTP_STATUS_PARTIAL_CONTENT: number;
+        export const HTTP_STATUS_MULTI_STATUS: number;
+        export const HTTP_STATUS_ALREADY_REPORTED: number;
+        export const HTTP_STATUS_IM_USED: number;
+        export const HTTP_STATUS_MULTIPLE_CHOICES: number;
+        export const HTTP_STATUS_MOVED_PERMANENTLY: number;
+        export const HTTP_STATUS_FOUND: number;
+        export const HTTP_STATUS_SEE_OTHER: number;
+        export const HTTP_STATUS_NOT_MODIFIED: number;
+        export const HTTP_STATUS_USE_PROXY: number;
+        export const HTTP_STATUS_TEMPORARY_REDIRECT: number;
+        export const HTTP_STATUS_PERMANENT_REDIRECT: number;
+        export const HTTP_STATUS_BAD_REQUEST: number;
+        export const HTTP_STATUS_UNAUTHORIZED: number;
+        export const HTTP_STATUS_PAYMENT_REQUIRED: number;
+        export const HTTP_STATUS_FORBIDDEN: number;
+        export const HTTP_STATUS_NOT_FOUND: number;
+        export const HTTP_STATUS_METHOD_NOT_ALLOWED: number;
+        export const HTTP_STATUS_NOT_ACCEPTABLE: number;
+        export const HTTP_STATUS_PROXY_AUTHENTICATION_REQUIRED: number;
+        export const HTTP_STATUS_REQUEST_TIMEOUT: number;
+        export const HTTP_STATUS_CONFLICT: number;
+        export const HTTP_STATUS_GONE: number;
+        export const HTTP_STATUS_LENGTH_REQUIRED: number;
+        export const HTTP_STATUS_PRECONDITION_FAILED: number;
+        export const HTTP_STATUS_PAYLOAD_TOO_LARGE: number;
+        export const HTTP_STATUS_URI_TOO_LONG: number;
+        export const HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE: number;
+        export const HTTP_STATUS_RANGE_NOT_SATISFIABLE: number;
+        export const HTTP_STATUS_EXPECTATION_FAILED: number;
+        export const HTTP_STATUS_TEAPOT: number;
+        export const HTTP_STATUS_MISDIRECTED_REQUEST: number;
+        export const HTTP_STATUS_UNPROCESSABLE_ENTITY: number;
+        export const HTTP_STATUS_LOCKED: number;
+        export const HTTP_STATUS_FAILED_DEPENDENCY: number;
+        export const HTTP_STATUS_UNORDERED_COLLECTION: number;
+        export const HTTP_STATUS_UPGRADE_REQUIRED: number;
+        export const HTTP_STATUS_PRECONDITION_REQUIRED: number;
+        export const HTTP_STATUS_TOO_MANY_REQUESTS: number;
+        export const HTTP_STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE: number;
+        export const HTTP_STATUS_UNAVAILABLE_FOR_LEGAL_REASONS: number;
+        export const HTTP_STATUS_INTERNAL_SERVER_ERROR: number;
+        export const HTTP_STATUS_NOT_IMPLEMENTED: number;
+        export const HTTP_STATUS_BAD_GATEWAY: number;
+        export const HTTP_STATUS_SERVICE_UNAVAILABLE: number;
+        export const HTTP_STATUS_GATEWAY_TIMEOUT: number;
+        export const HTTP_STATUS_HTTP_VERSION_NOT_SUPPORTED: number;
+        export const HTTP_STATUS_VARIANT_ALSO_NEGOTIATES: number;
+        export const HTTP_STATUS_INSUFFICIENT_STORAGE: number;
+        export const HTTP_STATUS_LOOP_DETECTED: number;
+        export const HTTP_STATUS_BANDWIDTH_LIMIT_EXCEEDED: number;
+        export const HTTP_STATUS_NOT_EXTENDED: number;
+        export const HTTP_STATUS_NETWORK_AUTHENTICATION_REQUIRED: number;
     }
 
     export function getDefaultSettings(): Settings;
@@ -8226,17 +7891,13 @@ declare module "http2" {
     export function createSecureServer(options: SecureServerOptions, onRequestHandler?: (request: Http2ServerRequest, response: Http2ServerResponse) => void): Http2SecureServer;
 
     export function connect(authority: string | url.URL, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
-    export function connect(
-        authority: string | url.URL,
-        options?: ClientSessionOptions | SecureClientSessionOptions,
-        listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void,
-    ): ClientHttp2Session;
+    export function connect(authority: string | url.URL, options?: ClientSessionOptions | SecureClientSessionOptions, listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void): ClientHttp2Session;
 }
 
 declare module "perf_hooks" {
     import { AsyncResource } from "async_hooks";
 
-    interface PerformanceEntry {
+    export interface PerformanceEntry {
         /**
          * The total number of milliseconds elapsed for this entry.
          * This value will not be meaningful for all Performance Entry types.
@@ -8267,7 +7928,7 @@ declare module "perf_hooks" {
         readonly kind?: number;
     }
 
-    interface PerformanceNodeTiming extends PerformanceEntry {
+    export interface PerformanceNodeTiming extends PerformanceEntry {
         /**
          * The high resolution millisecond timestamp at which the Node.js process completed bootstrap.
          */
@@ -8334,7 +7995,7 @@ declare module "perf_hooks" {
         readonly v8Start: number;
     }
 
-    interface Performance {
+    export interface Performance {
         /**
          * If name is not provided, removes all PerformanceFunction objects from the Performance Timeline.
          * If name is provided, removes entries with name.
@@ -8427,7 +8088,7 @@ declare module "perf_hooks" {
         timerify<T extends (...optionalParams: any[]) => any>(fn: T): T;
     }
 
-    interface PerformanceObserverEntryList {
+    export interface PerformanceObserverEntryList {
         /**
          * @return a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime.
          */
@@ -8446,9 +8107,9 @@ declare module "perf_hooks" {
         getEntriesByType(type: string): PerformanceEntry[];
     }
 
-    type PerformanceObserverCallback = (list: PerformanceObserverEntryList, observer: PerformanceObserver) => void;
+    export type PerformanceObserverCallback = (list: PerformanceObserverEntryList, observer: PerformanceObserver) => void;
 
-    class PerformanceObserver extends AsyncResource {
+    export class PerformanceObserver extends AsyncResource {
         constructor(callback: PerformanceObserverCallback);
 
         /**
@@ -8465,11 +8126,11 @@ declare module "perf_hooks" {
         observe(options: { entryTypes: string[], buffered?: boolean }): void;
     }
 
-    namespace constants {
-        const NODE_PERFORMANCE_GC_MAJOR: number;
-        const NODE_PERFORMANCE_GC_MINOR: number;
-        const NODE_PERFORMANCE_GC_INCREMENTAL: number;
-        const NODE_PERFORMANCE_GC_WEAKCB: number;
+    export namespace constants {
+        export const NODE_PERFORMANCE_GC_MAJOR: number;
+        export const NODE_PERFORMANCE_GC_MINOR: number;
+        export const NODE_PERFORMANCE_GC_INCREMENTAL: number;
+        export const NODE_PERFORMANCE_GC_WEAKCB: number;
     }
 
     const performance: Performance;

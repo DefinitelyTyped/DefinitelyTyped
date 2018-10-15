@@ -7,7 +7,6 @@ export type PopoverProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   toggle?: () => void;
   target: string | HTMLElement;
   container?: string | HTMLElement;
-  boundariesElement?: Popper.Boundary | Element;
   className?: string;
   placement?: Popper.Placement;
   innerClassName?: string;

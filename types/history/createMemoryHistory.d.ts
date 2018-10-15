@@ -1,4 +1,4 @@
-import { History, Location, LocationState } from './index';
+import { History, Location } from './index';
 import { getConfirmation } from './DOMUtils';
 
 export interface MemoryHistoryBuildOptions {
@@ -8,9 +8,9 @@ export interface MemoryHistoryBuildOptions {
   keyLength?: number;
 }
 
-export interface MemoryHistory<HistoryLocationState = LocationState> extends History<HistoryLocationState> {
+export interface MemoryHistory extends History {
   index: number;
-  entries: Location<HistoryLocationState>[];
+  entries: Location[];
   canGo(n: number): boolean;
 }
 

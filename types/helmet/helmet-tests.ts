@@ -25,10 +25,9 @@ function helmetTest() {
  */
 function contentSecurityPolicyTest() {
     const emptyArray: string[] =  [];
-    const config: helmet.IHelmetContentSecurityPolicyConfiguration = {
+    const config = {
         directives: {
             baseUri: ['base.example.com'],
-            blockAllMixedContent: true,
             childSrc: ['child.example.com'],
             connectSrc: ['connect.example.com'],
             defaultSrc: ['*'],
@@ -38,41 +37,27 @@ function contentSecurityPolicyTest() {
             frameSrc: emptyArray,
             imgSrc: ['images.example.com'],
             mediaSrc: ['media.example.com'],
-            manifestSrc: ['manifest.example.com'],
             objectSrc: ['objects.example.com'],
             pluginTypes: emptyArray,
-            prefetchSrc: ['prefetch.example.com'],
             reportUri: '/some-url',
-            reportTo: 'report.example.com',
-            requireSriFor: emptyArray,
-            sandbox: ['allow-presentation'],
+            sandbox: emptyArray,
             scriptSrc: ['scripts.example.com', function (req: express.Request, res: express.Response) {
               return "'nonce-abc123'";
             }],
-            styleSrc: ['css.example.com'],
-            upgradeInsecureRequests: true,
-            workerSrc: ['worker.example.com']
+            styleSrc: ['css.example.com']
         },
         reportOnly: false,
         setAllHeaders: false,
         disableAndroid: false
     };
 
-    function reportUriCb(req: express.Request, res: express.Response) { return '/some-uri'; }
-    function reportOnlyCb(req: express.Request, res: express.Response) { return false; }
-
     app.use(helmet.contentSecurityPolicy());
     app.use(helmet.contentSecurityPolicy({}));
     app.use(helmet.contentSecurityPolicy(config));
     app.use(helmet.contentSecurityPolicy({
         directives: {
-            defaultSrc: ["'self'"],
-            reportUri: reportUriCb,
-            'report-uri': reportUriCb,
-            reportTo: reportUriCb,
-            'report-to': reportUriCb
+            defaultSrc: ["'self'"]
         },
-        reportOnly: reportOnlyCb,
         loose: false,
         setAllHeaders: true
     }));

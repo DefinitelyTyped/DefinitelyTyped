@@ -175,7 +175,7 @@ class F2 {
 
     const f0 = (s: string) => +s;      // string -> number
     const f1 = (n: number) => n === 1; // number -> boolean
-    const f2: (s: string) => boolean = R.compose(f1, f0);      // string -> boolean
+    const f2 = R.compose(f1, f0);      // string -> boolean
 
     // akward example that bounces types between number and string
     const g0             = (list: number[]) => R.map(R.inc, list);
@@ -184,11 +184,6 @@ class F2 {
     const g3             = R.all((i: string) => i === "smaller");
     const g              = R.compose(g3, g2, g1, g0);
     const g_res: boolean = g([1, 2, 10, 13]);
-
-    // compose with last function taking no params
-    const f10 = () => 'str';
-    const f11 = (str: string) => str;
-    const f12: () => string = R.compose(f11, f10);
 };
 
 /* composeK */
@@ -266,11 +261,6 @@ class F2 {
 
     const f          = R.pipe(Math.pow, R.negate, R.inc);
     const fr: number = f(3, 4); // -(3^4) + 1
-
-    // pipe with first function taking no params
-    const f10 = () => 'str';
-    const f11 = (str: string) => str;
-    const f12: () => string = R.pipe(f10, f11);
 };
 
 /* pipeK */
@@ -695,34 +685,12 @@ R.times(i, 5);
     }
 
     const filterEven = R.filter(isEven);
-    const objA: R.Dictionary<number> = filterEven({ a: 0, b: 1 }); // => { a: 0 }
-    const listA: number[] = filterEven([0, 1]); // => [0]
+    filterEven({ a: 0, b: 1 }); // => { a: 0 }
+    filterEven([0, 1]); // => [0]
 
     const rejectEven = R.reject(isEven);
-    const objB: R.Dictionary<number> = rejectEven({ a: 0, b: 1 }); // => { b: 1 }
-    const listB: number[] = rejectEven([0, 1]); // => [1]
-};
-
-() => {
-    function isEven(n: number) {
-        return n % 2 === 0;
-    }
-
-    const a: R.Dictionary<number> = R.pipe(
-        R.filter<number, 'object'>(isEven),
-    )({ a: 0, b: 1 }); // => { a: 0 }
-
-    const b: number[] = R.pipe(
-        R.filter<number, 'array'>(isEven),
-    )([0, 1]); // => [0]
-
-    const c: R.Dictionary<number> = R.pipe(
-        R.reject<number, 'object'>(isEven),
-    )({ a: 0, b: 1 }); // => { b: 1 }
-
-    const d: number[] = R.pipe(
-        R.reject<number, 'array'>(isEven),
-    )([0, 1]); // => [1]
+    rejectEven({ a: 0, b: 1 }); // => { b: 1 }
+    rejectEven([0, 1]); // => [1]
 };
 
 () => {

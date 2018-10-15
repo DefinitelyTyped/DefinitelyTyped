@@ -4,8 +4,8 @@ import { Request, ResponseToolkit, Server, ServerAuthScheme, ServerAuthSchemeOpt
 import * as Boom from "boom";
 
 declare module 'hapi' {
-    interface UserCredentials {
-        a: number;
+    interface AuthCredentials {
+        user?: string;
     }
 }
 
@@ -21,7 +21,7 @@ const scheme: ServerAuthScheme = (server, options) => {
             if (!authorization) {
                 throw Boom.unauthorized(null, 'Custom');
             }
-            return h.authenticated({ credentials: { user: { a: 1 }, scope: ['test'] } });
+            return h.authenticated({ credentials: { user: 'john' } });
         }
     };
 };

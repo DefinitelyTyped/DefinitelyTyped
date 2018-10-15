@@ -1,25 +1,11 @@
-// Type definitions for react-highlight-words 0.12
+// Type definitions for react-highlight-words 0.11
 // Project: https://github.com/bvaughn/react-highlight-words#readme
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 //                 Diogo Corrêa <https://github.com/diogodca>
-//                 Kelly Milligan <https://github.com/kellyrmilligan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from "react";
-
-export interface FindChunks {
-  autoEscape?: boolean;
-  caseSensitive?: boolean;
-  sanitize?: (text: string) => string;
-  searchWords: string[];
-  textToHighlight: string;
-}
-
-export interface Chunk {
-  start: number;
-  end: number;
-}
 
 interface HighlighterProps {
     /** The class name to be applied to an active match. Use along with activeIndex */
@@ -39,7 +25,7 @@ interface HighlighterProps {
      * when looking for matches. See the default findChunks function in highlight-words-core for signature.
      * Have a look at the custom findChunks example on how to use it.
      */
-    findChunks?: (options: FindChunks) => Chunk[];
+    findChunks?: () => void;
     /** CSS class name applied to highlighted text */
     highlightClassName?: string;
     /** Inline styles applied to highlighted text */

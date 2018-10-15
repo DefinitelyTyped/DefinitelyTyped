@@ -10,7 +10,6 @@ const players: YT.Player[] = [
         videoId: "videoId",
         playerVars: {},
         events: {},
-        host: 'https://www.youtube.com',
     }),
     new YT.Player("id", {
         playerVars: {

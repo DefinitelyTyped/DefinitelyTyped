@@ -3,31 +3,20 @@ import { Tx } from "./types";
 export interface Account {
 	address: string;
 	privateKey: string;
-	sign(data: string): MessageSignature;
-	signTransaction(
-		tx: Tx,
-		cb?: (err: Error, result: TxSignature) => void
-	): Promise<TxSignature>;
-	encrypt(password: string, options?: any): PrivateKey;
+	publicKey: string;
 }
 
 export interface Signature {
-	messageHash: string;
+	message: string;
+	hash: string;
 	r: string;
 	s: string;
 	v: string;
 }
-export interface MessageSignature extends Signature {
-	message: string;
-	signature: string;
-}
-export interface TxSignature extends Signature {
-	rawTransaction: string;
-}
 
 export interface PrivateKey {
 	address: string;
-	crypto: {
+	Crypto: {
 		cipher: string;
 		ciphertext: string;
 		cipherparams: {
@@ -54,13 +43,15 @@ export default interface Accounts {
 	signTransaction(
 		tx: Tx,
 		privateKey: string,
-		cb?: (err: Error, result: TxSignature) => void
-	): Promise<TxSignature>;
-	recoverTransaction(signature: string): string;
+		returnSignature?: boolean,
+		cb?: (err: Error, result: string | Signature) => void
+	): Promise<string> | Signature;
+	recoverTransaction(signature: string | Signature): string;
 	sign(
 		data: string,
-		privateKey: string
-	): MessageSignature;
+		privateKey: string,
+		returnSignature?: boolean
+	): string | Signature;
 	recover(
 		sigOrHash: string | Signature,
 		sigOrV?: string,

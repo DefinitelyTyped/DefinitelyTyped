@@ -49,11 +49,6 @@ auth0.auth.refreshToken({
     scope: "openid"
 });
 
-auth0.auth.resetPassword({
-    email: "me@example.com",
-    connection: "db-connection"
-});
-
 auth0.auth.revoke({
     refreshToken: "refresh-token"
 });

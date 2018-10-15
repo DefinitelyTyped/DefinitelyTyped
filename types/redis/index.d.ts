@@ -1,5 +1,5 @@
 // Type definitions for redis 2.8
-// Project: https://github.com/NodeRedis/node_redis
+// Project: https://github.com/mranney/node_redis
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 Peter Harris <https://github.com/CodeAnimal>
 //                 TANAKA Koichi <https://github.com/MugeSo>
@@ -7,7 +7,6 @@
 //                 Junyoung Choi <https://github.com/Rokt33r>
 //                 James Garbutt <https://github.com/43081j>
 //                 Bartek Szczepański <https://github.com/barnski>
-//                 Pirasis Leelatanon <https://github.com/1pete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -489,8 +488,8 @@ export interface Commands<R> {
     /**
      * Increment the float value of a hash field by the given amount.
      */
-    hincrbyfloat(key: string, field: string, increment: number, cb?: Callback<string>): R;
-    HINCRBYFLOAT(key: string, field: string, increment: number, cb?: Callback<string>): R;
+    hincrbyfloat(key: string, field: string, increment: number, cb?: Callback<number>): R;
+    HINCRBYFLOAT(key: string, field: string, increment: number, cb?: Callback<number>): R;
 
     /**
      * Get all the fields of a hash.
@@ -549,8 +548,8 @@ export interface Commands<R> {
     /**
      * Increment the float value of a key by the given amount.
      */
-    incrbyfloat(key: string, increment: number, cb?: Callback<string>): R;
-    INCRBYFLOAT(key: string, increment: number, cb?: Callback<string>): R;
+    incrbyfloat(key: string, increment: number, cb?: Callback<number>): R;
+    INCRBYFLOAT(key: string, increment: number, cb?: Callback<number>): R;
 
     /**
      * Find all keys matching the given pattern.

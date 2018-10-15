@@ -7,14 +7,9 @@
 
 import * as React from 'react';
 
-export interface Selection {
-  start: number;
-  end: number;
-}
-
 export interface InputState {
   value: string;
-  selection: Selection | null;
+  selection: Selection;
 }
 
 export interface MaskOptions {

@@ -65,5 +65,3 @@ MathJax.Hub.Config({
         useGlobalCache: true
     }
 })
-
-MathJax.Hub.processSectionDelay = 5;

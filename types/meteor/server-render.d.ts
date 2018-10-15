@@ -11,7 +11,6 @@ declare module "meteor/server-render" {
         appendToBody?(html: string): void;
         appendToElementById?(id: string, html: string): void;
         renderIntoElementById?(id: string, html: string): void;
-        renderIntoElementById?(id: string, html: NodeJS.ReadableStream): void;
     }
     
     type Callback = (sink: Sink) => Promise <any> | any;

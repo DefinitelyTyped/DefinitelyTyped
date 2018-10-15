@@ -1,5 +1,4 @@
-import Ember from 'ember';
-const { EngineInstance } = Ember;
+import EngineInstance from '@ember/engine/instance';
 
 const engineInstance = EngineInstance.create();
 engineInstance.register('some:injection', class Foo {});
@@ -22,6 +21,6 @@ engineInstance.lookup('route:basic');
 
 engineInstance.boot();
 
-(async () => {
+(async function() {
   await engineInstance.boot();
-})();
+}());

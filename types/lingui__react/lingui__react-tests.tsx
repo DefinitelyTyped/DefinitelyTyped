@@ -3,7 +3,6 @@ import { Catalog, Catalogs, I18n } from '@lingui/core';
 import {
     withI18n,
     I18nProvider,
-    I18n as I18nComponent,
     Trans,
     Plural,
     Select,
@@ -43,16 +42,10 @@ const App = () => {
     const gender = 'male';
     const price = 21.35;
     const lastLogin = new Date();
-    const age = 23;
     return (
         <I18nProvider language="es" catalogs={catalogs}>
-            <LocalizeAttribute age={age} />
-            <LocalizeOptionAttribute age={age} />
-            <I18nComponent>
-                {({ i18n }) => (
-                    <span aria-label={i18n.t('ageId')`${age} years old`}>Attributes</span>
-                )}
-            </I18nComponent>
+            <LocalizeAttribute age={23} />
+            <LocalizeOptionAttribute age={23} />
             <Trans>Name {name} in <code>Trans</code>.</Trans>
             <Trans id="transId">Name {name} in <code>Trans</code> with <code>id</code>.</Trans>
             <Plural id="msg.plural"

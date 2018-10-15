@@ -23,20 +23,20 @@ export interface MapError {
 
 export interface MapRequest {
     url: string;
-    headers?: { [index: string]: string };
-    credentials?: string;
+    headers: {};
+    credentials: string;
 }
 
 export interface MapboxProps extends Partial<Viewport> {
     container?: {};
-    mapboxApiAccessToken?: string;
+    mapboxApiAccessToken: string;
     attributionControl?: boolean;
     preserveDrawingBuffer?: boolean;
     onLoad?: () => void;
     onError?: (e: MapError) => void;
-    reuseMaps?: boolean;
-    reuseMap?: boolean;
-    transformRequest?: (url?: string, resourceType?: string) => MapRequest;
+    resuseMaps?: boolean;
+    resuseMap?: boolean;
+    transformRequest?: () => MapRequest;
 
     mapStyle?: string | {};
 
@@ -143,8 +143,8 @@ export interface InteractiveMapProps extends StaticMapProps {
     touchRotate?: boolean;
     keyboard?: boolean;
 
-    onHover?: (event: MapEvent) => void;
-    onClick?: (event: MapEvent) => void;
+    onHover?: (event: MapEvent, lngLat: number[], features: any) => void;
+    onClick?: (event: MapEvent, lngLat: number[], features: any) => void;
 
     onContextMenu?: (event: MapEvent) => void;
 

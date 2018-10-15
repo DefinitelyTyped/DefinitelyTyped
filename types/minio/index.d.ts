@@ -1,9 +1,8 @@
-// Type definitions for minio 7.0
+// Type definitions for minio 6.0
 // Project: https://github.com/minio/minio-js#readme
 // Definitions by: Barin Britva <https://github.com/barinbritva>
 //                 Lubomir Kaplan <https://github.com/castorw>
 //                 Panagiotis Kapros <https://github.com/loremaps>
-//                 Ben Watkins <https://github.com/OutdatedVersion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -21,7 +20,7 @@ export interface ClientOptions {
     endPoint: string;
     accessKey: string;
     secretKey: string;
-    useSSL?: boolean;
+    secure?: boolean;
     port?: number;
     region?: Region;
     transport?: any;

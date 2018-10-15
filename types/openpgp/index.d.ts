@@ -1,8 +1,7 @@
-// Type definitions for openpgp 4.0.0
+// Type definitions for openpgpjs
 // Project: http://openpgpjs.org/
 // Definitions by: Guillaume Lacasa <https://blog.lacasa.fr>
 //                 Errietta Kostala <https://github.com/errietta>
-//                 Daniel Montesinos <https://github.com/damonpam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace openpgp;
@@ -12,17 +11,19 @@ export interface UserId {
     email?: string,
 }
 
-export interface SessionKey {
+export interface SessionKey  {
     data: Uint8Array,
     algorithm: string
 }
 
 export interface EncryptOptions {
-    message: message.Message
+    data: string|Uint8Array,
+    dataType?: 'utf8'|'binary'|'text'|'mime',
     publicKeys?: key.Key | key.Key[],
     privateKeys?: key.Key | key.Key[],
-    passwords?: string | string[],
+    passwords?: string|string[],
     sessionKey?: SessionKey,
+    filename?: string,
     compression?: enums.compression,
     armor?: boolean,
     detached?: boolean,
@@ -79,7 +80,7 @@ export interface Signature {
 }
 
 export interface VerifiedMessage {
-    data: Uint8Array | string,
+    data: Uint8Array|string,
     signatures: Array<Signature>,
     filename: string,
 }
@@ -131,11 +132,13 @@ export function destroyWorker(): void;
 /**
  * Encrypts message text/data with public keys, passwords or both at once. At least either public keys or passwords
  *   must be specified. If private keys are specified, those will be used to sign the message.
- * @param  {Message} message                      message to be encrypted as created by openpgp.message.fromText or openpgp.message.fromBinary
+ * @param  {String|Uint8Array} data               text/data to be encrypted as JavaScript binary string or Uint8Array
+ * @param  {utf8|binary|text|mime} dataType       (optional) data packet type
  * @param  {Key|Array<Key>} publicKeys            (optional) array of keys or single key, used to encrypt the message
  * @param  {Key|Array<Key>} privateKeys           (optional) private keys for signing. If omitted message will not be signed
  * @param  {String|Array<String>} passwords       (optional) array of passwords or a single password to encrypt the message
  * @param  {Object} sessionKey                    (optional) session key in the form: { data:Uint8Array, algorithm:String }
+ * @param  {String} filename                      (optional) a filename for the literal data packet
  * @param  {module:enums.compression} compression (optional) which compression algorithm to compress the message with, defaults to what is specified in config
  * @param  {Boolean} armor                        (optional) if the return values should be ascii armored or the message/signature objects
  * @param  {Boolean} detached                     (optional) if the signature should be detached (if true, signature will be added to returned object)
@@ -605,10 +608,10 @@ export namespace packet {
     }
 
     interface SecretKey extends PublicKey {
-        read(bytes: string): void;
+        read(bytes:string): void;
         write(): string;
         clearPrivateMPIs(str_passphrase: string): boolean;
-        encrypt(passphrase: string): void;
+        encrypt(passphrase:string): void;
     }
 
     /** Allocate a new packet from structured packet clone

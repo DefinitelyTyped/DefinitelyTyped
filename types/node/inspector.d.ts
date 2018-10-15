@@ -1,4 +1,3 @@
-// tslint:disable-next-line:dt-header
 // Type definitions for inspector
 
 // These definitions are auto-generated.
@@ -8,20 +7,19 @@
 /**
  * The inspector module provides an API for interacting with the V8 inspector.
  */
-// tslint:disable-next-line:no-single-declare-module
 declare module "inspector" {
     import { EventEmitter } from 'events';
 
-    interface InspectorNotification<T> {
+    export interface InspectorNotification<T> {
         method: string;
         params: T;
     }
 
-    namespace Console {
+    export namespace Console {
         /**
          * Console message.
          */
-        interface ConsoleMessage {
+        export interface ConsoleMessage {
             /**
              * Message source.
              */
@@ -48,29 +46,29 @@ declare module "inspector" {
             column?: number;
         }
 
-        interface MessageAddedEventDataType {
+        export interface MessageAddedEventDataType {
             /**
              * Console message that has been added.
              */
-            message: ConsoleMessage;
+            message: Console.ConsoleMessage;
         }
     }
 
-    namespace Debugger {
+    export namespace Debugger {
         /**
          * Breakpoint identifier.
          */
-        type BreakpointId = string;
+        export type BreakpointId = string;
 
         /**
          * Call frame identifier.
          */
-        type CallFrameId = string;
+        export type CallFrameId = string;
 
         /**
          * Location in the source code.
          */
-        interface Location {
+        export interface Location {
             /**
              * Script identifier as reported in the `Debugger.scriptParsed`.
              */
@@ -89,7 +87,7 @@ declare module "inspector" {
          * Location in the source code.
          * @experimental
          */
-        interface ScriptPosition {
+        export interface ScriptPosition {
             lineNumber: number;
             columnNumber: number;
         }
@@ -97,11 +95,11 @@ declare module "inspector" {
         /**
          * JavaScript call frame. Array of call frames form the call stack.
          */
-        interface CallFrame {
+        export interface CallFrame {
             /**
              * Call frame identifier. This identifier is only valid while the virtual machine is paused.
              */
-            callFrameId: CallFrameId;
+            callFrameId: Debugger.CallFrameId;
             /**
              * Name of the JavaScript function called on this call frame.
              */
@@ -109,11 +107,11 @@ declare module "inspector" {
             /**
              * Location in the source code.
              */
-            functionLocation?: Location;
+            functionLocation?: Debugger.Location;
             /**
              * Location in the source code.
              */
-            location: Location;
+            location: Debugger.Location;
             /**
              * JavaScript script name or url.
              */
@@ -121,7 +119,7 @@ declare module "inspector" {
             /**
              * Scope chain for this call frame.
              */
-            scopeChain: Scope[];
+            scopeChain: Debugger.Scope[];
             /**
              * `this` object for this call frame.
              */
@@ -135,32 +133,32 @@ declare module "inspector" {
         /**
          * Scope description.
          */
-        interface Scope {
+        export interface Scope {
             /**
              * Scope type.
              */
             type: string;
             /**
              * Object representing the scope. For `global` and `with` scopes it represents the actual
-             * object; for the rest of the scopes, it is artificial transient object enumerating scope
-             * variables as its properties.
+object; for the rest of the scopes, it is artificial transient object enumerating scope
+variables as its properties.
              */
             object: Runtime.RemoteObject;
             name?: string;
             /**
              * Location in the source code where scope starts
              */
-            startLocation?: Location;
+            startLocation?: Debugger.Location;
             /**
              * Location in the source code where scope ends
              */
-            endLocation?: Location;
+            endLocation?: Debugger.Location;
         }
 
         /**
          * Search match for resource.
          */
-        interface SearchMatch {
+        export interface SearchMatch {
             /**
              * Line number in resource content.
              */
@@ -171,7 +169,7 @@ declare module "inspector" {
             lineContent: string;
         }
 
-        interface BreakLocation {
+        export interface BreakLocation {
             /**
              * Script identifier as reported in the `Debugger.scriptParsed`.
              */
@@ -187,36 +185,36 @@ declare module "inspector" {
             type?: string;
         }
 
-        interface ContinueToLocationParameterType {
+        export interface ContinueToLocationParameterType {
             /**
              * Location to continue to.
              */
-            location: Location;
+            location: Debugger.Location;
             targetCallFrames?: string;
         }
 
-        interface EvaluateOnCallFrameParameterType {
+        export interface EvaluateOnCallFrameParameterType {
             /**
              * Call frame identifier to evaluate on.
              */
-            callFrameId: CallFrameId;
+            callFrameId: Debugger.CallFrameId;
             /**
              * Expression to evaluate.
              */
             expression: string;
             /**
              * String object group name to put result into (allows rapid releasing resulting object handles
-             * using `releaseObjectGroup`).
+using `releaseObjectGroup`).
              */
             objectGroup?: string;
             /**
              * Specifies whether command line API should be available to the evaluated expression, defaults
-             * to false.
+to false.
              */
             includeCommandLineAPI?: boolean;
             /**
              * In silent mode exceptions thrown during evaluation are not reported and do not pause
-             * execution. Overrides `setPauseOnException` state.
+execution. Overrides `setPauseOnException` state.
              */
             silent?: boolean;
             /**
@@ -232,59 +230,54 @@ declare module "inspector" {
              * Whether to throw an exception if side effect cannot be ruled out during evaluation.
              */
             throwOnSideEffect?: boolean;
-            /**
-             * Terminate execution after timing out (number of milliseconds).
-             * @experimental
-             */
-            timeout?: Runtime.TimeDelta;
         }
 
-        interface GetPossibleBreakpointsParameterType {
+        export interface GetPossibleBreakpointsParameterType {
             /**
              * Start of range to search possible breakpoint locations in.
              */
-            start: Location;
+            start: Debugger.Location;
             /**
              * End of range to search possible breakpoint locations in (excluding). When not specified, end
-             * of scripts is used as end of range.
+of scripts is used as end of range.
              */
-            end?: Location;
+            end?: Debugger.Location;
             /**
              * Only consider locations which are in the same (non-nested) function as start.
              */
             restrictToFunction?: boolean;
         }
 
-        interface GetScriptSourceParameterType {
+        export interface GetScriptSourceParameterType {
             /**
              * Id of the script to get source for.
              */
             scriptId: Runtime.ScriptId;
         }
 
-        interface GetStackTraceParameterType {
+        export interface GetStackTraceParameterType {
             stackTraceId: Runtime.StackTraceId;
         }
 
-        interface PauseOnAsyncCallParameterType {
+        export interface PauseOnAsyncCallParameterType {
             /**
              * Debugger will pause when async call with given stack trace is started.
              */
             parentStackTraceId: Runtime.StackTraceId;
         }
 
-        interface RemoveBreakpointParameterType {
-            breakpointId: BreakpointId;
+        export interface RemoveBreakpointParameterType {
+            breakpointId: Debugger.BreakpointId;
         }
 
-        interface RestartFrameParameterType {
+        export interface RestartFrameParameterType {
             /**
              * Call frame identifier to evaluate on.
              */
-            callFrameId: CallFrameId;
+            callFrameId: Debugger.CallFrameId;
         }
 
-        interface SearchInContentParameterType {
+        export interface SearchInContentParameterType {
             /**
              * Id of the script to search in.
              */
@@ -303,42 +296,42 @@ declare module "inspector" {
             isRegex?: boolean;
         }
 
-        interface SetAsyncCallStackDepthParameterType {
+        export interface SetAsyncCallStackDepthParameterType {
             /**
              * Maximum depth of async call stacks. Setting to `0` will effectively disable collecting async
-             * call stacks (default).
+call stacks (default).
              */
             maxDepth: number;
         }
 
-        interface SetBlackboxPatternsParameterType {
+        export interface SetBlackboxPatternsParameterType {
             /**
              * Array of regexps that will be used to check script url for blackbox state.
              */
             patterns: string[];
         }
 
-        interface SetBlackboxedRangesParameterType {
+        export interface SetBlackboxedRangesParameterType {
             /**
              * Id of the script.
              */
             scriptId: Runtime.ScriptId;
-            positions: ScriptPosition[];
+            positions: Debugger.ScriptPosition[];
         }
 
-        interface SetBreakpointParameterType {
+        export interface SetBreakpointParameterType {
             /**
              * Location to set breakpoint in.
              */
-            location: Location;
+            location: Debugger.Location;
             /**
              * Expression to use as a breakpoint condition. When specified, debugger will only stop on the
-             * breakpoint if this expression evaluates to true.
+breakpoint if this expression evaluates to true.
              */
             condition?: string;
         }
 
-        interface SetBreakpointByUrlParameterType {
+        export interface SetBreakpointByUrlParameterType {
             /**
              * Line number to set breakpoint at.
              */
@@ -349,7 +342,7 @@ declare module "inspector" {
             url?: string;
             /**
              * Regex pattern for the URLs of the resources to set breakpoints on. Either `url` or
-             * `urlRegex` must be specified.
+`urlRegex` must be specified.
              */
             urlRegex?: string;
             /**
@@ -362,45 +355,33 @@ declare module "inspector" {
             columnNumber?: number;
             /**
              * Expression to use as a breakpoint condition. When specified, debugger will only stop on the
-             * breakpoint if this expression evaluates to true.
+breakpoint if this expression evaluates to true.
              */
             condition?: string;
         }
 
-        interface SetBreakpointOnFunctionCallParameterType {
-            /**
-             * Function object id.
-             */
-            objectId: Runtime.RemoteObjectId;
-            /**
-             * Expression to use as a breakpoint condition. When specified, debugger will
-             * stop on the breakpoint if this expression evaluates to true.
-             */
-            condition?: string;
-        }
-
-        interface SetBreakpointsActiveParameterType {
+        export interface SetBreakpointsActiveParameterType {
             /**
              * New value for breakpoints active state.
              */
             active: boolean;
         }
 
-        interface SetPauseOnExceptionsParameterType {
+        export interface SetPauseOnExceptionsParameterType {
             /**
              * Pause on exceptions mode.
              */
             state: string;
         }
 
-        interface SetReturnValueParameterType {
+        export interface SetReturnValueParameterType {
             /**
              * New return value.
              */
             newValue: Runtime.CallArgument;
         }
 
-        interface SetScriptSourceParameterType {
+        export interface SetScriptSourceParameterType {
             /**
              * Id of the script to edit.
              */
@@ -411,22 +392,22 @@ declare module "inspector" {
             scriptSource: string;
             /**
              * If true the change will not actually be applied. Dry run may be used to get result
-             * description without actually modifying the code.
+description without actually modifying the code.
              */
             dryRun?: boolean;
         }
 
-        interface SetSkipAllPausesParameterType {
+        export interface SetSkipAllPausesParameterType {
             /**
              * New value for skip pauses state.
              */
             skip: boolean;
         }
 
-        interface SetVariableValueParameterType {
+        export interface SetVariableValueParameterType {
             /**
              * 0-based number of scope as was listed in scope chain. Only 'local', 'closure' and 'catch'
-             * scope types are allowed. Other scopes could be manipulated manually.
+scope types are allowed. Other scopes could be manipulated manually.
              */
             scopeNumber: number;
             /**
@@ -440,19 +421,19 @@ declare module "inspector" {
             /**
              * Id of callframe that holds variable.
              */
-            callFrameId: CallFrameId;
+            callFrameId: Debugger.CallFrameId;
         }
 
-        interface StepIntoParameterType {
+        export interface StepIntoParameterType {
             /**
              * Debugger will issue additional Debugger.paused notification if any async task is scheduled
-             * before next pause.
+before next pause.
              * @experimental
              */
             breakOnAsyncCall?: boolean;
         }
 
-        interface EnableReturnType {
+        export interface EnableReturnType {
             /**
              * Unique identifier of the debugger.
              * @experimental
@@ -460,7 +441,7 @@ declare module "inspector" {
             debuggerId: Runtime.UniqueDebuggerId;
         }
 
-        interface EvaluateOnCallFrameReturnType {
+        export interface EvaluateOnCallFrameReturnType {
             /**
              * Object wrapper for the evaluation result.
              */
@@ -471,29 +452,29 @@ declare module "inspector" {
             exceptionDetails?: Runtime.ExceptionDetails;
         }
 
-        interface GetPossibleBreakpointsReturnType {
+        export interface GetPossibleBreakpointsReturnType {
             /**
              * List of the possible breakpoint locations.
              */
-            locations: BreakLocation[];
+            locations: Debugger.BreakLocation[];
         }
 
-        interface GetScriptSourceReturnType {
+        export interface GetScriptSourceReturnType {
             /**
              * Script source.
              */
             scriptSource: string;
         }
 
-        interface GetStackTraceReturnType {
+        export interface GetStackTraceReturnType {
             stackTrace: Runtime.StackTrace;
         }
 
-        interface RestartFrameReturnType {
+        export interface RestartFrameReturnType {
             /**
              * New stack trace.
              */
-            callFrames: CallFrame[];
+            callFrames: Debugger.CallFrame[];
             /**
              * Async stack trace, if any.
              */
@@ -505,47 +486,40 @@ declare module "inspector" {
             asyncStackTraceId?: Runtime.StackTraceId;
         }
 
-        interface SearchInContentReturnType {
+        export interface SearchInContentReturnType {
             /**
              * List of search matches.
              */
-            result: SearchMatch[];
+            result: Debugger.SearchMatch[];
         }
 
-        interface SetBreakpointReturnType {
+        export interface SetBreakpointReturnType {
             /**
              * Id of the created breakpoint for further reference.
              */
-            breakpointId: BreakpointId;
+            breakpointId: Debugger.BreakpointId;
             /**
              * Location this breakpoint resolved into.
              */
-            actualLocation: Location;
+            actualLocation: Debugger.Location;
         }
 
-        interface SetBreakpointByUrlReturnType {
+        export interface SetBreakpointByUrlReturnType {
             /**
              * Id of the created breakpoint for further reference.
              */
-            breakpointId: BreakpointId;
+            breakpointId: Debugger.BreakpointId;
             /**
              * List of the locations this breakpoint resolved into upon addition.
              */
-            locations: Location[];
+            locations: Debugger.Location[];
         }
 
-        interface SetBreakpointOnFunctionCallReturnType {
-            /**
-             * Id of the created breakpoint for further reference.
-             */
-            breakpointId: BreakpointId;
-        }
-
-        interface SetScriptSourceReturnType {
+        export interface SetScriptSourceReturnType {
             /**
              * New stack trace in case editing has happened while VM was stopped.
              */
-            callFrames?: CallFrame[];
+            callFrames?: Debugger.CallFrame[];
             /**
              * Whether current call stack  was modified after applying the changes.
              */
@@ -565,22 +539,22 @@ declare module "inspector" {
             exceptionDetails?: Runtime.ExceptionDetails;
         }
 
-        interface BreakpointResolvedEventDataType {
+        export interface BreakpointResolvedEventDataType {
             /**
              * Breakpoint unique identifier.
              */
-            breakpointId: BreakpointId;
+            breakpointId: Debugger.BreakpointId;
             /**
              * Actual breakpoint location.
              */
-            location: Location;
+            location: Debugger.Location;
         }
 
-        interface PausedEventDataType {
+        export interface PausedEventDataType {
             /**
              * Call stack the virtual machine stopped on.
              */
-            callFrames: CallFrame[];
+            callFrames: Debugger.CallFrame[];
             /**
              * Pause reason.
              */
@@ -604,13 +578,13 @@ declare module "inspector" {
             asyncStackTraceId?: Runtime.StackTraceId;
             /**
              * Just scheduled async call will have this stack trace as parent stack during async execution.
-             * This field is available only after `Debugger.stepInto` call with `breakOnAsynCall` flag.
+This field is available only after `Debugger.stepInto` call with `breakOnAsynCall` flag.
              * @experimental
              */
             asyncCallStackTraceId?: Runtime.StackTraceId;
         }
 
-        interface ScriptFailedToParseEventDataType {
+        export interface ScriptFailedToParseEventDataType {
             /**
              * Identifier of the script parsed.
              */
@@ -670,7 +644,7 @@ declare module "inspector" {
             stackTrace?: Runtime.StackTrace;
         }
 
-        interface ScriptParsedEventDataType {
+        export interface ScriptParsedEventDataType {
             /**
              * Identifier of the script parsed.
              */
@@ -736,16 +710,16 @@ declare module "inspector" {
         }
     }
 
-    namespace HeapProfiler {
+    export namespace HeapProfiler {
         /**
          * Heap snapshot object id.
          */
-        type HeapSnapshotObjectId = string;
+        export type HeapSnapshotObjectId = string;
 
         /**
          * Sampling Heap Profile node. Holds callsite information, allocation statistics and child nodes.
          */
-        interface SamplingHeapProfileNode {
+        export interface SamplingHeapProfileNode {
             /**
              * Function location.
              */
@@ -757,123 +731,123 @@ declare module "inspector" {
             /**
              * Child nodes.
              */
-            children: SamplingHeapProfileNode[];
+            children: HeapProfiler.SamplingHeapProfileNode[];
         }
 
         /**
          * Profile.
          */
-        interface SamplingHeapProfile {
-            head: SamplingHeapProfileNode;
+        export interface SamplingHeapProfile {
+            head: HeapProfiler.SamplingHeapProfileNode;
         }
 
-        interface AddInspectedHeapObjectParameterType {
+        export interface AddInspectedHeapObjectParameterType {
             /**
              * Heap snapshot object id to be accessible by means of $x command line API.
              */
-            heapObjectId: HeapSnapshotObjectId;
+            heapObjectId: HeapProfiler.HeapSnapshotObjectId;
         }
 
-        interface GetHeapObjectIdParameterType {
+        export interface GetHeapObjectIdParameterType {
             /**
              * Identifier of the object to get heap object id for.
              */
             objectId: Runtime.RemoteObjectId;
         }
 
-        interface GetObjectByHeapObjectIdParameterType {
-            objectId: HeapSnapshotObjectId;
+        export interface GetObjectByHeapObjectIdParameterType {
+            objectId: HeapProfiler.HeapSnapshotObjectId;
             /**
              * Symbolic group name that can be used to release multiple objects.
              */
             objectGroup?: string;
         }
 
-        interface StartSamplingParameterType {
+        export interface StartSamplingParameterType {
             /**
              * Average sample interval in bytes. Poisson distribution is used for the intervals. The
-             * default value is 32768 bytes.
+default value is 32768 bytes.
              */
             samplingInterval?: number;
         }
 
-        interface StartTrackingHeapObjectsParameterType {
+        export interface StartTrackingHeapObjectsParameterType {
             trackAllocations?: boolean;
         }
 
-        interface StopTrackingHeapObjectsParameterType {
+        export interface StopTrackingHeapObjectsParameterType {
             /**
              * If true 'reportHeapSnapshotProgress' events will be generated while snapshot is being taken
-             * when the tracking is stopped.
+when the tracking is stopped.
              */
             reportProgress?: boolean;
         }
 
-        interface TakeHeapSnapshotParameterType {
+        export interface TakeHeapSnapshotParameterType {
             /**
              * If true 'reportHeapSnapshotProgress' events will be generated while snapshot is being taken.
              */
             reportProgress?: boolean;
         }
 
-        interface GetHeapObjectIdReturnType {
+        export interface GetHeapObjectIdReturnType {
             /**
              * Id of the heap snapshot object corresponding to the passed remote object id.
              */
-            heapSnapshotObjectId: HeapSnapshotObjectId;
+            heapSnapshotObjectId: HeapProfiler.HeapSnapshotObjectId;
         }
 
-        interface GetObjectByHeapObjectIdReturnType {
+        export interface GetObjectByHeapObjectIdReturnType {
             /**
              * Evaluation result.
              */
             result: Runtime.RemoteObject;
         }
 
-        interface GetSamplingProfileReturnType {
+        export interface GetSamplingProfileReturnType {
             /**
              * Return the sampling profile being collected.
              */
-            profile: SamplingHeapProfile;
+            profile: HeapProfiler.SamplingHeapProfile;
         }
 
-        interface StopSamplingReturnType {
+        export interface StopSamplingReturnType {
             /**
              * Recorded sampling heap profile.
              */
-            profile: SamplingHeapProfile;
+            profile: HeapProfiler.SamplingHeapProfile;
         }
 
-        interface AddHeapSnapshotChunkEventDataType {
+        export interface AddHeapSnapshotChunkEventDataType {
             chunk: string;
         }
 
-        interface HeapStatsUpdateEventDataType {
+        export interface HeapStatsUpdateEventDataType {
             /**
              * An array of triplets. Each triplet describes a fragment. The first integer is the fragment
-             * index, the second integer is a total count of objects for the fragment, the third integer is
-             * a total size of the objects for the fragment.
+index, the second integer is a total count of objects for the fragment, the third integer is
+a total size of the objects for the fragment.
              */
             statsUpdate: number[];
         }
 
-        interface LastSeenObjectIdEventDataType {
+        export interface LastSeenObjectIdEventDataType {
             lastSeenObjectId: number;
             timestamp: number;
         }
 
-        interface ReportHeapSnapshotProgressEventDataType {
+        export interface ReportHeapSnapshotProgressEventDataType {
             done: number;
             total: number;
             finished?: boolean;
         }
     }
 
-    namespace Profiler {
+    export namespace Profiler {
         /**
          * Profile node. Holds callsite information, execution statistics and child nodes.
          */
-        interface ProfileNode {
+        export interface ProfileNode {
             /**
              * Unique id of the node.
              */
@@ -892,23 +866,23 @@ declare module "inspector" {
             children?: number[];
             /**
              * The reason of being not optimized. The function may be deoptimized or marked as don't
-             * optimize.
+optimize.
              */
             deoptReason?: string;
             /**
              * An array of source position ticks.
              */
-            positionTicks?: PositionTickInfo[];
+            positionTicks?: Profiler.PositionTickInfo[];
         }
 
         /**
          * Profile.
          */
-        interface Profile {
+        export interface Profile {
             /**
              * The list of profile nodes. First item is the root node.
              */
-            nodes: ProfileNode[];
+            nodes: Profiler.ProfileNode[];
             /**
              * Profiling start timestamp in microseconds.
              */
@@ -923,7 +897,7 @@ declare module "inspector" {
             samples?: number[];
             /**
              * Time intervals between adjacent samples in microseconds. The first delta is relative to the
-             * profile startTime.
+profile startTime.
              */
             timeDeltas?: number[];
         }
@@ -931,7 +905,7 @@ declare module "inspector" {
         /**
          * Specifies a number of samples attributed to a certain source position.
          */
-        interface PositionTickInfo {
+        export interface PositionTickInfo {
             /**
              * Source line number (1-based).
              */
@@ -945,7 +919,7 @@ declare module "inspector" {
         /**
          * Coverage data for a source range.
          */
-        interface CoverageRange {
+        export interface CoverageRange {
             /**
              * JavaScript script source offset for the range start.
              */
@@ -963,7 +937,7 @@ declare module "inspector" {
         /**
          * Coverage data for a JavaScript function.
          */
-        interface FunctionCoverage {
+        export interface FunctionCoverage {
             /**
              * JavaScript function name.
              */
@@ -971,7 +945,7 @@ declare module "inspector" {
             /**
              * Source ranges inside the function with coverage data.
              */
-            ranges: CoverageRange[];
+            ranges: Profiler.CoverageRange[];
             /**
              * Whether coverage data for this function has block granularity.
              */
@@ -981,7 +955,7 @@ declare module "inspector" {
         /**
          * Coverage data for a JavaScript script.
          */
-        interface ScriptCoverage {
+        export interface ScriptCoverage {
             /**
              * JavaScript script id.
              */
@@ -993,14 +967,14 @@ declare module "inspector" {
             /**
              * Functions contained in the script that has coverage data.
              */
-            functions: FunctionCoverage[];
+            functions: Profiler.FunctionCoverage[];
         }
 
         /**
          * Describes a type collected during runtime.
          * @experimental
          */
-        interface TypeObject {
+        export interface TypeObject {
             /**
              * Name of a type collected with type profiling.
              */
@@ -1011,7 +985,7 @@ declare module "inspector" {
          * Source offset and types for a parameter or return value.
          * @experimental
          */
-        interface TypeProfileEntry {
+        export interface TypeProfileEntry {
             /**
              * Source offset of the parameter or end of function for return values.
              */
@@ -1019,14 +993,14 @@ declare module "inspector" {
             /**
              * The types for this parameter or return value.
              */
-            types: TypeObject[];
+            types: Profiler.TypeObject[];
         }
 
         /**
          * Type profile data collected during runtime for a JavaScript script.
          * @experimental
          */
-        interface ScriptTypeProfile {
+        export interface ScriptTypeProfile {
             /**
              * JavaScript script id.
              */
@@ -1038,17 +1012,17 @@ declare module "inspector" {
             /**
              * Type profile entries for parameters and return values of the functions in the script.
              */
-            entries: TypeProfileEntry[];
+            entries: Profiler.TypeProfileEntry[];
         }
 
-        interface SetSamplingIntervalParameterType {
+        export interface SetSamplingIntervalParameterType {
             /**
              * New sampling interval in microseconds.
              */
             interval: number;
         }
 
-        interface StartPreciseCoverageParameterType {
+        export interface StartPreciseCoverageParameterType {
             /**
              * Collect accurate call counts beyond simple 'covered' or 'not covered'.
              */
@@ -1059,48 +1033,48 @@ declare module "inspector" {
             detailed?: boolean;
         }
 
-        interface GetBestEffortCoverageReturnType {
+        export interface GetBestEffortCoverageReturnType {
             /**
              * Coverage data for the current isolate.
              */
-            result: ScriptCoverage[];
+            result: Profiler.ScriptCoverage[];
         }
 
-        interface StopReturnType {
+        export interface StopReturnType {
             /**
              * Recorded profile.
              */
-            profile: Profile;
+            profile: Profiler.Profile;
         }
 
-        interface TakePreciseCoverageReturnType {
+        export interface TakePreciseCoverageReturnType {
             /**
              * Coverage data for the current isolate.
              */
-            result: ScriptCoverage[];
+            result: Profiler.ScriptCoverage[];
         }
 
-        interface TakeTypeProfileReturnType {
+        export interface TakeTypeProfileReturnType {
             /**
              * Type profile for all scripts since startTypeProfile() was turned on.
              */
-            result: ScriptTypeProfile[];
+            result: Profiler.ScriptTypeProfile[];
         }
 
-        interface ConsoleProfileFinishedEventDataType {
+        export interface ConsoleProfileFinishedEventDataType {
             id: string;
             /**
              * Location of console.profileEnd().
              */
             location: Debugger.Location;
-            profile: Profile;
+            profile: Profiler.Profile;
             /**
              * Profile title passed as an argument to console.profile().
              */
             title?: string;
         }
 
-        interface ConsoleProfileStartedEventDataType {
+        export interface ConsoleProfileStartedEventDataType {
             id: string;
             /**
              * Location of console.profile().
@@ -1113,27 +1087,27 @@ declare module "inspector" {
         }
     }
 
-    namespace Runtime {
+    export namespace Runtime {
         /**
          * Unique script identifier.
          */
-        type ScriptId = string;
+        export type ScriptId = string;
 
         /**
          * Unique object identifier.
          */
-        type RemoteObjectId = string;
+        export type RemoteObjectId = string;
 
         /**
          * Primitive value which cannot be JSON-stringified. Includes values `-0`, `NaN`, `Infinity`,
-         * `-Infinity`, and bigint literals.
+`-Infinity`, and bigint literals.
          */
-        type UnserializableValue = string;
+        export type UnserializableValue = string;
 
         /**
          * Mirror object referencing original JavaScript object.
          */
-        interface RemoteObject {
+        export interface RemoteObject {
             /**
              * Object type.
              */
@@ -1152,9 +1126,9 @@ declare module "inspector" {
             value?: any;
             /**
              * Primitive value which can not be JSON-stringified does not have `value`, but gets this
-             * property.
+property.
              */
-            unserializableValue?: UnserializableValue;
+            unserializableValue?: Runtime.UnserializableValue;
             /**
              * String representation of the object.
              */
@@ -1162,34 +1136,34 @@ declare module "inspector" {
             /**
              * Unique object identifier (for non-primitive values).
              */
-            objectId?: RemoteObjectId;
+            objectId?: Runtime.RemoteObjectId;
             /**
              * Preview containing abbreviated property values. Specified for `object` type values only.
              * @experimental
              */
-            preview?: ObjectPreview;
+            preview?: Runtime.ObjectPreview;
             /**
              * @experimental
              */
-            customPreview?: CustomPreview;
+            customPreview?: Runtime.CustomPreview;
         }
 
         /**
          * @experimental
          */
-        interface CustomPreview {
+        export interface CustomPreview {
             header: string;
             hasBody: boolean;
-            formatterObjectId: RemoteObjectId;
-            bindRemoteObjectFunctionId: RemoteObjectId;
-            configObjectId?: RemoteObjectId;
+            formatterObjectId: Runtime.RemoteObjectId;
+            bindRemoteObjectFunctionId: Runtime.RemoteObjectId;
+            configObjectId?: Runtime.RemoteObjectId;
         }
 
         /**
          * Object containing abbreviated remote object value.
          * @experimental
          */
-        interface ObjectPreview {
+        export interface ObjectPreview {
             /**
              * Object type.
              */
@@ -1209,17 +1183,17 @@ declare module "inspector" {
             /**
              * List of the properties.
              */
-            properties: PropertyPreview[];
+            properties: Runtime.PropertyPreview[];
             /**
              * List of the entries. Specified for `map` and `set` subtype values only.
              */
-            entries?: EntryPreview[];
+            entries?: Runtime.EntryPreview[];
         }
 
         /**
          * @experimental
          */
-        interface PropertyPreview {
+        export interface PropertyPreview {
             /**
              * Property name.
              */
@@ -1235,7 +1209,7 @@ declare module "inspector" {
             /**
              * Nested value preview.
              */
-            valuePreview?: ObjectPreview;
+            valuePreview?: Runtime.ObjectPreview;
             /**
              * Object subtype hint. Specified for `object` type values only.
              */
@@ -1245,21 +1219,21 @@ declare module "inspector" {
         /**
          * @experimental
          */
-        interface EntryPreview {
+        export interface EntryPreview {
             /**
              * Preview of the key. Specified for map-like collection entries.
              */
-            key?: ObjectPreview;
+            key?: Runtime.ObjectPreview;
             /**
              * Preview of the value.
              */
-            value: ObjectPreview;
+            value: Runtime.ObjectPreview;
         }
 
         /**
          * Object property descriptor.
          */
-        interface PropertyDescriptor {
+        export interface PropertyDescriptor {
             /**
              * Property name or symbol description.
              */
@@ -1267,29 +1241,29 @@ declare module "inspector" {
             /**
              * The value associated with the property.
              */
-            value?: RemoteObject;
+            value?: Runtime.RemoteObject;
             /**
              * True if the value associated with the property may be changed (data descriptors only).
              */
             writable?: boolean;
             /**
              * A function which serves as a getter for the property, or `undefined` if there is no getter
-             * (accessor descriptors only).
+(accessor descriptors only).
              */
-            get?: RemoteObject;
+            get?: Runtime.RemoteObject;
             /**
              * A function which serves as a setter for the property, or `undefined` if there is no setter
-             * (accessor descriptors only).
+(accessor descriptors only).
              */
-            set?: RemoteObject;
+            set?: Runtime.RemoteObject;
             /**
              * True if the type of this property descriptor may be changed and if the property may be
-             * deleted from the corresponding object.
+deleted from the corresponding object.
              */
             configurable: boolean;
             /**
              * True if this property shows up during enumeration of the properties on the corresponding
-             * object.
+object.
              */
             enumerable: boolean;
             /**
@@ -1303,13 +1277,13 @@ declare module "inspector" {
             /**
              * Property symbol object, if the property is of the `symbol` type.
              */
-            symbol?: RemoteObject;
+            symbol?: Runtime.RemoteObject;
         }
 
         /**
          * Object internal property descriptor. This property isn't normally visible in JavaScript code.
          */
-        interface InternalPropertyDescriptor {
+        export interface InternalPropertyDescriptor {
             /**
              * Conventional property name.
              */
@@ -1317,14 +1291,14 @@ declare module "inspector" {
             /**
              * The value associated with the property.
              */
-            value?: RemoteObject;
+            value?: Runtime.RemoteObject;
         }
 
         /**
          * Represents function call argument. Either remote object id `objectId`, primitive `value`,
-         * unserializable primitive value or neither of (for undefined) them should be specified.
+unserializable primitive value or neither of (for undefined) them should be specified.
          */
-        interface CallArgument {
+        export interface CallArgument {
             /**
              * Primitive value or serializable javascript object.
              */
@@ -1332,27 +1306,27 @@ declare module "inspector" {
             /**
              * Primitive value which can not be JSON-stringified.
              */
-            unserializableValue?: UnserializableValue;
+            unserializableValue?: Runtime.UnserializableValue;
             /**
              * Remote object handle.
              */
-            objectId?: RemoteObjectId;
+            objectId?: Runtime.RemoteObjectId;
         }
 
         /**
          * Id of an execution context.
          */
-        type ExecutionContextId = number;
+        export type ExecutionContextId = number;
 
         /**
          * Description of an isolated world.
          */
-        interface ExecutionContextDescription {
+        export interface ExecutionContextDescription {
             /**
              * Unique id of the execution context. It can be used to specify in which execution context
-             * script evaluation should be performed.
+script evaluation should be performed.
              */
-            id: ExecutionContextId;
+            id: Runtime.ExecutionContextId;
             /**
              * Execution context origin.
              */
@@ -1369,9 +1343,9 @@ declare module "inspector" {
 
         /**
          * Detailed information about exception (or error) that was thrown during script compilation or
-         * execution.
+execution.
          */
-        interface ExceptionDetails {
+        export interface ExceptionDetails {
             /**
              * Exception id.
              */
@@ -1391,7 +1365,7 @@ declare module "inspector" {
             /**
              * Script ID of the exception location.
              */
-            scriptId?: ScriptId;
+            scriptId?: Runtime.ScriptId;
             /**
              * URL of the exception location, to be used when the script was not reported.
              */
@@ -1399,31 +1373,26 @@ declare module "inspector" {
             /**
              * JavaScript stack trace if available.
              */
-            stackTrace?: StackTrace;
+            stackTrace?: Runtime.StackTrace;
             /**
              * Exception object if available.
              */
-            exception?: RemoteObject;
+            exception?: Runtime.RemoteObject;
             /**
              * Identifier of the context where exception happened.
              */
-            executionContextId?: ExecutionContextId;
+            executionContextId?: Runtime.ExecutionContextId;
         }
 
         /**
          * Number of milliseconds since epoch.
          */
-        type Timestamp = number;
-
-        /**
-         * Number of milliseconds.
-         */
-        type TimeDelta = number;
+        export type Timestamp = number;
 
         /**
          * Stack entry for runtime errors and assertions.
          */
-        interface CallFrame {
+        export interface CallFrame {
             /**
              * JavaScript function name.
              */
@@ -1431,7 +1400,7 @@ declare module "inspector" {
             /**
              * JavaScript script id.
              */
-            scriptId: ScriptId;
+            scriptId: Runtime.ScriptId;
             /**
              * JavaScript script name or url.
              */
@@ -1449,48 +1418,48 @@ declare module "inspector" {
         /**
          * Call frames for assertions or error messages.
          */
-        interface StackTrace {
+        export interface StackTrace {
             /**
              * String label of this stack trace. For async traces this may be a name of the function that
-             * initiated the async call.
+initiated the async call.
              */
             description?: string;
             /**
              * JavaScript function name.
              */
-            callFrames: CallFrame[];
+            callFrames: Runtime.CallFrame[];
             /**
              * Asynchronous JavaScript stack trace that preceded this stack, if available.
              */
-            parent?: StackTrace;
+            parent?: Runtime.StackTrace;
             /**
              * Asynchronous JavaScript stack trace that preceded this stack, if available.
              * @experimental
              */
-            parentId?: StackTraceId;
+            parentId?: Runtime.StackTraceId;
         }
 
         /**
          * Unique identifier of current debugger.
          * @experimental
          */
-        type UniqueDebuggerId = string;
+        export type UniqueDebuggerId = string;
 
         /**
          * If `debuggerId` is set stack trace comes from another debugger and can be resolved there. This
-         * allows to track cross-debugger calls. See `Runtime.StackTrace` and `Debugger.paused` for usages.
+allows to track cross-debugger calls. See `Runtime.StackTrace` and `Debugger.paused` for usages.
          * @experimental
          */
-        interface StackTraceId {
+        export interface StackTraceId {
             id: string;
-            debuggerId?: UniqueDebuggerId;
+            debuggerId?: Runtime.UniqueDebuggerId;
         }
 
-        interface AwaitPromiseParameterType {
+        export interface AwaitPromiseParameterType {
             /**
              * Identifier of the promise.
              */
-            promiseObjectId: RemoteObjectId;
+            promiseObjectId: Runtime.RemoteObjectId;
             /**
              * Whether the result is expected to be a JSON object that should be sent by value.
              */
@@ -1501,24 +1470,24 @@ declare module "inspector" {
             generatePreview?: boolean;
         }
 
-        interface CallFunctionOnParameterType {
+        export interface CallFunctionOnParameterType {
             /**
              * Declaration of the function to call.
              */
             functionDeclaration: string;
             /**
              * Identifier of the object to call function on. Either objectId or executionContextId should
-             * be specified.
+be specified.
              */
-            objectId?: RemoteObjectId;
+            objectId?: Runtime.RemoteObjectId;
             /**
              * Call arguments. All call arguments must belong to the same JavaScript world as the target
-             * object.
+object.
              */
-            arguments?: CallArgument[];
+            arguments?: Runtime.CallArgument[];
             /**
              * In silent mode exceptions thrown during evaluation are not reported and do not pause
-             * execution. Overrides `setPauseOnException` state.
+execution. Overrides `setPauseOnException` state.
              */
             silent?: boolean;
             /**
@@ -1536,22 +1505,22 @@ declare module "inspector" {
             userGesture?: boolean;
             /**
              * Whether execution should `await` for resulting value and return once awaited promise is
-             * resolved.
+resolved.
              */
             awaitPromise?: boolean;
             /**
              * Specifies execution context which global object will be used to call function on. Either
-             * executionContextId or objectId should be specified.
+executionContextId or objectId should be specified.
              */
-            executionContextId?: ExecutionContextId;
+            executionContextId?: Runtime.ExecutionContextId;
             /**
              * Symbolic group name that can be used to release multiple objects. If objectGroup is not
-             * specified and objectId is, objectGroup will be inherited from object.
+specified and objectId is, objectGroup will be inherited from object.
              */
             objectGroup?: string;
         }
 
-        interface CompileScriptParameterType {
+        export interface CompileScriptParameterType {
             /**
              * Expression to compile.
              */
@@ -1566,12 +1535,12 @@ declare module "inspector" {
             persistScript: boolean;
             /**
              * Specifies in which execution context to perform script run. If the parameter is omitted the
-             * evaluation will be performed in the context of the inspected page.
+evaluation will be performed in the context of the inspected page.
              */
-            executionContextId?: ExecutionContextId;
+            executionContextId?: Runtime.ExecutionContextId;
         }
 
-        interface EvaluateParameterType {
+        export interface EvaluateParameterType {
             /**
              * Expression to evaluate.
              */
@@ -1586,14 +1555,14 @@ declare module "inspector" {
             includeCommandLineAPI?: boolean;
             /**
              * In silent mode exceptions thrown during evaluation are not reported and do not pause
-             * execution. Overrides `setPauseOnException` state.
+execution. Overrides `setPauseOnException` state.
              */
             silent?: boolean;
             /**
              * Specifies in which execution context to perform evaluation. If the parameter is omitted the
-             * evaluation will be performed in the context of the inspected page.
+evaluation will be performed in the context of the inspected page.
              */
-            contextId?: ExecutionContextId;
+            contextId?: Runtime.ExecutionContextId;
             /**
              * Whether the result is expected to be a JSON object that should be sent by value.
              */
@@ -1609,7 +1578,7 @@ declare module "inspector" {
             userGesture?: boolean;
             /**
              * Whether execution should `await` for resulting value and return once awaited promise is
-             * resolved.
+resolved.
              */
             awaitPromise?: boolean;
             /**
@@ -1617,26 +1586,21 @@ declare module "inspector" {
              * @experimental
              */
             throwOnSideEffect?: boolean;
-            /**
-             * Terminate execution after timing out (number of milliseconds).
-             * @experimental
-             */
-            timeout?: TimeDelta;
         }
 
-        interface GetPropertiesParameterType {
+        export interface GetPropertiesParameterType {
             /**
              * Identifier of the object to return properties for.
              */
-            objectId: RemoteObjectId;
+            objectId: Runtime.RemoteObjectId;
             /**
              * If true, returns properties belonging only to the element itself, not to its prototype
-             * chain.
+chain.
              */
             ownProperties?: boolean;
             /**
              * If true, returns accessor properties (with getter/setter) only; internal properties are not
-             * returned either.
+returned either.
              * @experimental
              */
             accessorPropertiesOnly?: boolean;
@@ -1647,55 +1611,55 @@ declare module "inspector" {
             generatePreview?: boolean;
         }
 
-        interface GlobalLexicalScopeNamesParameterType {
+        export interface GlobalLexicalScopeNamesParameterType {
             /**
              * Specifies in which execution context to lookup global scope variables.
              */
-            executionContextId?: ExecutionContextId;
+            executionContextId?: Runtime.ExecutionContextId;
         }
 
-        interface QueryObjectsParameterType {
+        export interface QueryObjectsParameterType {
             /**
              * Identifier of the prototype to return objects for.
              */
-            prototypeObjectId: RemoteObjectId;
+            prototypeObjectId: Runtime.RemoteObjectId;
             /**
              * Symbolic group name that can be used to release the results.
              */
             objectGroup?: string;
         }
 
-        interface ReleaseObjectParameterType {
+        export interface ReleaseObjectParameterType {
             /**
              * Identifier of the object to release.
              */
-            objectId: RemoteObjectId;
+            objectId: Runtime.RemoteObjectId;
         }
 
-        interface ReleaseObjectGroupParameterType {
+        export interface ReleaseObjectGroupParameterType {
             /**
              * Symbolic object group name.
              */
             objectGroup: string;
         }
 
-        interface RunScriptParameterType {
+        export interface RunScriptParameterType {
             /**
              * Id of the script to run.
              */
-            scriptId: ScriptId;
+            scriptId: Runtime.ScriptId;
             /**
              * Specifies in which execution context to perform script run. If the parameter is omitted the
-             * evaluation will be performed in the context of the inspected page.
+evaluation will be performed in the context of the inspected page.
              */
-            executionContextId?: ExecutionContextId;
+            executionContextId?: Runtime.ExecutionContextId;
             /**
              * Symbolic group name that can be used to release multiple objects.
              */
             objectGroup?: string;
             /**
              * In silent mode exceptions thrown during evaluation are not reported and do not pause
-             * execution. Overrides `setPauseOnException` state.
+execution. Overrides `setPauseOnException` state.
              */
             silent?: boolean;
             /**
@@ -1712,67 +1676,67 @@ declare module "inspector" {
             generatePreview?: boolean;
             /**
              * Whether execution should `await` for resulting value and return once awaited promise is
-             * resolved.
+resolved.
              */
             awaitPromise?: boolean;
         }
 
-        interface SetCustomObjectFormatterEnabledParameterType {
+        export interface SetCustomObjectFormatterEnabledParameterType {
             enabled: boolean;
         }
 
-        interface AwaitPromiseReturnType {
+        export interface AwaitPromiseReturnType {
             /**
              * Promise result. Will contain rejected value if promise was rejected.
              */
-            result: RemoteObject;
+            result: Runtime.RemoteObject;
             /**
              * Exception details if stack strace is available.
              */
-            exceptionDetails?: ExceptionDetails;
+            exceptionDetails?: Runtime.ExceptionDetails;
         }
 
-        interface CallFunctionOnReturnType {
+        export interface CallFunctionOnReturnType {
             /**
              * Call result.
              */
-            result: RemoteObject;
+            result: Runtime.RemoteObject;
             /**
              * Exception details.
              */
-            exceptionDetails?: ExceptionDetails;
+            exceptionDetails?: Runtime.ExceptionDetails;
         }
 
-        interface CompileScriptReturnType {
+        export interface CompileScriptReturnType {
             /**
              * Id of the script.
              */
-            scriptId?: ScriptId;
+            scriptId?: Runtime.ScriptId;
             /**
              * Exception details.
              */
-            exceptionDetails?: ExceptionDetails;
+            exceptionDetails?: Runtime.ExceptionDetails;
         }
 
-        interface EvaluateReturnType {
+        export interface EvaluateReturnType {
             /**
              * Evaluation result.
              */
-            result: RemoteObject;
+            result: Runtime.RemoteObject;
             /**
              * Exception details.
              */
-            exceptionDetails?: ExceptionDetails;
+            exceptionDetails?: Runtime.ExceptionDetails;
         }
 
-        interface GetIsolateIdReturnType {
+        export interface GetIsolateIdReturnType {
             /**
              * The isolate id.
              */
             id: string;
         }
 
-        interface GetHeapUsageReturnType {
+        export interface GetHeapUsageReturnType {
             /**
              * Used heap size in bytes.
              */
@@ -1783,44 +1747,44 @@ declare module "inspector" {
             totalSize: number;
         }
 
-        interface GetPropertiesReturnType {
+        export interface GetPropertiesReturnType {
             /**
              * Object properties.
              */
-            result: PropertyDescriptor[];
+            result: Runtime.PropertyDescriptor[];
             /**
              * Internal object properties (only of the element itself).
              */
-            internalProperties?: InternalPropertyDescriptor[];
+            internalProperties?: Runtime.InternalPropertyDescriptor[];
             /**
              * Exception details.
              */
-            exceptionDetails?: ExceptionDetails;
+            exceptionDetails?: Runtime.ExceptionDetails;
         }
 
-        interface GlobalLexicalScopeNamesReturnType {
+        export interface GlobalLexicalScopeNamesReturnType {
             names: string[];
         }
 
-        interface QueryObjectsReturnType {
+        export interface QueryObjectsReturnType {
             /**
              * Array with objects.
              */
-            objects: RemoteObject;
+            objects: Runtime.RemoteObject;
         }
 
-        interface RunScriptReturnType {
+        export interface RunScriptReturnType {
             /**
              * Run result.
              */
-            result: RemoteObject;
+            result: Runtime.RemoteObject;
             /**
              * Exception details.
              */
-            exceptionDetails?: ExceptionDetails;
+            exceptionDetails?: Runtime.ExceptionDetails;
         }
 
-        interface ConsoleAPICalledEventDataType {
+        export interface ConsoleAPICalledEventDataType {
             /**
              * Type of the call.
              */
@@ -1828,29 +1792,29 @@ declare module "inspector" {
             /**
              * Call arguments.
              */
-            args: RemoteObject[];
+            args: Runtime.RemoteObject[];
             /**
              * Identifier of the context where the call was made.
              */
-            executionContextId: ExecutionContextId;
+            executionContextId: Runtime.ExecutionContextId;
             /**
              * Call timestamp.
              */
-            timestamp: Timestamp;
+            timestamp: Runtime.Timestamp;
             /**
              * Stack trace captured when the call was made.
              */
-            stackTrace?: StackTrace;
+            stackTrace?: Runtime.StackTrace;
             /**
              * Console context descriptor for calls on non-default console context (not console.*):
-             * 'anonymous#unique-logger-id' for call on unnamed context, 'name#unique-logger-id' for call
-             * on named context.
+'anonymous#unique-logger-id' for call on unnamed context, 'name#unique-logger-id' for call
+on named context.
              * @experimental
              */
             context?: string;
         }
 
-        interface ExceptionRevokedEventDataType {
+        export interface ExceptionRevokedEventDataType {
             /**
              * Reason describing why exception was revoked.
              */
@@ -1861,39 +1825,39 @@ declare module "inspector" {
             exceptionId: number;
         }
 
-        interface ExceptionThrownEventDataType {
+        export interface ExceptionThrownEventDataType {
             /**
              * Timestamp of the exception.
              */
-            timestamp: Timestamp;
-            exceptionDetails: ExceptionDetails;
+            timestamp: Runtime.Timestamp;
+            exceptionDetails: Runtime.ExceptionDetails;
         }
 
-        interface ExecutionContextCreatedEventDataType {
+        export interface ExecutionContextCreatedEventDataType {
             /**
              * A newly created execution context.
              */
-            context: ExecutionContextDescription;
+            context: Runtime.ExecutionContextDescription;
         }
 
-        interface ExecutionContextDestroyedEventDataType {
+        export interface ExecutionContextDestroyedEventDataType {
             /**
              * Id of the destroyed context
              */
-            executionContextId: ExecutionContextId;
+            executionContextId: Runtime.ExecutionContextId;
         }
 
-        interface InspectRequestedEventDataType {
-            object: RemoteObject;
+        export interface InspectRequestedEventDataType {
+            object: Runtime.RemoteObject;
             hints: {};
         }
     }
 
-    namespace Schema {
+    export namespace Schema {
         /**
          * Description of the protocol domain.
          */
-        interface Domain {
+        export interface Domain {
             /**
              * Domain name.
              */
@@ -1904,41 +1868,35 @@ declare module "inspector" {
             version: string;
         }
 
-        interface GetDomainsReturnType {
+        export interface GetDomainsReturnType {
             /**
              * List of supported domains.
              */
-            domains: Domain[];
+            domains: Schema.Domain[];
         }
     }
 
     /**
      * The inspector.Session is used for dispatching messages to the V8 inspector back-end and receiving message responses and notifications.
      */
-    class Session extends EventEmitter {
+    export class Session extends EventEmitter {
         /**
-         * Create a new instance of the inspector.Session class.
-         * The inspector session needs to be connected through session.connect() before the messages can be dispatched to the inspector backend.
+         * Create a new instance of the inspector.Session class. The inspector session needs to be connected through session.connect() before the messages can be dispatched to the inspector backend.
          */
         constructor();
 
         /**
-         * Connects a session to the inspector back-end.
-         * An exception will be thrown if there is already a connected session established either
-         * through the API or by a front-end connected to the Inspector WebSocket port.
+         * Connects a session to the inspector back-end. An exception will be thrown if there is already a connected session established either through the API or by a front-end connected to the Inspector WebSocket port.
          */
         connect(): void;
 
         /**
-         * Immediately close the session. All pending message callbacks will be called with an error.
-         * session.connect() will need to be called to be able to send messages again.
-         * Reconnected session will lose all inspector state, such as enabled agents or configured breakpoints.
+         * Immediately close the session. All pending message callbacks will be called with an error. session.connect() will need to be called to be able to send messages again. Reconnected session will lose all inspector state, such as enabled agents or configured breakpoints.
          */
         disconnect(): void;
 
         /**
-         * Posts a message to the inspector back-end. callback will be notified when a response is received.
-         * callback is a function that accepts two optional arguments - error and message-specific result.
+         * Posts a message to the inspector back-end. callback will be notified when a response is received. callback is a function that accepts two optional arguments - error and message-specific result.
          */
         post(method: string, params?: {}, callback?: (err: Error | null, params?: {}) => void): void;
         post(method: string, callback?: (err: Error | null, params?: {}) => void): void;
@@ -1955,7 +1913,7 @@ declare module "inspector" {
 
         /**
          * Enables console domain, sends the messages collected so far to the client by means of the
-         * `messageAdded` notification.
+`messageAdded` notification.
          */
         post(method: "Console.enable", callback?: (err: Error | null) => void): void;
         /**
@@ -1971,7 +1929,7 @@ declare module "inspector" {
 
         /**
          * Enables debugger for the given page. Clients should not assume that the debugging has been
-         * enabled until the result for this command is received.
+enabled until the result for this command is received.
          */
         post(method: "Debugger.enable", callback?: (err: Error | null, params: Debugger.EnableReturnType) => void): void;
 
@@ -1983,13 +1941,9 @@ declare module "inspector" {
 
         /**
          * Returns possible locations for breakpoint. scriptId in start and end range locations should be
-         * the same.
+the same.
          */
-        post(
-            method: "Debugger.getPossibleBreakpoints",
-            params?: Debugger.GetPossibleBreakpointsParameterType,
-            callback?: (err: Error | null, params: Debugger.GetPossibleBreakpointsReturnType) => void
-        ): void;
+        post(method: "Debugger.getPossibleBreakpoints", params?: Debugger.GetPossibleBreakpointsParameterType, callback?: (err: Error | null, params: Debugger.GetPossibleBreakpointsReturnType) => void): void;
         post(method: "Debugger.getPossibleBreakpoints", callback?: (err: Error | null, params: Debugger.GetPossibleBreakpointsReturnType) => void): void;
 
         /**
@@ -2035,9 +1989,9 @@ declare module "inspector" {
 
         /**
          * This method is deprecated - use Debugger.stepInto with breakOnAsyncCall and
-         * Debugger.pauseOnAsyncTask instead. Steps into next scheduled async task if any is scheduled
-         * before next pause. Returns success when async task is actually scheduled, returns error if no
-         * task were scheduled or another scheduleStepIntoAsync was called.
+Debugger.pauseOnAsyncTask instead. Steps into next scheduled async task if any is scheduled
+before next pause. Returns success when async task is actually scheduled, returns error if no
+task were scheduled or another scheduleStepIntoAsync was called.
          * @experimental
          */
         post(method: "Debugger.scheduleStepIntoAsync", callback?: (err: Error | null) => void): void;
@@ -2056,8 +2010,8 @@ declare module "inspector" {
 
         /**
          * Replace previous blackbox patterns with passed ones. Forces backend to skip stepping/pausing in
-         * scripts with url matching one of the patterns. VM will try to leave blackboxed script by
-         * performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
+scripts with url matching one of the patterns. VM will try to leave blackboxed script by
+performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
          * @experimental
          */
         post(method: "Debugger.setBlackboxPatterns", params?: Debugger.SetBlackboxPatternsParameterType, callback?: (err: Error | null) => void): void;
@@ -2065,9 +2019,9 @@ declare module "inspector" {
 
         /**
          * Makes backend skip steps in the script in blackboxed ranges. VM will try leave blacklisted
-         * scripts by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
-         * Positions array contains positions where blackbox state is changed. First interval isn't
-         * blackboxed. Array should be sorted.
+scripts by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
+Positions array contains positions where blackbox state is changed. First interval isn't
+blackboxed. Array should be sorted.
          * @experimental
          */
         post(method: "Debugger.setBlackboxedRanges", params?: Debugger.SetBlackboxedRangesParameterType, callback?: (err: Error | null) => void): void;
@@ -2081,25 +2035,12 @@ declare module "inspector" {
 
         /**
          * Sets JavaScript breakpoint at given location specified either by URL or URL regex. Once this
-         * command is issued, all existing parsed scripts will have breakpoints resolved and returned in
-         * `locations` property. Further matching script parsing will result in subsequent
-         * `breakpointResolved` events issued. This logical breakpoint will survive page reloads.
+command is issued, all existing parsed scripts will have breakpoints resolved and returned in
+`locations` property. Further matching script parsing will result in subsequent
+`breakpointResolved` events issued. This logical breakpoint will survive page reloads.
          */
         post(method: "Debugger.setBreakpointByUrl", params?: Debugger.SetBreakpointByUrlParameterType, callback?: (err: Error | null, params: Debugger.SetBreakpointByUrlReturnType) => void): void;
         post(method: "Debugger.setBreakpointByUrl", callback?: (err: Error | null, params: Debugger.SetBreakpointByUrlReturnType) => void): void;
-
-        /**
-         * Sets JavaScript breakpoint before each call to the given function.
-         * If another function was created from the same source as a given one,
-         * calling it will also trigger the breakpoint.
-         * @experimental
-         */
-        post(
-            method: "Debugger.setBreakpointOnFunctionCall",
-            params?: Debugger.SetBreakpointOnFunctionCallParameterType,
-            callback?: (err: Error | null, params: Debugger.SetBreakpointOnFunctionCallReturnType) => void
-        ): void;
-        post(method: "Debugger.setBreakpointOnFunctionCall", callback?: (err: Error | null, params: Debugger.SetBreakpointOnFunctionCallReturnType) => void): void;
 
         /**
          * Activates / deactivates all breakpoints on the page.
@@ -2109,7 +2050,7 @@ declare module "inspector" {
 
         /**
          * Defines pause on exceptions state. Can be set to stop on all exceptions, uncaught exceptions or
-         * no exceptions. Initial pause on exceptions state is `none`.
+no exceptions. Initial pause on exceptions state is `none`.
          */
         post(method: "Debugger.setPauseOnExceptions", params?: Debugger.SetPauseOnExceptionsParameterType, callback?: (err: Error | null) => void): void;
         post(method: "Debugger.setPauseOnExceptions", callback?: (err: Error | null) => void): void;
@@ -2135,7 +2076,7 @@ declare module "inspector" {
 
         /**
          * Changes value of variable in a callframe. Object-based scopes are not supported and must be
-         * mutated manually.
+mutated manually.
          */
         post(method: "Debugger.setVariableValue", params?: Debugger.SetVariableValueParameterType, callback?: (err: Error | null) => void): void;
         post(method: "Debugger.setVariableValue", callback?: (err: Error | null) => void): void;
@@ -2157,7 +2098,7 @@ declare module "inspector" {
         post(method: "Debugger.stepOver", callback?: (err: Error | null) => void): void;
         /**
          * Enables console to refer to the node with given id via $x (see Command Line API for more details
-         * $x functions).
+$x functions).
          */
         post(method: "HeapProfiler.addInspectedHeapObject", params?: HeapProfiler.AddInspectedHeapObjectParameterType, callback?: (err: Error | null) => void): void;
         post(method: "HeapProfiler.addInspectedHeapObject", callback?: (err: Error | null) => void): void;
@@ -2171,11 +2112,7 @@ declare module "inspector" {
         post(method: "HeapProfiler.getHeapObjectId", params?: HeapProfiler.GetHeapObjectIdParameterType, callback?: (err: Error | null, params: HeapProfiler.GetHeapObjectIdReturnType) => void): void;
         post(method: "HeapProfiler.getHeapObjectId", callback?: (err: Error | null, params: HeapProfiler.GetHeapObjectIdReturnType) => void): void;
 
-        post(
-            method: "HeapProfiler.getObjectByHeapObjectId",
-            params?: HeapProfiler.GetObjectByHeapObjectIdParameterType,
-            callback?: (err: Error | null, params: HeapProfiler.GetObjectByHeapObjectIdReturnType) => void
-        ): void;
+        post(method: "HeapProfiler.getObjectByHeapObjectId", params?: HeapProfiler.GetObjectByHeapObjectIdParameterType, callback?: (err: Error | null, params: HeapProfiler.GetObjectByHeapObjectIdReturnType) => void): void;
         post(method: "HeapProfiler.getObjectByHeapObjectId", callback?: (err: Error | null, params: HeapProfiler.GetObjectByHeapObjectIdReturnType) => void): void;
 
         post(method: "HeapProfiler.getSamplingProfile", callback?: (err: Error | null, params: HeapProfiler.GetSamplingProfileReturnType) => void): void;
@@ -2199,7 +2136,7 @@ declare module "inspector" {
 
         /**
          * Collect coverage data for the current isolate. The coverage data may be incomplete due to
-         * garbage collection.
+garbage collection.
          */
         post(method: "Profiler.getBestEffortCoverage", callback?: (err: Error | null, params: Profiler.GetBestEffortCoverageReturnType) => void): void;
 
@@ -2213,8 +2150,8 @@ declare module "inspector" {
 
         /**
          * Enable precise code coverage. Coverage data for JavaScript executed before enabling precise code
-         * coverage may be incomplete. Enabling prevents running optimized code and resets execution
-         * counters.
+coverage may be incomplete. Enabling prevents running optimized code and resets execution
+counters.
          */
         post(method: "Profiler.startPreciseCoverage", params?: Profiler.StartPreciseCoverageParameterType, callback?: (err: Error | null) => void): void;
         post(method: "Profiler.startPreciseCoverage", callback?: (err: Error | null) => void): void;
@@ -2229,7 +2166,7 @@ declare module "inspector" {
 
         /**
          * Disable precise code coverage. Disabling releases unnecessary execution count records and allows
-         * executing optimized code.
+executing optimized code.
          */
         post(method: "Profiler.stopPreciseCoverage", callback?: (err: Error | null) => void): void;
 
@@ -2241,7 +2178,7 @@ declare module "inspector" {
 
         /**
          * Collect coverage data for the current isolate, and resets execution counters. Precise code
-         * coverage needs to have started.
+coverage needs to have started.
          */
         post(method: "Profiler.takePreciseCoverage", callback?: (err: Error | null, params: Profiler.TakePreciseCoverageReturnType) => void): void;
 
@@ -2258,7 +2195,7 @@ declare module "inspector" {
 
         /**
          * Calls function with given declaration on the given object. Object group of the result is
-         * inherited from the target object.
+inherited from the target object.
          */
         post(method: "Runtime.callFunctionOn", params?: Runtime.CallFunctionOnParameterType, callback?: (err: Error | null, params: Runtime.CallFunctionOnReturnType) => void): void;
         post(method: "Runtime.callFunctionOn", callback?: (err: Error | null, params: Runtime.CallFunctionOnReturnType) => void): void;
@@ -2281,8 +2218,8 @@ declare module "inspector" {
 
         /**
          * Enables reporting of execution contexts creation by means of `executionContextCreated` event.
-         * When the reporting gets enabled the event will be sent immediately for each existing execution
-         * context.
+When the reporting gets enabled the event will be sent immediately for each existing execution
+context.
          */
         post(method: "Runtime.enable", callback?: (err: Error | null) => void): void;
 
@@ -2300,14 +2237,14 @@ declare module "inspector" {
 
         /**
          * Returns the JavaScript heap usage.
-         * It is the total usage of the corresponding isolate not scoped to a particular Runtime.
+It is the total usage of the corresponding isolate not scoped to a particular Runtime.
          * @experimental
          */
         post(method: "Runtime.getHeapUsage", callback?: (err: Error | null, params: Runtime.GetHeapUsageReturnType) => void): void;
 
         /**
          * Returns properties of a given object. Object group of the result is inherited from the target
-         * object.
+object.
          */
         post(method: "Runtime.getProperties", params?: Runtime.GetPropertiesParameterType, callback?: (err: Error | null, params: Runtime.GetPropertiesReturnType) => void): void;
         post(method: "Runtime.getProperties", callback?: (err: Error | null, params: Runtime.GetPropertiesReturnType) => void): void;
@@ -2315,11 +2252,7 @@ declare module "inspector" {
         /**
          * Returns all let, const and class variables from global scope.
          */
-        post(
-            method: "Runtime.globalLexicalScopeNames",
-            params?: Runtime.GlobalLexicalScopeNamesParameterType,
-            callback?: (err: Error | null, params: Runtime.GlobalLexicalScopeNamesReturnType) => void
-        ): void;
+        post(method: "Runtime.globalLexicalScopeNames", params?: Runtime.GlobalLexicalScopeNamesParameterType, callback?: (err: Error | null, params: Runtime.GlobalLexicalScopeNamesReturnType) => void): void;
         post(method: "Runtime.globalLexicalScopeNames", callback?: (err: Error | null, params: Runtime.GlobalLexicalScopeNamesReturnType) => void): void;
 
         post(method: "Runtime.queryObjects", params?: Runtime.QueryObjectsParameterType, callback?: (err: Error | null, params: Runtime.QueryObjectsReturnType) => void): void;
@@ -2356,7 +2289,7 @@ declare module "inspector" {
 
         /**
          * Terminate current or next JavaScript execution.
-         * Will cancel the termination when the outer-most script execution ends.
+Will cancel the termination when the outer-most script execution ends.
          * @experimental
          */
         post(method: "Runtime.terminateExecution", callback?: (err: Error | null) => void): void;
@@ -2401,7 +2334,7 @@ declare module "inspector" {
 
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected
-         * scripts upon enabling debugger.
+scripts upon enabling debugger.
          */
         addListener(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
 
@@ -2414,8 +2347,8 @@ declare module "inspector" {
 
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last
-         * seen object id and corresponding timestamp. If the were changes in the heap since last event
-         * then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
+seen object id and corresponding timestamp. If the were changes in the heap since last event
+then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
         addListener(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
 
@@ -2460,7 +2393,7 @@ declare module "inspector" {
 
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API
-         * call).
+call).
          */
         addListener(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
 
@@ -2521,7 +2454,7 @@ declare module "inspector" {
 
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected
-         * scripts upon enabling debugger.
+scripts upon enabling debugger.
          */
         on(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
 
@@ -2534,8 +2467,8 @@ declare module "inspector" {
 
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last
-         * seen object id and corresponding timestamp. If the were changes in the heap since last event
-         * then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
+seen object id and corresponding timestamp. If the were changes in the heap since last event
+then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
         on(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
 
@@ -2580,7 +2513,7 @@ declare module "inspector" {
 
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API
-         * call).
+call).
          */
         on(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
 
@@ -2618,7 +2551,7 @@ declare module "inspector" {
 
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected
-         * scripts upon enabling debugger.
+scripts upon enabling debugger.
          */
         once(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
 
@@ -2631,8 +2564,8 @@ declare module "inspector" {
 
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last
-         * seen object id and corresponding timestamp. If the were changes in the heap since last event
-         * then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
+seen object id and corresponding timestamp. If the were changes in the heap since last event
+then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
         once(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
 
@@ -2677,7 +2610,7 @@ declare module "inspector" {
 
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API
-         * call).
+call).
          */
         once(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
 
@@ -2715,7 +2648,7 @@ declare module "inspector" {
 
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected
-         * scripts upon enabling debugger.
+scripts upon enabling debugger.
          */
         prependListener(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
 
@@ -2728,8 +2661,8 @@ declare module "inspector" {
 
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last
-         * seen object id and corresponding timestamp. If the were changes in the heap since last event
-         * then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
+seen object id and corresponding timestamp. If the were changes in the heap since last event
+then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
         prependListener(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
 
@@ -2774,7 +2707,7 @@ declare module "inspector" {
 
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API
-         * call).
+call).
          */
         prependListener(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
 
@@ -2812,7 +2745,7 @@ declare module "inspector" {
 
         /**
          * Fired when virtual machine parses script. This event is also fired for all known and uncollected
-         * scripts upon enabling debugger.
+scripts upon enabling debugger.
          */
         prependOnceListener(event: "Debugger.scriptParsed", listener: (message: InspectorNotification<Debugger.ScriptParsedEventDataType>) => void): this;
 
@@ -2825,8 +2758,8 @@ declare module "inspector" {
 
         /**
          * If heap objects tracking has been started then backend regularly sends a current value for last
-         * seen object id and corresponding timestamp. If the were changes in the heap since last event
-         * then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
+seen object id and corresponding timestamp. If the were changes in the heap since last event
+then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event.
          */
         prependOnceListener(event: "HeapProfiler.lastSeenObjectId", listener: (message: InspectorNotification<HeapProfiler.LastSeenObjectIdEventDataType>) => void): this;
 
@@ -2871,7 +2804,7 @@ declare module "inspector" {
 
         /**
          * Issued when object should be inspected (for example, as a result of inspect() command line API
-         * call).
+call).
          */
         prependOnceListener(event: "Runtime.inspectRequested", listener: (message: InspectorNotification<Runtime.InspectRequestedEventDataType>) => void): this;
     }
@@ -2885,15 +2818,15 @@ declare module "inspector" {
      * @param host Host to listen on for inspector connections. Optional, defaults to what was specified on the CLI.
      * @param wait Block until a client has connected. Optional, defaults to false.
      */
-    function open(port?: number, host?: string, wait?: boolean): void;
+    export function open(port?: number, host?: string, wait?: boolean): void;
 
     /**
      * Deactivate the inspector. Blocks until there are no active connections.
      */
-    function close(): void;
+    export function close(): void;
 
     /**
      * Return the URL of the active inspector, or undefined if there is none.
      */
-    function url(): string;
+    export function url(): string;
 }

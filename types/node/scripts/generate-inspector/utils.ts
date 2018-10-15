@@ -7,7 +7,7 @@ import { Documentable, Field, ObjectReference } from "./devtools-protocol-schema
  * arrays.
  * @param inBetween A value to insert between groups of flattened values
  */
-export function flattenArgs<T = string>(inBetween?: T): (acc: T[], next: T[]) => T[] {
+export function flattenArgs<T = string>(inBetween?: T) {
     if (inBetween != null) {
         return (acc: T[], next: T[]) => {
             if (acc.length > 0) {
@@ -47,17 +47,30 @@ export function isObjectReference(t: Field): t is ObjectReference {
  * to populate a comment block.
  * @param documentable A Documentable object.
  */
-export const createDocs = ({ deprecated, description, experimental }: Documentable): string[] => {
-    const hasDocs = !!description ||
-        deprecated ||
-        experimental;
+export const createDocs = (documentable: Documentable): string[] => {
+    const hasDocs = !!documentable.description ||
+        documentable.deprecated ||
+        documentable.experimental;
     return hasDocs ? [
         "/**",
-        ...(description ? description.split(/\r?\n/).map(l => ` * ${l}`) : []),
-        deprecated && " * @deprecated",
-        experimental && " * @experimental",
+        documentable.description && ` * ${documentable.description}`,
+        documentable.deprecated && " * @deprecated",
+        documentable.experimental && " * @experimental",
         " */",
     ].filter(l => l != null) : [];
+};
+
+/**
+ * Given a string, prepend a given domain string to it if applicable.
+ * @param ref The name of a class within a domain to reference.
+ * @param domain The domain string to prepend.
+ */
+export const resolveReference = (ref: string, domain?: string): string => {
+    if (!domain || ref.indexOf(".") !== -1) {
+        return ref;
+    } else {
+        return `${domain}.${ref}`;
+    }
 };
 
 /**

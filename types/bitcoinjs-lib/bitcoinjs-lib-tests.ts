@@ -1,3 +1,4 @@
+import bigi = require('bigi');
 import bitcoin = require('bitcoinjs-lib');
 
 // For testing only
@@ -7,18 +8,19 @@ function rng() {
 
 // Generate a random bitcoin address
 const keyPair1 = bitcoin.ECPair.makeRandom({rng});
-const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair1.publicKey });
+const address = keyPair1.getAddress();
 keyPair1.toWIF();
 
 // Generate an address from a SHA256 hash
 const hash = bitcoin.crypto.sha256(Buffer.from('correct horse battery staple', 'utf8'));
-const keyPair2 = bitcoin.ECPair.fromPrivateKey(hash);
+const d = bigi.fromBuffer(hash);
+const keyPair2 = new bitcoin.ECPair(d);
 
 // Generate a random keypair for alternative networks
-const keyPair3 = bitcoin.ECPair.makeRandom({network: bitcoin.networks.testnet, rng});
+const keyPair3 = bitcoin.ECPair.makeRandom({network: bitcoin.networks.litecoin, rng});
 keyPair3.toWIF();
-bitcoin.payments.p2pkh({ pubkey: keyPair3.publicKey });
-const network = keyPair3.network;
+keyPair3.getAddress();
+const network = keyPair3.getNetwork();
 
 // Test TransactionBuilder and Transaction
 const txb = new bitcoin.TransactionBuilder();
@@ -39,3 +41,22 @@ bitcoin.address.toBase58Check(rsBase58Check.hash, rsBase58Check.version);
 bitcoin.address.toBech32(rsBech32.data, rsBech32.version, rsBech32.prefix);
 bitcoin.address.toOutputScript(address);
 bitcoin.address.toOutputScript(address, network);
+
+const redeemScript = bitcoin.script.multisig.output.encode(
+	2,
+	[
+		new Buffer('12345678901234567890123456789012'),
+		new Buffer('12345678901234567890123456789012'),
+		new Buffer('12345678901234567890123456789012'),
+	]
+);
+bitcoin.script.scriptHash.input.encode(
+	bitcoin.script.multisig.input.encodeStack(
+		[
+			new Buffer('12345678901234567890123456789012'),
+			new Buffer('12345678901234567890123456789012'),
+		],
+		redeemScript,
+	),
+	redeemScript,
+);

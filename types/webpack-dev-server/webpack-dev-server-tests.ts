@@ -58,11 +58,6 @@ const config: WebpackDevServer.Configuration = {
     staticOptions: {
     },
 
-    stats: {
-        assets: false,
-        warningsFilter: /1/,
-    },
-
     // webpack-dev-middleware options
     quiet: false,
     noInfo: false,
@@ -75,13 +70,6 @@ const config: WebpackDevServer.Configuration = {
     // It's a required option.
     publicPath: "/assets/",
     headers: { "X-Custom-Header": "yes" }
-};
-
-const c2: WebpackDevServer.Configuration = {
-    stats: false,
-};
-const c3: WebpackDevServer.Configuration = {
-    stats: "verbose",
 };
 
 // API example

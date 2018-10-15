@@ -1,8 +1,6 @@
 // Type definitions for angular-block-ui 0.2
 // Project: https://github.com/McNull/angular-block-ui
-// Definitions by: Lasse Nørregaard <https://github.com/lassebn>
-//                 Stephan Classen <https://github.com/sclassen>
-//                 Soner Köksal <https://github.com/renjfk>
+// Definitions by: Lasse Nørregaard <https://github.com/lassebn>, Stephan Classen <https://github.com/sclassen>, Soner Köksal <https://github.com/renjfk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -50,8 +48,6 @@ declare module 'angular' {
              *
              * If you don't want this behaviour and want to do all the
              * blocking manually you can change this value to false.
-             *
-             * The default value is 'true'
              */
             autoBlock?: boolean;
 
@@ -60,8 +56,6 @@ declare module 'angular' {
              * hide the overlay whenever an exception has occurred.
              *
              * You can set this value to false if you don't want this behaviour.
-             *
-             * The default value is 'true'
              */
             resetOnException?: boolean;
 
@@ -80,42 +74,33 @@ declare module 'angular' {
 
             /**
              * When the module is started it will inject the main block element
-             * by adding the "block-ui" directive to the <body> element.
-             *
-             * Set this to false if there no need for any fullscreen blocking or if there's
-             * more control required. For instance when your ng-app directive is a child
-             * element of the body element it is impossible for the blockUI resolve the main
-             * instance. In such a case the auto injection of the main block scope should
-             * be disabled and the main block element should be relocated.
-             *
-             * The default value is 'true'
+             * by adding the block-ui directive to the body element.
              */
             autoInjectBodyBlock?: boolean;
 
             /**
-             * A string containing the default css classes (separated by spaces)
+             * A string containing the default css classes, separated by spaces,
              * that should be applied to each block-ui element.
              *
-             * The default value is "block-ui block-ui-anim-fade"
+             * The default value is `block-ui block-ui-anim-fade`
              */
             cssClass?: string;
 
             /**
-             * While a user interface block is active the user can still navigate
-             * away using the back and forward buttons of the browser.
+             * Whenever a user interface block is active, because the single page
+             * application is still waiting for a response from the backend server,
+             * the user can still navigate away using the back and forward buttons
+             * of the browser.
              *
-             * Callbacks registered to handle responses from the server will
-             * be executed even if a different view/controller is active at the
-             * time the response arrives.
-             *
-             * You can set this value to true if you want to prevent navigation
-             * with the browser back and forward buttons while a fullscreen
+             * Callbacks registered to handle the responses from the server will
+             * be executed even if a different view/controller is currently active.
+             * By setting the blockBrowserNavigation property to true the
+             * angular-block-ui module will prevent navigation while a fullscreen
              * block is active.
              *
              * Programatic location changes via the $location service are still
              * allowed however.
-             *
-             * The default value is 'false'
+             * The navigation block is disabled by default.
              */
             blockBrowserNavigation?: boolean;
         }
@@ -165,7 +150,7 @@ declare module 'angular' {
              * This can be useful whenever you wish to redirect the user
              * to a different location while there are still pending AJAX requests.
              */
-            done(doneCallback: () => void): void;
+            done(): void;
 
             /**
              * Allows the message shown in the overlay to be updated

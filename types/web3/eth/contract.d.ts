@@ -1,6 +1,7 @@
 import { Callback, EventLog, EventEmitter } from "../types";
 import { TransactionObject, BlockType } from "./types";
 import { ABIDefinition } from "./abi";
+import BigNumber = require("bn.js");
 import { Provider } from "../providers";
 
 interface CustomOptions {

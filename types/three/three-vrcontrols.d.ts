@@ -1,3 +1,5 @@
+/// <reference types="webvr-api" />
+
 import { Camera } from "./three-core";
 
 export class VRControls {

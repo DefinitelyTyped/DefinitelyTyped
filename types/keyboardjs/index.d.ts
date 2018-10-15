@@ -1,8 +1,7 @@
-// Type definitions for KeyboardJS v2.4.1
+// Type definitions for KeyboardJS v2.2.0
 // Project: https://github.com/RobertWHurst/KeyboardJS
 // Definitions by: Vincent Bortone <https://github.com/vbortone>,
-//                 David Asmuth <https://github.com/piranha771>,
-//                 Tanasoaia Teodor <https://github.com/teoxoy>
+//                 David Asmuth <https://github.com/piranha771>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // KeyboardJS is a library for use in the browser (node.js compatible).
@@ -20,7 +19,6 @@ declare namespace keyboardjs {
 	 */
     interface KeyEvent extends KeyboardEvent {
         preventRepeat(): void;
-        pressedKeys: string[];
     }
 
     /**

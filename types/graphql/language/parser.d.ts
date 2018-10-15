@@ -19,7 +19,7 @@ export interface ParseOptions {
      * specification.
      *
      * This option is provided to ease adoption of the final SDL specification
-     * and will be removed in v16.
+     * and will be removed in a future major release.
      */
     allowLegacySDLEmptyFields?: boolean;
 
@@ -29,7 +29,7 @@ export interface ParseOptions {
      * current specification.
      *
      * This option is provided to ease adoption of the final SDL specification
-     * and will be removed in v16.
+     * and will be removed in a future major release.
      */
     allowLegacySDLImplementsInterfaces?: boolean;
 
@@ -50,17 +50,6 @@ export interface ParseOptions {
      * future.
      */
     experimentalFragmentVariables?: boolean;
-
-    /**
-     * EXPERIMENTAL:
-     *
-     * If enabled, the parser understands directives on variable definitions:
-     *
-     * query Foo($var: String = "abc" @variable_definition_directive) {
-     *   ...
-     * }
-     */
-    experimentalVariableDefinitionDirectives?: boolean;
 }
 
 /**

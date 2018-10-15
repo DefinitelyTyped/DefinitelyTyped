@@ -21,13 +21,8 @@ declare class Mailgen {
 
 declare namespace Mailgen {
     interface Option {
-        theme: string | CustomTheme;
+        theme: string;
         product: Product;
-    }
-
-    interface CustomTheme {
-        path: string;
-        plaintextPath?: string;
     }
 
     interface Product {

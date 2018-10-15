@@ -1,4 +1,4 @@
-// Type definitions for graphql 14.0
+// Type definitions for graphql 0.13
 // Project: https://www.npmjs.com/package/graphql
 // Definitions by: TonyYang <https://github.com/TonyPythoneer>
 //                 Caleb Meredith <https://github.com/calebmer>
@@ -15,7 +15,6 @@
 //                 Divyendu Singh <https://github.com/divyenduz>
 //                 Brad Zacher <https://github.com/bradzacher>
 //                 Curtis Layne <https://github.com/clayne11>
-//                 Jonathan Cardoso <https://github.com/JCMais>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -85,8 +84,6 @@ export {
     isWrappingType,
     isNullableType,
     isNamedType,
-    isRequiredArgument,
-    isRequiredInputField,
     isSpecifiedScalarType,
     isIntrospectionType,
     isSpecifiedDirective,
@@ -152,9 +149,6 @@ export {
     GraphQLTypeResolver,
     GraphQLUnionTypeConfig,
     GraphQLDirectiveConfig,
-    GraphQLScalarSerializer,
-    GraphQLScalarValueParser,
-    GraphQLScalarLiteralParser,
 } from "./type";
 
 // Parse and operate on GraphQL language source files.
@@ -176,16 +170,6 @@ export {
     TokenKind,
     DirectiveLocation,
     BREAK,
-    // Predicates
-    isDefinitionNode,
-    isExecutableDefinitionNode,
-    isSelectionNode,
-    isValueNode,
-    isTypeNode,
-    isTypeSystemDefinitionNode,
-    isTypeDefinitionNode,
-    isTypeSystemExtensionNode,
-    isTypeExtensionNode,
     // type
     Lexer,
     ParseOptions,
@@ -243,16 +227,9 @@ export {
     EnumTypeDefinitionNode,
     EnumValueDefinitionNode,
     InputObjectTypeDefinitionNode,
-    DirectiveDefinitionNode,
-    TypeSystemExtensionNode,
-    SchemaExtensionNode,
     TypeExtensionNode,
-    ScalarTypeExtensionNode,
     ObjectTypeExtensionNode,
-    InterfaceTypeExtensionNode,
-    UnionTypeExtensionNode,
-    EnumTypeExtensionNode,
-    InputObjectTypeExtensionNode,
+    DirectiveDefinitionNode,
     KindEnum,
     TokenKindEnum,
     DirectiveLocationEnum,
@@ -291,7 +268,7 @@ export {
     NoUnusedVariablesRule,
     OverlappingFieldsCanBeMergedRule,
     PossibleFragmentSpreadsRule,
-    ProvidedRequiredArgumentsRule,
+    ProvidedNonNullArgumentsRule,
     ScalarLeafsRule,
     SingleFieldSubscriptionsRule,
     UniqueArgumentNamesRule,
@@ -302,6 +279,7 @@ export {
     UniqueVariableNamesRule,
     ValuesOfCorrectTypeRule,
     VariablesAreInputTypesRule,
+    VariablesDefaultValueAllowedRule,
     VariablesInAllowedPositionRule,
 } from "./validation";
 
@@ -313,12 +291,10 @@ export {
     // Produce the GraphQL query recommended for a full schema introspection.
     // Accepts optional IntrospectionOptions.
     getIntrospectionQuery,
-    // @deprecated: use getIntrospectionQuery - will be removed in v15
+    // Deprecated: use getIntrospectionQuery
     introspectionQuery,
     // Gets the target Operation from a Document
     getOperationAST,
-    // Gets the Type for the target Operation AST.
-    getOperationRootType,
     // Convert a GraphQLSchema to an IntrospectionQuery
     introspectionFromSchema,
     // Build a GraphQLSchema from an introspection result.
@@ -327,8 +303,7 @@ export {
     buildASTSchema,
     // Build a GraphQLSchema from a GraphQL schema language document.
     buildSchema,
-    // @deprecated: Get the description from a schema AST node and supports legacy
-    // syntax for specifying descriptions - will be removed in v16
+    // Get the description from a schema AST node.
     getDescription,
     // Extends an existing GraphQLSchema from a parsed GraphQL Schema
     // language AST.
@@ -355,9 +330,9 @@ export {
     TypeInfo,
     // Coerces a JavaScript value to a GraphQL type, or produces errors.
     coerceValue,
-    // @deprecated use coerceValue - will be removed in v15
+    // @deprecated use coerceValue
     isValidJSValue,
-    // @deprecated use validation - will be removed in v15
+    // Determine if AST values adhere to a GraphQL type.
     isValidLiteralValue,
     // Concatenates multiple AST together.
     concatAST,

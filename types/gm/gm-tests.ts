@@ -63,9 +63,6 @@ declare const quality: number;
 declare const align: string;
 declare const depth: number;
 declare const defineValue: string;
-declare const customCommand: string;
-declare const customInArguments: string[];
-declare const customOutArguments: string[];
 let readStream: stream.PassThrough;
 
 gm(src)
@@ -98,7 +95,6 @@ gm(src)
 	.colorMap(type)
 	.colors(numColors)
 	.colorspace(type)
-	.command(customCommand)
 	.compose(operator)
 	.compress(type)
 	.contrast(multiplier)
@@ -151,7 +147,6 @@ gm(src)
 	.iconGeometry(geometry)
 	.implode()
 	.implode(factor)
-	.in(...customInArguments)
 	.intent(type)
 	.interlace(type)
 	.label(name)
@@ -197,7 +192,6 @@ gm(src)
 	.operator(channel, operator, factor)
 	.operator(channel, operator, factor, usePercent)
 	.orderedDither(channel, NxN)
-	.out(...customOutArguments)
 	.outputDirectory(dest)
 	.page(width, height)
 	.page(width, height, options)

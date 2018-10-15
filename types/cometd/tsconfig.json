@@ -6,7 +6,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -17,7 +17,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "cometd-tests.ts"
+        "index.d.ts"
     ]
 }

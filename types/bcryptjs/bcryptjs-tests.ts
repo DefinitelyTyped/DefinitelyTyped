@@ -3,7 +3,6 @@ import bcryptjs = require("bcryptjs");
 let str: string;
 let num: number;
 let bool: boolean;
-let arr: number[];
 let error: Error;
 
 str = bcryptjs.genSaltSync();
@@ -64,7 +63,3 @@ bcryptjs.compare("string1", "string2")
 num = bcryptjs.getRounds("string");
 
 str = bcryptjs.getSalt("string");
-
-str = bcryptjs.encodeBase64([1, 2, 3, 4, 5], 5);
-
-arr = bcryptjs.decodeBase64("string", 5);

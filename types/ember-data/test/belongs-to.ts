@@ -9,8 +9,8 @@ class Folder extends DS.Model {
     parent = DS.belongsTo('folder', { inverse: 'children' });
 }
 
-declare module 'ember-data/types/registries/model' {
-    export default interface ModelRegistry {
+declare module 'ember-data' {
+    interface ModelRegistry {
         folder: Folder;
     }
 }
@@ -27,6 +27,3 @@ folder.get('parent').then(parent => {
 folder.set('parent', folder);
 folder.set('parent', folder.get('parent'));
 folder.set('parent', store.findRecord('folder', 3));
-
-// $ExpectType Model | null
-folder.belongsTo('parent').value();

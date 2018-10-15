@@ -1,8 +1,6 @@
 // Type definitions for gm 1.18
 // Project: https://github.com/aheckmann/gm
-// Definitions by:  Joel Spadin <https://github.com/ChaosinaCan>
-//                  Maarten van Vliet <https://github.com/maartenvanvliet>
-//                  Vaclav Mlejnsky <https://github.com/mlejva>
+// Definitions by: Joel Spadin <https://github.com/ChaosinaCan>, Maarten van Vliet <https://github.com/maartenvanvliet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -117,7 +115,6 @@ declare namespace m {
         colorMap(type: 'shared' | 'private' | string): State;
         colors(colors: number): State;
         colorspace(space: ColorSpace | string): State;
-        command(customCommand: string): State;
         compose(operator: ComposeOperator | string): State;
         compress(type: CompressionType | string): State;
         contrast(multiplier: number): State;
@@ -160,7 +157,6 @@ declare namespace m {
         highlightStyle(style: HighlightStyle | string): State;
         iconGeometry(geometry: string): State;
         implode(factor?: number): State;
-        in(...customArguments: string[]): State;
         intent(type: IntentType | string): State;
         interlace(type: InterlaceType | string): State;
         label(name: string): State;
@@ -194,7 +190,6 @@ declare namespace m {
         opaque(color: string): State;
         operator(channel: string, operator: ChannelOperator | string, rvalue: number, percent?: boolean): State;
         orderedDither(channelType: ChannelType | string, NxN: string): State;
-        out(...customArguments: string[]): State;
         outputDirectory(directory: string): State;
         page(width: number, height: number, arg?: '%' | '!' | '<' | '>' |string): State;
         pause(seconds: number): State;

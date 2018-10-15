@@ -371,7 +371,7 @@ declare namespace TelegramBot {
         mime_type?: string;
     }
 
-    interface Video extends FileBase {
+    interface Video {
         width: number;
         height: number;
         duration: number;

@@ -2,7 +2,8 @@
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>, Boris Breuer <https://github.com/Engineer2B>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.1
+
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 /**
@@ -129,7 +130,7 @@ declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
     type Expected<T> = T | ObjectContaining<T> | Any | Spy;
-    type SpyObjMethodNames<T = {}> = string[] | {[methodName: string]: any} | Array<keyof T>;
+    type SpyObjMethodNames = string[] | {[methodName: string]: any};
 
     var clock: () => Clock;
 
@@ -145,7 +146,7 @@ declare namespace jasmine {
     function createSpy(name?: string, originalFn?: Function): Spy;
 
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames): any;
-    function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>): SpyObj<T>;
+    function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames): SpyObj<T>;
 
     function createSpyObj(methodNames: SpyObjMethodNames): any;
     function createSpyObj<T>(methodNames: SpyObjMethodNames): SpyObj<T>;

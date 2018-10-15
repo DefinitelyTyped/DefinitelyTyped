@@ -9,12 +9,6 @@ import {
     Middleware,
 } from 'koa';
 
-type Transporter = (str: string, args: object) => void;
-
-interface TransporterOpts {
-    transporter: Transporter;
-}
-
-declare function KoaLogger(opts?: Transporter | TransporterOpts): Middleware;
+declare function KoaLogger(): Middleware;
 declare namespace KoaLogger { }
 export = KoaLogger;

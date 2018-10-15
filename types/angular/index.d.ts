@@ -1316,7 +1316,7 @@ declare namespace angular {
          *
          * @param key the key of the data to be retrieved
          */
-        get<T>(key: string): T | undefined;
+        get<T>(key: string): T;
 
         /**
          * Removes an entry from the Cache object.

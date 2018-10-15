@@ -50,7 +50,7 @@ pino({
 });
 
 pino({ base: null });
-pino({ base: { foo: 'bar' } , changeLevelName: 'severity' });
+pino({ base: { foo: 'bar' } });
 
 if ('pino' in log) console.log(`pino version: ${log.pino}`);
 

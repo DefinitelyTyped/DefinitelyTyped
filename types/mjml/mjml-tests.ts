@@ -8,4 +8,3 @@ formattedMessage = "force string test";
 
 const minimal_opts_test = mjml2html("<mjml>", {beautify: true});
 const validation_level_test = mjml2html("<mjml>", {validationLevel: "strict"});
-const filePath_test = mjml2html("<mjml>", {filePath: "."});

@@ -20,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "constants.d.ts",
         "app.d.ts",
         "document.d.ts",
         "dynamic.d.ts",
@@ -30,7 +29,6 @@
         "router.d.ts",
         "config.d.ts",
         "test/next-tests.ts",
-        "test/next-constants-tests.ts",
         "test/next-app-tests.tsx",
         "test/next-error-tests.tsx",
         "test/next-head-tests.tsx",

@@ -3193,10 +3193,9 @@ declare namespace l {
       /**
        * The Role model
        * @class Role
-       * @inherits {PersistedModel}
        * @header Role objec
        */
-      class Role extends PersistedModel {
+      class Role {
             /**
              * List roles for a given principal.
              * @param {any} context The security context.

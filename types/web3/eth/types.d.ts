@@ -1,4 +1,4 @@
-import { Callback } from "../types";
+import { Callback, EventLog } from "../types";
 import PromiEvent from "../promiEvent";
 import { ABIDefinition } from "./abi";
 export interface Tx {
@@ -57,7 +57,7 @@ export class Personal {
 	newAccount(password: string, cb?: Callback<boolean>): Promise<string>;
 	importRawKey(): Promise<string>;
 	lockAccount(): Promise<boolean>;
-	unlockAccount(address: string, password: string, unlockDuration: number): void;
+	unlockAccount(): void;
 	sign(): Promise<string>;
 	ecRecover(message: string, sig: string): void;
 	sendTransaction(tx: Tx, passphrase: string): Promise<string>;

@@ -2,7 +2,6 @@
 // Project: https://github.com/bokuweb/react-rnd
 // Definitions by: Ragg <https://github.com/Ragg->
 //                 fsubal <https://github.com/fsubal>
-//                 salieri <https://github.com/zyh825>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from "react";
@@ -101,7 +100,6 @@ export interface Options {
   maxWidth: number | string;
   maxHeight: number | string;
   z: number;
-  bounds: 'parent' | 'window' | 'body' | string;
   resizeHandleClasses: HandleClasses;
   resizeHandleStyles: HandleStyles;
 

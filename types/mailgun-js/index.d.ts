@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-declare const Mailgun: Mailgun.MailgunExport;
-export = Mailgun;
+declare const out: Mailgun.MailgunExport;
+export = out;
 
 declare namespace Mailgun {
     interface ConstructorParams {
@@ -41,7 +41,8 @@ declare namespace Mailgun {
         contentType?: string;
     }
 
-    interface Attachment {
+    class Attachment {
+        constructor(params: AttachmentParams);
         data: string | Buffer | NodeJS.ReadWriteStream;
         filename?: string;
         knownLength?: number;
@@ -133,7 +134,7 @@ declare namespace Mailgun {
     interface Mailgun {
         messages(): Messages;
         lists(list: string): Lists;
-        Attachment: new (params: AttachmentParams) => Attachment;
+        Attachment: typeof Attachment;
         validateWebhook(
             bodyTimestamp: number,
             bodyToken: string,

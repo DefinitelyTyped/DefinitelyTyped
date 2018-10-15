@@ -50,8 +50,7 @@ export const UNIT_SEP: string;
 export const WORKERS_SUPPORTED: boolean;
 
 // The relative path to Papa Parse. This is automatically detected when Papa Parse is loaded synchronously.
-// Assign it a value to override auto-detected path.
-export let SCRIPT_PATH: string;
+export const SCRIPT_PATH: string;
 
 // When passed to Papa Parse a Readable stream is returned.
 export const NODE_STREAM_INPUT = 1;

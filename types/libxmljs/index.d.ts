@@ -33,7 +33,6 @@ export class Document {
     constructor(version?: number, encoding?: string);
 
     errors: SyntaxError[];
-    validationErrors: ValidationError[];
 
     child(idx: number): Element|null;
     childNodes(): Element[];
@@ -46,7 +45,6 @@ export class Document {
     root(newRoot: Node): Node;
     toString(formatted?: boolean): string;
     type(): 'document';
-    validate(xsdDoc: Document): boolean;
     version(): string;
     setDtd(name: string, ext: string, sys: string): void;
     getDtd(): {
@@ -170,16 +168,4 @@ export interface SyntaxError {
     str2: number|null;
     str3: number|null;
     int1: number|null;
-}
-
-export interface ValidationError extends Error {
-    domain: number|null;
-    code: number|null;
-    level: number|null;
-
-    line: number|null;
-    /**
-     * 1-based column number, 0 if not applicable/available.
-     */
-    column: number;
 }

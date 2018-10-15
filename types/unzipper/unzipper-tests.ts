@@ -1,14 +1,8 @@
-import { createReadStream } from 'fs';
-import { get } from 'http';
-import { CentralDirectory, Entry, Open, Parse } from 'unzipper';
+import { Parse, Open, Entry, CentralDirectory } from "unzipper";
 
-createReadStream("http://example.org/path/to/archive.zip")
-    .pipe(Parse())
-    .on("entry", (entry: Entry) => {
-        entry.autodrain().promise().then(() => {
-            console.log("Finished draining stream");
-        });
-    });
+import { createReadStream } from "fs";
+
+import { get } from "http";
 
 createReadStream("http://example.org/path/to/archive.zip")
     .pipe(Parse())

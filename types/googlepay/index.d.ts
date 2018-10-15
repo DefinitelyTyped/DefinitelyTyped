@@ -1,24 +1,26 @@
-// Type definitions for Google Pay API 0.2
-// Project: https://developers.google.com/pay/api/web/
+// Type definitions for Google Pay API 0.1
+// Project: https://developers.google.com/pay/api/web/setup/
 // Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
-//                 Radu Raicea <https://github.com/Radu-Raicea>,
-//                 Filip Stanis <https://github.com/fstanis>
+//                 Radu Raicea <https://github.com/Radu-Raicea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google.payments.api {
-    interface ApiVersion {
-        apiVersion: number;
-        apiVersionMinor: number;
-    }
-
-    type EnvironmentType = 'PRODUCTION' | 'TEST';
-
-    interface PaymentOptions {
-        environment?: EnvironmentType;
-    }
-
+    type AddressFormat = 'FULL' | 'MIN';
+    type AllowedCardNetwork = 'AMEX' | 'DISCOVER' | 'JCB' | 'MASTERCARD' | 'VISA';
+    type AllowedPaymentMethod = 'CARD' | 'TOKENIZED_CARD';
     type ButtonColor = 'default' | 'black' | 'white';
     type ButtonType = 'long' | 'short';
+    type CardClass = 'CREDIT' | 'DEBIT';
+    type CardInfo = CardInfoMin | CardInfoFull;
+    type CardRequirements = CardRequirementsMin | CardRequirementsFull;
+    type EnvironmentType = 'PRODUCTION' | 'TEST';
+    type ErrorStatusCode = 'BUYER_ACCOUNT_ERROR' | 'CANCELED' | 'DEVELOPER_ERROR' | 'INTERNAL_ERROR';
+    type PaymentMethodTokenizationParameters = PaymentMethodDirectTokenizationParameters | PaymentMethodGatewayTokenizationParameters;
+    type TokenizationType = 'DIRECT' | 'PAYMENT_GATEWAY';
+    type TotalPriceStatus =  'ESTIMATED' | 'FINAL' | 'NOT_CURRENTLY_KNOWN';
+    type UserAddress = UserAddressFull | UserAddressMin;
+    type PaymentDataRequest = PaymentDataRequestMin | PaymentDataRequestFull;
+    type PaymentData = PaymentDataMin | PaymentDataFull;
 
     interface ButtonOptions {
         onClick: EventListener;
@@ -26,155 +28,130 @@ declare namespace google.payments.api {
         buttonType?: ButtonType;
     }
 
-    interface IsReadyToPayRequest extends ApiVersion {
-        allowedPaymentMethods: PaymentMethod[];
-        existingPaymentMethodRequired?: boolean;
+    interface PaymentOptions {
+        environment?: EnvironmentType;
     }
 
-    interface IsReadyToPayResponse {
-        result: boolean;
-        paymentMethodPresent?: boolean;
+    interface IsReadyToPayRequest {
+        allowedPaymentMethods: AllowedPaymentMethod[];
     }
 
-    type PaymentMethod = CardPaymentMethod;
-    type AllowedPaymentMethodType = 'CARD';
-
-    interface BasePaymentMethod {
-        type: AllowedPaymentMethodType;
-        tokenizationSpecification?: PaymentMethodTokenizationSpecification;
+    interface BasePaymentDataRequest {
+        merchantId: string;
+        transactionInfo: TransactionInfo;
+        cardRequirements: CardRequirements;
+        paymentMethodTokenizationParameters: PaymentMethodTokenizationParameters;
+        allowedPaymentMethods: AllowedPaymentMethod[];
+        phoneNumberRequired?: boolean;
+        emailRequired?: boolean;
+        shippingAddressRequired?: boolean;
+        shippingAddressRequirements?: ShippingAddressRequirements;
     }
 
-    type PaymentMethodTokenizationSpecification = PaymentGatewayTokenizationSpecification | DirectTokenizationSpecification;
-    type TokenizationType = 'DIRECT' | 'PAYMENT_GATEWAY';
-
-    interface BasePaymentMethodTokenizationSpecification {
-        type: TokenizationType;
+    interface PaymentDataRequestMin extends BasePaymentDataRequest {
+        cardRequirements: CardRequirementsMin;
     }
 
-    interface PaymentGatewayTokenizationSpecification extends BasePaymentMethodTokenizationSpecification {
-        type: 'PAYMENT_GATEWAY';
+    interface PaymentDataRequestFull extends BasePaymentDataRequest {
+        cardRequirements: CardRequirementsFull;
+    }
+
+    interface BasePaymentMethodTokenizationParameters {
+        tokenizationType: TokenizationType;
+    }
+
+    interface PaymentMethodGatewayTokenizationParameters extends BasePaymentMethodTokenizationParameters {
+        tokenizationType: 'PAYMENT_GATEWAY';
         parameters: {
             [parameter: string]: string;
         };
     }
 
-    interface DirectTokenizationSpecification extends BasePaymentMethodTokenizationSpecification {
-        type: 'DIRECT';
+    interface PaymentMethodDirectTokenizationParameters extends BasePaymentMethodTokenizationParameters {
+        tokenizationType: 'DIRECT';
         parameters: {
-            protocolVersion: string;
             publicKey: string;
         };
     }
 
-    interface CardPaymentMethod extends BasePaymentMethod {
-        type: 'CARD';
-        parameters: CardParameters;
-    }
-
-    type AllowedAuthMethod = 'PAN_ONLY' | 'CRYPTOGRAM_3DS';
-    type AllowedCardNetwork = 'AMEX' | 'DISCOVER' | 'JCB' | 'MASTERCARD' | 'VISA';
-
-    interface CardParameters {
-        allowedAuthMethods: AllowedAuthMethod[];
+    interface BaseCardRequirements {
         allowedCardNetworks: AllowedCardNetwork[];
-        allowPrepaidCards?: boolean;
         billingAddressRequired?: boolean;
-        billingAddressParameters?: BillingAddressParameters;
+        billingAddressFormat?: AddressFormat;
     }
 
-    type BillingAddressFormat = 'FULL' | 'MIN';
-
-    interface BillingAddressParameters {
-        format?: BillingAddressFormat;
-        phoneNumberRequired?: boolean;
+    interface CardRequirementsMin extends BaseCardRequirements {
+        billingAddressFormat?: 'MIN';
     }
 
-    interface PaymentDataRequest extends ApiVersion {
-        merchantInfo: MerchantInfo;
-        allowedPaymentMethods: PaymentMethod[];
-        transactionInfo: TransactionInfo;
-        emailRequired?: boolean;
-        shippingAddressRequired?: boolean;
-        shippingAddressParameters?: ShippingAddressParameters;
+    interface CardRequirementsFull extends BaseCardRequirements {
+        billingAddressFormat?: 'FULL';
     }
 
-    interface PaymentData extends ApiVersion {
-        paymentMethodData: PaymentMethodData;
-        email?: string;
-        shippingAddress?: Address;
-    }
-
-    interface MerchantInfo {
-        merchantId: string;
-        merchantName?: string;
-        merchantOrigin?: string;
-    }
-
-    type TransactionInfo = UnknownPriceTransactionInfo | KnownPriceTransactionInfo;
-    type TotalPriceStatus = 'ESTIMATED' | 'FINAL' | 'NOT_CURRENTLY_KNOWN';
-
-    interface BaseTransactionInfo {
-        totalPriceStatus: TotalPriceStatus;
-        currencyCode: string;
-    }
-
-    interface UnknownPriceTransactionInfo extends BaseTransactionInfo {
-        totalPriceStatus: 'NOT_CURRENTLY_KNOWN';
-    }
-
-    interface KnownPriceTransactionInfo extends BaseTransactionInfo {
-        totalPriceStatus: 'ESTIMATED' | 'FINAL';
-        totalPrice: string;
-    }
-
-    interface ShippingAddressParameters {
+    interface ShippingAddressRequirements {
         allowedCountryCodes?: string[];
-        phoneNumberRequired?: boolean;
     }
 
-    type PaymentMethodData = CardPaymentMethodData;
-
-    interface BasePaymentMethodData {
-        type: AllowedPaymentMethodType;
-        description: string;
-        tokenizationData: PaymentMethodTokenizationData;
+    interface TransactionInfo {
+        totalPriceStatus: TotalPriceStatus;
+        totalPrice?: string;
+        currencyCode?: string;
     }
 
-    interface PaymentMethodTokenizationData {
-        type: TokenizationType;
-        token?: string;
+    interface BasePaymentData {
+        cardInfo: CardInfo;
+        paymentMethodToken: PaymentMethodToken;
+        shippingAddress?: UserAddressFull;
+        email?: string;
     }
 
-    interface CardPaymentMethodData extends BasePaymentMethodData {
-        type: 'CARD';
-        info: CardInfo;
+    interface PaymentDataMin extends BasePaymentData {
+        cardInfo: CardInfoMin;
     }
 
-    interface CardInfo {
+    interface PaymentDataFull extends BasePaymentData {
+        cardInfo: CardInfoFull;
+    }
+
+    interface BaseCardInfo {
+        cardDescription: string;
+        cardClass: CardClass;
         cardDetails: string;
         cardNetwork: AllowedCardNetwork;
-        billingAddress?: Address;
+        billingAddress?: UserAddress;
     }
 
-    type Address = AddressMin | AddressFull;
+    interface CardInfoMin extends BaseCardInfo {
+        billingAddress?: UserAddressMin;
+    }
 
-    interface AddressMin {
+    interface CardInfoFull extends BaseCardInfo {
+        billingAddress?: UserAddressFull;
+    }
+
+    interface UserAddressMin {
         name: string;
         postalCode: string;
         countryCode: string;
         phoneNumber?: string;
     }
 
-    interface AddressFull extends AddressMin {
+    interface UserAddressFull extends UserAddressMin {
+        companyName: string;
         address1: string;
         address2: string;
         address3: string;
+        address4: string;
+        address5: string;
         locality: string;
         administrativeArea: string;
         sortingCode: string;
     }
 
-    type ErrorStatusCode = 'BUYER_ACCOUNT_ERROR' | 'CANCELED' | 'DEVELOPER_ERROR' | 'INTERNAL_ERROR';
+    interface PaymentMethodToken {
+        tokenizationType: TokenizationType;
+        token: string;
+    }
 
     interface PaymentsError {
         statusCode: ErrorStatusCode;
@@ -184,7 +161,9 @@ declare namespace google.payments.api {
     class PaymentsClient {
         constructor(paymentOptions: PaymentOptions);
         createButton(request: ButtonOptions): HTMLElement;
-        isReadyToPay(request: IsReadyToPayRequest): Promise<IsReadyToPayResponse>;
+        isReadyToPay(request: IsReadyToPayRequest): Promise<{result: boolean}>;
+        loadPaymentData(request: PaymentDataRequestMin): Promise<PaymentDataMin>;
+        loadPaymentData(request: PaymentDataRequestFull): Promise<PaymentDataFull>;
         loadPaymentData(request: PaymentDataRequest): Promise<PaymentData>;
         prefetchPaymentData(request: PaymentDataRequest): void;
     }

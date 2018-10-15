@@ -66,8 +66,7 @@ export interface Styles {
 }
 
 export type QueryType
-    = 'address'
-    | 'establishment'
+    = 'establishment'
     | 'geocode'
     | '(cities)'
     | '(regions)';

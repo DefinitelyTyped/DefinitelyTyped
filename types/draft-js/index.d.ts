@@ -8,7 +8,6 @@
 //                 Willis Plummer <https://github.com/willisplummer>
 //                 Santiago Vilar <https://github.com/smvilar>
 //                 Ulf Schwekendiek <https://github.com/sulf>
-//                 Pablo Varela <https://github.com/pablopunk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -951,7 +950,6 @@ import Editor = Draft.Component.Base.DraftEditor;
 import EditorProps = Draft.Component.Base.DraftEditorProps;
 import EditorBlock = Draft.Component.Components.DraftEditorBlock;
 import EditorState = Draft.Model.ImmutableData.EditorState;
-import EditorChangeType = Draft.Model.ImmutableData.EditorChangeType;
 
 import CompositeDecorator = Draft.Model.Decorators.CompositeDraftDecorator;
 import Entity = Draft.Model.Entity.DraftEntity;
@@ -1001,7 +999,6 @@ export {
     EditorProps,
     EditorBlock,
     EditorState,
-    EditorChangeType,
 
     CompositeDecorator,
     Entity,

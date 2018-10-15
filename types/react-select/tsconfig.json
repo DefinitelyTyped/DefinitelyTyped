@@ -99,7 +99,6 @@
         "test/examples/OnSelectResetsInput.tsx",
         "test/examples/Popout.tsx",
         "test/examples/StyledMulti.tsx",
-        "test/examples/StyledSingle.tsx",
-        "test/examples/Theme.tsx"
+        "test/examples/StyledSingle.tsx"
     ]
 }

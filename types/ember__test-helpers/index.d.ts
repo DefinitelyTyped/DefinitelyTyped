@@ -2,12 +2,10 @@
 // Project: https://github.com/emberjs/ember-test-helpers
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
-//                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.6
 
 /// <reference types="ember" />
-/// <reference types="ember__error" />
 
 declare module '@ember/test-helpers' {
     // DOM Interaction Helpers

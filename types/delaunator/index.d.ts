@@ -1,14 +1,13 @@
-// Type definitions for delaunator 2.0
+// Type definitions for delaunator 1.0
 // Project: https://github.com/mapbox/delaunator#readme
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
-//                 Bradley Odell <https://github.com/BTOdell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class Delaunator<P> {
+declare class Delaunator<T> {
     /**
-     * A flat Uint32Array array of triangle vertex indices (each group of three numbers forms a triangle). All triangles are directed counterclockwise.
+     * A flat Int32Array array of triangle vertex indices (each group of three numbers forms a triangle). All triangles are directed counterclockwise.
      */
-    triangles: Uint32Array;
+    triangles: Int32Array;
 
     /**
      * A flat Int32Array array of triangle half-edge indices that allows you to traverse the triangulation.
@@ -20,36 +19,17 @@ declare class Delaunator<P> {
     halfedges: Int32Array;
 
     /**
-     * A circular doubly-linked list that holds a convex hull of the delaunay triangulation.
+     * Constructs a delaunay triangulation object given an array of points ([x, y] by default). Duplicate points are skipped.
      */
-    hull: Delaunator.Node;
-
-    /**
-     * Constructs a delaunay triangulation object given a typed array of point coordinates of the form: [x0, y0, x1, y1, ...].
-     */
-    constructor(points: ArrayLike<number>);
-
-    /**
-     * Constructs a delaunay triangulation object given an array of points (e.g. [x, y]). Duplicate points are skipped.
-     */
-    static from(points: ArrayLike<ArrayLike<number>>): Delaunator<ArrayLike<number>>;
-
-    /**
-     * Constructs a delaunay triangulation object given an array of custom points. Duplicate points are skipped.
-     */
-    static from<P>(points: ArrayLike<P>, getX: (point: P) => number, getY: (point: P) => number): Delaunator<P>;
+    constructor(points: Delaunator.Points);
+    constructor(points: T[], getX: Delaunator.GetPoint<T>, getY: Delaunator.GetPoint<T>);
 }
 
 declare namespace Delaunator {
-    interface Node {
-        i: number;
-        x: number;
-        y: number;
-        t: number;
-        prev: Node|null;
-        next: Node|null;
-        removed: boolean;
-    }
+    type Point = number[];
+    type Points = Point[];
+    type Triangles = Int32Array;
+    type HalfEdges = Int32Array;
+    type GetPoint<T> = (point: T) => number;
 }
-
 export = Delaunator;

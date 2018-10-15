@@ -33,7 +33,6 @@ getters.zoneName;
 getters.offset;
 getters.daysInMonth;
 getters.ordinal;
-getters.isInLeapYear;
 
 dt.toLocaleString();
 dt.toLocaleString(DateTime.DATE_MED);

@@ -2,7 +2,6 @@
 // Project: https://github.com/CassetteRocks/react-infinite-scroller
 // Definitions by: Lauri Lavanti <https://github.com/Lapanti>,
 //                 Piotr Srebniak <https://github.com/psrebniak>
-//                 Brett Miller <https://github.com/WrathZA>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -63,9 +62,7 @@ declare namespace InfiniteScroll {
          */
         loader?: React.ReactElement<any>;
     }
-    class InfiniteScroll extends React.Component<InfiniteScrollProps> {
-        getParentElement(elem?: HTMLElement | null): HTMLElement | undefined | null;
-    }
+    class InfiniteScroll extends React.Component<InfiniteScrollProps> { }
     namespace InfiniteScroll {}
 }
 

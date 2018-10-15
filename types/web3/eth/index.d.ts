@@ -125,7 +125,6 @@ export default interface Eth {
     getProtocolVersion(cb?: Callback<string>): Promise<string>;
     getStorageAt(
         address: string,
-        position: number | BigNumber,
         defaultBlock?: BlockType,
         cb?: Callback<string>
     ): Promise<string>;

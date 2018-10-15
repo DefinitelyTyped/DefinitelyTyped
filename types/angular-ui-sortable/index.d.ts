@@ -12,7 +12,7 @@ declare module 'angular' {
     export namespace ui {
 
         interface UISortableOptions<T> extends SortableOptions<T> {
-            'ui-floating'?: 'auto' | boolean;
+            'ui-floating'?: string | boolean;
         }
 
         interface UISortableProperties<T> {

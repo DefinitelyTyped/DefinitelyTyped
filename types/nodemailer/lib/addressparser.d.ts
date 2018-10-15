@@ -16,6 +16,7 @@ declare namespace addressparser {
  *
  *     [{name: 'Name', address: 'address@domain'}]
  *
+ * @param str Address field
  * @return An array of address objects
  */
 declare function addressparser(address: string): addressparser.Address[];
