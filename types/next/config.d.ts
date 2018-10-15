@@ -1,1 +1,4 @@
-export default function(): { serverRuntimeConfig: any; publicRuntimeConfig: any };
+import config from 'next-server/config';
+
+export * from 'next-server/config'
+export default config;

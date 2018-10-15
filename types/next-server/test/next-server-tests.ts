@@ -1,4 +1,4 @@
-import createServer = require("next");
+import createServer = require("next-server");
 import * as http from "http";
 import * as url from "url";
 
@@ -89,5 +89,4 @@ function handle(req: http.IncomingMessage, res: http.ServerResponse) {
     b = server.isServeableUrl("/path/to/thing");
 
     const s: string = server.readBuildId();
-    devServer.getCompilationError().then(err => err.thisIsAnAny);
 }
