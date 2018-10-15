@@ -1,4 +1,4 @@
-// Type definitions for enzyme-adapter-react-16 1.1
+// Type definitions for enzyme-adapter-react-16 1.6
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Jimmy Headdon <https://github.com/jimmyheaddon>
