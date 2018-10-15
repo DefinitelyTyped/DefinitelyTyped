@@ -27,14 +27,14 @@ interface StarRatingComponentProps {
     nextValue: number,
     prevValue: number,
     name: string
-  ) => JSX.Element | string;
+  ) => React.ReactNode | string;
 
   /** render method for the half-star icon */
   renderStarIconHalf?: (
     nextValue: number,
     prevValue: number,
     name: string
-  ) => JSX.Element | string;
+  ) => React.ReactNode | string;
 
   /** color of selected icons */
   starColor?: string;
@@ -50,4 +50,4 @@ declare class StarRatingComponent extends React.Component<
   StarRatingComponentProps
 > {}
 
-export default StarRatingComponent;
+export = StarRatingComponent;
