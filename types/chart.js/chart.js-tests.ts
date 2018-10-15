@@ -36,6 +36,7 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
         tooltips: {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
+            mode: 'index',
             itemSort: (a, b) => Math.random() - 0.5,
             position: "average",
             caretPadding: 2,
@@ -125,6 +126,7 @@ const chartConfig: Chart.ChartConfiguration = {
             backgroundColor: '#37738353',
             borderColor: '#37738353',
             borderWidth: 3,
+            borderCapStyle: 'round',
             fill: true
         }]
     },
