@@ -228,19 +228,23 @@ export function pairs<T>(array: ArrayLike<T>): Array<[T, T]>;
  * Returns the empty array if the input array has fewer than two elements.
  *
  * @param array Array of input elements
- * @param reducer A reducer function taking as input to adjecent elements of the input array and returning a reduced value.
+ * @param reducer A reducer function taking as input to adjacent elements of the input array and returning a reduced value.
  */
 export function pairs<T, U>(array: ArrayLike<T>, reducer: (a: T, b: T) => U): U[];
 
 /**
- * Given the specified array, return an array corresponding to the list of indices in 'keys'.
+ * Returns a permutation of the specified array using the specified array of indexes.
+ * The returned array contains the corresponding element in array for each index in indexes, in order.
+ * For example, `permute(["a", "b", "c"], [1, 2, 0]) // ["b", "c", "a"]`
  */
 export function permute<T>(array: { [key: number]: T }, keys: ArrayLike<number>): T[];
 
 /**
- * Given the specified object, return an array corresponding to the list of property names in 'keys'.
+ * Extract the values from an object into an array with a stable order. For example:
+ * `var object = {yield: 27, year: 1931, site: "University Farm"};`
+ * `d3.permute(object, ["site", "yield"]); // ["University Farm", 27]`
  */
-export function permute<T>(object: { [key: string]: T }, keys: ArrayLike<string>): T[];
+export function permute<T, K extends keyof T>(object: T, keys: ArrayLike<K>): Array<T[K]>;
 
 /**
  * Generates a 0-based numeric sequence. The output range does not include 'stop'.
@@ -348,6 +352,11 @@ export type ThresholdDateArrayGenerator<Value extends Date | undefined> =
     (values: ArrayLike<Value>, min: Date, max: Date) => Value[];
 
 /**
+ * @deprecated Use ThresholdNumberArrayGenerator or ThresholdDateArrayGenerator.
+ */
+export type ThresholdArrayGenerator = ThresholdNumberArrayGenerator<number>;
+
+/**
  * @deprecated Use `HistogramGeneratorNumber<Datum, Value>` for `number` values and `HistogramGeneratorDate<Datum, Value> for `Date` values.
  */
 export interface HistogramGenerator<Datum, Value extends number | Date | undefined> {
@@ -403,7 +412,7 @@ export interface HistogramGeneratorDate<Datum, Value extends Date | undefined> e
      * and the last bin.x1 is always equal to the maximum domain value.
      *
      * @param thresholds A function which accepts as arguments the array of materialized values, and
-     * optionally the domain minimum and maximum. The function calcutates and returns the array of values to be used as
+     * optionally the domain minimum and maximum. The function calculates and returns the array of values to be used as
      * thresholds in determining the bins.
      */
     thresholds(thresholds: ThresholdDateArrayGenerator<Value>): this;
@@ -434,7 +443,7 @@ export interface HistogramGeneratorNumber<Datum, Value extends number | undefine
      * and the last bin.x1 is always equal to the maximum domain value.
      *
      * @param count A function which accepts as arguments the array of materialized values, and
-     * optionally the domain minimum and maximum. The function calcutates and returns the suggested
+     * optionally the domain minimum and maximum. The function calculates and returns the suggested
      * number of bins.
      */
     thresholds(count: ThresholdCountGenerator<Value>): this;
@@ -456,7 +465,7 @@ export interface HistogramGeneratorNumber<Datum, Value extends number | undefine
      * and the last bin.x1 is always equal to the maximum domain value.
      *
      * @param thresholds A function which accepts as arguments the array of materialized values, and
-     * optionally the domain minimum and maximum. The function calcutates and returns the array of values to be used as
+     * optionally the domain minimum and maximum. The function calculates and returns the array of values to be used as
      * thresholds in determining the bins.
      */
     thresholds(thresholds: ThresholdNumberArrayGenerator<Value>): this;
