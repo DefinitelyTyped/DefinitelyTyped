@@ -5,5 +5,5 @@ import AdapterCommonJs = require('enzyme-adapter-react-16');
 configure({ adapter: new AdapterCommonJs() });
 
 // ECMAScript module syntax
-import * as Adapter from 'enzyme-adapter-react-16';
-configure({ adapter: new Adapter() });
+import * as AdapterEcmaScript from 'enzyme-adapter-react-16';
+configure({ adapter: new AdapterEcmaScript() });
