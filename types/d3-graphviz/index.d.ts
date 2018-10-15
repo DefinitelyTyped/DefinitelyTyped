@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 import { ZoomBehavior } from 'd3-zoom';
-import { Selection, BaseType } from 'd3-selection';
+import { Selection, BaseType, ValueFn } from 'd3-selection';
 import { Transition } from 'd3-transition';
 
 /**
@@ -63,7 +63,7 @@ export interface Graphviz<GElement extends BaseType, Datum, PElement extends Bas
      * @param src a string representing a valid string in the DOT language
      * @param callback
      */
-    renderDot(src: string, callback?: Function): this;
+    renderDot(src: string, callback?: () => void): this;
 
     /**
      * Starts computation of the layout of a graph from the specified dotSrc string and saves the data for
@@ -71,14 +71,14 @@ export interface Graphviz<GElement extends BaseType, Datum, PElement extends Bas
      * @param src a string representing a valid string in the DOT language
      * @param callback
      */
-    dot(src: string, callback?: Function): this;
+    dot(src: string, callback?: () => void): this;
 
     /**
      * Starts rendering of an SVG graph from data saved by {@link dot} and appends it to the selection
      * the grapviz renderer instance was generated on.
      * @param callback
      */
-    render(callback?: Function): this;
+    render(callback?: () => void): this;
 
     /**
      * Sets the Graphviz layout engine name to the specified engine string.
@@ -98,7 +98,7 @@ export interface Graphviz<GElement extends BaseType, Datum, PElement extends Bas
      * an error. If no callback is passed then it removes the existing callback.
      * @param callback the call back function triggered by an error
      */
-    onerror(callback?: Function): this;
+    onerror(callback?: (errorMessage: any) => void): this;
 
     // Images
     /**
@@ -113,7 +113,15 @@ export interface Graphviz<GElement extends BaseType, Datum, PElement extends Bas
     addImage(path: string, width: number | string, height: number | string): this;
 
     // Creating Transitions
-    transition(name?: Function | string | Transition<GElement, Datum, PElement, PDatum>): this;
+    /**
+     * Applies the specified transition name to subsequent SVG rendering. Accepts the same arguments
+     * as {@link d3-select.transition} or a function, but returns the graph renderer instance, not the
+     * transition. If name is a function, it is taken to be a transition factory. A transition factory
+     * is a function that returns a transition.
+     * @param name either a function returning a transition, a transition object or a string naming a
+     *              transition
+     */
+    transition(name?: () => Transition<GElement, Datum, PElement, PDatum> | string | Transition<GElement, Datum, PElement, PDatum>): this;
 
     /**
      * Returns the active transition on the generated graph's top level svg with the specified name,
@@ -155,7 +163,7 @@ export interface Graphviz<GElement extends BaseType, Datum, PElement extends Bas
      * @param typenames
      * @param callback
      */
-    on(typenames: TypeNames, callback?: Function): this;
+    on(typenames: TypeNames, callback?: () => void): this;
 
     /**
      * Sets whether events are logged or not.
@@ -260,7 +268,7 @@ export interface Graphviz<GElement extends BaseType, Datum, PElement extends Bas
      *
      * @param callback
      */
-    attributer(callback?: Function): this;
+    attributer(callback?: ValueFn<GElement, Datum, void>): this;
 
     // Accessing Extracted Data
     /**
