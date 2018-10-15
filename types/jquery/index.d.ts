@@ -26655,6 +26655,9 @@ declare namespace JQuery {
             xhrFields?: XHRFields;
         }
 
+        // region StatusCodeCallbacks
+        // #region StatusCodeCallbacks
+
         type StatusCodeCallbacks<TContext> = {
             // region Success Status Codes
             // #region Success Status Codes
@@ -27073,6 +27076,8 @@ declare namespace JQuery {
             // Status codes not listed require type annotations when defining the callback
             [index: number]: SuccessCallback<TContext> | ErrorCallback<TContext>;
         };
+
+        // #endregion
 
         // Writable properties on XMLHttpRequest
         interface XHRFields extends Partial<Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials'>> {
