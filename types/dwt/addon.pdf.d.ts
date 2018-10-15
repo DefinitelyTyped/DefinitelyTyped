@@ -6,7 +6,7 @@
 *
 * Copyright 2018, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
-* Version: 13.4
+* Version: 14.2
 */
 
 declare enum EnumDWT_ConvertMode {
