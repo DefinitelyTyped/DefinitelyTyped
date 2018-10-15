@@ -36,7 +36,7 @@ declare module 'd3-selection' {
  * @param selector either a string representing a selector for a given node or an instance of a node
  * @param options the options to be applied to the graphviz renderer
  */
-export function graphviz<GElement extends BaseType, Datum, PElement extends BaseType, PDatum>(selector: string | GElement, options?: GraphvizOptions | boolean): Graphviz<GElement, Datum, PElement, PDatum>;
+export function graphviz(selector: string | BaseType, options?: GraphvizOptions | boolean): Graphviz<BaseType, any, BaseType, any>;
 
 /**
  * Interface representing the Graphviz Renderer. Methods generally return the instance of the
