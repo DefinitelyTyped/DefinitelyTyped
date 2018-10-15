@@ -60,8 +60,7 @@ interface JQueryStatic {
      * @see \`{@link https://api.jquery.com/jQuery.cssHooks/ }\`
      * @since 1.4.3
      */
-    // Set to HTMLElement to minimize breaks but should probably be Element.
-    cssHooks: JQuery.PlainObject<JQuery.CSSHook<HTMLElement>>;
+    cssHooks: JQuery.CSSHooks;
     /**
      * An object containing all CSS properties that may be used without a unit. The .css() method uses this
      * object to see if it may append px to unitless values.
@@ -27574,12 +27573,17 @@ callbacks.fire( "world" );
 
     // #endregion
 
-    // region CSS
-    // #region CSS
+    // region CSS hooks
+    // #region CSS hooks
 
     interface CSSHook<TElement> {
         get(this: this, elem: TElement, computed: any, extra: any): any;
         set(this: this, elem: TElement, value: any): void;
+    }
+
+    interface CSSHooks {
+        // Set to HTMLElement to minimize breaks but should probably be Element.
+        [propertyName: string]: CSSHook<HTMLElement>;
     }
 
     // #endregion

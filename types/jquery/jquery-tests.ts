@@ -19,7 +19,7 @@ function JQueryStatic() {
     }
 
     function cssHooks() {
-        // $ExpectType PlainObject<CSSHook<HTMLElement>>
+        // $ExpectType CSSHooks
         $.cssHooks;
     }
 
@@ -7117,6 +7117,25 @@ function JQuery_Callbacks() {
         // $ExpectType Callbacks<Function>
         $.Callbacks().remove(() => { }, () => { });
     }
+}
+
+function JQuery_CSSHooks() {
+    $.cssHooks.borderRadius = {
+        get(elem, computed, extra) {
+            // $ExpectedType HTMLElement
+            elem;
+            // $ExpectedType any
+            computed;
+            // $ExpectedType any
+            extra;
+        },
+        set(elem, value) {
+            // $ExpectedType HTMLElement
+            elem;
+            // $ExpectedType any
+            value;
+        }
+    };
 }
 
 function JQuery_Promise3() {
