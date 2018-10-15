@@ -3,6 +3,28 @@ import * as RDF from "rdf-js";
 import * as fs from "fs";
 import * as stream from "stream";
 
+function test_add_prefix() {
+    const writer: N3.N3Writer = new N3.Writer();
+
+    writer.addPrefix('xsd', 'http://www.w3.org/2001/XMLSchema#');
+    writer.end((error, result) => {
+        console.log(result);
+    });
+}
+
+function test_add_prefixes() {
+    const writer: N3.N3Writer = new N3.Writer();
+
+    writer.addPrefixes({
+        freebase: N3.DataFactory.namedNode("http://rdf.freebase.com/ns/"),
+        xsd: N3.DataFactory.namedNode("http://www.w3.org/2001/XMLSchema#")
+    });
+
+    writer.end((error, result) => {
+        console.log(result);
+    });
+}
+
 function test_serialize() {
     const writer: N3.N3Writer = new N3.Writer(
         {

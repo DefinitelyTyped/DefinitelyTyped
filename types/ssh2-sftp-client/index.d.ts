@@ -19,6 +19,7 @@ declare class sftp {
   delete(remoteFilePath: string): Promise<void>;
   rename(remoteSourcePath: string, remoteDestPath: string): Promise<void>;
   end(): Promise<void>;
+  on(event: string, callback: (...args: any[]) => void): void;
 }
 declare namespace sftp {
   interface FileInfo {

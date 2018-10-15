@@ -1231,7 +1231,7 @@ export namespace plugins {
 
         maxFieldsSize?: number;
 
-        maxFileSize: number;
+        maxFileSize?: number;
     }
 
     /**

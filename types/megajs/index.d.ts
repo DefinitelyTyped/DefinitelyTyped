@@ -50,7 +50,7 @@ export interface MakeDirectoryOptions {
 export interface FileOptions {
   downloadId: string;
   key: string;
-  directory: boolean;
+  directory?: boolean;
 }
 
 export interface StorageOptions {

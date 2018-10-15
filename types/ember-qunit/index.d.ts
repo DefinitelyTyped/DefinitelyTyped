@@ -1,8 +1,9 @@
-// Type definitions for ember-qunit 3.0
+// Type definitions for ember-qunit 3.4
 // Project: https://github.com/emberjs/ember-qunit#readme
 // Definitions by: Derek Wickern <https://github.com/dwickern>
+//                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="qunit" />
 

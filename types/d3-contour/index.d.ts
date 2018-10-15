@@ -7,7 +7,7 @@
 // Last module patch version validated against: 1.2.0
 
 import { MultiPolygon } from 'geojson';
-import { ThresholdArrayGenerator, ThresholdCountGenerator } from 'd3-array';
+import { ThresholdNumberArrayGenerator, ThresholdCountGenerator } from 'd3-array';
 
 /**
  * An extended GeoJSON MultiPolygon representing a contour.
@@ -78,7 +78,7 @@ export interface Contours {
     /**
      * Returns the current threshold generator, which by default implements Sturges’ formula.
      */
-    thresholds(): ThresholdCountGenerator | ThresholdArrayGenerator<number>;
+    thresholds(): ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>;
     /**
      * Sets the threshold generator to use the specified count and returns this contour generator.
      * The input values’ extent will be uniformly divided into approximately count bins.
@@ -110,7 +110,7 @@ export interface Contours {
      * @param thresholds A threshold generator function. The threshold generator function is passed the array of input values
      * as its argument and returns either an array of calculated thresholds, or the count of thresholds to use.
      */
-    thresholds(thresholds: ThresholdCountGenerator | ThresholdArrayGenerator<number>): this;
+    thresholds(thresholds: ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>): this;
 }
 
 /**
@@ -196,7 +196,7 @@ export interface ContourDensity<Datum = [number, number]> {
     /**
      * Returns the current threshold generator, which by default generates about twenty nicely-rounded density thresholds.
      */
-    thresholds(): ThresholdCountGenerator | ThresholdArrayGenerator<number>;
+    thresholds(): ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>;
     /**
      * Sets the threshold generator to use the specified count and returns this density contour estimator.
      * Approximately count uniformly-spaced nicely-rounded thresholds will be generated.
@@ -228,7 +228,7 @@ export interface ContourDensity<Datum = [number, number]> {
      * @param thresholds A threshold generator function. The threshold generator function is passed the array of input values
      * as its argument and returns either an array of calculated thresholds, or the count of thresholds to use.
      */
-    thresholds(thresholds: ThresholdCountGenerator | ThresholdArrayGenerator<number>): this;
+    thresholds(thresholds: ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>): this;
 
     /**
      * Returns the current bandwidth, which defaults to 20.4939….

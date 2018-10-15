@@ -156,6 +156,8 @@ export interface N3Writer {
     addQuad(subject: RDF.Term, predicate: RDF.Term, object: RDF.Term | RDF.Term[], graph?: RDF.Term, done?: () => void): void;
     addQuad(quad: RDF.Quad): void;
     addQuads(quads: RDF.Quad[]): void;
+    addPrefix(prefix: string, iri: string, done?: () => void): void;
+    addPrefixes(prefixes: Prefixes, done?: () => void): void;
     end(err?: ErrorCallback, result?: string): void;
     blank(predicate: RDF.Term, object: RDF.Term): RDF.Term;
     blank(triple: BlankTriple | RDF.Quad | BlankTriple[] | RDF.Quad[]): RDF.Term;

@@ -74,6 +74,7 @@ import {
   UncontrolledButtonDropdown,
   UncontrolledDropdown,
   UncontrolledTooltip,
+  UncontrolledCollapse,
   TabContent,
   Table,
   Tag,
@@ -3741,6 +3742,7 @@ function Example117() {
     <UncontrolledButtonDropdown ref={ref}/>;
     <UncontrolledDropdown ref={ref}/>;
     <UncontrolledTooltip ref={ref} target={null as any}/>;
+    <UncontrolledCollapse ref={ref} target={null as any}/>;
 }
 
 function Example118() {
@@ -3831,6 +3833,7 @@ import { UncontrolledAlert as UncontrolledAlert_ } from './lib/Uncontrolled'; /*
 import { UncontrolledButtonDropdown as UncontrolledButtonDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
 import { UncontrolledDropdown as UncontrolledDropdown_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
 import { UncontrolledTooltip as UncontrolledTooltip_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
+import { UncontrolledCollapse as UncontrolledCollapse_ } from './lib/Uncontrolled'; /* tslint:disable-line: no-relative-import-in-test no-duplicate-imports */
 
 function AnyPropExample() {
   return (
@@ -3913,6 +3916,7 @@ function AnyPropExample() {
       <UncontrolledButtonDropdown_ foo={1} bar={false} foobar="example" />
       <UncontrolledDropdown_ foo={1} bar={false} foobar="example" />
       <UncontrolledTooltip_ foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledCollapse_ foo={1} bar={false} foobar="example" target="" />
     </React.Fragment >
   );
 }
@@ -4000,6 +4004,7 @@ class UncontrolledAlertGeneric extends UncontrolledAlert<GenericInterface> {}
 class UncontrolledButtonDropdownGeneric extends UncontrolledButtonDropdown<GenericInterface> {}
 class UncontrolledDropdownGeneric extends UncontrolledDropdown<GenericInterface> {}
 class UncontrolledTooltipGeneric extends UncontrolledTooltip<GenericInterface> {}
+class UncontrolledCollapseGeneric extends UncontrolledCollapse<GenericInterface> {}
 
 function GenericPropExample() {
   return (
@@ -4082,6 +4087,7 @@ function GenericPropExample() {
       <UncontrolledButtonDropdownGeneric foo={1} bar={false} foobar="example" />
       <UncontrolledDropdownGeneric foo={1} bar={false} foobar="example" />
       <UncontrolledTooltipGeneric foo={1} bar={false} foobar="example" target="" />
+      <UncontrolledCollapseGeneric foo={1} bar={false} foobar="example" target="" />
     </React.Fragment >
   );
 }
@@ -4263,4 +4269,23 @@ class Example122 extends React.Component<any, any> {
       </Dropdown>
     );
   }
+}
+
+function Example123() {
+  return(
+    <div>
+      <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
+        Toggle
+      </Button>
+      <UncontrolledCollapse toggler="#toggler">
+        <Card>
+          <CardBody>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt magni, voluptas debitis
+            similique porro a molestias consequuntur earum odio officiis natus, amet hic, iste sed
+            dignissimos esse fuga! Minus, alias.
+          </CardBody>
+        </Card>
+      </UncontrolledCollapse>
+    </div>
+  );
 }

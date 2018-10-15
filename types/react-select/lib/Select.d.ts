@@ -25,7 +25,7 @@ import {
   SelectComponentsConfig,
 } from './components/index';
 import { StylesConfig } from './styles';
-
+import { ThemeConfig } from './theme';
 import {
   ActionMeta,
   ActionTypes,
@@ -193,8 +193,10 @@ export interface Props<OptionType> {
   screenReaderStatus?: (obj: { count: number }) => string;
   /* Style modifier methods */
   styles?: StylesConfig;
+  /* Theme modifier method */
+  theme?: ThemeConfig;
   /* Sets the tabIndex attribute on the input */
-  tabIndex?: string;
+  tabIndex?: string | null;
   /* Select the currently focused option when the user presses tab */
   tabSelectsValue?: boolean;
   /* The value of the select; reflected by the selected option */

@@ -23,6 +23,8 @@
 //                 Jake <https://github.com/jakebooyah>
 //                 Gustavo Brunoro <https://github.com/brunoro>
 //                 Denis Frezzato <https://github.com/DenisFrezzato>
+//                 Mickael Wegerich <https://github.com/mickaelw>
+//                 Max Davidson <https://github.com/maxdavidson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -457,10 +459,16 @@ export type NavigationTabAction =
   | NavigationNavigateAction
   | NavigationBackAction;
 
+export type NavigationDrawerAction =
+  | NavigationOpenDrawerAction
+  | NavigationCloseDrawerAction
+  | NavigationToggleDrawerAction;
+
 export type NavigationAction =
   | NavigationInitAction
   | NavigationStackAction
-  | NavigationTabAction;
+  | NavigationTabAction
+  | NavigationDrawerAction;
 
 export type NavigationRouteConfig =
   | NavigationComponent
@@ -600,7 +608,7 @@ export interface NavigationEventsProps extends ViewProps {
 export const NavigationEvents: React.ComponentType<NavigationEventsProps>;
 
 export interface NavigationScreenProp<S, P = NavigationParams> {
-  state: S;
+  state: S & { params?: P };
   dispatch: NavigationDispatch;
   goBack: (routeKey?: string | null) => boolean;
   dismiss: () => boolean;
@@ -1227,20 +1235,45 @@ export class Header extends React.Component<HeaderProps> {
   static HEIGHT: number;
 }
 
+export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+
+export type InferProps<T extends React.ComponentType<any>> = T extends React.ComponentType<infer P> ? P : never;
+
 export interface NavigationInjectedProps<P = NavigationParams> {
   navigation: NavigationScreenProp<NavigationState, P>;
 }
 
-export function withNavigation<T = {}>(
-  Component: React.ComponentType<T & NavigationInjectedProps>
-): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationInjectedProps>> }>;
+// If the wrapped component is a class, we can get a ref to it
+export function withNavigation<T extends React.ComponentClass<NavigationInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationInjectedProps> & { onRef?: React.Ref<InstanceType<T>> }>;
 
-export interface NavigationFocusInjectedProps extends NavigationInjectedProps {
+export function withNavigation<T extends React.ComponentType<NavigationInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationInjectedProps>>;
+
+// For backwards compatibility
+export function withNavigation<T = {}, P = NavigationParams>(
+  Component: React.ComponentType<T | (T & NavigationInjectedProps<P>)>,
+): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationInjectedProps<P>>> }>;
+
+export interface NavigationFocusInjectedProps<P = NavigationParams> extends NavigationInjectedProps<P> {
   isFocused: boolean;
 }
-export function withNavigationFocus<T = {}>(
-  Component: React.ComponentType<T & NavigationFocusInjectedProps>
-): React.ComponentType<T & { onRef?: React.Ref<typeof Component> }>;
+
+// If the wrapped component is a class, we can get a ref to it
+export function withNavigationFocus<T extends React.ComponentClass<NavigationFocusInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationFocusInjectedProps> & { onRef?: React.Ref<InstanceType<T>> }>;
+
+export function withNavigationFocus<T extends React.ComponentType<NavigationFocusInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationFocusInjectedProps>>;
+
+// For backwards compatibility
+export function withNavigationFocus<T = {}, P = NavigationParams>(
+  Component: React.ComponentType<T & NavigationFocusInjectedProps<P>>,
+): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationFocusInjectedProps<P>>> }>;
 
 /**
  * SafeAreaView Component

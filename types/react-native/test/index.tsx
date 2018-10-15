@@ -11,6 +11,7 @@ The content of index.io.js could be something like
 For a list of complete Typescript examples: check https://github.com/bgrieder/RNTSExplorer
 */
 
+import * as PropTypes from "prop-types";
 import * as React from "react";
 import {
     Alert,
@@ -20,6 +21,7 @@ import {
     BackAndroid,
     BackHandler,
     Button,
+    ColorPropType,
     DataSourceAssetCallback,
     DeviceEventEmitterStatic,
     Dimensions,
@@ -51,6 +53,7 @@ import {
     ScrollView,
     ScrollViewProps,
     SectionListRenderItemInfo,
+    Switch,
     RefreshControl,
     TabBarIOS,
     NativeModules,
@@ -61,6 +64,7 @@ import {
     InputAccessoryView,
     StatusBar,
     NativeSyntheticEvent,
+    NativeScrollEvent,
     GestureResponderEvent,
     TextInputScrollEventData,
     TextInputSelectionChangeEventData,
@@ -73,6 +77,8 @@ import {
     KeyboardAvoidingView,
     Modal,
     TimePickerAndroid,
+    ViewPropTypes,
+    requireNativeComponent,
 } from "react-native";
 
 declare module "react-native" {
@@ -151,6 +157,8 @@ const stylesAlt = StyleSheet.create({
     },
 });
 
+StyleSheet.setStyleAttributePreprocessor('fontFamily', (family: string) => family);
+
 const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize;
 
 const viewStyle: StyleProp<ViewStyle> = {
@@ -186,13 +194,20 @@ const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): voi
     e.nativeEvent;
 }
 
+type ElementProps<C> = C extends React.Component<infer P, any> ? P : never;
+
 class CustomView extends React.Component {
     render() {
         return <Text style={[StyleSheet.absoluteFill, { ...StyleSheet.absoluteFillObject }]}>Custom View</Text>;
     }
 }
 
-class Welcome extends React.Component {
+class Welcome extends React.Component<ElementProps<View> & { color: string }> {
+    static propTypes = {
+        ...ViewPropTypes,
+        color: ColorPropType,
+    };
+
     refs: {
         [key: string]: any;
         rootView: View;
@@ -218,8 +233,9 @@ class Welcome extends React.Component {
     }
 
     render() {
+        const { color, ...props } = this.props;
         return (
-            <View ref="rootView" style={[[styles.container], undefined, null, false]}>
+            <View {...props} ref="rootView" style={[[styles.container], undefined, null, false]}>
                 <Text style={styles.welcome}>Welcome to React Native</Text>
                 <Text style={styles.instructions}>To get started, edit index.ios.js</Text>
                 <Text style={styles.instructions}>
@@ -314,6 +330,8 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 data={[1, 2, 3, 4, 5]}
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
+                ListFooterComponent={null}
+                ListHeaderComponent={null}
             />
         );
     }
@@ -374,7 +392,14 @@ export class CapsLockComponent extends React.Component<TextProps> {
     }
 }
 
-class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource }> {
+class ScrollerListComponentTest extends React.Component<
+    {},
+    { dataSource: ListViewDataSource }
+> {
+    eventHandler = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        console.log(event);
+    };
+
     render() {
         const scrollViewStyle1 = StyleSheet.create({
             scrollView: {
@@ -392,11 +417,27 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                         throw new Error("Expected scroll to be enabled.");
                     }
 
-                    return <ScrollView horizontal={true} nestedScrollEnabled={true} contentOffset={{x: 0, y: 0}} {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]} />;
+                    return (
+                        <ScrollView
+                            horizontal={true}
+                            nestedScrollEnabled={true}
+                            contentOffset={{ x: 0, y: 0 }}
+                            {...props}
+                            style={[
+                                scrollViewStyle1.scrollView,
+                                scrollViewStyle2
+                            ]}
+                        />
+                    );
                 }}
                 renderRow={({ type, data }, _, row) => {
                     return <Text>Filler</Text>;
                 }}
+                onScroll={this.eventHandler}
+                onScrollBeginDrag={this.eventHandler}
+                onScrollEndDrag={this.eventHandler}
+                onMomentumScrollBegin={this.eventHandler}
+                onMomentumScrollEnd={this.eventHandler}
             />
         );
     }
@@ -625,9 +666,12 @@ class WebViewTest extends React.Component {
     render() {
         return (
             <WebView
+                nativeConfig={{ component: 'test', props: {}, viewManager: {} }}
+                onShouldStartLoadWithRequest={(event) => event.navigationType !== 'formresubmit'}
                 originWhitelist={['https://origin.test']}
                 saveFormDataDisabled={false}
-                nativeConfig={{ component: 'test', props: {}, viewManager: {} }}
+                useWebKit={true}
+                allowFileAccess={true}
             />
         );
     }
@@ -702,8 +746,16 @@ class AccessibilityTest extends React.Component {
                 importantForAccessibility={"no-hide-descendants"}
                 accessibilityTraits={'none'}
                 onAccessibilityTap={() => {}}
+                accessibilityRole="header"
+                accessibilityStates="selected"
+                accessibilityHint="Very importent header"
             >
-                <Text accessibilityTraits={['key', 'text']}>Text</Text>
+                <Text
+                    accessibilityTraits={['key', 'text']}
+                    accessibilityIgnoresInvertColors
+                >
+                    Text
+                </Text>
                 <View />
             </View>
         );
@@ -748,4 +800,30 @@ const TimePickerAndroidTest = () => (
         is24Hour: true,
         mode: 'spinner'
     })
+)
+
+class BridgedComponentTest extends React.Component {
+    static propTypes = {
+        jsProp: PropTypes.string.isRequired,
+        ...ViewPropTypes,
+    }
+
+    render() {
+        return <NativeBridgedComponent {...this.props} nativeProp="test" />;
+    }
+}
+
+const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent", BridgedComponentTest, {
+    nativeOnly: {
+        nativeProp: true,
+    }
+});
+
+
+const SwitchColorTest = () => (
+    <Switch trackColor={{ true: 'pink', false: 'red'}} />
+)
+
+const SwitchThumbColorTest = () => (
+    <Switch thumbColor={'red'} />
 )

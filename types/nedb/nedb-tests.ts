@@ -496,6 +496,11 @@ db.ensureIndex({ fieldName: 'somefield', unique: true }, (err: Error) => {
 db.ensureIndex({ fieldName: 'somefield', unique: true, sparse: true }, (err: Error) => {
 });
 
+// Example of using expireAfterSeconds to remove documents 1 hour
+// after their creation (db's timestampData option is true here)
+db.ensureIndex({ fieldName: 'somefield', expireAfterSeconds: 3600 }, (err: Error) => {
+});
+
 // Format of the error message when the unique constraint is not met
 db.insert({ somefield: 'nedb' }, (err: Error) => {
     // err is null

@@ -35,6 +35,8 @@ declare namespace Chai {
 
         displayed: Assertion;
 
+        trimmed: Assertion;
+
     }
 
     interface Include {

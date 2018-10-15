@@ -15,7 +15,7 @@ declare function scrypt(
     callback: (
         error: Error | undefined | null,
         progress: number,
-        key?: ReadonlyArray<number>,
+        key?: string,
     ) => void
 ): void;
 

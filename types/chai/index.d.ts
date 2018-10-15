@@ -186,6 +186,7 @@ declare namespace Chai {
         property: Property;
         members: Members;
         ordered: Ordered;
+        nested: Nested;
     }
 
     interface Ordered {
@@ -194,6 +195,7 @@ declare namespace Chai {
 
     interface KeyFilter {
         keys: Keys;
+        members: Members;
     }
 
     interface Equal {

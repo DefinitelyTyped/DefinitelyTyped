@@ -149,7 +149,7 @@ declare namespace React {
 
     interface ReactNodeArray extends Array<ReactNode> {}
     type ReactFragment = {} | ReactNodeArray;
-    type ReactNode = ReactChild | ReactFragment | ReactPortal | string | number | boolean | null | undefined;
+    type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
     //
     // Top Level API
@@ -1036,7 +1036,7 @@ declare namespace React {
         itemRef?: string;
         results?: number;
         security?: string;
-        unselectable?: boolean;
+        unselectable?: 'on' | 'off';
     }
 
     // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
@@ -1697,6 +1697,7 @@ declare namespace React {
     }
 
     interface TdHTMLAttributes<T> extends HTMLAttributes<T> {
+        align?: "left" | "center" | "right" | "justify" | "char";
         colSpan?: number;
         headers?: string;
         rowSpan?: number;
@@ -1704,6 +1705,7 @@ declare namespace React {
     }
 
     interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
+        align?: "left" | "center" | "right" | "justify" | "char";
         colSpan?: number;
         headers?: string;
         rowSpan?: number;

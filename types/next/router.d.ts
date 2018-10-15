@@ -1,14 +1,13 @@
 import * as React from "react";
 import * as url from "url";
 
-type UrlLike = url.UrlObject | url.Url;
-
-type EventName = 'routeChangeStart'
-    | 'routeChangeComplete'
-    | 'routeChangeError'
-    | 'beforeHistoryChange'
-    | 'hashChangeStart'
-    | 'hashChangeComplete';
+type EventName =
+    | "routeChangeStart"
+    | "routeChangeComplete"
+    | "routeChangeError"
+    | "beforeHistoryChange"
+    | "hashChangeStart"
+    | "hashChangeComplete";
 
 interface RouteChangeError {
     cancelled: boolean;
@@ -16,6 +15,8 @@ interface RouteChangeError {
 
 type EventHandler = (url: string) => any;
 type ErrorEventHandler = (err: RouteChangeError, url: string) => any;
+
+export type UrlLike = url.UrlObject | url.Url;
 
 export interface EventChangeOptions {
     shallow?: boolean;
@@ -26,15 +27,7 @@ export type PopStateCallback = (state: any) => boolean | undefined;
 
 export type RouterCallback = () => void;
 
-export interface DefaultQuery {
-    [key: string]:
-    | boolean
-    | boolean[]
-    | number
-    | number[]
-    | string
-    | string[];
-}
+export type DefaultQuery = Record<string, string | string[] | undefined>;
 
 export interface RouterProps<Q = DefaultQuery> {
     // url property fields
@@ -55,13 +48,13 @@ export interface RouterProps<Q = DefaultQuery> {
     push(
         url: string | UrlLike,
         as?: string | UrlLike,
-        options?: EventChangeOptions,
+        options?: EventChangeOptions
     ): Promise<boolean>;
     reload(route: string): Promise<void>;
     replace(
         url: string | UrlLike,
         as?: string | UrlLike,
-        options?: EventChangeOptions,
+        options?: EventChangeOptions
     ): Promise<boolean>;
 
     // events (deprecated soonish)
@@ -95,7 +88,7 @@ export interface WithRouterProps<Q = DefaultQuery> {
 // without defining props explicitly
 export function withRouter<T extends {}, Q = DefaultQuery>(
     // tslint:disable-next-line:no-unnecessary-generics
-    Component: React.ComponentType<T & WithRouterProps<Q>>,
+    Component: React.ComponentType<T & WithRouterProps<Q>>
 ): React.ComponentType<T>;
 
 declare const Router: SingletonRouter;

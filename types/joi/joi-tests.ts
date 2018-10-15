@@ -120,6 +120,12 @@ base64Opts = { paddingRequired: bool };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
+let dataUriOpts: Joi.DataUriOptions = null;
+
+dataUriOpts = { paddingRequired: bool };
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
 let whenOpts: Joi.WhenOptions = null;
 
 whenOpts = { is: x };
@@ -818,6 +824,8 @@ strSchema = strSchema.normalize();
 strSchema = strSchema.normalize('NFKC');
 strSchema = strSchema.base64();
 strSchema = strSchema.base64(base64Opts);
+strSchema = strSchema.dataUri();
+strSchema = strSchema.dataUri(dataUriOpts);
 
 { // common
     strSchema = strSchema.allow(x);
@@ -1134,3 +1142,9 @@ schema = Joi.raw(bool);
 schema = Joi.empty();
 schema = Joi.empty(str);
 schema = Joi.empty(anySchema);
+
+schema = Joi.symbol();
+schema = Joi.symbol().map(new Map<string, symbol>());
+schema = Joi.symbol().map({
+    key: Symbol('asd'),
+});

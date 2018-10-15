@@ -444,10 +444,13 @@ defaultIcon = new L.Icon.Default({imagePath: 'apath'});
 
 const myControlClass = L.Control.extend({});
 const myControl = new myControlClass();
+const myOtherControlClass = myControlClass.extend({});
+const myOtherControl = new myOtherControlClass();
 
 L.Control.include({});
 L.Control.mergeOptions({});
 L.Control.addInitHook(() => {});
+L.Control.addInitHook('method1', 'hello', 1);
 
 export class MyNewControl extends L.Control {
 	constructor() {
@@ -526,8 +529,35 @@ polyline = new L.Polyline(multiPolylineLatLngs);
 polyline.setLatLngs(multiPolylineLatLngs);
 const multiPolylineLatLngs2: L.LatLng[][] = polyline.getLatLngs() as L.LatLng[][];
 
-L.Util.extend({});
+const obj1 = {
+	prop1: 1,
+};
+
+const obj2 = {
+	prop2: '2',
+};
+
+const obj3 = {
+	prop3: 'three',
+};
+
+const obj4 = {
+	prop4: 'cuatro',
+};
+
+const obj5 = {
+	prop5: 'cinque',
+};
+
+const extended0: typeof obj1 = L.Util.extend(obj1);
+const extended1: typeof obj1 & typeof obj2 = L.Util.extend(obj1, obj2);
+const extended2: typeof obj1 & typeof obj2 & typeof obj3 = L.Util.extend(obj1, obj2, obj3);
+const extended3: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 = L.Util.extend(obj1, obj2, obj3, obj4);
+const extended4: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 & typeof obj5 = L.Util.extend(obj1, obj2, obj3, obj4, obj5);
+
 L.Util.create({});
+L.Util.create(null, {foo: {writable: true, value: 'bar'}});
+
 L.Util.bind(() => {}, {});
 L.Util.stamp({});
 L.Util.throttle(() => {}, 123, {});
@@ -546,7 +576,7 @@ L.Util.template('template', {});
 L.Util.isArray({});
 L.Util.indexOf([], {});
 L.Util.requestAnimFrame(() => {});
-L.Util.requestAnimFrame(() => {}, {});
+L.Util.requestAnimFrame(timestamp => console.log(timestamp), {});
 L.Util.requestAnimFrame(() => {}, {}, true);
 L.Util.cancelAnimFrame(1);
 L.Util.emptyImageUrl;

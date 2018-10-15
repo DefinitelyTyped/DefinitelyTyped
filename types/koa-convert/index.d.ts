@@ -7,7 +7,7 @@
 import { Context, Middleware } from "koa";
 
 declare function convert(
-    mw: (context: Context, next: () => void) => Generator
+    mw: (context: Context, next: () => Promise<any>) => Generator
 ): Middleware;
 
 export = convert;
