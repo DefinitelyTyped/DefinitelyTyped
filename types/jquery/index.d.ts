@@ -31658,10 +31658,14 @@ if ( !existingHook ) {
     // region Val hooks
     // #region Val hooks
 
-    interface ValHook<TElement> {
-        get?(elem: TElement): any;
-        set?(elem: TElement, value: any): any;
-    }
+    // Workaround for TypeScript 2.3 which does not have support for weak types handling.
+    type ValHook<TElement> = {
+        get(elem: TElement): any;
+    } | {
+        set(elem: TElement, value: any): any;
+    } | {
+        [key: string]: never;
+    };
 
     interface ValHooks {
         // Set to HTMLElement to minimize breaks but should probably be Element.

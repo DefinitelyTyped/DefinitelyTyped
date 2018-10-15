@@ -8263,4 +8263,10 @@ function JQuery_ValHooks() {
             return elem.value;
         }
     };
+
+    // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+    // $ExpectError
+    jQuery.valHooks.textarea = function get(elem: HTMLTextAreaElement) {
+        return elem.value.replace(/\r?\n/g, "\r\n");
+    };
 }
