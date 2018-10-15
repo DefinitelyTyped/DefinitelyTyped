@@ -4,7 +4,6 @@
 //                 Ian Obermiller <http://ianobermiller.com>,
 //                 Josh Goldberg <https://github.com/JoshuaKGoldberg>
 //                 Eliot Fallon <https://github.com/eliotfallon213>
-//                 Terry Mun <https://github.com/terrymun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -395,11 +394,6 @@ declare namespace YT
 		 * Handlers for events fired by the player.
 		 */
 		events?: Events;
-
-		/**
-		 * Points host to correct origin for CORS
-		 */
-		host?: string;
 	}
 
 	/**

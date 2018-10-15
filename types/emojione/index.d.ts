@@ -18,4 +18,3 @@ export function toShort(str: string): string;
 export function toImage(str: string): string;
 export function shortnameToImage(str: string): string;
 export function unicodeToImage(str: string): string;
-export function shortnameToUnicode(str: string): string;

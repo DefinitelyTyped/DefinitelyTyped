@@ -38,10 +38,10 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
 //////////////////////////////////////////////////////////
-{
+namespace global_tests {
     {
-        const x: NodeModule = {} as any;
-        const y: NodeModule = {} as any;
+        let x: NodeModule;
+        let y: NodeModule;
         x.children.push(y);
         x.parent = require.main;
         require.main = y;
@@ -52,7 +52,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
 /// Assert Tests : https://nodejs.org/api/assert.html ///
 //////////////////////////////////////////////////////////
 
-{
+namespace assert_tests {
     {
         assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -96,11 +96,11 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
 /// Events tests : http://nodejs.org/api/events.html
 ////////////////////////////////////////////////////
 
-{
-    const emitter: events.EventEmitter = new events.EventEmitter();
-    const event: string | symbol = '';
-    const listener: (...args: any[]) => void = () => {};
-    const any: any = 1;
+namespace events_tests {
+    let emitter: events.EventEmitter;
+    let event: string | symbol;
+    let listener: (...args: any[]) => void;
+    let any: any;
 
     {
         let result: events.EventEmitter;
@@ -167,7 +167,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
 /// File system tests : http://nodejs.org/api/fs.html
 ////////////////////////////////////////////////////
 
-{
+namespace fs_tests {
     {
         fs.writeFile("thebible.txt",
             "Do unto others as you would have them do unto you.",
@@ -186,7 +186,6 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
 
         fs.writeFileSync("testfile", "content", "utf8");
         fs.writeFileSync("testfile", "content", { encoding: "utf8" });
-        fs.writeFileSync("testfile", new DataView(new ArrayBuffer(1)), { encoding: "utf8" });
     }
 
     {
@@ -197,11 +196,11 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
     }
 
     {
-        let content: string;
-        let buffer: Buffer;
-        let stringOrBuffer: string | Buffer;
-        const nullEncoding: string | null = null;
-        const stringEncoding: string | null = 'utf8';
+        var content: string;
+        var buffer: Buffer;
+        var stringOrBuffer: string | Buffer;
+        var nullEncoding: string | null = null;
+        var stringEncoding: string | null = 'utf8';
 
         content = fs.readFileSync('testfile', 'utf8');
         content = fs.readFileSync('testfile', { encoding: 'utf8' });
@@ -231,15 +230,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
     }
 
     {
-        fs.read(1, new DataView(new ArrayBuffer(1)), 0, 1, 0, (err: NodeJS.ErrnoException, bytesRead: number, buffer: DataView) => {});
-    }
-
-    {
-        fs.readSync(1, new DataView(new ArrayBuffer(1)), 0, 1, 0);
-    }
-
-    {
-        let errno: number;
+        var errno: number;
         fs.readFile('testfile', (err, data) => {
             if (err && err.errno) {
                 errno = err.errno;
@@ -256,19 +247,16 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
         listS = fs.readdirSync('path', 'utf8');
         listS = fs.readdirSync('path', null);
         listS = fs.readdirSync('path', undefined);
-        const listDir: fs.Dirent[] = fs.readdirSync('path', { withFileTypes: true });
-        const listDir2: Buffer[] = fs.readdirSync('path', { withFileTypes: false, encoding: 'buffer' });
 
         let listB: Buffer[];
         listB = fs.readdirSync('path', { encoding: 'buffer' });
         listB = fs.readdirSync("path", 'buffer');
 
-        const enc = 'buffer';
-        fs.readdirSync('path', { encoding: enc });
-        fs.readdirSync('path', { });
-
-        fs.readdir('path', { withFileTypes: true }, (err: NodeJS.ErrnoException, files: fs.Dirent[]) => {});
+        let enc = 'buffer';
+        fs.readdirSync('path', { encoding: enc }); // $ExpectType string[] | Buffer[]
+        fs.readdirSync('path', { }); // $ExpectType string[] | Buffer[]
     }
+
     {
         fs.mkdtemp('/tmp/foo-', (err, folder) => {
             console.log(folder);
@@ -277,7 +265,7 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
     }
 
     {
-        let tempDir: string;
+        var tempDir: string;
         tempDir = fs.mkdtempSync('/tmp/foo-');
     }
 
@@ -421,18 +409,18 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
 ///////////////////////////////////////////////////////
 
 function bufferTests() {
-    const utf8Buffer = new Buffer('test');
-    const base64Buffer = new Buffer('', 'base64');
-    const octets: Uint8Array = null;
-    const octetBuffer = new Buffer(octets);
-    const sharedBuffer = new Buffer(octets.buffer);
-    const copiedBuffer = new Buffer(utf8Buffer);
+    var utf8Buffer = new Buffer('test');
+    var base64Buffer = new Buffer('', 'base64');
+    var octets: Uint8Array = null;
+    var octetBuffer = new Buffer(octets);
+    var sharedBuffer = new Buffer(octets.buffer);
+    var copiedBuffer = new Buffer(utf8Buffer);
     console.log(Buffer.isBuffer(octetBuffer));
     console.log(Buffer.isEncoding('utf8'));
     console.log(Buffer.byteLength('xyz123'));
     console.log(Buffer.byteLength('xyz123', 'ascii'));
-    const result1 = Buffer.concat([utf8Buffer, base64Buffer]);
-    const result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+    var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
+    var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
 
     // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
     {
@@ -524,15 +512,15 @@ function bufferTests() {
 
     // Test that TS 1.6 works with the 'as Buffer' annotation
     // on isBuffer.
-    let a: Buffer | number;
+    var a: Buffer | number;
     a = new Buffer(10);
     if (Buffer.isBuffer(a)) {
         a.writeUInt8(3, 4);
     }
 
     // write* methods return offsets.
-    const b = new Buffer(16);
-    let result: number = b.writeUInt32LE(0, 0);
+    var b = new Buffer(16);
+    var result: number = b.writeUInt32LE(0, 0);
     result = b.writeUInt16LE(0, 4);
     result = b.writeUInt8(0, 6);
     result = b.writeInt8(0, 7);
@@ -542,7 +530,7 @@ function bufferTests() {
     b.fill('a').fill('b');
 
     {
-        const buffer = new Buffer('123');
+        let buffer = new Buffer('123');
         let index: number;
         index = buffer.indexOf("23");
         index = buffer.indexOf("23", 1);
@@ -552,7 +540,7 @@ function bufferTests() {
     }
 
     {
-        const buffer = new Buffer('123');
+        let buffer = new Buffer('123');
         let index: number;
         index = buffer.lastIndexOf("23");
         index = buffer.lastIndexOf("23", 1);
@@ -562,8 +550,8 @@ function bufferTests() {
     }
 
     {
-        const buffer = new Buffer('123');
-        const val: [number, number] = [1, 1];
+        let buffer = new Buffer('123');
+        let val: [number, number];
 
         /* comment out for --target es5
         for (let entry of buffer.entries()) {
@@ -573,7 +561,7 @@ function bufferTests() {
     }
 
     {
-        const buffer = new Buffer('123');
+        let buffer = new Buffer('123');
         let includes: boolean;
         includes = buffer.includes("23");
         includes = buffer.includes("23", 1);
@@ -587,8 +575,8 @@ function bufferTests() {
     }
 
     {
-        const buffer = new Buffer('123');
-        const val = 1;
+        let buffer = new Buffer('123');
+        let val: number;
 
         /* comment out for --target es5
         for (let key of buffer.keys()) {
@@ -598,8 +586,8 @@ function bufferTests() {
     }
 
     {
-        const buffer = new Buffer('123');
-        const val = 1;
+        let buffer = new Buffer('123');
+        let val: number;
 
         /* comment out for --target es5
         for (let value of buffer.values()) {
@@ -610,16 +598,16 @@ function bufferTests() {
 
     // Imported Buffer from buffer module works properly
     {
-        const b = new ImportedBuffer('123');
+        let b = new ImportedBuffer('123');
         b.writeUInt8(0, 6);
-        const sb = new ImportedSlowBuffer(43);
+        let sb = new ImportedSlowBuffer(43);
         b.writeUInt8(0, 6);
     }
 
     // Buffer has Uint8Array's buffer field (an ArrayBuffer).
     {
-        const buffer = new Buffer('123');
-        const octets = new Uint8Array(buffer.buffer);
+        let buffer = new Buffer('123');
+        let octets = new Uint8Array(buffer.buffer);
     }
 }
 
@@ -627,7 +615,7 @@ function bufferTests() {
 /// Url tests : http://nodejs.org/api/url.html
 ////////////////////////////////////////////////////
 
-{
+namespace url_tests {
     {
         url.format(url.parse('http://www.example.com/xyz'));
 
@@ -756,7 +744,7 @@ function bufferTests() {
 
     {
         // Using an array
-        const params = new url.URLSearchParams([
+        let params = new url.URLSearchParams([
             ['user', 'abc'],
             ['query', 'first'],
             ['query', 'second']
@@ -769,7 +757,7 @@ function bufferTests() {
 /// util tests : https://nodejs.org/api/util.html ///
 /////////////////////////////////////////////////////
 
-{
+namespace util_tests {
     {
         // Old and new util.inspect APIs
         util.inspect(["This is nice"], false, 5);
@@ -848,14 +836,14 @@ function bufferTests() {
             }
 
             static test(): void {
-                const cfn = util.callbackify(this.fn);
-                const cfnE = util.callbackify(this.fnE);
-                const cfnT1 = util.callbackify(this.fnT1);
-                const cfnT1E = util.callbackify(this.fnT1E);
-                const cfnTResult = util.callbackify(this.fnTResult);
-                const cfnTResultE = util.callbackify(this.fnTResultE);
-                const cfnT1TResult = util.callbackify(this.fnT1TResult);
-                const cfnT1TResultE = util.callbackify(this.fnT1TResultE);
+                var cfn = util.callbackify(this.fn);
+                var cfnE = util.callbackify(this.fnE);
+                var cfnT1 = util.callbackify(this.fnT1);
+                var cfnT1E = util.callbackify(this.fnT1E);
+                var cfnTResult = util.callbackify(this.fnTResult);
+                var cfnTResultE = util.callbackify(this.fnTResultE);
+                var cfnT1TResult = util.callbackify(this.fnT1TResult);
+                var cfnT1TResultE = util.callbackify(this.fnT1TResultE);
 
                 cfn((err: NodeJS.ErrnoException, ...args: string[]) => assert(err === null && args.length === 1 && args[0] === undefined));
                 cfnE((err: NodeJS.ErrnoException, ...args: string[]) => assert(err.message === 'fail' && args.length === 0));
@@ -870,13 +858,13 @@ function bufferTests() {
         callbackifyTest.test();
 
         // util.promisify
-        const readPromised = util.promisify(fs.readFile);
-        const sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
-        const arg0: () => Promise<number> = util.promisify((cb: (err: Error, result: number) => void): void => { });
-        const arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
-        const arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
-        const arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
-        const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); }); // tslint:disable-line void-return
+        var readPromised = util.promisify(fs.readFile);
+        var sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
+        var arg0: () => Promise<number> = util.promisify((cb: (err: Error, result: number) => void): void => { });
+        var arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
+        var arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
+        var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
+        var cbOptionalError: () => Promise<void> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); });
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
@@ -889,13 +877,13 @@ function bufferTests() {
         util.isDeepStrictEqual({foo: 'bar'}, {foo: 'bar'});
 
         // util.TextDecoder()
-        const td = new util.TextDecoder();
+        var td = new util.TextDecoder();
         new util.TextDecoder("utf-8");
         new util.TextDecoder("utf-8", { fatal: true });
         new util.TextDecoder("utf-8", { fatal: true, ignoreBOM: true });
-        const ignoreBom: boolean = td.ignoreBOM;
-        const fatal: boolean = td.fatal;
-        const encoding: string = td.encoding;
+        var ignoreBom: boolean = td.ignoreBOM;
+        var fatal: boolean = td.fatal;
+        var encoding: string = td.encoding;
         td.decode(new Int8Array(1));
         td.decode(new Int16Array(1));
         td.decode(new Int32Array(1));
@@ -910,24 +898,12 @@ function bufferTests() {
         td.decode(null);
         td.decode(null, { stream: true });
         td.decode(new Int8Array(1), { stream: true });
-        const decode: string = td.decode(new Int8Array(1));
+        var decode: string = td.decode(new Int8Array(1));
 
         // util.TextEncoder()
-        const te = new util.TextEncoder();
-        const teEncoding: string = te.encoding;
-        const teEncodeRes: Uint8Array = te.encode("TextEncoder");
-
-        // util.types
-
-        // tslint:disable-next-line:no-construct ban-types
-        const maybeBoxed: number | Number = new Number(1);
-        if (util.types.isBoxedPrimitive(maybeBoxed)) {
-            const boxed: Number = maybeBoxed;
-        }
-        const maybeBoxed2: number | Number = 1;
-        if (!util.types.isBoxedPrimitive(maybeBoxed2)) {
-            const boxed: number = maybeBoxed2;
-        }
+        var te = new util.TextEncoder();
+        var teEncoding: string = te.encoding;
+        var teEncodeRes: Uint8Array = te.encode("TextEncoder");
     }
 }
 
@@ -937,10 +913,10 @@ function bufferTests() {
 
 // http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
 function stream_readable_pipe_test() {
-    const rs = fs.createReadStream(Buffer.from('file.txt'));
-    const r = fs.createReadStream('file.txt');
-    const z = zlib.createGzip({ finishFlush: zlib.constants.Z_FINISH });
-    const w = fs.createWriteStream('file.txt.gz');
+    var rs = fs.createReadStream(Buffer.from('file.txt'));
+    var r = fs.createReadStream('file.txt');
+    var z = zlib.createGzip({ finishFlush: zlib.constants.Z_FINISH });
+    var w = fs.createWriteStream('file.txt.gz');
 
     assert(typeof z.bytesRead === 'number');
     assert(typeof r.bytesRead === 'number');
@@ -969,11 +945,7 @@ const inflatedString = zlib.inflateSync(zlib.deflateSync(compressMeString));
 zlib.deflateRaw(compressMe, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
 zlib.deflateRaw(compressMe, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 zlib.deflateRaw(compressMeString, (err: Error, result: Buffer) => zlib.inflateRaw(result, (err: Error, result: Buffer) => result));
-zlib.deflateRaw(
-    compressMeString,
-    { finishFlush: zlib.Z_SYNC_FLUSH },
-    (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result),
-);
+zlib.deflateRaw(compressMeString, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => zlib.inflateRaw(result, { finishFlush: zlib.Z_SYNC_FLUSH }, (err: Error, result: Buffer) => result));
 const inflatedRaw: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMe));
 const inflatedRawString: Buffer = zlib.inflateRawSync(zlib.deflateRawSync(compressMeString));
 
@@ -1139,88 +1111,73 @@ function simplified_stream_ctor_test() {
     });
 }
 
-function streamPipelineFinished() {
-    const cancel = stream.finished(process.stdin, (err?: Error) => {});
-    cancel();
-
-    stream.pipeline(process.stdin, process.stdout, (err?: Error) => {});
-}
-
-async function asyncStreamPipelineFinished() {
-    const finished = util.promisify(stream.finished);
-    await finished(process.stdin);
-
-    const pipeline = util.promisify(stream.pipeline);
-    await pipeline(process.stdin, process.stdout);
-}
-
 ////////////////////////////////////////////////////////
 /// Crypto tests : http://nodejs.org/api/crypto.html ///
 ////////////////////////////////////////////////////////
 
-{
+namespace crypto_tests {
     {
         // crypto_hash_string_test
-        const hashResult: string = crypto.createHash('md5').update('world').digest('hex');
+        var hashResult: string = crypto.createHash('md5').update('world').digest('hex');
     }
 
     {
         // crypto_hash_buffer_test
-        const hashResult: string = crypto.createHash('md5')
+        var hashResult: string = crypto.createHash('md5')
             .update(new Buffer('world')).digest('hex');
     }
 
     {
         // crypto_hash_dataview_test
-        const hashResult: string = crypto.createHash('md5')
+        var hashResult: string = crypto.createHash('md5')
             .update(new DataView(new Buffer('world').buffer)).digest('hex');
     }
 
     {
         // crypto_hash_int8array_test
-        const hashResult: string = crypto.createHash('md5')
+        var hashResult: string = crypto.createHash('md5')
             .update(new Int8Array(new Buffer('world').buffer)).digest('hex');
     }
 
     {
         // crypto_hmac_string_test
-        const hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
+        var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
     }
 
     {
         // crypto_hmac_buffer_test
-        const hmacResult: string = crypto.createHmac('md5', 'hello')
+        var hmacResult: string = crypto.createHmac('md5', 'hello')
             .update(new Buffer('world')).digest('hex');
     }
 
     {
         // crypto_hmac_dataview_test
-        const hmacResult: string = crypto.createHmac('md5', 'hello')
+        var hmacResult: string = crypto.createHmac('md5', 'hello')
             .update(new DataView(new Buffer('world').buffer)).digest('hex');
     }
 
     {
         // crypto_hmac_int8array_test
-        const hmacResult: string = crypto.createHmac('md5', 'hello')
+        var hmacResult: string = crypto.createHmac('md5', 'hello')
             .update(new Int8Array(new Buffer('world').buffer)).digest('hex');
     }
 
     {
         let hmac: crypto.Hmac;
         (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
-            const hash: Buffer | string = hmac.read();
+            let hash: Buffer | string = hmac.read();
         });
     }
 
     {
         // crypto_cipher_decipher_string_test
-        const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-        const clearText = "This is the clear text.";
-        const cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: string = "This is the clear text.";
+        let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherText: string = cipher.update(clearText, "utf8", "hex");
         cipherText += cipher.final("hex");
 
-        const decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
+        let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let clearText2: string = decipher.update(cipherText, "hex", "utf8");
         clearText2 += decipher.final("utf8");
 
@@ -1229,42 +1186,42 @@ async function asyncStreamPipelineFinished() {
 
     {
         // crypto_cipher_decipher_buffer_test
-        const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-        const clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
-        const cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
-        const cipherBuffers: Buffer[] = [];
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
+        let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
+        let cipherBuffers: Buffer[] = [];
         cipherBuffers.push(cipher.update(clearText));
         cipherBuffers.push(cipher.final());
 
-        const cipherText: Buffer = Buffer.concat(cipherBuffers);
+        let cipherText: Buffer = Buffer.concat(cipherBuffers);
 
-        const decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
-        const decipherBuffers: Buffer[] = [];
+        let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
+        let decipherBuffers: Buffer[] = [];
         decipherBuffers.push(decipher.update(cipherText));
         decipherBuffers.push(decipher.final());
 
-        const clearText2: Buffer = Buffer.concat(decipherBuffers);
+        let clearText2: Buffer = Buffer.concat(decipherBuffers);
 
         assert.deepEqual(clearText2, clearText);
     }
 
     {
         // crypto_cipher_decipher_dataview_test
-        const key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-        const clearText: DataView = new DataView(new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
-        const cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
-        const cipherBuffers: Buffer[] = [];
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: DataView = new DataView(new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]).buffer);
+        let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
+        let cipherBuffers: Buffer[] = [];
         cipherBuffers.push(cipher.update(clearText));
         cipherBuffers.push(cipher.final());
 
-        const cipherText: DataView = new DataView(Buffer.concat(cipherBuffers).buffer);
+        let cipherText: DataView = new DataView(Buffer.concat(cipherBuffers).buffer);
 
-        const decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
-        const decipherBuffers: Buffer[] = [];
+        let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
+        let decipherBuffers: Buffer[] = [];
         decipherBuffers.push(decipher.update(cipherText));
         decipherBuffers.push(decipher.final());
 
-        const clearText2: Buffer = Buffer.concat(decipherBuffers);
+        let clearText2: Buffer = Buffer.concat(decipherBuffers);
 
         assert.deepEqual(clearText2, clearText);
     }
@@ -1321,9 +1278,9 @@ async function asyncStreamPipelineFinished() {
 
     {
         // crypto_timingsafeequal_buffer_test
-        const buffer1: Buffer = new Buffer([1, 2, 3, 4, 5]);
-        const buffer2: Buffer = new Buffer([1, 2, 3, 4, 5]);
-        const buffer3: Buffer = new Buffer([5, 4, 3, 2, 1]);
+        let buffer1: Buffer = new Buffer([1, 2, 3, 4, 5]);
+        let buffer2: Buffer = new Buffer([1, 2, 3, 4, 5]);
+        let buffer3: Buffer = new Buffer([5, 4, 3, 2, 1]);
 
         assert(crypto.timingSafeEqual(buffer1, buffer2));
         assert(!crypto.timingSafeEqual(buffer1, buffer3));
@@ -1331,9 +1288,9 @@ async function asyncStreamPipelineFinished() {
 
     {
         // crypto_timingsafeequal_uint32array_test
-        const arr1: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
-        const arr2: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
-        const arr3: Uint32Array = Uint32Array.of(5, 4, 3, 2, 1);
+        let arr1: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
+        let arr2: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
+        let arr3: Uint32Array = Uint32Array.of(5, 4, 3, 2, 1);
 
         assert(crypto.timingSafeEqual(arr1, arr2));
         assert(!crypto.timingSafeEqual(arr1, arr3));
@@ -1341,9 +1298,9 @@ async function asyncStreamPipelineFinished() {
 
     {
         // crypto_timingsafeequal_safe_typedarray_variant_test
-        const arr1: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
-        const arr2: Int32Array = Int32Array.of(1, 2, 3, 4, 5);
-        const arr3: Uint32Array = Uint32Array.of(5, 4, 3, 2, 1);
+        let arr1: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
+        let arr2: Int32Array = Int32Array.of(1, 2, 3, 4, 5);
+        let arr3: Uint32Array = Uint32Array.of(5, 4, 3, 2, 1);
 
         assert(crypto.timingSafeEqual(arr1, arr2));
         assert(!crypto.timingSafeEqual(arr1, arr3));
@@ -1351,9 +1308,9 @@ async function asyncStreamPipelineFinished() {
 
     {
         // crypto_timingsafeequal_safe_int8array_variant_test
-        const arr1: Int8Array = Int8Array.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
-        const arr2: Uint8Array = Uint8Array.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
-        const arr3: Uint8ClampedArray = Uint8ClampedArray.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
+        let arr1: Int8Array = Int8Array.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
+        let arr2: Uint8Array = Uint8Array.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
+        let arr3: Uint8ClampedArray = Uint8ClampedArray.of(1, 2, 3, 4, 5, ~0, ~1, ~2, ~3, ~4);
 
         assert(crypto.timingSafeEqual(arr1, arr2)); // binary same
         assert(!crypto.timingSafeEqual(arr1, arr3)); // binary differ
@@ -1383,14 +1340,14 @@ async function asyncStreamPipelineFinished() {
 
     {
         // crypto_timingsafeequal_dataview_test
-        const dv1B: Uint8Array = Uint8Array.of(1, 2, 3, 4, 5);
-        const dv2B: Int8Array = Int8Array.of(1, 2, 3, 4, 5);
-        const dv3B: Buffer = Buffer.of(5, 4, 3, 2, 1);
-        const dv4B: Uint8ClampedArray = Uint8ClampedArray.of(5, 4, 3, 2, 1);
-        const dv1: DataView = new DataView(dv1B.buffer, dv1B.byteOffset, dv1B.byteLength);
-        const dv2: DataView = new DataView(dv2B.buffer, dv2B.byteOffset, dv2B.byteLength);
-        const dv3: DataView = new DataView(dv3B.buffer, dv3B.byteOffset, dv3B.byteLength);
-        const dv4: DataView = new DataView(dv4B.buffer, dv4B.byteOffset, dv4B.byteLength);
+        let dv1B: Uint8Array = Uint8Array.of(1, 2, 3, 4, 5);
+        let dv2B: Int8Array = Int8Array.of(1, 2, 3, 4, 5);
+        let dv3B: Buffer = Buffer.of(5, 4, 3, 2, 1);
+        let dv4B: Uint8ClampedArray = Uint8ClampedArray.of(5, 4, 3, 2, 1);
+        let dv1: DataView = new DataView(dv1B.buffer, dv1B.byteOffset, dv1B.byteLength);
+        let dv2: DataView = new DataView(dv2B.buffer, dv2B.byteOffset, dv2B.byteLength);
+        let dv3: DataView = new DataView(dv3B.buffer, dv3B.byteOffset, dv3B.byteLength);
+        let dv4: DataView = new DataView(dv4B.buffer, dv4B.byteOffset, dv4B.byteLength);
 
         assert(crypto.timingSafeEqual(dv1, dv2));
         assert(crypto.timingSafeEqual(dv1, dv1B));
@@ -1405,9 +1362,9 @@ async function asyncStreamPipelineFinished() {
 
     {
         // crypto_timingsafeequal_uint32array_test
-        const ui32_1: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
-        const ui32_2: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
-        const ui32_3: Uint32Array = Uint32Array.of(5, 4, 3, 2, 1);
+        let ui32_1: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
+        let ui32_2: Uint32Array = Uint32Array.of(1, 2, 3, 4, 5);
+        let ui32_3: Uint32Array = Uint32Array.of(5, 4, 3, 2, 1);
 
         assert(crypto.timingSafeEqual(ui32_1, ui32_2));
         assert(!crypto.timingSafeEqual(ui32_1, ui32_3));
@@ -1415,7 +1372,7 @@ async function asyncStreamPipelineFinished() {
 
     {
         // crypto_randomfill_buffer_test
-        const buffer: Buffer = new Buffer(10);
+        let buffer: Buffer = new Buffer(10);
         crypto.randomFillSync(buffer);
         crypto.randomFillSync(buffer, 2);
         crypto.randomFillSync(buffer, 2, 3);
@@ -1425,7 +1382,7 @@ async function asyncStreamPipelineFinished() {
         crypto.randomFill(buffer, 2, 3, (err: Error, buf: Buffer) => void {});
 
         // crypto_randomfill_uint8array_test
-        const ui8arr: Uint8Array = new Uint8Array(10);
+        let ui8arr: Uint8Array = new Uint8Array(10);
         crypto.randomFillSync(ui8arr);
         crypto.randomFillSync(ui8arr, 2);
         crypto.randomFillSync(ui8arr, 2, 3);
@@ -1435,7 +1392,7 @@ async function asyncStreamPipelineFinished() {
         crypto.randomFill(ui8arr, 2, 3, (err: Error, buf: Uint8Array) => void {});
 
         // crypto_randomfill_int32array_test
-        const i32arr: Int32Array = new Int32Array(10);
+        let i32arr: Int32Array = new Int32Array(10);
         crypto.randomFillSync(i32arr);
         crypto.randomFillSync(i32arr, 2);
         crypto.randomFillSync(i32arr, 2, 3);
@@ -1465,7 +1422,7 @@ async function asyncStreamPipelineFinished() {
 
     {
         let key: string | Buffer = Buffer.from("buf");
-        const curve = "secp256k1";
+        let curve = "secp256k1";
         let ret: string | Buffer = crypto.ECDH.convertKey(key, curve);
         key = "0xfff";
         ret = crypto.ECDH.convertKey(key, curve);
@@ -1481,19 +1438,19 @@ async function asyncStreamPipelineFinished() {
 /// TLS tests : http://nodejs.org/api/tls.html ///
 //////////////////////////////////////////////////
 
-{
+namespace tls_tests {
     {
-        const ctx: tls.SecureContext = tls.createSecureContext({
+        var ctx: tls.SecureContext = tls.createSecureContext({
             key: "NOT REALLY A KEY",
             cert: "SOME CERTIFICATE",
         });
-        const blah = ctx.context;
+        var blah = ctx.context;
 
-        const connOpts: tls.ConnectionOptions = {
+        var connOpts: tls.ConnectionOptions = {
             host: "127.0.0.1",
             port: 55
         };
-        const tlsSocket = tls.connect(connOpts);
+        var tlsSocket = tls.connect(connOpts);
 
         const ciphers: string[] = tls.getCiphers();
         const curve: string = tls.DEFAULT_ECDH_CURVE;
@@ -1502,8 +1459,8 @@ async function asyncStreamPipelineFinished() {
     {
         let _server: tls.Server;
         let _boolean: boolean;
-        const _func1 = (err: Error, resp: Buffer) => { };
-        const _func2 = (err: Error, sessionData: any) => { };
+        let _func1 = (err: Error, resp: Buffer) => { };
+        let _func2 = (err: Error, sessionData: any) => { };
         /**
          * events.EventEmitter
          * 1. tlsClientError
@@ -1514,32 +1471,32 @@ async function asyncStreamPipelineFinished() {
          */
 
         _server = _server.addListener("tlsClientError", (err, tlsSocket) => {
-            const _err: Error = err;
-            const _tlsSocket: tls.TLSSocket = tlsSocket;
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
         });
         _server = _server.addListener("newSession", (sessionId, sessionData, callback) => {
-            const _sessionId: any = sessionId;
-            const _sessionData: any = sessionData;
-            const _func1 = callback;
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
         });
         _server = _server.addListener("OCSPRequest", (certificate, issuer, callback) => {
-            const _certificate: Buffer = certificate;
-            const _issuer: Buffer = issuer;
-            const _callback: Function = callback;
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
         });
         _server = _server.addListener("resumeSession", (sessionId, callback) => {
-            const _sessionId: any = sessionId;
-            const _func2 = callback;
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
         });
         _server = _server.addListener("secureConnection", (tlsSocket) => {
-            const _tlsSocket: tls.TLSSocket = tlsSocket;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
         });
 
-        const _err: Error = new Error();
-        const _tlsSocket: tls.TLSSocket = tls.connect(1);
-        const _any: any = 1;
-        const _func: Function = () => {};
-        const _buffer: Buffer = Buffer.from('a');
+        let _err: Error;
+        let _tlsSocket: tls.TLSSocket;
+        let _any: any;
+        let _func: Function;
+        let _buffer: Buffer;
         _boolean = _server.emit("tlsClientError", _err, _tlsSocket);
         _boolean = _server.emit("newSession", _any, _any, _func1);
         _boolean = _server.emit("OCSPRequest", _buffer, _buffer, _func);
@@ -1547,91 +1504,91 @@ async function asyncStreamPipelineFinished() {
         _boolean = _server.emit("secureConnection", _tlsSocket);
 
         _server = _server.on("tlsClientError", (err, tlsSocket) => {
-            const _err: Error = err;
-            const _tlsSocket: tls.TLSSocket = tlsSocket;
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
         });
         _server = _server.on("newSession", (sessionId, sessionData, callback) => {
-            const _sessionId: any = sessionId;
-            const _sessionData: any = sessionData;
-            const _func1 = callback;
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
         });
         _server = _server.on("OCSPRequest", (certificate, issuer, callback) => {
-            const _certificate: Buffer = certificate;
-            const _issuer: Buffer = issuer;
-            const _callback: Function = callback;
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
         });
         _server = _server.on("resumeSession", (sessionId, callback) => {
-            const _sessionId: any = sessionId;
-            const _func2 = callback;
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
         });
         _server = _server.on("secureConnection", (tlsSocket) => {
-            const _tlsSocket: tls.TLSSocket = tlsSocket;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
         });
 
         _server = _server.once("tlsClientError", (err, tlsSocket) => {
-            const _err: Error = err;
-            const _tlsSocket: tls.TLSSocket = tlsSocket;
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
         });
         _server = _server.once("newSession", (sessionId, sessionData, callback) => {
-            const _sessionId: any = sessionId;
-            const _sessionData: any = sessionData;
-            const _func1 = callback;
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
         });
         _server = _server.once("OCSPRequest", (certificate, issuer, callback) => {
-            const _certificate: Buffer = certificate;
-            const _issuer: Buffer = issuer;
-            const _callback: Function = callback;
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
         });
         _server = _server.once("resumeSession", (sessionId, callback) => {
-            const _sessionId: any = sessionId;
-            const _func2 = callback;
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
         });
         _server = _server.once("secureConnection", (tlsSocket) => {
-            const _tlsSocket: tls.TLSSocket = tlsSocket;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
         });
 
         _server = _server.prependListener("tlsClientError", (err, tlsSocket) => {
-            const _err: Error = err;
-            const _tlsSocket: tls.TLSSocket = tlsSocket;
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
         });
         _server = _server.prependListener("newSession", (sessionId, sessionData, callback) => {
-            const _sessionId: any = sessionId;
-            const _sessionData: any = sessionData;
-            const _func1 = callback;
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
         });
         _server = _server.prependListener("OCSPRequest", (certificate, issuer, callback) => {
-            const _certificate: Buffer = certificate;
-            const _issuer: Buffer = issuer;
-            const _callback: Function = callback;
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
         });
         _server = _server.prependListener("resumeSession", (sessionId, callback) => {
-            const _sessionId: any = sessionId;
-            const _func2 = callback;
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
         });
         _server = _server.prependListener("secureConnection", (tlsSocket) => {
-            const _tlsSocket: tls.TLSSocket = tlsSocket;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
         });
 
         _server = _server.prependOnceListener("tlsClientError", (err, tlsSocket) => {
-            const _err: Error = err;
-            const _tlsSocket: tls.TLSSocket = tlsSocket;
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
         });
         _server = _server.prependOnceListener("newSession", (sessionId, sessionData, callback) => {
-            const _sessionId: any = sessionId;
-            const _sessionData: any = sessionData;
-            const _func1 = callback;
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
         });
         _server = _server.prependOnceListener("OCSPRequest", (certificate, issuer, callback) => {
-            const _certificate: Buffer = certificate;
-            const _issuer: Buffer = issuer;
-            const _callback: Function = callback;
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
         });
         _server = _server.prependOnceListener("resumeSession", (sessionId, callback) => {
-            const _sessionId: any = sessionId;
-            const _func2 = callback;
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
         });
         _server = _server.prependOnceListener("secureConnection", (tlsSocket) => {
-            const _tlsSocket: tls.TLSSocket = tlsSocket;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
         });
 
         // close callback parameter is optional
@@ -1655,31 +1612,31 @@ async function asyncStreamPipelineFinished() {
          */
 
         _TLSSocket = _TLSSocket.addListener("OCSPResponse", (response) => {
-            const _response: Buffer = response;
+            let _response: Buffer = response;
         });
         _TLSSocket = _TLSSocket.addListener("secureConnect", () => { });
 
-        const _buffer: Buffer = Buffer.from("");
+        let _buffer: Buffer;
         _boolean = _TLSSocket.emit("OCSPResponse", _buffer);
         _boolean = _TLSSocket.emit("secureConnect");
 
         _TLSSocket = _TLSSocket.on("OCSPResponse", (response) => {
-            const _response: Buffer = response;
+            let _response: Buffer = response;
         });
         _TLSSocket = _TLSSocket.on("secureConnect", () => { });
 
         _TLSSocket = _TLSSocket.once("OCSPResponse", (response) => {
-            const _response: Buffer = response;
+            let _response: Buffer = response;
         });
         _TLSSocket = _TLSSocket.once("secureConnect", () => { });
 
         _TLSSocket = _TLSSocket.prependListener("OCSPResponse", (response) => {
-            const _response: Buffer = response;
+            let _response: Buffer = response;
         });
         _TLSSocket = _TLSSocket.prependListener("secureConnect", () => { });
 
         _TLSSocket = _TLSSocket.prependOnceListener("OCSPResponse", (response) => {
-            const _response: Buffer = response;
+            let _response: Buffer = response;
         });
         _TLSSocket = _TLSSocket.prependOnceListener("secureConnect", () => { });
     }
@@ -1689,10 +1646,10 @@ async function asyncStreamPipelineFinished() {
 /// Http tests : http://nodejs.org/api/http.html ///
 ////////////////////////////////////////////////////
 
-{
+namespace http_tests {
     // http Server
     {
-        const server: http.Server = new http.Server();
+        var server: http.Server = new http.Server();
 
         // test public props
         const maxHeadersCount: number = server.maxHeadersCount;
@@ -1706,7 +1663,7 @@ async function asyncStreamPipelineFinished() {
     // http ServerResponse
     {
         // incoming
-        const incoming: http.IncomingMessage = new http.IncomingMessage(new net.Socket());
+        var incoming: http.IncomingMessage = new http.IncomingMessage(new net.Socket());
 
         incoming.setEncoding('utf8');
 
@@ -1715,12 +1672,12 @@ async function asyncStreamPipelineFinished() {
         incoming.resume();
 
         // response
-        const res: http.ServerResponse = new http.ServerResponse(incoming);
+        var res: http.ServerResponse = new http.ServerResponse(incoming);
 
         // test headers
         res.setHeader('Content-Type', 'text/plain');
-        const bool: boolean = res.hasHeader('Content-Type');
-        const headers: string[] = res.getHeaderNames();
+        var bool: boolean = res.hasHeader('Content-Type');
+        var headers: string[] = res.getHeaderNames();
 
         // trailers
         res.addTrailers([
@@ -1740,7 +1697,7 @@ async function asyncStreamPipelineFinished() {
         res.write('Part of my res.');
         // write buffer
         const chunk = Buffer.alloc(16390, 'Й');
-        res.write(chunk);
+        req.write(chunk);
         res.write(chunk, 'hex');
 
         // end
@@ -1754,14 +1711,14 @@ async function asyncStreamPipelineFinished() {
 
     // http ClientRequest
     {
-        let req: http.ClientRequest = new http.ClientRequest("https://www.google.com");
-        req = new http.ClientRequest(new url.URL("https://www.google.com"));
-        req = new http.ClientRequest({ path: 'http://0.0.0.0' });
+        var req: http.ClientRequest = new http.ClientRequest("https://www.google.com");
+        var req: http.ClientRequest = new http.ClientRequest(new url.URL("https://www.google.com"));
+        var req: http.ClientRequest = new http.ClientRequest({ path: 'http://0.0.0.0' });
 
         // header
         req.setHeader('Content-Type', 'text/plain');
-        const bool: boolean = req.hasHeader('Content-Type');
-        const headers: string[] = req.getHeaderNames();
+        var bool: boolean = req.hasHeader('Content-Type');
+        var headers: string[] = req.getHeaderNames();
         req.removeHeader('Date');
 
         // write
@@ -1782,12 +1739,12 @@ async function asyncStreamPipelineFinished() {
 
     {
         // Status codes
-        let codeMessage: string = http.STATUS_CODES['400'];
-        codeMessage = http.STATUS_CODES[400];
+        var codeMessage = http.STATUS_CODES['400'];
+        var codeMessage = http.STATUS_CODES[400];
     }
 
     {
-        let agent: http.Agent = new http.Agent({
+        var agent: http.Agent = new http.Agent({
             keepAlive: true,
             keepAliveMsecs: 10000,
             maxSockets: Infinity,
@@ -1795,7 +1752,7 @@ async function asyncStreamPipelineFinished() {
             timeout: 15000
         });
 
-        agent = http.globalAgent;
+        var agent: http.Agent = http.globalAgent;
 
         http.request({ agent: false });
         http.request({ agent });
@@ -1831,7 +1788,7 @@ async function asyncStreamPipelineFinished() {
     }
 
     {
-        const request = http.request({ path: 'http://0.0.0.0' });
+        var request = http.request({ path: 'http://0.0.0.0' });
         request.once('error', () => { });
         request.setNoDelay(true);
         request.abort();
@@ -1861,8 +1818,8 @@ async function asyncStreamPipelineFinished() {
 /// Https tests : http://nodejs.org/api/https.html ///
 //////////////////////////////////////////////////////
 
-{
-    let agent: https.Agent = new https.Agent({
+namespace https_tests {
+    var agent: https.Agent = new https.Agent({
         keepAlive: true,
         keepAliveMsecs: 10000,
         maxSockets: Infinity,
@@ -1871,7 +1828,7 @@ async function asyncStreamPipelineFinished() {
         timeout: 15000
     });
 
-    agent = https.globalAgent;
+    var agent: https.Agent = https.globalAgent;
 
     https.request({
         agent: false
@@ -1919,26 +1876,26 @@ async function asyncStreamPipelineFinished() {
 /// TTY tests : http://nodejs.org/api/tty.html
 ////////////////////////////////////////////////////
 
-{
-    const rs: tty.ReadStream = new tty.ReadStream();
-    const ws: tty.WriteStream = new tty.WriteStream();
+namespace tty_tests {
+    let rs: tty.ReadStream;
+    let ws: tty.WriteStream;
 
-    const rsIsRaw: boolean = rs.isRaw;
+    let rsIsRaw: boolean = rs.isRaw;
     rs.setRawMode(true);
 
-    const wsColumns: number = ws.columns;
-    const wsRows: number = ws.rows;
+    let wsColumns: number = ws.columns;
+    let wsRows: number = ws.rows;
 
-    const isTTY: boolean = tty.isatty(1);
+    let isTTY: boolean = tty.isatty(1);
 }
 
 ////////////////////////////////////////////////////
 /// Dgram tests : http://nodejs.org/api/dgram.html
 ////////////////////////////////////////////////////
 
-{
+namespace dgram_tests {
     {
-        let ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
+        var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
         });
         ds.bind();
         ds.bind(41234);
@@ -1957,13 +1914,9 @@ async function asyncStreamPipelineFinished() {
     {
         let _socket: dgram.Socket;
         let _boolean: boolean;
-        const _err: Error = new Error();
-        const _str = '';
-        const _rinfo: net.AddressInfo = {
-            address: 'asd',
-            family: 'asd',
-            port: 1,
-        };
+        let _err: Error;
+        let _str: string;
+        let _rinfo: net.AddressInfo;
         /**
          * events.EventEmitter
          * 1. close
@@ -1974,12 +1927,12 @@ async function asyncStreamPipelineFinished() {
 
         _socket = _socket.addListener("close", () => { });
         _socket = _socket.addListener("error", (err) => {
-            const _err: Error = err;
+            let _err: Error = err;
         });
         _socket = _socket.addListener("listening", () => { });
         _socket = _socket.addListener("message", (msg, rinfo) => {
-            const _msg: Buffer = msg;
-            const _rinfo: net.AddressInfo = rinfo;
+            let _msg: Buffer = msg;
+            let _rinfo: net.AddressInfo = rinfo;
         });
 
         _boolean = _socket.emit("close");
@@ -1989,47 +1942,47 @@ async function asyncStreamPipelineFinished() {
 
         _socket = _socket.on("close", () => { });
         _socket = _socket.on("error", (err) => {
-            const _err: Error = err;
+            let _err: Error = err;
         });
         _socket = _socket.on("listening", () => { });
         _socket = _socket.on("message", (msg, rinfo) => {
-            const _msg: Buffer = msg;
-            const _rinfo: net.AddressInfo = rinfo;
+            let _msg: Buffer = msg;
+            let _rinfo: net.AddressInfo = rinfo;
         });
 
         _socket = _socket.once("close", () => { });
         _socket = _socket.once("error", (err) => {
-            const _err: Error = err;
+            let _err: Error = err;
         });
         _socket = _socket.once("listening", () => { });
         _socket = _socket.once("message", (msg, rinfo) => {
-            const _msg: Buffer = msg;
-            const _rinfo: net.AddressInfo = rinfo;
+            let _msg: Buffer = msg;
+            let _rinfo: net.AddressInfo = rinfo;
         });
 
         _socket = _socket.prependListener("close", () => { });
         _socket = _socket.prependListener("error", (err) => {
-            const _err: Error = err;
+            let _err: Error = err;
         });
         _socket = _socket.prependListener("listening", () => { });
         _socket = _socket.prependListener("message", (msg, rinfo) => {
-            const _msg: Buffer = msg;
-            const _rinfo: net.AddressInfo = rinfo;
+            let _msg: Buffer = msg;
+            let _rinfo: net.AddressInfo = rinfo;
         });
 
         _socket = _socket.prependOnceListener("close", () => { });
         _socket = _socket.prependOnceListener("error", (err) => {
-            const _err: Error = err;
+            let _err: Error = err;
         });
         _socket = _socket.prependOnceListener("listening", () => { });
         _socket = _socket.prependOnceListener("message", (msg, rinfo) => {
-            const _msg: Buffer = msg;
-            const _rinfo: net.AddressInfo = rinfo;
+            let _msg: Buffer = msg;
+            let _rinfo: net.AddressInfo = rinfo;
         });
     }
 
     {
-        const ds: dgram.Socket = dgram.createSocket({
+        let ds: dgram.Socket = dgram.createSocket({
             type: 'udp4',
             recvBufferSize: 10000,
             sendBufferSize: 15000
@@ -2047,38 +2000,38 @@ async function asyncStreamPipelineFinished() {
 /// Querystring tests : https://nodejs.org/api/querystring.html
 ////////////////////////////////////////////////////
 
-{
-    interface SampleObject { a: string; }
+namespace querystring_tests {
+    interface SampleObject { a: string; b: number; }
 
     {
-        const obj: SampleObject = { a: "" };
-        const sep = '';
-        const eq = '';
-        const options: querystring.StringifyOptions = {};
+        let obj: SampleObject;
+        let sep: string;
+        let eq: string;
+        let options: querystring.StringifyOptions;
         let result: string;
 
-        result = querystring.stringify(obj);
-        result = querystring.stringify(obj, sep);
-        result = querystring.stringify(obj, sep, eq);
-        result = querystring.stringify(obj, sep, eq);
-        result = querystring.stringify(obj, sep, eq, options);
+        result = querystring.stringify<SampleObject>(obj);
+        result = querystring.stringify<SampleObject>(obj, sep);
+        result = querystring.stringify<SampleObject>(obj, sep, eq);
+        result = querystring.stringify<SampleObject>(obj, sep, eq);
+        result = querystring.stringify<SampleObject>(obj, sep, eq, options);
     }
 
     {
-        const str = '';
-        const sep = '';
-        const eq = '';
-        const options: querystring.ParseOptions = {};
-        let result: querystring.ParsedUrlQuery;
+        let str: string;
+        let sep: string;
+        let eq: string;
+        let options: querystring.ParseOptions;
+        let result: SampleObject;
 
-        result = querystring.parse(str);
-        result = querystring.parse(str, sep);
-        result = querystring.parse(str, sep, eq);
-        result = querystring.parse(str, sep, eq, options);
+        result = querystring.parse<SampleObject>(str);
+        result = querystring.parse<SampleObject>(str, sep);
+        result = querystring.parse<SampleObject>(str, sep, eq);
+        result = querystring.parse<SampleObject>(str, sep, eq, options);
     }
 
     {
-        const str = '';
+        let str: string;
         let result: string;
 
         result = querystring.escape(str);
@@ -2090,7 +2043,7 @@ async function asyncStreamPipelineFinished() {
 /// path tests : http://nodejs.org/api/path.html
 ////////////////////////////////////////////////////
 
-{
+namespace path_tests {
     path.normalize('/foo/bar//baz/asdf/quux/..');
 
     path.join('/foo', 'bar', 'baz/asdf', 'quux', '..');
@@ -2262,17 +2215,15 @@ async function asyncStreamPipelineFinished() {
 /// readline tests : https://nodejs.org/api/readline.html
 ////////////////////////////////////////////////////
 
-{
-    const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
+namespace readline_tests {
+    let rl: readline.ReadLine;
 
     {
-        const options: readline.ReadLineOptions = {
-            input: new fs.ReadStream()
-        };
-        const input: NodeJS.ReadableStream = new stream.Readable();
-        const output: NodeJS.WritableStream = new stream.Writable();
-        const completer: readline.Completer = str => [['asd'], 'asd'];
-        const terminal = false;
+        let options: readline.ReadLineOptions;
+        let input: NodeJS.ReadableStream;
+        let output: NodeJS.WritableStream;
+        let completer: readline.Completer;
+        let terminal: boolean;
 
         let result: readline.ReadLine;
 
@@ -2296,16 +2247,23 @@ async function asyncStreamPipelineFinished() {
     }
 
     {
-        rl.setPrompt("prompt");
+        let prompt: string;
+
+        rl.setPrompt(prompt);
     }
 
     {
+        let preserveCursor: boolean;
+
         rl.prompt();
-        rl.prompt(true);
+        rl.prompt(preserveCursor);
     }
 
     {
-        rl.question("query", (answer: string) => {});
+        let query: string;
+        let callback: (answer: string) => void;
+
+        rl.question(query, callback);
     }
 
     {
@@ -2325,47 +2283,49 @@ async function asyncStreamPipelineFinished() {
     }
 
     {
-        const data: string | Buffer = "asd";
-        const key: readline.Key = {};
+        let data: string | Buffer;
+        let key: readline.Key;
 
         rl.write(data);
         rl.write(null, key);
     }
 
     {
-        const strm: NodeJS.WritableStream = new stream.Writable();
-        const x = 1;
-        const y = 1;
+        let stream: NodeJS.WritableStream;
+        let x: number;
+        let y: number;
 
-        readline.cursorTo(strm, x);
-        readline.cursorTo(strm, x, y);
+        readline.cursorTo(stream, x);
+        readline.cursorTo(stream, x, y);
     }
 
     {
-        const strm: NodeJS.ReadableStream = new stream.Readable();
-        const readLineInterface: readline.ReadLine = readline.createInterface(new stream.Readable());
+        let stream: NodeJS.ReadableStream;
+        let readLineInterface: readline.ReadLine;
 
-        readline.emitKeypressEvents(strm);
-        readline.emitKeypressEvents(strm, readLineInterface);
+        readline.emitKeypressEvents(stream);
+        readline.emitKeypressEvents(stream, readLineInterface);
     }
 
     {
-        const strm: NodeJS.WritableStream = new stream.Writable();
-        const dx: number | string = 1;
-        const dy: number | string = 1;
+        let stream: NodeJS.WritableStream;
+        let dx: number | string;
+        let dy: number | string;
 
-        readline.moveCursor(strm, dx, dy);
+        readline.moveCursor(stream, dx, dy);
     }
 
     {
-        const strm: NodeJS.WritableStream = new stream.Writable();
-        readline.clearLine(strm, 1);
+        let stream: NodeJS.WritableStream;
+        let dir: number;
+
+        readline.clearLine(stream, dir);
     }
 
     {
-        const strm: NodeJS.WritableStream = new stream.Writable();
+        let stream: NodeJS.WritableStream;
 
-        readline.clearScreenDown(strm);
+        readline.clearScreenDown(stream);
     }
 
     {
@@ -2374,7 +2334,7 @@ async function asyncStreamPipelineFinished() {
 
         _rl = _rl.addListener("close", () => { });
         _rl = _rl.addListener("line", (input) => {
-            const _input: any = input;
+            let _input: any = input;
         });
         _rl = _rl.addListener("pause", () => { });
         _rl = _rl.addListener("resume", () => { });
@@ -2392,7 +2352,7 @@ async function asyncStreamPipelineFinished() {
 
         _rl = _rl.on("close", () => { });
         _rl = _rl.on("line", (input) => {
-            const _input: any = input;
+            let _input: any = input;
         });
         _rl = _rl.on("pause", () => { });
         _rl = _rl.on("resume", () => { });
@@ -2402,7 +2362,7 @@ async function asyncStreamPipelineFinished() {
 
         _rl = _rl.once("close", () => { });
         _rl = _rl.once("line", (input) => {
-            const _input: any = input;
+            let _input: any = input;
         });
         _rl = _rl.once("pause", () => { });
         _rl = _rl.once("resume", () => { });
@@ -2412,7 +2372,7 @@ async function asyncStreamPipelineFinished() {
 
         _rl = _rl.prependListener("close", () => { });
         _rl = _rl.prependListener("line", (input) => {
-            const _input: any = input;
+            let _input: any = input;
         });
         _rl = _rl.prependListener("pause", () => { });
         _rl = _rl.prependListener("resume", () => { });
@@ -2422,7 +2382,7 @@ async function asyncStreamPipelineFinished() {
 
         _rl = _rl.prependOnceListener("close", () => { });
         _rl = _rl.prependOnceListener("line", (input) => {
-            const _input: any = input;
+            let _input: any = input;
         });
         _rl = _rl.prependOnceListener("pause", () => { });
         _rl = _rl.prependOnceListener("resume", () => { });
@@ -2436,7 +2396,7 @@ async function asyncStreamPipelineFinished() {
 /// string_decoder tests : https://nodejs.org/api/string_decoder.html
 ////////////////////////////////////////////////////
 
-{
+namespace string_decoder_tests {
     const StringDecoder = string_decoder.StringDecoder;
     const buffer = new Buffer('test');
     const decoder1 = new StringDecoder();
@@ -2451,7 +2411,7 @@ async function asyncStreamPipelineFinished() {
 /// Child Process tests: https://nodejs.org/api/child_process.html ///
 //////////////////////////////////////////////////////////////////////
 
-{
+namespace child_process_tests {
     {
         childProcess.exec("echo test");
         childProcess.exec("echo test", { windowsHide: true });
@@ -2461,8 +2421,6 @@ async function asyncStreamPipelineFinished() {
         childProcess.spawnSync("echo test");
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false});
         childProcess.spawnSync("echo test", {windowsVerbatimArguments: false, argv0: "echo-test"});
-        childProcess.spawnSync("echo test", {input: new Uint8Array([])});
-        childProcess.spawnSync("echo test", {input: new DataView(new ArrayBuffer(1))});
     }
 
     {
@@ -2473,11 +2431,6 @@ async function asyncStreamPipelineFinished() {
         childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
         childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
         childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
-    }
-
-    {
-        childProcess.execFileSync("echo test", {input: new Uint8Array([])});
-        childProcess.execFileSync("echo test", {input: new DataView(new ArrayBuffer(1))});
     }
 
     async function testPromisify() {
@@ -2492,8 +2445,8 @@ async function asyncStreamPipelineFinished() {
 
     {
         let _cp: childProcess.ChildProcess;
-        const _socket: net.Socket = net.createConnection(1);
-        const _server: net.Server = net.createServer();
+        let _socket: net.Socket;
+        let _server: net.Server;
         let _boolean: boolean;
 
         _boolean = _cp.send(1);
@@ -2503,15 +2456,15 @@ async function asyncStreamPipelineFinished() {
         });
 
         _boolean = _cp.send(1, (error) => {
-            const _err: Error = error;
+            let _err: Error = error;
         });
         _boolean = _cp.send('one', (error) => {
-            const _err: Error = error;
+            let _err: Error = error;
         });
         _boolean = _cp.send({
             type: 'test'
         }, (error) => {
-            const _err: Error = error;
+            let _err: Error = error;
         });
 
         _boolean = _cp.send(1, _socket);
@@ -2521,15 +2474,15 @@ async function asyncStreamPipelineFinished() {
         }, _socket);
 
         _boolean = _cp.send(1, _socket, (error) => {
-            const _err: Error = error;
+            let _err: Error = error;
         });
         _boolean = _cp.send('one', _socket, (error) => {
-            const _err: Error = error;
+            let _err: Error = error;
         });
         _boolean = _cp.send({
             type: 'test'
         }, _socket, (error) => {
-            const _err: Error = error;
+            let _err: Error = error;
         });
 
         _boolean = _cp.send(1, _socket, {
@@ -2547,19 +2500,19 @@ async function asyncStreamPipelineFinished() {
         _boolean = _cp.send(1, _socket, {
             keepOpen: true
         }, (error) => {
-            const _err: Error = error;
+            let _err: Error = error;
         });
         _boolean = _cp.send('one', _socket, {
             keepOpen: true
         }, (error) => {
-            const _err: Error = error;
+            let _err: Error = error;
         });
         _boolean = _cp.send({
             type: 'test'
         }, _socket, {
                 keepOpen: true
             }, (error) => {
-                const _err: Error = error;
+                let _err: Error = error;
             });
 
         _boolean = _cp.send(1, _server);
@@ -2569,15 +2522,15 @@ async function asyncStreamPipelineFinished() {
         }, _server);
 
         _boolean = _cp.send(1, _server, (error) => {
-            const _err: Error = error;
+            let _err: Error = error;
         });
         _boolean = _cp.send('one', _server, (error) => {
-            const _err: Error = error;
+            let _err: Error = error;
         });
         _boolean = _cp.send({
             type: 'test'
         }, _server, (error) => {
-            const _err: Error = error;
+            let _err: Error = error;
         });
 
         _boolean = _cp.send(1, _server, {
@@ -2595,36 +2548,36 @@ async function asyncStreamPipelineFinished() {
         _boolean = _cp.send(1, _server, {
             keepOpen: true
         }, (error) => {
-            const _err: Error = error;
+            let _err: Error = error;
         });
         _boolean = _cp.send('one', _server, {
             keepOpen: true
         }, (error) => {
-            const _err: Error = error;
+            let _err: Error = error;
         });
         _boolean = _cp.send({
             type: 'test'
         }, _server, {
                 keepOpen: true
             }, (error) => {
-                const _err: Error = error;
+                let _err: Error = error;
             });
 
         _cp = _cp.addListener("close", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            let _code: number = code;
+            let _signal: string = signal;
         });
         _cp = _cp.addListener("disconnect", () => { });
         _cp = _cp.addListener("error", (err) => {
-            const _err: Error = err;
+            let _err: Error = err;
         });
         _cp = _cp.addListener("exit", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            let _code: number = code;
+            let _signal: string = signal;
         });
         _cp = _cp.addListener("message", (message, sendHandle) => {
-            const _message: any = message;
-            const _sendHandle: net.Socket | net.Server = sendHandle;
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
         });
 
         _boolean = _cp.emit("close", () => { });
@@ -2634,71 +2587,71 @@ async function asyncStreamPipelineFinished() {
         _boolean = _cp.emit("message", () => { });
 
         _cp = _cp.on("close", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            let _code: number = code;
+            let _signal: string = signal;
         });
         _cp = _cp.on("disconnect", () => { });
         _cp = _cp.on("error", (err) => {
-            const _err: Error = err;
+            let _err: Error = err;
         });
         _cp = _cp.on("exit", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            let _code: number = code;
+            let _signal: string = signal;
         });
         _cp = _cp.on("message", (message, sendHandle) => {
-            const _message: any = message;
-            const _sendHandle: net.Socket | net.Server = sendHandle;
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
         });
 
         _cp = _cp.once("close", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            let _code: number = code;
+            let _signal: string = signal;
         });
         _cp = _cp.once("disconnect", () => { });
         _cp = _cp.once("error", (err) => {
-            const _err: Error = err;
+            let _err: Error = err;
         });
         _cp = _cp.once("exit", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            let _code: number = code;
+            let _signal: string = signal;
         });
         _cp = _cp.once("message", (message, sendHandle) => {
-            const _message: any = message;
-            const _sendHandle: net.Socket | net.Server = sendHandle;
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
         });
 
         _cp = _cp.prependListener("close", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            let _code: number = code;
+            let _signal: string = signal;
         });
         _cp = _cp.prependListener("disconnect", () => { });
         _cp = _cp.prependListener("error", (err) => {
-            const _err: Error = err;
+            let _err: Error = err;
         });
         _cp = _cp.prependListener("exit", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            let _code: number = code;
+            let _signal: string = signal;
         });
         _cp = _cp.prependListener("message", (message, sendHandle) => {
-            const _message: any = message;
-            const _sendHandle: net.Socket | net.Server = sendHandle;
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
         });
 
         _cp = _cp.prependOnceListener("close", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            let _code: number = code;
+            let _signal: string = signal;
         });
         _cp = _cp.prependOnceListener("disconnect", () => { });
         _cp = _cp.prependOnceListener("error", (err) => {
-            const _err: Error = err;
+            let _err: Error = err;
         });
         _cp = _cp.prependOnceListener("exit", (code, signal) => {
-            const _code: number = code;
-            const _signal: string = signal;
+            let _code: number = code;
+            let _signal: string = signal;
         });
         _cp = _cp.prependOnceListener("message", (message, sendHandle) => {
-            const _message: any = message;
-            const _sendHandle: net.Socket | net.Server = sendHandle;
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
         });
     }
     {
@@ -2723,11 +2676,11 @@ async function asyncStreamPipelineFinished() {
         console.log(process.stdin instanceof net.Socket);
         console.log(process.stdout instanceof fs.ReadStream);
 
-        const stdin: stream.Readable = process.stdin;
+        var stdin: stream.Readable = process.stdin;
         console.log(stdin instanceof net.Socket);
         console.log(stdin instanceof fs.ReadStream);
 
-        const stdout: stream.Writable = process.stdout;
+        var stdout: stream.Writable = process.stdout;
         console.log(stdout instanceof net.Socket);
         console.log(stdout instanceof fs.WriteStream);
     }
@@ -2737,7 +2690,7 @@ async function asyncStreamPipelineFinished() {
 /// cluster tests: https://nodejs.org/api/cluster.html ///
 //////////////////////////////////////////////////////////////////////
 
-{
+namespace cluster_tests {
     {
         cluster.fork();
         Object.keys(cluster.workers).forEach(key => {
@@ -2753,7 +2706,7 @@ async function asyncStreamPipelineFinished() {
 /// os tests : https://nodejs.org/api/os.html
 ////////////////////////////////////////////////////
 
-{
+namespace os_tests {
     {
         let result: string;
 
@@ -2915,23 +2868,13 @@ async function asyncStreamPipelineFinished() {
         result = os.constants.errno.EWOULDBLOCK;
         result = os.constants.errno.EXDEV;
     }
-
-    {
-        const prio = os.getPriority();
-        os.setPriority(prio + 1);
-
-        const prio2 = os.getPriority(1);
-        os.setPriority(2, prio + 1);
-
-        os.setPriority(os.constants.priority.PRIORITY_LOW);
-    }
 }
 
 ////////////////////////////////////////////////////
 /// vm tests : https://nodejs.org/api/vm.html
 ////////////////////////////////////////////////////
 
-{
+namespace vm_tests {
     {
         const sandbox = {
             animal: 'cat',
@@ -2964,25 +2907,19 @@ async function asyncStreamPipelineFinished() {
 
         console.log(util.inspect(sandboxes));
 
-        const localVar = 'initial value';
+        var localVar = 'initial value';
         vm.runInThisContext('localVar = "vm";');
 
         console.log(localVar);
     }
 
     {
-        vm.runInThisContext('console.log("hello world"', './my-file.js');
+        const Debug = vm.runInDebugContext('Debug');
+        Debug.scripts().forEach((script: any) => { console.log(script.name); });
     }
 
     {
-        const fn: Function = vm.compileFunction('console.log("test")', [], {
-            parsingContext: vm.createContext(),
-            contextExtensions: [{
-                a: 1,
-            }],
-            produceCachedData: false,
-            cachedData: Buffer.from('nope'),
-        });
+        vm.runInThisContext('console.log("hello world"', './my-file.js');
     }
 }
 
@@ -2990,21 +2927,21 @@ async function asyncStreamPipelineFinished() {
 /// Timers tests : https://nodejs.org/api/timers.html
 /////////////////////////////////////////////////////
 
-{
+namespace timers_tests {
     {
-        const immediateId = timers.setImmediate(() => { console.log("immediate"); });
+        let immediateId = timers.setImmediate(() => { console.log("immediate"); });
         timers.clearImmediate(immediateId);
     }
     {
-        const counter = 0;
-        const timeout = timers.setInterval(() => { console.log("interval"); }, 20);
+        let counter = 0;
+        let timeout = timers.setInterval(() => { console.log("interval"); }, 20);
         timeout.unref();
         timeout.ref();
         timers.clearInterval(timeout);
     }
     {
-        const counter = 0;
-        const timeout = timers.setTimeout(() => { console.log("timeout"); }, 20);
+        let counter = 0;
+        let timeout = timers.setTimeout(() => { console.log("timeout"); }, 20);
         timeout.unref();
         timeout.ref();
         timers.clearTimeout(timeout);
@@ -3024,7 +2961,7 @@ async function asyncStreamPipelineFinished() {
 /// Errors Tests : https://nodejs.org/api/errors.html ///
 /////////////////////////////////////////////////////////
 
-{
+namespace errors_tests {
     {
         Error.stackTraceLimit = Infinity;
     }
@@ -3033,24 +2970,24 @@ async function asyncStreamPipelineFinished() {
         Error.captureStackTrace(myObject);
     }
     {
-        const frames: NodeJS.CallSite[] = [];
+        let frames: NodeJS.CallSite[] = [];
         Error.prepareStackTrace(new Error(), frames);
     }
     {
-        const frame: NodeJS.CallSite = null;
-        const frameThis: any = frame.getThis();
-        const typeName: string = frame.getTypeName();
-        const func: Function = frame.getFunction();
-        const funcName: string = frame.getFunctionName();
-        const meth: string = frame.getMethodName();
-        const fname: string = frame.getFileName();
-        const lineno: number = frame.getLineNumber();
-        const colno: number = frame.getColumnNumber();
-        const evalOrigin: string = frame.getEvalOrigin();
-        const isTop: boolean = frame.isToplevel();
-        const isEval: boolean = frame.isEval();
-        const isNative: boolean = frame.isNative();
-        const isConstr: boolean = frame.isConstructor();
+        let frame: NodeJS.CallSite = null;
+        let frameThis: any = frame.getThis();
+        let typeName: string = frame.getTypeName();
+        let func: Function = frame.getFunction();
+        let funcName: string = frame.getFunctionName();
+        let meth: string = frame.getMethodName();
+        let fname: string = frame.getFileName();
+        let lineno: number = frame.getLineNumber();
+        let colno: number = frame.getColumnNumber();
+        let evalOrigin: string = frame.getEvalOrigin();
+        let isTop: boolean = frame.isToplevel();
+        let isEval: boolean = frame.isEval();
+        let isNative: boolean = frame.isNative();
+        let isConstr: boolean = frame.isConstructor();
     }
 }
 
@@ -3059,19 +2996,19 @@ async function asyncStreamPipelineFinished() {
 ///////////////////////////////////////////////////////////
 
 import * as p from "process";
-{
+namespace process_tests {
     {
-        let eventEmitter: events.EventEmitter;
+        var eventEmitter: events.EventEmitter;
         eventEmitter = process;                // Test that process implements EventEmitter...
 
-        let _p: NodeJS.Process = process;
+        var _p: NodeJS.Process = process;
         _p = p;
     }
     {
         assert(process.argv[0] === process.argv0);
     }
     {
-        let module: NodeModule | undefined;
+        var module: NodeModule | undefined;
         module = process.mainModule;
     }
     {
@@ -3099,23 +3036,21 @@ import * as p from "process";
         process.setUncaughtExceptionCaptureCallback(null);
         const b: boolean = process.hasUncaughtExceptionCaptureCallback();
     }
-    {
-        // process.allowedNodeEnvironmentFlags.has('asdf');
-    }
 }
 
 ///////////////////////////////////////////////////////////
 /// Console Tests : https://nodejs.org/api/console.html ///
 ///////////////////////////////////////////////////////////
 
-{
+import * as c from "console";
+namespace console_tests {
     {
-        let _c: Console = console;
-        _c = console2;
+        var _c: Console = console;
+        _c = c;
     }
     {
-        const writeStream = fs.createWriteStream('./index.d.ts');
-        const consoleInstance = new console.Console(writeStream);
+        var writeStream = fs.createWriteStream('./index.d.ts');
+        var consoleInstance = new console.Console(writeStream);
     }
 }
 
@@ -3123,7 +3058,7 @@ import * as p from "process";
 /// Net Tests : https://nodejs.org/api/net.html ///
 ///////////////////////////////////////////////////
 
-{
+namespace net_tests {
     {
         const connectOpts: net.NetConnectOpts = {
             allowHalfOpen: true,
@@ -3150,7 +3085,7 @@ import * as p from "process";
         server = server.close((...args: any[]) => { });
 
         // test the types of the address object fields
-        const address: net.AddressInfo | string = server.address();
+        let address: net.AddressInfo | string = server.address();
     }
 
     {
@@ -3180,10 +3115,10 @@ import * as p from "process";
         let str: string;
         let num: number;
 
-        const ipcConnectOpts: net.IpcSocketConnectOpts = {
+        let ipcConnectOpts: net.IpcSocketConnectOpts = {
             path: "/"
         };
-        const tcpConnectOpts: net.TcpSocketConnectOpts = {
+        let tcpConnectOpts: net.TcpSocketConnectOpts = {
             family: 4,
             hints: 0,
             host: "localhost",
@@ -3416,11 +3351,11 @@ import * as p from "process";
 /// repl Tests : https://nodejs.org/api/repl.html ///
 /////////////////////////////////////////////////////
 
-{
+namespace repl_tests {
     {
         let _server: repl.REPLServer;
         let _boolean: boolean;
-        const _ctx: any = 1;
+        let _ctx: any;
 
         _server = _server.addListener("exit", () => { });
         _server = _server.addListener("reset", () => { });
@@ -3441,11 +3376,9 @@ import * as p from "process";
         _server = _server.prependOnceListener("reset", () => { });
 
         _server.outputStream.write("test");
-        const line = _server.inputStream.read();
+        let line = _server.inputStream.read();
 
-        function test() {
-            throw new repl.Recoverable(new Error("test"));
-        }
+        throw new repl.Recoverable(new Error("test"));
     }
 }
 
@@ -3453,7 +3386,7 @@ import * as p from "process";
 /// DNS Tests : https://nodejs.org/api/dns.html ///
 ///////////////////////////////////////////////////
 
-{
+namespace dns_tests {
     dns.lookup("nodejs.org", (err, address, family) => {
         const _err: NodeJS.ErrnoException = err;
         const _address: string = address;
@@ -3488,10 +3421,6 @@ import * as p from "process";
         }
     );
     dns.lookup("nodejs.org", { all: true }, (err, addresses) => {
-        const _err: NodeJS.ErrnoException = err;
-        const _address: dns.LookupAddress[] = addresses;
-    });
-    dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
         const _err: NodeJS.ErrnoException = err;
         const _address: dns.LookupAddress[] = addresses;
     });
@@ -3573,9 +3502,10 @@ import * as p from "process";
 ///////////////////////////////////////////////////////////
 
 import * as constants from 'constants';
-{
-    let str: string;
-    let num: number;
+import { PerformanceObserver, PerformanceObserverCallback } from "perf_hooks";
+namespace constants_tests {
+    var str: string;
+    var num: number;
     num = constants.SIGHUP;
     num = constants.SIGINT;
     num = constants.SIGQUIT;
@@ -3719,7 +3649,7 @@ import * as constants from 'constants';
 /// v8 tests : https://nodejs.org/api/v8.html
 ////////////////////////////////////////////////////
 
-{
+namespace v8_tests {
     const heapStats = v8.getHeapStatistics();
     const heapSpaceStats = v8.getHeapSpaceStatistics();
 
@@ -3731,7 +3661,7 @@ import * as constants from 'constants';
 ////////////////////////////////////////////////////
 /// PerfHooks tests : https://nodejs.org/api/perf_hooks.html
 ////////////////////////////////////////////////////
-{
+namespace perf_hooks_tests {
     perf_hooks.performance.mark('start');
     (
         () => {}
@@ -3741,7 +3671,7 @@ import * as constants from 'constants';
     const { duration } = perf_hooks.performance.getEntriesByName('discover')[0];
     const timeOrigin = perf_hooks.performance.timeOrigin;
 
-    const performanceObserverCallback: perf_hooks.PerformanceObserverCallback = (list, obs) => {
+    const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => {
         const {
             duration,
             entryType,
@@ -3761,7 +3691,7 @@ import * as constants from 'constants';
 ////////////////////////////////////////////////////
 /// AsyncHooks tests : https://nodejs.org/api/async_hooks.html
 ////////////////////////////////////////////////////
-{
+namespace async_hooks_tests {
     const hooks: async_hooks.HookCallbacks = {
         init() {},
         before() {},
@@ -3813,7 +3743,7 @@ import * as constants from 'constants';
 /// zlib tests : http://nodejs.org/api/zlib.html ///
 ////////////////////////////////////////////////////
 
-{
+namespace zlib_tests {
     {
         const gzipped = zlib.gzipSync('test');
         const unzipped = zlib.gunzipSync(gzipped.toString());
@@ -3829,17 +3759,17 @@ import * as constants from 'constants';
 /// HTTP/2 Tests                                        ///
 ///////////////////////////////////////////////////////////
 
-{
+namespace http2_tests {
     // Headers & Settings
     {
-        const headers: http2.OutgoingHttpHeaders = {
+        let headers: http2.OutgoingHttpHeaders = {
             ':status': 200,
             'content-type': 'text-plain',
             ABC: ['has', 'more', 'than', 'one', 'value'],
             undef: undefined
         };
 
-        const settings: http2.Settings = {
+        let settings: http2.Settings = {
             headerTableSize: 0,
             enablePush: true,
             initialWindowSize: 0,
@@ -3851,8 +3781,8 @@ import * as constants from 'constants';
 
     // Http2Session
     {
-        const http2Session: http2.Http2Session = {} as any;
-        const ee: events.EventEmitter = http2Session;
+        let http2Session: http2.Http2Session;
+        let ee: events.EventEmitter = http2Session;
 
         http2Session.on('close', () => {});
         http2Session.on('connect', (session: http2.Http2Session, socket: net.Socket) => {});
@@ -3866,21 +3796,21 @@ import * as constants from 'constants';
 
         http2Session.destroy();
 
-        const alpnProtocol: string = http2Session.alpnProtocol;
-        const destroyed: boolean = http2Session.destroyed;
-        const encrypted: boolean = http2Session.encrypted;
-        const originSet: string[] = http2Session.originSet;
-        const pendingSettingsAck: boolean = http2Session.pendingSettingsAck;
+        let alpnProtocol: string = http2Session.alpnProtocol;
+        let destroyed: boolean = http2Session.destroyed;
+        let encrypted: boolean = http2Session.encrypted;
+        let originSet: string[] = http2Session.originSet;
+        let pendingSettingsAck: boolean = http2Session.pendingSettingsAck;
         let settings: http2.Settings = http2Session.localSettings;
-        const closed: boolean = http2Session.closed;
-        const connecting: boolean = http2Session.connecting;
+        let closed: boolean = http2Session.closed;
+        let connecting: boolean = http2Session.connecting;
         settings = http2Session.remoteSettings;
 
         http2Session.ref();
         http2Session.unref();
 
-        const headers: http2.OutgoingHttpHeaders = {};
-        const options: http2.ClientSessionRequestOptions = {
+        let headers: http2.OutgoingHttpHeaders;
+        let options: http2.ClientSessionRequestOptions = {
             endStream: true,
             exclusive: true,
             parent: 0,
@@ -3891,14 +3821,14 @@ import * as constants from 'constants';
         (http2Session as http2.ClientHttp2Session).request(headers);
         (http2Session as http2.ClientHttp2Session).request(headers, options);
 
-        const stream: http2.Http2Stream = {} as any;
+        let stream: http2.Http2Stream;
         http2Session.rstStream(stream);
         http2Session.rstStream(stream, 0);
 
         http2Session.setTimeout(100, () => {});
         http2Session.close(() => {});
 
-        const socket: net.Socket | tls.TLSSocket = http2Session.socket;
+        let socket: net.Socket | tls.TLSSocket = http2Session.socket;
         let state: http2.SessionState = http2Session.state;
         state = {
             effectiveLocalWindowSize: 0,
@@ -3928,8 +3858,8 @@ import * as constants from 'constants';
 
     // Http2Stream
     {
-        const http2Stream: http2.Http2Stream = {} as any;
-        const duplex: stream.Duplex = http2Stream;
+        let http2Stream: http2.Http2Stream;
+        let duplex: stream.Duplex = http2Stream;
 
         http2Stream.on('aborted', () => {});
         http2Stream.on('error', (err: Error) => {});
@@ -3938,10 +3868,10 @@ import * as constants from 'constants';
         http2Stream.on('timeout', () => {});
         http2Stream.on('trailers', (trailers: http2.IncomingHttpHeaders, flags: number) => {});
 
-        const aborted: boolean = http2Stream.aborted;
-        const closed: boolean = http2Stream.closed;
-        const destroyed: boolean = http2Stream.destroyed;
-        const pending: boolean = http2Stream.pending;
+        let aborted: boolean = http2Stream.aborted;
+        let closed: boolean = http2Stream.closed;
+        let destroyed: boolean = http2Stream.destroyed;
+        let pending: boolean = http2Stream.pending;
 
         http2Stream.priority({
             exclusive: true,
@@ -3950,7 +3880,7 @@ import * as constants from 'constants';
             silent: true
         });
 
-        const sesh: http2.Http2Session = http2Stream.session;
+        let sesh: http2.Http2Session = http2Stream.session;
 
         http2Stream.setTimeout(100, () => {});
 
@@ -3970,7 +3900,7 @@ import * as constants from 'constants';
         http2Stream.close(undefined, () => {});
 
         // ClientHttp2Stream
-        const clientHttp2Stream: http2.ClientHttp2Stream = {} as any;
+        let clientHttp2Stream: http2.ClientHttp2Stream;
         clientHttp2Stream.on('headers', (headers: http2.IncomingHttpHeaders, flags: number) => {});
         clientHttp2Stream.on('push', (headers: http2.IncomingHttpHeaders, flags: number) => {});
         clientHttp2Stream.on('response', (headers: http2.IncomingHttpHeaders & http2.IncomingHttpStatusHeader, flags: number) => {
@@ -3978,15 +3908,15 @@ import * as constants from 'constants';
         });
 
         // ServerHttp2Stream
-        const serverHttp2Stream: http2.ServerHttp2Stream = {} as any;
-        const headers: http2.OutgoingHttpHeaders = {};
+        let serverHttp2Stream: http2.ServerHttp2Stream;
+        let headers: http2.OutgoingHttpHeaders;
 
         serverHttp2Stream.additionalHeaders(headers);
-        const headerSent: boolean = serverHttp2Stream.headersSent;
-        const pushAllowed: boolean = serverHttp2Stream.pushAllowed;
+        let headerSent: boolean = serverHttp2Stream.headersSent;
+        let pushAllowed: boolean = serverHttp2Stream.pushAllowed;
         serverHttp2Stream.pushStream(headers, (err: Error | null, pushStream: http2.ServerHttp2Stream, headers: http2.OutgoingHttpHeaders) => {});
 
-        const options: http2.ServerStreamResponseOptions = {
+        let options: http2.ServerStreamResponseOptions = {
             endStream: true,
             getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
         };
@@ -3994,7 +3924,7 @@ import * as constants from 'constants';
         serverHttp2Stream.respond(headers);
         serverHttp2Stream.respond(headers, options);
 
-        const options2: http2.ServerStreamFileResponseOptions = {
+        let options2: http2.ServerStreamFileResponseOptions = {
             statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => {},
             getTrailers: (trailers: http2.OutgoingHttpHeaders) => {},
             offset: 0,
@@ -4004,7 +3934,7 @@ import * as constants from 'constants';
         serverHttp2Stream.respondWithFD(0, headers);
         serverHttp2Stream.respondWithFD(0, headers, options2);
         serverHttp2Stream.respondWithFD(0, headers, {statCheck: () => false});
-        const options3: http2.ServerStreamFileResponseOptionsWithError = {
+        let options3: http2.ServerStreamFileResponseOptionsWithError = {
             onError: (err: NodeJS.ErrnoException) => {},
             statCheck: (stats: fs.Stats, headers: http2.OutgoingHttpHeaders, statOptions: http2.StatOptions) => {},
             getTrailers: (trailers: http2.OutgoingHttpHeaders) => {},
@@ -4019,10 +3949,10 @@ import * as constants from 'constants';
 
     // Http2Server / Http2SecureServer
     {
-        const http2Server: http2.Http2Server = http2.createServer();
-        const http2SecureServer: http2.Http2SecureServer = http2.createSecureServer();
-        const s1: net.Server = http2Server;
-        const s2: tls.Server = http2SecureServer;
+        let http2Server: http2.Http2Server;
+        let http2SecureServer: http2.Http2SecureServer;
+        let s1: net.Server = http2Server;
+        let s2: tls.Server = http2SecureServer;
         [http2Server, http2SecureServer].forEach((server) => {
             server.on('sessionError', (err: Error) => {});
             server.on('checkContinue', (stream: http2.ServerHttp2Stream, headers: http2.IncomingHttpHeaders, flags: number) => {});
@@ -4037,7 +3967,7 @@ import * as constants from 'constants';
     // Public API (except constants)
     {
         let settings: http2.Settings;
-        const serverOptions: http2.ServerOptions = {
+        let serverOptions: http2.ServerOptions = {
             maxDeflateDynamicTableSize: 0,
             maxReservedRemoteStreams: 0,
             maxSendHeaderBlockLength: 0,
@@ -4048,21 +3978,21 @@ import * as constants from 'constants';
             allowHTTP1: true
         };
         // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
-        const secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);
+        let secureServerOptions: http2.SecureServerOptions = Object.assign({}, serverOptions);
         secureServerOptions.ca = '';
-        const onRequestHandler = (request: http2.Http2ServerRequest, response: http2.Http2ServerResponse) => {
+        let onRequestHandler = (request: http2.Http2ServerRequest, response: http2.Http2ServerResponse) => {
             // Http2ServerRequest
 
-            const readable: stream.Readable = request;
+            let readable: stream.Readable = request;
             let incomingHeaders: http2.IncomingHttpHeaders = request.headers;
             incomingHeaders = request.trailers;
-            const httpVersion: string = request.httpVersion;
+            let httpVersion: string = request.httpVersion;
             let method: string = request.method;
             let rawHeaders: string[] = request.rawHeaders;
             rawHeaders = request.rawTrailers;
             let socket: net.Socket | tls.TLSSocket = request.socket;
             let stream: http2.ServerHttp2Stream = request.stream;
-            const url: string = request.url;
+            let url: string = request.url;
 
             request.setTimeout(0, () => {});
             request.on('aborted', (hadError: boolean, code: number) => {});
@@ -4072,7 +4002,7 @@ import * as constants from 'constants';
             let outgoingHeaders: http2.OutgoingHttpHeaders;
             response.addTrailers(outgoingHeaders);
             socket = response.connection;
-            const finished: boolean = response.finished;
+            let finished: boolean = response.finished;
             response.sendDate = true;
             response.statusCode = 200;
             response.statusMessage = '';
@@ -4080,14 +4010,14 @@ import * as constants from 'constants';
             stream = response.stream;
 
             method = response.getHeader(':method');
-            const headers: string[] = response.getHeaderNames();
+            let headers: string[] = response.getHeaderNames();
             outgoingHeaders = response.getHeaders();
-            const hasMethod = response.hasHeader(':method');
+            let hasMethod = response.hasHeader(':method');
             response.removeHeader(':method');
             response.setHeader(':method', 'GET');
             response.setHeader(':status', 200);
             response.setHeader('some-list', ['', '']);
-            const headersSent: boolean = response.headersSent;
+            let headersSent: boolean = response.headersSent;
 
             response.setTimeout(0, () => {});
             response.createPushResponse(outgoingHeaders, (err: Error | null, res: http2.Http2ServerResponse) => {});
@@ -4136,7 +4066,7 @@ import * as constants from 'constants';
         http2SecureServer = http2.createSecureServer(onRequestHandler);
         http2SecureServer = http2.createSecureServer(secureServerOptions, onRequestHandler);
 
-        const clientSessionOptions: http2.ClientSessionOptions = {
+        let clientSessionOptions: http2.ClientSessionOptions = {
             maxDeflateDynamicTableSize: 0,
             maxReservedRemoteStreams: 0,
             maxSendHeaderBlockLength: 0,
@@ -4146,11 +4076,11 @@ import * as constants from 'constants';
             settings
         };
         // tslint:disable-next-line prefer-object-spread (ts2.1 feature)
-        const secureClientSessionOptions: http2.SecureClientSessionOptions = Object.assign({}, clientSessionOptions);
+        let secureClientSessionOptions: http2.SecureClientSessionOptions = Object.assign({}, clientSessionOptions);
         secureClientSessionOptions.ca = '';
-        const onConnectHandler = (session: http2.Http2Session, socket: net.Socket) => {};
+        let onConnectHandler = (session: http2.Http2Session, socket: net.Socket) => {};
 
-        const serverHttp2Session: http2.ServerHttp2Session = {} as any;
+        let serverHttp2Session: http2.ServerHttp2Session;
 
         serverHttp2Session.altsvc('', '');
         serverHttp2Session.altsvc('', 0);
@@ -4395,9 +4325,8 @@ import * as constants from 'constants';
 /// Inspector Tests                                     ///
 ///////////////////////////////////////////////////////////
 
-{
+namespace inspector_tests {
     {
-        const b: inspector.Console.ConsoleMessage = {source: 'test', text: 'test', level: 'error' };
         inspector.open();
         inspector.open(0);
         inspector.open(0, 'localhost');
@@ -4441,7 +4370,7 @@ import * as constants from 'constants';
 /// module tests : http://nodejs.org/api/modules.html
 ////////////////////////////////////////////////////
 
-{
+namespace module_tests {
     require.extensions[".ts"] = () => "";
 
     Module.runMain();
@@ -4458,8 +4387,8 @@ import * as constants from 'constants';
 /// Node.js ESNEXT Support
 ////////////////////////////////////////////////////
 
-{
-    const s = 'foo';
+namespace esnext_string_tests {
+    const s: string = 'foo';
     const s1: string = s.trimLeft();
     const s2: string = s.trimRight();
 }

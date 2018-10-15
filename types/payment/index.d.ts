@@ -12,10 +12,6 @@ interface Fns {
      */
     validateCardNumber(cardNumber: string): boolean;
     /**
-     * Formats a card number
-     */
-    formatCardNumber(cardNumber: string): string;
-    /**
      * Validates a card expiry:
      * * Validates numbers
      * * Validates in the future

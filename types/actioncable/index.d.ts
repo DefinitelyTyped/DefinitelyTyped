@@ -1,15 +1,13 @@
-// Type definitions for ActionCable 5.2
-// Project: https://github.com/rails/rails/tree/master/actioncable/app/assets/javascripts
+// Type definitions for ActionCable
+// Project: https://github.com/rails/rails/tree/master/actioncable
 // Definitions by: Vincent Zhu <https://github.com/zhu1230>
-//                 Jared Szechy <https://github.com/szechyjs>
 // Definitions: https://github.com/zhu1230/DefinitelyTyped
-// TypeScript Version: 2.3
 
 declare module ActionCable {
   interface Channel {
     unsubscribe(): void;
     perform(action: string, data: {}): void;
-    send(data: any): boolean;
+    send(data: Object): boolean;
   }
 
   interface Subscriptions {
@@ -18,16 +16,12 @@ declare module ActionCable {
 
   interface Cable {
     subscriptions: Subscriptions;
-    send(data: any): void;
-    connect(): void;
-    disconnect(): void;
-    ensureActiveConnection(): void;
   }
 
   interface CreateMixin {
     connected(): void;
     disconnected(): void;
-    received(obj: any): void;
+    received(obj: Object): void;
     [key: string]: Function;
   }
 

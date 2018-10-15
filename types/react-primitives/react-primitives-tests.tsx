@@ -49,9 +49,6 @@ export default class Component extends React.Component<{}, State> {
             duration: 10000,
             easing: Easing.cubic
         }).start();
-        if (Platform.OS === 'sketch') {
-            console.log('The Platform is sketch');
-        }
     }
 
     render() {

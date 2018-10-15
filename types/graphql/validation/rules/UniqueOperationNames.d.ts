@@ -1,4 +1,4 @@
-import { ASTValidationContext } from "../ValidationContext";
+import ValidationContext from "../ValidationContext";
 import { ASTVisitor } from "../../language/visitor";
 
 export function duplicateOperationNameMessage(operationName: string): string;
@@ -8,4 +8,4 @@ export function duplicateOperationNameMessage(operationName: string): string;
  *
  * A GraphQL document is only valid if all defined operations have unique names.
  */
-export function UniqueOperationNames(context: ASTValidationContext): ASTVisitor;
+export function UniqueOperationNames(context: ValidationContext): ASTVisitor;

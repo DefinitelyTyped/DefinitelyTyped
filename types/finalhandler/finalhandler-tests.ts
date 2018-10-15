@@ -1,10 +1,10 @@
-import { IncomingMessage, ServerResponse } from "http";
+import { ServerRequest, ServerResponse } from "http";
 import finalHandler = require("finalhandler");
 
-let req: IncomingMessage;
+let req: ServerRequest;
 let res: ServerResponse;
 let options: {
-	onerror: (err: any, req: IncomingMessage, res: ServerResponse) => void;
+	onerror: (err: any, req: ServerRequest, res: ServerResponse) => void;
 	message: boolean|((err: any, status: number) => string);
 	stacktrace: boolean;
 };

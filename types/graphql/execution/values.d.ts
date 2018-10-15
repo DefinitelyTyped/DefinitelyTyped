@@ -1,5 +1,5 @@
 import Maybe from "../tsutils/Maybe";
-import { GraphQLError } from "../error/GraphQLError";
+import { GraphQLError } from "../error";
 import { GraphQLInputType, GraphQLField, GraphQLArgument } from "../type/definition";
 import { GraphQLDirective } from "../type/directives";
 import { GraphQLSchema } from "../type/schema";

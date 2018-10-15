@@ -451,7 +451,7 @@ declare namespace adone {
                     | encoding.Multibyte;
             }
 
-            const defaultCharUnicode: string;
+            const defaultCharUnicode: "�";
 
             const defaultCharSingleByte: "?";
 

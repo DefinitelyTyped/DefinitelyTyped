@@ -15,8 +15,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "preserve"
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "accounts-base.d.ts",
@@ -62,7 +61,6 @@
         "index.d.ts",
         "test/meteor-tests.ts",
         "test/globals/meteor-tests.ts",
-        "test/meteor-tests-module-only.ts",
-        "test/server-render.tsx"
+        "test/meteor-tests-module-only.ts"
     ]
 }

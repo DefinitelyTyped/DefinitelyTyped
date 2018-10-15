@@ -1,12 +1,14 @@
+
+
 function test_CKEDITOR() {
     CKEDITOR.basePath = 'test';
     CKEDITOR.replaceClass = 'rich_editor';
     CKEDITOR.skinName = 'moono';
     CKEDITOR.skinName = 'myskin,/customstuff/myskin/';
-    var editor: CKEDITOR.editor = new CKEDITOR.editor();
-    if (editor.getSelection(true).getType() === CKEDITOR.SELECTION_ELEMENT)
-        if (editor.getSelection(false).getType() === CKEDITOR.SELECTION_NONE)
-            if (editor.getSelection(true).getType() === CKEDITOR.SELECTION_TEXT)
+    var editor = new CKEDITOR.editor();
+    if (editor.getSelection(true).getType() == CKEDITOR.SELECTION_ELEMENT)
+        if (editor.getSelection(false).getType() == CKEDITOR.SELECTION_NONE)
+            if (editor.getSelection(true).getType() == CKEDITOR.SELECTION_TEXT)
                 alert(CKEDITOR.basePath);
     if (CKEDITOR.currentInstance)
         alert(CKEDITOR.currentInstance.name);
@@ -15,7 +17,7 @@ function test_CKEDITOR() {
     CKEDITOR.loadFullCoreTimeout = 5;
     alert(CKEDITOR.revision);
     alert(CKEDITOR.rnd);
-    if (CKEDITOR.status === 'loaded') {
+    if (CKEDITOR.status == 'loaded') {
         CKEDITOR.loadFullCore();
     }
     alert(CKEDITOR.timestamp);
@@ -27,16 +29,15 @@ function test_CKEDITOR() {
     CKEDITOR.inline('content');
     if (CKEDITOR.loadFullCore)
         CKEDITOR.loadFullCore();
-
-    var textarea = document.createElement('textarea');
     CKEDITOR.replace('myfield');
+    var textarea = document.createElement('textarea');
     CKEDITOR.replace(textarea);
     CKEDITOR.replaceAll();
     CKEDITOR.replaceAll('myClassName');
     CKEDITOR.replaceAll((textarea, config) => false);
 
-    editor = CKEDITOR.appendTo('append here', CKEDITOR.config, 'data');
-    editor = CKEDITOR.appendTo(document.createElement('div'));
+    var editor: CKEDITOR.editor = CKEDITOR.appendTo('append here', CKEDITOR.config, 'data');
+    var editor: CKEDITOR.editor = CKEDITOR.appendTo(document.createElement('div'));
     CKEDITOR.error('code');
     CKEDITOR.error('500', { moreData: true });
     CKEDITOR.warn('danger');
@@ -44,7 +45,7 @@ function test_CKEDITOR() {
 }
 
 function test_CKEDITOR_events() {
-    CKEDITOR.on('instanceCreated', (event) => {
+    CKEDITOR.on('instanceCreated', function(event) {
         // $ExpectType editor
         event.editor;
     });
@@ -81,7 +82,7 @@ function test_config() {
             { name: 'styles', groups: [ 'styles' ] },
             { name: 'colors', groups: [ 'colors' ] },
         ],
-    };
+    }
 }
 
 function test_dom_comment() {
@@ -95,13 +96,13 @@ function test_dom_comment() {
 
 function test_dom_document() {
     var document = new CKEDITOR.dom.document(window.document);
-    var type: number = CKEDITOR.NODE_DOCUMENT;
+    var type = CKEDITOR.NODE_DOCUMENT;
     CKEDITOR.document.appendStyleSheet('/mystyles.css');
-    var element: CKEDITOR.dom.element = CKEDITOR.document.getBody();
+    var element = CKEDITOR.document.getBody();
     alert(element.getName());
-    element = CKEDITOR.document.getById('myElement');
+    var element2 = CKEDITOR.document.getById('myElement');
     alert(element.getId());
-    element = CKEDITOR.document.getHead();
+    var element3 = CKEDITOR.document.getHead();
     alert(element.getName());
     var selection = CKEDITOR.instances[0].document.getSelection();
     alert(selection.getType());
@@ -112,10 +113,10 @@ function test_dom_document() {
         '</html>'
         );
     var styles: CSSStyleSheet = document.appendStyleText('some styles');
-    element = document.createElement('div');
-    element = document.createElement('div', { styles: { height: '1234' } });
-    element = document.createElement('div', { attributes: { id: '1234' } });
-    element = document.createElement('div', { attributes: { tabIndex: '1234' }, styles: { width: '1234' } });
+    var element: CKEDITOR.dom.element = document.createElement('div');
+    var element2: CKEDITOR.dom.element = document.createElement('div', { styles: { height: '1234' } });
+    var element3: CKEDITOR.dom.element = document.createElement('div', { attributes: { id: '1234' } });
+    var element4: CKEDITOR.dom.element = document.createElement('div', { attributes: { tabIndex: '1234' }, styles: { width: '1234' } });
 }
 
 function test_dom_documentFragment() {
@@ -129,7 +130,7 @@ function test_dom_domObject() {
     var nativeElement = element.$;
     var doc = new CKEDITOR.dom.document(document);
     alert(doc.equals(CKEDITOR.document));
-    alert(doc === CKEDITOR.document);
+    alert(doc == CKEDITOR.document);
     var element2 = new CKEDITOR.dom.element('span');
     alert(element.getCustomData('hasCustomData'));
     alert(element.getCustomData('nonExistingKey'));
@@ -152,7 +153,7 @@ function test_dom_element() {
     var strong = new CKEDITOR.dom.element('strong');
     p.append(strong);
     var em = p.append('em');
-    p = new CKEDITOR.dom.element('p');
+    var p = new CKEDITOR.dom.element('p');
     p.appendText('This is');
     p.appendText(' some text');
     element.breakParent(strong);
@@ -163,7 +164,7 @@ function test_dom_element() {
     element.focus();
     element.focusNext();
     element.focusPrevious();
-    element.forEach(node => {
+    element.forEach(node=> {
         console.log(node);
     });
     var element2 = CKEDITOR.dom.element.createFromHtml('<input type="text" />');
@@ -176,7 +177,7 @@ function test_dom_element() {
     alert(element.getHtml());
     alert(element.getId());
     alert(element.getName());
-    alert(`<b>${element.getNameAtt()}</b>`);
+    alert('<b>' + element.getNameAtt() + '</b>');
     alert(element.getOuterHtml());
     alert(element.getTabIndex());
     alert(element.getText());
@@ -197,7 +198,7 @@ function test_dom_element() {
     element.setAttribute('class', 'myClass');
     element.setAttribute('title', 'This is an example');
     element.setAttributes({
-        class: 'myClass',
+        'class': 'myClass',
         title: 'This is an example'
     });
     p.setHtml('<b>Inner</b> HTML');
@@ -213,20 +214,20 @@ function test_dom_element() {
     element.show();
     element.unselectable();
     alert(element.getName());
-    alert(element === CKEDITOR.dom.element.get(element));
+    alert(element == CKEDITOR.dom.element.get(element));
     var htmlElement = document.getElementById('myElement');
     alert(CKEDITOR.dom.element.get(htmlElement).getName());
 
     var dtd: CKEDITOR.dtdDefinition = element.getDtd();
     var last: CKEDITOR.dom.node = element.getLast();
     var last2: CKEDITOR.dom.node = element.getLast((node: CKEDITOR.dom.node) => node.equals(document.body));
-    if (element.isBlockBoundary({ div: 1, span: 1 })) {
+    if (element.isBlockBoundary({ 'div': 1, 'span': 1 })) {
         element.setState(1, 'hex', false);
     }
 
     CKEDITOR.dom.element.clearMarkers({}, element, true);
     var element1: CKEDITOR.dom.element = CKEDITOR.dom.element.get('div');
-    var element6: CKEDITOR.dom.element = CKEDITOR.dom.element.get(document.createElement('div'));
+    var element2: CKEDITOR.dom.element = CKEDITOR.dom.element.get(document.createElement('div'));
     var element3: CKEDITOR.dom.element = CKEDITOR.dom.element.get(element2);
     var markedElement: CKEDITOR.dom.element = CKEDITOR.dom.element.setMarker({}, element, 'key', 0);
 }
@@ -241,20 +242,20 @@ function test_dom_elementPath() {
 function test_dom_event() {
     var event = new CKEDITOR.dom.event(new Event(""));
     alert(event.getKey());
-    alert(event.getKeystroke() === 65);
-    alert(event.getKeystroke() === CKEDITOR.CTRL + 65);
-    alert(event.getKeystroke() === CKEDITOR.CTRL + CKEDITOR.SHIFT + 65);
+    alert(event.getKeystroke() == 65);
+    alert(event.getKeystroke() == CKEDITOR.CTRL + 65);
+    alert(event.getKeystroke() == CKEDITOR.CTRL + CKEDITOR.SHIFT + 65);
     var element = new CKEDITOR.dom.element('div');
-    element.on('mousemouse', ev => {
+    element.on('mousemouse', ev=> {
         var pageOffset = ev.data.getPageOffset();
         alert(pageOffset.x);
         alert(pageOffset.y);
     });
-    element.on('click', ev => {
+    element.on('click', ev=> {
         var domEvent = ev.data;
         domEvent.getTarget().addClass('clicked');
     });
-    element.on('click', ev => {
+    element.on('click', ev=> {
         var domEvent = ev.data as CKEDITOR.dom.event;
         domEvent.preventDefault();
     });
@@ -265,7 +266,7 @@ function test_dom_iterator() {
     var iterator = range.createIterator();
     var paragrah1: CKEDITOR.dom.element = iterator.getNextParagraph();
     var paragrah2: CKEDITOR.dom.element = iterator.getNextParagraph('div');
-    alert(!iterator.forceBrBreak);
+    alert(iterator.forceBrBreak === false);
     var itRange: CKEDITOR.dom.range = iterator.range;
 }
 
@@ -334,7 +335,7 @@ function test_dom_selection() {
     element = selection.getSelectedElement();
     var text: string = selection.getSelectedText();
     element = selection.getStartElement();
-
+    
     var type: number = selection.getType();
 
     var isSomething: boolean = selection.isCollapsed();
@@ -360,18 +361,18 @@ function test_dom_walker() {
     var range: CKEDITOR.dom.range = new CKEDITOR.dom.range(element);
 
     var walker: CKEDITOR.dom.walker = new CKEDITOR.dom.walker(range);
-
+    
     var isSomething: boolean = walker.checkBackward();
     isSomething = walker.checkForward();
     walker.end();
-
+    
     var node: CKEDITOR.dom.node = walker.lastBackward();
     node = walker.lastForward();
     node = walker.next();
     node = walker.previous();
     walker.reset();
 
-    isSomething = CKEDITOR.dom.walker.blockBoundary({ div: 1 })(node);
+    isSomething = CKEDITOR.dom.walker.blockBoundary({ 'div': 1 })(node);
     isSomething = CKEDITOR.dom.walker.bogus()(node);
     isSomething = CKEDITOR.dom.walker.bogus(isSomething)(node);
     isSomething = CKEDITOR.dom.walker.bookmark()(node);
@@ -470,8 +471,8 @@ function test_dialog() {
     dialog.showPage('1234');
     dialog.updateStyle();
 
-    CKEDITOR.dialog.add('abbrDialog', 'PATH/dialogs/abbr.js');
-    CKEDITOR.dialog.add('abbrDialog', (editor: CKEDITOR.editor) => {
+    CKEDITOR.dialog.add( 'abbrDialog', this.path + 'dialogs/abbr.js' );
+    CKEDITOR.dialog.add( 'abbrDialog', function ( editor: CKEDITOR.editor ) {
         return {
             title: 'Abbreviation Properties',
             minWidth: 400,
@@ -485,7 +486,7 @@ function test_dialog() {
                 {
                     id: 'tab-basic',
                     label: 'Basic Settings',
-                    elements: <any[]> []
+                    elements: <any[]>[]
                 },
                 {
                     id: 'tab-adv',
@@ -565,7 +566,7 @@ function test_fileTools_fileLoader() {
     var loader: CKEDITOR.fileTools.fileLoader = new CKEDITOR.fileTools.fileLoader(editor, 'data');
     loader = new CKEDITOR.fileTools.fileLoader(editor, blob);
     loader = new CKEDITOR.fileTools.fileLoader(editor, blob, 'name');
-
+    
     loader.abort();
     var finished: boolean = loader.isFinished();
     loader.load();
@@ -581,7 +582,7 @@ function test_fileTools_uploadRepository() {
     var editor: CKEDITOR.editor;
     var blob: Blob;
     var repo: CKEDITOR.fileTools.uploadRepository = new CKEDITOR.fileTools.uploadRepository(editor);
-
+    
     var loader: CKEDITOR.fileTools.fileLoader = repo.create('data', 'name');
     loader = repo.create(blob, 'name', 'type');
 
@@ -602,7 +603,7 @@ function test_filter() {
     filter.addElementCallback((el: CKEDITOR.htmlParser.element) => 4);
     filter.addFeature({ allowedContent: style });
     filter.addTransformations([ [ 'transform1', { right: (element: CKEDITOR.htmlParser.element, tools: string | CKEDITOR.filter.transformationTools) => true } ] ]);
-
+    
     var allowed: boolean = filter.allow(style);
     allowed = filter.allow([style], 'name');
     allowed = filter.allow('rule', 'name', false);
@@ -644,6 +645,7 @@ function test_focusManager() {
     var bool: boolean = focusManager.hasFocus;
 }
 
+
 function test_htmlParser_basicWriter() {
     var writer = new CKEDITOR.htmlParser.basicWriter();
     writer.attribute('class', 'MyClass');
@@ -678,12 +680,12 @@ function test_htmlParser_cssStyle() {
 
     style.populate(element);
     style.populate(new CKEDITOR.dom.element('div'));
-    style.populate({ width: 1 });
+    style.populate({ 'width': 1 });
 }
 
 function test_htmlParser_element() {
-    var element: CKEDITOR.htmlParser.element = new CKEDITOR.htmlParser.element('el', { id: '1'});
-
+    var element: CKEDITOR.htmlParser.element = new CKEDITOR.htmlParser.element('el', { 'id': '1'});
+    
     var node: CKEDITOR.htmlParser.node;
     element.add(node);
     element.add(node, 5);
@@ -701,8 +703,8 @@ function test_htmlParser_element() {
     element.forEach((el: CKEDITOR.htmlParser.node) => console.log('node'), 1);
     element.forEach((el: CKEDITOR.htmlParser.node) => false, 2, true);
 
-    node = element.getFirst('*');
-    node = element.getFirst({ id: '1' });
+    var node: CKEDITOR.htmlParser.node = element.getFirst('*');
+    node = element.getFirst({ 'id': '1' });
     node = element.getFirst((el: CKEDITOR.htmlParser.node) => true);
 
     var html: string = element.getHtml();
@@ -726,13 +728,14 @@ function test_htmlParser_filter() {
     filter = new CKEDITOR.htmlParser.filter();
 
     filter.addRules({ text: 'text' });
-    filter.addRules({ attributes: { id: '1234' }}, 1);
+    filter.addRules({ attributes: { 'id': '1234' }}, 1);
     filter.addRules({ comment: 'hey', text: 'text' }, { priority: 1 });
     filter.addRules({ root: document.body }, { applyToAll: false });
 
     var node: CKEDITOR.htmlParser.node;
     filter.applyTo(node);
 }
+
 
 function test_htmlParser_filterRulesGroup() {
     var rules: CKEDITOR.htmlParser.filterRulesGroup = new CKEDITOR.htmlParser.filterRulesGroup();
@@ -783,7 +786,7 @@ function test_htmlParser_node() {
     var node: CKEDITOR.htmlParser.node = new CKEDITOR.htmlParser.node();
 
     var el: CKEDITOR.htmlParser.element = node.getAscendant('condition');
-    el = node.getAscendant({ id: '1234' });
+    el = node.getAscendant({ 'id': '1234' });
     el = node.getAscendant((node: CKEDITOR.htmlParser.element) => false);
 
     var idx: number = node.getIndex();
@@ -792,6 +795,7 @@ function test_htmlParser_node() {
     node.remove();
     node.replaceWith(node);
     el = node.wrapWith(el);
+
 }
 
 function test_htmlParser_text() {
@@ -821,9 +825,9 @@ function test_htmlWriter() {
 function test_htmlParser() {
     var html = '<div><span>text</span></div>';
     var fragment = CKEDITOR.htmlParser.fragment.fromHtml(html);
-    fragment.forEach((node) => {
+    fragment.forEach(function(node) {
         if (node instanceof CKEDITOR.htmlParser.element) {
-            node.forEach((node) => {
+            node.forEach(function(node) {
                 console.log(node);
             });
         }
@@ -832,13 +836,13 @@ function test_htmlParser() {
 
 function test_keystrokeHandler() {
     var handler: CKEDITOR.keystrokeHandler = new CKEDITOR.keystrokeHandler(CKEDITOR.instances[0]);
-    handler.attach(new CKEDITOR.dom.domObject(document.body));
+    handler.attach(new CKEDITOR.dom.domObject(document.body)); 
 }
 
 function test_lang() {
     var lang: string = CKEDITOR.lang.detect('en');
     lang = CKEDITOR.lang.detect('zh', 'sw');
-
+    
     CKEDITOR.lang.load('tk', 'pr', (code: string, entries: any) => console.log('loaded'));
 }
 
@@ -865,8 +869,8 @@ function test_menu() {
 }
 
 function test_plugins() {
-    CKEDITOR.plugins.add('abbr', {
-        init: (editor: CKEDITOR.editor) => {
+    CKEDITOR.plugins.add( 'abbr', {
+        init: function( editor: CKEDITOR.editor ) {
             // empty logic
         }
     });
@@ -917,7 +921,7 @@ function test_skin() {
 }
 
 function test_style() {
-    var style: CKEDITOR.style = new CKEDITOR.style({ element: 'div' }, { key: 'value '});
+    var style: CKEDITOR.style = new CKEDITOR.style({ element: 'div' }, { 'key': 'value '});
     style.apply(CKEDITOR.instances[0]);
 
     var el: CKEDITOR.dom.element;
@@ -941,7 +945,7 @@ function test_style() {
     var def: CKEDITOR.style.definition = style.getDefintion();
     style.remove(CKEDITOR.instances[0]);
     style.removeFromRange(range, CKEDITOR.instances[0]);
-
+    
     var rules: CKEDITOR.filter.allowedContentRules;
     rules = style.toAllowedContentRules();
     rules = style.toAllowedContentRules(CKEDITOR.instances[0]);
@@ -951,14 +955,14 @@ function test_adding_command_and_buttons() {
     var textarea = document.createElement('textarea');
     var instance = CKEDITOR.replace(textarea);
 
-    instance.addCommand('aCommand', {
-        exec: (editor: CKEDITOR.editor) => {
+    instance.addCommand( 'aCommand', {
+        exec: function( editor: CKEDITOR.editor ) {
             // empty logic
             return true;
         }
     });
 
-    instance.ui.addButton('firstButton', {
+    instance.ui.addButton( 'firstButton', {
         icon: 'http://www.example.com/assets/images/icons.png',
         iconOffset: -32,
         label: 'Label 1',
@@ -966,7 +970,7 @@ function test_adding_command_and_buttons() {
         toolbar: 'tools'
     });
 
-    instance.ui.addButton('secondButton', {
+    instance.ui.addButton( 'secondButton', {
         label: 'Label 2',
         command: 'aCommand',
         toolbar: 'tools'
@@ -979,7 +983,7 @@ function test_adding_widget() {
             button: "Activate widgetty",
             template: "<imaginary-element>",
             dialog: "widgetty",
-            init: () => {
+            init: function() {
                 // no logic
             }
         });
@@ -1008,80 +1012,80 @@ function test_editor_instance_event() {
     var textarea = document.createElement('textarea');
     var instance = CKEDITOR.replace(textarea, {
         on: {
-            activeEnterModeChange: () => {},
-            activeFilterChange: () => {},
-            afterCommandExec: () => {},
-            afterInsertHtml: () => {},
-            afterPaste: () => {},
-            afterPasteFromWord: () => {},
-            afterSetData: () => {},
-            afterUndoImage: () => {},
-            ariaEditorHelpLabel: () => {},
-            ariaWidget: () => {},
-            autogrow: () => {},
-            beforeCommandExec: () => {},
-            beforeDestroy: () => {},
-            beforeModeUnload: () => {},
-            beforeSetMode: () => {},
-            beforeUndoImage: () => {},
-            blur: () => {},
-            change: () => {},
-            configLoaded: () => {},
-            contentDirChanged: () => {},
-            contentDom: () => {},
-            contentDomInvalidated: () => {},
-            contentDomUnload: () => {},
-            customConfigLoaded: () => {},
-            dataFiltered: () => {},
-            dataReady: () => {},
-            destroy: () => {},
-            dialogHide: () => {},
-            dialogShow: () => {},
-            dirChanged: () => {},
-            doubleclick: () => {},
-            dragend: () => {},
-            dragstart: () => {},
-            drop: () => {},
-            elementsPathUpdate: () => {},
-            fileUploadRequest: () => {},
-            fileUploadResponse: () => {},
-            floatingSpaceLayout: () => {},
-            focus: () => {},
-            getData: () => {},
-            getSnapshot: () => {},
-            insertElement: () => {},
-            insertHtml: () => {},
-            insertText: () => {},
-            instanceReady: () => {},
-            key: () => {},
-            langLoaded: () => {},
-            loadSnapshot: () => {},
-            loaded: () => {},
-            lockSnapshot: () => {},
-            maximize: () => {},
-            menuShow: () => {},
-            mode: () => {},
-            notificationHide: () => {},
-            notificationShow: () => {},
-            notificationUpdate: () => {},
-            paste: () => {},
-            pasteFromWord: () => {},
-            pluginsLoaded: () => {},
-            readOnly: () => {},
-            removeFormatCleanup: () => {},
-            required: () => {},
-            resize: () => {},
-            save: () => {},
-            saveSnapshot: () => {},
-            selectionChange: () => {},
-            setData: () => {},
-            stylesSet: () => {},
-            template: () => {},
-            toDataFormat: () => {},
-            toHtml: () => {},
-            unlockSnapshot: () => {},
-            updateSnapshot: () => {},
-            widgetDefinition: () => {}
+            activeEnterModeChange: function() {},
+            activeFilterChange: function() {},
+            afterCommandExec: function() {},
+            afterInsertHtml: function() {},
+            afterPaste: function() {},
+            afterPasteFromWord: function() {},
+            afterSetData: function() {},
+            afterUndoImage: function() {},
+            ariaEditorHelpLabel: function() {},
+            ariaWidget: function() {},
+            autogrow: function() {},
+            beforeCommandExec: function() {},
+            beforeDestroy: function() {},
+            beforeModeUnload: function() {},
+            beforeSetMode: function() {},
+            beforeUndoImage: function() {},
+            blur: function() {},
+            change: function() {},
+            configLoaded: function() {},
+            contentDirChanged: function() {},
+            contentDom: function() {},
+            contentDomInvalidated: function() {},
+            contentDomUnload: function() {},
+            customConfigLoaded: function() {},
+            dataFiltered: function() {},
+            dataReady: function() {},
+            destroy: function() {},
+            dialogHide: function() {},
+            dialogShow: function() {},
+            dirChanged: function() {},
+            doubleclick: function() {},
+            dragend: function() {},
+            dragstart: function() {},
+            drop: function() {},
+            elementsPathUpdate: function() {},
+            fileUploadRequest: function() {},
+            fileUploadResponse: function() {},
+            floatingSpaceLayout: function() {},
+            focus: function() {},
+            getData: function() {},
+            getSnapshot: function() {},
+            insertElement: function() {},
+            insertHtml: function() {},
+            insertText: function() {},
+            instanceReady: function() {},
+            key: function() {},
+            langLoaded: function() {},
+            loadSnapshot: function() {},
+            loaded: function() {},
+            lockSnapshot: function() {},
+            maximize: function() {},
+            menuShow: function() {},
+            mode: function() {},
+            notificationHide: function() {},
+            notificationShow: function() {},
+            notificationUpdate: function() {},
+            paste: function() {},
+            pasteFromWord: function() {},
+            pluginsLoaded: function() {},
+            readOnly: function() {},
+            removeFormatCleanup: function() {},
+            required: function() {},
+            resize: function() {},
+            save: function() {},
+            saveSnapshot: function() {},
+            selectionChange: function() {},
+            setData: function() {},
+            stylesSet: function() {},
+            template: function() {},
+            toDataFormat: function() {},
+            toHtml: function() {},
+            unlockSnapshot: function() {},
+            updateSnapshot: function() {},
+            widgetDefinition: function() {}
         }
     });
 }
@@ -1147,7 +1151,7 @@ function test_tools() {
     var str = CKEDITOR.tools.cssStyleToDomStyle('style');
     var prefixes: { [cssClass: string]: string | number } = CKEDITOR.tools.cssVendorPrefix('prop', 'val');
     prefixes = CKEDITOR.tools.cssVendorPrefix('prop', 'val', true);
-    var fn: (param: any) => boolean;
+    var fn: (param: any) => boolean
     fn = CKEDITOR.tools.defer<(param: any) => boolean>(fn);
     CKEDITOR.tools.enableHtml5Elements(document);
     CKEDITOR.tools.enableHtml5Elements(document.createDocumentFragment(), true);
@@ -1168,7 +1172,7 @@ function test_tools() {
     str = CKEDITOR.tools.htmlEncode(str);
     str = CKEDITOR.tools.htmlEncodeAttr(str);
     numb = CKEDITOR.tools.indexOf<string>(['string', 'array'], 'string');
-    numb = CKEDITOR.tools.indexOf<boolean>([true, false], (val: boolean) => false);
+    numb = CKEDITOR.tools.indexOf<boolean>([true, false], (val: boolean) => false);    
     console.log(CKEDITOR.tools.isArray([1])); // true
     console.log(CKEDITOR.tools.isArray(obj)); // false
     console.log(CKEDITOR.tools.isArray(null)); // false
@@ -1182,8 +1186,8 @@ function test_tools() {
     bool = CKEDITOR.tools.objectCompare(obj, obj);
     bool = CKEDITOR.tools.objectCompare(obj, obj, true);
     var strArr: string[] = CKEDITOR.tools.objectKeys(obj);
-    CKEDITOR.tools.override(parseInt, (_parseInt) => {
-        return (value: any, radix?: number) => {
+    CKEDITOR.tools.override(parseInt, function(_parseInt) {
+        return function(value: any, radix?: number) {
             return _parseInt(value, radix);
         };
     });

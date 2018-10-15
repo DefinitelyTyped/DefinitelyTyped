@@ -1,6 +1,6 @@
-// Type definitions for in-app-purchase 1.10
+// Type definitions for in-app-purchase 1.9
 // Project: https://github.com/voltrue2/in-app-purchase#readme
-// Definitions by: Jonas Lochmann <https://github.com/l-jonas>, Dennis Kugelmann <https://github.com/IchordeDionysos>
+// Definitions by: Jonas Lochmann <https://github.com/l-jonas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -26,7 +26,6 @@ export function validateOnce(service: Service, secretOrPubKey: any, receipt: Rec
 
 export function isValidated(response: ValidationResponse): boolean;
 export function isExpired(item: PurchasedItem): boolean;
-export function isCanceled(item: PurchasedItem): boolean;
 export function getPurchaseData(purchaseData?: ValidationResponse, options?: {
   ignoreCanceled: boolean;
   ignoreExpired: boolean;
@@ -95,15 +94,10 @@ export interface ValidationResponse {
 
 export interface PurchasedItem {
   bundleId?: string;  // only Apple
-  appItemId?: string;
   orderId?: string; // only Google
-  originalTransactionId?: string; // only Apple
   transactionId: string;
   productId: string;
-  originalPurchaseDate?: string; // only Apple
-  purchaseDate: number | string;
-  isTrial?: boolean; // only Apple
-  cancellationDate?: number; // only Apple/Google
+  purchaseDate: number;
   // iTunes, windows and amazon subscription only
   // Google subscriptions only with google play store api info
   expirationDate?: number;

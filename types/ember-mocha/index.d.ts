@@ -2,9 +2,8 @@
 // Project: https://github.com/emberjs/ember-mocha#readme
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Simon Ihmig <https://github.com/simonihmig>
-//                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.4
 
 import { TestContext, ModuleCallbacks } from "ember-test-helpers";
 import Ember from 'ember';

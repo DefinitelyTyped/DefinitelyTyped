@@ -1,12 +1,11 @@
-// Type definitions for screenfull.js 3.3.3
+// Type definitions for screenfull.js 3.3.0
 // Project: https://github.com/sindresorhus/screenfull.js
 // Definitions by: Ilia Choly <https://github.com/icholy>
 //                 lionelb <https://github.com/lionelb>
 //                 Joel Shepherd <https://github.com/joelshepherd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
 
-declare var screenfull: IScreenfull | false;
+declare var screenfull: IScreenfull;
 
 interface IScreenfullRaw {
   requestFullscreen?: string;

@@ -1,7 +1,6 @@
-// Type definitions for node-gcm 1.0.2
+// Type definitions for node-gcm 0.14.0
 // Project: https://www.npmjs.org/package/node-gcm
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
-//                 BWYou <https://github.com/yousky/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -15,17 +14,12 @@ export interface INotificationOptions {
     tag?: string;
     color?: string;
     click_action?: string;
-    body_loc_key?: string;
-    body_loc_args?: string;
-    title_loc_args?: string;
-    title_loc_key?: string;
 }
 
 export interface IMessageOptions {
     collapseKey?: string;
     priority?: string;
     contentAvailable?: boolean;
-    mutableContent?: boolean;
     delayWhileIdle?: boolean;
     timeToLive?: number;
     restrictedPackageName?: string;
@@ -63,7 +57,6 @@ export interface ISenderSendOptions {
 export interface IRecipient {
     to?: string,
     topic?: string,
-    condition?: string,
     notificationKey?: string,
     registrationIds?: string[],
     registrationTokens?: string[]

@@ -3,64 +3,53 @@
  * for more details, please see http://idangero.us/swiper/demos/
  * @author Eugene Matseruk
  */
-import Swiper from 'swiper';
-import { Swiper as SwiperESM, Navigation, History } from 'swiper/dist/js/swiper.esm';
-
-const containerSelector = '.swiper-container';
 
 /**
  *  010-default
  */
 function defaultDemo() {
-    const swiper = new Swiper(containerSelector);
-    const swiper2 = new SwiperESM(containerSelector);
+    const swiper = new Swiper('.swiper-container');
 }
 /**
  * 020-navigation
  */
 function navigation() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
     });
-
-    swiper.navigation.update();
 }
 
 /**
  * 030-pagination
  */
 function pagination() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         pagination: {
             el: '.swiper-pagination',
         },
     });
-
-    swiper.pagination.update();
 }
 
 /**
  * 040-pagination-dynamic
  */
 function paginationDynamic() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         pagination: {
             el: '.swiper-pagination',
             dynamicBullets: true,
         },
     });
-
-    swiper.pagination.update();
 }
 
 /**
  * 050-progress-pagination
  */
 function paginationProgress() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         pagination: {
             el: '.swiper-pagination',
             type: 'progressbar',
@@ -70,16 +59,13 @@ function paginationProgress() {
             prevEl: '.swiper-button-prev',
         },
     });
-
-    swiper.pagination.update();
-    swiper.navigation.update();
 }
 
 /**
  * 060-pagination-fraction
  */
 function paginationFraction() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         pagination: {
             el: '.swiper-pagination',
             type: 'fraction',
@@ -89,16 +75,13 @@ function paginationFraction() {
             prevEl: '.swiper-button-prev',
         },
     });
-
-    swiper.pagination.update();
-    swiper.navigation.update();
 }
 
 /**
  * 070-pagination-custom
  */
 function paginationCustom() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
@@ -107,29 +90,25 @@ function paginationCustom() {
             },
         },
     });
-
-    swiper.pagination.render();
 }
 
 /**
  * 080-scrollbar
  */
 function scrollbar() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         scrollbar: {
             el: '.swiper-scrollbar',
             hide: true,
         },
     });
-
-    swiper.scrollbar.updateSize();
 }
 
 /**
  * Vertical Slider
  */
 function verticalSlider() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         direction: 'vertical',
         pagination: {
             el: '.swiper-pagination',
@@ -142,7 +121,7 @@ function verticalSlider() {
  * Space Between Slides
  */
 function spaceBetween() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         spaceBetween: 30,
         pagination: {
             el: '.swiper-pagination',
@@ -155,7 +134,7 @@ function spaceBetween() {
  * Multiple Slides Per View
  */
 function multipleSlidesPerView() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 3,
         spaceBetween: 30,
         pagination: {
@@ -169,7 +148,7 @@ function multipleSlidesPerView() {
  * Auto Slides Per View / Carousel Mode
  */
 function autoSlidesPerViewAndCarouserMode() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 'auto',
         spaceBetween: 30,
         pagination: {
@@ -183,7 +162,7 @@ function autoSlidesPerViewAndCarouserMode() {
  * Centered Slides
  */
 function centeredSlides() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 4,
         spaceBetween: 30,
         centeredSlides: true,
@@ -198,7 +177,7 @@ function centeredSlides() {
  * Centered Slides + Auto Slides Per View
  */
 function centeredSlidesAndAutoSlidesPerView() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 'auto',
         centeredSlides: true,
         spaceBetween: 30,
@@ -213,7 +192,7 @@ function centeredSlidesAndAutoSlidesPerView() {
  * Free Mode / No Fixed Positions
  */
 function freeModeAndNoFixedPositions() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 3,
         spaceBetween: 30,
         freeMode: true,
@@ -228,7 +207,7 @@ function freeModeAndNoFixedPositions() {
  * Scroll Container
  */
 function scrollContainer() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         direction: 'vertical',
         slidesPerView: 'auto',
         freeMode: true,
@@ -243,7 +222,7 @@ function scrollContainer() {
  * Multi Row Slides Layout
  */
 function multiRowSlides() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 3,
         slidesPerColumn: 2,
         spaceBetween: 30,
@@ -278,7 +257,7 @@ function nestedSwipers() {
  * Grab Cursor
  */
 function grabCursor() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 4,
         centeredSlides: true,
         spaceBetween: 30,
@@ -294,7 +273,7 @@ function grabCursor() {
  * Loop Mode / Infinite Loop
  */
 function loopMode() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 1,
         spaceBetween: 30,
         loop: true,
@@ -313,7 +292,7 @@ function loopMode() {
  * Loop Mode with Multiple Slides Per Group
  */
 function loopModeWithMultipleSlides() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 3,
         spaceBetween: 30,
         slidesPerGroup: 3,
@@ -334,7 +313,7 @@ function loopModeWithMultipleSlides() {
  * Fade Effect
  */
 function fadeEffect() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         spaceBetween: 30,
         effect: 'fade',
         pagination: {
@@ -352,7 +331,7 @@ function fadeEffect() {
  * 3D Cube Effect
  */
 function cube3dEffect() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         effect: 'cube',
         grabCursor: true,
         cubeEffect: {
@@ -371,7 +350,7 @@ function cube3dEffect() {
  * 3D Coverflow Effect
  */
 function coverflow3dEffect() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         effect: 'coverflow',
         grabCursor: true,
         centeredSlides: true,
@@ -393,7 +372,7 @@ function coverflow3dEffect() {
  * 3D Flip Effect
  */
 function flip3dEffect() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         effect: 'flip',
         grabCursor: true,
         pagination: {
@@ -410,7 +389,7 @@ function flip3dEffect() {
  * Keyboard Control (Open in new window)
  */
 function keyboardControl() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 1,
         spaceBetween: 30,
         keyboard: {
@@ -431,7 +410,7 @@ function keyboardControl() {
  * Mousewheel Control
  */
 function mouseWheelControl() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         direction: 'vertical',
         slidesPerView: 1,
         spaceBetween: 30,
@@ -447,7 +426,7 @@ function mouseWheelControl() {
  * Autoplay
  */
 function autoplay() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         spaceBetween: 30,
         centeredSlides: true,
         autoplay: {
@@ -471,7 +450,7 @@ function autoplay() {
 function dynamicSlides() {
     let appendNumber = 4;
     let prependNumber = 1;
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 3,
         centeredSlides: true,
         spaceBetween: 30,
@@ -484,22 +463,22 @@ function dynamicSlides() {
             prevEl: '.swiper-button-prev',
         },
     });
-    document.querySelector('.prepend-2-slides').addEventListener('click', e => {
+    document.querySelector('.prepend-2-slides').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.prependSlide([
             `<div class="swiper-slide">Slide ${--prependNumber}</div>`,
             `<div class="swiper-slide">Slide ${--prependNumber}</div>`,
         ]);
     });
-    document.querySelector('.prepend-slide').addEventListener('click', e => {
+    document.querySelector('.prepend-slide').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.prependSlide(`<div class="swiper-slide">Slide ${--prependNumber}</div>`);
     });
-    document.querySelector('.append-slide').addEventListener('click', e => {
+    document.querySelector('.append-slide').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.appendSlide(`<div class="swiper-slide">Slide ${--appendNumber}</div>`);
     });
-    document.querySelector('.append-2-slides').addEventListener('click', e => {
+    document.querySelector('.append-2-slides').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.appendSlide([
             `<div class="swiper-slide">Slide ${--appendNumber}</div>`,
@@ -534,7 +513,7 @@ function thumbsGalleryWithTwoWayControl() {
  * Hash Navigation (Open in new window)
  */
 function hashNavigation() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         spaceBetween: 30,
         hashNavigation: {
             watchState: true,
@@ -554,7 +533,7 @@ function hashNavigation() {
  * History API (Open in new window)
  */
 function historyApi() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         spaceBetween: 50,
         slidesPerView: 1,
         navigation: {
@@ -574,7 +553,7 @@ function historyApi() {
  * RTL Layout
  */
 function rtlLayout() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
@@ -590,7 +569,7 @@ function rtlLayout() {
  * Parallax
  */
 function parallax() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         speed: 600,
         parallax: true,
         pagination: {
@@ -608,7 +587,7 @@ function parallax() {
  * Lazy Loading Images
  */
 function lazyLoadingImages() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         // Enable lazy loading
         lazy: true,
         pagination: {
@@ -626,7 +605,7 @@ function lazyLoadingImages() {
  * Responsive Breakpoints
  */
 function responsiveBreakpoints() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 5,
         spaceBetween: 50,
         // init: false,
@@ -659,7 +638,7 @@ function responsiveBreakpoints() {
  * Auto Height
  */
 function autoHeight() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         autoHeight: true, // enable auto height
         spaceBetween: 20,
         pagination: {
@@ -677,7 +656,7 @@ function autoHeight() {
  * Zoom
  */
 function zoom() {
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         zoom: true,
         pagination: {
             el: '.swiper-pagination',
@@ -687,14 +666,6 @@ function zoom() {
             prevEl: '.swiper-button-prev',
         },
     });
-
-    swiper.zoom.out();
-    swiper.zoom.disable();
-
-    if (swiper.zoom.enabled) throw new Error('Zoom should be disabled!');
-
-    swiper.zoom.enable();
-    swiper.zoom.in();
 }
 
 /**
@@ -706,7 +677,7 @@ function virtualSlides() {
         slides.push('Slide ' + (i + 1));
     }
 
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 3,
         centeredSlides: true,
         spaceBetween: 30,
@@ -722,15 +693,15 @@ function virtualSlides() {
             slides
         },
     });
-    document.querySelector('.slide-1').addEventListener('click', e => {
+    document.querySelector('.slide-1').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.slideTo(0, 0);
     });
-    document.querySelector('.slide-250').addEventListener('click', e => {
+    document.querySelector('.slide-250').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.slideTo(249, 0);
     });
-    document.querySelector('.slide-500').addEventListener('click', e => {
+    document.querySelector('.slide-500').addEventListener('click', (e) => {
         e.preventDefault();
         swiper.slideTo(499, 0);
     });
@@ -741,7 +712,7 @@ function virtualSlides() {
  */
 function slideableNavigation() {
     const menuButton = document.querySelector('.menu-button');
-    const swiper = new Swiper(containerSelector, {
+    const swiper = new Swiper('.swiper-container', {
         slidesPerView: 'auto',
         initialSlide: 1,
         resistanceRatio: 0,
@@ -767,13 +738,4 @@ function slideableNavigation() {
             },
         }
     });
-}
-
-/**
- * Swiper module instalation.
- */
-function staticUseModules() {
-    SwiperESM.use([Navigation, History]);
-
-    const swiper = new Swiper(containerSelector);
 }

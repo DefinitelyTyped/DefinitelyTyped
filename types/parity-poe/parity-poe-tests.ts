@@ -21,7 +21,9 @@ formatInbound({});
 
 // Invalid sub type
 // $ExpectError
-formatInbound({ messageType: 1 });
+formatInbound({
+    messageType: 1
+});
 
 /**
  *  parseInbound tests
@@ -50,7 +52,9 @@ formatOutbound({});
 
 // Invalid sub type
 // $ExpectError
-formatOutbound({ messageType: 1 });
+formatOutbound({
+    messageType: 1
+});
 
 /**
  * parseOutbound tests

@@ -13,8 +13,7 @@ interface MyOptions {
 }
 
 // exports should work same as module.exports
-// assigning exports is an error in node, hence the cast
-(global as any).exports = (grunt: IGrunt) => {
+exports = (grunt: IGrunt) => {
 
     // Project configuration.
     grunt.initConfig({
@@ -133,9 +132,4 @@ exports.exports = function(grunt: IGrunt) {
 let myTest = function (grunt: IGrunt) {
     grunt.file.expand(['*.ts']);
     grunt.file.expand('*.ts');
-
-    // 'cwd' in options, and string pattern
-    grunt.file.expand({
-        cwd: '.'
-    }, '*.ts');
 }

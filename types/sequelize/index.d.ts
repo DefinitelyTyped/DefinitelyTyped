@@ -2890,12 +2890,9 @@ declare namespace sequelize {
         changed(): boolean | string[];
 
         /**
-         * If previous is called with a string, it will return the previous value for the key from `_previousDataValues`.
-         *
-         * If previous is called without an argument, it will return an object containing the previous keys and values that have changed.
+         * Returns the previous value for key from `_previousDataValues`.
          */
         previous(key: keyof TAttributes): any;
-        previous(): object;
 
         /**
          * Validate this instance, and if the validation passes, persist it to the database.
@@ -5236,17 +5233,8 @@ declare namespace sequelize {
          * `this.constructor.prototype.find.apply(this, arguments)`
          */
         classMethods?: Object;
-        
-        /**
-         * Change the database schema. PG only feature, but also works with other dialects.
-         */
+
         schema?: string;
-        
-        
-        /**
-         * Change the database schema delimiter. Defaults to "." on PG but for other dialects can be also changed to "_".
-         */
-        schemaDelimiter?: string;
 
         /**
          * You can also change the database engine, e.g. to MyISAM. InnoDB is the default.
@@ -6207,9 +6195,9 @@ declare namespace sequelize {
          * @param options Transaction Options
          * @param autoCallback Callback for the transaction
          */
-        transaction<T>(options: TransactionOptions,
-            autoCallback: (t: Transaction) => PromiseLike<T>): Promise<T>;
-        transaction<T>(autoCallback: (t: Transaction) => PromiseLike<T>): Promise<T>;
+        transaction(options: TransactionOptions,
+            autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
+        transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
         transaction(options?: TransactionOptions): Promise<Transaction>;
 
         /**

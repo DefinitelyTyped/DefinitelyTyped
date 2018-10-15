@@ -1,3 +1,5 @@
+
+
 let bCss = js_beautify.css("body{display:none;}");
 bCss = js_beautify.css_beautify("body{display:none;}");
 
@@ -32,5 +34,4 @@ var full: string = js_beautify(
         "wrap_attributes": "auto",
         "wrap_attributes_indent_size": 4,
         "end_with_newline": false
-    }
-);
+    });

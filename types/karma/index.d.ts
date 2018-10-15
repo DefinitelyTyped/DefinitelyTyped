@@ -1,17 +1,15 @@
-// Type definitions for karma 3.0
+// Type definitions for karma 1.7
 // Project: https://github.com/karma-runner/karma
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 James Garbutt <https://github.com/43081j>
-//                 Yaroslav Admin <https://github.com/devoto13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 /// <reference types="node" />
 
-// See Karma public API https://karma-runner.github.io/latest/dev/public-api.html
+// See Karma public API https://karma-runner.github.io/0.13/dev/public-api.html
 import Promise = require('bluebird');
 import https = require('https');
-import { Appender } from 'log4js';
 
 declare namespace karma {
     interface Karma {
@@ -59,17 +57,17 @@ declare namespace karma {
 
     interface LauncherStatic {
         generateId(): string;
-        // TODO: injector should be of type `di.Injector`
+        //TODO: injector should be of type `di.Injector`
         new (emitter: NodeJS.EventEmitter, injector: any): Launcher;
     }
 
     interface Launcher {
         Launcher: LauncherStatic;
-        // TODO: Can this return value ever be typified?
+        //TODO: Can this return value ever be typified?
         launch(names: string[], protocol: string, hostname: string, port: number, urlRoot: string): any[];
-        kill(id: string, callback: () => void): boolean;
+        kill(id: string, callback: Function): boolean;
         restart(id: string): boolean;
-        killAll(callback: () => void): void;
+        killAll(callback: Function): void;
         areAllCaptured(): boolean;
         markCaptured(id: string): void;
     }
@@ -82,12 +80,14 @@ declare namespace karma {
         run(options?: ConfigOptions | ConfigFile, callback?: ServerCallback): void;
     }
 
+
     interface Stopper {
         /**
-         * This function will signal a running server to stop. The equivalent of karma stop.
-         */
+          * This function will signal a running server to stop. The equivalent of karma stop.
+          */
         stop(options?: ConfigOptions, callback?: ServerCallback): void;
     }
+
 
     interface TestResults {
         disconnected: boolean;
@@ -98,8 +98,6 @@ declare namespace karma {
     }
 
     interface Server extends NodeJS.EventEmitter {
-        // TODO: Figure out how to convert Server to class and remove suppression
-        // tslint:disable-next-line:no-misused-new
         new (options?: ConfigOptions | ConfigFile, callback?: ServerCallback): Server;
         /**
          * Start the server
@@ -115,21 +113,23 @@ declare namespace karma {
          */
         refreshFiles(): Promise<any>;
 
-        on(event: string, listener: (...args: any[]) => void): this;
+        on(event: string, listener: Function): this;
 
         /**
          * Listen to the 'run_complete' event.
          */
         on(event: 'run_complete', listener: (browsers: any, results: TestResults) => void): this;
 
-        /**
-         * Backward-compatibility with karma-intellij bundled with WebStorm.
-         * Deprecated since version 0.13, to be removed in 0.14
-         */
-        // static start(): void;
+        ///**
+        // * Backward-compatibility with karma-intellij bundled with WebStorm.
+        // * Deprecated since version 0.13, to be removed in 0.14
+        // */
+        //static start(): void;
     }
 
-    type ServerCallback = (exitCode: number) => void;
+    interface ServerCallback {
+        (exitCode: number): void;
+    }
 
     interface Config {
         set: (config: ConfigOptions) => void;
@@ -142,6 +142,16 @@ declare namespace karma {
 
     interface ConfigFile {
         configFile: string;
+    }
+
+    // taken from log4js 1.x typings which are gone...
+    interface Log4jsAppenderConfigBase {
+        type: string;
+        category?: string;
+        layout?: {
+            type: string;
+            [key: string]: any
+        }
     }
 
     interface ConfigOptions {
@@ -248,7 +258,7 @@ declare namespace karma {
          * @default []
          * @description List of files/patterns to load in the browser.
          */
-        files?: Array<FilePattern | string>;
+        files?: (FilePattern | string)[];
         /**
          * @default []
          * @description List of test frameworks you want to use. Typically, you will set this to ['jasmine'], ['mocha'] or ['qunit']...
@@ -284,7 +294,7 @@ declare namespace karma {
          * @default [{type: 'console'}]
          * @description A list of log appenders to be used. See the documentation for [log4js] for more information.
          */
-        loggers?: { [name: string]: Appender } | Appender[];
+        loggers?: Log4jsAppenderConfigBase[];
         /**
          * @default []
          * @description List of names of additional middleware you want the
@@ -332,7 +342,7 @@ declare namespace karma {
          * but your interactive debugging does not.
          *
          */
-        preprocessors?: { [name: string]: string | string[] };
+        preprocessors?: { [name: string]: string | string[] }
         /**
          * @default 'http:'
          * Possible Values:
@@ -349,7 +359,7 @@ declare namespace karma {
          * @default {}
          * @description A map of path-proxy pairs.
          */
-        proxies?: { [path: string]: string };
+        proxies?: { [path: string]: string }
         /**
          * @default true
          * @description Whether or not Karma or any browsers should raise an error when an inavlid SSL certificate is found.

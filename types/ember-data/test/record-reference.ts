@@ -7,8 +7,8 @@ class User extends DS.Model {
     username = DS.attr('string');
 }
 
-declare module 'ember-data/types/registries/model' {
-    export default interface ModelRegistry {
+declare module 'ember-data' {
+    interface ModelRegistry {
         user: User;
     }
 }

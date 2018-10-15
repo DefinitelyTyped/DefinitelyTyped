@@ -116,7 +116,7 @@ fooSequence = fooSequence.first(num);
 
 fooSequence = fooSequence.flatten();
 fooObjectSeq = fooSequence.groupBy(fnGetKeyCallback);
-num = fooSequence.indexOf(x);
+fooSequence = fooSequence.indexOf(x);
 fooSequence = fooSequence.initial();
 fooSequence = fooSequence.initial(num);
 fooSequence = fooSequence.intersection(arr);
@@ -128,7 +128,7 @@ str = fooSequence.join(str);
 foo = fooSequence.last();
 fooSequence = fooSequence.last(num);
 
-num = fooSequence.lastIndexOf(foo);
+fooSequence = fooSequence.lastIndexOf(foo);
 barSequence = fooSequence.map(fnMapCallback);
 foo = fooSequence.max();
 foo = fooSequence.max(fnNumberCallback);
@@ -151,7 +151,7 @@ fooSequence = fooSequence.sortBy(str);
 fooSequence = fooSequence.sortBy(str, bool);
 fooSequence = fooSequence.sortBy(fnNumberCallback);
 fooSequence = fooSequence.sortBy(fnNumberCallback, bool);
-num = fooSequence.sortedIndex(foo);
+fooSequence = fooSequence.sortedIndex(foo);
 foo = fooSequence.sum();
 foo = fooSequence.sum(fnNumberCallback);
 fooSequence = fooSequence.takeWhile(fnTestCallback);
@@ -168,7 +168,7 @@ obj = fooSequence.toObject();
 // ArrayLikeSequence
 
 fooArraySeq = fooArraySeq.concat(fooArr);
-x = fooArraySeq.first();
+fooArraySeq = fooArraySeq.first();
 fooArraySeq = fooArraySeq.first(num);
 foo = fooArraySeq.get(num);
 num = fooArraySeq.length();
@@ -185,7 +185,7 @@ fooArraySeq = fooArraySeq.slice(num, num);
 
 fooObjectSeq = fooObjectSeq.defaults(obj);
 fooSequence = fooObjectSeq.functions();
-x = fooObjectSeq.get(str);
+fooObjectSeq = fooObjectSeq.get(str);
 fooObjectSeq = fooObjectSeq.invert();
 strSequence = fooObjectSeq.keys();
 fooObjectSeq = fooObjectSeq.omit(strArr);

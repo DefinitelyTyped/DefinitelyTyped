@@ -400,7 +400,6 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
     },
-    unselectable: 'on',
     'aria-atomic': false,
     'aria-checked': 'true',
     'aria-colcount': 7,

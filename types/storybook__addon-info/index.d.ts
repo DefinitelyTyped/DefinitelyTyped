@@ -19,8 +19,8 @@ export interface Options {
   header?: boolean;
   inline?: boolean;
   source?: boolean;
-  propTables?: React.ComponentType[] | false;
-  propTablesExclude?: React.ComponentType[];
+  propTables?: JSX.Element[] | false;
+  propTablesExclude?: JSX.Element[];
   styles?: object;
   marksyConf?: object;
   maxPropsIntoLine?: number;

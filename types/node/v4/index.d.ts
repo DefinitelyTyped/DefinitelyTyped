@@ -1,7 +1,7 @@
-// Type definitions for Node.js 4.9
+// Type definitions for Node.js 4.x
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
-//                 DefinitelyTyped <https://github.com/DefinitelyTyped>
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Sander Koenders <https://github.com/Archcry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1229,7 +1229,7 @@ declare module "child_process" {
         stdin:  stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
-        stdio: StdioStreams;
+        stdio: [stream.Writable, stream.Readable, stream.Readable];
         killed: boolean;
         pid: number;
         kill(signal?: string): void;
@@ -1237,12 +1237,6 @@ declare module "child_process" {
         connected: boolean;
         disconnect(): void;
         unref(): void;
-    }
-
-    export interface StdioStreams extends ReadonlyArray<stream.Readable|stream.Writable> {
-        0: stream.Writable; // stdin
-        1: stream.Readable; // stdout
-        2: stream.Readable; // stderr
     }
 
     export interface SpawnOptions {

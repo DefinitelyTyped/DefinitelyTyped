@@ -18,7 +18,6 @@ import {
 } from "../type/definition";
 import { GraphQLDirective } from "../type/directives";
 import { TypeInfo } from "../utilities/TypeInfo";
-import { ASTVisitor } from "../language/visitor";
 
 type NodeWithSelectionSet = OperationDefinitionNode | FragmentDefinitionNode;
 type VariableUsage = {
@@ -32,28 +31,16 @@ type VariableUsage = {
  * allowing access to commonly useful contextual information from within a
  * validation rule.
  */
-export class ASTValidationContext {
-    constructor(ast: DocumentNode);
+export default class ValidationContext {
+    constructor(schema: GraphQLSchema, ast: DocumentNode, typeInfo: TypeInfo);
 
     reportError(error: GraphQLError): undefined;
 
     getErrors(): ReadonlyArray<GraphQLError>;
 
-    getDocument(): DocumentNode;
-}
-
-export class SDLValidationContext extends ASTValidationContext {
-    constructor(ast: DocumentNode, schema?: Maybe<GraphQLSchema>);
-
-    getSchema(): Maybe<GraphQLSchema>;
-}
-
-export type SDLValidationRule = (context: SDLValidationContext) => ASTVisitor;
-
-export class ValidationContext extends ASTValidationContext {
-    constructor(schema: GraphQLSchema, ast: DocumentNode, typeInfo: TypeInfo);
-
     getSchema(): GraphQLSchema;
+
+    getDocument(): DocumentNode;
 
     getFragment(name: string): Maybe<FragmentDefinitionNode>;
 
@@ -79,5 +66,3 @@ export class ValidationContext extends ASTValidationContext {
 
     getArgument(): Maybe<GraphQLArgument>;
 }
-
-export type ValidationRule = (context: ValidationContext) => ASTVisitor;

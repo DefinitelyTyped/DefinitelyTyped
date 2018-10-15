@@ -1857,7 +1857,6 @@ export interface Intersection {
     face?: Face3 | null;
     faceIndex?: number;
     object: Object3D;
-    uv: Vector2;
 }
 
 export interface RaycasterParameters {
@@ -2239,7 +2238,6 @@ export class FileLoader {
     setPath(path: string) : FileLoader;
     setResponseType(responseType: string) : FileLoader;
     setWithCredentials(value: string): FileLoader;
-    setRequestHeader(value: {[header: string]: string}): FileLoader;
 }
 
 export class FontLoader {
@@ -2510,7 +2508,7 @@ export class Material extends EventDispatcher {
     /**
      * The tranparency of the .blendDst. Default is null.
      */
-    blendDstAlpha: number | null;
+    blendDstAlpha: number;
 
     /**
      * Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is {@link AddEquation}.
@@ -2520,7 +2518,7 @@ export class Material extends EventDispatcher {
     /**
      * The tranparency of the .blendEquation. Default is null.
      */
-    blendEquationAlpha: number | null;
+    blendEquationAlpha: number;
 
     /**
      * Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.
@@ -2535,7 +2533,7 @@ export class Material extends EventDispatcher {
     /**
      * The tranparency of the .blendSrc. Default is null.
      */
-    blendSrcAlpha: number | null;
+    blendSrcAlpha: number;
 
     /**
      * Changes the behavior of clipping planes so that only their intersection is clipped, rather than their union. Default is false.
@@ -2749,13 +2747,14 @@ export interface LineDashedMaterialParameters extends MaterialParameters {
     gapSize?: number;
 }
 
-export class LineDashedMaterial extends LineBasicMaterial {
+export class LineDashedMaterial extends Material {
     constructor(parameters?: LineDashedMaterialParameters);
 
+    color: Color;
+    linewidth: number;
     scale: number;
     dashSize: number;
     gapSize: number;
-    isLineDashedMaterial: boolean;
 
     setValues(parameters: LineDashedMaterialParameters): void;
 }
@@ -2787,12 +2786,12 @@ export class MeshBasicMaterial extends Material {
     constructor(parameters?: MeshBasicMaterialParameters);
 
     color: Color;
-    map: Texture | null;
-    aoMap: Texture | null;
+    map: Texture;
+    aoMap: Texture;
     aoMapIntensity: number;
-    specularMap: Texture | null;
-    alphaMap: Texture | null;
-    envMap: Texture | null;
+    specularMap: Texture;
+    alphaMap: Texture;
+    envMap: Texture;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
@@ -2852,15 +2851,15 @@ export class MeshLambertMaterial extends Material {
     color: Color;
     emissive: Color;
     emissiveIntensity: number;
-    emissiveMap: Texture | null;
-    map: Texture | null;
-    lightMap: Texture | null;
+    emissiveMap: Texture;
+    map: Texture;
+    lightMap: Texture;
     lightMapIntensity: number;
-    aoMap: Texture | null;
+    aoMap: Texture;
     aoMapIntensity: number;
-    specularMap: Texture | null;
-    alphaMap: Texture | null;
-    envMap: Texture | null;
+    specularMap: Texture;
+    alphaMap: Texture;
+    envMap: Texture;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
@@ -2914,25 +2913,25 @@ export class MeshStandardMaterial extends Material {
     color: Color;
     roughness: number;
     metalness: number;
-    map: Texture | null;
-    lightMap: Texture | null;
+    map: Texture;
+    lightMap: Texture;
     lightMapIntensity: number;
-    aoMap: Texture | null;
+    aoMap: Texture;
     aoMapIntensity: number;
     emissive: Color;
     emissiveIntensity: number;
-    emissiveMap: Texture | null;
-    bumpMap: Texture | null;
+    emissiveMap: Texture;
+    bumpMap: Texture;
     bumpScale: number;
-    normalMap: Texture | null;
+    normalMap: Texture;
     normalScale: number;
-    displacementMap: Texture | null;
+    displacementMap: Texture;
     displacementScale: number;
     displacementBias: number;
-    roughnessMap: Texture | null;
-    metalnessMap: Texture | null;
-    alphaMap: Texture | null;
-    envMap: Texture | null;
+    roughnessMap: Texture;
+    metalnessMap: Texture;
+    alphaMap: Texture;
+    envMap: Texture;
     envMapIntensity: number;
     refractionRatio: number;
     wireframe: boolean;
@@ -3087,7 +3086,7 @@ export class PointsMaterial extends Material {
     constructor(parameters?: PointsMaterialParameters);
 
     color: Color;
-    map: Texture | null;
+    map: Texture;
     size: number;
     sizeAttenuation: boolean;
 
@@ -3143,7 +3142,7 @@ export class ShaderMaterial extends Material {
     derivatives: any;
     extensions: { derivatives: boolean; fragDepth: boolean; drawBuffers: boolean; shaderTextureLOD: boolean };
     defaultAttributeValues: any;
-    index0AttributeName: string | undefined;
+    index0AttributeName: string;
 
     setValues(parameters: ShaderMaterialParameters): void;
     toJSON(meta: any): any;
@@ -3163,7 +3162,7 @@ export class SpriteMaterial extends Material {
     constructor(parameters?: SpriteMaterialParameters);
 
     color: Color;
-    map: Texture | null;
+    map: Texture;
     rotation: number;
 
     setValues(parameters: SpriteMaterialParameters): void;
@@ -3370,7 +3369,7 @@ export class Color {
      */
     getHexString(): string;
 
-    getHSL(target: HSL): HSL;
+    getHSL(): HSL;
 
     /**
      * Returns the value of this color in CSS context style.
@@ -5426,14 +5425,6 @@ export interface WebGLRendererParameters {
      */
     canvas?: HTMLCanvasElement;
 
-
-    /**
-     * A WebGL Rendering Context.
-     * (https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext)
-     *  Default is null
-     */
-    context?: WebGLRenderingContext
-
     /**
      *  shader precision. Can be "highp", "mediump" or "lowp".
      */
@@ -7242,7 +7233,7 @@ export class EdgesGeometry extends BufferGeometry {
     constructor(geometry: BufferGeometry | Geometry, thresholdAngle?: number);
 }
 
-export interface ExtrudeGeometryOptions {
+export interface ExtrueGeometryOptions {
     curveSegments?: number;
     steps?: number;
     depth?: number;
@@ -7260,7 +7251,7 @@ export interface UVGenerator {
 }
 
 export class ExtrudeGeometry extends Geometry {
-    constructor(shapes: Shape | Shape[], options?: ExtrudeGeometryOptions);
+    constructor(shape: Shape | Shape[], options?: ExtrueGeometryOptions);
 
     static WorldUVGenerator: UVGenerator;
 
@@ -7269,7 +7260,7 @@ export class ExtrudeGeometry extends Geometry {
 }
 
 export class ExtrudeBufferGeometry extends BufferGeometry {
-    constructor(shapes: Shape | Shape[], options?: ExtrudeGeometryOptions);
+    constructor(shapes?: Shape[], options?: ExtrueGeometryOptions);
 
     static WorldUVGenerator: UVGenerator;
 

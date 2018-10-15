@@ -98,13 +98,6 @@ export interface FontWeightProps {
 
 export function fontWeight(...args: any[]): any;
 
-export type FontStyleValue = string;
-export type ResponsiveFontStyleValue = ResponsiveValue<FontStyleValue>;
-export interface FontStyleProps {
-    fontStyle?: ResponsiveFontStyleValue;
-}
-export function fontStyle(...args: any[]): any;
-
 export type LetterSpacingValue = number | string;
 export type ResponsiveLetterSpacingValue = ResponsiveValue<LetterSpacingValue>;
 export interface LetterSpacingProps {
@@ -263,14 +256,6 @@ export interface AlignContentProps {
     alignContent?: ResponsiveAlignContentValue;
 }
 
-export function alignContent(...args: any[]): any;
-
-export type JustifyItemsValue = string;
-export type ResponsiveJustifyItemsValue = ResponsiveValue<JustifyItemsValue>;
-
-export interface JustifyItemsProps {
-    justifyItems?: ResponsiveJustifyItemsValue;
-}
 export function alignContent(...args: any[]): any;
 
 export type JustifyContentValue =
@@ -492,18 +477,6 @@ export interface GridTemplatesRowsProps {
 
 export function gridTemplateRows(...args: any[]): any;
 
-export interface GridTemplatesAreasProps {
-    gridTemplateAreas?: ResponsiveGridTemplateValue;
-}
-
-export function gridTemplateAreas(...args: any[]): any;
-
-export interface GridAreaProps {
-    gridArea?: ResponsiveGridTemplateValue;
-}
-
-export function gridArea(...args: any[]): any;
-
 /**
  * Borders
  */
@@ -581,14 +554,6 @@ export interface OpacityProps {
 
 export function opacity(...arg: any[]): any;
 
-export type OverflowValue = string | number;
-export type ResponsiveOverflowValue = ResponsiveValue<OverflowValue>;
-
-export interface OverflowProps {
-    overflow?: ResponsiveOverflowValue;
-}
-
-export function overflow(...arg: any[]): any;
 /**
  * Background
  */

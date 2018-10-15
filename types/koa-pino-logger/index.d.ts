@@ -26,9 +26,3 @@ declare namespace logger {
         stream?: stream.Writable | stream.Duplex | stream.Transform;
     }
 }
-
-declare module 'koa' {
-    interface Context {
-        log: Logger;
-    }
-}

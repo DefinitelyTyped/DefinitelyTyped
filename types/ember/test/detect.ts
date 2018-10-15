@@ -9,7 +9,7 @@ class ES6Class extends Ember.Object {
     bar: string;
 }
 
-const TestClass = Ember.Object;
+let TestClass = Ember.Object;
 
 if (ExtendClass.detect(TestClass)) {
     assertType<string>(TestClass.create().foo);

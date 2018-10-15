@@ -4,7 +4,6 @@
 //                 Alex Gorbatchev <https://github.com/alexgorbatchev>,
 //                 Alec Hill <https://github.com/alechill>
 //                 Alexey Pelykh <https://github.com/alexey-pelykh>
-//                 Thiago de Andrade <https://github.com/7hi4g0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -156,27 +155,19 @@ export function handleAction<State, Payload, Meta>(
     initialState: State
 ): Reducer<State, Payload>;
 
-export interface Options {
-    prefix?: string;
-    namespace?: string;
-}
-
 export function handleActions<StateAndPayload>(
     reducerMap: ReducerMap<StateAndPayload, StateAndPayload>,
-    initialState: StateAndPayload,
-    options?: Options
+    initialState: StateAndPayload
 ): Reducer<StateAndPayload, StateAndPayload>;
 
 export function handleActions<State, Payload>(
     reducerMap: ReducerMap<State, Payload>,
-    initialState: State,
-    options?: Options
+    initialState: State
 ): Reducer<State, Payload>;
 
 export function handleActions<State, Payload, Meta>(
     reducerMap: ReducerMapMeta<State, Payload, Meta>,
-    initialState: State,
-    options?: Options
+    initialState: State
 ): ReducerMeta<State, Payload, Meta>;
 
 // https://github.com/redux-utilities/redux-actions/blob/v2.3.0/src/combineActions.js#L21
@@ -192,14 +183,14 @@ export interface ActionMap<Payload, Meta> {
 
 export function createActions<Payload>(
     actionMapOrIdentityAction: ActionMap<Payload, any> | string,
-    ...identityActions: Array<string | Options>
+    ...identityActions: string[]
 ): {
     [actionName: string]: ActionFunctionAny<Action<Payload>>
 };
 
 export function createActions(
     actionMapOrIdentityAction: ActionMap<any, any> | string,
-    ...identityActions: Array<string | Options>
+    ...identityActions: string[]
 ): {
     [actionName: string]: ActionFunctionAny<Action<any>>
 };

@@ -1,3 +1,4 @@
+import fs = require("fs");
 import md5 = require("md5");
 /**
  * API
@@ -23,12 +24,8 @@ import md5 = require("md5");
  * });                                              *
  * **************************************************
  */
-const message = 'message';
+console.log(md5('message')); // should print 78e731027d8fd50ed642340b7c9a63b3
 
-console.log(md5(message)); // should print 78e731027d8fd50ed642340b7c9a63b3
-
-const array = new Array<number>(message.length);
-for (let i = 0; i < message.length; ++i)
-  array[i] = message.charCodeAt(i);
-const buffer = new Buffer(array);
-console.log(md5(buffer));  // Should be same result as above.
+fs.readFile('md5.d.ts', function(err: Error, buf: Buffer) {
+	console.log(md5(buf));
+});

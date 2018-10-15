@@ -1,12 +1,12 @@
 import * as schema from "./devtools-protocol-schema";
 import { createListeners } from "./event-emitter";
-import { capitalize, createDocs, flattenArgs, hasElements, isObjectReference } from "./utils";
+import { capitalize, createDocs, flattenArgs, hasElements, isObjectReference, resolveReference } from "./utils";
 
 const INDENT = "    ";
 
 // Converts DevTools type to TS type
 const createTypeString = (type: schema.Field, domain?: string): string => {
-    return isObjectReference(type) ? type.$ref :
+    return isObjectReference(type) ? resolveReference(type.$ref, domain) :
         type.type === "any"                    ? "any" :
         type.type === "integer"            ? "number" :
         type.type === "number"             ? "number" :
@@ -34,11 +34,11 @@ const createTypeDefinition = (type: schema.Type, domain: string): string[] => {
     return [
         ...createDocs(type),
         ...(type.type === "object" ? [
-            `interface ${type.id} {`,
+            `export interface ${type.id} {`,
             ...createFieldsForInterface(type.properties, domain)
                 .map(line => `${INDENT}${line}`),
             "}",
-        ] : [`type ${type.id} = ${createTypeString(type)};`]),
+        ] : [`export type ${type.id} = ${createTypeString(type)};`]),
     ];
 };
 
@@ -55,22 +55,13 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
     const callbackStr = createCallbackString(command.name, command.returns, domain);
     const result = createDocs(command);
     if (hasElements(command.parameters)) {
-        const parts = [
+        result.push([
             `${fnName}(`,
             `method: "${domain}.${command.name}", `,
             `params?: ${domain}.${capitalize(command.name)}ParameterType, `,
             `callback?: ${callbackStr}`,
             "): void;",
-        ];
-        const joined = parts.join('');
-        if ((joined.length + 8) > 200) {
-            parts[1] = INDENT + parts[1];
-            parts[2] = INDENT + parts[2];
-            parts[3] = INDENT + parts[3];
-            result.push(...parts);
-        } else {
-            result.push(joined);
-        }
+        ].join(""));
     }
     result.push([
         `${fnName}(`,
@@ -125,7 +116,7 @@ export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: st
                 }),
             ].filter(x => x));
             return typePool.length > 0 ? [
-                `namespace ${item.domain} {`,
+                `export namespace ${item.domain} {`,
                 ...typePool
                     .map(type => createTypeDefinition(type, item.domain))
                     .reduce(flattenArgs(""))

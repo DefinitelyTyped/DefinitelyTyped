@@ -1,4 +1,4 @@
-import { ValidationContext, SDLValidationContext } from "../ValidationContext";
+import ValidationContext from "../ValidationContext";
 import { ASTVisitor } from "../../language/visitor";
 
 export function unknownArgMessage(
@@ -21,6 +21,3 @@ export function unknownDirectiveArgMessage(
  * that field.
  */
 export function KnownArgumentNames(context: ValidationContext): ASTVisitor;
-
-// @internal
-export function KnownArgumentNamesOnDirectives(context: ValidationContext | SDLValidationContext): ASTVisitor;

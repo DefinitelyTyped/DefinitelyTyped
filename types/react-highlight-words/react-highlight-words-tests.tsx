@@ -1,10 +1,5 @@
 import * as React from "react";
-import Highlighter, { FindChunks } from "react-highlight-words";
-
-const findChunks = ({
-    searchWords,
-    textToHighlight
-}: FindChunks) => [];
+import Highlighter from "react-highlight-words";
 
 class HighlighterTest extends React.Component {
     render() {
@@ -21,7 +16,7 @@ class HighlighterTest extends React.Component {
                     autoEscape={true}
                     className="className"
                     caseSensitive={true}
-                    findChunks={findChunks}
+                    findChunks={() => {}}
                     highlightClassName="highlightClassName"
                     highlightStyle={{ color: "red" }}
                     highlightTag="span"

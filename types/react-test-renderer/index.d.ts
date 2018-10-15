@@ -25,7 +25,7 @@ export interface ReactTestRendererTree extends ReactTestRendererJSON {
 }
 export interface ReactTestInstance {
     instance: any;
-    type: ReactType;
+    type: string;
     props: { [propName: string]: any };
     parent: null | ReactTestInstance;
     children: Array<ReactTestInstance | string>;

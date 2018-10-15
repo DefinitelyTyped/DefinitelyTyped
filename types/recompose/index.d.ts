@@ -1,11 +1,10 @@
-// Type definitions for Recompose 0.27
+// Type definitions for Recompose 0.26
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 //                 Samuel DeSota <https://github.com/mrapogee>
 //                 Curtis Layne <https://github.com/clayne11>
 //                 Rasmus Eneman <https://github.com/Pajn>
 //                 Lucas Terra <https://github.com/lucasterra>
-//                 Brian Adams <https://github.com/brian-lives-outdoors>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -20,8 +19,8 @@ declare module 'recompose' {
     type predicate<T> = mapper<T, boolean>;
     type predicateDiff<T> = (current: T, next: T) => boolean
 
-    // Diff / Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
-    type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+    // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
+    type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
     interface Observer<T>{
         next(props: T): void;
@@ -270,19 +269,19 @@ declare module 'recompose' {
     // Static property helpers: https://github.com/acdlite/recompose/blob/master/docs/API.md#static-property-helpers
 
     // setStatic: https://github.com/acdlite/recompose/blob/master/docs/API.md#setStatic
-    export function setStatic(
+    export function setStatic<TOutter>(
         key: string, value: any
-    ): <T extends Component>(component: T) => T;
+    ): ComponentEnhancer<TOutter, TOutter>;
 
     // setPropTypes: https://github.com/acdlite/recompose/blob/master/docs/API.md#setPropTypes
-    export function setPropTypes<P>(
-        propTypes: ValidationMap<P>
-    ): <T extends Component<P>>(component: T) => T;
+    export function setPropTypes<TOutter>(
+        propTypes: ValidationMap<TOutter>
+    ): ComponentEnhancer<any, TOutter>;
 
     // setDisplayName: https://github.com/acdlite/recompose/blob/master/docs/API.md#setDisplayName
-    export function setDisplayName(
+    export function setDisplayName<TOutter>(
         displayName: string
-    ): <T extends Component>(component: T) => T;
+    ): ComponentEnhancer<TOutter, TOutter>;
 
 
     // Utilities: https://github.com/acdlite/recompose/blob/master/docs/API.md#utilities

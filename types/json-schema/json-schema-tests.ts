@@ -8,9 +8,7 @@ import {
     JSONSchema7,
     JSONSchema7Array,
     JSONSchema7Type,
-    JSONSchema7TypeName,
-    JSONSchema6Definition,
-    JSONSchema7Definition
+    JSONSchema7TypeName
 } from 'json-schema'
 
 /* JSON Schema 4 */
@@ -82,10 +80,6 @@ import {
   }
 }
 
-// Class
-class Schema4 implements JSONSchema4 {
-}
-
 /* JSON Schema 6 */
 
 // SimpleType
@@ -102,10 +96,10 @@ class Schema4 implements JSONSchema4 {
   const c: JSONSchema6Type = [1, 2]
 }
 
-// JSONSchema6Definition
+// JSONSchema6
 () => {
-  const a: JSONSchema6Definition = {}
-  const b: JSONSchema6Definition = {
+  const a: JSONSchema6 = {}
+  const b: JSONSchema6 = {
     $id: 'foo',
     $ref: 'foo/bar',
     $schema: 'http://json-schema.org/schema#',
@@ -155,11 +149,6 @@ class Schema4 implements JSONSchema4 {
     propertyNames: {},
     format: 'date-time'
   }
-  const c: JSONSchema6Definition = false;
-}
-
-// Class
-class Schema6 implements JSONSchema6 {
 }
 
 /* JSON Schema 7 */
@@ -178,10 +167,10 @@ class Schema6 implements JSONSchema6 {
     const c: JSONSchema7Type = [1, 2]
 }
 
-// JSONSchema7Definition
+// JSONSchema4
 () => {
-    const a: JSONSchema7Definition = {}
-    const b: JSONSchema7Definition = {
+    const a: JSONSchema7 = {}
+    const b: JSONSchema7 = {
         $id: 'foo',
         $ref: 'foo/bar',
         $schema: 'http://json-schema.org/schema#',
@@ -239,9 +228,4 @@ class Schema6 implements JSONSchema6 {
         if: {},
         then: {}
     }
-    const c: JSONSchema7Definition = false;
-}
-
-// Class
-class Schema7 implements JSONSchema7 {
 }

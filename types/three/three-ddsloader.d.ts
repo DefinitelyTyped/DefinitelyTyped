@@ -3,14 +3,17 @@
 import { CompressedPixelFormat, CompressedTextureLoader } from "./three-core";
 
 export interface Dds {
-  mipmaps: ImageData[];
-  width: number;
-  height: number;
-  format: CompressedPixelFormat;
-  mipmapCount: number;
+  mipmaps: ImageData[],
+  width: number,
+  height: number,
+  format: CompressedPixelFormat,
+  mipmapCount: number
 }
 
 export class DDSLoader extends CompressedTextureLoader {
+
     constructor();
+
     parse(buffer: string, loadMipmaps: boolean) : Dds;
+
 }

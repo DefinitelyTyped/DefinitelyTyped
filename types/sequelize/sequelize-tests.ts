@@ -833,7 +833,6 @@ user.changed( 'name' );
 user.changed();
 
 user.previous( 'name' );
-user.previous();
 
 user.save().then( ( p ) => p );
 user.save( { fields : ['a'] } ).then( ( p ) => p );

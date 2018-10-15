@@ -16,5 +16,4 @@ graph.transition = (selection: d3.Selection<any>) => {
 const render = new dagreD3.render();
 const svg = d3.select("svg");
 render.arrows()["arrowType"] = (parent: d3.Selection<any>, id: string, edge: dagre.Edge, type: string) => {};
-render.shapes()["shapeName"] = (parent: d3.Selection<any>, bbox: any, node: dagre.Node) => {};
 render(svg, graph);

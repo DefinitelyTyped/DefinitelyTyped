@@ -24,8 +24,7 @@ import {
     FormAction,
     actionTypes,
     submit,
-    SubmissionError,
-    FieldArrayFieldsProps
+    SubmissionError
 } from "redux-form";
 import {
     Field as ImmutableField,

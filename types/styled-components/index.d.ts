@@ -1,8 +1,6 @@
-// Type definitions for styled-components 4.0
+// Type definitions for styled-components 3.0
 // Project: https://github.com/styled-components/styled-components
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-//                 Ihor Chulinda <https://github.com/Igmat>
-//                 Adam Lavin <https://github.com/lavoaster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -18,8 +16,10 @@ export type ThemedStyledProps<P, T> = P & ThemeProps<T>;
 export type StyledProps<P> = ThemedStyledProps<P, any>;
 
 export type ThemedOuterStyledProps<P, T> = P & {
-    as?: React.ReactType | keyof JSX.IntrinsicElements;
     theme?: T;
+    innerRef?:
+        | ((instance: any) => void)
+        | React.RefObject<HTMLElement | SVGElement | React.Component>;
 };
 export type OuterStyledProps<P> = ThemedOuterStyledProps<P, any>;
 
@@ -37,7 +37,6 @@ export type InterpolationValue =
     | number
     | Styles
     | FalseyValue
-    | Keyframes
     | StyledComponentClass<any, any>;
 export type SimpleInterpolation =
     | InterpolationValue
@@ -52,15 +51,10 @@ type Attrs<P, A extends Partial<P>, T> = {
     [K in keyof A]: ((props: ThemedStyledProps<P, T>) => A[K]) | A[K]
 };
 
-export type ThemedGlobalStyledClassProps<P, T> = P & {
-    theme?: T;
-};
-
-export interface GlobalStyleClass<P, T>
-    extends React.ComponentClass<ThemedGlobalStyledClassProps<P, T>> {}
-
 export interface StyledComponentClass<P, T, O = P>
     extends React.ComponentClass<ThemedOuterStyledProps<O, T>> {
+    extend: ThemedStyledFunction<P, T, O>;
+
     withComponent<K extends keyof JSX.IntrinsicElements>(
         tag: K,
     ): StyledComponentClass<
@@ -110,20 +104,19 @@ export interface ThemedBaseStyledInterface<T>
         component: React.ComponentType<P>,
     ): ThemedStyledFunction<P, T, WithOptionalTheme<P, T>>;
 }
+export type BaseStyledInterface = ThemedBaseStyledInterface<any>;
 
-export type ThemedStyledInterface<T> = ThemedBaseStyledInterface<Extract<keyof T, string> extends never ? any : T>;
-export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
-// tslint:disable-next-line:no-empty-interface
-export interface DefaultTheme {}
+export type ThemedStyledInterface<T> = ThemedBaseStyledInterface<T>;
+export type StyledInterface = ThemedStyledInterface<any>;
 
 export interface ThemeProviderProps<T> {
     theme?: T | ((theme: T) => T);
 }
-export type BaseThemeProviderComponent<T> = React.ComponentClass<
+export type ThemeProviderComponent<T> = React.ComponentClass<
     ThemeProviderProps<T>
-    >;
-export type ThemeProviderComponent<T> = BaseThemeProviderComponent<Extract<keyof T, string> extends never ? any : T>;
-export interface BaseThemedCssFunction<T> {
+>;
+
+export interface ThemedCssFunction<T> {
     (
         strings: TemplateStringsArray,
         ...interpolations: SimpleInterpolation[]
@@ -133,7 +126,6 @@ export interface BaseThemedCssFunction<T> {
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): Array<FlattenInterpolation<ThemedStyledProps<P, T>>>;
 }
-export type ThemedCssFunction<T> = BaseThemedCssFunction<Extract<keyof T, string> extends never ? any : T>;
 
 // Helper type operators
 type KeyofBase = keyof any;
@@ -153,49 +145,37 @@ export interface ThemedStyledComponentsModule<T> {
     keyframes(
         strings: TemplateStringsArray,
         ...interpolations: SimpleInterpolation[]
-    ): Keyframes;
-
-    createGlobalStyle<P = {}>(
+    ): string;
+    injectGlobal(
         strings: TemplateStringsArray,
-        ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
-    ): GlobalStyleClass<P, T>;
-
-    withTheme: WithThemeFnInterface<T>;
+        ...interpolations: SimpleInterpolation[]
+    ): void;
+    withTheme<P extends { theme?: T }>(
+        component: React.ComponentType<P>,
+    ): React.ComponentClass<WithOptionalTheme<P, T>>;
 
     ThemeProvider: ThemeProviderComponent<T>;
-    ThemeConsumer: ThemeConsumerComponent<T>;
 }
 
 declare const styled: StyledInterface;
 
-export const css: ThemedCssFunction<DefaultTheme>;
+export const css: ThemedCssFunction<any>;
 
-export type BaseWithThemeFnInterface<T> = <P extends { theme?: T }>(
-        component: React.ComponentType<P>,
-    ) => React.ComponentClass<WithOptionalTheme<P, T>>;
-export type WithThemeFnInterface<T> = BaseWithThemeFnInterface<Extract<keyof T, string> extends never ? any : T>;
-export const withTheme: WithThemeFnInterface<DefaultTheme>;
-
-export interface ThemeConsumerProps<T> {
-    children(theme: T): React.ReactNode;
-}
-export type BaseThemeConsumerComponent<T> = React.ComponentClass<ThemeConsumerProps<T>>;
-export type ThemeConsumerComponent<T> = BaseThemeConsumerComponent<Extract<keyof T, string> extends never ? any : T>;
-export const ThemeConsumer: ThemeConsumerComponent<object>;
-
-export interface Keyframes {
-    getName(): string;
-}
+export function withTheme<P extends { theme?: T }, T>(
+    component: React.ComponentType<P>,
+): React.ComponentClass<WithOptionalTheme<P, T>>;
 
 export function keyframes(
     strings: TemplateStringsArray,
     ...interpolations: SimpleInterpolation[]
-): Keyframes;
+): string;
 
-export function createGlobalStyle<P = {}>(
+export function injectGlobal(
     strings: TemplateStringsArray,
-    ...interpolations: Array<Interpolation<ThemedStyledProps<P, DefaultTheme>>>
-): GlobalStyleClass<P, DefaultTheme>;
+    ...interpolations: SimpleInterpolation[]
+): void;
+
+export function consolidateStreamedStyles(): void;
 
 export function isStyledComponent(
     target: any,

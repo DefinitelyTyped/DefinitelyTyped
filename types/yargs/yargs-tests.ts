@@ -654,12 +654,12 @@ function Argv$hide() {
         .hide('a');
 }
 
-function Argv$showHidden() {
+function Argv$showhidden() {
     const ya = yargs
-        .showHidden()
-        .showHidden(true)
-        .showHidden('show-hidden')
-        .showHidden('show-hidden', 'Show hidden options');
+        .showhidden()
+        .showhidden(true)
+        .showhidden('show-hidden')
+        .showhidden('show-hidden', 'Show hidden options');
 }
 
 function Argv$scriptName() {

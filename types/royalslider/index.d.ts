@@ -1,6 +1,6 @@
 // Type definitions for jQuery royal-slider 9.4
 // Project: http://dimsemenov.com/plugins/royal-slider/documentation/
-// Definitions by: Christiaan Rakowski <https://github.com/csrakowski>, sKopheK <https://github.com/sKopheK>
+// Definitions by: Christiaan Rakowski <https://github.com/csrakowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -367,73 +367,6 @@ declare namespace RoyalSlider {
         visibleNearby?: RoyalSliderVisibleOptions;
     }
 
-    export interface RoyalSliderSlide {
-        /**
-         * TODO
-         */
-        appendOnLoaded: boolean;
-        /**
-         * slide element
-         */
-        content: JQuery;
-        /**
-         * TODO
-         */
-        contentAdded: boolean;
-        /**
-         * slide element wrapper
-         */
-        holder: JQuery;
-        /**
-         * slide index
-         */
-        id: number;
-        /**
-         * TODO
-         */
-        images: null;
-        /**
-         * TODO
-         */
-        isAdded: boolean;
-        /**
-         * TODO
-         */
-        isAppended: boolean;
-        /**
-         * TODO
-         */
-        isBig: boolean;
-        /**
-         * TODO
-         */
-        isLoaded: boolean;
-        /**
-         * TODO
-         */
-        isLoading: boolean;
-        /**
-         * TODO
-         */
-        isRendered: boolean;
-        /**
-         * TODO
-         */
-        loadedTriggered: boolean;
-        /**
-         * TODO
-         */
-        positionSet: boolean;
-        /**
-         * TODO
-         */
-        sizeReady: boolean;
-        /**
-         * TODO
-         */
-        thumbnail: string;
-    }
-
     export interface RoyalSlider { //TODO: extends/implements JQuery? (giving problems due to next(), prev(), width and height and 'selector'.
         /**
          * go to slide with id
@@ -510,7 +443,7 @@ declare namespace RoyalSlider {
         /**
          * current slide object
          */
-        currSlide: RoyalSliderSlide;
+        currSlide: JQuery;
         /**
          * total number of slides
          */
@@ -538,7 +471,7 @@ declare namespace RoyalSlider {
         /**
          * contains all data about each slide
          */
-        slides: RoyalSliderSlide[];
+        slides: any[]; //TODO: what type?
         /**
          * Contains list of HTML slides that are added to slider
          */

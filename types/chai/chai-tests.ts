@@ -1145,8 +1145,6 @@ function members() {
     expect([5, 4]).not.members([]);
     expect([5, 4]).not.members([6, 3]);
     expect([5, 4]).not.members([5, 4, 2]);
-
-    expect([5, 4]).to.have.all.members([4, 5]);
 }
 
 function increaseDecreaseChange() {

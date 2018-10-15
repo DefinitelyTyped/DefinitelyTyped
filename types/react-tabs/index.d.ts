@@ -1,6 +1,6 @@
-// Type definitions for react-tabs 2.3.0
+// Type definitions for react-tabs 1.0.0
 // Project: https://github.com/reactjs/react-tabs/
-// Definitions by: Yuu Igarashi <https://github.com/yu-i9/>, Daniel Tschinder <https://github.com/danez>, Ummon Karpe <https://github.com/Equationist>
+// Definitions by: Yuu Igarashi <https://github.com/yu-i9/>, Daniel Tschinder <https://github.com/danez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -11,7 +11,6 @@ export interface TabsProps {
     defaultFocus?: boolean;
     defaultIndex?: number;
     disabledTabClassName?: string;
-    domRef?: (node?: HTMLElement) => void;
     forceRenderTabPanel?: boolean;
     onSelect?: (index: number, last: number, event: Event) => boolean | void;
     selectedIndex?: number;
@@ -28,7 +27,6 @@ export interface TabProps {
     disabled?: boolean;
     disabledClassName?: string;
     selectedClassName?: string;
-    tabIndex?: string;
 }
 
 export interface TabPanelProps {
@@ -37,9 +35,9 @@ export interface TabPanelProps {
     selectedClassName?: string;
 }
 
-export declare class Tabs extends React.Component<TabsProps> { }
-export declare class TabList extends React.Component<TabListProps> { }
-export declare class Tab extends React.Component<TabProps> { }
-export declare class TabPanel extends React.Component<TabPanelProps> { }
+export declare class Tabs extends React.Component<TabsProps> {}
+export declare class TabList extends React.Component<TabListProps> {}
+export declare class Tab extends React.Component<TabProps> {}
+export declare class TabPanel extends React.Component<TabPanelProps> {}
 
 export declare function resetIdCounter(): void;

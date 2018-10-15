@@ -1,11 +1,10 @@
 import Ember from 'ember';
 import DS from 'ember-data';
-import Controller from '@ember/controller';
 
 class MyModel extends DS.Model {}
 
-declare module 'ember-data/types/registries/model' {
-    export default interface ModelRegistry {
+declare module 'ember-data' {
+    interface ModelRegistry {
         'my-model': MyModel;
     }
 }
@@ -16,10 +15,9 @@ Ember.Route.extend({
     }
 });
 
-Controller.extend({
+Ember.Controller.extend({
     actions: {
         create(): any {
-            this.queryParams;
             return this.store.createRecord('my-model');
         }
     }

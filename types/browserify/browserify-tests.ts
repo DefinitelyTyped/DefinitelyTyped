@@ -60,6 +60,3 @@ Object.keys(insertGlobals.vars).forEach((x) => {
 var b = browserify('./browser/main.js', {
   insertGlobalVars: insertGlobalVars
 });
-
-declare const file: string | string[];
-b.add(file);

@@ -1,4 +1,4 @@
-// Type definitions for cassandra-driver v3.5.0
+// Type definitions for cassandra-driver v3.4.1
 // Project: https://github.com/datastax/nodejs-driver
 // Definitions by: Marc Fisher <https://github.com/Svjard>
 //                 Christian D <https://github.com/pc-jedi>
@@ -413,7 +413,7 @@ export namespace types {
     pageState: string;
     nextPage: Function;
 
-    first(): Row | null;
+    first(): Row;
     getPageState(): string;
     getColumns(): Array<{ [key: string]: string; }>;
     wasApplied(): boolean;
@@ -526,8 +526,7 @@ export interface ClientOptions {
   protocolOptions?: {
     port?: number,
     maxSchemaAgreementWaitSeconds?: number,
-    maxVersion?: number,
-    noCompact?: boolean
+    maxVersion?: number
   },
   socketOptions?: {
     connectTimeout?: number,

@@ -1,3 +1,3 @@
-import { provider } from 'ganache-core';
+import { provider } from "ganache-core";
 
-provider({ verbose: true, vmErrorsOnRPCResponse: false });
+provider({ verbose: true });

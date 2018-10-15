@@ -1,10 +1,9 @@
-// Type definitions for react-sortable-tree 0.3
+// Type definitions for react-sortable-tree 0.2
 // Project: https://fritz-c.github.io/react-sortable-tree
 // Definitions by: Wouter Hardeman <https://github.com/wouterhardeman>
 //                 Jovica Zoric <https://github.com/jzoric>
 //                 Kevin Perrine <https://github.com/kevinsperrine>
 //                 Alex Maclean <https://github.com/acemac>
-//                 Jan Dolezel <https://github.com/dolezel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -21,8 +20,8 @@ export * from './utils/tree-data-utils';
 export * from './utils/default-handlers';
 
 export interface TreeItem {
-    title?: React.ReactNode;
-    subtitle?: React.ReactNode;
+    title?: string;
+    subtitle?: string;
     expanded?: boolean;
     children?: TreeItem[];
     [x: string]: any;
@@ -33,7 +32,7 @@ export interface TreeNode {
 }
 
 export interface TreePath {
-    path: NumberOrStringArray;
+    path: NumberArrayOrStringArray;
 }
 
 export interface TreeIndex {
@@ -44,14 +43,13 @@ export interface FullTree {
     treeData: TreeItem[];
 }
 
-export interface NodeData extends TreeNode, TreePath, TreeIndex { }
+export interface NodeData extends TreeNode, TreePath, TreeIndex {}
 
 export interface SearchData extends NodeData {
     searchQuery: any;
 }
 
 export interface ExtendedNodeData extends NodeData {
-    parentNode: TreeItem;
     lowerSiblingsCounts: number[];
     isSearchMatch: boolean;
     isSearchFocus: boolean;
@@ -63,9 +61,9 @@ export interface OnVisibilityToggleData extends FullTree, TreeNode {
 
 interface PreviousAndNextLocation {
     prevTreeIndex: number;
-    prevPath: NumberOrStringArray;
+    prevPath: number[];
     nextTreeIndex: number;
-    nextPath: NumberOrStringArray;
+    nextPath: number[];
 }
 
 export interface OnDragPreviousAndNextLocation extends PreviousAndNextLocation {
@@ -75,7 +73,7 @@ export interface OnDragPreviousAndNextLocation extends PreviousAndNextLocation {
 
 export interface ShouldCopyData {
     node: TreeNode;
-    prevPath: NumberOrStringArray;
+    prevPath: NumberArrayOrStringArray;
     prevTreeIndex: number;
 }
 
@@ -87,7 +85,7 @@ export type NodeRenderer = React.ComponentClass<NodeRendererProps>;
 
 export interface NodeRendererProps {
     node: TreeItem;
-    path: NumberOrStringArray;
+    path: NumberArrayOrStringArray;
     treeIndex: number;
     isSearchMatch: boolean;
     isSearchFocus: boolean;
@@ -119,7 +117,9 @@ export interface NodeRendererProps {
     canDrop?: boolean;
 }
 
-export type PlaceholderRenderer = React.ComponentClass<PlaceholderRendererProps>;
+export type PlaceholderRenderer = React.ComponentClass<
+    PlaceholderRendererProps
+>;
 
 export interface PlaceholderRendererProps {
     isOver: boolean;
@@ -127,7 +127,7 @@ export interface PlaceholderRendererProps {
     draggedNode: { [index: string]: any };
 }
 
-type NumberOrStringArray = Array<string | number>;
+type NumberArrayOrStringArray = string[] | number[];
 
 export type TreeRenderer = React.ComponentClass<TreeRendererProps>;
 
@@ -152,7 +152,7 @@ export interface TreeRendererProps {
     // used in dndManager
     getPrevRow: any; // @TODO what is this method?
     node: TreeItem;
-    path: NumberOrStringArray;
+    path: NumberArrayOrStringArray;
 }
 
 export interface ThemeProps {
@@ -199,6 +199,8 @@ export interface ReactSortableTreeProps {
 
 declare const SortableTree: React.ComponentClass<ReactSortableTreeProps>;
 
-export const SortableTreeWithoutDndContext: React.ComponentClass<ReactSortableTreeProps>;
+export const SortableTreeWithoutDndContext: React.ComponentClass<
+    ReactSortableTreeProps
+>;
 
 export default SortableTree;

@@ -44,7 +44,6 @@ declare namespace createRouter {
         routes: Spec[];
         route(spec: Spec|Spec[]): Router;
         middleware(): Koa.Middleware;
-        prefix(path: string): void;
     }
 }
 

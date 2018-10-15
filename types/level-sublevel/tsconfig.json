@@ -13,14 +13,6 @@
             "../"
         ],
         "types": [],
-        "paths": {
-            "levelup": [
-                "levelup/v1"
-            ],
-            "leveldown": [
-                "leveldown/v1"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

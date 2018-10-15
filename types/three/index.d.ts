@@ -1,4 +1,4 @@
-// Type definitions for three.js 0.93
+// Type definitions for three.js 0.92
 // Project: https://threejs.org
 // Definitions by: Kon <http://phyzkit.net/>,
 //                 Satoru Kimura <https://github.com/gyohk>,
@@ -20,9 +20,7 @@
 //                 Seth Kingsley <https://github.com/sethk>,
 //                 Ethan Kay <https://github.com/elk941>,
 //                 Methuselah96 <https://github.com/Methuselah96>
-//                 Dilip Ramirez <https://github.com/Dukuo>
 // Definitions: https://github.com//DefinitelyTyped
-// TypeScript Version: 2.8
 
 export * from "./three-core";
 

@@ -132,8 +132,9 @@ myApp.controller('sortableController', function ($scope: MySortableControllerSco
   $scope.sortableOptions.tolerance = 'pointer';
   $scope.sortableOptions.zIndex = 9999;
 
-  const sortableFloatingOption0: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': undefined };
-  const sortableFloatingOption1: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': false };
-  const sortableFloatingOption2: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': true };
-  const sortableFloatingOption3: ng.ui.UISortableOptions<SortableModelInfo> = { 'ui-floating': 'auto' };
+  $scope.sortableOptions['ui-floating'] = undefined;
+  $scope.sortableOptions['ui-floating'] = null;
+  $scope.sortableOptions['ui-floating'] = false;
+  $scope.sortableOptions['ui-floating'] = true;
+  $scope.sortableOptions['ui-floating'] = "auto";
 });

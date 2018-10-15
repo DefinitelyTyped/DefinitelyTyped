@@ -263,15 +263,19 @@ interface Recognizer
 
   canEmit():boolean;
   canRecognizeWith( otherRecognizer:Recognizer ):boolean;
-  dropRecognizeWith( otherRecognizer:Recognizer | Recognizer[] | string):Recognizer;
-  dropRequireFailure( otherRecognizer:Recognizer | Recognizer[] | string):Recognizer;
+  dropRecognizeWith( otherRecognizer:Recognizer ):Recognizer;
+  dropRecognizeWith( otherRecognizer:string ):Recognizer;
+  dropRequireFailure( otherRecognizer:Recognizer ):Recognizer;
+  dropRequireFailure( otherRecognizer:string ):Recognizer;
   emit( input:HammerInput ):void;
   getTouchAction():any[];
   hasRequireFailures():boolean;
   process( inputData:HammerInput ):string;
   recognize( inputData:HammerInput ):void;
-  recognizeWith( otherRecognizer:Recognizer | Recognizer[] | string):Recognizer;
-  requireFailure( otherRecognizer:Recognizer | Recognizer[] | string):Recognizer;
+  recognizeWith( otherRecognizer:Recognizer ):Recognizer;
+  recognizeWith( otherRecognizer:string ):Recognizer;
+  requireFailure( otherRecognizer:Recognizer ):Recognizer;
+  requireFailure( otherRecognizer:string ):Recognizer;
   reset():void;
   set( options?:RecognizerOptions ):Recognizer;
   tryEmit( input:HammerInput ):void;

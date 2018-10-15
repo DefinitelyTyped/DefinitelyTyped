@@ -17,7 +17,10 @@ grasp({
 });
 
 // $ExpectError
-grasp({ args: [], textFormat: { cyan: "cyan" } });
+grasp({
+    args: [],
+    textFormat: { cyan: "cyan" }
+});
 
 // $ExpectType string
 grasp.VERSION;

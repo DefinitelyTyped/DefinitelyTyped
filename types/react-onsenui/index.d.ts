@@ -1,4 +1,4 @@
-// Type definitions for React Onsen UI (react-onsenui) 2.9.5
+// Type definitions for React Onsen UI (react-onsenui) 2.9.4
 // Project: https://onsen.io/v2/docs/guide/react/
 // Definitions by: Ozytis <https://ozytis.fr>,
 //                 Salim <https://github.com/salim7>,
@@ -152,8 +152,8 @@ export class Carousel extends Component<{
     fullscreen?: boolean,
     overscrollable?: boolean,
     centered?: boolean,
-    itemWidth?: number | string,
-    itemHeight?: number | string,
+    itemWidth?: number,
+    itemHeight?: number,
     autoScroll?: boolean,
     autoScrollRatio?: number,
     swipeable?: boolean,
@@ -167,7 +167,7 @@ export class Carousel extends Component<{
 }, any> {}
 
 export class CarouselItem extends Component<{
-    modifier?: string
+    modifier: string
 }, any> {}
 
 /*** AlertDialog ***/
@@ -311,8 +311,6 @@ export class Input extends Component<{
     disabled?: boolean,
     readOnly?: boolean,
     onChange?: (e: React.ChangeEvent<any>) => void,
-    onBlur?: (e: React.FocusEvent<any>) => void,
-    onFocus?: (e: React.FocusEvent<any>) => void,
     value?: string,
     defaultValue?: string,
     checked?: boolean,
@@ -352,14 +350,6 @@ export class Range extends Component<{
     onChange?(e: Event): void,
     value?: number,
     disabled?: boolean,
-}, any> {}
-
-export class SearchInput extends Component<{
-    modifier?: string,
-    disabled?: boolean,
-    onChange?(e: Event): void,
-    value?: string,
-    inputId?: string,
 }, any> {}
 
 export class Select extends Component<{

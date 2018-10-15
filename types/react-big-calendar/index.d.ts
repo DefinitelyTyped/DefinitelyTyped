@@ -1,106 +1,97 @@
-// Type definitions for react-big-calendar 0.20
+// Type definitions for react-big-calendar 0.18
 // Project: https://github.com/intljusticemission/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
 //                 Krzysztof Bezrąk <https://github.com/pikpok>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Paul Potsides <https://github.com/strongpauly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import { Validator } from 'prop-types';
+
 import * as React from 'react';
 
 export type stringOrDate = string | Date;
-export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
 export type Navigate = 'PREV' | 'NEXT' | 'TODAY' | 'DATE';
 
 export type Event = object;
-export interface DateRange {
-    start: Date;
-    end: Date;
-}
-
-export type DateFormatFunction = (date: Date, culture?: string, localizer?: object) => string;
-export type DateRangeFormatFunction = (range: DateRange, culture?: string, localizer?: object) => string;
-export type DateFormat = string | DateFormatFunction;
-
-export interface Formats {
+export interface Format {
     /**
      * Format for the day of the month heading in the Month view.
      * e.g. "01", "02", "03", etc
      */
-    dateFormat?: DateFormat;
+    dateFormat?: string;
 
     /**
      * A day of the week format for Week and Day headings,
      * e.g. "Wed 01/04"
      *
      */
-    dayFormat?: DateFormat;
+    dayFormat?: string;
 
     /**
      * Week day name format for the Month week day headings,
      * e.g: "Sun", "Mon", "Tue", etc
      *
      */
-    weekdayFormat?: DateFormat;
+    weekdayFormat?: string;
 
     /**
      * The timestamp cell formats in Week and Time views, e.g. "4:00 AM"
      */
-    timeGutterFormat?: DateFormat;
+    timeGutterFormat?: string;
 
     /**
      * Toolbar header format for the Month view, e.g "2015 April"
      *
      */
-    monthHeaderFormat?: DateFormat;
+    monthHeaderFormat?: string;
 
     /**
      * Toolbar header format for the Week views, e.g. "Mar 29 - Apr 04"
      */
-    dayRangeHeaderFormat?: DateRangeFormatFunction;
+    dayRangeHeaderFormat?: string;
 
     /**
      * Toolbar header format for the Day view, e.g. "Wednesday Apr 01"
      */
-    dayHeaderFormat?: DateFormat;
+    dayHeaderFormat?: string;
 
     /**
      * Toolbar header format for the Agenda view, e.g. "4/1/2015 — 5/1/2015"
      */
-    agendaHeaderFormat?: DateFormat;
+    agendaHeaderFormat?: string;
 
     /**
      * A time range format for selecting time slots, e.g "8:00am — 2:00pm"
      */
-    selectRangeFormat?: DateRangeFormatFunction;
+    selectRangeFormat?: string;
 
-    agendaDateFormat?: DateFormat;
-    agendaTimeFormat?: DateFormat;
-    agendaTimeRangeFormat?: DateRangeFormatFunction;
+    agendaDateFormat?: string;
+    agendaTimeFormat?: string;
+    agendaTimeRangeFormat?: string;
 
     /**
      * Time range displayed on events.
      */
-    eventTimeRangeFormat?: DateRangeFormatFunction;
+    eventTimeRangeFormat?: string;
 
     /**
      * An optional event time range for events that continue onto another day
      */
-    eventTimeRangeStartFormat?: DateRangeFormatFunction;
+    eventTimeRangeStartFormat?: string;
 
     /**
      * An optional event time range for events that continue from another day
      */
-    eventTimeRangeEndFormat?: DateRangeFormatFunction;
+    eventTimeRangeEndFormat?: string;
 }
 
 export interface HeaderProps {
+    culture: BigCalendarProps['culture'];
     date: Date;
+    format: string;
     label: string;
-    localizer: DateLocalizer;
+    localizer: object;
 }
 
 export interface Components {
@@ -151,29 +142,7 @@ export interface Messages {
     showMore?: (count: number) => string;
 }
 
-export type Culture = string | string[];
-export type FormatInput = number | string | Date;
-
-export interface DateLocalizerSpec {
-    firstOfWeek: (culture: Culture) => number;
-    format: (value: FormatInput, format: string, culture: Culture) => string;
-    formats: Formats;
-    propType?: Validator<any>;
-}
-
-export class DateLocalizer {
-    formats: Formats;
-    propType: Validator<any>;
-    startOfWeek: (culture: Culture) => number;
-
-    constructor(spec: DateLocalizerSpec);
-
-    format(value: FormatInput, format: string, culture: Culture): string;
-}
-
 export interface BigCalendarProps<T extends Event = Event> extends React.Props<BigCalendar<T>> {
-    localizer: DateLocalizer;
-
     date?: stringOrDate;
     now?: Date;
     view?: View;
@@ -210,7 +179,7 @@ export interface BigCalendarProps<T extends Event = Event> extends React.Props<B
     max?: stringOrDate;
     scrollToTime?: Date;
     culture?: string;
-    formats?: Formats;
+    formats?: Format;
     components?: Components;
     messages?: Messages;
     titleAccessor?: keyof T | ((event: T) => string);
@@ -227,42 +196,13 @@ export interface BigCalendarProps<T extends Event = Event> extends React.Props<B
     elementProps?: React.HTMLAttributes<HTMLElement>;
 }
 
-export interface ViewStatic {
-    navigate(date: Date, action: Navigate, props: any): Date;
-}
-
-export interface MoveOptions {
-    action: Navigate;
-    date: Date;
-    today: Date;
-}
-
 export default class BigCalendar<T extends Event = Event> extends React.Component<BigCalendarProps<T>> {
-    components: {
-        dateCellWrapper: React.ComponentType,
-        dayWrapper: React.ComponentType,
-        eventWrapper: React.ComponentType,
-    };
     /**
-     * create DateLocalizer from globalize
+     * Setup the localizer by providing the moment Object
      */
-    static globalizeLocalizer(globalizeInstance: object): DateLocalizer;
+    static momentLocalizer(momentInstance: object): void;
     /**
-     * create DateLocalizer from a moment
+     * Setup the localizer by providing the globalize Object
      */
-    static momentLocalizer(momentInstance: object): DateLocalizer;
-    /**
-     * action constants for Navigate
-     */
-    static Navigate: {
-        PREVIOUS: 'PREV',
-        NEXT: 'NEXT',
-        TODAY: 'TODAY',
-        DATE: 'DATE',
-    };
-    /**
-     * action constants for View
-     */
-    static Views: Record<ViewKey, View>;
-    static move(View: ViewStatic | ViewKey, options: MoveOptions): Date;
+    static globalizeLocalizer(globalizeInstance: object): void;
 }

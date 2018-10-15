@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { assertType } from "./lib/assert";
 
-const BaseApp = Ember.Application.extend({
+let BaseApp = Ember.Application.extend({
     modulePrefix: 'my-app'
 });
 
@@ -19,23 +19,17 @@ BaseApp.instanceInitializer({
     }
 });
 
-const App1 = BaseApp.create({
+let App1 = BaseApp.create({
     rootElement: '#app-one',
     customEvents: {
         paste: 'paste'
     }
 });
 
-const App2 = BaseApp.create({
+let App2 = BaseApp.create({
     rootElement: '#app-two',
     customEvents: {
         mouseenter: null,
         mouseleave: null
     }
 });
-
-const App3 = BaseApp.create();
-
-const App3Instance1 = App3.buildInstance();
-
-const App3Instance2 = App3.buildInstance({ foo: 'bar' });

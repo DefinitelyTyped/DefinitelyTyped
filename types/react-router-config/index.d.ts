@@ -1,7 +1,6 @@
 // Type definitions for react-router-config 1.0
 // Project: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
-//                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -9,7 +8,7 @@ import * as React from "react";
 import { RouteComponentProps, SwitchProps, match } from "react-router";
 import { Location } from "history";
 
-export interface RouteConfigComponentProps<Params extends { [K in keyof Params]?: string } = {}> extends RouteComponentProps<Params> {
+export interface RouteConfigComponentProps<T> extends RouteComponentProps<T> {
     route?: RouteConfig;
 }
 
@@ -22,12 +21,12 @@ export interface RouteConfig {
     routes?: RouteConfig[];
 }
 
-export interface MatchedRoute<Params extends { [K in keyof Params]?: string }> {
+export interface MatchedRoute<T> {
     route: RouteConfig;
-    match: match<Params>;
+    match: match<T>;
 }
 
-export function matchRoutes<Params extends { [K in keyof Params]?: string }>(routes: RouteConfig[], pathname: string): Array<MatchedRoute<Params>>;
+export function matchRoutes<T>(routes: RouteConfig[], pathname: string): Array<MatchedRoute<T>>;
 
 export function renderRoutes(
     routes: RouteConfig[] | undefined,

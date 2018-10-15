@@ -1,9 +1,7 @@
 // Type definitions for Lovefield 2.1
 // Project: http://google.github.io/lovefield/
 // Definitions by: freshp86 <https://github.com/freshp86>
-//                 zackzeno <https://github.com/zackzeno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 declare namespace lf {
   enum Order { ASC, DESC }
@@ -61,10 +59,10 @@ declare namespace lf {
   }
 
   interface Transaction {
-    attach(query: query.Builder): Promise<object[]>;
+    attach(query: query.Builder): Promise<Object[]>;
     begin(scope: schema.Table[]): Promise<void>;
     commit(): Promise<void>;
-    exec(queries: query.Builder[]): Promise<object[][]>;
+    exec(queries: query.Builder[]): Promise<Object[][]>;
     rollback(): Promise<void>;
     stats(): TransactionStats;
   }
@@ -75,9 +73,9 @@ declare namespace lf {
     close(): void;
     createTransaction(type?: TransactionType): Transaction;
     delete(): query.Delete;
-    export(): Promise<object>;
+    export(): Promise<Object>;
     getSchema(): schema.Database;
-    import(data: object): Promise<void>;
+    import(data: Object): Promise<void>;
     insertOrReplace(): query.Insert;
     insert(): query.Insert;
     observe(query: query.Select, callback: Function): void;
@@ -89,7 +87,7 @@ declare namespace lf {
   namespace query {
     interface Builder {
       bind(...values: any[]): Builder;
-      exec(): Promise<object[]>;
+      exec(): Promise<Object[]>;
       explain(): string;
       toSql(): string;
     }
@@ -133,9 +131,9 @@ declare namespace lf {
       renameTableColumn(
           tableName: string, oldColumnName: string,
           newColumnName: string): Promise<void>;
-      createRow(payload: object): Row;
+      createRow(payload: Object): Row;
       getVersion(): number;
-      dump(): object[];
+      dump(): Object[];
     }
   }  // module raw
 
@@ -168,7 +166,7 @@ declare namespace lf {
 
     interface ITable {
       as(name: string): Table;
-      createRow(value: object): Row;
+      createRow(value: Object): Row;
       getName(): string;
     }
 
