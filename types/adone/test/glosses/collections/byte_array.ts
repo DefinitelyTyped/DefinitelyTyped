@@ -56,6 +56,11 @@ namespace adoneTests.collection.ByteArray {
         const b: number = buffer.readUInt16BE(10);
     }
 
+    namespace readUInt24BE {
+        const a: number = buffer.readUInt24BE();
+        const b: number = buffer.readUInt24BE(10);
+    }
+
     namespace readInt32LE {
         const a: number = buffer.readInt32LE();
         const b: number = buffer.readInt32LE(10);
@@ -160,6 +165,11 @@ namespace adoneTests.collection.ByteArray {
     namespace writeUInt16BE {
         const a: adone.collection.ByteArray = buffer.writeUInt16BE(10);
         const b: adone.collection.ByteArray = buffer.writeUInt16BE(10, 10);
+    }
+
+    namespace writeUInt24BE {
+        const a: adone.collection.ByteArray = buffer.writeUInt24BE(10);
+        const b: adone.collection.ByteArray = buffer.writeUInt24BE(10, 10);
     }
 
     namespace writeInt32LE {

@@ -1,6 +1,8 @@
 // Type definitions for node-http-proxy 1.16
 // Project: https://github.com/nodejitsu/node-http-proxy
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>, Florian Oellerich <https://github.com/Raigen>
+// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
+//                 Florian Oellerich <https://github.com/Raigen>
+//                 Daniel Schmidt <https://github.com/DanielMSchmidt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -166,9 +168,9 @@ declare namespace Server {
     /** Buffer */
     buffer?: stream.Stream;
     /** URL string to be parsed with the url module. */
-    target?: string;
+    target?: ProxyTargetUrl;
     /** URL string to be parsed with the url module. */
-    forward?: string;
+    forward?: ProxyTargetUrl;
     /** Object to be passed to http(s).request. */
     agent?: any;
     /** Object to be passed to https.createServer(). */
@@ -205,6 +207,8 @@ declare namespace Server {
     headers?: {[header: string]: string};
     /** Timeout (in milliseconds) when proxy receives no response from target. Default: 120000 (2 minutes) */
     proxyTimeout?: number;
+    /** If set to true, none of the webOutgoing passes are called and it's your responsibility to appropriately return the response by listening and acting on the proxyRes event */
+    selfHandleResponse?: boolean;
   }
 }
 

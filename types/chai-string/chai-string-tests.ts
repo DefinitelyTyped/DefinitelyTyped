@@ -1,12 +1,15 @@
 
-/// <reference types="mocha" />
-
 var should = chai.should();
 var assert = chai.assert;
 var expect = chai.expect;
 
 import chai_string = require("chai-string");
 chai.use(chai_string);
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 describe('chai-string', function() {
 

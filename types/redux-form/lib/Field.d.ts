@@ -14,7 +14,7 @@ import { Dispatch } from "redux";
 export type Normalizer = (value: any, previousValue?: any, allValues?: any, previousAllValues?: any) => any;
 export type Formatter = (value: any, name: string) => any;
 export type Parser = (value: any, name: string) => any;
-export type Validator = (value: any, allValues?: any, props?: any) => any;
+export type Validator = (value: any, allValues?: any, props?: any, name?: any) => any;
 
 export type EventHandler<Event> = (event: Event) => void;
 export type EventWithDataHandler<Event> = (event?: Event, newValue?: any, previousValue?: any) => void;
@@ -37,7 +37,6 @@ export interface CommonFieldProps extends CommonFieldInputProps {
 
 export interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     name: string;
-    label?: string;
     component?: ComponentType<WrappedFieldProps & P> | "input" | "select" | "textarea";
     format?: Formatter | null;
     normalize?: Normalizer;
@@ -46,6 +45,7 @@ export interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     validate?: Validator | Validator[];
     warn?: Validator | Validator[];
     withRef?: boolean;
+    immutableProps?: string[];
 }
 
 export interface GenericField<P> extends Component<BaseFieldProps<P> & P> {

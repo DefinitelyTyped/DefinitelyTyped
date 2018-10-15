@@ -1,13 +1,13 @@
-// Type definitions for Glob 5.0
+// Type definitions for Glob 7.1
 // Project: https://github.com/isaacs/node-glob
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 voy <https://github.com/voy>
+//                 Klaus Meinhardt <https://github.com/ajafff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import events = require("events");
-import fs = require('fs');
 import minimatch = require("minimatch");
 
 declare function G(pattern: string, cb: (err: Error | null, matches: string[]) => void): void;
@@ -33,9 +33,10 @@ declare namespace G {
         stat?: boolean;
         silent?: boolean;
         strict?: boolean;
-        cache?: { [path: string]: any /* boolean | string | string[] */ };
-        statCache?: { [path: string]: fs.Stats };
-        symlinks?: any;
+        cache?: { [path: string]: boolean | 'DIR' | 'FILE' | ReadonlyArray<string> };
+        statCache?: { [path: string]: false | { isDirectory(): boolean} | undefined };
+        symlinks?: { [path: string]: boolean | undefined };
+        realpathCache?: { [path: string]: string };
         sync?: boolean;
         nounique?: boolean;
         nonull?: boolean;
@@ -46,15 +47,12 @@ declare namespace G {
         nocase?: boolean;
         matchBase?: any;
         nodir?: boolean;
-        ignore?: any; /* string | string[] */
+        ignore?: string | ReadonlyArray<string>;
         follow?: boolean;
         realpath?: boolean;
         nonegate?: boolean;
         nocomment?: boolean;
         absolute?: boolean;
-
-        /** Deprecated. */
-        globDebug?: boolean;
     }
 
     interface IGlobStatic extends events.EventEmitter {
@@ -72,9 +70,9 @@ declare namespace G {
         minimatch: minimatch.IMinimatch;
         options: IOptions;
         aborted: boolean;
-        cache: { [path: string]: any /* boolean | string | string[] */ };
-        statCache: { [path: string]: fs.Stats };
-        symlinks: { [path: string]: boolean };
+        cache: { [path: string]: boolean | 'DIR' | 'FILE' | ReadonlyArray<string> };
+        statCache: { [path: string]: false | { isDirectory(): boolean; } | undefined };
+        symlinks: { [path: string]: boolean | undefined };
         realpathCache: { [path: string]: string };
         found: string[];
     }
@@ -83,29 +81,6 @@ declare namespace G {
         pause(): void;
         resume(): void;
         abort(): void;
-
-        /** Deprecated. */
-        EOF: any;
-        /** Deprecated. */
-        paused: boolean;
-        /** Deprecated. */
-        maxDepth: number;
-        /** Deprecated. */
-        maxLength: number;
-        /** Deprecated. */
-        changedCwd: boolean;
-        /** Deprecated. */
-        cwd: string;
-        /** Deprecated. */
-        root: string;
-        /** Deprecated. */
-        error: any;
-        /** Deprecated. */
-        matches: string[];
-        /** Deprecated. */
-        log(...args: any[]): void;
-        /** Deprecated. */
-        emitMatch(m: any): void;
     }
 }
 

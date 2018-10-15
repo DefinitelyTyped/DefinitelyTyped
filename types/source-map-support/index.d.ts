@@ -24,7 +24,7 @@ export interface Options {
     overrideRetrieveFile?: boolean;
     overrideRetrieveSourceMap?: boolean;
     retrieveFile?(path: string): string;
-    retrieveSourceMap?(source: string): UrlAndMap;
+    retrieveSourceMap?(source: string): UrlAndMap | null;
 }
 
 export interface Position {

@@ -2,7 +2,7 @@
 // Project: https://github.com/mhevery/jasmine-node
 // Definitions by: Sven Reglitzki <https://github.com/svi3c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 ///<reference types="jasmine"/>
 

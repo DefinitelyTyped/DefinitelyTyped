@@ -54,17 +54,6 @@ configuration = {
 
 configuration = {
     // ...
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: "commons",
-            filename: "commons.js",
-        }),
-        new ExtractTextPlugin("[name].css")
-    ]
-};
-
-configuration = {
-    // ...
     module: {
         rules: [
             {

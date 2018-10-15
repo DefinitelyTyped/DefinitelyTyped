@@ -1,8 +1,12 @@
 import * as url from "url";
 import * as React from "react";
+import { UrlLike } from "./router";
 
-export type UrlLike = url.UrlObject | url.Url;
-export interface LinkState {
+// Deprecated
+export type LinkState = LinkProps;
+// End Deprecated
+
+export interface LinkProps {
     prefetch?: boolean;
     shallow?: boolean;
     scroll?: boolean;
@@ -14,4 +18,4 @@ export interface LinkState {
     children: React.ReactElement<any>;
 }
 
-export default class extends React.Component<LinkState> {}
+export default class Link extends React.Component<LinkProps> {}

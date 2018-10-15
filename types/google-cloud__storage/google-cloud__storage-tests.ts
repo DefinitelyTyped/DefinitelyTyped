@@ -26,7 +26,7 @@ import {
     WriteStreamOptions,
     UploadOptions
 } from "@google-cloud/storage";
-import CloudStorage = require("@google-cloud/storage");
+import Storage = require("@google-cloud/storage");
 
 /**
  * Test the storage service.
@@ -38,7 +38,7 @@ export class TestStorage {
     };
 
     // import Storage class
-    static gcs = CloudStorage();
+    static gcs = new Storage();
 
     constructor() {
         // nothing to do
@@ -204,7 +204,7 @@ export class TestFile {
     }
 
     /** Get a signed URL to allow limited time access to the file */
-    getSignedUrl(config?: SignedUrlConfig): Promise<[string]> {
+    getSignedUrl(config: SignedUrlConfig): Promise<[string]> {
         return this.file.getSignedUrl(config);
     }
 
@@ -263,3 +263,330 @@ testStorage.iam.setPolicy({
 testStorage.iam.testPermissions('storage.buckets.delete');
 
 testStorage.iam.testPermissions(['storage.buckets.delete', 'storage.buckets.get']);
+
+// Example from https://cloud.google.com/storage/docs/creating-buckets#storage-create-bucket-code_samples
+{
+    // Creates a client
+    const storage = new Storage();
+
+    const bucketName = 'Name of a bucket, e.g. my-bucket';
+
+    // Creates a new bucket
+    storage
+    .createBucket(bucketName, {
+        location: 'ASIA',
+        storageClass: 'COLDLINE',
+    })
+    .then(() => {
+        console.log(`Bucket ${bucketName} created.`);
+    })
+    .catch(err => {
+        console.error('ERROR:', err);
+    });
+}
+
+// Example from https://cloud.google.com/storage/docs/listing-buckets#storage-list-buckets-nodejs
+{
+    // Creates a client
+    const storage = new Storage();
+
+    // Lists all buckets in the current project
+    storage
+    .getBuckets()
+    .then(results => {
+        const buckets = results[0];
+
+        console.log('Buckets:');
+        buckets.forEach(bucket => {
+        console.log(bucket.name);
+        });
+    })
+    .catch(err => {
+        console.error('ERROR:', err);
+    });
+}
+
+// Example from https://cloud.google.com/storage/docs/moving-buckets#storage-create-bucket-nodejs
+{
+    // Creates a client
+    const storage = new Storage();
+
+    const bucketName = 'Name of a bucket, e.g. my-bucket';
+
+    // Creates a new bucket
+    storage
+    .createBucket(bucketName, {
+        location: 'ASIA',
+        storageClass: 'COLDLINE',
+    })
+    .then(() => {
+        console.log(`Bucket ${bucketName} created.`);
+    })
+    .catch(err => {
+        console.error('ERROR:', err);
+    });
+}
+
+// Example from https://cloud.google.com/storage/docs/deleting-buckets
+{
+    // Creates a client
+    const storage = new Storage();
+
+    const bucketName = 'Name of a bucket, e.g. my-bucket';
+
+    // Deletes the bucket
+    storage
+    .bucket(bucketName)
+    .delete()
+    .then(() => {
+        console.log(`Bucket ${bucketName} deleted.`);
+    })
+    .catch(err => {
+        console.error('ERROR:', err);
+    });
+}
+
+// Example from https://cloud.google.com/storage/docs/uploading-objects
+{
+    // Creates a client
+    const storage = new Storage();
+
+    const bucketName = 'Name of a bucket, e.g. my-bucket';
+    const filename = 'Local file to upload, e.g. ./local/path/to/file.txt';
+
+    // Uploads a local file to the bucket
+    storage
+    .bucket(bucketName)
+    .upload(filename, {
+        // Support for HTTP requests made with `Accept-Encoding: gzip`
+        gzip: true,
+        metadata: {
+        // Enable long-lived HTTP caching headers
+        // Use only if the contents of the file will never change
+        // (If the contents will change, use cacheControl: 'no-cache')
+        cacheControl: 'public, max-age=31536000',
+        },
+    })
+    .then(() => {
+        console.log(`${filename} uploaded to ${bucketName}.`);
+    })
+    .catch(err => {
+        console.error('ERROR:', err);
+    });
+}
+
+// Example from https://cloud.google.com/storage/docs/listing-objects
+{
+    // Creates a client
+    const storage = new Storage();
+
+    const bucketName = 'Name of a bucket, e.g. my-bucket';
+
+    // Lists files in the bucket
+    storage
+    .bucket(bucketName)
+    .getFiles()
+    .then(results => {
+        const files = results[0];
+
+        console.log('Files:');
+        files.forEach(file => {
+        console.log(file.name);
+        });
+    })
+    .catch(err => {
+        console.error('ERROR:', err);
+    });
+}
+
+// Example from https://cloud.google.com/storage/docs/listing-objects
+{
+    // Creates a client
+    const storage = new Storage();
+
+    const bucketName = 'Name of a bucket, e.g. my-bucket';
+    const prefix = 'Prefix by which to filter, e.g. public/';
+    const delimiter = 'Delimiter to use, e.g. /';
+
+    /**
+     * This can be used to list all blobs in a "folder", e.g. "public/".
+     *
+     * The delimiter argument can be used to restrict the results to only the
+     * "files" in the given "folder". Without the delimiter, the entire tree under
+     * the prefix is returned. For example, given these blobs:
+     *
+     *   /a/1.txt
+     *   /a/b/2.txt
+     *
+     * If you just specify prefix = '/a', you'll get back:
+     *
+     *   /a/1.txt
+     *   /a/b/2.txt
+     *
+     * However, if you specify prefix='/a' and delimiter='/', you'll get back:
+     *
+     *   /a/1.txt
+     */
+    const options = {
+        prefix,
+        delimiter
+    };
+
+    // Lists files in the bucket, filtered by a prefix
+    storage
+        .bucket(bucketName)
+        .getFiles(options)
+        .then(results => {
+            const files = results[0];
+
+            console.log('Files:');
+            files.forEach(file => {
+            console.log(file.name);
+            });
+        })
+        .catch(err => {
+            console.error('ERROR:', err);
+        });
+}
+
+// Example from https://cloud.google.com/storage/docs/downloading-objects#storage-download-object-nodejs
+{
+    // Creates a client
+    const storage = new Storage();
+
+    const bucketName = 'Name of a bucket, e.g. my-bucket';
+    const srcFilename = 'Remote file to download, e.g. file.txt';
+    const destFilename = 'Local destination for file, e.g. ./local/path/to/file.txt';
+
+    const options = {
+        // The path to which the file should be downloaded, e.g. "./file.txt"
+        destination: destFilename,
+    };
+
+    // Downloads the file
+    storage
+    .bucket(bucketName)
+    .file(srcFilename)
+    .download(options)
+    .then(() => {
+        console.log(
+        `gs://${bucketName}/${srcFilename} downloaded to ${destFilename}.`
+        );
+    })
+    .catch(err => {
+        console.error('ERROR:', err);
+    });
+}
+
+// Example from https://cloud.google.com/storage/docs/renaming-copying-moving-objects
+{
+    // Creates a client
+    const storage = new Storage();
+
+    const bucketName = 'Name of a bucket, e.g. my-bucket';
+    const srcFilename = 'File to move, e.g. file.txt';
+    const destFilename = 'Destination for file, e.g. moved.txt';
+
+    // Moves the file within the bucket
+    storage
+        .bucket(bucketName)
+        .file(srcFilename)
+        .move(destFilename)
+        .then(() => {
+            console.log(
+            `gs://${bucketName}/${srcFilename} moved to gs://${bucketName}/${destFilename}.`
+            );
+        })
+        .catch(err => {
+            console.error('ERROR:', err);
+        });
+}
+
+// Example from https://cloud.google.com/storage/docs/renaming-copying-moving-objects
+{
+    // Creates a client
+    const storage = new Storage();
+
+    const srcBucketName = 'Name of the source bucket, e.g. my-bucket';
+    const srcFilename = 'Name of the source file, e.g. file.txt';
+    const destBucketName = 'Name of the destination bucket, e.g. my-other-bucket';
+    const destFilename = 'Destination name of file, e.g. file.txt';
+
+    // Copies the file to the other bucket
+    storage
+        .bucket(srcBucketName)
+        .file(srcFilename)
+        .copy(storage.bucket(destBucketName).file(destFilename))
+        .then(() => {
+            console.log(
+            `gs://${srcBucketName}/${srcFilename} copied to gs://${destBucketName}/${destFilename}.`
+            );
+        })
+        .catch(err => {
+            console.error('ERROR:', err);
+        });
+}
+
+// Example from https://cloud.google.com/storage/docs/viewing-editing-metadata
+{
+    // Creates a client
+    const storage = new Storage();
+
+    const bucketName = 'Name of a bucket, e.g. my-bucket';
+    const filename = 'File to access, e.g. file.txt';
+
+    // Gets the metadata for the file
+    storage
+        .bucket(bucketName)
+        .file(filename)
+        .getMetadata()
+        .then(results => {
+            const metadata = results[0];
+
+            console.log(`File: ${metadata.name}`);
+            console.log(`Bucket: ${metadata.bucket}`);
+            console.log(`Storage class: ${metadata.storageClass}`);
+            console.log(`Self link: ${metadata.selfLink}`);
+            console.log(`ID: ${metadata.id}`);
+            console.log(`Size: ${metadata.size}`);
+            console.log(`Updated: ${metadata.updated}`);
+            console.log(`Generation: ${metadata.generation}`);
+            console.log(`Metageneration: ${metadata.metageneration}`);
+            console.log(`Etag: ${metadata.etag}`);
+            console.log(`Owner: ${metadata.owner}`);
+            console.log(`Component count: ${metadata.component_count}`);
+            console.log(`Crc32c: ${metadata.crc32c}`);
+            console.log(`md5Hash: ${metadata.md5Hash}`);
+            console.log(`Cache-control: ${metadata.cacheControl}`);
+            console.log(`Content-type: ${metadata.contentType}`);
+            console.log(`Content-disposition: ${metadata.contentDisposition}`);
+            console.log(`Content-encoding: ${metadata.contentEncoding}`);
+            console.log(`Content-language: ${metadata.contentLanguage}`);
+            console.log(`Metadata: ${metadata.metadata}`);
+            console.log(`Media link: ${metadata.mediaLink}`);
+        })
+        .catch(err => {
+            console.error('ERROR:', err);
+        });
+}
+
+// Example from https://cloud.google.com/storage/docs/deleting-objects
+{
+    // Creates a client
+    const storage = new Storage();
+
+    const bucketName = 'Name of a bucket, e.g. my-bucket';
+    const filename = 'File to delete, e.g. file.txt';
+
+    // Deletes the file from the bucket
+    storage
+        .bucket(bucketName)
+        .file(filename)
+        .delete()
+        .then(() => {
+            console.log(`gs://${bucketName}/${filename} deleted.`);
+        })
+        .catch(err => {
+            console.error('ERROR:', err);
+        });
+}

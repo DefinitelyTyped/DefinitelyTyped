@@ -28,6 +28,4 @@ export class MDCTemporaryDrawer extends MDCComponent<MDCSlidableDrawerAdapter, M
 
     /* Return the drawer element inside the component. */
     readonly drawer: Element | null;
-
-    getDefaultFoundation(): MDCTemporaryDrawerFoundation;
 }

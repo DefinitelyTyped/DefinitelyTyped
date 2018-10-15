@@ -1,14 +1,33 @@
-// Type definitions for yup 0.24
+// Type definitions for yup 0.26
 // Project: https://github.com/jquense/yup
-// Definitions by: Dominik Hardtke <https://github.com/dhardtke>, Vladyslav Tserman <https://github.com/vtserman>, Moreton Bay Regional Council <https://github.com/MoretonBayRC>
+// Definitions by: Dominik Hardtke <https://github.com/dhardtke>,
+//                 Vladyslav Tserman <https://github.com/vtserman>,
+//                 Moreton Bay Regional Council <https://github.com/MoretonBayRC>,
+//                 Sindre Seppola <https://github.com/sseppola>
+//                 Yash Kulshrestha <https://github.com/YashdalfTheGray>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export function reach<T>(schema: Schema<T>, path: string, value?: any, context?: any): Schema<T>;
-export function addMethod<T extends Schema<any>>(schemaCtor: AnySchemaConstructor, name: string, method: (this: T, ...args: any[]) => T): void;
+export function reach<T>(
+    schema: Schema<T>,
+    path: string,
+    value?: any,
+    context?: any
+): Schema<T>;
+export function addMethod<T extends Schema<any>>(
+    schemaCtor: AnySchemaConstructor,
+    name: string,
+    method: (this: T, ...args: any[]) => T
+): void;
 export function ref(path: string, options?: { contextPrefix: string }): Ref;
 export function lazy<T>(fn: (value: T) => Schema<T>): Lazy;
-export function ValidationError(errors: string | string[], value: any, path: string, type?: any): ValidationError;
+export function ValidationError(
+    errors: string | string[],
+    value: any,
+    path: string,
+    type?: any
+): ValidationError;
+export function setLocale(customLocale: LocaleObject): void;
 
 export const mixed: MixedSchemaConstructor;
 export const string: StringSchemaConstructor;
@@ -19,7 +38,8 @@ export const date: DateSchemaConstructor;
 export const array: ArraySchemaConstructor;
 export const object: ObjectSchemaConstructor;
 
-export type AnySchemaConstructor = MixedSchemaConstructor
+export type AnySchemaConstructor =
+    | MixedSchemaConstructor
     | StringSchemaConstructor
     | NumberSchemaConstructor
     | BooleanSchemaConstructor
@@ -34,8 +54,10 @@ export interface Schema<T> {
     meta(): any;
     describe(): SchemaDescription;
     concat(schema: this): this;
-    validate(value: T, options?: ValidateOptions): Promise<ValidationError|T>;
-    validateSync(value: T, options?: ValidateOptions): ValidationError|T;
+    validate(value: T, options?: ValidateOptions): Promise<T>;
+    validateSync(value: T, options?: ValidateOptions): T;
+    validateAt(path: string, value: T, options?: ValidateOptions): Promise<T>;
+    validateSyncAt(path: string, value: T, options?: ValidateOptions): T;
     isValid(value: T, options?: any): Promise<boolean>;
     isValidSync(value: T, options?: any): boolean;
     cast(value: any, options?: any): T;
@@ -46,33 +68,48 @@ export interface Schema<T> {
     default(value?: any): this;
     nullable(isNullable: boolean): this;
     required(message?: string): this;
+    notRequired(): this;
     typeError(message?: string): this;
     oneOf(arrayOfValues: any[], message?: string): this;
     notOneOf(arrayOfValues: any[], message?: string): this;
     when(keys: string | any[], builder: WhenOptions<this>): this;
-    test(name: string, message: string, test: (value?: any) => boolean, callbackStyleAsync?: boolean): this;
+    test(
+        name: string,
+        message:
+            | string
+            | ((params: object & Partial<TestMessageParams>) => string),
+        test: (
+            this: TestContext,
+            value?: any
+        ) => boolean | ValidationError | Promise<boolean | ValidationError>,
+        callbackStyleAsync?: boolean
+    ): this;
     test(options: TestOptions): this;
     transform(fn: TransformFunction<this>): this;
 }
 
 export interface MixedSchemaConstructor {
-  (): MixedSchema;
-  new(options?: { type?: string, [key: string]: any }): MixedSchema;
+    (): MixedSchema;
+    new (options?: { type?: string; [key: string]: any }): MixedSchema;
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface MixedSchema extends Schema<any> {
-}
+export interface MixedSchema extends Schema<any> {}
 
 export interface StringSchemaConstructor {
     (): StringSchema;
-    new(): StringSchema;
+    new (): StringSchema;
 }
 
 export interface StringSchema extends Schema<string> {
     min(limit: number | Ref, message?: string): StringSchema;
     max(limit: number | Ref, message?: string): StringSchema;
-    matches(regex: RegExp, message?: string): StringSchema;
+    matches(
+        regex: RegExp,
+        messageOrOptions?:
+            | string
+            | { message?: string; excludeEmptyString?: boolean }
+    ): StringSchema;
     email(message?: string): StringSchema;
     url(message?: string): StringSchema;
     ensure(): StringSchema;
@@ -83,7 +120,7 @@ export interface StringSchema extends Schema<string> {
 
 export interface NumberSchemaConstructor {
     (): NumberSchema;
-    new(): NumberSchema;
+    new (): NumberSchema;
 }
 
 export interface NumberSchema extends Schema<number> {
@@ -100,16 +137,15 @@ export interface NumberSchema extends Schema<number> {
 
 export interface BooleanSchemaConstructor {
     (): BooleanSchema;
-    new(): BooleanSchema;
+    new (): BooleanSchema;
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface BooleanSchema extends Schema<boolean> {
-}
+export interface BooleanSchema extends Schema<boolean> {}
 
 export interface DateSchemaConstructor {
     (): DateSchema;
-    new(): DateSchema;
+    new (): DateSchema;
 }
 
 export interface DateSchema extends Schema<Date> {
@@ -119,7 +155,7 @@ export interface DateSchema extends Schema<Date> {
 
 export interface ArraySchemaConstructor {
     <T>(schema?: Schema<T>): ArraySchema<T>;
-    new(): ArraySchema<{}>;
+    new (): ArraySchema<{}>;
 }
 
 export interface ArraySchema<T> extends Schema<T[]> {
@@ -136,15 +172,22 @@ export interface ObjectSchemaConstructor {
 }
 
 export interface ObjectSchema<T> extends Schema<T> {
-    shape(fields: { [field in keyof T]: Schema<T[field]> }, noSortEdges?: Array<[string, string]>): ObjectSchema<T>;
+    shape(
+        fields: { [field in keyof T]: Schema<T[field]> },
+        noSortEdges?: Array<[string, string]>
+    ): ObjectSchema<T>;
     from(fromKey: string, toKey: string, alias?: boolean): ObjectSchema<T>;
-    noUnknown(onlyKnownKeys: boolean, message?: string): ObjectSchema<T>;
+    noUnknown(onlyKnownKeys?: boolean, message?: string): ObjectSchema<T>;
     transformKeys(callback: (key: any) => any): void;
     camelCase(): ObjectSchema<T>;
     constantCase(): ObjectSchema<T>;
 }
 
-export type TransformFunction<T> = ((this: T, value: any, originalValue: any) => any);
+export type TransformFunction<T> = ((
+    this: T,
+    value: any,
+    originalValue: any
+) => any);
 
 export interface WhenOptionsBuilder<T> {
     (value: any, schema: T): T;
@@ -153,9 +196,18 @@ export interface WhenOptionsBuilder<T> {
     (v1: any, v2: any, v3: any, v4: any, schema: T): T;
 }
 
-export type WhenOptions<T> = WhenOptionsBuilder<T>
-| { is: boolean | ((value: any) => boolean), then: any, otherwise: any }
-| object;
+export type WhenOptions<T> =
+    | WhenOptionsBuilder<T>
+    | { is: boolean | ((value: any) => boolean); then: any; otherwise: any }
+    | object;
+
+export interface TestContext {
+    path: string;
+    options: ValidateOptions;
+    parent: any;
+    schema: Schema<any>;
+    createError: (params: { path: string; message: string }) => ValidationError;
+}
 
 export interface ValidateOptions {
     /**
@@ -180,6 +232,13 @@ export interface ValidateOptions {
     context?: object;
 }
 
+export interface TestMessageParams {
+    path: string;
+    value: any;
+    originalValue: any;
+    label: string;
+}
+
 export interface TestOptions {
     /**
      * Unique name identifying the test
@@ -189,12 +248,17 @@ export interface TestOptions {
     /**
      * Test function, determines schema validity
      */
-    test: (value: any) => boolean;
+    test: (
+        this: TestContext,
+        value: any
+    ) => boolean | ValidationError | Promise<boolean | ValidationError>;
 
     /**
      * The validation error message
      */
-    message?: string;
+    message?:
+        | string
+        | ((params: object & Partial<TestMessageParams>) => string);
 
     /**
      * Values passed to message for interpolation
@@ -240,16 +304,15 @@ export interface Ref {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface Lazy extends Schema<any> {
-}
+export interface Lazy extends Schema<any> {}
 
 export interface LocaleObject {
-  mixed?: { [key in keyof MixedSchema]?: string };
-  string?: { [key in keyof StringSchema]?: string };
-  number?: { [key in keyof NumberSchema]?: string };
-  boolean?: { [key in keyof BooleanSchema]?: string };
-  bool?: { [key in keyof BooleanSchema]?: string };
-  date?: { [key in keyof DateSchema]?: string };
-  array?: { [key in keyof ArraySchema<any>]?: string };
-  object?: { [key in keyof ObjectSchema<any>]?: string };
+    mixed?: { [key in keyof MixedSchema]?: string };
+    string?: { [key in keyof StringSchema]?: string };
+    number?: { [key in keyof NumberSchema]?: string };
+    boolean?: { [key in keyof BooleanSchema]?: string };
+    bool?: { [key in keyof BooleanSchema]?: string };
+    date?: { [key in keyof DateSchema]?: string };
+    array?: { [key in keyof ArraySchema<any>]?: string };
+    object?: { [key in keyof ObjectSchema<any>]?: string };
 }

@@ -20,6 +20,7 @@ export function parse(src: string | Buffer): {[name: string]: string};
  * Example: 'KEY=value' becomes { parsed: { KEY: 'value' } }
  */
 export function config(options?: DotenvOptions): DotenvResult;
+export const load: typeof config;
 
 export interface DotenvOptions {
     /**

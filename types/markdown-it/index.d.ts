@@ -2,6 +2,7 @@
 // Project: https://github.com/markdown-it/markdown-it
 // Definitions by: York Yao <https://github.com/plantain-00/>, Robert Coie <https://github.com/rapropos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 interface MarkdownItStatic {
     new (): MarkdownIt.MarkdownIt;
@@ -22,7 +23,19 @@ declare module MarkdownIt {
         renderInline(md: string, env?: any): string;
         parse(src: string, env: any): Token[];
         parseInline(src: string, env: any): Token[];
-        use(plugin: any, ...params: any[]): MarkdownIt;
+
+        /*
+        // The following only works in 3.0
+        // Since it's still not allowed to target 3.0, i'll leave the code commented out
+
+        use<T extends Array<any> = any[]>(
+            plugin: (md: MarkdownIt, ...params: T) => void,
+            ...params: T
+        ): MarkdownIt;
+        */
+
+        use(plugin: (md: MarkdownIt, ...params: any[]) => void, ...params: any[]): MarkdownIt;
+
         utils: {
             assign(obj: any): any;
             isString(obj: any): boolean;
@@ -40,6 +53,7 @@ declare module MarkdownIt {
             escapeRE(str: string): string;
             normalizeReference(str: string): string;
         }
+        
         disable(rules: string[] | string, ignoreInvalid?: boolean): MarkdownIt;
         enable(rules: string[] | string, ignoreInvalid?: boolean): MarkdownIt;
         set(options: Options): MarkdownIt;
@@ -74,6 +88,7 @@ declare module MarkdownIt {
         renderToken(tokens: Token[], idx: number, options: any): string;
     }
     interface Token {
+        new (type: string, tag: string, nesting: number): Token;
         attrGet: (name: string) => string | null;
         attrIndex: (name: string) => number;
         attrJoin: (name: string, value: string) => void;
@@ -96,24 +111,30 @@ declare module MarkdownIt {
 
     type TokenRender = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => void;
 
-    interface Rule {
-        (state: any): void;
+    interface Rule<S extends State = State> {
+        (state: S, silent?: boolean): boolean | void;
     }
 
-    interface Ruler {
-        after(afterName: string, ruleName: string, rule: Rule, options?: any): void;
-        at(name: string, rule: Rule, options?: any): void;
-        before(beforeName: string, ruleName: string, rule: Rule, options?: any): void;
+    interface RuleInline extends Rule<StateInline> {}
+    interface RuleBlock extends Rule<StateBlock> {}
+
+    interface Ruler<S extends State = State> {
+        after(afterName: string, ruleName: string, rule: Rule<S>, options?: any): void;
+        at(name: string, rule: Rule<S>, options?: any): void;
+        before(beforeName: string, ruleName: string, rule: Rule<S>, options?: any): void;
         disable(rules: string | string[], ignoreInvalid?: boolean): string[];
         enable(rules: string | string[], ignoreInvalid?: boolean): string[];
         enableOnly(rule: string, ignoreInvalid?: boolean): void;
-        getRules(chain: string): Rule[];
-        push(ruleName: string, rule: Rule, options?: any): void;
+        getRules(chain: string): Rule<S>[];
+        push(ruleName: string, rule: Rule<S>, options?: any): void;
     }
+
+    interface RulerInline extends Ruler<StateInline> {}
+    interface RulerBlock extends Ruler<StateBlock> {}
 
     interface ParserBlock {
         parse(src: string, md: MarkdownIt, env: any, outTokens: Token[]): void;
-        ruler: Ruler;
+        ruler: RulerBlock;
     }
 
     interface Core {
@@ -123,7 +144,95 @@ declare module MarkdownIt {
 
     interface ParserInline {
         parse(src: string, md: MarkdownIt, env: any, outTokens: Token[]): void;
-        ruler: Ruler;
-        ruler2: Ruler;
+        tokenize(state: State): void;
+        skipToken(state: State): void;
+        ruler: RulerInline;
+        ruler2: RulerInline;
+    }
+
+    interface Delimiter {
+        close: boolean;
+        end: number;
+        jump: number;
+        length: number;
+        level: number;
+        marker: number;
+        open: boolean;
+        token: number;
+    }
+
+    interface State {
+        env: any;
+        level: number;
+
+        /** Link to parser instance */
+        md: MarkdownIt;
+
+        /** The markdown source code that is being parsed. */
+        src: string;
+
+        tokens: Token[];
+
+        /** Return any for a yet untyped property */
+        [undocumented: string]: any;
+    }
+
+    interface StateInline extends State {
+        /**
+         * Stores `{ start: end }` pairs. Useful for backtrack
+         * optimization of pairs parse (emphasis, strikes).
+         */
+        cache: { [start: number]: number };
+
+        /** Emphasis-like delimiters */
+        delimiters: Delimiter[];
+
+        pending: string;
+        pendingLevel: number;
+
+        /** Index of the first character of this token. */
+        pos: number;
+
+        /** Index of the last character that can be used (for example the one before the end of this line). */
+        posMax: number;
+
+        /**
+         * Push new token to "stream".
+         * If pending text exists, flush it as text token.
+         */
+        push(type: string, tag: string, nesting: number): Token;
+
+        /** Flush pending text */
+        pushPending(): Token;
+
+        /**
+         * Scan a sequence of emphasis-like markers and determine whether
+         * it can start an emphasis sequence or end an emphasis sequence.
+         * @param start - position to scan from (it should point to a valid marker)
+         * @param canSplitWord - determine if these markers can be found inside a word
+         */
+        scanDelims(start: number, canSplitWord: boolean): {
+            can_open: boolean,
+            can_close: boolean,
+            length: number
+        };
+    }
+
+    interface StateBlock extends State {
+        /** Used in lists to determine if they interrupt a paragraph */
+        parentType: 'blockquote' | 'list' | 'root' | 'paragraph' | 'reference';
+
+        eMarks: number[];
+        bMarks: number[];
+        bsCount: number[];
+        sCount: number[];
+        tShift: number[];
+
+        blkIndent: number;
+        ddIndent: number;
+
+        line: number;
+        lineMax: number;
+        tight: boolean;
     }
 }

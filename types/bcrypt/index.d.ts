@@ -1,20 +1,32 @@
-// Type definitions for bcrypt 1.0
+// Type definitions for bcrypt 3.0
 // Project: https://www.npmjs.org/package/bcrypt
-// Definitions by: Peter Harris <https://github.com/codeanimal>, Ayman Nedjmeddine <https://github.com/IOAyman>
+// Definitions by:  Peter Harris <https://github.com/codeanimal>
+//                  Ayman Nedjmeddine <https://github.com/IOAyman>
+//                  David Stapleton <https://github.com/dstapleton92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /**
- * @param rounds  The cost of processing the data. Default 10.
+ * @param rounds    The cost of processing the data. Default 10.
+ * @param minor     The minor version of bcrypt to use. Either 'a' or 'b'. Default 'b'.
  */
-export declare function genSaltSync(rounds?: number): string;
+export declare function genSaltSync(rounds?: number, minor?: string): string;
 
 /**
  * @param rounds    The cost of processing the data. Default 10.
  * @param callback  A callback to be fire once the sald has been generated. Uses eio making it asynchronous.
  * @return A promise to be either resolved with the generated salt or rejected with an Error
  */
-export declare function genSalt(rounds: number, callback?: (err: Error, salt: string) => void): Promise<string>;
+export declare function genSalt(rounds?: number, callback?: (err: Error, salt: string) => void): Promise<string>;
+
+/**
+ * @param rounds    The cost of processing the data. Default 10.
+ * @param minor     The minor version of bcrypt to use. Either 'a' or 'b'. Default 'b'.
+ * @param callback  A callback to be fire once the sald has been generated. Uses eio making it asynchronous.
+ * @return A promise to be either resolved with the generated salt or rejected with an Error
+ */
+export declare function genSalt(rounds?: number, minor?: string, callback?: (err: Error, salt: string) => void): Promise<string>;
+
 /**
  * @param callback  A callback to be fire once the sald has been generated. Uses eio making it asynchronous.
  * @return A promise to be either resolved with the generated salt or rejected with an Error

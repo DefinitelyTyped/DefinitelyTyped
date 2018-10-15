@@ -527,6 +527,16 @@ function chain_tests() {
   	.keys()    // return ['foo', 'bar'] : string[]
   	.pairs()   // return [['foo', '0'], ['bar', '1']] : string[][]
   	.value();
+
+    interface IYears {
+        2016: number;
+        2017: number;
+    }
+
+    let yearObject: IYears = {2016: 1, 2017: 2};
+    let valuePerYear: number[] = _.chain(yearObject)
+        .values()
+        .value()
 }
 
 var obj: { [k: string] : number } = {

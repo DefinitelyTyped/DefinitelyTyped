@@ -1,6 +1,10 @@
 // Type definitions for Marionette 3.3
 // Project: https://github.com/marionettejs/
-// Definitions by: Zeeshan Hamid <https://github.com/zhamid>, Natan Vivo <https://github.com/nvivo>, Sven Tschui <https://github.com/sventschui>
+// Definitions by: Zeeshan Hamid <https://github.com/zhamid>,
+//                 Natan Vivo <https://github.com/nvivo>,
+//                 Sven Tschui <https://github.com/sventschui>,
+//                 Volker Nauruhn <https://github.com/razorness>,
+//                 Ard Timmerman <https://github.com/confususs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1140,6 +1144,11 @@ export class View<TModel extends Backbone.Model> extends Backbone.View<TModel> i
      * throughout the view with the ui attribute.
      */
     ui: any;
+
+    /**
+     * Get handle on UI element defined in ui hash
+     */
+    getUI(ui: string): JQuery;
 }
 
 export interface CollectionViewOptions<
@@ -1149,7 +1158,7 @@ export interface CollectionViewOptions<
     /**
      * Specify a child view to use.
      */
-    childView?: (() => typeof Backbone.View) | typeof Backbone.View;
+    childView?: ((model: TModel) => typeof Backbone.View) | typeof Backbone.View;
 
     /**
      * Define options to pass to the childView constructor.
@@ -1211,7 +1220,7 @@ export class CollectionView<TModel extends Backbone.Model, TView extends View<TM
     /**
      * Specify a child view to use.
      */
-    childView: (() => { new(...args: any[]): TView }) | { new(...args: any[]): TView };
+    childView: ((model: TModel) => { new(...args: any[]): TView }) | { new(...args: any[]): TView };
 
     /**
      * Define options to pass to the childView constructor.
@@ -1394,27 +1403,27 @@ export class CollectionView<TModel extends Backbone.Model, TView extends View<TM
      * instance is about to be added to the collection view. It provides
      * access to the view instance for the child that was added.
      */
-    onBeforeAddChild(childView: TView): void;
+    onBeforeAddChild(collectionView: CollectionView<TModel, TView, TCollection>, childView: TView): void;
 
     /**
      * This callback function allows you to know when a child / child view
      * instance has been added to the collection view. It provides access to
      * the view instance for the child that was added.
      */
-    onAddChild(childView: TView): void;
+    onAddChild(collectionView: CollectionView<TModel, TView, TCollection>, childView: TView): void;
 
     /**
      * This callback function allows you to know when a childView instance is
      * about to be removed from the collectionView. It provides access to the
      * view instance for the child that was removed.
      */
-    onBeforeRemoveChild(childView: TView): void;
+    onBeforeRemoveChild(collectionView: CollectionView<TModel, TView, TCollection>, childView: TView): void;
 
     /**
      * This callback function allows you to know when a child / childView
      * instance has been deleted or removed from the collection.
      */
-    onRemoveChild(childView: TView): void;
+    onRemoveChild(collectionView: CollectionView<TModel, TView, TCollection>, childView: TView): void;
 
     /**
      * Automatically destroys this Collection's children and cleans up
@@ -1557,6 +1566,11 @@ export class Behavior extends Object {
      * Behavior methods as this.ui.
      */
     ui: any;
+
+    /**
+     * Get handle on UI element defined in ui hash
+     */
+    getUI(ui: string): JQuery;
 
     /**
      * Any triggers you define on the Behavior will be triggered in response to the appropriate event on the view.

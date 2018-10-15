@@ -238,7 +238,6 @@ declare namespace lunr {
          * A query builder callback provides a query object to be used to express
          * the query to perform on the index.
          *
-         * @callback lunr.Index~queryBuilder
          * @param query - The query object to build up.
          */
         type QueryBuilder = (this: Query, query: Query) => void;
@@ -658,7 +657,6 @@ declare namespace lunr {
          * A token update function is used when updating or optionally
          * when cloning a token.
          *
-         * @callback lunr.Token~updateFunction
          * @param str - The string representation of the token.
          * @param metadata - All metadata associated with this token.
          */

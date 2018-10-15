@@ -1220,10 +1220,10 @@ export interface NightwatchAPI {
      *  browser.pause();
      * };
      * ```
-     * @param ms: The number of milliseconds to wait.
+     * @param ms: Optional - The number of milliseconds to wait.
      * @param callback: Optional callback function to be called when the command finishes.
      */
-    pause(ms: number, callback?: (result: NightwatchCallbackResult) => void): this;
+    pause(ms?: number, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * A simple perform command which allows access to the "api" in a callback. Can be useful if you want to read variables set by other commands.
@@ -1822,7 +1822,7 @@ export interface NightwatchAPI {
      * @param frameId: Identifier for the frame to change focus to.
      * @param callback: Optional callback function to be called when the command finishes.
      */
-    frame(frameId?: string, callback?: () => void): this;
+    frame(frameId: string | undefined | null, callback?: () => void): this;
 
     /**
      * Change focus to the parent context. If the current context is the top level browsing context, the context remains unchanged.

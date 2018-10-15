@@ -104,6 +104,13 @@ declare namespace adone.collection {
         readUInt16BE(offset?: number): number;
 
         /**
+         * Reads a 24bit unsigned be integer
+         *
+         * @param offset Offset to read from
+         */
+        readUInt24BE(offset?: number): number;
+
+        /**
          * Reads a 32bit signed le integer
          *
          * @param offset Offset to read from
@@ -259,6 +266,13 @@ declare namespace adone.collection {
          * @param offset Offset to write at
          */
         writeUInt16BE(value: number, offset?: number): this;
+
+        /**
+         * Writes a 24bit unsigned be integer
+         *
+         * @param offset Offset to write at
+         */
+        writeUInt24BE(value: number, offset?: number): this;
 
         /**
          * Writes a 32bit signed le integer

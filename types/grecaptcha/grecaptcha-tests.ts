@@ -4,8 +4,10 @@ const params: ReCaptchaV2.Parameters = {
   type: "image",
   size: "normal",
   tabindex: 5,
+  isolated: false,
   callback: (response: string) => { },
   "expired-callback": () => { },
+  "error-callback": () => { },
 };
 
 const size1: ReCaptchaV2.Size = "compact";
@@ -25,6 +27,7 @@ const id1: number = grecaptcha.render("foo");
 const id2: number = grecaptcha.render("foo", params);
 const id3: number = grecaptcha.render(document.getElementById("foo"));
 const id4: number = grecaptcha.render(document.getElementById("foo"), params);
+const id5: number = grecaptcha.render(document.getElementById("foo"), params, true);
 
 // response takes a number and returns a string
 const response1: string = grecaptcha.getResponse(id1);

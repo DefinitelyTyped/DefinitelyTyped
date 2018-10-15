@@ -1,4 +1,4 @@
-import trash from "trash";
+import trash = require("trash");
 
 async function testTrashNoArgs() {
     await trash(["/path/to/item1", "/path/to/item2"]);

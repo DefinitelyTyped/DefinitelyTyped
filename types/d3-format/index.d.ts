@@ -1,9 +1,12 @@
-// Type definitions for D3JS d3-format module 1.2
+// Type definitions for D3JS d3-format module 1.3
 // Project: https://github.com/d3/d3-format/
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.2.0
+// Last module patch version validated against: 1.3.0
 
 /**
  * Specification of locale to use when creating a new FormatLocaleObject
@@ -23,7 +26,7 @@ export interface FormatLocaleDefinition {
      */
     grouping: number[];
     /**
-     * The currency prefix and suffix (e.g., ["$", ""])
+     * The currency prefix and suffix (e.g., ["$", ""]).
      */
     currency: [string, string];
     /**
@@ -31,7 +34,7 @@ export interface FormatLocaleDefinition {
      */
     numerals?: string[];
     /**
-     * An optional symbol to replace the `percent` suffix; the percent suffix (defaults to "%")
+     * An optional symbol to replace the `percent` suffix; the percent suffix (defaults to "%").
      */
     percent?: string;
 }
@@ -44,9 +47,10 @@ export interface FormatLocaleObject {
      * Returns a new format function for the given string specifier. The returned function
      * takes a number as the only argument, and returns a string representing the formatted number.
      *
-     * @param specifier A Specifier string
+     * @param specifier A Specifier string.
+     * @throws Error on invalid format specifier.
      */
-    format(specifier: string): (n: number) => string;
+    format(specifier: string): (n: number | { valueOf(): number }) => string;
 
     /**
      * Returns a new format function for the given string specifier. The returned function
@@ -54,10 +58,11 @@ export interface FormatLocaleObject {
      * The returned function will convert values to the units of the appropriate SI prefix for the
      * specified numeric reference value before formatting in fixed point notation.
      *
-     * @param specifier A Specifier string
+     * @param specifier A Specifier string.
      * @param value The reference value to determine the appropriate SI prefix.
+     * @throws Error on invalid format specifier.
      */
-    formatPrefix(specifier: string, value: number): (n: number) => string;
+    formatPrefix(specifier: string, value: number): (n: number | { valueOf(): number }) => string;
 }
 
 /**
@@ -71,7 +76,7 @@ export interface FormatSpecifier {
      */
     fill: string;
     /**
-     * Alignment used for format, as set by choosing one of the following
+     * Alignment used for format, as set by choosing one of the following:
      *
      * '>' - Forces the field to be right-aligned within the available space. (Default behavior).
      * '<' - Forces the field to be left-aligned within the available space.
@@ -83,9 +88,9 @@ export interface FormatSpecifier {
      * The sign can be:
      *
      * '-' - nothing for positive and a minus sign for negative. (Default behavior.)
-     * '+' -  a plus sign for positive and a minus sign for negative.
+     * '+' - a plus sign for positive and a minus sign for negative.
      * '(' - nothing for positive and parentheses for negative.
-     * ' '(space) -  a space for positive and a minus sign for negative.
+     * ' ' (space) - a space for positive and a minus sign for negative.
      *
      */
     sign: '-' | '+' | '(' | ' ';
@@ -94,7 +99,7 @@ export interface FormatSpecifier {
      *
      * '$' - apply currency symbols per the locale definition.
      * '#' - for binary, octal, or hexadecimal notation, prefix by 0b, 0o, or 0x, respectively.
-     * ''(none) - no symbol.
+     * '' (none) - no symbol. (Default behavior.)
      */
     symbol: '$' | '#' | '';
     /**
@@ -116,9 +121,14 @@ export interface FormatSpecifier {
      * it defaults to 6 for all types except '' (none), which defaults to 12.
      * Precision is ignored for integer formats (types 'b', 'o', 'd', 'x', 'X' and 'c').
      *
-     * See precisionFixed and precisionRound for help picking an appropriate precision
+     * See precisionFixed and precisionRound for help picking an appropriate precision.
      */
-    precision: number;
+    precision: number | undefined;
+    /**
+     * The '~' option trims insignificant trailing zeros across all format types.
+     * This is most commonly used in conjunction with types 'r', 'e', 's' and '%'.
+     */
+    trim: boolean;
     /**
      * The available type values are:
      *
@@ -135,9 +145,9 @@ export interface FormatSpecifier {
      * 'x' - hexadecimal notation, using lower-case letters, rounded to integer.
      * 'X' - hexadecimal notation, using upper-case letters, rounded to integer.
      * 'c' - converts the integer to the corresponding unicode character before printing.
-     * '' (none) - like g, but trim insignificant trailing zeros.
      *
-     * The type 'n' is also supported as shorthand for ',g'. For the 'g', 'n' and ''(none) types,
+     * The type '' (none) is also supported as shorthand for '~g' (with a default precision of 12 instead of 6), and
+     * the type 'n' is shorthand for ',g'. For the 'g', 'n' and '' (none) types,
      * decimal notation is used if the resulting string would have precision or fewer digits; otherwise, exponent notation is used.
      */
     type: 'e' | 'f' | 'g' | 'r' | 's' | '%' | 'p' | 'b' | 'o' | 'd' | 'x' | 'X' | 'c' | '' | 'n';
@@ -170,12 +180,13 @@ export function formatDefaultLocale(defaultLocale: FormatLocaleDefinition): Form
  *
  * Uses the current default locale.
  *
- * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][type].
+ * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][~][type].
  * For reference, an explanation of the segments of the specifier string, refer to the FormatSpecifier interface properties.
  *
- * @param specifier A Specifier string
+ * @param specifier A Specifier string.
+ * @throws Error on invalid format specifier.
  */
-export function format(specifier: string): (n: number) => string;
+export function format(specifier: string): (n: number | { valueOf(): number }) => string;
 
 /**
  * Returns a new format function for the given string specifier. The returned function
@@ -183,24 +194,26 @@ export function format(specifier: string): (n: number) => string;
  * The returned function will convert values to the units of the appropriate SI prefix for the
  * specified numeric reference value before formatting in fixed point notation.
  *
- *  Uses the current default locale.
+ * Uses the current default locale.
  *
- * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][type].
+ * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][~][type].
  * For reference, an explanation of the segments of the specifier string, refer to the FormatSpecifier interface properties.
  *
- * @param specifier A Specifier string
+ * @param specifier A Specifier string.
  * @param value The reference value to determine the appropriate SI prefix.
+ * @throws Error on invalid format specifier.
  */
-export function formatPrefix(specifier: string, value: number): (n: number) => string;
+export function formatPrefix(specifier: string, value: number): (n: number | { valueOf(): number }) => string;
 
 /**
  * Parses the specified specifier, returning an object with exposed fields that correspond to the
  * format specification mini-language and a toString method that reconstructs the specifier.
  *
- * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][type].
+ * The general form of a specifier is [[fill]align][sign][symbol][0][width][,][.precision][~][type].
  * For reference, an explanation of the segments of the specifier string, refer to the FormatSpecifier interface properties.
  *
  * @param specifier A specifier string.
+ * @throws Error on invalid format specifier.
  */
 export function formatSpecifier(specifier: string): FormatSpecifier;
 

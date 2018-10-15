@@ -141,6 +141,52 @@ export namespace Options {
 
 export interface Message {
     content: Buffer;
-    fields: any;
-    properties: any;
+    fields: MessageFields;
+    properties: MessageProperties;
+}
+
+export interface MessageFields {
+    deliveryTag: number;
+    redelivered: boolean;
+    exchange: string;
+    routingKey: string;
+    messageCount: string;
+}
+
+export interface MessageProperties {
+    contentType: any | undefined;
+    contentEncoding: any | undefined;
+    headers: MessagePropertyHeaders;
+    deliveryMode: any | undefined;
+    priority: any | undefined;
+    correlationId: any | undefined;
+    replyTo: any | undefined;
+    expiration: any | undefined;
+    messageId: any | undefined;
+    timestamp: any | undefined;
+    type: any | undefined;
+    userId: any | undefined;
+    appId: any | undefined;
+    clusterId: any | undefined;
+}
+
+export interface MessagePropertyHeaders {
+    "x-first-death-exchange"?: string;
+    "x-first-death-queue"?: string;
+    "x-first-death-reason"?: string;
+    "x-death"?: XDeath[];
+    [key: string]: any;
+}
+
+export interface XDeath {
+    count: number;
+    reason: "rejected" | "expired" | "maxlen";
+    queue: string;
+    time: {
+        "!": "timestamp";
+        value: number;
+    };
+    exchange: string;
+    "original-expiration"?: any;
+    "routing-keys": string[];
 }

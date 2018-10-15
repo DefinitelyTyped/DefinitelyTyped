@@ -1,13 +1,14 @@
-// Type definitions for react-native-google-signin 0.12
+// Type definitions for react-native-google-signin 0.13
 // Project: https://github.com/devfd/react-native-google-signin
 // Definitions by: Jacob Froman <https://github.com/j-fro>
+//                 Michele Bombardi <https://github.com/bm-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
-import { ViewProperties } from 'react-native';
+import { ViewProps } from 'react-native';
 
-export interface GoogleSigninButtonProps extends ViewProperties {
+export interface GoogleSigninButtonProps extends ViewProps {
     size?: GoogleSigninButton.Size;
     color?: GoogleSigninButton.Color;
     onPress?(): void;
@@ -143,4 +144,11 @@ export namespace GoogleSignin {
      * Removes your application from the user's authorized applications
      */
     function revokeAccess(): Promise<void>;
+}
+
+export enum StatusCodes {
+    SIGN_IN_CANCELLED = '12501',
+    IN_PROGRESS = 'ASYNC_OP_IN_PROGRESS',
+    PLAY_SERVICES_NOT_AVAILABLE = 'PLAY_SERVICES_NOT_AVAILABLE',
+    SIGN_IN_REQUIRED = '4',
 }

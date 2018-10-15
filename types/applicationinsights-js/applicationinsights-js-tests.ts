@@ -21,13 +21,19 @@ const config: Microsoft.ApplicationInsights.IConfig = {
     maxAjaxCallsPerView: -1,
     disableDataLossAnalysis: true,
     disableCorrelationHeaders: true,
+    correlationHeaderExcludedDomains: [],
     disableFlushOnBeforeUnload: false,
     enableSessionStorageBuffer: false,
     cookieDomain: "",
     isCookieUseDisabled: true,
     isRetryDisabled: true,
-    isPerfAnalyzerEnabled: true,
-    isStorageUseDisabled: true
+    url: "url",
+    isStorageUseDisabled: true,
+    isBeaconApiDisabled: false,
+    sdkExtension: "sdkExtension",
+    isBrowserLinkTrackingEnabled: false,
+    appId: "appId",
+    enableCorsCorrelation: false
 };
 
 appInsights = {
@@ -175,3 +181,8 @@ const traceObj = new Microsoft.ApplicationInsights.Telemetry.Trace("message", nu
 const traceData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.Trace>(Microsoft.ApplicationInsights.Telemetry.Trace.dataType, traceObj);
 const traceEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(traceData, Microsoft.ApplicationInsights.Telemetry.Trace.envelopeType);
 context.track(traceEnvelope);
+
+// UtilHelpers
+let Util: typeof Microsoft.ApplicationInsights.UtilHelpers;
+
+Util.newId();

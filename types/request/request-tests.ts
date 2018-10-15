@@ -11,7 +11,7 @@ let value: any;
 let str: string;
 let strOrUndef: string | undefined;
 let strOrTrueOrUndef: string | true | undefined;
-const buffer: NodeBuffer = new Buffer('foo');
+const buffer: Buffer = new Buffer('foo');
 let num = 0;
 let bool: boolean;
 let date: Date;

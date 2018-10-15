@@ -18,6 +18,10 @@ declare namespace SeamlessImmutable {
         merger?(a: any, b: any, config: any): any;
     }
 
+    interface ReplaceConfig {
+        deep: boolean;
+    }
+
     interface Options {
         prototype?: any;
     }
@@ -75,6 +79,8 @@ declare namespace SeamlessImmutable {
         without<K extends keyof T>(property: K): ImmutableObject<T>;
         without<K extends keyof T>(...properties: K[]): ImmutableObject<T>;
         without<K extends keyof T>(filter: (value: T[K], key: K) => boolean): ImmutableObject<T>;
+
+        replace<S>(valueObj: S, options?: ReplaceConfig): ImmutableObject<S>;
     }
 
     interface ImmutableArrayMixin<T> {
@@ -92,6 +98,8 @@ declare namespace SeamlessImmutable {
 
     function isImmutable(target: any): boolean;
     function ImmutableError(message: string): Error;
+
+    function replace<T, S>(obj: ImmutableObject<T>, valueObj: S, options?: ReplaceConfig): ImmutableObject<S>;
 }
 
 declare function SeamlessImmutable<T>(obj: T[], options?: SeamlessImmutable.Options): SeamlessImmutable.ImmutableArray<T>;

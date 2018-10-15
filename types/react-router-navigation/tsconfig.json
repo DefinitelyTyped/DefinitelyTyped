@@ -5,6 +5,14 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "react-navigation": [
+                "react-navigation/v1"
+            ],
+            "react-navigation/*": [
+                "react-navigation/v1/*"
+            ]
+        },
         "module": "commonjs",
         "lib": [
             "es6",

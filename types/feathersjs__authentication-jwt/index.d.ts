@@ -2,12 +2,14 @@
 // Project: http://feathersjs.com/
 // Definitions by: Jan Lohage <https://github.com/j2L4e>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { Application } from '@feathersjs/feathers';
 import { Request } from 'express';
+import * as self from '@feathersjs/authentication-jwt';
 
-export default function feathersAuthenticationJwt(options?: FeathersAuthenticationJWTOptions): () => void;
+declare const feathersAuthenticationJwt: ((options?: Partial<FeathersAuthenticationJWTOptions>) => () => void) & typeof self;
+export default feathersAuthenticationJwt;
 
 export interface FeathersAuthenticationJWTOptions {
     /**
@@ -41,11 +43,11 @@ export interface FeathersAuthenticationJWTOptions {
     /**
      * A Verifier class. Defaults to the built-in one but can be a custom one. See below for details.
      */
-    Verifier: JWTVerifier;
+    Verifier: typeof Verifier;
 }
 
-export class JWTVerifier {
-    constructor(app: Application<any>, options: any); // the class constructor
+export class Verifier {
+    constructor(app: Application, options: any); // the class constructor
 
     verify(req: Request, payload: any, done: (error: any, user?: any, info?: any) => void): void;
 }

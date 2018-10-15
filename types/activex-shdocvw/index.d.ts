@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+/// <reference types="activex-interop" />
+
 declare namespace SHDocVw {
     // tslint:disable-next-line no-const-enum
     const enum BrowserBarConstants {
@@ -1562,7 +1564,6 @@ interface ActiveXObject {
     on(obj: SHDocVw.ShellNameSpace, event: 'DoubleClick' | 'Initialized' | 'SelectionChange', handler: (this: SHDocVw.ShellNameSpace, parameter: {}) => void): void;
     on(obj: SHDocVw.WebBrowser, event: 'DownloadBegin' | 'DownloadComplete' | 'OnQuit', handler: (this: SHDocVw.WebBrowser, parameter: {}) => void): void;
     on(obj: SHDocVw.WebBrowser_V1, event: 'DownloadBegin' | 'DownloadComplete' | 'WindowActivate' | 'WindowMove' | 'WindowResize', handler: (this: SHDocVw.WebBrowser_V1, parameter: {}) => void): void;
-    new <K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {
@@ -1570,8 +1571,4 @@ interface ActiveXObjectNameMap {
     'Shell.Explorer': SHDocVw.WebBrowser;
     'Shell.UIHelper': SHDocVw.ShellUIHelper;
     'ShellNameSpace.ShellNameSpace': SHDocVw.ShellNameSpace;
-}
-
-interface EnumeratorConstructor {
-    new(col: SHDocVw.ShellWindows): Enumerator<SHDocVw.InternetExplorer>;
 }

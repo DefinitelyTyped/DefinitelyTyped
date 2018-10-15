@@ -86,17 +86,6 @@ declare namespace adone {
 
         function invertObject(source: object, options?: I.KeysOptions): object;
 
-        namespace I {
-            interface HumanizeTimeOptions {
-                msDecimalDigits?: number;
-                secDecimalDigits?: number;
-                verbose?: boolean;
-                compact?: boolean;
-            }
-        }
-        function humanizeTime(ms: number, options?: I.HumanizeTimeOptions): string;
-        function humanizeSize(num: number, space?: string): string;
-
         function parseSize(str: string | number): number | null;
 
         namespace I {
@@ -462,7 +451,7 @@ declare namespace adone {
                     | encoding.Multibyte;
             }
 
-            const defaultCharUnicode: "�";
+            const defaultCharUnicode: string;
 
             const defaultCharSingleByte: "?";
 
@@ -547,7 +536,7 @@ declare namespace adone {
         namespace throttle {
             namespace I {
                 interface Options {
-                    max?: number;
+                    concurrency?: number;
                     interval?: number;
                     ordered?: boolean;
                     waitForReturn?: boolean;

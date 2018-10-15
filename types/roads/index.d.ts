@@ -12,6 +12,23 @@ export type Keys = string;
 export type Option = {[k in Keys]: any};
 
 /**
+ * @param validOrigins An array of origin urls that can send requests to this API
+ * @param supportsCredentials A boolean, true if you want this endpoint to receive cookies
+ * @param responseHeaders An array of valid HTTP response headers
+ * @param requestHeaders An array of valid HTTP request headers
+ * @param validMethods An array of valid HTTP methods
+ * @param cacheMaxAge The maximum age to cache the cors information
+ */
+export interface Cors {
+    validOrigins: string[];
+    supportsCredentials?: boolean;
+    responseHeaders?: string[];
+    requestHeaders?: string[];
+    validMethods?: string[];
+    cacheMaxAge?: number;
+}
+
+/**
  * @param method The HTTP method that was provided to the request
  * @param url The URL that was provided to the request
  * @param body The body that was provided to the request, after it was properly parsed into an object
@@ -126,10 +143,9 @@ export namespace middleware {
 
     /**
      * Middleware to Apply proper cors headers
-     * @param allow_origins Either * to allow all origins, or an explicit list of valid origins
-     * @param allow_headers A white list of headers that the client is allowed to send in their requests
+     * @param options Cors options
      */
-    function cors(allow_origins: string | string[], allow_headers?: string[]): any;
+    function cors(options: Cors): any;
 
     /**
      * Translate the request body into a usable value

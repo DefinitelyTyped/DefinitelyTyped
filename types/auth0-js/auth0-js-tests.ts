@@ -9,7 +9,10 @@ webAuth.authorize({
     audience: 'https://mystore.com/api/v2',
     scope: 'read:order write:order',
     responseType: 'token',
-    redirectUri: 'https://example.com/auth/callback'
+    redirectUri: 'https://example.com/auth/callback',
+	language: 'en',
+    login_hint: "email@email.com",
+	prompt: 'login',
 });
 
 webAuth.parseHash((err, authResult) => {

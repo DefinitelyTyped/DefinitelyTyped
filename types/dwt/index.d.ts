@@ -2485,6 +2485,16 @@ interface WebTwain {
     CloseWorkingProcess(): boolean;
 
     /**
+     * Converts the images specified by the indices to base64 synchronously.
+     * @method WebTwain#ConvertToBase64
+     * @param {Array} indices indices specifies which images are to be converted to base64.
+     * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be converted to base64.
+     * @return {Base64Result}
+ 
+    ConvertToBase64(indices: number[], enumImageType: EnumDWT_ImageType): Base64Result;
+    */
+
+    /**
      * Converts the images specified by the indices to base64 asynchronously.
      * @method WebTwain#ConvertToBase64
      * @param {Array} indices indices specifies which images are to be converted to base64.

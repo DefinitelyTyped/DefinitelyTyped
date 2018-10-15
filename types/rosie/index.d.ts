@@ -1,6 +1,8 @@
 // Type definitions for rosie
 // Project: https://github.com/rosiejs/rosie
-// Definitions by: Abner Oliveira <https://github.com/abner>, Chris Grigg <https://github.com/subvertallchris>
+// Definitions by: Abner Oliveira <https://github.com/abner>,
+//                 Chris Grigg <https://github.com/subvertallchris>,
+//                 Alex Bukurov <https://github.com/abukurov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -191,7 +193,7 @@ declare namespace rosie {
      * @param {object=} options
      * @return {object}
      */
-    attributes(attributes: string, options?: { [k in keyof T]: T[k] }): T;
+    attributes(attributes?: { [k in keyof T]?: T[k] }, options?: any): T;
 
     /**
      * Generates values for all the registered options using the values given.

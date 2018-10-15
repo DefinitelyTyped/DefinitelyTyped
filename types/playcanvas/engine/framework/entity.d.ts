@@ -1,5 +1,5 @@
 declare namespace pc {
-    type ComponentTypes = 'animation' | 'audiolistner' | 'camera' | 'collision' |
+    type ComponentTypes = 'animation' | 'audiolistener' | 'camera' | 'collision' |
         'element' | 'light' | 'model' | 'particlesystem' |
         'rigidbody' | 'screen' | 'script' | 'sound' | 'zone';
 
@@ -169,11 +169,11 @@ declare namespace pc {
         *   this.entity.parent.addChild(e); // Add it as a sibling to the original
         */
         clone(): pc.Entity;
-                
+
 
         // Possible attached components
         animation: pc.AnimationComponent;
-        audiolistner: pc.AudioListenerComponent;
+        audiolistener: pc.AudioListenerComponent;
         camera: pc.CameraComponent;
         collision: pc.CollisionComponent;
         element: pc.ElementComponent;

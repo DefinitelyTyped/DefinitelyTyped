@@ -1,4 +1,4 @@
-// Type definitions for http-assert 1.2
+// Type definitions for http-assert 1.3
 // Project: https://github.com/jshttp/http-assert
 // Definitions by: jKey Lu <https://github.com/jkeylu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,6 +10,7 @@
  * @param opts custom properties to attach to the error object
  */
 declare function assert(value: any, status?: number, msg?: string, opts?: {}): void;
+declare function assert(value: any, status?: number, opts?: {}): void;
 
 declare namespace assert {
     /**

@@ -1,8 +1,9 @@
-// Type definitions for jsonwebtoken 7.2.1
+// Type definitions for jsonwebtoken 7.2.2
 // Project: https://github.com/auth0/node-jsonwebtoken
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>,
 //                 Daniel Heim <https://github.com/danielheim>,
-//                 Brice BERNARD <https://github.com/brikou>
+//                 Brice BERNARD <https://github.com/brikou>,
+//                 Veli-Pekka Kestilä <https://github.com/vpk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -76,10 +77,10 @@ export interface DecodeOptions {
     complete?: boolean;
     json?: boolean;
 }
-
+export type VerifyErrors=JsonWebTokenError | NotBeforeError | TokenExpiredError;
 export interface VerifyCallback {
     (
-        err: JsonWebTokenError | NotBeforeError | TokenExpiredError,
+        err: VerifyErrors,
         decoded: object | string,
     ): void;
 }
@@ -129,11 +130,11 @@ export declare function sign(
  * @param {VerifyOptions} [options] - Options for the verification
  * @returns The decoded token.
  */
-declare function verify(
+export declare function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
 ): object | string;
-declare function verify(
+export declare function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
     options?: VerifyOptions,
@@ -146,12 +147,12 @@ declare function verify(
  * @param {VerifyOptions} [options] - Options for the verification
  * @param {Function} callback - Callback to get the decoded token on
  */
-declare function verify(
+export declare function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
     callback?: VerifyCallback,
 ): void;
-declare function verify(
+export declare function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
     options?: VerifyOptions,
@@ -164,7 +165,8 @@ declare function verify(
  * @param {DecodeOptions} [options] - Options for decoding
  * @returns {Object} The decoded Token
  */
-declare function decode(
+export declare function decode(
     token: string,
     options?: DecodeOptions,
-): null | object | string;
+): null | { [key: string]: any } | string;
+

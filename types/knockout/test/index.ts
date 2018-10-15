@@ -96,6 +96,19 @@ class GetterViewModel {
     public range: KnockoutObservable<any>;
 }
 
+function testToJs() {
+    var objKo = {
+        prop: ko.observable("prop"),
+        subKo: ko.observable({
+            prop: ko.observable("prop")
+        })
+    };
+
+    var objJs = ko.toJS(objKo);
+    objJs.prop; // $ExpectType any
+    objJs.subKo.prop; // $ExpectType any
+}
+
 function testGetter() {
     var model = new GetterViewModel();
 
@@ -179,7 +192,7 @@ function test_bindings() {
             var value = ko.utils.unwrapObservable(valueAccessor());
             $(element).toggle(value);
         }
-    };
+    } as KnockoutBindingHandler<HTMLElement, KnockoutObservable<boolean> | boolean>;
     ko.bindingHandlers.hasFocus = {
         init: function (element, valueAccessor) {
             $(element).focus(function () {
@@ -198,7 +211,7 @@ function test_bindings() {
             else
                 element.blur();
         }
-    };
+    } as KnockoutBindingHandler<HTMLElement, KnockoutObservable<boolean>>;
     ko.bindingHandlers.allowBindings = {
         init: function (elem, valueAccessor) {
             var shouldAllowBindings = ko.utils.unwrapObservable(valueAccessor());
@@ -588,6 +601,13 @@ function test_misc() {
 		}
 	}
 
+    ko.observable("foo").equalityComparer = (a, b) => {
+        return a.toLowerCase() === b.toLowerCase();
+    };
+    ko.computed(() => "foo").equalityComparer = (a, b) => {
+        return (a !== undefined) && a.toLowerCase() === b.toLowerCase();
+    };
+
 }
 
 interface KnockoutBindingHandlers {
@@ -736,4 +756,8 @@ interface MyObservableArray extends KnockoutObservableArray<any> {
 
 interface MyComputed extends KnockoutComputed<any> {
     isBeautiful?: boolean;
+}
+
+function observableAny() {
+    ko.observable<number>(5 as any); // $ExpectType KnockoutObservable<number>
 }

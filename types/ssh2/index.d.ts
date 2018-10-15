@@ -1,6 +1,8 @@
 // Type definitions for ssh2 v0.5.x
 // Project: https://github.com/mscdex/ssh2
-// Definitions by: Qubo <https://github.com/tkQubo>, Ron Buckton <https://github.com/rbuckton>
+// Definitions by: Qubo <https://github.com/tkQubo>
+//                 Ron Buckton <https://github.com/rbuckton>
+//                 Will Boyce <https://github.com/wrboyce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -449,6 +451,8 @@ export interface ConnectConfig {
     agentForward?: boolean;
     /** Explicit overrides for the default transport layer algorithms used for the connection. */
     algorithms?: Algorithms;
+    /** Compression settings: true (prefer), false (never), 'force' (require) */
+    compress?: boolean | 'force';
     /** A function that receives a single string argument to get detailed (local) debug information. */
     debug?: (information: string) => any;
 }

@@ -1,18 +1,56 @@
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
 import {
-    Button, ButtonToolbar, Modal, Well, ButtonGroup,
-    DropdownButton, MenuItem, Panel, PanelGroup, ListGroup,
-    ListGroupItem, Accordion, Tooltip,
-    OverlayTrigger, Popover, ProgressBar,
-    Nav, NavItem, Navbar, NavDropdown,
-    Tabs, Tab, Pager, PageItem,
-    Pagination, Alert, Carousel, SafeAnchor,
-    Grid, Row, Col, Thumbnail, Image, ResponsiveEmbed,
-    Label, Badge, Jumbotron, PageHeader,
-    Glyphicon, Table, Form, FormGroup,
-    ControlLabel, FormControl, HelpBlock,
-    Radio, Checkbox, Media, InputGroup, ToggleButtonGroup,
+    Button,
+    ButtonToolbar,
+    Modal,
+    Well,
+    ButtonGroup,
+    DropdownButton,
+    MenuItem,
+    Panel,
+    PanelGroup,
+    ListGroup,
+    ListGroupItem,
+    Accordion,
+    Tooltip,
+    OverlayTrigger,
+    Popover,
+    ProgressBar,
+    Nav,
+    NavItem,
+    Navbar,
+    NavDropdown,
+    Tabs,
+    Tab,
+    Pager,
+    PageItem,
+    Pagination,
+    Alert,
+    Carousel,
+    SafeAnchor,
+    Grid,
+    Row,
+    Col,
+    Thumbnail,
+    Image,
+    ResponsiveEmbed,
+    Label,
+    Badge,
+    Jumbotron,
+    PageHeader,
+    Glyphicon,
+    Table,
+    Form,
+    FormGroup,
+    ControlLabel,
+    FormControl,
+    HelpBlock,
+    Radio,
+    Checkbox,
+    Media,
+    InputGroup,
+    ToggleButtonGroup,
     ToggleButton
 } from 'react-bootstrap';
 
@@ -481,7 +519,7 @@ export class ReactBootstrapTest extends Component {
                         <Modal.Title>Modal title</Modal.Title>
                       </Modal.Header>
 
-                      <Modal.Body>
+                      <Modal.Body bsClass="custom-class">
                         One fine body...
                       </Modal.Body>
 
@@ -498,7 +536,7 @@ export class ReactBootstrapTest extends Component {
                         <Modal.Header closeButton>
                             <Modal.Title>Modal heading</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
+                        <Modal.Body bsClass="custom-class">
                             <h4>Text in a modal</h4>
                             <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
 
@@ -1418,20 +1456,47 @@ export class ReactBootstrapTest extends Component {
 
               <div>
                 <ButtonToolbar>
-                  <ToggleButtonGroup type="checkbox" defaultValue={[1, 3]}>
-                    <ToggleButton value={1}>Checkbox 1 (pre-checked)</ToggleButton>
-                    <ToggleButton value={2}>Checkbox 2</ToggleButton>
-                    <ToggleButton value={3}>Checkbox 3 (pre-checked)</ToggleButton>
+                  <ToggleButtonGroup
+                    type="checkbox"
+                    defaultValue={[1, 3]}
+                    bsSize="small"
+                  >
+                    <ToggleButton value={1} bsSize="small" active>
+                      Checkbox 1 (pre-checked)
+                    </ToggleButton>
+                    <ToggleButton value={2}>
+                      Checkbox 2
+                    </ToggleButton>
+                    <ToggleButton value={3}>
+                      Checkbox 3 (pre-checked)
+                    </ToggleButton>
                   </ToggleButtonGroup>
                 </ButtonToolbar>
 
                 <ButtonToolbar>
-                  <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                    <ToggleButton value={1}>
+                  <ToggleButtonGroup
+                    type="radio"
+                    name="options"
+                    defaultValue={1}
+                  >
+                    <ToggleButton
+                      value={1}
+                      bsSize="large"
+                    >
                       Radio 1 (pre-checked)
                     </ToggleButton>
-                    <ToggleButton value={2}>Radio 2</ToggleButton>
-                    <ToggleButton value={3}>Radio 3</ToggleButton>
+                    <ToggleButton
+                      value={2}
+                      bsSize="small"
+                    >
+                      Radio 2
+                    </ToggleButton>
+                    <ToggleButton
+                      value={3}
+                      bsSize="xsmall"
+                    >
+                      Radio 3
+                    </ToggleButton>
                   </ToggleButtonGroup>
                 </ButtonToolbar>
               </div>

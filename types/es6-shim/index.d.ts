@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare type PropertyKey = string | number | symbol;
+// TODO: As of TypeScript@2.9 there is a global type PropertyKey that should be used instead of this.
+declare type KeyOfProperty = string | number | symbol;
 
 interface IteratorResult<T> {
     done: boolean;
@@ -500,7 +501,7 @@ interface PromiseConstructor {
     /**
      * Creates a new Promise.
      * @param executor A callback used to initialize the promise. This callback is passed two arguments:
-     * a resolve callback used resolve the promise with a value or the result of another promise,
+     * a resolve callback used to resolve the promise with a value or the result of another promise,
      * and a reject callback used to reject the promise with a provided reason or error.
      */
     new <T>(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
@@ -625,17 +626,17 @@ declare var WeakSet: WeakSetConstructor;
 declare namespace Reflect {
     function apply(target: Function, thisArgument: any, argumentsList: ArrayLike<any>): any;
     function construct(target: Function, argumentsList: ArrayLike<any>): any;
-    function defineProperty(target: any, propertyKey: PropertyKey, attributes: PropertyDescriptor): boolean;
-    function deleteProperty(target: any, propertyKey: PropertyKey): boolean;
+    function defineProperty(target: any, propertyKey: KeyOfProperty, attributes: PropertyDescriptor): boolean;
+    function deleteProperty(target: any, propertyKey: KeyOfProperty): boolean;
     function enumerate(target: any): IterableIteratorShim<any>;
-    function get(target: any, propertyKey: PropertyKey, receiver?: any): any;
-    function getOwnPropertyDescriptor(target: any, propertyKey: PropertyKey): PropertyDescriptor;
+    function get(target: any, propertyKey: KeyOfProperty, receiver?: any): any;
+    function getOwnPropertyDescriptor(target: any, propertyKey: KeyOfProperty): PropertyDescriptor;
     function getPrototypeOf(target: any): any;
-    function has(target: any, propertyKey: PropertyKey): boolean;
+    function has(target: any, propertyKey: KeyOfProperty): boolean;
     function isExtensible(target: any): boolean;
-    function ownKeys(target: any): Array<PropertyKey>;
+    function ownKeys(target: any): Array<KeyOfProperty>;
     function preventExtensions(target: any): boolean;
-    function set(target: any, propertyKey: PropertyKey, value: any, receiver?: any): boolean;
+    function set(target: any, propertyKey: KeyOfProperty, value: any, receiver?: any): boolean;
     function setPrototypeOf(target: any, proto: any): boolean;
 }
 
@@ -653,17 +654,17 @@ declare module "es6-shim" {
     namespace Reflect {
         function apply(target: Function, thisArgument: any, argumentsList: ArrayLike<any>): any;
         function construct(target: Function, argumentsList: ArrayLike<any>): any;
-        function defineProperty(target: any, propertyKey: PropertyKey, attributes: PropertyDescriptor): boolean;
-        function deleteProperty(target: any, propertyKey: PropertyKey): boolean;
+        function defineProperty(target: any, propertyKey: KeyOfProperty, attributes: PropertyDescriptor): boolean;
+        function deleteProperty(target: any, propertyKey: KeyOfProperty): boolean;
         function enumerate(target: any): Iterator<any>;
-        function get(target: any, propertyKey: PropertyKey, receiver?: any): any;
-        function getOwnPropertyDescriptor(target: any, propertyKey: PropertyKey): PropertyDescriptor;
+        function get(target: any, propertyKey: KeyOfProperty, receiver?: any): any;
+        function getOwnPropertyDescriptor(target: any, propertyKey: KeyOfProperty): PropertyDescriptor;
         function getPrototypeOf(target: any): any;
-        function has(target: any, propertyKey: PropertyKey): boolean;
+        function has(target: any, propertyKey: KeyOfProperty): boolean;
         function isExtensible(target: any): boolean;
-        function ownKeys(target: any): Array<PropertyKey>;
+        function ownKeys(target: any): Array<KeyOfProperty>;
         function preventExtensions(target: any): boolean;
-        function set(target: any, propertyKey: PropertyKey, value: any, receiver?: any): boolean;
+        function set(target: any, propertyKey: KeyOfProperty, value: any, receiver?: any): boolean;
         function setPrototypeOf(target: any, proto: any): boolean;
     }
 }

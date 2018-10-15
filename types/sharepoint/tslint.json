@@ -8,6 +8,7 @@
         "no-any-union": false,
         "no-const-enum": false,
         "no-duplicate-imports": false,
+        "no-empty-interface": false,
         "no-inferrable-types": false,
         "no-namespace": false,
         "no-mergeable-namespace": false,
