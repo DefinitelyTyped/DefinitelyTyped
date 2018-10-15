@@ -8219,5 +8219,9 @@ function JQuery_EventExtensions() {
                 event;
             }
         };
+
+        // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+        // $ExpectError
+        jQuery.event.special.multiclick = 1;
     }
 }

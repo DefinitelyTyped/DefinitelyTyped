@@ -31428,7 +31428,8 @@ if ( !existingHook ) {
      *
      * @see \`{@link https://learn.jquery.com/events/event-extensions/#special-event-hooks }\`
      */
-    interface SpecialEventHook<TTarget, TData> {
+    // Workaround for TypeScript 2.3 which does not have support for weak types handling.
+    type SpecialEventHook<TTarget, TData> = {
         /**
          * Indicates whether this event type should be bubbled when the `.trigger()` method is called; by
          * default it is `false`, meaning that a triggered event will bubble to the element's parents up to the
@@ -31437,7 +31438,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#nobubble-boolean }\`
          */
-        noBubble?: boolean;
+        noBubble: boolean;
+    } | {
         /**
          * When defined, these string properties specify that a special event should be handled like another
          * event type until the event is delivered. The `bindType` is used if the event is attached directly,
@@ -31446,7 +31448,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
          */
-        bindType?: string;
+        bindType: string;
+    } | {
         /**
          * When defined, these string properties specify that a special event should be handled like another
          * event type until the event is delivered. The `bindType` is used if the event is attached directly,
@@ -31455,7 +31458,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
          */
-        delegateType?: string;
+        delegateType: string;
+    } | {
         /**
          * The setup hook is called the first time an event of a particular type is attached to an element;
          * this provides the hook an opportunity to do processing that will apply to all events of this type on
@@ -31474,7 +31478,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#setup-function-data-object-namespaces-eventhandle-function }\`
          */
-        setup?(this: TTarget, data: TData, namespaces: string, eventHandle: EventHandler<TTarget, TData>): void | false;
+        setup(this: TTarget, data: TData, namespaces: string, eventHandle: EventHandler<TTarget, TData>): void | false;
+    } | {
         /**
          * The teardown hook is called when the final event of a particular type is removed from an element.
          * The `this` keyword will be a reference to the element where the event is being cleaned up. This hook
@@ -31489,7 +31494,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#teardown-function }\`
          */
-        teardown?(this: TTarget): void | false;
+        teardown(this: TTarget): void | false;
+    } | {
         /**
          * Each time an event handler is added to an element through an API such as `.on()`, jQuery calls this
          * hook. The `this` keyword will be the element to which the event handler is being added, and the
@@ -31497,7 +31503,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#add-function-handleobj }\`
          */
-        add?(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
+        add(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
+    } | {
         /**
          * When an event handler is removed from an element using an API such as `.off()`, this hook is called.
          * The `this` keyword will be the element where the handler is being removed, and the `handleObj`
@@ -31505,7 +31512,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#remove-function-handleobj }\`
          */
-        remove?(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
+        remove(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
+    } | {
         /**
          * Called when the `.trigger()` or `.triggerHandler()` methods are used to trigger an event for the
          * special type from code, as opposed to events that originate from within the browser. The `this`
@@ -31524,7 +31532,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#trigger-function-event-jquery-event-data-object }\`
          */
-        trigger?(this: TTarget, event: Event<TTarget, TData>, data: TData): void | false;
+        trigger(this: TTarget, event: Event<TTarget, TData>, data: TData): void | false;
+    } | {
         /**
          * When the `.trigger()` method finishes running all the event handlers for an event, it also looks for
          * and runs any method on the target object by the same name unless of the handlers called `event.preventDefault()`.
@@ -31535,7 +31544,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#_default-function-event-jquery-event-data-object }\`
          */
-        _default?(event: Event<TTarget, TData>, data: TData): void | false;
+        _default(event: Event<TTarget, TData>, data: TData): void | false;
+    } | {
         /**
          * jQuery calls a handle hook when the event has occurred and jQuery would normally call the user's event
          * handler specified by `.on()` or another event binding method. If the hook exists, jQuery calls it
@@ -31555,10 +31565,14 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#handle-function-event-jquery-event-data-object }\`
          */
-        handle?(this: TTarget, event: Event<TTarget, TData> & { handleObj: HandleObject<TTarget, TData>; }, ...data: TData[]): void;
-        preDispatch?(this: TTarget, event: Event<TTarget, TData>): false | void;
-        postDispatch?(this: TTarget, event: Event<TTarget, TData>): void;
-    }
+        handle(this: TTarget, event: Event<TTarget, TData> & { handleObj: HandleObject<TTarget, TData>; }, ...data: TData[]): void;
+    } | {
+        preDispatch(this: TTarget, event: Event<TTarget, TData>): false | void;
+    } | {
+        postDispatch(this: TTarget, event: Event<TTarget, TData>): void;
+    } | {
+        [key: string]: never;
+    };
 
     interface SpecialEventHooks {
         [event: string]: SpecialEventHook<EventTarget, any>;
