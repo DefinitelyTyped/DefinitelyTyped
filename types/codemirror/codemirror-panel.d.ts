@@ -10,9 +10,9 @@ import * as CodeMirror from "codemirror";
 declare module "codemirror" {
     interface Panel {
         /**Removes the panel from the editor */
-        clear: () => void;
+        clear(): void;
         /**Notifies panel that height of DOM node has changed */
-        changed: (height?: number) => void;
+        changed(height?: number): void;
     }
 
     interface ShowPanelOptions {
@@ -41,7 +41,7 @@ declare module "codemirror" {
          * @param node the DOM node
          * @param options optional options object
          */
-        addPanel: (node: HTMLElement, options?: ShowPanelOptions) => Panel;
+        addPanel(node: HTMLElement, options?: ShowPanelOptions): Panel;
 
     }
 }
