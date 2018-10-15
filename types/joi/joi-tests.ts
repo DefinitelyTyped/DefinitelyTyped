@@ -815,6 +815,7 @@ strSchema = strSchema.hex();
 strSchema = strSchema.hex(hexOpts);
 strSchema = strSchema.hostname();
 strSchema = strSchema.isoDate();
+strSchema = strSchema.isoDuration();
 strSchema = strSchema.lowercase();
 strSchema = strSchema.uppercase();
 strSchema = strSchema.trim();
