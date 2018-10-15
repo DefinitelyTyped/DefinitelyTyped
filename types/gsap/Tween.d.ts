@@ -71,7 +71,7 @@ declare namespace gsap {
         static getTweensOf(target: {}): Tween[];
 
         /** Gets or sets the global timeScale which is a multiplier that affects ALL animations equally. This is a great way to globally speed up or slow down all animations at once. */
-        static globalTimeScale(value: number): void;
+        static globalTimeScale(value?: number): number;
 
         /** Reports whether or not a particular object is actively tweening. */
         static isTweening(target: {}): boolean;
