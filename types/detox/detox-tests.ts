@@ -21,6 +21,9 @@ describe('Test', () => {
         await element(by.id('scrollView')).swipe('down', 'fast');
         await element(by.type('UIPickerView')).setColumnToValue(1, "6");
 
+        await expect(element(by.id('element').withAncestor(by.id('parent_element')))).toNotExist();
+        await expect(element(by.id('element').withDescendant(by.id('child_element')))).toNotExist();
+
         await waitFor(element(by.id('element'))).toBeVisible().withTimeout(2000);
         await device.pressBack();
         await waitFor(element(by.text('Text5'))).toBeVisible().whileElement(by.id('ScrollView630')).scroll(50, 'down');
