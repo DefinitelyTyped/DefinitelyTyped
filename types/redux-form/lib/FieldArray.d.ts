@@ -1,7 +1,7 @@
 import { Component, ComponentType } from "react";
 import { Validator } from "../index";
 
-interface BaseFieldArrayProps<P = {}> {
+export interface BaseFieldArrayProps<P = {}> {
     name: string;
     component: ComponentType<P>;
     validate?: Validator | Validator[];
@@ -23,18 +23,20 @@ export class FieldArray<P = {}> extends Component<BaseFieldArrayProps<P> & Parti
     getRenderedComponent(): Component<WrappedFieldArrayProps<any> & P>;
 }
 
-interface WrappedFieldArrayProps<FieldValue> {
-    fields: FieldsProps<FieldValue>;
+export interface WrappedFieldArrayProps<FieldValue> {
+    fields: FieldArrayFieldsProps<FieldValue>;
     meta: FieldArrayMetaProps;
 }
 
-type FieldIterate<FieldValue, R = void> = (name: string, index: number, fields: FieldsProps<FieldValue>) => R;
+export type FieldIterate<FieldValue, R = void> = (name: string, index: number, fields: FieldArrayFieldsProps<FieldValue>) => R;
 
-interface FieldsProps<FieldValue> {
+export interface FieldArrayFieldsProps<FieldValue> {
     forEach(callback: FieldIterate<FieldValue>): void;
     get(index: number): FieldValue;
     getAll(): FieldValue[];
+    removeAll(): void;
     insert(index: number, value: FieldValue): void;
+    name: string;
     length: number;
     map<R>(callback: FieldIterate<FieldValue, R>): R[];
     pop(): FieldValue;
@@ -42,10 +44,11 @@ interface FieldsProps<FieldValue> {
     remove(index: number): void;
     shift(): FieldValue;
     swap(indexA: number, indexB: number): void;
+    move(from: number, to: number): void;
     unshift(value: FieldValue): void;
 }
 
-interface FieldArrayMetaProps {
+export interface FieldArrayMetaProps {
     dirty: boolean;
     error?: any;
     form: string;

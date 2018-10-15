@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+import { GraphQLResolveInfo } from 'graphql';
+
 /**
  * Creates a GraphQL.js field resolver that batches together multiple resolves
  * together that share the *exact* same GraphQL field selection.
@@ -45,5 +47,6 @@ export type ResolverFunction<TSource, TArgs, TContext, TReturn> = (
 export type BatchResolveFunction<TSource, TArgs, TContext, TReturn> = (
     sources: ReadonlyArray<TSource>,
     args: TArgs,
-    context: TContext
+    context: TContext,
+    info: GraphQLResolveInfo
 ) => TReturn[] | Promise<TReturn[]>;

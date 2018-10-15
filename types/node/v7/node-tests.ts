@@ -1025,14 +1025,14 @@ namespace http_tests {
     }
 
     {
-	var agent: http.Agent = new http.Agent({
-		keepAlive: true,
-		keepAliveMsecs: 10000,
-		maxSockets: Infinity,
-		maxFreeSockets: 256
-	});
+    var agent: http.Agent = new http.Agent({
+        keepAlive: true,
+        keepAliveMsecs: 10000,
+        maxSockets: Infinity,
+        maxFreeSockets: 256
+    });
 
-	var agent: http.Agent = http.globalAgent;
+    var agent: http.Agent = http.globalAgent;
 
         http.request({ agent: false });
         http.request({ agent: agent });
@@ -1056,7 +1056,7 @@ namespace http_tests {
         request.abort();
     }
 
-	// http request options
+    // http request options
     {
         const requestOpts: http.RequestOptions = {
             timeout: 30000

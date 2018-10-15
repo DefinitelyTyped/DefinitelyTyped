@@ -1,0 +1,15 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+	"no-declare-current-package": false,
+        "no-padding": false,
+        "no-self-import": false,
+        "object-literal-shorthand": false,
+	"no-trailing-whitespace": false,
+        "typedef-whitespace": false,
+        "jsdoc-format": false,
+        "no-consecutive-blank-lines": false,
+        "prefer-template": false,
+	"prefer-switch": false
+    }
+}

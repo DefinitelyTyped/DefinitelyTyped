@@ -3,6 +3,7 @@
 // Definitions by: Brian Caruso <https://github.com/carusology>
 //                 Dan Caddigan <https://github.com/goldcaddy77>
 //                 Larry Faudree <https://github.com/lfaudreejr>
+//                 Will Caulfield <https://github.com/willcaul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="auth0-js" />
@@ -75,6 +76,7 @@ interface Auth0LockThemeButtonOptions {
 
 interface Auth0LockThemeOptions {
     authButtons?: Auth0LockThemeButtonOptions;
+    hideMainScreenTitle?: boolean;
     labeledSubmitButton?: boolean;
     logo?: string;
     primaryColor?: string;
@@ -111,8 +113,10 @@ interface Auth0LockPopupOptions {
 interface Auth0LockConstructorOptions {
     additionalSignUpFields?: Auth0LockAdditionalSignUpField[];
     allowedConnections?: string[];
+    allowAutocomplete?: boolean;
     allowForgotPassword?: boolean;
     allowLogin?: boolean;
+    allowPasswordAutocomplete?: boolean;
     allowSignUp?: boolean;
     allowShowPassword?: boolean;
     assetsUrl?: string;
@@ -127,6 +131,7 @@ interface Auth0LockConstructorOptions {
     defaultADUsernameFromEmailPrefix?: string;
     defaultDatabaseConnection?: string;
     defaultEnterpriseConnection?: string;
+    flashMessage?: Auth0LockFlashMessageOptions;
     forgotPasswordLink?: string;
     hashCleanup?: boolean;
     initialScreen?: "login" | "signUp" | "forgotPassword";
@@ -140,6 +145,7 @@ interface Auth0LockConstructorOptions {
     popupOptions?: Auth0LockPopupOptions;
     prefill?: { email?: string, username?: string};
     rememberLastLogin?: boolean;
+    scrollGlobalMessagesIntoView?: boolean;
     signupLink?: string;
     socialButtonStyle?: "big" | "small";
     theme?: Auth0LockThemeOptions;

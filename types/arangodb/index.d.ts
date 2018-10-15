@@ -848,10 +848,11 @@ declare namespace ArangoDB {
         ): ArangoSearchViewProperties;
     }
 
-    interface ArangoSearchViewConsolidate {
-        threshold: number;
-        segmentThreshold: number;
-    }
+    type ArangoSearchViewConsolidationType =
+        | "bytes"
+        | "bytes_accum"
+        | "count"
+        | "fill";
 
     interface ArangoSearchViewCollectionLink {
         analyzers?: string[];
@@ -865,35 +866,26 @@ declare namespace ArangoDB {
         id: string;
         name: string;
         type: "arangosearch";
-        commit: {
-            cleanupIntervalStep: number;
-            commitIntervalMsec: number;
-            consolidate: {
-                bytes?: ArangoSearchViewConsolidate;
-                bytes_accum?: ArangoSearchViewConsolidate;
-                count?: ArangoSearchViewConsolidate;
-                fill?: ArangoSearchViewConsolidate;
-            };
+
+        cleanupIntervalStep: number;
+        consolidationIntervalMsec: number;
+        consolidationPolicy: {
+            type: ArangoSearchViewConsolidationType;
+            segmentThreshold: number;
+            threshold: number;
         };
-        locale: string;
         links: {
             [key: string]: ArangoSearchViewCollectionLink | undefined;
         };
     }
 
     interface ArangoSearchViewPropertiesOptions {
-        locale?: string;
-        commit?: {
-            consolidate?:
-                | "none"
-                | {
-                      count?: Partial<ArangoSearchViewConsolidate>;
-                      bytes?: Partial<ArangoSearchViewConsolidate>;
-                      bytes_accum?: Partial<ArangoSearchViewConsolidate>;
-                      fill?: Partial<ArangoSearchViewConsolidate>;
-                  };
-            commitIntervalMsec?: number;
-            cleanupIntervalStep?: number;
+        cleanupIntervalStep?: number;
+        consolidationIntervalMsec?: number;
+        consolidationPolicy?: {
+            type?: ArangoSearchViewConsolidationType;
+            segmentThreshold?: number;
+            threshold?: number;
         };
         links?: {
             [key: string]: ArangoSearchViewCollectionLink | undefined;

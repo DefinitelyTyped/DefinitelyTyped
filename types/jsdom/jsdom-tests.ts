@@ -1,4 +1,4 @@
-import { JSDOM, VirtualConsole, CookieJar, FromUrlOptions, FromFileOptions, DOMWindow } from 'jsdom';
+import { JSDOM, VirtualConsole, CookieJar, FromUrlOptions, FromFileOptions, DOMWindow, ResourceLoader, FetchOptions } from 'jsdom';
 import { CookieJar as ToughCookieJar, MemoryCookieStore } from 'tough-cookie';
 import { Script } from 'vm';
 
@@ -17,7 +17,7 @@ function test_executing_scripts1() {
 </body>`);
 
     // The script will not be executed, by default:
-    dom.window.document.body!.children.length === 1;
+    dom.window.document.body.children.length === 1;
 }
 
 function test_executing_scripts2() {
@@ -26,14 +26,14 @@ function test_executing_scripts2() {
 </body>`, { runScripts: 'dangerously' });
 
     // The script will be executed and modify the DOM:
-    dom.window.document.body!.children.length === 2;
+    dom.window.document.body.children.length === 2;
 }
 
 function test_executing_scripts3() {
     const window = (new JSDOM(``, { runScripts: 'outside-only' })).window;
 
     window.eval(`document.body.innerHTML = "<p>Hello, world!</p>";`);
-    window.document.body!.children.length === 1;
+    window.document.body.children.length === 1;
 }
 
 function test_virtualConsole() {
@@ -68,6 +68,14 @@ function test_beforeParse() {
     });
 }
 
+function test_storageQuota() {
+    new JSDOM('', { storageQuota: 1337 });
+}
+
+function test_pretendToBeVisual() {
+    new JSDOM('', { pretendToBeVisual: true });
+}
+
 function test_serialize() {
     const dom = new JSDOM(`<!DOCTYPE html>hello`);
 
@@ -86,7 +94,7 @@ function test_nodeLocation() {
     );
 
     const document = dom.window.document;
-    const bodyEl = document.body!; // implicitly created
+    const bodyEl = document.body; // implicitly created
     const pEl = document.querySelector('p')!;
     const textNode = pEl.firstChild!;
     const imgEl = document.querySelector('img')!;
@@ -159,4 +167,17 @@ function test_fragment_serialization() {
             console.log(frag.firstChild.outerHTML); // logs "<p>Hello</p>"
         }
     }
+}
+
+function test_custom_resource_loader() {
+    class CustomResourceLoader extends ResourceLoader {
+        fetch(url: string, options: FetchOptions) {
+          if (options.element) {
+            console.log(`Element ${options.element.localName} is requesting the url ${url}`);
+          }
+
+          return super.fetch(url, options);
+        }
+    }
+    new JSDOM('', { resources: new CustomResourceLoader() });
 }

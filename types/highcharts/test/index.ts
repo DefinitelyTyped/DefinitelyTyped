@@ -109,6 +109,32 @@ function originalTests() {
         }]
     });
 
+    const chart3 = new Highcharts.Chart({
+        chart: {
+            renderTo: "container"
+        },
+        xAxis: {},
+        series: [<Highcharts.ColumnRangeChartSeriesOptions> {
+            data: [[1, 1, 2], [2, 2, 3], [3, 2, 3]],
+            description: "foo",
+            type: "columnrange",
+            allowPointSelect: true
+        }]
+    });
+
+    const chart4 = new Highcharts.Chart({
+        chart: {
+            renderTo: "container"
+        },
+        xAxis: {},
+        series: [<Highcharts.ColumnRangeChartSeriesOptions> {
+            data: [["01-01-2018", 1, 2], ["02-01-2018", 2, 3], ["03-01-2018", 2, 3]],
+            description: "column range data",
+            type: "columnrange",
+            allowPointSelect: true
+        }]
+    });
+
     const div: HTMLDivElement = null as any;
     const r = new Highcharts.Renderer(div, 20, 30);
     const box = r.text("Hello", 10, 10).getBBox();
@@ -2457,6 +2483,10 @@ function test_ChartObject() {
     chart.update(<Highcharts.Options> {});
     chart.update(<Highcharts.Options> {}, true);
     chart.update(<Highcharts.Options> {}, true, true);
+    chart.update(<Highcharts.Options> {}, true, true, true);
+    chart.update(<Highcharts.Options> {}, true, true, {
+        duration: 3000,
+    });
 }
 
 function test_ElementObject() {
@@ -2591,8 +2621,10 @@ function test_ResponsiveOptions() {
     const responsiveOptions: Highcharts.ResponsiveOptions = <Highcharts.ResponsiveOptions> {
         rules: [
             <Highcharts.RulesOptions> {
-                chartOptions: <Highcharts.ChartOptions> {
-                    description: 'just a test'
+                chartOptions: <Highcharts.Options> {
+                    chart: {
+                        description: 'just a test'
+                    }
                 },
                 condition: <Highcharts.ConditionOptions> {
                     callback: () => { },

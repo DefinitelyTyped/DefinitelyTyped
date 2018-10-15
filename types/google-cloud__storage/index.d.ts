@@ -55,6 +55,8 @@ declare namespace Storage {
         versioning?: {
             enabled?: boolean
         };
+        // Note: This is not documented, but it is used in examples (https://cloud.google.com/nodejs/docs/reference/storage/1.7.x/Storage)
+        storageClass?: 'COLDLINE' | 'DURABLE_REDUCED_AVAILABILITY' | 'MULTI_REGIONAL' | 'NEARLINE' | 'REGIONAL';
     }
 
     /**
@@ -102,10 +104,12 @@ declare namespace Storage {
     interface BucketQuery {
         autoPaginate?: boolean;
         delimiter?: string;
+        directory?: string;
         prefix?: string;
         maxApiCalls?: number;
         maxResults?: number;
         pageToken?: string;
+        userProject?: string;
         versions?: boolean;
     }
 
@@ -202,6 +206,8 @@ declare namespace Storage {
         bucket?: string;
         cacheControl?: string;
         componentCount?: number;
+        // Note: this property is accessed in one of the examples
+        component_count?: number;
         contentDisposition?: string;
         contentEncoding?: string;
         contentLanguage?: string;
@@ -408,22 +414,6 @@ declare namespace Storage {
     }
 
     /**
-     * The Storage class allows you interact with Google Cloud Storage.
-     */
-    class Storage {
-        constructor(config?: ConfigurationObject);
-        acl: Acl;
-        bucket(name: string | Bucket): Bucket;
-        channel(id: string, resourceId: string): Channel;
-        createBucket(name: string, metadata?: BucketConfig): Promise<[Bucket, ApiResponse]>;
-        getBuckets(query?: BucketQuery): Promise<[Bucket[]]>;
-        getBucketsStream(query?: BucketQuery): Promise<[ReadStream]>;
-        Channel: (storage: Storage, id: string, resourceId: string) => Channel;
-        File: (bucket: Bucket, name: string, opts: BucketFileOptions) => File;
-        Bucket: (storage: Storage, name: string) => Bucket;
-    }
-
-    /**
      * This class allows you interact with Google Cloud Storage.
      */
     class Channel {
@@ -460,6 +450,20 @@ declare namespace Storage {
     }
 }
 
-declare function Storage(config?: Storage.ConfigurationObject): Storage.Storage;
+/**
+ * The Storage class allows you interact with Google Cloud Storage.
+ */
+declare class Storage {
+    constructor(config?: Storage.ConfigurationObject);
+    acl: Storage.Acl;
+    bucket(name: string | Storage.Bucket): Storage.Bucket;
+    channel(id: string, resourceId: string): Storage.Channel;
+    createBucket(name: string, metadata?: Storage.BucketConfig): Promise<[Storage.Bucket, Storage.ApiResponse]>;
+    getBuckets(query?: Storage.BucketQuery): Promise<[Storage.Bucket[]]>;
+    getBucketsStream(query?: Storage.BucketQuery): Promise<[ReadStream]>;
+    Channel: (storage: Storage, id: string, resourceId: string) => Storage.Channel;
+    File: (bucket: Storage.Bucket, name: string, opts: Storage.BucketFileOptions) => Storage.File;
+    Bucket: (storage: Storage, name: string) => Storage.Bucket;
+}
 
 export = Storage;

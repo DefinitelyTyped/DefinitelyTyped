@@ -112,7 +112,7 @@ class Comp4 implements ClassComponent<Comp4Attrs> {
 //
 // Test that all are mountable components
 //
-m.route(document.body!, '/', {
+m.route(document.body, '/', {
 	'/comp0': Comp0,
 	'/comp1': Comp1,
 	'/comp2': Comp2,

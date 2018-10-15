@@ -8,6 +8,27 @@
 import { Path } from 'd3-path';
 
 // -----------------------------------------------------------------------------------
+// Shared Types and Interfaces
+// -----------------------------------------------------------------------------------
+
+/**
+ * @deprecated
+ * This interface is used to bridge the gap between two incompatible versions of TypeScript (see [#25944](https://github.com/Microsoft/TypeScript/pull/25944)).
+ * Use `CanvasPathMethods` instead with TS <= 3.0 and `CanvasPath` with TS >= 3.1.
+ */
+export interface CanvasPath_D3Shape {
+    arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
+    bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
+    closePath(): void;
+    ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    lineTo(x: number, y: number): void;
+    moveTo(x: number, y: number): void;
+    quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
+    rect(x: number, y: number, w: number, h: number): void;
+}
+
+// -----------------------------------------------------------------------------------
 // Arc Generator
 // -----------------------------------------------------------------------------------
 
@@ -2264,13 +2285,13 @@ export function linkRadial<This, LinkDatum, NodeDatum>(): LinkRadial<This, LinkD
  */
 export interface SymbolType {
     /**
-     * Renders this symbol type to the specified context with the specified size in square pixels. The context implements the CanvasPathMethods interface.
+     * Renders this symbol type to the specified context with the specified size in square pixels. The context implements the CanvasPath interface.
      * (Note that this is a subset of the CanvasRenderingContext2D interface!)
      *
-     * @param context A rendering context implementing CanvasPathMethods.
+     * @param context A rendering context implementing CanvasPath.
      * @param size Size of the symbol to draw.
      */
-    draw(context: CanvasPathMethods, size: number): void;
+    draw(context: CanvasPath_D3Shape, size: number): void;
 }
 
 /**

@@ -13,6 +13,12 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@ember/object": ["ember__object"],
+            "@ember/object/*": ["ember__object/*"],
+            "@ember/component": ["ember__component"],
+            "@ember/component/*": ["ember__component/*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

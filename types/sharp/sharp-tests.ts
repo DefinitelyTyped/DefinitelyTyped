@@ -47,6 +47,17 @@ sharp('input.jpg')
         // containing a scaled and cropped version of input.jpg
     });
 
+sharp({
+    create: {
+        width: 300,
+        height: 200,
+        channels: 4,
+        background: { r: 255, g: 0, b: 0, alpha: 128 }
+    }
+})
+.png()
+.toBuffer();
+
 let transformer = sharp()
     .resize(300)
     .on('info', (info: sharp.OutputInfo) => {

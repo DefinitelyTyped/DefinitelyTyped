@@ -24,7 +24,7 @@
 		})
 	}
 
-	let render = createApp(document.body!)
+	let render = createApp(document.body)
 
 	function main(state: any){
 		let vnode = view(state, (action: any) => main({ count: 0 }))
@@ -43,7 +43,7 @@
 		return element('div', { class: `size-${ props.size }` })
 	}
 
-	const render = createApp(document.body!)
+	const render = createApp(document.body)
 
 	render(element(App, { size: 'small' }))
 
@@ -82,11 +82,11 @@
 (function (){
 	const { createApp, element } = deku
 
-	let render: Function = createApp(document.body!)
+	let render: Function = createApp(document.body)
 
 	render(element('div'))
 
-	render = createApp(document.body!, (action: any) => {
+	render = createApp(document.body, (action: any) => {
 		render(element('div'))
 	})
 

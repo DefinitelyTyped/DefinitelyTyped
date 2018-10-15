@@ -1,13 +1,13 @@
 // Type definitions for react-jsonschema-form 1.0.0
 // Project: https://github.com/mozilla-services/react-jsonschema-form
 // Definitions by: Dan Fox <https://github.com/iamdanfox>
-//                 Jon Surrell <https://github.com/sirreal>
 //                 Ivan Jiang <https://github.com/iplus26>
 //                 Kurt Preston <https://github.com/KurtPreston>
 //                 Philippe Bourdages <https://github.com/phbou72>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
+//                 Sylvain Thénault <https://github.com/sthenault>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 declare module "react-jsonschema-form" {
     import * as React from "react";
@@ -228,4 +228,16 @@ declare module "react-jsonschema-form" {
     type FormSubmit<T> = {
         formData: T;
     };
+}
+
+declare module "react-jsonschema-form/lib/utils" {
+    import { JSONSchema6 } from "json-schema";
+
+    export interface IRangeSpec {
+        min?: number;
+        max?: number;
+        step?: number;
+    }
+
+    export function rangeSpec(schema: JSONSchema6): IRangeSpec;
 }

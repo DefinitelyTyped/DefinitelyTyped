@@ -4,6 +4,7 @@
  */
 
 import * as React from "react";
+import * as PropTypes from "prop-types";
 import * as reactMixin from "react-mixin";
 
 import {
@@ -31,7 +32,7 @@ interface SomeComponentProps {
     className: string;
 }
 
-const SomeFunctionalComponentWithIntl: React.ComponentClass<SomeComponentProps> = injectIntl<SomeComponentProps>(({
+const SomeFunctionalComponentWithIntl: React.ComponentClass<SomeComponentProps> = injectIntl<SomeComponentProps & InjectedIntlProps>(({
     intl: {
         formatDate,
         formatHTMLMessage,
@@ -63,8 +64,9 @@ const SomeFunctionalComponentWithIntl: React.ComponentClass<SomeComponentProps> 
 });
 
 class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlProps> {
-    static propTypes: React.ValidationMap<any> = {
-        intl: intlShape.isRequired
+    static propTypes: React.ValidationMap<SomeComponentProps & InjectedIntlProps> = {
+        intl: intlShape.isRequired,
+        className: PropTypes.string.isRequired
     };
     render(): React.ReactElement<{}> {
         const intl = this.props.intl;
@@ -93,6 +95,17 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
                 format="yyyy-MM-dd"
                 updateInterval={123}
                 initialNow={new Date()} />
+
+            <FormattedRelative
+                value={new Date().getTime()}
+                units="hour"
+                style="numeric"
+                format="yyyy-MM-dd"
+                updateInterval={123}
+                initialNow={new Date()}
+            >
+                {formattedRelative => formattedRelative.toUpperCase()}
+            </FormattedRelative>
 
             <FormattedMessage
                 id="test"
@@ -231,6 +244,12 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
                 maximumFractionDigits={3}
                 maximumSignificantDigits={3} />
 
+            <FormattedNumber value={123}>
+                {formattedNum => (
+                    <span className="number">{formattedNum}</span>
+                )}
+            </FormattedNumber>
+
             <FormattedPlural
                 style="cardinal"
                 value={3}
@@ -241,79 +260,128 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
                 few="haifew"
                 many="haiku" />
 
-            <FormattedDate
-                value={new Date()}
-                format="short"
-                localeMatcher="best fit"
-                formatMatcher="basic"
-                timeZone="EDT"
-                hour12={false}
-                weekday="short"
-                era="short"
-                year="2-digit"
-                month="2-digit"
-                day="2-digit"
-                hour="2-digit"
-                minute="2-digit"
-                second="2-digit"
-                timeZoneName="short" />
-
-            <FormattedDate
-                value={Date.now()}
-                format="short"
-                localeMatcher="best fit"
-                formatMatcher="basic"
-                timeZone="EDT"
-                hour12={false}
-                weekday="short"
-                era="short"
-                year="2-digit"
-                month="2-digit"
-                day="2-digit"
-                hour="2-digit"
-                minute="2-digit"
-                second="2-digit"
-                timeZoneName="short" />
-
-            <FormattedTime
-                value={new Date()}
-                format="short"
-                localeMatcher="best fit"
-                formatMatcher="basic"
-                timeZone="EDT"
-                hour12={false}
-                weekday="short"
-                era="short"
-                year="2-digit"
-                month="2-digit"
-                day="2-digit"
-                hour="2-digit"
-                minute="2-digit"
-                second="2-digit"
-                timeZoneName="short" />
-
-            <FormattedTime
-                value={Date.now()}
-                format="short"
-                localeMatcher="best fit"
-                formatMatcher="basic"
-                timeZone="EDT"
-                hour12={false}
-                weekday="short"
-                era="short"
-                year="2-digit"
-                month="2-digit"
-                day="2-digit"
-                hour="2-digit"
-                minute="2-digit"
-                second="2-digit"
-                timeZoneName="short" />
-
-            <FormattedNumber value={123}>
-                {(formattedNum: string) => (
-                    <span className="number">{formattedNum}</span>
+            <FormattedPlural
+                style="cardinal"
+                value={3}
+                other="hai?"
+                zero="no hai"
+                one="hai"
+                two="hai2"
+                few="haifew"
+                many="haiku"
+            >
+                {formattedPlural => (
+                    <span className="number">{formattedPlural}</span>
                 )}
-            </FormattedNumber>
+            </FormattedPlural>
+
+            <FormattedDate
+                value={new Date()}
+                format="short"
+                localeMatcher="best fit"
+                formatMatcher="basic"
+                timeZone="EDT"
+                hour12={false}
+                weekday="short"
+                era="short"
+                year="2-digit"
+                month="2-digit"
+                day="2-digit"
+                hour="2-digit"
+                minute="2-digit"
+                second="2-digit"
+                timeZoneName="short" />
+
+            <FormattedDate
+                value={Date.now()}
+                format="short"
+                localeMatcher="best fit"
+                formatMatcher="basic"
+                timeZone="EDT"
+                hour12={false}
+                weekday="short"
+                era="short"
+                year="2-digit"
+                month="2-digit"
+                day="2-digit"
+                hour="2-digit"
+                minute="2-digit"
+                second="2-digit"
+                timeZoneName="short" />
+
+            <FormattedDate
+                value={Date.now()}
+                format="short"
+                localeMatcher="best fit"
+                formatMatcher="basic"
+                timeZone="EDT"
+                hour12={false}
+                weekday="short"
+                era="short"
+                year="2-digit"
+                month="2-digit"
+                day="2-digit"
+                hour="2-digit"
+                minute="2-digit"
+                second="2-digit"
+                timeZoneName="short"
+            >
+                {formattedDate => formattedDate.toUpperCase()}
+            </FormattedDate>
+
+            <FormattedTime
+                value={new Date()}
+                format="short"
+                localeMatcher="best fit"
+                formatMatcher="basic"
+                timeZone="EDT"
+                hour12={false}
+                weekday="short"
+                era="short"
+                year="2-digit"
+                month="2-digit"
+                day="2-digit"
+                hour="2-digit"
+                minute="2-digit"
+                second="2-digit"
+                timeZoneName="short" />
+
+            <FormattedTime
+                value={Date.now()}
+                format="short"
+                localeMatcher="best fit"
+                formatMatcher="basic"
+                timeZone="EDT"
+                hour12={false}
+                weekday="short"
+                era="short"
+                year="2-digit"
+                month="2-digit"
+                day="2-digit"
+                hour="2-digit"
+                minute="2-digit"
+                second="2-digit"
+                timeZoneName="short" />
+
+            <FormattedTime
+                value={Date.now()}
+                format="short"
+                localeMatcher="best fit"
+                formatMatcher="basic"
+                timeZone="EDT"
+                hour12={false}
+                weekday="short"
+                era="short"
+                year="2-digit"
+                month="2-digit"
+                day="2-digit"
+                hour="2-digit"
+                minute="2-digit"
+                second="2-digit"
+                timeZoneName="short"
+            >
+                {formattedTime => formattedTime.toUpperCase()}
+            </FormattedTime>
         </div>;
     }
 }

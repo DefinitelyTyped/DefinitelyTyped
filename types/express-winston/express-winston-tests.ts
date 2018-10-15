@@ -34,9 +34,11 @@ app.use(expressWinston.logger({
   ],
 }));
 
+const logger = winston.createLogger();
+
 // Logger with minimum options (winstonInstance)
 app.use(expressWinston.logger({
-  winstonInstance: winston,
+  winstonInstance: logger,
 }));
 
 // Error Logger with all options
@@ -62,7 +64,7 @@ app.use(expressWinston.errorLogger({
 
 // Error Logger with min options (winstonInstance)
 app.use(expressWinston.errorLogger({
-  winstonInstance: winston,
+  winstonInstance: logger,
 }));
 
 expressWinston.bodyBlacklist.push('potato');

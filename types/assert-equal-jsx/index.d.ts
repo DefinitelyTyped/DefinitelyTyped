@@ -2,7 +2,7 @@
 // Project: https://github.com/thejameskyle/assert-equal-jsx
 // Definitions by: Josh Toft <https://github.com/seryl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 

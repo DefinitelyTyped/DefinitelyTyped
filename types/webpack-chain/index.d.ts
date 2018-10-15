@@ -85,10 +85,14 @@ declare namespace Config {
 
 	class Plugins<Parent> extends TypedChainedMap<Parent, Plugin<Parent>> {}
 
-	class Plugin<Parent> extends ChainedMap<Parent> {
+	class Plugin<Parent> extends ChainedMap<Parent> implements Orderable {
 		init(value: (plugin: PluginClass, args: any[]) => webpack.Plugin): this;
 		use(plugin: PluginClass, args?: any[]): this;
 		tap(f: (args: any[]) => any[]): this;
+
+		// Orderable
+		before(name: string): this;
+		after(name: string): this;
 	}
 
 	class Module extends ChainedMap<Config> {
@@ -231,11 +235,15 @@ declare namespace Config {
 
 	interface LoaderOptions { [name: string]: any; }
 
-	class Use extends ChainedMap<Rule> {
+	class Use extends ChainedMap<Rule> implements Orderable {
 		loader(value: string): this;
 		options(value: LoaderOptions): this;
 
 		tap(f: (options: LoaderOptions) => LoaderOptions): this;
+
+		// Orderable
+		before(name: string): this;
+		after(name: string): this;
 	}
 
 	type DevTool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' |
@@ -254,5 +262,10 @@ declare namespace Config {
 
 	interface PluginClass {
 		new (...opts: any[]): webpack.Plugin;
+	}
+
+	interface Orderable {
+		before(name: string): this;
+		after(name: string): this;
 	}
 }

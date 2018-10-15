@@ -10,8 +10,9 @@
 //                 Michael Prokopchuk <https://github.com/prokopcm>
 //                 Tina Roh <https://github.com/tinaroh>
 //                 Nathan Phillip Brink <https://github.com/binki>
+//                 Martin Olsson <https://github.com/mo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref, ComponentType } from 'react';
@@ -769,6 +770,9 @@ export namespace Brightness {
  */
 export interface PictureOptions {
     quality?: number;
+    base64?: boolean;
+    exif?: boolean;
+    onPictureSaved?: (data: PictureResponse) => void;
 }
 
 export interface PictureResponse {
@@ -874,6 +878,7 @@ export class Camera extends Component<CameraProps> {
 export namespace Constants {
     const appOwnership: 'expo' | 'standalone' | 'guest';
     const expoVersion: string;
+    const installationId: string;
     const deviceId: string;
     const deviceName: string;
     const deviceYearClass: number;
@@ -988,6 +993,8 @@ export namespace Constants {
     }
     const manifest: Manifest;
     const linkingUri: string;
+
+    function getWebViewUserAgentAsync(): Promise<string>;
 }
 
 /**
@@ -1519,7 +1526,7 @@ export namespace ImageManipulator {
     type Action = Resize | Rotate | Flip | Crop;
 
     interface Resize {
-        resize: { width: number, height: number };
+        resize: { width?: number, height?: number };
     }
 
     interface Rotate {
@@ -1596,6 +1603,8 @@ export namespace ImagePicker {
         allowsEditing?: boolean;
         aspect?: [number, number];
         quality?: number;
+        base64?: boolean;
+        exif?: boolean;
     }
 
     /**
@@ -2051,6 +2060,7 @@ export interface SvgCommonProps {
     strokeLineJoin?: string;
     strokeDasharray?: any[];
     strokeDashoffset?: any;
+    transform?: string | object;
     x?: number | string;
     y?: number | string;
     rotate?: number | string;
@@ -2909,6 +2919,11 @@ export namespace Updates {
         message?: string;
     }
 
+    /** An optional params object passed to fetchUpdateAsync. */
+    interface FetchUpdateAsyncParams {
+        eventListener: UpdateEventListener;
+    }
+
     type UpdateEventListener = (event: UpdateEvent) => any;
 
     /**
@@ -2928,7 +2943,7 @@ export namespace Updates {
      * Downloads the most recent published version of your experience to the device's local cache.
      * Rejects if `updates.enabled` is `false` in app.json.
      */
-    function fetchUpdateAsync(listener?: UpdateEventListener): Promise<UpdateBundle>;
+    function fetchUpdateAsync(params?: FetchUpdateAsyncParams): Promise<UpdateBundle>;
 
     /**
      * Immediately reloads the current experience.

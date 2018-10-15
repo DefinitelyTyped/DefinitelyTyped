@@ -11,6 +11,7 @@ import {
     DrawerNavigatorConfig,
     NavigationAction,
     NavigationActions,
+    NavigationEvents,
     NavigationBackAction,
     NavigationInitAction,
     NavigationNavigateAction,
@@ -24,6 +25,7 @@ import {
     NavigationStackScreenOptions,
     NavigationTabScreenOptions,
     NavigationTransitionProps,
+    StackViewTransitionConfigs,
     createStackNavigator,
     StackNavigatorConfig,
     createSwitchNavigator,
@@ -176,6 +178,9 @@ const tabNavigatorConfig: TabNavigatorConfig = {
     lazy: true,
     tabBarComponent: TabBarTop,
     tabBarOptions: { activeBackgroundColor: "blue" },
+    navigationOptions: () => ({
+        tabBarOnPress: ({ scene, jumpToIndex }) => jumpToIndex(scene.index)
+    })
 };
 
 const tabNavigatorConfigWithInitialLayout: TabNavigatorConfig = {
@@ -331,6 +336,24 @@ function renderBasicDrawerNavigator(): JSX.Element {
     );
 }
 
+interface ParamsOnStateProps {
+    navigation: NavigationScreenProp<{}, { foobar: string }>;
+}
+
+class ParamsOnState extends React.Component<ParamsOnStateProps> {
+    render() {
+        if (this.props.navigation.state.params) {
+            // $ExpectType string
+            this.props.navigation.state.params.foobar;
+        } else {
+            // $ExpectType undefined
+            this.props.navigation.state.params;
+        }
+
+        return <View />;
+    }
+}
+
 interface CustomTransitionerProps {
     navigation: NavigationScreenProp<any, any>;
 }
@@ -373,6 +396,8 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
 /**
  * Header
  */
+const height = Header.HEIGHT;
+
 function renderHeaderBackButton(schema: string): JSX.Element {
     switch (schema) {
         case 'compact':
@@ -409,14 +434,6 @@ const navigateAction: NavigationNavigateAction = NavigationActions.navigate({
     action: NavigationActions.navigate({ routeName: "BarScreen" })
 });
 
-const resetAction: NavigationResetAction = NavigationActions.reset({
-    index: 0,
-    key: "foo",
-    actions: [
-        NavigationActions.navigate({ routeName: "FooScreen" })
-    ]
-});
-
 const backAction: NavigationBackAction = NavigationActions.back({
     key: "foo"
 });
@@ -426,16 +443,6 @@ const setParamsAction: NavigationSetParamsAction = NavigationActions.setParams({
     params: {
         foo: "bar"
     }
-});
-
-const popAction: NavigationPopAction = NavigationActions.pop({
-    n: 1,
-    immediate: true
-});
-
-const popToTopAction: NavigationPopToTopAction = NavigationActions.popToTop({
-    key: "foo",
-    immediate: true
 });
 
 class Page1 extends React.Component { }
@@ -473,6 +480,10 @@ const BottomStack = createBottomTabNavigator({
             };
         }
     }
+}, {
+    navigationOptions: () => ({
+        tabBarOnPress: ({ defaultHandler }) => defaultHandler()
+    })
 });
 
 const CustomHeaderStack = createStackNavigator({
@@ -496,6 +507,7 @@ const CustomHeaderStack = createStackNavigator({
 
 interface ScreenProps {
     name: string;
+    optionalAge?: number;
     onPlay(): void;
 }
 
@@ -512,9 +524,16 @@ class SetParamsTest extends React.Component<NavigationScreenProps<ScreenProps>> 
 
     render() {
         const name = this.props.navigation.getParam('name');
+        const age = this.props.navigation.getParam('optionalAge');
+
+        // $ExpectType number | undefined
+        this.props.navigation.getParam('optionalAge');
+
+        // $ExpectType number
+        this.props.navigation.getParam('optionalAge', 0);
 
         return (
-            <Text>My name is {name}</Text>
+            <Text>My name is {name} and I am {age} years old.</Text>
         );
     }
 }
@@ -531,20 +550,32 @@ class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedP
     }
 }
 
-// withNavigation returns a component that wraps MyBackButton and passes in the
-// navigation prop
-const BackButtonWithNavigation = withNavigation<BackButtonProps>(MyBackButton);
+// withNavigation returns a component that wraps MyBackButton and passes in the navigation prop.
+// If you have class methods, you should have a way to use them.
+const BackButtonWithNavigation = withNavigation(MyBackButton);
 const BackButtonInstance = <BackButtonWithNavigation
-    title="Back" onRef={ref => { const backButtonRef = ref; }}
+    title="Back" onRef={ref => {
+        // ref is inferred as MyBackButton | null
+        if (!ref) return;
+        ref.triggerBack();
+    }}
 />;
 
-// if you have class methods, you should have a way to use them
-const BackButtonWithNavigationSpecified = withNavigation<BackButtonProps>(MyBackButton);
-const BackButtonSpecifiedInstance = <BackButtonWithNavigationSpecified
+function StatelessBackButton(props: BackButtonProps & NavigationInjectedProps) {
+  return <MyBackButton {...props} />;
+}
+
+// Wrapped stateless components don't accept an onRef
+const StatelessBackButtonWithNavigation = withNavigation(StatelessBackButton);
+const StatelessBackButtonInstance = <StatelessBackButtonWithNavigation title="Back" />;
+
+// The old way of passing in the props should still work
+const BackButtonWithNavigationWithExplicitProps = withNavigation<BackButtonProps>(MyBackButton);
+const BackButtonWithExplicitPropsInstance = <BackButtonWithNavigationWithExplicitProps
     title="Back" onRef={ref => {
         if (!ref) return;
-        const backButtonRef = ref as MyBackButton;
-        backButtonRef.triggerBack();
+        // We can't infer the component type if we pass in the props
+        (ref as MyBackButton).triggerBack();
     }}
 />;
 
@@ -559,7 +590,7 @@ class MyFocusedComponent extends React.Component<MyFocusedComponentProps & Navig
 
 // withNavigationFocus returns a component that wraps MyFocusedComponent and passes in the
 // navigation and isFocused prop
-const MyFocusedComponentWithNavigationFocus = withNavigationFocus<MyFocusedComponentProps>(MyFocusedComponent);
+const MyFocusedComponentWithNavigationFocus = withNavigationFocus(MyFocusedComponent);
 const MyFocusedComponentInstance = <MyFocusedComponentWithNavigationFocus
     expectsFocus={true} onRef={ref => { const backButtonRef = ref; }}
 />;
@@ -573,3 +604,21 @@ class MyScreen extends React.Component<NavigationInjectedProps<MyScreenParams>> 
         return <button title={title} onClick={() => { this.props.navigation.goBack(); }} />;
     }
 }
+
+// Test createStackNavigator
+
+createStackNavigator(
+    routeConfigMap,
+    {transitionConfig: () => ({screenInterpolator: StackViewTransitionConfigs.SlideFromRightIOS.screenInterpolator})}
+);
+
+// Test NavigationEvents component
+
+const ViewWithNavigationEvents = (
+  <NavigationEvents
+    onWillFocus={console.log}
+    onDidFocus={console.log}
+    onWillBlur={console.log}
+    onDidBlur={console.log}
+  />
+);

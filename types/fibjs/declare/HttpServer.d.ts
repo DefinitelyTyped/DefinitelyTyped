@@ -143,7 +143,7 @@ declare class Class_HttpServer extends Class_TcpServer {
 	 * 
 	 * 
 	 */
-	onerror(hdlrs: Object): void;
+	onerror(hdlrs: object): void;
 
 	/**
 	 * 

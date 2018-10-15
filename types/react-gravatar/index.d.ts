@@ -2,7 +2,7 @@
 // Project: http://kyleamathews.github.io/react-gravatar/
 // Definitions by: invliD <https://github.com/invliD>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 

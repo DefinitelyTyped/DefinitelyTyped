@@ -19,6 +19,7 @@ export interface TransProps {
     defaults?: string;
     values?: Values;
     components?: React.ReactNode[];
+    ns?: string;
 }
 
 export default class Trans extends React.Component<TransProps> { }

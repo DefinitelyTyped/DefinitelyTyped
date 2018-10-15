@@ -22,7 +22,7 @@ var spubkey = '-----BEGIN PGP PUBLIC KEY BLOCK ... END PGP PUBLIC KEY BLOCK-----
 var publicKey = openpgp.key.readArmored(spubkey);
 
 openpgp.encrypt({
-    data: 'Hello, World!',
+    message: openpgp.message.fromText('Hello, World!'),
     publicKeys: publicKey.keys
 }).then(function (pgpMessage) {
     // success

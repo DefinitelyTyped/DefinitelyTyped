@@ -444,10 +444,13 @@ defaultIcon = new L.Icon.Default({imagePath: 'apath'});
 
 const myControlClass = L.Control.extend({});
 const myControl = new myControlClass();
+const myOtherControlClass = myControlClass.extend({});
+const myOtherControl = new myOtherControlClass();
 
 L.Control.include({});
 L.Control.mergeOptions({});
 L.Control.addInitHook(() => {});
+L.Control.addInitHook('method1', 'hello', 1);
 
 export class MyNewControl extends L.Control {
 	constructor() {
@@ -473,18 +476,88 @@ L.marker([1, 2], {
 	className: 'my-div-icon'
 }));
 
-const latLngs = [
-  {lat: 0, lng: 0},
-  {lat: 1, lng: 1}
+let polygon: L.Polygon;
+
+// simple polygon
+const simplePolygonLatLngs: L.LatLngExpression[] = [[37, -109.05], [41, -109.03], [41, -102.05], [37, -102.04]];
+polygon = L.polygon(simplePolygonLatLngs);
+polygon = new L.Polygon(simplePolygonLatLngs);
+polygon.setLatLngs(simplePolygonLatLngs);
+const simplePolygonLatLngs2: L.LatLng[] = polygon.getLatLngs() as L.LatLng[];
+
+// complex polygon (polygon with holes)
+const complexPolygonLatLngs: L.LatLngExpression[][] = [
+	[[37, -109.05], [41, -109.03], [41, -102.05], [37, -102.04]], // outer ring
+	[[37.29, -108.58], [40.71, -108.58], [40.71, -102.50], [37.29, -102.50]] // hole
 ];
-const polygon = new L.Polygon(latLngs);
-const polygonExclusion = new L.Polygon([latLngs, latLngs]);
+polygon = L.polygon(complexPolygonLatLngs);
+polygon = new L.Polygon(complexPolygonLatLngs);
+polygon.setLatLngs(complexPolygonLatLngs);
+const complexPolygonLatLngs2: L.LatLng[][] = polygon.getLatLngs() as L.LatLng[][];
 
-L.polygon(latLngs).addTo(map);
-L.polygon([latLngs, latLngs]).addTo(map);
+// multi polygon
+const multiPolygonLatLngs: L.LatLngExpression[][][] = [
+	[ // first polygon
+	  [[37, -109.05], [41, -109.03], [41, -102.05], [37, -102.04]], // outer ring
+	  [[37.29, -108.58], [40.71, -108.58], [40.71, -102.50], [37.29, -102.50]] // hole
+	],
+	[ // second polygon
+	  [[41, -111.03], [45, -111.04], [45, -104.05], [41, -104.05]]
+	]
+];
+polygon = L.polygon(multiPolygonLatLngs);
+polygon = new L.Polygon(multiPolygonLatLngs);
+polygon.setLatLngs(multiPolygonLatLngs);
+const multiPolygonLatLngs2: L.LatLng[][][] = polygon.getLatLngs() as L.LatLng[][][];
 
-L.Util.extend({});
+let polyline: L.Polyline;
+
+// simple polyline
+const simplePolylineLatLngs: L.LatLngExpression[] = [[45.51, -122.68], [37.77, -122.43], [34.04, -118.2]];
+polyline = L.polyline(simplePolylineLatLngs);
+polyline = new L.Polyline(simplePolylineLatLngs);
+polyline.setLatLngs(simplePolylineLatLngs);
+const simplePolylineLatLngs2: L.LatLng[] = polyline.getLatLngs() as L.LatLng[];
+
+// multi polyline
+const multiPolylineLatLngs: L.LatLngExpression[][] = [
+    [[45.51, -122.68], [37.77, -122.43], [34.04, -118.2]],
+    [[40.78, -73.91], [41.83, -87.62], [32.76, -96.72]]
+];
+polyline = L.polyline(multiPolylineLatLngs);
+polyline = new L.Polyline(multiPolylineLatLngs);
+polyline.setLatLngs(multiPolylineLatLngs);
+const multiPolylineLatLngs2: L.LatLng[][] = polyline.getLatLngs() as L.LatLng[][];
+
+const obj1 = {
+	prop1: 1,
+};
+
+const obj2 = {
+	prop2: '2',
+};
+
+const obj3 = {
+	prop3: 'three',
+};
+
+const obj4 = {
+	prop4: 'cuatro',
+};
+
+const obj5 = {
+	prop5: 'cinque',
+};
+
+const extended0: typeof obj1 = L.Util.extend(obj1);
+const extended1: typeof obj1 & typeof obj2 = L.Util.extend(obj1, obj2);
+const extended2: typeof obj1 & typeof obj2 & typeof obj3 = L.Util.extend(obj1, obj2, obj3);
+const extended3: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 = L.Util.extend(obj1, obj2, obj3, obj4);
+const extended4: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 & typeof obj5 = L.Util.extend(obj1, obj2, obj3, obj4, obj5);
+
 L.Util.create({});
+L.Util.create(null, {foo: {writable: true, value: 'bar'}});
+
 L.Util.bind(() => {}, {});
 L.Util.stamp({});
 L.Util.throttle(() => {}, 123, {});
@@ -503,7 +576,7 @@ L.Util.template('template', {});
 L.Util.isArray({});
 L.Util.indexOf([], {});
 L.Util.requestAnimFrame(() => {});
-L.Util.requestAnimFrame(() => {}, {});
+L.Util.requestAnimFrame(timestamp => console.log(timestamp), {});
 L.Util.requestAnimFrame(() => {}, {}, true);
 L.Util.cancelAnimFrame(1);
 L.Util.emptyImageUrl;
@@ -512,7 +585,7 @@ interface MyProperties {
 	testProperty: string;
 }
 
-(L.polygon(latLngs) as L.Polygon<MyProperties>).feature.properties.testProperty = "test";
+(L.polygon(simplePolygonLatLngs) as L.Polygon<MyProperties>).feature.properties.testProperty = "test";
 
 (L.marker([1, 2], {
 	icon: L.icon({

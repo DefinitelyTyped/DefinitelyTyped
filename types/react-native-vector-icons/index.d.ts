@@ -3,7 +3,7 @@
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { Icon } from './Icon';
@@ -35,7 +35,7 @@ export function createIconSet(
  *
  * @see http://fontello.com
  */
-export function createIconSetFromFontello(config: {}): typeof Icon;
+export function createIconSetFromFontello(config: {}, fontName?: string, fontFile?: string): typeof Icon;
 
 /**
  * Convenience method to create a custom font from IcoMoon
@@ -50,4 +50,4 @@ export function createIconSetFromFontello(config: {}): typeof Icon;
  *
  * @see https://icomoon.io/app
  */
-export function createIconSetFromIcoMoon(config: {}): typeof Icon;
+export function createIconSetFromIcoMoon(config: {}, fontName?: string, fontFile?: string): typeof Icon;

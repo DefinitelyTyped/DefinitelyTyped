@@ -22,7 +22,7 @@ export type BaseType = Element | EnterElement | Document | Window | null;
  */
 export interface ArrayLike<T> {
     length: number;
-    item(index: number): T;
+    item(index: number): T | null;
     [index: number]: T;
 }
 

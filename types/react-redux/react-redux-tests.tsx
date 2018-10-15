@@ -832,7 +832,12 @@ namespace TestDispatchToPropsAsObject {
 	<Header />
 }
 
-namespace TestInferredFunctionalComponent {
+namespace TestInferredFunctionalComponentWithExplicitOwnProps {
+  type Props = {
+    title: string,
+    extraText: string,
+    onClick: () => void,
+  };
 
 	const Header = connect(
 		(
@@ -845,7 +850,30 @@ namespace TestInferredFunctionalComponent {
 		(dispatch) => ({
 			onClick: () => dispatch({ type: 'test' })
 		})
-	)(({ title, extraText, onClick }) => {
+	)(({ title, extraText, onClick }: Props) => {
+		return <h1 onClick={onClick}>{title} {extraText}</h1>;
+	});
+	<Header extraText='text'/>
+}
+
+namespace TestInferredFunctionalComponentWithImplicitOwnProps {
+
+  type Props = {
+    title: string,
+    extraText: string,
+    onClick: () => void,
+  };
+
+	const Header = connect(
+		(
+			{ app: { title }}: { app: { title: string }},
+		) => ({
+			title,
+		}),
+		(dispatch) => ({
+			onClick: () => dispatch({ type: 'test' })
+		})
+	)(({ title, extraText, onClick }: Props) => {
 		return <h1 onClick={onClick}>{title} {extraText}</h1>;
 	});
 	<Header extraText='text'/>
@@ -1126,4 +1154,42 @@ namespace TestFailsMoreSpecificInjectedProps {
   // Since it is possible the injected props could fail to satisfy the decoration props,
   // the following line should fail to compile.
   connect(mapStateToProps, mapDispatchToProps)(Component) // $ExpectError
+
+  // Confirm that this also fails with functional components
+  const FunctionalComponent = (props: MoreSpecificDecorationProps) => null
+  connect(mapStateToProps, mapDispatchToProps)(Component) // $ExpectError
+
+}
+
+namespace TestLibraryManagedAttributes {
+	interface OwnProps {
+		bar: number,
+		fn: () => void,
+	}
+
+	type MapStateProps = {
+		foo: string,
+	}
+
+	class Component extends React.Component<OwnProps & MapStateProps> {
+		static defaultProps = {
+			bar: 0,
+		}
+
+		render () {
+			return <div />;
+		}
+	}
+
+	function mapStateToProps (state: any): MapStateProps {
+		return {
+			foo: 'foo',
+		};
+	}
+
+	const ConnectedComponent = connect(mapStateToProps)(Component);
+	<ConnectedComponent fn={() => {}} />
+
+	const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
+	<ConnectedComponent2 fn={() => {}} />
 }

@@ -334,6 +334,7 @@ function zoom_examples() {
         data: {},
         zoom: {
             enabled: false,
+            type: 'scroll',
             rescale: true,
             extent: [1, 100], // enable more zooming
             onzoom: (domain) => { /* code */ },
@@ -452,6 +453,7 @@ function gauge_examples() {
             max: 100,
             units: " %",
             width: 10,
+            fullCircle: true,
         }
     });
 }

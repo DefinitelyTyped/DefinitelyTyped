@@ -5,8 +5,13 @@
 //                 Eloy Durán <https://github.com/alloy>
 //                 Nicolas Pirotte <https://github.com/npirotte>
 //                 Cameron Knight <https://github.com/ckknight>
+//                 Kaare Hoff Skovgaard <https://github.com/kastermester>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.9
+
+// Prettified with:
+// $ prettier --parser typescript --tab-width 4 --semi --trailing-comma es5 --write --print-width 120 \
+//   types/{react-relay,relay-runtime}/{,*}/*.ts*
 
 export {
     commitLocalUpdate,
@@ -23,17 +28,26 @@ import * as RelayRuntimeTypes from "relay-runtime";
 // Utility types
 // ~~~~~~~~~~~~~~~~~~~~~
 
-// Taken from https://github.com/pelotom/type-zoo
-// tslint:disable-next-line:strict-export-declare-modifiers
-type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+export interface _RefType<T> {
+    " $refType": T;
+}
+export interface _FragmentRefs<T> {
+    " $fragmentRefs": T;
+}
 
-export type RemoveRelayProp<P> = Omit<P & { relay: never }, "relay">;
+export type FragmentOrRegularProp<T> = T extends _RefType<infer U>
+    ? _FragmentRefs<U>
+    : T extends ReadonlyArray<_RefType<infer U>> ? ReadonlyArray<_FragmentRefs<U>> : T;
+
+export type MappedFragmentProps<T> = { [K in keyof T]: FragmentOrRegularProp<T[K]> };
+
+export type RemoveRelayProp<P> = Pick<P, Exclude<keyof P, "relay">>;
 
 export interface ComponentRef {
     componentRef?: (ref: any) => void;
 }
 
-export type RelayContainer<T> = React.ComponentType<RemoveRelayProp<T> & ComponentRef>;
+export type RelayContainer<P> = React.ComponentType<MappedFragmentProps<RemoveRelayProp<P>> & ComponentRef>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Maybe Fix
@@ -74,32 +88,36 @@ export const graphql: GraphqlInterface;
 // ~~~~~~~~~~~~~~~~~~~~~
 // ReactRelayQueryRenderer
 // ~~~~~~~~~~~~~~~~~~~~~
-export interface QueryRendererProps {
+
+export interface QueryRendererProps<T extends RelayRuntimeTypes.OperationBase = RelayRuntimeTypes.OperationDefaults> {
     cacheConfig?: RelayRuntimeTypes.CacheConfig;
     environment: RelayRuntimeTypes.Environment;
     query?: RelayRuntimeTypes.GraphQLTaggedNode | null;
-    render(readyState: ReadyState): React.ReactElement<any> | undefined | null;
-    variables: RelayRuntimeTypes.Variables;
+    render(readyState: ReadyState<T["response"]>): React.ReactElement<any> | undefined | null;
+    variables: T["variables"];
     rerunParamExperimental?: RelayRuntimeTypes.RerunParam;
 }
-export interface ReadyState {
+export interface ReadyState<T extends RelayRuntimeTypes.Variables = RelayRuntimeTypes.Variables> {
     error: Error | undefined | null;
-    props: { [propName: string]: any } | undefined | null;
+    props: T | undefined | null;
     retry?(): void;
 }
-export interface QueryRendererState {
-    readyState: ReadyState;
-}
-export class ReactRelayQueryRenderer extends React.Component<QueryRendererProps, QueryRendererState> {}
-export class QueryRenderer extends ReactRelayQueryRenderer {}
+
+export class ReactRelayQueryRenderer<T extends RelayRuntimeTypes.OperationBase> extends React.Component<
+    QueryRendererProps<T>
+> {}
+export class QueryRenderer<
+    T extends RelayRuntimeTypes.OperationBase = RelayRuntimeTypes.OperationDefaults
+> extends ReactRelayQueryRenderer<T> {}
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // createFragmentContainer
 // ~~~~~~~~~~~~~~~~~~~~~
-export function createFragmentContainer<T>(
-    Component: React.ComponentType<T>,
+
+export function createFragmentContainer<P>(
+    Component: React.ComponentType<P>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap
-): RelayContainer<T>;
+): RelayContainer<P>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // createPaginationContainer
@@ -111,8 +129,8 @@ export interface PageInfo {
     startCursor: string | undefined | null;
 }
 export interface ConnectionData {
-    edges?: any[];
-    pageInfo?: PageInfo;
+    edges?: ReadonlyArray<any>;
+    pageInfo?: Partial<PageInfo>;
 }
 export type RelayPaginationProp = RelayProp & {
     hasMore(): boolean;
@@ -132,9 +150,9 @@ export function FragmentVariablesGetter(
     prevVars: RelayRuntimeTypes.Variables,
     totalCount: number
 ): RelayRuntimeTypes.Variables;
-export interface ConnectionConfig<T> {
+export interface ConnectionConfig<P> {
     direction?: "backward" | "forward";
-    getConnectionFromProps?(props: T): ConnectionData | undefined | null;
+    getConnectionFromProps?(props: P): ConnectionData | undefined | null;
     getFragmentVariables?: typeof FragmentVariablesGetter;
     getVariables(
         props: { [propName: string]: any },
@@ -143,11 +161,11 @@ export interface ConnectionConfig<T> {
     ): RelayRuntimeTypes.Variables;
     query: RelayRuntimeTypes.GraphQLTaggedNode;
 }
-export function createPaginationContainer<T>(
-    Component: React.ComponentType<T>,
+export function createPaginationContainer<P>(
+    Component: React.ComponentType<P>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
-    connectionConfig: ConnectionConfig<T>
-): RelayContainer<T>;
+    connectionConfig: ConnectionConfig<P>
+): RelayContainer<P>;
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // createRefetchContainer
@@ -166,8 +184,8 @@ export type RelayRefetchProp = RelayProp & {
         options?: RefetchOptions
     ): RelayRuntimeTypes.Disposable;
 };
-export function createRefetchContainer<T>(
-    Component: React.ComponentType<T>,
+export function createRefetchContainer<P>(
+    Component: React.ComponentType<P>,
     fragmentSpec: RelayRuntimeTypes.GraphQLTaggedNode | GeneratedNodeMap,
     taggedNode: RelayRuntimeTypes.GraphQLTaggedNode
-): RelayContainer<T>;
+): RelayContainer<P>;

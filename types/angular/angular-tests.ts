@@ -311,8 +311,10 @@ namespace TestQ {
     }
     const abcObject: AbcObject = null;
     const abcObjectPromise: angular.IPromise<AbcObject> = null;
+    const abcObjectPromiseLike: PromiseLike<AbcObject> = null;
     const efObject: EfObject = null;
     const efObjectPromise: angular.IPromise<EfObject> = null;
+    const efObjectPromiseLike: PromiseLike<EfObject> = null;
     const ghObject: GhObject = null;
     const ghObjectPromise: angular.IPromise<GhObject> = null;
 
@@ -404,6 +406,7 @@ namespace TestQ {
 
         result = $q.when<AbcObject>(abcObject);
         result = $q.when<AbcObject>(abcObjectPromise);
+        result = $q.when<AbcObject>(abcObjectPromiseLike);
 
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObject);
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObject, (any) => any);
@@ -416,9 +419,20 @@ namespace TestQ {
         resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObject, (any) => ghObjectPromise);
         resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObject, (any) => ghObjectPromise, (any) => any);
 
+        result = $q.when<AbcObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject);
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObject);
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObject);
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObject, (any) => any);
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObjectPromise);
+        resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromiseLike, (result: EfObject) => abcObject, (any) => ghObjectPromise, (any) => any);
+
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromise);
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromise, (any) => any);
         result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromise, (any) => any, (any) => any);
+
+        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromiseLike);
+        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromiseLike, (any) => any);
+        result = $q.when<AbcObject, EfObject>(efObject, (result: EfObject) => abcObjectPromiseLike, (any) => any, (any) => any);
 
         result = $q.when<AbcObject, EfObject>(efObjectPromise, (result: EfObject) => abcObjectPromise);
         resultOther = $q.when<AbcObject, GhObject, EfObject>(efObjectPromise, (result: EfObject) => abcObjectPromise, (any) => ghObject);

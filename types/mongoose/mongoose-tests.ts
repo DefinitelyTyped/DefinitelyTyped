@@ -21,11 +21,13 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   user: 'larry',
   pass: 'housan',
   config: {
-    autoIndex: true
+    autoIndex: true,
+    useCreateIndex: true,
   },
   mongos: true,
   bufferCommands: false,
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useFindAndModify: true,
 });
 const connection3: null = mongoose.connect(connectUri, function (error) {
   error.stack;
@@ -293,7 +295,7 @@ schema.method('name', cb).method({
 });
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
-schema.plugin(function (schema, opts) {
+schema.plugin(function (schema: mongoose.Schema, opts?: any) {
   schema.get('path');
   if (opts) {
     opts.hasOwnProperty('');
@@ -390,23 +392,23 @@ preHookTestSchemaArr.push(
 
 // Model<Document>
 preHookTestSchemaArr.push(
-  schema.pre("insertMany", function(next) {
+  schema.pre("insertMany", function(next, docs) {
     const isDefaultType: mongoose.Model<mongoose.Document> = this;
   }, err => {})
 );
 preHookTestSchemaArr.push(
-  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", function(next) {
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", function(next, docs) {
     const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
     return Promise.resolve("")
   }, err => {})
 );
 preHookTestSchemaArr.push(
-  schema.pre("insertMany", true, function(next, done) {
+  schema.pre("insertMany", true, function(next, done, docs) {
     const isDefaultType: mongoose.Model<mongoose.Document> = this;
   }, err => {})
 );
 preHookTestSchemaArr.push(
-  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", true, function(next, done) {
+  schema.pre<PreHookTestModelInterface<PreHookTestDocumentInterface>>("insertMany", true, function(next, done, docs) {
     const isSpecificType: PreHookTestModelInterface<PreHookTestDocumentInterface> = this;
     return Promise.resolve("")
   }, err => {})
@@ -429,7 +431,7 @@ schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);
 schema.remove('path');
 schema.remove(['path1', 'path2', 'path3']);
 schema.requiredPaths(true)[0].toLowerCase();
-schema.set('key', 999).set('key');
+schema.set('id', true).set('id');
 schema.static('static', cb).static({
   s1: cb,
   s2: cb
@@ -524,7 +526,15 @@ new mongoose.Schema({
         setImmediate(done, true);
       }
     }
-  }
+  },
+  promiseValidated: {
+    type: Number,
+    validate: {
+      validator: async (val: number) => {
+        return val === 2;
+      }
+    }
+  },
 });
 new mongoose.Schema({ name: { type: String, validate: [
   { validator: () => {return true}, msg: 'uh oh' },
@@ -564,25 +574,25 @@ new mongoose.Schema({
   }
 });
 
-(new mongoose.Schema({})).plugin(function (schema: any, options: any) {
+(new mongoose.Schema({})).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-}, { index: true }).plugin(function (schema: any, options: any) {
+}, { index: true }).plugin<any>(function (schema: mongoose.Schema, options: any) {
   schema.add({ lastMod: Date })
   schema.pre('save', function (next: Function) {
-    this.lastMod = new Date
+    (this as any).lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-});
+}, {index: true});
 
 new mongoose.Schema({foo: String}, {strict: 'throw'});
 
@@ -593,6 +603,11 @@ export default function(schema: mongoose.Schema) {
 }
 
 // plugins
+function MyPlugin(schema: mongoose.Schema, opts?: string) {
+}
+new mongoose.Schema({})
+    .plugin(MyPlugin)
+
 interface PluginOption {
     modelName: string;
     timestamp: string;
@@ -602,7 +617,7 @@ function logger(modelName: string, timestamp: string) {
     // call special logger with options
 }
 
-function AwesomeLoggerPlugin(schema: mongoose.Schema, options?: PluginOption) {
+function AwesomeLoggerPlugin(schema: mongoose.Schema, options: PluginOption) {
     if (options) {
         schema.pre('save', function (next: Function) {
             logger(options.modelName, options.timestamp)
@@ -1005,6 +1020,7 @@ query.find().populate('owner', 'name', null, {sort: { name: -1 }}).exec(function
   kittens[0].execPopulate();
 });
 query.read('primary', []).read('primary');
+query.readConcern('majority').readConcern('m');
 query.regex(/re/).regex('path', /re/);
 query.remove({}, cb);
 query.remove({});
@@ -1023,6 +1039,7 @@ query.setOptions({
   batchSize: true,
   lean: false
 });
+query.setQuery({ age: 5 });
 query.size(0).size('age', 0);
 query.skip(100).skip(100);
 query.slaveOk().slaveOk(false);
@@ -1222,6 +1239,7 @@ aggregate.append({ $project: { field: 1 }}, { $limit: 2 });
 aggregate.append([{ $match: { daw: 'Logic Audio X' }} ]);
 aggregate.collation({ locale: 'en_US', strength: 1 });
 aggregate.count('countName');
+aggregate.facet({ fieldA: [{ a: 1 }], fieldB: [{ b: 1 }] });
 aggregate.cursor({ batchSize: 1000 }).exec().each(cb);
 aggregate.exec().then(cb).catch(cb);
 aggregate.option({foo: 'bar'}).exec();
@@ -1259,6 +1277,8 @@ aggregate.project({
 })
 aggregate.project({ salary_k: { $divide: [ "$salary", 1000 ]}});
 aggregate.read('primaryPreferred').read('pp');
+aggregate.replaceRoot("user");
+aggregate.replaceRoot({x: {$concat: ['$this', '$that']}});
 aggregate.sample(3).sample(3);
 aggregate.skip(10).skip(10);
 aggregate.sort({ field: 'asc', test: -1 });
@@ -1882,3 +1902,90 @@ MyModel.createIndexes((err: any): void => {}).then(() => {});
 mongoose.connection.createCollection('foo').then(() => {});
 mongoose.connection.createCollection('foo', {wtimeout: 5}).then(() => {});
 mongoose.connection.createCollection('foo', {wtimeout: 5}, (err: Error, coll): void => {coll.collectionName}).then(() => {});
+
+const db = mongoose.connection;
+const User = mongoose.model('User', new mongoose.Schema({ name: String }));
+
+let session: mongoose.ClientSession;
+mongoose.connection.createCollection('users').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    session.startTransaction();
+    User.findOne({ name: 'foo' }).session(session);
+    session.commitTransaction();
+    return User.create({ name: 'foo' });
+  });
+
+const Event = db.model('Event', new mongoose.Schema({ createdAt: Date }), 'Event');
+
+db.createCollection('users').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    return User.create({ name: 'foo' });
+  }).
+  then(() => {
+    session.startTransaction();
+    return User.findOne({ name: 'foo' }).session(session).exec();
+  }).
+  then(() => {
+    session.commitTransaction();
+    return User.findOne({ name: 'bar' }).exec();
+  }).
+  catch(() => {
+    session.abortTransaction();
+  });
+  db.createCollection('Event').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    session.startTransaction();
+    return Event.insertMany([
+      { createdAt: new Date('2018-06-01') },
+      { createdAt: new Date('2018-06-02') },
+      { createdAt: new Date('2017-06-01') },
+      { createdAt: new Date('2017-05-31') }
+    ], { session: session });
+  }).
+  then(() => Event.aggregate([
+    {
+      $group: {
+        _id: {
+          month: { $month: '$createdAt' },
+          year: { $year: '$createdAt' }
+        },
+        count: { $sum: 1 }
+      }
+    },
+    { $sort: { count: -1, '_id.year': -1, '_id.month': -1 } }
+  ]).session(session).exec()).
+  then((res: any) => {
+    session.commitTransaction();
+  });
+
+/** https://mongoosejs.com/docs/transactions.html */
+
+const Customer = db.model('Customer', new mongoose.Schema({ name: String }));
+
+db.createCollection('customers').
+  then(() => db.startSession()).
+  then(_session => {
+    session = _session;
+    // Start a transaction
+    session.startTransaction();
+    // This `create()` is part of the transaction because of the `session`
+    // option.
+    return Customer.create([{ name: 'Test' }], { session: session });
+  }).
+  // Transactions execute in isolation, so unless you pass a `session`
+  // to `findOne()` you won't see the document until the transaction
+  // is committed.
+  then((customer: mongoose.Document[]) => Customer.findOne({ name: 'Test' }).exec()).
+  // This `findOne()` will return the doc, because passing the `session`
+  // means this `findOne()` will run as part of the transaction.
+  then(() => Customer.findOne({ name: 'Test' }).session(session).exec()).
+  // Once the transaction is committed, the write operation becomes
+  // visible outside of the transaction.
+  then(() => session.commitTransaction()).
+  then(() => Customer.findOne({ name: 'Test' }).exec())

@@ -51,8 +51,8 @@ export interface RedirectProps {
   strict?: boolean;
 }
 
-export interface RouteComponentProps<P> {
-  match: match<P>;
+export interface RouteComponentProps<Params extends { [K in keyof Params]?: string }> {
+  match: match<Params>;
   location: H.Location;
   history: H.History;
   staticContext?: any;

@@ -2,9 +2,10 @@ import * as pouchdbUpsert from 'pouchdb-upsert';
 PouchDB.plugin(pouchdbUpsert);
 
 interface UpsertDocModel {
-   _id: 'test-doc1';
-   name: 'test';
+   name: string;
+   readonly?: boolean;
 }
+
 declare const docToUpsert: PouchDB.Core.Document<UpsertDocModel>;
 const db = new PouchDB<UpsertDocModel>();
 
@@ -16,10 +17,20 @@ function testUpsert_WithPromise_AndReturnDoc() {
   });
 }
 
-function testUpsert_WithPromise_AndReturnBoolean() {
+function testUpsert_WithPromise_AndReturnFalsey() {
   db.upsert<UpsertDocModel>(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
+    if (doc.readonly)
+      return false;
     // Make some updates....
-    return false;
+    return doc;
+  }).then((res: PouchDB.UpsertResponse) => {
+  });
+}
+
+function testUpsert_WithPromise_AndReturnNewObject() {
+  // callback return boolean
+  db.upsert<UpsertDocModel>(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
+    return {name: 'test', readonly: true};
   }).then((res: PouchDB.UpsertResponse) => {
   });
 }
@@ -31,11 +42,20 @@ function testUpsert_WithCallback_AndReturnDoc() {
   }, (res: PouchDB.UpsertResponse) => {});
 }
 
-function testUpsert_WithCallback_AndReturnBoolean() {
+function testUpsert_WithCallback_AndReturnFalsey() {
   // callback return boolean
   db.upsert<UpsertDocModel>(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
+    if (doc.readonly)
+      return false;
     // Make some updates....
-    return false;
+    return doc;
+  }, (res: PouchDB.UpsertResponse) => {});
+}
+
+function testUpsert_WithCallback_AndReturnNewObject() {
+  // callback return boolean
+  db.upsert<UpsertDocModel>(docToUpsert._id, (doc: PouchDB.Core.Document<UpsertDocModel>) => {
+    return {name: 'test', readonly: true};
   }, (res: PouchDB.UpsertResponse) => {});
 }
 

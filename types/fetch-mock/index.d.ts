@@ -6,6 +6,7 @@
 //                 Chris Sinclair <https://github.com/chrissinclair>
 //                 Matt Tennison <https://github.com/matttennison>
 //                 Quentin Bouygues <https://github.com/quentinbouygues>
+//                 Fumiaki Matsushima <https://github.com/mtsmfm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -165,23 +166,23 @@ declare namespace fetchMock {
     }
 
     interface MockOptionsMethodGet extends MockOptions {
-    method: 'GET';
+        method?: 'GET';
     }
 
     interface MockOptionsMethodPost extends MockOptions {
-    method: 'POST';
+        method?: 'POST';
     }
 
     interface MockOptionsMethodPut extends MockOptions {
-    method: 'PUT';
+        method?: 'PUT';
     }
 
     interface MockOptionsMethodDelete extends MockOptions {
-    method: 'DELETE';
+        method?: 'DELETE';
     }
 
     interface MockOptionsMethodHead extends MockOptions {
-    method: 'HEAD';
+        method?: 'HEAD';
     }
 
     interface FetchMockStatic {

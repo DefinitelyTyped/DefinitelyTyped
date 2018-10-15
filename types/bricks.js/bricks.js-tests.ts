@@ -1,7 +1,7 @@
 import Bricks from 'bricks.js';
 
 const bricks = Bricks({
-    container: document.body!.firstChild!,
+    container: document.body.firstChild!,
     packed: 'packed',
     sizes: [
         { columns: 2, gutter: 10 },

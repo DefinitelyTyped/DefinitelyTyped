@@ -4,7 +4,7 @@
 //                 Janeene Beeforth <https://github.com/dawnmist>
 //                 Adam Haglund <https://github.com/beeequeue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { BackendFactory } from 'dnd-core';
 

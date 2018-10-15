@@ -418,7 +418,8 @@ let service = new google.maps.places.PlacesService(new HTMLDivElement());
 
 service.getDetails({
     placeId: '-a1',
-    fields: ['name']
+    fields: ['name'],
+    sessionToken: new google.maps.places.AutocompleteSessionToken()
 }, (result, status) => {
     if (status === google.maps.places.PlacesServiceStatus.NOT_FOUND) {
         return;

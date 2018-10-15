@@ -11,6 +11,11 @@ const run = () => fetch('https://sindresorhus.com/unicorn')
         return response.text();
     });
 
-pRetry(run, {retries: 5}).then(result => {
+pRetry(run, {
+    retries: 5,
+    onFailedAttempt: error => {
+        console.log(`Attempt ${error.attemptNumber} failed. There are ${error.attemptsLeft} attempts left.`);
+    }
+}).then(result => {
     const str: string = result;
 });

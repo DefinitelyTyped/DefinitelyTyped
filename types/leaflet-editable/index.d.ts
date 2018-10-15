@@ -124,6 +124,11 @@ declare module 'leaflet' {
          * When you need to stop any ongoing drawing, without needing to know which editor is active.
          */
         stopDrawing(): void;
+
+        /**
+         * When you need to commit any ongoing drawing, without needing to know which editor is active.
+         */
+        commitDrawing(): void;
     }
 
     let Editable: EditableStatic;

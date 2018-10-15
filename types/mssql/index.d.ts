@@ -8,6 +8,7 @@
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 David Gasperoni <https://github.com/mcdado>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 

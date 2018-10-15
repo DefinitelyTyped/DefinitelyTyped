@@ -5,7 +5,24 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ReactNode, ReactElement } from 'react';
+export interface ReactElementLike {
+    type: string | ((...args: any[]) => ReactElementLike);
+    props: any;
+    key: string | number | null;
+    children?: ReactNodeLike;
+}
+
+export interface ReactNodeArray extends Array<ReactNodeLike> {}
+
+export type ReactNodeLike =
+    | {}
+    | ReactElementLike
+    | ReactNodeArray
+    | string
+    | number
+    | boolean
+    | null
+    | undefined;
 
 export const nominalTypeHack: unique symbol;
 
@@ -38,8 +55,8 @@ export const func: Requireable<(...args: any[]) => any>;
 export const number: Requireable<number>;
 export const object: Requireable<object>;
 export const string: Requireable<string>;
-export const node: Requireable<ReactNode>;
-export const element: Requireable<ReactElement<any>>;
+export const node: Requireable<ReactNodeLike>;
+export const element: Requireable<ReactElementLike>;
 export const symbol: Requireable<symbol>;
 export function instanceOf<T>(expectedClass: new (...args: any[]) => T): Requireable<T>;
 export function oneOf<T>(types: T[]): Requireable<T>;
@@ -47,6 +64,7 @@ export function oneOfType<T extends Validator<any>>(types: T[]): Requireable<Non
 export function arrayOf<T>(type: Validator<T>): Requireable<T[]>;
 export function objectOf<T>(type: Validator<T>): Requireable<{ [K in keyof any]: T; }>;
 export function shape<P extends ValidationMap<any>>(type: P): Requireable<InferProps<P>>;
+export function exact<P extends ValidationMap<any>>(type: P): Requireable<Required<InferProps<P>>>;
 
 /**
  * Assert that the values match with the type specs.

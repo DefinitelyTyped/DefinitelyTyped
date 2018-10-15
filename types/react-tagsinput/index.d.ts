@@ -2,7 +2,7 @@
 // Project: https://github.com/olahol/react-tagsinput
 // Definitions by: Michael Macnair <https://github.com/mykter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 

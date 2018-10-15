@@ -15,7 +15,7 @@ export interface i18nProps {
     i18n?: i18n;
     initialI18nStore?: any;
     initialLanguage?: string;
-    children: (t: TranslationFunction, options: Options) => JSX.Element;
+    children: (t: TranslationFunction, options: Options) => React.ReactNode;
 }
 
 export default class I18n extends React.Component<i18nProps> { }

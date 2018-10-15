@@ -142,7 +142,7 @@ const FRAME_BUDGET = 100;
 		});
 	};
 
-	m.render(document.body!, userInputs(users));
+	m.render(document.body, userInputs(users));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -246,7 +246,7 @@ const FRAME_BUDGET = 100;
 	};
 
 	// example 1
-	m.route(document.body!, "/", {
+	m.route(document.body, "/", {
 		"/": {
 			view() {
 				return m(Layout, m(Home));
@@ -260,7 +260,7 @@ const FRAME_BUDGET = 100;
 	});
 
 	// example 2
-	m.route(document.body!, "/", {
+	m.route(document.body, "/", {
 		"/": {
 			render() {
 				return m(Layout, m(Home));
@@ -285,7 +285,7 @@ const FRAME_BUDGET = 100;
 		},
 	};
 
-	m.route(document.body!, "/", {
+	m.route(document.body, "/", {
 		"/": {
 			render() {
 				return m(Anon1);
@@ -313,7 +313,7 @@ const FRAME_BUDGET = 100;
 		}
 	};
 
-	m.route(document.body!, "/user/list", {
+	m.route(document.body, "/user/list", {
 		"/user/list": {
 			onmatch: state.loadUsers,
 			render() {
@@ -330,7 +330,7 @@ const FRAME_BUDGET = 100;
 {
 	let progress = 0;
 
-	m.mount(document.body!, {
+	m.mount(document.body, {
 		view() {
 			return [
 				m("input[type=file]", { onchange: upload }),
@@ -396,7 +396,7 @@ const FRAME_BUDGET = 100;
 		deserialize: value => value
 	})
 	.then(svg => {
-		m.render(document.body!, m.trust(svg));
+		m.render(document.body, m.trust(svg));
 	});
 }
 

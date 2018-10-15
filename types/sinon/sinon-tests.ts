@@ -67,14 +67,26 @@ function testSandbox() {
     sb.replaceSetter(replaceMe, 'setter', (v) => { });
 
     const cls = class {
-        foo() {}
+        foo() { }
         bar: number;
+    };
+    const PrivateFoo = class {
+        private constructor() { }
+        foo() { }
+        bar: number;
+        static create() {
+            return new PrivateFoo();
+        }
     };
 
     const stubInstance = sb.createStubInstance(cls);
+    const privateFooStubbedInstance = sb.createStubInstance(PrivateFoo);
     stubInstance.foo.calledWith('foo');
+    privateFooStubbedInstance.foo.calledWith('foo');
     const clsFoo: sinon.SinonStub = stubInstance.foo;
+    const privateFooFoo: sinon.SinonStub = privateFooStubbedInstance.foo;
     const clsBar: number = stubInstance.bar;
+    const privateFooBar: number = privateFooStubbedInstance.bar;
 }
 
 function testFakeServer() {
@@ -106,7 +118,7 @@ function testXHR() {
 
     sinon.FakeXMLHttpRequest.useFilters = true;
     sinon.FakeXMLHttpRequest.addFilter((method, url, async, user, pass) => true);
-    sinon.FakeXMLHttpRequest.onCreate = (xhr) => {};
+    sinon.FakeXMLHttpRequest.onCreate = (xhr) => { };
     sinon.FakeXMLHttpRequest.restore();
 }
 
@@ -117,7 +129,7 @@ function testClock() {
     let now = 0;
     now = clock.now;
 
-    const fn = () => {};
+    const fn = () => { };
 
     clock.setTimeout(fn, 0);
     clock.setTimeout(fn, 0, 'a', 'b');
@@ -173,7 +185,7 @@ function testExpectation() {
 
 function testMatch() {
     const obj = {};
-    const fn = () => {};
+    const fn = () => { };
 
     sinon.match(5).test(5);
     sinon.match('str').test('foo');
@@ -216,7 +228,7 @@ function testMatch() {
 }
 
 function testFake() {
-    const fn = () => {};
+    const fn = () => { };
     let fake = sinon.fake();
 
     fake = sinon.fake(() => true);
@@ -277,14 +289,14 @@ function testAssert() {
 }
 
 function testSpy() {
-    const fn = () => {};
+    const fn = () => { };
     const obj = class {
-        foo() {}
+        foo() { }
     };
     const instance = new obj();
 
     let spy = sinon.spy();
-    const spyTwo = sinon.spy();
+    const spyTwo = sinon.spy().named('spyTwo');
 
     spy = sinon.spy(fn);
     spy = sinon.spy(instance, 'foo');
@@ -369,14 +381,14 @@ function testSpy() {
 
 function testStub() {
     const obj = class {
-        foo() {}
+        foo() { }
     };
     const instance = new obj();
 
     let stub = sinon.stub();
-    stub = sinon.stub(instance, 'foo');
+    stub = sinon.stub(instance, 'foo').named('namedStub');
 
-	const spy: sinon.SinonSpy = stub;
+    const spy: sinon.SinonSpy = stub;
 
     sinon.stub(instance);
 
@@ -391,6 +403,8 @@ function testStub() {
     stub.returnsThis();
     stub.resolves();
     stub.resolves('foo');
+    stub.resolvesArg(1);
+    stub.resolvesThis();
     stub.throws();
     stub.throws('err');
     stub.throws(new Error('err'));
@@ -408,9 +422,9 @@ function testStub() {
     stub.callsArgOnAsync(1, instance);
     stub.callsArgWithAsync(1, 'a', 2);
     stub.callsArgOnWithAsync(1, instance, 'a', 2);
-    stub.callsFake(() => {});
+    stub.callsFake(() => { });
     stub.get(() => true);
-    stub.set((v) => {});
+    stub.set((v) => { });
     stub.onCall(1).returns(true);
     stub.onFirstCall().resolves('foo');
     stub.onSecondCall().resolves('foo');

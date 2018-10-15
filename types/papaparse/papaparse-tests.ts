@@ -20,6 +20,7 @@ res.errors[0].code;
 Papa.parse("3,3,3", {
 	delimiter: ';',
 	comments: false,
+    trimHeaders: false,
 
 	step: function (results, p) {
 		p.abort();
@@ -30,6 +31,9 @@ Papa.parse("3,3,3", {
 var file = new File(null, null, null);
 
 Papa.parse(file, {
+    transform: function(value, field) {
+
+    },
 	complete: function (a, b) {
 		a.meta.fields;
 		b.name;

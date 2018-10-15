@@ -1,4 +1,4 @@
-// Type definitions for Google Publisher Tag v199
+// Type definitions for Google Publisher Tag v238
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
@@ -38,6 +38,12 @@ declare namespace googletag {
 
     export interface ContentService extends Service {
         setContent(slot: Slot, content: String): void;
+    }
+
+    export interface LazyLoadOptionsConfig {
+        fetchMarginPercent?: number,
+        renderMarginPercent?: number,
+        mobileScaling?: number
     }
 
     export interface ResponseInformation {
@@ -101,6 +107,7 @@ declare namespace googletag {
         setClickUrl(url: string): PassbackSlot;
         setForceSafeFrame(forceSafeFrame: boolean): PassbackSlot;
         setTagForChildDirectedTreatment(value: number): PassbackSlot;
+        setTagForUnderAgeOfConsent(value: number): PassbackSlot;
         setTargeting(key: string, value: string | string[]): PassbackSlot;
         updateTargetingFromMap(map: Object): PassbackSlot;
     }
@@ -116,6 +123,7 @@ declare namespace googletag {
         disableInitialLoad(): void;
         display(adUnitPath: string, size: GeneralSize, opt_div?: string | Element, opt_clickUrl?: string): Slot;
         enableAsyncRendering(): boolean;
+        enableLazyLoad(opt_config?: LazyLoadOptionsConfig): void;
         enableSingleRequest(): boolean;
         enableSyncRendering(): boolean;
         enableVideoAds(): void;
@@ -134,6 +142,7 @@ declare namespace googletag {
         setRequestNonPersonalizedAds(nonPersonalizedAds: 0 | 1): PubAdsService;
         setSafeFrameConfig(config: SafeFrameConfig): PubAdsService;
         setTagForChildDirectedTreatment(value: number): PubAdsService;
+        setTagForUnderAgeOfConsent(opt_value?: number): PubAdsService;
         setTargeting(key: string, value: string | string[]): PubAdsService;
         setVideoContent(videoContentId: string, videoCmsId: string): void;
         updateCorrelator(): PubAdsService;

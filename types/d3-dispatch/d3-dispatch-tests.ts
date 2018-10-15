@@ -47,12 +47,12 @@ undef = dispatch.on('unknown') as undefined;
 dispatch.on('bar', dispatch.on('bar')!);
 
 dispatch.call('foo');
-dispatch.call('foo', document.body!);
-dispatch.call('foo', document.body!, { a: 3, b: 'test' }, 1);
+dispatch.call('foo', document.body);
+dispatch.call('foo', document.body, { a: 3, b: 'test' }, 1);
 
 dispatch.apply('bar');
-dispatch.apply('bar', document.body!);
-dispatch.apply('bar', document.body!, [{ a: 3, b: 'test' }, 1]);
+dispatch.apply('bar', document.body);
+dispatch.apply('bar', document.body, [{ a: 3, b: 'test' }, 1]);
 
 dispatch.on('bar', null);
 

@@ -9,7 +9,7 @@
 //                 Torgeir Hovden <https://github.com/thovden>
 //                 Martin Hochel <https://github.com/hotell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="cheerio" />
 import { ReactElement, Component, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
@@ -220,6 +220,13 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      * @param args?
      */
     simulate(event: string, ...args: any[]): this;
+
+    /**
+     * Used to simulate throwing a rendering error. Pass an error to throw.
+     * Returns itself.
+     * @param error
+     */
+    simulateError(error: any): this;
 
     /**
      * A method to invoke setState() on the root component instance similar to how you might in the definition of

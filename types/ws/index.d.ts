@@ -1,4 +1,4 @@
-// Type definitions for ws 5.1
+// Type definitions for ws 6.0
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Matt Silverlock <https://github.com/elithrar>
@@ -44,8 +44,8 @@ declare class WebSocket extends events.EventEmitter {
     close(code?: number, data?: string): void;
     ping(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
     pong(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
-    send(data: any, cb?: (err: Error) => void): void;
-    send(data: any, options: { mask?: boolean; binary?: boolean; compress?: boolean; fin?: boolean }, cb?: (err: Error) => void): void;
+    send(data: any, cb?: (err?: Error) => void): void;
+    send(data: any, options: { mask?: boolean; binary?: boolean; compress?: boolean; fin?: boolean }, cb?: (err?: Error) => void): void;
     terminate(): void;
 
     // HTML5 WebSocket events
@@ -120,7 +120,7 @@ declare namespace WebSocket {
      * whether or not to accept the handshake.
      */
     type VerifyClientCallbackAsync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }
-        , callback: (res: boolean, code?: number, message?: string) => void) => void;
+        , callback: (res: boolean, code?: number, message?: string, headers?: http.OutgoingHttpHeaders) => void) => void;
 
     interface ClientOptions {
         protocol?: string;
@@ -141,6 +141,7 @@ declare namespace WebSocket {
         key?: CertMeta;
         pfx?: string | Buffer;
         ca?: CertMeta;
+        maxPayload?: number;
     }
 
     interface PerMessageDeflateOptions {
@@ -148,8 +149,17 @@ declare namespace WebSocket {
         clientNoContextTakeover?: boolean;
         serverMaxWindowBits?: number;
         clientMaxWindowBits?: number;
-        level?: number;
-        memLevel?: number;
+        zlibDeflateOptions?: {
+            flush?: number;
+            finishFlush?: number;
+            chunkSize?: number;
+            windowBits?: number;
+            level?: number;
+            memLevel?: number;
+            strategy?: number;
+            dictionary?: Buffer | Buffer[] | DataView;
+            info?: boolean;
+        };
         threshold?: number;
         concurrencyLimit?: number;
     }

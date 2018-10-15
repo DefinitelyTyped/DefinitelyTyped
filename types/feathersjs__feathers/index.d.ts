@@ -1,6 +1,8 @@
 // Type definitions for @feathersjs/feathers 3.0
 // Project: http://feathersjs.com/
-// Definitions by: Jan Lohage <https://github.com/j2L4e>, Abraao Alves <https://github.com/AbraaoAlves>
+// Definitions by:  Jan Lohage <https://github.com/j2L4e>
+//                  Abraao Alves <https://github.com/AbraaoAlves>
+//                  Tim Mensch <https://github.com/TimMensch>
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 
 // TypeScript Version: 2.3
@@ -51,16 +53,71 @@ export type Hook = (hook: HookContext) => (Promise<HookContext | SkipSymbol | vo
 export type SkipSymbol = symbol | '__feathersSkipHooks';
 
 export interface HookContext<T = any> {
-    app?: Application;
+    /**
+     * A read only property that contains the Feathers application object. This can be used to
+     * retrieve other services (via context.app.service('name')) or configuration values.
+     */
+    readonly app: Application;
+    /**
+     * A writeable property containing the data of a create, update and patch service
+     * method call.
+     */
     data?: T;
+    /**
+     * A writeable property with the error object that was thrown in a failed method call.
+     * It is only available in error hooks.
+     */
     error?: any;
+    /**
+     * A writeable property and the id for a get, remove, update and patch service
+     * method call. For remove, update and patch context.id can also be null when
+     * modifying multiple entries. In all other cases it will be undefined.
+     */
     id?: string | number;
-    method?: string;
-    params?: Params;
-    path?: string;
+    /**
+     * A read only property with the name of the service method (one of find, get,
+     * create, update, patch, remove).
+     */
+    readonly method: string;
+    /**
+     * A writeable property that contains the service method parameters (including
+     * params.query).
+     */
+    params: Params;
+    /**
+     * A read only property and contains the service name (or path) without leading or
+     * trailing slashes.
+     */
+    readonly path: string;
+    /**
+     * A writeable property containing the result of the successful service method call.
+     * It is only available in after hooks.
+     *
+     * `context.result` can also be set in
+     *
+     *  - A before hook to skip the actual service method (database) call
+     *  - An error hook to swallow the error and return a result instead
+     */
     result?: T;
-    service: Service<T>;
-    type: 'before' | 'after' | 'error';
+    /**
+     * A read only property and contains the service this hook currently runs on.
+     */
+    readonly service: Service<T>;
+    /**
+     * A writeable, optional property and contains a "safe" version of the data that
+     * should be sent to any client. If context.dispatch has not been set context.result
+     * will be sent to the client instead.
+     */
+    dispatch?: T;
+    /**
+     * A writeable, optional property that allows to override the standard HTTP status
+     * code that should be returned.
+     */
+    statusCode?: number;
+    /**
+     * A read only property with the hook type (one of before, after or error).
+     */
+    readonly type: "before" | "after" | "error";
 }
 
 export interface HookMap {

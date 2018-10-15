@@ -851,7 +851,7 @@ export interface RedirectOptions {
     /**
      * redirect location's query string parameters
      */
-    query?: string;
+    query?: string|object;
 
     /**
      * if true, `options.query`
@@ -1231,7 +1231,7 @@ export namespace plugins {
 
         maxFieldsSize?: number;
 
-        maxFileSize: number;
+        maxFileSize?: number;
     }
 
     /**

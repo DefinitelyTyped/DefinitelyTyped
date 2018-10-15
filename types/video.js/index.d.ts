@@ -1,4 +1,4 @@
-// Type definitions for Video.js 7.0
+// Type definitions for Video.js 7.2
 // Project: https://github.com/videojs/video.js
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 Simon Clériot <https://github.com/scleriot>
@@ -8,6 +8,7 @@
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
 //                 Stéphane Roucheray <https://github.com/sroucheray>
 //                 Adam Eisenreich <https://github.com/AkxeOne>
+//                 Mei Qingguang <https://github.com/meikidd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -32,7 +33,7 @@
  * @return A player instance
  */
 declare function videojs(id: any, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
-export = videojs;
+export default videojs;
 export as namespace videojs;
 
 declare namespace videojs {
@@ -1962,7 +1963,7 @@ declare namespace videojs {
 	};
 
 	interface ControlBarOptions extends ComponentOptions {
-		VolumePanel?: VolumePanelOptions;
+		volumePanel?: VolumePanelOptions;
 	}
 
 	/**
@@ -2628,7 +2629,8 @@ declare namespace videojs {
 		 *         the listener function; otherwise, _all_ listeners bound to the
 		 *         event type(s) will be removed.
 		 */
-		off(targetOrType?: string | string[], typeOrListener?: (...args: any[]) => void, listener?: (...args: any[]) => void): void;
+		off(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		off(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
 		 * Add a listener to an event (or events) on this object or another evented
@@ -2653,7 +2655,8 @@ declare namespace videojs {
 		 *         If the first argument was another evented object, this will be
 		 *         the listener function.
 		 */
-		on(targetOrType: string | string[], typeOrListener: (...args: any[]) => void, listener?: (...args: any[]) => void): void;
+		on(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		on(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
 		 * Add a listener to an event (or events) on this object or another evented
@@ -2678,7 +2681,8 @@ declare namespace videojs {
 		 *         If the first argument was another evented object, this will be
 		 *         the listener function.
 		 */
-		one(targetOrType: string | string[], typeOrListener: (...args: any[]) => void, listener?: (...args: any[]) => void): void;
+		one(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		one(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
 		 * Fire an event on this evented object, causing its listeners to be called.
@@ -3527,7 +3531,7 @@ declare namespace videojs {
 		 *
 		 * @return The current content of the modal dialog
 		 */
-		content(value: Content): any;
+		content(value?: Content): any;
 
 		/**
 		 * Create the `ModalDialog`'s DOM element
@@ -3570,7 +3574,7 @@ declare namespace videojs {
 		 * @param [content]
 		 *        The same rules apply to this as apply to the `content` option.
 		 */
-		fillWith(content: Content): void;
+		fillWith(content?: Content): void;
 
 		/**
 		 * Keydown handler. Attached when modal is focused.
@@ -3760,9 +3764,21 @@ declare namespace videojs {
 		 *
 		 * @return The current value of autoplay when getting
 		 */
-		autoplay(value?: boolean): void;
+		autoplay(value?: boolean | string): void;
 
-		autoplay(): boolean;
+		autoplay(): boolean | string;
+
+		/**
+		 * Get the remote {@link TextTrackList}
+		 * @return The current remote text track list
+		 */
+		textTracks(): TextTrackList;
+
+		/**
+		 * Get the remote {@link TextTrackList}
+		 * @return The current remote text track list
+		 */
+		remoteTextTracks(): TextTrackList;
 
 		/**
 		 * Create a remote {@link TextTrack} and an {@link HTMLTrackElement}. It will
@@ -4055,6 +4071,18 @@ declare namespace videojs {
 		getVideoPlaybackQuality(): any;
 
 		/**
+		 * Get the value of `ended` from the media element. `ended` indicates whether
+		 * the media has reached the end or not.
+		 *
+		 * @return - The value of `ended` from the media element.
+		 *         - True indicates that the media has ended.
+		 *         - False indicates that the media has not ended.
+		 *
+		 * @see [Spec]{@link https://www.w3.org/TR/html5/embedded-content-0.html#dom-media-ended}
+		 */
+		ended(): boolean;
+
+		/**
 		 * When fullscreen isn't supported we can stretch the
 		 * video container to as wide as the browser will let us.
 		 *
@@ -4073,7 +4101,7 @@ declare namespace videojs {
 		 *
 		 * @return The current MediaError when getting (or null)
 		 */
-		error(err: MediaError | string | number): void;
+		error(err: MediaError | string | number | null): void;
 
 		error(): MediaError | null;
 
@@ -4243,7 +4271,7 @@ declare namespace videojs {
 		 *         is ready to begin playback. For some browsers and all non-ready
 		 *         situations, this will return `undefined`.
 		 */
-		play(): Player;
+		play(): Promise<void> | undefined;
 
 		/**
 		 * Gets or sets the current playback rate. A playback rate of
@@ -4352,7 +4380,7 @@ declare namespace videojs {
 		 *
 		 * @fires Player#fullscreenchange
 		 */
-		requestFullScreen(): Player;
+		requestFullscreen(): Player;
 
 		/**
 		 * Report user activity
@@ -4367,6 +4395,20 @@ declare namespace videojs {
 		 * and calls `reset` on the tech`.
 		 */
 		reset(): void;
+
+		/**
+		 * Returns whether or not the player is in the "seeking" state.
+		 *
+		 * @return boolean True if the player is in the seeking state, false if not.
+		 */
+		seeking(): boolean;
+
+		/**
+		 * Returns the TimeRanges of the media that are currently available for seeking to.
+		 *
+		 * @return TimeRanges Returns the TimeRanges of the media that are currently available for seeking to.
+		 */
+		 seekable(): TimeRanges;
 
 		/**
 		 * Select source based on tech-order or source-order
@@ -4559,7 +4601,7 @@ declare namespace videojs {
 
 	interface PlayerOptions extends ComponentOptions {
 		aspectRatio?: string;
-		autoplay?: boolean;
+		autoplay?: boolean | string;
 		controlBar?: ControlBarOptions | false;
 		textTrackSettings?: TextTrackSettingsOptions;
 		controls?: boolean;
@@ -4741,7 +4783,7 @@ declare namespace videojs {
 		 * @return For advanced plugins, a factory function for that plugin. For
 		 *          basic plugins, a wrapper function that initializes the plugin.
 		 */
-		registerPlugin<T>(name: string, plugin: (this: Player, options: any) => T): () => T;
+		registerPlugin<T, K>(name: string, plugin: (this: Player, ...options: K[]) => T): (...options: K[]) => T;
 		registerPlugin<T extends typeof Plugin>(name: string, plugin: T): () => T;
 	};
 

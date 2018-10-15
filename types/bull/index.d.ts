@@ -9,6 +9,7 @@
 //                 David Koblas <https://github.com/koblas>
 //                 Bond Akinmade <https://github.com/bondz>
 //                 Wuha Team <https://github.com/wuha-team>
+//                 Alec Brunelle <https://github.com/aleccool213>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

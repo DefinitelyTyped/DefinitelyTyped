@@ -1,3 +1,5 @@
+import mapboxgl = require('.');
+
 // These examples adapted from Mapbox's examples (https://www.mapbox.com/mapbox-gl-js/examples)
 
 /**
@@ -17,7 +19,8 @@ let map = new mapboxgl.Map({
 	minZoom: 1,
 	maxZoom: 2,
 	interactive: true,
-	attributionControl: false,
+	attributionControl: true,
+	customAttribution: '© YourCo',
 	bearingSnap: 7,
 	scrollZoom: true,
 	maxBounds: [[-100,-90],[100,90]],
@@ -148,7 +151,7 @@ map.flyTo({
 	speed: 0.5,
 	curve: 1,
 	screenSpeed: 1,
-	easing: function(t: any) {
+	easing: function(t: number) {
 		return t;
 	},
 	maxDuration: 1
@@ -387,6 +390,400 @@ let marker = new mapboxgl.Marker(undefined, {offset: [10, 0]})
 	.addTo(map);
 
 marker.remove();
+
+/*
+ * LngLatBounds
+ */
 let bool:boolean
 let bounds = new mapboxgl.LngLatBounds()
 bool = bounds.isEmpty()
+/*
+ * AttributionControl
+ */
+let attributionControl = new mapboxgl.AttributionControl({ compact: false, customAttribution: '© YourCo' });
+attributionControl.on('click', () => {});
+
+declare var lnglat: mapboxgl.LngLat;
+declare var lnglatlike: mapboxgl.LngLatLike;
+declare var lnglatboundslike: mapboxgl.LngLatBoundsLike;
+declare var pointlike: mapboxgl.PointLike;
+
+function expectType<T>(value: T) { /* let the compiler handle things */ }
+
+/*
+ * LngLatLike
+ */
+
+expectType<mapboxgl.LngLatLike>(new mapboxgl.LngLat(0, 0));
+expectType<mapboxgl.LngLatLike>([0, 0]);
+expectType<mapboxgl.LngLatLike>({ lng: 0, lat: 0 });
+
+/*
+ * LngLat
+ */
+
+new mapboxgl.LngLat(0, 0);
+expectType<mapboxgl.LngLat>(mapboxgl.LngLat.convert(lnglatlike));
+
+/*
+ * LngLatBoundsLike
+ */
+
+expectType<mapboxgl.LngLatBoundsLike>([lnglatlike, lnglatlike]);
+expectType<mapboxgl.LngLatBoundsLike>([0, 0, 1, 1]);
+expectType<mapboxgl.LngLatBoundsLike>(new mapboxgl.LngLatBounds());
+
+/*
+ * LngLatBounds
+ */
+
+new mapboxgl.LngLatBounds();
+new mapboxgl.LngLatBounds([0, 0, 1, 1]);
+new mapboxgl.LngLatBounds([lnglatlike, lnglatlike]);
+new mapboxgl.LngLatBounds(lnglat, lnglat);
+new mapboxgl.LngLatBounds(lnglatlike, lnglatlike);
+expectType<mapboxgl.LngLatBounds>(mapboxgl.LngLatBounds.convert(lnglatboundslike));
+
+/*
+ * PointLike
+ */
+
+expectType<mapboxgl.PointLike>(new mapboxgl.Point(0, 0));
+expectType<mapboxgl.PointLike>([0, 0]);
+
+/*
+ * Point
+ */
+
+new mapboxgl.Point(0, 0);
+expectType<mapboxgl.Point>(mapboxgl.Point.convert(pointlike));
+
+/*
+ * TransformRequestFunction
+ */
+
+expectType<mapboxgl.TransformRequestFunction>((url: string) => ({ url }));
+expectType<mapboxgl.TransformRequestFunction>((url: string, resourceType: mapboxgl.ResourceType) => ({
+	 url,
+	 credentials: 'same-origin',
+	 headers: { 'Accept-Encoding': 'compress' },
+	 method: 'POST',
+	collectResourceTiming: true,
+ }));
+
+/*
+ * Map
+ */
+
+let padding: mapboxgl.PaddingOptions = {
+	top: 0,
+	bottom: 0,
+	left: 0,
+	right: 0,
+};
+let animOpts: mapboxgl.AnimationOptions;
+let cameraOpts: mapboxgl.CameraOptions = {
+	around: lnglatlike,
+	center: lnglatlike,
+	bearing: 0,
+	pitch: 0,
+	zoom: 0,
+};
+let cameraForBoundsOpts: mapboxgl.CameraForBoundsOptions = {
+	offset: pointlike,
+	maxZoom: 10,
+	padding,
+	...cameraOpts,
+}
+
+expectType<mapboxgl.CameraOptions | undefined>(map.cameraForBounds(lnglatboundslike));
+expectType<mapboxgl.CameraOptions | undefined>(map.cameraForBounds(lnglatboundslike, cameraForBoundsOpts));
+
+expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1));
+expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts));
+expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts, { key: 'value' }));
+
+/*
+ * Map Events
+ */
+
+// General events
+expectType<mapboxgl.Map>(map.on('load', (ev) => {
+	expectType<mapboxgl.MapboxEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<undefined>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('remove', (ev) => {
+	expectType<mapboxgl.MapboxEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<undefined>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('render', (ev) => {
+	expectType<mapboxgl.MapboxEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<undefined>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('resize', (ev) => {
+	expectType<mapboxgl.MapboxEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<undefined>(ev.originalEvent);
+}));
+
+// Error event
+expectType<mapboxgl.Map>(map.on('error', (ev) => {
+	expectType<mapboxgl.ErrorEvent>(ev);
+	expectType<Error>(ev.error);
+	expectType<undefined>(ev.originalEvent);
+}));
+
+// Mouse events
+expectType<mapboxgl.Map>(map.on('mousedown', (ev) => {
+	expectType<mapboxgl.MapMouseEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<mapboxgl.LngLat>(ev.lngLat);
+	expectType<mapboxgl.Point>(ev.point);
+
+	expectType<void>(ev.preventDefault());
+	expectType<boolean>(ev.defaultPrevented);
+
+	expectType<MouseEvent>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('mouseup', (ev) => {
+	expectType<mapboxgl.MapMouseEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<mapboxgl.LngLat>(ev.lngLat);
+	expectType<mapboxgl.Point>(ev.point);
+
+	expectType<void>(ev.preventDefault());
+	expectType<boolean>(ev.defaultPrevented);
+
+	expectType<MouseEvent>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('click', (ev) => {
+	expectType<mapboxgl.MapMouseEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<mapboxgl.LngLat>(ev.lngLat);
+	expectType<mapboxgl.Point>(ev.point);
+
+	expectType<void>(ev.preventDefault());
+	expectType<boolean>(ev.defaultPrevented);
+
+	expectType<MouseEvent>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('dblclick', (ev) => {
+	expectType<mapboxgl.MapMouseEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<mapboxgl.LngLat>(ev.lngLat);
+	expectType<mapboxgl.Point>(ev.point);
+
+	expectType<void>(ev.preventDefault());
+	expectType<boolean>(ev.defaultPrevented);
+
+	expectType<MouseEvent>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('mousemove', (ev) => {
+	expectType<mapboxgl.MapMouseEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<mapboxgl.LngLat>(ev.lngLat);
+	expectType<mapboxgl.Point>(ev.point);
+
+	expectType<void>(ev.preventDefault());
+	expectType<boolean>(ev.defaultPrevented);
+
+	expectType<MouseEvent>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('mouseover', (ev) => {
+	expectType<mapboxgl.MapMouseEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<mapboxgl.LngLat>(ev.lngLat);
+	expectType<mapboxgl.Point>(ev.point);
+
+	expectType<void>(ev.preventDefault());
+	expectType<boolean>(ev.defaultPrevented);
+
+	expectType<MouseEvent>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('mouseout', (ev) => {
+	expectType<mapboxgl.MapMouseEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<mapboxgl.LngLat>(ev.lngLat);
+	expectType<mapboxgl.Point>(ev.point);
+
+	expectType<void>(ev.preventDefault());
+	expectType<boolean>(ev.defaultPrevented);
+
+	expectType<MouseEvent>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('contextmenu', (ev) => {
+	expectType<mapboxgl.MapMouseEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<mapboxgl.LngLat>(ev.lngLat);
+	expectType<mapboxgl.Point>(ev.point);
+
+	expectType<void>(ev.preventDefault());
+	expectType<boolean>(ev.defaultPrevented);
+
+	expectType<MouseEvent>(ev.originalEvent);
+}));
+
+// Touch events
+expectType<mapboxgl.Map>(map.on('touchcancel', (ev) => {
+	expectType<mapboxgl.MapTouchEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<mapboxgl.LngLat>(ev.lngLat);
+	expectType<mapboxgl.LngLat[]>(ev.lngLats);
+	expectType<mapboxgl.Point>(ev.point);
+	expectType<mapboxgl.Point[]>(ev.points);
+
+	expectType<void>(ev.preventDefault());
+	expectType<boolean>(ev.defaultPrevented);
+
+	expectType<TouchEvent>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('touchmove', (ev) => {
+	expectType<mapboxgl.MapTouchEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<mapboxgl.LngLat>(ev.lngLat);
+	expectType<mapboxgl.LngLat[]>(ev.lngLats);
+	expectType<mapboxgl.Point>(ev.point);
+	expectType<mapboxgl.Point[]>(ev.points);
+
+	expectType<void>(ev.preventDefault());
+	expectType<boolean>(ev.defaultPrevented);
+
+	expectType<TouchEvent>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('touchend', (ev) => {
+	expectType<mapboxgl.MapTouchEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<mapboxgl.LngLat>(ev.lngLat);
+	expectType<mapboxgl.LngLat[]>(ev.lngLats);
+	expectType<mapboxgl.Point>(ev.point);
+	expectType<mapboxgl.Point[]>(ev.points);
+
+	expectType<void>(ev.preventDefault());
+	expectType<boolean>(ev.defaultPrevented);
+
+	expectType<TouchEvent>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('touchstart', (ev) => {
+	expectType<mapboxgl.MapTouchEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<mapboxgl.LngLat>(ev.lngLat);
+	expectType<mapboxgl.LngLat[]>(ev.lngLats);
+	expectType<mapboxgl.Point>(ev.point);
+	expectType<mapboxgl.Point[]>(ev.points);
+
+	expectType<void>(ev.preventDefault());
+	expectType<boolean>(ev.defaultPrevented);
+
+	expectType<TouchEvent>(ev.originalEvent);
+}));
+
+// Context events
+expectType<mapboxgl.Map>(map.on('webglcontextlost', (ev) => {
+	expectType<mapboxgl.MapContextEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<WebGLContextEvent>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('webglcontextrestored', (ev) => {
+	expectType<mapboxgl.MapContextEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<WebGLContextEvent>(ev.originalEvent);
+}));
+
+// Data events
+expectType<mapboxgl.Map>(map.on('dataloading', (ev) => {
+	expectType<mapboxgl.MapDataEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<undefined>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('data', (ev) => {
+	expectType<mapboxgl.MapDataEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<undefined>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('tiledataloading', (ev) => {
+	expectType<mapboxgl.MapDataEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<undefined>(ev.originalEvent);
+}));
+expectType<mapboxgl.Map>(map.on('sourcedataloading', (ev) => {
+	expectType<mapboxgl.MapSourceDataEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<undefined>(ev.originalEvent);
+	expectType<'source'>(ev.dataType);
+}));
+expectType<mapboxgl.Map>(map.on('sourcedata', (ev) => {
+	expectType<mapboxgl.MapSourceDataEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<undefined>(ev.originalEvent);
+	expectType<'source'>(ev.dataType);
+}));
+expectType<mapboxgl.Map>(map.on('styledataloading', (ev) => {
+	expectType<mapboxgl.MapStyleDataEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<undefined>(ev.originalEvent);
+	expectType<'style'>(ev.dataType);
+}));
+expectType<mapboxgl.Map>(map.on('styledata', (ev) => {
+	expectType<mapboxgl.MapStyleDataEvent>(ev);
+	expectType<mapboxgl.Map>(ev.target);
+	expectType<undefined>(ev.originalEvent);
+	expectType<'style'>(ev.dataType);
+}));
+
+// Layer events
+expectType<mapboxgl.Map>(map.on('click', 'text', (ev) => {
+	expectType<mapboxgl.MapLayerMouseEvent>(ev);
+	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+}));
+expectType<mapboxgl.Map>(map.on('dblclick', 'text', (ev) => {
+	expectType<mapboxgl.MapLayerMouseEvent>(ev);
+	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+}));
+expectType<mapboxgl.Map>(map.on('mousedown', 'text', (ev) => {
+	expectType<mapboxgl.MapLayerMouseEvent>(ev);
+	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+}));
+expectType<mapboxgl.Map>(map.on('mouseup', 'text', (ev) => {
+	expectType<mapboxgl.MapLayerMouseEvent>(ev);
+	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+}));
+expectType<mapboxgl.Map>(map.on('mousemove', 'text', (ev) => {
+	expectType<mapboxgl.MapLayerMouseEvent>(ev);
+	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+}));
+expectType<mapboxgl.Map>(map.on('mouseenter', 'text', (ev) => {
+	expectType<mapboxgl.MapLayerMouseEvent>(ev);
+	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+}));
+expectType<mapboxgl.Map>(map.on('mouseleave', 'text', (ev) => {
+	expectType<mapboxgl.MapLayerMouseEvent>(ev);
+	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+}));
+expectType<mapboxgl.Map>(map.on('mouseover', 'text', (ev) => {
+	expectType<mapboxgl.MapLayerMouseEvent>(ev);
+	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+}));
+expectType<mapboxgl.Map>(map.on('mouseout', 'text', (ev) => {
+	expectType<mapboxgl.MapLayerMouseEvent>(ev);
+	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+}));
+expectType<mapboxgl.Map>(map.on('contextmenu', 'text', (ev) => {
+	expectType<mapboxgl.MapLayerMouseEvent>(ev);
+	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+}));
+
+expectType<mapboxgl.Map>(map.on('touchstart', 'text', (ev) => {
+	expectType<mapboxgl.MapLayerTouchEvent>(ev);
+	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+}));
+expectType<mapboxgl.Map>(map.on('touchend', 'text', (ev) => {
+	expectType<mapboxgl.MapLayerTouchEvent>(ev);
+	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+}));
+expectType<mapboxgl.Map>(map.on('touchcancel', 'text', (ev) => {
+	expectType<mapboxgl.MapLayerTouchEvent>(ev);
+	expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+}));

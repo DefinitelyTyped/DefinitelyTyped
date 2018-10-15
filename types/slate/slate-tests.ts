@@ -1,21 +1,47 @@
-import { Value } from "slate";
+import { Value, Data, BlockJSON, Document } from "slate";
 
-const value = Value.create();
-value.change()
+const data = Data.create({ foo: "bar " });
+const value = Value.create({ data });
+const change = value
+	.change()
 	.focus()
-	.selectAll()
+	.moveAnchorToStartOfDocument()
+	.moveFocusToEndOfDocument()
 	.delete()
-	.insertText('A bit of rich text, followed by...')
-	.moveOffsetsTo(10, 14)
-	.addMark('bold')
-	.collapseToEndOfNextBlock()
+	.insertText("A bit of rich text, followed by...")
+	.moveToStartOfText()
+	.move(10)
+	.moveFocusForward(4)
+	.addMark("bold")
+	.moveToEndOfNextBlock()
 	.insertBlock({
-		type: 'image',
-		isVoid: true,
+		type: "image",
 		data: {
-		  src: 'http://placekitten.com/200/300',
-		  alt: 'Kittens',
-		  className: 'img-responsive',
-		},
+			src: "http://placekitten.com/200/300",
+			alt: "Kittens",
+			className: "img-responsive"
+		}
 	})
-	.insertBlock('paragraph');
+	.insertBlock("paragraph");
+
+const node: BlockJSON = {
+	object: "block",
+	type: "paragraph",
+	nodes: [
+		{
+			object: "text",
+			leaves: [
+				{
+					text: "example",
+					marks: []
+				}
+			]
+		}
+	]
+};
+
+const doc = Document.fromJSON({
+	object: "document",
+	data: {},
+	nodes: [node]
+});

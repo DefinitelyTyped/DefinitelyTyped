@@ -214,6 +214,7 @@ interface CheerioOptionsInterface {
     recognizeCDATA?: boolean;
     recognizeSelfClosing?: boolean;
     normalizeWhitespace?: boolean;
+    ignoreWhitespace?: boolean;
 }
 
 interface CheerioSelector {

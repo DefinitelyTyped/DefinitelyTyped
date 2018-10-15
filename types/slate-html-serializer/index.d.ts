@@ -2,7 +2,7 @@
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Brandon Shelton <https://github.com/YangusKhan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 import * as React from 'react';
 import { BlockProperties, ValueJSON, Value, Node, Mark, Leaf } from 'slate';
 

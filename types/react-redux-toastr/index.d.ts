@@ -23,6 +23,7 @@ interface BasicToastrOptions {
     onCloseButtonClick?: () => void;
     onHideComplete?: () => void;
     onShowComplete?: () => void;
+    onToastrClick?: () => void;
     progressBar?: boolean;
     removeOnHover?: boolean;
     showCloseButton?: boolean;

@@ -258,3 +258,5 @@ got('todomvc', {
 got(new url.URL('http://todomvc.com'));
 
 got(url.parse('http://todomvc.com'));
+
+got('https://todomvc.com', { rejectUnauthorized: false });

@@ -10,6 +10,45 @@
  * If you want to leverage the fact, that bluebird polyfills the global Promise in the browser, then
  * you need to tell TypeScript about this. The following declaration file does exactly that.
  *
+ * 1.1. Why you might not want to use `bluebird-global` instead of `bluebird`.
+ *
+ * Because of how these typings tell TypeScript about bluebird's Promise methods, it is not
+ * possible to cast global Promises to Bluebird promises in your code. In other words, you won't
+ * be able to do the following (even though it's possible at the runtime):
+ *
+ *   let bluebirdPromise: Bluebird<string> = new Promise<string>(() => { return 'Lorem ipsum'; });
+ *
+ * If you need to, you can walk-around this by constructing a new Bluebird promise over an instance
+ * of the global Promise, like so:
+ *
+ *   let bluebirdPromise: Bluebird<string> = Bluebird.resolve(
+ *     new Promise<string>(() => { return 'Lorem ipsum'; })
+ *   );
+ *
+ * So the bottom line is: if you use these typings, then be mindful when you try to mix the global
+ * Promises with the Bluebird promises. You can avoid this problem by just settling on using either
+ * of them and not both of them at the same time.
+ *
+ * 1.2. Further limitations of `bluebird-global` typings: the return type of Bluebird's methods.
+ *
+ * Due to the fact of how bluebird-specific methods are exposed on the global Promise, the
+ * return type of those methods is Bluebird<T> instead of Promise<T>. This is relevant in the
+ * following case:
+ *
+ *   function createDelayedPromise(): Promise<void> {
+ *     return Promise.delay(250);
+ *   }
+ *
+ * Since Promise.delay() returns a Bluebird<void> and the function is typed to return a Promise<void>,
+ * an implicit cast is performed from Bluebird<void> to Promise<void>. And since an instance
+ * of Bluebird isn't and instance of Promise (due to how `bluebird-global` works), this implicit
+ * cast fails to compile. In order to walk-around this problem, the following explicit cast should
+ * be used:
+ *
+ *   function createDelayedPromise(): Promise<void> {
+ *     return <Promise<void>> Promise.delay(250);
+ *   }
+ *
  * 2. How to use it?
  *
  * It should just work, but there are a couple of points to be wary about:
@@ -60,6 +99,17 @@
  *   d. target es6, latest "es20xx", e.g. "es2017"
  */
 
+/*
+ * @todo When dropping TS 2.x support, uncomment the following triple-slash directives and
+ * remove the copy&paste from this file (marked with #std-lib-copy&paste-to-remove)
+ *
+ * TS 2.x support should be dropped once bluebird's typings stop compiling on 2.x (i.e.
+ * once bluebird's typings stop supporting TS 2.x)
+ */
+/* /// <reference lib="es5" /> */
+/* /// <reference lib="es2015.promise" /> */
+/* /// <reference lib="es2018.promise" /> */
+
 import Bluebird = require("bluebird");
 
 declare global {
@@ -67,67 +117,66 @@ declare global {
      * Patch all instance method
      */
     interface Promise<T> {
-        all: typeof Bluebird.prototype.all;
-        any: typeof Bluebird.prototype.any;
-        asCallback: typeof Bluebird.prototype.asCallback;
-        bind: typeof Bluebird.prototype.bind;
-        call: typeof Bluebird.prototype.call;
-        cancel: typeof Bluebird.prototype.cancel;
-        // catch: typeof Bluebird.prototype.catch;
-        caught: typeof Bluebird.prototype.caught;
-        delay: typeof Bluebird.prototype.delay;
-        disposer: typeof Bluebird.prototype.disposer;
-        done: typeof Bluebird.prototype.done;
-        each: typeof Bluebird.prototype.each;
-        error: typeof Bluebird.prototype.error;
-        filter: typeof Bluebird.prototype.filter;
-        // finally: typeof Bluebird.prototype.finally;
-        get: typeof Bluebird.prototype.get;
-        isCancelled: typeof Bluebird.prototype.isCancelled;
-        isFulfilled: typeof Bluebird.prototype.isFulfilled;
-        isPending: typeof Bluebird.prototype.isPending;
-        isRejected: typeof Bluebird.prototype.isRejected;
-        isResolved: typeof Bluebird.prototype.isResolved;
-        lastly: typeof Bluebird.prototype.lastly;
-        map: typeof Bluebird.prototype.map;
-        mapSeries: typeof Bluebird.prototype.mapSeries;
-        nodeify: typeof Bluebird.prototype.nodeify;
-        props: typeof Bluebird.prototype.props;
-        race: typeof Bluebird.prototype.race;
-        reason: typeof Bluebird.prototype.reason;
-        reduce: typeof Bluebird.prototype.reduce;
-        reflect: typeof Bluebird.prototype.reflect;
-        return: typeof Bluebird.prototype.return;
-        some: typeof Bluebird.prototype.some;
-        spread: typeof Bluebird.prototype.spread;
-        suppressUnhandledRejections: typeof Bluebird.prototype.suppressUnhandledRejections;
-        tap: typeof Bluebird.prototype.tap;
-        tapCatch: typeof Bluebird.prototype.tapCatch;
-        // then: typeof Bluebird.prototype.then;
-        thenReturn: typeof Bluebird.prototype.thenReturn;
-        thenThrow: typeof Bluebird.prototype.thenThrow;
-        catchReturn: typeof Bluebird.prototype.catchReturn;
-        catchThrow: typeof Bluebird.prototype.catchThrow;
-        throw: typeof Bluebird.prototype.throw;
-        timeout: typeof Bluebird.prototype.timeout;
-        toJSON: typeof Bluebird.prototype.toJSON;
-        toString: typeof Bluebird.prototype.toString;
-        value: typeof Bluebird.prototype.value;
+        all: Bluebird<T>["all"];
+        any: Bluebird<T>["any"];
+        asCallback: Bluebird<T>["asCallback"];
+        bind: Bluebird<T>["bind"];
+        call: Bluebird<T>["call"];
+        cancel: Bluebird<T>["cancel"];
+        // catch: Bluebird<T>["catch"]; // Provided by lib.es5.d.ts
+        caught: Bluebird<T>["caught"];
+        delay: Bluebird<T>["delay"];
+        disposer: Bluebird<T>["disposer"];
+        done: Bluebird<T>["done"];
+        each: Bluebird<T>["each"];
+        error: Bluebird<T>["error"];
+        filter: Bluebird<T>["filter"];
+        // finally: Bluebird<T>["finally"]; // Provided by lib.es2018.promise.d.ts
+        get: Bluebird<T>["get"];
+        isCancelled: Bluebird<T>["isCancelled"];
+        isFulfilled: Bluebird<T>["isFulfilled"];
+        isPending: Bluebird<T>["isPending"];
+        isRejected: Bluebird<T>["isRejected"];
+        isResolved: Bluebird<T>["isResolved"];
+        lastly: Bluebird<T>["lastly"];
+        map: Bluebird<T>["map"];
+        mapSeries: Bluebird<T>["mapSeries"];
+        nodeify: Bluebird<T>["nodeify"];
+        props: Bluebird<T>["props"];
+        race: Bluebird<T>["race"];
+        reason: Bluebird<T>["reason"];
+        reduce: Bluebird<T>["reduce"];
+        reflect: Bluebird<T>["reflect"];
+        return: Bluebird<T>["return"];
+        some: Bluebird<T>["some"];
+        spread: Bluebird<T>["spread"];
+        suppressUnhandledRejections: Bluebird<T>["suppressUnhandledRejections"];
+        tap: Bluebird<T>["tap"];
+        tapCatch: Bluebird<T>["tapCatch"];
+        // then: Bluebird<T>["then"]; // Provided by lib.es5.d.ts
+        thenReturn: Bluebird<T>["thenReturn"];
+        thenThrow: Bluebird<T>["thenThrow"];
+        catchReturn: Bluebird<T>["catchReturn"];
+        catchThrow: Bluebird<T>["catchThrow"];
+        throw: Bluebird<T>["throw"];
+        timeout: Bluebird<T>["timeout"];
+        toJSON: Bluebird<T>["toJSON"];
+        toString: Bluebird<T>["toString"];
+        value: Bluebird<T>["value"];
 
         /*
-         * Copy&paste ::then and ::catch from lib.es2015.promise.d.ts, because Bluebird's typings are not
+         * Copy&paste ::then and ::catch from lib.es5.promise.d.ts, because Bluebird's typings are not
          * in line with the standard lib.
          *
-         * This is only needed for es5 target, which doesn't include the lib.es2015.promise.d.ts typings.
+         * #std-lib-copy&paste-to-remove
          *
-         * @todo Make Bluebird's typings be in line with the standard lib.
+         * @todo See the comment near the top of the file about code marked with #std-lib-copy&paste-to-remove
          */
-        then(onfulfilled?: ((value: T) => T | PromiseLike<T>) | undefined | null, onrejected?: ((reason: any) => T | PromiseLike<T>) | undefined | null): Promise<T>;
-        then<TResult>(onfulfilled: ((value: T) => T | PromiseLike<T>) | undefined | null, onrejected: (reason: any) => TResult | PromiseLike<TResult>): Promise<T | TResult>;
-        then<TResult>(onfulfilled: (value: T) => TResult | PromiseLike<TResult>, onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<TResult>;
-        then<TResult1, TResult2>(onfulfilled: (value: T) => TResult1 | PromiseLike<TResult1>, onrejected: (reason: any) => TResult2 | PromiseLike<TResult2>): Promise<TResult1 | TResult2>;
-        catch(onrejected?: ((reason: any) => T | PromiseLike<T>) | undefined | null): Promise<T>;
-        catch<TResult>(onrejected: (reason: any) => TResult | PromiseLike<TResult>): Promise<T | TResult>;
+        then<TResult1 = T, TResult2 = never>(
+            onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+            onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null
+        ): Promise<TResult1 | TResult2>;
+        catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
 
         /*
          * TypeScript disallows adding overrides via `catch: typeof Bluebird.prototype.catch`. Copy&paste them then.
@@ -142,7 +191,11 @@ declare global {
         catch<U>(predicate: Object, onReject: (error: any) => U | PromiseLike<U>): Bluebird<U | T>;
 
         /*
-         * See comments above `then` for the reason why this is needed. Taken from esnext.promise.d.ts.
+         * See comments above `then` for the reason why this is needed. Taken from es2018.promise.d.ts.
+         *
+         * #std-lib-copy&paste-to-remove
+         *
+         * @todo See the comment near the top of the file about code marked with #std-lib-copy&paste-to-remove
          */
         finally(onfinally?: (() => void) | undefined | null): Promise<T>;
     }
@@ -153,7 +206,7 @@ declare global {
     interface PromiseConstructor {
         new <T>(callback: (resolve: (thenableOrResult?: T | PromiseLike<T>) => void, reject: (error?: any) => void, onCancel?: (callback: () => void) => void) => void): Promise<T>;
 
-        // all: typeof Bluebird.all;
+        // all: typeof Bluebird.all; // Provided by lib.es2015.d.ts
         any: typeof Bluebird.any;
         attempt: typeof Bluebird.attempt;
         bind: typeof Bluebird.bind;
@@ -176,10 +229,10 @@ declare global {
         promisify: typeof Bluebird.promisify;
         promisifyAll: typeof Bluebird.promisifyAll;
         props: typeof Bluebird.props;
-        // race: typeof Bluebird.race;
+        // race: typeof Bluebird.race; // Provided by lib.es2015.d.ts
         reduce: typeof Bluebird.reduce;
-        // reject: typeof Bluebird.reject;
-        // resolve: typeof Bluebird.resolve;
+        // reject: typeof Bluebird.reject; // Provided by lib.es2015.d.ts
+        // resolve: typeof Bluebird.resolve; // Provided by lib.es2015.d.ts
         some: typeof Bluebird.some;
         try: typeof Bluebird.try;
         using: typeof Bluebird.using;
@@ -187,9 +240,9 @@ declare global {
         /*
          * Copy&paste from lib.es2015.promise.d.ts, because Bluebird's typings are not in line with the standard lib.
          *
-         * This is only needed for es5 target, which doesn't include the lib.es2015.promise.d.ts typings.
+         * #std-lib-copy&paste-to-remove
          *
-         * @todo Make Bluebird's typings be in line with the standard lib.
+         * @todo See the comment near the top of the file about code marked with #std-lib-copy&paste-to-remove
          */
         all<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike <T4>, T5 | PromiseLike<T5>, T6 | PromiseLike<T6>, T7 | PromiseLike<T7>, T8 | PromiseLike<T8>, T9 | PromiseLike<T9>, T10 | PromiseLike<T10>]): Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]>;
         all<T1, T2, T3, T4, T5, T6, T7, T8, T9>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>, T4 | PromiseLike <T4>, T5 | PromiseLike<T5>, T6 | PromiseLike<T6>, T7 | PromiseLike<T7>, T8 | PromiseLike<T8>, T9 | PromiseLike<T9>]): Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9]>;
@@ -219,6 +272,10 @@ declare global {
 
     /*
      * Declare the `Promise` variable. This is needed for es5 only and is a no-op for all other targets.
+     *
+     * #std-lib-copy&paste-to-remove
+     *
+     * @todo See the comment near the top of the file about code marked with #std-lib-copy&paste-to-remove
      */
     var Promise: PromiseConstructor;
 }

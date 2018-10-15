@@ -1,24 +1,43 @@
-// Type definitions for react-data-grid 2.0
+// Type definitions for react-data-grid 4.0
 // Project: https://github.com/adazzle/react-data-grid.git
-// Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>, Martin Novak <https://github.com/martinnov92>
+// Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>, Martin Novak <https://github.com/martinnov92>, Sebastijan Grabar <https://github.com/baso53>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 
 declare namespace AdazzleReactDataGrid {
-
-    interface SelectionParams {
-        rowIdx: number,
-        row: any
+    interface ExcelColumn {
+        editable: boolean;
+        name: any;
+        key: string;
+        width: number;
+        resizeable: boolean;
+        filterable: boolean;
     }
 
-    interface GridProps {
+    interface EditorBaseProps {
+        value: any;
+        column: ExcelColumn;
+        height: number;
+        onBlur: () => void;
+        onCommit: () => void;
+        onCommitCancel: () => void;
+        rowData: any;
+        rowMetaData: any;
+    }
+
+    interface SelectionParams<T> {
+        rowIdx: number;
+        row: T;
+    }
+
+    interface GridProps<T> {
         /**
          * Gets the data to render in each row. Required.
          * Can be an array or a function that takes an index and returns an object.
          */
-        rowGetter: Array<object> | ((rowIdx: number) => object)
+        rowGetter: Array<T> | ((rowIdx: number) => T)
         /**
          * The total number of rows to render. Required.
          */
@@ -26,14 +45,14 @@ declare namespace AdazzleReactDataGrid {
         /**
          * The columns to render.
          */
-        columns?: Array<Column>
+        columns?: Array<Column<T>>
 
         /**
          * Invoked when the user changes the value of a single cell.
          * Should update that cell's value.
          * @param e Information about the event
          */
-        onRowUpdated?: (e: RowUpdateEvent) => void
+        onRowUpdated?: (e: RowUpdateEvent<T>) => void
         /**
          * Invoked when the user pulls down the drag handle of an editable cell.
          * Should update the values of the selected cells.
@@ -45,7 +64,7 @@ declare namespace AdazzleReactDataGrid {
          * Should update the values of the cells beneath the selected cell.
          * @param e Information about the event
          */
-        onDragHandleDoubleClick?: (e: DragHandleDoubleClickEvent) => void
+        onDragHandleDoubleClick?: (e: DragHandleDoubleClickEvent<T>) => void
         /**
          * Invoked when the user copies a value from one cell and pastes it into another (in the same column).
          * Should update the value of the cell in row e.toRow.
@@ -56,7 +75,7 @@ declare namespace AdazzleReactDataGrid {
          * Invoked after the user updates the grid rows in any way.
          * @param e Information about the event
          */
-        onGridRowsUpdated?: (e: GridRowsUpdatedEvent) => void
+        onGridRowsUpdated?: (e: GridRowsUpdatedEvent<T>) => void
 
         /**
          * A toolbar to display above the grid.
@@ -164,7 +183,7 @@ declare namespace AdazzleReactDataGrid {
          * Called when a row is selected.
          * @param rows The (complete) current selection of rows.
          */
-        onRowSelect?: (rows: Array<object>) => void
+        onRowSelect?: (rows: Array<T>) => void
         /**
          * A property that's unique to every row.
          * This property is required to enable row selection.
@@ -206,8 +225,8 @@ declare namespace AdazzleReactDataGrid {
         rowSelection?: {
             showCheckbox?: boolean
             enableShiftSelect?: boolean
-            onRowsSelected?: (rows: Array<SelectionParams>) => void,
-            onRowsDeselected?: (rows: Array<SelectionParams>) => void,
+            onRowsSelected?: (rows: Array<SelectionParams<T>>) => void,
+            onRowsDeselected?: (rows: Array<SelectionParams<T>>) => void,
             selectBy?: {
                 indexes?: Array<number>;
                 keys?: { rowKey: string, values: Array<any> };
@@ -230,7 +249,7 @@ declare namespace AdazzleReactDataGrid {
          * @param rowIdx zero index number of row clicked
          * @param row object behind the row
          */
-        onRowClick?: (rowIdx : number, row : object) => void
+        onRowClick?: (rowIdx: number, row: T) => void
 
         /**
          * An event function called when a row is expanded with the toggle
@@ -246,12 +265,12 @@ declare namespace AdazzleReactDataGrid {
          */
         getValidFilterValues?: (columnKey: string) => Array<any>
 
-        getCellActions?: (column: Column, row: object) => (ActionButton | ActionMenu)[]
+        getCellActions?: (column: Column<T>, row: T) => (ActionButton | ActionMenu)[]
     }
 
     type ActionButton = {
         icon: string;
-	callback: () => void;
+        callback: () => void;
     }
 
     type ActionMenu = {
@@ -266,7 +285,7 @@ declare namespace AdazzleReactDataGrid {
     /**
      * Information about a specific column to be rendered.
      */
-    interface Column {
+    interface Column<T> {
         /**
          * A unique key for this column. Required.
          * Each row should have a property with this name, which contains this column's value.
@@ -314,7 +333,10 @@ declare namespace AdazzleReactDataGrid {
          * The editor for this column. Several editors are available in "react-data-grid/addons".
          * @default A simple text editor
          */
-        editor?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>
+        editor?:
+            | React.ReactElement<EditorBaseProps>
+            | React.ComponentClass<EditorBaseProps>
+            | React.StatelessComponent<EditorBaseProps>;
         /**
          * A custom read-only formatter for this column. An image formatter is available in "react-data-grid/addons".
          */
@@ -331,11 +353,11 @@ declare namespace AdazzleReactDataGrid {
          */
         events?: {
             [name: string]: ColumnEventCallback
-        }
+        };
         /**
          * Retrieve meta data about the row, optionally provide column as a second argument
          */
-        getRowMetaData?: (rowdata: any, column?: Column) => any;
+        getRowMetaData?: (rowdata: T, column?: Column<T>) => any;
         /**
          * A class name to be applied to the cells in the column
          */
@@ -357,9 +379,10 @@ declare namespace AdazzleReactDataGrid {
     }
 
     /**
-     * Information about a row update
+     * Information about a row update. Generic event type returns untyped row, use parameterized type with the row type as the parameter
+     * @default T = any
      */
-    interface RowUpdateEvent {
+    interface RowUpdateEvent<T = any> {
         /**
          * The index of the updated row.
          */
@@ -367,7 +390,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * The columns that were updated and their values.
          */
-        updated: object
+        updated: T
         /**
          * The name of the column that was updated.
          */
@@ -401,9 +424,10 @@ declare namespace AdazzleReactDataGrid {
     }
 
     /**
-     * Information about a drag handle double click
+     * Information about a drag handle double click. Generic event type returns untyped row, use parameterized type with the row type as the parameter
+     * @default T = any
      */
-    interface DragHandleDoubleClickEvent {
+    interface DragHandleDoubleClickEvent<T = any> {
         /**
          * The row where the double click occurred.
          */
@@ -415,7 +439,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * The values of the row.
          */
-        rowData: object
+        rowData: T
         /**
          * The double click event.
          */
@@ -449,9 +473,10 @@ declare namespace AdazzleReactDataGrid {
     }
 
     /**
-     * Information about some update to the grid's contents
+     * Information about some update to the grid's contents. Generic event type returns untyped row, use parameterized type with the row type as the parameter
+     * @default T = any
      */
-    interface GridRowsUpdatedEvent {
+    interface GridRowsUpdatedEvent<T = any> {
         /**
          * The key of the column where the event occurred.
          */
@@ -467,7 +492,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * The columns that were updated and their values.
          */
-        updated: object
+        updated: T
         /**
          * The action that occurred to trigger this event.
          * One of 'cellUpdate', 'cellDrag', 'columnFill', or 'copyPaste'.
@@ -511,7 +536,7 @@ declare namespace AdazzleReactDataGrid {
      * Excel-like grid component built with React, with editors, keyboard navigation, copy & paste, and the like
      * http://adazzle.github.io/react-data-grid/
      */
-    export class ReactDataGrid extends React.Component<GridProps> {
+    export class ReactDataGrid<T> extends React.Component<GridProps<T>> {
         /**
          * Opens the editor for the cell (idx) in the given row (rowIdx). If the column is not editable then nothing will happen.
          */
@@ -531,6 +556,18 @@ declare namespace AdazzleReactDataGrid {
         export import GridRowsUpdatedEvent = AdazzleReactDataGrid.GridRowsUpdatedEvent;
         export import OnRowExpandToggle = AdazzleReactDataGrid.OnRowExpandToggle;
 
+        export namespace editors {
+            class EditorBase<P = {}, S = {}> extends React.Component<P & EditorBaseProps, S> {
+                getStyle(): { width: string };
+
+                getValue(): any;
+
+                getInputNode(): Element | null | Text;
+
+                inheritContainerStyles(): boolean;
+            }
+        }
+
         // Actual classes exposed on module.exports
         /**
          * A react component that renders a row of the grid
@@ -541,15 +578,48 @@ declare namespace AdazzleReactDataGrid {
          */
         export class Cell extends React.Component<any> { }
     }
-}
+  }
 
-declare namespace AdazzleReactDataGridPlugins {
-    // TODO: refine types for these addons
+  declare namespace AdazzleReactDataGridPlugins {
+    interface AutoCompleteEditorProps {
+        onCommit?: () => void;
+        options?: Array<{ id: number; title: string }>;
+        label?: any;
+        value?: any;
+        height?: number;
+        valueParams?: string[];
+        column?: AdazzleReactDataGrid.ExcelColumn;
+        resultIdentifier?: string;
+        search?: string;
+        onKeyDown?: () => void;
+        onFocus?: () => void;
+        editorDisplayValue?: (column: AdazzleReactDataGrid.ExcelColumn, value: any) => string;
+    }
+
+    interface AutoCompleteTokensEditorProps {
+        options: Array<string | { id: number; caption: string }>;
+        column?: AdazzleReactDataGrid.ExcelColumn;
+        value?: any[];
+    }
+
+    interface DropDownEditorProps {
+        options:
+            Array<string | {
+              id: string;
+              title: string;
+              value: string;
+              text: string;
+          }>;
+    }
+
     export namespace Editors {
-        export class AutoComplete extends React.Component<any> { }
-        export class DropDownEditor extends React.Component<any> { }
-        export class SimpleTextEditor extends React.Component<any> { }
-        export class CheckboxEditor extends React.Component<any> { }
+        export class AutoComplete extends React.Component<AutoCompleteEditorProps> {}
+        export class AutoCompleteTokensEditor extends React.Component<AutoCompleteTokensEditorProps> {}
+        export class DropDownEditor extends React.Component<DropDownEditorProps> {}
+
+        // TODO: refine types for these addons
+        export class SimpleTextEditor extends React.Component<any> {}
+        export class CheckboxEditor extends React.Component<any> {}
     }
     export namespace Filters {
         export class NumericFilter extends React.Component<any> { }
@@ -589,16 +659,16 @@ declare namespace AdazzleReactDataGridPlugins {
             configure?: (props: any) => any
         ): (Component: any) => any
     }
-}
+  }
 
-declare module "react-data-grid" {
+  declare module "react-data-grid" {
     import ReactDataGrid = AdazzleReactDataGrid.ReactDataGrid;
 
     // commonjs export
     export = ReactDataGrid;
-}
+  }
 
-declare module "react-data-grid-addons" {
+  declare module "react-data-grid-addons" {
     import Plugins = AdazzleReactDataGridPlugins;
     import Editors = Plugins.Editors;
     import Filters = Plugins.Filters;
@@ -633,4 +703,4 @@ declare module "react-data-grid-addons" {
             }
         }
     }
-}
+  }

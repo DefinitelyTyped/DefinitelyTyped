@@ -2,7 +2,7 @@
 // Project: https://github.com/MoOx/react-svg-inline
 // Definitions by: kiyopikko <https://github.com/kiyopikko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 

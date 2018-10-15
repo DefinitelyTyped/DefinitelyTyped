@@ -626,7 +626,7 @@ declare namespace PouchDB {
         };
     }
 
-    interface Database<Content extends {} = {}>  {
+    interface Database<Content extends {} = {}> extends EventEmitter {
         /** The name passed to the PouchDB constructor and unique identifier of the database. */
         name: string;
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/react-tools/react-table
 // Definitions by: Roy Xue <https://github.com/royxue>, Pavel Sakalo <https://github.com/psakalo>, Krzysztof Porębski <https://github.com/Havret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 import * as React from 'react';
 
 export type ReactTableFunction = (value?: any) => void;
@@ -27,7 +27,7 @@ export type SortedChangeFunction = (newSorted: SortingRule[], column: any, addit
 export type FilteredChangeFunction = (newFiltering: Filter[], column: any, value: any) => void;
 export type ExpandedChangeFunction = (column: any, event: any, isTouch: boolean) => void;
 export type ResizedChangeFunction = (newResized: Resize[], event: any) => void;
-export type SortFunction = (a: any, b: any, desc: any) => -1 | 0 | 1;
+export type SortFunction = (a: any, b: any, desc: any) => number;
 
 export interface Resize {
     id: string;

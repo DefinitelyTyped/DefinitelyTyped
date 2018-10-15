@@ -569,10 +569,20 @@ function keys<T>(o: T): Array<keyof T> {
     }
 
     // test discriminated union using filter functions on find
-    const from = Game.rooms.myRoom.find(FIND_STRUCTURES, (s) => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0)[0];
-    const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity});
+    const from = Game.rooms.myRoom.find(FIND_STRUCTURES, {
+        filter: (s) => ((s.structureType === STRUCTURE_CONTAINER
+                         || s.structureType === STRUCTURE_STORAGE)
+                        && s.store.energy > 0)
+    })[0];
+    const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+        filter: (s) => ((s.structureType === STRUCTURE_SPAWN
+                         || s.structureType === STRUCTURE_EXTENSION)
+                        && s.energy < s.energyCapacity)
+    });
 
-    Game.rooms.myRoom.find(FIND_MY_STRUCTURES, (s) => s.structureType === STRUCTURE_RAMPART)
+    Game.rooms.myRoom.find(FIND_MY_STRUCTURES, {
+        filter: (s) => s.structureType === STRUCTURE_RAMPART
+    })
         .forEach((r) => r.notifyWhenAttacked(false));
 }
 
@@ -644,4 +654,11 @@ function keys<T>(o: T): Array<keyof T> {
             lab0.runReaction(lab1, lab2);
         }
     }
+}
+
+// Room event log
+
+{
+    room.getEventLog();
+    room.getEventLog(true);
 }

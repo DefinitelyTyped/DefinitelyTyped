@@ -1,11 +1,12 @@
-// Type definitions for rc-slider 8.2
+// Type definitions for rc-slider 8.6
 // Project: https://github.com/react-component/slider
 // Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus>
 //                 Alexander Mattoni <https://github.com/mattoni>
 //                 Austin Turner <https://github.com/paustint>
 //                 Jacob Froman <https://github.com/j-fro>
+//                 Deanna Veale <https://github.com/Deanna2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import { RCTooltip } from 'rc-tooltip';
@@ -68,18 +69,6 @@ export interface CommonApiProps {
      *  @default false
      */
     dots?: boolean;
-    /**
-     * onBeforeChange will be triggered when ontouchstart or onmousedown is triggered.
-     */
-    onBeforeChange?(value: any): any | undefined;
-    /**
-     * onChange will be triggered while the value of Slider changing.
-     */
-    onChange?(value: any): any | undefined;
-    /**
-     * onAfterChange will be triggered when ontouchend or onmouseup is triggered.
-     */
-    onAfterChange?(value: any): any | undefined;
 
     /**
      * @deprecated in version ^6.0.0. Use rc-tooltip
@@ -126,6 +115,18 @@ export interface CommonApiProps {
 
 export interface SliderProps extends CommonApiProps {
     /**
+     * onBeforeChange will be triggered when ontouchstart or onmousedown is triggered.
+     */
+    onBeforeChange?(value: number): void;
+    /**
+     * onChange will be triggered while the value of Slider changing.
+     */
+    onChange?(value: number): void;
+    /**
+     * onAfterChange will be triggered when ontouchend or onmouseup is triggered.
+     */
+    onAfterChange?(value: number): void;
+    /**
      * Set initial value of slider.
      *  @default 0
      */
@@ -137,6 +138,21 @@ export interface SliderProps extends CommonApiProps {
 }
 
 export interface RangeProps extends CommonApiProps {
+    /**
+     * onBeforeChange will be triggered when ontouchstart or onmousedown is triggered.
+     * For prop (count = -1) type returned is [number, undefined]. Bug raised in rc-slider https://github.com/react-component/slider/issues/457
+     */
+    onBeforeChange?(value: number[]): void;
+    /**
+     * onChange will be triggered while the value of Slider changing.
+     * For prop (count = -1) type returned is [number, undefined]. Bug raised in rc-slider https://github.com/react-component/slider/issues/457
+     */
+    onChange?(value: number[]): void;
+    /**
+     * onAfterChange will be triggered when ontouchend or onmouseup is triggered.
+     * For prop (count = -1) type returned is [number, undefined]. Bug raised in rc-slider https://github.com/react-component/slider/issues/457
+     */
+    onAfterChange?(value: number[]): void;
     /**
      * Set initial positions of handles.
      *  @default [0,0]

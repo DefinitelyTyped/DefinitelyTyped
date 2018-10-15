@@ -54,7 +54,7 @@ class MyStore extends session.Store {
     callback(null, sessionData);
   }
 
-  set = (sid: string, session: Express.Session, callback?: (err?: any) => void): void => {
+  set = (sid: string, session: Express.SessionData, callback?: (err?: any) => void): void => {
     this.sessions[sid] = JSON.stringify(session);
     if (callback) callback();
   }

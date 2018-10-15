@@ -1,32 +1,142 @@
 import * as Plotly from 'plotly.js';
-import { ScatterData, Layout, PlotlyHTMLElement, newPlot } from 'plotly.js';
+import { Datum, Layout, PlotData, PlotlyHTMLElement, newPlot } from 'plotly.js';
 
 const graphDiv = '#test';
 
 //////////////////////////////////////////////////////////////////////
 // Plotly.newPlot
+// combination of https://plot.ly/javascript/multiple-transforms/#all-transforms and
+// https://plot.ly/javascript/2d-density-plots/
+
 (() => {
+	const testrows = [
+		{
+			country: "Afghanistan",
+			year: 2002,
+			pop: 8425333,
+			continent: "Asia",
+			lifeExp: 28.801,
+			gdpPercap: 779.4453145
+		},
+		{
+			country: "Argentina",
+			year: 2002,
+			pop: 38331121,
+			continent: "Americas",
+			lifeExp: 74.34,
+			gdpPercap: 8797.640716
+		},
+		{
+			country: "Australia",
+			year: 2002,
+			pop: 13177000,
+			continent: "Oceania",
+			lifeExp: 71.93,
+			gdpPercap: 16788.62948
+		},
+		{
+			country: "Austria",
+			year: 2002,
+			pop: 7914969,
+			continent: "Europe",
+			lifeExp: 76.04,
+			gdpPercap: 27042.01868
+		},
+		{
+			country: "Austria",
+			year: 2001,
+			pop: 7914969,
+			continent: "Europe",
+			lifeExp: 76.04,
+			gdpPercap: 27042.01868
+		},
+	];
+
+	interface DataRow {
+		[key: string]: string | number;
+	}
+
+	function unpack(rows: DataRow[], key: string) {
+		return rows.map((row: DataRow) => row[key]);
+	}
+
 	const trace1 = {
-		x: [1999, 2000, 2001, 2002],
-		y: [10, 15, 13, 17],
-		type: 'scatter'
-	} as ScatterData;
+		mode: 'markers',
+		x: unpack(testrows, 'lifeExp'),
+		y: unpack(testrows, 'gdpPercap'),
+		text: unpack(testrows, 'continent'),
+		marker: {
+			size: unpack(testrows, 'pop'),
+			sizemode: "area",
+			sizeref: 200000
+		},
+		type: 'scatter',
+		transforms: [
+			{
+				type: 'filter',
+				target: unpack(testrows, 'year'),
+				operation: '=',
+				value: '2002'
+			}, {
+				type: 'groupby',
+				nameformat: `%{group}`,
+				groups: unpack(testrows, 'continent'),
+				styles: [
+					{ target: 'Asia', value: { marker: { color: 'red' } } },
+					{ target: 'Europe', value: { marker: { color: 'blue' } } },
+					{ target: 'Americas', value: { marker: { color: 'orange' } } },
+					{ target: 'Africa', value: { marker: { color: 'green' } } },
+					{ target: 'Oceania', value: { marker: { color: 'purple' } } }
+				]
+			}, {
+				type: 'aggregate',
+				groups: unpack(testrows, 'continent'),
+				aggregations: [
+					{ target: 'x', func: 'avg' },
+					{ target: 'y', func: 'avg' },
+					{ target: 'marker.size', func: 'sum' }
+				]
+			}]
+	} as PlotData;
 	const trace2 = {
-		x: [1999, 2000, 2001, 2002],
-		y: [16, 5, 11, 9],
-		type: 'scatter'
-	} as ScatterData;
-	const data = [trace1, trace2];
+		yaxis: 'y2',
+		x: unpack(testrows, 'lifeExp'),
+		name: 'x density',
+		marker: { color: 'rgb(102,0,0)' },
+		type: 'histogram'
+	} as PlotData;
+	const trace3 = {
+		xaxis: 'x2',
+		y: unpack(testrows, 'gdpPercap'),
+		name: 'y density',
+		marker: { color: 'rgb(102,0,0)' },
+		type: 'histogram'
+	} as PlotData;
+	const data = [trace1, trace2, trace3];
 	const layout = {
-		title: 'Sales Growth',
+		title: 'Gapminder',
 		xaxis: {
-			title: 'Year',
+			title: 'Life Expectancy',
+			domain: [0, 0.85],
 			showgrid: false,
 			zeroline: false
 		},
 		yaxis: {
-			title: 'Percent',
-			showline: false
+			title: 'GDP per Cap',
+			showline: false,
+			domain: [0, 0.85],
+			showgrid: false,
+			zeroline: false
+		},
+		xaxis2: {
+			domain: [0.85, 1],
+			showgrid: false,
+			zeroline: false
+		},
+		yaxis2: {
+			domain: [0.85, 1],
+			showgrid: false,
+			zeroline: false
 		}
 	};
 	Plotly.newPlot(graphDiv, data, layout);
@@ -38,7 +148,7 @@ const graphDiv = '#test';
 		x: [1999, 2000, 2001, 2002],
 		y: [10, 9, 8, 7],
 		type: 'scatter'
-	} as ScatterData];
+	} as PlotData];
 	const layout2 = { title: 'Revenue' };
 	Plotly.newPlot(graphDiv, data2, layout2);
 })();
@@ -336,8 +446,8 @@ function rand() {
 	});
 
 	myPlot.on('plotly_selected', (data) => {
-		const x = [] as number[];
-		const y = [] as number[];
+		const x = [] as Datum[];
+		const y = [] as Datum[];
 		const N = 1000;
 		const color1 = '#7b3294';
 		const color1Light = '#c2a5cf';
@@ -436,5 +546,6 @@ function rand() {
 	myPlot.on('plotly_transitioninterrupted', () => {
 		console.log('transition interrupted');
 	});
+
+	myPlot.removeAllListeners('plotly_restyle');
 })();
-//////////////////////////////////////////////////////////////////////

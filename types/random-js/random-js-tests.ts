@@ -86,7 +86,8 @@ sampled = random.sample(customTypeArray, 2);
 numeric = random.die(5);
 dieValues = random.dice(5, 2);
 
-uuid = Random.uuid4(engine);
+uuid = random.uuid4(engine);
+uuid = random.uuid4();
 
 str = random.string();
 str = random.string(10);
