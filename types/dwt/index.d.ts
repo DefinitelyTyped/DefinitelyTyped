@@ -2879,6 +2879,12 @@ interface WebTwain {
      * @return {number}
      */
     GetImageYResolution(sImageIndex: number): number;
+	
+    /**
+     * Return the runtime license info.
+     * @method WebTwain#GetLicenseInfo
+     */
+    GetLicenseInfo(optionalAsyncSuccessFunc?: (result: any) => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
 
     /**
      * Returns the index of the selected image.
