@@ -2617,10 +2617,25 @@ function JQuery() {
 
         function outerHeight() {
             // $ExpectType JQuery<HTMLElement>
+            $('p').outerHeight({} as string | number, true);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').outerHeight('200px');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').outerHeight(400);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').outerHeight(function(index, height) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                height;
+
+                return '200px';
+            }, false);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').outerHeight(function(index, height) {
@@ -2725,10 +2740,25 @@ function JQuery() {
 
         function outerWidth() {
             // $ExpectType JQuery<HTMLElement>
+            $('p').outerWidth({} as string | number, true);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').outerWidth('200px');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').outerWidth(400);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').outerWidth(function(index, width) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                width;
+
+                return '200px';
+            }, false);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').outerWidth(function(index, width) {

@@ -21610,7 +21610,8 @@ $( "div" ).one( "click", function() {
 </html>
 ```
      */
-    outerHeight(value: string | number | ((this: TElement, index: number, height: number) => string | number)): this;
+    outerHeight(value: string | number | ((this: TElement, index: number, height: number) => string | number),
+                includeMargin?: boolean): this;
     /**
      * Get the current computed outer height (including padding, border, and optionally margin) for the
      * first element in the set of matched elements.
@@ -21703,7 +21704,8 @@ $( "div" ).one( "click", function() {
 </html>
 ```
      */
-    outerWidth(value: string | number | ((this: TElement, index: number, width: number) => string | number)): this;
+    outerWidth(value: string | number | ((this: TElement, index: number, width: number) => string | number),
+               includeMargin?: boolean): this;
     /**
      * Get the current computed outer width (including padding, border, and optionally margin) for the
      * first element in the set of matched elements.
