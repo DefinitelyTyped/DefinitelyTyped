@@ -158,7 +158,7 @@ export interface OverridableProps {
 
     /**
      * Disable auto scrolling between steps.
-     */    
+     */
     disableScrolling?: boolean;
 
     /**
@@ -231,7 +231,7 @@ export interface Step extends OverridableProps {
     /**
      * The placement of the beacon. It will use the placement if nothing is passed and it can be: top, bottom, left, right.
      */
-    placementBeacon?: 'top' | 'bottom' | 'left' | 'right';    
+    placementBeacon?: 'top' | 'bottom' | 'left' | 'right';
 }
 export interface StepStyles {
     /**
