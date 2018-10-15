@@ -1372,7 +1372,7 @@ declare enum EnumDWT_UploadDataFormat {
     Base64 = 1
 }
 
-/** 
+/**
  * interface for a DWT container which basically defines a DIV on the page
  */
 interface Container {
@@ -1381,7 +1381,7 @@ interface Container {
     Height: string | number;
 }
 
-/** 
+/**
  * interface for a base64 result
  */
 interface Base64Result {
@@ -2294,7 +2294,7 @@ interface WebTwain {
      */
     Zoom: number;
 
-    /* ignored 
+    /* ignored
     style
     _AutoCropMethod
     */
@@ -2490,7 +2490,7 @@ interface WebTwain {
      * @param {Array} indices indices specifies which images are to be converted to base64.
      * @param {EnumDWT_ImageType} enumImageType the image format in which the images are to be converted to base64.
      * @return {Base64Result}
- 
+
     ConvertToBase64(indices: number[], enumImageType: EnumDWT_ImageType): Base64Result;
     */
 
@@ -3289,7 +3289,7 @@ interface WebTwain {
      */
     MoveImage(sSourceImageIndex: number, sTargetImageIndex: number): boolean;
 
-    /*ignored 
+    /*ignored
     OnRefreshUI
     */
 
@@ -3727,7 +3727,7 @@ interface WebTwain {
      * @param {string} InitialDir The initial directory. The algorithm for selecting the initial directory varies on different platforms.
      * @param {boolean} AllowMultiSelect True -- allows users to select more than one file, False -- only allows to select one file.
      * @param {boolean} OverwritePrompt True -- If a file already exists with the same name, the old file will be simply overwritten, False -- not allows to save and overwrite a same name file.
-     * @param {number} Flags If this parameter equals 0, the program will be initiated with the default flags, otherwise initiated with the cumstom value and paramters "AllowMultiSelect" and "OverwritePrompt" will be useless.
+     * @param {number} Flags If this parameter equals 0, the program will be initiated with the default flags, otherwise initiated with the cumstom value and parameters "AllowMultiSelect" and "OverwritePrompt" will be useless.
      * @return {boolean}
      */
     ShowFileDialog(SaveDialog: boolean, Filter: string, FilterIndex: number, DefExtension: string, InitialDir: string, AllowMultiSelect: boolean, OverwritePrompt: boolean, Flags: number): boolean;
@@ -3751,7 +3751,7 @@ interface WebTwain {
      */
     ShowImageEditorEx(x: number, y: number, cx: number, cy: number, nCmdShow: number): boolean;
 
-    /*ingored    
+    /*ingored
     SourceNameItems
     */
 

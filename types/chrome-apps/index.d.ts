@@ -9416,7 +9416,7 @@ declare namespace chrome {
              * If set, updates the display's rotation.
              * Legal values are [0, 90, 180, 270].
              * The rotation is set clockwise, relative to the display's vertical position.
-             * It's applied after overscan paramter.
+             * It's applied after overscan parameter.
              */
             rotation?: 0 | 90 | 180 | 270;
 
