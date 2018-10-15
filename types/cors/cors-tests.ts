@@ -47,4 +47,11 @@ app.use(cors({
         }
     }
 }));
+app.use(cors((req, cb) => {
+    if (req.query.trusted) {
+        cb(null, {origin: 'http://example.com', credentials: true});
+    } else {
+        cb(new Error('Not trusted'));
+    }
+}))
 

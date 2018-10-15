@@ -83,6 +83,7 @@ function test_query() {
     const query = new Parse.Query(GameScore);
     query.equalTo("playerName", "Dan Stemkoski");
     query.notEqualTo("playerName", "Michael Yabuti");
+    query.fullText("playerName", "dan", { language: 'en', caseSensitive: false, diacriticSensitive: true });
     query.greaterThan("playerAge", 18);
     query.limit(10);
     query.skip(10);
@@ -133,6 +134,16 @@ function test_query() {
     query.exists("score");
     query.include("score");
     query.include(["score.team"]);
+
+    // Find objects that match the aggregation pipeline
+    query.aggregate({
+        group:{
+            objectId: '$name'
+        }
+    });
+
+    // Find objects with distinct key
+    query.distinct('name');
 
     const testQuery = Parse.Query.or(query, query);
 }
@@ -288,7 +299,13 @@ function test_user_acl_roles() {
     game.setACL(new Parse.ACL(Parse.User.current()));
     game.save().then((game: Game) => { });
     game.save(null, { useMasterKey: true });
-    game.save({ score: '10' }, { useMasterKey: true });
+    game.save({ score: '10' }, { useMasterKey: true }).then(function (game) {
+        // Update game then revert it to the last saved state.
+        game.set("score", '20');
+        game.revert();
+    }, function (error) {
+        // The save failed
+    });
 
     const groupACL = new Parse.ACL();
 
@@ -385,6 +402,27 @@ function test_cloud_functions() {
         // result
     });
 
+    const CUSTOM_ERROR_INVALID_CONDITION = 1001
+    const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002
+
+    Parse.Cloud.beforeSave('MyCustomClass', (request: Parse.Cloud.BeforeSaveRequest,
+        response: Parse.Cloud.BeforeSaveResponse) => {
+
+            if (request.object.isNew()) {
+                if (!request.object.has('immutable')) return response.error('Field immutable is required')
+            } else {
+                const original = request.original;
+                if (original == null) { // When the object is not new, request.original must be defined
+                    return response.error(CUSTOM_ERROR_INVALID_CONDITION, 'Original must me defined for an existing object')
+                }
+
+                if (original.get('immutable') !== request.object.get('immutable')) {
+                    return response.error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed')
+                }
+            }
+            response.success()
+    });
+
     Parse.Cloud.beforeFind('MyCustomClass', (request: Parse.Cloud.BeforeFindRequest) => {
         let query = request.query; // the Parse.Query
         let user = request.user; // the user
@@ -475,6 +513,15 @@ function test_promise() {
         // success
     }, function () {
         // failed
+    });
+
+    // Test promise with a query
+    const query = new Parse.Query('Test');
+    query.find()
+    .then(() => {
+        // success
+    }).catch(() => {
+        // error
     });
 
     // can check whether an object is a Parse.Promise object or not

@@ -11,6 +11,9 @@ const routeOptions: RouteOptions = {
         params: {
             name: Joi.string().min(3).max(10)
         }
+    },
+    response: {
+        schema: Joi.string()
     }
 };
 

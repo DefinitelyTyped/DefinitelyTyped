@@ -7,11 +7,11 @@
 /// <reference types="node"/>
 
 import { Middleware } from 'koa';
-import { LoggerInstance } from 'winston';
+import { Logger } from 'winston';
 
 export = logger;
 
-declare function logger(logger: LoggerInstance): Middleware;
+declare function logger(logger: Logger): Middleware;
 
 declare namespace logger {
 }

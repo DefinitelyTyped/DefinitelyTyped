@@ -3,7 +3,14 @@ import { build, Road, middleware, integrations, Response, HttpError, PJAX } from
 const road = new Road();
 const router = new middleware.SimpleRouter(road);
 
-road.use(middleware.cors("*"));
+road.use(middleware.cors({
+    requestHeaders: ["content-type"],
+    responseHeaders: ["content-type"],
+    supportsCredentials: true,
+    validOrigins: ["http://localhost:8080"],
+    validMethods: ["GET", "POST"],
+    cacheMaxAge: 4
+}));
 
 road.use(middleware.killSlash);
 

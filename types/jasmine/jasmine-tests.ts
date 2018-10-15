@@ -968,7 +968,13 @@ var customMatchers: jasmine.CustomMatcherFactories = {
         return {
             compare: (actual: any, floor: number, ceiling: number): jasmine.CustomMatcherResult => {
                 const pass = actual >= floor && actual <= ceiling;
-                const message = `expected ${actual} ${pass ? 'not ' : ''} to be within range ${floor}-${ceiling}`;
+                const message = `expected ${actual} to be within range ${floor}-${ceiling}`;
+                return { message, pass };
+            },
+
+            negativeCompare: (actual: any, floor: number, ceiling: number): jasmine.CustomMatcherResult => {
+                const pass = actual < floor && actual > ceiling;
+                const message = `expected ${actual} not to be within range ${floor}-${ceiling}`;
                 return { message, pass };
             }
         };
@@ -1009,6 +1015,14 @@ describe("Custom matcher: 'toBeGoofy'", () => {
 
     it("can take many 'expected' parameters", () => {
         expect(2).toBeWithinRange(1, 3);
+    });
+
+    it("can use the custom negativeCompare method", () => {
+        const matcher = customMatchers["toBeWithinRange"](jasmine.matchersUtil, []);
+        const result = matcher.negativeCompare!(1, 2, 3);
+
+        expect(result.pass).toBe(false);
+        expect(result.message).toBe("expected 1 not to be within range 2-3");
     });
 
     it("can be negated", () => {
@@ -1109,18 +1123,22 @@ describe("createSpyObj", function () {
         expect(spyObj.method2.and.identity()).toEqual('BaseName.method2');
     });
 
-    it("should allow you to omit the baseName", function () {
+    it("should allow you to omit the baseName and takes only an object", function () {
+        var spyObj = jasmine.createSpyObj({ 'method1': 42, 'method2': 'special sauce' });
+
+        expect(spyObj.method1()).toEqual(42);
+        expect(spyObj.method1.and.identity()).toEqual('unknown.method1');
+
+        expect(spyObj.method2()).toEqual('special sauce');
+        expect(spyObj.method2.and.identity()).toEqual('unknown.method2');
+    });
+
+    it("should allow you to omit the baseName and takes only a list of methods", function () {
         var spyObj = jasmine.createSpyObj(['method1', 'method2']);
 
         expect(spyObj).toEqual({ method1: jasmine.any(Function), method2: jasmine.any(Function) });
         expect(spyObj.method1.and.identity()).toEqual('unknown.method1');
         expect(spyObj.method2.and.identity()).toEqual('unknown.method2');
-    });
-
-    it("should throw if you do not pass an array or object argument", function () {
-        expect(function () {
-            jasmine.createSpyObj('BaseName');
-        }).toThrow("createSpyObj requires a non-empty array or object of method names to create spies for");
     });
 
     it("should throw if you pass an empty array argument", function () {

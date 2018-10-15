@@ -1,7 +1,8 @@
-// Type definitions for node-hid 0.5
+// Type definitions for node-hid 0.7
 // Project: https://github.com/node-hid/node-hid#readme
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 //                 Robert Kiss <https://github.com/ert78gb>
+//                 Rob Moran <https://github.com/thegecko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Device {
@@ -22,13 +23,14 @@ export class HID {
     constructor(vid: number, pid: number);
     close(): void;
     pause(): void;
-    read(callback: (value: any, err: any) => void): any;
+    read(callback: (err: any, data: number[]) => void): void;
     readSync(): number[];
     readTimeout(time_out: number): number[];
-    sendFeatureReport(data: number[]): void;
+    sendFeatureReport(data: number[]): number;
     getFeatureReport(report_id: number, report_length: number): number[];
     resume(): void;
     on(event: string, handler: (value: any) => void): void;
-    write(values: number[]): void;
+    write(values: number[]): number;
+    setDriverType(type: string): void;
 }
 export function devices(): Device[];

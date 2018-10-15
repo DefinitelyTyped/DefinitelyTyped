@@ -18,7 +18,10 @@ async function boot() {
         method: 'get',
         handler(request: Request) {
             const example = request.yar.get('example');
-            return example.key;
+            return {
+                id: request.yar.id,
+                key: example.key,
+            };
         },
     });
 }

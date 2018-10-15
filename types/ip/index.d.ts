@@ -3,7 +3,7 @@
 // Definitions by: Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface NodeBuffer { }
+/// <reference types="node" />
 
 interface SubnetInfo {
     networkAddress: string;
@@ -26,16 +26,16 @@ declare module "ip" {
     /**
      * Convert an IP string into a buffer.
      **/
-    export function toBuffer(ip: string, buffer?: number, offset?: number): NodeBuffer;
+    export function toBuffer(ip: string, buffer?: number, offset?: number): Buffer;
 
     /**
      * Convert an IP buffer into a string.
      **/
-    export function toString(ip: NodeBuffer, offset?: number, length?: number): string;
+    export function toString(ip: Buffer, offset?: number, length?: number): string;
 
     /**
      * Get the subnet mask from a CIDR prefix length.
-     * 
+     *
      * @param family The IP family is infered from the prefixLength, but can be explicity specified as either "ipv4" or "ipv6".
      **/
     export function fromPrefixLen(prefixLength: number, family?:string): string;
@@ -79,15 +79,15 @@ declare module "ip" {
      * Check whether an IP is a IPv4 address.
      **/
     export function isV4Format(ip: string): boolean;
-    
+
     /**
      * Check whether an IP is a IPv6 address.
      **/
     export function isV6Format(ip: string): boolean;
-    
+
     /**
      * Get the loopback address for an IP family.
-     * 
+     *
      * @param family The family can be either "ipv4" or "ipv6". Default: "ipv4".
      **/
     export function loopback(family?: string): string;
@@ -95,7 +95,7 @@ declare module "ip" {
     /**
      * Get the address for the network interface on the current system with the specified 'name'.
      * If no interface name is specified, the first IPv4 address or loopback address is returned.
-     * 
+     *
      * @param name The name can be any named interface, or 'public' or 'private'.
      * @param family The family can be either "ipv4" or "ipv6". Default: "ipv4".
      **/

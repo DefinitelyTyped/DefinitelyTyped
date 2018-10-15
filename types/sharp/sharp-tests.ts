@@ -47,6 +47,17 @@ sharp('input.jpg')
         // containing a scaled and cropped version of input.jpg
     });
 
+sharp({
+    create: {
+        width: 300,
+        height: 200,
+        channels: 4,
+        background: { r: 255, g: 0, b: 0, alpha: 128 }
+    }
+})
+.png()
+.toBuffer();
+
 let transformer = sharp()
     .resize(300)
     .on('info', (info: sharp.OutputInfo) => {
@@ -181,6 +192,21 @@ sharp(input)
     .then((outputBuffer: Buffer) => {
         // outputBuffer contains JPEG image data no wider than 200 pixels and no higher
         // than 200 pixels regardless of the inputBuffer image dimensions
+    });
+
+sharp(input)
+    .resize(100, 100)
+    .toBuffer({ resolveWithObject: false })
+    .then((outputBuffer: Buffer) => {
+        // Resolves with a Buffer object when resolveWithObject is false
+    });
+
+sharp(input)
+    .resize(100, 100)
+    .toBuffer({ resolveWithObject: true })
+    .then((object: { data: Buffer, info: sharp.OutputInfo }) => {
+        // Resolve with an object containing data Buffer and an OutputInfo object
+        // when resolveWithObject is true
     });
 
 const stats = sharp.cache();

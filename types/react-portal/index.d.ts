@@ -1,25 +1,35 @@
-// Type definitions for react-portal 3.0
+// Type definitions for react-portal 4.0
 // Project: https://github.com/tajo/react-portal#readme
 // Definitions by: Shun Takahashi <https://github.com/shuntksh>
+//                 Horus Lugo <https://github.com/HorusGoul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
-interface CallBackProps extends React.Props<any> {
-    closePortal(): void;
+export interface PortalProps extends React.Props<any> {
+    children: React.ReactNode;
+    node?: Element | null;
 }
 
-interface ReactPortalProps {
-    isOpened?: boolean;
-    openByClickOn?: React.ReactElement<CallBackProps>;
+export const Portal: React.ComponentClass<PortalProps>;
+
+export interface PortalFunctionParams {
+    openPortal: (event?: any) => void;
+    closePortal: () => void;
+    portal: (children: React.ReactNode) => React.ReactElement<React.ComponentClass<PortalProps>>;
+    isOpen: boolean;
+}
+
+export interface PortalWithStateProps extends React.Props<any> {
+    children: (params: PortalFunctionParams) => React.ReactNode;
+    node?: Element | null;
+    defaultOpen?: boolean;
+    openByClickOn?: React.ReactElement<any>;
     closeOnEsc?: boolean;
     closeOnOutsideClick?: boolean;
-    onOpen?(node: HTMLDivElement): void;
-    beforeClose?(node: HTMLDivElement, resetPortalState: () => void): void;
+    onOpen?(): void;
     onClose?(): void;
-    onUpdate?(): void;
 }
 
-declare const ReactPortal: React.ComponentClass<ReactPortalProps>;
-export = ReactPortal;
+export const PortalWithState: React.ComponentClass<PortalWithStateProps>;

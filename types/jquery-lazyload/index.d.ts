@@ -15,7 +15,7 @@ declare namespace JQueryLazyLoad {
         container?: JQuery;
         data_attribute?: string;
         skip_invisible?: boolean;
-        appear?: null;
+        appear?: ((elementsLeft: number, options: Options) => void) | null;
         load?: (elementsLeft?: number, options?: Options) => void;
         placeholder?: string;
     }

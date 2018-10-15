@@ -148,6 +148,8 @@ import LayerVectorTile from 'ol/layer/vectortile';
 
 import PointerPointerEvent from 'ol/pointer/pointerevent';
 
+import Proj from 'ol/proj';
+
 import ProjProjection from 'ol/proj/projection';
 
 import Rendercanvas from 'ol/render/canvas';

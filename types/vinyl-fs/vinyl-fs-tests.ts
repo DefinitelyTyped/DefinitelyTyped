@@ -13,7 +13,10 @@ import File = require('vinyl');
 // const spies = require('./spy');
 declare const spies: any;
 
-import 'mocha';
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 // TODO: These aren't useful as types tests since they take `any`.
 declare const should: ShouldStatic;

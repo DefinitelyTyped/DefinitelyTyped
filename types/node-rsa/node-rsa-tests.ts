@@ -2,6 +2,11 @@ import NodeRSA = require('node-rsa');
 
 const key = new NodeRSA({ b: 512 });
 
+key.setOptions({
+	encryptionScheme: 'pkcs1_oaep',
+	signingScheme: 'pkcs1'
+});
+
 const text = 'Hello RSA!';
 const encrypted = key.encrypt(text, 'base64');
 const decrypted = key.decrypt(encrypted, 'utf8');
@@ -26,8 +31,10 @@ Es+KCn25OKXR/FJ5fu6A6A+MptABL3r8SEjlpLc=
 
 const keyData = '-----BEGIN PUBLIC KEY----- ... -----END PUBLIC KEY-----';
 key.importKey(keyData, 'pkcs8');
-const publicDer = key.exportKey('pkcs8-public-der');
-const privateDer = key.exportKey('pkcs1-der');
+const defaultPem: string = key.exportKey();
+const publicPem: string = key.exportKey('pkcs8-public-pem');
+const publicDer: Buffer = key.exportKey('pkcs8-public-der');
+const privateDer: Buffer = key.exportKey('pkcs1-der');
 key.importKey({
 	n: new Buffer('0086fa9ba066685845fc03833a9699c8baefb53cfbf19052a7f10f1eaa30488cec1ceb752bdff2df9fad6c64b3498956e7dbab4035b4823c99a44cc57088a23783', 'hex'),
 	e: 65537,
@@ -39,6 +46,17 @@ key.importKey({
 	coeff: new Buffer('00b399675e5e81506b729a777cc03026f0b2119853dfc5eb124610c0ab82999e45', 'hex')
 }, 'components');
 const publicComponents = key.exportKey('components-public');
+let b: Buffer = publicComponents.n;
+let bn: Buffer|number = publicComponents.e;
+const privateComponents = key.exportKey('components-private');
+b = privateComponents.n;
+bn = privateComponents.e;
+b = privateComponents.d;
+b = privateComponents.p;
+b = privateComponents.q;
+b = privateComponents.dmp1;
+b = privateComponents.dmq1;
+b = privateComponents.coeff;
 
 key.isPrivate();
 key.isPublic(true);

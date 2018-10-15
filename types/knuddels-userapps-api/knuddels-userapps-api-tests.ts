@@ -8,7 +8,7 @@ class Server implements App {
 	onAppStart() {
 		KnuddelsServer.getChannel()
 			.getOnlineUsers(UserType.Human)
-			.forEach((user) => {
+			.forEach((user: User) => {
 				this.onUserJoined(user);
 			});
 	}
@@ -23,7 +23,9 @@ class Server implements App {
 	onUserLeft(user: User) {
 		if (this.usersPlaying.get(user.getNick()) === 1) {
 			KnuddelsServer.getDefaultBotUser()
-				.transferKnuddel(user, new KnuddelAmount(1), 'Du hast den Channel verlassen.');
+				.transferKnuddel(user, new KnuddelAmount(1), {
+					displayReasonText: 'Du hast den Channel verlassen.'
+				});
 
 			this.usersPlaying.delete(user.getNick());
 		}
@@ -39,8 +41,10 @@ class Server implements App {
 				const user = KnuddelsServer.getUserAccess()
 					.getUserById(userId);
 
-				KnuddelsServer.getDefaultBotUser()
-					.transferKnuddel(user, new KnuddelAmount(1), 'Die App fährt gleich herunter.');
+					KnuddelsServer.getDefaultBotUser()
+					.transferKnuddel(user, new KnuddelAmount(1), {
+						displayReasonText: 'Die App fährt gleich herunter.'
+					});
 				user.getAppContentSessions()
 					.forEach((session: AppContentSession) => {
 						session.remove();
@@ -104,7 +108,9 @@ class Server implements App {
 
 				if (hasWon) {
 					KnuddelsServer.getDefaultBotUser()
-						.transferKnuddel(user, new KnuddelAmount(2), 'Richtig getippt...');
+						.transferKnuddel(user, new KnuddelAmount(2), {
+							displayReasonText: 'Richtig getippt...'
+						});
 				}
 
 				setTimeout(() => {

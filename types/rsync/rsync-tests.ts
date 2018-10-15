@@ -114,6 +114,7 @@ rsync.shell('ssh')
     .quiet()
     .dirs()
     .links()
+    .chmod("ug=rwX")
     .dry();
 
 

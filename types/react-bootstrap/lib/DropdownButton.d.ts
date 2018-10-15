@@ -6,7 +6,7 @@ declare namespace DropdownButton {
     export interface DropdownButtonBaseProps extends DropdownBaseProps {
         block?: boolean;
         bsSize?: Sizes;
-        bsStyle?: string;
+        bsStyle?: string | null;
         navItem?: boolean;
         noCaret?: boolean;
         pullRight?: boolean;

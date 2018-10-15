@@ -17,12 +17,14 @@
 import { MDCStrings } from 'material__base';
 
 export interface cssClasses extends MDCStrings {
-    ROOT: 'mdc-select';
-    OPEN: 'mdc-select--open';
+    BOX: 'mdc-select--box';
     DISABLED: 'mdc-select--disabled';
-    SCROLL_LOCK: 'mdc-select-scroll-lock';
+    ROOT: 'mdc-select';
 }
 
 export interface strings extends MDCStrings {
     CHANGE_EVENT: 'MDCSelect:change';
+    LINE_RIPPLE_SELECTOR: '.mdc-line-ripple';
+    LABEL_SELECTOR: '.mdc-floating-label';
+    NATIVE_CONTROL_SELECTOR: '.mdc-select__native-control';
 }

@@ -5,12 +5,14 @@
 //                 Greg Smith <https://github.com/smrq>,
 //                 Platon Pronko <https://github.com/Rogach>
 //                 Roy Xue <https://github.com/royxue>
-// 				   Koala Human <https://github.com/KoalaHuman>
+//                 Koala Human <https://github.com/KoalaHuman>
+//                 Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 import * as moment from "moment";
+import * as Popper from "popper.js";
 
 export interface ReactDatePickerProps {
 	adjustDateOnChange?: boolean;
@@ -18,7 +20,7 @@ export interface ReactDatePickerProps {
 	autoComplete?: string;
 	autoFocus?: boolean;
 	calendarClassName?: string;
-	children?: any;
+	children?: React.ReactNode;
 	className?: string;
 	customInput?: React.ReactNode;
 	customInputRef?: string;
@@ -29,24 +31,27 @@ export interface ReactDatePickerProps {
 	disabledKeyboardNavigation?: boolean;
 	dropdownMode?: 'scroll' | 'select';
 	endDate?: moment.Moment;
-	excludeDates?: any[];
+	excludeDates?: moment.Moment[];
+	excludeTimes?: moment.Moment[];
 	filterDate?(date: moment.Moment): boolean;
 	fixedHeight?: boolean;
 	forceShowMonthNavigation?: boolean;
 	formatWeekNumber?(date: moment.Moment): string | number;
-	highlightDates?: any[];
+	highlightDates?: moment.Moment[];
 	id?: string;
-	includeDates?: any[];
-	includeTimes?: any[];
+	includeDates?: moment.Moment[];
+	includeTimes?: moment.Moment[];
 	inline?: boolean;
 	isClearable?: boolean;
 	locale?: string;
 	maxDate?: moment.Moment;
+	maxTime?: moment.Moment;
 	minDate?: moment.Moment;
+	minTime?: moment.Moment;
 	monthsShown?: number;
 	name?: string;
 	onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
-	onChange(date: moment.Moment | null, event: React.SyntheticEvent<any> | undefined): any;
+	onChange(date: moment.Moment | null, event: React.SyntheticEvent<any> | undefined): void;
 	onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
 	onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
 	onFocus?(event: React.FocusEvent<HTMLInputElement>): void;
@@ -60,39 +65,39 @@ export interface ReactDatePickerProps {
 	placeholderText?: string;
 	popperClassName?: string;
 	popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
-	popperModifiers?: any;
+	popperModifiers?: Popper.Modifiers;
 	popperPlacement?: string;
 	preventOpenOnFocus?: boolean;
 	readOnly?: boolean;
 	required?: boolean;
-	scrollableYearDropdown?: boolean;
 	scrollableMonthYearDropdown?: boolean;
+	scrollableYearDropdown?: boolean;
 	selected?: moment.Moment | null;
 	selectsEnd?: boolean;
 	selectsStart?: boolean;
+	shouldCloseOnSelect?: boolean;
 	showDisabledMonthNavigation?: boolean;
 	showMonthDropdown?: boolean;
 	showMonthYearDropdown?: boolean;
+	showTimeSelect?: boolean;
+	showTimeSelectOnly?: boolean;
 	showWeekNumbers?: boolean;
 	showYearDropdown?: boolean;
 	startDate?: moment.Moment;
+	startOpen?: boolean;
 	tabIndex?: number;
+	timeCaption?: string;
+	timeFormat?: string;
+	timeIntervals?: number;
 	title?: string;
 	todayButton?: string;
-	useWeekdaysShort?: boolean;
 	useShortMonthInDropdown?: boolean;
+	useWeekdaysShort?: boolean;
 	utcOffset?: number;
 	value?: string;
 	weekLabel?: string;
 	withPortal?: boolean;
 	yearDropdownItemNumber?: number;
-	shouldCloseOnSelect?: boolean;
-	showTimeSelect?: boolean;
-	timeFormat?: string;
-	timeIntervals?: number;
-	minTime?: moment.Moment;
-	maxTime?: moment.Moment;
-	excludeTimes?: any[];
 }
 declare const ReactDatePicker: React.ClassicComponentClass<ReactDatePickerProps>;
 export default ReactDatePicker;

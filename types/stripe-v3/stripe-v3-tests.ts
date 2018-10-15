@@ -29,6 +29,9 @@ describe("Stripe", () => {
             console.log('ready');
         });
         card.on('change', (resp: stripe.elements.ElementChangeResponse) => {
+            console.log(resp.elementType);
+        });
+        card.on('change', (resp: stripe.elements.ElementChangeResponse) => {
             console.log(resp.brand);
         });
         stripe.createToken(card, {
@@ -118,7 +121,19 @@ describe("Stripe", () => {
             }
         });
         paymentRequest.on('token', ev => {
-            const body = JSON.stringify({token: ev.token!.id});
+            const body = JSON.stringify({token: ev.token.id});
+            // post to server...
+            Promise.resolve({ok: true})
+            .then(response => {
+                if (response.ok) {
+                    ev.complete('success');
+                } else {
+                    ev.complete('fail');
+                }
+            });
+        });
+        paymentRequest.on('source', ev => {
+            const body = JSON.stringify({token: ev.source.id});
             // post to server...
             Promise.resolve({ok: true})
             .then(response => {

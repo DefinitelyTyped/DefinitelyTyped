@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2017 Google Inc. All Rights Reserved.
+ * Copyright 2018 Google Inc. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,22 @@
  * limitations under the License.
  */
 
-import MDCTextFieldBottomLineFoundation from './bottom-line/foundation';
-import MDCTextFieldHelperTextFoundation from './helper-text/foundation';
+import { MDCTextFieldHelperTextFoundation } from './helper-text';
+import { MDCTextFieldIconFoundation } from './icon';
 
 export interface NativeInputType {
     value: string;
     disabled: boolean;
     badInput: boolean;
-    checkValidity(): boolean;
+    validity: {
+        badInput: boolean;
+        valid: boolean;
+    };
+}
+
+export interface FoundationMapType {
+    helperText?: MDCTextFieldHelperTextFoundation;
+    icon?: MDCTextFieldIconFoundation;
 }
 
 /**
@@ -32,10 +40,8 @@ export interface NativeInputType {
  * adapter to integrate the Text Field into your framework. See
  * https://github.com/material-components/material-components-web/blob/master/docs/authoring-components.md
  * for more information.
- *
- * @record
  */
-export class MDCTextFieldAdapter {
+export default interface MDCTextFieldAdapter {
     /**
      * Adds a class to the root Element.
      */
@@ -47,27 +53,9 @@ export class MDCTextFieldAdapter {
     removeClass(className: string): void;
 
     /**
-     * Adds a class to the label Element. We recommend you add a conditional
-     * check here, and in removeClassFromLabel for whether or not the label is
-     * present so that the JS component could be used with text fields that don't
-     * require a label, such as the full-width text field.
+     * Returns true if the root element contains the given class name.
      */
-    addClassToLabel(className: string): void;
-
-    /**
-     * Removes a class from the label Element.
-     */
-    removeClassFromLabel(className: string): void;
-
-    /**
-     * Sets an attribute on the icon Element.
-     */
-    setIconAttr(name: string, value: string): void;
-
-    /**
-     * Returns true if classname exists for a given target element.
-     */
-    eventTargetHasClass(target: EventTarget, className: string): boolean;
+    hasClass(className: string): boolean;
 
     /**
      * Registers an event handler on the root element for a given event.
@@ -80,28 +68,6 @@ export class MDCTextFieldAdapter {
     deregisterTextFieldInteractionHandler(type: string, handler: EventListener): void;
 
     /**
-     * Emits a custom event "MDCTextField:icon" denoting a user has clicked the icon.
-     */
-    notifyIconAction(): void;
-
-    /**
-     * Adds a class to the helper text element. Note that in our code we check for
-     * whether or not we have a helper text element and if we don't, we simply
-     * return.
-     */
-    addClassToHelperText(className: string): void;
-
-    /**
-     * Removes a class from the helper text element.
-     */
-    removeClassFromHelperText(className: string): void;
-
-    /**
-     * Returns whether or not the helper text element contains the given class.
-     */
-    helperTextHasClass(className: string): boolean;
-
-    /**
      * Registers an event listener on the native input element for a given event.
      */
     registerInputInteractionHandler(evtType: string, handler: EventListener): void;
@@ -112,29 +78,14 @@ export class MDCTextFieldAdapter {
     deregisterInputInteractionHandler(evtType: string, handler: EventListener): void;
 
     /**
-     * Registers an event listener on the bottom line element for a given event.
+     * Registers a validation attribute change listener on the input element.
      */
-    registerBottomLineEventHandler(evtType: string, handler: EventListener): void;
+    registerValidationAttributeChangeHandler(handler: EventListener): void;
 
     /**
-     * Deregisters an event listener on the bottom line element for a given event.
+     * Disconnects a validation attribute observer on the input element.
      */
-    deregisterBottomLineEventHandler(evtType: string, handler: EventListener): void;
-
-    /**
-     * Sets an attribute with a given value on the helper text element.
-     */
-    setHelperTextAttr(name: string, value: string): void;
-
-    /**
-     * Removes an attribute from the helper text element.
-     */
-    removeHelperTextAttr(name: string): void;
-
-    /**
-     * Sets the text content for the help text element
-     */
-    setHelperTextContent(content: string): void;
+    deregisterValidationAttributeChangeHandler(observer: MutationObserver): void;
 
     /**
      * Returns an object representing the native text input element, with a
@@ -145,17 +96,72 @@ export class MDCTextFieldAdapter {
      * in your implementation it's important to keep this in mind. Also note that
      * this method can return null, which the foundation will handle gracefully.
      */
-    getNativeInput(): Element|NativeInputType;
+    getNativeInput(): (Element | (NativeInputType | null)) | null;
 
     /**
-     * Returns the foundation for the bottom line element. Returns undefined if
-     * there is no bottom line element.
+     * Returns true if the textfield is focused.
+     * We achieve this via `document.activeElement === this.root_`.
      */
-    getBottomLineFoundation(): MDCTextFieldBottomLineFoundation;
+    isFocused(): boolean;
 
     /**
-     * Returns the foundation for the helper text element. Returns undefined if
-     * there is no helper text element.
+     * Returns true if the direction of the root element is set to RTL.
      */
-    getHelperTextFoundation(): MDCTextFieldHelperTextFoundation;
+    isRtl(): boolean;
+
+    /**
+     * Activates the line ripple.
+     */
+    activateLineRipple(): void;
+
+    /**
+     * Deactivates the line ripple.
+     */
+    deactivateLineRipple(): void;
+
+    /**
+     * Sets the transform origin of the line ripple.
+     */
+    setLineRippleTransformOrigin(normalizedX: number): void;
+
+    /**
+     * Only implement if label exists.
+     * Shakes label if shouldShake is true.
+     */
+    shakeLabel(shouldShake: boolean): void;
+
+    /**
+     * Only implement if label exists.
+     * Floats the label above the input element if shouldFloat is true.
+     */
+    floatLabel(shouldFloat: boolean): void;
+
+    /**
+     * Returns true if label element exists, false if it doesn't.
+     */
+    hasLabel(): boolean;
+
+    /**
+     * Only implement if label exists.
+     * Returns width of label in pixels.
+     */
+    getLabelWidth(): number;
+
+    /**
+     * Returns true if outline element exists, false if it doesn't.
+     */
+    hasOutline(): boolean;
+
+    /**
+     * Only implement if outline element exists.
+     * Updates SVG Path and outline element based on the
+     * label element width and RTL context.
+     */
+    notchOutline(labelWidth: number, isRtl: boolean | undefined): void;
+
+    /**
+     * Only implement if outline element exists.
+     * Closes notch in outline element.
+     */
+    closeOutline(): void;
 }

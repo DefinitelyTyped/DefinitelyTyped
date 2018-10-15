@@ -95,6 +95,7 @@
         "layer/vector.d.ts",
         "layer/vectortile.d.ts",
         "pointer/pointerevent.d.ts",
+        "proj/index.d.ts",
         "proj/projection.d.ts",
         "render/canvas.d.ts",
         "render/event.d.ts",

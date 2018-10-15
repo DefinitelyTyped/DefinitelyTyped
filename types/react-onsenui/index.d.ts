@@ -1,8 +1,10 @@
-// Type definitions for React Onsen UI (react-onsenui) 2.8
+// Type definitions for React Onsen UI (react-onsenui) 2.9.5
 // Project: https://onsen.io/v2/docs/guide/react/
-// Definitions by: Ozytis <https://ozytis.fr>, Salim <https://github.com/salim7>, Jemmyw <https://github.com/jemmyw>
+// Definitions by: Ozytis <https://ozytis.fr>,
+//                 Salim <https://github.com/salim7>,
+//                 Jemmyw <https://github.com/jemmyw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import Component = React.Component;
@@ -150,8 +152,8 @@ export class Carousel extends Component<{
     fullscreen?: boolean,
     overscrollable?: boolean,
     centered?: boolean,
-    itemWidth?: number,
-    itemHeight?: number,
+    itemWidth?: number | string,
+    itemHeight?: number | string,
     autoScroll?: boolean,
     autoScrollRatio?: number,
     swipeable?: boolean,
@@ -165,7 +167,7 @@ export class Carousel extends Component<{
 }, any> {}
 
 export class CarouselItem extends Component<{
-    modifier: string
+    modifier?: string
 }, any> {}
 
 /*** AlertDialog ***/
@@ -200,11 +202,14 @@ export class Dialog extends Component<{
 }, any> {}
 
 export class Modal extends Component<{
-    animation?: "fade" | "none",
-    animationOptions?: AnimationOptions
-    onShow?(): void,
-    onHide?(): void,
-    isOpen?: boolean
+    animation?: "fade" | "lift" | "none",
+    animationOptions?: AnimationOptions,
+    onPreShow?(): void,
+    onPostShow?(): void,
+    onPreHide?(): void,
+    onPostHide?(): void,
+    isOpen?: boolean,
+    onDeviceBackButton?(): void,
 }, any> {}
 
 export class Popover extends Component<{
@@ -278,6 +283,7 @@ export class Ripple extends Component<{
     color?: string,
     background?: string,
     disabled?: boolean,
+    modifier?: string,
 }, any> {}
 
 /*** Forms ***/
@@ -287,12 +293,15 @@ export class Fab extends Component<{
     position?: string,
     disabled?: boolean,
     onClick?(e?: React.MouseEvent<HTMLElement>): void,
+    name?: string,
+    className?: string
 }, any> {}
 
 export class Button extends Component<{
     modifier?: string,
     disabled?: boolean,
     ripple?: boolean,
+    name?: string,
     className?: string,
     onClick?(e?: React.MouseEvent<HTMLElement>): void
 }, any> {}
@@ -300,8 +309,12 @@ export class Button extends Component<{
 export class Input extends Component<{
     modifier?: string,
     disabled?: boolean,
+    readOnly?: boolean,
     onChange?: (e: React.ChangeEvent<any>) => void,
+    onBlur?: (e: React.FocusEvent<any>) => void,
+    onFocus?: (e: React.FocusEvent<any>) => void,
     value?: string,
+    defaultValue?: string,
     checked?: boolean,
     placeholder?: string,
     type?: string,
@@ -317,7 +330,10 @@ export class Radio extends Component<{
     onChange?(e: Event): void,
     value?: string,
     checked?: boolean,
-    inputId?: string
+    defaultChecked?: boolean,
+    inputId?: string,
+    name?: string,
+    className?: string
 }, any> {}
 
 export class Checkbox extends Component<{
@@ -326,7 +342,9 @@ export class Checkbox extends Component<{
     onChange?(e: Event): void,
     value?: string,
     checked?: boolean,
-    inputId?: string
+    inputId?: string,
+    name?: string,
+    className?: string
 }, any> {}
 
 export class Range extends Component<{
@@ -336,11 +354,35 @@ export class Range extends Component<{
     disabled?: boolean,
 }, any> {}
 
+export class SearchInput extends Component<{
+    modifier?: string,
+    disabled?: boolean,
+    onChange?(e: Event): void,
+    value?: string,
+    inputId?: string,
+}, any> {}
+
+export class Select extends Component<{
+    modifier?: string,
+    disabled?: boolean,
+    onChange?: (e: React.ChangeEvent<any>) => void,
+    value?: string,
+    multiple?: boolean,
+    autofocus?: boolean,
+    required?: boolean,
+    form?: string,
+    size?: string,
+    name?: string,
+    className?: string
+}, any> {}
+
 export class Switch extends Component<{
+    modifier?: string,
     onChange?(e: SwitchChangeEvent): void,
     checked?: boolean,
     disabled?: boolean,
     inputId?: string,
+    name?: string,
     className?: string
 }, any> {}
 
@@ -409,6 +451,13 @@ export class ListItem extends Component<{
     tappable?: boolean,
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
+    onClick?: React.MouseEventHandler<any>,
+    className?: string,
+    style?: React.CSSProperties,
+}, any> {}
+
+export class ListTitle extends Component<{
+    modifier?: string,
     onClick?: React.MouseEventHandler<any>,
     className?: string,
     style?: React.CSSProperties,

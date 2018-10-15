@@ -42,7 +42,8 @@ World.add(engine.world, stack);
 var constraint1 = Constraint.create({
 	bodyA: box1,
 	bodyB: box2,
-	stiffness: 0.02
+	stiffness: 0.02,
+	damping: 0.01
 });
 
 //Query 

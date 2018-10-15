@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2018-07-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,8 +10,7 @@ declare namespace GoogleAppsScript {
   export module JDBC {
     /**
      * The JDBC service allows scripts to connect to Google Cloud SQL, MySQL,
-     *  Microsoft SQL Server, and Oracle databases. For more information, see the
-     *  guide to JDBC.
+     * Microsoft SQL Server, and Oracle databases. For more information, see the guide to JDBC.
      */
     export interface Jdbc {
       getCloudSqlConnection(url: string): JdbcConnection;
@@ -60,11 +59,10 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC CallableStatement. For documentation of this class, see
-     *  java.sql.CallableStatement.
+     * A JDBC CallableStatement. For documentation of this class, see java.sql.CallableStatement.
      * See also
      *
-     *  CallableStatement
+     *     CallableStatement
      */
     export interface JdbcCallableStatement {
       addBatch(): void;
@@ -299,8 +297,7 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC DatabaseMetaData. For documentation of this class, see
-     *  java.sql.DatabaseMetaData.
+     * A JDBC DatabaseMetaData. For documentation of this class, see java.sql.DatabaseMetaData.
      */
     export interface JdbcDatabaseMetaData {
       allProceduresAreCallable(): boolean;
@@ -494,8 +491,7 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC ParameterMetaData. For documentation of this class, see
-     *  java.sql.ParameterMetaData.
+     * A JDBC ParameterMetaData. For documentation of this class, see java.sql.ParameterMetaData.
      */
     export interface JdbcParameterMetaData {
       getParameterClassName(param: Integer): string;
@@ -510,8 +506,7 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC PreparedStatement. For documentation of this class, see
-     *  java.sql.PreparedStatement.
+     * A JDBC PreparedStatement. For documentation of this class, see java.sql.PreparedStatement.
      */
     export interface JdbcPreparedStatement {
       addBatch(): void;
@@ -748,8 +743,7 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * A JDBC ResultSetMetaData. For documentation of this class, see
-     *  java.sql.ResultSetMetaData.
+     * A JDBC ResultSetMetaData. For documentation of this class, see java.sql.ResultSetMetaData.
      */
     export interface JdbcResultSetMetaData {
       getCatalogName(column: Integer): string;

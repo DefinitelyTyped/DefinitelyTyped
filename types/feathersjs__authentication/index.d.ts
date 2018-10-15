@@ -4,8 +4,10 @@
 // Definitions: https://github.com/feathersjs-ecosystem/feathers-typescript
 
 import { Hook } from '@feathersjs/feathers';
+import * as self from '@feathersjs/authentication';
 
-export default function feathersAuthentication(config?: FeathersAuthenticationOptions): () => void;
+declare const feathersAuthentication: ((config?: FeathersAuthenticationOptions) => () => void) & typeof self;
+export default feathersAuthentication;
 
 export const hooks: AuthHooks.Hooks;
 

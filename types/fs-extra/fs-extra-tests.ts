@@ -48,7 +48,7 @@ fs.copy(src, dest,
 	{
 		overwrite: true,
 		preserveTimestamps: true,
-		filter: (src: string, dest: string) => false
+		filter: (src: string, dest: string) => Promise.resolve(false)
 	},
 	errorCallback
 );

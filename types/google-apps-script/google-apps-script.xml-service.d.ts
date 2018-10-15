@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2018-07-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,21 +10,21 @@ declare namespace GoogleAppsScript {
     /**
      * A representation of an XML attribute.
      *
-     *      // Reads the first and last name of each person and adds a new attribute with the full name.
-     *      var xml = '<roster>'
-     *          + '<person first="John" last="Doe"/>'
-     *          + '<person first="Mary" last="Smith"/>'
-     *          + '</roster>';
-     *      var document = XmlService.parse(xml);
-     *      var people = document.getRootElement().getChildren('person');
-     *      for (var i = 0; i < people.length; i++) {
-     *        var person = people[i];
-     *        var firstName = person.getAttribute('first').getValue();
-     *        var lastName = person.getAttribute('last').getValue();
-     *        person.setAttribute('full', firstName + ' ' + lastName);
-     *      }
-     *      xml = XmlService.getPrettyFormat().format(document);
-     *      Logger.log(xml);
+     *     // Reads the first and last name of each person and adds a new attribute with the full name.
+     *     var xml = '<roster>'
+     *         + '<person first="John" last="Doe"/>'
+     *         + '<person first="Mary" last="Smith"/>'
+     *         + '</roster>';
+     *     var document = XmlService.parse(xml);
+     *     var people = document.getRootElement().getChildren('person');
+     *     for (var i = 0; i < people.length; i++) {
+     *       var person = people[i];
+     *       var firstName = person.getAttribute('first').getValue();
+     *       var lastName = person.getAttribute('last').getValue();
+     *       person.setAttribute('full', firstName + ' ' + lastName);
+     *     }
+     *     xml = XmlService.getPrettyFormat().format(document);
+     *     Logger.log(xml);
      */
     export interface Attribute {
       getName(): string;
@@ -38,15 +38,15 @@ declare namespace GoogleAppsScript {
     /**
      * A representation of an XML CDATASection node.
      *
-     *      // Create and log an XML document that shows how special characters like '<', '>', and '&' are
-     *      // stored in a CDATASection node as compared to in a Text node.
-     *      var illegalCharacters = '<em>The Amazing Adventures of Kavalier & Clay</em>';
-     *      var cdata = XmlService.createCdata(illegalCharacters);
-     *      var text = XmlService.createText(illegalCharacters);
-     *      var root = XmlService.createElement('root').addContent(cdata).addContent(text);
-     *      var document = XmlService.createDocument(root);
-     *      var xml = XmlService.getPrettyFormat().format(document);
-     *      Logger.log(xml);
+     *     // Create and log an XML document that shows how special characters like '<', '>', and '&' are
+     *     // stored in a CDATASection node as compared to in a Text node.
+     *     var illegalCharacters = '<em>The Amazing Adventures of Kavalier & Clay</em>';
+     *     var cdata = XmlService.createCdata(illegalCharacters);
+     *     var text = XmlService.createText(illegalCharacters);
+     *     var root = XmlService.createElement('root').addContent(cdata).addContent(text);
+     *     var document = XmlService.createDocument(root);
+     *     var xml = XmlService.getPrettyFormat().format(document);
+     *     Logger.log(xml);
      */
     export interface Cdata {
       append(text: string): Text;
@@ -149,23 +149,23 @@ declare namespace GoogleAppsScript {
     /**
      * A representation of an XML Element node.
      *
-     *      // Adds up the values listed in a sample XML document and adds a new element with the total.
-     *      var xml = '<things>'
-     *          + '<plates>12</plates>'
-     *          + '<bowls>18</bowls>'
-     *          + '<cups>25</cups>'
-     *          + '</things>';
-     *      var document = XmlService.parse(xml);
-     *      var root = document.getRootElement();
-     *      var items = root.getChildren();
-     *      var total = 0;
-     *      for (var i = 0; i < items.length; i++) {
-     *        total += Number(items[i].getText());
-     *      }
-     *      var totalElement = XmlService.createElement('total').setText(total);
-     *      root.addContent(totalElement);
-     *      xml = XmlService.getPrettyFormat().format(document);
-     *      Logger.log(xml);
+     *     // Adds up the values listed in a sample XML document and adds a new element with the total.
+     *     var xml = '<things>'
+     *         + '<plates>12</plates>'
+     *         + '<bowls>18</bowls>'
+     *         + '<cups>25</cups>'
+     *         + '</things>';
+     *     var document = XmlService.parse(xml);
+     *     var root = document.getRootElement();
+     *     var items = root.getChildren();
+     *     var total = 0;
+     *     for (var i = 0; i < items.length; i++) {
+     *       total += Number(items[i].getText());
+     *     }
+     *     var totalElement = XmlService.createElement('total').setText(total);
+     *     root.addContent(totalElement);
+     *     xml = XmlService.getPrettyFormat().format(document);
+     *     Logger.log(xml);
      */
     export interface Element {
       addContent(content: Content): Element;
@@ -227,17 +227,17 @@ declare namespace GoogleAppsScript {
 
     /**
      * A formatter for outputting an XML document, with three pre-defined formats that can be further
-     *  customized.
+     * customized.
      *
-     *      // Log an XML document with specified formatting options.
-     *      var xml = '<root><a><b>Text!</b><b>More text!</b></a></root>';
-     *      var document = XmlService.parse(xml);
-     *      var output = XmlService.getCompactFormat()
-     *          .setLineSeparator('\n')
-     *          .setEncoding('UTF-8')
-     *          .setIndent('   ')
-     *          .format(document);
-     *      Logger.log(output);
+     *     // Log an XML document with specified formatting options.
+     *     var xml = '<root><a><b>Text!</b><b>More text!</b></a></root>';
+     *     var document = XmlService.parse(xml);
+     *     var output = XmlService.getCompactFormat()
+     *         .setLineSeparator('\n')
+     *         .setEncoding('UTF-8')
+     *         .setIndent('   ')
+     *         .format(document);
+     *     Logger.log(output);
      */
     export interface Format {
       format(document: Document): string;
@@ -283,41 +283,41 @@ declare namespace GoogleAppsScript {
     /**
      * This service allows scripts to parse, navigate, and programmatically create XML documents.
      *
-     *      // Log the title and labels for the first page of blog posts on the G Suite Developer blog.
-     *      function parseXml() {
-     *        var url = 'https://gsuite-developers.googleblog.com/atom.xml';
-     *        var xml = UrlFetchApp.fetch(url).getContentText();
-     *        var document = XmlService.parse(xml);
-     *        var root = document.getRootElement();
-     *        var atom = XmlService.getNamespace('http://www.w3.org/2005/Atom');
+     *     // Log the title and labels for the first page of blog posts on the G Suite Developer blog.
+     *     function parseXml() {
+     *       var url = 'https://gsuite-developers.googleblog.com/atom.xml';
+     *       var xml = UrlFetchApp.fetch(url).getContentText();
+     *       var document = XmlService.parse(xml);
+     *       var root = document.getRootElement();
+     *       var atom = XmlService.getNamespace('http://www.w3.org/2005/Atom');
      *
-     *        var entries = document.getRootElement().getChildren('entry', atom);
-     *        for (var i = 0; i < entries.length; i++) {
-     *          var title = entries[i].getChild('title', atom).getText();
-     *          var categoryElements = entries[i].getChildren('category', atom);
-     *          var labels = [];
-     *          for (var j = 0; j < categoryElements.length; j++) {
-     *            labels.push(categoryElements[j].getAttribute('term').getValue());
-     *          }
-     *          Logger.log('%s (%s)', title, labels.join(', '));
-     *        }
-     *      }
+     *       var entries = document.getRootElement().getChildren('entry', atom);
+     *       for (var i = 0; i < entries.length; i++) {
+     *         var title = entries[i].getChild('title', atom).getText();
+     *         var categoryElements = entries[i].getChildren('category', atom);
+     *         var labels = [];
+     *         for (var j = 0; j < categoryElements.length; j++) {
+     *           labels.push(categoryElements[j].getAttribute('term').getValue());
+     *         }
+     *         Logger.log('%s (%s)', title, labels.join(', '));
+     *       }
+     *     }
      *
-     *      // Create and log an XML representation of the threads in your Gmail inbox.
-     *      function createXml() {
-     *        var root = XmlService.createElement('threads');
-     *        var threads = GmailApp.getInboxThreads();
-     *        for (var i = 0; i < threads.length; i++) {
-     *          var child = XmlService.createElement('thread')
-     *              .setAttribute('messageCount', threads[i].getMessageCount())
-     *              .setAttribute('isUnread', threads[i].isUnread())
-     *              .setText(threads[i].getFirstMessageSubject());
-     *          root.addContent(child);
-     *        }
-     *        var document = XmlService.createDocument(root);
-     *        var xml = XmlService.getPrettyFormat().format(document);
-     *        Logger.log(xml);
-     *      }
+     *     // Create and log an XML representation of the threads in your Gmail inbox.
+     *     function createXml() {
+     *       var root = XmlService.createElement('threads');
+     *       var threads = GmailApp.getInboxThreads();
+     *       for (var i = 0; i < threads.length; i++) {
+     *         var child = XmlService.createElement('thread')
+     *             .setAttribute('messageCount', threads[i].getMessageCount())
+     *             .setAttribute('isUnread', threads[i].isUnread())
+     *             .setText(threads[i].getFirstMessageSubject());
+     *         root.addContent(child);
+     *       }
+     *       var document = XmlService.createDocument(root);
+     *       var xml = XmlService.getPrettyFormat().format(document);
+     *       Logger.log(xml);
+     *     }
      */
     export interface XmlService {
       ContentTypes: typeof ContentType;

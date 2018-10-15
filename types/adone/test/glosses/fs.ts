@@ -602,13 +602,12 @@ namespace fsTests {
     }
 
     namespace isTests {
-        const { is } = fs;
-        is.file("hello").then((x: boolean) => {});
-        { const a: boolean = is.fileSync("hello"); }
-        is.directory("hello").then((x: boolean) => {});
-        { const a: boolean = is.directorySync("hello"); }
-        is.executable("hello").then((x: boolean) => {});
-        { const a: boolean = is.executableSync("hello"); }
+        fs.isFile("hello").then((x: boolean) => {});
+        { const a: boolean = fs.isFileSync("hello"); }
+        fs.isDirectory("hello").then((x: boolean) => {});
+        { const a: boolean = fs.isDirectorySync("hello"); }
+        fs.isExecutable("hello").then((x: boolean) => {});
+        { const a: boolean = fs.isExecutableSync("hello"); }
     }
 
     namespace whichTests {
@@ -943,5 +942,18 @@ namespace fsTests {
         fs.watchTail("file", { separator: "\n" });
         fs.watchTail("file", { separator: /\n/ });
         fs.watchTail("file", { useWatchFile: true });
+    }
+
+    namespace writeFileAtomicTests {
+        fs.writeFileAtomic("a", "b").then(() => {});
+        fs.writeFileAtomic("a", Buffer.from("b")).then(() => {});
+        fs.writeFileAtomic("a", new Uint8Array(10)).then(() => {});
+        fs.writeFileAtomic("a", "a", {}).then(() => {});
+        fs.writeFileAtomic("a", "a", { chown: {} }).then(() => {});
+        fs.writeFileAtomic("a", "a", { chown: { gid: 0 } }).then(() => {});
+        fs.writeFileAtomic("a", "a", { chown: { uid: 0 } }).then(() => {});
+        fs.writeFileAtomic("a", "a", { encoding: "utf8" }).then(() => {});
+        fs.writeFileAtomic("a", "a", { fsync: false }).then(() => {});
+        fs.writeFileAtomic("a", "a", { mode: 0o666 }).then(() => {});
     }
 }

@@ -438,6 +438,27 @@ declare namespace pc {
 
         /**
          * @function
+         * @name pc.Application#renderLine^5
+         * @description Draw a line which blends between two colors with specified line type
+         * @param {pc.Vec3} start The start of the line
+         * @param {pc.Vec3} end The end of the line
+         * @param {pc.Color} color The start color of the line
+         * @param {Object} options
+         * @param {Number} [options.layer] lineType The type of rendering to use: pc.LINEBATCH_WORLD, pc.LINEBATCH_OVERLAY, pc.LINEBATCH_GIZMO. Default is pc.LAYERID_IMMEDIATE
+         * @example
+         * var start = new pc.Vec3(0,0,0);
+         * var end = new pc.Vec3(1,0,0);
+         * var startColor = new pc.Color(1,1,1);
+         * const options = {
+         *    layer: pc.LINEBATCH_OVERLAY,
+         * };
+         *
+         * app.renderLine(start, end, color, options);
+         */
+        renderLine(start: pc.Vec3, end: pc.Vec3, color: pc.Color, options: object): void;
+
+        /**
+         * @function
          * @name pc.Application#renderLines
          * @description Draw an array of lines.
          * @param {pc.Vec3[]} position An array of points to draw lines between

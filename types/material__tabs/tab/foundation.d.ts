@@ -16,9 +16,9 @@
 
 import MDCFoundation from 'material__base/foundation';
 import { cssClasses, strings } from './constants';
-import { MDCTabAdapter } from './adapter';
+import MDCTabAdapter from './adapter';
 
-export class MDCTabFoundation extends MDCFoundation<MDCTabAdapter> {
+export default class MDCTabFoundation extends MDCFoundation<MDCTabAdapter> {
     static readonly cssClasses: cssClasses;
 
     static readonly strings: strings;

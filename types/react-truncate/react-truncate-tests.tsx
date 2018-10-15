@@ -14,5 +14,9 @@ const TruncateTest: React.SFC = _ => (
         <Truncate lines={false} ellipsis={<span>Read more</span>} id="identifier">
             <div>Test string</div>
         </Truncate>
+
+        <Truncate trimWhitespace={true}>
+            <div>Test string</div>
+        </Truncate>
     </div>
 );

@@ -1,5 +1,4 @@
 ///<reference types="node" />
-///<reference types="mocha" />
 
 'use strict';
 
@@ -10,6 +9,11 @@
 import { EventEmitter, EventSubscription } from 'fbemitter';
 import * as util from 'util';
 import * as assert from 'assert';
+
+// Stub mocha functions
+const {describe, it, before, after, beforeEach, afterEach} = null as any as {
+    [s: string]: ((s: string, cb: (done: any) => void) => void) & ((cb: (done: any) => void) => void) & {only: any, skip: any};
+};
 
 describe('EventEmitter', function tests() {
     'use strict';

@@ -23,7 +23,7 @@ const balloonLayout = ymaps.templateLayoutFactory.createClass(
 	{
 		build(this: ymaps.ILayout): void {
 			(<ymaps.layout.templateBased.Base> (<any> this.constructor).superclass).build.call(this);
-			this.getParentElement().children.item(0).children.item(0).appendChild((<any> this.getData()).properties.get("balloonContent"));
+			this.getParentElement().children.item(0)!.children.item(0)!.appendChild((<any> this.getData()).properties.get("balloonContent"));
 		}
 	}
 );
