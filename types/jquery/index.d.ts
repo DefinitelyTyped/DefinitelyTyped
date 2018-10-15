@@ -30442,7 +30442,7 @@ $( "input" ).click(function() {
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
          * @since 1.8
          */
-        stop: () => void;
+        stop(): void;
         /**
          * Calls `.run()` on each object in the `jQuery.timers` array, removing it from the array if `.run()` returns a falsy value. Calls `jQuery.fx.stop()` whenever there are no timers remaining.
          *
@@ -30460,7 +30460,7 @@ $( "input" ).click(function() {
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
          * @since 1.8
          */
-        timer: (tickFunction: TickFunction<any>) => void;
+        timer(tickFunction: TickFunction<any>): void;
     }
 
     /**
