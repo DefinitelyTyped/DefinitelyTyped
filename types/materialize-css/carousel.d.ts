@@ -110,10 +110,6 @@ declare namespace M {
 
 interface JQuery {
     carousel(method: keyof Pick<M.Carousel, "destroy">): JQuery;
-    carousel(method: keyof Pick<M.Carousel, "next">, n?: number): JQuery;
-    // tslint:disable-next-line:unified-signatures
-    carousel(method: keyof Pick<M.Carousel, "prev">, n?: number): JQuery;
-    // tslint:disable-next-line:unified-signatures
-    carousel(method: keyof Pick<M.Carousel, "set">, n?: number): JQuery;
+    carousel(method: keyof Pick<M.Carousel, "next"> | keyof Pick<M.Carousel, "prev"> | keyof Pick<M.Carousel, "set">, n?: number): JQuery;
     carousel(options?: Partial<M.CarouselOptions>): JQuery;
 }
