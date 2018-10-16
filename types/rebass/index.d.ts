@@ -3,6 +3,7 @@
 // Definitions by: rhysd <https://rhysd.github.io>
 //                 ryee-dev <https://github.com/ryee-dev>
 //                 alexdriaguine <https://github.com/alexdriaguine>
+//                 eloiqs <https://github.com/eloiqs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
