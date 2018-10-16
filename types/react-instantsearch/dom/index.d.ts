@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { Hit, BasicDoc } from '../types';
 
 // Core
@@ -20,7 +22,7 @@ export interface CommonWidgetProps {
    *
    * https://community.algolia.com/react-instantsearch/guide/i18n.html
    */
-  translations?: { [key: string]: string | (...args: any[]) => any };
+  translations?: { [key: string]: string | ((...args: any[]) => any) };
 }
 
 export interface InstantSearchProps {
