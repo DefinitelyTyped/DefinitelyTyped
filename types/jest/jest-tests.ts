@@ -900,6 +900,19 @@ clock.mockDate(new Date());
 clock.tick(0);
 clock.tick(9001);
 
+/* Jasmine environment */
+
+const env = jasmine.getEnv();
+
+env.addReporter(undefined);
+env.clearReporters();
+env.hideDisabled();
+env.provideFallbackReporter(undefined);
+env.randomizeTests(false);
+env.seed(1);
+env.stopOnSpecFailure(false);
+env.throwOnExpectationFailure(false);
+
 /* Jasmine matchers */
 
 expect({}).toBe(jasmine.anything());

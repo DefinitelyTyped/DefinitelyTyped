@@ -16,6 +16,7 @@
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Martin Hochel <https://github.com/hotell>
 //                 Sebastian Sebald <https://github.com/sebald>
+//                 Steve Chun <https://github.com/stevechun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -945,6 +946,7 @@ declare function fail(error?: any): void;
 declare namespace jasmine {
     let DEFAULT_TIMEOUT_INTERVAL: number;
     function clock(): Clock;
+    function getEnv(): Env;
     function any(aclass: any): Any;
     function anything(): Any;
     function arrayContaining(sample: any[]): ArrayContaining;
@@ -966,6 +968,39 @@ declare namespace jasmine {
          */
         tick(ms: number): void;
         mockDate(date?: Date): void;
+    }
+
+    interface Env {
+        /**
+         * Add a custom reporter to the Jasmine environment.
+         */
+        addReporter(reporterToAdd: any): void;
+        /**
+         * Clear all registered reporters
+         */
+        clearReporters(): void;
+        hideDisabled(): void;
+        /**
+         * Provide a fallback reporter if no other reporters have been specified.
+         */
+        provideFallbackReporter(reporterToAdd: any): void;
+        /**
+         * Set whether to randomize test execution order
+         */
+        randomizeTests(value: boolean): void;
+        /**
+         * Set the random number seed for spec randomization
+         */
+        seed(value: number): void;
+        /**
+         * Set whether to stop suite execution when a spec fails
+         */
+        stopOnSpecFailure(value: boolean): void;
+        /**
+         * Sets whether Jasmine should throw an Error when an expectation fails.
+         * This causes a spec to only have one expectation failure.
+         */
+        throwOnExpectationFailure(value: boolean): void;
     }
 
     interface Any {
