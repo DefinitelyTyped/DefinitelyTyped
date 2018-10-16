@@ -7,6 +7,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react'
+import {StyledComponentClass} from 'styled-components'
 import {
     WidthProps,
     FontSizeProps,
@@ -64,7 +65,7 @@ export interface BoxProps
         WidthProps,
         FontSizeProps,
         RebassHTMLAttributes<HTMLDivElement> {}
-type BoxClass = React.StatelessComponent<BoxProps>
+type BoxClass = StyledComponentClass<BoxProps, {}>
 export declare const Box: BoxClass
 
 export interface ButtonProps
@@ -76,7 +77,7 @@ export interface ButtonProps
         RebassHTMLAttributes<HTMLButtonElement> {
     variant?: Variant
 }
-type ButtonClass = React.StatelessComponent<ButtonProps>
+type ButtonClass = StyledComponentClass<ButtonProps, {}>
 export declare const Button: ButtonClass
 
 export interface CardProps
@@ -93,7 +94,7 @@ export interface CardProps
         RebassHTMLAttributes<HTMLDivElement> {
     variant?: Variant
 }
-type CardClass = React.StatelessComponent<CardProps>
+type CardClass = StyledComponentClass<CardProps, {}>
 export declare const Card: CardClass
 
 export interface FlexProps
@@ -104,14 +105,14 @@ export interface FlexProps
         FlexWrapProps,
         WidthProps,
         RebassHTMLAttributes<HTMLDivElement> {}
-type FlexClass = React.StatelessComponent<FlexProps>
+type FlexClass = StyledComponentClass<FlexProps, {}>
 export declare const Flex: FlexClass
 
 export interface HeadingProps
     extends BaseProps<HeadingClass>,
         BaseTextProps,
         RebassHTMLAttributes<HTMLHeadingElement> {}
-type HeadingClass = React.StatelessComponent<HeadingProps>
+type HeadingClass = StyledComponentClass<HeadingProps, {}>
 export declare const Heading: HeadingClass
 
 export interface ImageProps
@@ -119,13 +120,13 @@ export interface ImageProps
         HeightProps,
         BorderRadiusProps,
         RebassImageHTMLAttributes<HTMLImageElement> {}
-type ImageClass = React.StatelessComponent<ImageProps>
+type ImageClass = StyledComponentClass<ImageProps, {}>
 export declare const Image: ImageClass
 
 export interface LinkProps
     extends BaseProps<LinkClass>,
         RebassAnchorHTMLAttributes<HTMLAnchorElement> {}
-type LinkClass = React.StatelessComponent<LinkProps>
+type LinkClass = StyledComponentClass<LinkProps, {}>
 export declare const Link: LinkClass
 
 export interface BaseTextProps
@@ -138,5 +139,5 @@ interface TextProps
     extends BaseProps<TextClass>,
         BaseTextProps,
         RebassHTMLAttributes<HTMLDivElement> {}
-type TextClass = React.StatelessComponent<TextProps>
+type TextClass = StyledComponentClass<TextProps, {}>
 export declare const Text: TextClass
