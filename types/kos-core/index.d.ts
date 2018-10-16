@@ -1,4 +1,4 @@
-// Type definitions for react-beautiful-dnd 7.1
+// Type definitions for kos-core
 // Project: https://github.com/ali-Kos/Kos
 // Definitions by: alibaba ali-Kos <https://github.com/ali-Kos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
