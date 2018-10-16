@@ -1,4 +1,4 @@
-import Critters = require('critters-webpack-plugin');
+import Critters from 'critters-webpack-plugin';
 
 new Critters({
     compress: true,

@@ -5,7 +5,7 @@
 
 import { Plugin } from 'webpack';
 
-export = Critters;
+export default Critters;
 declare class Critters extends Plugin {
     constructor(options?: Critters.CrittersOptions);
 }
