@@ -281,26 +281,13 @@ export interface DeleteDocumentByQueryParams extends GenericParams {
     scrollSize?: number;
     waitForCompletion?: boolean;
     requestsPerSecond?: number;
+    slices?: number;
     index?: string;
     type?: string;
 }
 
-export interface DeleteDocumentByQueryResponse {
-    took: number;
-    timed_out: boolean;
-    deleted: number;
-    batches: number;
-    version_conflicts: number;
-    noops: number;
-    retries: {
-        bulk: number;
-        search: number;
-    };
-    throttled_millis: number;
-    requests_per_second: number;
-    throttled_until_millis: number;
-    total: number;
-    failures: any[];
+export interface DeleteDocumentByQueryResponse extends ReIndexOrByQueryResponse {
+    //DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
 }
 
 export interface DeleteScriptParams extends GenericParams {
@@ -531,6 +518,7 @@ export interface ReindexParams extends GenericParams {
     waitForActiveShards?: string;
     waitForCompletion?: boolean;
     requestsPerSecond?: number;
+    slices?: number;
     body: {
         conflicts?: string;
         source: {
@@ -559,18 +547,8 @@ export interface ReindexParams extends GenericParams {
     };
 }
 
-export interface ReindexResponse {
-    took: number;
-    updated: number;
-    created: number;
-    batches: number;
-    version_conflicts: number;
-    retries: {
-        bulk: number;
-        search: number;
-    };
-    throttled_millis: number;
-    failures: any[];
+export interface ReindexResponse extends ReIndexOrByQueryResponse {
+    //DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
 }
 
 export interface ReindexRethrottleParams extends GenericParams {
@@ -789,18 +767,22 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     type: NameList;
 }
 
-export interface UpdateDocumentByQueryResponse extends GenericUpdateResponse {
+export interface UpdateDocumentByQueryResponse extends ReIndexOrByQueryResponse {
+    //DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
+}
+
+export interface ReIndexOrByQueryResponse extends ReIndexOrByQueryResponseBase {
     took: number;
     timed_out: boolean;
     failures: any[];
-    slices?: SliceUpdateResponse[];
+    slices?: ReIndexOrByQueryResponseSlice[];
 }
 
-export interface SliceUpdateResponse extends GenericUpdateResponse {
+export interface ReIndexOrByQueryResponseSlice extends ReIndexOrByQueryResponseBase {
     slice_id: number;
 }
 
-export interface GenericUpdateResponse {
+export interface ReIndexOrByQueryResponseBase {
     total: number;
     updated: number;
     deleted: number;
