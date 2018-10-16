@@ -51,6 +51,7 @@ interface JQueryStatic {
      * @deprecated ​ Deprecated. Use \`{@link ajaxSetup }\`.
      */
     ajaxSettings: JQuery.AjaxSettings;
+    Animation: JQuery.AnimationStatic;
     Callbacks: JQuery.CallbacksStatic;
     /**
      * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize
@@ -115,6 +116,8 @@ $.when(
      * @deprecated ​ Deprecated since 1.9. See \`{@link https://api.jquery.com/jQuery.support/ }\`.
      */
     support: JQuery.PlainObject;
+    timers: Array<JQuery.TickFunction<any>>;
+    Tween: JQuery.TweenStatic;
     // Set to HTMLElement to minimize breaks but should probably be Element.
     valHooks: JQuery.PlainObject<JQuery.ValHook<HTMLElement>>;
     // HACK: This is the factory function returned when importing jQuery without a DOM. Declaring it separately breaks using the type parameter on JQueryStatic.
@@ -13049,7 +13052,7 @@ $.trim("    hello, how are you?    ");
      * @param obj Object to get the internal JavaScript [[Class]] of.
      * @see \`{@link https://api.jquery.com/jQuery.type/ }\`
      * @since 1.4.3
-     * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/jquery/issues/3605 }`.
+     * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/jquery/issues/3605 }\`.
      * @example ​ ````Find out if the parameter is a RegExp.
 ```html
 <!doctype html>
@@ -29991,6 +29994,353 @@ $.get( "test.php" )
     // region Effects
     // #region Effects
 
+    type Duration = number | 'fast' | 'slow';
+
+    /**
+     * @see \`{@link https://api.jquery.com/animate/#animate-properties-options }\`
+     */
+    interface EffectsOptions<TElement> extends PlainObject {
+        /**
+         * A function to be called when the animation on an element completes or stops without completing (its
+         * Promise object is either resolved or rejected).
+         */
+        always?(this: TElement, animation: Animation<TElement>, jumpedToEnd: boolean): void;
+        /**
+         * A function that is called once the animation on an element is complete.
+         */
+        complete?(this: TElement): void;
+        /**
+         * A function to be called when the animation on an element completes (its Promise object is resolved).
+         */
+        done?(this: TElement, animation: Animation<TElement>, jumpedToEnd: boolean): void;
+        /**
+         * A string or number determining how long the animation will run.
+         */
+        duration?: Duration;
+        /**
+         * A string indicating which easing function to use for the transition.
+         */
+        easing?: string;
+        /**
+         * A function to be called when the animation on an element fails to complete (its Promise object is rejected).
+         */
+        fail?(this: TElement, animation: Animation<TElement>, jumpedToEnd: boolean): void;
+        /**
+         * A function to be called after each step of the animation, only once per animated element regardless
+         * of the number of animated properties.
+         */
+        progress?(this: TElement, animation: Animation<TElement>, progress: number, remainingMs: number): void;
+        /**
+         * A Boolean indicating whether to place the animation in the effects queue. If false, the animation
+         * will begin immediately. As of jQuery 1.7, the queue option can also accept a string, in which case
+         * the animation is added to the queue represented by that string. When a custom queue name is used the
+         * animation does not automatically start; you must call .dequeue("queuename") to start it.
+         */
+        queue?: boolean | string;
+        /**
+         * An object containing one or more of the CSS properties defined by the properties argument and their
+         * corresponding easing functions.
+         */
+        specialEasing?: PlainObject<string>;
+        /**
+         * A function to call when the animation on an element begins.
+         */
+        start?(this: TElement, animation: Animation<TElement>): void;
+        /**
+         * A function to be called for each animated property of each animated element. This function provides
+         * an opportunity to modify the Tween object to change the value of the property before it is set.
+         */
+        step?(this: TElement, now: number, tween: Tween<TElement>): void;
+    }
+
+    // region Animation
+    // #region Animation
+
+    /**
+     * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
+     * @since 1.8
+     */
+    interface AnimationStatic {
+        /**
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
+         * @since 1.8
+         */
+        <TElement>(element: TElement, props: PlainObject, opts: EffectsOptions<TElement>): Animation<TElement>;
+        /**
+         * During the initial setup, `jQuery.Animation` will call any callbacks that have been registered through `jQuery.Animation.prefilter( function( element, props, opts ) )`.
+         *
+         * @param callback The prefilter will have `this` set to an animation object, and you can modify any of the `props` or
+         *                 `opts` however you need. The prefilter _may_ return its own promise which also implements `stop()`,
+         *                 in which case, processing of prefilters stops. If the prefilter is not trying to override the animation
+         *                 entirely, it should return `undefined` or some other falsy value.
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#prefilters }\`
+         * @since 1.8
+         */
+        prefilter<TElement>(
+            callback: (this: Animation<TElement>, element: TElement, props: PlainObject, opts: EffectsOptions<TElement>) => Animation<TElement> | _Falsy | void,
+            prepend?: boolean
+        ): void;
+        /**
+         * A "Tweener" is a function responsible for creating a tween object, and you might want to override these if you want to implement complex values ( like a clip/transform array matrix ) in a single property.
+         *
+         * You can override the default process for creating a tween in order to provide your own tween object by using `jQuery.Animation.tweener( props, callback( prop, value ) )`.
+         *
+         * @param props A space separated list of properties to be passed to your tweener, or `"*"` if it should be called
+         *              for all properties.
+         * @param callback The callback will be called with `this` being an `Animation` object. The tweener function will
+         *                 generally start with `var tween = this.createTween( prop, value );`, but doesn't nessecarily need to
+         *                 use the `jQuery.Tween()` factory.
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweeners }\`
+         * @since 1.8
+         */
+        tweener(props: string, callback: Tweener<any>): void;
+    }
+
+    /**
+     * The promise will be resolved when the animation reaches its end, and rejected when terminated early. The context of callbacks attached to the promise will be the element, and the arguments will be the `Animation` object and a boolean `jumpedToEnd` which when true means the animation was stopped with `gotoEnd`, when `undefined` the animation completed naturally.
+     *
+     * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
+     * @since 1.8
+     */
+    interface Animation<TElement> extends Promise3<
+        Animation<TElement>, Animation<TElement>, Animation<TElement>,
+        true | undefined, false, number,
+        never, never, number
+    > {
+        /**
+         * The duration specified in ms
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
+         * @since 1.8
+         */
+        duration: number;
+        /**
+         * The element being animatied
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
+         * @since 1.8
+         */
+        elem: TElement;
+        /**
+         * The final value of each property animating
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
+         * @since 1.8
+         */
+        props: PlainObject;
+        /**
+         * The animation options
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
+         * @since 1.8
+         */
+        opts: EffectsOptions<TElement>;
+        /**
+         * The original properties before being filtered
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
+         * @since 1.8
+         */
+        originalProps: PlainObject;
+        /**
+         * The original options before being filtered
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
+         * @since 1.8
+         */
+        originalOpts: EffectsOptions<TElement>;
+        /**
+         * The numeric value of `new Date()` when the animation began
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
+         * @since 1.8
+         */
+        startTime: number;
+        /**
+         * The animations tweens.
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
+         * @since 1.8
+         */
+        tweens: Array<Tween<TElement>>;
+        /**
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
+         * @since 1.8
+         */
+        createTween(propName: string, finalValue: number): Tween<TElement>;
+        /**
+         * Stops the animation early, optionally going to the end.
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
+         * @since 1.8
+         */
+        stop(gotoEnd: boolean): this;
+    }
+
+    /**
+     * A "Tweener" is a function responsible for creating a tween object, and you might want to override these if you want to implement complex values ( like a clip/transform array matrix ) in a single property.
+     *
+     * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweeners }\`
+     * @since 1.8
+     */
+    type Tweener<TElement> = (this: Animation<TElement>, propName: string, finalValue: number) => Tween<TElement>;
+
+    /**
+     * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
+     * @since 1.8
+     */
+    interface TweenStatic {
+        /**
+         * `jQuery.Tween.propHooks[ prop ]` is a hook point that replaces `jQuery.fx.step[ prop ]` (which is being deprecated.) These hooks are used by the tween to get and set values on elements.
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tween-hooks }\`
+         * @since 1.8
+         * @example
+```javascript
+jQuery.Tween.propHooks[ property ] = {
+    get: function( tween ) {
+         // get tween.prop from tween.elem and return it
+    },
+    set: function( tween ) {
+         // set tween.prop on tween.elem to tween.now + tween.unit
+    }
+}
+```
+         */
+        propHooks: PropHooks;
+        /**
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
+         * @since 1.8
+         */
+        <TElement>(elem: TElement, options: EffectsOptions<TElement>, prop: string, end: number, easing?: string, unit?: string): Tween<TElement>;
+    }
+
+    /**
+     * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
+     * @since 1.8
+     */
+    // This should be a class but doesn't work correctly under the JQuery namespace. Tween should be an inner class of jQuery.
+    interface Tween<TElement> {
+        /**
+         * The easing used
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
+         * @since 1.8
+         */
+        easing: string;
+        /**
+         * The element being animated
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
+         * @since 1.8
+         */
+        elem: TElement;
+        /**
+         * The ending value of the tween
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
+         * @since 1.8
+         */
+        end: number;
+        /**
+         * The current value of the tween
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
+         * @since 1.8
+         */
+        now: number;
+        /**
+         * A reference to the animation options
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
+         * @since 1.8
+         */
+        options: EffectsOptions<TElement>;
+        // Undocumented. Is this intended to be public?
+        pos?: number;
+        /**
+         * The property being animated
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
+         * @since 1.8
+         */
+        prop: string;
+        /**
+         * The starting value of the tween
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
+         * @since 1.8
+         */
+        start: number;
+        /**
+         * The CSS unit for the tween
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
+         * @since 1.8
+         */
+        unit: string;
+        /**
+         * Reads the current value for property from the element
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
+         * @since 1.8
+         */
+        cur(): any;
+        /**
+         * Updates the value for the property on the animated elemd.
+         *
+         * @param progress A number from 0 to 1.
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
+         * @since 1.8
+         */
+        run(progress: number): this;
+    }
+
+    /**
+     * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tween-hooks }\`
+     * @since 1.8
+     */
+    // Workaround for TypeScript 2.3 which does not have support for weak types handling.
+    type PropHook<TElement> = {
+        /**
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tween-hooks }\`
+         * @since 1.8
+         */
+        get(tween: Tween<TElement>): any;
+    } | {
+        /**
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tween-hooks }\`
+         * @since 1.8
+         */
+        set(tween: Tween<TElement>): void;
+    } | {
+        [key: string]: never;
+    };
+
+    /**
+     * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tween-hooks }\`
+     * @since 1.8
+     */
+    interface PropHooks {
+        [property: string]: PropHook<Node>;
+    }
+
+    // #endregion
+
+    // region Easing
+    // #region Easing
+
+    type EasingMethod = (percent: number) => number;
+
+    interface Easings {
+        [name: string]: EasingMethod;
+    }
+
+    // #endregion
+
+    // region Effects (fx)
+    // #region Effects (fx)
+
     interface Effects {
         /**
          * The rate (in milliseconds) at which animations fire.
@@ -30080,10 +30430,65 @@ $( "input" ).click(function() {
 ```
         */
         off: boolean;
+        /**
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link Tween.propHooks jQuery.Tween.propHooks}\`.
+         *
+         * `jQuery.fx.step` functions are being replaced by `jQuery.Tween.propHooks` and may eventually be removed, but are still supported via the default tween propHook.
+         */
         step: PlainObject<AnimationHook<Node>>;
+        /**
+         * _overridable_ Clears up the `setInterval`
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
+         * @since 1.8
+         */
+        stop(): void;
+        /**
+         * Calls `.run()` on each object in the `jQuery.timers` array, removing it from the array if `.run()` returns a falsy value. Calls `jQuery.fx.stop()` whenever there are no timers remaining.
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
+         * @since 1.8
+         */
+        tick(): void;
+        /**
+         * _overridable_ Creates a `setInterval` if one doesn't already exist, and pushes `tickFunction` to the `jQuery.timers` array. `tickFunction` should also have `anim`, `elem`, and `queue` properties that reference the animation object, animated element, and queue option to facilitate `jQuery.fn.stop()`
+         *
+         * By overriding `fx.timer` and `fx.stop` you should be able to implement any animation tick behaviour you desire. (like using `requestAnimationFrame` instead of `setTimeout`.)
+         *
+         * There is an example of overriding the timer loop in \`{@link https://github.com/gnarf37/jquery-requestAnimationFrame jquery.requestAnimationFrame}\`
+         *
+         * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
+         * @since 1.8
+         */
+        timer(tickFunction: TickFunction<any>): void;
     }
 
-    type Duration = number | 'fast' | 'slow';
+    /**
+     * @deprecated ​ Deprecated since 1.8. Use \`{@link Tween.propHooks jQuery.Tween.propHooks}\`.
+     *
+     * `jQuery.fx.step` functions are being replaced by `jQuery.Tween.propHooks` and may eventually be removed, but are still supported via the default tween propHook.
+     */
+    interface AnimationHook<TElement> {
+        /**
+         * @deprecated ​ Deprecated since 1.8. Use \`{@link Tween.propHooks jQuery.Tween.propHooks}\`.
+         *
+         * `jQuery.fx.step` functions are being replaced by `jQuery.Tween.propHooks` and may eventually be removed, but are still supported via the default tween propHook.
+         */
+        (fx: Tween<TElement>): void;
+    }
+
+    interface TickFunction<TElement> {
+        anim: Animation<TElement>;
+        elem: TElement;
+        queue: boolean | string;
+        (): any;
+    }
+
+    // #endregion
+
+    // region Queue
+    // #region Queue
+
     // TODO: Is the first element always a string or is that specific to the 'fx' queue?
     type Queue<TElement> = { 0: string; } & Array<QueueFunction<TElement>>;
 
@@ -30091,103 +30496,32 @@ $( "input" ).click(function() {
         (this: TElement, next: () => void): void;
     }
 
-    /**
-     * @see \`{@link https://api.jquery.com/animate/#animate-properties-options }\`
-     */
-    interface EffectsOptions<TElement> {
-        /**
-         * A function to be called when the animation on an element completes or stops without completing (its
-         * Promise object is either resolved or rejected).
-         */
-        always?(this: TElement, animation: Promise<any>, jumpedToEnd: boolean): void;
-        /**
-         * A function that is called once the animation on an element is complete.
-         */
-        complete?(this: TElement): void;
-        /**
-         * A function to be called when the animation on an element completes (its Promise object is resolved).
-         */
-        done?(this: TElement, animation: Promise<any>, jumpedToEnd: boolean): void;
-        /**
-         * A string or number determining how long the animation will run.
-         */
-        duration?: Duration;
-        /**
-         * A string indicating which easing function to use for the transition.
-         */
-        easing?: string;
-        /**
-         * A function to be called when the animation on an element fails to complete (its Promise object is rejected).
-         */
-        fail?(this: TElement, animation: Promise<any>, jumpedToEnd: boolean): void;
-        /**
-         * A function to be called after each step of the animation, only once per animated element regardless
-         * of the number of animated properties.
-         */
-        progress?(this: TElement, animation: Promise<any>, progress: number, remainingMs: number): void;
-        /**
-         * A Boolean indicating whether to place the animation in the effects queue. If false, the animation
-         * will begin immediately. As of jQuery 1.7, the queue option can also accept a string, in which case
-         * the animation is added to the queue represented by that string. When a custom queue name is used the
-         * animation does not automatically start; you must call .dequeue("queuename") to start it.
-         */
-        queue?: boolean | string;
-        /**
-         * An object containing one or more of the CSS properties defined by the properties argument and their
-         * corresponding easing functions.
-         */
-        specialEasing?: PlainObject<string>;
-        /**
-         * A function to call when the animation on an element begins.
-         */
-        start?(this: TElement, animation: Promise<any>): void;
-        /**
-         * A function to be called for each animated property of each animated element. This function provides
-         * an opportunity to modify the Tween object to change the value of the property before it is set.
-         */
-        step?(this: TElement, now: number, tween: Tween<TElement>): void;
-    }
+    // #endregion
 
-    interface SpeedSettings<TElement> {
+    // region Speed
+    // #region Speed
+
+    // Workaround for TypeScript 2.3 which does not have support for weak types handling.
+    type SpeedSettings<TElement> = {
         /**
          * A string or number determining how long the animation will run.
          */
-        duration?: Duration;
+        duration: Duration;
+    } | {
         /**
          * A string indicating which easing function to use for the transition.
          */
-        easing?: string;
+        easing: string;
+    } | {
         /**
          * A function to call once the animation is complete.
          */
-        complete?(this: TElement): void;
-    }
+        complete(this: TElement): void;
+    } | {
+        [key: string]: never;
+    };
 
-    // This should be a class but doesn't work correctly under the JQuery namespace. Tween should be an inner class of jQuery.
-    // Undocumented
-    // https://github.com/jquery/api.jquery.com/issues/391
-    // https://github.com/jquery/api.jquery.com/issues/61
-    interface Tween<TElement> {
-        easing: string;
-        elem: TElement;
-        end: number;
-        now: number;
-        options: EffectsOptions<TElement>;
-        pos: number;
-        prop: string;
-        start: number;
-        unit: string;
-    }
-
-    interface AnimationHook<TElement> {
-        (fx: Tween<TElement>): void;
-    }
-
-    type EasingMethod = (percent: number) => number;
-
-    interface Easings {
-        [name: string]: EasingMethod;
-    }
+    // #endregion
 
     // #endregion
 
@@ -30966,7 +31300,7 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
 
     interface EventExtensions {
         /**
-         * jQuery defines an \`@{link https://api.jquery.com/category/events/event-object/ Event object}\` that
+         * jQuery defines an \`{@link https://api.jquery.com/category/events/event-object/ Event object}\` that
          * represents a cross-browser subset of the information available when an event occurs. The `jQuery.event.props`
          * property is an array of string names for properties that are always copied when jQuery processes a
          * native browser event. (Events fired in code by `.trigger()` do not use this list, since the code can
@@ -31294,6 +31628,8 @@ if ( !existingHook ) {
         get?(elem: TElement): any;
         set?(elem: TElement, value: any): any;
     }
+
+    type _Falsy = false | null | undefined | 0 | '' | typeof document.all;
 }
 
 // region Legacy types
