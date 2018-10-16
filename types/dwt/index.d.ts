@@ -1,4 +1,4 @@
-// Type definitions for dwt 13.4
+// Type definitions for dwt 14.2
 // Project: http://www.dynamsoft.com/Products/WebTWAIN_Overview.aspx
 // Definitions by: Xiao Ling <https://github.com/yushulx>
 //                 Josh Hall <https://github.com/jbh>
@@ -14,7 +14,7 @@
 *
 * Copyright 2018, Dynamsoft Corporation
 * Author: Dynamsoft Support Team
-* Version: 13.4
+* Version: 14.2
 */
 
 /**
@@ -2889,12 +2889,12 @@ interface WebTwain {
      * @return {number}
      */
     GetImageYResolution(sImageIndex: number): number;
-
+	
     /**
      * Return the runtime license info.
      * @method WebTwain#GetLicenseInfo
      */
-    GetLicenseInfo(): { Domain: string, Detail: LicenseDetailItem[] };
+    GetLicenseInfo(optionalAsyncSuccessFunc?: (result: any) => void, optionalAsyncFailureFunc?: (errorCode: number, errorString: string) => void): boolean;
 
     /**
      * Returns the index of the selected image.

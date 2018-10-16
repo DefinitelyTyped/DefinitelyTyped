@@ -113,7 +113,7 @@ function test_doc_from_triples_to_string() {
 }
 
 function test_doc_from_triples_to_rdf_stream() {
-    const writer: N3.N3Writer = new N3.Writer(process.stdout, { prefixes: { c: N3.DataFactory.namedNode('http://example.org/cartoons#') } });
+    const writer: N3.N3Writer = new N3.Writer(process.stdout, { end: false, prefixes: { c: N3.DataFactory.namedNode('http://example.org/cartoons#') } });
     writer.addQuad(N3.DataFactory.quad(
       N3.DataFactory.namedNode('http://example.org/cartoons#Tom'),
       N3.DataFactory.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),

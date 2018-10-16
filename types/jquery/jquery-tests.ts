@@ -8,13 +8,18 @@ function JQueryStatic() {
         $.ajaxSettings;
     }
 
+    function Animation() {
+        // $ExpectType AnimationStatic
+        $.Animation;
+    }
+
     function Callbacks() {
         // $ExpectType CallbacksStatic
         $.Callbacks;
     }
 
     function cssHooks() {
-        // $ExpectType PlainObject<CSSHook<HTMLElement>>
+        // $ExpectType CSSHooks
         $.cssHooks;
     }
 
@@ -68,8 +73,18 @@ function JQueryStatic() {
         $.support;
     }
 
+    function timers() {
+        // $ExpectType TickFunction<any>[]
+        $.timers;
+    }
+
+    function Tween() {
+        // $ExpectType TweenStatic
+        $.Tween;
+    }
+
     function valHooks() {
-        // $ExpectType PlainObject<ValHook<HTMLElement>>
+        // $ExpectType ValHooks
         $.valHooks;
     }
 
@@ -1791,6 +1806,10 @@ function JQueryStatic() {
             }
         });
 
+        // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+        // $ExpectError
+        $.speed(false);
+
         // $ExpectType EffectsOptions<HTMLElement>
         $.speed();
     }
@@ -2598,10 +2617,25 @@ function JQuery() {
 
         function outerHeight() {
             // $ExpectType JQuery<HTMLElement>
+            $('p').outerHeight({} as string | number, true);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').outerHeight('200px');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').outerHeight(400);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').outerHeight(function(index, height) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                height;
+
+                return '200px';
+            }, false);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').outerHeight(function(index, height) {
@@ -2706,10 +2740,25 @@ function JQuery() {
 
         function outerWidth() {
             // $ExpectType JQuery<HTMLElement>
+            $('p').outerWidth({} as string | number, true);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').outerWidth('200px');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').outerWidth(400);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').outerWidth(function(index, width) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                width;
+
+                return '200px';
+            }, false);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').outerWidth(function(index, width) {
@@ -7070,6 +7119,51 @@ function JQuery_Callbacks() {
     }
 }
 
+function JQuery_CSSHooks() {
+    $.cssHooks.borderRadius = {
+        get(elem, computed, extra) {
+            // $ExpectedType HTMLElement
+            elem;
+            // $ExpectedType any
+            computed;
+            // $ExpectedType any
+            extra;
+        },
+        set(elem, value) {
+            // $ExpectedType HTMLElement
+            elem;
+            // $ExpectedType any
+            value;
+        }
+    };
+
+    $.cssHooks.borderRadius = {
+        get(elem, computed, extra) {
+            // $ExpectedType HTMLElement
+            elem;
+            // $ExpectedType any
+            computed;
+            // $ExpectedType any
+            extra;
+        }
+    };
+
+    $.cssHooks.borderRadius = {
+        set(elem, value) {
+            // $ExpectedType HTMLElement
+            elem;
+            // $ExpectedType any
+            value;
+        }
+    };
+
+    // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+    // $ExpectError
+    $.cssHooks.borderRadius = function get(elem: HTMLElement, computed: any, extra: any) {
+        return 1;
+    };
+}
+
 function JQuery_Promise3() {
     interface I1 { kind: 'I1'; }
     interface I2 { kind: 'I2'; }
@@ -7824,6 +7918,197 @@ function JQuery_Deferred() {
     }
 }
 
+function JQuery_EffectsOptions() {
+    $('p').show({
+        always(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        complete() {
+            // $ExpectType HTMLElement
+            this;
+        },
+        done(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        duration: 5000,
+        easing: 'linear',
+        fail(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        progress(animation, progress, remainingMs) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+            // $ExpectType number
+            progress;
+            // $ExpectType number
+            remainingMs;
+        },
+        queue: true,
+        specialEasing: {
+            width: 'linear',
+            height: 'easeOutBounce'
+        },
+        start(animation) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+        },
+        step(now, tween) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType number
+            now;
+            // $ExpectType Tween<HTMLElement>
+            tween;
+        }
+    });
+}
+
+function JQuery_AnimationStatic() {
+    function call_signature() {
+        // $ExpectType Animation<HTMLElement>
+        $.Animation({} as HTMLElement, {}, {});
+    }
+
+    function prefilter() {
+        // https://github.com/jquery/api.jquery.com/issues/256 -> http://jsfiddle.net/y4L35/
+        {
+            // $ExpectType void
+            $.Animation.prefilter(function(element: HTMLElement, properties, options) {
+                // $ExpectType Animation<HTMLElement>
+                this;
+                // $ExpectType HTMLElement
+                element;
+                // $ExpectType PlainObject<any>
+                properties;
+                // $ExpectType EffectsOptions<HTMLElement>
+                options;
+                // $ExpectType any
+                options.removeAfter;
+
+                if (options.removeAfter) {
+                    this.done(() => {
+                        $(element).remove();
+                    });
+                }
+            });
+
+            $("#element").hide({
+                duration: 500,
+                removeAfter: true,
+                complete() {
+                    // 0, because the prefilter done happens first!
+                    console.log($(this).parent().length);
+                }
+            });
+        }
+    }
+
+    function tweener() {
+        // $ExpectType void
+        $.Animation.tweener('*', function(propName, finalValue) {
+            // $ExpectType Animation<any>
+            this;
+            // $ExpectType string
+            propName;
+            // $ExpectType number
+            finalValue;
+
+            return this.createTween(propName, finalValue);
+        });
+    }
+}
+
+function JQuery_Animation() {
+    const animation = $.Animation({} as Element, {}, {});
+
+    animation.done((anim, jumpedToEnd) => {
+        // $ExpectType Animation<Element>
+        anim;
+        // $ExpectType true | undefined
+        jumpedToEnd;
+    });
+
+    animation.fail((anim, jumpedToEnd) => {
+        // $ExpectType Animation<Element>
+        anim;
+        // $ExpectType false
+        jumpedToEnd;
+    });
+
+    animation.always((anim, jumpedToEnd) => {
+        // $ExpectType Animation<Element>
+        anim;
+        // $ExpectType boolean | undefined
+        jumpedToEnd;
+    });
+
+    animation.progress((anim, progress, remainingMs) => {
+        // $ExpectType Animation<Element>
+        anim;
+        // $ExpectType number
+        progress;
+        // $ExpectType number
+        remainingMs;
+    });
+}
+
+function JQuery_TweenStatic() {
+    function propHooks() {
+        $.Tween.propHooks['myProp'] = {
+            get(tween) {
+                // $ExpectType Tween<Node>
+                tween;
+
+                return tween.elem[tween.prop as keyof typeof tween.elem];
+            },
+            set(tween) {
+                // $ExpectType Tween<Node>
+                tween;
+            },
+        };
+
+        // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+        // $ExpectError
+        $.Tween.propHooks['myProp'] = 1;
+    }
+
+    function call_signature() {
+        // $ExpectType Tween<HTMLElement>
+        $.Tween({} as HTMLElement, {}, 'myProp', 1, 'myEasing', 'myUnit');
+
+        // $ExpectType Tween<HTMLElement>
+        $.Tween({} as HTMLElement, {}, 'myProp', 1, 'myEasing');
+
+        // $ExpectType Tween<HTMLElement>
+        $.Tween({} as HTMLElement, {}, 'myProp', 1);
+    }
+}
+
+function JQuery_Easings() {
+    jQuery.easing.easeInCubic = (p) => {
+        return Math.pow(p, 3);
+    };
+}
+
 function JQuery_Effects() {
     function interval() {
         // $ExpectType number
@@ -7839,76 +8124,39 @@ function JQuery_Effects() {
         // $ExpectType PlainObject<AnimationHook<Node>>
         $.fx.step;
     }
-}
 
-function JQuery_EffectsOptions() {
-    $('p').show({
-        always(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        complete() {
-            // $ExpectType HTMLElement
-            this;
-        },
-        done(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        duration: 5000,
-        easing: 'linear',
-        fail(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        progress(animation, progress, remainingMs) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType number
-            progress;
-            // $ExpectType number
-            remainingMs;
-        },
-        queue: true,
-        specialEasing: {
-            width: 'linear',
-            height: 'easeOutBounce'
-        },
-        start(animation) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-        },
-        step(now, tween) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType number
-            now;
-            // $ExpectType Tween<HTMLElement>
-            tween;
+    function stop() {
+        // $ExpectType () => void
+        $.fx.stop;
+
+        function override() {
+            let animating: boolean;
+
+            jQuery.fx.stop = () => {
+                animating = false;
+            };
         }
-    });
-}
+    }
 
-function JQuery_Easings() {
-    jQuery.easing.easeInCubic = (p) => {
-        return Math.pow(p, 3);
-    };
+    function timer() {
+        // $ExpectType (tickFunction: TickFunction<any>) => void
+        $.fx.timer;
+
+        function override() {
+            let animating: boolean;
+            const raf: () => void = {} as any;
+
+            jQuery.fx.timer = (timer) => {
+                // $ExpectType TickFunction<any>
+                timer;
+
+                if (timer() && jQuery.timers.push(timer) && !animating) {
+                    animating = true;
+                    raf();
+                }
+            };
+        }
+    }
 }
 
 function JQuery_Event() {
@@ -7939,4 +8187,131 @@ function JQuery_Event() {
         event.ctrlKey = true;
         $(window).trigger(event);
     }
+}
+
+function JQuery_EventExtensions() {
+    function fixHooks() {
+        jQuery.event.fixHooks.drop = {
+            props: ['dataTransfer'],
+            filter(event, originalEvent) {
+                // $ExpectType Event<EventTarget, null>
+                event;
+                // $ExpectType Event
+                originalEvent;
+            },
+        };
+
+        // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+        // $ExpectError
+        jQuery.event.fixHooks.drop = ['dataTransfer'];
+    }
+
+    function special() {
+        jQuery.event.special.multiclick = {
+            noBubble: true,
+            bindType: 'click',
+            delegateType: 'click',
+            setup(data, namespaces, eventHandle) {
+                // $ExpectType EventTarget
+                this;
+                // $ExpectType any
+                data;
+                // $ExpectType string
+                namespaces;
+                // $ExpectType EventHandler<EventTarget, any>
+                eventHandle;
+
+                return false;
+            },
+            teardown() {
+                // $ExpectType EventTarget
+                this;
+
+                return false;
+            },
+            add(handleObj) {
+                // $ExpectType EventTarget
+                this;
+                // $ExpectType HandleObject<EventTarget, any>
+                handleObj;
+            },
+            remove(handleObj) {
+                // $ExpectType EventTarget
+                this;
+                // $ExpectType HandleObject<EventTarget, any>
+                handleObj;
+            },
+            trigger(event, data) {
+                // $ExpectType EventTarget
+                this;
+                // $ExpectType Event<EventTarget, any>
+                event;
+                // $ExpectType any
+                data;
+
+                return false;
+            },
+            _default(event, data) {
+                // $ExpectType Event<EventTarget, any>
+                event;
+                // $ExpectType any
+                data;
+
+                return false;
+            },
+            handle(event, data) {
+                // $ExpectType Event<EventTarget, any> & { handleObj: HandleObject<EventTarget, any>; }
+                event;
+                // $ExpectType any
+                data;
+            },
+            preDispatch(event) {
+                // $ExpectType EventTarget
+                this;
+                // $ExpectType Event<EventTarget, any>
+                event;
+
+                return false;
+            },
+            postDispatch(event) {
+                // $ExpectType EventTarget
+                this;
+                // $ExpectType Event<EventTarget, any>
+                event;
+            }
+        };
+
+        // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+        // $ExpectError
+        jQuery.event.special.multiclick = 1;
+    }
+}
+
+declare namespace JQuery {
+    interface ValHooks {
+        textarea: ValHook<HTMLTextAreaElement>;
+    }
+}
+
+function JQuery_ValHooks() {
+    jQuery.valHooks.textarea = {
+        get(elem) {
+            // $ExpectType HTMLTextAreaElement
+            elem;
+
+            return elem.value.replace(/\r?\n/g, "\r\n");
+        },
+        set(elem) {
+            // $ExpectType HTMLTextAreaElement
+            elem;
+
+            return elem.value;
+        }
+    };
+
+    // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+    // $ExpectError
+    jQuery.valHooks.textarea = function get(elem: HTMLTextAreaElement) {
+        return elem.value.replace(/\r?\n/g, "\r\n");
+    };
 }
