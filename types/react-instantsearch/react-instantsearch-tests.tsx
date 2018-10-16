@@ -1,8 +1,8 @@
 import * as React from "react";
 import { InstantSearch, Hits, Highlight, SearchBox, RefinementList, CurrentRefinements, ClearRefinements, Pagination, Menu, Configure, createConnector, Index } from 'react-instantsearch/dom';
 import { Hit, SearchState } from 'react-instantsearch/types';
-import { connectHighlight, connectSearchBox, connectMenu, connectRefinementList, connectStateResults } from "react-instantsearch/connectors";
-import { orderBy, omit } from 'lodash';
+import { connectHighlight, connectSearchBox, connectMenu, connectRefinementList, connectStateResults, SearchBoxProvided } from "react-instantsearch/connectors";
+import { orderBy, omit, values } from 'lodash';
 
 // DOM
 // https://community.algolia.com/react-instantsearch/Getting_started.html
@@ -92,40 +92,41 @@ import { orderBy, omit } from 'lodash';
   }
 };
 
-() => {
-  const CustomHighlight = connectHighlight(
-    ({ highlight, attribute, hit, highlightProperty }) => {
-      const parsedHit = highlight({
-        attribute,
-        hit,
-        highlightProperty: '_highlightResult'
-      });
-      const highlightedHits = parsedHit.map(part => {
-        if (part.isHighlighted) return <mark>{part.value}</mark>;
-        return part.value;
-      });
-      return <div>{highlightedHits}</div>;
-    }
-  );
+// TODO
+// () => {
+//   const CustomHighlight = connectHighlight(
+//     ({ highlight, attribute, hit, highlightProperty }) => {
+//       const parsedHit = highlight({
+//         attribute,
+//         hit,
+//         highlightProperty: '_highlightResult'
+//       });
+//       const highlightedHits = parsedHit.map(part => {
+//         if (part.isHighlighted) return <mark>{part.value}</mark>;
+//         return part.value;
+//       });
+//       return <div>{highlightedHits}</div>;
+//     }
+//   );
 
-  const Hit = ({ hit }: { hit: Hit }) => (
-    <p>
-      <CustomHighlight attribute="description" hit={hit} />
-    </p>
-  );
+//   const Hit = ({ hit }: { hit: Hit }) => (
+//     <p>
+//       <CustomHighlight attribute="description" hit={hit} />
+//     </p>
+//   );
 
-  function App() {
-    return (
-      <InstantSearch
-        appId="latency"
-        apiKey="6be0576ff61c053d5f9a3225e2a90f76"
-        indexName="instant_search"
-      >
-        <Hits hitComponent={Hit} />
-      </InstantSearch>
-    );
-  }
-};
+//   function App() {
+//     return (
+//       <InstantSearch
+//         appId="latency"
+//         apiKey="6be0576ff61c053d5f9a3225e2a90f76"
+//         indexName="instant_search"
+//       >
+//         <Hits hitComponent={Hit} />
+//       </InstantSearch>
+//     );
+//   }
+// };
 
 // https://community.algolia.com/react-instantsearch/guide/i18n.html
 () => {
@@ -144,27 +145,28 @@ import { orderBy, omit } from 'lodash';
 };
 
 // https://community.algolia.com/react-instantsearch/guide/Sorting_and_filtering.html
-() => {
-  const App = () => (
-    <InstantSearch
-      appId="..."
-      apiKey="..."
-      indexName="..."
-    >
-      <SearchBox defaultRefinement="hi" />
-      <RefinementList
-        attribute="category"
-        transformItems={items =>
-          orderBy(items, ['label', 'count'], ['asc', 'desc'])
-        }
-      />
-    </InstantSearch>
-  );
-};
+// TODO
+// () => {
+//   const App = () => (
+//     <InstantSearch
+//       appId="..."
+//       apiKey="..."
+//       indexName="..."
+//     >
+//       <SearchBox defaultRefinement="hi" />
+//       <RefinementList
+//         attribute="category"
+//         transformItems={items =>
+//           orderBy(items, ['label', 'count'], ['asc', 'desc'])
+//         }
+//       />
+//     </InstantSearch>
+//   );
+// };
 
 // https://community.algolia.com/react-instantsearch/guide/Connectors.html
 () => {
-  const MySearchBox = ({currentRefinement, refine}) =>
+  const MySearchBox = ({currentRefinement, refine}: SearchBoxProvided) =>
     <input
       type="text"
       value={currentRefinement}
@@ -191,28 +193,29 @@ import { orderBy, omit } from 'lodash';
   );
 };
 
-() => {
-  const VirtualMenu = connectMenu(() => null);
+// TODO
+// () => {
+//   const VirtualMenu = connectMenu(() => null);
 
-  const App = () => (
-    <InstantSearch
-      appId="..."
-      apiKey="..."
-      indexName="..."
-    >
-      <div>
-        <CurrentRefinements
-          transformItems={items =>
-            items.filter(item => item.currentRefinement !== 'Orange')
-          }
-        />
-        <SearchBox/>
-        <VirtualMenu attribute="fruits" defaultRefinement="Orange" />
-        <Menu attribute="origin" defaultRefinement="Spain" />
-      </div>
-    </InstantSearch>
-  );
-};
+//   const App = () => (
+//     <InstantSearch
+//       appId="..."
+//       apiKey="..."
+//       indexName="..."
+//     >
+//       <div>
+//         <CurrentRefinements
+//           transformItems={items =>
+//             items.filter(item => item.currentRefinement !== 'Orange')
+//           }
+//         />
+//         <SearchBox/>
+//         <VirtualMenu attribute="fruits" defaultRefinement="Orange" />
+//         <Menu attribute="origin" defaultRefinement="Spain" />
+//       </div>
+//     </InstantSearch>
+//   );
+// };
 
 // https://community.algolia.com/react-instantsearch/guide/Searching_in_Lists.html
 
@@ -327,157 +330,162 @@ import { orderBy, omit } from 'lodash';
 };
 
 // https://community.algolia.com/react-instantsearch/guide/Custom_connectors.html
-() => {
-  const CoolWidget = createConnector({
-    displayName: 'CoolWidget',
+// TODO
+// () => {
+//   const CoolWidget = createConnector({
+//     displayName: 'CoolWidget',
 
-    getProvidedProps(props, searchState) {
-      // Since the `queryAndPage` searchState entry isn't necessarily defined, we need
-      // to default its value.
-      const [query, page] = searchState.queryAndPage || ['', 0];
+//     getProvidedProps(props, searchState) {
+//       // Since the `queryAndPage` searchState entry isn't necessarily defined, we need
+//       // to default its value.
+//       const [query, page] = searchState.queryAndPage || ['', 0];
 
-      // Connect the underlying component to the `queryAndPage` searchState entry.
-      return {
-        query,
-        page,
-      };
-    },
+//       // Connect the underlying component to the `queryAndPage` searchState entry.
+//       return {
+//         query,
+//         page,
+//       };
+//     },
 
-    refine(props, searchState, newQuery, newPage) {
-      // When the underlying component calls its `refine` prop, update the searchState
-      // with the new query and page.
-      return {
-        // `searchState` represents the search state of *all* widgets. We need to extend it
-        // instead of replacing it, otherwise other widgets will lose their
-        // respective state.
-        ...searchState,
-        queryAndPage: [newQuery, newPage],
-      };
-    },
-  })(props =>
-    <div>
-      The query is {props.query}, the page is {props.page}.
-      {/*
-        Clicking on this button will update the searchState to:
-        {
-          ...otherSearchState,
-          query: 'algolia',
-          page: 20,
-        }
-      */}
-      <button onClick={() => props.refine('algolia', 20)} />
-      {/*
-        Clicking on this button will update the searchState to:
-        {
-          ...otherSearchState,
-          query: 'instantsearch',
-          page: 15,
-        }
-      */}
-      <button onClick={() => props.refine('instantsearch', 15)} />
-    </div>
-  );
-};
+//     refine(props, searchState, newQuery, newPage) {
+//       // When the underlying component calls its `refine` prop, update the searchState
+//       // with the new query and page.
+//       return {
+//         // `searchState` represents the search state of *all* widgets. We need to extend it
+//         // instead of replacing it, otherwise other widgets will lose their
+//         // respective state.
+//         ...searchState,
+//         queryAndPage: [newQuery, newPage],
+//       };
+//     },
+//   })(props =>
+//     <div>
+//       The query is {props.query}, the page is {props.page}.
+//       {/*
+//         Clicking on this button will update the searchState to:
+//         {
+//           ...otherSearchState,
+//           query: 'algolia',
+//           page: 20,
+//         }
+//       */}
+//       <button onClick={() => props.refine('algolia', 20)} />
+//       {/*
+//         Clicking on this button will update the searchState to:
+//         {
+//           ...otherSearchState,
+//           query: 'instantsearch',
+//           page: 15,
+//         }
+//       */}
+//       <button onClick={() => props.refine('instantsearch', 15)} />
+//     </div>
+//   );
+// };
 
-() => {
-  const Widget = () => null;
+// TODO
+// () => {
+//   const Widget = () => null;
 
-  const CoolWidget = createConnector({
-    // displayName, getProvidedProps, refine
+//   const CoolWidget = createConnector({
+//     // displayName, getProvidedProps, refine
 
-    getSearchParameters(searchParameters, props, searchState) {
-      // Since the `queryAndPage` state entry isn't necessarily defined, we need
-      // to default its value.
-      const [query, page] = searchState.queryAndPage || ['', 0];
+//     getSearchParameters(searchParameters, props, searchState) {
+//       // Since the `queryAndPage` state entry isn't necessarily defined, we need
+//       // to default its value.
+//       const [query, page] = searchState.queryAndPage || ['', 0];
 
-      // When the `queryAndPage` state entry changes, update the query and page of
-      // search.
-      return searchParameters
-        .setQuery(query)
-        .setPage(page);
-    },
-  })(Widget);
-};
+//       // When the `queryAndPage` state entry changes, update the query and page of
+//       // search.
+//       return searchParameters
+//         .setQuery(query)
+//         .setPage(page);
+//     },
+//   })(Widget);
+// };
 
-() => {
-  const Widget = () => null;
+// TODO
+// () => {
+//   const Widget = () => null;
 
-  const CoolWidget = createConnector({
-    // displayName, getProvidedProps, refine, getSearchParameters
+//   const CoolWidget = createConnector({
+//     // displayName, getProvidedProps, refine, getSearchParameters
 
-    getMetadata(props, searchState) {
-      // Since the `queryAndPage` searchState entry isn't necessarily defined, we need
-      // to default its value.
-      const [query, page] = searchState.queryAndPage || ['', 0];
+//     getMetadata(props, searchState) {
+//       // Since the `queryAndPage` searchState entry isn't necessarily defined, we need
+//       // to default its value.
+//       const [query, page] = searchState.queryAndPage || ['', 0];
 
-      const filters = [];
-      if (query !== '') {
-        filters.push({
-          // Unique identifier for this filter.
-          key: `queryAndPage.query`,
-          // String label (or node) that should appear in the CurrentRefinements
-          // component.
-          label: `Query: ${query}`,
-          // Describes how clearing this filter affects the InstantSearch searchState.
-          // In our case, clearing the query just resets it to an empty string
-          // without affecting the page.
-          clear: nextSearchState => {
-            return {
-              ...nextSearchState,
-              // Do not depend on the current `searchState` here. Since filters can be
-              // cleared in batches, the `searchState` parameter is not up-to-date when
-              // this method is called.
-              queryAndPage: ['', nextSearchState.queryAndPage[1]],
-            };
-          },
-        });
-      }
+//       const filters = [];
+//       if (query !== '') {
+//         filters.push({
+//           // Unique identifier for this filter.
+//           key: `queryAndPage.query`,
+//           // String label (or node) that should appear in the CurrentRefinements
+//           // component.
+//           label: `Query: ${query}`,
+//           // Describes how clearing this filter affects the InstantSearch searchState.
+//           // In our case, clearing the query just resets it to an empty string
+//           // without affecting the page.
+//           clear: nextSearchState => {
+//             return {
+//               ...nextSearchState,
+//               // Do not depend on the current `searchState` here. Since filters can be
+//               // cleared in batches, the `searchState` parameter is not up-to-date when
+//               // this method is called.
+//               queryAndPage: ['', nextSearchState.queryAndPage[1]],
+//             };
+//           },
+//         });
+//       }
 
-      if (page !== 0) {
-        filters.push({
-          key: `queryAndPage.page`,
-          label: `Page: ${page}`,
-          clear: nextSearchState => {
-            return {
-              ...nextSearchState,
-              queryAndPage: [nextSearchState.queryAndPage[0], 0],
-            };
-          },
-        });
-      }
+//       if (page !== 0) {
+//         filters.push({
+//           key: `queryAndPage.page`,
+//           label: `Page: ${page}`,
+//           clear: nextSearchState => {
+//             return {
+//               ...nextSearchState,
+//               queryAndPage: [nextSearchState.queryAndPage[0], 0],
+//             };
+//           },
+//         });
+//       }
 
-      return {
-        // This widget manipulates the `queryAndPage` state entry.
-        id: 'queryAndPage',
-        filters,
-      };
-    },
-  })(Widget);
-};
+//       return {
+//         // This widget manipulates the `queryAndPage` state entry.
+//         id: 'queryAndPage',
+//         filters,
+//       };
+//     },
+//   })(Widget);
+// };
 
-() => {
-  const Widget = () => null;
+// TODO
+// () => {
+//   const Widget = () => null;
 
-  const CoolWidget = createConnector({
-    // displayName, getProvidedProps, refine, getSearchParameters, getMetadata
+//   const CoolWidget = createConnector({
+//     // displayName, getProvidedProps, refine, getSearchParameters, getMetadata
 
-    searchForFacetValues(props, searchState, nextRefinement) {
-      return {facetName: props.attribute, query: nextRefinement};
-    },
-  })(Widget);
-};
+//     searchForFacetValues(props, searchState, nextRefinement) {
+//       return {facetName: props.attribute, query: nextRefinement};
+//     },
+//   })(Widget);
+// };
 
-() => {
-  const Widget = () => null;
+// TODO
+// () => {
+//   const Widget = () => null;
 
-  const CoolWidget = createConnector({
-    // displayName, getProvidedProps, refine, getSearchParameters, getMetadata
+//   const CoolWidget = createConnector({
+//     // displayName, getProvidedProps, refine, getSearchParameters, getMetadata
 
-    cleanUp(props, searchState) {
-      return omit('queryAndPage', searchState)
-    },
-  })(Widget);
-};
+//     cleanUp(props, searchState) {
+//       return omit('queryAndPage', searchState);
+//     },
+//   })(Widget);
+// };
 
 // https://community.algolia.com/react-instantsearch/guide/Conditional_display.html
 () => {
@@ -561,7 +569,7 @@ import { orderBy, omit } from 'lodash';
   const IndexResults = connectStateResults(
     ({ searchState, searchResults, children }) =>
       searchResults && searchResults.nbHits !== 0 ? (
-        children
+        children as React.ReactElement<any>
       ) : (
         <div>
           No results has been found for {searchState.query} and index{' '}
@@ -573,7 +581,7 @@ import { orderBy, omit } from 'lodash';
   const AllResults = connectStateResults(({ allSearchResults, children }) => {
     const hasResults =
       allSearchResults &&
-      Object.values(allSearchResults).some(results => results.nbHits > 0);
+        values(allSearchResults).some(results => results.nbHits > 0);
 
     return !hasResults ? (
       <div>
@@ -583,7 +591,7 @@ import { orderBy, omit } from 'lodash';
         <Index indexName="third" />
       </div>
     ) : (
-      children
+      children as React.ReactElement<any>
     );
   });
 };

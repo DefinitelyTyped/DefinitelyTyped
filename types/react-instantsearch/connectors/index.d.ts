@@ -186,7 +186,7 @@ export interface StateResultsProvided<TDoc = BasicDoc> {
    */
   searchResults?: SearchResults<TDoc>;
   /** In case of multiple indices you can retrieve all the results */
-  allSearchResults?: SearchResults<TDoc>;
+  allSearchResults?: { [index: string]: SearchResults<TDoc> };
   /** If there is a search in progress. */
   searching?: boolean;
   /** Flag that indicates if React InstantSearch has detected that searches are stalled. */
@@ -202,4 +202,5 @@ export interface StateResultsProvided<TDoc = BasicDoc> {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectStateResults.html
  */
+export function connectStateResults(stateless: React.StatelessComponent<StateResultsProvided>): React.ComponentType;
 export function connectStateResults<TProps extends StateResultsProvided<TDoc>, TDoc>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, StateResultsProvided<TDoc>>;
