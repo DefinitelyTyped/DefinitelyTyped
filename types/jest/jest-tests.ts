@@ -907,6 +907,7 @@ const env = jasmine.getEnv();
 env.addReporter(undefined);
 env.clearReporters();
 env.hideDisabled();
+
 env.provideFallbackReporter(undefined);
 env.randomizeTests(false);
 env.seed(1);
