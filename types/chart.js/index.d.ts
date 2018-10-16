@@ -509,6 +509,24 @@ declare namespace Chart {
         stepSize?: number;
         suggestedMax?: number;
         suggestedMin?: number;
+        minor?: MinorTickOptions;
+        major?: MajorTickOptions;
+    }
+
+    interface MinorTickOptions {
+        callback?(value: any, index: any, values: any): string | number;
+        fontColor?: ChartColor;
+        fontFamily?: string;
+        fontSize?: number;
+        fontStyle?: string;
+    }
+
+    interface MajorTickOptions {
+        callback?(value: any, index: any, values: any): string | number;
+        fontColor?: ChartColor;
+        fontFamily?: string;
+        fontSize?: number;
+        fontStyle?: string;
     }
 
     interface AngleLineOptions {
