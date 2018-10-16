@@ -1,4 +1,2 @@
-import router from 'next-server/router';
-
 export * from 'next-server/router';
-export default router;
+export { default } from 'next-server/router';
