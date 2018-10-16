@@ -244,6 +244,7 @@ const ReactHTMLAttributes = () => (
                 I am button
             </Button>
             <Image
+                as="asdhehe"
                 src="source.unsplash.com/random/1024x768"
                 alt="randomm image"
                 onMouseOver={() => {}}
@@ -255,4 +256,14 @@ const ReactHTMLAttributes = () => (
             </Flex>
         </Box>
     </React.Fragment>
+)
+
+const AsProp = () => (
+    <Box as="div">
+        <Heading as="h2">Hello</Heading>
+        <Text as="p">Text rendered as paragraph</Text>
+        <Flex as="span">Flex as span</Flex>
+        <Box as={Flex}>Box as Flex</Box>
+        <Flex as="input">Flex as input</Flex>
+    </Box>
 )
