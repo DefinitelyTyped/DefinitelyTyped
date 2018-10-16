@@ -6,7 +6,7 @@
 //                 Tero Arvola <https://github.com/teroarvola>
 //                 Dennis George <https://github.com/dennispg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
+// TypeScript Version: 2.6
 
 /// <reference types="microsoft-ajax" />
 
@@ -55,7 +55,7 @@ declare namespace SP {
     }
     let SOD: SOD;
 
-    enum ListLevelPermissionMask {
+    const enum ListLevelPermissionMask {
         viewListItems, // : 1,
         insertListItems, // : 2,
         editListItems, // : 4,
@@ -415,7 +415,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
 declare function GetCurrentCtx(): ContextInfo;
 declare function SetFullScreenMode(fullscreen: boolean): void;
 declare namespace SP {
-    enum RequestExecutorErrors {
+    const enum RequestExecutorErrors {
         requestAbortedOrTimedout,
         unexpectedResponse,
         httpError,
@@ -822,18 +822,18 @@ declare class CalloutManager {
 }
 
 declare namespace SPClientTemplates {
-    enum FileSystemObjectType {
+    const enum FileSystemObjectType {
         Invalid,
         File,
         Folder,
         Web
     }
-    enum ChoiceFormatType {
+    const enum ChoiceFormatType {
         Dropdown,
         Radio
     }
 
-    enum ClientControlMode {
+    const enum ClientControlMode {
         Invalid,
         DisplayForm,
         EditForm,
@@ -841,24 +841,24 @@ declare namespace SPClientTemplates {
         View
     }
 
-    enum RichTextMode {
+    const enum RichTextMode {
         Compatible,
         FullHtml,
         HtmlAsXml,
         ThemeHtml
     }
-    enum UrlFormatType {
+    const enum UrlFormatType {
         Hyperlink,
         Image
     }
 
-    enum DateTimeDisplayFormat {
+    const enum DateTimeDisplayFormat {
         DateOnly,
         DateTime,
         TimeOnly
     }
 
-    enum DateTimeCalendarType {
+    const enum DateTimeCalendarType {
         None,
         Gregorian,
         Japan,
@@ -876,7 +876,7 @@ declare namespace SPClientTemplates {
         SakaEra,
         UmAlQura
     }
-    enum UserSelectionMode {
+    const enum UserSelectionMode {
         PeopleOnly,
         PeopleAndGroups
     }
@@ -1539,7 +1539,7 @@ declare namespace SPClientForms {
         }
     }
 
-    enum FormManagerEvents {
+    const enum FormManagerEvents {
         Event_OnControlValueChanged, // : 1,
         Event_OnControlInitializedCallback, // : 2,
         Event_OnControlFocusSetCallback, // : 3,
@@ -1599,7 +1599,7 @@ declare function SPFieldLookupMulti_Edit(ctx: SPClientTemplates.RenderContext_Fi
 declare function SPFieldAttachments_Default(ctx: SPClientTemplates.RenderContext_FieldInForm): string;
 
 declare namespace SPAnimation {
-    enum Attribute {
+    const enum Attribute {
         PositionX,
         PositionY,
         Height,
@@ -1607,7 +1607,7 @@ declare namespace SPAnimation {
         Opacity
     }
 
-    enum ID {
+    const enum ID {
         Basic_Show,
         Basic_SlowShow,
         Basic_Fade,
@@ -1702,7 +1702,7 @@ declare namespace SP {
         ToSerialized(): string;
     }
     /** Specifies permissions that are used to define user roles. Represents SPBasePermissions class. */
-    enum PermissionKind {
+    const enum PermissionKind {
         /** Has no permissions on the Web site. Not available through the user interface. */
         emptyMask,
         /** View items in lists, documents in document libraries, and view Web discussion comments. */
@@ -2161,7 +2161,7 @@ declare namespace SP {
     class ClientObjectCollectionPrototype extends SP.ClientObjectPrototype {
         retrieveItems(): SP.ClientObjectPrototype;
     }
-    enum ClientRequestStatus {
+    const enum ClientRequestStatus {
         active,
         inProgress,
         completedSuccess,
@@ -2419,7 +2419,7 @@ declare namespace SP {
         static parseObjectFromJsonString(json: string): any;
         static validateJson(text: string): boolean;
     }
-    enum DateTimeKind {
+    const enum DateTimeKind {
         unspecified,
         utc,
         local,
@@ -2441,7 +2441,7 @@ declare namespace SP {
         get_serverVersion(): string;
         static get_current(): SP.ClientContext;
     }
-    enum ULSTraceLevel {
+    const enum ULSTraceLevel {
         verbose,
     }
     /** Provides a Unified Logging Service (ULS) that monitors log messages. */
@@ -2466,7 +2466,7 @@ declare namespace SP {
         static changeRequestStatus(context: SP.ClientRuntimeContext, itemId: number, newStatus: number, convStr: string, permType: string, permissionLevel: number): void;
         static changeRequestStatusBulk(context: SP.ClientRuntimeContext, requestIds: number[], newStatus: number): void;
     }
-    enum AddFieldOptions {
+    const enum AddFieldOptions {
         defaultValue,
         addToDefaultContentType,
         addToNoContentType,
@@ -2527,7 +2527,7 @@ declare namespace SP {
         set_source(value: SP.AppInstanceErrorSource): void;
         get_sourceName(): string;
     }
-    enum AppInstanceErrorSource {
+    const enum AppInstanceErrorSource {
         common,
         appWeb,
         parentWeb,
@@ -2537,12 +2537,12 @@ declare namespace SP {
         eventCallouts,
         finalization,
     }
-    enum AppInstanceErrorType {
+    const enum AppInstanceErrorType {
         transient,
         configuration,
         app,
     }
-    enum AppInstanceStatus {
+    const enum AppInstanceStatus {
         invalidStatus,
         installing,
         canceling,
@@ -2567,7 +2567,7 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    enum AppLicenseType {
+    const enum AppLicenseType {
         perpetualMultiUser,
         perpetualAllUsers,
         trialMultiUser,
@@ -2604,7 +2604,7 @@ declare namespace SP {
         constructor();
     }
     /** Specifies the base type for a list. */
-    enum BaseType {
+    const enum BaseType {
         none,
         genericList,
         documentLibrary,
@@ -2613,11 +2613,11 @@ declare namespace SP {
         survey,
         issue,
     }
-    enum BrowserFileHandling {
+    const enum BrowserFileHandling {
         permissive,
         strict,
     }
-    enum CalendarType {
+    const enum CalendarType {
         none,
         gregorian,
         japan,
@@ -2801,7 +2801,7 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    enum ChangeType {
+    const enum ChangeType {
         noChange,
         add,
         update,
@@ -2836,17 +2836,17 @@ declare namespace SP {
     class ChangeWeb extends SP.Change {
         get_webId(): SP.Guid;
     }
-    enum CheckinType {
+    const enum CheckinType {
         minorCheckIn,
         majorCheckIn,
         overwriteCheckIn,
     }
-    enum CheckOutType {
+    const enum CheckOutType {
         online,
         offline,
         none,
     }
-    enum ChoiceFormatType {
+    const enum ChoiceFormatType {
         dropdown,
         radioButtons,
     }
@@ -2922,21 +2922,21 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    enum CustomizedPageStatus {
+    const enum CustomizedPageStatus {
         none,
         uncustomized,
         customized,
     }
-    enum DateTimeFieldFormatType {
+    const enum DateTimeFieldFormatType {
         dateOnly,
         dateTime,
     }
-    enum DateTimeFieldFriendlyFormatType {
+    const enum DateTimeFieldFriendlyFormatType {
         unspecified,
         disabled,
         relative,
     }
-    enum DraftVisibilityType {
+    const enum DraftVisibilityType {
         reader,
         author,
         approver,
@@ -2978,12 +2978,12 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    enum EventReceiverSynchronization {
+    const enum EventReceiverSynchronization {
         defaultSynchronization,
         synchronous,
         asynchronous,
     }
-    enum EventReceiverType {
+    const enum EventReceiverType {
         invalidReceiver,
         itemAdding,
         itemUpdating,
@@ -3071,7 +3071,7 @@ declare namespace SP {
         add(featureId: SP.Guid, force: boolean, featdefScope: SP.FeatureDefinitionScope): SP.Feature;
         remove(featureId: SP.Guid, force: boolean): void;
     }
-    enum FeatureDefinitionScope {
+    const enum FeatureDefinitionScope {
         none,
         farm,
         site,
@@ -3300,7 +3300,7 @@ declare namespace SP {
         get_maxLength(): number;
         set_maxLength(value: number): void;
     }
-    enum FieldType {
+    const enum FieldType {
         invalid,
         integer,
         text,
@@ -3359,7 +3359,7 @@ declare namespace SP {
         get_selectionMode(): SP.FieldUserSelectionMode;
         set_selectionMode(value: SP.FieldUserSelectionMode): void;
     }
-    enum FieldUserSelectionMode {
+    const enum FieldUserSelectionMode {
         peopleOnly,
         peopleAndGroups,
     }
@@ -3447,7 +3447,7 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    enum FileLevel {
+    const enum FileLevel {
         published,
         draft,
         checkout,
@@ -3465,7 +3465,7 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    enum FileSystemObjectType {
+    const enum FileSystemObjectType {
         invalid,
         file,
         folder,
@@ -3623,7 +3623,7 @@ declare namespace SP {
         breakRoleInheritance(copyRoleAssignments: boolean, clearSubscopes: boolean): void;
     }
     /** Represents display mode for a control or form */
-    enum ControlMode {
+    const enum ControlMode {
         invalid,
         displayMode,
         editMode,
@@ -3909,11 +3909,11 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    enum ListDataValidationFailureReason {
+    const enum ListDataValidationFailureReason {
         dataFailure,
         formulaError,
     }
-    enum ListDataValidationType {
+    const enum ListDataValidationType {
         userFormulaField,
         userFormulaItem,
         requiredField,
@@ -4034,7 +4034,7 @@ declare namespace SP {
         get_item(index: number): SP.ListTemplate;
         getByName(name: string): SP.ListTemplate;
     }
-    enum ListTemplateType {
+    const enum ListTemplateType {
         invalidType,
         noListTemplate,
         genericList,
@@ -4096,7 +4096,7 @@ declare namespace SP {
         healthReports,
         developerSiteDraftApps,
     }
-    enum MoveOperations {
+    const enum MoveOperations {
         none,
         overwrite,
         allowBrokenThickets,
@@ -4175,11 +4175,11 @@ declare namespace SP {
         get_sipAddress(): string;
         get_user(): SP.User;
     }
-    enum OpenWebOptions {
+    const enum OpenWebOptions {
         none,
         initNavigationCache,
     }
-    enum PageType {
+    const enum PageType {
         invalid,
         defaultView,
         normalView,
@@ -4218,7 +4218,7 @@ declare namespace SP {
         get_item(index: number): SP.PushNotificationSubscriber;
         getByStoreId(id: string): SP.PushNotificationSubscriber;
     }
-    enum QuickLaunchOptions {
+    const enum QuickLaunchOptions {
         off,
         on,
         defaultValue,
@@ -4244,12 +4244,12 @@ declare namespace SP {
         deleteAll(): void;
         restoreAll(): void;
     }
-    enum RecycleBinItemState {
+    const enum RecycleBinItemState {
         none,
         firstStageRecycleBin,
         secondStageRecycleBin,
     }
-    enum RecycleBinItemType {
+    const enum RecycleBinItemType {
         none,
         file,
         fileVersion,
@@ -4343,7 +4343,7 @@ declare namespace SP {
         static addSingleLinkFromUrl(context: SP.ClientRuntimeContext, SourceItemUrl: string, TargetListName: string, TargetItemID: number, TryAddReverseLink: boolean): void;
         static deleteSingleLink(context: SP.ClientRuntimeContext, SourceListName: string, SourceItemID: number, SourceWebUrl: string, TargetListName: string, TargetItemID: number, TargetWebUrl: string, TryDeleteReverseLink: boolean): void;
     }
-    enum RelationshipDeleteBehaviorType {
+    const enum RelationshipDeleteBehaviorType {
         none,
         cascade,
         restrict,
@@ -4416,7 +4416,7 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    enum RoleType {
+    const enum RoleType {
         none,
         guest,
         reader,
@@ -4490,7 +4490,7 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    enum TemplateFileType {
+    const enum TemplateFileType {
         standardPage,
         wikiPage,
         formPage,
@@ -4536,21 +4536,21 @@ declare namespace SP {
         writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
         constructor();
     }
-    enum UpgradeStatus {
+    const enum UpgradeStatus {
         none,
         inProgress,
         failed,
         completed,
     }
-    enum UpgradeType {
+    const enum UpgradeType {
         buildUpgrade,
         versionUpgrade,
     }
-    enum UrlFieldFormatType {
+    const enum UrlFieldFormatType {
         hyperlink,
         image,
     }
-    enum UrlZone {
+    const enum UrlZone {
         defaultZone,
         intranet,
         internet,
@@ -4642,14 +4642,14 @@ declare namespace SP {
         clear(): void;
         add(): SP.UserCustomAction;
     }
-    enum UserCustomActionRegistrationType {
+    const enum UserCustomActionRegistrationType {
         none,
         list,
         contentType,
         progId,
         fileType,
     }
-    enum UserCustomActionScope {
+    const enum UserCustomActionScope {
         unknown,
         site,
         web,
@@ -4765,13 +4765,13 @@ declare namespace SP {
         remove(strField: string): void;
         removeAll(): void;
     }
-    enum ViewScope {
+    const enum ViewScope {
         defaultValue,
         recursive,
         recursiveAll,
         filesOnly,
     }
-    enum ViewType {
+    const enum ViewType {
         none,
         html,
         grid,
@@ -5075,7 +5075,7 @@ declare namespace SP {
             static logAnalyticsAppEvent(context: SP.ClientRuntimeContext, appEventTypeId: SP.Guid, itemId: string): void;
             static logAnalyticsAppEvent2(context: SP.ClientRuntimeContext, appEventTypeId: SP.Guid, itemId: string, rollupScopeId: SP.Guid, siteId: SP.Guid, userId: string): void;
         }
-        enum EventTypeId {
+        const enum EventTypeId {
             none,
             first,
             view,
@@ -5100,7 +5100,7 @@ declare namespace SP {
             writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
             constructor();
         }
-        enum SiteHealthStatusType {
+        const enum SiteHealthStatusType {
             passed,
             failedWarning,
             failedError,
@@ -5342,7 +5342,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
             getQueryPropertyValue: (name: string, value: QueryPropertyValue) => void;
         }
 
-        enum QueryPropertyValueType {
+        const enum QueryPropertyValueType {
             none,
             stringType,
             int32TYpe,
@@ -5378,7 +5378,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
             clear(): void;
         }
 
-        enum ReorderingRuleMatchType {
+        const enum ReorderingRuleMatchType {
             resultContainsKeyword,
             titleContainsKeyword,
             titleMatchesKeyword,
@@ -5409,7 +5409,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
             clear(): void;
         }
 
-        enum SortDirection {
+        const enum SortDirection {
             ascending,
             descending,
             fqlFormula
@@ -5577,7 +5577,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
             get_type: () => string;
         }
 
-        enum MessageLevel {
+        const enum MessageLevel {
             information,
             warning,
             error
@@ -5603,7 +5603,7 @@ declare namespace Microsoft.SharePoint.Client.Search {
             constructor(context: SP.ClientContext, lowestCurrentLevelToUse: SearchObjectLevel);
         }
 
-        enum SearchObjectLevel {
+        const enum SearchObjectLevel {
             spWeb,
             spSite,
             spSiteSubscription,
@@ -5790,7 +5790,7 @@ declare namespace SP {
         }
 
         namespace Runtime {
-            enum EntityEventType {
+            const enum EntityEventType {
                 none,
                 itemAdded,
                 itemUpdated,
@@ -5854,7 +5854,7 @@ declare namespace SP {
             static isDocumentSharingEnabled(context: SP.ClientRuntimeContext, list: SP.List): SP.BooleanResult;
             static updateDocumentSharingInfo(context: SP.ClientRuntimeContext, resourceAddress: string, userRoleAssignments: SP.Sharing.UserRoleAssignment[], validateExistingPermissions: boolean, additiveMode: boolean, sendServerManagedNotification: boolean, customMessage: string, includeAnonymousLinksInNotification: boolean): SP.Sharing.UserSharingResult[];
         }
-        enum Role {
+        const enum Role {
             none,
             view,
             edit,
@@ -5886,14 +5886,14 @@ declare namespace SP {
 declare namespace SP {
     namespace Social {
         /** Identifies an actor as a user, document, site, or tag. */
-        enum SocialActorType {
+        const enum SocialActorType {
             user,
             document,
             site,
             tag
         }
         /** Specifies one or more actor types in a query to the server. */
-        enum SocialActorTypes {
+        const enum SocialActorTypes {
             none,
             users,
             documents,
@@ -5904,21 +5904,21 @@ declare namespace SP {
             all
         }
         /** Specifies whether the action is to navigate to the attachment or to perform some action dependent on the context in which the attachment is presented to the user. */
-        enum SocialAttachmentActionKind {
+        const enum SocialAttachmentActionKind {
             /** This value specifies that the action is to navigate to the attachment. */
             navigate,
             /** This value specifies that the action is dependent on the context that the attachment is displayed to the user. */
             adHocAction
         }
 
-        enum SocialAttachmentKind {
+        const enum SocialAttachmentKind {
             image,
             video,
             document
         }
 
         /** Specifies whether the item being inserted is a user, document, site, tag, or link. */
-        enum SocialDataItemType {
+        const enum SocialDataItemType {
             user,
             document,
             site,
@@ -5927,19 +5927,19 @@ declare namespace SP {
         }
 
         /** Specifies whether the overlay is a link or one or more actors. */
-        enum SocialDataOverlayType {
+        const enum SocialDataOverlayType {
             link,
             actors
         }
 
         /** Specifies whether the sort order is by creation time or modification time. */
-        enum SocialFeedSortOrder {
+        const enum SocialFeedSortOrder {
             byModifiedTime,
             byCreatedTime
         }
 
         /** Identifies the kind of post to be retrieved.  */
-        enum SocialFeedType {
+        const enum SocialFeedType {
             personal,
             news,
             timeline,
@@ -5957,13 +5957,13 @@ declare namespace SP {
 
         /** Provides information about the feed.
             This type provides information about whether the feed on the server contains additional threads that were not returned. */
-        enum SocialFeedAttributes {
+        const enum SocialFeedAttributes {
             none,
             moreThreadsAvailable
         }
 
         /** Specifies attributes of the post, such as whether the current user can like or delete the post. */
-        enum SocialPostAttributes {
+        const enum SocialPostAttributes {
             none,
             canLike,
             canDelete,
@@ -5974,7 +5974,7 @@ declare namespace SP {
 
         /** Defines the type of item being specified in the SocialPostDefinitionDataItem.
             This type is only available in server-to-server calls. */
-        enum SocialPostDefinitionDataItemType {
+        const enum SocialPostDefinitionDataItemType {
             text,
             user,
             document,
@@ -5983,13 +5983,13 @@ declare namespace SP {
             link
         }
 
-        enum SocialPostType {
+        const enum SocialPostType {
             root,
             reply
         }
 
         /** Specifies a status or error code. */
-        enum SocialStatusCode {
+        const enum SocialStatusCode {
             OK,
             /** This value specifies that an invalid request was encountered. */
             invalidRequest,
@@ -6020,7 +6020,7 @@ declare namespace SP {
         }
 
         /** Specifies properties of the thread. */
-        enum SocialThreadAttributes {
+        const enum SocialThreadAttributes {
             none,
             isDigest,
             canReply,
@@ -6029,7 +6029,7 @@ declare namespace SP {
             replyLimitReached
         }
 
-        enum SocialThreadType {
+        const enum SocialThreadType {
             normal,
             likeReference,
             replyReference,
@@ -6525,12 +6525,12 @@ declare namespace SP {
 }
 declare namespace SP {
     namespace Taxonomy {
-        enum StringMatchOption {
+        const enum StringMatchOption {
             startsWith,
             exactMatch
         }
 
-        enum ChangeItemType {
+        const enum ChangeItemType {
             unknown,
             term,
             termSet,
@@ -6539,7 +6539,7 @@ declare namespace SP {
             site
         }
 
-        enum ChangeOperationType {
+        const enum ChangeOperationType {
             unknown,
             add,
             edit,
@@ -6993,7 +6993,7 @@ declare namespace SP {
                 removeEntity(ent: SP.UI.ApplicationPages.ResolveEntity): void;
                 setEntity(ent: SP.UI.ApplicationPages.ResolveEntity): void;
             }
-            enum SelectorType {
+            const enum SelectorType {
                 none,
                 resource,
                 people,
@@ -7035,7 +7035,7 @@ declare namespace SP {
                 newItemDialog(contentTypeId: string): void;
                 deleteItem(itemId: string): void;
             }
-            enum CalendarScope {
+            const enum CalendarScope {
                 nothing,
                 monthly,
                 weeklyGroup,
@@ -7185,7 +7185,7 @@ declare namespace SP {
         function $create_DialogOptions(): DialogOptions;
 
         /** Result of a modal dialog execution */
-        enum DialogResult {
+        const enum DialogResult {
             /** Do not use this */
             invalid,
             /** User closed dialog, cancelling the action */
@@ -7405,11 +7405,11 @@ declare namespace SP {
 }
 
 declare namespace SPNotifications {
-    enum ContainerID {
+    const enum ContainerID {
         Basic,
         Status,
     }
-    enum EventID {
+    const enum EventID {
         OnShow,
         OnHide,
         OnDisplayNotification,
@@ -7510,7 +7510,7 @@ declare namespace SP {
 declare namespace SP {
     namespace UserProfiles {
         /** Specifies types of changes made in the user profile store. */
-        enum ChangeTypes {
+        const enum ChangeTypes {
             /** No change was made */
             none,
             /** An object was added */
@@ -7536,7 +7536,7 @@ declare namespace SP {
         }
 
         /** Specifies types of user-related objects that can be changed in the user profile store. */
-        enum ObjectTypes {
+        const enum ObjectTypes {
             none,
             singleValueProperty,
             multiValueProperty,
@@ -7603,7 +7603,7 @@ declare namespace SP {
         }
 
         /** Specifies the capabilities of a personal site. */
-        enum PersonalSiteCapabilities {
+        const enum PersonalSiteCapabilities {
             none,
             profile,
             social,
@@ -7614,7 +7614,7 @@ declare namespace SP {
         }
 
         /** Specifies an exception or status code for the state of a personal site instantiation. */
-        enum PersonalSiteInstantiationState {
+        const enum PersonalSiteInstantiationState {
             uninitialized,
             enqueued,
             created,
@@ -7635,7 +7635,7 @@ declare namespace SP {
             errorSelfServiceSiteCreateCallFailed
         }
 
-        enum SocialDataStoreExceptionCode {
+        const enum SocialDataStoreExceptionCode {
             socialListNotFound,
             personalSiteNotFound,
             cannotCreatePersonalSite,
@@ -7853,14 +7853,14 @@ declare namespace SP {
             set_webId(value: SP.Guid): any;
         }
 
-        enum FollowedItemType {
+        const enum FollowedItemType {
             unknown,
             document,
             site,
             all
         }
 
-        enum FollowedContentExceptionType {
+        const enum FollowedContentExceptionType {
             itemAlreadyExists,
             itemDoesNotExist,
             invalidQueryString,
@@ -7872,7 +7872,7 @@ declare namespace SP {
             internalError
         }
 
-        enum FollowedContentQueryOptions {
+        const enum FollowedContentQueryOptions {
             unset,
             sites,
             documents,
@@ -7882,7 +7882,7 @@ declare namespace SP {
             all
         }
 
-        enum FollowedStatus {
+        const enum FollowedStatus {
             followed,
             notFollowed,
             notFollowable
@@ -7902,7 +7902,7 @@ declare namespace SP {
             get_resultType(): FollowResultType;
         }
 
-        enum FollowResultType {
+        const enum FollowResultType {
             /** Result is unknown */
             unknown,
             /** The request succeeded and the item is being followed. */
@@ -7963,7 +7963,7 @@ declare namespace SP {
             static formatDateTime(context: SP.ClientRuntimeContext, web: SP.Web, datetime: Date, format: SP.Utilities.DateTimeFormat): SP.StringResult;
             static isUserLicensedForEntityInContext(context: SP.ClientRuntimeContext, licensableEntity: string): SP.BooleanResult;
         }
-        enum DateTimeFormat {
+        const enum DateTimeFormat {
             dateTime,
             dateOnly,
             timeOnly,
@@ -7992,12 +7992,12 @@ declare namespace SP {
             writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
             constructor();
         }
-        enum IconSize {
+        const enum IconSize {
             size16,
             size32,
             size256,
         }
-        enum LogAppErrorResult {
+        const enum LogAppErrorResult {
             success,
             errorsThrottled,
             accessDenied,
@@ -8016,7 +8016,7 @@ declare namespace SP {
             writeToXml(writer: SP.XmlWriter, serializationContext: SP.SerializationContext): void;
             constructor();
         }
-        enum PrincipalSource {
+        const enum PrincipalSource {
             none,
             userInfoList,
             windows,
@@ -8024,7 +8024,7 @@ declare namespace SP {
             roleProvider,
             all,
         }
-        enum PrincipalType {
+        const enum PrincipalType {
             none,
             user,
             distributionList,
@@ -8032,7 +8032,7 @@ declare namespace SP {
             sharePointGroup,
             all,
         }
-        enum SPWOPIFrameAction {
+        const enum SPWOPIFrameAction {
             view,
             edit,
             mobileView,
@@ -8120,7 +8120,7 @@ declare namespace SP {
             addWebPart(webPart: SP.WebParts.WebPart, zoneId: string, zoneIndex: number): SP.WebParts.WebPartDefinition;
             importWebPart(webPartXml: string): SP.WebParts.WebPartDefinition;
         }
-        enum PersonalizationScope {
+        const enum PersonalizationScope {
             user,
             shared,
         }
@@ -8249,7 +8249,7 @@ declare namespace SP {
 }
 
 declare namespace SP.WorkflowServices {
-    enum WorkflowStatus {
+    const enum WorkflowStatus {
         notStarted,
         started,
         suspended,
@@ -8753,13 +8753,13 @@ declare namespace SP {
         }
 
         namespace Navigation {
-            enum NavigationLinkType {
+            const enum NavigationLinkType {
                 root,
                 friendlyUrl,
                 simpleLink
             }
 
-            enum StandardNavigationSource {
+            const enum StandardNavigationSource {
                 unknown,
                 portalProvider,
                 taxonomyProvider,
@@ -8957,7 +8957,7 @@ declare namespace SP {
 
 declare namespace SP {
     namespace CompliancePolicy {
-        enum SPContainerType {
+        const enum SPContainerType {
             site, // : 0,
             web, // : 1,
             list // : 2
@@ -9215,7 +9215,7 @@ declare namespace SP {
     }
 
     namespace Discovery {
-        enum ExportStatus {
+        const enum ExportStatus {
             notStarted, // : 0,
             started, // : 1,
             complete, // : 2,
@@ -9718,24 +9718,24 @@ declare namespace SPThemeUtils {
 
 declare namespace SP {
     namespace JsGrid {
-        enum TextDirection {
+        const enum TextDirection {
             Default, // 0,
             RightToLeft, // 1,
             LeftToRight // 2
         }
 
-        enum PaneId {
+        const enum PaneId {
             MainGrid, // 0,
             PivotedGrid, // 1,
             Gantt // 2
         }
 
-        enum PaneLayout {
+        const enum PaneLayout {
             GridOnly, // 0,
             GridAndGantt, // 1,
             GridAndPivotedGrid // 2
         }
-        enum EditMode {
+        const enum EditMode {
             ReadOnly, // 0,
             ReadWrite, // 1,
             ReadOnlyDefer, // 2,
@@ -9743,46 +9743,46 @@ declare namespace SP {
             Defer // 4
         }
 
-        enum GanttDrawBarFlags {
+        const enum GanttDrawBarFlags {
             LeftLink, // 0x01,
             RightLink // 0x02
         }
-        enum GanttBarDateType {
+        const enum GanttBarDateType {
             Start, // 0,
             End // 1
         }
 
-        enum ValidationState {
+        const enum ValidationState {
             Valid, // 0,
             Pending, // 1,
             Invalid // 2
         }
 
-        enum HierarchyMode {
+        const enum HierarchyMode {
             None, // 0,
             Standard, // 1,
             Grouping // 2
         }
 
-        enum EditActorWriteType {
+        const enum EditActorWriteType {
             Both, // 1,
             LocalizedOnly, // 2,
             DataOnly, // 3,
             Either // 4
         }
 
-        enum EditActorReadType {
+        const enum EditActorReadType {
             Both, // 1,
             LocalizedOnly, // 2,
             DataOnly // 3
         }
 
-        enum EditActorUpdateType {
+        const enum EditActorUpdateType {
             Committed, // 0,
             Uncommitted, // 1
         }
 
-        enum SortMode {
+        const enum SortMode {
             Ascending, // 1,
             Descending, // -1,
             None // 0
@@ -9799,7 +9799,7 @@ declare namespace SP {
             const NewRow: string; // 'NewRow'
         }
 
-        enum RowHeaderStatePriorities {
+        const enum RowHeaderStatePriorities {
             Dirty, // 10,
             Transfer, // 30,
             CellError, // 40,
@@ -9808,7 +9808,7 @@ declare namespace SP {
             NewRow // 90
         }
 
-        enum UpdateSerializeMode {
+        const enum UpdateSerializeMode {
             Cancel, // 0,
             Default, // 1,
             PropDataOnly, // 2,
@@ -9816,7 +9816,7 @@ declare namespace SP {
             PropBoth // 4
         }
 
-        enum UpdateTrackingMode {
+        const enum UpdateTrackingMode {
             PropData, // 2,
             PropLocalized, // 3,
             PropBoth // 4
@@ -9833,7 +9833,7 @@ declare namespace SP {
             const CutPaste: string; // 'Cut/Paste'
         }
 
-        enum ReadOnlyActiveState {
+        const enum ReadOnlyActiveState {
             ReadOnlyActive, // 0,
             ReadOnlyDisabled, // 1
         }
@@ -9843,7 +9843,7 @@ declare namespace SP {
             data?: any;
             localized?: string;
         }
-        enum SelectionTypeFlags {
+        const enum SelectionTypeFlags {
             MultipleCellRanges,
             MultipleRowRanges,
             MultipleColRanges
@@ -10122,7 +10122,7 @@ declare namespace SP {
             CompareTo(changeKey: IChangeKey): number;
         }
 
-        enum EventType {
+        const enum EventType {
             OnCellFocusChanged,
             OnRowFocusChanged,
             OnCellEditBegin,
@@ -10155,7 +10155,7 @@ declare namespace SP {
             OnBeginUndoDataUpdateChange
         }
 
-        enum DelegateType {
+        const enum DelegateType {
             ExpandColumnMenu,
             AddColumnMenuItems,
             Sort,
@@ -10190,7 +10190,7 @@ declare namespace SP {
             OnBeforeRecordReordered
         }
 
-        enum ClickContext {
+        const enum ClickContext {
             SelectAllSquare,
             RowHeader,
             ColumnHeader,
@@ -11135,7 +11135,7 @@ declare namespace SP {
 // ------- Srch namespace -------
 
 declare namespace Srch {
-    enum EventType {
+    const enum EventType {
         none,
         queryReady,
         queryIssuing,
@@ -11149,13 +11149,13 @@ declare namespace Srch {
         postLoad
     }
 
-    enum MessageLevel {
+    const enum MessageLevel {
         information,
         warning,
         error
     }
 
-    enum UserActionType {
+    const enum UserActionType {
         search,
         pageNext,
         pagePrev,
@@ -11164,7 +11164,7 @@ declare namespace Srch {
         filterLanguage
     }
 
-    enum DateTimeKind {
+    const enum DateTimeKind {
         unspecified,
         utc,
         local
@@ -11990,7 +11990,7 @@ declare namespace Srch {
             timeoutHandle: any;
         }
 
-        enum LoadScriptsProgress {
+        const enum LoadScriptsProgress {
             loading,
             success,
             failure
