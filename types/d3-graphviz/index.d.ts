@@ -373,7 +373,7 @@ export interface Graphviz<GElement extends BaseType, Datum, PElement extends Bas
      * transition into a subsequent new layout.
      * @param nodeId the ID of the node
      */
-    inserDrawnNode(nodeId: string): this;
+    insertDrawnNode(nodeId: string): this;
 
     /**
      * Removes the node currently drawn with {@link drawNode}. This method cannot
