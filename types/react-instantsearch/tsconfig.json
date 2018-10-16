@@ -15,5 +15,12 @@
     "noImplicitThis": true,
     "strictNullChecks": false,
     "strictFunctionTypes": true
-  }
+  },
+  "files": [
+      "index.d.ts",
+      "connectors/index.d.ts",
+      "dom/index.d.ts",
+      "types/index.d.ts",
+      "react-instantsearch-tests.tsx"
+  ]
 }
