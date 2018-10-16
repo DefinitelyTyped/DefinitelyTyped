@@ -1,4 +1,4 @@
-// Type definitions for react-widgets 4.1
+// Type definitions for react-widgets 4.2
 // Project: https://github.com/jquense/react-widgets
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Balázs Sándor <https://github.com/sanyatuning>
