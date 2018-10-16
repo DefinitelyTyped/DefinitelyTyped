@@ -1,4 +1,4 @@
-import { shuffle, unshuffle } from "shuffle-seed"
+import { shuffle, unshuffle } from "shuffle-seed";
 
 const originalArray = [1, "hello world", 132.81];
 const shuffled1 = shuffle(originalArray, "randomseed");
