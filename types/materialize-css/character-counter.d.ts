@@ -20,6 +20,7 @@ declare namespace M {
 }
 
 interface JQuery {
+    // tslint:disable-next-line:unified-signatures
     characterCounter(method: keyof Pick<M.CharacterCounter, "destroy">): JQuery;
     characterCounter(): JQuery;
 }

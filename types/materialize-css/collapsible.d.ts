@@ -78,6 +78,7 @@ declare namespace M {
 interface JQuery {
     collapsible(method: keyof Pick<M.Collapsible, "destroy">): JQuery;
     collapsible(method: keyof Pick<M.Collapsible, "open">, n: number): JQuery;
+    // tslint:disable-next-line:unified-signatures
     collapsible(method: keyof Pick<M.Collapsible, "close">, n: number): JQuery;
     collapsible(options?: Partial<M.CollapsibleOptions>): JQuery;
 }

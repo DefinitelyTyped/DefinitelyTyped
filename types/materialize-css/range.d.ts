@@ -21,5 +21,6 @@ declare namespace M {
 
 interface JQuery {
     range(): JQuery;
+    // tslint:disable-next-line:unified-signatures
     range(method: keyof Pick<M.Range, "destroy">): JQuery;
 }
