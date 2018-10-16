@@ -41,10 +41,14 @@ export interface Requireable<T> extends Validator<T | undefined | null> {
     isRequired: Validator<NonNullable<T>>;
 }
 
-export type ValidationMap<T> = { [K in keyof T]-?: Validator<T[K]> };
+export type ValidationMap<T> = Partial<{ [K in keyof T]-?: Validator<T[K]> }>;
+export type ShapeValidationMap<T> = { [K in keyof T]-?: Validator<T[K]> };
 
 export type InferType<V> = V extends Validator<infer T> ? T : any;
 export type InferProps<V> =
+    & InferPropsInner<Pick<Required<V>, RequiredKeys<Required<V>>>>
+    & Partial<InferPropsInner<Pick<Required<V>, OptionalKeys<Required<V>>>>>;
+export type InferShapeProps<V> =
     & InferPropsInner<Pick<V, RequiredKeys<V>>>
     & Partial<InferPropsInner<Pick<V, OptionalKeys<V>>>>;
 
@@ -63,8 +67,8 @@ export function oneOf<T>(types: T[]): Requireable<T>;
 export function oneOfType<T extends Validator<any>>(types: T[]): Requireable<NonNullable<InferType<T>>>;
 export function arrayOf<T>(type: Validator<T>): Requireable<T[]>;
 export function objectOf<T>(type: Validator<T>): Requireable<{ [K in keyof any]: T; }>;
-export function shape<P extends ValidationMap<any>>(type: P): Requireable<InferProps<P>>;
-export function exact<P extends ValidationMap<any>>(type: P): Requireable<Required<InferProps<P>>>;
+export function shape<P extends ShapeValidationMap<any>>(type: P): Requireable<InferShapeProps<P>>;
+export function exact<P extends ShapeValidationMap<any>>(type: P): Requireable<Required<InferShapeProps<P>>>;
 
 /**
  * Assert that the values match with the type specs.

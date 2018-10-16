@@ -190,6 +190,12 @@ class ModernComponentArrayRender extends React.Component<Props> {
 class ModernComponentNoState extends React.Component<Props> { }
 class ModernComponentNoPropsAndState extends React.Component { }
 
+class ModernComponentPropsAndPropTypesShape extends React.Component<Props> {
+    static propTypes = {
+        hello: PropTypes.string.isRequired,
+    };
+}
+
 interface SCProps {
     foo?: number;
 }

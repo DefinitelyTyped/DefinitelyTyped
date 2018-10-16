@@ -103,7 +103,6 @@ const classicComponent: React.ClassicComponent<Props> = ReactDOM.render(classicE
 const displayName: string | undefined = ClassicComponent.displayName;
 const defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : {} as Props;
 const propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propTypes;
-
 //
 // Component API
 // --------------------------------------------------------------------------
