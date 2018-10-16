@@ -1,4 +1,4 @@
-// Type definitions for critters-webpack-plugin
+// Type definitions for critters-webpack-plugin 1.3.0
 // Project: https://github.com/GoogleChromeLabs/critters
 // Definitions by: Juan José González Giraldo <https://github.com/JuanJoseGonGi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
