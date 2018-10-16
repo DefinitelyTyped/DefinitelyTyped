@@ -41,7 +41,7 @@ declare namespace meow {
             [id in keyof F]: F[id] extends GenericOption<infer T>
                 ? MapTypeToRealType<T>
                 : never
-        };
+        } & { [id: string]: any};
         pkg: any;
         help: string;
         showHelp(code?: number): void;
