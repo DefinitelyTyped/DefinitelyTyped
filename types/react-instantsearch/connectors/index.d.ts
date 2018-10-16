@@ -1,4 +1,4 @@
-import { AlgoliaError, BasicDoc, ConnectedComponentType, SearchResults, SearchState } from '../types';
+import { AlgoliaError, BasicDoc, ConnectedComponentType, SearchResults, SearchState, Hit } from '../types';
 
 export function connectConfigure(...args: any[]): any;
 
@@ -31,7 +31,7 @@ export interface GeoSearchProvided<THit> {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectGeoSearch.html
  */
-export function connectGeoSearch<TProps extends GeoSearchProvided<THit>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, GeoSearchProvided<THit>, IGeoSearchExposed>;
+export function connectGeoSearch<TProps extends GeoSearchProvided<THit>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, GeoSearchProvided<THit>, GeoSearchExposed>;
 export function connectCurrentRefinements(...args: any[]): any;
 export function connectHierarchicalMenu(...args: any[]): any;
 export function connectHighlight(...args: any[]): any;
@@ -121,7 +121,7 @@ export interface RefinementListProvided {
   /** the refinement currently applied */
   currentRefinement: string[];
   /** the list of items the RefinementList can display. */
-  items: Array<{ count: number, isRefined: boolean, label: string, value: string }>;
+  items: Array<Hit<{ count: number, isRefined: boolean, label: string, value: string }>>;
   /** a function to toggle a search inside items values */
   searchForItems: (...args: any[]) => any;
   /** a boolean that says if the items props contains facet values from the global search or from the search inside items. */
@@ -145,7 +145,7 @@ export interface RefinementListExposed {
    * which correspond to the values of all selected refinements. However, when there are no refinements selected,
    * the value of the searchState is an empty string.
    */
-  defaultRefinement: string[];
+  defaultRefinement?: string[];
   /** (...args: any[]) => any to modify the items being displayed, e.g. for filtering or sorting them. Takes an items as parameter and expects it back in return. */
   transformItems?: (...args: any[]) => any;
 }

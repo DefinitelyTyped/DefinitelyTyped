@@ -18,35 +18,35 @@ export type ConnectedComponentType<TProps, TProvidedProps, TExposedProps = {}>
  * https://community.algolia.com/react-instantsearch/guide/Search_state.html
  */
 export interface SearchState {
-  range: {
+  range?: {
     [key: string]: {
       min: number;
       max: number;
     }
   };
-  configure: {
+  configure?: {
     aroundLatLng: boolean;
     [key: string]: any;
   };
-  refinementList: {
+  refinementList?: {
     [key: string]: string[]
   };
-  hierarchicalMenu: {
+  hierarchicalMenu?: {
     [key: string]: string
   };
-  menu: {
+  menu?: {
     [key: string]: string
   };
-  multiRange: {
+  multiRange?: {
     [key: string]: string
   };
-  toggle: {
+  toggle?: {
     [key: string]: boolean
   };
-  hitsPerPage: number;
-  sortBy: string;
-  query: string;
-  page: number;
+  hitsPerPage?: number;
+  sortBy?: string;
+  query?: string;
+  page?: number;
 
   indices?: {
     [index: string]: {
@@ -91,7 +91,7 @@ export interface SearchResults<TDoc = BasicDoc> {
  * object keyed by attribute and contains additional properties
  * https://community.algolia.com/algoliasearch-helper-js/reference.html#SearchResults#hits
  */
-export type Hit<TDoc> = TDoc & {
+export type Hit<TDoc = BasicDoc> = TDoc & {
   objectID: string;
   '_highlightResult': HighlightResult<TDoc>;
 };

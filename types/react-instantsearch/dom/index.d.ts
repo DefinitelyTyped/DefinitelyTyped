@@ -37,7 +37,7 @@ export interface InstantSearchProps {
   onSearchParameters?: (...args: any[]) => any;
   resultsState?: any;
   root?: {
-    Root: string | (...args: any[]) => any;
+    Root: string | ((...args: any[]) => any);
     props: any;
   };
 }
@@ -55,7 +55,7 @@ export class HierarchicalMenu extends React.Component<any> {}
 export class Highlight extends React.Component<any> {}
 
 export interface HitsProps<T> {
-  hitComponent: React.ComponentType<{ hit: Hit<T> }>;
+  hitComponent?: React.ComponentType<{ hit: Hit<T> }>;
 }
 /**
  * Displays a list of hits.
