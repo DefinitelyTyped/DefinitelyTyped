@@ -6,7 +6,7 @@
 declare function nwmatcher(global: { document: Document }): nwmatcher.Matcher;
 
 declare namespace nwmatcher {
-    export interface Matcher {
+    interface Matcher {
         // DOM Selection
 
         first: (selector: string, context?: Element) => Element | null;
@@ -17,10 +17,11 @@ declare namespace nwmatcher {
 
         byId: (id: string, from?: Element) => Element | null;
         byTag: (tag: string, from?: Element) => Element[];
-        byClass: (class: string, from?: Element) => Element[];
+        byClass: (className: string, from?: Element) => Element[];
         byName: (name: string, from?: Element) => Element[];
         getAttribute: (element: Element, attribute: string) => string | undefined;
         hasAttribute: (element: Element, attribute: string) => boolean;
+    }
 }
 
 export = nwmatcher;

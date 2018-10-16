@@ -1,11 +1,11 @@
 import nwmatcher = require('nwmatcher');
 
-const matcher = nwmatcher({} as { document: Document });
-const element = {} as Element;
+const global: { document: Document } = { document: {} as any };
+const matcher = nwmatcher(global);
+const element: Element = {} as any;
 
 let resultElementOrNull: Element | null;
-let resultString: string;
-let resultUndefined: undefined;
+let resultStringOrUndefined: string | undefined;
 let resultElementArray: Element[];
 let resultBoolean: boolean;
 
@@ -35,7 +35,7 @@ resultElementArray = matcher.byClass('foo', element);
 resultElementArray = matcher.byName('foo');
 resultElementArray = matcher.byName('foo', element);
 
-resultString = matcher.getAttribute(element, 'foo');
-resultUndefined = matcher.getAttribute(element, 'foo');
+resultStringOrUndefined = matcher.getAttribute(element, 'foo');
+resultStringOrUndefined = matcher.getAttribute(element, 'foo');
 
 resultBoolean = matcher.hasAttribute(element, 'foo');
