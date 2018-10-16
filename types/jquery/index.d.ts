@@ -60,8 +60,7 @@ interface JQueryStatic {
      * @see \`{@link https://api.jquery.com/jQuery.cssHooks/ }\`
      * @since 1.4.3
      */
-    // Set to HTMLElement to minimize breaks but should probably be Element.
-    cssHooks: JQuery.PlainObject<JQuery.CSSHook<HTMLElement>>;
+    cssHooks: JQuery.CSSHooks;
     /**
      * An object containing all CSS properties that may be used without a unit. The .css() method uses this
      * object to see if it may append px to unitless values.
@@ -118,8 +117,7 @@ $.when(
     support: JQuery.PlainObject;
     timers: Array<JQuery.TickFunction<any>>;
     Tween: JQuery.TweenStatic;
-    // Set to HTMLElement to minimize breaks but should probably be Element.
-    valHooks: JQuery.PlainObject<JQuery.ValHook<HTMLElement>>;
+    valHooks: JQuery.ValHooks;
     // HACK: This is the factory function returned when importing jQuery without a DOM. Declaring it separately breaks using the type parameter on JQueryStatic.
     // HACK: The discriminator parameter handles the edge case of passing a Window object to JQueryStatic. It doesn't actually exist on the factory function.
     (window: Window, discriminator: boolean): JQueryStatic;
@@ -2021,7 +2019,8 @@ $.getScript( "myplugin.js", function() {
      *
      * @param html The HTML string on which to operate.
      * @see \`{@link https://api.jquery.com/jQuery.htmlPrefilter/ }\`
-     * @since 1.12/2.2
+     * @since 1.12
+     * @since 2.2
      */
     htmlPrefilter(html: JQuery.htmlString): JQuery.htmlString;
     /**
@@ -26376,14 +26375,6 @@ declare namespace JQuery {
          * A string containing the URL to which the request is sent.
          */
         url?: string;
-        /**
-         * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x,
-         * XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and
-         * settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend
-         * function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless
-         * of the type of request.
-         */
-        beforeSend?(this: TContext, jqXHR: jqXHR, settings: AjaxSettings<TContext>): false | void;
     }
 
     interface UrlAjaxSettings<TContext = any> extends Ajax.AjaxSettingsBase<TContext> {
@@ -26391,14 +26382,6 @@ declare namespace JQuery {
          * A string containing the URL to which the request is sent.
          */
         url: string;
-        /**
-         * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x,
-         * XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and
-         * settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend
-         * function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless
-         * of the type of request.
-         */
-        beforeSend?(this: TContext, jqXHR: jqXHR, settings: UrlAjaxSettings<TContext>): false | void;
     }
 
     namespace Ajax {
@@ -26443,7 +26426,7 @@ declare namespace JQuery {
              * function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless
              * of the type of request.
              */
-            beforeSend?(this: TContext, jqXHR: jqXHR, settings: AjaxSettingsBase<TContext>): false | void;
+            beforeSend?(this: TContext, jqXHR: jqXHR, settings: this): false | void;
             /**
              * If set to false, it will force requested pages not to be cached by the browser. Note: Setting cache
              * to false will only work correctly with HEAD and GET requests. It works by appending "_={timestamp}"
@@ -26672,6 +26655,9 @@ declare namespace JQuery {
              */
             xhrFields?: XHRFields;
         }
+
+        // region StatusCodeCallbacks
+        // #region StatusCodeCallbacks
 
         type StatusCodeCallbacks<TContext> = {
             // region Success Status Codes
@@ -27091,6 +27077,8 @@ declare namespace JQuery {
             // Status codes not listed require type annotations when defining the callback
             [index: number]: SuccessCallback<TContext> | ErrorCallback<TContext>;
         };
+
+        // #endregion
 
         // Writable properties on XMLHttpRequest
         interface XHRFields extends Partial<Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials'>> {
@@ -27575,12 +27563,24 @@ callbacks.fire( "world" );
 
     // #endregion
 
-    // region CSS
-    // #region CSS
+    // region CSS hooks
+    // #region CSS hooks
 
-    interface CSSHook<TElement> {
-        get(this: this, elem: TElement, computed: any, extra: any): any;
-        set(this: this, elem: TElement, value: any): void;
+    // Workaround for TypeScript 2.3 which does not have support for weak types handling.
+    type CSSHook<TElement> =
+        Partial<_CSSHook<TElement>> & (
+            Pick<_CSSHook<TElement>, 'get'> |
+            Pick<_CSSHook<TElement>, 'set'>
+        );
+
+    interface _CSSHook<TElement> {
+        get(elem: TElement, computed: any, extra: any): any;
+        set(elem: TElement, value: any): void;
+    }
+
+    interface CSSHooks {
+        // Set to HTMLElement to minimize breaks but should probably be Element.
+        [propertyName: string]: CSSHook<HTMLElement>;
     }
 
     // #endregion
@@ -31342,13 +31342,18 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
         special: SpecialEventHooks;
     }
 
-    interface FixHook {
+    // region Fix hooks
+    // #region Fix hooks
+
+    // Workaround for TypeScript 2.3 which does not have support for weak types handling.
+    type FixHook = {
         /**
          * Strings representing properties that should be copied from the browser's event object to the jQuery
          * event object. If omitted, no additional properties are copied beyond the standard ones that jQuery
          * copies and normalizes (e.g. `event.target` and `event.relatedTarget`).
          */
-        props?: string[];
+        props: string[];
+    } | {
         /**
          * jQuery calls this function after it constructs the `jQuery.Event` object, copies standard properties
          * from `jQuery.event.props`, and copies the `fixHooks`-specific props (if any) specified above. The
@@ -31399,8 +31404,10 @@ if ( !existingHook ) {
 }
 ```
          */
-        filter?(event: Event, originalEvent: _Event): void;
-    }
+        filter(event: Event, originalEvent: _Event): void;
+    } | {
+        [key: string]: never;
+    };
 
     /**
      * The `fixHooks` interface provides a per-event-type way to extend or normalize the event object that
@@ -31411,6 +31418,8 @@ if ( !existingHook ) {
     interface FixHooks {
         [event: string]: FixHook;
     }
+
+    // #endregion
 
     // region Special event hooks
     // #region Special event hooks
@@ -31428,7 +31437,8 @@ if ( !existingHook ) {
      *
      * @see \`{@link https://learn.jquery.com/events/event-extensions/#special-event-hooks }\`
      */
-    interface SpecialEventHook<TTarget, TData> {
+    // Workaround for TypeScript 2.3 which does not have support for weak types handling.
+    type SpecialEventHook<TTarget, TData> = {
         /**
          * Indicates whether this event type should be bubbled when the `.trigger()` method is called; by
          * default it is `false`, meaning that a triggered event will bubble to the element's parents up to the
@@ -31437,7 +31447,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#nobubble-boolean }\`
          */
-        noBubble?: boolean;
+        noBubble: boolean;
+    } | {
         /**
          * When defined, these string properties specify that a special event should be handled like another
          * event type until the event is delivered. The `bindType` is used if the event is attached directly,
@@ -31446,7 +31457,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
          */
-        bindType?: string;
+        bindType: string;
+    } | {
         /**
          * When defined, these string properties specify that a special event should be handled like another
          * event type until the event is delivered. The `bindType` is used if the event is attached directly,
@@ -31455,7 +31467,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
          */
-        delegateType?: string;
+        delegateType: string;
+    } | {
         /**
          * The setup hook is called the first time an event of a particular type is attached to an element;
          * this provides the hook an opportunity to do processing that will apply to all events of this type on
@@ -31474,7 +31487,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#setup-function-data-object-namespaces-eventhandle-function }\`
          */
-        setup?(this: TTarget, data: TData, namespaces: string, eventHandle: EventHandler<TTarget, TData>): void | false;
+        setup(this: TTarget, data: TData, namespaces: string, eventHandle: EventHandler<TTarget, TData>): void | false;
+    } | {
         /**
          * The teardown hook is called when the final event of a particular type is removed from an element.
          * The `this` keyword will be a reference to the element where the event is being cleaned up. This hook
@@ -31489,7 +31503,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#teardown-function }\`
          */
-        teardown?(this: TTarget): void | false;
+        teardown(this: TTarget): void | false;
+    } | {
         /**
          * Each time an event handler is added to an element through an API such as `.on()`, jQuery calls this
          * hook. The `this` keyword will be the element to which the event handler is being added, and the
@@ -31497,7 +31512,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#add-function-handleobj }\`
          */
-        add?(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
+        add(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
+    } | {
         /**
          * When an event handler is removed from an element using an API such as `.off()`, this hook is called.
          * The `this` keyword will be the element where the handler is being removed, and the `handleObj`
@@ -31505,7 +31521,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#remove-function-handleobj }\`
          */
-        remove?(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
+        remove(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
+    } | {
         /**
          * Called when the `.trigger()` or `.triggerHandler()` methods are used to trigger an event for the
          * special type from code, as opposed to events that originate from within the browser. The `this`
@@ -31524,7 +31541,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#trigger-function-event-jquery-event-data-object }\`
          */
-        trigger?(this: TTarget, event: Event<TTarget, TData>, data: TData): void | false;
+        trigger(this: TTarget, event: Event<TTarget, TData>, data: TData): void | false;
+    } | {
         /**
          * When the `.trigger()` method finishes running all the event handlers for an event, it also looks for
          * and runs any method on the target object by the same name unless of the handlers called `event.preventDefault()`.
@@ -31535,7 +31553,8 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#_default-function-event-jquery-event-data-object }\`
          */
-        _default?(event: Event<TTarget, TData>, data: TData): void | false;
+        _default(event: Event<TTarget, TData>, data: TData): void | false;
+    } | {
         /**
          * jQuery calls a handle hook when the event has occurred and jQuery would normally call the user's event
          * handler specified by `.on()` or another event binding method. If the hook exists, jQuery calls it
@@ -31555,8 +31574,14 @@ if ( !existingHook ) {
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#handle-function-event-jquery-event-data-object }\`
          */
-        handle?(this: TTarget, event: Event<TTarget, TData> & { handleObj: HandleObject<TTarget, TData>; }, ...data: TData[]): void;
-    }
+        handle(this: TTarget, event: Event<TTarget, TData> & { handleObj: HandleObject<TTarget, TData>; }, ...data: TData[]): void;
+    } | {
+        preDispatch(this: TTarget, event: Event<TTarget, TData>): false | void;
+    } | {
+        postDispatch(this: TTarget, event: Event<TTarget, TData>): void;
+    } | {
+        [key: string]: never;
+    };
 
     interface SpecialEventHooks {
         [event: string]: SpecialEventHook<EventTarget, any>;
@@ -31615,6 +31640,9 @@ if ( !existingHook ) {
         value: string;
     }
 
+    // region Coordinates
+    // #region Coordinates
+
     interface Coordinates {
         left: number;
         top: number;
@@ -31626,10 +31654,26 @@ if ( !existingHook ) {
         Pick<Coordinates, 'top'> |
         { [key: string]: never; };
 
-    interface ValHook<TElement> {
-        get?(elem: TElement): any;
-        set?(elem: TElement, value: any): any;
+    // #endregion
+
+    // region Val hooks
+    // #region Val hooks
+
+    // Workaround for TypeScript 2.3 which does not have support for weak types handling.
+    type ValHook<TElement> = {
+        get(elem: TElement): any;
+    } | {
+        set(elem: TElement, value: any): any;
+    } | {
+        [key: string]: never;
+    };
+
+    interface ValHooks {
+        // Set to HTMLElement to minimize breaks but should probably be Element.
+        [nodeName: string]: ValHook<HTMLElement>;
     }
+
+    // #endregion
 
     type _Falsy = false | null | undefined | 0 | '' | typeof document.all;
 }

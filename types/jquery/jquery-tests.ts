@@ -19,7 +19,7 @@ function JQueryStatic() {
     }
 
     function cssHooks() {
-        // $ExpectType PlainObject<CSSHook<HTMLElement>>
+        // $ExpectType CSSHooks
         $.cssHooks;
     }
 
@@ -84,7 +84,7 @@ function JQueryStatic() {
     }
 
     function valHooks() {
-        // $ExpectType PlainObject<ValHook<HTMLElement>>
+        // $ExpectType ValHooks
         $.valHooks;
     }
 
@@ -7119,6 +7119,51 @@ function JQuery_Callbacks() {
     }
 }
 
+function JQuery_CSSHooks() {
+    $.cssHooks.borderRadius = {
+        get(elem, computed, extra) {
+            // $ExpectedType HTMLElement
+            elem;
+            // $ExpectedType any
+            computed;
+            // $ExpectedType any
+            extra;
+        },
+        set(elem, value) {
+            // $ExpectedType HTMLElement
+            elem;
+            // $ExpectedType any
+            value;
+        }
+    };
+
+    $.cssHooks.borderRadius = {
+        get(elem, computed, extra) {
+            // $ExpectedType HTMLElement
+            elem;
+            // $ExpectedType any
+            computed;
+            // $ExpectedType any
+            extra;
+        }
+    };
+
+    $.cssHooks.borderRadius = {
+        set(elem, value) {
+            // $ExpectedType HTMLElement
+            elem;
+            // $ExpectedType any
+            value;
+        }
+    };
+
+    // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+    // $ExpectError
+    $.cssHooks.borderRadius = function get(elem: HTMLElement, computed: any, extra: any) {
+        return 1;
+    };
+}
+
 function JQuery_Promise3() {
     interface I1 { kind: 'I1'; }
     interface I2 { kind: 'I2'; }
@@ -8142,4 +8187,131 @@ function JQuery_Event() {
         event.ctrlKey = true;
         $(window).trigger(event);
     }
+}
+
+function JQuery_EventExtensions() {
+    function fixHooks() {
+        jQuery.event.fixHooks.drop = {
+            props: ['dataTransfer'],
+            filter(event, originalEvent) {
+                // $ExpectType Event<EventTarget, null>
+                event;
+                // $ExpectType Event
+                originalEvent;
+            },
+        };
+
+        // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+        // $ExpectError
+        jQuery.event.fixHooks.drop = ['dataTransfer'];
+    }
+
+    function special() {
+        jQuery.event.special.multiclick = {
+            noBubble: true,
+            bindType: 'click',
+            delegateType: 'click',
+            setup(data, namespaces, eventHandle) {
+                // $ExpectType EventTarget
+                this;
+                // $ExpectType any
+                data;
+                // $ExpectType string
+                namespaces;
+                // $ExpectType EventHandler<EventTarget, any>
+                eventHandle;
+
+                return false;
+            },
+            teardown() {
+                // $ExpectType EventTarget
+                this;
+
+                return false;
+            },
+            add(handleObj) {
+                // $ExpectType EventTarget
+                this;
+                // $ExpectType HandleObject<EventTarget, any>
+                handleObj;
+            },
+            remove(handleObj) {
+                // $ExpectType EventTarget
+                this;
+                // $ExpectType HandleObject<EventTarget, any>
+                handleObj;
+            },
+            trigger(event, data) {
+                // $ExpectType EventTarget
+                this;
+                // $ExpectType Event<EventTarget, any>
+                event;
+                // $ExpectType any
+                data;
+
+                return false;
+            },
+            _default(event, data) {
+                // $ExpectType Event<EventTarget, any>
+                event;
+                // $ExpectType any
+                data;
+
+                return false;
+            },
+            handle(event, data) {
+                // $ExpectType Event<EventTarget, any> & { handleObj: HandleObject<EventTarget, any>; }
+                event;
+                // $ExpectType any
+                data;
+            },
+            preDispatch(event) {
+                // $ExpectType EventTarget
+                this;
+                // $ExpectType Event<EventTarget, any>
+                event;
+
+                return false;
+            },
+            postDispatch(event) {
+                // $ExpectType EventTarget
+                this;
+                // $ExpectType Event<EventTarget, any>
+                event;
+            }
+        };
+
+        // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+        // $ExpectError
+        jQuery.event.special.multiclick = 1;
+    }
+}
+
+declare namespace JQuery {
+    interface ValHooks {
+        textarea: ValHook<HTMLTextAreaElement>;
+    }
+}
+
+function JQuery_ValHooks() {
+    jQuery.valHooks.textarea = {
+        get(elem) {
+            // $ExpectType HTMLTextAreaElement
+            elem;
+
+            return elem.value.replace(/\r?\n/g, "\r\n");
+        },
+        set(elem) {
+            // $ExpectType HTMLTextAreaElement
+            elem;
+
+            return elem.value;
+        }
+    };
+
+    // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+    // $ExpectError
+    jQuery.valHooks.textarea = function get(elem: HTMLTextAreaElement) {
+        return elem.value.replace(/\r?\n/g, "\r\n");
+    };
 }
