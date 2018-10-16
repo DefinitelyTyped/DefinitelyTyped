@@ -1062,6 +1062,11 @@ export interface TextInputIOSProps {
         "nickname" | "organizationName" | "postalCode" | "streetAddressLine1" |
         "streetAddressLine2" | "sublocality" | "telephoneNumber" | "username" |
         "password";
+    
+    /**
+     * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
+     */
+    scrollEnabled?: boolean
 }
 
 /**
