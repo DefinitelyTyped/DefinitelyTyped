@@ -6,4 +6,8 @@ const files = ["./index.d.ts"];
 
 const bundler = new ParcelBundler(files, parcelOption);
 
+bundler.addAssetType('md', 'markdown-asset');
+
+bundler.addPackager('md', 'markdown-packager');
+
 bundler.bundle().then(bundle => bundle.name);

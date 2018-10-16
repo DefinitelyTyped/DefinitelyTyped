@@ -1,7 +1,7 @@
-// Type definitions for Node.js 4.x
+// Type definitions for Node.js 4.9
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
-//                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Sander Koenders <https://github.com/Archcry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

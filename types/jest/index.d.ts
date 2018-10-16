@@ -317,6 +317,7 @@ declare namespace jest {
     }
 
     interface MatcherUtils {
+        readonly expand: boolean;
         readonly isNot: boolean;
         utils: {
             readonly EXPECTED_COLOR: (text: string) => string;
@@ -664,7 +665,7 @@ declare namespace jest {
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
-        toMatchSnapshot<T extends {[P in keyof R]: Expect['any']}>(propertyMatchers: Partial<T>, snapshotName?: string): R;
+        toMatchSnapshot<T extends {[P in keyof R]: any}>(propertyMatchers: Partial<T>, snapshotName?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
@@ -675,7 +676,7 @@ declare namespace jest {
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
-        toMatchInlineSnapshot<T extends {[P in keyof R]: Expect['any']}>(propertyMatchers: Partial<T>, snapshot?: string): R;
+        toMatchInlineSnapshot<T extends {[P in keyof R]: any}>(propertyMatchers: Partial<T>, snapshot?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.

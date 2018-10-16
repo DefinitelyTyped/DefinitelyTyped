@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "deepmerge-tests.ts"
+        "passport-windowsauth-tests.ts"
     ]
 }

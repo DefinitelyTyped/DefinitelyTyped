@@ -168,6 +168,10 @@ declare class ParcelBundler {
         options?: ParcelBundler.ParcelOptions
     );
 
+    addAssetType(extension: string, path: string): void;
+
+    addPackager(type: string, packager: string): void;
+
     bundle(): Promise<ParcelBundler.ParcelBundle>;
 }
 

@@ -1,9 +1,9 @@
-// Type definitions for autoprefixer 6.7
+// Type definitions for autoprefixer 9.1
 // Project: https://github.com/postcss/autoprefixer
-// Definitions by: Armando Meziat <https://github.com/odnamrataizem>
+// Definitions by:  Armando Meziat <https://github.com/odnamrataizem>, murt <https://github.com/murt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin, Transformer as PostcssTransformer } from 'postcss';
+import { Plugin } from "postcss";
 
 declare namespace autoprefixer {
     interface Options {
@@ -16,15 +16,10 @@ declare namespace autoprefixer {
         flexbox?: boolean | 'no-2009';
         grid?: boolean;
         stats?: any;
+        ignoreUnknownVersions?: boolean;
     }
 
-    interface Transformer extends PostcssTransformer {
-        info(): string;
-    }
-
-    interface Autoprefixer extends Plugin<Options> {
-        (opts?: Options): Transformer;
-    }
+    type Autoprefixer = Plugin<Options>;
 }
 
 declare const autoprefixer: autoprefixer.Autoprefixer;

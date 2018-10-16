@@ -580,43 +580,43 @@ declare namespace Highcharts {
          * @default rgba(0, 0, 0, 0.75)
          * @since 6.0.0
          */
-        fill: string;
+        fill?: string;
         /**
          * The height of the shape.
          * @default undefined
          * @since 6.0.0
          */
-        height: number;
+        height?: number;
         /**
          * The radius of the shape.
          * @default 0
          * @since 6.0.0
          */
-        r: number;
+        r?: number;
         /**
          * The color of the shape's stroke.
          * @default rgba(0, 0, 0, 0.75)
          * @since 6.0.0
          */
-        stroke: string;
+        stroke?: string;
         /**
          * The pixel stroke width of the shape.
          * @default 1
          * @since 6.0.0
          */
-        strokeWidth: number;
+        strokeWidth?: number;
         /**
          * The type of the shape, e.g. circle or rectangle.
          * @default "rect"
          * @since 6.0.0
          */
-        type: "circle" | "path" | "rect";
+        type?: "circle" | "path" | "rect";
         /**
          * The width of the shape.
          * @default undefined
          * @since 6.0.0
          */
-        width: number;
+        width?: number;
     }
 
     interface AnnotationsShape extends AnnotationsShapeOptions {
@@ -625,13 +625,13 @@ declare namespace Highcharts {
          * @default undefined
          * @since 6.0.0
          */
-        markerEnd: string;
+        markerEnd?: string;
         /**
          * Id of the marker which will be drawn at the final vertex of the path. Custom markers can be defined in defs property.
          * @default undefined
          * @since 6.0.0
          */
-        markerStart: string;
+        markerStart?: string;
         /**
          * This option defines the point to which the shape will be connected.
          * It can be either the point which exists in the series - it is referenced by the point's id
