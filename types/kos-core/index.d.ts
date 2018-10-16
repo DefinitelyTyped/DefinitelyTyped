@@ -60,5 +60,5 @@ interface Kos {
     start: (Layout: ReactComponent, container?: string) => void;
 }
 
-declare let Kos: Kos;
-export default Kos;
+declare let KOS: Kos;
+export default KOS;
