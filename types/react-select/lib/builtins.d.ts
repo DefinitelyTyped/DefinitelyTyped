@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { GroupType } from "./types";
+import { ReactNode } from 'react';
+import { GroupType } from './types';
 
 export type formatGroupLabel<OptionType = any> = (group: GroupType<OptionType>) => ReactNode;
 export function formatGroupLabel(group: any): ReactNode;
