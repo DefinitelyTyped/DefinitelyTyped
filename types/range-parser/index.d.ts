@@ -27,10 +27,9 @@ declare namespace RangeParser {
          */
         combine?: boolean;
     }
-    const enum Result {
-        invaild = -2,
-        unsatisifiable = -1,
-    }
+    type ResultUnsatisfiable = -1;
+    type ResultInvalid = -2;
+    type Result = ResultUnsatisfiable | ResultInvalid;
 }
 
 export = RangeParser;
