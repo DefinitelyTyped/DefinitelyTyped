@@ -1,64 +1,64 @@
 // Type definitions for react-beautiful-dnd 7.1
-// Project: https://github.com/ali-kos/kos
-// Definitions by: alibaba ali-kos <https://github.com/ali-kos>
+// Project: https://github.com/ali-Kos/Kos
+// Definitions by: alibaba ali-Kos <https://github.com/ali-Kos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from 'react';
 
-type IReactComponent<P = any, S = any> = React.ComponentClass<P, S>;
+type ReactComponent<P = any, S = any> = React.ComponentClass<P, S>;
 
-interface IUtil {
+interface Util {
     getActionType: (action: string) => { namespace: string | null; type: string };
 }
 
-interface IWrapperConfig {
-    model: IModel;
+interface WrapperConfig {
+    model: KosModel;
     autoLoad?: boolean;
     autoReset?: boolean;
     namespace?: string;
 }
 
-interface IAction<T = any> {
+interface Action<T = any> {
     type: string;
     payload?: Partial<T>;
 }
 
-export interface IKOSProps<T = any> {
-    dispatch?: (action: IAction<T>) => void;
+export interface KosProps<T = any> {
+    dispatch?: (action: Action<T>) => void;
     getParam?: () => string;
     getNamespace?: () => string;
 }
 
-export type IDispatch = (action: IAction) => void;
+export type KosDispatch<T = any> = (action: Action) => void;
 
-export type IGetState<T = any> = () => T;
+export type GetKosState<T = any> = () => T;
 
-export interface IModel<T = any> {
+export interface KosModel<T = any> {
     namespace: string;
     initial: T;
     reducers: {
         [key: string]: (state: T, { payload }: { payload: T }) => void;
     };
     asyncs: {
-        [key: string]: (dispatch: IDispatch, getState?: IGetState<T>) => void;
+        [key: string]: (dispatch: KosDispatch, getState?: GetKosState<T>) => void;
     };
-    setup?: (dispatch: IDispatch, getState: IGetState<T>) => void;
+    setup: (dispatch?: KosDispatch<T>, getState?: GetKosState<T>) => void;
     getAsync?: (
         key: string
-    ) => (dispatch: IDispatch, getState?: IGetState) => void;
+    ) => (dispatch: KosDispatch, getState?: GetKosState) => void;
 }
 
-interface IKOS {
-    Util: IUtil;
+interface Kos {
+    Util: Util;
     registeModel: (model: any) => void;
     removeModel: (namespace: string) => void;
-    getModel: (namespace: string) => IModel;
+    getModel: (namespace: string) => KosModel;
     use: (middleware: (api: { dispatch: any; getState: any }) => void) => void;
     Wrapper: (
-        config: IWrapperConfig
-    ) => (component: IReactComponent<any & IKOSProps>) => any;
-    start: (Layout: IReactComponent, container?: string) => void;
+        config: WrapperConfig
+    ) => (component: ReactComponent<any & KosProps>) => any;
+    start: (Layout: ReactComponent, container?: string) => void;
 }
 
-declare let KOS: IKOS;
-export default KOS;
+declare let Kos: Kos;
+export default Kos;
