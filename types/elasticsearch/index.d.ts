@@ -286,8 +286,8 @@ export interface DeleteDocumentByQueryParams extends GenericParams {
     type?: string;
 }
 
-export interface DeleteDocumentByQueryResponse extends ReIndexOrByQueryResponse {
-    //DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
+export interface DeleteDocumentByQueryResponse extends ReindexResponse {
+    // DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
 }
 
 export interface DeleteScriptParams extends GenericParams {
@@ -547,10 +547,6 @@ export interface ReindexParams extends GenericParams {
     };
 }
 
-export interface ReindexResponse extends ReIndexOrByQueryResponse {
-    //DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
-}
-
 export interface ReindexRethrottleParams extends GenericParams {
     requestsPerSecond: number;
     taskId: string;
@@ -767,22 +763,22 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     type: NameList;
 }
 
-export interface UpdateDocumentByQueryResponse extends ReIndexOrByQueryResponse {
-    //DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
+export interface UpdateDocumentByQueryResponse extends ReindexResponse {
+    // DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
 }
 
-export interface ReIndexOrByQueryResponse extends ReIndexOrByQueryResponseBase {
+export interface ReindexResponse extends ReindexResponseBase {
     took: number;
     timed_out: boolean;
     failures: any[];
-    slices?: ReIndexOrByQueryResponseSlice[];
+    slices?: ReindexOrByQueryResponseSlice[];
 }
 
-export interface ReIndexOrByQueryResponseSlice extends ReIndexOrByQueryResponseBase {
+export interface ReindexOrByQueryResponseSlice extends ReindexResponseBase {
     slice_id: number;
 }
 
-export interface ReIndexOrByQueryResponseBase {
+export interface ReindexResponseBase {
     total: number;
     updated: number;
     deleted: number;
