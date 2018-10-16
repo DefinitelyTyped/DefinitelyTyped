@@ -62,6 +62,7 @@ var options: Less.Options = {
       * 2 parens | strict  - require parens for all operations
       * 3 strict-legacy    - legacy strict behavior (super-strict)
       * https://github.com/less/less.js/blob/master/lib/less/constants.js#L2
+      * https://github.com/less/less.js/blob/master/lib/less/utils.js#L54
     */
     math: 0,
     /* Guess at the output unit when it does maths. */

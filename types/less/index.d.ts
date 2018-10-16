@@ -105,7 +105,7 @@ declare namespace Less {
         /** Add a path to every generated import and url in output css files. */
         rootpath?: string;
         /** Math mode options for avoiding symbol conficts on math expressions. */
-        math?: 'always' | 'strict' | 'parens-division' | 'parens' | 'strict-legacy';
+        math?: 'always' | 'strict' | 'parens-division' | 'parens' | 'strict-legacy' | number;
         /** If true, stops any warnings from being shown. */
         silent?: boolean;
         /** Without this option, Less attempts to guess at the output unit when it does maths. */
