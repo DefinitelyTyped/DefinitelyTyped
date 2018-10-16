@@ -10,5 +10,4 @@ import { EnzymeAdapter } from 'enzyme';
 declare class ReactSixteenAdapter extends EnzymeAdapter {
 }
 
-declare const Adapter: typeof ReactSixteenAdapter;
-export = Adapter;
+export = ReactSixteenAdapter;
