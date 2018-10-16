@@ -42,3 +42,16 @@ const cli3 = meow({
         }
     }
 });
+
+const cli4 = meow({
+    flags: {
+        unicorn: {
+            type: 'boolean',
+            alias: 'u'
+        },
+        fooBar: 'string'
+        // someWrongFlag: "asdf", // error
+    }
+});
+cli4.flags.unicorn;
+cli4.flags.fooBar;
