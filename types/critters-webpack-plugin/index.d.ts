@@ -14,7 +14,8 @@ declare class Critters extends Plugin {
 declare namespace Critters {
     interface CrittersOptions {
         /**  Inline styles from external stylesheets.
-         * @default true */
+         * @default true
+         * */
         external?: boolean;
         /**
          * The mechanism to use for lazy-loading stylesheets. [JS] indicates that a strategy requires JavaScript (falls back to <noscript>).
@@ -29,10 +30,12 @@ declare namespace Critters {
         /** Add <noscript> fallback to JS-based strategies */
         noscriptFallback?: boolean;
         /** Inline critical font-face rules.
-         * @default false */
+         * @default false
+         * */
         inlineFonts?: boolean;
         /** Preloads critical fonts.
-         * @default true */
+         * @default true
+         * */
         preloadFonts?: boolean;
         /**
          * Shorthand for setting inlineFonts+preloadFonts - Values:
@@ -49,7 +52,8 @@ declare namespace Critters {
          */
         keyframes?: 'critical' | 'all' | 'none';
         /** Compress resulting critical CSS.
-         * @default true */
+         * @default true
+         * */
         compress?: boolean;
     }
 }
