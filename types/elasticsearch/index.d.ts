@@ -281,26 +281,13 @@ export interface DeleteDocumentByQueryParams extends GenericParams {
     scrollSize?: number;
     waitForCompletion?: boolean;
     requestsPerSecond?: number;
+    slices?: number;
     index?: string;
     type?: string;
 }
 
-export interface DeleteDocumentByQueryResponse {
-    took: number;
-    timed_out: boolean;
-    deleted: number;
-    batches: number;
-    version_conflicts: number;
-    noops: number;
-    retries: {
-        bulk: number;
-        search: number;
-    };
-    throttled_millis: number;
-    requests_per_second: number;
-    throttled_until_millis: number;
-    total: number;
-    failures: any[];
+export interface DeleteDocumentByQueryResponse extends ReindexResponse {
+    // DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
 }
 
 export interface DeleteScriptParams extends GenericParams {
@@ -531,6 +518,7 @@ export interface ReindexParams extends GenericParams {
     waitForActiveShards?: string;
     waitForCompletion?: boolean;
     requestsPerSecond?: number;
+    slices?: number;
     body: {
         conflicts?: string;
         source: {
@@ -557,20 +545,6 @@ export interface ReindexParams extends GenericParams {
             lang: string;
         }
     };
-}
-
-export interface ReindexResponse {
-    took: number;
-    updated: number;
-    created: number;
-    batches: number;
-    version_conflicts: number;
-    retries: {
-        bulk: number;
-        search: number;
-    };
-    throttled_millis: number;
-    failures: any[];
 }
 
 export interface ReindexRethrottleParams extends GenericParams {
@@ -784,13 +758,28 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     scrollSize?: number;
     waitForCompletion?: boolean;
     requestsPerSecond?: number;
+    slices?: number;
     index: NameList;
     type: NameList;
 }
 
-export interface UpdateDocumentByQueryResponse {
+export interface UpdateDocumentByQueryResponse extends ReindexResponse {
+    // DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
+}
+
+export interface ReindexResponse extends ReindexResponseBase {
     took: number;
     timed_out: boolean;
+    failures: any[];
+    slices?: ReindexOrByQueryResponseSlice[];
+}
+
+export interface ReindexOrByQueryResponseSlice extends ReindexResponseBase {
+    slice_id: number;
+}
+
+export interface ReindexResponseBase {
+    total: number;
     updated: number;
     deleted: number;
     batches: number;
@@ -803,8 +792,6 @@ export interface UpdateDocumentByQueryResponse {
     throttled_millis: number;
     requests_per_second: number;
     throttled_until_millis: number;
-    total: number;
-    failures: any[];
 }
 
 export interface Cat {
