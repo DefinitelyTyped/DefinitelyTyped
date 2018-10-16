@@ -2,10 +2,6 @@ import * as url from "url";
 import * as React from "react";
 import { UrlLike } from "./router";
 
-// Deprecated
-export type LinkState = LinkProps;
-// End Deprecated
-
 export interface LinkProps {
     prefetch?: boolean;
     shallow?: boolean;

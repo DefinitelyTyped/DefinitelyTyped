@@ -57,9 +57,6 @@ export interface RouterProps<Q = DefaultQuery> {
         options?: EventChangeOptions
     ): Promise<boolean>;
 
-    // onAppUpdated deprecated
-    onAppUpdated: null;
-
     // events (deprecated soonish)
     onBeforeHistoryChange?(as: string): void;
     onHashChangeStart?(url: string): void;
