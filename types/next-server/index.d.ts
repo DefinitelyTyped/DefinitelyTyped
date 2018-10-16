@@ -36,11 +36,9 @@ declare namespace next {
         conf?: NextConfig;
     }
 
-    type ServerParams = Record<string, string | string[] | undefined>;
-
-    interface ServerRoute {
-        match(pathname: string, params?: ServerParams): ServerParams;
-        fn(req: http.IncomingMessage, res: http.ServerResponse, params: ServerParams, parsedUrl: UrlLike): Promise<void>;
+    interface ServerRoute<P = DefaultQuery> {
+        match(pathname: string, params?: Partial<P>): P | false;
+        fn(req: http.IncomingMessage, res: http.ServerResponse, params: P, parsedUrl: UrlLike): Promise<void>;
     }
 
     interface ServerRouter {
