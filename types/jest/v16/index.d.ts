@@ -177,6 +177,7 @@ declare function pending(reason?: string): void;
 declare function fail(error?: any): void;
 declare namespace jasmine {
     var clock: () => Clock;
+    var getEnv: () => Env;
     function any(aclass: any): Any;
     function anything(): Any;
     function arrayContaining(sample: any[]): ArrayContaining;
@@ -195,6 +196,24 @@ declare namespace jasmine {
         /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */
         tick(ms: number): void;
         mockDate(date?: Date): void;
+    }
+
+    interface Env {
+        /** Add a custom reporter to the Jasmine environment. */
+        addReporter(reporterToAdd: any): void;
+        /** Clear all registered reporters */
+        clearReporters(): void;
+        hideDisabled(): void;
+        /** Provide a fallback reporter if no other reporters have been specified. */
+        provideFallbackReporter(reporterToAdd: any): void;
+        /** Set whether to randomize test execution order */
+        randomizeTests(value: boolean): void;
+        /** Set the random number seed for spec randomization */
+        seed(value: number): void;
+        /** Set whether to stop suite execution when a spec fails */
+        stopOnSpecFailure(value: boolean): void;
+        /** Sets whether Jasmine should throw an Error when an expectation fails. This causes a spec to only have one expectation failure. */
+        throwOnExpectationFailure(value: boolean): void;
     }
 
     interface Any {
