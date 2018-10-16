@@ -5,6 +5,7 @@
 //                 Frode Hansen <https://github.com/frodehansen2>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Maxime Billemaz <https://github.com/MBillemaz>
+//                 Georg Steinmetz <https://github.com/georg94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

@@ -9,6 +9,7 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
     /**
      * Whether to show the date picker button.
      * @default true
+     * @deprecated Use `date` instead
      */
     calendar?: boolean;
     /**
@@ -41,17 +42,17 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
      */
     currentDate?: Date;
     /**
-     * Enable the calendar component of the picker.
-     */
-    date?: boolean;
-    /*
      * Default value for current date. Useful for suggesting a date when the caldenar opens without keep forcing it once 'value' is set.
      */
-    dateIcon?: any;
-    /*
-     * Specify the element used to render the calendar dropdown icon
+    date?: boolean;
+    /**
+     * Specify the element used to render the calendar dropdown icon.
      */
-    defaultCurrentDate?: Date;
+    dateIcon?: JSX.Element;
+    /**
+     * Specify the element used to render the time list dropdown icon.
+     */
+    timeIcon?: JSX.Element;
     /**
      * Change event Handler that is called when the currentDate is changed. The handler is
      * called with the currentDate object.
@@ -169,6 +170,14 @@ interface DateTimePickerProps extends ReactWidgetsCommonDropdownProps<DateTimePi
      * The transition component is also injected with a dropUp prop indicating the direction it should open.
      */
     popupTransition?: ReactType | string;
+    /**
+     * Whether the Dropdown should be above the input field.
+     */
+    dropUp?: boolean;
+    /**
+     * Adds a css class to the input container element.
+     */
+    containerClassName?: string;
 }
 
 interface DateTimePickerMessages {
@@ -176,7 +185,7 @@ interface DateTimePickerMessages {
      * Title and screen reader text for the left arrow button.
      * @default "Select Date"
      */
-    calendarButton?: string;
+    dateButton?: string;
     /**
      * Title and screen reader text for the right arrow button.
      * @default "Select Time"
