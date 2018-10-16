@@ -43,10 +43,17 @@ export interface EditorProps {
     onFocus?(event: SyntheticEvent): void;
     onBlur?(event: SyntheticEvent): void;
     onTab?(event: SyntheticKeyboardEvent): void;
+    onEscape?(e: SyntheticKeyboardEvent): void;
+    onUpArrow?(e: SyntheticKeyboardEvent): void;
+    onDownArrow?(e: SyntheticKeyboardEvent): void;
+    onRightArrow?(e: SyntheticKeyboardEvent): void;
+    onLeftArrow?(e: SyntheticKeyboardEvent): void;
     mention?: object;
     hashtag?: object;
     textAlignment?: string;
+    readonly?: boolean;
     tabIndex?: number;
+    placeholder?: string;
     ariaLabel?: string;
     ariaOwneeID?: string;
     ariaActiveDescendantID?: string;
