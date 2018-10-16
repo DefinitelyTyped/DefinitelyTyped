@@ -29,7 +29,7 @@ export interface KosProps<T = any> {
     getNamespace?: () => string;
 }
 
-export type KosDispatch<T = any> = (action: Action) => void;
+export type KosDispatch = (action: Action) => void;
 
 export type GetKosState<T = any> = () => T;
 
@@ -42,7 +42,7 @@ export interface KosModel<T = any> {
     asyncs: {
         [key: string]: (dispatch: KosDispatch, getState?: GetKosState<T>) => void;
     };
-    setup: (dispatch?: KosDispatch<T>, getState?: GetKosState<T>) => void;
+    setup?: (dispatch: KosDispatch, getState: GetKosState<T>) => void;
     getAsync?: (
         key: string
     ) => (dispatch: KosDispatch, getState?: GetKosState) => void;
