@@ -118,3 +118,22 @@ webdriverio
         console.log(visible); // Should return true
     })
     .end();
+
+let hooks: webdriverio.Hooks  = {};
+
+hooks = {
+  // Hooks can be a noop function
+  onPrepare: () => undefined,
+  onError() {
+    // Hooks don't have to return a value
+  }
+};
+
+hooks.onComplete = async () => {
+    // Hooks can return a promise but the promise can be void
+};
+
+hooks.afterTest = async () => {
+    // Hooks can have a promise with a result but it is not typically used
+    return false;
+};

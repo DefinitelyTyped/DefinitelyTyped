@@ -10,7 +10,7 @@
 /// <reference types="node" />
 
 export class Account {
-    constructor(accountId: string, sequence: string | number)
+    constructor(accountId: string, sequence: string)
     accountId(): string;
     sequenceNumber(): string;
     incrementSequenceNumber(): void;
@@ -98,10 +98,10 @@ export interface AccountRecord extends Record {
         weight: number
     }
     >;
-    data: {
+    data: (options: {value: string}) => Promise<{value: string}>;
+    data_attr: {
         [key: string]: string
     };
-
     effects: CallCollectionFunction<EffectRecord>;
     offers: CallCollectionFunction<OfferRecord>;
     operations: CallCollectionFunction<OperationRecord>;
@@ -437,7 +437,8 @@ export class AccountResponse implements AccountRecord {
             weight: number
         }
         >;
-    data: {
+    data: (options: {value: string}) => Promise<{value: string}>;
+    data_attr: {
         [key: string]: string
     };
 
@@ -894,6 +895,7 @@ export namespace xdr {
         static fromXDR(xdr: Buffer): XDRStruct;
 
         toXDR(): Buffer;
+        toXDR(encoding: string): string;
     }
     class Operation<T extends Operation.Operation> extends XDRStruct { }
     class Asset extends XDRStruct { }

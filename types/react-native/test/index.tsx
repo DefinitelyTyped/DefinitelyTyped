@@ -330,6 +330,8 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 data={[1, 2, 3, 4, 5]}
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
+                ListFooterComponent={null}
+                ListHeaderComponent={null}
             />
         );
     }
@@ -744,8 +746,16 @@ class AccessibilityTest extends React.Component {
                 importantForAccessibility={"no-hide-descendants"}
                 accessibilityTraits={'none'}
                 onAccessibilityTap={() => {}}
+                accessibilityRole="header"
+                accessibilityStates="selected"
+                accessibilityHint="Very importent header"
             >
-                <Text accessibilityTraits={['key', 'text']}>Text</Text>
+                <Text
+                    accessibilityTraits={['key', 'text']}
+                    accessibilityIgnoresInvertColors
+                >
+                    Text
+                </Text>
                 <View />
             </View>
         );

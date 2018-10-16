@@ -1,1 +1,9 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // All are TODOs
+        "ban-types": false,
+        "member-access": false,
+        "no-self-import": false
+    }
+}

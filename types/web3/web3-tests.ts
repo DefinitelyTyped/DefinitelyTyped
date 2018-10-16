@@ -1,5 +1,7 @@
 import Web3 = require("web3");
 import BigNumber = require("bn.js");
+import { TransactionReceipt } from "web3/types";
+import PromiEvent from "web3/promiEvent";
 
 const contractAddress = "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe";
 
@@ -15,6 +17,30 @@ web3.eth.setProvider(myProvider);
 // web3.eth
 // --------------------------------------------------------------------------
 const storage: Promise<string> = web3.eth.getStorageAt(contractAddress, 0);
+
+const sendSignedTransactionTxReceipt0: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("",
+    (error: Error, txHash: string) => { });
+const sendSignedTransactionTxReceipt1: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
+    .on("transactionHash", (txHash: string) => { });
+const sendSignedTransactionTxReceipt2: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
+    .on("receipt", (txReceipt: TransactionReceipt) => { });
+const sendSignedTransactionTxReceipt3: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
+    .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
+const sendSignedTransactionTxReceipt4: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
+    .on("receipt", (txReceipt: TransactionReceipt) => { })
+    .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
+
+const sendTransactionTxReceipt0: PromiEvent<TransactionReceipt> = web3.eth.sendTransaction({ to: "0x1" },
+    (error: Error, txHash: string) => { });
+const sendTransactionTxReceipt1: PromiEvent<TransactionReceipt> = web3.eth.sendTransaction({ to: "0x1" })
+    .on("transactionHash", (txHash: string) => { });
+const sendTransactionTxReceipt2: PromiEvent<TransactionReceipt> = web3.eth.sendTransaction({ to: "0x1" })
+    .on("receipt", (txReceipt: TransactionReceipt) => { });
+const sendTransactionTxReceipt3: PromiEvent<TransactionReceipt> = web3.eth.sendTransaction({ to: "0x1" })
+    .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
+const sendTransactionTxReceipt4: PromiEvent<TransactionReceipt> = web3.eth.sendTransaction({ to: "0x1" })
+    .on("receipt", (txReceipt: TransactionReceipt) => { })
+    .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
 
 //
 // web3.eth.subscribe
@@ -109,5 +135,11 @@ const weiStr: string = web3.utils.toWei("100", "gwei");
 const weiBn: BigNumber = web3.utils.toWei(web3.utils.toBN("1"));
 const rndHex: string = Web3.utils.randomHex(10);
 const sha3: string = web3.utils.soliditySha3(0, 1, "abc");
+const fromWei1: BigNumber = web3.utils.fromWei(new BigNumber(1));
+const fromWei2: BigNumber = web3.utils.fromWei(new BigNumber(1), "gwei");
+const fromWei3: string = web3.utils.fromWei("1");
+const fromWei4: string = web3.utils.fromWei("1", "gwei");
+const fromWei5: string = web3.utils.fromWei(1);
+const fromWei6: string = web3.utils.fromWei(1, "gwei");
 const isStrictHexString: boolean = web3.utils.isHexStrict("0xc1912");
 const isStrictHexNumber: boolean = web3.utils.isHexStrict(0xc1912);

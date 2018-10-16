@@ -8,6 +8,11 @@ function JQueryStatic() {
         $.ajaxSettings;
     }
 
+    function Animation() {
+        // $ExpectType AnimationStatic
+        $.Animation;
+    }
+
     function Callbacks() {
         // $ExpectType CallbacksStatic
         $.Callbacks;
@@ -38,6 +43,11 @@ function JQueryStatic() {
         $.Event;
     }
 
+    function event() {
+        // $ExpectType EventExtensions
+        $.event;
+    }
+
     function expr() {
         // $ExpectType Selectors
         $.expr;
@@ -61,6 +71,16 @@ function JQueryStatic() {
     function support() {
         // $ExpectType PlainObject<any>
         $.support;
+    }
+
+    function timers() {
+        // $ExpectType TickFunction<any>[]
+        $.timers;
+    }
+
+    function Tween() {
+        // $ExpectType TweenStatic
+        $.Tween;
     }
 
     function valHooks() {
@@ -1785,6 +1805,10 @@ function JQueryStatic() {
                 this;
             }
         });
+
+        // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+        // $ExpectError
+        $.speed(false);
 
         // $ExpectType EffectsOptions<HTMLElement>
         $.speed();
@@ -7819,6 +7843,197 @@ function JQuery_Deferred() {
     }
 }
 
+function JQuery_EffectsOptions() {
+    $('p').show({
+        always(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        complete() {
+            // $ExpectType HTMLElement
+            this;
+        },
+        done(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        duration: 5000,
+        easing: 'linear',
+        fail(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        progress(animation, progress, remainingMs) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+            // $ExpectType number
+            progress;
+            // $ExpectType number
+            remainingMs;
+        },
+        queue: true,
+        specialEasing: {
+            width: 'linear',
+            height: 'easeOutBounce'
+        },
+        start(animation) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Animation<HTMLElement>
+            animation;
+        },
+        step(now, tween) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType number
+            now;
+            // $ExpectType Tween<HTMLElement>
+            tween;
+        }
+    });
+}
+
+function JQuery_AnimationStatic() {
+    function call_signature() {
+        // $ExpectType Animation<HTMLElement>
+        $.Animation({} as HTMLElement, {}, {});
+    }
+
+    function prefilter() {
+        // https://github.com/jquery/api.jquery.com/issues/256 -> http://jsfiddle.net/y4L35/
+        {
+            // $ExpectType void
+            $.Animation.prefilter(function(element: HTMLElement, properties, options) {
+                // $ExpectType Animation<HTMLElement>
+                this;
+                // $ExpectType HTMLElement
+                element;
+                // $ExpectType PlainObject<any>
+                properties;
+                // $ExpectType EffectsOptions<HTMLElement>
+                options;
+                // $ExpectType any
+                options.removeAfter;
+
+                if (options.removeAfter) {
+                    this.done(() => {
+                        $(element).remove();
+                    });
+                }
+            });
+
+            $("#element").hide({
+                duration: 500,
+                removeAfter: true,
+                complete() {
+                    // 0, because the prefilter done happens first!
+                    console.log($(this).parent().length);
+                }
+            });
+        }
+    }
+
+    function tweener() {
+        // $ExpectType void
+        $.Animation.tweener('*', function(propName, finalValue) {
+            // $ExpectType Animation<any>
+            this;
+            // $ExpectType string
+            propName;
+            // $ExpectType number
+            finalValue;
+
+            return this.createTween(propName, finalValue);
+        });
+    }
+}
+
+function JQuery_Animation() {
+    const animation = $.Animation({} as Element, {}, {});
+
+    animation.done((anim, jumpedToEnd) => {
+        // $ExpectType Animation<Element>
+        anim;
+        // $ExpectType true | undefined
+        jumpedToEnd;
+    });
+
+    animation.fail((anim, jumpedToEnd) => {
+        // $ExpectType Animation<Element>
+        anim;
+        // $ExpectType false
+        jumpedToEnd;
+    });
+
+    animation.always((anim, jumpedToEnd) => {
+        // $ExpectType Animation<Element>
+        anim;
+        // $ExpectType boolean | undefined
+        jumpedToEnd;
+    });
+
+    animation.progress((anim, progress, remainingMs) => {
+        // $ExpectType Animation<Element>
+        anim;
+        // $ExpectType number
+        progress;
+        // $ExpectType number
+        remainingMs;
+    });
+}
+
+function JQuery_TweenStatic() {
+    function propHooks() {
+        $.Tween.propHooks['myProp'] = {
+            get(tween) {
+                // $ExpectType Tween<Node>
+                tween;
+
+                return tween.elem[tween.prop as keyof typeof tween.elem];
+            },
+            set(tween) {
+                // $ExpectType Tween<Node>
+                tween;
+            },
+        };
+
+        // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
+        // $ExpectError
+        $.Tween.propHooks['myProp'] = 1;
+    }
+
+    function call_signature() {
+        // $ExpectType Tween<HTMLElement>
+        $.Tween({} as HTMLElement, {}, 'myProp', 1, 'myEasing', 'myUnit');
+
+        // $ExpectType Tween<HTMLElement>
+        $.Tween({} as HTMLElement, {}, 'myProp', 1, 'myEasing');
+
+        // $ExpectType Tween<HTMLElement>
+        $.Tween({} as HTMLElement, {}, 'myProp', 1);
+    }
+}
+
+function JQuery_Easings() {
+    jQuery.easing.easeInCubic = (p) => {
+        return Math.pow(p, 3);
+    };
+}
+
 function JQuery_Effects() {
     function interval() {
         // $ExpectType number
@@ -7834,80 +8049,39 @@ function JQuery_Effects() {
         // $ExpectType PlainObject<AnimationHook<Node>>
         $.fx.step;
     }
-}
 
-function JQuery_EffectsOptions() {
-    $('p').show({
-        always(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        complete() {
-            // $ExpectType HTMLElement
-            this;
-        },
-        done(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        duration: 5000,
-        easing: 'linear',
-        fail(animation, jumpToEnd) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType boolean
-            jumpToEnd;
-        },
-        progress(animation, progress, remainingMs) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-            // $ExpectType number
-            progress;
-            // $ExpectType number
-            remainingMs;
-        },
-        queue: true,
-        specialEasing: {
-            width: 'linear',
-            height: 'easeOutBounce'
-        },
-        start(animation) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType Promise<any, any, any>
-            animation;
-        },
-        step(now, tween) {
-            // $ExpectType HTMLElement
-            this;
-            // $ExpectType number
-            now;
-            // $ExpectType Tween<HTMLElement>
-            tween;
+    function stop() {
+        // $ExpectType () => void
+        $.fx.stop;
+
+        function override() {
+            let animating: boolean;
+
+            jQuery.fx.stop = () => {
+                animating = false;
+            };
         }
-    });
-}
+    }
 
-function JQuery_Easings() {
-    jQuery.easing.easeInCubic = (p: number, t: number, b: number, c: number, d: number) => {
-        return c * (t /= d) * t * t + b;
-    };
+    function timer() {
+        // $ExpectType (tickFunction: TickFunction<any>) => void
+        $.fx.timer;
 
-    jQuery.easing.easeInCubic = (p: number) => {
-        return Math.pow(p, 3);
-    };
+        function override() {
+            let animating: boolean;
+            const raf: () => void = {} as any;
+
+            jQuery.fx.timer = (timer) => {
+                // $ExpectType TickFunction<any>
+                timer;
+
+                if (timer() && jQuery.timers.push(timer) && !animating) {
+                    animating = true;
+                    raf();
+                }
+            };
+        }
+    }
 }
 
 function JQuery_Event() {

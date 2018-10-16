@@ -97,6 +97,14 @@ const fadeIn = keyframes`
   }
 `;
 
+const animationRule = css`
+  ${fadeIn} 1s infinite alternate;
+`;
+
+const ComponentWithKeyframe = styled.div`
+  animation: ${animationRule};
+`;
+
 const theme = {
     main: 'mediumseagreen',
 };
