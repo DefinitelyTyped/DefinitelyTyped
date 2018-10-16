@@ -904,11 +904,11 @@ clock.tick(9001);
 
 const env = jasmine.getEnv();
 
-env.addReporter(undefined);
+env.addReporter({});
 env.clearReporters();
 env.hideDisabled();
 
-env.provideFallbackReporter(undefined);
+env.provideFallbackReporter({});
 env.randomizeTests(false);
 env.seed(1);
 env.stopOnSpecFailure(false);
