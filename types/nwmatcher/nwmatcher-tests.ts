@@ -36,6 +36,5 @@ resultElementArray = matcher.byName('foo');
 resultElementArray = matcher.byName('foo', element);
 
 resultStringOrUndefined = matcher.getAttribute(element, 'foo');
-resultStringOrUndefined = matcher.getAttribute(element, 'foo');
 
 resultBoolean = matcher.hasAttribute(element, 'foo');
