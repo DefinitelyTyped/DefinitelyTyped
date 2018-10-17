@@ -684,7 +684,6 @@ declare namespace JQuery {
 
         /**
          * Determine the current state of a Deferred object.
-         *
          * @see \`{@link https://api.jquery.com/deferred.state/ }\`
          * @since 1.7
          */
@@ -708,7 +707,6 @@ declare namespace JQuery {
     interface CallbacksStatic {
         /**
          * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
-         *
          * @param flags An optional list of space-separated flags that change how the callback list behaves.
          * @see \`{@link https://api.jquery.com/jQuery.Callbacks/ }\`
          * @since 1.7
@@ -721,7 +719,6 @@ declare namespace JQuery {
     interface Callbacks<T extends Function = Function> {
         /**
          * Add a callback or a collection of callbacks to a callback list.
-         *
          * @param callback A function, or array of functions, that are to be added to the callback list.
          * @param callbacks A function, or array of functions, that are to be added to the callback list.
          * @see \`{@link https://api.jquery.com/callbacks.add/ }\`
@@ -761,7 +758,6 @@ callbacks.fire( "world" );
         add(callback: TypeOrArray<T>, ...callbacks: Array<TypeOrArray<T>>): this;
         /**
          * Disable a callback list from doing anything more.
-         *
          * @see \`{@link https://api.jquery.com/callbacks.disable/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.disable() to disable further calls to a callback list:
@@ -791,7 +787,6 @@ callbacks.fire( "foobar" );
         disable(): this;
         /**
          * Determine if the callbacks list has been disabled.
-         *
          * @see \`{@link https://api.jquery.com/callbacks.disabled/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.disabled() to determine if the callbacks list has been disabled:
@@ -821,7 +816,6 @@ console.log ( callbacks.disabled() );
         disabled(): boolean;
         /**
          * Remove all of the callbacks from a list.
-         *
          * @see \`{@link https://api.jquery.com/callbacks.empty/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.empty() to empty a list of callbacks:
@@ -855,7 +849,6 @@ console.log( callbacks.has( bar ) );
         empty(): this;
         /**
          * Call all of the callbacks with the given arguments.
-         *
          * @param args The argument or list of arguments to pass back to the callback list.
          * @see \`{@link https://api.jquery.com/callbacks.fire/ }\`
          * @since 1.7
@@ -893,7 +886,6 @@ callbacks.fire( "hello again" );
         fire(...args: any[]): this;
         /**
          * Determine if the callbacks have already been called at least once.
-         *
          * @see \`{@link https://api.jquery.com/callbacks.fired/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.fired() to determine if the callbacks in a list have been called at least once:
@@ -919,7 +911,6 @@ console.log( callbacks.fired() );
         fired(): boolean;
         /**
          * Call all callbacks in a list with the given context and arguments.
-         *
          * @param context A reference to the context in which the callbacks in the list should be fired.
          * @param args An argument, or array of arguments, to pass to the callbacks in the list.
          * @see \`{@link https://api.jquery.com/callbacks.fireWith/ }\`
@@ -946,7 +937,6 @@ callbacks.fireWith( window, [ "foo","bar" ] );
         fireWith(context: object, args?: ArrayLike<any>): this;
         /**
          * Determine whether or not the list has any callbacks attached. If a callback is provided as an argument, determine whether it is in a list.
-         *
          * @param callback The callback to search for.
          * @see \`{@link https://api.jquery.com/callbacks.has/ }\`
          * @since 1.7
@@ -977,7 +967,6 @@ console.log( callbacks.has( bar ) );
         has(callback?: T): boolean;
         /**
          * Lock a callback list in its current state.
-         *
          * @see \`{@link https://api.jquery.com/callbacks.lock/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.lock() to lock a callback list to avoid further changes being made to the list state:
@@ -1072,7 +1061,6 @@ callbacks.fire( "youHadMeAtHello" );
         lock(): this;
         /**
          * Determine if the callbacks list has been locked.
-         *
          * @see \`{@link https://api.jquery.com/callbacks.locked/ }\`
          * @since 1.7
          * @example ​ ````Use callbacks.locked() to determine the lock-state of a callback list:
@@ -1102,7 +1090,6 @@ console.log ( callbacks.locked() );
         locked(): boolean;
         /**
          * Remove a callback or a collection of callbacks from a callback list.
-         *
          * @param callbacks A function, or array of functions, that are to be removed from the callback list.
          * @see \`{@link https://api.jquery.com/callbacks.remove/ }\`
          * @since 1.7
@@ -1206,7 +1193,6 @@ callbacks.fire( "world" );
 
     /**
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
-     *
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
     interface PromiseBase<TR, TJ, TN,
@@ -1215,7 +1201,6 @@ callbacks.fire( "world" );
         SR, SJ, SN> extends _Promise<TR>, PromiseLike<TR> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
-         *
          * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
          * @param alwaysCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
          * @see \`{@link https://api.jquery.com/deferred.always/ }\`
@@ -1231,7 +1216,6 @@ $.get( "test.php" ).always(function() {
                ...alwaysCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object is resolved.
-         *
          * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
          * @param doneCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
          * @see \`{@link https://api.jquery.com/deferred.done/ }\`
@@ -1294,7 +1278,6 @@ $( "button" ).on( "click", function() {
              ...doneCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>>): this;
         /**
          * Add handlers to be called when the Deferred object is rejected.
-         *
          * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
          * @param failCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
          * @see \`{@link https://api.jquery.com/deferred.fail/ }\`
@@ -1314,7 +1297,6 @@ $.get( "test.php" )
              ...failCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object generates progress notifications.
-         *
          * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
          * @param progressCallbacks Optional additional functions, or arrays of functions, to be called when the Deferred generates
          *                          progress notifications.
@@ -1325,7 +1307,6 @@ $.get( "test.php" )
                  ...progressCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>>): this;
         /**
          * Return a Deferred's Promise object.
-         *
          * @param target Object onto which the promise methods have to be attached
          * @see \`{@link https://api.jquery.com/deferred.promise/ }\`
          * @since 1.5
@@ -1373,7 +1354,6 @@ $.when( asyncEvent() ).then(
         promise<TTarget extends object>(target: TTarget): this & TTarget;
         /**
          * Return a Deferred's Promise object.
-         *
          * @see \`{@link https://api.jquery.com/deferred.promise/ }\`
          * @since 1.5
          * @example ​ ````Use the target argument to promote an existing object to a Promise:
@@ -1402,7 +1382,6 @@ obj.done(function( name ) {
         promise(): this;
         /**
          * Determine the current state of a Deferred object.
-         *
          * @see \`{@link https://api.jquery.com/deferred.state/ }\`
          * @since 1.7
          */
@@ -1413,7 +1392,6 @@ obj.done(function( name ) {
 
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -1490,7 +1468,6 @@ chained.done(function( data ) {
             RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -1548,7 +1525,6 @@ chained.done(function( data ) {
             RRF | RRP, RJF | RJP, RNF | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -1606,7 +1582,6 @@ chained.done(function( data ) {
             RRD | RRP, RJD | RJP, RND | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -1645,7 +1620,6 @@ chained.done(function( data ) {
             RRP, RJP, RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -1715,7 +1689,6 @@ chained.done(function( data ) {
             RRD | RRF, RJD | RJF, RND | RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -1766,7 +1739,6 @@ chained.done(function( data ) {
             RRF, RJF, RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -1823,7 +1795,6 @@ chained.done(function( data ) {
 
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -1925,7 +1896,6 @@ chained.done(function( data ) {
             RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -1977,7 +1947,6 @@ chained.done(function( data ) {
             RRF | RRP, RJF | RJP, RNF | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -2050,7 +2019,6 @@ chained.done(function( data ) {
             RRD | RRP, RJD | RJP, RND | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -2083,7 +2051,6 @@ chained.done(function( data ) {
             RRP, RJP, RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -2178,7 +2145,6 @@ chained.done(function( data ) {
             RRD | RRF, RJD | RJF, RND | RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -2223,7 +2189,6 @@ chained.done(function( data ) {
             RRF, RJF, RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -2292,7 +2257,6 @@ chained.done(function( data ) {
 
         /**
          * Add handlers to be called when the Deferred object is rejected.
-         *
          * @param failFilter A function that is called when the Deferred is rejected.
          * @see \`{@link https://api.jquery.com/deferred.catch/ }\`
          * @since 3.0
@@ -2322,7 +2286,6 @@ $.get( "test.php" )
 
     /**
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
-     *
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
     interface Promise3<TR, TJ, TN,
@@ -2334,7 +2297,6 @@ $.get( "test.php" )
 
     /**
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
-     *
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
     interface Promise2<TR, TJ, TN,
@@ -2345,7 +2307,6 @@ $.get( "test.php" )
 
     /**
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
-     *
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
     interface Promise<TR, TJ = any, TN = any> extends PromiseBase<TR, TJ, TN,
@@ -2358,7 +2319,6 @@ $.get( "test.php" )
         exceptionHook: any;
         /**
          * A factory function that returns a chainable utility object with methods to register multiple callbacks into callback queues, invoke callback queues, and relay the success or failure state of any synchronous or asynchronous function.
-         *
          * @param beforeStart A function that is called just before the constructor returns.
          * @see \`{@link https://api.jquery.com/jQuery.Deferred/ }\`
          * @since 1.5
@@ -2369,7 +2329,6 @@ $.get( "test.php" )
     interface Deferred<TR, TJ = any, TN = any> {
         /**
          * Call the progressCallbacks on a Deferred object with the given args.
-         *
          * @param args Optional arguments that are passed to the progressCallbacks.
          * @see \`{@link https://api.jquery.com/deferred.notify/ }\`
          * @since 1.7
@@ -2377,7 +2336,6 @@ $.get( "test.php" )
         notify(...args: TN[]): this;
         /**
          * Call the progressCallbacks on a Deferred object with the given context and args.
-         *
          * @param context Context passed to the progressCallbacks as the this object.
          * @param args An optional array of arguments that are passed to the progressCallbacks.
          * @see \`{@link https://api.jquery.com/deferred.notifyWith/ }\`
@@ -2386,7 +2344,6 @@ $.get( "test.php" )
         notifyWith(context: object, args?: ArrayLike<TN>): this;
         /**
          * Reject a Deferred object and call any failCallbacks with the given args.
-         *
          * @param args Optional arguments that are passed to the failCallbacks.
          * @see \`{@link https://api.jquery.com/deferred.reject/ }\`
          * @since 1.5
@@ -2394,7 +2351,6 @@ $.get( "test.php" )
         reject(...args: TJ[]): this;
         /**
          * Reject a Deferred object and call any failCallbacks with the given context and args.
-         *
          * @param context Context passed to the failCallbacks as the this object.
          * @param args An optional array of arguments that are passed to the failCallbacks.
          * @see \`{@link https://api.jquery.com/deferred.rejectWith/ }\`
@@ -2403,7 +2359,6 @@ $.get( "test.php" )
         rejectWith(context: object, args?: ArrayLike<TJ>): this;
         /**
          * Resolve a Deferred object and call any doneCallbacks with the given args.
-         *
          * @param args Optional arguments that are passed to the doneCallbacks.
          * @see \`{@link https://api.jquery.com/deferred.resolve/ }\`
          * @since 1.5
@@ -2411,7 +2366,6 @@ $.get( "test.php" )
         resolve(...args: TR[]): this;
         /**
          * Resolve a Deferred object and call any doneCallbacks with the given context and args.
-         *
          * @param context Context passed to the doneCallbacks as the this object.
          * @param args An optional array of arguments that are passed to the doneCallbacks.
          * @see \`{@link https://api.jquery.com/deferred.resolveWith/ }\`
@@ -2421,7 +2375,6 @@ $.get( "test.php" )
 
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
-         *
          * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
          * @param alwaysCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
          * @see \`{@link https://api.jquery.com/deferred.always/ }\`
@@ -2437,7 +2390,6 @@ $.get( "test.php" ).always(function() {
                ...alwaysCallbacks: Array<TypeOrArray<Deferred.Callback<TR | TJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object is resolved.
-         *
          * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
          * @param doneCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
          * @see \`{@link https://api.jquery.com/deferred.done/ }\`
@@ -2500,7 +2452,6 @@ $( "button" ).on( "click", function() {
              ...doneCallbacks: Array<TypeOrArray<Deferred.Callback<TR>>>): this;
         /**
          * Add handlers to be called when the Deferred object is rejected.
-         *
          * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
          * @param failCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
          * @see \`{@link https://api.jquery.com/deferred.fail/ }\`
@@ -2520,7 +2471,6 @@ $.get( "test.php" )
              ...failCallbacks: Array<TypeOrArray<Deferred.Callback<TJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object generates progress notifications.
-         *
          * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
          * @param progressCallbacks Optional additional functions, or arrays of functions, to be called when the Deferred generates
          *                          progress notifications.
@@ -2531,7 +2481,6 @@ $.get( "test.php" )
                  ...progressCallbacks: Array<TypeOrArray<Deferred.Callback<TN>>>): this;
         /**
          * Return a Deferred's Promise object.
-         *
          * @param target Object onto which the promise methods have to be attached
          * @see \`{@link https://api.jquery.com/deferred.promise/ }\`
          * @since 1.5
@@ -2561,7 +2510,6 @@ obj.done(function( name ) {
         promise<TTarget extends object>(target: TTarget): Promise<TR, TJ, TN> & TTarget;
         /**
          * Return a Deferred's Promise object.
-         *
          * @see \`{@link https://api.jquery.com/deferred.promise/ }\`
          * @since 1.5
          * @example ​ ````Create a Deferred and set two timer-based functions to either resolve or reject the Deferred after a random interval. Whichever one fires first &quot;wins&quot; and will call one of the callbacks. The second timeout has no effect since the Deferred is already complete (in a resolved or rejected state) from the first timeout action. Also set a timer-based progress notification function, and call a progress handler that adds &quot;working...&quot; to the document body.
@@ -2608,7 +2556,6 @@ $.when( asyncEvent() ).then(
         promise(): Promise<TR, TJ, TN>;
         /**
          * Determine the current state of a Deferred object.
-         *
          * @see \`{@link https://api.jquery.com/deferred.state/ }\`
          * @since 1.7
          */
@@ -2619,7 +2566,6 @@ $.when( asyncEvent() ).then(
 
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -2696,7 +2642,6 @@ chained.done(function( data ) {
             RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -2754,7 +2699,6 @@ chained.done(function( data ) {
             RRF | RRP, RJF | RJP, RNF | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -2812,7 +2756,6 @@ chained.done(function( data ) {
             RRD | RRP, RJD | RJP, RND | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -2851,7 +2794,6 @@ chained.done(function( data ) {
             RRP, RJP, RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -2921,7 +2863,6 @@ chained.done(function( data ) {
             RRD | RRF, RJD | RJF, RND | RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -2972,7 +2913,6 @@ chained.done(function( data ) {
             RRF, RJF, RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -3029,7 +2969,6 @@ chained.done(function( data ) {
 
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter A function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -3131,7 +3070,6 @@ chained.done(function( data ) {
             RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter A function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -3183,7 +3121,6 @@ chained.done(function( data ) {
             RRF | RRP, RJF | RJP, RNF | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter A function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -3256,7 +3193,6 @@ chained.done(function( data ) {
             RRD | RRP, RJD | RJP, RND | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter A function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -3289,7 +3225,6 @@ chained.done(function( data ) {
             RRP, RJP, RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -3384,7 +3319,6 @@ chained.done(function( data ) {
             RRD | RRF, RJD | RJF, RND | RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -3429,7 +3363,6 @@ chained.done(function( data ) {
             RRF, RJF, RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
@@ -3498,7 +3431,6 @@ chained.done(function( data ) {
 
         /**
          * Add handlers to be called when the Deferred object is rejected.
-         *
          * @param failFilter A function that is called when the Deferred is rejected.
          * @see \`{@link https://api.jquery.com/deferred.catch/ }\`
          * @since 3.0
@@ -3630,7 +3562,6 @@ $.get( "test.php" )
         <TElement>(element: TElement, props: PlainObject, opts: EffectsOptions<TElement>): Animation<TElement>;
         /**
          * During the initial setup, `jQuery.Animation` will call any callbacks that have been registered through `jQuery.Animation.prefilter( function( element, props, opts ) )`.
-         *
          * @param callback The prefilter will have `this` set to an animation object, and you can modify any of the `props` or
          *                 `opts` however you need. The prefilter _may_ return its own promise which also implements `stop()`,
          *                 in which case, processing of prefilters stops. If the prefilter is not trying to override the animation
@@ -3646,7 +3577,6 @@ $.get( "test.php" )
          * A "Tweener" is a function responsible for creating a tween object, and you might want to override these if you want to implement complex values ( like a clip/transform array matrix ) in a single property.
          *
          * You can override the default process for creating a tween in order to provide your own tween object by using `jQuery.Animation.tweener( props, callback( prop, value ) )`.
-         *
          * @param props A space separated list of properties to be passed to your tweener, or `"*"` if it should be called
          *              for all properties.
          * @param callback The callback will be called with `this` being an `Animation` object. The tweener function will
@@ -3660,7 +3590,6 @@ $.get( "test.php" )
 
     /**
      * The promise will be resolved when the animation reaches its end, and rejected when terminated early. The context of callbacks attached to the promise will be the element, and the arguments will be the `Animation` object and a boolean `jumpedToEnd` which when true means the animation was stopped with `gotoEnd`, when `undefined` the animation completed naturally.
-     *
      * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
      * @since 1.8
      */
@@ -3671,56 +3600,48 @@ $.get( "test.php" )
     > {
         /**
          * The duration specified in ms
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
          * @since 1.8
          */
         duration: number;
         /**
          * The element being animatied
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
          * @since 1.8
          */
         elem: TElement;
         /**
          * The final value of each property animating
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
          * @since 1.8
          */
         props: PlainObject;
         /**
          * The animation options
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
          * @since 1.8
          */
         opts: EffectsOptions<TElement>;
         /**
          * The original properties before being filtered
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
          * @since 1.8
          */
         originalProps: PlainObject;
         /**
          * The original options before being filtered
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
          * @since 1.8
          */
         originalOpts: EffectsOptions<TElement>;
         /**
          * The numeric value of `new Date()` when the animation began
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
          * @since 1.8
          */
         startTime: number;
         /**
          * The animations tweens.
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
          * @since 1.8
          */
@@ -3732,7 +3653,6 @@ $.get( "test.php" )
         createTween(propName: string, finalValue: number): Tween<TElement>;
         /**
          * Stops the animation early, optionally going to the end.
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#animation-factory }\`
          * @since 1.8
          */
@@ -3741,7 +3661,6 @@ $.get( "test.php" )
 
     /**
      * A "Tweener" is a function responsible for creating a tween object, and you might want to override these if you want to implement complex values ( like a clip/transform array matrix ) in a single property.
-     *
      * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweeners }\`
      * @since 1.8
      */
@@ -3754,7 +3673,6 @@ $.get( "test.php" )
     interface TweenStatic {
         /**
          * `jQuery.Tween.propHooks[ prop ]` is a hook point that replaces `jQuery.fx.step[ prop ]` (which is being deprecated.) These hooks are used by the tween to get and set values on elements.
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tween-hooks }\`
          * @since 1.8
          * @example
@@ -3785,35 +3703,30 @@ jQuery.Tween.propHooks[ property ] = {
     interface Tween<TElement> {
         /**
          * The easing used
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
          * @since 1.8
          */
         easing: string;
         /**
          * The element being animated
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
          * @since 1.8
          */
         elem: TElement;
         /**
          * The ending value of the tween
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
          * @since 1.8
          */
         end: number;
         /**
          * The current value of the tween
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
          * @since 1.8
          */
         now: number;
         /**
          * A reference to the animation options
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
          * @since 1.8
          */
@@ -3822,35 +3735,30 @@ jQuery.Tween.propHooks[ property ] = {
         pos?: number;
         /**
          * The property being animated
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
          * @since 1.8
          */
         prop: string;
         /**
          * The starting value of the tween
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
          * @since 1.8
          */
         start: number;
         /**
          * The CSS unit for the tween
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
          * @since 1.8
          */
         unit: string;
         /**
          * Reads the current value for property from the element
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
          * @since 1.8
          */
         cur(): any;
         /**
          * Updates the value for the property on the animated elemd.
-         *
          * @param progress A number from 0 to 1.
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#tweens }\`
          * @since 1.8
@@ -3906,7 +3814,6 @@ jQuery.Tween.propHooks[ property ] = {
     interface Effects {
         /**
          * The rate (in milliseconds) at which animations fire.
-         *
          * @see \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`
          * @since 1.4.3
          * @deprecated ​ Deprecated since 3.0. See \`{@link https://api.jquery.com/jQuery.fx.interval/ }\`.
@@ -3950,7 +3857,6 @@ $( "input" ).click(function() {
         interval: number;
         /**
          * Globally disable all animations.
-         *
          * @see \`{@link https://api.jquery.com/jQuery.fx.off/ }\`
          * @since 1.3
          * @example ​ ````Toggle animation on and off
@@ -4000,14 +3906,12 @@ $( "input" ).click(function() {
         step: PlainObject<AnimationHook<Node>>;
         /**
          * _overridable_ Clears up the `setInterval`
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
          * @since 1.8
          */
         stop(): void;
         /**
          * Calls `.run()` on each object in the `jQuery.timers` array, removing it from the array if `.run()` returns a falsy value. Calls `jQuery.fx.stop()` whenever there are no timers remaining.
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
          * @since 1.8
          */
@@ -4018,7 +3922,6 @@ $( "input" ).click(function() {
          * By overriding `fx.timer` and `fx.stop` you should be able to implement any animation tick behaviour you desire. (like using `requestAnimationFrame` instead of `setTimeout`.)
          *
          * There is an example of overriding the timer loop in \`{@link https://github.com/gnarf37/jquery-requestAnimationFrame jquery.requestAnimationFrame}\`
-         *
          * @see \`{@link https://gist.github.com/gnarf/54829d408993526fe475#plugging-in-a-different-timer-loop }\`
          * @since 1.8
          */
@@ -4140,7 +4043,6 @@ $( "input" ).click(function() {
         offsetY?: number;
         /**
          * The mouse position relative to the left edge of the document.
-         *
          * @see \`{@link https://api.jquery.com/event.pageX/ }\`
          * @since 1.0.4
          * @example ​ ````Show the mouse position relative to the left and top edges of the document (within this iframe).
@@ -4177,7 +4079,6 @@ $( document ).on( "mousemove", function( event ) {
         pageX: number;
         /**
          * The mouse position relative to the top edge of the document.
-         *
          * @see \`{@link https://api.jquery.com/event.pageY/ }\`
          * @since 1.0.4
          * @example ​ ````Show the mouse position relative to the left and top edges of the document (within this iframe).
@@ -4256,7 +4157,6 @@ $( document ).on( "mousemove", function( event ) {
         ctrlKey?: boolean;
         /**
          * Indicates whether the META key was pressed when the event fired.
-         *
          * @see \`{@link https://api.jquery.com/event.metaKey/ }\`
          * @since 1.0.4
          * @example ​ ````Determine whether the META key was pressed when the event fired.
@@ -4300,7 +4200,6 @@ $( "#checkMetaKey" ).click(function( event ) {
 
         /**
          * The namespace specified when the event was triggered.
-         *
          * @see \`{@link https://api.jquery.com/event.namespace/ }\`
          * @since 1.4.3
          * @example ​ ````Determine the event namespace used.
@@ -4333,7 +4232,6 @@ $( "button" ).click(function( event ) {
         namespace: string;
         /**
          * The last value returned by an event handler that was triggered by this event, unless the value was undefined.
-         *
          * @see \`{@link https://api.jquery.com/event.result/ }\`
          * @since 1.3
          * @example ​ ````Display previous handler&#39;s return value
@@ -4366,7 +4264,6 @@ $( "button" ).click(function( event ) {
         result: any;
         /**
          * The difference in milliseconds between the time the browser created the event and January 1, 1970.
-         *
          * @see \`{@link https://api.jquery.com/event.timeStamp/ }\`
          * @since 1.2.6
          * @example ​ ````Display the time since the click handler last executed.
@@ -4411,7 +4308,6 @@ $( "div" ).click(function( event ) {
         timeStamp: number;
         /**
          * Describes the nature of the event.
-         *
          * @see \`{@link https://api.jquery.com/event.type/ }\`
          * @since 1.0
          * @example ​ ````On all anchor clicks, alert the event type.
@@ -4424,7 +4320,6 @@ $( "a" ).click(function( event ) {
         type: string;
         /**
          * For key or mouse events, this property indicates the specific key or button that was pressed.
-         *
          * @see \`{@link https://api.jquery.com/event.which/ }\`
          * @since 1.1.3
          * @example ​ ````Log which key was depressed.
@@ -4477,7 +4372,6 @@ $( "#whichkey" ).on( "mousedown", function( event ) {
         which: number;
         /**
          * Returns whether event.preventDefault() was ever called on this event object.
-         *
          * @see \`{@link https://api.jquery.com/event.isDefaultPrevented/ }\`
          * @since 1.3
          * @example ​ ````Checks whether event.preventDefault() was called.
@@ -4492,7 +4386,6 @@ $( "a" ).click(function( event ) {
         isDefaultPrevented(): boolean;
         /**
          * Returns whether event.stopImmediatePropagation() was ever called on this event object.
-         *
          * @see \`{@link https://api.jquery.com/event.isImmediatePropagationStopped/ }\`
          * @since 1.3
          * @example ​ ````Checks whether event.stopImmediatePropagation() was called.
@@ -4534,7 +4427,6 @@ $( "button" ).click(function( event ) {
         isImmediatePropagationStopped(): boolean;
         /**
          * Returns whether event.stopPropagation() was ever called on this event object.
-         *
          * @see \`{@link https://api.jquery.com/event.isPropagationStopped/ }\`
          * @since 1.3
          * @example ​ ````Checks whether event.stopPropagation() was called
@@ -4576,7 +4468,6 @@ $( "button" ).click(function(event) {
         isPropagationStopped(): boolean;
         /**
          * If this method is called, the default action of the event will not be triggered.
-         *
          * @see \`{@link https://api.jquery.com/event.preventDefault/ }\`
          * @since 1.0
          * @example ​ ````Cancel the default action (navigation) of the click.
@@ -4609,7 +4500,6 @@ $( "a" ).click(function( event ) {
         preventDefault(): void;
         /**
          * Keeps the rest of the handlers from being executed and prevents the event from bubbling up the DOM tree.
-         *
          * @see \`{@link https://api.jquery.com/event.stopImmediatePropagation/ }\`
          * @since 1.3
          * @example ​ ````Prevents other event handlers from being called.
@@ -4659,7 +4549,6 @@ $( "div" ).click(function( event ) {
         stopImmediatePropagation(): void;
         /**
          * Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
-         *
          * @see \`{@link https://api.jquery.com/event.stopPropagation/ }\`
          * @since 1.0
          * @example ​ ````Kill the bubbling on the click event.
@@ -4680,7 +4569,6 @@ $( "p" ).click(function( event ) {
     > {
         /**
          * The current DOM element within the event bubbling phase.
-         *
          * @see \`{@link https://api.jquery.com/event.currentTarget/ }\`
          * @since 1.3
          * @example ​ ````Alert that currentTarget matches the `this` keyword.
@@ -4693,7 +4581,6 @@ $( "p" ).click(function( event ) {
         currentTarget: TTarget;
         /**
          * An optional object of data passed to an event method when the current executing handler is bound.
-         *
          * @see \`{@link https://api.jquery.com/event.data/ }\`
          * @since 1.1
          * @example ​ ````Within a for loop, pass the value of i to the .on() method so that the current iteration&#39;s value is preserved.
@@ -4737,7 +4624,6 @@ for ( var i = 0; i < 5; i++ ) {
         data: TData;
         /**
          * The element where the currently-called jQuery event handler was attached.
-         *
          * @see \`{@link https://api.jquery.com/event.delegateTarget/ }\`
          * @since 1.7
          * @example ​ ````When a button in any box class is clicked, change the box&#39;s background color to red.
@@ -4751,7 +4637,6 @@ $( ".box" ).on( "click", "button", function( event ) {
         originalEvent: _Event;
         /**
          * The other DOM element involved in the event, if any.
-         *
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
          * @since 1.1.4
          * @example ​ ````On mouseout of anchors, alert the element type being entered.
@@ -4764,7 +4649,6 @@ $( "a" ).mouseout(function( event ) {
         relatedTarget: TTarget | null;
         /**
          * The DOM element that initiated the event.
-         *
          * @see \`{@link https://api.jquery.com/event.target/ }\`
          * @since 1.0
          * @example ​ ````Display the tag&#39;s name on click
@@ -4865,13 +4749,11 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
          * jQuery defines an \`{@link https://api.jquery.com/category/events/event-object/ Event object}\` that represents a cross-browser subset of the information available when an event occurs. The `jQuery.event.props` property is an array of string names for properties that are always copied when jQuery processes a native browser event. (Events fired in code by `.trigger()` do not use this list, since the code can construct a `jQuery.Event` object with the needed values and trigger using that object.)
          *
          * To add a property name to this list, use `jQuery.event.props.push( "newPropertyName" )`. However, be aware that every event processed by jQuery will now attempt to copy this property name from the native browser event to jQuery's constructed event. If the property does not exist for that event type, it will get an undefined value. Adding many properties to this list can significantly reduce event delivery performance, so for infrequently-needed properties it is more efficient to use the value directly from `event.originalEvent` instead. If properties must be copied, you are strongly advised to use `jQuery.event.fixHooks` as of version 1.7.
-         *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#jquery-event-props-array }\`
          */
         props: string[];
         /**
          * The `fixHooks` interface provides a per-event-type way to extend or normalize the event object that jQuery creates when it processes a _native_ browser event.
-         *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#jquery-event-fixhooks-object }\`
          */
         fixHooks: FixHooks;
@@ -4879,7 +4761,6 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
          * The jQuery special event hooks are a set of per-event-name functions and properties that allow code to control the behavior of event processing within jQuery. The mechanism is similar to `fixHooks` in that the special event information is stored in `jQuery.event.special.NAME`, where `NAME` is the name of the special event. Event names are case sensitive.
          *
          * As with `fixHooks`, the special event hooks design assumes it will be very rare that two unrelated pieces of code want to process the same event name. Special event authors who need to modify events with existing hooks will need to take precautions to avoid introducing unwanted side-effects by clobbering those hooks.
-         *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#special-event-hooks }\`
          */
         special: SpecialEventHooks;
@@ -4899,7 +4780,6 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
          * jQuery calls this function after it constructs the `jQuery.Event` object, copies standard properties from `jQuery.event.props`, and copies the `fixHooks`-specific props (if any) specified above. The function can create new properties on the event object or modify existing ones. The second argument is the browser's native event object, which is also available in `event.originalEvent`.
          *
          * Note that for all events, the browser's native event object is available in `event.originalEvent`; if the jQuery event handler examines the properties there instead of jQuery's normalized `event` object, there is no need to create a `fixHooks` entry to copy or modify the properties.
-         *
          * @example ​ ````For example, to set a hook for the "drop" event that copies the `dataTransfer` property, assign an object to `jQuery.event.fixHooks.drop`:
 ```javascript
 jQuery.event.fixHooks.drop = {
@@ -4947,7 +4827,6 @@ if ( !existingHook ) {
 
     /**
      * The `fixHooks` interface provides a per-event-type way to extend or normalize the event object that jQuery creates when it processes a _native_ browser event.
-     *
      * @see \`{@link https://learn.jquery.com/events/event-extensions/#jquery-event-fixhooks-object }\`
      */
     interface FixHooks {
@@ -4963,28 +4842,24 @@ if ( !existingHook ) {
      * The jQuery special event hooks are a set of per-event-name functions and properties that allow code to control the behavior of event processing within jQuery. The mechanism is similar to `fixHooks` in that the special event information is stored in `jQuery.event.special.NAME`, where `NAME` is the name of the special event. Event names are case sensitive.
      *
      * As with `fixHooks`, the special event hooks design assumes it will be very rare that two unrelated pieces of code want to process the same event name. Special event authors who need to modify events with existing hooks will need to take precautions to avoid introducing unwanted side-effects by clobbering those hooks.
-     *
      * @see \`{@link https://learn.jquery.com/events/event-extensions/#special-event-hooks }\`
      */
     // Workaround for TypeScript 2.3 which does not have support for weak types handling.
     type SpecialEventHook<TTarget, TData> = {
         /**
          * Indicates whether this event type should be bubbled when the `.trigger()` method is called; by default it is `false`, meaning that a triggered event will bubble to the element's parents up to the document (if attached to a document) and then to the window. Note that defining `noBubble` on an event will effectively prevent that event from being used for delegated events with `.trigger()`.
-         *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#nobubble-boolean }\`
          */
         noBubble: boolean;
     } | {
         /**
          * When defined, these string properties specify that a special event should be handled like another event type until the event is delivered. The `bindType` is used if the event is attached directly, and the `delegateType` is used for delegated events. These types are generally DOM event types, and _should not_ be a special event themselves.
-         *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
          */
         bindType: string;
     } | {
         /**
          * When defined, these string properties specify that a special event should be handled like another event type until the event is delivered. The `bindType` is used if the event is attached directly, and the `delegateType` is used for delegated events. These types are generally DOM event types, and _should not_ be a special event themselves.
-         *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
          */
         delegateType: string;
@@ -4993,7 +4868,6 @@ if ( !existingHook ) {
          * The setup hook is called the first time an event of a particular type is attached to an element; this provides the hook an opportunity to do processing that will apply to all events of this type on this element. The `this` keyword will be a reference to the element where the event is being attached and `eventHandle` is jQuery's event handler function. In most cases the `namespaces` argument should not be used, since it only represents the namespaces of the _first_ event being attached; subsequent events may not have this same namespaces.
          *
          * This hook can perform whatever processing it desires, including attaching its own event handlers to the element or to other elements and recording setup information on the element using the `jQuery.data()` method. If the setup hook wants jQuery to add a browser event (via `addEventListener` or `attachEvent`, depending on browser) it should return `false`. In all other cases, jQuery will not add the browser event, but will continue all its other bookkeeping for the event. This would be appropriate, for example, if the event was never fired by the browser but invoked by `.trigger()`. To attach the jQuery event handler in the setup hook, use the `eventHandle` argument.
-         *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#setup-function-data-object-namespaces-eventhandle-function }\`
          */
         setup(this: TTarget, data: TData, namespaces: string, eventHandle: EventHandler<TTarget, TData>): void | false;
@@ -5002,21 +4876,18 @@ if ( !existingHook ) {
          * The teardown hook is called when the final event of a particular type is removed from an element. The `this` keyword will be a reference to the element where the event is being cleaned up. This hook should return `false` if it wants jQuery to remove the event from the browser's event system (via `removeEventListener` or `detachEvent`). In most cases, the setup and teardown hooks should return the same value.
          *
          * If the setup hook attached event handlers or added data to an element through a mechanism such as `jQuery.data()`, the teardown hook should reverse the process and remove them. jQuery will generally remove the data and events when an element is totally removed from the document, but failing to remove data or events on teardown will cause a memory leak if the element stays in the document.
-         *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#teardown-function }\`
          */
         teardown(this: TTarget): void | false;
     } | {
         /**
          * Each time an event handler is added to an element through an API such as `.on()`, jQuery calls this hook. The `this` keyword will be the element to which the event handler is being added, and the `handleObj` argument is as described in the section above. The return value of this hook is ignored.
-         *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#add-function-handleobj }\`
          */
         add(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
     } | {
         /**
          * When an event handler is removed from an element using an API such as `.off()`, this hook is called. The `this` keyword will be the element where the handler is being removed, and the `handleObj` argument is as described in the section above. The return value of this hook is ignored.
-         *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#remove-function-handleobj }\`
          */
         remove(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
@@ -5025,14 +4896,12 @@ if ( !existingHook ) {
          * Called when the `.trigger()` or `.triggerHandler()` methods are used to trigger an event for the special type from code, as opposed to events that originate from within the browser. The `this` keyword will be the element being triggered, and the event argument will be a `jQuery.Event` object constructed from the caller's input. At minimum, the event type, data, namespace, and target properties are set on the event. The data argument represents additional data passed by `.trigger()` if present.
          *
          * The trigger hook is called early in the process of triggering an event, just after the `jQuery.Event` object is constructed and before any handlers have been called. It can process the triggered event in any way, for example by calling `event.stopPropagation()` or `event.preventDefault()` before returning. If the hook returns `false`, jQuery does not perform any further event triggering actions and returns immediately. Otherwise, it performs the normal trigger processing, calling any event handlers for the element and bubbling the event (unless propagation is stopped in advance or `noBubble` was specified for the special event) to call event handlers attached to parent elements.
-         *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#trigger-function-event-jquery-event-data-object }\`
          */
         trigger(this: TTarget, event: Event<TTarget, TData>, data: TData): void | false;
     } | {
         /**
          * When the `.trigger()` method finishes running all the event handlers for an event, it also looks for and runs any method on the target object by the same name unless of the handlers called `event.preventDefault()`. So, `.trigger( "submit" )` will execute the `submit()` method on the element if one exists. When a `_default` hook is specified, the hook is called just prior to checking for and executing the element's default method. If this hook returns the value `false` the element's default method will be called; otherwise it is not.
-         *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#_default-function-event-jquery-event-data-object }\`
          */
         _default(event: Event<TTarget, TData>, data: TData): void | false;
@@ -5041,7 +4910,6 @@ if ( !existingHook ) {
          * jQuery calls a handle hook when the event has occurred and jQuery would normally call the user's event handler specified by `.on()` or another event binding method. If the hook exists, jQuery calls it _instead_ of that event handler, passing it the event and any data passed from `.trigger()` if it was not a native event. The `this` keyword is the DOM element being handled, and `event.handleObj` property has the detailed event information.
          *
          * Based in the information it has, the handle hook should decide whether to call the original handler function which is in `event.handleObj.handler`. It can modify information in the event object before calling the original handler, but _must restore_ that data before returning or subsequent unrelated event handlers may act unpredictably. In most cases, the handle hook should return the result of the original handler, but that is at the discretion of the hook. The handle hook is unique in that it is the only special event function hook that is called under its original special event name when the type is mapped using `bindType` and `delegateType`. For that reason, it is almost always an error to have anything other than a handle hook present if the special event defines a `bindType` and `delegateType`, since those other hooks will never be called.
-         *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#handle-function-event-jquery-event-data-object }\`
          */
         handle(this: TTarget, event: Event<TTarget, TData> & { handleObj: HandleObject<TTarget, TData>; }, ...data: TData[]): void;
@@ -5059,7 +4927,6 @@ if ( !existingHook ) {
 
     /**
      * Many of the special event hook functions below are passed a `handleObj` object that provides more information about the event, how it was attached, and its current state. This object and its contents should be treated as read-only data, and only the properties below are documented for use by special event handlers.
-     *
      * @see \`{@link https://learn.jquery.com/events/event-extensions/#the-handleobj-object }\`
      */
     interface HandleObject<TTarget, TData> {

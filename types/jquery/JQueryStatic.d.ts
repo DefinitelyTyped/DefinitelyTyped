@@ -8,14 +8,12 @@ interface JQueryStatic {
     Callbacks: JQuery.CallbacksStatic;
     /**
      * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize CSS property naming, or create custom properties.
-     *
      * @see \`{@link https://api.jquery.com/jQuery.cssHooks/ }\`
      * @since 1.4.3
      */
     cssHooks: JQuery.CSSHooks;
     /**
      * An object containing all CSS properties that may be used without a unit. The .css() method uses this object to see if it may append px to unitless values.
-     *
      * @see \`{@link https://api.jquery.com/jQuery.cssNumber/ }\`
      * @since 1.4.3
      */
@@ -33,7 +31,6 @@ interface JQueryStatic {
     fx: JQuery.Effects;
     /**
      * A Promise-like object (or "thenable") that resolves when the document is ready.
-     *
      * @see \`{@link https://api.jquery.com/jQuery.ready/ }\`
      * @since 1.8
      * @example ​ ````Listen for document ready using jQuery.when.
@@ -56,7 +53,6 @@ $.when(
     ready: JQuery.Thenable<JQueryStatic>;
     /**
      * A collection of properties that represent the presence of different browser features or bugs. Intended for jQuery's internal use; specific properties may be removed when they are no longer needed internally to improve page startup performance. For your own project's feature-detection needs, we strongly recommend the use of an external library such as Modernizr instead of dependency on properties in jQuery.support.
-     *
      * @see \`{@link https://api.jquery.com/jQuery.support/ }\`
      * @since 1.3
      * @deprecated ​ Deprecated since 1.9. See \`{@link https://api.jquery.com/jQuery.support/ }\`.
@@ -70,7 +66,6 @@ $.when(
     (window: Window, discriminator: boolean): JQueryStatic;
     /**
      * Creates DOM elements on the fly from the provided string of raw HTML.
-     *
      * @param html _&#x40;param_ `html`
      * <br>
      * * `html (ownerDocument)` — A string of HTML to create on the fly. Note that this parses HTML, not XML. <br>
@@ -102,7 +97,6 @@ $( "<div/>", {
     <TElement extends HTMLElement = HTMLElement>(html: JQuery.htmlString, ownerDocument_attributes?: Document | JQuery.PlainObject): JQuery<TElement>;
     /**
      * Accepts a string containing a CSS selector which is then used to match a set of elements.
-     *
      * @param selector A string containing a selector expression
      * @param context A DOM Element, Document, or jQuery to use as context
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
@@ -142,7 +136,6 @@ $( "div", xml.responseXML );
     <TElement extends Element = HTMLElement>(selector: JQuery.Selector, context?: Element | Document | JQuery): JQuery<TElement>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
-     *
      * @param element A DOM element to wrap in a jQuery object.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
@@ -156,7 +149,6 @@ $( document.body ).css( "background", "black" );
     <T extends Element>(element: T): JQuery<T>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
-     *
      * @param elementArray An array containing a set of DOM elements to wrap in a jQuery object.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
@@ -170,7 +162,6 @@ $( myForm.elements ).hide();
     <T extends Element>(elementArray: T[]): JQuery<T>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
-     *
      * @param selection An existing jQuery object to clone.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
@@ -178,7 +169,6 @@ $( myForm.elements ).hide();
     <T>(selection: JQuery<T>): JQuery<T>;
     /**
      * Binds a function to be executed when the DOM has finished loading.
-     *
      * @param callback The function to execute when the DOM is ready.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
@@ -199,7 +189,6 @@ jQuery(function( $ ) {
     <TElement = HTMLElement>(callback: ((this: Document, $: JQueryStatic) => void)): JQuery<TElement>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
-     *
      * @param object A plain object to wrap in a jQuery object.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.0
@@ -207,7 +196,6 @@ jQuery(function( $ ) {
     <T extends JQuery.PlainObject>(object: T): JQuery<T>;
     /**
      * Returns an empty jQuery set.
-     *
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.4
      */
@@ -215,7 +203,6 @@ jQuery(function( $ ) {
     <TElement = HTMLElement>(): JQuery<TElement>;
     /**
      * Perform an asynchronous HTTP (Ajax) request.
-     *
      * @param url A string containing the URL to which the request is sent.
      * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can
      *                 be set for any option with $.ajaxSetup(). See jQuery.ajax( settings ) below for a complete list of all settings.
@@ -225,7 +212,6 @@ jQuery(function( $ ) {
     ajax(url: string, settings?: JQuery.AjaxSettings): JQuery.jqXHR;
     /**
      * Perform an asynchronous HTTP (Ajax) request.
-     *
      * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can
      *                 be set for any option with $.ajaxSetup().
      * @see \`{@link https://api.jquery.com/jQuery.ajax/ }\`
@@ -293,7 +279,6 @@ $.ajax({
     ajax(settings?: JQuery.AjaxSettings): JQuery.jqXHR;
     /**
      * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
-     *
      * @param dataTypes An optional string containing one or more space-separated dataTypes
      * @param handler A handler to set default values for future Ajax requests.
      * @see \`{@link https://api.jquery.com/jQuery.ajaxPrefilter/ }\`
@@ -303,7 +288,6 @@ $.ajax({
                   handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => string | void): void;
     /**
      * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
-     *
      * @param handler A handler to set default values for future Ajax requests.
      * @see \`{@link https://api.jquery.com/jQuery.ajaxPrefilter/ }\`
      * @since 1.5
@@ -311,7 +295,6 @@ $.ajax({
     ajaxPrefilter(handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => string | void): void;
     /**
      * Set default values for future Ajax requests. Its use is not recommended.
-     *
      * @param options A set of key/value pairs that configure the default Ajax request. All options are optional.
      * @see \`{@link https://api.jquery.com/jQuery.ajaxSetup/ }\`
      * @since 1.1
@@ -328,7 +311,6 @@ $.ajax({ data: myData });
     ajaxSetup(options: JQuery.AjaxSettings): JQuery.AjaxSettings;
     /**
      * Creates an object that handles the actual transmission of Ajax data.
-     *
      * @param dataType A string identifying the data type to use
      * @param handler A handler to return the new transport object to use with the data type provided in the first argument.
      * @see \`{@link https://api.jquery.com/jQuery.ajaxTransport/ }\`
@@ -343,7 +325,6 @@ $.ajax({ data: myData });
     cleanData(elems: ArrayLike<Element | Document | Window | JQuery.PlainObject>): void;
     /**
      * Check to see if a DOM element is a descendant of another DOM element.
-     *
      * @param container The DOM element that may contain the other element.
      * @param contained The DOM element that may be contained by (a descendant of) the other element.
      * @see \`{@link https://api.jquery.com/jQuery.contains/ }\`
@@ -358,7 +339,6 @@ $.contains( document.body, document.documentElement ); // false
     css(elem: Element, name: string): any;
     /**
      * Store arbitrary data associated with the specified element. Returns the value that was set.
-     *
      * @param element The DOM element to associate with the data.
      * @param key A string naming the piece of data to set.
      * @param value The new data value; this can be any Javascript type except `undefined`.
@@ -431,7 +411,6 @@ $( "button" ).click( function() {
     data<T extends string | number | boolean | symbol | object | null>(element: Element | Document | Window | JQuery.PlainObject, key: string, value: T): T;
     /**
      * Returns value at named data store for the element, as set by `jQuery.data(element, name, value)`, or the full data store for the element.
-     *
      * @param element The DOM element to query for the data.
      * @param key Name of the data stored.
      * @param value `undefined` is not recognized as a data value. Calls such as `jQuery.data( el, "name", undefined )`
@@ -445,7 +424,6 @@ $( "button" ).click( function() {
     data(element: Element | Document | Window | JQuery.PlainObject, key: string, value: undefined): any;
     /**
      * Returns value at named data store for the element, as set by `jQuery.data(element, name, value)`, or the full data store for the element.
-     *
      * @param element The DOM element to query for the data.
      * @param key Name of the data stored.
      * @see \`{@link https://api.jquery.com/jQuery.data/ }\`
@@ -494,7 +472,6 @@ $( "span:last" ).text( jQuery.data( div, "test" ).last );
     data(element: Element | Document | Window | JQuery.PlainObject, key?: string): any;
     /**
      * Execute the next function on the queue for the matched element.
-     *
      * @param element A DOM element from which to remove and execute a queued function.
      * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
      * @see \`{@link https://api.jquery.com/jQuery.dequeue/ }\`
@@ -547,7 +524,6 @@ $( "button" ).click(function() {
     dequeue(element: Element, queueName?: string): void;
     /**
      * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays. Arrays and array-like objects with a length property (such as a function's arguments object) are iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
-     *
      * @param array The array to iterate over.
      * @param callback The function that will be executed on every object.
      * @see \`{@link https://api.jquery.com/jQuery.each/ }\`
@@ -606,7 +582,6 @@ $.each( [ "a", "b", "c" ], function( i, l ){
     each<T>(array: ArrayLike<T>, callback: (this: T, indexInArray: number, value: T) => false | any): ArrayLike<T>;
     /**
      * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays. Arrays and array-like objects with a length property (such as a function's arguments object) are iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
-     *
      * @param obj The object to iterate over.
      * @param callback The function that will be executed on every object.
      * @see \`{@link https://api.jquery.com/jQuery.each/ }\`
@@ -665,7 +640,6 @@ $.each({ name: "John", lang: "JS" }, function( k, v ) {
     each<T, K extends keyof T>(obj: T, callback: (this: T[K], propertyName: K, valueOfProperty: T[K]) => false | any): T;
     /**
      * Takes a string and throws an exception containing it.
-     *
      * @param message The message to send out.
      * @see \`{@link https://api.jquery.com/jQuery.error/ }\`
      * @since 1.4.1
@@ -677,7 +651,6 @@ jQuery.error = console.error;
     error(message: string): any;
     /**
      * Escapes any character that has a special meaning in a CSS selector.
-     *
      * @param selector A string containing a selector expression to escape.
      * @see \`{@link https://api.jquery.com/jQuery.escapeSelector/ }\`
      * @since 3.0
@@ -693,7 +666,6 @@ $( "div" ).find( "." + $.escapeSelector( ".box" ) );
     escapeSelector(selector: JQuery.Selector): JQuery.Selector;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
      * @param object1 An object containing additional properties to merge in.
@@ -742,7 +714,6 @@ $( "#log" ).append( JSON.stringify( object1 ) );
     extend<T, U, V, W, X, Y, Z>(deep: true, target: T, object1: U, object2: V, object3: W, object4: X, object5: Y, object6: Z): T & U & V & W & X & Y & Z;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
      * @param object1 An object containing additional properties to merge in.
@@ -790,7 +761,6 @@ $( "#log" ).append( JSON.stringify( object1 ) );
     extend<T, U, V, W, X, Y>(deep: true, target: T, object1: U, object2: V, object3: W, object4: X, object5: Y): T & U & V & W & X & Y;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
      * @param object1 An object containing additional properties to merge in.
@@ -837,7 +807,6 @@ $( "#log" ).append( JSON.stringify( object1 ) );
     extend<T, U, V, W, X>(deep: true, target: T, object1: U, object2: V, object3: W, object4: X): T & U & V & W & X;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
      * @param object1 An object containing additional properties to merge in.
@@ -883,7 +852,6 @@ $( "#log" ).append( JSON.stringify( object1 ) );
     extend<T, U, V, W>(deep: true, target: T, object1: U, object2: V, object3: W): T & U & V & W;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
      * @param object1 An object containing additional properties to merge in.
@@ -928,7 +896,6 @@ $( "#log" ).append( JSON.stringify( object1 ) );
     extend<T, U, V>(deep: true, target: T, object1: U, object2: V): T & U & V;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
      * @param object1 An object containing additional properties to merge in.
@@ -972,7 +939,6 @@ $( "#log" ).append( JSON.stringify( object1 ) );
     extend<T, U>(deep: true, target: T, object1: U): T & U;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
      * @param object1 An object containing additional properties to merge in.
@@ -1017,7 +983,6 @@ $( "#log" ).append( JSON.stringify( object1 ) );
     extend(deep: true, target: any, object1: any, ...objectN: any[]): any;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
      * @param object1 An object containing additional properties to merge in.
@@ -1095,7 +1060,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
     extend<T, U, V, W, X, Y, Z>(target: T, object1: U, object2: V, object3: W, object4: X, object5: Y, object6: Z): T & U & V & W & X & Y & Z;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
      * @param object1 An object containing additional properties to merge in.
@@ -1172,7 +1136,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
     extend<T, U, V, W, X, Y>(target: T, object1: U, object2: V, object3: W, object4: X, object5: Y): T & U & V & W & X & Y;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
      * @param object1 An object containing additional properties to merge in.
@@ -1248,7 +1211,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
     extend<T, U, V, W, X>(target: T, object1: U, object2: V, object3: W, object4: X): T & U & V & W & X;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
      * @param object1 An object containing additional properties to merge in.
@@ -1323,7 +1285,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
     extend<T, U, V, W>(target: T, object1: U, object2: V, object3: W): T & U & V & W;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
      * @param object1 An object containing additional properties to merge in.
@@ -1397,7 +1358,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
     extend<T, U, V>(target: T, object1: U, object2: V): T & U & V;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
      * @param object1 An object containing additional properties to merge in.
@@ -1470,7 +1430,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
     extend<T, U>(target: T, object1: U): T & U;
     /**
      * Merge the contents of two or more objects together into the first object.
-     *
      * @param target An object that will receive the new properties if additional objects are passed in or that will
      *               extend the jQuery namespace if it is the sole argument.
      * @param object1 An object containing additional properties to merge in.
@@ -1544,7 +1503,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
     extend(target: any, object1: any, ...objectN: any[]): any;
     /**
      * Load data from the server using a HTTP GET request.
-     *
      * @param url A string containing the URL to which the request is sent.
      * @param data A plain object or string that is sent to the server with the request.
      * @param success A callback function that is executed if the request succeeds. Required if `dataType` is provided,
@@ -1559,7 +1517,6 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
         dataType?: string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP GET request.
-     *
      * @param url A string containing the URL to which the request is sent.
      * @param success A callback function that is executed if the request succeeds. Required if `dataType` is provided,
      *                but you can use `null` or \`{@link noop jQuery.noop}\` as a placeholder.
@@ -1580,7 +1537,6 @@ $.get( "test.php", function( data ) {
         dataType: string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP GET request.
-     *
      * @param url A string containing the URL to which the request is sent.
      * @param success_data _&#x40;param_ `success_data`
      * <br>
@@ -1615,7 +1571,6 @@ $.get( "test.cgi", { name: "John", time: "2pm" } )
         success_data: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP GET request.
-     *
      * @param url_settings _&#x40;param_ `url_settings`
      * <br>
      * * `url` — A string containing the URL to which the request is sent. <br>
@@ -1634,7 +1589,6 @@ $.get( "test.php" );
     get(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
     /**
      * Load JSON-encoded data from the server using a GET HTTP request.
-     *
      * @param url A string containing the URL to which the request is sent.
      * @param data A plain object or string that is sent to the server with the request.
      * @param success A callback function that is executed if the request succeeds.
@@ -1646,7 +1600,6 @@ $.get( "test.php" );
             success: JQuery.jqXHR.DoneCallback): JQuery.jqXHR;
     /**
      * Load JSON-encoded data from the server using a GET HTTP request.
-     *
      * @param url A string containing the URL to which the request is sent.
      * @param success_data _&#x40;param_ `url_settings`
      * <br>
@@ -1718,7 +1671,6 @@ $.getJSON( "test.js", { name: "John", time: "2pm" } )
             success_data?: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
     /**
      * Load a JavaScript file from the server using a GET HTTP request, then execute it.
-     *
      * @param url A string containing the URL to which the request is sent.
      * @param success A callback function that is executed if the request succeeds.
      * @see \`{@link https://api.jquery.com/jQuery.getScript/ }\`
@@ -1794,7 +1746,6 @@ $.getScript( url, function() {
               success?: JQuery.jqXHR.DoneCallback<string | undefined>): JQuery.jqXHR<string | undefined>;
     /**
      * Load a JavaScript file from the server using a GET HTTP request, then execute it.
-     *
      * @see \`{@link https://api.jquery.com/jQuery.getScript/ }\`
      * @since 1.12
      * @since 2.2
@@ -1802,7 +1753,6 @@ $.getScript( url, function() {
     getScript(options: JQuery.UrlAjaxSettings): JQuery.jqXHR<string | undefined>;
     /**
      * Execute some JavaScript code globally.
-     *
      * @param code The JavaScript code to execute.
      * @see \`{@link https://api.jquery.com/jQuery.globalEval/ }\`
      * @since 1.0.4
@@ -1818,7 +1768,6 @@ test();
     globalEval(code: string): void;
     /**
      * Finds the elements of an array which satisfy a filter function. The original array is not affected.
-     *
      * @param array The array-like object to search through.
      * @param fn The function to process each item against. The first argument to the function is the item, and the
      *           second argument is the index. The function should return a Boolean value. this will be the global window object.
@@ -1891,7 +1840,6 @@ $.grep( [ 0, 1, 2 ], function( n, i ) {
             invert?: boolean): T[];
     /**
      * Determine whether an element has any jQuery data associated with it.
-     *
      * @param element A DOM element to be checked for data.
      * @see \`{@link https://api.jquery.com/jQuery.hasData/ }\`
      * @since 1.5
@@ -1932,7 +1880,6 @@ $p.append( jQuery.hasData( p ) + " " ); // false
     hasData(element: Element | Document | Window | JQuery.PlainObject): boolean;
     /**
      * Holds or releases the execution of jQuery's ready event.
-     *
      * @param hold Indicates whether the ready hold is being requested or released
      * @see \`{@link https://api.jquery.com/jQuery.holdReady/ }\`
      * @since 1.6
@@ -1952,7 +1899,6 @@ $.getScript( "myplugin.js", function() {
     holdReady(hold: boolean): void;
     /**
      * Modify and filter HTML strings passed through jQuery manipulation methods.
-     *
      * @param html The HTML string on which to operate.
      * @see \`{@link https://api.jquery.com/jQuery.htmlPrefilter/ }\`
      * @since 1.12
@@ -1961,7 +1907,6 @@ $.getScript( "myplugin.js", function() {
     htmlPrefilter(html: JQuery.htmlString): JQuery.htmlString;
     /**
      * Search for a specified value within an array and return its index (or -1 if not found).
-     *
      * @param value The value to search for.
      * @param array An array through which to search.
      * @param fromIndex The index of the array at which to begin the search. The default is 0, which will search the whole array.
@@ -2007,7 +1952,6 @@ $spans.eq( 3 ).text( jQuery.inArray( "Pete", arr, 2 ) );
     inArray<T>(value: T, array: T[], fromIndex?: number): number;
     /**
      * Determine whether the argument is an array.
-     *
      * @param obj Object to test whether or not it is an array.
      * @see \`{@link https://api.jquery.com/jQuery.isArray/ }\`
      * @since 1.3
@@ -2036,7 +1980,6 @@ $( "b" ).append( "" + $.isArray([]) );
     isArray(obj: any): obj is any[];
     /**
      * Check to see if an object is empty (contains no enumerable properties).
-     *
      * @param obj The object that will be checked to see if it's empty.
      * @see \`{@link https://api.jquery.com/jQuery.isEmptyObject/ }\`
      * @since 1.4
@@ -2049,7 +1992,6 @@ jQuery.isEmptyObject({ foo: "bar" }); // false
     isEmptyObject(obj: any): boolean;
     /**
      * Determine if the argument passed is a JavaScript function object.
-     *
      * @param obj Object to test whether or not it is a function.
      * @see \`{@link https://api.jquery.com/jQuery.isFunction/ }\`
      * @since 1.2
@@ -2109,7 +2051,6 @@ $.isFunction(function() {});
     isFunction(obj: any): obj is Function;
     /**
      * Determines whether its argument represents a JavaScript number.
-     *
      * @param value The value to be tested.
      * @see \`{@link https://api.jquery.com/jQuery.isNumeric/ }\`
      * @since 1.7
@@ -2141,7 +2082,6 @@ $.isNumeric( undefined )
     isNumeric(value: any): boolean;
     /**
      * Check to see if an object is a plain object (created using "{}" or "new Object").
-     *
      * @param obj The object that will be checked to see if it's a plain object.
      * @see \`{@link https://api.jquery.com/jQuery.isPlainObject/ }\`
      * @since 1.4
@@ -2154,7 +2094,6 @@ jQuery.isPlainObject( "test" ) // false
     isPlainObject(obj: any): boolean;
     /**
      * Determine whether the argument is a window.
-     *
      * @param obj Object to test whether or not it is a window.
      * @see \`{@link https://api.jquery.com/jQuery.isWindow/ }\`
      * @since 1.4.3
@@ -2187,7 +2126,6 @@ $( "b" ).append( "" + $.isWindow( window ) );
     isWindow(obj: any): obj is Window;
     /**
      * Check to see if a DOM node is within an XML document (or is an XML document).
-     *
      * @param node The DOM node that will be checked to see if it's in an XML document.
      * @see \`{@link https://api.jquery.com/jQuery.isXMLDoc/ }\`
      * @since 1.1.4
@@ -2200,7 +2138,6 @@ jQuery.isXMLDoc( document.body ) // false
     isXMLDoc(node: Node): boolean;
     /**
      * Convert an array-like object into a true JavaScript array.
-     *
      * @param obj Any object to turn into a native Array.
      * @see \`{@link https://api.jquery.com/jQuery.makeArray/ }\`
      * @since 1.2
@@ -2247,7 +2184,6 @@ var arr = $.makeArray( obj );
     makeArray<T>(obj: ArrayLike<T>): T[];
     /**
      * Translate all items in an array or object to new array of items.
-     *
      * @param array The Array to translate.
      * @param callback The function to process each item against. The first argument to the function is the array item, the
      *                 second argument is the index in array The function can return any value. A returned array will be
@@ -2340,7 +2276,6 @@ array = $.map( array, function( a, index ) {
     map<T, TReturn>(array: T[], callback: (this: Window, elementOfArray: T, indexInArray: number) => JQuery.TypeOrArray<TReturn> | null | undefined): TReturn[];
     /**
      * Translate all items in an array or object to new array of items.
-     *
      * @param obj The Object to translate.
      * @param callback The function to process each item against. The first argument to the function is the value; the
      *                 second argument is the key of the object property. The function can return any value to add to the
@@ -2366,7 +2301,6 @@ var keys = $.map( dimensions, function( value, key ) {
     map<T, K extends keyof T, TReturn>(obj: T, callback: (this: Window, propertyOfObject: T[K], key: K) => JQuery.TypeOrArray<TReturn> | null | undefined): TReturn[];
     /**
      * Merge the contents of two arrays together into the first array.
-     *
      * @param first The first array-like object to merge, the elements of second added.
      * @param second The second array-like object to merge into the first, unaltered.
      * @see \`{@link https://api.jquery.com/jQuery.merge/ }\`
@@ -2389,7 +2323,6 @@ $.merge( $.merge( [], first ), second );
     merge<T, U>(first: ArrayLike<T>, second: ArrayLike<U>): Array<T | U>;
     /**
      * Relinquish jQuery's control of the $ variable.
-     *
      * @param removeAll A Boolean indicating whether to remove all jQuery variables from the global scope (including jQuery itself).
      * @see \`{@link https://api.jquery.com/jQuery.noConflict/ }\`
      * @since 1.0
@@ -2473,14 +2406,12 @@ $log.append( "2nd loaded jQuery version (jq162): " + jq162.fn.jquery + "<br>" );
     nodeName(elem: Node, name: string): boolean;
     /**
      * An empty function.
-     *
      * @see \`{@link https://api.jquery.com/jQuery.noop/ }\`
      * @since 1.4
      */
     noop(): undefined;
     /**
      * Return a number representing the current time.
-     *
      * @see \`{@link https://api.jquery.com/jQuery.now/ }\`
      * @since 1.4.3
      * @deprecated ​ Deprecated since 3.3. Use \`{@link DateConstructor.now Date.now}\`.
@@ -2488,7 +2419,6 @@ $log.append( "2nd loaded jQuery version (jq162): " + jq162.fn.jquery + "<br>" );
     now(): number;
     /**
      * Create a serialized representation of an array, a plain object, or a jQuery object suitable for use in a URL query string or Ajax request. In case a jQuery object is passed, it should contain input elements with name/value properties.
-     *
      * @param obj An array, a plain object, or a jQuery object to serialize.
      * @param traditional A Boolean indicating whether to perform a traditional "shallow" serialization.
      * @see \`{@link https://api.jquery.com/jQuery.param/ }\`
@@ -2559,7 +2489,6 @@ $.param({ a: { b: 1, c: 2 }, d: [ 3, 4, { e: 5 } ] });
     param(obj: any[] | JQuery.PlainObject | JQuery, traditional?: boolean): string;
     /**
      * Parses a string into an array of DOM nodes.
-     *
      * @param data HTML string to be parsed
      * @param context Document element to serve as the context in which the HTML fragment will be created
      * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
@@ -2569,7 +2498,6 @@ $.param({ a: { b: 1, c: 2 }, d: [ 3, 4, { e: 5 } ] });
     parseHTML(data: string, context: Document | null | undefined, keepScripts: boolean): JQuery.Node[];
     /**
      * Parses a string into an array of DOM nodes.
-     *
      * @param data HTML string to be parsed
      * @param context_keepScripts _&#x40;param_ `context_keepScripts`
      * <br>
@@ -2620,7 +2548,6 @@ $( "<ol></ol>" )
     parseHTML(data: string, context_keepScripts?: Document | null | boolean): JQuery.Node[];
     /**
      * Takes a well-formed JSON string and returns the resulting JavaScript value.
-     *
      * @param json The JSON string to parse.
      * @see \`{@link https://api.jquery.com/jQuery.parseJSON/ }\`
      * @since 1.4.1
@@ -2638,7 +2565,6 @@ alert( obj.name === "John" );
     parseJSON(json: string): any;
     /**
      * Parses a string into an XML document.
-     *
      * @param data a well-formed XML string to be parsed
      * @see \`{@link https://api.jquery.com/jQuery.parseXML/ }\`
      * @since 1.5
@@ -2679,7 +2605,6 @@ $( "#anotherElement" ).append( $title.text() );
     parseXML(data: string): XMLDocument;
     /**
      * Load data from the server using a HTTP POST request.
-     *
      * @param url A string containing the URL to which the request is sent.
      * @param data A plain object or string that is sent to the server with the request.
      * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
@@ -2701,7 +2626,6 @@ $.post( "test.php", { func: "getNameAndTime" }, function( data ) {
          dataType?: string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP POST request.
-     *
      * @param url A string containing the URL to which the request is sent.
      * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
      *                can be null in that case.
@@ -2714,7 +2638,6 @@ $.post( "test.php", { func: "getNameAndTime" }, function( data ) {
          dataType: string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP POST request.
-     *
      * @param url A string containing the URL to which the request is sent.
      * @param success_data _&#x40;param_ `success_data`
      * <br>
@@ -2797,7 +2720,6 @@ $( "#searchForm" ).submit(function( event ) {
          success_data: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
     /**
      * Load data from the server using a HTTP POST request.
-     *
      * @param url_settings _&#x40;param_ `url_settings`
      * <br>
      * * `url` — A string containing the URL to which the request is sent. <br>
@@ -2829,7 +2751,6 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -2842,7 +2763,6 @@ $.post( "test.php" );
                              a: A, b: B, c: C, d: D, e: E, f: F, g: G): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -2855,7 +2775,6 @@ $.post( "test.php" );
                           a: A, b: B, c: C, d: D, e: E, f: F): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -2868,7 +2787,6 @@ $.post( "test.php" );
                        a: A, b: B, c: C, d: D, e: E): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -2881,7 +2799,6 @@ $.post( "test.php" );
                     a: A, b: B, c: C, d: D): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -2894,7 +2811,6 @@ $.post( "test.php" );
                  a: A, b: B, c: C): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -2907,7 +2823,6 @@ $.post( "test.php" );
               a: A, b: B): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -2920,7 +2835,6 @@ $.post( "test.php" );
            a: A): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -2937,7 +2851,6 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -2952,7 +2865,6 @@ $.post( "test.php" );
            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -2967,7 +2879,6 @@ $.post( "test.php" );
            a: A, b: B, c: C, d: D, e: E, f: F): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -2982,7 +2893,6 @@ $.post( "test.php" );
            a: A, b: B, c: C, d: D, e: E): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -2997,7 +2907,6 @@ $.post( "test.php" );
            a: A, b: B, c: C, d: D): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3012,7 +2921,6 @@ $.post( "test.php" );
            a: A, b: B, c: C): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3027,7 +2935,6 @@ $.post( "test.php" );
            a: A, b: B): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3042,7 +2949,6 @@ $.post( "test.php" );
            a: A): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3060,7 +2966,6 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3075,7 +2980,6 @@ $.post( "test.php" );
               a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3090,7 +2994,6 @@ $.post( "test.php" );
               a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3105,7 +3008,6 @@ $.post( "test.php" );
               a: A, b: B, c: C, d: D, e: E): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3120,7 +3022,6 @@ $.post( "test.php" );
               a: A, b: B, c: C, d: D): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3135,7 +3036,6 @@ $.post( "test.php" );
               a: A, b: B, c: C): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3150,7 +3050,6 @@ $.post( "test.php" );
               a: A, b: B): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3165,7 +3064,6 @@ $.post( "test.php" );
               a: A): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3183,7 +3081,6 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3198,7 +3095,6 @@ $.post( "test.php" );
                  a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3213,7 +3109,6 @@ $.post( "test.php" );
                  a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3228,7 +3123,6 @@ $.post( "test.php" );
                  a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3243,7 +3137,6 @@ $.post( "test.php" );
                  a: A, b: B, c: C, d: D): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3258,7 +3151,6 @@ $.post( "test.php" );
                  a: A, b: B, c: C): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3273,7 +3165,6 @@ $.post( "test.php" );
                  a: A, b: B): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3288,7 +3179,6 @@ $.post( "test.php" );
                  a: A): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3306,7 +3196,6 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3321,7 +3210,6 @@ $.post( "test.php" );
                     a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3336,7 +3224,6 @@ $.post( "test.php" );
                     a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3351,7 +3238,6 @@ $.post( "test.php" );
                     a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3366,7 +3252,6 @@ $.post( "test.php" );
                     a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3381,7 +3266,6 @@ $.post( "test.php" );
                     a: A, b: B, c: C): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3396,7 +3280,6 @@ $.post( "test.php" );
                     a: A, b: B): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3411,7 +3294,6 @@ $.post( "test.php" );
                     a: A): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3429,7 +3311,6 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3444,7 +3325,6 @@ $.post( "test.php" );
                        a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3459,7 +3339,6 @@ $.post( "test.php" );
                        a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3474,7 +3353,6 @@ $.post( "test.php" );
                        a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3489,7 +3367,6 @@ $.post( "test.php" );
                        a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3504,7 +3381,6 @@ $.post( "test.php" );
                        a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3519,7 +3395,6 @@ $.post( "test.php" );
                        a: A, b: B): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3534,7 +3409,6 @@ $.post( "test.php" );
                        a: A): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3552,7 +3426,6 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3567,7 +3440,6 @@ $.post( "test.php" );
                           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3582,7 +3454,6 @@ $.post( "test.php" );
                           a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3597,7 +3468,6 @@ $.post( "test.php" );
                           a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3612,7 +3482,6 @@ $.post( "test.php" );
                           a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3627,7 +3496,6 @@ $.post( "test.php" );
                           a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3642,7 +3510,6 @@ $.post( "test.php" );
                           a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3657,7 +3524,6 @@ $.post( "test.php" );
                           a: A): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3675,7 +3541,6 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3690,7 +3555,6 @@ $.post( "test.php" );
                              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3705,7 +3569,6 @@ $.post( "test.php" );
                              a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3720,7 +3583,6 @@ $.post( "test.php" );
                              a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3735,7 +3597,6 @@ $.post( "test.php" );
                              a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3750,7 +3611,6 @@ $.post( "test.php" );
                              a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3765,7 +3625,6 @@ $.post( "test.php" );
                              a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3780,7 +3639,6 @@ $.post( "test.php" );
                              a: A): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3800,7 +3658,6 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
@@ -3827,7 +3684,6 @@ $.post( "test.php" );
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -3960,7 +3816,6 @@ $( "#test" )
                              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -4093,7 +3948,6 @@ $( "#test" )
                           a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -4226,7 +4080,6 @@ $( "#test" )
                        a: A, b: B, c: C, d: D, e: E): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -4359,7 +4212,6 @@ $( "#test" )
                     a: A, b: B, c: C, d: D): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -4492,7 +4344,6 @@ $( "#test" )
                  a: A, b: B, c: C): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -4625,7 +4476,6 @@ $( "#test" )
               a: A, b: B): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -4758,7 +4608,6 @@ $( "#test" )
            a: A): (this: TContext) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -4895,7 +4744,6 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -5030,7 +4878,6 @@ $( "#test" )
            a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -5165,7 +5012,6 @@ $( "#test" )
            a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -5300,7 +5146,6 @@ $( "#test" )
            a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -5435,7 +5280,6 @@ $( "#test" )
            a: A, b: B, c: C, d: D): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -5570,7 +5414,6 @@ $( "#test" )
            a: A, b: B, c: C): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -5705,7 +5548,6 @@ $( "#test" )
            a: A, b: B): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -5840,7 +5682,6 @@ $( "#test" )
            a: A): (this: TContext, t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -5978,7 +5819,6 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -6113,7 +5953,6 @@ $( "#test" )
               a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -6248,7 +6087,6 @@ $( "#test" )
               a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -6383,7 +6221,6 @@ $( "#test" )
               a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -6518,7 +6355,6 @@ $( "#test" )
               a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -6653,7 +6489,6 @@ $( "#test" )
               a: A, b: B, c: C): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -6788,7 +6623,6 @@ $( "#test" )
               a: A, b: B): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -6923,7 +6757,6 @@ $( "#test" )
               a: A): (this: TContext, t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -7061,7 +6894,6 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -7196,7 +7028,6 @@ $( "#test" )
                  a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -7331,7 +7162,6 @@ $( "#test" )
                  a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -7466,7 +7296,6 @@ $( "#test" )
                  a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -7601,7 +7430,6 @@ $( "#test" )
                  a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -7736,7 +7564,6 @@ $( "#test" )
                  a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -7871,7 +7698,6 @@ $( "#test" )
                  a: A, b: B): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -8006,7 +7832,6 @@ $( "#test" )
                  a: A): (this: TContext, t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -8144,7 +7969,6 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -8279,7 +8103,6 @@ $( "#test" )
                     a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -8414,7 +8237,6 @@ $( "#test" )
                     a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -8549,7 +8371,6 @@ $( "#test" )
                     a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -8684,7 +8505,6 @@ $( "#test" )
                     a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -8819,7 +8639,6 @@ $( "#test" )
                     a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -8954,7 +8773,6 @@ $( "#test" )
                     a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -9089,7 +8907,6 @@ $( "#test" )
                     a: A): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -9227,7 +9044,6 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -9362,7 +9178,6 @@ $( "#test" )
                        a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -9497,7 +9312,6 @@ $( "#test" )
                        a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -9632,7 +9446,6 @@ $( "#test" )
                        a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -9767,7 +9580,6 @@ $( "#test" )
                        a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -9902,7 +9714,6 @@ $( "#test" )
                        a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -10037,7 +9848,6 @@ $( "#test" )
                        a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -10172,7 +9982,6 @@ $( "#test" )
                        a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -10310,7 +10119,6 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -10445,7 +10253,6 @@ $( "#test" )
                           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -10580,7 +10387,6 @@ $( "#test" )
                           a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -10715,7 +10521,6 @@ $( "#test" )
                           a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -10850,7 +10655,6 @@ $( "#test" )
                           a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -10985,7 +10789,6 @@ $( "#test" )
                           a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -11120,7 +10923,6 @@ $( "#test" )
                           a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -11255,7 +11057,6 @@ $( "#test" )
                           a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -11393,7 +11194,6 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -11528,7 +11328,6 @@ $( "#test" )
                              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -11663,7 +11462,6 @@ $( "#test" )
                              a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -11798,7 +11596,6 @@ $( "#test" )
                              a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -11933,7 +11730,6 @@ $( "#test" )
                              a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -12068,7 +11864,6 @@ $( "#test" )
                              a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -12203,7 +11998,6 @@ $( "#test" )
                              a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -12338,7 +12132,6 @@ $( "#test" )
                              a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
@@ -12478,7 +12271,6 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param fn The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
      * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
@@ -12619,7 +12411,6 @@ $( "#test" )
 
     /**
      * Takes a function and returns a new one that will always have a particular context.
-     *
      * @param context The object to which the context of the function should be set.
      * @param name The name of the function whose context will be changed (should be a property of the context object).
      * @param additionalArguments Any number of arguments to be passed to the function named in the name argument.
@@ -12666,7 +12457,6 @@ $( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
 
     /**
      * Manipulate the queue of functions to be executed on the matched element.
-     *
      * @param element A DOM element where the array of queued functions is attached.
      * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
      * @param newQueue The new function to add to the queue.
@@ -12843,7 +12633,6 @@ $( "#stop" ).click(function() {
     queue<T extends Element>(element: T, queueName?: string, newQueue?: JQuery.TypeOrArray<JQuery.QueueFunction<T>>): JQuery.Queue<T>;
     /**
      * Handles errors thrown synchronously in functions wrapped in jQuery().
-     *
      * @param error An error thrown in the function wrapped in jQuery().
      * @see \`{@link https://api.jquery.com/jQuery.readyException/ }\`
      * @since 3.1
@@ -12857,7 +12646,6 @@ jQuery.readyException = function( error ) {
     readyException(error: Error): any;
     /**
      * Remove a previously-stored piece of data.
-     *
      * @param element A DOM element from which to remove data.
      * @param name A string naming the piece of data to remove.
      * @see \`{@link https://api.jquery.com/jQuery.removeData/ }\`
@@ -12905,7 +12693,6 @@ $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
     removeData(element: Element | Document | Window | JQuery.PlainObject, name?: string): void;
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
-     *
      * @param duration A string or number determining how long the animation will run.
      * @param easing A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete, called once per matched element.
@@ -12915,7 +12702,6 @@ $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
     speed<TElement extends Element = HTMLElement>(duration: JQuery.Duration, easing: string, complete: (this: TElement) => void): JQuery.EffectsOptions<TElement>;
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
-     *
      * @param duration A string or number determining how long the animation will run.
      * @param easing_complete _&#x40;param_ `easing_complete`
      * <br>
@@ -12929,7 +12715,6 @@ $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
                                                   easing_complete: string | ((this: TElement) => void)): JQuery.EffectsOptions<TElement>;
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
-     *
      * @param duration_complete_settings _&#x40;param_ `duration_complete_settings`
      * <br>
      * * `duration` — A string or number determining how long the animation will run. <br>
@@ -12942,7 +12727,6 @@ $( "span:eq(3)" ).text( "" + jQuery.data( div, "test2" ) );
     speed<TElement extends Element = HTMLElement>(duration_complete_settings?: JQuery.Duration | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>): JQuery.EffectsOptions<TElement>;
     /**
      * Remove the whitespace from the beginning and end of a string.
-     *
      * @param str The string to trim.
      * @see \`{@link https://api.jquery.com/jQuery.trim/ }\`
      * @since 1.0
@@ -12981,7 +12765,6 @@ $.trim("    hello, how are you?    ");
     trim(str: string): string;
     /**
      * Determine the internal JavaScript [[Class]] of an object.
-     *
      * @param obj Object to get the internal JavaScript [[Class]] of.
      * @see \`{@link https://api.jquery.com/jQuery.type/ }\`
      * @since 1.4.3
@@ -13010,7 +12793,6 @@ $( "b" ).append( "" + jQuery.type( /test/ ) );
     type(obj: any): 'array' | 'boolean' | 'date' | 'error' | 'function' | 'null' | 'number' | 'object' | 'regexp' | 'string' | 'symbol' | 'undefined';
     /**
      * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on arrays of DOM elements, not strings or numbers.
-     *
      * @param array The Array of DOM elements.
      * @see \`{@link https://api.jquery.com/jQuery.unique/ }\`
      * @since 1.1.3
@@ -13062,7 +12844,6 @@ $( "div:eq(2)" ).text( "Post-unique there are " + divs.length + " elements." )
     unique<T extends Element>(array: T[]): T[];
     /**
      * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on arrays of DOM elements, not strings or numbers.
-     *
      * @param array The Array of DOM elements.
      * @see \`{@link https://api.jquery.com/jQuery.uniqueSort/ }\`
      * @since 1.12
@@ -13110,7 +12891,6 @@ $( "div:eq(2)" ).text( "Post-unique there are " + divs.length + " elements." )
     uniqueSort<T extends Element>(array: T[]): T[];
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
-     *
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
      * @example ​ ````Execute a function after two Ajax requests are successful. (See the jQuery.ajax() documentation for a complete description of success and error cases for an ajax request).
@@ -13141,7 +12921,6 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
         VR1, VJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
-     *
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
      * @example ​ ````Execute a function after two Ajax requests are successful. (See the jQuery.ajax() documentation for a complete description of success and error cases for an ajax request).
@@ -13170,7 +12949,6 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
         UR1, UJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
-     *
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
      * @example ​ ````Execute a function after two Ajax requests are successful. (See the jQuery.ajax() documentation for a complete description of success and error cases for an ajax request).
@@ -13201,7 +12979,6 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
         TR3, TJ3, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
-     *
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
      * @example ​ ````Execute a function after two Ajax requests are successful. (See the jQuery.ajax() documentation for a complete description of success and error cases for an ajax request).
@@ -13224,7 +13001,6 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
     when<TR1, TJ1 = any>(deferred: JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
-     *
      * @param deferreds Zero or more Thenable objects.
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
@@ -13248,7 +13024,6 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
     when<TR1 = never, TJ1 = never>(...deferreds: Array<JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1>): JQuery.Promise<TR1, TJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
-     *
      * @param deferreds Zero or more Thenable objects.
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
