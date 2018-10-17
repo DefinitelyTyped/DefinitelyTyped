@@ -8,11 +8,11 @@ app.ws.use(async (ctx, next) => {
         console.log(message);
         const server = ctx.app.ws.server;
         if (server) {
-            for (const client of server.clients) {
+            server.clients.forEach(client => {
                 if (client !== ctx.websocket) {
                     client.send(message);
                 }
-            }
+            });
         }
     });
     ctx.websocket.send('Hello world');
