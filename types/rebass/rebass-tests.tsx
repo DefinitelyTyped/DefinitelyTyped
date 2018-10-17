@@ -2,6 +2,8 @@ import * as React from 'react'
 import * as rebassComponents from 'rebass'
 const {Box} = rebassComponents
 import {Flex, Text, Heading, Button, Link, Image, Card, RebassComponentsModule} from 'rebass'
+import * as styledComponents from 'styled-components'
+import {ThemedStyledComponentsModule} from 'styled-components'
 
 const RebassTests = () => (
     <Box p={[1, 2, 3, 4]} m="0 auto" mx={13}>
@@ -280,5 +282,24 @@ const WithTypedTheme = () => {
     const {Box} = rebassComponents as RebassComponentsModule<Theme>
     return (
         <Box theme={{dark: {backgroundColor: '#666666'}}} />
+    )
+}
+
+const StyledExtended = () => {
+    interface CustomBoxProps {
+        customProp: number
+        optionalProp?: string
+    }
+
+    const {default: styled} = styledComponents as ThemedStyledComponentsModule<Theme>
+
+    const CustomBox = styled(Box)<CustomBoxProps>`
+        ${props => props.customProp}
+        ${props => props.mx}
+        ${props => props.theme.dark}
+    `
+
+    return (
+        <CustomBox customProp={3} as="header" css={{maxWidth: '200px'}} theme={{dark: {backgroundColor: '#666666'}}} />
     )
 }
