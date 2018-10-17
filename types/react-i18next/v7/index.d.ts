@@ -1,10 +1,9 @@
-// Type definitions for react-i18next 8.0
+// Type definitions for react-i18next 7.8
 // Project: https://github.com/i18next/react-i18next
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Simon Baumann <https://github.com/chnoch>
 //                 Benedict Etzel <https://github.com/beheh>
 //                 Wu Haotian <https://github.com/whtsky>
-//                 Jessica Franco <https://github.com/Kovensky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -16,16 +15,14 @@ import {
     setI18n,
     getI18n,
     ReactI18NextOptions,
-    reactI18nextModule,
-    withContext,
-    withI18n
+    reactI18nextModule
 } from "./src/context";
 import I18n from "./src/I18n";
 import I18nextProvider from "./src/I18nextProvider";
 import Interpolate from "./src/interpolate";
 import loadNamespaces from "./src/loadNamespaces";
 import Trans from "./src/trans";
-import { withNamespaces } from "./src/withNamespaces";
+import translate from "./src/translate";
 
 export {
     setDefaults,
@@ -34,14 +31,12 @@ export {
     getI18n,
     ReactI18NextOptions,
     reactI18nextModule,
-    withContext,
-    withI18n,
     I18n,
     I18nextProvider,
     Interpolate,
     loadNamespaces,
     Trans,
-    withNamespaces,
+    translate,
     TranslationFunction
 };
 

@@ -3,6 +3,7 @@ import * as i18n from 'i18next';
 import {
     setDefaults,
     reactI18nextModule,
+    translate,
     I18nextProvider,
     Interpolate,
     InjectedTranslateProps,
@@ -10,25 +11,22 @@ import {
     loadNamespaces,
     Trans,
     I18n,
-    ReactI18NextOptions,
-    withContext,
-    withI18n,
-    withNamespaces
+    ReactI18NextOptions
 } from 'react-i18next';
 import { InjectedI18nProps } from 'react-i18next/src/props';
 
-interface InnerAnotherComponentProps extends InjectedTranslateProps {
-    message?: string;
+interface InnerAnotherComponentProps {
+    _: TranslationFunction;
 }
 
 class InnerAnotherComponent extends React.Component<InnerAnotherComponentProps> {
     render() {
-        const { t, message = 'message' } = this.props;
-        return <p>{t('content.text', { message })}</p>;
+        const _ = this.props._;
+        return <p>{_('content.text', {/* options t options */})}</p>;
     }
 }
 
-const AnotherComponent = withNamespaces<Key>('view', {wait: true})(InnerAnotherComponent);
+const AnotherComponent = translate<Key, "_">('view', {wait: true, translateFuncName: '_'})(InnerAnotherComponent);
 const instanceWithoutRef = new AnotherComponent({});
 instanceWithoutRef.componentWillReceiveProps!({
     i18n,
@@ -36,19 +34,17 @@ instanceWithoutRef.componentWillReceiveProps!({
     initialLanguage: "en"
 }, {});
 
-withNamespaces.setDefaults({ wait: false });
-withNamespaces.setI18n(i18n);
+translate.setDefaults({ wait: false });
+translate.setI18n(i18n);
 
-const innerAnotherComponentRef = React.createRef<InnerAnotherComponent>();
-const anotherComponentRef = React.createRef<typeof AnotherComponentWithRef>();
-const AnotherComponentWithRef = withNamespaces<Key>("view" as Key)(InnerAnotherComponent);
-
-<AnotherComponentWithRef innerRef={innerAnotherComponentRef}/>;
-// The 'ref' should not be assignable to prevent mistakenly saving a ref to react-i18next's generated class
-// $ExpectError
-<AnotherComponentWithRef ref={innerAnotherComponentRef}/>;
-
-<AnotherComponentWithRef i18n={i18n} initialI18nStore={{ context: { text: "a {{message}}" } }} initialLanguage='en'/>;
+const AnotherComponentWithRef = translate<Key, "_">("view" as Key, { translateFuncName: "_", withRef: true })(InnerAnotherComponent);
+const instanceWithRef = new AnotherComponentWithRef({});
+const ref = instanceWithRef.getWrappedInstance();
+instanceWithRef.componentWillReceiveProps!({
+    i18n,
+    initialI18nStore: { context: { text: "a message" } },
+    initialLanguage: "en"
+}, {});
 
 class InnerYetAnotherComponent extends React.Component<InjectedTranslateProps> {
     render() {
@@ -57,15 +53,10 @@ class InnerYetAnotherComponent extends React.Component<InjectedTranslateProps> {
     }
 }
 
-const YetAnotherComponent = withI18n()(InnerYetAnotherComponent);
+const YetAnotherComponent = translate()(InnerYetAnotherComponent);
 
-const YetAnotherComponentWithRef = withI18n()(InnerYetAnotherComponent);
-const innerYetAnotherComponentRef = React.createRef<InnerYetAnotherComponent>();
-
-// It's a current bug that innerRef doesn't work with anything besides withNamespaces
-// $ExpectError
-<YetAnotherComponentWithRef innerRef={innerYetAnotherComponentRef}/>;
-
+const YetAnotherComponentWithRef = translate(undefined, { withRef: true })(InnerYetAnotherComponent);
+new YetAnotherComponentWithRef({}).getWrappedInstance();
 class TranslatableView extends React.Component<InjectedTranslateProps> {
     render() {
         const t = this.props.t;
@@ -98,7 +89,7 @@ class TranslatableView extends React.Component<InjectedTranslateProps> {
     }
 }
 
-const TranslatedView = withNamespaces(["view", "nav"] as Key[], { wait: true })(TranslatableView);
+const TranslatedView = translate(["view", "nav"] as Key[], { wait: true })(TranslatableView);
 
 class App extends React.Component {
   render() {
@@ -153,7 +144,7 @@ class GenericsTest extends React.Component<InjectedTranslateProps> {
     }
 }
 
-const TranslatedGenericsTest = withNamespaces(["view", "nav"] as Key[])(GenericsTest);
+const TranslatedGenericsTest = translate(["view", "nav"] as Key[])(GenericsTest);
 <TranslatedGenericsTest />;
 
 class GenericsTest2 extends React.Component<InjectedTranslateProps> {
@@ -162,21 +153,21 @@ class GenericsTest2 extends React.Component<InjectedTranslateProps> {
     }
 }
 
-const TranslatedGenericsTest2 = withNamespaces("view" as Key)(GenericsTest2);
+const TranslatedGenericsTest2 = translate("view" as Key)(GenericsTest2);
 <TranslatedGenericsTest2 />;
 
 class ComponentWithInjectedI18n extends React.Component<InjectedI18nProps> {
   render() { return null; }
 }
 
-const TranslatedComponentWithInjectedI18n = withI18n()(ComponentWithInjectedI18n);
+const TranslatedComponentWithInjectedI18n = translate()(ComponentWithInjectedI18n);
 <TranslatedComponentWithInjectedI18n />;
 
 function StatlessComponent(props: InjectedTranslateProps) {
   return <h1>{props.t("hy")}</h1>;
 }
 
-const TranslatedStatlessComponent = withI18n()(StatlessComponent);
+const TranslatedStatlessComponent = translate()(StatlessComponent);
 <TranslatedStatlessComponent />;
 
 interface CustomTranslateFunctionProps {
