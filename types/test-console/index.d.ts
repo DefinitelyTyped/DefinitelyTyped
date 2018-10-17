@@ -8,12 +8,12 @@
 export const stdout: TestStream;
 export const stderr: TestStream;
 
-type Output = ReadonlyArray<string>;
-type OutputCallback = (output: Output) => void;
-type NoOutputCallback = () => void;
-type Restore = () => void;
+export type Output = ReadonlyArray<string>;
+export type OutputCallback = (output: Output) => void;
+export type NoOutputCallback = () => void;
+export type Restore = () => void;
 
-interface Options {
+export interface Options {
     isTTY?: boolean;
 }
 
@@ -30,5 +30,3 @@ export interface TestStream {
     ignoreSync(fn: NoOutputCallback): void;
     ignoreSync(options: Options, fn: NoOutputCallback): void;
 }
-
-export {};
