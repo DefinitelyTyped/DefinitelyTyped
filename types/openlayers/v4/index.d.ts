@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers 5.0
+// Type definitions for OpenLayers 4.6
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 //                 Bin Wang <https://github.com/wb14123>
@@ -10,7 +10,6 @@
 //                 Pierre Marchand <https://github.com/pierremarc>
 //                 Hauke Stieler <https://github.com/hauke96>
 //                 Guillaume Beraudo <https://github.com/gberaudo>
-//                 Brett Johnson <https://github.com/bjnsn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -143,9 +142,11 @@ export class Collection<T> extends Object {
      * @param f The function to call
      *     for every element. This function takes 3 arguments (the element, the
      *     index and the array). The return value is ignored.
-     * @api
+     * @param opt_this The object to use as `this` in `f`.
+     * @template S
+     * @api stable
      */
-    forEach(f: ((item: T, index: number, array: T[]) => any)): void;
+    forEach(f: ((item: T, index: number, array: T[]) => any), opt_this?: any): void;
 
     /**
      * Get a reference to the underlying Array object. Warning: if the array
@@ -1707,7 +1708,7 @@ export class Feature extends Object {
      * @api stable
      * @observable
      */
-    getStyle(): (ol.style.Style | ol.style.Style[] | ol.StyleFunction);
+    getStyle(): (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction);
 
     /**
      * Get the feature's style function.
@@ -1715,7 +1716,7 @@ export class Feature extends Object {
      * representing the current style of this feature.
      * @api stable
      */
-    getStyleFunction(): (ol.StyleFunction | undefined);
+    getStyleFunction(): (ol.FeatureStyleFunction | undefined);
 
     /**
      * Set the default geometry for the feature.  This will update the property
@@ -1734,7 +1735,7 @@ export class Feature extends Object {
      * @api stable
      * @observable
      */
-    setStyle(style: (ol.style.Style | ol.style.Style[] | ol.StyleFunction | null)): void;
+    setStyle(style: (ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction | null)): void;
 
     /**
      * Set the feature id.  The feature id is considered stable and may be used when
@@ -4176,10 +4177,13 @@ export namespace geom {
          *
          * @param callback Function
          *     called for each segment.
+         * @param opt_this The object to be used as the value of 'this'
+         *     within callback.
          * @return Value.
+         * @template T,S
          * @api
          */
-        forEachSegment<T>(callback: ((start: ol.Coordinate, end: ol.Coordinate) => T)): (T | boolean);
+        forEachSegment<T, S>(callback: ((this: S, start: ol.Coordinate, end: ol.Coordinate) => T), opt_this?: S): (T | boolean);
 
         /**
          * Returns the coordinate at `m` using linear interpolation, or `null` if no
@@ -4684,17 +4688,16 @@ export namespace geom {
 
         /**
          * Create an approximation of a circle on the surface of a sphere.
+         * @param sphere The sphere.
          * @param center Center (`[lon, lat]` in degrees).
          * @param radius The great-circle distance from the center to
          *     the polygon vertices.
          * @param opt_n Optional number of vertices for the resulting
          *     polygon. Default is `32`.
-         * @param opt_sphereRadius Optional radius for the sphere (defaults to
-         *     the Earth's mean radius using the WGS84 ellipsoid).
          * @return The "circular" polygon.
-         * @api
+         * @api stable
          */
-        static circular(center: ol.Coordinate, radius: number, opt_n?: number, opt_sphereRadius?: number): Polygon;
+        static circular(sphere: ol.Sphere, center: ol.Coordinate, radius: number, opt_n?: number): Polygon;
 
         /**
          * Create a polygon from an extent. The layout used is `XY`.
@@ -6691,26 +6694,34 @@ export class Map extends Object {
         opt_options?: olx.AtPixelOptions
     ): (Array<ol.Feature | ol.render.Feature> | null);
 
-  /**
-   * Detect layers that have a color value at a pixel on the viewport, and
-   * execute a callback with each matching layer. Layers included in the
-   * detection can be configured through `opt_layerFilter`.
-   * @param pixel Pixel.
-   * @param callback
-   *     Layer callback. This callback will receive two arguments: first is the
-   *     {@link module:ol/layer/Layer layer}, second argument is an array representing
-   *     [R, G, B, A] pixel values (0 - 255) and will be `null` for layer types
-   *     that do not currently support this argument. To stop detection, callback
-   *     functions can return a truthy value.
-   * @param opt_options Configuration options.
-   * @return Callback result, i.e. the return value of last
-   * callback execution, or the first truthy callback return value.
-   * @template S,T
-   * @api
-   */
+    /**
+     * Detect layers that have a color value at a pixel on the viewport, and
+     * execute a callback with each matching layer. Layers included in the
+     * detection can be configured through `opt_layerFilter`.
+     * @param pixel Pixel.
+     * @param callback Layer
+     *     callback. This callback will recieve two arguments: first is the
+     *     {@link ol.layer.Layer layer}, second argument is {@link ol.Color}
+     *     and will be null for layer types that do not currently support this
+     *     argument. To stop detection callback functions can return a truthy value.
+     * @param opt_this Value to use as `this` when executing `callback`.
+     * @param opt_layerFilter Layer
+     *     filter function. The filter function will receive one argument, the
+     *     {@link ol.layer.Layer layer-candidate} and it should return a boolean
+     *     value. Only layers which are visible and for which this function returns
+     *     `true` will be tested for features. By default, all visible layers will
+     *     be tested.
+     * @param opt_this2 Value to use as `this` when executing `layerFilter`.
+     * @return Callback result, i.e. the return value of last
+     * callback execution, or the first truthy callback return value.
+     * @template S,T,U
+     * @api stable
+     */
     forEachLayerAtPixel<T>(pixel: ol.Pixel,
                            callback: (layer: ol.layer.Layer, color: ol.Color) => T,
-                           opt_options?: olx.AtPixelOptions): (T);
+                           opt_this?: any,
+                           opt_layerFilter?: (layer: ol.layer.Layer) => boolean,
+                           opt_this2?: any): (T);
 
     /**
      * Detect if features intersect a pixel on the viewport. Layers included in the
@@ -7289,31 +7300,35 @@ export class Observable extends events.EventTarget {
      * Listen for a certain type of event.
      * @param type The event type or array of event types.
      * @param listener The listener function.
+     * @param opt_this The object to use as `this` in `listener`.
      * @return Unique key for the listener. If
      *     called with an array of event types as the first argument, the return
      *     will be an array of keys.
-     * @api
+     * @api stable
      */
-    on(type: (string | string[]), listener: ol.EventsListenerFunctionType): (ol.EventsKey | ol.EventsKey[]);
+    on(type: (string | string[]), listener: ol.EventsListenerFunctionType, opt_this?: GlobalObject): (ol.EventsKey | ol.EventsKey[]);
 
     /**
      * Listen once for a certain type of event.
      * @param type The event type or array of event types.
      * @param listener The listener function.
+     * @param opt_this The object to use as `this` in `listener`.
      * @return Unique key for the listener. If
      *     called with an array of event types as the first argument, the return
      *     will be an array of keys.
-     * @api
+     * @api stable
      */
-    once(type: (string | string[]), listener: ol.EventsListenerFunctionType): (ol.EventsKey | ol.EventsKey[]);
+    once(type: (string | string[]), listener: ol.EventsListenerFunctionType, opt_this?: GlobalObject): (ol.EventsKey | ol.EventsKey[]);
 
     /**
      * Unlisten for a certain type of event.
      * @param type The event type or array of event types.
      * @param listener The listener function.
-     * @api
+     * @param opt_this The object which was used as `this` by the
+     * `listener`.
+     * @api stable
      */
-    un(type: (string | string[]), listener: ol.EventsListenerFunctionType): void;
+    un(type: (string | string[]), listener: ol.EventsListenerFunctionType, opt_this?: GlobalObject): void;
 }
 
 /**
@@ -7544,12 +7559,12 @@ export namespace proj {
     /**
      * @classdesc
      * Projection definition class. One of these is created for each projection
-     * supported in the application and stored in the {@link module:ol/proj} namespace.
+     * supported in the application and stored in the {@link ol.proj} namespace.
      * You can use these in applications, but this is not required, as API params
-     * and options use {@link module:ol/proj~ProjectionLike} which means the simple string
+     * and options use {@link ol.ProjectionLike} which means the simple string
      * code will suffice.
      *
-     * You can use {@link module:ol/proj~get} to retrieve the object for a particular
+     * You can use {@link ol.proj.get} to retrieve the object for a particular
      * projection.
      *
      * The library includes definitions for `EPSG:4326` and `EPSG:3857`, together
@@ -7562,11 +7577,13 @@ export namespace proj {
      *     urn:ogc:def:crs:EPSG:6.18:3:3857,
      *     http://www.opengis.net/gml/srs/epsg.xml#3857
      *
-     * If you use [proj4js](https://github.com/proj4js/proj4js), aliases can
-     * be added using `proj4.defs()`. After all required projection definitions are
-     * added, call the {@link module:ol/proj/proj4~register} function.
+     * If you use proj4js, aliases can be added using `proj4.defs()`; see
+     * [documentation](https://github.com/proj4js/proj4js). To set an alternative
+     * namespace for proj4, use {@link ol.proj.setProj4}.
      *
-     * @api
+     * @param options Projection options.
+     * @struct
+     * @api stable
      */
     class Projection {
         /**
@@ -7690,6 +7707,20 @@ export namespace proj {
          */
         getPointResolution(resolution: number, point: ol.Coordinate): number;
     }
+
+    /**
+     * Register proj4. If not explicitly registered, it will be assumed that
+     * proj4js will be loaded in the global namespace. For example in a
+     * browserify ES6 environment you could use:
+     *
+     *     import ol from 'openlayers';
+     *     import proj4 from 'proj4';
+     *     ol.proj.setProj4(proj4);
+     *
+     * @param proj4 Proj4.
+     * @api
+     */
+    function setProj4(proj4: any): void;
 
     /**
      * Registers transformation functions that don't alter coordinates. Those allow
@@ -7833,21 +7864,6 @@ export namespace proj {
         resolution: number,
         point: ol.Coordinate
     ): number;
-
-    namespace proj4 {
-        /**
-         * Make projections defined in proj4 (with `proj4.defs()`) available in
-         * OpenLayers.
-         *
-         * This function should be called whenever changes are made to the proj4
-         * registry, e.g. after calling `proj4.defs()`. Existing transforms will not be
-         * modified by this function.
-         *
-         * @param proj4 Proj4.
-         * @api
-         */
-        function register(proj4: any): void;
-    }
 }
 
 export namespace render {
@@ -8689,6 +8705,13 @@ export namespace source {
         getAttributions(): ol.Attribution[];
 
         /**
+         * Get the logo of the source.
+         * @return Logo.
+         * @api stable
+         */
+        getLogo(): (string | olx.LogoOptions);
+
+        /**
          * Get the projection of the source.
          * @return Projection.
          * @api
@@ -8932,7 +8955,7 @@ export namespace source {
      * @param options Source options.
      * @api
      */
-    class UTFGrid extends Tile {
+    class TileUTFGrid extends Tile {
         /**
          * @classdesc
          * Layer source for UTFGrid interaction data loaded from TileJSON format.
@@ -8940,7 +8963,7 @@ export namespace source {
          * @param options Source options.
          * @api
          */
-        constructor(options: olx.source.UTFGridOptions);
+        constructor(options: olx.source.TileUTFGridOptions);
 
         /**
          * Return the template from TileJSON.
@@ -9134,15 +9157,15 @@ export namespace source {
          * Iterate through all features on the source, calling the provided callback
          * with each one.  If the callback returns any "truthy" value, iteration will
          * stop and the function will return the same value.
-         * Note: this function only iterate through the feature that have a defined geometry.
          *
          * @param callback Called with each feature
          *     on the source.  Return a truthy value to stop iteration.
+         * @param opt_this The object to use as `this` in the callback.
          * @return The return value from the last call to the callback.
-         * @template T
-         * @api
+         * @template T,S
+         * @api stable
          */
-        forEachFeature<T>(callback: ((feature: ol.Feature) => T)): (T);
+        forEachFeature<S>(callback: ((feature: ol.Feature) => S), opt_this?: any): (S);
 
         /**
          * Iterate through all features whose bounding box intersects the provided
@@ -9151,19 +9174,21 @@ export namespace source {
          * value, iteration will stop and the function will return the same value.
          *
          * If you are interested in features whose geometry intersects an extent, call
-         * the {@link module:ol/source/Vector~VectorSource#forEachFeatureIntersectingExtent #forEachFeatureIntersectingExtent()} method instead.
+         * the {@link ol.source.Vector#forEachFeatureIntersectingExtent
+         * source.forEachFeatureIntersectingExtent()} method instead.
          *
          * When `useSpatialIndex` is set to false, this method will loop through all
-         * features, equivalent to {@link module:ol/source/Vector~VectorSource#forEachFeature #forEachFeature()}.
+         * features, equivalent to {@link ol.source.Vector#forEachFeature}.
          *
          * @param extent Extent.
          * @param callback Called with each feature
          *     whose bounding box intersects the provided extent.
+         * @param opt_this The object to use as `this` in the callback.
          * @return The return value from the last call to the callback.
-         * @template T
+         * @template T,S
          * @api
          */
-        forEachFeatureInExtent<T>(extent: ol.Extent, callback: ((feature: ol.Feature) => T)): (T);
+        forEachFeatureInExtent<S>(extent: ol.Extent, callback: ((feature: ol.Feature) => S), opt_this?: any): (S);
 
         /**
          * Iterate through all features whose geometry intersects the provided extent,
@@ -9171,16 +9196,18 @@ export namespace source {
          * value, iteration will stop and the function will return the same value.
          *
          * If you only want to test for bounding box intersection, call the
-         * {@link module:ol/source/Vector~VectorSource#forEachFeatureInExtent #forEachFeatureInExtent()} method instead.
+         * {@link ol.source.Vector#forEachFeatureInExtent
+         * source.forEachFeatureInExtent()} method instead.
          *
          * @param extent Extent.
          * @param callback Called with each feature
          *     whose geometry intersects the provided extent.
+         * @param opt_this The object to use as `this` in the callback.
          * @return The return value from the last call to the callback.
-         * @template T
+         * @template T,S
          * @api
          */
-        forEachFeatureIntersectingExtent<T>(extent: ol.Extent, callback: ((feature: ol.Feature) => T)): (T);
+        forEachFeatureIntersectingExtent<S>(extent: ol.Extent, callback: ((feature: ol.Feature) => S), opt_this?: any): (S);
 
         /**
          * Get the features collection associated with this source. Will be `null`
@@ -9535,33 +9562,64 @@ export interface SphereMetricOptions {
     radius?: number;
 }
 
-export namespace sphere {
-    const DEFAULT_RADIUS: number;
-
+/**
+ * @classdesc
+ * Class to create objects that can be used with {@link
+ * ol.geom.Polygon.circular}.
+ *
+ * For example to create a sphere whose radius is equal to the semi-major
+ * axis of the WGS84 ellipsoid:
+ *
+ * ```js
+ * var wgs84Sphere= new ol.Sphere(6378137);
+ * ```
+ *
+ * @param radius Radius.
+ * @api
+ */
+export class Sphere {
     /**
-     * Get the great circle distance (in meters) between two geographic coordinates.
-     * @param c1 Starting coordinate.
-     * @param c2 Ending coordinate.
-     * @param opt_radius The sphere radius to use.  Defaults to the Earth's
-     *     mean radius using the WGS84 ellipsoid.
-     * @return The great circle distance between the points (in meters).
+     * @classdesc
+     * Class to create objects that can be used with {@link
+     * ol.geom.Polygon.circular}.
+     *
+     * For example to create a sphere whose radius is equal to the semi-major
+     * axis of the WGS84 ellipsoid:
+     *
+     * ```js
+     * var wgs84Sphere= new ol.Sphere(6378137);
+     * ```
+     *
+     * @param radius Radius.
      * @api
      */
-    function getDistance(c1: number[], c2: number[], opt_radius?: number): number;
+    constructor(radius: number);
 
     /**
-     * Get the spherical length of a geometry.  This length is the sum of the
-     * great circle distances between coordinates.  For polygons, the length is
-     * the sum of all rings.  For points, the length is zero.  For multi-part
-     * geometries, the length is the sum of the length of each part.
-     * @param geometry A geometry.
-     * @param opt_options Options for the
-     * length calculation.  By default, geometries are assumed to be in 'EPSG:3857'.
-     * You can change this by providing a `projection` option.
-     * @return The spherical length (in meters).
+     * Returns the geodesic area for a list of coordinates.
+     *
+     * [Reference](http://trs-new.jpl.nasa.gov/dspace/handle/2014/40409)
+     * Robert. G. Chamberlain and William H. Duquette, "Some Algorithms for
+     * Polygons on a Sphere", JPL Publication 07-03, Jet Propulsion
+     * Laboratory, Pasadena, CA, June 2007
+     *
+     * @param coordinates List of coordinates of a linear
+     * ring. If the ring is oriented clockwise, the area will be positive,
+     * otherwise it will be negative.
+     * @return Area.
      * @api
      */
-    function getLength(geometry: ol.geom.Geometry, opt_options?: SphereMetricOptions): number;
+    geodesicArea(coordinates: ol.Coordinate[]): number;
+
+    /**
+     * Returns the distance from c1 to c2 using the haversine formula.
+     *
+     * @param c1 Coordinate 1.
+     * @param c2 Coordinate 2.
+     * @return Haversine distance.
+     * @api
+     */
+    haversineDistance(c1: ol.Coordinate, c2: ol.Coordinate): number;
 
     /**
      * Get the spherical area of a geometry.  This is the area (in meters) assuming
@@ -9573,20 +9631,21 @@ export namespace sphere {
      * @return The spherical area (in square meters).
      * @api
      */
-    function getArea(geometry: ol.geom.Geometry, opt_options?: SphereMetricOptions): number;
+    static getArea(geometry: geom.Geometry, opt_options?: SphereMetricOptions): number;
 
     /**
-     * Returns the coordinate at the given distance and bearing from `c1`.
-     *
-     * @param c1 The origin point (`[lon, lat]` in degrees).
-     * @param distance The great-circle distance between the origin
-     *     point and the target point.
-     * @param bearing The bearing (in radians).
-     * @param opt_radius The sphere radius to use.  Defaults to the Earth's
-     *     mean radius using the WGS84 ellipsoid.
-     * @return The target point.
+     * Get the spherical length of a geometry.  This length is the sum of the
+     * great circle distances between coordinates.  For polygons, the length is
+     * the sum of all rings.  For points, the length is zero.  For multi-part
+     * geometries, the length is the sum of the length of each part.
+     * @param geometry A geometry.
+     * @param opt_options Options for the length
+     *     calculation.  By default, geometries are assumed to be in 'EPSG:3857'.
+     *     You can change this by providing a `projection` option.
+     * @return The spherical length (in meters).
+     * @api
      */
-    function offset(c1: ol.Coordinate, distance: number, bearing: number, opt_radius?: number): ol.Coordinate;
+    static getLength(geometry: geom.Geometry, opt_options?: SphereMetricOptions): number;
 }
 
 /**
@@ -10768,6 +10827,14 @@ export type Extent = [number, number, number, number];
 export type FeatureLoader = (extent: ol.Extent, resolution: number, proj: ol.proj.Projection) => void;
 
 /**
+ * A function that returns an array of {@link ol.style.Style styles} given a
+ * resolution. The `this` keyword inside the function references the
+ * {@link ol.Feature} to be styled.
+ *
+ */
+export type FeatureStyleFunction = (resolution: number) => (ol.style.Style | ol.style.Style[] | null);
+
+/**
  * {@link ol.source.Vector} sources use a function of this type to get the url
  * to load features from.
  *
@@ -10857,6 +10924,7 @@ export type Size = [number, number];
 export interface SourceImageOptions {
     attributions?: ol.AttributionLike;
     extent?: (ol.Extent);
+    logo?: (string | olx.LogoOptions);
     projection: ol.ProjectionLike;
     resolutions?: number[];
     state?: ol.source.State;
@@ -10864,6 +10932,7 @@ export interface SourceImageOptions {
 
 export interface SourceSourceOptions {
     attributions?: ol.AttributionLike;
+    logo?: (string | olx.LogoOptions);
     projection: ol.ProjectionLike;
     state?: ol.source.State;
     wrapX?: boolean;
@@ -10873,6 +10942,7 @@ export interface SourceUrlTileOptions {
     attributions?: ol.AttributionLike;
     cacheSize?: number;
     extent?: ol.Extent;
+    logo?: (string | olx.LogoOptions);
     opaque?: boolean;
     projection: ol.ProjectionLike;
     state?: ol.source.State;
@@ -10889,6 +10959,7 @@ export interface SourceTileOptions {
     attributions?: ol.AttributionLike;
     cacheSize?: number;
     extent?: ol.Extent;
+    logo?: (string | olx.LogoOptions);
     opaque?: boolean;
     tilePixelRatio?: number;
     projection: ol.ProjectionLike;
@@ -11536,7 +11607,7 @@ export namespace olx {
         }
 
         interface GeoJSONOptions {
-            dataProjection: ol.ProjectionLike;
+            defaultDataProjection: ol.ProjectionLike;
             featureProjection: ol.ProjectionLike;
             geometryName?: string;
         }
@@ -11560,7 +11631,7 @@ export namespace olx {
         }
 
         interface TopoJSONOptions {
-            dataProjection: ol.ProjectionLike;
+            defaultDataProjection: ol.ProjectionLike;
         }
 
         /* tslint:disable-next-line:interface-name */
@@ -11939,6 +12010,7 @@ export namespace olx {
             extent?: ol.Extent;
             geometryFunction?: ((feature: ol.Feature) => ol.geom.Point);
             format?: ol.format.Feature;
+            logo?: string;
             projection?: ol.ProjectionLike;
             source: ol.source.Vector;
             wrapX?: boolean;
@@ -11946,7 +12018,7 @@ export namespace olx {
 
         type TileJSON = JSON;
 
-        interface UTFGridOptions {
+        interface TileUTFGridOptions {
             jsonp?: boolean;
             preemptive?: boolean;
             tileJSON?: TileJSON;
@@ -11957,6 +12029,7 @@ export namespace olx {
             attributions?: ol.AttributionLike;
             cacheSize?: number;
             crossOrigin?: (string);
+            logo?: (string | LogoOptions);
             opaque?: boolean;
             projection: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
@@ -11976,6 +12049,7 @@ export namespace olx {
             attributions?: ol.AttributionLike;
             cacheSize?: number;
             format?: ol.format.Feature;
+            logo?: (string | LogoOptions);
             overlaps?: boolean;
             projection: ol.ProjectionLike;
             state?: ol.source.State;
@@ -12031,6 +12105,7 @@ export namespace olx {
             attributions?: ol.Attribution[];
             crossOrigin?: (string);
             hidpi?: boolean;
+            logo?: (string | LogoOptions);
             imageLoadFunction?: ol.ImageLoadFunctionType;
             params?: { [k: string]: any };
             projection: ol.ProjectionLike;
@@ -12042,6 +12117,7 @@ export namespace olx {
         interface ImageCanvasOptions {
             attributions?: ol.AttributionLike;
             canvasFunction: ol.CanvasFunctionType;
+            logo?: (string | LogoOptions);
             projection: ol.ProjectionLike;
             ratio?: number;
             resolutions?: number[];
@@ -12050,6 +12126,7 @@ export namespace olx {
 
         interface ImageVectorOptions {
             attributions?: ol.AttributionLike;
+            logo?: (string | LogoOptions);
             projection: ol.ProjectionLike;
             ratio?: number;
             renderBuffer?: number;
@@ -12075,6 +12152,7 @@ export namespace olx {
             hidpi?: boolean;
             serverType?: (ol.source.wms.ServerType | string);
             imageLoadFunction?: ol.ImageLoadFunctionType;
+            logo?: (string | LogoOptions);
             params: { [k: string]: any };
             projection: ol.ProjectionLike;
             ratio?: number;
@@ -12098,6 +12176,7 @@ export namespace olx {
             crossOrigin?: (string);
             imageExtent: ol.Extent;
             imageLoadFunction?: ol.ImageLoadFunctionType;
+            logo?: (string | LogoOptions);
             projection: ol.ProjectionLike;
             imageSize?: ol.Size;
             url: string;
@@ -12108,6 +12187,7 @@ export namespace olx {
             cacheSize?: number;
             crossOrigin?: (string);
             params?: { [k: string]: any };
+            logo?: (string | LogoOptions);
             tileGrid?: ol.tilegrid.TileGrid;
             projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
@@ -12137,6 +12217,7 @@ export namespace olx {
             crossOrigin?: (string);
             gutter?: number;
             hidpi?: boolean;
+            logo?: (string | LogoOptions);
             tileGrid?: ol.tilegrid.TileGrid;
             projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
@@ -12153,6 +12234,7 @@ export namespace olx {
             features?: (ol.Feature[] | ol.Collection<ol.Feature>);
             format?: ol.format.Feature;
             loader?: ol.FeatureLoader;
+            logo?: (string | LogoOptions);
             overlaps?: boolean;
             strategy?: ol.LoadingStrategy;
             url?: (string | ol.FeatureUrlFunction);
@@ -12164,6 +12246,7 @@ export namespace olx {
             attributions?: ol.AttributionLike;
             cacheSize?: number;
             crossOrigin?: (string);
+            logo?: (string | LogoOptions);
             tileGrid: ol.tilegrid.WMTS;
             projection: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
@@ -12186,6 +12269,7 @@ export namespace olx {
             attributions?: ol.AttributionLike;
             cacheSize?: number;
             crossOrigin?: (string);
+            logo?: (string | LogoOptions);
             opaque?: boolean;
             projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
@@ -12205,6 +12289,7 @@ export namespace olx {
             attributions?: ol.AttributionLike;
             cacheSize?: number;
             crossOrigin?: (string);
+            logo?: (string | LogoOptions);
             projection: ol.ProjectionLike;
             maxZoom?: number;
             minZoom?: number;
@@ -12218,6 +12303,7 @@ export namespace olx {
             attributions?: ol.AttributionLike;
             cacheSize?: number;
             crossOrigin?: (string);
+            logo?: (string | LogoOptions);
             reprojectionErrorThreshold?: number;
             url: string;
             tierSizeCalculation?: string;
@@ -12370,6 +12456,14 @@ export namespace olx {
         projection: ol.ProjectionLike;
     }
 
+    /**
+     * Object literal with config options for the map logo.
+     */
+    interface LogoOptions {
+        href: string;
+        src: string;
+    }
+
     interface GraticuleOptions {
         map?: ol.Map;
         maxLines?: number;
@@ -12395,7 +12489,9 @@ export namespace olx {
         layers?: (ol.layer.Base[] | ol.Collection<ol.layer.Base>);
         loadTilesWhileAnimating?: boolean;
         loadTilesWhileInteracting?: boolean;
+        logo?: (boolean | string | LogoOptions | Element);
         overlays?: (ol.Collection<ol.Overlay> | ol.Overlay[]);
+        renderer?: (ol.RendererType | Array<(ol.RendererType | string)> | string);
         target?: (Element | string);
         view?: ol.View;
     }

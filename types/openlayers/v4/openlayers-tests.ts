@@ -20,6 +20,7 @@ let coordinateFormatType: ol.CoordinateFormatType;
 const drawGeometryFunction: ol.DrawGeometryFunctionType = (coords, geo) => new ol.geom.SimpleGeometry();
 let easingFunction: (t: number) => number;
 let featureLoader: ol.FeatureLoader;
+let featureStyleFunction: ol.FeatureStyleFunction;
 const preRenderFunction: ol.PreRenderFunction = (map, state) => false;
 let transformFunction: ol.TransformFunction;
 drawGeometryFunction([0, 0], new ol.geom.Point([0, 0]));
@@ -55,6 +56,7 @@ const iconOrigin: ol.style.IconOrigin = 'bottom-left';
 let linearRing: ol.geom.LinearRing;
 let lineString: ol.geom.LineString;
 let loadingStrategy: ol.LoadingStrategy;
+const logoOptions: ol.olx.LogoOptions = {href: stringValue, src: stringValue};
 let map: ol.Map;
 let multiLineString: ol.geom.MultiLineString;
 let multiPoint: ol.geom.MultiPoint;
@@ -307,13 +309,13 @@ point.setCoordinates(coordinate, geometryLayout);
 //
 // ol.geom.Polygon
 //
+const localSphere = new ol.Sphere(numberValue);
 let linearRingsArray: ol.geom.LinearRing[];
 
 polygon = new ol.geom.Polygon(coordinatesArrayDim2);
 polygon = new ol.geom.Polygon(coordinatesArrayDim2, geometryLayout);
-polygon = ol.geom.Polygon.circular(coordinate, numberValue);
-polygon = ol.geom.Polygon.circular(coordinate, numberValue, numberValue);
-polygon = ol.geom.Polygon.circular(coordinate, numberValue, numberValue, numberValue);
+polygon = ol.geom.Polygon.circular(localSphere, coordinate, numberValue);
+polygon = ol.geom.Polygon.circular(localSphere, coordinate, numberValue, numberValue);
 polygon = ol.geom.Polygon.fromCircle(circle);
 polygon = ol.geom.Polygon.fromCircle(circle, numberValue);
 polygon = ol.geom.Polygon.fromCircle(circle, numberValue, numberValue);
@@ -351,6 +353,7 @@ vectorSource = new ol.source.Vector({
     features: featureCollection,
     format: featureFormat,
     loader: featureLoader,
+    logo: logoOptions,
     strategy: loadingStrategy,
     url: stringValue,
     useSpatialIndex: booleanValue,
@@ -368,8 +371,9 @@ vectorSource.addFeatures(featureArray);
 vectorSource.clear();
 vectorSource.clear(booleanValue);
 anyValue = vectorSource.forEachFeature(featureCallback);
-anyValue = vectorSource.forEachFeatureInExtent(extent, featureCallback);
-anyValue = vectorSource.forEachFeatureIntersectingExtent(extent, featureCallback);
+anyValue = vectorSource.forEachFeature(featureCallback, object);
+anyValue = vectorSource.forEachFeatureInExtent(extent, featureCallback, object);
+anyValue = vectorSource.forEachFeatureIntersectingExtent(extent, featureCallback, object);
 feature = vectorSource.getClosestFeatureToCoordinate(coordinate);
 extent = vectorSource.getExtent();
 feature = vectorSource.getFeatureById(stringValue);
@@ -402,7 +406,8 @@ feature = feature.clone();
 geometry = feature.getGeometry();
 stringValue = feature.getGeometryName();
 const featureGetId: string | number = feature.getId();
-const featureGetStyle: ol.style.Style | ol.style.Style[] | ol.StyleFunction = feature.getStyle();
+const featureGetStyle: ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction | ol.StyleFunction = feature.getStyle();
+featureStyleFunction = feature.getStyleFunction();
 feature.setGeometry(geometry);
 feature.setGeometryName(stringValue);
 feature.setId(stringValue);
@@ -410,12 +415,17 @@ feature.setId(numberValue);
 feature.setStyle(null);
 feature.setStyle(style);
 feature.setStyle(styleArray);
+feature.setStyle(featureStyleFunction);
 feature.setStyle(styleFunction);
 feature.setProperties(object);
 const nullStyleFunction = (feature: (ol.Feature|ol.render.Feature), resolution: number): null => {
     return null;
 };
+const nullFeatureStyleFunction = (resolution: number): null => {
+  return null;
+};
 feature.setStyle(nullStyleFunction);
+feature.setStyle(nullFeatureStyleFunction);
 
 //
 // ol.View
@@ -615,11 +625,11 @@ observable.dispatchEvent(olEvent);
 observable.dispatchEvent(stringValue);
 numberValue = observable.getRevision();
 eventKeyMixed = observable.on(stringValue, listener);
-eventKeyMixed = observable.on([stringValue, stringValue], listener);
+eventKeyMixed = observable.on([stringValue, stringValue], listener, {});
 eventKeyMixed = observable.once(stringValue, listener);
-eventKeyMixed = observable.once([stringValue, stringValue], listener);
+eventKeyMixed = observable.once([stringValue, stringValue], listener, {});
 observable.un(stringValue, listener);
-observable.un([stringValue, stringValue], listener);
+observable.un([stringValue, stringValue], listener, {});
 
 //
 // ol.proj
@@ -656,8 +666,7 @@ map = new ol.Map({
     layers: [tileLayer],
     target: stringValue
 });
-
-numberValue = map.forEachLayerAtPixel(coordinate, (layer, color) => numberValue, {layerFilter: (layer) => booleanValue, hitTolerance: 0});
+numberValue = map.forEachLayerAtPixel(coordinate, (layer, color) => numberValue, anyValue, (layer) => booleanValue, anyValue);
 
 //
 // ol.source.ImageWMS
@@ -679,8 +688,8 @@ projection = source.getProjection();
 // ol.source.TileUTFGrid
 //
 const tileJSONValue = JSON;
-let tileUTFGrid = new ol.source.UTFGrid({});
-tileUTFGrid = new ol.source.UTFGrid({
+let tileUTFGrid = new ol.source.TileUTFGrid({});
+tileUTFGrid = new ol.source.TileUTFGrid({
     jsonp: booleanValue,
     preemptive: booleanValue,
     tileJSON: tileJSONValue,
@@ -731,6 +740,7 @@ const imageArcGISRest: ol.source.ImageArcGISRest = new ol.source.ImageArcGISRest
     attributions: [attribution],
     crossOrigin: stringValue,
     hidpi: booleanValue,
+    logo: logoOptions,
     imageLoadFunction: arcGISImageLoadFunction,
     params: {},
     projection: projectionLike,
@@ -818,9 +828,9 @@ popup.setPositioning(popupPositioning);
 // ol.format.GeoJSON
 //
 
-const geojsonOptions: ol.olx.format.GeoJSONOptions = {dataProjection: projectionLike, featureProjection: projectionLike, geometryName: stringValue};
-geojsonOptions.dataProjection = "EPSG";
-geojsonOptions.dataProjection = projection;
+const geojsonOptions: ol.olx.format.GeoJSONOptions = {defaultDataProjection: projectionLike, featureProjection: projectionLike, geometryName: stringValue};
+geojsonOptions.defaultDataProjection = "EPSG";
+geojsonOptions.defaultDataProjection = projection;
 geojsonOptions.geometryName = "geom";
 
 let geojsonFormat: ol.format.GeoJSON;
@@ -1149,12 +1159,12 @@ const strokeWidth: number = styleStroke.getWidth();
 
 const value = ol.proj.METERS_PER_UNIT['degrees'];
 
-numberValue = ol.sphere.getArea(geometry, {
+numberValue = ol.Sphere.getArea(geometry, {
     projection,
     radius: numberValue,
 });
 
-numberValue = ol.sphere.getLength(geometry, {
+numberValue = ol.Sphere.getLength(geometry, {
     projection,
     radius: numberValue,
 });
