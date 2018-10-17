@@ -81,10 +81,12 @@ $( document.body )
     add(selector: JQuery.Selector, context: Element): this;
     /**
      * Create a new jQuery object with elements added to the set of matched elements.
-     * @param selector A string representing a selector expression to find additional elements to add to the set of matched elements.
-     *                 One or more elements to add to the set of matched elements.
-     *                 An HTML fragment to add to the set of matched elements.
-     *                 An existing jQuery object to add to the set of matched elements.
+     * @param selector_elements_html_selection _&#x40;param_ `selector_elements_html_selection`
+     * <br>
+     * * `selector` — A string representing a selector expression to find additional elements to add to the set of matched elements. <br>
+     * * `elements` — One or more elements to add to the set of matched elements. <br>
+     * * `html` — An HTML fragment to add to the set of matched elements. <br>
+     * * `selection` — An existing jQuery object to add to the set of matched elements.
      * @see \`{@link https://api.jquery.com/add/ }\`
      * @since 1.0
      * @since 1.3.2
@@ -220,7 +222,7 @@ collection.css( "background", "yellow" );
 </html>
 ```
      */
-    add(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.htmlString | JQuery): this;
+    add(selector_elements_html_selection: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.htmlString | JQuery): this;
     /**
      * Add the previous set of elements on the stack to the current set, optionally filtered by a selector.
      * @param selector A string containing a selector expression to match the current set of elements against.
@@ -288,11 +290,12 @@ $( "div.after-addback" ).find( "p" ).addBack().addClass( "background" );
     addBack(selector?: JQuery.Selector): this;
     /**
      * Adds the specified class(es) to each element in the set of matched elements.
-     * @param className One or more space-separated classes to be added to the class attribute of each matched element.
-     *                  An array of classes to be added to the class attribute of each matched element.
-     *                  A function returning one or more space-separated class names to be added to the existing class
-     *                  name(s). Receives the index position of the element in the set and the existing class name(s) as
-     *                  arguments. Within the function, this refers to the current element in the set.
+     * @param className_function _&#x40;param_ `className_function`
+     * <br>
+     * * `className` — One or more space-separated classes to be added to the class attribute of each matched element. <br>
+     * * `function` — A function returning one or more space-separated class names to be added to the existing class
+     *                name(s). Receives the index position of the element in the set and the existing class name(s) as
+     *                arguments. Within the function, `this` refers to the current element in the set.
      * @see \`{@link https://api.jquery.com/addClass/ }\`
      * @since 1.0
      * @since 1.4
@@ -410,7 +413,7 @@ $( "div" ).addClass(function( index, currentClass ) {
 </html>
 ```
      */
-    addClass(className: JQuery.TypeOrArray<string> | ((this: TElement, index: number, currentClassName: string) => string)): this;
+    addClass(className_function: JQuery.TypeOrArray<string> | ((this: TElement, index: number, currentClassName: string) => string)): this;
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
      * @param contents One or more additional DOM elements, text nodes, arrays of elements and text nodes, HTML strings, or
@@ -497,15 +500,20 @@ $( "p" ).after( $( "b" ) );
     after(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>>): this;
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
-     * @param fn A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert
-     *           after each element in the set of matched elements. Receives the index position of the element in the
-     *           set and the old HTML value of the element as arguments. Within the function, this refers to the
-     *           current element in the set.
+     * @param function_functionｰhtml _&#x40;param_ `function_functionｰhtml`
+     * <br> 
+     * * `function` — A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert
+     *                after each element in the set of matched elements. Receives the index position of the element in the
+     *                set as an argument. Within the function, `this` refers to the current element in the set. <br>
+     * * `functionｰhtml` — A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert
+     *                     after each element in the set of matched elements. Receives the index position of the element in the
+     *                     set and the old HTML value of the element as arguments. Within the function, `this` refers to the
+     *                     current element in the set.
      * @see \`{@link https://api.jquery.com/after/ }\`
      * @since 1.4
      * @since 1.10
      */
-    after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
+    after(function_functionｰhtml: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     /**
      * Register a handler to be called when Ajax requests complete. This is an AjaxEvent.
      * @param handler The function to be invoked.
@@ -964,14 +972,14 @@ $( "p" ).append( $( "strong" ) );
     append(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>>): this;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
-     * @param fn A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert at
-     *           the end of each element in the set of matched elements. Receives the index position of the element
-     *           in the set and the old HTML value of the element as arguments. Within the function, this refers to
-     *           the current element in the set.
+     * @param funсtion A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert at
+     *                 the end of each element in the set of matched elements. Receives the index position of the element
+     *                 in the set and the old HTML value of the element as arguments. Within the function, `this` refers to
+     *                 the current element in the set.
      * @see \`{@link https://api.jquery.com/append/ }\`
      * @since 1.4
      */
-    append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
+    append(funсtion: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     /**
      * Insert every element in the set of matched elements to the end of the target.
      * @param target A selector, element, HTML string, array of elements, or jQuery object; the matched set of elements
@@ -1010,9 +1018,11 @@ $( "span" ).appendTo( "#foo" );
     /**
      * Set one or more attributes for the set of matched elements.
      * @param attributeName The name of the attribute to set.
-     * @param value A value to set for the attribute. If null, the specified attribute will be removed (as in .removeAttr()).
-     *              A function returning the value to set. this is the current element. Receives the index position of
-     *              the element in the set and the old attribute value as arguments.
+     * @param value_function _&#x40;param_ `value_function`
+     * <br>
+     * * `value` — A value to set for the attribute. If `null`, the specified attribute will be removed (as in \`{@link removeAttr .removeAttr()}`). <br>
+     * * `function` — A function returning the value to set. `this` is the current element. Receives the index position of
+     *                the element in the set and the old attribute value as arguments.
      * @see \`{@link https://api.jquery.com/attr/ }\`
      * @since 1.0
      * @since 1.1
@@ -1079,7 +1089,7 @@ $( "img" ).attr( "src", function() {
 ```
      */
     attr(attributeName: string,
-         value: string | number | null | ((this: TElement, index: number, attr: string) => string | number | void | undefined)): this;
+         value_function: string | number | null | ((this: TElement, index: number, attr: string) => string | number | void | undefined)): this;
     /**
      * Set one or more attributes for the set of matched elements.
      * @param attributes An object of attribute-value pairs to set.
@@ -1286,15 +1296,20 @@ $( "p" ).before( $( "b" ) );
     before(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>>): this;
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
-     * @param fn A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert
-     *           before each element in the set of matched elements. Receives the index position of the element in
-     *           the set and the old HTML value of the element as arguments. Within the function, this refers to the
-     *           current element in the set.
+     * @param function_functionｰhtml _&#x40;param_ `function_functionｰhtml`
+     * <br>
+     * * `function` — A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert
+     *                before each element in the set of matched elements. Receives the index position of the element in
+     *                the set as an argument. Within the function, `this` refers to the current element in the set. <br>
+     * * `functionｰhtml` — A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert 
+     *                     before each element in the set of matched elements. Receives the index position of the element in
+     *                     the set and the old HTML value of the element as arguments. Within the function, `this` refers to the
+     *                     current element in the set.
      * @see \`{@link https://api.jquery.com/before/ }\`
      * @since 1.4
      * @since 1.10
      */
-    before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
+    before(function_functionｰhtml: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     // [bind() overloads] https://github.com/jquery/api.jquery.com/issues/1048
     /**
      * Attach a handler to an event for the elements.
@@ -1316,9 +1331,11 @@ $( "p" ).before( $( "b" ) );
     /**
      * Attach a handler to an event for the elements.
      * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
-     * @param handler A function to execute each time the event is triggered.
-     *                Setting the second argument to false will attach a function that prevents the default action from
-     *                occurring and stops the event from bubbling.
+     * @param handler_preventBubble _&#x40;param_ `handler_preventBubble`
+     * <br>
+     * * `handler` — A function to execute each time the event is triggered. <br>
+     * * `preventBubble` — Setting the third argument to false will attach a function that prevents the default action from
+     *                     occurring and stops the event from bubbling. The default is `true`.
      * @see \`{@link https://api.jquery.com/bind/ }\`
      * @since 1.0
      * @since 1.4.3
@@ -1438,7 +1455,7 @@ $( "button" ).click(function() {
 ```
      */
     bind(eventType: string,
-         handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false | null | undefined): this;
+         handler_preventBubble: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false | null | undefined): this;
     /**
      * Attach a handler to an event for the elements.
      * @param events An object containing one or more DOM event types and functions to execute for them.
@@ -1913,9 +1930,11 @@ $( "b" ).clone().prependTo( "p" );
     closest(selector: JQuery.Selector, context: Element): this;
     /**
      * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
-     * @param selector A string containing a selector expression to match elements against.
-     *                 A jQuery object to match elements against.
-     *                 An element to match elements against.
+     * @param selector_selection_element _&#x40;param_ `selector_selection_element`
+     * <br>
+     * * `selector` — A string containing a selector expression to match elements against. <br>
+     * * `selection` — A jQuery object to match elements against. <br>
+     * * `element` — An element to match elements against.
      * @see \`{@link https://api.jquery.com/closest/ }\`
      * @since 1.3
      * @since 1.6
@@ -1991,7 +2010,7 @@ $( document ).on( "click", function( event ) {
 </html>
 ```
      */
-    closest(selector: JQuery.Selector | Element | JQuery): this;
+    closest(selector_selection_element: JQuery.Selector | Element | JQuery): this;
     /**
      * Get the children of each element in the set of matched elements, including text and comment nodes.
      * @see \`{@link https://api.jquery.com/contents/ }\`
@@ -2114,9 +2133,11 @@ div.contextmenu(function() {
     /**
      * Set one or more CSS properties for the set of matched elements.
      * @param propertyName A CSS property name.
-     * @param value A value to set for the property.
-     *              A function returning the value to set. this is the current element. Receives the index position of
-     *              the element in the set and the old value as arguments.
+     * @param value_function _&#x40;param_ `value_function`
+     * <br>
+     * * `value` — A value to set for the property. <br>
+     * * `function` — A function returning the value to set. `this` is the current element. Receives the index position of
+     *                the element in the set and the old value as arguments.
      * @see \`{@link https://api.jquery.com/css/ }\`
      * @since 1.0
      * @since 1.4
@@ -2221,7 +2242,7 @@ $( "span" ).on( "click", function() {
 ```
      */
     css(propertyName: string,
-        value: string | number | ((this: TElement, index: number, value: string) => string | number | void | undefined)): this;
+        value_function: string | number | ((this: TElement, index: number, value: string) => string | number | void | undefined)): this;
     /**
      * Set one or more CSS properties for the set of matched elements.
      * @param properties An object of property-value pairs to set.
@@ -2308,7 +2329,6 @@ $( "div" ).on( "click", function() {
     /**
      * Get the computed style properties for the first element in the set of matched elements.
      * @param propertyName A CSS property.
-     *                     An array of one or more CSS properties.
      * @see \`{@link https://api.jquery.com/css/ }\`
      * @since 1.0
      * @example ​ ````Get the background color of a clicked div.
@@ -2923,7 +2943,7 @@ $( "button" ).click(function() {
     detach(selector?: JQuery.Selector): this;
     /**
      * Iterate over a jQuery object, executing a function for each matched element.
-     * @param fn A function to execute for each matched element.
+     * @param funсtion A function to execute for each matched element.
      * @see \`{@link https://api.jquery.com/each/ }\`
      * @since 1.0
      * @example ​ ````Iterate over three divs and sets their color property.
@@ -3060,7 +3080,7 @@ $( "button" ).click(function() {
 </html>
 ```
      */
-    each(fn: (this: TElement, index: number, element: TElement) => void | false): this;
+    each(funсtion: (this: TElement, index: number, element: TElement) => void | false): this;
     /**
      * Remove all child nodes of the set of matched elements from the DOM.
      * @see \`{@link https://api.jquery.com/empty/ }\`
@@ -3863,10 +3883,12 @@ $( "button:last" ).click(function() {
     fadeToggle(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
     /**
      * Reduce the set of matched elements to those that match the selector or pass the function's test.
-     * @param selector A string containing a selector expression to match the current set of elements against.
-     *                 One or more DOM elements to match the current set of elements against.
-     *                 An existing jQuery object to match the current set of elements against.
-     *                 A function used as a test for each element in the set. this is the current DOM element.
+     * @param selector_elements_selection_function _&#x40;param_ `selector_elements_selection_function`
+     * <br>
+     * * `selector` — A string containing a selector expression to match the current set of elements against. <br>
+     * * `elements` — One or more DOM elements to match the current set of elements against. <br>
+     * * `selection` — An existing jQuery object to match the current set of elements against. <br>
+     * * `function` — A function used as a test for each element in the set. this is the current DOM element.
      * @see \`{@link https://api.jquery.com/filter/ }\`
      * @since 1.0
      * @since 1.4
@@ -3955,11 +3977,18 @@ $( "div" ).filter( document.getElementById( "unique" ) );
 $( "div" ).filter( $( "#unique" ) );
 ```
      */
-    filter(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): this;
+    filter(selector_elements_selection_function:
+        JQuery.Selector |
+        JQuery.TypeOrArray<Element> |
+        JQuery |
+        ((this: TElement, index: number, element: TElement) => boolean)
+    ): this;
     /**
      * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
-     * @param selector A string containing a selector expression to match elements against.
-     *                 An element or a jQuery object to match elements against.
+     * @param selector_element _&#x40;param_ `selector_element`
+     * <br>
+     * * `selector` — A string containing a selector expression to match elements against. <br>
+     * * `element` — An element or a jQuery object to match elements against.
      * @see \`{@link https://api.jquery.com/find/ }\`
      * @since 1.0
      * @since 1.6
@@ -4065,7 +4094,7 @@ $( "p" )
 </html>
 ```
      */
-    find(selector: JQuery.Selector | Element | JQuery): this;
+    find(selector_element: JQuery.Selector | Element | JQuery): this;
     /**
      * Stop the currently-running animation, remove all queued animations, and complete all animations for the matched elements.
      * @param queue The name of the queue in which to stop animations.
@@ -4498,8 +4527,10 @@ display( $( "div" ).get().reverse() );
     get(): TElement[];
     /**
      * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
-     * @param selector A string containing a selector expression to match elements against.
-     *                 A DOM element to match elements against.
+     * @param selector_contained _&#x40;param_ `selector_contained`
+     * <br>
+     * * `selector` — A string containing a selector expression to match elements against. <br>
+     * * `contained` — A DOM element to match elements against.
      * @see \`{@link https://api.jquery.com/has/ }\`
      * @since 1.4
      * @example ​ ````Check if an element is inside another.
@@ -4531,7 +4562,7 @@ $( "ul" ).has( "li" ).addClass( "full" );
 </html>
 ```
      */
-    has(selector: string | Element): this;
+    has(selector_contained: string | Element): this;
     /**
      * Determine whether any of the matched elements are assigned the given class.
      * @param className The class name to search for.
@@ -4576,10 +4607,12 @@ $( "#result3" ).append( $( "p" ).hasClass( "selected" ).toString() ) ;
     hasClass(className: string): boolean;
     /**
      * Set the CSS height of every matched element.
-     * @param value An integer representing the number of pixels, or an integer with an optional unit of measure
-     *              appended (as a string).
-     *              A function returning the height to set. Receives the index position of the element in the set and
-     *              the old height as arguments. Within the function, this refers to the current element in the set.
+     * @param value_function _&#x40;param_ `value_function`
+     * <br>
+     * * `value` — An integer representing the number of pixels, or an integer with an optional unit of measure
+     *             appended (as a string). <br>
+     * * `function` — A function returning the height to set. Receives the index position of the element in the set and
+     *                the old height as arguments. Within the function, `this` refers to the current element in the set.
      * @see \`{@link https://api.jquery.com/height/ }\`
      * @since 1.0
      * @since 1.4.1
@@ -4623,7 +4656,7 @@ $( "div" ).one( "click", function() {
 </html>
 ```
      */
-    height(value: string | number | ((this: TElement, index: number, height: number) => string | number)): this;
+    height(value_function: string | number | ((this: TElement, index: number, height: number) => string | number)): this;
     /**
      * Get the current computed height for the first element in the set of matched elements.
      * @see \`{@link https://api.jquery.com/height/ }\`
@@ -4985,10 +5018,13 @@ $( "li" )
              handlerOut?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Set the HTML contents of each element in the set of matched elements.
-     * @param htmlString A string of HTML to set as the content of each matched element.
-     *                   A function returning the HTML content to set. Receives the index position of the element in the set
-     *                   and the old HTML value as arguments. jQuery empties the element before calling the function; use the
-     *                   oldhtml argument to reference the previous content. Within the function, this refers to the current element in the set.
+     * @param htmlString_function _&#x40;param_ `htmlString_function`
+     * <br>
+     * * `htmlString` — A string of HTML to set as the content of each matched element. <br>
+     * * `function` — A function returning the HTML content to set. Receives the index position of the element in the set
+     *                and the old HTML value as arguments. jQuery empties the element before calling the function; use the
+     *                oldhtml argument to reference the previous content. Within the function, `this` refers to the current
+     *                element in the set.
      * @see \`{@link https://api.jquery.com/html/ }\`
      * @since 1.0
      * @since 1.4
@@ -5052,7 +5088,7 @@ $( "div b" )
 </html>
 ```
      */
-    html(htmlString: JQuery.htmlString | ((this: TElement, index: number, oldhtml: JQuery.htmlString) => JQuery.htmlString)): this;
+    html(htmlString_function: JQuery.htmlString | ((this: TElement, index: number, oldhtml: JQuery.htmlString) => JQuery.htmlString)): this;
     /**
      * Get the HTML contents of the first element in the set of matched elements.
      * @see \`{@link https://api.jquery.com/html/ }\`
@@ -5106,8 +5142,10 @@ $( "p" ).click(function() {
     html(): string;
     /**
      * Search for a given element from among the matched elements.
-     * @param element The DOM element or first element within the jQuery object to look for.
-     *                A selector representing a jQuery collection in which to look for an element.
+     * @param selector_element _&#x40;param_ `selector_element`
+     * <br>
+     * * `selector` — A selector representing a jQuery collection in which to look for an element. <br>
+     * * `element` — The DOM element or first element within the jQuery object to look for.
      * @see \`{@link https://api.jquery.com/index/ }\`
      * @since 1.0
      * @since 1.4
@@ -5307,14 +5345,16 @@ $( "div" ).html( "Index: " + foobar );
 </html>
 ```
      */
-    index(element?: JQuery.Selector | Element | JQuery): number;
+    index(selector_element?: JQuery.Selector | Element | JQuery): number;
     /**
      * Set the CSS inner height of each element in the set of matched elements.
-     * @param value A number representing the number of pixels, or a number along with an optional unit of measure
-     *              appended (as a string).
-     *              A function returning the inner height (including padding but not border) to set. Receives the index
-     *              position of the element in the set and the old inner height as arguments. Within the function, this
-     *              refers to the current element in the set.
+     * @param value_function _&#x40;param_ `value_function`
+     * <br>
+     * * `value` — A number representing the number of pixels, or a number along with an optional unit of measure
+     *             appended (as a string). <br>
+     * * `function` — A function returning the inner height (including padding but not border) to set. Receives the index
+     *                position of the element in the set and the old inner height as arguments. Within the function, `this`
+     *                refers to the current element in the set.
      * @see \`{@link https://api.jquery.com/innerHeight/ }\`
      * @since 1.8.0
      * @example ​ ````Change the inner height of each div the first time it is clicked (and change its color).
@@ -5361,7 +5401,7 @@ $( "div" ).one( "click", function() {
 </html>
 ```
      */
-    innerHeight(value: string | number | ((this: TElement, index: number, height: number) => string | number)): this;
+    innerHeight(value_function: string | number | ((this: TElement, index: number, height: number) => string | number)): this;
     /**
      * Get the current computed height for the first element in the set of matched elements, including padding but not border.
      * @see \`{@link https://api.jquery.com/innerHeight/ }\`
@@ -5399,11 +5439,13 @@ $( "p:last" ).text( "innerHeight:" + p.innerHeight() );
     innerHeight(): number | undefined;
     /**
      * Set the CSS inner width of each element in the set of matched elements.
-     * @param value A number representing the number of pixels, or a number along with an optional unit of measure
-     *              appended (as a string).
-     *              A function returning the inner width (including padding but not border) to set. Receives the index
-     *              position of the element in the set and the old inner width as arguments. Within the function, this
-     *              refers to the current element in the set.
+     * @param value_function _&#x40;param_ `value_function`
+     * <br>
+     * * `value` — A number representing the number of pixels, or a number along with an optional unit of measure
+     *             appended (as a string). <br>
+     * * `function` — A function returning the inner width (including padding but not border) to set. Receives the index
+     *                position of the element in the set and the old inner width as arguments. Within the function, `this`
+     *                refers to the current element in the set.
      * @see \`{@link https://api.jquery.com/innerWidth/ }\`
      * @since 1.8.0
      * @example ​ ````Change the inner width of each div the first time it is clicked (and change its color).
@@ -5450,7 +5492,7 @@ modWidth -= 8;
 </html>
 ```
      */
-    innerWidth(value: string | number | ((this: TElement, index: number, width: number) => string | number)): this;
+    innerWidth(value_function: string | number | ((this: TElement, index: number, width: number) => string | number)): this;
     /**
      * Get the current computed inner width for the first element in the set of matched elements, including padding but not border.
      * @see \`{@link https://api.jquery.com/innerWidth/ }\`
@@ -5556,12 +5598,14 @@ $( "p" ).insertBefore( "#foo" );
     insertBefore(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Node> | JQuery<Node>): this;
     /**
      * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
-     * @param selector A string containing a selector expression to match elements against.
-     *                 A function used as a test for every element in the set. It accepts two arguments, index, which is
-     *                 the element's index in the jQuery collection, and element, which is the DOM element. Within the
-     *                 function, this refers to the current DOM element.
-     *                 An existing jQuery object to match the current set of elements against.
-     *                 One or more elements to match the current set of elements against.
+     * @param selector_function_selection_elements _&#x40;param_ `selector_function_selection_elements`
+     * <br>
+     * * `selector` — A string containing a selector expression to match elements against. <br>
+     * * `function` — A function used as a test for every element in the set. It accepts two arguments, `index`, which is
+     *                the element's index in the jQuery collection, and `element`, which is the DOM element. Within the
+     *                function, `this` refers to the current DOM element. <br>
+     * * `selection` — An existing jQuery object to match the current set of elements against. <br>
+     * * `elements` — One or more elements to match the current set of elements against.
      * @see \`{@link https://api.jquery.com/is/ }\`
      * @since 1.0
      * @since 1.6
@@ -5771,7 +5815,7 @@ $( "li" ).click(function() {
 </html>
 ```
      */
-    is(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): boolean;
+    is(selector_function_selection_elements: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): boolean;
     /**
      * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -7009,8 +7053,10 @@ $( ":nth-child(1)" ).nextAll( "p" ).addClass( "after" );
     nextAll(selector?: string): this;
     /**
      * Get all following siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object passed.
-     * @param selector A string containing a selector expression to indicate where to stop matching following sibling elements.
-     *                 A DOM node or jQuery object indicating where to stop matching following sibling elements.
+     * @param selector_element _&#x40;param_ `selector_element`
+     * <br>
+     * * `selector` — A string containing a selector expression to indicate where to stop matching following sibling elements. <br>
+     * * `element` — A DOM node or jQuery object indicating where to stop matching following sibling elements.
      * @param filter A string containing a selector expression to match elements against.
      * @see \`{@link https://api.jquery.com/nextUntil/ }\`
      * @since 1.4
@@ -7055,14 +7101,16 @@ $( "#term-1" )
 </html>
 ```
      */
-    nextUntil(selector?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
+    nextUntil(selector_element?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
     /**
      * Remove elements from the set of matched elements.
-     * @param selector A string containing a selector expression, a DOM element, or an array of elements to match against the set.
-     *                 A function used as a test for each element in the set. It accepts two arguments, index, which is the
-     *                 element's index in the jQuery collection, and element, which is the DOM element. Within the
-     *                 function, this refers to the current DOM element.
-     *                 An existing jQuery object to match the current set of elements against.
+     * @param selector_function_selection _&#x40;param_ `selector_function_selection`
+     * <br>
+     * * `selector` — A string containing a selector expression, a DOM element, or an array of elements to match against the set. <br>
+     * * `function` — A function used as a test for each element in the set. It accepts two arguments, `index`, which is
+     *                the element's index in the jQuery collection, and `element`, which is the DOM element. Within the
+     *                function, `this` refers to the current DOM element. <br>
+     * * `selection` — An existing jQuery object to match the current set of elements against.
      * @see \`{@link https://api.jquery.com/not/ }\`
      * @since 1.0
      * @since 1.4
@@ -7125,7 +7173,7 @@ $( "p" ).not( "#selected" );
 $( "p" ).not( $( "div p.selected" ) );
 ```
      */
-    not(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): this;
+    not(selector_function_selection: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): this;
     /**
      * Remove an event handler.
      * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as
@@ -7246,11 +7294,13 @@ $( "p" ).off();
     off(event?: JQuery.Event<TElement>): this;
     /**
      * Set the current coordinates of every element in the set of matched elements, relative to the document.
-     * @param coordinates An object containing the properties top and left, which are numbers indicating the new top and left
-     *                    coordinates for the elements.
-     *                    A function to return the coordinates to set. Receives the index of the element in the collection as
-     *                    the first argument and the current coordinates as the second argument. The function should return an
-     *                    object with the new top and left properties.
+     * @param coordinates_function _&#x40;param_ `coordinates_function`
+     * <br>
+     * * `coordinates` — An object containing the properties `top` and `left`, which are numbers indicating the new top and
+     *                   left coordinates for the elements. <br>
+     * * `function` — A function to return the coordinates to set. Receives the index of the element in the collection as
+     *                the first argument and the current coordinates as the second argument. The function should return an
+     *                object with the new `top` and `left` properties.
      * @see \`{@link https://api.jquery.com/offset/ }\`
      * @since 1.4
      * @example ​ ````Set the offset of the second paragraph:
@@ -7279,7 +7329,7 @@ $( "p:last" ).offset({ top: 10, left: 30 });
 </html>
 ```
      */
-    offset(coordinates: JQuery.CoordinatesPartial | ((this: TElement, index: number, coords: JQuery.Coordinates) => JQuery.CoordinatesPartial)): this;
+    offset(coordinates_function: JQuery.CoordinatesPartial | ((this: TElement, index: number, coords: JQuery.Coordinates) => JQuery.CoordinatesPartial)): this;
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the document.
      * @see \`{@link https://api.jquery.com/offset/ }\`
@@ -7427,6 +7477,7 @@ $( "*", document.body ).click(function( event ) {
      * @param handler A function to execute when the event is triggered.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
+     * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\` in place of \`{@link JQueryEventObject }\`.
      */
     on(events: string,
        selector: JQuery.Selector | null,
@@ -7503,6 +7554,7 @@ $( "body" ).on( "click", "a", function( event ) {
      * @param handler A function to execute when the event is triggered.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
+     * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\` in place of \`{@link JQueryEventObject }\`.
      * @example ​ ````Click any paragraph to add another after it. Note that .on() allows a click event on any paragraph--even new ones--since the event is handled by the ever-present body element after it bubbles to there.
 ```html
 <!doctype html>
@@ -7582,6 +7634,7 @@ $( "p" ).on( "click", { foo: "bar" }, myHandler );
      * @param handler A function to execute when the event is triggered.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
+     * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\` in place of \`{@link JQueryEventObject }\`.
      * @example ​ ````Pass data to the event handler, which is specified here by name:
 ```javascript
 function myHandler( event ) {
@@ -7692,6 +7745,7 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      * @param handler A function to execute when the event is triggered.
      * @see \`{@link https://api.jquery.com/on/ }\`
      * @since 1.7
+     * @deprecated ​ Deprecated. Use \`{@link JQuery.Event }\` in place of \`{@link JQueryEventObject }\`.
      * @example ​ ````Display a paragraph&#39;s text in an alert when it is clicked:
 ```javascript
 $( "p" ).on( "click", function() {
@@ -8033,8 +8087,13 @@ $(".target").one("click mouseenter", function() {
     one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
     /**
      * Set the CSS outer height of each element in the set of matched elements.
-     * @param value A number representing the number of pixels, or a number along with an optional unit of measure
-     *              appended (as a string).
+     * @param value_function _&#x40;param_ `value_function`
+     * <br>
+     * * `value` — A number representing the number of pixels, or a number along with an optional unit of measure
+     *             appended (as a string). <br>
+     * * `function` — A function returning the outer height to set. Receives the index position of the element in the set
+     *                and the old outer height as arguments. Within the function, `this` refers to the current element in
+     *                the set.
      * @see \`{@link https://api.jquery.com/outerHeight/ }\`
      * @since 1.8.0
      * @example ​ ````Change the outer height of each div the first time it is clicked (and change its color).
@@ -8081,7 +8140,7 @@ $( "div" ).one( "click", function() {
 </html>
 ```
      */
-    outerHeight(value: string | number | ((this: TElement, index: number, height: number) => string | number),
+    outerHeight(value_function: string | number | ((this: TElement, index: number, height: number) => string | number),
                 includeMargin?: boolean): this;
     /**
      * Get the current computed outer height (including padding, border, and optionally margin) for the first element in the set of matched elements.
@@ -8122,10 +8181,13 @@ $( "p:last" ).text(
     outerHeight(includeMargin?: boolean): number | undefined;
     /**
      * Set the CSS outer width of each element in the set of matched elements.
-     * @param value A number representing the number of pixels, or a number along with an optional unit of measure
-     *              appended (as a string).
-     *              A function returning the outer width to set. Receives the index position of the element in the set
-     *              and the old outer width as arguments. Within the function, this refers to the current element in the set.
+     * @param value_function _&#x40;param_ `value_function`
+     * <br>
+     * * `value` — A number representing the number of pixels, or a number along with an optional unit of measure
+     *             appended (as a string). <br>
+     * * `function` — A function returning the outer width to set. Receives the index position of the element in the set
+     *                and the old outer width as arguments. Within the function, `this` refers to the current element in
+     *                the set.
      * @see \`{@link https://api.jquery.com/outerWidth/ }\`
      * @since 1.8.0
      * @example ​ ````Change the outer width of each div the first time it is clicked (and change its color).
@@ -8172,7 +8234,7 @@ $( "div" ).one( "click", function() {
 </html>
 ```
      */
-    outerWidth(value: string | number | ((this: TElement, index: number, width: number) => string | number),
+    outerWidth(value_function: string | number | ((this: TElement, index: number, width: number) => string | number),
                includeMargin?: boolean): this;
     /**
      * Get the current computed outer width (including padding, border, and optionally margin) for the first element in the set of matched elements.
@@ -8400,8 +8462,10 @@ $( "span" ).click(function() {
     parents(selector?: JQuery.Selector): this;
     /**
      * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
-     * @param selector A string containing a selector expression to indicate where to stop matching ancestor elements.
-     *                 A DOM node or jQuery object indicating where to stop matching ancestor elements.
+     * @param selector_element _&#x40;param_ `selector_element`
+     * <br>
+     * * `selector` — A string containing a selector expression to indicate where to stop matching ancestor elements. <br>
+     * * `element` — A DOM node or jQuery object indicating where to stop matching ancestor elements.
      * @param filter A string containing a selector expression to match elements against.
      * @see \`{@link https://api.jquery.com/parentsUntil/ }\`
      * @since 1.4
@@ -8449,7 +8513,7 @@ $( "li.item-2" )
 </html>
 ```
      */
-    parentsUntil(selector?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
+    parentsUntil(selector_element?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
      * @see \`{@link https://api.jquery.com/position/ }\`
@@ -8576,14 +8640,14 @@ $( "p" ).prepend( $( "b" ) );
     prepend(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>>): this;
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
-     * @param fn A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert at
-     *           the beginning of each element in the set of matched elements. Receives the index position of the
-     *           element in the set and the old HTML value of the element as arguments. Within the function, this
-     *           refers to the current element in the set.
+     * @param funсtion A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert at
+     *                 the beginning of each element in the set of matched elements. Receives the index position of the
+     *                 element in the set and the old HTML value of the element as arguments. Within the function, `this`
+     *                 refers to the current element in the set.
      * @see \`{@link https://api.jquery.com/prepend/ }\`
      * @since 1.4
      */
-    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
+    prepend(funсtion: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node | JQuery<JQuery.Node>>): this;
     /**
      * Insert every element in the set of matched elements to the beginning of the target.
      * @param target A selector, element, HTML string, array of elements, or jQuery object; the matched set of elements
@@ -8743,8 +8807,10 @@ $( "div:last" ).prevAll().addClass( "before" );
     prevAll(selector?: JQuery.Selector): this;
     /**
      * Get all preceding siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object.
-     * @param selector A string containing a selector expression to indicate where to stop matching preceding sibling elements.
-     *                 A DOM node or jQuery object indicating where to stop matching preceding sibling elements.
+     * @param selector_element _&#x40;param_ `selector_element`
+     * <br>
+     * * `selector` — A string containing a selector expression to indicate where to stop matching preceding sibling elements. <br>
+     * * `element` — A DOM node or jQuery object indicating where to stop matching preceding sibling elements.
      * @param filter A string containing a selector expression to match elements against.
      * @see \`{@link https://api.jquery.com/prevUntil/ }\`
      * @since 1.4
@@ -8790,7 +8856,7 @@ $( "#term-3" ).prevUntil( term1, "dd" )
 </html>
 ```
      */
-    prevUntil(selector?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
+    prevUntil(selector_element?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
     /**
      * Return a Promise object to observe when all actions of a certain type bound to the collection, queued or not, have finished.
      * @param type The type of queue that needs to be observed.
@@ -9371,10 +9437,11 @@ $( "button" ).click(function() {
     removeAttr(attributeName: string): this;
     /**
      * Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
-     * @param className One or more space-separated classes to be removed from the class attribute of each matched element.
-     *                  An array of classes to be removed from the class attribute of each matched element.
-     *                  A function returning one or more space-separated class names to be removed. Receives the index
-     *                  position of the element in the set and the old class value as arguments.
+     * @param className_function _&#x40;param_ `className_function`
+     * <br>
+     * * `className` — One or more space-separated classes to be removed from the class attribute of each matched element. <br>
+     * * `function` — A function returning one or more space-separated class names to be removed. Receives the index
+     *                position of the element in the set and the old class value as arguments.
      * @see \`{@link https://api.jquery.com/removeClass/ }\`
      * @since 1.0
      * @since 1.4
@@ -9497,7 +9564,7 @@ $( "p:eq(1)" ).removeClass();
 </html>
 ```
      */
-    removeClass(className?: JQuery.TypeOrArray<string> | ((this: TElement, index: number, className: string) => string)): this;
+    removeClass(className_function?: JQuery.TypeOrArray<string> | ((this: TElement, index: number, className: string) => string)): this;
     /**
      * Remove a previously-stored piece of data.
      * @param name A string naming the piece of data to delete.
@@ -9617,8 +9684,10 @@ $( "<b>Paragraph. </b>" ).replaceAll( "p" );
     replaceAll(target: JQuery.Selector | JQuery | JQuery.TypeOrArray<Element>): this;
     /**
      * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
-     * @param newContent The content to insert. May be an HTML string, DOM element, array of DOM elements, or jQuery object.
-     *                   A function that returns content with which to replace the set of matched elements.
+     * @param newContent_function _&#x40;param_ `newContent_function`
+     * <br>
+     * * `newContent` — The content to insert. May be an HTML string, DOM element, array of DOM elements, or jQuery object. <br>
+     * * `function` — A function that returns content with which to replace the set of matched elements.
      * @see \`{@link https://api.jquery.com/replaceWith/ }\`
      * @since 1.2
      * @since 1.4
@@ -9763,7 +9832,7 @@ $( "button" ).on( "click", function() {
 </html>
 ```
      */
-    replaceWith(newContent: JQuery.htmlString | JQuery | JQuery.TypeOrArray<Element> | ((this: TElement) => any)): this;
+    replaceWith(newContent_function: JQuery.htmlString | JQuery | JQuery.TypeOrArray<Element> | ((this: TElement) => any)): this;
     /**
      * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -11125,10 +11194,12 @@ $( "form:first" ).submit();
     submit(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Set the content of each element in the set of matched elements to the specified text.
-     * @param text The text to set as the content of each matched element. When Number or Boolean is supplied, it will
-     *             be converted to a String representation.
-     *             A function returning the text content to set. Receives the index position of the element in the set
-     *             and the old text value as arguments.
+     * @param text_function _&#x40;param_ `text_function`
+     * <br>
+     * * `text` — The text to set as the content of each matched element. When Number or Boolean is supplied, it will
+     *            be converted to a String representation. <br>
+     * * `function` — A function returning the text content to set. Receives the index position of the element in the set
+     *                and the old text value as arguments.
      * @see \`{@link https://api.jquery.com/text/ }\`
      * @since 1.0
      * @since 1.4
@@ -11159,7 +11230,7 @@ $( "p" ).text( "<b>Some</b> new text." );
 </html>
 ```
      */
-    text(text: string | number | boolean | ((this: TElement, index: number, text: string) => string | number | boolean)): this;
+    text(text_function: string | number | boolean | ((this: TElement, index: number, text: string) => string | number | boolean)): this;
     /**
      * Get the combined text contents of each element in the set of matched elements, including their descendants.
      * @see \`{@link https://api.jquery.com/text/ }\`
@@ -11351,10 +11422,11 @@ $( "button" ).click(function() {
     toggle(duration_complete_options_display?: JQuery.Duration | ((this: TElement) => void) | JQuery.EffectsOptions<TElement> | boolean): this;
     /**
      * Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the state argument.
-     * @param className One or more class names (separated by spaces) to be toggled for each element in the matched set.
-     *                  An array of classes to be toggled for each element in the matched set.
-     *                  A function that returns class names to be toggled in the class attribute of each element in the
-     *                  matched set. Receives the index position of the element in the set, the old class value, and the state as arguments.
+     * @param className_function _&#x40;param_ `className_function`
+     * <br>
+     * * `className` — One or more class names (separated by spaces) to be toggled for each element in the matched set. <br>
+     * * `function` — A function that returns class names to be toggled in the class attribute of each element in the
+     *                matched set. Receives the index position of the element in the set, the old class value, and the state as arguments.
      * @param state A Boolean (not just truthy/falsy) value to determine whether the class should be added or removed.
      * @see \`{@link https://api.jquery.com/toggleClass/ }\`
      * @since 1.0
@@ -11519,7 +11591,7 @@ $( "a" ).on( "click", function( event ) {
 </html>
 ```
      */
-    toggleClass<TState extends boolean>(className: JQuery.TypeOrArray<string> | ((this: TElement, index: number, className: string, state: TState) => string),
+    toggleClass<TState extends boolean>(className_function: JQuery.TypeOrArray<string> | ((this: TElement, index: number, className: string, state: TState) => string),
                                         state?: TState): this;
     /**
      * Add or remove one or more classes from each element in the set of matched elements, depending on either the class's presence or the value of the state argument.
@@ -11535,8 +11607,10 @@ $( "a" ).on( "click", function( event ) {
     toggleClass(state?: boolean): this;
     /**
      * Execute all handlers and behaviors attached to the matched elements for the given event type.
-     * @param eventType A string containing a JavaScript event type, such as click or submit.
-     *                  A jQuery.Event object.
+     * @param eventType_event _&#x40;param_ `eventType_event`
+     * <br>
+     * * `eventType` — A string containing a JavaScript event type, such as `click` or `submit`. <br>
+     * * `event` — A \`{@link https://api.jquery.com/category/events/event-object/ jQuery.Event}\` object.
      * @param extraParameters Additional parameters to pass along to the event handler.
      * @see \`{@link https://api.jquery.com/trigger/ }\`
      * @since 1.0
@@ -11625,11 +11699,13 @@ $( "body" ).trigger({
 });
 ```
      */
-    trigger(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number | boolean): this;
+    trigger(eventType_event: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number | boolean): this;
     /**
      * Execute all handlers attached to an element for an event.
-     * @param eventType A string containing a JavaScript event type, such as click or submit.
-     *                  A jQuery.Event object.
+     * @param eventType_event _&#x40;param_ `eventType_event`
+     * <br>
+     * * `eventType` — A string containing a JavaScript event type, such as `click` or `submit`. <br>
+     * * `event` — A \`{@link https://api.jquery.com/category/events/event-object/ jQuery.Event}\` object.
      * @param extraParameters Additional parameters to pass along to the event handler.
      * @see \`{@link https://api.jquery.com/triggerHandler/ }\`
      * @since 1.2
@@ -11666,7 +11742,7 @@ $( "input" ).focus(function() {
 </html>
 ```
      */
-    triggerHandler(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number | boolean): undefined | any;
+    triggerHandler(eventType_event: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number | boolean): undefined | any;
     /**
      * Remove a previously-attached event handler from the elements.
      * @param event A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
@@ -11924,10 +12000,12 @@ $( "button" ).click(function() {
     unwrap(selector?: string): this;
     /**
      * Set the value of each element in the set of matched elements.
-     * @param value A string of text, a number, or an array of strings corresponding to the value of each matched
-     *              element to set as selected/checked.
-     *              A function returning the value to set. this is the current element. Receives the index position of
-     *              the element in the set and the old value as arguments.
+     * @param value_function _&#x40;param_ `value_function`
+     * <br>
+     * * `value` — A string of text, a number, or an array of strings corresponding to the value of each matched
+     *             element to set as selected/checked. <br>
+     * * `function` — A function returning the value to set. `this` is the current element. Receives the index position of
+     *                the element in the set and the old value as arguments.
      * @see \`{@link https://api.jquery.com/val/ }\`
      * @since 1.0
      * @since 1.4
@@ -12037,7 +12115,7 @@ $( "input").val([ "check1", "check2", "radio1" ]);
 </html>
 ```
      */
-    val(value: string | number | string[] | ((this: TElement, index: number, value: string) => string)): this;
+    val(value_function: string | number | string[] | ((this: TElement, index: number, value: string) => string)): this;
     /**
      * Get the current value of the first element in the set of matched elements.
      * @see \`{@link https://api.jquery.com/val/ }\`
@@ -12128,10 +12206,12 @@ $( "input" )
     val(): string | number | string[] | undefined;
     /**
      * Set the CSS width of each element in the set of matched elements.
-     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure
-     *              appended (as a string).
-     *              A function returning the width to set. Receives the index position of the element in the set and the
-     *              old width as arguments. Within the function, this refers to the current element in the set.
+     * @param value_function _&#x40;param_ `value_function`
+     * <br>
+     * * `value` — An integer representing the number of pixels, or an integer along with an optional unit of measure
+     *             appended (as a string). <br>
+     * * `function` — A function returning the width to set. Receives the index position of the element in the set and the
+     *                old width as arguments. Within the function, `this` refers to the current element in the set.
      * @see \`{@link https://api.jquery.com/width/ }\`
      * @since 1.0
      * @since 1.4.1
@@ -12178,7 +12258,7 @@ $( "div" ).one( "click", function() {
 </html>
 ```
      */
-    width(value: string | number | ((this: TElement, index: number, value: number) => string | number)): this;
+    width(value_function: string | number | ((this: TElement, index: number, value: number) => string | number)): this;
     /**
      * Get the current computed width for the first element in the set of matched elements.
      * @see \`{@link https://api.jquery.com/width/ }\`
@@ -12241,12 +12321,14 @@ $("#getw").click(function() {
     width(): number | undefined;
     /**
      * Wrap an HTML structure around each element in the set of matched elements.
-     * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the
-     *                        matched elements. When you pass a jQuery collection containing more than one element, or a selector
-     *                        matching more than one element, the first element will be used.
-     *                        A callback function returning the HTML content or jQuery object to wrap around the matched elements.
-     *                        Receives the index position of the element in the set as an argument. Within the function, this
-     *                        refers to the current element in the set.
+     * @param wrappingElement_function _&#x40;param_ `wrappingElement_function`
+     * <br>
+     * * `wrappingElement` — A selector, element, HTML string, or jQuery object specifying the structure to wrap around the
+     *                       matched elements. When you pass a jQuery collection containing more than one element, or a selector
+     *                       matching more than one element, the first element will be used. <br>
+     * * `function` — A callback function returning the HTML content or jQuery object to wrap around the matched elements.
+     *                Receives the index position of the element in the set as an argument. Within the function, `this`
+     *                refers to the current element in the set.
      * @see \`{@link https://api.jquery.com/wrap/ }\`
      * @since 1.0
      * @since 1.4
@@ -12388,14 +12470,16 @@ $( "p" ).wrap( $( ".doublediv" ) );
 </html>
 ```
      */
-    wrap(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery)): this;
+    wrap(wrappingElement_function: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery)): this;
     /**
      * Wrap an HTML structure around all elements in the set of matched elements.
-     * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements.
-     *                        A callback function returning the HTML content or jQuery object to wrap around all the matched
-     *                        elements. Within the function, this refers to the first element in the set. Prior to jQuery 3.0, the
-     *                        callback was incorrectly called for every element in the set and received the index position of the
-     *                        element in the set as an argument.
+     * @param wrappingElement_function _&#x40;param_ `wrappingElement_function`
+     * <br>
+     * * `wrappingElement` — A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements. <br>
+     * * `function` — A callback function returning the HTML content or jQuery object to wrap around all the matched
+     *                elements. Within the function, `this` refers to the first element in the set. **Prior to jQuery
+     *                3.0**, the callback was incorrectly called for every element in the set and received the index
+     *                position of the element in the set as an argument.
      * @see \`{@link https://api.jquery.com/wrapAll/ }\`
      * @since 1.2
      * @since 1.4
@@ -12537,14 +12621,16 @@ $( "p" ).wrapAll( $( ".doublediv" ) );
 </html>
 ```
      */
-    wrapAll(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement) => string | JQuery)): this;
+    wrapAll(wrappingElement_function: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement) => string | JQuery)): this;
     /**
      * Wrap an HTML structure around the content of each element in the set of matched elements.
-     * @param wrappingElement An HTML snippet, selector expression, jQuery object, or DOM element specifying the structure to wrap
-     *                        around the content of the matched elements.
-     *                        A callback function which generates a structure to wrap around the content of the matched elements.
-     *                        Receives the index position of the element in the set as an argument. Within the function, this
-     *                        refers to the current element in the set.
+     * @param wrappingElement_function _&#x40;param_ `wrappingElement_function`
+     * <br>
+     * * `wrappingElement` — An HTML snippet, selector expression, jQuery object, or DOM element specifying the structure to wrap
+     *                       around the content of the matched elements. <br>
+     * * `function` — A callback function which generates a structure to wrap around the content of the matched elements.
+     *                Receives the index position of the element in the set as an argument. Within the function, `this`
+     *                refers to the current element in the set.
      * @see \`{@link https://api.jquery.com/wrapInner/ }\`
      * @since 1.2
      * @since 1.4
@@ -12665,7 +12751,7 @@ $( "p" ).wrapInner( $( "<span class='red'></span>" ) );
 </html>
 ```
      */
-    wrapInner(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery | Element)): this;
+    wrapInner(wrappingElement_function: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery | Element)): this;
 
     [n: number]: TElement;
 }
