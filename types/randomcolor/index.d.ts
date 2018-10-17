@@ -1,12 +1,10 @@
-// Type definitions for randomColor 0.5.0
+// Type definitions for randomColor 0.5.3
 // Project: https://github.com/davidmerfield/randomColor
 // Definitions by: Mathias Feitzinger <https://github.com/feitzi>, Brady Liles <https://github.com/BradyLiles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function randomColor(options?: RandomColorOptions): string;
-
 interface RandomColorOptions {
-	hue?: number | "red" | "orange" | "yellow" | "green" | "blue" | "purple" | "pink" | "monochrome" | "random";
+	hue?: number | string | "red" | "orange" | "yellow" | "green" | "blue" | "purple" | "pink" | "monochrome" | "random";
 	luminosity?: "bright" | "light" | "dark" | "random";
 	count?: number;
 	seed?: number | string;
@@ -14,6 +12,4 @@ interface RandomColorOptions {
 	alpha?: number;
 }
 
-declare module "randomcolor" {
-	export = randomColor;
-}
+export function randomColor(options?: RandomColorOptions): string;
