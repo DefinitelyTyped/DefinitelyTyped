@@ -5,5 +5,5 @@
 
 export as namespace shuffleSeed;
 
-export function shuffle(arr: ReadonlyArray<any>, seed: any): ReadonlyArray<any>;
-export function unshuffle(arr: ReadonlyArray<any>, seed: any): ReadonlyArray<any>;
+export function shuffle<T>(arr: ReadonlyArray<T>, seed: any): T[];
+export function unshuffle<T>(arr: ReadonlyArray<T>, seed: any): T[];
