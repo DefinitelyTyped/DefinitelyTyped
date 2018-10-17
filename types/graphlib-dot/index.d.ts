@@ -31,9 +31,9 @@ export const graphlib: any;
 declare global {
     namespace graphlibDot {
         /**
-        * Reads a single DOT graph from the str and returns it a Graph representation.
-        * @param str a string in the DOT language representing a graph
-        */
+         * Reads a single DOT graph from the str and returns it a Graph representation.
+         * @param str a string in the DOT language representing a graph
+         */
         function read(str: string): Graph;
 
         /**
