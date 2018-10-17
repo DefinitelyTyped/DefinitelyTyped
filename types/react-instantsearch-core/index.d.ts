@@ -9,7 +9,7 @@ import * as React from 'react';
 
 import { ConnectedComponentType, Hit, SearchResults, SearchState, BasicDoc, AlgoliaError } from './types';
 
-export { Hit, HighlightResult, SearchResults, SearchState, AlgoliaError } from './types';
+export { Hit, HighlightResult, SearchResults, SearchState, BasicDoc, AlgoliaError } from './types';
 
 // Core
 /**

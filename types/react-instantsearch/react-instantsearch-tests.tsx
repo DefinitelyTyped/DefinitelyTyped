@@ -1,7 +1,6 @@
 import * as React from "react";
 import { InstantSearch, Hits, Highlight, SearchBox, RefinementList, CurrentRefinements, ClearRefinements, Pagination, Menu, Configure, createConnector, Index } from 'react-instantsearch/dom';
-import { Hit, SearchState } from 'react-instantsearch/types';
-import { connectHighlight, connectSearchBox, connectMenu, connectRefinementList, connectStateResults, SearchBoxProvided } from "react-instantsearch/connectors";
+import { connectHighlight, connectSearchBox, connectMenu, connectRefinementList, connectStateResults, SearchBoxProvided, Hit, SearchState } from "react-instantsearch/connectors";
 import { orderBy, omit, values } from 'lodash';
 
 // DOM

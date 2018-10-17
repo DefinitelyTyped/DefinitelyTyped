@@ -5,4 +5,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-export {};
+export { createConnector } from 'react-instantsearch-core';

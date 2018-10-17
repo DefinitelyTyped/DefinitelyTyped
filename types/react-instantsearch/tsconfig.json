@@ -18,9 +18,8 @@
   },
   "files": [
       "index.d.ts",
-      "connectors/index.d.ts",
-      "dom/index.d.ts",
-      "types/index.d.ts",
+      "connectors.d.ts",
+      "dom.d.ts",
       "react-instantsearch-tests.tsx"
   ]
 }

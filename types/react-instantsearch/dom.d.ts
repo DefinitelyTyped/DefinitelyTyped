@@ -1,18 +1,38 @@
 import * as React from 'react';
 
-import { Hit, BasicDoc } from '../types';
+import { Hit, BasicDoc } from 'react-instantsearch-core';
 
 // Core
-export function createConnector(...args: any[]): any;
+export { createConnector } from 'react-instantsearch-core';
+export { HIGHLIGHT_TAGS } from 'react-instantsearch-core';
+export { translatable } from 'react-instantsearch-core';
 
 // Widget
-/**
- * Configure is a widget that lets you provide raw search parameters to the Algolia API.
- * Any of the props added to this widget will be forwarded to Algolia. For more information on the different parameters that can be set, have a look at the reference.
- *
- * https://community.algolia.com/react-instantsearch/widgets/Configure.html
- */
-export class Configure extends React.Component<any, any> {}
+export { Configure } from 'react-instantsearch-core';
+
+// Connectors
+export { connectAutoComplete } from 'react-instantsearch-core';
+export { connectBreadcrumb } from 'react-instantsearch-core';
+export { connectConfigure } from 'react-instantsearch-core';
+export { connectCurrentRefinements } from 'react-instantsearch-core';
+export { connectGeoSearch } from 'react-instantsearch-core';
+export { connectHierarchicalMenu } from 'react-instantsearch-core';
+export { connectHighlight } from 'react-instantsearch-core';
+export { connectHits } from 'react-instantsearch-core';
+export { connectHitsPerPage } from 'react-instantsearch-core';
+export { connectInfiniteHits } from 'react-instantsearch-core';
+export { connectMenu } from 'react-instantsearch-core';
+export { connectNumericMenu } from 'react-instantsearch-core';
+export { connectPagination } from 'react-instantsearch-core';
+export { connectPoweredBy } from 'react-instantsearch-core';
+export { connectRange } from 'react-instantsearch-core';
+export { connectRefinementList } from 'react-instantsearch-core';
+export { connectScrollTo } from 'react-instantsearch-core';
+export { connectSearchBox } from 'react-instantsearch-core';
+export { connectSortBy } from 'react-instantsearch-core';
+export { connectStateResults } from 'react-instantsearch-core';
+export { connectStats } from 'react-instantsearch-core';
+export { connectToggleRefinement } from 'react-instantsearch-core';
 
 // DOM
 export interface CommonWidgetProps {
