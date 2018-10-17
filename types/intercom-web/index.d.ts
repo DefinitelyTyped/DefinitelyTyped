@@ -54,6 +54,7 @@ declare namespace Intercom_ {
     (command: 'trackEvent', tag?: string, metadata?: any): void;
     (command: 'onUnreadCountChange', cb: (unreadCount: number) => void): void;
     (command: IntercomCommand, param1?: any, param2?: any): void;
+    booted: boolean;
   }
 }
 
