@@ -1,3 +1,7 @@
+// tslint:disable:jsdoc-format
+// tslint:disable:max-line-length
+// tslint:disable:no-irregular-whitespace
+
 declare namespace JQuery {
     type TypeOrArray<T> = T | T[];
     type Node = Element | Text | Comment | DocumentFragment;
@@ -61,17 +65,11 @@ declare namespace JQuery {
         type ErrorTextStatus = 'timeout' | 'error' | 'abort' | 'parsererror';
         type TextStatus = SuccessTextStatus | ErrorTextStatus;
 
-        interface SuccessCallback<TContext> {
-            (this: TContext, data: any, textStatus: SuccessTextStatus, jqXHR: jqXHR): void;
-        }
+        type SuccessCallback<TContext> = (this: TContext, data: any, textStatus: SuccessTextStatus, jqXHR: jqXHR) => void;
 
-        interface ErrorCallback<TContext> {
-            (this: TContext, jqXHR: jqXHR, textStatus: ErrorTextStatus, errorThrown: string): void;
-        }
+        type ErrorCallback<TContext> = (this: TContext, jqXHR: jqXHR, textStatus: ErrorTextStatus, errorThrown: string) => void;
 
-        interface CompleteCallback<TContext> {
-            (this: TContext, jqXHR: jqXHR, textStatus: TextStatus): void;
-        }
+        type CompleteCallback<TContext> = (this: TContext, jqXHR: jqXHR, textStatus: TextStatus) => void;
 
         /**
          * @see \`{@link https://api.jquery.com/jquery.ajax/#jQuery-ajax-settings }\`
@@ -666,9 +664,7 @@ declare namespace JQuery {
     }
 
     namespace Transport {
-        interface SuccessCallback {
-            (status: number, statusText: Ajax.TextStatus, responses?: PlainObject, headers?: string): void;
-        }
+        type SuccessCallback = (status: number, statusText: Ajax.TextStatus, responses?: PlainObject, headers?: string) => void;
     }
 
     /**
@@ -711,7 +707,7 @@ declare namespace JQuery {
          * @see \`{@link https://api.jquery.com/jQuery.Callbacks/ }\`
          * @since 1.7
          */
-        // tslint:disable-next-line:ban-types no-unnecessary-generics
+        // tslint:disable-next-line:ban-types callable-types no-unnecessary-generics
         <T extends Function>(flags?: string): Callbacks<T>;
     }
 
@@ -3459,15 +3455,11 @@ $.get( "test.php" )
     }
 
     namespace Deferred {
-        interface CallbackBase<T, U, V, R> {
-            (t: T, u: U, v: V, ...r: R[]): void;
-        }
+        type CallbackBase<T, U, V, R> = (t: T, u: U, v: V, ...r: R[]) => void;
 
         interface Callback3<T, U, V> extends CallbackBase<T, U, V, never> { }
 
-        interface Callback<T> {
-            (...args: T[]): void;
-        }
+        type Callback<T> = (...args: T[]) => void;
 
         /**
          * @deprecated ​ Deprecated. Use \`{@link Callback }\`.
@@ -3933,14 +3925,7 @@ $( "input" ).click(function() {
      *
      * `jQuery.fx.step` functions are being replaced by `jQuery.Tween.propHooks` and may eventually be removed, but are still supported via the default tween propHook.
      */
-    interface AnimationHook<TElement> {
-        /**
-         * @deprecated ​ Deprecated since 1.8. Use \`{@link Tween.propHooks jQuery.Tween.propHooks}\`.
-         *
-         * `jQuery.fx.step` functions are being replaced by `jQuery.Tween.propHooks` and may eventually be removed, but are still supported via the default tween propHook.
-         */
-        (fx: Tween<TElement>): void;
-    }
+    type AnimationHook<TElement> = (fx: Tween<TElement>) => void;
 
     interface TickFunction<TElement> {
         anim: Animation<TElement>;
@@ -3957,9 +3942,7 @@ $( "input" ).click(function() {
     // TODO: Is the first element always a string or is that specific to the 'fx' queue?
     type Queue<TElement> = { 0: string; } & Array<QueueFunction<TElement>>;
 
-    interface QueueFunction<TElement> {
-        (this: TElement, next: () => void): void;
-    }
+    type QueueFunction<TElement> = (this: TElement, next: () => void) => void;
 
     // #endregion
 
@@ -4736,10 +4719,8 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
 
     interface EventHandler<TCurrentTarget, TData = null> extends EventHandlerBase<TCurrentTarget, Event<TCurrentTarget, TData>> { }
 
-    interface EventHandlerBase<TContext, T> {
-        // Extra parameters can be passed from trigger()
-        (this: TContext, t: T, ...args: any[]): void | false | any;
-    }
+    // Extra parameters can be passed from trigger()
+    type EventHandlerBase<TContext, T> = (this: TContext, t: T, ...args: any[]) => any;
 
     // region Event extensions
     // #region Event extensions
@@ -5004,3 +4985,28 @@ if ( !existingHook ) {
 
     type _Falsy = false | null | undefined | 0 | '' | typeof document.all;
 }
+
+declare const jQuery: JQueryStatic;
+declare const $: JQueryStatic;
+
+// Used by JQuery.Event
+type _Event = Event;
+
+// region ES5 compatibility
+// #region ES5 compatibility
+
+// Forward declaration of `Iterable<T>`.
+// tslint:disable-next-line:no-empty-interface
+interface Iterable<T> { }
+
+interface SymbolConstructor {
+    /**
+     * A String value that is used in the creation of the default string description of an object.
+     * Called by the built-in method Object.prototype.toString.
+     */
+    readonly toStringTag: symbol;
+}
+
+declare var Symbol: SymbolConstructor;
+
+// #endregion

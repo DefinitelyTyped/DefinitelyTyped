@@ -25,44 +25,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// tslint:disable:jsdoc-format
-// tslint:disable:max-line-length
-// tslint:disable:no-irregular-whitespace
-
 /// <reference types="sizzle" />
 /// <reference path="JQueryStatic.d.ts" />
 /// <reference path="JQuery.d.ts" />
 /// <reference path="misc.d.ts" />
 /// <reference path="legacy.d.ts" />
 
-declare module 'jquery' {
-    export = jQuery;
-}
-
-declare module 'jquery/dist/jquery.slim' {
-    export = jQuery;
-}
-
-declare const jQuery: JQueryStatic;
-declare const $: JQueryStatic;
-
-// Used by JQuery.Event
-type _Event = Event;
-
-// region ES5 compatibility
-// #region ES5 compatibility
-
-// tslint:disable-next-line:no-empty-interface
-interface Iterable<T> { }
-
-interface SymbolConstructor {
-    /**
-     * A String value that is used in the creation of the default string description of an object.
-     * Called by the built-in method Object.prototype.toString.
-     */
-    readonly toStringTag: symbol;
-}
-
-declare var Symbol: SymbolConstructor;
-
-// #endregion
+export = jQuery;

@@ -1,3 +1,7 @@
+// tslint:disable:jsdoc-format
+// tslint:disable:max-line-length
+// tslint:disable:no-irregular-whitespace
+
 interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
     /**
      * A string containing the jQuery version number.
@@ -501,7 +505,7 @@ $( "p" ).after( $( "b" ) );
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
      * @param function_functionｰhtml _&#x40;param_ `function_functionｰhtml`
-     * <br> 
+     * <br>
      * * `function` — A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert
      *                after each element in the set of matched elements. Receives the index position of the element in the
      *                set as an argument. Within the function, `this` refers to the current element in the set. <br>
@@ -1301,7 +1305,7 @@ $( "p" ).before( $( "b" ) );
      * * `function` — A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert
      *                before each element in the set of matched elements. Receives the index position of the element in
      *                the set as an argument. Within the function, `this` refers to the current element in the set. <br>
-     * * `functionｰhtml` — A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert 
+     * * `functionｰhtml` — A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert
      *                     before each element in the set of matched elements. Receives the index position of the element in
      *                     the set and the old HTML value of the element as arguments. Within the function, `this` refers to the
      *                     current element in the set.
@@ -7482,7 +7486,7 @@ $( "*", document.body ).click(function( event ) {
     on(events: string,
        selector: JQuery.Selector | null,
        data: any,
-       handler: ((event: JQueryEventObject) => void)): this; // tslint:disable-line:unified-signatures
+       handler: ((event: JQueryEventObject) => void)): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
@@ -7608,7 +7612,8 @@ $( "body" ).on( "click", "a", function( event ) {
      */
     on(events: string,
        selector: JQuery.Selector,
-       handler: ((event: JQueryEventObject) => void)): this; // tslint:disable-line:unified-signatures
+       // tslint:disable-next-line:unified-signatures
+       handler: ((event: JQueryEventObject) => void)): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
@@ -7644,7 +7649,8 @@ $( "p" ).on( "click", { foo: "bar" }, myHandler );
 ```
      */
     on(events: string,
-       data: any, // tslint:disable-line:unified-signatures
+       // tslint:disable-next-line:unified-signatures
+       data: any,
        handler: ((event: JQueryEventObject) => void)): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
@@ -7831,7 +7837,8 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
 ```
      */
     on(events: string,
-       handler: ((event: JQueryEventObject) => void)): this; // tslint:disable-line:unified-signatures
+       // tslint:disable-next-line:unified-signatures
+       handler: ((event: JQueryEventObject) => void)): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      * @param events An object in which the string keys represent one or more space-separated event types and optional
@@ -7855,7 +7862,8 @@ $( "#cart" ).on( "mouseenter mouseleave", function( event ) {
      * @since 1.7
      */
     on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>,
-       selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
+       // tslint:disable-next-line:unified-signatures
+       selector: JQuery.Selector): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      * @param events An object in which the string keys represent one or more space-separated event types and optional
@@ -8066,7 +8074,8 @@ $(".target").one("click mouseenter", function() {
      * @since 1.7
      */
     one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>,
-        selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
+        // tslint:disable-next-line:unified-signatures
+        selector: JQuery.Selector): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      * @param events An object in which the string keys represent one or more space-separated event types and optional
@@ -8981,20 +8990,16 @@ $( "button" ).on( "click", function() {
     /**
      * Set one or more properties for the set of matched elements.
      * @param propertyName The name of the property to set.
-     * @param value A function returning the value to set. Receives the index position of the element in the set and the
-     *              old property value as arguments. Within the function, the keyword this refers to the current element.
+     * @param value_function _&#x40;param_ `value_function`
+     * <br>
+     * * `value` — A value to set for the property. <br>
+     * * `function` — A function returning the value to set. Receives the index position of the element in the set and the
+     *                old property value as arguments. Within the function, the keyword `this` refers to the current element.
      * @see \`{@link https://api.jquery.com/prop/ }\`
      * @since 1.6
      */
-    prop(propertyName: string, value: (this: TElement, index: number, oldPropertyValue: any) => any): this;
-    /**
-     * Set one or more properties for the set of matched elements.
-     * @param propertyName The name of the property to set.
-     * @param value A value to set for the property.
-     * @see \`{@link https://api.jquery.com/prop/ }\`
-     * @since 1.6
-     */
-    prop(propertyName: string, value: any): this; // tslint:disable-line:unified-signatures
+    prop(propertyName: string,
+         value_function: string | number | boolean | symbol | object | null | undefined | ((this: TElement, index: number, oldPropertyValue: any) => any)): this;
     /**
      * Set one or more properties for the set of matched elements.
      * @param properties An object of property-value pairs to set.
@@ -9078,7 +9083,7 @@ $( "input" ).change(function() {
 </html>
 ```
      */
-    prop(propertyName: string): any | undefined;
+    prop(propertyName: string): any;
     /**
      * Add a collection of DOM elements onto the jQuery stack.
      * @param elements An array of elements to push onto the stack and make into a new jQuery object.
@@ -11742,7 +11747,7 @@ $( "input" ).focus(function() {
 </html>
 ```
      */
-    triggerHandler(eventType_event: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number | boolean): undefined | any;
+    triggerHandler(eventType_event: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number | boolean): any;
     /**
      * Remove a previously-attached event handler from the elements.
      * @param event A string containing one or more DOM event types, such as "click" or "submit," or custom event names.

@@ -1,3 +1,7 @@
+// tslint:disable:jsdoc-format
+// tslint:disable:max-line-length
+// tslint:disable:no-irregular-whitespace
+
 interface JQueryStatic {
     /**
      * @see \`{@link https://api.jquery.com/jquery.ajax/#jQuery-ajax1 }\`
@@ -145,7 +149,6 @@ $( document.body ).css( "background", "black" );
 ```
      */
     // Using a unified signature is not possible due to a TypeScript 2.4 bug (DefinitelyTyped#27810)
-    // tslint:disable-next-line:unified-signatures
     <T extends Element>(element: T): JQuery<T>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
@@ -579,7 +582,7 @@ $.each( [ "a", "b", "c" ], function( i, l ){
 });
 ```
      */
-    each<T>(array: ArrayLike<T>, callback: (this: T, indexInArray: number, value: T) => false | any): ArrayLike<T>;
+    each<T>(array: ArrayLike<T>, callback: (this: T, indexInArray: number, value: T) => any): ArrayLike<T>;
     /**
      * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays. Arrays and array-like objects with a length property (such as a function's arguments object) are iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
      * @param obj The object to iterate over.
@@ -637,7 +640,7 @@ $.each({ name: "John", lang: "JS" }, function( k, v ) {
 });
 ```
      */
-    each<T, K extends keyof T>(obj: T, callback: (this: T[K], propertyName: K, valueOfProperty: T[K]) => false | any): T;
+    each<T, K extends keyof T>(obj: T, callback: (this: T[K], propertyName: K, valueOfProperty: T[K]) => any): T;
     /**
      * Takes a string and throws an exception containing it.
      * @param message The message to send out.
