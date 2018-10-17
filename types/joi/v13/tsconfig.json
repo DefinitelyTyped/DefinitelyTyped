@@ -8,11 +8,16 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "joi": [
+                "joi/v13"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

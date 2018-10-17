@@ -11,7 +11,7 @@ declare const exp: RegExp;
 declare const obj: object;
 declare const date: Date;
 declare const err: Error;
-declare const func: () => void;
+declare const func: Function;
 
 declare const numArr: number[];
 declare const strArr: string[];
@@ -893,7 +893,7 @@ schema = Joi.alt(schema, anySchema, boolSchema);
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-schema = Joi.lazy(() => schema, { once: true });
+schema = Joi.lazy(() => schema);
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

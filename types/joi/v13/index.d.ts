@@ -1,4 +1,4 @@
-// Type definitions for joi 14.0
+// Type definitions for joi 13.6
 // Project: https://github.com/hapijs/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Laurence Dougal Myers <https://github.com/laurence-myers>
@@ -53,6 +53,7 @@ export interface ValidationOptions {
      * remove unknown elements from objects and arrays. Defaults to false
      * - when true, all unknown elements will be removed
      * - when an object:
+     *      - arrays - set to true to remove unknown items from arrays.
      *      - objects - set to true to remove unknown keys from objects
      */
     stripUnknown?: boolean | { arrays?: boolean; objects?: boolean };
@@ -256,7 +257,8 @@ export interface AnySchema extends JoiObject {
     /**
      * Validates a value using the schema and options.
      */
-    validate<T>(value: T, options?: ValidationOptions): ValidationResult<T>;
+    validate<T>(value: T): ValidationResult<T>;
+    validate<T>(value: T, options: ValidationOptions): ValidationResult<T>;
     validate<T, R>(value: T, callback: (err: ValidationError, value: T) => R): R;
     validate<T, R>(value: T, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
 
@@ -315,12 +317,14 @@ export interface AnySchema extends JoiObject {
     /**
      * Annotates the key
      */
-    notes(notes: string | string[]): this;
+    notes(notes: string): this;
+    notes(notes: string[]): this;
 
     /**
      * Annotates the key
      */
-    tags(notes: string | string[]): this;
+    tags(notes: string): this;
+    tags(notes: string[]): this;
 
     /**
      * Attaches metadata to the key.
@@ -365,7 +369,8 @@ export interface AnySchema extends JoiObject {
      * Additionally, when specifying a method you must either have a description property on your method or the
      *  second parameter is required.
      */
-    default(value?: any, description?: string): this;
+    default(value: any, description?: string): this;
+    default(): this;
 
     /**
      * Returns a new type that is the result of adding the rules of one type to another.
@@ -375,7 +380,8 @@ export interface AnySchema extends JoiObject {
     /**
      * Converts the type into an alternatives type where the conditions are merged into the type definition where:
      */
-    when(ref: string | Reference, options: WhenOptions): AlternativesSchema;
+    when(ref: string, options: WhenOptions): AlternativesSchema;
+    when(ref: Reference, options: WhenOptions): AlternativesSchema;
     when(ref: Schema, options: WhenSchemaOptions): AlternativesSchema;
 
     /**
@@ -479,25 +485,29 @@ export interface NumberSchema extends AnySchema {
      * Specifies the minimum value.
      * It can also be a reference to another field.
      */
-    min(limit: number | Reference): this;
+    min(limit: number): this;
+    min(limit: Reference): this;
 
     /**
      * Specifies the maximum value.
      * It can also be a reference to another field.
      */
-    max(limit: number | Reference): this;
+    max(limit: number): this;
+    max(limit: Reference): this;
 
     /**
      * Specifies that the value must be greater than limit.
      * It can also be a reference to another field.
      */
-    greater(limit: number | Reference): this;
+    greater(limit: number): this;
+    greater(limit: Reference): this;
 
     /**
      * Specifies that the value must be less than limit.
      * It can also be a reference to another field.
      */
-    less(limit: number | Reference): this;
+    less(limit: number): this;
+    less(limit: Reference): this;
 
     /**
      * Requires the number to be an integer (no floating point).
@@ -542,14 +552,16 @@ export interface StringSchema extends AnySchema {
      * @param limit - the minimum number of string characters required. It can also be a reference to another field.
      * @param encoding - if specified, the string length is calculated in bytes using the provided encoding.
      */
-    min(limit: number | Reference, encoding?: string): this;
+    min(limit: number, encoding?: string): this;
+    min(limit: Reference, encoding?: string): this;
 
     /**
      * Specifies the maximum number of string characters.
      * @param limit - the maximum number of string characters allowed. It can also be a reference to another field.
      * @param encoding - if specified, the string length is calculated in bytes using the provided encoding.
      */
-    max(limit: number | Reference, encoding?: string): this;
+    max(limit: number, encoding?: string): this;
+    max(limit: Reference, encoding?: string): this;
 
     /**
      * Specifies whether the string.max() limit should be used as a truncation.
@@ -579,7 +591,8 @@ export interface StringSchema extends AnySchema {
      * @param limit - the required string length. It can also be a reference to another field.
      * @param encoding - if specified, the string length is calculated in bytes using the provided encoding.
      */
-    length(limit: number | Reference, encoding?: string): this;
+    length(limit: number, encoding?: string): this;
+    length(limit: Reference, encoding?: string): this;
 
     /**
      * Defines a regular expression rule.
@@ -597,7 +610,8 @@ export interface StringSchema extends AnySchema {
      * @param pattern - a regular expression object to match against, or a string of which all occurrences will be replaced.
      * @param replacement - the string that will replace the pattern.
      */
-    replace(pattern: RegExp | string, replacement: string): this;
+    replace(pattern: RegExp, replacement: string): this;
+    replace(pattern: string, replacement: string): this;
 
     /**
      * Requires the string value to only contain a-z, A-Z, and 0-9.
@@ -725,7 +739,8 @@ export interface ArraySchema extends AnySchema {
     /**
      * Specifies the exact number of items in the array.
      */
-    length(limit: number | Reference): this;
+    length(limit: number): this;
+    length(limit: Reference): this;
 
     /**
      * Requires the array values to be unique.
@@ -801,12 +816,14 @@ export interface ObjectSchema extends AnySchema {
     /**
      * Requires the presence of other keys whenever the specified key is present.
      */
-    with(key: string, peers: string | string[]): this;
+    with(key: string, peers: string): this;
+    with(key: string, peers: string[]): this;
 
     /**
      * Forbids the presence of other keys whenever the specified is present.
      */
-    without(key: string, peers: string | string[]): this;
+    without(key: string, peers: string): this;
+    without(key: string, peers: string[]): this;
 
     /**
      * Renames a key to another name (deletes the renamed key).
@@ -816,7 +833,8 @@ export interface ObjectSchema extends AnySchema {
     /**
      * Verifies an assertion where.
      */
-    assert(ref: string | Reference, schema: SchemaLike, message?: string): this;
+    assert(ref: string, schema: SchemaLike, message?: string): this;
+    assert(ref: Reference, schema: SchemaLike, message?: string): this;
 
     /**
      * Overrides the handling of unknown keys for the scope of the current object only (does not apply to children).
@@ -829,7 +847,6 @@ export interface ObjectSchema extends AnySchema {
      * @param constructor - the constructor function that the object must be an instance of.
      * @param name - an alternate name to use in validation errors. This is useful when the constructor function does not have a name.
      */
-    // tslint:disable-next-line:ban-types
     type(constructor: Function, name?: string): this;
 
     /**
@@ -898,7 +915,10 @@ export interface DateSchema extends AnySchema {
      * allowing to explicitly ensure a date is either in the past or in the future.
      * It can also be a reference to another field.
      */
-    min(date: Date | number | string | Reference): this;
+    min(date: Date): this;
+    min(date: number): this;
+    min(date: string): this;
+    min(date: Reference): this;
 
     /**
      * Specifies the latest date allowed.
@@ -906,13 +926,17 @@ export interface DateSchema extends AnySchema {
      * allowing to explicitly ensure a date is either in the past or in the future.
      * It can also be a reference to another field.
      */
-    max(date: Date | number | string | Reference): this;
+    max(date: Date): this;
+    max(date: number): this;
+    max(date: string): this;
+    max(date: Reference): this;
 
     /**
      * Specifies the allowed date format:
      * @param format - string or array of strings that follow the moment.js format.
      */
-    format(format: string | string[]): this;
+    format(format: string): this;
+    format(format: string[]): this;
 
     /**
      * Requires the string value to be in valid ISO 8601 date format.
@@ -954,7 +978,8 @@ export interface FunctionSchema extends AnySchema {
 export interface AlternativesSchema extends AnySchema {
     try(types: SchemaLike[]): this;
     try(...types: SchemaLike[]): this;
-    when(ref: string | Reference, options: WhenOptions): this;
+    when(ref: string, options: WhenOptions): this;
+    when(ref: Reference, options: WhenOptions): this;
     when(ref: Schema, options: WhenSchemaOptions): this;
 }
 
@@ -1001,13 +1026,6 @@ export interface Extension {
 
 export interface Err extends JoiObject {
     toString(): string;
-}
-
-export interface LazyOptions {
-    /**
-     * If true the schema generator will only be called once and the result will be cached.
-     */
-    once?: boolean;
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -1086,13 +1104,15 @@ export function alt(...types: SchemaLike[]): AlternativesSchema;
  * Supports the same methods of the any() type.
  * This is mostly useful for recursive schemas
  */
-export function lazy(cb: () => Schema, options?: LazyOptions): LazySchema;
+export function lazy(cb: () => Schema): LazySchema;
 
 /**
  * Validates a value using the given schema and options.
  */
-export function validate<T>(value: T, schema: SchemaLike, options?: ValidationOptions): ValidationResult<T>;
+export function validate<T>(value: T, schema: SchemaLike): ValidationResult<T>;
 export function validate<T, R>(value: T, schema: SchemaLike, callback: (err: ValidationError, value: T) => R): R;
+
+export function validate<T>(value: T, schema: SchemaLike, options: ValidationOptions): ValidationResult<T>;
 export function validate<T, R>(value: T, schema: SchemaLike, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
 
 /**
@@ -1132,7 +1152,8 @@ export function isRef(ref: any): ref is Reference;
  * Get a sub-schema of an existing schema based on a `path` that can be either a string or an array
  * of strings For string values path separator is a dot (`.`)
  */
-export function reach(schema: ObjectSchema, path: string | string[]): Schema;
+export function reach(schema: ObjectSchema, path: string): Schema;
+export function reach(schema: ObjectSchema, path: string[]): Schema;
 
 /**
  * Creates a new Joi instance customized with the extension(s) you provide included.
@@ -1221,12 +1242,14 @@ export function description(desc: string): Schema;
 /**
  * Annotates the key
  */
-export function notes(notes: string | string[]): Schema;
+export function notes(notes: string): Schema;
+export function notes(notes: string[]): Schema;
 
 /**
  * Annotates the key
  */
-export function tags(notes: string | string[]): Schema;
+export function tags(notes: string): Schema;
+export function tags(notes: string[]): Schema;
 
 /**
  * Attaches metadata to the key.
@@ -1261,7 +1284,8 @@ export function concat<T>(schema: T): T;
 /**
  * Converts the type into an alternatives type where the conditions are merged into the type definition where:
  */
-export function when(ref: string | Reference, options: WhenOptions): AlternativesSchema;
+export function when(ref: string, options: WhenOptions): AlternativesSchema;
+export function when(ref: Reference, options: WhenOptions): AlternativesSchema;
 export function when(ref: Schema, options: WhenSchemaOptions): AlternativesSchema;
 
 /**
