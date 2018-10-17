@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {withTracker} from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 
-type DemoComponentContainerProps = {
+interface DemoComponentContainerProps {
     status: string;
 }
 
-type DemoComponentData = {
+interface DemoComponentData {
     data: string;
 	result: string;
 }
