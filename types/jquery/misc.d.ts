@@ -3,27 +3,18 @@ declare namespace JQuery {
     type Node = Element | Text | Comment | DocumentFragment;
 
     /**
-     * A string is designated htmlString in jQuery documentation when it is used to represent one or more
-     * DOM elements, typically to be created and inserted in the document. When passed as an argument of
-     * the jQuery() function, the string is identified as HTML if it starts with <tag ... >) and is parsed
-     * as such until the final > character. Prior to jQuery 1.9, a string was considered to be HTML if it
-     * contained <tag ... > anywhere within the string.
+     * A string is designated htmlString in jQuery documentation when it is used to represent one or more DOM elements, typically to be created and inserted in the document. When passed as an argument of the jQuery() function, the string is identified as HTML if it starts with <tag ... >) and is parsed as such until the final > character. Prior to jQuery 1.9, a string was considered to be HTML if it contained <tag ... > anywhere within the string.
      */
     type htmlString = string;
     /**
-     * A selector is used in jQuery to select DOM elements from a DOM document. That document is, in most
-     * cases, the DOM document present in all browsers, but can also be an XML document received via Ajax.
+     * A selector is used in jQuery to select DOM elements from a DOM document. That document is, in most cases, the DOM document present in all browsers, but can also be an XML document received via Ajax.
      */
     type Selector = string;
 
     /**
-     * The PlainObject type is a JavaScript object containing zero or more key-value pairs. The plain
-     * object is, in other words, an Object object. It is designated "plain" in jQuery documentation to
-     * distinguish it from other kinds of JavaScript objects: for example, null, user-defined arrays, and
-     * host objects such as document, all of which have a typeof value of "object."
+     * The PlainObject type is a JavaScript object containing zero or more key-value pairs. The plain object is, in other words, an Object object. It is designated "plain" in jQuery documentation to distinguish it from other kinds of JavaScript objects: for example, null, user-defined arrays, and host objects such as document, all of which have a typeof value of "object."
      *
-     * **Note**: The type declaration of PlainObject is imprecise. It includes host objects and user-defined
-     *           arrays which do not match jQuery's definition.
+     * **Note**: The type declaration of PlainObject is imprecise. It includes host objects and user-defined arrays which do not match jQuery's definition.
      */
     interface PlainObject<T = any> {
         [key: string]: T;
@@ -87,174 +78,97 @@ declare namespace JQuery {
          */
         interface AjaxSettingsBase<TContext> {
             /**
-             * A set of key/value pairs that map a given dataType to its MIME type, which gets sent in the Accept
-             * request header. This header tells the server what kind of response it will accept in return.
+             * A set of key/value pairs that map a given dataType to its MIME type, which gets sent in the Accept request header. This header tells the server what kind of response it will accept in return.
              */
             accepts?: PlainObject<string>;
             /**
-             * By default, all requests are sent asynchronously (i.e. this is set to true by default). If you need
-             * synchronous requests, set this option to false. Cross-domain requests and dataType: "jsonp" requests
-             * do not support synchronous operation. Note that synchronous requests may temporarily lock the
-             * browser, disabling any actions while the request is active. As of jQuery 1.8, the use of async:
-             * false with jqXHR ($.Deferred) is deprecated; you must use the success/error/complete callback
-             * options instead of the corresponding methods of the jqXHR object such as jqXHR.done().
+             * By default, all requests are sent asynchronously (i.e. this is set to true by default). If you need synchronous requests, set this option to false. Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation. Note that synchronous requests may temporarily lock the browser, disabling any actions while the request is active. As of jQuery 1.8, the use of async: false with jqXHR ($.Deferred) is deprecated; you must use the success/error/complete callback options instead of the corresponding methods of the jqXHR object such as jqXHR.done().
              */
             async?: boolean;
             /**
-             * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x,
-             * XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and
-             * settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend
-             * function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless
-             * of the type of request.
+             * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x, XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless of the type of request.
              */
             beforeSend?(this: TContext, jqXHR: jqXHR, settings: this): false | void;
             /**
-             * If set to false, it will force requested pages not to be cached by the browser. Note: Setting cache
-             * to false will only work correctly with HEAD and GET requests. It works by appending "_={timestamp}"
-             * to the GET parameters. The parameter is not needed for other types of requests, except in IE8 when a
-             * POST is made to a URL that has already been requested by a GET.
+             * If set to false, it will force requested pages not to be cached by the browser. Note: Setting cache to false will only work correctly with HEAD and GET requests. It works by appending "_={timestamp}" to the GET parameters. The parameter is not needed for other types of requests, except in IE8 when a POST is made to a URL that has already been requested by a GET.
              */
             cache?: boolean;
             /**
-             * A function to be called when the request finishes (after success and error callbacks are executed).
-             * The function gets passed two arguments: The jqXHR (in jQuery 1.4.x, XMLHTTPRequest) object and a
-             * string categorizing the status of the request ("success", "notmodified", "nocontent", "error",
-             * "timeout", "abort", or "parsererror"). As of jQuery 1.5, the complete setting can accept an array of
-             * functions. Each function will be called in turn. This is an Ajax Event.
+             * A function to be called when the request finishes (after success and error callbacks are executed). The function gets passed two arguments: The jqXHR (in jQuery 1.4.x, XMLHTTPRequest) object and a string categorizing the status of the request ("success", "notmodified", "nocontent", "error", "timeout", "abort", or "parsererror"). As of jQuery 1.5, the complete setting can accept an array of functions. Each function will be called in turn. This is an Ajax Event.
              */
             complete?: TypeOrArray<CompleteCallback<TContext>>;
             /**
-             * An object of string/regular-expression pairs that determine how jQuery will parse the response,
-             * given its content type.
+             * An object of string/regular-expression pairs that determine how jQuery will parse the response, given its content type.
              */
             contents?: PlainObject<RegExp>;
             /**
-             * When sending data to the server, use this content type. Default is
-             * "application/x-www-form-urlencoded; charset=UTF-8", which is fine for most cases. If you explicitly
-             * pass in a content-type to $.ajax(), then it is always sent to the server (even if no data is sent).
-             * As of jQuery 1.6 you can pass false to tell jQuery to not set any content type header. Note: The W3C
-             * XMLHttpRequest specification dictates that the charset is always UTF-8; specifying another charset
-             * will not force the browser to change the encoding. Note: For cross-domain requests, setting the
-             * content type to anything other than application/x-www-form-urlencoded, multipart/form-data, or
-             * text/plain will trigger the browser to send a preflight OPTIONS request to the server.
+             * When sending data to the server, use this content type. Default is "application/x-www-form-urlencoded; charset=UTF-8", which is fine for most cases. If you explicitly pass in a content-type to $.ajax(), then it is always sent to the server (even if no data is sent). As of jQuery 1.6 you can pass false to tell jQuery to not set any content type header. Note: The W3C XMLHttpRequest specification dictates that the charset is always UTF-8; specifying another charset will not force the browser to change the encoding. Note: For cross-domain requests, setting the content type to anything other than application/x-www-form-urlencoded, multipart/form-data, or text/plain will trigger the browser to send a preflight OPTIONS request to the server.
              */
             contentType?: string | false;
             /**
-             * This object will be the context of all Ajax-related callbacks. By default, the context is an object
-             * that represents the Ajax settings used in the call ($.ajaxSettings merged with the settings passed to $.ajax).
+             * This object will be the context of all Ajax-related callbacks. By default, the context is an object that represents the Ajax settings used in the call ($.ajaxSettings merged with the settings passed to $.ajax).
              */
             context?: TContext;
             /**
-             * An object containing dataType-to-dataType converters. Each converter's value is a function that
-             * returns the transformed value of the response.
+             * An object containing dataType-to-dataType converters. Each converter's value is a function that returns the transformed value of the response.
              */
             converters?: PlainObject<((value: any) => any) | true>;
             /**
-             * If you wish to force a crossDomain request (such as JSONP) on the same domain, set the value of
-             * crossDomain to true. This allows, for example, server-side redirection to another domain.
+             * If you wish to force a crossDomain request (such as JSONP) on the same domain, set the value of crossDomain to true. This allows, for example, server-side redirection to another domain.
              */
             crossDomain?: boolean;
             /**
-             * Data to be sent to the server. It is converted to a query string, if not already a string. It's
-             * appended to the url for GET-requests. See processData option to prevent this automatic processing.
-             * Object must be Key/Value pairs. If value is an Array, jQuery serializes multiple values with same
-             * key based on the value of the traditional setting (described below).
+             * Data to be sent to the server. It is converted to a query string, if not already a string. It's appended to the url for GET-requests. See processData option to prevent this automatic processing. Object must be Key/Value pairs. If value is an Array, jQuery serializes multiple values with same key based on the value of the traditional setting (described below).
              */
             data?: PlainObject | string;
             /**
-             * A function to be used to handle the raw response data of XMLHttpRequest. This is a pre-filtering
-             * function to sanitize the response. You should return the sanitized data. The function accepts two
-             * arguments: The raw data returned from the server and the 'dataType' parameter.
+             * A function to be used to handle the raw response data of XMLHttpRequest. This is a pre-filtering function to sanitize the response. You should return the sanitized data. The function accepts two arguments: The raw data returned from the server and the 'dataType' parameter.
              */
             dataFilter?(data: string, type: string): any;
             /**
-             * The type of data that you're expecting back from the server. If none is specified, jQuery will try
-             * to infer it based on the MIME type of the response (an XML MIME type will yield XML, in 1.4 JSON
-             * will yield a JavaScript object, in 1.4 script will execute the script, and anything else will be
-             * returned as a string). The available types (and the result passed as the first argument to your
-             * success callback) are:
+             * The type of data that you're expecting back from the server. If none is specified, jQuery will try to infer it based on the MIME type of the response (an XML MIME type will yield XML, in 1.4 JSON will yield a JavaScript object, in 1.4 script will execute the script, and anything else will be returned as a string). The available types (and the result passed as the first argument to your success callback) are:
              *
              * "xml": Returns a XML document that can be processed via jQuery.
              *
              * "html": Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
              *
-             * "script": Evaluates the response as JavaScript and returns it as plain text. Disables caching by
-             * appending a query string parameter, _=[TIMESTAMP], to the URL unless the cache option is set to
-             * true. Note: This will turn POSTs into GETs for remote-domain requests.
+             * "script": Evaluates the response as JavaScript and returns it as plain text. Disables caching by appending a query string parameter, _=[TIMESTAMP], to the URL unless the cache option is set to true. Note: This will turn POSTs into GETs for remote-domain requests.
              *
-             * "json": Evaluates the response as JSON and returns a JavaScript object. Cross-domain "json" requests
-             * are converted to "jsonp" unless the request includes jsonp: false in its request options. The JSON
-             * data is parsed in a strict manner; any malformed JSON is rejected and a parse error is thrown. As of
-             * jQuery 1.9, an empty response is also rejected; the server should return a response of null or {}
-             * instead. (See json.org for more information on proper JSON formatting.)
+             * "json": Evaluates the response as JSON and returns a JavaScript object. Cross-domain "json" requests are converted to "jsonp" unless the request includes jsonp: false in its request options. The JSON data is parsed in a strict manner; any malformed JSON is rejected and a parse error is thrown. As of jQuery 1.9, an empty response is also rejected; the server should return a response of null or {} instead. (See json.org for more information on proper JSON formatting.)
              *
-             * "jsonp": Loads in a JSON block using JSONP. Adds an extra "?callback=?" to the end of your URL to
-             * specify the callback. Disables caching by appending a query string parameter, "_=[TIMESTAMP]", to
-             * the URL unless the cache option is set to true.
+             * "jsonp": Loads in a JSON block using JSONP. Adds an extra "?callback=?" to the end of your URL to specify the callback. Disables caching by appending a query string parameter, "_=[TIMESTAMP]", to the URL unless the cache option is set to true.
              *
              * "text": A plain text string.
              *
-             * multiple, space-separated values: As of jQuery 1.5, jQuery can convert a dataType from what it
-             * received in the Content-Type header to what you require. For example, if you want a text response to
-             * be treated as XML, use "text xml" for the dataType. You can also make a JSONP request, have it
-             * received as text, and interpreted by jQuery as XML: "jsonp text xml". Similarly, a shorthand string
-             * such as "jsonp xml" will first attempt to convert from jsonp to xml, and, failing that, convert from
-             * jsonp to text, and then from text to xml.
+             * multiple, space-separated values: As of jQuery 1.5, jQuery can convert a dataType from what it received in the Content-Type header to what you require. For example, if you want a text response to be treated as XML, use "text xml" for the dataType. You can also make a JSONP request, have it received as text, and interpreted by jQuery as XML: "jsonp text xml". Similarly, a shorthand string such as "jsonp xml" will first attempt to convert from jsonp to xml, and, failing that, convert from jsonp to text, and then from text to xml.
              */
             dataType?: 'xml' | 'html' | 'script' | 'json' | 'jsonp' | 'text' | string;
             /**
-             * A function to be called if the request fails. The function receives three arguments: The jqXHR (in
-             * jQuery 1.4.x, XMLHttpRequest) object, a string describing the type of error that occurred and an
-             * optional exception object, if one occurred. Possible values for the second argument (besides null)
-             * are "timeout", "error", "abort", and "parsererror". When an HTTP error occurs, errorThrown receives
-             * the textual portion of the HTTP status, such as "Not Found" or "Internal Server Error." As of jQuery
-             * 1.5, the error setting can accept an array of functions. Each function will be called in turn. Note:
-             * This handler is not called for cross-domain script and cross-domain JSONP requests. This is an Ajax Event.
+             * A function to be called if the request fails. The function receives three arguments: The jqXHR (in jQuery 1.4.x, XMLHttpRequest) object, a string describing the type of error that occurred and an optional exception object, if one occurred. Possible values for the second argument (besides null) are "timeout", "error", "abort", and "parsererror". When an HTTP error occurs, errorThrown receives the textual portion of the HTTP status, such as "Not Found" or "Internal Server Error." As of jQuery 1.5, the error setting can accept an array of functions. Each function will be called in turn. Note: This handler is not called for cross-domain script and cross-domain JSONP requests. This is an Ajax Event.
              */
             error?: TypeOrArray<ErrorCallback<TContext>>;
             /**
-             * Whether to trigger global Ajax event handlers for this request. The default is true. Set to false to
-             * prevent the global handlers like ajaxStart or ajaxStop from being triggered. This can be used to
-             * control various Ajax Events.
+             * Whether to trigger global Ajax event handlers for this request. The default is true. Set to false to prevent the global handlers like ajaxStart or ajaxStop from being triggered. This can be used to control various Ajax Events.
              */
             global?: boolean;
             /**
-             * An object of additional header key/value pairs to send along with requests using the XMLHttpRequest
-             * transport. The header X-Requested-With: XMLHttpRequest is always added, but its default
-             * XMLHttpRequest value can be changed here. Values in the headers setting can also be overwritten from
-             * within the beforeSend function.
+             * An object of additional header key/value pairs to send along with requests using the XMLHttpRequest transport. The header X-Requested-With: XMLHttpRequest is always added, but its default XMLHttpRequest value can be changed here. Values in the headers setting can also be overwritten from within the beforeSend function.
              */
             headers?: PlainObject<string | null | undefined>;
             /**
-             * Allow the request to be successful only if the response has changed since the last request. This is
-             * done by checking the Last-Modified header. Default value is false, ignoring the header. In jQuery
-             * 1.4 this technique also checks the 'etag' specified by the server to catch unmodified data.
+             * Allow the request to be successful only if the response has changed since the last request. This is done by checking the Last-Modified header. Default value is false, ignoring the header. In jQuery 1.4 this technique also checks the 'etag' specified by the server to catch unmodified data.
              */
             ifModified?: boolean;
             /**
-             * Allow the current environment to be recognized as "local," (e.g. the filesystem), even if jQuery
-             * does not recognize it as such by default. The following protocols are currently recognized as local:
-             * file, *-extension, and widget. If the isLocal setting needs modification, it is recommended to do so
-             * once in the $.ajaxSetup() method.
+             * Allow the current environment to be recognized as "local," (e.g. the filesystem), even if jQuery does not recognize it as such by default. The following protocols are currently recognized as local: file, *-extension, and widget. If the isLocal setting needs modification, it is recommended to do so once in the $.ajaxSetup() method.
              */
             isLocal?: boolean;
             /**
-             * Override the callback function name in a JSONP request. This value will be used instead of
-             * 'callback' in the 'callback=?' part of the query string in the url. So {jsonp:'onJSONPLoad'} would
-             * result in 'onJSONPLoad=?' passed to the server. As of jQuery 1.5, setting the jsonp option to false
-             * prevents jQuery from adding the "?callback" string to the URL or attempting to use "=?" for
-             * transformation. In this case, you should also explicitly set the jsonpCallback setting. For example,
-             * { jsonp: false, jsonpCallback: "callbackName" }. If you don't trust the target of your Ajax
-             * requests, consider setting the jsonp property to false for security reasons.
+             * Override the callback function name in a JSONP request. This value will be used instead of 'callback' in the 'callback=?' part of the query string in the url. So {jsonp:'onJSONPLoad'} would result in 'onJSONPLoad=?' passed to the server. As of jQuery 1.5, setting the jsonp option to false prevents jQuery from adding the "?callback" string to the URL or attempting to use "=?" for transformation. In this case, you should also explicitly set the jsonpCallback setting. For example, { jsonp: false, jsonpCallback: "callbackName" }. If you don't trust the target of your Ajax requests, consider setting the jsonp property to false for security reasons.
              */
             jsonp?: string | false;
             /**
-             * Specify the callback function name for a JSONP request. This value will be used instead of the
-             * random name automatically generated by jQuery. It is preferable to let jQuery generate a unique name
-             * as it'll make it easier to manage the requests and provide callbacks and error handling. You may
-             * want to specify the callback when you want to enable better browser caching of GET requests. As of
-             * jQuery 1.5, you can also use a function for this setting, in which case the value of jsonpCallback
-             * is set to the return value of that function.
+             * Specify the callback function name for a JSONP request. This value will be used instead of the random name automatically generated by jQuery. It is preferable to let jQuery generate a unique name as it'll make it easier to manage the requests and provide callbacks and error handling. You may want to specify the callback when you want to enable better browser caching of GET requests. As of jQuery 1.5, you can also use a function for this setting, in which case the value of jsonpCallback is set to the return value of that function.
              */
             jsonpCallback?: string | ((this: TContext) => string);
             /**
@@ -270,42 +184,25 @@ declare namespace JQuery {
              */
             password?: string;
             /**
-             * By default, data passed in to the data option as an object (technically, anything other than a
-             * string) will be processed and transformed into a query string, fitting to the default content-type
-             * "application/x-www-form-urlencoded". If you want to send a DOMDocument, or other non-processed data,
-             * set this option to false.
+             * By default, data passed in to the data option as an object (technically, anything other than a string) will be processed and transformed into a query string, fitting to the default content-type "application/x-www-form-urlencoded". If you want to send a DOMDocument, or other non-processed data, set this option to false.
              */
             processData?: boolean;
             /**
-             * Only applies when the "script" transport is used (e.g., cross-domain requests with "jsonp" or
-             * "script" dataType and "GET" type). Sets the charset attribute on the script tag used in the request.
-             * Used when the character set on the local page is not the same as the one on the remote script.
+             * Only applies when the "script" transport is used (e.g., cross-domain requests with "jsonp" or "script" dataType and "GET" type). Sets the charset attribute on the script tag used in the request. Used when the character set on the local page is not the same as the one on the remote script.
              */
             scriptCharset?: string;
             /**
-             * An object of numeric HTTP codes and functions to be called when the response has the corresponding
-             * code.
+             * An object of numeric HTTP codes and functions to be called when the response has the corresponding code.
              *
-             * If the request is successful, the status code functions take the same parameters as the success
-             * callback; if it results in an error (including 3xx redirect), they take the same parameters as the error callback.
+             * If the request is successful, the status code functions take the same parameters as the success callback; if it results in an error (including 3xx redirect), they take the same parameters as the error callback.
              */
             statusCode?: StatusCodeCallbacks<TContext>;
             /**
-             * A function to be called if the request succeeds. The function gets passed three arguments: The data
-             * returned from the server, formatted according to the dataType parameter or the dataFilter callback
-             * function, if specified; a string describing the status; and the jqXHR (in jQuery 1.4.x,
-             * XMLHttpRequest) object. As of jQuery 1.5, the success setting can accept an array of functions. Each
-             * function will be called in turn. This is an Ajax Event.
+             * A function to be called if the request succeeds. The function gets passed three arguments: The data returned from the server, formatted according to the dataType parameter or the dataFilter callback function, if specified; a string describing the status; and the jqXHR (in jQuery 1.4.x, XMLHttpRequest) object. As of jQuery 1.5, the success setting can accept an array of functions. Each function will be called in turn. This is an Ajax Event.
              */
             success?: TypeOrArray<SuccessCallback<TContext>>;
             /**
-             * Set a timeout (in milliseconds) for the request. A value of 0 means there will be no timeout. This
-             * will override any global timeout set with $.ajaxSetup(). The timeout period starts at the point the
-             * $.ajax call is made; if several other requests are in progress and the browser has no connections
-             * available, it is possible for a request to time out before it can be sent. In jQuery 1.4.x and
-             * below, the XMLHttpRequest object will be in an invalid state if the request times out; accessing any
-             * object members may throw an exception. In Firefox 3.0+ only, script and JSONP requests cannot be
-             * cancelled by a timeout; the script will run even if it arrives after the timeout period.
+             * Set a timeout (in milliseconds) for the request. A value of 0 means there will be no timeout. This will override any global timeout set with $.ajaxSetup(). The timeout period starts at the point the $.ajax call is made; if several other requests are in progress and the browser has no connections available, it is possible for a request to time out before it can be sent. In jQuery 1.4.x and below, the XMLHttpRequest object will be in an invalid state if the request times out; accessing any object members may throw an exception. In Firefox 3.0+ only, script and JSONP requests cannot be cancelled by a timeout; the script will run even if it arrives after the timeout period.
              */
             timeout?: number;
             /**
@@ -322,17 +219,13 @@ declare namespace JQuery {
             username?: string;
             // ActiveXObject requires "lib": ["scripthost"] which consumers would also require
             /**
-             * Callback for creating the XMLHttpRequest object. Defaults to the ActiveXObject when available (IE),
-             * the XMLHttpRequest otherwise. Override to provide your own implementation for XMLHttpRequest or
-             * enhancements to the factory.
+             * Callback for creating the XMLHttpRequest object. Defaults to the ActiveXObject when available (IE), the XMLHttpRequest otherwise. Override to provide your own implementation for XMLHttpRequest or enhancements to the factory.
              */
             xhr?(): XMLHttpRequest;
             /**
              * An object of fieldName-fieldValue pairs to set on the native XHR object.
              *
-             * In jQuery 1.5, the withCredentials property was not propagated to the native XHR and thus CORS
-             * requests requiring it would ignore this flag. For this reason, we recommend using jQuery 1.5.1+
-             * should you require the use of it.
+             * In jQuery 1.5, the withCredentials property was not propagated to the native XHR and thus CORS requests requiring it would ignore this flag. For this reason, we recommend using jQuery 1.5.1+ should you require the use of it.
              */
             xhrFields?: XHRFields;
         }
@@ -1052,8 +945,7 @@ callbacks.fireWith( window, [ "foo","bar" ] );
          */
         fireWith(context: object, args?: ArrayLike<any>): this;
         /**
-         * Determine whether or not the list has any callbacks attached. If a callback is provided as an
-         * argument, determine whether it is in a list.
+         * Determine whether or not the list has any callbacks attached. If a callback is provided as an argument, determine whether it is in a list.
          *
          * @param callback The callback to search for.
          * @see \`{@link https://api.jquery.com/callbacks.has/ }\`
@@ -1313,8 +1205,7 @@ callbacks.fire( "world" );
     // The third letter indicates whether the value is returned in the [D]one filter, [F]ail filter, or [P]rogress filter.
 
     /**
-     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
-     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
+     * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
@@ -2430,8 +2321,7 @@ $.get( "test.php" )
     }
 
     /**
-     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
-     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
+     * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
@@ -2443,8 +2333,7 @@ $.get( "test.php" )
         never, never, never> { }
 
     /**
-     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
-     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
+     * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
@@ -2455,8 +2344,7 @@ $.get( "test.php" )
         never, never, never> { }
 
     /**
-     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
-     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
+     * This object provides a subset of the methods of the Deferred object (then, done, fail, always, pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
      * @see \`{@link https://api.jquery.com/Types/#Promise }\`
      */
@@ -2469,9 +2357,7 @@ $.get( "test.php" )
         // https://jquery.com/upgrade-guide/3.0/#callback-exit
         exceptionHook: any;
         /**
-         * A factory function that returns a chainable utility object with methods to register multiple
-         * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
-         * any synchronous or asynchronous function.
+         * A factory function that returns a chainable utility object with methods to register multiple callbacks into callback queues, invoke callback queues, and relay the success or failure state of any synchronous or asynchronous function.
          *
          * @param beforeStart A function that is called just before the constructor returns.
          * @see \`{@link https://api.jquery.com/jQuery.Deferred/ }\`
@@ -3684,8 +3570,7 @@ $.get( "test.php" )
      */
     interface EffectsOptions<TElement> extends PlainObject {
         /**
-         * A function to be called when the animation on an element completes or stops without completing (its
-         * Promise object is either resolved or rejected).
+         * A function to be called when the animation on an element completes or stops without completing (its Promise object is either resolved or rejected).
          */
         always?(this: TElement, animation: Animation<TElement>, jumpedToEnd: boolean): void;
         /**
@@ -3709,20 +3594,15 @@ $.get( "test.php" )
          */
         fail?(this: TElement, animation: Animation<TElement>, jumpedToEnd: boolean): void;
         /**
-         * A function to be called after each step of the animation, only once per animated element regardless
-         * of the number of animated properties.
+         * A function to be called after each step of the animation, only once per animated element regardless of the number of animated properties.
          */
         progress?(this: TElement, animation: Animation<TElement>, progress: number, remainingMs: number): void;
         /**
-         * A Boolean indicating whether to place the animation in the effects queue. If false, the animation
-         * will begin immediately. As of jQuery 1.7, the queue option can also accept a string, in which case
-         * the animation is added to the queue represented by that string. When a custom queue name is used the
-         * animation does not automatically start; you must call .dequeue("queuename") to start it.
+         * A Boolean indicating whether to place the animation in the effects queue. If false, the animation will begin immediately. As of jQuery 1.7, the queue option can also accept a string, in which case the animation is added to the queue represented by that string. When a custom queue name is used the animation does not automatically start; you must call .dequeue("queuename") to start it.
          */
         queue?: boolean | string;
         /**
-         * An object containing one or more of the CSS properties defined by the properties argument and their
-         * corresponding easing functions.
+         * An object containing one or more of the CSS properties defined by the properties argument and their corresponding easing functions.
          */
         specialEasing?: PlainObject<string>;
         /**
@@ -3730,8 +3610,7 @@ $.get( "test.php" )
          */
         start?(this: TElement, animation: Animation<TElement>): void;
         /**
-         * A function to be called for each animated property of each animated element. This function provides
-         * an opportunity to modify the Tween object to change the value of the property before it is set.
+         * A function to be called for each animated property of each animated element. This function provides an opportunity to modify the Tween object to change the value of the property before it is set.
          */
         step?(this: TElement, now: number, tween: Tween<TElement>): void;
     }
@@ -4983,40 +4862,23 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
 
     interface EventExtensions {
         /**
-         * jQuery defines an \`{@link https://api.jquery.com/category/events/event-object/ Event object}\` that
-         * represents a cross-browser subset of the information available when an event occurs. The `jQuery.event.props`
-         * property is an array of string names for properties that are always copied when jQuery processes a
-         * native browser event. (Events fired in code by `.trigger()` do not use this list, since the code can
-         * construct a `jQuery.Event` object with the needed values and trigger using that object.)
+         * jQuery defines an \`{@link https://api.jquery.com/category/events/event-object/ Event object}\` that represents a cross-browser subset of the information available when an event occurs. The `jQuery.event.props` property is an array of string names for properties that are always copied when jQuery processes a native browser event. (Events fired in code by `.trigger()` do not use this list, since the code can construct a `jQuery.Event` object with the needed values and trigger using that object.)
          *
-         * To add a property name to this list, use `jQuery.event.props.push( "newPropertyName" )`. However, be
-         * aware that every event processed by jQuery will now attempt to copy this property name from the native
-         * browser event to jQuery's constructed event. If the property does not exist for that event type, it
-         * will get an undefined value. Adding many properties to this list can significantly reduce event
-         * delivery performance, so for infrequently-needed properties it is more efficient to use the value
-         * directly from `event.originalEvent` instead. If properties must be copied, you are strongly advised
-         * to use `jQuery.event.fixHooks` as of version 1.7.
+         * To add a property name to this list, use `jQuery.event.props.push( "newPropertyName" )`. However, be aware that every event processed by jQuery will now attempt to copy this property name from the native browser event to jQuery's constructed event. If the property does not exist for that event type, it will get an undefined value. Adding many properties to this list can significantly reduce event delivery performance, so for infrequently-needed properties it is more efficient to use the value directly from `event.originalEvent` instead. If properties must be copied, you are strongly advised to use `jQuery.event.fixHooks` as of version 1.7.
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#jquery-event-props-array }\`
          */
         props: string[];
         /**
-         * The `fixHooks` interface provides a per-event-type way to extend or normalize the event object that
-         * jQuery creates when it processes a _native_ browser event.
+         * The `fixHooks` interface provides a per-event-type way to extend or normalize the event object that jQuery creates when it processes a _native_ browser event.
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#jquery-event-fixhooks-object }\`
          */
         fixHooks: FixHooks;
         /**
-         * The jQuery special event hooks are a set of per-event-name functions and properties that allow code
-         * to control the behavior of event processing within jQuery. The mechanism is similar to `fixHooks` in
-         * that the special event information is stored in `jQuery.event.special.NAME`, where `NAME` is the
-         * name of the special event. Event names are case sensitive.
+         * The jQuery special event hooks are a set of per-event-name functions and properties that allow code to control the behavior of event processing within jQuery. The mechanism is similar to `fixHooks` in that the special event information is stored in `jQuery.event.special.NAME`, where `NAME` is the name of the special event. Event names are case sensitive.
          *
-         * As with `fixHooks`, the special event hooks design assumes it will be very rare that two unrelated
-         * pieces of code want to process the same event name. Special event authors who need to modify events
-         * with existing hooks will need to take precautions to avoid introducing unwanted side-effects by
-         * clobbering those hooks.
+         * As with `fixHooks`, the special event hooks design assumes it will be very rare that two unrelated pieces of code want to process the same event name. Special event authors who need to modify events with existing hooks will need to take precautions to avoid introducing unwanted side-effects by clobbering those hooks.
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#special-event-hooks }\`
          */
@@ -5029,21 +4891,14 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
     // Workaround for TypeScript 2.3 which does not have support for weak types handling.
     type FixHook = {
         /**
-         * Strings representing properties that should be copied from the browser's event object to the jQuery
-         * event object. If omitted, no additional properties are copied beyond the standard ones that jQuery
-         * copies and normalizes (e.g. `event.target` and `event.relatedTarget`).
+         * Strings representing properties that should be copied from the browser's event object to the jQuery event object. If omitted, no additional properties are copied beyond the standard ones that jQuery copies and normalizes (e.g. `event.target` and `event.relatedTarget`).
          */
         props: string[];
     } | {
         /**
-         * jQuery calls this function after it constructs the `jQuery.Event` object, copies standard properties
-         * from `jQuery.event.props`, and copies the `fixHooks`-specific props (if any) specified above. The
-         * function can create new properties on the event object or modify existing ones. The second argument
-         * is the browser's native event object, which is also available in `event.originalEvent`.
+         * jQuery calls this function after it constructs the `jQuery.Event` object, copies standard properties from `jQuery.event.props`, and copies the `fixHooks`-specific props (if any) specified above. The function can create new properties on the event object or modify existing ones. The second argument is the browser's native event object, which is also available in `event.originalEvent`.
          *
-         * Note that for all events, the browser's native event object is available in `event.originalEvent`;
-         * if the jQuery event handler examines the properties there instead of jQuery's normalized `event`
-         * object, there is no need to create a `fixHooks` entry to copy or modify the properties.
+         * Note that for all events, the browser's native event object is available in `event.originalEvent`; if the jQuery event handler examines the properties there instead of jQuery's normalized `event` object, there is no need to create a `fixHooks` entry to copy or modify the properties.
          *
          * @example ​ ````For example, to set a hook for the "drop" event that copies the `dataTransfer` property, assign an object to `jQuery.event.fixHooks.drop`:
 ```javascript
@@ -5091,8 +4946,7 @@ if ( !existingHook ) {
     };
 
     /**
-     * The `fixHooks` interface provides a per-event-type way to extend or normalize the event object that
-     * jQuery creates when it processes a _native_ browser event.
+     * The `fixHooks` interface provides a per-event-type way to extend or normalize the event object that jQuery creates when it processes a _native_ browser event.
      *
      * @see \`{@link https://learn.jquery.com/events/event-extensions/#jquery-event-fixhooks-object }\`
      */
@@ -5106,152 +4960,87 @@ if ( !existingHook ) {
     // #region Special event hooks
 
     /**
-     * The jQuery special event hooks are a set of per-event-name functions and properties that allow code
-     * to control the behavior of event processing within jQuery. The mechanism is similar to `fixHooks` in
-     * that the special event information is stored in `jQuery.event.special.NAME`, where `NAME` is the
-     * name of the special event. Event names are case sensitive.
+     * The jQuery special event hooks are a set of per-event-name functions and properties that allow code to control the behavior of event processing within jQuery. The mechanism is similar to `fixHooks` in that the special event information is stored in `jQuery.event.special.NAME`, where `NAME` is the name of the special event. Event names are case sensitive.
      *
-     * As with `fixHooks`, the special event hooks design assumes it will be very rare that two unrelated
-     * pieces of code want to process the same event name. Special event authors who need to modify events
-     * with existing hooks will need to take precautions to avoid introducing unwanted side-effects by
-     * clobbering those hooks.
+     * As with `fixHooks`, the special event hooks design assumes it will be very rare that two unrelated pieces of code want to process the same event name. Special event authors who need to modify events with existing hooks will need to take precautions to avoid introducing unwanted side-effects by clobbering those hooks.
      *
      * @see \`{@link https://learn.jquery.com/events/event-extensions/#special-event-hooks }\`
      */
     // Workaround for TypeScript 2.3 which does not have support for weak types handling.
     type SpecialEventHook<TTarget, TData> = {
         /**
-         * Indicates whether this event type should be bubbled when the `.trigger()` method is called; by
-         * default it is `false`, meaning that a triggered event will bubble to the element's parents up to the
-         * document (if attached to a document) and then to the window. Note that defining `noBubble` on an
-         * event will effectively prevent that event from being used for delegated events with `.trigger()`.
+         * Indicates whether this event type should be bubbled when the `.trigger()` method is called; by default it is `false`, meaning that a triggered event will bubble to the element's parents up to the document (if attached to a document) and then to the window. Note that defining `noBubble` on an event will effectively prevent that event from being used for delegated events with `.trigger()`.
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#nobubble-boolean }\`
          */
         noBubble: boolean;
     } | {
         /**
-         * When defined, these string properties specify that a special event should be handled like another
-         * event type until the event is delivered. The `bindType` is used if the event is attached directly,
-         * and the `delegateType` is used for delegated events. These types are generally DOM event types,
-         * and _should not_ be a special event themselves.
+         * When defined, these string properties specify that a special event should be handled like another event type until the event is delivered. The `bindType` is used if the event is attached directly, and the `delegateType` is used for delegated events. These types are generally DOM event types, and _should not_ be a special event themselves.
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
          */
         bindType: string;
     } | {
         /**
-         * When defined, these string properties specify that a special event should be handled like another
-         * event type until the event is delivered. The `bindType` is used if the event is attached directly,
-         * and the `delegateType` is used for delegated events. These types are generally DOM event types,
-         * and _should not_ be a special event themselves.
+         * When defined, these string properties specify that a special event should be handled like another event type until the event is delivered. The `bindType` is used if the event is attached directly, and the `delegateType` is used for delegated events. These types are generally DOM event types, and _should not_ be a special event themselves.
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#bindtype-string-delegatetype-string }\`
          */
         delegateType: string;
     } | {
         /**
-         * The setup hook is called the first time an event of a particular type is attached to an element;
-         * this provides the hook an opportunity to do processing that will apply to all events of this type on
-         * this element. The `this` keyword will be a reference to the element where the event is being attached
-         * and `eventHandle` is jQuery's event handler function. In most cases the `namespaces` argument should
-         * not be used, since it only represents the namespaces of the _first_ event being attached; subsequent
-         * events may not have this same namespaces.
+         * The setup hook is called the first time an event of a particular type is attached to an element; this provides the hook an opportunity to do processing that will apply to all events of this type on this element. The `this` keyword will be a reference to the element where the event is being attached and `eventHandle` is jQuery's event handler function. In most cases the `namespaces` argument should not be used, since it only represents the namespaces of the _first_ event being attached; subsequent events may not have this same namespaces.
          *
-         * This hook can perform whatever processing it desires, including attaching its own event handlers to
-         * the element or to other elements and recording setup information on the element using the `jQuery.data()`
-         * method. If the setup hook wants jQuery to add a browser event (via `addEventListener` or `attachEvent`,
-         * depending on browser) it should return `false`. In all other cases, jQuery will not add the browser
-         * event, but will continue all its other bookkeeping for the event. This would be appropriate, for
-         * example, if the event was never fired by the browser but invoked by `.trigger()`. To attach the jQuery
-         * event handler in the setup hook, use the `eventHandle` argument.
+         * This hook can perform whatever processing it desires, including attaching its own event handlers to the element or to other elements and recording setup information on the element using the `jQuery.data()` method. If the setup hook wants jQuery to add a browser event (via `addEventListener` or `attachEvent`, depending on browser) it should return `false`. In all other cases, jQuery will not add the browser event, but will continue all its other bookkeeping for the event. This would be appropriate, for example, if the event was never fired by the browser but invoked by `.trigger()`. To attach the jQuery event handler in the setup hook, use the `eventHandle` argument.
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#setup-function-data-object-namespaces-eventhandle-function }\`
          */
         setup(this: TTarget, data: TData, namespaces: string, eventHandle: EventHandler<TTarget, TData>): void | false;
     } | {
         /**
-         * The teardown hook is called when the final event of a particular type is removed from an element.
-         * The `this` keyword will be a reference to the element where the event is being cleaned up. This hook
-         * should return `false` if it wants jQuery to remove the event from the browser's event system (via
-         * `removeEventListener` or `detachEvent`). In most cases, the setup and teardown hooks should return
-         * the same value.
+         * The teardown hook is called when the final event of a particular type is removed from an element. The `this` keyword will be a reference to the element where the event is being cleaned up. This hook should return `false` if it wants jQuery to remove the event from the browser's event system (via `removeEventListener` or `detachEvent`). In most cases, the setup and teardown hooks should return the same value.
          *
-         * If the setup hook attached event handlers or added data to an element through a mechanism such as
-         * `jQuery.data()`, the teardown hook should reverse the process and remove them. jQuery will generally
-         * remove the data and events when an element is totally removed from the document, but failing to
-         * remove data or events on teardown will cause a memory leak if the element stays in the document.
+         * If the setup hook attached event handlers or added data to an element through a mechanism such as `jQuery.data()`, the teardown hook should reverse the process and remove them. jQuery will generally remove the data and events when an element is totally removed from the document, but failing to remove data or events on teardown will cause a memory leak if the element stays in the document.
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#teardown-function }\`
          */
         teardown(this: TTarget): void | false;
     } | {
         /**
-         * Each time an event handler is added to an element through an API such as `.on()`, jQuery calls this
-         * hook. The `this` keyword will be the element to which the event handler is being added, and the
-         * `handleObj` argument is as described in the section above. The return value of this hook is ignored.
+         * Each time an event handler is added to an element through an API such as `.on()`, jQuery calls this hook. The `this` keyword will be the element to which the event handler is being added, and the `handleObj` argument is as described in the section above. The return value of this hook is ignored.
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#add-function-handleobj }\`
          */
         add(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
     } | {
         /**
-         * When an event handler is removed from an element using an API such as `.off()`, this hook is called.
-         * The `this` keyword will be the element where the handler is being removed, and the `handleObj`
-         * argument is as described in the section above. The return value of this hook is ignored.
+         * When an event handler is removed from an element using an API such as `.off()`, this hook is called. The `this` keyword will be the element where the handler is being removed, and the `handleObj` argument is as described in the section above. The return value of this hook is ignored.
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#remove-function-handleobj }\`
          */
         remove(this: TTarget, handleObj: HandleObject<TTarget, TData>): void;
     } | {
         /**
-         * Called when the `.trigger()` or `.triggerHandler()` methods are used to trigger an event for the
-         * special type from code, as opposed to events that originate from within the browser. The `this`
-         * keyword will be the element being triggered, and the event argument will be a `jQuery.Event` object
-         * constructed from the caller's input. At minimum, the event type, data, namespace, and target
-         * properties are set on the event. The data argument represents additional data passed by `.trigger()`
-         * if present.
+         * Called when the `.trigger()` or `.triggerHandler()` methods are used to trigger an event for the special type from code, as opposed to events that originate from within the browser. The `this` keyword will be the element being triggered, and the event argument will be a `jQuery.Event` object constructed from the caller's input. At minimum, the event type, data, namespace, and target properties are set on the event. The data argument represents additional data passed by `.trigger()` if present.
          *
-         * The trigger hook is called early in the process of triggering an event, just after the `jQuery.Event`
-         * object is constructed and before any handlers have been called. It can process the triggered event
-         * in any way, for example by calling `event.stopPropagation()` or `event.preventDefault()` before
-         * returning. If the hook returns `false`, jQuery does not perform any further event triggering actions
-         * and returns immediately. Otherwise, it performs the normal trigger processing, calling any event
-         * handlers for the element and bubbling the event (unless propagation is stopped in advance or `noBubble`
-         * was specified for the special event) to call event handlers attached to parent elements.
+         * The trigger hook is called early in the process of triggering an event, just after the `jQuery.Event` object is constructed and before any handlers have been called. It can process the triggered event in any way, for example by calling `event.stopPropagation()` or `event.preventDefault()` before returning. If the hook returns `false`, jQuery does not perform any further event triggering actions and returns immediately. Otherwise, it performs the normal trigger processing, calling any event handlers for the element and bubbling the event (unless propagation is stopped in advance or `noBubble` was specified for the special event) to call event handlers attached to parent elements.
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#trigger-function-event-jquery-event-data-object }\`
          */
         trigger(this: TTarget, event: Event<TTarget, TData>, data: TData): void | false;
     } | {
         /**
-         * When the `.trigger()` method finishes running all the event handlers for an event, it also looks for
-         * and runs any method on the target object by the same name unless of the handlers called `event.preventDefault()`.
-         * So, `.trigger( "submit" )` will execute the `submit()` method on the element if one exists. When a
-         * `_default` hook is specified, the hook is called just prior to checking for and executing the element's
-         * default method. If this hook returns the value `false` the element's default method will be called;
-         * otherwise it is not.
+         * When the `.trigger()` method finishes running all the event handlers for an event, it also looks for and runs any method on the target object by the same name unless of the handlers called `event.preventDefault()`. So, `.trigger( "submit" )` will execute the `submit()` method on the element if one exists. When a `_default` hook is specified, the hook is called just prior to checking for and executing the element's default method. If this hook returns the value `false` the element's default method will be called; otherwise it is not.
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#_default-function-event-jquery-event-data-object }\`
          */
         _default(event: Event<TTarget, TData>, data: TData): void | false;
     } | {
         /**
-         * jQuery calls a handle hook when the event has occurred and jQuery would normally call the user's event
-         * handler specified by `.on()` or another event binding method. If the hook exists, jQuery calls it
-         * _instead_ of that event handler, passing it the event and any data passed from `.trigger()` if it was
-         * not a native event. The `this` keyword is the DOM element being handled, and `event.handleObj`
-         * property has the detailed event information.
+         * jQuery calls a handle hook when the event has occurred and jQuery would normally call the user's event handler specified by `.on()` or another event binding method. If the hook exists, jQuery calls it _instead_ of that event handler, passing it the event and any data passed from `.trigger()` if it was not a native event. The `this` keyword is the DOM element being handled, and `event.handleObj` property has the detailed event information.
          *
-         * Based in the information it has, the handle hook should decide whether to call the original handler
-         * function which is in `event.handleObj.handler`. It can modify information in the event object before
-         * calling the original handler, but _must restore_ that data before returning or subsequent unrelated
-         * event handlers may act unpredictably. In most cases, the handle hook should return the result of the
-         * original handler, but that is at the discretion of the hook. The handle hook is unique in that it is
-         * the only special event function hook that is called under its original special event name when the
-         * type is mapped using `bindType` and `delegateType`. For that reason, it is almost always an error to
-         * have anything other than a handle hook present if the special event defines a `bindType` and
-         * `delegateType`, since those other hooks will never be called.
+         * Based in the information it has, the handle hook should decide whether to call the original handler function which is in `event.handleObj.handler`. It can modify information in the event object before calling the original handler, but _must restore_ that data before returning or subsequent unrelated event handlers may act unpredictably. In most cases, the handle hook should return the result of the original handler, but that is at the discretion of the hook. The handle hook is unique in that it is the only special event function hook that is called under its original special event name when the type is mapped using `bindType` and `delegateType`. For that reason, it is almost always an error to have anything other than a handle hook present if the special event defines a `bindType` and `delegateType`, since those other hooks will never be called.
          *
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#handle-function-event-jquery-event-data-object }\`
          */
@@ -5269,43 +5058,33 @@ if ( !existingHook ) {
     }
 
     /**
-     * Many of the special event hook functions below are passed a `handleObj` object that provides more
-     * information about the event, how it was attached, and its current state. This object and its contents
-     * should be treated as read-only data, and only the properties below are documented for use by special
-     * event handlers.
+     * Many of the special event hook functions below are passed a `handleObj` object that provides more information about the event, how it was attached, and its current state. This object and its contents should be treated as read-only data, and only the properties below are documented for use by special event handlers.
      *
      * @see \`{@link https://learn.jquery.com/events/event-extensions/#the-handleobj-object }\`
      */
     interface HandleObject<TTarget, TData> {
         /**
-         * The type of event, such as `"click"`. When special event mapping is used via `bindType` or
-         * `delegateType`, this will be the mapped type.
+         * The type of event, such as `"click"`. When special event mapping is used via `bindType` or `delegateType`, this will be the mapped type.
          */
         readonly type: string;
         /**
-         * The original type name regardless of whether it was mapped via `bindType` or `delegateType`. So when
-         * a "pushy" event is mapped to "click" its `origType` would be "pushy".
+         * The original type name regardless of whether it was mapped via `bindType` or `delegateType`. So when a "pushy" event is mapped to "click" its `origType` would be "pushy".
          */
         readonly origType: string;
         /**
-         * Namespace(s), if any, provided when the event was attached, such as `"myPlugin"`. When multiple
-         * namespaces are given, they are separated by periods and sorted in ascending alphabetical order. If
-         * no namespaces are provided, this property is an empty string.
+         * Namespace(s), if any, provided when the event was attached, such as `"myPlugin"`. When multiple namespaces are given, they are separated by periods and sorted in ascending alphabetical order. If no namespaces are provided, this property is an empty string.
          */
         readonly namespace: string;
         /**
-         * For delegated events, this is the selector used to filter descendant elements and determine if the
-         * handler should be called. For directly bound events, this property is `null`.
+         * For delegated events, this is the selector used to filter descendant elements and determine if the handler should be called. For directly bound events, this property is `null`.
          */
         readonly selector: string | undefined | null;
         /**
-         * The data, if any, passed to jQuery during event binding, e.g. `{ myData: 42 }`. If the data argument
-         * was omitted or `undefined`, this property is `undefined` as well.
+         * The data, if any, passed to jQuery during event binding, e.g. `{ myData: 42 }`. If the data argument was omitted or `undefined`, this property is `undefined` as well.
          */
         readonly data: TData;
         /**
-         * Event handler function passed to jQuery during event binding. If `false` was passed during event
-         * binding, the handler refers to a single shared function that simply returns `false`.
+         * Event handler function passed to jQuery during event binding. If `false` was passed during event binding, the handler refers to a single shared function that simply returns `false`.
          */
         readonly handler: EventHandler<TTarget, TData>;
     }

@@ -7,16 +7,14 @@ interface JQueryStatic {
     Animation: JQuery.AnimationStatic;
     Callbacks: JQuery.CallbacksStatic;
     /**
-     * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize
-     * CSS property naming, or create custom properties.
+     * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize CSS property naming, or create custom properties.
      *
      * @see \`{@link https://api.jquery.com/jQuery.cssHooks/ }\`
      * @since 1.4.3
      */
     cssHooks: JQuery.CSSHooks;
     /**
-     * An object containing all CSS properties that may be used without a unit. The .css() method uses this
-     * object to see if it may append px to unitless values.
+     * An object containing all CSS properties that may be used without a unit. The .css() method uses this object to see if it may append px to unitless values.
      *
      * @see \`{@link https://api.jquery.com/jQuery.cssNumber/ }\`
      * @since 1.4.3
@@ -57,11 +55,7 @@ $.when(
      */
     ready: JQuery.Thenable<JQueryStatic>;
     /**
-     * A collection of properties that represent the presence of different browser features or bugs.
-     * Intended for jQuery's internal use; specific properties may be removed when they are no longer
-     * needed internally to improve page startup performance. For your own project's feature-detection
-     * needs, we strongly recommend the use of an external library such as Modernizr instead of dependency
-     * on properties in jQuery.support.
+     * A collection of properties that represent the presence of different browser features or bugs. Intended for jQuery's internal use; specific properties may be removed when they are no longer needed internally to improve page startup performance. For your own project's feature-detection needs, we strongly recommend the use of an external library such as Modernizr instead of dependency on properties in jQuery.support.
      *
      * @see \`{@link https://api.jquery.com/jQuery.support/ }\`
      * @since 1.3
@@ -147,8 +141,7 @@ $( "div", xml.responseXML );
     // tslint:disable-next-line:no-unnecessary-generics
     <TElement extends Element = HTMLElement>(selector: JQuery.Selector, context?: Element | Document | JQuery): JQuery<TElement>;
     /**
-     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
-     * by passing an HTML string.
+     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
      *
      * @param element A DOM element to wrap in a jQuery object.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
@@ -162,8 +155,7 @@ $( document.body ).css( "background", "black" );
     // tslint:disable-next-line:unified-signatures
     <T extends Element>(element: T): JQuery<T>;
     /**
-     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
-     * by passing an HTML string.
+     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
      *
      * @param elementArray An array containing a set of DOM elements to wrap in a jQuery object.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
@@ -177,8 +169,7 @@ $( myForm.elements ).hide();
     // tslint:disable-next-line:unified-signatures
     <T extends Element>(elementArray: T[]): JQuery<T>;
     /**
-     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created
-     * by passing an HTML string.
+     * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
      *
      * @param selection An existing jQuery object to clone.
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
@@ -301,8 +292,7 @@ $.ajax({
      */
     ajax(settings?: JQuery.AjaxSettings): JQuery.jqXHR;
     /**
-     * Handle custom Ajax options or modify existing options before each request is sent and before they
-     * are processed by $.ajax().
+     * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
      *
      * @param dataTypes An optional string containing one or more space-separated dataTypes
      * @param handler A handler to set default values for future Ajax requests.
@@ -312,8 +302,7 @@ $.ajax({
     ajaxPrefilter(dataTypes: string,
                   handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => string | void): void;
     /**
-     * Handle custom Ajax options or modify existing options before each request is sent and before they
-     * are processed by $.ajax().
+     * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
      *
      * @param handler A handler to set default values for future Ajax requests.
      * @see \`{@link https://api.jquery.com/jQuery.ajaxPrefilter/ }\`
@@ -441,8 +430,7 @@ $( "button" ).click( function() {
      */
     data<T extends string | number | boolean | symbol | object | null>(element: Element | Document | Window | JQuery.PlainObject, key: string, value: T): T;
     /**
-     * Returns value at named data store for the element, as set by `jQuery.data(element, name, value)`, or
-     * the full data store for the element.
+     * Returns value at named data store for the element, as set by `jQuery.data(element, name, value)`, or the full data store for the element.
      *
      * @param element The DOM element to query for the data.
      * @param key Name of the data stored.
@@ -456,8 +444,7 @@ $( "button" ).click( function() {
     // tslint:disable-next-line:unified-signatures
     data(element: Element | Document | Window | JQuery.PlainObject, key: string, value: undefined): any;
     /**
-     * Returns value at named data store for the element, as set by `jQuery.data(element, name, value)`, or
-     * the full data store for the element.
+     * Returns value at named data store for the element, as set by `jQuery.data(element, name, value)`, or the full data store for the element.
      *
      * @param element The DOM element to query for the data.
      * @param key Name of the data stored.
@@ -559,9 +546,7 @@ $( "button" ).click(function() {
      */
     dequeue(element: Element, queueName?: string): void;
     /**
-     * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays.
-     * Arrays and array-like objects with a length property (such as a function's arguments object) are
-     * iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
+     * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays. Arrays and array-like objects with a length property (such as a function's arguments object) are iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
      *
      * @param array The array to iterate over.
      * @param callback The function that will be executed on every object.
@@ -620,9 +605,7 @@ $.each( [ "a", "b", "c" ], function( i, l ){
      */
     each<T>(array: ArrayLike<T>, callback: (this: T, indexInArray: number, value: T) => false | any): ArrayLike<T>;
     /**
-     * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays.
-     * Arrays and array-like objects with a length property (such as a function's arguments object) are
-     * iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
+     * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays. Arrays and array-like objects with a length property (such as a function's arguments object) are iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
      *
      * @param obj The object to iterate over.
      * @param callback The function that will be executed on every object.
@@ -2504,9 +2487,7 @@ $log.append( "2nd loaded jQuery version (jq162): " + jq162.fn.jquery + "<br>" );
      */
     now(): number;
     /**
-     * Create a serialized representation of an array, a plain object, or a jQuery object suitable for use
-     * in a URL query string or Ajax request. In case a jQuery object is passed, it should contain input
-     * elements with name/value properties.
+     * Create a serialized representation of an array, a plain object, or a jQuery object suitable for use in a URL query string or Ajax request. In case a jQuery object is passed, it should contain input elements with name/value properties.
      *
      * @param obj An array, a plain object, or a jQuery object to serialize.
      * @param traditional A Boolean indicating whether to perform a traditional "shallow" serialization.
@@ -13028,8 +13009,7 @@ $( "b" ).append( "" + jQuery.type( /test/ ) );
      */
     type(obj: any): 'array' | 'boolean' | 'date' | 'error' | 'function' | 'null' | 'number' | 'object' | 'regexp' | 'string' | 'symbol' | 'undefined';
     /**
-     * @description Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on
-     * arrays of DOM elements, not strings or numbers.
+     * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on arrays of DOM elements, not strings or numbers.
      *
      * @param array The Array of DOM elements.
      * @see \`{@link https://api.jquery.com/jQuery.unique/ }\`
@@ -13081,8 +13061,7 @@ $( "div:eq(2)" ).text( "Post-unique there are " + divs.length + " elements." )
      */
     unique<T extends Element>(array: T[]): T[];
     /**
-     * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on
-     * arrays of DOM elements, not strings or numbers.
+     * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on arrays of DOM elements, not strings or numbers.
      *
      * @param array The Array of DOM elements.
      * @see \`{@link https://api.jquery.com/jQuery.uniqueSort/ }\`
@@ -13130,8 +13109,7 @@ $( "div:eq(2)" ).text( "Post-unique there are " + divs.length + " elements." )
      */
     uniqueSort<T extends Element>(array: T[]): T[];
     /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
      *
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
@@ -13162,8 +13140,7 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
         UR1, UJ1, never,
         VR1, VJ1, never>;
     /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
      *
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
@@ -13192,8 +13169,7 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
         TR1, TJ1, never,
         UR1, UJ1, never>;
     /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
      *
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
@@ -13224,8 +13200,7 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
         TR2, TJ2, never,
         TR3, TJ3, never>;
     /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
      *
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
      * @since 1.5
@@ -13248,8 +13223,7 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
      */
     when<TR1, TJ1 = any>(deferred: JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>;
     /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
      *
      * @param deferreds Zero or more Thenable objects.
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
@@ -13273,8 +13247,7 @@ $.when( $.ajax( "/page1.php" ), $.ajax( "/page2.php" ) )
      */
     when<TR1 = never, TJ1 = never>(...deferreds: Array<JQuery.Promise<TR1, TJ1> | JQuery.Thenable<TR1> | TR1>): JQuery.Promise<TR1, TJ1, never>;
     /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually Deferred objects that represent asynchronous events.
      *
      * @param deferreds Zero or more Thenable objects.
      * @see \`{@link https://api.jquery.com/jQuery.when/ }\`
