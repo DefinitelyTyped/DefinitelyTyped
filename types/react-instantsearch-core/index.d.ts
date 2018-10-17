@@ -30,9 +30,9 @@ export function createInstantSearch(defaultAlgoliaClient: (...args: any[]) => an
 export function createIndex(defaultRoot: any): any;
 
 interface ConnectorDescription {
-  displayName: string
-  propTypes?: any
-  defaultProps?: any
+  displayName: string;
+  propTypes?: any;
+  defaultProps?: any;
 
   /**
    * This method should return the props to forward to the composed component.
@@ -42,20 +42,20 @@ interface ConnectorDescription {
    * meta is the list of metadata from all widgets whose connector defines a getMetadata method.
    * searchForFacetValuesResults holds the search for facet values results.
    */
-  getProvidedProps?(...args: any[]): any
+  getProvidedProps?(...args: any[]): any;
 
   /**
    * This method defines exactly how the refine prop of widgets affects the search state.
    * It takes in the current props of the higher-order component, the search state of all widgets, as well as all arguments passed to the refine and createURL props of stateful widgets, and returns a new state.
    */
-  refine?(...args: any[]): any
+  refine?(...args: any[]): any;
 
   /**
    * This method applies the current props and state to the provided SearchParameters, and returns a new SearchParameters. The SearchParameters type is described in the Helper’s documentation.
    * Every time the props or state of a widget change, all the getSearchParameters methods of all the registered widgets are called in a chain to produce a new SearchParameters. Then, if the output SearchParameters differs from the previous one, a new search is triggered.
    * As such, the getSearchParameters method allows you to describe how the state and props of a widget should affect the search parameters.
    */
-  getSearchParameters?(...args: any[]): any
+  getSearchParameters?(...args: any[]): any;
 
   /**
    * This method allows the widget to register a custom metadata object for any props and state combination.
@@ -63,13 +63,13 @@ interface ConnectorDescription {
    * The metadata object also allows you to declare any data that you would like to pass down to all other widgets. The list of metadata objects of all components is available as the fourth argument to the getProvidedProps method.
    * The CurrentRefinements widget leverages this mechanism in order to allow any widget to declare the filters it has applied. If you want to add your own filter, declare a filters property on your widget’s metadata
    */
-  getMetadata?(...args: any[]): any
+  getMetadata?(...args: any[]): any;
 
   /**
    * This method needs to be implemented if you want to have the ability to perform a search for facet values inside your widget.
    * It takes in the current props of the higher-order component, the search state of all widgets, as well as all arguments passed to the searchForFacetValues props of stateful widgets, and returns an object of the shape: {facetName: string, query: string, maxFacetHits?: number}. The default value for the maxFacetHits is the one set by the API which is 10.
    */
-  searchForFacetValues?(...args: any[]): any
+  searchForFacetValues?(...args: any[]): any;
 
   /**
    * This method is called when a widget is about to unmount in order to clean the searchState.
@@ -77,7 +77,7 @@ interface ConnectorDescription {
    * props are the props that were provided to the higher-order component.
    * searchState holds the searchState of all widgets, with the shape {[widgetId]: widgetState}. Stateful widgets describe the format of their searchState in their respective documentation entry.
    */
-  cleanUp?(...args: any[]): any
+  cleanUp?(...args: any[]): any;
 }
 
 /**
@@ -128,7 +128,7 @@ export interface NESW {
 export interface GeoSearchExposed {
   defaultRefinement?: NESW;
 }
-export interface GeoSearchProvided<THit> {
+export interface GeoSearchProvided<THit = any> {
   /** a function to toggle the refinement */
   refine: (refinement: NESW) => void;
   /** a function to generate a URL for the corresponding search state */
@@ -149,7 +149,9 @@ export interface GeoSearchProvided<THit> {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectGeoSearch.html
  */
-export function connectGeoSearch<TProps extends GeoSearchProvided<THit>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, GeoSearchProvided<THit>, GeoSearchExposed>;
+export function connectGeoSearch(stateless: React.StatelessComponent<GeoSearchProvided>): React.ComponentType<GeoSearchExposed>;
+export function connectGeoSearch<TProps extends Partial<GeoSearchProvided<THit>>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, GeoSearchProvided<THit>, GeoSearchExposed>;
+
 export function connectHierarchicalMenu(Composed: React.ComponentType<any>): React.ComponentType<any>;
 export function connectHighlight(Composed: React.ComponentType<any>): React.ComponentType<any>;
 
@@ -187,7 +189,8 @@ export interface MenuExposed {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectMenu.html
  */
-export function connectMenu<TProps extends MenuProvided>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, MenuProvided, MenuExposed>;
+export function connectMenu(stateless: React.StatelessComponent<MenuProvided>): React.ComponentType<MenuExposed>;
+export function connectMenu<TProps extends Partial<MenuProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, MenuProvided, MenuExposed>;
 
 export interface NumericMenuProvided {
   /** the list of ranges the NumericMenu can display. */
@@ -224,7 +227,9 @@ export interface NumericMenuExposed {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectNumericMenu.html
  */
-export function connectNumericMenu<TProps extends NumericMenuProvided>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, NumericMenuProvided, NumericMenuExposed>;
+export function connectNumericMenu(stateless: React.StatelessComponent<NumericMenuProvided>): React.ComponentType<NumericMenuExposed>;
+export function connectNumericMenu<TProps extends Partial<NumericMenuProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, NumericMenuProvided, NumericMenuExposed>;
+
 export function connectPagination(Composed: React.ComponentType<any>): React.ComponentType<any>;
 export function connectPoweredBy(Composed: React.ComponentType<any>): React.ComponentType<any>;
 export function connectRange(Composed: React.ComponentType<any>): React.ComponentType<any>;
@@ -271,7 +276,9 @@ export interface RefinementListExposed {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectRefinementList.html
  */
-export function connectRefinementList<TProps extends RefinementListProvided>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, RefinementListProvided, RefinementListExposed>;
+export function connectRefinementList(stateless: React.StatelessComponent<RefinementListProvided>): React.ComponentType<RefinementListExposed>;
+export function connectRefinementList<TProps extends Partial<RefinementListProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, RefinementListProvided, RefinementListExposed>;
+
 export function connectScrollTo(Composed: React.ComponentType<any>): React.ComponentType<any>;
 
 export interface SearchBoxProvided {
@@ -286,7 +293,9 @@ export interface SearchBoxExposed {
   /** Provide a default value for the query */
   defaultRefinement?: string;
 }
-export function connectSearchBox<TProps extends SearchBoxProvided>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, SearchBoxProvided, SearchBoxExposed>;
+export function connectSearchBox(stateless: React.StatelessComponent<SearchBoxProvided>): React.ComponentType<SearchBoxExposed>;
+export function connectSearchBox<TProps extends Partial<SearchBoxProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, SearchBoxProvided, SearchBoxExposed>;
+
 export function connectSortBy(Composed: React.ComponentType<any>): React.ComponentType<any>;
 
 export interface StateResultsProvided<TDoc = BasicDoc> {
@@ -316,7 +325,7 @@ export interface StateResultsProvided<TDoc = BasicDoc> {
  * https://community.algolia.com/react-instantsearch/connectors/connectStateResults.html
  */
 export function connectStateResults(stateless: React.StatelessComponent<StateResultsProvided>): React.ComponentType;
-export function connectStateResults<TProps extends StateResultsProvided<TDoc>, TDoc>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, StateResultsProvided<TDoc>>;
+export function connectStateResults<TProps extends Partial<StateResultsProvided<TDoc>>, TDoc>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, StateResultsProvided<TDoc>>;
 
 export function connectStats(Composed: React.ComponentType<any>): React.ComponentType<any>;
 export function connectToggleRefinement(Composed: React.ComponentType<any>): React.ComponentType<any>;

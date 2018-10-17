@@ -244,7 +244,7 @@ import { orderBy, omit, values } from 'lodash';
     );
   });
 
-  <RefinementListWithSearchBox attribute="products" />;
+  return <RefinementListWithSearchBox attribute="products" />;
 };
 
 // https://community.algolia.com/react-instantsearch/guide/Virtual_widgets.html

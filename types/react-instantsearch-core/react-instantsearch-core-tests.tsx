@@ -2,7 +2,9 @@ import * as React from 'react';
 import {
   createInstantSearch,
   createIndex,
-  createConnector
+  createConnector,
+  SearchResults,
+  connectStateResults
 } from 'react-instantsearch-core';
 
 () => {
@@ -76,4 +78,53 @@ import {
   <CoolWidget>
     <div></div>
   </CoolWidget>;
+};
+
+() => {
+  interface StateResultsProps {
+    searchResults: SearchResults<{
+      field1: string
+      field2: number
+      field3: { compound: string }
+     }>;
+    // partial of StateResultsProvided
+
+    additionalProp: string;
+  }
+
+  const Stateless = ({ additionalProp, searchResults }: StateResultsProps) =>
+    <div>
+      <h1>{additionalProp}</h1>
+      {searchResults.hits.map((h) => {
+        // $ExpectType string
+        const compound = h._highlightResult.field3.compound.value;
+        // $ExpectType never
+        const field2 = h._highlightResult.field2;
+        return <span>{compound}</span>;
+      })}
+    </div>;
+  const ComposedStateless = connectStateResults(Stateless);
+
+  <ComposedStateless />; // $ExpectError
+
+  <ComposedStateless additionalProp='test' />;
+
+  class MyComponent extends React.Component<StateResultsProps> {
+    render() {
+      const { additionalProp, searchResults } = this.props;
+      return <div>
+      <h1>{additionalProp}</h1>
+      {searchResults.hits.map((h) => {
+        // $ExpectType string[]
+        const words = h._highlightResult.field3.compound.matchedWords;
+        return <span>{h.field2}: {words.join(',')}</span>;
+      })}
+    </div>;
+    }
+  }
+  const ComposedMyComponent = connectStateResults(MyComponent);
+
+  <ComposedMyComponent />; // $ExpectError
+
+  <ComposedMyComponent additionalProp='test' />;
 };
