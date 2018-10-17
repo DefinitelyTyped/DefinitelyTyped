@@ -197,7 +197,7 @@ declare namespace jest {
      *   spy.mockRestore();
      * });
      */
-    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): MockInstance<T[M]>;
+    function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): SpyInstance<T[M]>;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -317,6 +317,7 @@ declare namespace jest {
     }
 
     interface MatcherUtils {
+        readonly expand: boolean;
         readonly isNot: boolean;
         utils: {
             readonly EXPECTED_COLOR: (text: string) => string;
@@ -664,7 +665,7 @@ declare namespace jest {
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
-        toMatchSnapshot<T extends {[P in keyof R]: Expect['any']}>(propertyMatchers: Partial<T>, snapshotName?: string): R;
+        toMatchSnapshot<T extends {[P in keyof R]: any}>(propertyMatchers: Partial<T>, snapshotName?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
@@ -675,7 +676,7 @@ declare namespace jest {
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
-        toMatchInlineSnapshot<T extends {[P in keyof R]: Expect['any']}>(propertyMatchers: Partial<T>, snapshot?: string): R;
+        toMatchInlineSnapshot<T extends {[P in keyof R]: any}>(propertyMatchers: Partial<T>, snapshot?: string): R;
         /**
          * This ensures that a value matches the most recent snapshot with property matchers.
          * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
@@ -725,6 +726,8 @@ declare namespace jest {
         new (...args: any[]): T;
         (...args: any[]): any;
     }
+
+    interface SpyInstance<T = {}> extends MockInstance<T> {}
 
     /**
      * Wrap module with mock definitions

@@ -1,13 +1,19 @@
 import Redis = require("ioredis");
+
 const redis = new Redis();
 
 redis.set('foo', 'bar');
 redis.get('foo', (err, result) => {
-    console.log(result);
+    if (result !== null) {
+        console.log(result);
+    }
 });
 
+// Static check that returned value is always a number
+redis.del('foo', 'bar').then(result => result * 1);
+
 // Or using a promise if the last argument isn't a function
-redis.get('foo').then((result: any) => {
+redis.get('foo').then((result: string | null) => {
     console.log(result);
 });
 
@@ -30,6 +36,8 @@ redis.set('key', '100', 'PX', 10, (err, data) => {});
 redis.set('key', '100', 'EX', 10, 'NX', (err, data) => {});
 redis.set('key', '100', ['EX', 10, 'NX'], (err, data) => {});
 redis.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
+
+redis.exists('foo').then(result => result * 1);
 
 // Should support usage of Buffer
 redis.set(Buffer.from('key'), '100');
@@ -114,6 +122,18 @@ Redis.Command.setArgumentTransformer('set', args => {
 
 Redis.Command.setReplyTransformer('get', (result: any) => {
     return result;
+});
+
+redis.scan(0, 'match', '*foo*', 'count', 20).then(([nextCursor, keys]) => {
+  // nextCursor is always a string
+  if (nextCursor === '0') {
+    // keys is always an array of strings and it might be empty
+    return keys.map(key => key.trim());
+  }
+});
+
+redis.pipeline().scan(0, 'count', 20, 'match', '*foo*').exec((err, result) => {
+  // result = [[null, [nextCursor, keys]]]
 });
 
 // multi

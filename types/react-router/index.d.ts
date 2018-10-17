@@ -88,7 +88,7 @@ export interface RouterProps {
 }
 export class Router extends React.Component<RouterProps, any> { }
 
-export interface StaticRouterContext {
+export interface StaticRouterContext extends StaticContext {
   url?: string;
   action?: 'PUSH' | 'REPLACE';
   location?: object;

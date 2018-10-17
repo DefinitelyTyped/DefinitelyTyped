@@ -1341,7 +1341,7 @@ function longdesc() {
 
     function jquery_css_hooks_6() {
         $.fx.step.someCSSProp = function(fx) {
-            $.cssHooks.someCSSProp.set(fx.elem as HTMLElement, fx.now + fx.unit);
+            $.cssHooks.someCSSProp.set!(fx.elem as HTMLElement, fx.now + fx.unit);
         };
     }
 

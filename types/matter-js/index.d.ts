@@ -883,6 +883,14 @@ declare namespace Matter {
         */
         isStatic: boolean;
         /**
+         * A flag that indicates whether a body is a sensor. Sensor triggers collision events, but doesn't react with colliding body physically.
+         *
+        * @property isSensor
+        * @type boolean
+        * @default false
+        */
+        isSensor: boolean;
+        /**
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
         * @property label

@@ -3,7 +3,7 @@ function addTen(n: number) {
     return n + 10;
 }
 
-/*Assume that the function id for addTen in the function's JSON metadata is specified as ADDTEN. */
+/* Assume that the function id for addTen in the function's JSON metadata is specified as ADDTEN. */
 CustomFunctionMappings.ADDTEN = addTen;
 
 async function getStockValues(ticker: string): Promise<number> {

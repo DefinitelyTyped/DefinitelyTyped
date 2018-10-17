@@ -140,6 +140,7 @@ export interface N3StreamParser extends RDF.Stream, NodeJS.WritableStream, RDF.S
 export interface WriterOptions {
     format?: string;
     prefixes?: Prefixes;
+    end?: boolean;
 }
 
 export interface WriterConstructor {

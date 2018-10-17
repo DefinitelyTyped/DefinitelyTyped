@@ -1073,7 +1073,7 @@ export function func(): FunctionSchema;
 export function number(): NumberSchema;
 
 /**
- * Generates a schema object that matches an object data type (as well as JSON strings that parsed into objects).
+ * Generates a schema object that matches an object data type (as well as JSON strings that have been parsed into objects).
  */
 export function object(schema?: SchemaMap): ObjectSchema;
 

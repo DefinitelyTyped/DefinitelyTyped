@@ -1,7 +1,7 @@
-// Type definitions for Node.js v6.x
+// Type definitions for Node.js 6.14
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
-//                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 Thomas Bouldin <https://github.com/inlined>
 //                 Sebastian Silbermann <https://github.com/eps1lon>

@@ -22,6 +22,12 @@ const NotFound = (props: RouteComponentProps) => <div>Route not found</div>;
 
 render(
     <Router>
+        <Router component="div">
+            <Home path="/" />
+        </Router>
+        <Router component={Home}>
+            <Home path="/" />
+        </Router>
         <Home path="/" />
         <Dash path="/default/:id" />
         <NotFound default />

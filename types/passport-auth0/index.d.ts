@@ -1,6 +1,7 @@
 // Type definitions for passport-auth0 1.0
 // Project: https://github.com/auth0/passport-auth0
 // Definitions by: John Umeh <https://github.com/johnbendi>
+//                 Vishnu Sankar <https://github.com/iamvishnusankar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -31,7 +32,7 @@ export interface StrategyOption {
     clientID: string;
     clientSecret: string;
     callbackURL: string;
-
+    domain: string;
     scopeSeparator?: string;
     enableProof?: boolean;
     profileFields?: string[];

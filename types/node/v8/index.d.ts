@@ -1,7 +1,7 @@
-// Type definitions for Node.js 8.10.x
+// Type definitions for Node.js 8.10
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
-//                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
@@ -2434,6 +2434,7 @@ declare module "dns" {
         family?: number;
         hints?: number;
         all?: boolean;
+        verbatim?: boolean;
     }
 
     export interface LookupOneOptions extends LookupOptions {
