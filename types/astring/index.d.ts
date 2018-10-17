@@ -43,8 +43,8 @@ export const baseGenerator: Generator;
 
 declare global {
     interface astring {
-        generate: typeof generate
-        baseGenerator: Generator
+        generate: typeof generate;
+        baseGenerator: Generator;
     }
 
     const astring: astring;
