@@ -64,6 +64,7 @@ export interface DocumentProps<Q extends DefaultQuery = DefaultQuery> {
     files: string[];
     dynamicImports: string[];
     assetPrefix: string;
+    styleTags: string[];
 }
 
 /**
