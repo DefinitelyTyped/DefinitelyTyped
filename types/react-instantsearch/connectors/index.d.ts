@@ -12,17 +12,17 @@ export interface GeoSearchExposed {
 }
 export interface GeoSearchProvided<THit> {
   /** a function to toggle the refinement */
-  refine?: (refinement: NESW) => void;
+  refine: (refinement: NESW) => void;
   /** a function to generate a URL for the corresponding search state */
-  createURL?: (...args: any[]) => any;
+  createURL: (...args: any[]) => any;
   /** the records that matched the search */
   hits: THit[];
   /** true if the current refinement is set with the map bounds */
-  isRefinedWithMap?: boolean;
+  isRefinedWithMap: boolean;
   /** the refinement currently applied */
-  currentRefinement?: NESW;
+  currentRefinement: NESW;
   /** the position of the search */
-  position?: { lat: number, lng: number };
+  position: { lat: number, lng: number };
 }
 /**
  * The GeoSearch connector provides the logic to build a widget that will display the results on a map.
@@ -50,12 +50,12 @@ export function connectHitsPerPage(...args: any[]): any;
 export function connectInfiniteHits(...args: any[]): any;
 
 export interface MenuProvided {
-  items?: Array<{count: number, isRefined: boolean, label: string, value: string}>;
-  currentRefinement?: string;
-  refine?: (...args: any[]) => any;
-  createURL?: (...args: any[]) => any;
-  searchForItems?: (...args: any[]) => any;
-  isFromSearch?: boolean;
+  items: Array<{count: number, isRefined: boolean, label: string, value: string}>;
+  currentRefinement: string;
+  refine: (...args: any[]) => any;
+  createURL: (...args: any[]) => any;
+  searchForItems: (...args: any[]) => any;
+  isFromSearch: boolean;
 }
 export interface MenuExposed {
   attribute: string;
@@ -75,17 +75,17 @@ export function connectMenu<TProps extends MenuProvided>(ctor: React.ComponentTy
 
 export interface NumericMenuProvided {
   /** the list of ranges the NumericMenu can display. */
-  items?: Array<{isRefined: boolean, label: string, value: string, noRefinement: boolean}>;
+  items: Array<{isRefined: boolean, label: string, value: string, noRefinement: boolean}>;
   /**
    * the refinement currently applied. follow the shape of a string with a pattern of '{start}:{end}' which corresponds to the current selected item.
    * For instance, when the selected item is {start: 10, end: 20}, the searchState of the widget is '10:20'. When start isn’t defined, the searchState
    * of the widget is ':{end}', and the same way around when end isn’t defined. However, when neither start nor end are defined, the searchState is an empty string.
    */
-  currentRefinement?: string;
+  currentRefinement: string;
   /** a function to select a range. */
-  refine?: (...args: any[]) => any;
+  refine: (...args: any[]) => any;
   /** a function to generate a URL for the corresponding search state */
-  createURL?: (...args: any[]) => any;
+  createURL: (...args: any[]) => any;
 }
 export interface NumericMenuExposed {
   id?: string;
@@ -161,11 +161,11 @@ export function connectBreadcrumb(...args: any[]): any;
 
 export interface SearchBoxProvided {
   /** a function to change the current query */
-  refine?: (...args: any[]) => any;
+  refine: (...args: any[]) => any;
   /** the current query used */
-  currentRefinement?: string;
+  currentRefinement: string;
   /** a flag that indicates if InstantSearch has detected that searches are stalled */
-  isSearchStalled?: boolean;
+  isSearchStalled: boolean;
 }
 export interface SearchBoxExposed {
   /** Provide a default value for the query */
@@ -178,23 +178,23 @@ export function connectToggleRefinement(...args: any[]): any;
 
 export interface StateResultsProvided<TDoc = BasicDoc> {
   /** The search state of the instant search component.  */
-  searchState?: SearchState;
+  searchState: SearchState;
   /**
    * The search results.
    * In case of multiple indices: if used under <Index>, results will be those of the corresponding index
    * otherwise it’ll be those of the root index
    */
-  searchResults?: SearchResults<TDoc>;
+  searchResults: SearchResults<TDoc>;
   /** In case of multiple indices you can retrieve all the results */
-  allSearchResults?: { [index: string]: SearchResults<TDoc> };
+  allSearchResults: { [index: string]: SearchResults<TDoc> };
   /** If there is a search in progress. */
-  searching?: boolean;
+  searching: boolean;
   /** Flag that indicates if React InstantSearch has detected that searches are stalled. */
-  isSearchStalled?: any;
+  isSearchStalled: any;
   /** If the search failed, the error will be logged here. */
-  error?: AlgoliaError;
+  error: AlgoliaError;
   /** If there is a search in a list in progress. */
-  searchingForFacetValues?: any;
+  searchingForFacetValues: any;
 }
 /**
  * The connectStateResults connector provides a way to access the `searchState` and the `searchResults` of InstantSearch.

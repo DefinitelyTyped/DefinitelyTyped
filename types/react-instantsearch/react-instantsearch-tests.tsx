@@ -239,7 +239,7 @@ import { orderBy, omit, values } from 'lodash';
 
     return (
       <div>
-        <input type="search" onInput={e => props.searchForItems((event.target as HTMLInputElement).value)}/>
+        <input type="search" onInput={e => props.searchForItems((e.target as HTMLInputElement).value)}/>
         <ul>{values}</ul>
       </div>
     );
