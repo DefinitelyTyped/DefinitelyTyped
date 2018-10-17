@@ -142,3 +142,14 @@ interface TextProps
         RebassHTMLAttributes<HTMLDivElement> {}
 type TextClass = StyledComponentClass<TextProps, {}>
 export declare const Text: TextClass
+
+export interface RebassComponentsModule<T> {
+    Box: StyledComponentClass<BoxProps, T>
+    Button: StyledComponentClass<ButtonProps, T>
+    Card: StyledComponentClass<CardProps, T>
+    Flex: StyledComponentClass<FlexProps, T>
+    Heading: StyledComponentClass<HeadingProps, T>
+    Image: StyledComponentClass<ImageProps, T>
+    Link: StyledComponentClass<LinkProps, T>
+    Text: StyledComponentClass<TextProps, T>
+}

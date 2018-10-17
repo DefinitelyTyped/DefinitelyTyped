@@ -1,5 +1,7 @@
 import * as React from 'react'
-import {Box, Flex, Text, Heading, Button, Link, Image, Card} from 'rebass'
+import * as rebassComponents from 'rebass'
+const {Box} = rebassComponents
+import {Flex, Text, Heading, Button, Link, Image, Card, RebassComponentsModule} from 'rebass'
 
 const RebassTests = () => (
     <Box p={[1, 2, 3, 4]} m="0 auto" mx={13}>
@@ -267,3 +269,16 @@ const AsProp = () => (
         <Flex as="input">Flex as input</Flex>
     </Box>
 )
+
+interface Theme {
+    dark: {
+        backgroundColor: string
+    }
+}
+
+const WithTypedTheme = () => {
+    const {Box} = rebassComponents as RebassComponentsModule<Theme>
+    return (
+        <Box theme={{dark: {backgroundColor: '#666666'}}} />
+    )
+}
