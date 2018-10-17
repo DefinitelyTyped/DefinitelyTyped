@@ -175,6 +175,12 @@
             "asOfVersion": "2.0.15"
         },
         {
+            "libraryName": "bitwise",
+            "typingsPackageName": "bitwise",
+            "sourceRepoURL": "https://github.com/dodekeract/bitwise",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "botvs",
             "typingsPackageName": "botvs",
             "sourceRepoURL": "https://www.botvs.com/",
@@ -389,6 +395,12 @@
             "typingsPackageName": "decimal.js",
             "sourceRepoURL": "https://github.com/MikeMcl/decimal.js",
             "asOfVersion": "7.4.0"
+        },
+        {
+            "libraryName": "deepmerge",
+            "typingsPackageName": "deepmerge",
+            "sourceRepoURL": "git@github.com:KyleAMathews/deepmerge.git",
+            "asOfVersion": "2.2.0"
         },
         {
             "libraryName": "delay",

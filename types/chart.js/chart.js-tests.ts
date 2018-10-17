@@ -5,8 +5,8 @@ import { Chart, ChartData, Point } from "chart.js";
 // => chartjs.Chart
 
 const plugin = {
-  afterDraw: (chartInstance: Chart, easing: string, options?: any) => {
-  }
+    afterDraw: (chartInstance: Chart, easing: string, options?: any) => {
+    }
 };
 
 const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
@@ -19,7 +19,7 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
                 backgroundColor: "#000000",
                 borderWidth: 1,
                 label: "test",
-                data: [1]
+                data: [1, null, 3]
             }
         ]
     },
@@ -36,6 +36,7 @@ const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
         tooltips: {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
+            mode: 'index',
             itemSort: (a, b) => Math.random() - 0.5,
             position: "average",
             caretPadding: 2,
@@ -82,6 +83,18 @@ if (chart.chartArea) {
     console.log(chart.chartArea.left);
 }
 
+// Testing custom legends
+chart.config.options = {
+    ...chart.config.options,
+    legend: {
+        display: false,
+    },
+    legendCallback: () => 'legend replacement'
+};
+chart.update();
+const customLegend = chart.generateLegend();
+console.log(customLegend === 'legend replacement');
+
 // Testing radial chart
 const tickOptions: Chart.LinearTickOptions = {
     max: 100,
@@ -107,14 +120,15 @@ const chartConfig: Chart.ChartConfiguration = {
     data: {
         labels: ['#apples', '#pears', '#apricots', '#acorns', '#amigas', "#orics"],
         datasets: [{
-			label: "test",
-			lineTension: 0.15,
-			data: [1, 1, 2, 3, 5],
-			backgroundColor: '#37738353',
-			borderColor: '#37738353',
-			borderWidth: 3,
-			fill: true
-		}]
+            label: "test",
+            lineTension: 0.15,
+            data: [1, 1, 2, 3, 5],
+            backgroundColor: '#37738353',
+            borderColor: '#37738353',
+            borderWidth: 3,
+            borderCapStyle: 'round',
+            fill: true
+        }]
     },
     options: radarChartOptions
 };

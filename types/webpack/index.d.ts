@@ -13,6 +13,8 @@
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
 //                 ZSkycat <https://github.com/ZSkycat>
 //                 John Reilly <https://github.com/johnnyreilly>
+//                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
+//                 Kyle Uehlein <https://github.com/kuehlein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -108,7 +110,6 @@ declare namespace webpack {
         performance?: Options.Performance;
         /** Limit the number of parallel processed modules. Can be used to fine tune performance or to get more reliable profiling results */
         parallelism?: number;
-
         /** Optimization options */
         optimization?: Options.Optimization;
     }
@@ -350,7 +351,7 @@ declare namespace webpack {
     type ExternalsElement = string | RegExp | ExternalsObjectElement | ExternalsFunctionElement;
 
     interface ExternalsObjectElement {
-        [key: string]: boolean | string;
+        [key: string]: boolean | string | string[] | Record<string, string | string[]>;
     }
 
     type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
@@ -576,6 +577,8 @@ declare namespace webpack {
             priority?: number;
             /** Minimal size for the created chunk */
             minSize?: number;
+            /** Maximum size for the created chunk */
+            maxSize?: number;
             /** Minimum number of times a module has to be duplicated until it's considered for splitting */
             minChunks?: number;
             /** Maximum number of requests which are accepted for on-demand loading */
@@ -592,6 +595,8 @@ declare namespace webpack {
             chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
             /** Minimal size for the created chunk */
             minSize?: number;
+            /** Maximum size for the created chunk */
+            maxSize?: number;
             /** Minimum number of times a module has to be duplicated until it's considered for splitting */
             minChunks?: number;
             /** Maximum number of requests which are accepted for on-demand loading */
@@ -601,7 +606,7 @@ declare namespace webpack {
             /** Give chunks created a name (chunks with equal name are merged) */
             name?: boolean | string | ((...args: any[]) => any);
             /** Assign modules to a cache group (modules from different cache groups are tried to keep in separate chunks) */
-            cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | { [key: string]: CacheGroupsOptions };
+            cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | { [key: string]: CacheGroupsOptions | false };
         }
         interface RuntimeChunkOptions {
             /** The name or name factory for the runtime chunks. */
@@ -1036,23 +1041,22 @@ declare namespace webpack {
     }
 
     interface InputFileSystem {
-        purge(): void;
-        readFile(path: string, callback: (err: Error, contents: Buffer) => void): void;
+        purge?(): void;
+        readFile(path: string, callback: (err: Error | undefined | null, contents: Buffer) => void): void;
         readFileSync(path: string): Buffer;
-        readlink(path: string, callback: (err: Error, linkString: string) => void): void;
+        readlink(path: string, callback: (err: Error | undefined | null, linkString: string) => void): void;
         readlinkSync(path: string): string;
-        stat(path: string, callback: (err: Error, stats: any) => void): void;
+        stat(path: string, callback: (err: Error | undefined | null, stats: any) => void): void;
         statSync(path: string): any;
     }
 
     interface OutputFileSystem {
         join(...paths: string[]): string;
-        mkdir(path: string, callback: (err: Error) => void): void;
-        mkdirp(path: string, callback: (err: Error) => void): void;
-        purge(): void;
-        rmdir(path: string, callback: (err: Error) => void): void;
-        unlink(path: string, callback: (err: Error) => void): void;
-        writeFile(path: string, data: any, callback: (err: Error) => void): void;
+        mkdir(path: string, callback: (err: Error | undefined | null) => void): void;
+        mkdirp(path: string, callback: (err: Error | undefined | null) => void): void;
+        rmdir(path: string, callback: (err: Error | undefined | null) => void): void;
+        unlink(path: string, callback: (err: Error | undefined | null) => void): void;
+        writeFile(path: string, data: any, callback: (err: Error | undefined | null) => void): void;
     }
 
     interface SortableSet<T> extends Set<T> {
@@ -1578,6 +1582,11 @@ declare namespace webpack {
              *  In the example: /abc because resource.js is in this directory
              */
             context: string;
+
+            /**
+             * Starting with webpack 4, the formerly `this.options.context` is provided as `this.rootContext`.
+             */
+            rootContext: string;
 
             /**
              * The resolved request string.

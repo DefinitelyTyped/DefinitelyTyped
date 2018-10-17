@@ -11,7 +11,7 @@ export default class Listing<T> extends Array<T> {
 }
 
 export interface ListingOptions {
-  limit?: string;
+  limit?: number;
   after?: string;
   before?: string;
   show?: string;

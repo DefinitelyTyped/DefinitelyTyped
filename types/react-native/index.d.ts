@@ -1,8 +1,9 @@
-// Type definitions for react-native 0.56
+// Type definitions for react-native 0.57
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
+//                 Simon Knott <https://github.com/skn0tt>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
 //                 Naoufal El Yousfi <https://github.com/nelyousfi>
@@ -12,6 +13,8 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Martin van Dam <https://github.com/mvdam>
+//                 Kacper Wiszczuk <https://github.com/esemesek>
+//                 Ryan Nickel <https://github.com/mrnickel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -30,6 +33,7 @@
 /// <reference path="globals.d.ts" />
 /// <reference path="legacy-properties.d.ts" />
 /// <reference path="BatchedBridge.d.ts" />
+/// <reference path="Devtools.d.ts" />
 
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
@@ -1059,6 +1063,11 @@ export interface TextInputIOSProps {
         "nickname" | "organizationName" | "postalCode" | "streetAddressLine1" |
         "streetAddressLine2" | "sublocality" | "telephoneNumber" | "username" |
         "password";
+
+    /**
+     * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
+     */
+    scrollEnabled?: boolean
 }
 
 /**
@@ -1841,7 +1850,35 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
      * label is constructed by traversing all the children and accumulating all the Text nodes separated by space.
      */
     accessibilityLabel?: string;
+
+    /**
+     * Accessibility Role tells a person using either VoiceOver on iOS or TalkBack on Android the type of element that is focused on.
+     */
+    accessibilityRole?: AccessibilityRole;
+    /**
+     * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
+     */
+    accessibilityStates?: "selected" | "disabled";
+
+    /**
+     * An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.
+     */
+    accessibilityHint?: string;
 }
+
+export type AccessibilityRole =
+    | "none"
+    | "button"
+    | "link"
+    | "search"
+    | "image"
+    | "keyboardkey"
+    | "text"
+    | "adjustable"
+    | "header"
+    | "summary"
+    | "imagebutton";
+
 
 export interface AccessibilityPropsAndroid {
     /**
@@ -1901,6 +1938,12 @@ export interface AccessibilityPropsIOS {
      * @platform ios
      */
     onMagicTap?: () => void;
+
+    /**
+     * https://facebook.github.io/react-native/docs/accessibility#accessibilityignoresinvertcolorsios
+     * @platform ios
+     */
+    accessibilityIgnoresInvertColors?: boolean;
 }
 
 type AccessibilityTrait =
@@ -2171,6 +2214,11 @@ Possible values for mixedContentMode are:
      * Controls whether form autocomplete data should be saved
      */
     saveFormDataDisabled?: boolean;
+
+    /**
+     * Sets whether the webview allows access to the file system.
+     */
+    allowFileAccess?: boolean;
 }
 
 export interface WebViewIOSLoadRequestEvent {
@@ -2241,6 +2289,11 @@ export interface WebViewPropsIOS {
      * `WebView`. The default value is `true`.
      */
     scrollEnabled?: boolean;
+
+    /**
+     * If `true`, use WKWebView instead of UIWebView.
+     */
+    useWebKit?: boolean;
 }
 
 export interface WebViewUriSource {
@@ -2497,7 +2550,7 @@ export interface SegmentedControlIOSProps extends ViewProps {
 /**
  * Renders nested content and automatically applies paddings reflect the portion of the view
  * that is not covered by navigation bars, tab bars, toolbars, and other ancestor views.
- * Moreover, and most importantly, Safe Area's paddings feflect physical limitation of the screen,
+ * Moreover, and most importantly, Safe Area's paddings reflect physical limitation of the screen,
  * such as rounded corners or camera notches (aka sensor housing area on iPhone X).
  */
 declare class SafeAreaViewComponent extends React.Component<ViewProps> {}
@@ -3833,22 +3886,22 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Rendered in between each item, but not at the top or bottom
      */
-    ItemSeparatorComponent?: React.ComponentType<any> | (() => React.ReactElement<any>) | null;
+    ItemSeparatorComponent?: React.ComponentType<any> | null;
 
     /**
      * Rendered when the list is empty.
      */
-    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null;
+    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
 
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null;
+    ListFooterComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null;
+    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
@@ -4029,7 +4082,7 @@ export interface SectionBase<ItemT> {
 
     renderItem?: SectionListRenderItem<ItemT>;
 
-    ItemSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null;
+    ItemSeparatorComponent?: React.ComponentType<any> | null;
 
     keyExtractor?: (item: ItemT, index: number) => string;
 }
@@ -4057,22 +4110,22 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
     /**
      * Rendered when the list is empty.
      */
-    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null;
+    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
 
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null;
+    ListFooterComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null;
+    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
 
     /**
      * Rendered in between each section.
      */
-    SectionSeparatorComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null;
+    SectionSeparatorComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
 
     /**
      * A marker property for telling the list to re-render (since it implements PureComponent).
@@ -4216,19 +4269,19 @@ export interface SectionListStatic<SectionT> extends React.ComponentClass<Sectio
      * Rendered when the list is empty. Can be a React Component Class, a render function, or
      * a rendered element.
      */
-    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null;
+    ListEmptyComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
 
     /**
      * Rendered at the bottom of all the items. Can be a React Component Class, a render function, or
      * a rendered element.
      */
-    ListFooterComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null;
+    ListFooterComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
 
     /**
      * Rendered at the top of all the items. Can be a React Component Class, a render function, or
      * a rendered element.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null;
+    ListHeaderComponent?: React.ComponentType<any> | React.ReactElement<any> | null;
 
     /**
      * The default accessor functions assume this is an Array<{key: string}> but you can override
@@ -4808,7 +4861,7 @@ export interface ModalPropsIOS {
      * The `onOrientationChange` callback is called when the orientation changes while the modal is being displayed.
      * The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
      */
-    onOrientationChange?: (event?: NativeSyntheticEvent<any>) => void;
+    onOrientationChange?: (event: NativeSyntheticEvent<any>) => void;
 }
 
 export interface ModalPropsAndroid {
@@ -5116,6 +5169,7 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      * @param borderless If the ripple can render outside it's bounds
      */
     static Ripple(color: string, borderless?: boolean): RippleBackgroundPropType;
+    static canUseNativeForeground(): boolean;
 }
 
 export interface Route {
@@ -5216,6 +5270,20 @@ export namespace StyleSheet {
     export function flatten(style?: StyleProp<TextStyle>): TextStyle;
     export function flatten(style?: StyleProp<ImageStyle>): ImageStyle;
     export function flatten(style?: StyleProp<ViewStyle>): ViewStyle;
+
+    /**
+     * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will
+     * not be reliably announced. The whole thing might be deleted, who knows? Use
+     * at your own risk.
+     *
+     * Sets a function to use to pre-process a style property value. This is used
+     * internally to process color and transform values. You should not use this
+     * unless you really know what you are doing and have exhausted other options.
+     */
+    export function setStyleAttributePreprocessor(
+        property: string,
+        process: (nextProp: any) => any
+    ): void;
 
     /**
      * This is defined as the width of a thin line on the platform. It can be
@@ -6284,27 +6352,27 @@ export interface ScrollViewProps
      * Fires at most once per frame during scrolling.
      * The frequency of the events can be contolled using the scrollEventThrottle prop.
      */
-    onScroll?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires if a user initiates a scroll gesture.
      */
-    onScrollBeginDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onScrollBeginDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires when a user has finished scrolling.
      */
-    onScrollEndDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onScrollEndDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires when scroll view has finished moving
      */
-    onMomentumScrollEnd?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onMomentumScrollEnd?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * Fires when scroll view has begun moving
      */
-    onMomentumScrollBegin?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    onMomentumScrollBegin?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 
     /**
      * When true the scroll view stops on multiples of the scroll view's size
@@ -7354,7 +7422,7 @@ export interface NetInfoStatic {
      * sensitive to heavy data usage on that connection due to monetary
      * costs, data limitations or battery/performance issues.
      */
-    isConnectionExpensive: Promise<boolean>;
+    isConnectionExpensive: () => Promise<boolean>;
 }
 
 export interface PanResponderGestureState {
@@ -8052,21 +8120,39 @@ export interface UIManagerStatic {
 export interface SwitchPropsIOS extends ViewProps {
     /**
      * Background color when the switch is turned on.
+     *
+     * @deprecated
      */
     onTintColor?: string;
 
     /**
      * Color of the foreground switch grip.
+     *
+     * @deprecated
      */
     thumbTintColor?: string;
 
     /**
      * Background color when the switch is turned off.
+     *
+     * @deprecated
      */
     tintColor?: string;
 }
 
 export interface SwitchProps extends SwitchPropsIOS {
+    /**
+     * Color of the foreground switch grip.
+     */
+    thumbColor?: string;
+
+    /**
+     * Custom colors for the switch track
+     *
+     * Color when false and color when true
+     */
+    trackColor?: { false: string, true: string };
+
     /**
      * If true the user won't be able to toggle the switch.
      * Default value is false.
@@ -8467,7 +8553,7 @@ export namespace Animated {
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
     interface EventConfig<T> {
-        listener?: (event?: NativeSyntheticEvent<T>) => void;
+        listener?: (event: NativeSyntheticEvent<T>) => void;
         useNativeDriver?: boolean;
     }
 
@@ -8955,11 +9041,13 @@ export interface ComponentInterface<P> {
  * Common types are lined up with the appropriate prop differs with
  * `TypeToDifferMap`.  Non-scalar types not in the map default to `deepDiffer`.
  */
-export function requireNativeComponent<P>(
+export function requireNativeComponent<P, NP = {}>(
     viewName: string,
     componentInterface?: ComponentInterface<P>,
-    extraConfig?: { nativeOnly?: any }
-): React.ComponentClass<PropTypes.InferProps<PropTypes.ValidationMap<P>>>;
+    extraConfig?: { nativeOnly?: NP }
+): React.ComponentClass<
+    Partial<PropTypes.InferProps<PropTypes.ValidationMap<P>>> & { [K in keyof NP]?: any}
+>;
 
 export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>

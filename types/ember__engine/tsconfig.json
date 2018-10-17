@@ -15,6 +15,8 @@
             "../"
         ],
         "paths": {
+            "@ember/object": ["ember__object"],
+            "@ember/object/*": ["ember__object/*"],
             "@ember/engine": ["ember__engine"],
             "@ember/engine/*": ["ember__engine/*"]
         },
@@ -25,6 +27,10 @@
     "files": [
         "index.d.ts",
         "instance.d.ts",
+        "-private/registry-proxy-mixin.d.ts",
+        "-private/resolver.d.ts",
+        "-private/container-proxy-mixin.d.ts",
+        "-private/types/initializer.d.ts",
         "test/engine.ts",
         "test/engine-instance.ts"
     ]

@@ -1142,3 +1142,9 @@ schema = Joi.raw(bool);
 schema = Joi.empty();
 schema = Joi.empty(str);
 schema = Joi.empty(anySchema);
+
+schema = Joi.symbol();
+schema = Joi.symbol().map(new Map<string, symbol>());
+schema = Joi.symbol().map({
+    key: Symbol('asd'),
+});

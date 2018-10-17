@@ -1650,6 +1650,13 @@ export class Group {
 	 * @chainable
 	 */
 	destroy(): Group;
+    /**
+     * make a group an active selection, remove the group from canvas
+     * the group has to be on canvas for this to work.
+     * @return {fabric.ActiveSelection} thisArg
+     * @chainable
+     */
+    toActiveSelection(): ActiveSelection;
 	/**
 	 * Checks whether this group was moved (since `saveCoords` was called last)
 	 * @return true if an object was moved (since fabric.Group#saveCoords was called)
@@ -2047,6 +2054,11 @@ interface IObjectOptions {
 	 * Color of controlling borders of an object (when it's active)
 	 */
 	borderColor?: string;
+
+    /**
+     * Array specifying dash pattern of an object's border (hasBorder must be true)
+     */
+    borderDashArray?: number[];
 
 	/**
 	 * Color of controlling corners of an object (when it's active)
@@ -3114,6 +3126,10 @@ interface ITextOptions extends IObjectOptions {
 	 * Line height
 	 */
 	lineHeight?: number;
+    /**
+     * Character spacing
+     */
+    charSpacing?: number;
 	/**
 	 * When defined, an object is rendered via stroke and this property specifies its color.
 	 * <b>Backwards incompatibility note?:</b> This property was named "strokeStyle" until v1.1.6
@@ -3254,6 +3270,15 @@ export class Text extends Object {
 	 * @param lineHeight Line height
 	 */
 	setLineHeight(lineHeight: number): Text;
+    /**
+     * Retrieves object's charSpacing
+     */
+    getCharSpacing(): number;
+    /**
+     * Sets object's charSpacing
+     * @param charSpacing Character spacing
+     */
+    setCharSpacing(charSpacing: number): Text;
 	/**
 	 * Retrieves object's textAlign
 	 */

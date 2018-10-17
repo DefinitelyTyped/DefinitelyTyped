@@ -1,4 +1,4 @@
-// Type definitions for jsdom 11.12
+// Type definitions for jsdom 12.2
 // Project: https://github.com/tmpvar/jsdom#readme
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 //                 Johan Palmfjord <https://github.com/palmfjord>
@@ -65,7 +65,7 @@ export interface Options {
      */
     includeNodeLocations?: boolean;
     runScripts?: 'dangerously' | 'outside-only';
-    resources?: 'usable';
+    resources?: 'usable' | ResourceLoader;
     virtualConsole?: VirtualConsole;
     cookieJar?: CookieJar;
     beforeParse?(window: DOMWindow): void;
@@ -286,4 +286,23 @@ export const toughCookie: typeof tough;
 export interface ReconfigureSettings {
     windowTop?: DOMWindow;
     url?: string;
+}
+
+export interface FetchOptions {
+    cookieJar?: CookieJar;
+    referrer?: string;
+    accept?: string;
+    element?: HTMLScriptElement | HTMLLinkElement | HTMLIFrameElement | HTMLImageElement;
+}
+
+export interface ResourceLoaderConstructorOptions {
+    strictSSL?: boolean;
+    proxy?: string;
+    userAgent?: string;
+}
+
+export class ResourceLoader {
+    fetch(url: string, options: FetchOptions): Promise<Buffer> | null;
+
+    constructor(obj?: ResourceLoaderConstructorOptions);
 }

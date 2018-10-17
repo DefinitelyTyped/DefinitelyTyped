@@ -13,6 +13,21 @@ appInstance.register('some:injection', class Foo {}, {
 });
 
 appInstance.register('templates:foo/bar', hbs`<h1>Hello World</h1>`);
+appInstance.register('templates:foo/bar', hbs`<h1>Hello World</h1>`, {
+    singleton: true
+});
+appInstance.register('templates:foo/bar', hbs`<h1>Hello World</h1>`, {
+    instantiate: true
+});
+appInstance.register('templates:foo/bar', hbs`<h1>Hello World</h1>`, {
+    singleton: true,
+    instantiate: true
+});
+// $ExpectError
+appInstance.register('templates:foo/bar', hbs`<h1>Hello World</h1>`, {
+    singleton: 'true',
+    instantiate: true
+});
 
 appInstance.register('some:injection', class Foo {}, {
     singleton: false,

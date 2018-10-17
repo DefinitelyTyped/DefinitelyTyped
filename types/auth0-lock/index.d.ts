@@ -98,6 +98,7 @@ interface Auth0LockAuthOptions {
     params?: Auth0LockAuthParamsOptions;
     redirect?: boolean;
     redirectUrl?: string;
+    responseMode?: string;
     responseType?: string;
     sso?: boolean;
     audience?: string;
@@ -113,8 +114,10 @@ interface Auth0LockPopupOptions {
 interface Auth0LockConstructorOptions {
     additionalSignUpFields?: Auth0LockAdditionalSignUpField[];
     allowedConnections?: string[];
+    allowAutocomplete?: boolean;
     allowForgotPassword?: boolean;
     allowLogin?: boolean;
+    allowPasswordAutocomplete?: boolean;
     allowSignUp?: boolean;
     allowShowPassword?: boolean;
     assetsUrl?: string;
@@ -129,6 +132,7 @@ interface Auth0LockConstructorOptions {
     defaultADUsernameFromEmailPrefix?: string;
     defaultDatabaseConnection?: string;
     defaultEnterpriseConnection?: string;
+    flashMessage?: Auth0LockFlashMessageOptions;
     forgotPasswordLink?: string;
     hashCleanup?: boolean;
     initialScreen?: "login" | "signUp" | "forgotPassword";
@@ -142,6 +146,7 @@ interface Auth0LockConstructorOptions {
     popupOptions?: Auth0LockPopupOptions;
     prefill?: { email?: string, username?: string};
     rememberLastLogin?: boolean;
+    scrollGlobalMessagesIntoView?: boolean;
     signupLink?: string;
     socialButtonStyle?: "big" | "small";
     theme?: Auth0LockThemeOptions;

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { SafeString } from 'handlebars';
 
 const { dasherize, camelize, capitalize, classify, decamelize, htmlSafe, loc, underscore, w } = Ember.String;
 
@@ -34,3 +35,7 @@ loc(); // $ExpectError
 loc("_Hello World");  // $ExpectType string
 // TODO - fix this case upstream in @types/ember https://github.com/typed-ember/ember-cli-typescript/issues/281
 loc("_Hello %@ %@", ["John", "Smith"]);  // $ExpectType string
+
+const handlebarsSafeString: SafeString = Ember.String.htmlSafe('lorem ipsum...');
+Ember.String.htmlSafe('lorem ipsum...'); // $ExpectType SafeString
+const regularString: string = Ember.String.htmlSafe('lorem ipsum...'); // $ExpectError

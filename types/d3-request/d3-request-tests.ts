@@ -350,7 +350,7 @@ let csvRequest: d3Request.DsvRequest = d3Request.csv(url);
 
 // url and callback for response handling
 const csvRequestWithCallback: d3Request.DsvRequest = d3Request.csv(url, function(error, data) {
-    const that: d3Request.Request = this;
+    const that: d3Request.DsvRequest = this;
     const err: any = error;
     const d: DSVParsedArray<DSVRowString> = data;
     console.log(d);
@@ -369,7 +369,7 @@ const csvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.csv<Respon
         return mappedRow;
     },
     function(error, data) {
-        const that: d3Request.Request = this;
+        const that: d3Request.DsvRequest = this;
         const err: any = error;
         const d: DSVParsedArray<ResponseDatumGET> = data;
         console.log(data);
@@ -384,7 +384,7 @@ const tsvRequest: d3Request.DsvRequest = d3Request.tsv(url);
 
 // url and callback for response handling
 const tsvRequestWithCallback: d3Request.DsvRequest = d3Request.tsv(url, function(error, data) {
-    const that: d3Request.Request = this;
+    const that: d3Request.DsvRequest = this;
     const err: any = error;
     const d: DSVParsedArray<DSVRowString> = data;
     console.log(d);
@@ -403,7 +403,7 @@ const tsvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.tsv<Respon
         return mappedRow;
     },
     function(error, data) {
-        const that: d3Request.Request = this;
+        const that: d3Request.DsvRequest = this;
         const err: any = error;
         const d: DSVParsedArray<ResponseDatumGET> = data;
         console.log(data);

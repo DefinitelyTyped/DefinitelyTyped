@@ -324,7 +324,7 @@ export namespace AnimationUtils {
 }
 
 export class KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 
     name: string;
     times: any[];
@@ -411,23 +411,23 @@ export class BooleanKeyframeTrack extends KeyframeTrack {
 }
 
 export class ColorKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class NumberKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class QuaternionKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class StringKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class VectorKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 // Cameras ////////////////////////////////////////////////////////////////////////////////////////
@@ -1857,6 +1857,7 @@ export interface Intersection {
     face?: Face3 | null;
     faceIndex?: number;
     object: Object3D;
+    uv?: Vector2;
 }
 
 export interface RaycasterParameters {
@@ -2238,6 +2239,7 @@ export class FileLoader {
     setPath(path: string) : FileLoader;
     setResponseType(responseType: string) : FileLoader;
     setWithCredentials(value: string): FileLoader;
+    setRequestHeader(value: {[header: string]: string}): FileLoader;
 }
 
 export class FontLoader {
@@ -2508,7 +2510,7 @@ export class Material extends EventDispatcher {
     /**
      * The tranparency of the .blendDst. Default is null.
      */
-    blendDstAlpha: number;
+    blendDstAlpha: number | null;
 
     /**
      * Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is {@link AddEquation}.
@@ -2518,7 +2520,7 @@ export class Material extends EventDispatcher {
     /**
      * The tranparency of the .blendEquation. Default is null.
      */
-    blendEquationAlpha: number;
+    blendEquationAlpha: number | null;
 
     /**
      * Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.
@@ -2533,7 +2535,7 @@ export class Material extends EventDispatcher {
     /**
      * The tranparency of the .blendSrc. Default is null.
      */
-    blendSrcAlpha: number;
+    blendSrcAlpha: number | null;
 
     /**
      * Changes the behavior of clipping planes so that only their intersection is clipped, rather than their union. Default is false.
@@ -2747,14 +2749,13 @@ export interface LineDashedMaterialParameters extends MaterialParameters {
     gapSize?: number;
 }
 
-export class LineDashedMaterial extends Material {
+export class LineDashedMaterial extends LineBasicMaterial {
     constructor(parameters?: LineDashedMaterialParameters);
 
-    color: Color;
-    linewidth: number;
     scale: number;
     dashSize: number;
     gapSize: number;
+    isLineDashedMaterial: boolean;
 
     setValues(parameters: LineDashedMaterialParameters): void;
 }
@@ -2786,12 +2787,12 @@ export class MeshBasicMaterial extends Material {
     constructor(parameters?: MeshBasicMaterialParameters);
 
     color: Color;
-    map: Texture;
-    aoMap: Texture;
+    map: Texture | null;
+    aoMap: Texture | null;
     aoMapIntensity: number;
-    specularMap: Texture;
-    alphaMap: Texture;
-    envMap: Texture;
+    specularMap: Texture | null;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
@@ -2851,15 +2852,15 @@ export class MeshLambertMaterial extends Material {
     color: Color;
     emissive: Color;
     emissiveIntensity: number;
-    emissiveMap: Texture;
-    map: Texture;
-    lightMap: Texture;
+    emissiveMap: Texture | null;
+    map: Texture | null;
+    lightMap: Texture | null;
     lightMapIntensity: number;
-    aoMap: Texture;
+    aoMap: Texture | null;
     aoMapIntensity: number;
-    specularMap: Texture;
-    alphaMap: Texture;
-    envMap: Texture;
+    specularMap: Texture | null;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
@@ -2913,25 +2914,25 @@ export class MeshStandardMaterial extends Material {
     color: Color;
     roughness: number;
     metalness: number;
-    map: Texture;
-    lightMap: Texture;
+    map: Texture | null;
+    lightMap: Texture | null;
     lightMapIntensity: number;
-    aoMap: Texture;
+    aoMap: Texture | null;
     aoMapIntensity: number;
     emissive: Color;
     emissiveIntensity: number;
-    emissiveMap: Texture;
-    bumpMap: Texture;
+    emissiveMap: Texture | null;
+    bumpMap: Texture | null;
     bumpScale: number;
-    normalMap: Texture;
+    normalMap: Texture | null;
     normalScale: number;
-    displacementMap: Texture;
+    displacementMap: Texture | null;
     displacementScale: number;
     displacementBias: number;
-    roughnessMap: Texture;
-    metalnessMap: Texture;
-    alphaMap: Texture;
-    envMap: Texture;
+    roughnessMap: Texture | null;
+    metalnessMap: Texture | null;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
     envMapIntensity: number;
     refractionRatio: number;
     wireframe: boolean;
@@ -3086,7 +3087,7 @@ export class PointsMaterial extends Material {
     constructor(parameters?: PointsMaterialParameters);
 
     color: Color;
-    map: Texture;
+    map: Texture | null;
     size: number;
     sizeAttenuation: boolean;
 
@@ -3142,7 +3143,7 @@ export class ShaderMaterial extends Material {
     derivatives: any;
     extensions: { derivatives: boolean; fragDepth: boolean; drawBuffers: boolean; shaderTextureLOD: boolean };
     defaultAttributeValues: any;
-    index0AttributeName: string;
+    index0AttributeName: string | undefined;
 
     setValues(parameters: ShaderMaterialParameters): void;
     toJSON(meta: any): any;
@@ -3162,7 +3163,7 @@ export class SpriteMaterial extends Material {
     constructor(parameters?: SpriteMaterialParameters);
 
     color: Color;
-    map: Texture;
+    map: Texture | null;
     rotation: number;
 
     setValues(parameters: SpriteMaterialParameters): void;
@@ -5232,26 +5233,15 @@ export class LOD extends Object3D {
     objects: any[];
 }
 
-
-/**
- * An intermediate material type that casts more precisely the possible materials assignable to a [[Line]] object.
- *
- * [[LineDashedMaterial]] is omitted as it extends [[LineBasicMaterial]].
- *
- * // Todo:
- * // - can [[Line]] take in an array of materials ?
- */
-export type LineMaterialType = LineBasicMaterial | ShaderMaterial | MeshDepthMaterial;
-
 export class Line extends Object3D {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineMaterialType | LineMaterialType[],
+        material?: Material | Material[],
         mode?: number
     );
 
-    geometry: Geometry|BufferGeometry;
-    material: LineBasicMaterial | LineDashedMaterial | ShaderMaterial;
+    geometry: Geometry | BufferGeometry;
+    material: Material | Material[];
 
     type: "Line";
     isLine: true;
@@ -5272,23 +5262,16 @@ export const LinePieces: number;
 export class LineSegments extends Line {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineMaterialType | LineMaterialType[],
+        material?: Material | Material[],
         mode?: number
     );
 }
 
-/**
- * An intermediate material type that casts more precisely the possible materials assignable to a [[Mesh]] object.
- *
- * `MeshToonMaterial` and [[MeshPhysicalMaterial]] are omitted as they extend [[MeshPhongMaterial]] and [[MeshStandardMaterial]] respectively.
- */
-export type MeshMaterialType = MeshBasicMaterial | MeshDepthMaterial | MeshFaceMaterial | MeshLambertMaterial | MeshNormalMaterial | MeshPhongMaterial | MeshStandardMaterial | ShaderMaterial | ShadowMaterial;
-
 export class Mesh extends Object3D {
-    constructor(geometry?: Geometry | BufferGeometry, material?: MeshMaterialType | MeshMaterialType[]);
+    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[]);
 
-    geometry: Geometry|BufferGeometry;
-    material: MeshMaterialType | MeshMaterialType[];
+    geometry: Geometry | BufferGeometry;
+    material: Material | Material[];
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
@@ -5300,14 +5283,6 @@ export class Mesh extends Object3D {
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
     copy(source: this, recursive?: boolean): this;
 }
-
-/**
- * An intermediate material type that casts more precisely the possible materials assignable to a [[Points]] object.
- *
- * // Todo:
- * // - can [[Points]] take in an array of materials ?
- */
-export type PointsMaterialType = PointsMaterial | ShaderMaterial | MeshDepthMaterial;
 
 /**
  * A class for displaying particles in the form of variable size points. For example, if using the WebGLRenderer, the particles are displayed using GL_POINTS.
@@ -5322,7 +5297,7 @@ export class Points extends Object3D {
      */
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: PointsMaterialType | PointsMaterialType[]
+        material?: Material | Material[]
     );
 
     type: "Points";
@@ -5336,7 +5311,7 @@ export class Points extends Object3D {
     /**
      * An instance of Material, defining the object's appearance. Default is a PointsMaterial with randomised colour.
      */
-    material: PointsMaterial | ShaderMaterial;
+    material: Material | Material[];
 
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
 }
@@ -5372,13 +5347,7 @@ export class Skeleton {
 }
 
 export class SkinnedMesh extends Mesh {
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshBasicMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshDepthMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MultiMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshLambertMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshNormalMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshPhongMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: ShaderMaterial, useVertexTexture?: boolean);
+    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[], useVertexTexture?: boolean);
 
     bindMode: string;
     bindMatrix: Matrix4;
@@ -5397,7 +5366,7 @@ export class Sprite extends Object3D {
     type: "Sprite";
     isSprite: true;
 
-    material: SpriteMaterial;
+    material: Material;
     center: Vector2;
 
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
@@ -7241,7 +7210,7 @@ export class EdgesGeometry extends BufferGeometry {
     constructor(geometry: BufferGeometry | Geometry, thresholdAngle?: number);
 }
 
-export interface ExtrueGeometryOptions {
+export interface ExtrudeGeometryOptions {
     curveSegments?: number;
     steps?: number;
     depth?: number;
@@ -7259,7 +7228,7 @@ export interface UVGenerator {
 }
 
 export class ExtrudeGeometry extends Geometry {
-    constructor(shape: Shape | Shape[], options?: ExtrueGeometryOptions);
+    constructor(shapes: Shape | Shape[], options?: ExtrudeGeometryOptions);
 
     static WorldUVGenerator: UVGenerator;
 
@@ -7268,7 +7237,7 @@ export class ExtrudeGeometry extends Geometry {
 }
 
 export class ExtrudeBufferGeometry extends BufferGeometry {
-    constructor(shapes?: Shape[], options?: ExtrueGeometryOptions);
+    constructor(shapes: Shape | Shape[], options?: ExtrudeGeometryOptions);
 
     static WorldUVGenerator: UVGenerator;
 

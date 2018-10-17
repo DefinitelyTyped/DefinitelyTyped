@@ -271,7 +271,6 @@ export type ResponsiveJustifyItemsValue = ResponsiveValue<JustifyItemsValue>;
 export interface JustifyItemsProps {
     justifyItems?: ResponsiveJustifyItemsValue;
 }
-export function alignContent(...args: any[]): any;
 
 export type JustifyContentValue =
     | "center"

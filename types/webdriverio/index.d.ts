@@ -4,6 +4,7 @@
 //                 Tim Brust <https://github.com/timbru31>
 //                 Fredrik Smedberg <https://github.com/fsmedberg-tc>
 //                 Tanvir ul Islam <https://github.com/tanvirislam06>
+//                 Dave Parslow <https://github.com/daveparslow>
 //                 Phil Leger <https://github.com/phil-lgr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -311,6 +312,12 @@ declare namespace WebdriverIO {
         // RC
         honorSystemProxy?: boolean;
         ensureCleanSession?: boolean;
+
+        // Exclude
+        exclude?: string[];
+
+        // Define which test specs should run (only on the desired capability)
+        specs?: string[];
     }
 
     interface Cookie {
@@ -337,65 +344,66 @@ declare namespace WebdriverIO {
     }
 
     interface Hooks {
-        onError?<T>(error: Error): Promise<T> & undefined;
+        onError?(error: Error): Promise<any> | void;
 
-        onPrepare?<T>(
+        onPrepare?(
             config: Options,
             capabilities: DesiredCapabilities
-        ): Promise<T> & undefined;
+        ): Promise<any> | void;
 
-        onComplete?<T>(exitCode: number): Promise<T> & undefined;
+        onComplete?(exitCode: number): Promise<any> | void;
 
-        before?<T>(
+        before?(
             capabilities: DesiredCapabilities,
             specs: string[]
-        ): Promise<T> & undefined;
+        ): Promise<any> | undefined;
 
-        beforeCommand?<T>(
+        beforeCommand?(
             commandName: string,
             args: any[]
-        ): Promise<T> & undefined;
+        ): Promise<any> | void;
 
-        beforeFeature?<T>(feature: string): Promise<T> & undefined;
-        beforeHook?<T>(): Promise<T> & undefined;
-        beforeScenario?<T>(scenario: string): Promise<T> & undefined;
+        beforeHook?(): Promise<any> | void;
 
-        beforeSession?<T>(
+        beforeSession?(
             config: Options,
             capabilities: DesiredCapabilities,
             specs: string[]
-        ): Promise<T> & undefined;
+        ): Promise<any> | void;
 
-        beforeStep?<T>(step: string): Promise<T> & undefined;
-        beforeSuite?<T>(suite: Suite): Promise<T> & undefined;
-        beforeTest?<T>(test: Test): Promise<T> & undefined;
-        afterHook?<T>(): Promise<T> & undefined;
+        beforeSuite?(suite: Suite): Promise<any> | void;
+        beforeTest?(test: Test): Promise<any> | void;
+        afterHook?(): Promise<any> | void;
 
-        after?<T>(
+        after?(
             result: number,
             capabilities: DesiredCapabilities,
             specs: string[]
-        ): Promise<T> & undefined;
+        ): Promise<any> | void;
 
-        afterCommand?<T>(
+        afterCommand?(
             commandName: string,
             args: any[],
             result: any,
             error?: Error
-        ): Promise<T> & undefined;
+        ): Promise<any> | undefined;
 
-        afterScenario?<T>(scenario: any): Promise<T> & undefined;
-
-        afterSession?<T>(
+        afterSession?(
             config: Options,
             capabilities: DesiredCapabilities,
             specs: string[]
-        ): Promise<T> & undefined;
+        ): Promise<any> | void;
 
-        afterStep?<T>(stepResult: any): Promise<T> & undefined;
-        afterSuite?<T>(suite: Suite): Promise<T> & undefined;
-        afterTest?<T>(test: Test): Promise<T> & undefined;
-        afterFeature?<T>(feature: string): Promise<T> & undefined;
+        afterSuite?(suite: Suite): Promise<any> | void;
+        afterTest?(test: Test): Promise<any> | void;
+
+         // cucumber specific hooks
+         beforeFeature?(feature: string): Promise<any> | void;
+         beforeScenario?(scenario: string): Promise<any> | void;
+         beforeStep?(step: string): Promise<any> | void;
+         afterFeature?(feature: string): Promise<any> | void;
+         afterScenario?(scenario: any): Promise<any> | void;
+         afterStep?(stepResult: any): Promise<any> | void;
     }
 
     interface Options {

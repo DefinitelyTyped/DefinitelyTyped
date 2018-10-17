@@ -48,7 +48,7 @@ class RadioTest extends React.Component {
       return (
         <App>
             <Window title="Example" size={{w: 500, h: 500}}>
-                <RadioButtons enabled={true}>
+                <RadioButtons onSelect={selected => selected.toFixed()} enabled={true}>
                     <RadioButtons.Item>Option 1</RadioButtons.Item>
                     <RadioButtons.Item>Option 2</RadioButtons.Item>
                 </RadioButtons>
@@ -117,6 +117,14 @@ class GridTest extends React.Component {
                         column={1}
                     >
                         <Form><ColorButton label={"Test"}/></Form>
+                    </Box>
+                    <Box
+                        align={{h: false, v: false}}
+                        row={2}
+                        column={0}
+                        span={{x: 2, y: 1}}
+                    >
+                        <Form><ColorButton label={"Spans Two Columns"}/></Form>
                     </Box>
                 </Grid>
                 </Window>

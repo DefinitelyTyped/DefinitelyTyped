@@ -10,6 +10,8 @@
 //                 Karol Janyst <https://github.com/LKay>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Ross Allen <https://github.com/ssorallen>
+//                 Christian Gill <https://github.com/gillchristian>
+//                 Roman Nevolin <https://github.com/nulladdict>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

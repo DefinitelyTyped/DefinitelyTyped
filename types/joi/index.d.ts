@@ -1,4 +1,4 @@
-// Type definitions for joi 13.4
+// Type definitions for joi 13.6
 // Project: https://github.com/hapijs/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Laurence Dougal Myers <https://github.com/laurence-myers>
@@ -197,6 +197,7 @@ export interface ReferenceOptions {
     functions?: boolean;
 }
 
+// tslint:disable-next-line:interface-name
 export interface IPOptions {
     version?: string[];
     cidr?: string;
@@ -225,9 +226,7 @@ export interface ValidationErrorItem {
     context?: Context;
 }
 
-export interface ValidationErrorFunction {
-    (errors: ValidationErrorItem[]): string | ValidationErrorItem | ValidationErrorItem[] | Error;
-}
+export type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | ValidationErrorItem[] | Error;
 
 export interface ValidationResult<T> extends Pick<Promise<T>, 'then' | 'catch'> {
     error: ValidationError;
@@ -685,6 +684,11 @@ export interface StringSchema extends AnySchema {
     trim(): this;
 }
 
+export interface SymbolSchema extends AnySchema {
+    // TODO: support number and symbol index
+    map(iterable: Iterable<[string | number | boolean | symbol, symbol]> | { [key: string]: symbol }): this;
+}
+
 export interface ArraySchema extends AnySchema {
     /**
      * Allow this array to be sparse.
@@ -1069,7 +1073,7 @@ export function func(): FunctionSchema;
 export function number(): NumberSchema;
 
 /**
- * Generates a schema object that matches an object data type (as well as JSON strings that parsed into objects).
+ * Generates a schema object that matches an object data type (as well as JSON strings that have been parsed into objects).
  */
 export function object(schema?: SchemaMap): ObjectSchema;
 
@@ -1077,6 +1081,11 @@ export function object(schema?: SchemaMap): ObjectSchema;
  * Generates a schema object that matches a string data type. Note that empty strings are not allowed by default and must be enabled with allow('').
  */
 export function string(): StringSchema;
+
+/**
+ * Generates a schema object that matches any symbol.
+ */
+export function symbol(): SymbolSchema;
 
 /**
  * Generates a type that will match one of the provided alternative schemas
@@ -1110,7 +1119,6 @@ export function validate<T, R>(value: T, schema: SchemaLike, options: Validation
  * Converts literal schema definition to joi schema object (or returns the same back if already a joi schema object).
  */
 export function compile(schema: SchemaLike): Schema;
-export function compile<T extends Schema>(schema: SchemaLike): T;
 
 /**
  * Validates a value against a schema and throws if validation fails.
@@ -1145,9 +1153,7 @@ export function isRef(ref: any): ref is Reference;
  * of strings For string values path separator is a dot (`.`)
  */
 export function reach(schema: ObjectSchema, path: string): Schema;
-export function reach<T extends Schema>(schema: ObjectSchema, path: string): T;
 export function reach(schema: ObjectSchema, path: string[]): Schema;
-export function reach<T extends Schema>(schema: ObjectSchema, path: string[]): T;
 
 /**
  * Creates a new Joi instance customized with the extension(s) you provide included.

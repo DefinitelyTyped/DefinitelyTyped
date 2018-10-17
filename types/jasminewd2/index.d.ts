@@ -1,18 +1,19 @@
 // Type definitions for jasminewd2 2.0
 // Project: https://github.com/angular/jasminewd
 // Definitions by: Sammy Jelin <https://github.com/sjelin>
+//                 George Kalpakas <https://github.com/gkalpak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="jasmine" />
 
-declare function it(expectation: string, assertion?: () => Promise<void>, timeout?: number): void;
-declare function fit(expectation: string, assertion?: () => Promise<void>, timeout?: number): void;
-declare function xit(expectation: string, assertion?: () => Promise<void>, timeout?: number): void;
-declare function beforeEach(action: () => Promise<void>, timeout?: number): void;
-declare function afterEach(action: () => Promise<void>, timeout?: number): void;
-declare function beforeAll(action: () => Promise<void>, timeout?: number): void;
-declare function afterAll(action: () => Promise<void>, timeout?: number): void;
+declare function it(expectation: string, assertion?: (done: DoneFn) => Promise<void>, timeout?: number): void;
+declare function fit(expectation: string, assertion?: (done: DoneFn) => Promise<void>, timeout?: number): void;
+declare function xit(expectation: string, assertion?: (done: DoneFn) => Promise<void>, timeout?: number): void;
+declare function beforeEach(action: (done: DoneFn) => Promise<void>, timeout?: number): void;
+declare function afterEach(action: (done: DoneFn) => Promise<void>, timeout?: number): void;
+declare function beforeAll(action: (done: DoneFn) => Promise<void>, timeout?: number): void;
+declare function afterAll(action: (done: DoneFn) => Promise<void>, timeout?: number): void;
 
 declare namespace jasmine {
   interface Matchers<T> {

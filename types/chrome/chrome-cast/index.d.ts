@@ -195,6 +195,14 @@ declare namespace chrome.cast {
         errorCallback: (error: chrome.cast.Error) => void
     ): void
 
+    /**
+     * @param {string} escaped A string to unescape.
+     * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast#.unescape
+     */
+    export function unescape(
+        escaped: string
+    ): string
+
     export class ApiConfig {
         /**
          * @param {!chrome.cast.SessionRequest} sessionRequest

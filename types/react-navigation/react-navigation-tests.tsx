@@ -550,20 +550,32 @@ class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedP
     }
 }
 
-// withNavigation returns a component that wraps MyBackButton and passes in the
-// navigation prop
-const BackButtonWithNavigation = withNavigation<BackButtonProps>(MyBackButton);
+// withNavigation returns a component that wraps MyBackButton and passes in the navigation prop.
+// If you have class methods, you should have a way to use them.
+const BackButtonWithNavigation = withNavigation(MyBackButton);
 const BackButtonInstance = <BackButtonWithNavigation
-    title="Back" onRef={ref => { const backButtonRef = ref; }}
+    title="Back" onRef={ref => {
+        // ref is inferred as MyBackButton | null
+        if (!ref) return;
+        ref.triggerBack();
+    }}
 />;
 
-// if you have class methods, you should have a way to use them
-const BackButtonWithNavigationSpecified = withNavigation<BackButtonProps>(MyBackButton);
-const BackButtonSpecifiedInstance = <BackButtonWithNavigationSpecified
+function StatelessBackButton(props: BackButtonProps & NavigationInjectedProps) {
+  return <MyBackButton {...props} />;
+}
+
+// Wrapped stateless components don't accept an onRef
+const StatelessBackButtonWithNavigation = withNavigation(StatelessBackButton);
+const StatelessBackButtonInstance = <StatelessBackButtonWithNavigation title="Back" />;
+
+// The old way of passing in the props should still work
+const BackButtonWithNavigationWithExplicitProps = withNavigation<BackButtonProps>(MyBackButton);
+const BackButtonWithExplicitPropsInstance = <BackButtonWithNavigationWithExplicitProps
     title="Back" onRef={ref => {
         if (!ref) return;
-        const backButtonRef = ref as MyBackButton;
-        backButtonRef.triggerBack();
+        // We can't infer the component type if we pass in the props
+        (ref as MyBackButton).triggerBack();
     }}
 />;
 
@@ -578,7 +590,7 @@ class MyFocusedComponent extends React.Component<MyFocusedComponentProps & Navig
 
 // withNavigationFocus returns a component that wraps MyFocusedComponent and passes in the
 // navigation and isFocused prop
-const MyFocusedComponentWithNavigationFocus = withNavigationFocus<MyFocusedComponentProps>(MyFocusedComponent);
+const MyFocusedComponentWithNavigationFocus = withNavigationFocus(MyFocusedComponent);
 const MyFocusedComponentInstance = <MyFocusedComponentWithNavigationFocus
     expectsFocus={true} onRef={ref => { const backButtonRef = ref; }}
 />;

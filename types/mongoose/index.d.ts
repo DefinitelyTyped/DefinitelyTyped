@@ -12,6 +12,7 @@
 //                 alfirin <https://github.com/alfirin>
 //                 Idan Dardikman <https://github.com/idandrd>
 //                 Dominik Heigl <https://github.com/various89>
+//                 Fazendaaa <https://github.com/Fazendaaa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -387,6 +388,8 @@ declare module "mongoose" {
 
     /** Flag for using new URL string parser instead of current (deprecated) one */
     useNewUrlParser?: boolean;
+    /** Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify(). */
+    useFindAndModify?: boolean;
 
     // TODO
     safe?: any;
@@ -405,6 +408,11 @@ declare module "mongoose" {
        * models associated with this connection.
        */
       autoIndex?: boolean;
+
+      /**
+       * If true, this connection will use createIndex() instead of ensureIndex() for automatic index builds via Model.init().
+       */
+      useCreateIndex?: boolean;
     };
   }
 
@@ -697,7 +705,9 @@ declare module "mongoose" {
         | "findOne"
         | "findOneAndRemove"
         | "findOneAndUpdate"
-        | "update",
+        | "update"
+        | "updateOne"
+        | "updateMany",
       fn: HookSyncCallback<T>,
       errorCb?: HookErrorCallback
     ): this;
@@ -730,7 +740,9 @@ declare module "mongoose" {
         | "findOne"
         | "findOneAndRemove"
         | "findOneAndUpdate"
-        | "update",
+        | "update"
+        | "updateOne"
+        | "updateMany",
       parallel: boolean,
       fn: HookAsyncCallback<T>,
       errorCb?: HookErrorCallback
@@ -1099,6 +1111,9 @@ declare module "mongoose" {
   class MongooseDocument {
     /** Checks if a path is set to its default. */
     $isDefault(path?: string): boolean;
+
+    /** Getter/setter around the session associated with this document. */
+    $session(session?: ClientSession): ClientSession;
 
     /**
      * Takes a populated field and returns it to its unpopulated state.
@@ -1676,7 +1691,7 @@ declare module "mongoose" {
     elemMatch(path: string | any | Function, criteria: any): this;
 
     /** Specifies the complementary comparison value for paths specified with where() */
-    equals(val: any): this;
+    equals<T>(val: T): this;
 
     /** Executes the query */
     exec(callback?: (err: any, res: T) => void): Promise<T>;
@@ -1756,15 +1771,15 @@ declare module "mongoose" {
      * Specifies a $gt query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
-    gt(val: number): this;
-    gt(path: string, val: number): this;
+    gt<T>(val: T): this;
+    gt<T>(path: string, val: T): this;
 
     /**
      * Specifies a $gte query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
-    gte(val: number): this;
-    gte(path: string, val: number): this;
+    gte<T>(val: T): this;
+    gte<T>(path: string, val: T): this;
 
     /**
      * Sets query hints.
@@ -1798,15 +1813,15 @@ declare module "mongoose" {
      * Specifies a $lt query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
-    lt(val: number): this;
-    lt(path: string, val: number): this;
+    lt<T>(val: T): this;
+    lt<T>(path: string, val: T): this;
 
     /**
      * Specifies a $lte query condition.
      * When called with one argument, the most recent path passed to where() is used.
      */
-    lte(val: number): this;
-    lte(path: string, val: number): this;
+    lte<T>(val: T): this;
+    lte<T>(path: string, val: T): this;
 
     /**
      * Specifies a $maxDistance query condition.
@@ -1932,7 +1947,7 @@ declare module "mongoose" {
     /**
      * Sets the [MongoDB session](https://docs.mongodb.com/manual/reference/server-sessions/)
      * associated with this query. Sessions are how you mark a query as part of a
-     * [transaction](/docs/transactions.html). 
+     * [transaction](/docs/transactions.html).
      */
     session(session: mongodb.ClientSession | null): this;
 
@@ -2701,6 +2716,7 @@ declare module "mongoose" {
      * Triggers the save() hook.
      */
     create(docs: any[], callback?: (err: any, res: T[]) => void): Promise<T[]>;
+    create(docs: any[], options?: SaveOptions, callback?: (err: any, res: T[]) => void): Promise<T[]>;
     create(...docs: any[]): Promise<T>;
     create(...docsWithCallback: any[]): Promise<T>;
 
@@ -2759,8 +2775,8 @@ declare module "mongoose" {
       /** sets the document fields to return */
       select?: any;
     }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
-                            
-                            
+
+
      /**
      * Issue a mongodb findOneAndDelete command by a document's _id field.
      * findByIdAndDelete(id, ...) is equivalent to findByIdAndDelete({ _id: id }, ...).
@@ -2823,6 +2839,32 @@ declare module "mongoose" {
       maxTimeMS?: number;
       /** sets the document fields to return */
       select?: any;
+    }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
+
+    /**
+     * Issues a mongodb findOneAndDelete command.
+     * Finds a matching document, removes it, passing the found document (if any) to the
+     * callback. Executes immediately if callback is passed.
+     */
+    findOneAndDelete(): DocumentQuery<T | null, T>;
+    findOneAndDelete(conditions: any,
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
+    findOneAndDelete(conditions: any, options: {
+      /**
+       * if multiple docs are found by the conditions, sets the sort order to choose
+       * which doc to update
+       */
+      sort?: any;
+      /** puts a time limit on the query - requires mongodb >= 2.6.0 */
+      maxTimeMS?: number;
+      /** sets the document fields to return */
+      select?: any;
+      /** like select, it determines which fields to return */
+      projection?: any;
+      /** if true, returns the raw result from the MongoDB driver */
+      rawResult?: boolean;
+      /** overwrites the schema's strict mode option for this update */
+      strict?: boolean|string;
     }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     /**
@@ -2988,6 +3030,7 @@ declare module "mongoose" {
   interface SaveOptions {
     safe?: boolean | WriteConcern;
     validateBeforeSave?: boolean;
+    session?: ClientSession;
   }
 
   interface WriteConcern {
@@ -3030,7 +3073,7 @@ declare module "mongoose" {
   interface ModelOptions {
     session?: ClientSession | null;
   }
-  
+
   interface ModelFindByIdAndUpdateOptions extends ModelOptions {
     /** true to return the modified document rather than the original. defaults to false */
     new?: boolean;

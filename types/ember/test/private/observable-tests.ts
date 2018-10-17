@@ -1,9 +1,13 @@
-import Observable from "@ember/object/observable";
-import { UnwrapComputedPropertyGetter, UnwrapComputedPropertyGetters, UnwrapComputedPropertySetters, UnwrapComputedPropertySetter } from "ember/-private-types/object/computed";
 // tslint-disable-next-line
 import { assertType } from "../lib/assert";
-import { Ember } from "ember";
-import { ExtractPropertyNamesOfType } from "ember/-private-types/utils";
+import Ember from "ember";
+import {
+    ExtractPropertyNamesOfType,
+    UnwrapComputedPropertyGetter,
+    UnwrapComputedPropertyGetters,
+    UnwrapComputedPropertySetters
+} from '@ember/object/-private/types';
+import Observable from "@ember/object/observable";
 
 class OtherThing {
     observerOfDemo(target: DemoObservable, key: 'foo') {}
@@ -69,13 +73,13 @@ class DemoObservable implements Observable {
     notifyPropertyChange(keyName: string): this {
         throw new Error("Method not implemented.");
     }
-    addObserver<Target>(key: keyof this, target: Target, method: keyof Target | ((this: Target, sender: this, key: string, value: any, rev: number) => void)): void;
-    addObserver<K extends keyof this>(key: K, method: keyof this | ((this: this, sender: this, key: K, value: this[K], rev: number) => void)): void;
+    addObserver<Target>(key: keyof this, target: Target, method: keyof Target | ((this: Target, sender: this, key: string, value: any, rev: number) => void)): any;
+    addObserver<K extends keyof this>(key: K, method: keyof this | ((this: this, sender: this, key: K, value: this[K], rev: number) => void)): any;
     addObserver(key: any, target: any, method?: any) {
         throw new Error("Method not implemented.");
     }
-    removeObserver<Target>(key: keyof this, target: Target, method: keyof Target | ((this: Target, sender: this, key: string, value: any, rev: number) => void)): void;
-    removeObserver(key: keyof this, method: keyof this | ((this: this, sender: this, key: string, value: any, rev: number) => void)): void;
+    removeObserver<Target>(key: keyof this, target: Target, method: keyof Target | ((this: Target, sender: this, key: string, value: any, rev: number) => void)): any;
+    removeObserver(key: keyof this, method: keyof this | ((this: this, sender: this, key: string, value: any, rev: number) => void)): any;
     removeObserver(key: any, target: any, method?: any): void {
         throw new Error("Method not implemented.");
     }

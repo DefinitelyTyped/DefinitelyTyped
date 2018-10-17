@@ -1,40 +1,43 @@
-import { Ember } from "ember";
-import { computed } from "@ember/object";
-import { UnwrapComputedPropertySetters, UnwrapComputedPropertyGetters, UnwrapComputedPropertySetter, UnwrapComputedPropertyGetter } from "ember/-private-types/object/computed";
-import ComputedProperty from "@ember/object/computed";
-import { assertType } from "../lib/assert";
+import Ember from 'ember';
+import {
+    UnwrapComputedPropertySetters,
+    UnwrapComputedPropertyGetters,
+    UnwrapComputedPropertySetter,
+    UnwrapComputedPropertyGetter
+} from '@ember/object/-private/types';
+import { assertType } from '../lib/assert';
 
 class Example1 extends Ember.Object.extend({
     firstName: '',
     lastName: '',
-    allNames: computed('fullName', function() {
+    allNames: Ember.computed('fullName', function() {
         return [this.fullName];
     }),
-    fullName: computed('firstName', 'lastName', function() {
+    fullName: Ember.computed('firstName', 'lastName', function() {
         return `${this.firstName} ${this.lastName}`;
     })
 }) {
-    allNames!: ComputedProperty<string[]>;
-    fullName!: ComputedProperty<string>;
+    allNames!: Ember.ComputedProperty<string[]>;
+    fullName!: Ember.ComputedProperty<string>;
 }
 
-let unwrappedGetters1: UnwrapComputedPropertyGetters<Example1> = {} as any;
+const unwrappedGetters1: UnwrapComputedPropertyGetters<Example1> = {} as any;
 unwrappedGetters1.firstName; // $ExpectType string
 unwrappedGetters1.lastName; // $ExpectType string
 unwrappedGetters1.fullName; // $ExpectType string
 unwrappedGetters1.allNames; // $ExpectType string[]
 
-let unwrappedSetters1: UnwrapComputedPropertySetters<Example1> = {} as any;
+const unwrappedSetters1: UnwrapComputedPropertySetters<Example1> = {} as any;
 unwrappedSetters1.firstName; // $ExpectType string
 unwrappedSetters1.lastName; // $ExpectType string
 unwrappedSetters1.fullName; // $ExpectType string
 unwrappedSetters1.allNames; // $ExpectType string[]
 
 class Example2 extends Ember.Object.extend({
-    allNames: computed('fullName', function() {
+    allNames: Ember.computed('fullName', function() {
         return [this.fullName + ''];
-    }) ,
-    fullName: computed('firstName', 'lastName', function() {
+    }),
+    fullName: Ember.computed('firstName', 'lastName', function() {
         return `${this.firstName} ${this.lastName}`;
     })
 }) {
@@ -52,15 +55,15 @@ class Example2 extends Ember.Object.extend({
         this.get('lastName').split(','); // $ExpectType string[]
     }
 }
-let ex2 = new Example2();
+const ex2 = new Example2();
 
-let unwrappedGetters2: UnwrapComputedPropertyGetters<typeof ex2> = (ex2 as any) as UnwrapComputedPropertyGetters<typeof ex2>;
+const unwrappedGetters2: UnwrapComputedPropertyGetters<typeof ex2> = (ex2 as any) as UnwrapComputedPropertyGetters<typeof ex2>;
 assertType<string>(unwrappedGetters2.firstName); // $ExpectType string
 assertType<string>(unwrappedGetters2.lastName); // $ExpectType string
 assertType<string>(unwrappedGetters2.fullName); // $ExpectType string
 assertType<string[]>(unwrappedGetters2.allNames); // $ExpectType string[]
 
-let unwrappedSetters2: UnwrapComputedPropertySetters<typeof ex2> = null as any;
+const unwrappedSetters2: UnwrapComputedPropertySetters<typeof ex2> = null as any;
 assertType<string>(unwrappedSetters2.firstName); // $ExpectType string
 assertType<string>(unwrappedSetters2.lastName); // $ExpectType string
 assertType<string>(unwrappedSetters2.fullName); // $ExpectType string
@@ -72,11 +75,35 @@ ex2.firstName; // $ExpectType string
 
 type UnwStringSet = UnwrapComputedPropertySetter<string>; // $ExpectType string
 type UnwStringGet = UnwrapComputedPropertyGetter<string>; // $ExpectType string
-type UnwCpStringSet1 = UnwrapComputedPropertySetter<ComputedProperty<string>>; // $ExpectType string
-type UnwCpStringGet1 = UnwrapComputedPropertyGetter<ComputedProperty<string>>; // $ExpectType string
-type UnwCpStringSet2 = UnwrapComputedPropertySetter<ComputedProperty<string, string>>; // $ExpectType string
-type UnwCpStringGet2 = UnwrapComputedPropertyGetter<ComputedProperty<string, string>>; // $ExpectType string
-type UnwCpStringSet3 = UnwrapComputedPropertySetter<ComputedProperty<number, string>>; // $ExpectType string
-type UnwCpStringGet3 = UnwrapComputedPropertyGetter<ComputedProperty<number, string>>; // $ExpectType number
-type UnwCpStringSet4 = UnwrapComputedPropertySetter<ComputedProperty<string, number>>; // $ExpectType number
-type UnwCpStringGet4 = UnwrapComputedPropertyGetter<ComputedProperty<string, number>>; // $ExpectType string
+// $ExpectType string
+type UnwCpStringSet1 = UnwrapComputedPropertySetter<
+    Ember.ComputedProperty<string>
+>;
+// $ExpectType string
+type UnwCpStringGet1 = UnwrapComputedPropertyGetter<
+    Ember.ComputedProperty<string>
+>;
+// $ExpectType string
+type UnwCpStringSet2 = UnwrapComputedPropertySetter<
+    Ember.ComputedProperty<string, string>
+>;
+// $ExpectType string
+type UnwCpStringGet2 = UnwrapComputedPropertyGetter<
+    Ember.ComputedProperty<string, string>
+>;
+// $ExpectType string
+type UnwCpStringSet3 = UnwrapComputedPropertySetter<
+    Ember.ComputedProperty<number, string>
+>;
+// $ExpectType number
+type UnwCpStringGet3 = UnwrapComputedPropertyGetter<
+    Ember.ComputedProperty<number, string>
+>;
+// $ExpectType number
+type UnwCpStringSet4 = UnwrapComputedPropertySetter<
+    Ember.ComputedProperty<string, number>
+>;
+// $ExpectType string
+type UnwCpStringGet4 = UnwrapComputedPropertyGetter<
+    Ember.ComputedProperty<string, number>
+>;

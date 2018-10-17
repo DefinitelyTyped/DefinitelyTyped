@@ -1,12 +1,10 @@
 // Type definitions for postmark 1.4
 // Project: http://wildbit.github.io/postmark.js
-// Definitions by: Ben Bayard <https://github.com/benbayard>
+// Definitions by:  Ben Bayard <https://github.com/benbayard>
+//                  Jinesh Shah <https://github.com/jineshshah36>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-export = postmark;
-
-declare const postmark: Postmark.Postmark;
 declare namespace Postmark {
     const defaults: Options;
 
@@ -87,7 +85,9 @@ declare namespace Postmark {
         InlineCssForHtmlTestRender?: boolean;
     }
 
-    type PostmarkCallback<T extends object = any> = ((e: PostmarkError, ret: T) => undefined) | undefined;
+    type PostmarkCallback<T extends object = any> =
+        | ((e: PostmarkError, ret: T) => undefined)
+        | undefined;
 
     interface SimpleOptions {
         ssl: boolean;
@@ -109,36 +109,64 @@ declare namespace Postmark {
         constructor(serverKey: string, options?: Partial<Options>);
 
         send(message: PostmarkMessage): Promise<SendStatus>;
-        send(message: PostmarkMessage, callback: PostmarkCallback<SendStatus>): undefined;
+        send(
+            message: PostmarkMessage,
+            callback: PostmarkCallback<SendStatus>
+        ): undefined;
 
-        sendEmailWithTemplate(message: PostmarkMessageWithTemplate): Promise<SendStatus>;
-        sendEmailWithTemplate(message: PostmarkMessageWithTemplate, callback: PostmarkCallback<SendStatus>): undefined;
+        sendEmailWithTemplate(
+            message: PostmarkMessageWithTemplate
+        ): Promise<SendStatus>;
+        sendEmailWithTemplate(
+            message: PostmarkMessageWithTemplate,
+            callback: PostmarkCallback<SendStatus>
+        ): undefined;
 
         batch(message: PostmarkMessage[]): Promise<SendStatus[]>;
-        batch(message: PostmarkMessage[], callback: PostmarkCallback<SendStatus[]>): undefined;
+        batch(
+            message: PostmarkMessage[],
+            callback: PostmarkCallback<SendStatus[]>
+        ): undefined;
 
         sendEmail(message: PostmarkMessage): Promise<SendStatus>;
-        sendEmail(message: PostmarkMessage, callback: PostmarkCallback<SendStatus>): undefined;
+        sendEmail(
+            message: PostmarkMessage,
+            callback: PostmarkCallback<SendStatus>
+        ): undefined;
 
         sendEmailBatch(message: PostmarkMessage[]): Promise<SendStatus[]>;
-        sendEmailBatch(message: PostmarkMessage[], callback: PostmarkCallback<SendStatus[]>): undefined;
+        sendEmailBatch(
+            message: PostmarkMessage[],
+            callback: PostmarkCallback<SendStatus[]>
+        ): undefined;
 
         // stats
         getDeliveryStatistics(): Promise<DeliveryStats>;
-        getDeliveryStatistics(callback: PostmarkCallback<DeliveryStats>): undefined;
+        getDeliveryStatistics(
+            callback: PostmarkCallback<DeliveryStats>
+        ): undefined;
 
         // bounces
         getBounces(filter: BounceFilter): Promise<BouncesResult>;
-        getBounces(filter: BounceFilter, callback?: PostmarkCallback<BouncesResult>): undefined;
+        getBounces(
+            filter: BounceFilter,
+            callback?: PostmarkCallback<BouncesResult>
+        ): undefined;
 
         getBounce(id: number): Promise<Bounce>;
         getBounce(id: number, callback?: PostmarkCallback<Bounce>): undefined;
 
         getBounceDump(id: number): Promise<BounceDump>;
-        getBounceDump(id: number, callback?: PostmarkCallback<BounceDump>): undefined;
+        getBounceDump(
+            id: number,
+            callback?: PostmarkCallback<BounceDump>
+        ): undefined;
 
         activateBounce(id: number): Promise<ActivatedBounceResult>;
-        activateBounce(id: number, callback?: PostmarkCallback<ActivatedBounceResult>): undefined;
+        activateBounce(
+            id: number,
+            callback?: PostmarkCallback<ActivatedBounceResult>
+        ): undefined;
 
         getBounceTags(): Promise<string[]>;
         getBounceTags(callback?: PostmarkCallback<string[]>): undefined;
@@ -148,54 +176,112 @@ declare namespace Postmark {
         getServer(callback?: PostmarkCallback<Server>): undefined;
 
         editServer(server: Partial<Server>): Promise<Server>;
-        editServer(server: Partial<Server>, callback?: PostmarkCallback<Server>): undefined;
+        editServer(
+            server: Partial<Server>,
+            callback?: PostmarkCallback<Server>
+        ): undefined;
 
         // message info
-        getOutboundMessages(filter: OutboundMessageFilter): Promise<OutboundMessagesResult>;
-        getOutboundMessages(filter: OutboundMessageFilter, callback?: PostmarkCallback<OutboundMessagesResult>): undefined;
+        getOutboundMessages(
+            filter: OutboundMessageFilter
+        ): Promise<OutboundMessagesResult>;
+        getOutboundMessages(
+            filter: OutboundMessageFilter,
+            callback?: PostmarkCallback<OutboundMessagesResult>
+        ): undefined;
 
         getOutboundMessageDetails(id: number): Promise<OutboundMessage>;
-        getOutboundMessageDetails(id: number, callback?: PostmarkCallback<OutboundMessage>): undefined;
+        getOutboundMessageDetails(
+            id: number,
+            callback?: PostmarkCallback<OutboundMessage>
+        ): undefined;
 
         getMessageOpens(filter: OpenMessageFilter): Promise<MessageOpensResult>;
-        getMessageOpens(filter: OpenMessageFilter, callback?: PostmarkCallback<MessageOpensResult>): undefined;
+        getMessageOpens(
+            filter: OpenMessageFilter,
+            callback?: PostmarkCallback<MessageOpensResult>
+        ): undefined;
 
-        getMessageOpensForSingleMessage(id: number, filter: Filter): Promise<MessageOpensResult>;
-        getMessageOpensForSingleMessage(id: number, filter: Filter, callback?: PostmarkCallback<MessageOpensResult>): undefined;
+        getMessageOpensForSingleMessage(
+            id: number,
+            filter: Filter
+        ): Promise<MessageOpensResult>;
+        getMessageOpensForSingleMessage(
+            id: number,
+            filter: Filter,
+            callback?: PostmarkCallback<MessageOpensResult>
+        ): undefined;
 
-        getInboundMessages(filter: InboundMessageFilter): Promise<InboundMessagesResult>;
-        getInboundMessages(filter: InboundMessageFilter, callback?: PostmarkCallback<InboundMessagesResult>): undefined;
+        getInboundMessages(
+            filter: InboundMessageFilter
+        ): Promise<InboundMessagesResult>;
+        getInboundMessages(
+            filter: InboundMessageFilter,
+            callback?: PostmarkCallback<InboundMessagesResult>
+        ): undefined;
 
         getInboundMessageDetails(id: number): Promise<InboundMessage>;
-        getInboundMessageDetails(id: number, callback?: PostmarkCallback<InboundMessage>): undefined;
+        getInboundMessageDetails(
+            id: number,
+            callback?: PostmarkCallback<InboundMessage>
+        ): undefined;
 
         bypassBlockedInboundMessage(id: number): Promise<GenericResult>;
-        bypassBlockedInboundMessage(id: number, callback?: PostmarkCallback<GenericResult>): undefined;
+        bypassBlockedInboundMessage(
+            id: number,
+            callback?: PostmarkCallback<GenericResult>
+        ): undefined;
 
         getOuboundOverview(filter: BaseFilter): Promise<OutboundOverview>;
-        getOuboundOverview(filter: BaseFilter, callback?: PostmarkCallback<OutboundOverview>): undefined;
+        getOuboundOverview(
+            filter: BaseFilter,
+            callback?: PostmarkCallback<OutboundOverview>
+        ): undefined;
 
         retryInboundHookForMessage(id: number): Promise<GenericResult>;
-        retryInboundHookForMessage(id: number, callback?: PostmarkCallback<GenericResult>): undefined;
+        retryInboundHookForMessage(
+            id: number,
+            callback?: PostmarkCallback<GenericResult>
+        ): undefined;
 
         // templates
         getTemplate(id: number): Promise<Template>;
-        getTemplate(id: number, callback?: PostmarkCallback<Template>): undefined;
+        getTemplate(
+            id: number,
+            callback?: PostmarkCallback<Template>
+        ): undefined;
 
         createTemplate(template: Partial<Template>): Promise<TemplateBase>;
-        createTemplate(template: Partial<Template>, callback?: PostmarkCallback<TemplateBase>): undefined;
+        createTemplate(
+            template: Partial<Template>,
+            callback?: PostmarkCallback<TemplateBase>
+        ): undefined;
 
         editTemplate(template: Partial<Template>): Promise<TemplateBase>;
-        editTemplate(template: Partial<Template>, callback?: PostmarkCallback<TemplateBase>): undefined;
+        editTemplate(
+            template: Partial<Template>,
+            callback?: PostmarkCallback<TemplateBase>
+        ): undefined;
 
         getTemplates(filter: Filter): Promise<TemplatesResult>;
-        getTemplates(filter: Filter, callback?: PostmarkCallback<TemplatesResult>): undefined;
+        getTemplates(
+            filter: Filter,
+            callback?: PostmarkCallback<TemplatesResult>
+        ): undefined;
 
         deleteTemplate(id: number): Promise<GenericResult>;
-        deleteTemplate(id: number, callback?: PostmarkCallback<GenericResult>): undefined;
+        deleteTemplate(
+            id: number,
+            callback?: PostmarkCallback<GenericResult>
+        ): undefined;
 
-        validateTemplate<T extends object>(templateObject: TemplateValidator<T>): Promise<TemplateValidationResult<T>>;
-        validateTemplate<T extends object>(templateObject: TemplateValidator<T>, callback?: PostmarkCallback<TemplateValidationResult<T>>): undefined;
+        validateTemplate<T extends object>(
+            templateObject: TemplateValidator<T>
+        ): Promise<TemplateValidationResult<T>>;
+        validateTemplate<T extends object>(
+            templateObject: TemplateValidator<T>,
+            callback?: PostmarkCallback<TemplateValidationResult<T>>
+        ): undefined;
     }
 
     interface CreateSignature extends UpdateSignature {
@@ -227,71 +313,130 @@ declare namespace Postmark {
     class AdminClient {
         constructor(apiKey: string, options: Partial<Options>);
         listSenderSignatures(query: Filter): Promise<SenderSignaturesResults>;
-        listSenderSignatures(query: Filter, callback?: PostmarkCallback<SenderSignaturesResults>): undefined;
+        listSenderSignatures(
+            query: Filter,
+            callback?: PostmarkCallback<SenderSignaturesResults>
+        ): undefined;
 
-        createSenderSignature(options: CreateSignature): Promise<SenderSignature>;
-        createSenderSignature(options: CreateSignature, callback?: PostmarkCallback<SenderSignature>): undefined;
+        createSenderSignature(
+            options: CreateSignature
+        ): Promise<SenderSignature>;
+        createSenderSignature(
+            options: CreateSignature,
+            callback?: PostmarkCallback<SenderSignature>
+        ): undefined;
 
-        editSenderSignature(id: number, options: UpdateSignature): Promise<SenderSignature>;
-        editSenderSignature(id: number, options: UpdateSignature, callback?: PostmarkCallback<SenderSignature>): undefined;
+        editSenderSignature(
+            id: number,
+            options: UpdateSignature
+        ): Promise<SenderSignature>;
+        editSenderSignature(
+            id: number,
+            options: UpdateSignature,
+            callback?: PostmarkCallback<SenderSignature>
+        ): undefined;
 
         deleteSenderSignature(id: number): Promise<GenericResult>;
-        deleteSenderSignature(id: number, callback?: PostmarkCallback<GenericResult>): undefined;
+        deleteSenderSignature(
+            id: number,
+            callback?: PostmarkCallback<GenericResult>
+        ): undefined;
 
         resendSenderSignatureConfirmation(id: number): Promise<GenericResult>;
-        resendSenderSignatureConfirmation(id: number, callback?: PostmarkCallback<GenericResult>): undefined;
+        resendSenderSignatureConfirmation(
+            id: number,
+            callback?: PostmarkCallback<GenericResult>
+        ): undefined;
 
         verifySenderSignatureSPF(id: number): Promise<SenderSignature>;
-        verifySenderSignatureSPF(id: number, callback?: PostmarkCallback<SenderSignature>): undefined;
+        verifySenderSignatureSPF(
+            id: number,
+            callback?: PostmarkCallback<SenderSignature>
+        ): undefined;
 
         requestNewDKIMForSenderSignature(id: number): Promise<GenericResult>;
-        requestNewDKIMForSenderSignature(id: number, callback?: PostmarkCallback<GenericResult>): undefined;
+        requestNewDKIMForSenderSignature(
+            id: number,
+            callback?: PostmarkCallback<GenericResult>
+        ): undefined;
 
         // servers
         getServer(id: number): Promise<Server>;
         getServer(id: number, callback?: PostmarkCallback<Server>): undefined;
 
         createServer(options: CreateServer): Promise<Server>;
-        createServer(options: CreateServer, callback?: PostmarkCallback<Server>): undefined;
+        createServer(
+            options: CreateServer,
+            callback?: PostmarkCallback<Server>
+        ): undefined;
 
         editServer(id: number, options: Partial<CreateServer>): Promise<Server>;
-        editServer(id: number, options: Partial<CreateServer>, callback?: PostmarkCallback<Server>): undefined;
+        editServer(
+            id: number,
+            options: Partial<CreateServer>,
+            callback?: PostmarkCallback<Server>
+        ): undefined;
 
         deleteServer(id: number): Promise<GenericResult>;
-        deleteServer(id: number, callback?: PostmarkCallback<GenericResult>): undefined;
+        deleteServer(
+            id: number,
+            callback?: PostmarkCallback<GenericResult>
+        ): undefined;
 
         listServers(query: ServerFilter): Promise<ServersResult>;
-        listServers(query: ServerFilter, callback?: PostmarkCallback<ServersResult>): undefined;
+        listServers(
+            query: ServerFilter,
+            callback?: PostmarkCallback<ServersResult>
+        ): undefined;
 
         // domains
         listDomains(query: Filter): Promise<DomainsResult>;
-        listDomains(query: Filter, callback?: PostmarkCallback<DomainsResult>): undefined;
+        listDomains(
+            query: Filter,
+            callback?: PostmarkCallback<DomainsResult>
+        ): undefined;
 
         getDomain(id: number): Promise<Domain>;
         getDomain(id: number, callback?: PostmarkCallback<Domain>): undefined;
 
         createDomain(options: CreateDomain): Promise<Domain>;
-        createDomain(options: CreateDomain, callback?: PostmarkCallback<Domain>): undefined;
+        createDomain(
+            options: CreateDomain,
+            callback?: PostmarkCallback<Domain>
+        ): undefined;
 
         editDomain(id: number, options: Partial<CreateDomain>): Promise<Domain>;
-        editDomain(id: number, options: Partial<CreateDomain>, callback?: PostmarkCallback<Domain>): undefined;
+        editDomain(
+            id: number,
+            options: Partial<CreateDomain>,
+            callback?: PostmarkCallback<Domain>
+        ): undefined;
 
         deleteDomain(id: number): Promise<GenericResult>;
-        deleteDomain(id: number, callback?: PostmarkCallback<GenericResult>): undefined;
+        deleteDomain(
+            id: number,
+            callback?: PostmarkCallback<GenericResult>
+        ): undefined;
 
         verifyDomainSPF(id: number): Promise<SenderSignature>;
-        verifyDomainSPF(id: number, callback?: PostmarkCallback<SenderSignature>): undefined;
+        verifyDomainSPF(
+            id: number,
+            callback?: PostmarkCallback<SenderSignature>
+        ): undefined;
 
         rotateDKIMForDomain(id: number): Promise<RotateDKIMResult>;
-        rotateDKIMForDomain(id: number, callback?: PostmarkCallback<RotateDKIMResult>): undefined;
+        rotateDKIMForDomain(
+            id: number,
+            callback?: PostmarkCallback<RotateDKIMResult>
+        ): undefined;
     }
 
     interface ClientClass {
-        new(serverKey: string, options: Partial<Options>): Client;
+        new (serverKey: string, options: Partial<Options>): Client;
     }
 
     interface AdminClientClass {
-        new(apiKey: string, options: Partial<Options>): AdminClient;
+        new (apiKey: string, options: Partial<Options>): AdminClient;
     }
 
     interface Postmark {
@@ -637,8 +782,7 @@ declare namespace Postmark {
         ReturnPathDomainVerified: boolean;
     }
 
-    interface Domain extends DomainBase, VerificationDetails {
-    }
+    interface Domain extends DomainBase, VerificationDetails {}
 
     interface RotateDKIMResult extends DKIMKey {
         Name: string;
@@ -666,3 +810,10 @@ declare namespace Postmark {
         WithReadTimeRecorded: number;
     }
 }
+
+declare function Postmark(
+    apiKey: string,
+    options: Partial<Postmark.Options>
+): Postmark.Client;
+
+export = Postmark;
