@@ -26,7 +26,7 @@ import {
   const CoolWidget = createConnector({
     displayName: 'CoolWidget',
 
-    getProvidedProps(props: any, searchState: any) {
+    getProvidedProps(props, searchState) {
       // Since the `queryAndPage` searchState entry isn't necessarily defined, we need
       // to default its value.
       const [query, page] = searchState.queryAndPage || ['', 0];
@@ -38,7 +38,7 @@ import {
       };
     },
 
-    refine(props: any, searchState: any, newQuery: any, newPage: any) {
+    refine(props, searchState, newQuery, newPage) {
       // When the underlying component calls its `refine` prop, update the searchState
       // with the new query and page.
       return {
