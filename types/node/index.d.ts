@@ -330,7 +330,7 @@ interface Buffer extends Uint8Array {
  * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
  * Valid string encodings: 'ascii'|'utf8'|'utf16le'|'ucs2'(alias of 'utf16le')|'base64'|'binary'(deprecated)|'hex'
  */
-declare var Buffer: {
+interface BufferConstructor {
     /**
      * Allocates a new buffer containing the given {str}.
      *
@@ -467,7 +467,8 @@ declare var Buffer: {
      * This is the number of bytes used to determine the size of pre-allocated, internal Buffer instances used for pooling. This value may be modified.
      */
     poolSize: number;
-};
+}
+declare var Buffer: BufferConstructor;
 
 /*----------------------------------------------*
 *                                               *
