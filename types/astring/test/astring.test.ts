@@ -11,9 +11,6 @@ generate(ast);
 generate(functionE);
 generate(memberE);
 
-//global scope function
-astring.generate(ast);
-
 //options without output option should generate string
 const string: string = generate(ast, {
     comments: true,
@@ -33,6 +30,3 @@ const stream: Stream = generate(ast, {
 baseGenerator.Program(ast, { write: function (s: string) { return; } });
 baseGenerator.FunctionExpression(functionE, { write: function (s: string) { return; } });
 baseGenerator.MemberExpression(memberE, { write: function (s: string) { return; } });
-
-//global scope function
-astring.baseGenerator.Program(ast, { write: function (s: string) { return; } });

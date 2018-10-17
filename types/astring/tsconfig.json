@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "test/astring-test.ts"
+        "test/astring.test.ts",
+        "test/astring-global.test.ts"
     ]
 }

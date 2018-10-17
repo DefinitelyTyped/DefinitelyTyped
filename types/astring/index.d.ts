@@ -36,16 +36,14 @@ export function generate(node: ESTree.Node, options: Options & {
  */
 export type Generator = { [key in ESTree.Node["type"]]: (node: Extract<ESTree.Node, { type: key }>, state: { write(s: string): void }) => void };
 
-/**
- * Base generator that can be used to extend Astring. See https://github.com/davidbonnet/astring#extending
- */
+/** Base generator that can be used to extend Astring. See https://github.com/davidbonnet/astring#extending */
 export const baseGenerator: Generator;
 
 declare global {
     interface astring {
         generate: typeof generate;
+        /** Base generator that can be used to extend Astring. See https://github.com/davidbonnet/astring#extending */
         baseGenerator: Generator;
     }
-
     const astring: astring;
 }
