@@ -25,10 +25,10 @@ export interface Inspector {
 export interface TestStream {
     inspect(options?: Options): Inspector;
     inspectSync(fn: OutputCallback): Output;
-    inspectSync(options: Options, fn?: OutputCallback): Output;
+    inspectSync(options: Options, fn: OutputCallback): Output;
     ignore(options?: Options): Restore;
     ignoreSync(fn: NoOutputCallback): void;
-    ignoreSync(options: Options, fn?: NoOutputCallback): void;
+    ignoreSync(options: Options, fn: NoOutputCallback): void;
 }
 
 export {};
