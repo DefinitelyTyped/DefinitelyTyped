@@ -28,6 +28,6 @@
         "src/interpolate.d.ts",
         "src/loadNamespaces.d.ts",
         "src/trans.d.ts",
-        "src/translate.d.ts"
+        "src/withNamespaces.d.ts"
     ]
 }
