@@ -22,6 +22,6 @@ const DemoComponentContainer = withTracker<
     data: 'some data',
 }))(DemoComponent);
 
-export default () => (
+const RootComponent = () => (
     <DemoComponentContainer status="ok" />
 );
