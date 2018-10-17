@@ -2422,10 +2422,10 @@ export namespace Calendar {
         recurrenceRule?: RecurrenceRule;
 
         /** Date object or string representing the time when the event starts */
-        startDate?: string;
+        startDate?: string | Date;
 
         /** Date object or string representing the time when the event ends */
-        endDate?: string;
+        endDate?: string | Date;
 
         /** For recurring events, the start date for the first (original) instance of the event */
         originalStartDate?: string; // iOS
