@@ -1,8 +1,16 @@
 import { Graph } from "graphlib";
-import * as glDot from 'graphlib-dot';
+import { read, readMany, write } from 'graphlib-dot';
 
-const graph: Graph = glDot.read('digraph {node 1}');
+// Module tests
+let graph: Graph = read('digraph {node 1}');
 
-const graphs: Graph[] = glDot.readMany('digraph { node1 }');
+let graphs: Graph[] = readMany('digraph { node1 }');
 
-const dotStr: string = glDot.write(graph);
+let dotStr: string = write(graph);
+
+// Global tests
+graph = graphlibDot.read('digraph {node 1}');
+
+graphs = graphlibDot.readMany('digraph { node1 }');
+
+dotStr = graphlibDot.write(graph);
