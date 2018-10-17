@@ -1,25 +1,25 @@
 import * as React from 'react';
 import {withTracker} from 'meteor/react-meteor-data';
 
-interface DemoComponentContainerProps {
+type DemoComponentContainerProps = {
     status: string;
 }
 
-interface DemoComponentProps extends DemoComponentContainerProps {
+type DemoComponentData = {
     data: string;
+	result: string;
 }
 
-const DemoComponent: React.SFC<DemoComponentProps> = (props) => (
+const DemoComponent: React.SFC<DemoComponentContainerProps & DemoComponentData> = (props) => (
   <div>{props.data}</div>
 );
 
-const DemoComponentContainer = withTracker<
-    DemoComponentContainerProps,
-    DemoComponentProps,
-    DemoComponentContainerProps & DemoComponentProps
->((props) => ({
-    ...props,
+const DemoComponentContainer: React.ComponentClass<DemoComponentContainerProps> = withTracker<
+	DemoComponentData,
+    DemoComponentContainerProps
+>(() => ({
     data: 'some data',
+    result: 'success',
 }))(DemoComponent);
 
 const RootComponent = () => (

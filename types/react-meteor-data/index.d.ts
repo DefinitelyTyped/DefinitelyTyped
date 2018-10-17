@@ -7,7 +7,7 @@
 declare module 'meteor/react-meteor-data' {
     import * as React from 'react';
 
-    export function withTracker<InP, D, OutP extends (InP & D)>(
-        options: (props: InP) => D | {getMeteorData: (props: InP) => D, pure?: boolean}
-    ): (reactComponent: React.ComponentType<OutP>) => React.ComponentType<InP>;
+    export function withTracker<TDataProps, TOwnProps, TMergedProps extends (TOwnProps & TDataProps) = TOwnProps & TDataProps>(
+        options: (props: TOwnProps) => TDataProps | {getMeteorData: (props: TOwnProps) => TDataProps, pure?: boolean}
+    ): (reactComponent: React.ComponentType<TMergedProps>) => React.ComponentClass<TOwnProps>;
 }
