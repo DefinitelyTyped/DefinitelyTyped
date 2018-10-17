@@ -174,6 +174,7 @@ export function queue<T, R, E = Error>(worker: AsyncResultIterator<T, R, E>, con
 export function priorityQueue<T, E = Error>(worker: AsyncWorker<T, E>, concurrency: number): AsyncPriorityQueue<T>;
 export function cargo<E = Error>(worker : (tasks: any[], callback : ErrorCallback<E>) => void, payload? : number) : AsyncCargo;
 export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, concurrency?: number, callback?: AsyncResultCallback<R, E>): void;
+export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks<R, E>, callback?: AsyncResultCallback<R, E>): void;
 export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
 export function retry<T, E = Error>(opts: number, task: (callback : AsyncResultCallback<T, E>, results: any) => void, callback:  AsyncResultCallback<any, E>): void;
 export function retry<T, E = Error>(opts: { times: number, interval: number|((retryCount: number) => number) }, task: (callback: AsyncResultCallback<T, E>, results : any) => void, callback:  AsyncResultCallback<any, E>): void;
