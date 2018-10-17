@@ -2,7 +2,7 @@
 // Project: https://github.com/meteor/react-packages/tree/devel/packages/react-meteor-data
 // Definitions by: Igor Golovin <https://github.com/Deadly0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 2.8
 
 declare module 'meteor/react-meteor-data' {
     import * as React from 'react';
