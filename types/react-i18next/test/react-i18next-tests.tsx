@@ -48,7 +48,12 @@ const AnotherComponentWithRef = withNamespaces<Key>("view" as Key)(InnerAnotherC
 // $ExpectError
 <AnotherComponentWithRef ref={innerAnotherComponentRef}/>;
 
-<AnotherComponentWithRef i18n={i18n} initialI18nStore={{ context: { text: "a {{message}}" } }} initialLanguage='en'/>;
+<AnotherComponentWithRef
+    i18n={i18n}
+    initialI18nStore={{ context: { text: "a {{message}}" } }}
+    initialLanguage='en'
+    message='test message'
+/>;
 
 class InnerYetAnotherComponent extends React.Component<InjectedTranslateProps> {
     render() {
