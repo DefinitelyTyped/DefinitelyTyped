@@ -46,3 +46,28 @@ describe('My fantastic test', () => {
         });
     });
 });
+
+// TypeScript-specific tests
+
+describe('My awesome test with declared types!', () => {
+    interface TestType {
+        value: number;
+        expected: number;
+    }
+
+    using<TestType>([{ value: 2, expected: 4 }], (data) => {
+        it('should calc with operator ^2', () => {
+            const result = calculator.calc(data.value, '^2');
+
+            expect(result).toEqual(data.expected);
+        });
+    });
+
+    using<TestType>({ desc: { value: 2, expected: 4 } }, (data, description) => {
+        it(description, () => {
+            const result = calculator.calc(data.value, '^2');
+
+            expect(result).toEqual(data.expected);
+        });
+    });
+});
