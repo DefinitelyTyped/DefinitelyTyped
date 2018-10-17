@@ -12,10 +12,10 @@ import { Url } from 'url';
 declare class HttpProxyAgent extends Agent {
     constructor(options: string | Url);
 
-	options: Url;
-	proxy: Url;
-	timeout?: number;
-	secureProxy: boolean;
+    options: Url;
+    proxy: Url;
+    timeout?: number;
+    secureProxy: boolean;
 }
 
 export = HttpProxyAgent;
