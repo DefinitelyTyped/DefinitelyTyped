@@ -47,6 +47,18 @@ describe('My fantastic test', () => {
     });
 });
 
+// undocumented behaviour
+
+describe(`Ugh, I don't know if this one works`, () => {
+    using([[6, 3, 9], [8, 1, 10]], (a, b, expected) => {
+        it('should calc with operator +', () => {
+            const result = calculator.calc(a, b, '+');
+
+            expect(result).toEqual(expected);
+        });
+    });
+});
+
 // TypeScript-specific tests
 
 describe('My awesome test with declared types!', () => {
