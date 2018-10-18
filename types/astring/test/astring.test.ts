@@ -6,12 +6,12 @@ const ast: Program = null;
 const functionE: FunctionExpression = null;
 const memberE: MemberExpression = null;
 
-//should accept different nodes
+// should accept different nodes
 generate(ast);
 generate(functionE);
 generate(memberE);
 
-//options without output option should generate string
+// options without output option should generate string
 const string: string = generate(ast, {
     comments: true,
     generator: baseGenerator,
@@ -21,12 +21,12 @@ const string: string = generate(ast, {
     sourceMap: null
 });
 
-//options with output option should return Stream
+// options with output option should return Stream
 const stream: Stream = generate(ast, {
     output: new Stream()
 });
 
-//Generator should map node types to functions whose first parameter is same node type
-baseGenerator.Program(ast, { write: function (s: string) { return; } });
-baseGenerator.FunctionExpression(functionE, { write: function (s: string) { return; } });
-baseGenerator.MemberExpression(memberE, { write: function (s: string) { return; } });
+// Generator should map node types to functions whose first parameter is same node type
+baseGenerator.Program(ast, { write(s: string) { return; } });
+baseGenerator.FunctionExpression(functionE, { write(s: string) { return; } });
+baseGenerator.MemberExpression(memberE, { write(s: string) { return; } });

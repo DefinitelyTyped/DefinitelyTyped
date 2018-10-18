@@ -31,7 +31,8 @@ export function generate(node: ESTree.Node, options: Options & {
     output: Stream;
 }): Stream;
 
-/** A code generator consists of a mapping of node names and functions that take two arguments: `node` and `state`.
+/**
+ * A code generator consists of a mapping of node names and functions that take two arguments: `node` and `state`.
  * The `node` points to the node from which to generate the code and the `state` exposes the `write` method that takes generated code strings.
  */
 export type Generator = { [key in ESTree.Node["type"]]: (node: Extract<ESTree.Node, { type: key }>, state: { write(s: string): void }) => void };
