@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "pdfmake-tests.ts"
+        "pdfmake-tests.ts",
+        "doc-definitions.ts"
     ]
 }
