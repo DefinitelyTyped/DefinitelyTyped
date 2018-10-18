@@ -1,0 +1,20 @@
+{
+    "name": "@types/drivelist",
+    "version": "6.4.3",
+    "description": "TypeScript definitions for drivelist",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Xiao Deng",
+            "url": "https://github.com/WholeMilk"
+        }
+    ],
+    "main": "",
+    "repository": {
+        "type": "git",
+        "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "peerDependencies": {}
+}
