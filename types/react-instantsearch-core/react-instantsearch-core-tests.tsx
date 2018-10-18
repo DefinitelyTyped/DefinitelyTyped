@@ -10,7 +10,7 @@ import {
 () => {
   const InstantSearch = createInstantSearch(() => ({}), {Root: 'div', props: {className: `widget`}});
 
-  <InstantSearch>
+  <InstantSearch appId={'test'} apiKey={'test'}>
     <div></div>
   </InstantSearch>;
 };
@@ -18,7 +18,7 @@ import {
 () => {
   const Index = createIndex({Root: 'div', props: {className: `widget`}});
 
-  <Index>
+  <Index indexName={'test'} root={{Root: 'div', props: {className: `widget`}}}>
     <div></div>
   </Index>;
 };

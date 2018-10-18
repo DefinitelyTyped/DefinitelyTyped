@@ -18,7 +18,7 @@ import * as React from 'react';
 export function createInstantSearch(
   defaultAlgoliaClient: (appId: string, apiKey: string, options: { _useRequestCache: boolean }) => object,
   root: object
-): React.ComponentClass;
+): React.ComponentClass<any>;
 
 /**
  * Creates a specialized root Index component. It accepts
@@ -26,7 +26,7 @@ export function createInstantSearch(
  * @param defaultRoot - the defininition of the root of an Index sub tree.
  * @return a Index root
  */
-export function createIndex(defaultRoot: object): any;
+export function createIndex(defaultRoot: object): React.ComponentClass<any>;
 
 export interface ConnectorDescription {
   displayName: string;
