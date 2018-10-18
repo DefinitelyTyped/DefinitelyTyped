@@ -18,7 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "graphlib-dot-tests.ts",
-        "graphlib-dot-global-tests.ts"
+        "test/graphlib-dot-tests.ts",
+        "test/graphlib-dot-global-tests.ts"
     ]
 }
