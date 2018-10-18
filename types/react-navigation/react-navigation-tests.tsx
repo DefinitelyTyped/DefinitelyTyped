@@ -624,7 +624,6 @@ createStackNavigator(
 );
 
 // Test NavigationEvents component
-
 // This is not used and is causing an error with the assignment to ViewWithNavigationEvents below
 // const ViewWithNavigationEvents = (
 //   <NavigationEvents
