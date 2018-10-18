@@ -22,6 +22,7 @@
 //                 Louis Larry <https://github.com/louislarry>
 //                 Daniel Papukchiev <https://github.com/dpapukchiev>
 //                 Oliver Hookins <https://github.com/ohookins>
+//                 James Gregory <https://github.com/jagregory>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -234,7 +235,9 @@ export interface CognitoUserPoolTriggerEvent {
     | "TokenGeneration_Authentication"
     | "TokenGeneration_NewPasswordChallenge"
     | "TokenGeneration_AuthenticateDevice"
-    | "TokenGeneration_RefreshTokens";
+    | "TokenGeneration_RefreshTokens"
+    | "UserMigration_Authentication"
+    | "UserMigration_ForgotPassword";
     region: string;
     userPoolId: string;
     userName?: string;
@@ -256,6 +259,7 @@ export interface CognitoUserPoolTriggerEvent {
         challengeName?: string;
         privateChallengeParameters?: { [key: string]: string };
         challengeAnswer?: string;
+        password?: string;
     };
     response: {
         autoConfirmUser?: boolean;
@@ -269,6 +273,11 @@ export interface CognitoUserPoolTriggerEvent {
         privateChallengeParameters?: { [key: string]: string };
         challengeMetadata?: string;
         answerCorrect?: boolean;
+        userAttributes?: { [key: string]: string };
+        finalUserStatus?: "CONFIRMED" | "RESET_REQUIRED";
+        messageAction?: "SUPPRESS";
+        desiredDeliveryMediums?: Array<"EMAIL" | "SMS">;
+        forceAliasCreation?: boolean;
     };
 }
 export type CognitoUserPoolEvent = CognitoUserPoolTriggerEvent;
