@@ -1,5 +1,4 @@
 import Boom = require('boom');
-import * as Hapi from 'hapi';
 
 // 4xx and data type
 
