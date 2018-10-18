@@ -347,7 +347,7 @@ export interface AlgoliaError {
   statusCode: number;
 }
 
-export type Omit<T1, T2> = Pick<T1, Exclude<keyof T1, keyof T2>>;
+type Omit<T1, T2> = Pick<T1, Exclude<keyof T1, keyof T2>>;
 
 export type ConnectedComponentClass<TProps, TProvidedProps, TExposedProps = {}>
   = React.ComponentClass<Omit<TProps, TProvidedProps> & TExposedProps>;
@@ -442,19 +442,19 @@ export type HighlightResult<TDoc> =
     { [K in keyof TDoc]: HighlightResultField<TDoc[K]> } :
     never;
 
-export type HighlightResultField<TField> =
+type HighlightResultField<TField> =
   TField extends Array<infer TItem> ?
     HighlightResultArray<TItem> :
     TField extends string ?
       HighlightResultPrimitive :
       HighlightResult<TField>;
 
-export type HighlightResultArray<TItem> =
+type HighlightResultArray<TItem> =
   TItem extends string ?
     HighlightResultPrimitive[] :
     Array<HighlightResult<TItem>>;
 
-export interface HighlightResultPrimitive {
+interface HighlightResultPrimitive {
   /** the value of the facet highlighted (html) */
   value: string;
   /** full, partial or none depending on how the query terms match */
