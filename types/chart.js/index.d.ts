@@ -481,7 +481,12 @@ declare namespace Chart {
         fontStyle?: string;
     }
 
-    interface TickOptions {
+    interface TickOptions extends NestedTickOptions {
+        minor?: NestedTickOptions | false;
+        major?: NestedTickOptions | false;
+    }
+
+    interface NestedTickOptions {
         autoSkip?: boolean;
         autoSkipPadding?: number;
         backdropColor?: ChartColor;
