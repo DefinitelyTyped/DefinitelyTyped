@@ -2,6 +2,7 @@ import * as React from "react";
 import { InstantSearch, Hits, Highlight, SearchBox, RefinementList, CurrentRefinements, ClearRefinements, Pagination, Menu, Configure, createConnector, Index } from 'react-instantsearch/dom';
 import { connectHighlight, connectSearchBox, connectMenu, connectRefinementList, connectStateResults, SearchBoxProvided, Hit, SearchState } from "react-instantsearch/connectors";
 import { orderBy, omit, values } from 'lodash';
+import { createInstantSearch } from "react-instantsearch-core";
 
 // DOM
 // https://community.algolia.com/react-instantsearch/Getting_started.html
@@ -593,4 +594,19 @@ import { orderBy, omit, values } from 'lodash';
       children as React.ReactElement<any>
     );
   });
+};
+
+// https://github.com/algolia/react-instantsearch/blob/master/packages/react-instantsearch-dom/src/widgets/InstantSearch.js
+() => {
+  const InstantSearch = createInstantSearch(
+    () => ({}),
+    {
+      Root: 'div',
+      props: {
+        className: 'ais-InstantSearch__root',
+      },
+    }
+  );
+
+  <InstantSearch />;
 };

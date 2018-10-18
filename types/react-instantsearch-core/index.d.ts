@@ -15,7 +15,10 @@ import * as React from 'react';
  * @param root - the defininition of the root of an InstantSearch sub tree.
  * @returns an InstantSearch root
  */
-export function createInstantSearch(defaultAlgoliaClient: (...args: any[]) => any, root: any): any;
+export function createInstantSearch(
+  defaultAlgoliaClient: (appId: string, apiKey: string, options: { _useRequestCache: boolean }) => object,
+  root: object
+): React.ComponentType
 
 /**
  * Creates a specialized root Index component. It accepts
@@ -23,7 +26,7 @@ export function createInstantSearch(defaultAlgoliaClient: (...args: any[]) => an
  * @param defaultRoot - the defininition of the root of an Index sub tree.
  * @return a Index root
  */
-export function createIndex(defaultRoot: any): any;
+export function createIndex(defaultRoot: object): any;
 
 interface ConnectorDescription {
   displayName: string;
