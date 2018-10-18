@@ -122,7 +122,7 @@ declare module 'pdfmake/build/pdfmake' {
 
     type TableRowFunction = (row: number) => number;
 
-    type TableLayoutFunctions = {
+    interface TableLayoutFunctions {
         hLineWidth?: (i: number, node: any) => number;
         vLineWidth?: (i: number, node: any) => number;
         hLineColor?: (i: number, node: any) => string;
@@ -132,19 +132,19 @@ declare module 'pdfmake/build/pdfmake' {
         paddingRight?: (i: number, node: any) => number;
         paddingTop?: (i: number, node: any) => number;
         paddingBottom?: (i: number, node: any) => number;
-    };
+    }
 
     interface TableCell {
         text: string;
         rowSpan?: number;
         colSpan?: number;
         fillColor?: string;
-        border?: [boolean, boolean, boolean, boolean]
+        border?: [boolean, boolean, boolean, boolean];
     }
 
     interface Table {
-        widths?: (string | number)[];
-        heights?: (string | number)[] | TableRowFunction;
+        widths?: Array<(string | number)>;
+        heights?: Array<(string | number)> | TableRowFunction;
         headerRows?: number;
         body: Content[][] | TableCell[][];
         layout?: string | TableLayoutFunctions;
@@ -159,7 +159,7 @@ declare module 'pdfmake/build/pdfmake' {
         image?: string;
         width?: string | number;
         height?: string | number;
-        fit?: [number, number]
+        fit?: [number, number];
         pageBreak?: 'before' | 'after';
         alignment?: Alignment;
         table?: Table;

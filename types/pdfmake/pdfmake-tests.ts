@@ -6,8 +6,8 @@ const createPdf = () => {
   const pdf = pdfMake;
   pdf.vfs = pdfFonts.pdfMake.vfs;
 
-  for (const key in definitions) {
-    const definition: pdfMake.TDocumentDefinitions = definitions[key];
-    pdfMake.createPdf(definition).download();
+  for (const definition of definitions) {
+    const typedDefinition: pdfMake.TDocumentDefinitions = definition;
+    pdfMake.createPdf(typedDefinition).download();
   }
 };
