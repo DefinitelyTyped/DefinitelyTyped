@@ -47,6 +47,7 @@ import {
     withNavigationFocus,
     NavigationFocusInjectedProps
 } from 'react-navigation';
+import { string } from 'prop-types';
 
 // Constants
 const viewStyle: ViewStyle = {
@@ -556,13 +557,16 @@ class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedP
 
 // withNavigation returns a component that wraps MyBackButton and passes in the navigation prop.
 // If you have class methods, you should have a way to use them.
+
+// Test error occurs due to this BackButton being the return of a method and NOT
 const BackButtonWithNavigation = withNavigation(MyBackButton);
 const BackButtonInstance = <BackButtonWithNavigation
-    title="Back" onRef={ref => {
+    title="Back" onRef={(ref => {
         // ref is inferred as MyBackButton | null
         if (!ref) return;
+        console.log('found ref rype: ', typeof ref);
         ref.triggerBack();
-    }}
+    })}
 />;
 
 function StatelessBackButton(props: BackButtonProps & NavigationInjectedProps) {
