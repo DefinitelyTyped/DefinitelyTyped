@@ -18,7 +18,7 @@ import * as React from 'react';
 export function createInstantSearch(
   defaultAlgoliaClient: (appId: string, apiKey: string, options: { _useRequestCache: boolean }) => object,
   root: object
-): React.ComponentType
+): React.ComponentClass
 
 /**
  * Creates a specialized root Index component. It accepts
@@ -99,7 +99,7 @@ interface ConnectorDescription {
  * @return a function that wraps a component into
  * an instantsearch connected one.
  */
-export function createConnector(connectorDesc: ConnectorDescription): (Composed: React.ComponentType<any>) => React.ComponentType<any>;
+export function createConnector(connectorDesc: ConnectorDescription): (Composed: React.ComponentType<any>) => React.ComponentClass<any>;
 
 // Utils
 export const HIGHLIGHT_TAGS: {
@@ -107,7 +107,7 @@ export const HIGHLIGHT_TAGS: {
   highlightPostTag: string,
 };
 export const version: string;
-export function translatable(defaultTranslations: any): (Composed: React.ComponentType<any>) => React.ComponentType<any>;
+export function translatable(defaultTranslations: any): (Composed: React.ComponentType<any>) => React.ComponentClass<any>;
 
 // Widgets
 /**
@@ -124,10 +124,10 @@ export function translatable(defaultTranslations: any): (Composed: React.Compone
 export class Configure extends React.Component<any, any> {}
 
 // Connectors
-export function connectAutoComplete(Composed: React.ComponentType<any>): React.ComponentType<any>;
-export function connectBreadcrumb(Composed: React.ComponentType<any>): React.ComponentType<any>;
-export function connectConfigure(Composed: React.ComponentType<any>): React.ComponentType<any>;
-export function connectCurrentRefinements(Composed: React.ComponentType<any>): React.ComponentType<any>;
+export function connectAutoComplete(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectBreadcrumb(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectConfigure(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectCurrentRefinements(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 export interface NESW {
   northEast: { lat: number, lng: number };
@@ -158,11 +158,11 @@ export interface GeoSearchProvided<THit = any> {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectGeoSearch.html
  */
-export function connectGeoSearch(stateless: React.StatelessComponent<GeoSearchProvided>): React.ComponentType<GeoSearchExposed>;
-export function connectGeoSearch<TProps extends Partial<GeoSearchProvided<THit>>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, GeoSearchProvided<THit>, GeoSearchExposed>;
+export function connectGeoSearch(stateless: React.StatelessComponent<GeoSearchProvided>): React.ComponentClass<GeoSearchExposed>;
+export function connectGeoSearch<TProps extends Partial<GeoSearchProvided<THit>>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, GeoSearchProvided<THit>, GeoSearchExposed>;
 
-export function connectHierarchicalMenu(Composed: React.ComponentType<any>): React.ComponentType<any>;
-export function connectHighlight(Composed: React.ComponentType<any>): React.ComponentType<any>;
+export function connectHierarchicalMenu(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectHighlight(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 /**
  * connectHits connector provides the logic to create connected components that will render the results retrieved from Algolia.
@@ -171,10 +171,10 @@ export function connectHighlight(Composed: React.ComponentType<any>): React.Comp
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
-export function connectHits<TProps extends { hits: THit[]}, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, {hits?: THit[]}>;
+export function connectHits<TProps extends { hits: THit[]}, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, {hits?: THit[]}>;
 
-export function connectHitsPerPage(Composed: React.ComponentType<any>): React.ComponentType<any>;
-export function connectInfiniteHits(Composed: React.ComponentType<any>): React.ComponentType<any>;
+export function connectHitsPerPage(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectInfiniteHits(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 export interface MenuProvided {
   items: Array<{count: number, isRefined: boolean, label: string, value: string}>;
@@ -198,8 +198,8 @@ export interface MenuExposed {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectMenu.html
  */
-export function connectMenu(stateless: React.StatelessComponent<MenuProvided>): React.ComponentType<MenuExposed>;
-export function connectMenu<TProps extends Partial<MenuProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, MenuProvided, MenuExposed>;
+export function connectMenu(stateless: React.StatelessComponent<MenuProvided>): React.ComponentClass<MenuExposed>;
+export function connectMenu<TProps extends Partial<MenuProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, MenuProvided, MenuExposed>;
 
 export interface NumericMenuProvided {
   /** the list of ranges the NumericMenu can display. */
@@ -236,12 +236,12 @@ export interface NumericMenuExposed {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectNumericMenu.html
  */
-export function connectNumericMenu(stateless: React.StatelessComponent<NumericMenuProvided>): React.ComponentType<NumericMenuExposed>;
-export function connectNumericMenu<TProps extends Partial<NumericMenuProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, NumericMenuProvided, NumericMenuExposed>;
+export function connectNumericMenu(stateless: React.StatelessComponent<NumericMenuProvided>): React.ComponentClass<NumericMenuExposed>;
+export function connectNumericMenu<TProps extends Partial<NumericMenuProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, NumericMenuProvided, NumericMenuExposed>;
 
-export function connectPagination(Composed: React.ComponentType<any>): React.ComponentType<any>;
-export function connectPoweredBy(Composed: React.ComponentType<any>): React.ComponentType<any>;
-export function connectRange(Composed: React.ComponentType<any>): React.ComponentType<any>;
+export function connectPagination(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectPoweredBy(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectRange(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 export interface RefinementListProvided {
   /** a function to toggle a refinement */
@@ -285,10 +285,10 @@ export interface RefinementListExposed {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectRefinementList.html
  */
-export function connectRefinementList(stateless: React.StatelessComponent<RefinementListProvided>): React.ComponentType<RefinementListExposed>;
-export function connectRefinementList<TProps extends Partial<RefinementListProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, RefinementListProvided, RefinementListExposed>;
+export function connectRefinementList(stateless: React.StatelessComponent<RefinementListProvided>): React.ComponentClass<RefinementListExposed>;
+export function connectRefinementList<TProps extends Partial<RefinementListProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, RefinementListProvided, RefinementListExposed>;
 
-export function connectScrollTo(Composed: React.ComponentType<any>): React.ComponentType<any>;
+export function connectScrollTo(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 export interface SearchBoxProvided {
   /** a function to change the current query */
@@ -302,10 +302,10 @@ export interface SearchBoxExposed {
   /** Provide a default value for the query */
   defaultRefinement?: string;
 }
-export function connectSearchBox(stateless: React.StatelessComponent<SearchBoxProvided>): React.ComponentType<SearchBoxExposed>;
-export function connectSearchBox<TProps extends Partial<SearchBoxProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, SearchBoxProvided, SearchBoxExposed>;
+export function connectSearchBox(stateless: React.StatelessComponent<SearchBoxProvided>): React.ComponentClass<SearchBoxExposed>;
+export function connectSearchBox<TProps extends Partial<SearchBoxProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, SearchBoxProvided, SearchBoxExposed>;
 
-export function connectSortBy(Composed: React.ComponentType<any>): React.ComponentType<any>;
+export function connectSortBy(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 export interface StateResultsProvided<TDoc = BasicDoc> {
   /** The search state of the instant search component.  */
@@ -333,11 +333,11 @@ export interface StateResultsProvided<TDoc = BasicDoc> {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectStateResults.html
  */
-export function connectStateResults(stateless: React.StatelessComponent<StateResultsProvided>): React.ComponentType;
-export function connectStateResults<TProps extends Partial<StateResultsProvided<TDoc>>, TDoc>(ctor: React.ComponentType<TProps>): ConnectedComponentType<TProps, StateResultsProvided<TDoc>>;
+export function connectStateResults(stateless: React.StatelessComponent<StateResultsProvided>): React.ComponentClass;
+export function connectStateResults<TProps extends Partial<StateResultsProvided<TDoc>>, TDoc>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, StateResultsProvided<TDoc>>;
 
-export function connectStats(Composed: React.ComponentType<any>): React.ComponentType<any>;
-export function connectToggleRefinement(Composed: React.ComponentType<any>): React.ComponentType<any>;
+export function connectStats(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectToggleRefinement(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 export interface AlgoliaError {
   stack: string;
@@ -349,8 +349,8 @@ export interface AlgoliaError {
 
 export type Omit<T1, T2> = Pick<T1, Exclude<keyof T1, keyof T2>>;
 
-export type ConnectedComponentType<TProps, TProvidedProps, TExposedProps = {}>
-  = React.ComponentType<Omit<TProps, TProvidedProps> & TExposedProps>;
+export type ConnectedComponentClass<TProps, TProvidedProps, TExposedProps = {}>
+  = React.ComponentClass<Omit<TProps, TProvidedProps> & TExposedProps>;
 
 /**
  * The searchState contains all widgets states. If a widget uses an attribute,
