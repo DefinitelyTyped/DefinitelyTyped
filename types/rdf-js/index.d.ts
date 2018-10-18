@@ -12,32 +12,19 @@ import { EventEmitter } from "events";
 /* https://github.com/rdfjs/representation-task-force/blob/master/interface-spec.md#data-interfaces */
 
 /**
- * Abstract interface for RDF terms (subject, predicate, object or graph).
+ * Contains an Iri, RDF blank Node, RDF literal, variable name, or a default graph
+ * @see NamedNode
+ * @see BlankNode
+ * @see Literal
+ * @see Variable
+ * @see DefaultGraph
  */
-export interface Term {
-    /**
-     * Contains a value that identifies the concrete interface of the term,
-     * since Term itself is not directly instantiated.
-     *
-     * Possible values include "NamedNode", "BlankNode", "Literal", "Variable" and "DefaultGraph".
-     */
-    termType: "NamedNode" | "BlankNode" | "Literal" | "Variable" | "DefaultGraph";
-    /**
-     * Refined by each interface which extends Term
-     */
-    value: string;
-
-    /**
-     * @param other The term to compare with.
-     * @return If the termType is equal and the contents are equal (as defined by concrete subclasses).
-     */
-    equals(other: Term): boolean;
-}
+export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
 
 /**
  * Contains an IRI.
  */
-export interface NamedNode extends Term {
+export interface NamedNode {
     /**
      * Contains the constant "NamedNode".
      */
@@ -57,7 +44,7 @@ export interface NamedNode extends Term {
 /**
  * Contains an RDF blank node.
  */
-export interface BlankNode extends Term {
+export interface BlankNode {
     /**
      * Contains the constant "BlankNode".
      */
@@ -80,7 +67,7 @@ export interface BlankNode extends Term {
 /**
  * An RDF literal, containing a string with an optional language tag and/or datatype.
  */
-export interface Literal extends Term {
+export interface Literal {
     /**
      * Contains the constant "Literal".
      */
@@ -111,7 +98,7 @@ export interface Literal extends Term {
 /**
  * A variable name.
  */
-export interface Variable extends Term {
+export interface Variable {
     /**
      * Contains the constant "Variable".
      */
@@ -132,7 +119,7 @@ export interface Variable extends Term {
  * An instance of DefaultGraph represents the default graph.
  * It's only allowed to assign a DefaultGraph to the .graph property of a Quad.
  */
-export interface DefaultGraph extends Term {
+export interface DefaultGraph {
     /**
      * Contains the constant "DefaultGraph".
      */
@@ -150,38 +137,62 @@ export interface DefaultGraph extends Term {
 }
 
 /**
+ * The subject, which is a NamedNode, BlankNode or Variable.
+ * @see NamedNode
+ * @see BlankNode
+ * @see Variable
+ */
+export type Quad_Subject = NamedNode | BlankNode | Variable;
+
+/**
+ * The predicate, which is a NamedNode or Variable.
+ * @see NamedNode
+ * @see Variable
+ */
+export type Quad_Predicate = NamedNode | Variable;
+
+/**
+ * The object, which is a NamedNode, Literal, BlankNode or Variable.
+ * @see NamedNode
+ * @see Literal
+ * @see BlankNode
+ * @see Variable
+ */
+export type Quad_Object = NamedNode | Literal | BlankNode | Variable;
+
+/**
+ * The named graph, which is a DefaultGraph, NamedNode, BlankNode or Variable.
+ * @see DefaultGraph
+ * @see NamedNode
+ * @see BlankNode
+ * @see Variable
+ */
+export type Quad_Graph = DefaultGraph | NamedNode | BlankNode | Variable;
+
+/**
  * An RDF quad, containing the subject, predicate, object and graph terms.
  */
 export interface Quad {
     /**
-     * The subject, which is a NamedNode, BlankNode or Variable.
-     * @see NamedNode
-     * @see BlankNode
-     * @see Variable
+     * The subject.
+     * @see Quad_Subject
      */
-    subject: Term;
+    subject: Quad_Subject;
     /**
-     * The predicate, which is a NamedNode or Variable.
-     * @see NamedNode
-     * @see Variable
+     * The predicate.
+     * @see Quad_Predicate
      */
-    predicate: Term;
+    predicate: Quad_Predicate;
     /**
-     * The object, which is a NamedNode, Literal, BlankNode or Variable.
-     * @see NamedNode
-     * @see Literal
-     * @see BlankNode
-     * @see Variable
+     * The object.
+     * @see Quad_Object
      */
-    object: Term;
+    object: Quad_Object;
     /**
-     * The named graph, which is a DefaultGraph, NamedNode, BlankNode or Variable.
-     * @see DefaultGraph
-     * @see NamedNode
-     * @see BlankNode
-     * @see Variable
+     * The named graph.
+     * @see Quad_Graph
      */
-    graph: Term;
+    graph: Quad_Graph;
 
     /**
      * @param other The term to compare with.
@@ -252,7 +263,7 @@ export interface DataFactory {
      * @see Triple
      * @see DefaultGraph
      */
-    triple(subject: Term, predicate: Term, object: Term): Quad;
+    triple(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object): Quad;
 
     /**
      * @param subject   The quad subject term.
@@ -262,7 +273,7 @@ export interface DataFactory {
      * @return A new instance of Quad.
      * @see Quad
      */
-    quad(subject: Term, predicate: Term, object: Term, graph?: Term): Quad;
+    quad(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object, graph?: Quad_Graph): Quad;
 }
 
 /* Stream Interfaces */
