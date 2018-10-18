@@ -7,15 +7,15 @@ interface DemoComponentContainerProps {
 
 interface DemoComponentData {
     data: string;
-	result: string;
+    result: string;
 }
 
 const DemoComponent: React.SFC<DemoComponentContainerProps & DemoComponentData> = (props) => (
-  <div>{props.data}</div>
+    <div>{props.data}</div>
 );
 
 const DemoComponentContainer: React.ComponentClass<DemoComponentContainerProps> = withTracker<
-	DemoComponentData,
+    DemoComponentData,
     DemoComponentContainerProps
 >(() => ({
     data: 'some data',
