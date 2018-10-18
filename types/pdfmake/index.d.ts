@@ -96,11 +96,7 @@ declare module 'pdfmake/build/pdfmake' {
 
     type Margins = number | [number, number] | [number, number, number, number];
 
-    interface Styles {
-        [key: string]: Style;
-    }
-
-    type Alignment = 'left' | 'right' | 'justify' | 'center';
+    type Alignment = 'left' | 'right' | 'justify' | 'center' | string;
 
     interface Style {
         font?: any;
@@ -120,7 +116,8 @@ declare module 'pdfmake/build/pdfmake' {
 		characterSpacing?: number;
 		noWrap?: boolean;
 		markerColor?: string;
-		leadingIndent?: any;
+        leadingIndent?: any;
+        [additionalProperty: string]: any;
     }
 
     type TableRowFunction = (row: number) => number;
@@ -176,11 +173,11 @@ declare module 'pdfmake/build/pdfmake' {
         header?: TDocumentHeaderFooterFunction;
         footer?: TDocumentHeaderFooterFunction;
         content: string | Content;
-        styles?: Styles;
+        styles?: Style;
         pageSize?: PageSize;
         pageOrientation?: PageOrientation;
         pageMargins?: Margins;
-        defaultStyle?: Styles;
+        defaultStyle?: Style;
     }
 
     type CreatedPdfParams = (
