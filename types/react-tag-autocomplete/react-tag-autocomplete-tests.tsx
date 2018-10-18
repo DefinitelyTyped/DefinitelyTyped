@@ -1,5 +1,5 @@
 import * as React from "react";
-import ReactTags, { ITagProps } from "react-tag-autocomplete";
+import ReactTags, { TagComponentProps } from "react-tag-autocomplete";
 
 class TestRequired extends React.Component {
     render() {
@@ -37,7 +37,7 @@ class TestAll extends React.Component {
             { id: 5, name: "Lemons" },
             { id: 6, name: "Apricots", disabled: true }
         ];
-        const tagComponent = (props: ITagProps) => (
+        const tagComponent = (props: TagComponentProps) => (
             <button onClick={props.onDelete}>{props.tag.name}</button>
         );
         const tags = [{ id: 1, name: "Apples" }, { id: 2, name: "Pears" }];

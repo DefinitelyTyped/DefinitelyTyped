@@ -2,24 +2,25 @@
 // Project: https://github.com/i-like-robots/react-tags#readme
 // Definitions by: James Lismore <https://github.com/jlismore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 import { Component } from "react";
 
-export default class ReactTags extends Component<IReactTagsProps> {}
+export default class ReactTags extends Component<ReactTagsProps> {}
 
-export interface ITag {
+export interface Tag {
     id: string | number;
     name: string;
     disabled?: boolean;
 }
 
-export interface ITagProps {
-    tag: ITag;
-    classNames: IClassNames;
+export interface TagComponentProps {
+    tag: Tag;
+    classNames: ClassNames;
     onDelete: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export interface IClassNames {
+export interface ClassNames {
     root: string;
     rootFocused: string;
     selected: string;
@@ -32,7 +33,7 @@ export interface IClassNames {
     suggestionDisabled: string;
 }
 
-export interface IReactTagsProps {
+export interface ReactTagsProps {
     /**
      * Disables ability to delete the selected tags when backspace is pressed while focussed on the text input. Default: true.
      */
@@ -49,9 +50,11 @@ export interface IReactTagsProps {
      * Boolean parameter to control whether the text-input should be automatically resized to fit its value. Default: true.
      */
     autoresize?: boolean;
-    classNames?: IClassNames;
+    classNames?: ClassNames;
     /**
-     * Array of characters matching keyboard event key values. This is useful when needing to support a specific character irrespective of the keyboard layout. Note, that this list is separate from the one specified by the delimiters option, so you'll need to set the value there to [], if you wish to disable those keys. Example usage: delimiterChars={[',', ' ']}. Default: []
+     * Array of characters matching keyboard event key values. This is useful when needing to support a specific character irrespective of the keyboard layout.
+     * Note, that this list is separate from the one specified by the delimiters option, so you'll need to set the value there to [],
+     * if you wish to disable those keys. Example usage: delimiterChars={[',', ' ']}. Default: []
      */
     delimiterChars?: string[];
     /**
@@ -61,7 +64,7 @@ export interface IReactTagsProps {
     /**
      * Function called when the user wants to add a tag. Receives the tag
      */
-    handleAddition: (tag: ITag) => void;
+    handleAddition: (tag: Tag) => void;
     /**
      * Optional event handler when focus on the input is lost. Receives no arguments.
      */
@@ -97,13 +100,13 @@ export interface IReactTagsProps {
     /**
      * An array of suggestions that are used as basis for showing suggestions. Each suggestion must have an id and a name property and an optional disabled property. Default: []
      */
-    suggestions?: ITag[];
+    suggestions?: Tag[];
     /**
      * Provide a custom tag component to render. Default: null.
      */
-    tagComponent?: React.SFC<ITagProps>;
+    tagComponent?: React.SFC<TagComponentProps>;
     /**
      * An array of tags that are displayed as pre-selected. Each tag must have an id and a name property. Default: []
      */
-    tags?: ITag[];
+    tags?: Tag[];
 }
