@@ -1,6 +1,8 @@
+import { Graph } from "graphlib";
+
 // Global tests
-const graph = graphlibDot.read('digraph {node 1}');
+const graph: Graph = graphlibDot.read('digraph {node 1}');
 
-const graphs = graphlibDot.readMany('digraph { node1 }');
+const graphs: Graph[] = graphlibDot.readMany('digraph { node1 }');
 
-const dotStr = graphlibDot.write(graph);
+const dotStr: string = graphlibDot.write(graph);
