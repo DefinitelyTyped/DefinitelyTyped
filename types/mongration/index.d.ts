@@ -18,7 +18,7 @@ export interface DbConfig {
 
 export interface MigrationResponse {
     id: string;
-    status: string;
+    status: 'not-run' | 'skipped' | 'pending' | 'ok' | 'error' | 'rollback' | 'rollback-error';
 }
 
 export class Migration {
