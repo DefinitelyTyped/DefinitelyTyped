@@ -15,7 +15,7 @@ i18n.abide(); // $ExpectType RequestHandler
 i18n.abide(emptyAbideOptions); // $ExpectType RequestHandler
 i18n.abide(fullAbideOptions); // $ExpectType RequestHandler
 
-i18n.parseAcceptLanguage(""); // $ExpectType string[]
+i18n.parseAcceptLanguage(""); // $ExpectType { lang: string; quality: number; }[]
 
 i18n.bestLanguage([{lang: 'en-US', quality: 1.0}], ['en-US'], 'en-US'); // $ExpectType string
 
