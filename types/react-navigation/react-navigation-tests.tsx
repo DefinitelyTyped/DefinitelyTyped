@@ -125,6 +125,9 @@ const initialRouteParams: StartScreenNavigationParams = {
     id: 1,
     s: "Start",
 };
+
+const headerLayoutPreset = 'center';
+
 const routeConfigMap: NavigationRouteConfigMap = {
     [ROUTE_NAME_START_SCREEN]: {
         path: "start",
@@ -140,6 +143,7 @@ export const AppNavigator = createStackNavigator(
     {
         initialRouteName: ROUTE_NAME_START_SCREEN,
         initialRouteKey: ROUTE_KEY_START_SCREEN,
+        headerLayoutPreset,
         initialRouteParams,
         navigationOptions,
     },
