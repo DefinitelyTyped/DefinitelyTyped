@@ -1,7 +1,8 @@
-// Type definitions for pdfmake 0.1
+// Type definitions for pdfmake 0.1.38
 // Project: http://pdfmake.org
 // Definitions by: Milen Stefanov <https://github.com/m1llen1um>
 //                 Rajab Shakirov <https://github.com/radziksh>
+//                 Enzo Volkmann <https://github.com/evolkmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'pdfmake/build/vfs_fonts' {
