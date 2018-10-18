@@ -478,7 +478,7 @@ interface BufferConstructor {
      */
     poolSize: number;
 }
-declare var Buffer: BufferConstructor;
+declare const Buffer: BufferConstructor;
 
 /*----------------------------------------------*
 *                                               *
