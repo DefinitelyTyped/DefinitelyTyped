@@ -24,12 +24,12 @@ declare class reactNotifyToast {
 }
 
 interface Options {
-    wrapperId?: string
-    animationDuration?: number
-    timeout?: number
-    zIndex?: number
-    top?: number | string
-    colors?: any
+    wrapperId?: string;
+    animationDuration?: number;
+    timeout?: number;
+    zIndex?: number;
+    top?: number | string;
+    colors?: any;
 }
 
 interface NotificationProps {
