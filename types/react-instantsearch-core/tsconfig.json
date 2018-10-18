@@ -17,7 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "types.d.ts",
         "react-instantsearch-core-tests.tsx"
     ]
 }
