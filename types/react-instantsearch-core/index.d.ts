@@ -7,10 +7,6 @@
 
 import * as React from 'react';
 
-import { ConnectedComponentType, Hit, SearchResults, SearchState, BasicDoc, AlgoliaError } from './types';
-
-export { Hit, HighlightResult, SearchResults, SearchState, BasicDoc, AlgoliaError } from './types';
-
 // Core
 /**
  * Creates a specialized root InstantSearch component. It accepts
@@ -339,3 +335,127 @@ export function connectStateResults<TProps extends Partial<StateResultsProvided<
 
 export function connectStats(Composed: React.ComponentType<any>): React.ComponentType<any>;
 export function connectToggleRefinement(Composed: React.ComponentType<any>): React.ComponentType<any>;
+
+export interface AlgoliaError {
+  stack: string;
+  name: string;
+  message: string;
+  debugData: any[];
+  statusCode: number;
+}
+
+export type Omit<T1, T2> = Pick<T1, Exclude<keyof T1, keyof T2>>;
+
+export type ConnectedComponentType<TProps, TProvidedProps, TExposedProps = {}>
+  = React.ComponentType<Omit<TProps, TProvidedProps> & TExposedProps>;
+
+/**
+ * The searchState contains all widgets states. If a widget uses an attribute,
+ * we store it under its widget category to prevent collision.
+ *
+ * https://community.algolia.com/react-instantsearch/guide/Search_state.html
+ */
+export interface SearchState {
+  range?: {
+    [key: string]: {
+      min: number;
+      max: number;
+    }
+  };
+  configure?: {
+    aroundLatLng: boolean;
+    [key: string]: any;
+  };
+  refinementList?: {
+    [key: string]: string[]
+  };
+  hierarchicalMenu?: {
+    [key: string]: string
+  };
+  menu?: {
+    [key: string]: string
+  };
+  multiRange?: {
+    [key: string]: string
+  };
+  toggle?: {
+    [key: string]: boolean
+  };
+  hitsPerPage?: number;
+  sortBy?: string;
+  query?: string;
+  page?: number;
+
+  indices?: {
+    [index: string]: {
+      configure: {
+        hitsPerPage: number,
+      },
+    }
+  };
+}
+
+/**
+ * The most basic possible document in an Algolia index:
+ * a set of string-value pairs.
+ */
+export interface BasicDoc { [k: string]: string; }
+
+/**
+ * The shape of the searchResults object provided
+ * via connectors
+ * https://community.algolia.com/algoliasearch-helper-js/reference.html#searchresults
+ */
+export interface SearchResults<TDoc = BasicDoc> {
+  query: string;
+  hits: Array<Hit<TDoc>>;
+  index: string;
+  hitsPerPage: number;
+  nbHits: number;
+  nbPages: number;
+  page: number;
+  processingTimeMS: number;
+  exhaustiveNbHits: true;
+  disjunctiveFacets: any[];
+  hierarchicalFacets: any[];
+  facets: any[];
+  aroundLatLng?: string;
+  automaticRadius?: string;
+}
+
+/**
+ * All the records that match the search parameters.
+ * Each record is augmented with a new attribute `_highlightResult` which is an
+ * object keyed by attribute and contains additional properties
+ * https://community.algolia.com/algoliasearch-helper-js/reference.html#SearchResults#hits
+ */
+export type Hit<TDoc = BasicDoc> = TDoc & {
+  objectID: string;
+  '_highlightResult': HighlightResult<TDoc>;
+};
+
+export type HighlightResult<TDoc> =
+  TDoc extends { [k: string]: any } ?
+    { [K in keyof TDoc]: HighlightResultField<TDoc[K]> } :
+    never;
+
+export type HighlightResultField<TField> =
+  TField extends Array<infer TItem> ?
+    HighlightResultArray<TItem> :
+    TField extends string ?
+      HighlightResultPrimitive :
+      HighlightResult<TField>;
+
+export type HighlightResultArray<TItem> =
+  TItem extends string ?
+    HighlightResultPrimitive[] :
+    Array<HighlightResult<TItem>>;
+
+export interface HighlightResultPrimitive {
+  /** the value of the facet highlighted (html) */
+  value: string;
+  /** full, partial or none depending on how the query terms match */
+  matchLevel: 'none' | 'partial' | 'full';
+  matchedWords: string[];
+  fullyHighlighted?: boolean;
+}
