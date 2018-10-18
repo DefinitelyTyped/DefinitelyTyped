@@ -391,7 +391,7 @@ export interface NavigationStackViewConfig {
     transitionProps: NavigationTransitionProps,
     prevTransitionProps?: NavigationTransitionProps
   ) => void;
-}`
+}
 
 /**
  * Switch Navigator
