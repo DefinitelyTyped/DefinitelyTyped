@@ -1,10 +1,14 @@
 // Type definitions for snowball-stemmers 0.6
 // Project: https://github.com/mazko/jssnowball#readme
-// Definitions by: Ryan Volum <https://github.com/me>
+// Definitions by: Ryan Volum <http://github.com/ryanvolum>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export class Stemmer {
-    stem(term: string): string;
-}
+declare module 'snowball-stemmers' {
+    export interface Stemmer {
+        stem(term: string): string;
+    }
 
-export function newStemmer(locale: string): Stemmer;
+    export function newStemmer(locale: string): Stemmer;
+
+    export function algorithms(): string[];
+}
