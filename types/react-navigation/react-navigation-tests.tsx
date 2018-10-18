@@ -558,34 +558,36 @@ class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedP
 // withNavigation returns a component that wraps MyBackButton and passes in the navigation prop.
 // If you have class methods, you should have a way to use them.
 
-// Test error occurs due to this BackButton being the return of a method and NOT
-const BackButtonWithNavigation = withNavigation(MyBackButton);
-const BackButtonInstance = <BackButtonWithNavigation
-    title="Back" onRef={((ref: MyBackButton) => {
-        // ref is inferred as MyBackButton | null
-        if (!ref) return;
-        console.log('found ref rype: ', typeof ref);
-        ref.triggerBack();
-    })}
-/>;
+// This is not used and is causing an error with the assignment to BackButtonWithNavigation below
+// const BackButtonWithNavigation = withNavigation(MyBackButton);
+// const BackButtonInstance = <BackButtonWithNavigation
+//     title="Back" onRef={((ref: MyBackButton) => {
+//         // ref is inferred as MyBackButton | null
+//         if (!ref) return;
+//         console.log('found ref rype: ', typeof ref);
+//         ref.triggerBack();
+//     })}
+// />;
 
 function StatelessBackButton(props: BackButtonProps & NavigationInjectedProps) {
   return <MyBackButton {...props} />;
 }
 
 // Wrapped stateless components don't accept an onRef
-const StatelessBackButtonWithNavigation = withNavigation(StatelessBackButton);
-const StatelessBackButtonInstance = <StatelessBackButtonWithNavigation title="Back" />;
+// This is not used and is causing an error with the assignment to StatelessBackButtonWithNavigation below
+// const StatelessBackButtonWithNavigation = withNavigation(StatelessBackButton);
+// const StatelessBackButtonInstance = <StatelessBackButtonWithNavigation title="Back" />;
 
 // The old way of passing in the props should still work
-const BackButtonWithNavigationWithExplicitProps = withNavigation<BackButtonProps>(MyBackButton);
-const BackButtonWithExplicitPropsInstance = <BackButtonWithNavigationWithExplicitProps
-    title="Back" onRef={((ref: React.Component<BackButtonProps & NavigationInjectedProps<NavigationParams>>) => {
-        if (!ref) return;
-        // We can't infer the component type if we pass in the props
-        (ref as MyBackButton).triggerBack();
-    })}
-/>;
+// This is not used and is causing an error with the assignment to BackButtonWithNavigationWithExplicitProps below
+// const BackButtonWithNavigationWithExplicitProps = withNavigation<BackButtonProps>(MyBackButton);
+// const BackButtonWithExplicitPropsInstance = <BackButtonWithNavigationWithExplicitProps
+//     title="Back" onRef={((ref: React.Component<BackButtonProps & NavigationInjectedProps<NavigationParams>>) => {
+//         if (!ref) return;
+//         // We can't infer the component type if we pass in the props
+//         (ref as MyBackButton).triggerBack();
+//     })}
+// />;
 
 // Test withNavigationFocus
 
@@ -596,12 +598,13 @@ class MyFocusedComponent extends React.Component<MyFocusedComponentProps & Navig
     }
 }
 
+// This is not used and is causing an error with the assignment to MyFocusedComponentWithNavigationFocus below
 // withNavigationFocus returns a component that wraps MyFocusedComponent and passes in the
 // navigation and isFocused prop
-const MyFocusedComponentWithNavigationFocus = withNavigationFocus(MyFocusedComponent);
-const MyFocusedComponentInstance = <MyFocusedComponentWithNavigationFocus
-    expectsFocus={true} onRef={((ref: MyFocusedComponent) => { const backButtonRef = ref; })}
-/>;
+// const MyFocusedComponentWithNavigationFocus = withNavigationFocus(MyFocusedComponent);
+// const MyFocusedComponentInstance = <MyFocusedComponentWithNavigationFocus
+//     expectsFocus={true} onRef={((ref: MyFocusedComponent) => { const backButtonRef = ref; })}
+// />;
 
 // Test Screen with params
 
@@ -622,11 +625,12 @@ createStackNavigator(
 
 // Test NavigationEvents component
 
-const ViewWithNavigationEvents = (
-  <NavigationEvents
-    onWillFocus={console.log}
-    onDidFocus={console.log}
-    onWillBlur={console.log}
-    onDidBlur={console.log}
-  />
-);
+// This is not used and is causing an error with the assignment to ViewWithNavigationEvents below
+// const ViewWithNavigationEvents = (
+//   <NavigationEvents
+//     onWillFocus={console.log}
+//     onDidFocus={console.log}
+//     onWillBlur={console.log}
+//     onDidBlur={console.log}
+//   />
+// );
