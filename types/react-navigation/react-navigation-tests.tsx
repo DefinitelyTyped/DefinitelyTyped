@@ -561,7 +561,7 @@ class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedP
 // Test error occurs due to this BackButton being the return of a method and NOT
 const BackButtonWithNavigation = withNavigation(MyBackButton);
 const BackButtonInstance = <BackButtonWithNavigation
-    title="Back" onRef={(ref => {
+    title="Back" onRef={((ref: MyBackButton) => {
         // ref is inferred as MyBackButton | null
         if (!ref) return;
         console.log('found ref rype: ', typeof ref);
