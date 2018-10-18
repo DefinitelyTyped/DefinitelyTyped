@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react/index';
 import { withTracker } from 'meteor/react-meteor-data';
 
 interface DemoComponentContainerProps {
