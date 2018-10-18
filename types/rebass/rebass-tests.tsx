@@ -1,9 +1,9 @@
-import * as React from 'react'
-import * as rebassComponents from 'rebass'
+import * as React from 'react';
+import * as rebassComponents from 'rebass';
+import { BoxProps, Button, Card, Flex, Heading, Image, Link, RebassComponentsModule, Text } from 'rebass';
+import * as styledComponents from 'styled-components';
+import { ThemedOuterStyledProps, ThemedStyledComponentsModule } from 'styled-components';
 const {Box} = rebassComponents
-import {Flex, Text, Heading, Button, Link, Image, Card, RebassComponentsModule} from 'rebass'
-import * as styledComponents from 'styled-components'
-import {ThemedStyledComponentsModule} from 'styled-components'
 
 const RebassTests = () => (
     <Box p={[1, 2, 3, 4]} m="0 auto" mx={13}>
@@ -301,5 +301,51 @@ const StyledExtended = () => {
 
     return (
         <CustomBox customProp={3} as="header" css={{maxWidth: '200px'}} theme={{dark: {backgroundColor: '#666666'}}} />
+    )
+}
+
+const ClassExtended = () => {
+    class Header extends React.Component<ThemedOuterStyledProps<BoxProps, Theme>> {
+        render() {
+            const {children, ...rest} = this.props
+            return (
+            <Box
+                {...rest}
+                as="header"
+                bg="#222"
+                p="20px"
+                color="white"
+                css={{height: '150px', textAlign: 'center'}}
+            >
+                {children}
+            </Box>
+            )
+        }
+    }
+
+    return (
+        <Header theme={{dark: {backgroundColor: '#666666'}}} css={{textAlign: 'center'}}>hello</Header>
+    )
+}
+
+const SFCExtended = () => {
+    const Header: React.SFC<ThemedOuterStyledProps<BoxProps, Theme>> = ({
+        children,
+        ...rest
+    }) => (
+        <Box
+            {...rest}
+            as="header"
+            bg="#222"
+            p="20px"
+            color="white"
+            css={{height: '150px', textAlign: 'center'}}
+        >
+            {children}
+        </Box>
+    )
+
+    return (
+        <Header theme={{dark: {backgroundColor: '#666666'}}} css={{textAlign: 'center'}}>hello</Header>
     )
 }
