@@ -8,7 +8,7 @@ import {
 } from 'react-instantsearch-core';
 
 () => {
-  const InstantSearch = createInstantSearch(() => {}, {Root: 'div', props: {className: `widget`}});
+  const InstantSearch = createInstantSearch(() => ({}), {Root: 'div', props: {className: `widget`}});
 
   <InstantSearch>
     <div></div>
@@ -127,4 +127,11 @@ import {
   <ComposedMyComponent />; // $ExpectError
 
   <ComposedMyComponent additionalProp='test' />;
+};
+
+() => {
+  const InstantSearch = createInstantSearch(
+    () => null, // $ExpectError
+    {}
+  );
 };
