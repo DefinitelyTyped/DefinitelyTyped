@@ -58,6 +58,8 @@
 /// <reference path="./src/core/p5.Renderer.d.ts" />
 /// <reference path="./literals.d.ts" />
 /// <reference path="./constants.d.ts" />
+/// <reference path="./lib/addons/p5.dom.d.ts" />
+/// <reference path="./lib/addons/p5.sound.d.ts" />
 export = p5;
 declare class p5 {
   /**
