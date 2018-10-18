@@ -1,9 +1,5 @@
-import { Program } from "estree";
-
-const ast: Program = null;
+// global scope function
+astring.generate(null);
 
 // global scope function
-astring.generate(ast);
-
-// global scope function
-astring.baseGenerator.Program(ast, { write(s: string) { return; } });
+astring.baseGenerator.Program(null, { write(s: string) { return; } });
