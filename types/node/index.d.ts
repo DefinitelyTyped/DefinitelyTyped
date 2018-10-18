@@ -7552,7 +7552,7 @@ declare module "http2" {
 
     export interface ServerStreamResponseOptions {
         endStream?: boolean;
-        getTrailers?: (trailers: OutgoingHttpHeaders) => void;
+        waitForTrailers?: boolean;
     }
 
     export interface StatOptions {
@@ -7577,6 +7577,9 @@ declare module "http2" {
         readonly destroyed: boolean;
         readonly pending: boolean;
         readonly rstCode: number;
+        readonly sentHeaders: OutgoingHttpHeaders;
+        readonly sentInfoHeaders: OutgoingHttpHeaders[];
+        readonly sentTrailers: OutgoingHttpHeaders;
         readonly session: Http2Session;
         readonly state: StreamState;
         /**
@@ -7602,6 +7605,7 @@ declare module "http2" {
         addListener(event: "streamClosed", listener: (code: number) => void): this;
         addListener(event: "timeout", listener: () => void): this;
         addListener(event: "trailers", listener: (trailers: IncomingHttpHeaders, flags: number) => void): this;
+        addListener(event: "wantTrailers", listener: () => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "aborted"): boolean;
@@ -7617,6 +7621,7 @@ declare module "http2" {
         emit(event: "streamClosed", code: number): boolean;
         emit(event: "timeout"): boolean;
         emit(event: "trailers", trailers: IncomingHttpHeaders, flags: number): boolean;
+        emit(event: "wantTrailers"): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "aborted", listener: () => void): this;
@@ -7632,6 +7637,7 @@ declare module "http2" {
         on(event: "streamClosed", listener: (code: number) => void): this;
         on(event: "timeout", listener: () => void): this;
         on(event: "trailers", listener: (trailers: IncomingHttpHeaders, flags: number) => void): this;
+        on(event: "wantTrailers", listener: () => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "aborted", listener: () => void): this;
@@ -7647,6 +7653,7 @@ declare module "http2" {
         once(event: "streamClosed", listener: (code: number) => void): this;
         once(event: "timeout", listener: () => void): this;
         once(event: "trailers", listener: (trailers: IncomingHttpHeaders, flags: number) => void): this;
+        once(event: "wantTrailers", listener: () => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "aborted", listener: () => void): this;
@@ -7662,6 +7669,7 @@ declare module "http2" {
         prependListener(event: "streamClosed", listener: (code: number) => void): this;
         prependListener(event: "timeout", listener: () => void): this;
         prependListener(event: "trailers", listener: (trailers: IncomingHttpHeaders, flags: number) => void): this;
+        prependListener(event: "wantTrailers", listener: () => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "aborted", listener: () => void): this;
@@ -7677,6 +7685,9 @@ declare module "http2" {
         prependOnceListener(event: "streamClosed", listener: (code: number) => void): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(event: "trailers", listener: (trailers: IncomingHttpHeaders, flags: number) => void): this;
+        prependOnceListener(event: "wantTrailers", listener: () => void): this;
+
+        sendTrailers(headers: OutgoingHttpHeaders): this;
     }
 
     export interface ClientHttp2Stream extends Http2Stream {
