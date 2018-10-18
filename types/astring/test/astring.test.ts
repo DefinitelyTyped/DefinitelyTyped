@@ -1,6 +1,6 @@
+import { baseGenerator, generate } from "astring";
 import { FunctionExpression, MemberExpression, Program } from "estree";
 import { Stream } from "stream";
-import { baseGenerator, generate } from "..";
 
 const ast: Program = null;
 const functionE: FunctionExpression = null;
