@@ -24,7 +24,7 @@ export class NamedNode implements RDF.NamedNode {
     constructor(iri: string);
     id: string;
     toJSON(): {};
-    equals(other: RDF.Term): boolean;
+    equals(other: Term): boolean;
     static subclass(type: any): void;
 }
 
@@ -35,7 +35,7 @@ export class BlankNode implements RDF.BlankNode {
     constructor(name: string);
     id: string;
     toJSON(): {};
-    equals(other: RDF.Term): boolean;
+    equals(other: Term): boolean;
     static subclass(type: any): void;
 }
 
@@ -45,7 +45,7 @@ export class Variable  implements RDF.Variable {
     constructor(name: string);
     id: string;
     toJSON(): {};
-    equals(other: RDF.Term): boolean;
+    equals(other: Term): boolean;
     static subclass(type: any): void;
 }
 
@@ -55,10 +55,10 @@ export class Literal implements RDF.Literal {
     value: string;
     id: string;
     toJSON(): {};
-    equals(other: RDF.Term): boolean;
+    equals(other: Term): boolean;
     static subclass(type: any): void;
     language: string;
-    datatype: RDF.NamedNode;
+    datatype: NamedNode;
     datatypeString: string;
     constructor(id: string);
 }
@@ -69,7 +69,7 @@ export class DefaultGraph implements RDF.DefaultGraph {
     constructor();
     id: string;
     toJSON(): {};
-    equals(other: RDF.Term): boolean;
+    equals(other: Term): boolean;
     static subclass(type: any): void;
 }
 
@@ -79,7 +79,7 @@ export type Quad_Object = NamedNode | Literal | BlankNode | Variable;
 export type Quad_Graph = DefaultGraph | NamedNode | BlankNode | Variable;
 
 export class Quad implements RDF.Quad {
-    constructor(subject: RDF.Term, predicate: RDF.Term, object: RDF.Term, graph?: RDF.Term);
+    constructor(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object, graph?: Quad_Graph);
     subject: Quad_Subject;
     predicate: Quad_Predicate;
     object: Quad_Object;
@@ -194,24 +194,24 @@ export interface N3StreamWriter extends NodeJS.ReadWriteStream, RDF.Source {}
 
 export interface N3Store extends RDF.Sink {
     readonly size: number;
-    addQuad(subject: RDF.Term, predicate: RDF.Term, object: RDF.Term | RDF.Term[], graph?: RDF.Term, done?: () => void): void;
-    addQuad(quad: RDF.Quad): void;
-    addQuads(quads: RDF.Quad[]): void;
-    removeQuad(subject: RDF.Term, predicate: RDF.Term, object: RDF.Term | RDF.Term[], graph?: RDF.Term, done?: () => void): void;
-    removeQuad(quad: RDF.Quad): void;
-    removeQuads(quads: RDF.Quad[]): void;
+    addQuad(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object | Quad_Object[], graph?: Quad_Graph, done?: () => void): void;
+    addQuad(quad: Quad): void;
+    addQuads(quads: Quad[]): void;
+    removeQuad(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object | Quad_Object[], graph?: Quad_Graph, done?: () => void): void;
+    removeQuad(quad: Quad): void;
+    removeQuads(quads: Quad[]): void;
     getQuads(subject: OTerm, predicate: OTerm, object: OTerm | OTerm[], graph: OTerm): Quad[];
     countQuads(subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): number;
     forEach(callback: QuadCallback, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): void;
     every(callback: QuadPredicate, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): boolean;
     some(callback: QuadPredicate, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): boolean;
-    getSubjects(predicate: OTerm, object: OTerm, graph: OTerm): RDF.Term[];
+    getSubjects(predicate: OTerm, object: OTerm, graph: OTerm): Quad_Subject[];
     forSubjects(callback: QuadCallback, predicate: OTerm, object: OTerm, graph: OTerm): void;
-    getPredicates(subject: OTerm, object: OTerm, graph: OTerm): RDF.Term[];
+    getPredicates(subject: OTerm, object: OTerm, graph: OTerm): Quad_Predicate[];
     forPredicates(callback: QuadCallback, subject: OTerm, object: OTerm, graph: OTerm): void;
-    getObjects(subject: OTerm, predicate: OTerm, graph: OTerm): RDF.Term[];
+    getObjects(subject: OTerm, predicate: OTerm, graph: OTerm): Quad_Object[];
     forObjects(callback: QuadCallback, subject: OTerm, predicate: OTerm, graph: OTerm): void;
-    getGraphs(subject: OTerm, predicate: OTerm, object: OTerm): RDF.Term[];
+    getGraphs(subject: OTerm, predicate: OTerm, object: OTerm): Quad_Graph[];
     forGraphs(callback: QuadCallback, subject: OTerm, predicate: OTerm, object: OTerm): void;
     createBlankNode(suggestedName?: string): BlankNode;
 
@@ -235,6 +235,6 @@ export namespace Util {
     function isVariable(value: Term | null): boolean;
     function isDefaultGraph(value: Term | null): boolean;
     function inDefaultGraph(value: Quad): boolean;
-    function prefix(iri: string, factory?: RDF.DataFactory): (suffix: string) => RDF.NamedNode;
-    function prefixes(defaultPrefixes: Prefixes, factory?: RDF.DataFactory): (iri: string) => (suffix: string) => RDF.NamedNode;
+    function prefix(iri: string, factory?: RDF.DataFactory): (suffix: string) => NamedNode;
+    function prefixes(defaultPrefixes: Prefixes, factory?: RDF.DataFactory): (iri: string) => (suffix: string) => NamedNode;
 }
