@@ -1,12 +1,3 @@
 {
-    "extends": "dtslint/dt.json",
-    "rules": {
-		"no-padding": false,
-        "jsdoc-format": false,
-        "comment-format": false,
-        "object-literal-shorthand": false,
-        "only-arrow-functions": false,
-        "space-before-function-paren": false,
-        "no-relative-import-in-test": false,
-    }
+    "extends": "dtslint/dt.json"
 }
