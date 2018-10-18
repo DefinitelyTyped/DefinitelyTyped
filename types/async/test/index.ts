@@ -114,7 +114,7 @@ async.series([
 ],
 function (err, results) { });
 
-async.series<string,Error>([
+async.series<string>([
     function (callback) {
         callback(undefined, 'one');
     },
@@ -138,7 +138,7 @@ async.series({
 },
 function (err, results) { });
 
-async.series<number,Error>({
+async.series<number>({
     one: function (callback) {
         setTimeout(function () {
             callback(undefined, 1);
@@ -178,7 +178,7 @@ async.parallel([
 ],
 function (err, results) { });
 
-async.parallel<string,Error>([
+async.parallel<string>([
     function (callback) {
         setTimeout(function () {
             callback(undefined, 'one');
@@ -207,7 +207,7 @@ async.parallel({
 },
 function (err, results) { });
 
-async.parallel<number,Error>({
+async.parallel<number>({
     one: function (callback) {
         setTimeout(function () {
             callback(undefined, 1);
@@ -273,7 +273,7 @@ async.waterfall([
 ], function (err, result) { });
 
 
-var q = async.queue<any,Error>(function (task: any, callback: (err?:Error,msg?:string) => void) {
+var q = async.queue<any>(function (task: any, callback: (err?:Error,msg?:string) => void) {
     console.log('hello ' + task.name);
     callback(undefined,'a message.');
 }, 2);
@@ -293,7 +293,7 @@ q.push([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], function (err) {
     console.log('finished processing bar');
 });
 
-q.push<string,Error>({name: 'foo'}, function (err,msg) {
+q.push<string>({name: 'foo'}, function (err, msg) {
   console.log('foo finished with a message "'+ msg! + '"');
 });
 
@@ -330,7 +330,7 @@ q.resume();
 q.kill();
 
 // tests for strongly typed tasks
-var q2 = async.queue<string,Error>(function (task: string, callback: () => void) {
+var q2 = async.queue<string>(function (task: string, callback: () => void) {
     console.log('Task: ' + task);
     callback();
 }, 1);
@@ -356,7 +356,7 @@ q2.unshift(['task3', 'task4', 'task5'], function (error) {
 });
 
 
-var aq = async.queue<number, number, Error>(function (level: number, callback: (error?: Error, newLevel?: number) => void) {
+var aq = async.queue<number, number>(function (level: number, callback: (error?: Error, newLevel?: number) => void) {
     console.log('hello ' + level);
     callback(undefined, level+1);
 });
@@ -387,14 +387,47 @@ cargo.push({ name: 'baz' }, function (err: Error) {
 
 var filename = '';
 async.auto({
-    get_data: function (callback: any) { },
-    make_folder: function (callback: any) { },
+    get_data: function (callback: AsyncResultCallback<any>) { },
+    make_folder: function (callback: AsyncResultCallback<any>) { },
     //arrays with different types are not accepted by TypeScript.
-    write_file: ['get_data', 'make_folder', <any>function (callback: any) {
+    write_file: ['get_data', 'make_folder', <any>function (callback: AsyncResultCallback<any>) {
         callback(null, filename);
     }],
     //arrays with different types are not accepted by TypeScript.
-    email_link: ['write_file', <any>function (callback: any, results: any) { }]
+    email_link: ['write_file', <any>function (callback: AsyncResultCallback<any>, results: any) { }]
+});
+
+async.auto({
+    get_data: function (callback: AsyncResultCallback<any>) { },
+    make_folder: function (callback: AsyncResultCallback<any>) { },
+    //arrays with different types are not accepted by TypeScript.
+    write_file: ['get_data', 'make_folder', <any>function (callback: AsyncResultCallback<any>) {
+        callback(null, filename);
+    }],
+    //arrays with different types are not accepted by TypeScript.
+    email_link: ['write_file', <any>function (callback: AsyncResultCallback<any>, results: any) { }]
+}, function (err, results) {
+    console.log('finished auto');
+});
+
+interface A {
+    get_data: any;
+    make_folder: any;
+    write_file: any;
+    email_link: any;
+}
+
+async.auto<A>({
+    get_data: function (callback: AsyncResultCallback<any>) { },
+    make_folder: function (callback: AsyncResultCallback<any>) { },
+    //arrays with different types are not accepted by TypeScript.
+    write_file: ['get_data', 'make_folder', <any>function (callback: AsyncResultCallback<any>) {
+        callback(null, filename);
+    }],
+    //arrays with different types are not accepted by TypeScript.
+    email_link: ['write_file', <any>function (callback: AsyncResultCallback<any>, results: any) { }]
+}, 1, function (err, results) {
+    console.log('finished auto');
 });
 
 async.retry(3, function (callback, results) { }, function (err, result) { });
@@ -459,10 +492,10 @@ async.dir(function (name: string, callback: any) {
 
 // each
 
-async.each<number,Error>({
+async.each<number>({
     "a": 1,
     "b": 2
-}, function(val: number, next: ErrorCallback<Error>): void {
+}, function(val: number, next: ErrorCallback): void {
 
     setTimeout(function(): void {
 
@@ -478,10 +511,10 @@ async.each<number,Error>({
 
 });
 
-async.eachSeries<number, Error>({
+async.eachSeries<number>({
     "a": 1,
     "b": 2
-}, function(val: number, next: ErrorCallback<Error>): void {
+}, function(val: number, next: ErrorCallback): void {
 
     setTimeout(function(): void {
 
@@ -497,14 +530,14 @@ async.eachSeries<number, Error>({
 
 });
 
-async.eachLimit<number, Error>({
+async.eachLimit<number>({
     "a": 1,
     "b": 2,
     "c": 3,
     "d": 4,
     "e": 5,
     "f": 6
-}, 2, function(val: number, next: ErrorCallback<Error>): void {
+}, 2, function(val: number, next: ErrorCallback): void {
 
     setTimeout(function(): void {
 
@@ -522,10 +555,10 @@ async.eachLimit<number, Error>({
 
 // forEachOf/eachOf
 
-async.eachOf<number, Error>({
+async.eachOf<number>({
     "a": 1,
     "b": 2
-}, function(val: number, key: string, next: ErrorCallback<Error>): void {
+}, function(val: number, key: string, next: ErrorCallback): void {
 
     setTimeout(function(): void {
 
@@ -541,10 +574,10 @@ async.eachOf<number, Error>({
 
 });
 
-async.forEachOfSeries<number, Error>({
+async.forEachOfSeries<number>({
     "a": 1,
     "b": 2
-}, function(val: number, key: string, next: ErrorCallback<Error>): void {
+}, function(val: number, key: string, next: ErrorCallback): void {
 
     setTimeout(function(): void {
 
@@ -560,14 +593,14 @@ async.forEachOfSeries<number, Error>({
 
 });
 
-async.forEachOfLimit<number, Error>({
+async.forEachOfLimit<number>({
     "a": 1,
     "b": 2,
     "c": 3,
     "d": 4,
     "e": 5,
     "f": 6
-}, 2, function(val: number, key: string, next: ErrorCallback<Error>): void {
+}, 2, function(val: number, key: string, next: ErrorCallback): void {
 
     setTimeout(function(): void {
 
@@ -585,11 +618,11 @@ async.forEachOfLimit<number, Error>({
 
 // map
 
-async.map<number, string, Error>({
+async.map<number, string>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(val: number, next: AsyncResultCallback<string, Error>): void {
+}, function(val: number, next: AsyncResultCallback<string>): void {
 
     setTimeout(function(): void {
 
@@ -605,11 +638,11 @@ async.map<number, string, Error>({
 
 });
 
-async.mapSeries<number, string, Error>({
+async.mapSeries<number, string>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(val: number, next: AsyncResultCallback<string, Error>): void {
+}, function(val: number, next: AsyncResultCallback<string>): void {
 
     setTimeout(function(): void {
 
@@ -625,14 +658,14 @@ async.mapSeries<number, string, Error>({
 
 });
 
-async.mapLimit<number, string, Error>({
+async.mapLimit<number, string>({
     "a": 1,
     "b": 2,
     "c": 3,
     "d": 4,
     "e": 5,
     "f": 6
-}, 2, function(val: number, next: AsyncResultCallback<string, Error>): void {
+}, 2, function(val: number, next: AsyncResultCallback<string>): void {
 
     setTimeout(function(): void {
 
@@ -650,11 +683,11 @@ async.mapLimit<number, string, Error>({
 
 // mapValues
 
-async.mapValues<number, string, Error>({
+async.mapValues<number, string>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(val: number, key: string, next: AsyncResultCallback<string, Error>): void {
+}, function(val: number, key: string, next: AsyncResultCallback<string>): void {
 
     setTimeout(function(): void {
 
@@ -670,11 +703,11 @@ async.mapValues<number, string, Error>({
 
 });
 
-async.mapValuesSeries<number, string, Error>({
+async.mapValuesSeries<number, string>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(val: number, key: string, next: AsyncResultCallback<string, Error>): void {
+}, function(val: number, key: string, next: AsyncResultCallback<string>): void {
 
     setTimeout(function(): void {
 
@@ -692,11 +725,11 @@ async.mapValuesSeries<number, string, Error>({
 
 // filter/select/reject
 
-async.filter<number, Error>({
+async.filter<number>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(val: number, next: AsyncBooleanResultCallback<Error>): void {
+}, function(val: number, next: AsyncBooleanResultCallback): void {
 
     setTimeout(function(): void {
 
@@ -712,11 +745,11 @@ async.filter<number, Error>({
 
 });
 
-async.reject<number, Error>({
+async.reject<number>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(val: number, next: AsyncBooleanResultCallback<Error>): void {
+}, function(val: number, next: AsyncBooleanResultCallback): void {
 
     setTimeout(function(): void {
 
@@ -734,11 +767,11 @@ async.reject<number, Error>({
 
 // concat
 
-async.concat<string, string, Error>({
+async.concat<string, string>({
     "a": "1",
     "b": "2",
     "c": "3"
-}, function(item: string, next: AsyncResultCallback<string[], Error>): void {
+}, function(item: string, next: AsyncResultCallback<string[]>): void {
 
     console.log(`async.concat: ${item}`);
 
@@ -752,11 +785,11 @@ async.concat<string, string, Error>({
 
 // detect/find
 
-async.detect<number, Error>({
+async.detect<number>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(item: number, next: AsyncBooleanResultCallback<Error>): void {
+}, function(item: number, next: AsyncBooleanResultCallback): void {
 
     console.log(`async.detect/find: ${item}`);
 
@@ -777,11 +810,11 @@ async.detect<number, Error>({
 
 // every/all
 
-async.every<number,Error>({
+async.every<number>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(item: number, next: AsyncBooleanResultCallback<Error>): void {
+}, function(item: number, next: AsyncBooleanResultCallback): void {
 
     console.log(`async.every/all: ${item}`);
 
@@ -795,11 +828,11 @@ async.every<number,Error>({
 
 // some/any
 
-async.some<number, Error>({
+async.some<number>({
     "a": 1,
     "b": 2,
     "c": 3
-}, function(item: number, next: AsyncBooleanResultCallback<Error>): void {
+}, function(item: number, next: AsyncBooleanResultCallback): void {
 
     console.log(`async.some/any: ${item}`);
 
