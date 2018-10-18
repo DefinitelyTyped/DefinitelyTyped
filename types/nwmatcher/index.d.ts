@@ -24,4 +24,10 @@ declare namespace nwmatcher {
     }
 }
 
+declare global {
+    namespace NW {
+        const Dom: nwmatcher.Matcher;
+    }
+}
+
 export = nwmatcher;

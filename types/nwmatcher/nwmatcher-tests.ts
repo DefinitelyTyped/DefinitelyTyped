@@ -1,7 +1,16 @@
 import nwmatcher = require('nwmatcher');
 
+/**
+ * Test matcher create function from module.
+ */
+
 const global: { document: Document } = { document: {} as any };
-const matcher = nwmatcher(global);
+let matcher = nwmatcher(global);
+
+/**
+ * Test matcher (select/first/...) functions.
+ */
+
 const element: Element = {} as any;
 
 let resultElementOrNull: Element | null;
@@ -38,3 +47,9 @@ resultElementArray = matcher.byName('foo', element);
 resultStringOrUndefined = matcher.getAttribute(element, 'foo');
 
 resultBoolean = matcher.hasAttribute(element, 'foo');
+
+/**
+ * Test global namespace.
+ */
+
+matcher = NW.Dom;
