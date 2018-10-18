@@ -8,7 +8,3 @@ export class Stemmer {
 }
 
 export function newStemmer(locale: string): Stemmer;
-
-
-
-
