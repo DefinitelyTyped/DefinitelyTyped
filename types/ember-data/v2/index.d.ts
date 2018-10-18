@@ -601,7 +601,7 @@ export namespace DS {
          * Iterates through the attributes of the model, calling the passed function on each
          * attribute.
          */
-        static eachAttribute(callback: Function, binding: {}): any;
+        static eachAttribute(callback: Function, binding?: {}): any;
         /**
          * Iterates through the transformedAttributes of the model, calling
          * the passed function on each attribute. Note the callback will not be
