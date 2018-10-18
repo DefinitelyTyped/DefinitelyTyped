@@ -18,7 +18,7 @@ import * as React from 'react';
 export function createInstantSearch(
   defaultAlgoliaClient: (appId: string, apiKey: string, options: { _useRequestCache: boolean }) => object,
   root: object
-): React.ComponentClass
+): React.ComponentClass;
 
 /**
  * Creates a specialized root Index component. It accepts
@@ -28,7 +28,7 @@ export function createInstantSearch(
  */
 export function createIndex(defaultRoot: object): any;
 
-interface ConnectorDescription {
+export interface ConnectorDescription {
   displayName: string;
   propTypes?: any;
   defaultProps?: any;
@@ -286,7 +286,8 @@ export interface RefinementListExposed {
  * https://community.algolia.com/react-instantsearch/connectors/connectRefinementList.html
  */
 export function connectRefinementList(stateless: React.StatelessComponent<RefinementListProvided>): React.ComponentClass<RefinementListExposed>;
-export function connectRefinementList<TProps extends Partial<RefinementListProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, RefinementListProvided, RefinementListExposed>;
+export function connectRefinementList<TProps extends Partial<RefinementListProvided>>(ctor: React.ComponentType<TProps>):
+  ConnectedComponentClass<TProps, RefinementListProvided, RefinementListExposed>;
 
 export function connectScrollTo(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
@@ -462,3 +463,6 @@ interface HighlightResultPrimitive {
   matchedWords: string[];
   fullyHighlighted?: boolean;
 }
+
+// Turn off automatic exports - so we don't export internal types like Omit<>
+export {};
