@@ -1,4 +1,4 @@
-// Type definitions for expo 30.0
+// Type definitions for expo 27.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
@@ -1403,8 +1403,8 @@ export namespace FileSystem {
 }
 
 /** Use TouchID/FaceID (iOS) or the Fingerprint API (Android) to authenticate the user with a fingerprint scan. */
-export namespace LocalAuthentication {
-    type LocalAuthenticationResult = {
+export namespace Fingerprint {
+    type FingerprintAuthenticationResult = {
         success: true
     } | {
         success: false,
@@ -1413,10 +1413,10 @@ export namespace LocalAuthentication {
         error: string
     };
 
-    /** Determine whether a face or fingerprint scanner is available on the device. */
+    /** Determine whether the Fingerprint scanner is available on the device. */
     function hasHardwareAsync(): Promise<boolean>;
 
-    /** Determine whether the device has saved fingerprints or facial data to use for authentication. */
+    /** Determine whether the device has saved fingerprints to use for authentication. */
     function isEnrolledAsync(): Promise<boolean>;
 
     /**
@@ -1424,7 +1424,7 @@ export namespace LocalAuthentication {
      *
      * @param promptMessage A message that is shown alongside the TouchID/FaceID prompt. (iOS only)
      */
-    function authenticateAsync(promptMessageIOS?: string): Promise<LocalAuthenticationResult>;
+    function authenticateAsync(promptMessageIOS?: string): Promise<FingerprintAuthenticationResult>;
 
     /** Cancels the fingerprint authentication flow. (Android only) */
     function cancelAuthenticate(): void;
