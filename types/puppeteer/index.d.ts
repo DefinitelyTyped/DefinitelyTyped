@@ -1168,7 +1168,7 @@ export interface FrameBase extends Evalable {
    * @param selector A selector to search for element to hover. If there are multiple elements satisfying the selector, the first will be hovered.
    */
   hover(selector: string): Promise<void>;
-  
+
   /**
    * Triggers a `change` and `input` event once all the provided options have been selected.
    * If there's no `<select>` element matching selector, the method throws an error.
