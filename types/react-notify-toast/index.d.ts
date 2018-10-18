@@ -28,7 +28,7 @@ interface Options {
     animationDuration?: number
     timeout?: number
     zIndex?: number
-    top?: number
+    top?: number | string
     colors?: any
 }
 
