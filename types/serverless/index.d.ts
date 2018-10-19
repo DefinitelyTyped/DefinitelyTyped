@@ -3,6 +3,8 @@
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import Service = require("./classes/service");
+
 declare namespace Serverless {
     interface Options {
         stage: string | null;
@@ -42,34 +44,6 @@ declare namespace Serverless {
 
     interface Event {
         eventName: string;
-    }
-
-    class Service {
-        custom: Service.Custom;
-
-        provider: {
-          compiledCloudFormationTemplate: {
-            Resources: any[];
-          };
-
-          name: string;
-        };
-        constructor(serverless: Serverless, data: {});
-
-        load(rawOptions: {}): Promise<any>;
-        setFunctionNames(rawOptions: {}): void;
-
-        getServiceName(): string;
-        getAllFunctions(): string[];
-        getAllFunctionsNames(): string[];
-        getFunction(functionName: string): FunctionDefinition;
-        getEventInFunction(eventName: string, functionName: string): Event;
-        getAllEventsInFunction(functionName: string): Event[];
-
-        mergeResourceArrays(): void;
-        validate(): Service;
-
-        update(data: {}): {};
     }
 }
 
