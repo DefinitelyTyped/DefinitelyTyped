@@ -229,3 +229,25 @@ type PartialTestPropTypesMatchMap = PartialTestPropTypes extends PartialTestVali
 type PartialTestPropTypesInferProps = PropTypes.InferProps<PartialTestPropTypes>;
 // $ExpectType true
 type PartialTestPropTypesInferPropsMatch = PartialTestProps extends PartialTestPropTypesInferProps ? true : false;
+
+interface NominalTypeParamTestProps {
+    foo: string;
+    bar?: boolean;
+}
+
+// $ExpectType Partial<{ foo: Validator<string>; bar?: Validator<boolean | undefined> | undefined; }>
+type NominalTypeParamTestValidationMap = PropTypes.ValidationMap<NominalTypeParamTestProps>;
+
+type NominalTypeParamTestInferProps = PropTypes.InferProps<NominalTypeParamTestValidationMap>;
+
+const nominalTypeParamTestPropTypes = { bar: PropTypes.bool };
+type NominalTypeParamTestPropTypes = typeof nominalTypeParamTestPropTypes;
+// $ExpectType true
+type NominalTypeParamTestPropTypesMatches = NominalTypeParamTestPropTypes extends NominalTypeParamTestValidationMap ? true : false;
+type NominalTypeParamTestPropTypesInferProps = PropTypes.InferProps<NominalTypeParamTestPropTypes>;
+// $ExpectType boolean | undefined
+type NominalTypeParamTestInferPropsBar = NominalTypeParamTestInferProps['bar'];
+// $ExpectType boolean | null | undefined
+type NominalTypeParamTestPropTypesInferPropsBar = NominalTypeParamTestPropTypesInferProps['bar'];
+// $ExpectType true
+type NominalTypeParamTestPropTypesInferPropsMatch = NominalTypeParamTestProps extends NominalTypeParamTestPropTypesInferProps ? true : false;

@@ -40,8 +40,6 @@ export type ReactNodeLike =
     | null
     | undefined;
 
-export const nominalTypeHack: unique symbol;
-
 export type IsOptional<T> = undefined | null extends T ? true : undefined extends T ? true : null extends T ? true : false;
 
 export type RequiredKeys<V> = { [K in keyof V]: V[K] extends Validator<infer T> ? IsOptional<T> extends true ? never : K : never }[keyof V];
@@ -51,10 +49,14 @@ export type InferPropsInner<V> =
     & InferTypeMap<Pick<V, RequiredKeys<V>>>
     & Partial<InferTypeMap<Pick<V, OptionalKeys<V>>>>;
 
-export interface Validator<T> {
-    (props: object, propName: string, componentName: string, location: string, propFullName: string): Error | null;
-    [nominalTypeHack]?: T;
-}
+export type Validator<T> = (
+    props: object,
+    propName: string,
+    componentName: string,
+    location: string,
+    propFullName: string,
+    _nominalTypeParam?: T,
+) => Error | null;
 
 export interface Requireable<T> extends Validator<T | undefined | null> {
     isRequired: Validator<NonNullable<T>>;
