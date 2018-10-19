@@ -506,28 +506,6 @@ function test_view() {
     const view = new Parse.View<Parse.User>();
 }
 
-function test_promise() {
-    let resolved = Parse.Promise.as(true);
-    let rejected = Parse.Promise.error("an error object");
-    Parse.Promise.when([resolved, rejected]).then(function () {
-        // success
-    }, function () {
-        // failed
-    });
-
-    // Test promise with a query
-    const query = new Parse.Query('Test');
-    query.find()
-    .then(() => {
-        // success
-    }).catch(() => {
-        // error
-    });
-
-    // can check whether an object is a Parse.Promise object or not
-    Parse.Promise.is(resolved);
-}
-
 function test_batch_operations() {
     const game1 = new Game()
     const game2 = new Game()
