@@ -46,7 +46,10 @@ export type IsOptional<T> = undefined | null extends T ? true : undefined extend
 
 export type RequiredKeys<V> = { [K in keyof V]: V[K] extends Validator<infer T> ? IsOptional<T> extends true ? never : K : never }[keyof V];
 export type OptionalKeys<V> = Exclude<keyof V, RequiredKeys<V>>;
-export type InferPropsInner<V> = { [K in keyof V]: InferType<V[K]>; };
+export type InferTypeMap<V> = { [K in keyof V]: InferType<V[K]>; };
+export type InferPropsInner<V> =
+    & InferTypeMap<Pick<V, RequiredKeys<V>>>
+    & Partial<InferTypeMap<Pick<V, OptionalKeys<V>>>>;
 
 export interface Validator<T> {
     (props: object, propName: string, componentName: string, location: string, propFullName: string): Error | null;
@@ -57,12 +60,11 @@ export interface Requireable<T> extends Validator<T | undefined | null> {
     isRequired: Validator<NonNullable<T>>;
 }
 
-export type ValidationMap<T> = { [K in keyof T]-?: Validator<T[K]> };
+export type ValidationMap<T> = Partial<{ [K in keyof T]: Validator<T[K]> }>;
 
 export type InferType<V> = V extends Validator<infer T> ? T : any;
-export type InferProps<V> =
-    & InferPropsInner<Pick<V, RequiredKeys<V>>>
-    & Partial<InferPropsInner<Pick<V, OptionalKeys<V>>>>;
+
+export type InferProps<V> = InferPropsInner<Required<V>>;
 
 export const any: Requireable<any>;
 export const array: Requireable<any[]>;

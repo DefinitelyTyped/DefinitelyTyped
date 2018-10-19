@@ -207,3 +207,25 @@ type UndefaultizedPropsTest = {
     baz: boolean;
     bat: Exclude<ReactNode, undefined>;
 } extends UndefaultizedProps ? true : false;
+
+interface PartialTestProps {
+    foo: string;
+    bar?: boolean | null;
+}
+
+// $ExpectType Partial<{ foo: Validator<string>; bar?: Validator<boolean | null | undefined> | undefined; }>
+type PartialTestValidationMap = PropTypes.ValidationMap<PartialTestProps>;
+
+type PartialTestInferProps = PropTypes.InferProps<PartialTestValidationMap>;
+// $ExpectType true
+type PartialTestInferPropsMatch = PartialTestProps extends PartialTestInferProps ? true : false;
+// $ExpectType true
+type PartialTestInferPropsMatch2 = PartialTestInferProps extends PartialTestProps ? true : false;
+
+const partialTestPropTypes = { bar: PropTypes.bool };
+type PartialTestPropTypes = typeof partialTestPropTypes;
+// $ExpectType true
+type PartialTestPropTypesMatchMap = PartialTestPropTypes extends PartialTestValidationMap ? true : false;
+type PartialTestPropTypesInferProps = PropTypes.InferProps<PartialTestPropTypes>;
+// $ExpectType true
+type PartialTestPropTypesInferPropsMatch = PartialTestProps extends PartialTestPropTypesInferProps ? true : false;
