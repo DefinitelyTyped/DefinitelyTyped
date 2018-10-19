@@ -99,4 +99,4 @@ declare class Serverless {
     };
 }
 
-export default Serverless;
+export = Serverless;
