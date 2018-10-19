@@ -77,12 +77,12 @@ interface MustacheStatic {
      * @param partials
      * Either an object that contains the names and templates of partials that are used in a template
      *
-     * @param tags
-     * The tags to use.
-     *
      * -- or --
      *
      * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
+     *
+     * @param tags
+     * The tags to use.
      */
     render(template: string, view: any | MustacheContext, partials?: any, tags?: string[]): string;
 
@@ -219,12 +219,12 @@ declare class MustacheWriter {
      * @param partials
      * Either an object that contains the names and templates of partials that are used in a template
      *
-     * @param tags
-     * The tags to use.
-     *
      * -- or --
      *
      * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
+     *
+     * @param tags
+     * The tags to use.
      */
     render(template: string, view: any | MustacheContext, partials: any, tags?: string[]): string;
 
