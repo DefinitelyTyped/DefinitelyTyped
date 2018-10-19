@@ -1,7 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "object-literal-key-quotes": false,
-        "interface-name": [true, "always-prefix"]
-    }
-}
+{"extends": "dtslint/dt.json"}
