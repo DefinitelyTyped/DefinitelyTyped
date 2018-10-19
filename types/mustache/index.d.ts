@@ -20,7 +20,7 @@ interface MustacheStatic {
     /**
      * The opening and closing tags to parse.
      */
-    tags: string;
+    tags: string[];
 
     /**
      * A simple string scanner that is used by the template parser to find tokens in template strings.
@@ -77,11 +77,14 @@ interface MustacheStatic {
      * @param partials
      * Either an object that contains the names and templates of partials that are used in a template
      *
+     * @param tags
+     * The tags to use.
+     *
      * -- or --
      *
      * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
      */
-    render(template: string, view: any | MustacheContext, partials?: any): string;
+    render(template: string, view: any | MustacheContext, partials?: any, tags?: string[]): string;
 
     /**
      * Renders the `template` with the given `view` and `partials` using the default writer.
@@ -198,6 +201,9 @@ declare class MustacheWriter {
      *
      * @param template
      * The template to parse.
+     *
+     * @param tags
+     * The tags to use.
      */
     parse(template: string, tags?: any): any;
 
@@ -213,11 +219,14 @@ declare class MustacheWriter {
      * @param partials
      * Either an object that contains the names and templates of partials that are used in a template
      *
+     * @param tags
+     * The tags to use.
+     *
      * -- or --
      *
      * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
      */
-    render(template: string, view: any | MustacheContext, partials: any): string;
+    render(template: string, view: any | MustacheContext, partials: any, tags?: string[]): string;
 
     /**
      * Low-level method that renders the given array of `tokens` using the given `context` and `partials`.
