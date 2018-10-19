@@ -97,6 +97,36 @@ class TestComponent extends React.Component<TestComponentProps & WithRouterProps
 
 withRouter(TestComponent);
 
+
+interface TestComponent2Props extends WithRouterProps {
+    testValue: string;
+}
+
+
+class TestComponent2 extends React.Component<TestComponent2Props> {
+    state = { ready: false };
+
+    constructor(props: TestComponent2Props) {
+        super(props);
+        props.router.ready(() => {
+            this.setState({ ready: true });
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>{this.state.ready ? 'Ready' : 'Not Ready'}</h1>
+                <h2>Route: {this.props.router.route}</h2>
+                <p>Another prop: {this.props.testValue}</p>
+            </div>
+        );
+    }
+}
+
+let TestComponent2WithRouter = withRouter(TestComponent2)
+let res = <TestComponent2WithRouter testValue="" />
+
 interface TestSFCQuery {
     test?: string;
 }
