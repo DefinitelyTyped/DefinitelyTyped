@@ -70,14 +70,14 @@ Router.prefetch("/route").then(Component => {
     const element = <Component />;
 });
 
-interface TestComponentProps {
+interface TestComponentProps extends WithRouterProps{
     testValue: string;
 }
 
-class TestComponent extends React.Component<TestComponentProps & WithRouterProps> {
+class TestComponent extends React.Component<TestComponentProps> {
     state = { ready: false };
 
-    constructor(props: TestComponentProps & WithRouterProps) {
+    constructor(props: TestComponentProps) {
         super(props);
         props.router.ready(() => {
             this.setState({ ready: true });
@@ -131,8 +131,20 @@ interface TestSFCQuery {
     test?: string;
 }
 
-interface TestSFCProps extends WithRouterProps<TestSFCQuery> { }
+interface TestSFCProps extends WithRouterProps<TestSFCQuery> { 
+    testProp: string;
+}
 
 const TestSFC: React.SFC<TestSFCProps> = ({ router }) => {
     return <div>{router.query && router.query.test}</div>;
 };
+const TestSFCComponent = withRouter(TestSFC)
+
+let res2 = <TestSFCComponent testProp="asdf"/>
+
+
+const TestSFC2 = withRouter<TestSFCProps>(({ router }) => {
+    return <div>{router.query && router.query.test}</div>;
+});
+
+let res3 = <TestSFC2 testProp="asdf"/>
