@@ -5,8 +5,24 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+export interface ComponentLike {
+    setState(...args: any[]): any;
+    forceUpdate(...args: any[]): any;
+    render(): ReactNodeLike;
+    props: any;
+    state: any;
+    context: any;
+    refs: any;
+}
+
+export interface ComponentClassLike {
+    new (...args: any[]): ComponentLike;
+}
+
+export type SFCLike = (...args: any[]) => ReactElementLike | null;
+
 export interface ReactElementLike {
-    type: string | ((...args: any[]) => ReactElementLike);
+    type: string | ComponentClassLike | SFCLike;
     props: any;
     key: string | number | null;
     children?: ReactNodeLike;
