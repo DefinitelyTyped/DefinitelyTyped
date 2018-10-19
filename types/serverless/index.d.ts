@@ -3,8 +3,9 @@
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Service = require("./classes/service");
-import YamlParser = require("./classes/yaml-parser");
+import Service = require("./classes/Service");
+import YamlParser = require("./classes/YamlParser");
+import AwsProvider = require("./plugins/aws/provider/awsProvider");
 
 declare namespace Serverless {
     interface Options {
@@ -13,30 +14,8 @@ declare namespace Serverless {
         noDeploy?: boolean;
     }
 
-    namespace Provider {
-        class Aws {
-            constructor(serverless: Serverless, options: Options)
-
-            getProviderName(): string;
-            getRegion(): string;
-            getServerlessDeploymentBucketName(): string;
-            getStage(): string;
-        }
-    }
-
-    namespace Service {
-        interface Custom {
-            [key: string]: any;
-        }
-    }
-
     interface Config {
         servicePath: string;
-    }
-
-    class YamlParser {
-        constructor(serverless: Serverless)
-        parse(yamlFilePath: string): Promise<any>;
     }
 
     interface FunctionDefinition {
@@ -54,8 +33,8 @@ declare class Serverless {
     init(): Promise<any>;
     run(): Promise<any>;
 
-    setProvider(name: string, provider: Serverless.Provider.Aws): null;
-    getProvider(name: string): Serverless.Provider.Aws;
+    setProvider(name: string, provider: AwsProvider): null;
+    getProvider(name: string): AwsProvider;
 
     getVersion(): string;
 
@@ -64,7 +43,7 @@ declare class Serverless {
     };
 
     config: Serverless.Config;
-    yamlParser: Serverless.YamlParser;
+    yamlParser: YamlParser;
 
     service: {
         getServiceName(): string
