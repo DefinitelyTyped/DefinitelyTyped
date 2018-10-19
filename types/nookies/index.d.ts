@@ -13,7 +13,7 @@ export function destroyCookie(ctx: NextContext, name: string): void
 
 declare const Nookies: {
     set(ctx: NextContext, name: string, value: string, options?: CookieSerializeOptions): void;
-    get(ctx: NextContext, options?: CookieParseOptions): void;
+    get(ctx: NextContext, options?: CookieParseOptions): { [key: string]: string };
     destroy(ctx: NextContext, name: string): void;
 };
 
