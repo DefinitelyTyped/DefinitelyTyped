@@ -1,5 +1,9 @@
-import * as React from 'react'
-import {Box, Flex, Text, Heading, Button, Link, Image, Card} from 'rebass'
+import * as React from 'react';
+import * as rebassComponents from 'rebass';
+import { BoxProps, Button, Card, Flex, Heading, Image, Link, RebassComponentsModule, Text } from 'rebass';
+import * as styledComponents from 'styled-components';
+import { ThemedOuterStyledProps, ThemedStyledComponentsModule } from 'styled-components';
+const {Box} = rebassComponents
 
 const RebassTests = () => (
     <Box p={[1, 2, 3, 4]} m="0 auto" mx={13}>
@@ -267,3 +271,81 @@ const AsProp = () => (
         <Flex as="input">Flex as input</Flex>
     </Box>
 )
+
+interface Theme {
+    dark: {
+        backgroundColor: string
+    }
+}
+
+const WithTypedTheme = () => {
+    const {Box} = rebassComponents as RebassComponentsModule<Theme>
+    return (
+        <Box theme={{dark: {backgroundColor: '#666666'}}} />
+    )
+}
+
+const StyledExtended = () => {
+    interface CustomBoxProps {
+        customProp: number
+        optionalProp?: string
+    }
+
+    const {default: styled} = styledComponents as ThemedStyledComponentsModule<Theme>
+
+    const CustomBox = styled(Box)<CustomBoxProps>`
+        ${props => props.customProp}
+        ${props => props.mx}
+        ${props => props.theme.dark}
+    `
+
+    return (
+        <CustomBox customProp={3} as="header" css={{maxWidth: '200px'}} theme={{dark: {backgroundColor: '#666666'}}} />
+    )
+}
+
+const ClassExtended = () => {
+    class Header extends React.Component<ThemedOuterStyledProps<BoxProps, Theme>> {
+        render() {
+            const {children, ...rest} = this.props
+            return (
+            <Box
+                {...rest}
+                as="header"
+                bg="#222"
+                p="20px"
+                color="white"
+                css={{height: '150px', textAlign: 'center'}}
+            >
+                {children}
+            </Box>
+            )
+        }
+    }
+
+    return (
+        <Header theme={{dark: {backgroundColor: '#666666'}}} css={{textAlign: 'center'}}>hello</Header>
+    )
+}
+
+const SFCExtended = () => {
+    const Header: React.SFC<ThemedOuterStyledProps<BoxProps, Theme>> = ({
+        children,
+        ...rest
+    }) => (
+        <Box
+            {...rest}
+            as="header"
+            bg="#222"
+            p="20px"
+            color="white"
+            css={{height: '150px', textAlign: 'center'}}
+        >
+            {children}
+        </Box>
+    )
+
+    return (
+        <Header theme={{dark: {backgroundColor: '#666666'}}} css={{textAlign: 'center'}}>hello</Header>
+    )
+}
