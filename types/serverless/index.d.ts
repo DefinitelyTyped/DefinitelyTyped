@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require("./classes/service");
+import YamlParser = require("./classes/yaml-parser");
 
 declare namespace Serverless {
     interface Options {
