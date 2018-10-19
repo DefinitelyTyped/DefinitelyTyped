@@ -8151,7 +8151,7 @@ export interface SwitchProps extends SwitchPropsIOS {
      *
      * Color when false and color when true
      */
-    trackColor?: { false: string, true: string };
+    trackColor?: { false?: string, true?: string };
 
     /**
      * If true the user won't be able to toggle the switch.

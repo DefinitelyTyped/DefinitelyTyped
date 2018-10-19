@@ -821,7 +821,11 @@ const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent", 
 
 
 const SwitchColorTest = () => (
-    <Switch trackColor={{ true: 'pink', false: 'red'}} />
+    <React.Fragment>
+        <Switch trackColor={{ true: 'pink', false: 'red'}} />
+        <Switch trackColor={{ true: 'pink' }} />
+        <Switch trackColor={{ false: 'red' }} />
+    </React.Fragment>
 )
 
 const SwitchThumbColorTest = () => (
