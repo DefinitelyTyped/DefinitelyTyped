@@ -2,7 +2,7 @@
 // Project: https://github.com/will-stone/mobx-cookie#readme
 // Definitions by: Duong Tran <https://github.com/t49tran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 2.8
 
 import { CookieAttributes } from 'js-cookie';
 
