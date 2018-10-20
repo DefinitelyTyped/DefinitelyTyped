@@ -7,9 +7,9 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import { Stream } from 'stream';
-import * as grpc from 'grpc';
+import { EventEmitter } from "events";
+import { Stream } from "stream";
+import * as grpc from "grpc";
 
 type GrpcRequest =
   | grpc.ServerUnaryCall<any>
@@ -30,7 +30,11 @@ declare class Mali extends EventEmitter {
   ports: ReadonlyArray<number>;
   silent: boolean;
 
-  addService(path: any, name: string | ReadonlyArray<string>, options?: any): void;
+  addService(
+    path: any,
+    name: string | ReadonlyArray<string>,
+    options?: any
+  ): void;
   use(service?: any, name?: any, fns?: any): void;
   start(port: number | string, creds?: any, options?: any): grpc.Server;
   toJSON(): any;
