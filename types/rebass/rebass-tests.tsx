@@ -293,10 +293,10 @@ const StyledExtended = () => {
 
     const {default: styled} = styledComponents as ThemedStyledComponentsModule<Theme>
 
-    const CustomBox = styled(Box)<CustomBoxProps>`
-        ${props => props.customProp}
-        ${props => props.mx}
-        ${props => props.theme.dark}
+    const CustomBox = styled(Box)`
+        ${(props: CustomBoxProps) => props.customProp}
+        ${(props) => props.mx}
+        ${(props) => props.theme.dark}
     `
 
     return (
