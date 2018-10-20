@@ -1,0 +1,5 @@
+{
+    "dependencies": {
+        "grpc": "^1.0.0"
+    }
+}
