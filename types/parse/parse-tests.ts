@@ -45,9 +45,7 @@ function test_object() {
         console.log("Class name should be 'Game")
     }
 
-    game.fetch({
-        success(g: Game) { }
-    });
+    game.fetch({});
 
     // Create a new instance of that class.
     const gameScore = new GameScore();
@@ -346,48 +344,20 @@ function test_facebook_util() {
         xfbml: true  // parse XFBML
     });
 
-    Parse.FacebookUtils.logIn(null, {
-        success: (user: Parse.User) => {
-            if (!user.existed()) {
-                alert("User signed up and logged in through Facebook!");
-            } else {
-                alert("User logged in through Facebook!");
-            }
-        },
-        error: (user: Parse.User, error: any) => {
-            alert("User cancelled the Facebook login or did not fully authorize.");
-        }
-    });
+    Parse.FacebookUtils.logIn(null, {});
 
     const user = Parse.User.current()!;
 
     if (!Parse.FacebookUtils.isLinked(user)) {
-        Parse.FacebookUtils.link(user, null, {
-            success: (user: any) => {
-                alert("Woohoo, user logged in with Facebook!");
-            },
-            error: (user: any, error: any) => {
-                alert("User cancelled the Facebook login or did not fully authorize.");
-            }
-        });
+        Parse.FacebookUtils.link(user, null, {});
     }
 
-    Parse.FacebookUtils.unlink(user, {
-        success: (user: Parse.User) => {
-            alert("The user is no longer associated with their Facebook account.");
-        }
-    });
+    Parse.FacebookUtils.unlink(user, {});
 }
 
 function test_cloud_functions() {
 
-    Parse.Cloud.run('hello', {}, {
-        success: (result: any) => {
-            // result
-        },
-        error: (error: any) => {
-        }
-    });
+    Parse.Cloud.run('hello', {}, {});
 
     Parse.Cloud.afterDelete('MyCustomClass', (request: Parse.Cloud.AfterDeleteRequest) => {
         // result
@@ -473,14 +443,7 @@ function test_push() {
         data: {
             alert: "The Giants won against the Mets 2-3."
         }
-    }, {
-            success: () => {
-                // Push was successful
-            },
-            error: (error: any) => {
-                // Handle error
-            }
-        });
+    }, {});
 
     const query = new Parse.Query(Parse.Installation);
     query.equalTo('injuryReports', true);
@@ -490,14 +453,7 @@ function test_push() {
         data: {
             alert: "Willie Hayes injured by own pop fly."
         }
-    }, {
-            success: function () {
-                // Push was successful
-            },
-            error: function (error: any) {
-                // Handle error
-            }
-        });
+    }, {});
 }
 
 function test_view() {
