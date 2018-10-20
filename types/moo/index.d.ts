@@ -22,7 +22,7 @@ export interface Rule {
      * It will track line numbers, as long as you apply the `lineBreaks: true`
      * option to any tokens which might contain newlines. Moo will try to warn you if you forget to do this.
      */
-    lineBreaks?: boolean;
+    lineBreaks?: number;
     /**
      * Moves the lexer to a new state, and pushes the old state onto the stack.
      */
