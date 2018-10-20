@@ -351,7 +351,7 @@ declare namespace Parse {
 
         interface SaveAllOptions extends Options, ScopeOptions { }
 
-        interface SetOptions extends ErrorOption, SilentOption {
+        interface SetOptions extends Options, SilentOption {
             promise?: any;
         }
     }
