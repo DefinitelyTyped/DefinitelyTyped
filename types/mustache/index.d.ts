@@ -205,7 +205,7 @@ declare class MustacheWriter {
      * @param tags
      * The tags to use.
      */
-    parse(template: string, tags?: any): any;
+    parse(template: string, tags?: string[]): any;
 
     /**
      * High-level method that is used to render the given `template` with the given `view`.
