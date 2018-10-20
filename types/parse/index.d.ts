@@ -23,15 +23,7 @@ declare namespace Parse {
     let liveQueryServerURL: string;
     let VERSION: string;
 
-    interface SuccessOption {
-        success?: Function;
-    }
-
-    interface ErrorOption {
-        error?: Function;
-    }
-
-    interface SuccessFailureOptions extends SuccessOption, ErrorOption {
+    interface Options {
     }
 
     interface SignUpOptions {
@@ -165,7 +157,7 @@ declare namespace Parse {
         constructor(name: string, data: any, type?: string);
         name(): string;
         url(): string;
-        save(options?: SuccessFailureOptions): Promise<File>;
+        save(options?: Options): Promise<File>;
 
     }
 
@@ -199,7 +191,7 @@ declare namespace Parse {
 
         constructor(arg1?: any, arg2?: any);
 
-        current(options?: SuccessFailureOptions): GeoPoint;
+        current(options?: Options): GeoPoint;
         radiansTo(point: GeoPoint): number;
         kilometersTo(point: GeoPoint): number;
         milesTo(point: GeoPoint): number;
@@ -340,24 +332,24 @@ declare namespace Parse {
         save(attrs: object, options?: Object.SaveOptions): Promise<this>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
         set(attrs: object, options?: Object.SetOptions): boolean;
-        setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
+        setACL(acl: ACL, options?: Options): boolean;
         toPointer(): Pointer;
         unset(attr: string, options?: any): any;
-        validate(attrs: any, options?: SuccessFailureOptions): boolean;
+        validate(attrs: any, options?: Options): boolean;
     }
 
     namespace Object {
-        interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
+        interface DestroyOptions extends Options, WaitOption, ScopeOptions { }
 
-        interface DestroyAllOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface DestroyAllOptions extends Options, ScopeOptions { }
 
-        interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FetchAllOptions extends Options, ScopeOptions { }
 
-        interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FetchOptions extends Options, ScopeOptions { }
 
-        interface SaveOptions extends SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
+        interface SaveOptions extends Options, SilentOption, ScopeOptions, WaitOption { }
 
-        interface SaveAllOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface SaveAllOptions extends Options, ScopeOptions { }
 
         interface SetOptions extends ErrorOption, SilentOption {
             promise?: any;
@@ -448,10 +440,10 @@ declare namespace Parse {
             at?: number;
         }
 
-        interface CreateOptions extends SuccessFailureOptions, WaitOption, SilentOption, ScopeOptions {
+        interface CreateOptions extends Options, WaitOption, SilentOption, ScopeOptions {
         }
 
-        interface FetchOptions extends SuccessFailureOptions, SilentOption, ScopeOptions { }
+        interface FetchOptions extends Options, SilentOption, ScopeOptions { }
 
         interface RemoveOptions extends SilentOption { }
 
@@ -614,11 +606,11 @@ declare namespace Parse {
     }
 
     namespace Query {
-        interface EachOptions extends SuccessFailureOptions, ScopeOptions { }
-        interface CountOptions extends SuccessFailureOptions, ScopeOptions { }
-        interface FindOptions extends SuccessFailureOptions, ScopeOptions { }
-        interface FirstOptions extends SuccessFailureOptions, ScopeOptions { }
-        interface GetOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface EachOptions extends Options, ScopeOptions { }
+        interface CountOptions extends Options, ScopeOptions { }
+        interface FindOptions extends Options, ScopeOptions { }
+        interface FirstOptions extends Options, ScopeOptions { }
+        interface GetOptions extends Options, ScopeOptions { }
 
         // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
         interface AggregationOptions {
@@ -659,11 +651,11 @@ declare namespace Parse {
         getRoles(): Relation<Role, Role>;
         getUsers(): Relation<Role, User>;
         getName(): string;
-        setName(name: string, options?: SuccessFailureOptions): any;
+        setName(name: string, options?: Options): any;
     }
 
     class Config extends Object {
-        static get(options?: SuccessFailureOptions): Promise<Config>;
+        static get(options?: Options): Promise<Config>;
         static current(): Config;
 
         get(attr: string): any;
@@ -728,25 +720,25 @@ declare namespace Parse {
 
         static current(): User | undefined;
         static signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
-        static logIn(username: string, password: string, options?: SuccessFailureOptions): Promise<User>;
+        static logIn(username: string, password: string, options?: Options): Promise<User>;
         static logOut(): Promise<User>;
         static allowCustomUserClass(isAllowed: boolean): void;
-        static become(sessionToken: string, options?: SuccessFailureOptions): Promise<User>;
-        static requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
+        static become(sessionToken: string, options?: Options): Promise<User>;
+        static requestPasswordReset(email: string, options?: Options): Promise<User>;
         static extend(protoProps?: any, classProps?: any): any;
 
         signUp(attrs: any, options?: SignUpOptions): Promise<this>;
-        logIn(options?: SuccessFailureOptions): Promise<this>;
+        logIn(options?: Options): Promise<this>;
         authenticated(): boolean;
         isCurrent(): boolean;
 
         getEmail(): string | undefined;
-        setEmail(email: string, options?: SuccessFailureOptions): boolean;
+        setEmail(email: string, options?: Options): boolean;
 
         getUsername(): string | undefined;
-        setUsername(username: string, options?: SuccessFailureOptions): boolean;
+        setUsername(username: string, options?: Options): boolean;
 
-        setPassword(password: string, options?: SuccessFailureOptions): boolean;
+        setPassword(password: string, options?: Options): boolean;
         getSessionToken(): string;
     }
 
@@ -819,9 +811,9 @@ declare namespace Parse {
 
         function init(options?: any): void;
         function isLinked(user: User): boolean;
-        function link(user: User, permissions: any, options?: SuccessFailureOptions): void;
-        function logIn(permissions: any, options?: SuccessFailureOptions): void;
-        function unlink(user: User, options?: SuccessFailureOptions): void;
+        function link(user: User, permissions: any, options?: Options): void;
+        function logIn(permissions: any, options?: Options): void;
+        function unlink(user: User, options?: Options): void;
     }
 
     /**
@@ -937,7 +929,7 @@ declare namespace Parse {
         function run(name: string, data?: any, options?: RunOptions): Promise<any>;
         function useMasterKey(): void;
 
-        interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface RunOptions extends Options, ScopeOptions { }
 
         /**
          * To use this Cloud Module in Cloud Code, you must require 'buffer' in your JavaScript file.
