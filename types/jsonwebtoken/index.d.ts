@@ -1,4 +1,4 @@
-// Type definitions for jsonwebtoken 7.2.2
+// Type definitions for jsonwebtoken 7.2.3
 // Project: https://github.com/auth0/node-jsonwebtoken
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>,
 //                 Daniel Heim <https://github.com/danielheim>,
