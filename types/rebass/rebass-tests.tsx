@@ -231,7 +231,7 @@ const BgImage = () => (
 )
 
 const ReactHTMLAttributes = () => (
-    <React.Fragment>
+    <div>
         <Box onMouseDown={() => console.log('Mouse down works!')}>
             <Card
                 backgroundImage="url(https://source.unsplash.com/random/1024x768)"
@@ -259,7 +259,7 @@ const ReactHTMLAttributes = () => (
                 </Link>
             </Flex>
         </Box>
-    </React.Fragment>
+    </div>
 )
 
 const AsProp = () => (
