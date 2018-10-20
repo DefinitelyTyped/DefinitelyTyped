@@ -59,10 +59,10 @@ export namespace Name {
     }
 }
 
+export type NameCtor = string|Name|Array<Name.ComponentCtorValue|Name>;
+
 export class Name {
-    constructor(uri?: string);
-    constructor(name: Name);
-    constructor(components: Array<Name.ComponentCtorValue|Name>);
+    constructor(arg?: NameCtor);
 
     // accessors
     set(uri: string): void;

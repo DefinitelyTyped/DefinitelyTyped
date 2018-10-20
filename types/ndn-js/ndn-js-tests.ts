@@ -107,6 +107,26 @@ function testName() {
     name = ndn.Name.fromEscapedString(s);
 }
 
+function testInterest() {
+    let interest = new ndn.Interest();
+    interest = new ndn.Interest("/A");
+    interest = new ndn.Interest(interest);
+
+    const name: ndn.Name = interest.setName("/B").getName();
+    let b: boolean = interest.setCanBePrefix(false).getCanBePrefix();
+    b = interest.setMustBeFresh(true).getMustBeFresh();
+    const fh: any = interest.setForwardingHint({}).getMustBeFresh();
+    let blob: ndn.Blob = interest.getNonce();
+    interest.refreshNonce();
+    const n: number = interest.setInterestLifetimeMilliseconds(8888).getInterestLifetimeMilliseconds();
+
+    b = interest.matchesData({});
+    b = interest.matchesName(name);
+
+    blob = name.wireEncode();
+    name.wireDecode(blob);
+}
+
 function testFaceTransport() {
     let face = new ndn.Face();
     face = new ndn.Face({host: 'hobo.cs.arizona.edu', port: 6363});
