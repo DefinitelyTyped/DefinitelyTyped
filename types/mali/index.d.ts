@@ -1,7 +1,7 @@
 // Type definitions for mali 0.9
 // Project: https://github.com/malijs/mali
 // Definitions by: Daniel Byrne <https://github.com/danwbyrne>
-//         		   Bojan D. <https://github.com/bojand>
+//                 Bojan D. <https://github.com/bojand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
