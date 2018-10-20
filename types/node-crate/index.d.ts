@@ -1,5 +1,5 @@
 // Type definitions for node-crate 2.0
-// Project: https://github.com/arobson/rabbot
+// Project: https://github.com/megastef/node-crate
 // Definitions by: Greg Jednaszewski <https://github.com/gjednaszewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -30,6 +30,10 @@ declare namespace crate {
          * Creates a table with the given schema.
          */
         create: (schema: object) => Promise<DBResultObject>;
+        /**
+         * Creates a table if it doesn't already exist.
+         */
+        createIfNotExists: (schema: object) => Promise<DBResultObject>;
         /**
          * Drops a table.
          */

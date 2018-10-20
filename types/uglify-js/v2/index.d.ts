@@ -159,7 +159,7 @@ declare namespace UglifyJS {
         /**
          * Maximum line length (for non-beautified output)
          */
-        max_line_len?: number;
+        max_line_len?: boolean | number;
 
         /**
          * Output IE-safe code?

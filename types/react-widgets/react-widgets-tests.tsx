@@ -104,6 +104,9 @@ class Test extends React.Component<React.Props<{}>> {
                     name="list"
                 />
             </div>
+            <div>
+                <DateTimePicker dropUp={true} containerClassName="d-flex" timeIcon={<i className="fa fa-clock" />} />
+            </div>
         </div>
         );
     }

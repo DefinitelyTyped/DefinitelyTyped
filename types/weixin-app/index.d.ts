@@ -3099,7 +3099,7 @@ declare namespace wx {
 	 */
 	function getUserInfo(options: GetUserInfoOptions): void;
 	// 开放接口-----微信支付
-	type PaymentSignType = "MD5";
+	type PaymentSignType = "MD5" | "HMAC-SHA256";
 	interface RequestPaymentOptions extends BaseOptions {
 		/** 时间戳从1970年1月1日00:00:00至今的秒数,即当前的时间 */
 		timeStamp: string | number;
@@ -3107,7 +3107,7 @@ declare namespace wx {
 		nonceStr: string;
 		/** 统一下单接口返回的 prepay_id 参数值，提交格式如：prepay_id=* */
 		package: string;
-		/** 签名算法，暂支持 MD5 */
+		/** 签名算法，默认为MD5，支持HMAC-SHA256和MD5 */
 		signType: PaymentSignType;
 		/** 签名,具体签名方案参见微信公众号支付帮助文档; */
 		paySign: string;

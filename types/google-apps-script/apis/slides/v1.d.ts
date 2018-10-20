@@ -3,8 +3,6 @@
 // Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../../google-apps-script.types.d.ts" />
-
 declare namespace GoogleAppsScript {
   export module Slides_v1 {
     //// FILE: color.proto ////
@@ -804,7 +802,7 @@ declare namespace GoogleAppsScript {
       // File Formats - Fundamentals and Markup Language Reference", part 1 of
       // [ECMA-376 4th
       // edition](http://www.ecma-international.org/publications/standards/Ecma-376.htm).
-      
+
       // The type of the shape.
       shape_type: ShapeType
       // The text content of the shape.

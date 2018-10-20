@@ -324,7 +324,7 @@ export namespace AnimationUtils {
 }
 
 export class KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 
     name: string;
     times: any[];
@@ -411,23 +411,23 @@ export class BooleanKeyframeTrack extends KeyframeTrack {
 }
 
 export class ColorKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class NumberKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class QuaternionKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class StringKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 export class VectorKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
 }
 
 // Cameras ////////////////////////////////////////////////////////////////////////////////////////
@@ -1059,7 +1059,7 @@ export class DirectGeometry extends EventDispatcher {
 
     // EventDispatcher mixins
     addEventListener(type: string, listener: (event: Event) => void ): void;
-    hasEventListener(type: string, listener: (event: Event) => void): void;
+    hasEventListener(type: string, listener: (event: Event) => void): boolean;
     removeEventListener(type: string, listener: (event: Event) => void): void;
     dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
 }
@@ -1099,17 +1099,17 @@ export class EventDispatcher {
 
     /**
      * Adds a listener to an event type.
-     * @param type The type of the listener that gets removed.
-     * @param listener The listener function that gets removed.
+     * @param type The type of event to listen to.
+     * @param listener The function that gets called when the event is fired.
      */
     addEventListener(type: string, listener: (event: Event) => void ): void;
 
     /**
-     * Adds a listener to an event type.
-     * @param type The type of the listener that gets removed.
-     * @param listener The listener function that gets removed.
+     * Checks if listener is added to an event type.
+     * @param type The type of event to listen to.
+     * @param listener The function that gets called when the event is fired.
      */
-    hasEventListener(type: string, listener: (event: Event) => void): void;
+    hasEventListener(type: string, listener: (event: Event) => void): boolean;
 
     /**
      * Removes a listener from an event type.
@@ -1442,7 +1442,7 @@ export class Geometry extends EventDispatcher {
 
     // EventDispatcher mixins
     addEventListener(type: string, listener: (event: Event) => void ): void;
-    hasEventListener(type: string, listener: (event: Event) => void): void;
+    hasEventListener(type: string, listener: (event: Event) => void): boolean;
     removeEventListener(type: string, listener: (event: Event) => void): void;
     dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
 }
@@ -1857,7 +1857,7 @@ export interface Intersection {
     face?: Face3 | null;
     faceIndex?: number;
     object: Object3D;
-    uv: Vector2;
+    uv?: Vector2;
 }
 
 export interface RaycasterParameters {
@@ -5233,26 +5233,15 @@ export class LOD extends Object3D {
     objects: any[];
 }
 
-
-/**
- * An intermediate material type that casts more precisely the possible materials assignable to a [[Line]] object.
- *
- * [[LineDashedMaterial]] is omitted as it extends [[LineBasicMaterial]].
- *
- * // Todo:
- * // - can [[Line]] take in an array of materials ?
- */
-export type LineMaterialType = LineBasicMaterial | ShaderMaterial | MeshDepthMaterial;
-
 export class Line extends Object3D {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineMaterialType | LineMaterialType[],
+        material?: Material | Material[],
         mode?: number
     );
 
-    geometry: Geometry|BufferGeometry;
-    material: LineBasicMaterial | LineDashedMaterial | ShaderMaterial;
+    geometry: Geometry | BufferGeometry;
+    material: Material | Material[];
 
     type: "Line";
     isLine: true;
@@ -5273,23 +5262,16 @@ export const LinePieces: number;
 export class LineSegments extends Line {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineMaterialType | LineMaterialType[],
+        material?: Material | Material[],
         mode?: number
     );
 }
 
-/**
- * An intermediate material type that casts more precisely the possible materials assignable to a [[Mesh]] object.
- *
- * `MeshToonMaterial` and [[MeshPhysicalMaterial]] are omitted as they extend [[MeshPhongMaterial]] and [[MeshStandardMaterial]] respectively.
- */
-export type MeshMaterialType = MeshBasicMaterial | MeshDepthMaterial | MeshFaceMaterial | MeshLambertMaterial | MeshNormalMaterial | MeshPhongMaterial | MeshStandardMaterial | ShaderMaterial | ShadowMaterial;
-
 export class Mesh extends Object3D {
-    constructor(geometry?: Geometry | BufferGeometry, material?: MeshMaterialType | MeshMaterialType[]);
+    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[]);
 
-    geometry: Geometry|BufferGeometry;
-    material: MeshMaterialType | MeshMaterialType[];
+    geometry: Geometry | BufferGeometry;
+    material: Material | Material[];
     drawMode: TrianglesDrawModes;
     morphTargetInfluences?: number[];
     morphTargetDictionary?: { [key: string]: number; };
@@ -5301,14 +5283,6 @@ export class Mesh extends Object3D {
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
     copy(source: this, recursive?: boolean): this;
 }
-
-/**
- * An intermediate material type that casts more precisely the possible materials assignable to a [[Points]] object.
- *
- * // Todo:
- * // - can [[Points]] take in an array of materials ?
- */
-export type PointsMaterialType = PointsMaterial | ShaderMaterial | MeshDepthMaterial;
 
 /**
  * A class for displaying particles in the form of variable size points. For example, if using the WebGLRenderer, the particles are displayed using GL_POINTS.
@@ -5323,7 +5297,7 @@ export class Points extends Object3D {
      */
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: PointsMaterialType | PointsMaterialType[]
+        material?: Material | Material[]
     );
 
     type: "Points";
@@ -5337,7 +5311,7 @@ export class Points extends Object3D {
     /**
      * An instance of Material, defining the object's appearance. Default is a PointsMaterial with randomised colour.
      */
-    material: PointsMaterial | ShaderMaterial;
+    material: Material | Material[];
 
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
 }
@@ -5373,13 +5347,7 @@ export class Skeleton {
 }
 
 export class SkinnedMesh extends Mesh {
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshBasicMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshDepthMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MultiMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshLambertMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshNormalMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: MeshPhongMaterial, useVertexTexture?: boolean);
-    constructor(geometry?: Geometry|BufferGeometry, material?: ShaderMaterial, useVertexTexture?: boolean);
+    constructor(geometry?: Geometry | BufferGeometry, material?: Material | Material[], useVertexTexture?: boolean);
 
     bindMode: string;
     bindMatrix: Matrix4;
@@ -5398,7 +5366,7 @@ export class Sprite extends Object3D {
     type: "Sprite";
     isSprite: true;
 
-    material: SpriteMaterial;
+    material: Material;
     center: Vector2;
 
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
