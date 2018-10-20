@@ -3,7 +3,8 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>,
 //                 Daniel Heim <https://github.com/danielheim>,
 //                 Brice BERNARD <https://github.com/brikou>,
-//                 Veli-Pekka Kestilä <https://github.com/vpk>
+//                 Veli-Pekka Kestilä <https://github.com/vpk>,
+//                 Daniel Parker <https://github.com/rlgod>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -143,18 +144,18 @@ export declare function verify(
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
  * @param {String} token - JWT string to verify
- * @param {String|Buffer} secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA.
+ * @param {String|Buffer|Function} secretOrPublicKey - A string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA. If jwt.verify is called asynchronous, secretOrPublicKey can be a function that should fetch the secret or public key
  * @param {VerifyOptions} [options] - Options for the verification
  * @param {Function} callback - Callback to get the decoded token on
  */
 export declare function verify(
     token: string,
-    secretOrPublicKey: string | Buffer,
+    secretOrPublicKey: string | Buffer | Function,
     callback?: VerifyCallback,
 ): void;
 export declare function verify(
     token: string,
-    secretOrPublicKey: string | Buffer,
+    secretOrPublicKey: string | Buffer | Function,
     options?: VerifyOptions,
     callback?: VerifyCallback,
 ): void;

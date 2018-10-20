@@ -83,6 +83,19 @@ jwt.verify(token, cert, function(err, decoded) {
     console.log(result.foo); // bar
 });
 
+// verify a token assymetric with async key fetch function
+function getKey(header: Object, callback: Function) {
+    cert = fs.readFileSync("public.pem");
+
+    callback(null, cert);
+}
+
+jwt.verify(token, getKey, function(err, decoded) {
+    const result = decoded as ITestObject;
+
+    console.log(result.foo); // bar
+});
+
 // verify audience
 cert = fs.readFileSync("public.pem"); // get public key
 jwt.verify(token, cert, { audience: "urn:foo" }, function(err, decoded) {
