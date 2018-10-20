@@ -1,3 +1,5 @@
+export type BlobLike = Blob|Buffer;
+
 export class Blob {
     constructor(value?: Blob);
     constructor(value: Buffer, copy?: boolean);
