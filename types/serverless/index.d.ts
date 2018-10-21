@@ -6,6 +6,7 @@
 import Service = require("./classes/Service");
 import Plugin = require("./classes/Plugin");
 import PluginManager = require("./classes/PluginManager");
+import Utils = require("./classes/Utils");
 import YamlParser = require("./classes/YamlParser");
 import AwsProvider = require("./plugins/aws/provider/awsProvider");
 
@@ -45,7 +46,7 @@ declare class Serverless {
     };
 
     providers: {};
-    utils: {};
+    utils: Utils;
     variables: {};
     yamlParser: YamlParser;
     pluginManager: PluginManager;
