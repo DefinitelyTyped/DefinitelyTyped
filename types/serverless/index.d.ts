@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require("./classes/Service");
+import Plugin = require("./classes/Plugin");
 import PluginManager = require("./classes/PluginManager");
 import YamlParser = require("./classes/YamlParser");
 import AwsProvider = require("./plugins/aws/provider/awsProvider");
