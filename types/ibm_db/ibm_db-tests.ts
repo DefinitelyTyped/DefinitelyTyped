@@ -10,17 +10,3 @@ ibmdb.open("DATABASE=<dbname>;HOSTNAME=<myhost>;UID=db2user;PWD=password;PORT=<d
     });
   });
 });
-
-/** imdb.ODBCStatement */
-const service = new ibmdb.ODBCStatement();
-service.executeSync();
-
-service.executeSync(
-  ["test"]
-);
-
-service._executeSync();
-
-service._executeSync(
-  ["test"]
-);
