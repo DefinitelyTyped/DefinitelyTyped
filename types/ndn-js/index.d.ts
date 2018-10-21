@@ -4,6 +4,8 @@ export * from "./data";
 export * from "./delegation-set";
 export * from "./face";
 export * from "./interest";
+export * from "./key-chain";
 export * from "./name";
+export * from "./network-nack";
 export * from "./signature";
 export * from "./transport";
