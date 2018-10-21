@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require("./classes/Service");
+import PluginManager = require("./classes/PluginManager");
 import YamlParser = require("./classes/YamlParser");
 import AwsProvider = require("./plugins/aws/provider/awsProvider");
 
@@ -39,18 +40,20 @@ declare class Serverless {
     getVersion(): string;
 
     cli: {
-        log(message: string): null
+        log(message: string): null;
     };
+
+    providers: {};
+    utils: {};
+    variables: {};
+    yamlParser: YamlParser;
+    pluginManager: PluginManager;
 
     config: Serverless.Config;
-    yamlParser: YamlParser;
+    serverlessDirPath: string;
 
-    service: {
-        getServiceName(): string
-        getAllFunctions(): string[]
-
-        custom: {}
-    };
+    service: Service;
+    version: string;
 }
 
 export = Serverless;
