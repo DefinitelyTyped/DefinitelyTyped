@@ -1,4 +1,4 @@
-// Type definitions for Knex.js 0.14
+// Type definitions for Knex.js 0.15.2
 // Project: https://github.com/tgriesser/knex
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
@@ -444,8 +444,8 @@ declare namespace Knex {
         timestamp(columnName: string, standard?: boolean): ColumnBuilder;
         timestamps(useTimestampType?: boolean, makeDefaultNow?: boolean): ColumnBuilder;
         binary(columnName: string, length?: number): ColumnBuilder;
-        enum(columnName: string, values: Value[]): ColumnBuilder;
-        enu(columnName: string, values: Value[]): ColumnBuilder;
+        enum(columnName: string, values: Value[], options?: EnumOptions): ColumnBuilder;
+        enu(columnName: string, values: Value[], options?: EnumOptions): ColumnBuilder;
         json(columnName: string): ColumnBuilder;
         jsonb(columnName: string): ColumnBuilder;
         uuid(columnName: string): ColumnBuilder;
@@ -515,6 +515,11 @@ declare namespace Knex {
     interface MySqlAlterColumnBuilder extends AlterColumnBuilder {
         first(): AlterColumnBuilder;
         after(columnName: string): AlterColumnBuilder;
+    }
+
+    interface EnumOptions {
+        useNative: boolean;
+        enumName: string;
     }
 
     //
