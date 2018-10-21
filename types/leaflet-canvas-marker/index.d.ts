@@ -2,6 +2,7 @@
 // Project: https://github.com/eJuke/Leaflet.Canvas-Markers#readme
 // Definitions by: Slaven Kopić <https://github.com/slaven3kopic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as L from 'leaflet';
 
