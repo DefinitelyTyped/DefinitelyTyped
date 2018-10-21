@@ -37,7 +37,7 @@ face.removePendingInterest(n);
 face.removeRegisteredPrefix(n);
 face.send(new ndn.Blob());
 face.setCommandCertificateName(name);
-face.setCommandSigningInfo({}, name);
+face.setCommandSigningInfo(new ndn.KeyChain(), name);
 
 n = face.setInterestFilter(filter,
     (prefix: ndn.Name, interest: ndn.Interest, face: ndn.Face, filterId: number, filter: ndn.InterestFilter) => {});

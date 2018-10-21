@@ -22,6 +22,7 @@
         "data-test.ts",
         "face-test.ts",
         "interest-test.ts",
+        "key-chain-test.ts",
         "name-test.ts",
         "network-nack-test.ts",
         "signature-test.ts",
