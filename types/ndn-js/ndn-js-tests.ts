@@ -120,11 +120,43 @@ function testInterest() {
     interest.refreshNonce();
     const n: number = interest.setInterestLifetimeMilliseconds(8888).getInterestLifetimeMilliseconds();
 
-    b = interest.matchesData({});
+    b = interest.matchesData(new ndn.Data());
     b = interest.matchesName(name);
 
     blob = name.wireEncode();
     name.wireDecode(blob);
+}
+
+function testData() {
+    let meta = new ndn.MetaInfo();
+    meta = new ndn.MetaInfo(meta);
+    let n: number = meta.getType();
+    meta.setType(ndn.ContentType.OTHER_CODE);
+    n = meta.getOtherTypeCode();
+    meta.setOtherTypeCode(25);
+    n = meta.getFreshnessPeriod();
+    meta.setFreshnessPeriod(5000);
+    const comp: ndn.Name.Component = meta.getFinalBlockId();
+    meta.setFinalBlockId("A");
+
+    let sig: ndn.Signature = new ndn.DigestSha256Signature();
+    sig = new ndn.GenericSignature();
+    sig = new ndn.Sha256WithRsaSignature();
+    sig = new ndn.Sha256WithEcdsaSignature();
+
+    let data = new ndn.Data();
+    data = new ndn.Data("/A");
+    data = new ndn.Data("/A", new ndn.Blob());
+    data = new ndn.Data("/A", meta, Buffer.alloc(4));
+
+    let name: ndn.Name = data.setName("/B").getName();
+    meta = data.setMetaInfo(meta).getMetaInfo();
+    let blob: ndn.Blob = data.setContent(Buffer.alloc(4)).getContent();
+    sig = data.setSignature(sig).getSignature();
+
+    name = data.getFullName();
+    blob = data.wireEncode();
+    data.wireDecode(blob);
 }
 
 function testFaceTransport() {

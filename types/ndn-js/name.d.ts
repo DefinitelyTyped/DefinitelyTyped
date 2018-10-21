@@ -1,7 +1,7 @@
 import { Blob, BlobLike } from "./blob";
 
 export namespace Name {
-    type ComponentCtorValue = string|number[]|ArrayBuffer|Buffer;
+    type ComponentCtor = string|number[]|ArrayBuffer|Buffer;
     type CompareResult = -1|0|1;
 
     enum ComponentType {
@@ -14,8 +14,8 @@ export namespace Name {
     class Component {
         constructor();
         constructor(comp: Component);
-        constructor(value: ComponentCtorValue, type?: ComponentType);
-        constructor(value: ComponentCtorValue, type: ComponentType.OTHER_CODE, otherTypeCode: number);
+        constructor(value: ComponentCtor, type?: ComponentType);
+        constructor(value: ComponentCtor, type: ComponentType.OTHER_CODE, otherTypeCode: number);
 
         // accessors
         getType(): ComponentType;
@@ -59,10 +59,11 @@ export namespace Name {
     }
 }
 
-export type NameCtor = string|Name|Array<Name.ComponentCtorValue|Name>;
+export type NameCtor = string|Name;
 
 export class Name {
-    constructor(arg?: NameCtor);
+    constructor(name?: NameCtor);
+    constructor(components: Array<Name.ComponentCtor|Name>);
 
     // accessors
     set(uri: string): void;
@@ -75,8 +76,8 @@ export class Name {
     // append
     append(component: Name.Component): Name;
     append(component: Name): Name;
-    append(value: Name.ComponentCtorValue, type?: Name.ComponentType): Name;
-    append(value: Name.ComponentCtorValue, type: Name.ComponentType.OTHER_CODE, otherTypeCode: number): Name;
+    append(value: Name.ComponentCtor, type?: Name.ComponentType): Name;
+    append(value: Name.ComponentCtor, type: Name.ComponentType.OTHER_CODE, otherTypeCode: number): Name;
     appendSegment(segment: number): Name;
     appendSegmentOffset(segmentOffset: number): Name;
     appendVersion(version: number): Name;

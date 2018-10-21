@@ -7,7 +7,7 @@ export class Interest {
     constructor(name?: NameCtor);
     constructor(interest: Interest);
 
-    // field accessors
+    // accessors
     getName(): Name;
     setName(name: NameCtor): Interest;
     getCanBePrefix(): boolean;
