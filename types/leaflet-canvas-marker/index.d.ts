@@ -84,7 +84,6 @@ declare module 'leaflet' {
          * @param listener Function that runs when the hover event occurs
          */
         addOnHoverListener(listener: () => any): this;
-
     }
 
     function canvasIconLayer(options: any): CanvasIconLayer;
