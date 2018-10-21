@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.2.13
+// Type definitions for Mongoose 5.3.4
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 sindrenm <https://github.com/sindrenm>
@@ -13,6 +13,7 @@
 //                 Idan Dardikman <https://github.com/idandrd>
 //                 Dominik Heigl <https://github.com/various89>
 //                 Fazendaaa <https://github.com/Fazendaaa>
+//                 Norman Perrin <https://github.com/NormanPerrin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -390,6 +391,8 @@ declare module "mongoose" {
     useNewUrlParser?: boolean;
     /** Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify(). */
     useFindAndModify?: boolean;
+    /** If true, this connection will use createIndex() instead of ensureIndex() for automatic index builds via Model.init(). */
+    useCreateIndex?: boolean;
 
     // TODO
     safe?: any;
@@ -408,11 +411,6 @@ declare module "mongoose" {
        * models associated with this connection.
        */
       autoIndex?: boolean;
-
-      /**
-       * If true, this connection will use createIndex() instead of ensureIndex() for automatic index builds via Model.init().
-       */
-      useCreateIndex?: boolean;
     };
   }
 

@@ -22,12 +22,12 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   pass: 'housan',
   config: {
     autoIndex: true,
-    useCreateIndex: true,
   },
   mongos: true,
   bufferCommands: false,
   useNewUrlParser: true,
   useFindAndModify: true,
+  useCreateIndex: true
 });
 const connection3: null = mongoose.connect(connectUri, function (error) {
   error.stack;
