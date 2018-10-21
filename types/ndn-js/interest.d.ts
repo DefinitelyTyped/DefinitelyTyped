@@ -1,31 +1,29 @@
-import { Blob, BlobLike } from "./blob";
+import { Blob } from "./blob";
 import { Data } from "./data";
 import { DelegationSet } from "./delegation-set";
-import { Name, NameCtor } from "./name";
+import { Name } from "./name";
 
 export class Interest {
-    constructor(name?: NameCtor);
+    constructor(name?: Name);
     constructor(interest: Interest);
 
-    // accessors
-    getName(): Name;
-    setName(name: NameCtor): Interest;
     getCanBePrefix(): boolean;
-    setCanBePrefix(canBePrefix: boolean): Interest;
-    getMustBeFresh(): boolean;
-    setMustBeFresh(mustBeFresh: boolean): Interest;
     getForwardingHint(): DelegationSet;
-    setForwardingHint(fh: DelegationSet): Interest;
-    getNonce(): Blob;
-    refreshNonce(): void;
+    getIncomingFaceId(): number;
     getInterestLifetimeMilliseconds(): number;
-    setInterestLifetimeMilliseconds(lifetime: number): Interest;
+    getMustBeFresh(): boolean;
+    getName(): Name;
+    getNonce(): Blob;
 
-    // algorithms
+    setCanBePrefix(canBePrefix: boolean): Interest;
+    setForwardingHint(fh: DelegationSet): Interest;
+    setInterestLifetimeMilliseconds(lifetime: number): Interest;
+    setMustBeFresh(mustBeFresh: boolean): Interest;
+    setName(name: Name): Interest;
+
     matchesData(data: Data): boolean;
     matchesName(name: Name): boolean;
-
-    // encoding
+    refreshNonce(): void;
+    wireDecode(input: Blob|Buffer): void;
     wireEncode(): Blob;
-    wireDecode(input: BlobLike): void;
 }

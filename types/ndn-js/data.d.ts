@@ -1,28 +1,25 @@
-import { Blob, BlobLike } from "./blob";
-import { NameCtor, Name } from "./name";
+import { Blob } from "./blob";
+import { Name } from "./name";
 import { Signature } from "./signature";
 
 export class Data {
-    constructor(name?: NameCtor, content?: BlobLike);
-    constructor(name: NameCtor, metaInfo: MetaInfo, content: Buffer);
-    constructor(data: Data);
+    constructor(name?: Name);
 
-    // accessors
-    getName(): Name;
-    setName(name: NameCtor): Data;
-    getMetaInfo(): MetaInfo;
-    setMetaInfo(meta: MetaInfo): Data;
+    getCongestionMark(): number;
     getContent(): Blob;
-    setContent(content: BlobLike): Data;
+    getFullName(): Name;
+    getIncomingFaceId(): number;
+    getMetaInfo(): MetaInfo;
+    getName(): Name;
     getSignature(): Signature;
+
+    setContent(content: Blob): Data;
+    setMetaInfo(meta: MetaInfo): Data;
+    setName(name: Name): Data;
     setSignature(sig: Signature): Data;
 
-    // algorithms
-    getFullName(): Name;
-
-    // encoding
+    wireDecode(input: Blob|Buffer): void;
     wireEncode(): Blob;
-    wireDecode(input: BlobLike): void;
 }
 
 export enum ContentType {
@@ -36,12 +33,13 @@ export enum ContentType {
 export class MetaInfo {
     constructor(meta?: MetaInfo);
 
-    getType(): ContentType;
-    setType(type: ContentType|null): void;
-    getOtherTypeCode(): number;
-    setOtherTypeCode(otherTypeCode: number): void;
-    getFreshnessPeriod(): number;
-    setFreshnessPeriod(freshness: number): void;
     getFinalBlockId(): Name.Component;
-    setFinalBlockId(comp: Name.ComponentCtor): void;
+    getFreshnessPeriod(): number;
+    getOtherTypeCode(): number;
+    getType(): ContentType;
+
+    setFinalBlockId(comp: Name.Component): void;
+    setFreshnessPeriod(freshness: number): void;
+    setOtherTypeCode(otherTypeCode: number): void;
+    setType(type: ContentType): void;
 }

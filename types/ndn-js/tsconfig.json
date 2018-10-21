@@ -18,6 +18,12 @@
     },
     "files": [
         "index.d.ts",
-        "ndn-js-tests.ts"
+        "blob-test.ts",
+        "data-test.ts",
+        "face-test.ts",
+        "interest-test.ts",
+        "name-test.ts",
+        "signature-test.ts",
+        "transport-test.ts"
     ]
 }

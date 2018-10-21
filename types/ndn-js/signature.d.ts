@@ -1,4 +1,4 @@
-import { Blob, BlobLike } from "./blob";
+import { Blob } from "./blob";
 import { Name } from "./name";
 
 export enum KeyLocatorType {
@@ -28,10 +28,9 @@ export interface Signature {
 
 export class SignatureBase<T extends Signature> implements Signature {
     constructor();
-    clone(): T;
-
     getSignature(): Blob;
-    setSignature(sigValue: BlobLike): void;
+    setSignature(sigValue: Blob): void;
+    clone(): T;
 }
 
 export class SignatureBaseKl<T extends Signature> extends SignatureBase<T> {
@@ -49,10 +48,8 @@ export class DigestSha256Signature extends SignatureBase<DigestSha256Signature> 
 
 export class GenericSignature extends SignatureBase<GenericSignature> {
     constructor();
-    clone(): GenericSignature;
-
-    getTypeCode(): number;
     getSignatureInfoEncoding(): Blob;
+    getTypeCode(): number;
     setSignatureInfoEncoding(encoding: Blob, typeCode?: number): void;
 }
 

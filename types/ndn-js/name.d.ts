@@ -1,103 +1,89 @@
-import { Blob, BlobLike } from "./blob";
+import { Blob } from "./blob";
+
+export enum ComponentType {
+    IMPLICIT_SHA256_DIGEST = 1,
+    PARAMETERS_SHA256_DIGEST = 2,
+    GENERIC = 8,
+    OTHER_CODE = 0x7fff,
+}
+
+export type CompareResult = -1|0|1;
 
 export namespace Name {
-    type ComponentCtor = string|number[]|ArrayBuffer|Buffer;
-    type CompareResult = -1|0|1;
-
-    enum ComponentType {
-        IMPLICIT_SHA256_DIGEST = 1,
-        PARAMETERS_SHA256_DIGEST = 2,
-        GENERIC = 8,
-        OTHER_CODE = 0x7fff,
-    }
-
     class Component {
-        constructor();
-        constructor(comp: Component);
-        constructor(value: ComponentCtor, type?: ComponentType);
-        constructor(value: ComponentCtor, type: ComponentType.OTHER_CODE, otherTypeCode: number);
+        constructor(value?: number[]|ArrayBuffer|Uint8Array|string|Blob, type?: ComponentType, otherTypeCode?: number);
+        constructor(component: Component);
 
-        // accessors
-        getType(): ComponentType;
-        getOtherTypeCode(): number;
-        getValue(): Blob;
-        toEscapedString(): string;
-
-        // algorithms
-        getSuccessor(): Component;
-        equals(other: Component): boolean;
         compare(other: Component): CompareResult;
-
-        // digest types
+        equals(other: Component): boolean;
+        static fromImplicitSha256Digest(digest: Blob): Component;
+        static fromParametersSha256Digest(digest: Blob): Component;
+        getOtherTypeCode(): number;
+        getSuccessor(): Component;
+        getType(): ComponentType;
+        getValue(): Blob;
+        isGeneric(): boolean;
         isImplicitSha256Digest(): boolean;
         isParametersSha256Digest(): boolean;
-        static fromImplicitSha256Digest(digest: BlobLike): Component;
-        static fromParametersSha256Digest(digest: BlobLike): Component;
+        toEscapedString(): string;
 
-        // naming conventions
+        static fromNumber(number: number, type?: ComponentType, otherTypeCode?: number): Component;
+        static fromNumberWithMarker(number: number, marker: number): Component;
+        static fromSegment(segment: number): Component;
+        static fromSegmentOffset(segmentOffset: number): Component;
+        static fromSequenceNumber(sequenceNumber: number): Component;
+        static fromTimestamp(timestamp: number): Component;
+        static fromVersion(version: number): Component;
+
         isSegment(): boolean;
         isSegmentOffset(): boolean;
-        isVersion(): boolean;
-        isTimestamp(): boolean;
         isSequenceNumber(): boolean;
-        isGeneric(): boolean;
+        isTimestamp(): boolean;
+        isVersion(): boolean;
+
         toNumber(): number;
         toNumberWithMarker(marker: number): number;
         toSegment(): number;
         toSegmentOffset(): number;
-        toVersion(): number;
-        toTimestamp(): number;
         toSequenceNumber(): number;
-        static fromNumber(number: number, type?: ComponentType): Component;
-        static fromNumber(number: number, type: ComponentType.OTHER_CODE, otherTypeCode: number): Component;
-        static fromNumberWithMarker(number: number, marker: number): Component;
-        static fromSegment(segment: number): Component;
-        static fromSegmentOffset(segmentOffset: number): Component;
-        static fromVersion(version: number): Component;
-        static fromTimestamp(timestamp: number): Component;
-        static fromSequenceNumber(sequenceNumber: number): Component;
+        toTimestamp(): number;
+        toVersion(): number;
     }
 }
 
-export type NameCtor = string|Name;
-
 export class Name {
-    constructor(name?: NameCtor);
-    constructor(components: Array<Name.ComponentCtor|Name>);
+    constructor(components?: Array<Name.Component|Uint8Array>);
+    constructor(uri: string);
+    constructor(name: Name);
 
-    // accessors
-    set(uri: string): void;
-    clear(): void;
-    getSubName(iStartComponent: number, nComponents?: number): Name;
-    getPrefix(nComponents: number): Name;
-    size(): number;
-    get(i: number): Name.Component;
-
-    // append
+    append(value: number[]|ArrayBuffer|Uint8Array|string|Blob, type?: ComponentType, otherTypeCode?: number): Name;
     append(component: Name.Component): Name;
-    append(component: Name): Name;
-    append(value: Name.ComponentCtor, type?: Name.ComponentType): Name;
-    append(value: Name.ComponentCtor, type: Name.ComponentType.OTHER_CODE, otherTypeCode: number): Name;
+    append(name: Name): Name;
+    appendImplicitSha256Digest(digest: Blob): Name;
+    appendParametersSha256Digest(digest: Blob): Name;
     appendSegment(segment: number): Name;
     appendSegmentOffset(segmentOffset: number): Name;
-    appendVersion(version: number): Name;
-    appendTimestamp(timestamp: number): Name;
     appendSequenceNumber(sequenceNumber: number): Name;
-    appendImplicitSha256Digest(digest: BlobLike): Name;
-    appendParametersSha256Digest(digest: BlobLike): Name;
+    appendTimestamp(timestamp: number): Name;
+    appendVersion(version: number): Name;
 
-    // algorithms
-    compare(other: Name): Name.CompareResult;
+    clear(): void;
+
+    compare(other: Name): CompareResult;
     compare(iStartComponent: number, nComponents: number, other: Name,
-            iOtherStartComponent?: number, nOtherComponents?: number): Name.CompareResult;
+            iOtherStartComponent?: number, nOtherComponents?: number): CompareResult;
+
     equals(other: Name): boolean;
+    static fromEscapedString(uri: string): Name;
+    get(i: number): Name.Component;
+    getPrefix(nComponents: number): Name;
+    getSubName(iStartComponent: number, nComponents?: number): Name;
     getSuccessor(): Name;
     match(name: Name): boolean;
-    isPrefixOf(name: Name): boolean;
-
-    // encoding
-    wireEncode(): Blob;
-    wireDecode(input: BlobLike): void;
+    set(uri: string): void;
+    size(): number;
     toUri(includeScheme?: boolean): string;
-    static fromEscapedString(uri: string): Name;
+
+    wireDecode(input: Blob|Buffer): void;
+    wireEncode(): Blob;
 }
