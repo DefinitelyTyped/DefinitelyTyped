@@ -6,6 +6,7 @@
 //                 Philippe Bourdages <https://github.com/phbou72>
 //                 Lucian Buzzo <https://github.com/LucianBuzzo>
 //                 Sylvain Thénault <https://github.com/sthenault>
+//                 Mihail Novikov <https://github.com/thepocp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -68,6 +69,15 @@ declare module "react-jsonschema-form" {
         [key: string]: FieldId;
     };
 
+    export type EnumOption = {
+        label: string;
+        value: string;
+    };
+      
+    export type Options = {
+        enumOptions: EnumOption[] | false;  
+    }
+
     export interface WidgetProps extends React.HTMLAttributes<HTMLElement> {
         id: string;
         schema: JSONSchema6;
@@ -77,7 +87,7 @@ declare module "react-jsonschema-form" {
         readonly: boolean;
         autofocus: boolean;
         onChange: (value: any) => void;
-        options: object;
+        options: Options;
         formContext: any;
     }
 
