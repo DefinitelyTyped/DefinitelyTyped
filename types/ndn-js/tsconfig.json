@@ -23,6 +23,7 @@
         "face-test.ts",
         "interest-test.ts",
         "name-test.ts",
+        "network-nack-test.ts",
         "signature-test.ts",
         "transport-test.ts"
     ]
