@@ -3,8 +3,8 @@
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Service = require("./classes/Service");
-import YamlParser = require("./classes/YamlParser");
+import Service = require("./classes/ServiceClass");
+import YamlParser = require("./classes/YamlParserClass");
 import AwsProvider = require("./plugins/aws/provider/awsProvider");
 
 declare namespace Serverless {
