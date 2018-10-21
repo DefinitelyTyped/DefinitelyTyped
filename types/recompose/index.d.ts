@@ -3,7 +3,6 @@
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 //                 Samuel DeSota <https://github.com/mrapogee>
 //                 Curtis Layne <https://github.com/clayne11>
-//                 Rasmus Eneman <https://github.com/Pajn>
 //                 Lucas Terra <https://github.com/lucasterra>
 //                 Brian Adams <https://github.com/brian-lives-outdoors>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
