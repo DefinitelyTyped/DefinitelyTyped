@@ -8129,7 +8129,7 @@ declare module "http2" {
         prependOnceListener(event: "finish", listener: () => void): this;
     }
 
-    // Public API
+    // Public API constants
 
     export namespace constants {
         const NGHTTP2_SESSION_SERVER: number;
