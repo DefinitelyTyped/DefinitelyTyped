@@ -4044,7 +4044,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
                              context: TContext,
@@ -4182,7 +4182,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
                           context: TContext,
@@ -4319,7 +4319,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E) => TReturn,
                        context: TContext,
@@ -4455,7 +4455,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D>(funсtion: (this: TContext, a: A, b: B, c: C, d: D) => TReturn,
                     context: TContext,
@@ -4590,7 +4590,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C>(funсtion: (this: TContext, a: A, b: B, c: C) => TReturn,
                  context: TContext,
@@ -4724,7 +4724,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B>(funсtion: (this: TContext, a: A, b: B) => TReturn,
               context: TContext,
@@ -4857,7 +4857,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A>(funсtion: (this: TContext, a: A) => TReturn,
            context: TContext,
@@ -4989,7 +4989,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn>(funсtion: (this: TContext) => TReturn,
                  context: TContext): () => TReturn;
 
@@ -5132,7 +5132,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
         T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
@@ -5272,7 +5272,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
         T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
@@ -5411,7 +5411,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
         T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
@@ -5549,7 +5549,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
         T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
@@ -5686,7 +5686,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
         T>(funсtion: (this: TContext, a: A, b: B, c: C,
@@ -5822,7 +5822,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
         T>(funсtion: (this: TContext, a: A, b: B,
@@ -5957,7 +5957,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
         T>(funсtion: (this: TContext, a: A,
@@ -6091,7 +6091,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         T>(funсtion: (this: TContext, t: T) => TReturn,
            context: TContext): (t: T) => TReturn;
@@ -6235,7 +6235,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
         T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
@@ -6375,7 +6375,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
         T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
@@ -6514,7 +6514,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
         T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
@@ -6652,7 +6652,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
         T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
@@ -6789,7 +6789,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
         T, U>(funсtion: (this: TContext, a: A, b: B, c: C,
@@ -6925,7 +6925,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
         T, U>(funсtion: (this: TContext, a: A, b: B,
@@ -7060,7 +7060,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
         T, U>(funсtion: (this: TContext, a: A,
@@ -7194,7 +7194,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         T, U>(funсtion: (this: TContext, t: T, u: U) => TReturn,
               context: TContext): (t: T, u: U) => TReturn;
@@ -7338,7 +7338,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
         T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
@@ -7478,7 +7478,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
         T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
@@ -7617,7 +7617,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
         T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
@@ -7755,7 +7755,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
         T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
@@ -7892,7 +7892,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
         T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C,
@@ -8028,7 +8028,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
         T, U, V>(funсtion: (this: TContext, a: A, b: B,
@@ -8163,7 +8163,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
         T, U, V>(funсtion: (this: TContext, a: A,
@@ -8297,7 +8297,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         T, U, V>(funсtion: (this: TContext, t: T, u: U, v: V) => TReturn,
                  context: TContext): (t: T, u: U, v: V) => TReturn;
@@ -8441,7 +8441,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
         T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
@@ -8581,7 +8581,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
         T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
@@ -8720,7 +8720,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
         T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
@@ -8858,7 +8858,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
         T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
@@ -8995,7 +8995,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
         T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C,
@@ -9131,7 +9131,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
         T, U, V, W>(funсtion: (this: TContext, a: A, b: B,
@@ -9266,7 +9266,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
         T, U, V, W>(funсtion: (this: TContext, a: A,
@@ -9400,7 +9400,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         T, U, V, W>(funсtion: (this: TContext, t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext): (t: T, u: U, v: V, w: W) => TReturn;
@@ -9544,7 +9544,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
         T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
@@ -9684,7 +9684,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
         T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
@@ -9823,7 +9823,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
         T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
@@ -9961,7 +9961,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
         T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
@@ -10098,7 +10098,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
         T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C,
@@ -10234,7 +10234,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
         T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B,
@@ -10369,7 +10369,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
         T, U, V, W, X>(funсtion: (this: TContext, a: A,
@@ -10503,7 +10503,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         T, U, V, W, X>(funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext): (t: T, u: U, v: V, w: W, x: X) => TReturn;
@@ -10647,7 +10647,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
         T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
@@ -10787,7 +10787,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
         T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
@@ -10926,7 +10926,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
         T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
@@ -11064,7 +11064,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
         T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
@@ -11201,7 +11201,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
         T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C,
@@ -11337,7 +11337,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
         T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B,
@@ -11472,7 +11472,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
         T, U, V, W, X, Y>(funсtion: (this: TContext, a: A,
@@ -11606,7 +11606,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         T, U, V, W, X, Y>(funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
@@ -11750,7 +11750,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F, G,
         T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
@@ -11890,7 +11890,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E, F,
         T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
@@ -12029,7 +12029,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D, E,
         T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
@@ -12167,7 +12167,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C, D,
         T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
@@ -12304,7 +12304,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B, C,
         T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C,
@@ -12440,7 +12440,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A, B,
         T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B,
@@ -12575,7 +12575,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         A,
         T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A,
@@ -12709,7 +12709,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn,
         T, U, V, W, X, Y, Z>(funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
@@ -12849,7 +12849,7 @@ $( "#test" )
 </html>
 ```
      */
-    proxy<TContext extends object,
+    proxy<TContext,
         TReturn>(funсtion: (this: TContext, ...args: any[]) => TReturn,
                  context: TContext,
                  ...additionalArguments: any[]): (...args: any[]) => TReturn;
@@ -12899,9 +12899,9 @@ $( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
 </html>
 ```
      */
-    proxy<TContext extends object>(context: TContext,
-                                   name: keyof TContext,
-                                   ...additionalArguments: any[]): (...args: any[]) => any;
+    proxy<TContext>(context: TContext,
+                    name: keyof TContext,
+                    ...additionalArguments: any[]): (...args: any[]) => any;
 
     // #endregion
 
