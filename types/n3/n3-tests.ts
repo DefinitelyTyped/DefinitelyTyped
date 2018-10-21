@@ -76,7 +76,7 @@ function test_doc_rdf_to_triples_2() {
 }
 
 function test_doc_rdf_stream_to_triples_1() {
-    const parser: N3.N3Parser = new N3.Parser();
+    const parser: N3.N3Parser = new N3.Parser({factory: N3.DataFactory});
     parser.parse('abc', console.log);
 
     const streamParser: N3.N3StreamParser = N3.StreamParser();
