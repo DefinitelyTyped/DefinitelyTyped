@@ -7,80 +7,67 @@
 import * as L from 'leaflet';
 
 declare module 'leaflet' {
-    class CanvasIconLayer extends L.Layer {
-        
+    class CanvasIconLayer extends Layer {
         /**
          * Sets options and resets event listeners
          * @param options L.Class options
          */
         initialize(options: any): this;
-
         /**
          * Sets options
          * @param options L.Class options
          */
         setOptions(options: any): this;
-
         /**
          * Redraws the CanvasIconLayer
          */
         redraw(): this;
-
         /**
          * Adds markers to CanvasIconLayer
-         * @param {Array<L.Marker>} markers Array containing Leaflet markers
+         * @param markers Array containing Leaflet markers
          */
-        addMarkers(markers: Array<L.Marker>): this;
-
+        addMarkers(markers: Marker[]): this;
         /**
          * Adds marker to CanvasIconLayer
-         * @param {L.Marker} marker Leaflet marker
+         * @param marker Leaflet marker
          */
-        addMarker(marker: L.Marker): this;
-
+        addMarker(marker: Marker): this;
         /**
          * Adds layer to CanvasIconLayer
-         * @param {L.Layer} layer Leaflet layer
+         * @param layer Leaflet layer
          */
-        addLayer(layer: L.Layer): this;
-
+        addLayer(layer: Layer): this;
         /**
          * Adds layers to CanvasIconLayer
-         * @param {Array<L.Layer>} layers Array containing Leaflet layers
+         * @param layers Array containing Leaflet layers
          */
-        addLayers(layers: Array<L.Layer>): this;
-
+        addLayers(layers: Layer[]): this;
         /**
          * Removes layer from CanvasIconLayer
-         * @param {L.Layer} layer Leaflet layer
+         * @param layer Leaflet layer
          */
-        removeLayer(layer: L.Layer): this;
-
+        removeLayer(layer: Layer): this;
         /**
          * Removes marker from CanvasIconLayer
-         * @param {L.Marker} marker Leaflet marker
-         * @param {boolean} redraw Redraw CanvasIconLayer after removing marker
+         * @param marker Leaflet marker
+         * @param redraw Redraw CanvasIconLayer after removing marker
          */
-        removeMarker(marker: L.Marker, redraw: boolean): this;
-
+        removeMarker(marker: Marker, redraw: boolean): this;
         /**
          * Initializes CanvasIconLayer and adds different event listeners
-         * @param {L.Map} map Leaflet map
+         * @param map Leaflet map
          */
-        onAdd(map: L.Map): this;
-
+        onAdd(map: Map): this;
         /**
          * Removes CanvasIconLayer and removes different event listeners
-         * @param {L.Map} map Leaflet map
+         * @param map Leaflet map
          */
-        onRemove(map: L.Map): this;
-
+        onRemove(map: Map): this;
         /**
          * Adds CanvasIconLayer to map
-         * @param {L.Map} map Leaflet map
+         * @param map Leaflet map
          */
-        addTo(map: L.Map): this;
-
+        addTo(map: Map): this;
         /**
          * Removes layers from CanvasIconLayer
          */
@@ -88,13 +75,13 @@ declare module 'leaflet' {
 
         /**
          * Adds click event listener
-         * @param {() => any} listener Function that runs when the click event occurs
+         * @param listener Function that runs when the click event occurs
          */
         addOnClickListener(listener: () => any): this;
 
         /**
          * Adds hover event listener
-         * @param {() => any} listener Function that runs when the hover event occurs
+         * @param listener Function that runs when the hover event occurs
          */
         addOnHoverListener(listener: () => any): this;
 

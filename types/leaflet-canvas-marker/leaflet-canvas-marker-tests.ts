@@ -17,9 +17,9 @@ map = map
 const latLng: L.LatLng = L.latLng(40.741895, -73.989308);
 
 const marker: L.Marker = L.marker(latLng);
-const markers: Array<L.Marker> = [marker];
+const markers: L.Marker[] = [marker];
 const layer: L.Layer = marker;
-const layers: Array<L.Layer> = markers;
+const layers: L.Layer[] = markers;
 
 const clickListener = () => {};
 const hoverListener = () => {};
