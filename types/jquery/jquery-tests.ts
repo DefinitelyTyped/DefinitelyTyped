@@ -8400,21 +8400,11 @@ function JQuery_Event() {
     function call_signature() {
         // $ExpectType Event<HTMLElement, null> & Coordinates
         $.Event('keydown', $('p').offset());
-
-        // $ExpectType Event<HTMLElement, null> & { type: string; }
-        $.Event({
-            type: 'keydown'
-        });
     }
 
     function constructor() {
         // $ExpectType Event<HTMLElement, null> & Coordinates
         new $.Event('keydown', $('p').offset());
-
-        // $ExpectType Event<HTMLElement, null> & { type: string; }
-        new $.Event({
-            type: 'keydown'
-        });
     }
 
     // https://stackoverflow.com/questions/49892574/trigger-a-jquery-3-event-with-ctrlkey-set

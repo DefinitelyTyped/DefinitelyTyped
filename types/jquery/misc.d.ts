@@ -3986,11 +3986,7 @@ $( "input" ).click(function() {
         // tslint:disable-next-line:no-unnecessary-generics
         <T extends object, TTarget extends EventTarget = HTMLElement>(event: string, properties?: T): Event<TTarget> & T;
         // tslint:disable-next-line:no-unnecessary-generics
-        <T extends EventLike, TTarget extends EventTarget = HTMLElement>(properties: T): Event<TTarget> & T;
-        // tslint:disable-next-line:no-unnecessary-generics
         new <T extends object, TTarget extends EventTarget = HTMLElement>(event: string, properties?: T): Event<TTarget> & T;
-        // tslint:disable-next-line:no-unnecessary-generics
-        new <T extends EventLike, TTarget extends EventTarget = HTMLElement>(properties: T): Event<TTarget> & T;
     }
 
     // Instance members
@@ -4710,10 +4706,6 @@ $( "ul" ).click( handler ).find( "ul" ).hide();
 ```
          */
         target: TTarget;
-    }
-
-    interface EventLike {
-        type: string;
     }
 
     // #endregion
