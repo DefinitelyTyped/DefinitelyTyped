@@ -9106,4 +9106,10 @@ declare global {
      * <code> if (__DEV__) console.log('Running in dev mode')</code>
      */
     const __DEV__: boolean;
+    /**
+     * This variable let's us declare things in global namespace
+     * Usage:
+     * <code>global.foo = 'bar';</code>
+     */
+    let global: any;
 }

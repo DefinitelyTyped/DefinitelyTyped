@@ -24,3 +24,5 @@ fetch(myRequest, myInit).then((response) => {
   const init = { status: 200, statusText: 'SuperSmashingGreat!' }
   const myResponse = new Response(blob, init);
 })
+
+global.foo = 'bar';
