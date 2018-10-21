@@ -2757,6 +2757,13 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2769,6 +2776,12 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2781,6 +2794,11 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2793,6 +2811,10 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2805,6 +2827,9 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2817,6 +2842,8 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2829,6 +2856,7 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2857,6 +2885,13 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2871,6 +2906,12 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2885,6 +2926,11 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2899,6 +2945,10 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2913,6 +2963,9 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2927,6 +2980,8 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2941,6 +2996,7 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2972,6 +3028,13 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -2986,6 +3049,12 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3000,6 +3069,11 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3014,6 +3088,10 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3028,6 +3106,9 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3042,6 +3123,8 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3056,6 +3139,7 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3087,6 +3171,13 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3101,6 +3192,12 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3115,6 +3212,11 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3129,6 +3231,10 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3143,6 +3249,9 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3157,6 +3266,8 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3171,6 +3282,7 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3202,6 +3314,13 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3216,6 +3335,12 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3230,6 +3355,11 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3244,6 +3374,10 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3258,6 +3392,9 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3272,6 +3409,8 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3286,6 +3425,7 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3317,6 +3457,13 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3331,6 +3478,12 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3345,6 +3498,11 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3359,6 +3517,10 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3373,6 +3535,9 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3387,6 +3552,8 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3401,6 +3568,7 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3432,6 +3600,13 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3446,6 +3621,12 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3460,6 +3641,11 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3474,6 +3660,10 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3488,6 +3678,9 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3502,6 +3695,8 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3516,6 +3711,7 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3547,6 +3743,13 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3561,6 +3764,12 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3575,6 +3784,11 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3589,6 +3803,10 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3603,6 +3821,9 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3617,6 +3838,8 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3631,6 +3854,7 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.9
      * @deprecated ​ Deprecated since 3.3. Use \`{@link Function#bind }\`.
@@ -3690,6 +3914,13 @@ $.post( "test.php" );
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -3822,6 +4053,12 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -3954,6 +4191,11 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -4086,6 +4328,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -4218,6 +4464,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -4350,6 +4599,8 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -4482,6 +4733,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4`
      * @since 1.6
@@ -4750,6 +5002,13 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -4884,6 +5143,12 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5018,6 +5283,11 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5152,6 +5422,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5286,6 +5560,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5420,6 +5697,8 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5554,6 +5833,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5825,6 +6105,13 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -5959,6 +6246,12 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -6093,6 +6386,11 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -6227,6 +6525,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -6361,6 +6663,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -6495,6 +6800,8 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -6629,6 +6936,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -6900,6 +7208,13 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7034,6 +7349,12 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7168,6 +7489,11 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7302,6 +7628,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7436,6 +7766,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7570,6 +7903,8 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7704,6 +8039,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -7975,6 +8311,13 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -8109,6 +8452,12 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -8243,6 +8592,11 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -8377,6 +8731,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -8511,6 +8869,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -8645,6 +9006,8 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -8779,6 +9142,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9050,6 +9414,13 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9184,6 +9555,12 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9318,6 +9695,11 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9452,6 +9834,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9586,6 +9972,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9720,6 +10109,8 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -9854,6 +10245,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -10125,6 +10517,13 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -10259,6 +10658,12 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -10393,6 +10798,11 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -10527,6 +10937,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -10661,6 +11075,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -10795,6 +11212,8 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -10929,6 +11348,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -11200,6 +11620,13 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
+     * @param g An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -11334,6 +11761,12 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
+     * @param f An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -11468,6 +11901,11 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
+     * @param e An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -11602,6 +12040,10 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
+     * @param d An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -11736,6 +12178,9 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
+     * @param c An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -11870,6 +12315,8 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
+     * @param b An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
@@ -12004,6 +12451,7 @@ $( "#test" )
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
      * @param context The object to which the context (`this`) of the function should be set.
+     * @param a An argument to be passed to the function referenced in the `function` argument.
      * @see \`{@link https://api.jquery.com/jQuery.proxy/ }\`
      * @since 1.4
      * @since 1.6
