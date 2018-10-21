@@ -13,5 +13,10 @@
         "typeRoots": ["../"],
         "types": []
     },
-    "files": ["index.d.ts", "styled-components-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "macro.d.ts",
+        "styled-components-tests.tsx",
+        "styled-components-macro-tests.tsx"
+    ]
 }
