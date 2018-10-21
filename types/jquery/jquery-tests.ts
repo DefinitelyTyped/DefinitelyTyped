@@ -1060,7 +1060,7 @@ function JQueryStatic() {
         type G = typeof g;
         type H = typeof h;
 
-        // (fn, null)
+        // (funсtion, null)
         {
             // $ExpectType () => void
             $.proxy((a, b, c, d, e, f, g) => { }, null, a, b, c, d, e, f, g);
@@ -1282,7 +1282,7 @@ function JQueryStatic() {
             $.proxy((a, b, c, d, e, f, g, h, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) => { }, null, a, b, c, d, e, f, g, h);
         }
 
-        // (fn, undefined)
+        // (funсtion, undefined)
         {
             // $ExpectType () => void
             $.proxy((a, b, c, d, e, f, g) => { }, undefined, a, b, c, d, e, f, g);
@@ -1504,7 +1504,7 @@ function JQueryStatic() {
             $.proxy((a, b, c, d, e, f, g, h, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) => { }, undefined, a, b, c, d, e, f, g, h);
         }
 
-        // (fn, context)
+        // (funсtion, context)
         {
             // $ExpectType (this: {}) => void
             $.proxy((a, b, c, d, e, f, g) => { }, {}, a, b, c, d, e, f, g);
