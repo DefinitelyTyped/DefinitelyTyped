@@ -13,7 +13,7 @@ import * as RDF from "rdf-js";
 import { EventEmitter } from "events";
 
 export interface Prefixes {
-    [key: string]: NamedNode;
+    [key: string]: RDF.NamedNode;
 }
 
 export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
@@ -24,7 +24,7 @@ export class NamedNode implements RDF.NamedNode {
     constructor(iri: string);
     id: string;
     toJSON(): {};
-    equals(other: Term): boolean;
+    equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
 }
 
@@ -35,7 +35,7 @@ export class BlankNode implements RDF.BlankNode {
     constructor(name: string);
     id: string;
     toJSON(): {};
-    equals(other: Term): boolean;
+    equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
 }
 
@@ -45,7 +45,7 @@ export class Variable  implements RDF.Variable {
     constructor(name: string);
     id: string;
     toJSON(): {};
-    equals(other: Term): boolean;
+    equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
 }
 
@@ -55,7 +55,7 @@ export class Literal implements RDF.Literal {
     value: string;
     id: string;
     toJSON(): {};
-    equals(other: Term): boolean;
+    equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
     language: string;
     datatype: NamedNode;
@@ -69,7 +69,7 @@ export class DefaultGraph implements RDF.DefaultGraph {
     constructor();
     id: string;
     toJSON(): {};
-    equals(other: Term): boolean;
+    equals(other: RDF.Term): boolean;
     static subclass(type: any): void;
 }
 
@@ -84,7 +84,7 @@ export class Quad implements RDF.Quad {
     predicate: Quad_Predicate;
     object: Quad_Object;
     graph: Quad_Graph;
-    equals(other: Quad): boolean;
+    equals(other: RDF.Quad): boolean;
     toJSON(): string;
 }
 
@@ -104,13 +104,13 @@ export type ErrorCallback = (err: Error, result: any) => void;
 export type QuadCallback = (result: Quad) => void;
 export type QuadPredicate = (result: Quad) => boolean;
 
-export type OTerm = Term | string | null;
+export type OTerm = RDF.Term | string | null;
 
 export type Logger = (message?: any, ...optionalParams: any[]) => void;
 
 export interface BlankTriple {
-    predicate: Quad_Predicate;
-    object: Quad_Object;
+    predicate: RDF.Quad_Predicate;
+    object: RDF.Quad_Object;
 }
 
 export interface ParserConstructor {
@@ -169,17 +169,17 @@ export interface WriterConstructor {
 export const Writer: WriterConstructor;
 
 export interface N3Writer {
-    quadToString(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object, graph?: Quad_Graph): string;
-    quadsToString(quads: Quad[]): string;
-    addQuad(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object | Quad_Object[], graph?: Quad_Graph, done?: () => void): void;
-    addQuad(quad: Quad): void;
-    addQuads(quads: Quad[]): void;
+    quadToString(subject: RDF.Quad_Subject, predicate: RDF.Quad_Predicate, object: RDF.Quad_Object, graph?: RDF.Quad_Graph): string;
+    quadsToString(quads: RDF.Quad[]): string;
+    addQuad(subject: RDF.Quad_Subject, predicate: RDF.Quad_Predicate, object: RDF.Quad_Object | RDF.Quad_Object[], graph?: RDF.Quad_Graph, done?: () => void): void;
+    addQuad(quad: RDF.Quad): void;
+    addQuads(quads: RDF.Quad[]): void;
     addPrefix(prefix: string, iri: string, done?: () => void): void;
     addPrefixes(prefixes: Prefixes, done?: () => void): void;
     end(err?: ErrorCallback, result?: string): void;
-    blank(predicate: Quad_Predicate, object: Quad_Object): BlankNode;
-    blank(triple: BlankTriple | Quad | BlankTriple[] | Quad[]): BlankNode;
-    list(triple: Quad_Object[]): Quad_Object[];
+    blank(predicate: RDF.Quad_Predicate, object: RDF.Quad_Object): BlankNode;
+    blank(triple: BlankTriple | RDF.Quad | BlankTriple[] | RDF.Quad[]): BlankNode;
+    list(triple: RDF.Quad_Object[]): Quad_Object[];
 }
 
 export interface StreamWriterConstructor {
@@ -194,12 +194,12 @@ export interface N3StreamWriter extends NodeJS.ReadWriteStream, RDF.Source {}
 
 export interface N3Store extends RDF.Sink {
     readonly size: number;
-    addQuad(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object | Quad_Object[], graph?: Quad_Graph, done?: () => void): void;
-    addQuad(quad: Quad): void;
-    addQuads(quads: Quad[]): void;
-    removeQuad(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object | Quad_Object[], graph?: Quad_Graph, done?: () => void): void;
-    removeQuad(quad: Quad): void;
-    removeQuads(quads: Quad[]): void;
+    addQuad(subject: RDF.Quad_Subject, predicate: RDF.Quad_Predicate, object: RDF.Quad_Object | RDF.Quad_Object[], graph?: RDF.Quad_Graph, done?: () => void): void;
+    addQuad(quad: RDF.Quad): void;
+    addQuads(quads: RDF.Quad[]): void;
+    removeQuad(subject: RDF.Quad_Subject, predicate: RDF.Quad_Predicate, object: RDF.Quad_Object | RDF.Quad_Object[], graph?: RDF.Quad_Graph, done?: () => void): void;
+    removeQuad(quad: RDF.Quad): void;
+    removeQuads(quads: RDF.Quad[]): void;
     getQuads(subject: OTerm, predicate: OTerm, object: OTerm | OTerm[], graph: OTerm): Quad[];
     countQuads(subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): number;
     forEach(callback: QuadCallback, subject: OTerm, predicate: OTerm, object: OTerm, graph: OTerm): void;
@@ -229,12 +229,12 @@ export interface StoreOptions {
 }
 
 export namespace Util {
-    function isNamedNode(value: Term | null): boolean;
-    function isBlankNode(value: Term | null): boolean;
-    function isLiteral(value: Term | null): boolean;
-    function isVariable(value: Term | null): boolean;
-    function isDefaultGraph(value: Term | null): boolean;
-    function inDefaultGraph(value: Quad): boolean;
+    function isNamedNode(value: RDF.Term | null): boolean;
+    function isBlankNode(value: RDF.Term | null): boolean;
+    function isLiteral(value: RDF.Term | null): boolean;
+    function isVariable(value: RDF.Term | null): boolean;
+    function isDefaultGraph(value: RDF.Term | null): boolean;
+    function inDefaultGraph(value: RDF.Quad): boolean;
     function prefix(iri: string, factory?: RDF.DataFactory): (suffix: string) => NamedNode;
     function prefixes(defaultPrefixes: Prefixes, factory?: RDF.DataFactory): (iri: string) => (suffix: string) => NamedNode;
 }
