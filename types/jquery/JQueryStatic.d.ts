@@ -4046,9 +4046,9 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        A, B, C, D, E, F, G>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
+        A, B, C, D, E, F, G>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
                              context: TContext,
-                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext) => TReturn;
+                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -4184,9 +4184,9 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        A, B, C, D, E, F>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
+        A, B, C, D, E, F>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
                           context: TContext,
-                          a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext) => TReturn;
+                          a: A, b: B, c: C, d: D, e: E, f: F): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -4321,9 +4321,9 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        A, B, C, D, E>(funсtion: (a: A, b: B, c: C, d: D, e: E) => TReturn,
+        A, B, C, D, E>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E) => TReturn,
                        context: TContext,
-                       a: A, b: B, c: C, d: D, e: E): (this: TContext) => TReturn;
+                       a: A, b: B, c: C, d: D, e: E): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -4457,9 +4457,9 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        A, B, C, D>(funсtion: (a: A, b: B, c: C, d: D) => TReturn,
+        A, B, C, D>(funсtion: (this: TContext, a: A, b: B, c: C, d: D) => TReturn,
                     context: TContext,
-                    a: A, b: B, c: C, d: D): (this: TContext) => TReturn;
+                    a: A, b: B, c: C, d: D): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -4592,9 +4592,9 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        A, B, C>(funсtion: (a: A, b: B, c: C) => TReturn,
+        A, B, C>(funсtion: (this: TContext, a: A, b: B, c: C) => TReturn,
                  context: TContext,
-                 a: A, b: B, c: C): (this: TContext) => TReturn;
+                 a: A, b: B, c: C): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -4726,9 +4726,9 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        A, B>(funсtion: (a: A, b: B) => TReturn,
+        A, B>(funсtion: (this: TContext, a: A, b: B) => TReturn,
               context: TContext,
-              a: A, b: B): (this: TContext) => TReturn;
+              a: A, b: B): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -4859,9 +4859,9 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        A>(funсtion: (a: A) => TReturn,
+        A>(funсtion: (this: TContext, a: A) => TReturn,
            context: TContext,
-           a: A): (this: TContext) => TReturn;
+           a: A): () => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -4990,8 +4990,8 @@ $( "#test" )
 ```
      */
     proxy<TContext extends object,
-        TReturn>(funсtion: () => TReturn,
-                 context: TContext): (this: TContext) => TReturn;
+        TReturn>(funсtion: (this: TContext) => TReturn,
+                 context: TContext): () => TReturn;
 
     // #endregion
 
@@ -5135,10 +5135,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F, G,
-        T>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+        T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
                       t: T) => TReturn,
            context: TContext,
-           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T) => TReturn;
+           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -5275,10 +5275,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F,
-        T>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+        T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
                       t: T) => TReturn,
            context: TContext,
-           a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T) => TReturn;
+           a: A, b: B, c: C, d: D, e: E, f: F): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -5414,10 +5414,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E,
-        T>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+        T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
                       t: T) => TReturn,
            context: TContext,
-           a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T) => TReturn;
+           a: A, b: B, c: C, d: D, e: E): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -5552,10 +5552,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D,
-        T>(funсtion: (a: A, b: B, c: C, d: D,
+        T>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
                       t: T) => TReturn,
            context: TContext,
-           a: A, b: B, c: C, d: D): (this: TContext, t: T) => TReturn;
+           a: A, b: B, c: C, d: D): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -5689,10 +5689,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C,
-        T>(funсtion: (a: A, b: B, c: C,
+        T>(funсtion: (this: TContext, a: A, b: B, c: C,
                       t: T) => TReturn,
            context: TContext,
-           a: A, b: B, c: C): (this: TContext, t: T) => TReturn;
+           a: A, b: B, c: C): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -5825,10 +5825,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B,
-        T>(funсtion: (a: A, b: B,
+        T>(funсtion: (this: TContext, a: A, b: B,
                       t: T) => TReturn,
            context: TContext,
-           a: A, b: B): (this: TContext, t: T) => TReturn;
+           a: A, b: B): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -5960,10 +5960,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A,
-        T>(funсtion: (a: A,
+        T>(funсtion: (this: TContext, a: A,
                       t: T) => TReturn,
            context: TContext,
-           a: A): (this: TContext, t: T) => TReturn;
+           a: A): (t: T) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -6093,8 +6093,8 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        T>(funсtion: (t: T) => TReturn,
-           context: TContext): (this: TContext, t: T) => TReturn;
+        T>(funсtion: (this: TContext, t: T) => TReturn,
+           context: TContext): (t: T) => TReturn;
 
     // #endregion
 
@@ -6238,10 +6238,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F, G,
-        T, U>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+        T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
                          t: T, u: U) => TReturn,
               context: TContext,
-              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U) => TReturn;
+              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -6378,10 +6378,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F,
-        T, U>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+        T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
                          t: T, u: U) => TReturn,
               context: TContext,
-              a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U) => TReturn;
+              a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -6517,10 +6517,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E,
-        T, U>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+        T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
                          t: T, u: U) => TReturn,
               context: TContext,
-              a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U) => TReturn;
+              a: A, b: B, c: C, d: D, e: E): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -6655,10 +6655,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D,
-        T, U>(funсtion: (a: A, b: B, c: C, d: D,
+        T, U>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
                          t: T, u: U) => TReturn,
               context: TContext,
-              a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U) => TReturn;
+              a: A, b: B, c: C, d: D): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -6792,10 +6792,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C,
-        T, U>(funсtion: (a: A, b: B, c: C,
+        T, U>(funсtion: (this: TContext, a: A, b: B, c: C,
                          t: T, u: U) => TReturn,
               context: TContext,
-              a: A, b: B, c: C): (this: TContext, t: T, u: U) => TReturn;
+              a: A, b: B, c: C): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -6928,10 +6928,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B,
-        T, U>(funсtion: (a: A, b: B,
+        T, U>(funсtion: (this: TContext, a: A, b: B,
                          t: T, u: U) => TReturn,
               context: TContext,
-              a: A, b: B): (this: TContext, t: T, u: U) => TReturn;
+              a: A, b: B): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -7063,10 +7063,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A,
-        T, U>(funсtion: (a: A,
+        T, U>(funсtion: (this: TContext, a: A,
                          t: T, u: U) => TReturn,
               context: TContext,
-              a: A): (this: TContext, t: T, u: U) => TReturn;
+              a: A): (t: T, u: U) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -7196,8 +7196,8 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        T, U>(funсtion: (t: T, u: U) => TReturn,
-              context: TContext): (this: TContext, t: T, u: U) => TReturn;
+        T, U>(funсtion: (this: TContext, t: T, u: U) => TReturn,
+              context: TContext): (t: T, u: U) => TReturn;
 
     // #endregion
 
@@ -7341,10 +7341,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F, G,
-        T, U, V>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
                             t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -7481,10 +7481,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F,
-        T, U, V>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
                             t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -7620,10 +7620,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E,
-        T, U, V>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
                             t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -7758,10 +7758,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D,
-        T, U, V>(funсtion: (a: A, b: B, c: C, d: D,
+        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
                             t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A, b: B, c: C, d: D): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -7895,10 +7895,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C,
-        T, U, V>(funсtion: (a: A, b: B, c: C,
+        T, U, V>(funсtion: (this: TContext, a: A, b: B, c: C,
                             t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A, b: B, c: C): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -8031,10 +8031,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B,
-        T, U, V>(funсtion: (a: A, b: B,
+        T, U, V>(funсtion: (this: TContext, a: A, b: B,
                             t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A, b: B): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A, b: B): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -8166,10 +8166,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A,
-        T, U, V>(funсtion: (a: A,
+        T, U, V>(funсtion: (this: TContext, a: A,
                             t: T, u: U, v: V) => TReturn,
                  context: TContext,
-                 a: A): (this: TContext, t: T, u: U, v: V) => TReturn;
+                 a: A): (t: T, u: U, v: V) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -8299,8 +8299,8 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        T, U, V>(funсtion: (t: T, u: U, v: V) => TReturn,
-                 context: TContext): (this: TContext, t: T, u: U, v: V) => TReturn;
+        T, U, V>(funсtion: (this: TContext, t: T, u: U, v: V) => TReturn,
+                 context: TContext): (t: T, u: U, v: V) => TReturn;
 
     // #endregion
 
@@ -8444,10 +8444,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F, G,
-        T, U, V, W>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
                                t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -8584,10 +8584,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F,
-        T, U, V, W>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
                                t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -8723,10 +8723,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E,
-        T, U, V, W>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
                                t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -8861,10 +8861,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D,
-        T, U, V, W>(funсtion: (a: A, b: B, c: C, d: D,
+        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
                                t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -8998,10 +8998,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C,
-        T, U, V, W>(funсtion: (a: A, b: B, c: C,
+        T, U, V, W>(funсtion: (this: TContext, a: A, b: B, c: C,
                                t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A, b: B, c: C): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -9134,10 +9134,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B,
-        T, U, V, W>(funсtion: (a: A, b: B,
+        T, U, V, W>(funсtion: (this: TContext, a: A, b: B,
                                t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A, b: B): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -9269,10 +9269,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A,
-        T, U, V, W>(funсtion: (a: A,
+        T, U, V, W>(funсtion: (this: TContext, a: A,
                                t: T, u: U, v: V, w: W) => TReturn,
                     context: TContext,
-                    a: A): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+                    a: A): (t: T, u: U, v: V, w: W) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -9402,8 +9402,8 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        T, U, V, W>(funсtion: (t: T, u: U, v: V, w: W) => TReturn,
-                    context: TContext): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+        T, U, V, W>(funсtion: (this: TContext, t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext): (t: T, u: U, v: V, w: W) => TReturn;
 
     // #endregion
 
@@ -9547,10 +9547,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F, G,
-        T, U, V, W, X>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
                                   t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -9687,10 +9687,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F,
-        T, U, V, W, X>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
                                   t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -9826,10 +9826,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E,
-        T, U, V, W, X>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
                                   t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -9964,10 +9964,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D,
-        T, U, V, W, X>(funсtion: (a: A, b: B, c: C, d: D,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
                                   t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -10101,10 +10101,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C,
-        T, U, V, W, X>(funсtion: (a: A, b: B, c: C,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B, c: C,
                                   t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -10237,10 +10237,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B,
-        T, U, V, W, X>(funсtion: (a: A, b: B,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A, b: B,
                                   t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A, b: B): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -10372,10 +10372,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A,
-        T, U, V, W, X>(funсtion: (a: A,
+        T, U, V, W, X>(funсtion: (this: TContext, a: A,
                                   t: T, u: U, v: V, w: W, x: X) => TReturn,
                        context: TContext,
-                       a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+                       a: A): (t: T, u: U, v: V, w: W, x: X) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -10505,8 +10505,8 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        T, U, V, W, X>(funсtion: (t: T, u: U, v: V, w: W, x: X) => TReturn,
-                       context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+        T, U, V, W, X>(funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext): (t: T, u: U, v: V, w: W, x: X) => TReturn;
 
     // #endregion
 
@@ -10650,10 +10650,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F, G,
-        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
                                      t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -10790,10 +10790,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F,
-        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
                                      t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -10929,10 +10929,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E,
-        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
                                      t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -11067,10 +11067,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D,
-        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C, d: D,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
                                      t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -11204,10 +11204,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C,
-        T, U, V, W, X, Y>(funсtion: (a: A, b: B, c: C,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B, c: C,
                                      t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -11340,10 +11340,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B,
-        T, U, V, W, X, Y>(funсtion: (a: A, b: B,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A, b: B,
                                      t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -11475,10 +11475,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A,
-        T, U, V, W, X, Y>(funсtion: (a: A,
+        T, U, V, W, X, Y>(funсtion: (this: TContext, a: A,
                                      t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
                           context: TContext,
-                          a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+                          a: A): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -11608,8 +11608,8 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        T, U, V, W, X, Y>(funсtion: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
-                          context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+        T, U, V, W, X, Y>(funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
 
     // #endregion
 
@@ -11753,10 +11753,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F, G,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F, g: G,
                                         t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -11893,10 +11893,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E, F,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C, d: D, e: E, f: F,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E, f: F,
                                         t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -12032,10 +12032,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D, E,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C, d: D, e: E,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D, e: E,
                                         t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -12170,10 +12170,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C, D,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C, d: D,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C, d: D,
                                         t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -12307,10 +12307,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B, C,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B, c: C,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B, c: C,
                                         t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -12443,10 +12443,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A, B,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A, b: B,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A, b: B,
                                         t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -12578,10 +12578,10 @@ $( "#test" )
     proxy<TContext extends object,
         TReturn,
         A,
-        T, U, V, W, X, Y, Z>(funсtion: (a: A,
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, a: A,
                                         t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
                              context: TContext,
-                             a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+                             a: A): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      * @param funсtion The function whose context will be changed.
@@ -12711,8 +12711,8 @@ $( "#test" )
      */
     proxy<TContext extends object,
         TReturn,
-        T, U, V, W, X, Y, Z>(funсtion: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
-                             context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+        T, U, V, W, X, Y, Z>(funсtion: (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
 
     // #endregion
 
@@ -12850,9 +12850,9 @@ $( "#test" )
 ```
      */
     proxy<TContext extends object,
-        TReturn>(funсtion: (...args: any[]) => TReturn,
+        TReturn>(funсtion: (this: TContext, ...args: any[]) => TReturn,
                  context: TContext,
-                 ...additionalArguments: any[]): (this: TContext, ...args: any[]) => TReturn;
+                 ...additionalArguments: any[]): (...args: any[]) => TReturn;
 
     // #endregion
 
@@ -12901,7 +12901,7 @@ $( "#test" ).on( "click", jQuery.proxy( obj, "test" ) );
      */
     proxy<TContext extends object>(context: TContext,
                                    name: keyof TContext,
-                                   ...additionalArguments: any[]): (this: TContext, ...args: any[]) => any;
+                                   ...additionalArguments: any[]): (...args: any[]) => any;
 
     // #endregion
 
