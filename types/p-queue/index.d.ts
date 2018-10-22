@@ -95,7 +95,7 @@ declare namespace PQueue {
         queueClass?: QueueClassConstructor<O>;
         intervalCap?: number;
         interval?: number;
-        carryoverConcurrencyCount?: number;
+        carryoverConcurrencyCount?: boolean;
     }
 
     interface DefaultAddOptions {
