@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "nwmatcher-tests.ts"
+        "test/nwmatcher-global.test.ts",
+        "test/nwmatcher-module.test.ts"
     ]
 }
