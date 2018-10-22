@@ -164,13 +164,13 @@ declare namespace Bull {
      * Moves a job to the `completed` queue. Pulls a job from 'waiting' to 'active'
      * and returns a tuple containing the next jobs data and id. If no job is in the `waiting` queue, returns null.
      */
-    moveToCompleted(returnValue?: string, ignoreLock?: boolean): Promise<string[] | null>;
+    moveToCompleted(returnValue?: string, ignoreLock?: boolean): Promise<[any, JobId] | null>;
 
     /**
      * Moves a job to the `failed` queue. Pulls a job from 'waiting' to 'active'
      * and returns a tuple containing the next jobs data and id. If no job is in the `waiting` queue, returns null.
      */
-    moveToFailed(errorInfo: { message: string; }, ignoreLock?: boolean): Promise<void>;
+    moveToFailed(errorInfo: { message: string; }, ignoreLock?: boolean): Promise<[any, JobId] | null>;
 
     /**
      * Promotes a job that is currently "delayed" to the "waiting" state and executed as soon as possible.
