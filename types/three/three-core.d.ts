@@ -1059,7 +1059,7 @@ export class DirectGeometry extends EventDispatcher {
 
     // EventDispatcher mixins
     addEventListener(type: string, listener: (event: Event) => void ): void;
-    hasEventListener(type: string, listener: (event: Event) => void): void;
+    hasEventListener(type: string, listener: (event: Event) => void): boolean;
     removeEventListener(type: string, listener: (event: Event) => void): void;
     dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
 }
@@ -1099,17 +1099,17 @@ export class EventDispatcher {
 
     /**
      * Adds a listener to an event type.
-     * @param type The type of the listener that gets removed.
-     * @param listener The listener function that gets removed.
+     * @param type The type of event to listen to.
+     * @param listener The function that gets called when the event is fired.
      */
     addEventListener(type: string, listener: (event: Event) => void ): void;
 
     /**
-     * Adds a listener to an event type.
-     * @param type The type of the listener that gets removed.
-     * @param listener The listener function that gets removed.
+     * Checks if listener is added to an event type.
+     * @param type The type of event to listen to.
+     * @param listener The function that gets called when the event is fired.
      */
-    hasEventListener(type: string, listener: (event: Event) => void): void;
+    hasEventListener(type: string, listener: (event: Event) => void): boolean;
 
     /**
      * Removes a listener from an event type.
@@ -1442,7 +1442,7 @@ export class Geometry extends EventDispatcher {
 
     // EventDispatcher mixins
     addEventListener(type: string, listener: (event: Event) => void ): void;
-    hasEventListener(type: string, listener: (event: Event) => void): void;
+    hasEventListener(type: string, listener: (event: Event) => void): boolean;
     removeEventListener(type: string, listener: (event: Event) => void): void;
     dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
 }

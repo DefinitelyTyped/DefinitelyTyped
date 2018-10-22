@@ -380,7 +380,7 @@ Comments.find({ $and: [
     { $or: [{ tags: "tag-1" }, { tags: "tag-2" }] }
 ]});
 
-Comments.find({ inlineLinks: { $exists: true, $type: "array" } });
+Comments.find({ $query: {inlineLinks: { $exists: true, $type: "array" } } });
 Comments.find({ inlineLinks: { $elemMatch: { 
     objectType: InlineObjectType.Image, 
     objectUrl: { $regex: "https://(www\.?)youtube\.com" } 
