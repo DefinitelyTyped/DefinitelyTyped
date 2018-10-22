@@ -4645,6 +4645,14 @@ declare namespace Highcharts {
          */
         lineColor?: string | Gradient;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number;
+        /**
          * A separate color for the negative part of the area.
          * @since 3.0
          */
@@ -4743,12 +4751,20 @@ declare namespace Highcharts {
          */
         grouping?: boolean;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number;
+        /**
          * The maximum allowed pixel width for a column, translated to the height of a bar in a bar chart. This prevents the
          * columns from becoming too wide when there is a small number of points in the chart.
          * @default null
          * @since 4.1.8
          */
         maxPointWidth?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number;
         /**
          * The minimal height for a column or width for a bar. By default, 0 values are not shown. To visualize a 0 (or
          * close to zero) point, set the minimal point length to a pixel value like 3. In stacked column charts,
@@ -4844,6 +4860,10 @@ declare namespace Highcharts {
          */
         displayNegative?: boolean;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number;
+        /**
          * Maximum bubble size. Bubbles will automatically size between the minSize and maxSize to reflect the z value of
          * each bubble. Can be either pixels (when no unit is given), or a percentage of the smallest one of the plot width
          * and height.
@@ -4851,6 +4871,10 @@ declare namespace Highcharts {
          * @since 3.0
          */
         maxSize?: string | number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number;
         /**
          * Minimum bubble size. Bubbles will automatically size between the minSize and maxSize to reflect the z value of
          * each bubble. Can be either pixels (when no unit is given), or a percentage of the smallest one of the plot width
@@ -5137,6 +5161,14 @@ declare namespace Highcharts {
          */
         dial?: Dial;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number;
+        /**
          * Allow the dial to overshoot the end of the perimeter axis by this many degrees. Say if the gauge axis goes from 0
          * to 60, a value of 100, or 1000, will show 5 degrees beyond the end of the axis. Defaults to 0.
          * @default 0
@@ -5205,12 +5237,20 @@ declare namespace Highcharts {
          */
         cropTreshold?: number;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number;
+        /**
          * The maximum allowed pixel width for a column, translated to the height of a bar in a bar chart. This prevents the
          * columns from becoming too wide when there is a small number of points in the chart.
          * @default null
          * @since 4.1.8
          */
         maxPointWidth?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number;
         /**
          * The row size - how many Y axis units each heatmap row should span.
          * @default 1
@@ -5229,6 +5269,14 @@ declare namespace Highcharts {
     }
 
     interface LineChart extends SeriesChart {
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number;
         /**
          * Whether to apply steps to the line. Possible values are left, center and right. Prior to 2.3.5, only left was
          * supported.
@@ -5300,6 +5348,14 @@ declare namespace Highcharts {
          */
         innerSize?: number | string;
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number;
+        /**
          * The minimum size for a pie in response to auto margins. The pie will try to shrink to make room for data labels
          * in side the plot area, but only to this size.
          * @default 80
@@ -5346,6 +5402,14 @@ declare namespace Highcharts {
          * @default 0
          */
         lineWidth?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number;
     }
 
     interface PyramidChart extends SeriesChart {
@@ -5420,7 +5484,16 @@ declare namespace Highcharts {
         width?: number | string;
     }
 
-    interface ScatterChart extends SeriesChart { }
+    interface ScatterChart extends SeriesChart {
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number;
+    }
 
     /**
      * A gauge showing values using a filled arc with colors indicating the value. The solid gauge plots values against the
@@ -5456,7 +5529,16 @@ declare namespace Highcharts {
         wrap?: boolean;
     }
 
-    interface SplineChart extends SeriesChart { }
+    interface SplineChart extends SeriesChart {
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number;
+    }
 
     /**
      * The size of the point shape is determined by its value relative to its siblings values. Requires the module
@@ -5529,12 +5611,20 @@ declare namespace Highcharts {
          */
         levels?: TreeMapLevel[];
         /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number;
+        /**
          * The maximum allowed pixel width for a column, translated to the height of a bar in a bar chart. This prevents the
          * columns from becoming too wide when there is a small number of points in the chart.
          * @default null
          * @since 4.1.8
          */
         maxPointWidth?: number | null;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number;
         /**
          * The sort index of the point inside the treemap level.
          * @since 4.1.10
@@ -5599,6 +5689,14 @@ declare namespace Highcharts {
          * @since 5.0.12
          */
         exposeElementToA11y?: boolean;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number;
         /**
          * This option decides which algorithm is used for placement, and rotation of a word. The choice of algorith is
          * therefore a crucial part of the resulting layout of the wordcloud. It is possible for users to add their own
@@ -5799,6 +5897,14 @@ declare namespace Highcharts {
          * The sequential index of the series in the legend.
          */
         legendIndex?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        maxFontSize?: number;
+        /**
+         * For area-like series, allow the font size to vary so that small areas get a smaller font size. The default applies this effect to area-like series but not line-like series.
+         */
+        minFontSize?: number;
         /**
          * The name of the series as shown in the legend, tooltip etc.
          */
