@@ -172,11 +172,11 @@ index.partialUpdateObjects([{}], false).then(() => {});
 let indexName : string = index.indexName;
 
 // complete copy
-client.copyIndex('from', 'to').then(()=>{})
-client.copyIndex('from', 'to', ()=> {})
+client.copyIndex('from', 'to').then(()=>{});
+client.copyIndex('from', 'to', ()=> {});
 // with scope
-client.copyIndex('from', 'to', ['settings']).then(()=>{})
-client.copyIndex('from', 'to', ['synonyms', 'rules'], ()=> {})
+client.copyIndex('from', 'to', ['settings']).then(()=>{});
+client.copyIndex('from', 'to', ['synonyms', 'rules'], ()=> {});
 
 // Browsing
 const browser = index.browseAll();
@@ -199,9 +199,11 @@ browser.on('error', function onError(err) {
   throw err;
 });
 
-browser.stop()
+browser.stop();
 
 index.browse("", {
   advancedSyntax: false,
   attributesToRetrieve: ['dogs']
-})
+});
+client.copyIndex('from', 'to', ['settings']).then(()=>{});
+client.copyIndex('from', 'to', ['synonyms', 'rules'], ()=> {});
