@@ -1,4 +1,4 @@
-// Type definitions for Highcharts 5.0.13
+// Type definitions for Highcharts 5.0.32
 // Project: http://www.highcharts.com/
 // Definitions by: Damiano Gambarotto <https://github.com/damianog>
 //                 Dan Lewi Harkestad <https://github.com/baltie>
@@ -292,7 +292,7 @@ declare namespace Highcharts {
          * @default null
          * @since 2.3
          */
-        innerRadius?: number | string  | null;
+        innerRadius?: number | string | null;
         /**
          * Text labels for the plot bands
          */
@@ -494,12 +494,12 @@ declare namespace Highcharts {
         shadow?:
             | boolean
             | {
-            color?: string | Gradient;
-            offsetX?: number;
-            offsetY?: number;
-            opacity?: number;
-            width?: number;
-        };
+                  color?: string | Gradient;
+                  offsetX?: number;
+                  offsetY?: number;
+                  opacity?: number;
+                  width?: number;
+              };
         /**
          * The name of a symbol to use for the border around the label. Symbols are predefined functions on the Renderer object.
          * @default "callout"
@@ -1294,7 +1294,7 @@ declare namespace Highcharts {
          * Use this in cases where a linear gradient between a minColor and maxColor is not sufficient.
          * The stops is an array of tuples, where the first item is a float between 0 and 1 assigning the relative position in the gradient, and the second item is the color.
          */
-        stops?: Array<Array<number|string>>;
+        stops?: Array<Array<number | string>>;
         /**
          * The amount of ticks to draw on the axis. This opens up for aligning the ticks of multiple charts or panes within
          * a chart. This option overrides the tickPixelInterval option.
@@ -1859,7 +1859,9 @@ declare namespace Highcharts {
     interface Gradient {
         linearGradient?: LinearGradient | number[];
         radialGradient?: {
-            cx: number; cy: number; r: number;
+            cx: number;
+            cy: number;
+            r: number;
         };
         stops?: any[][];
         /**
@@ -2015,7 +2017,7 @@ declare namespace Highcharts {
         /**
          * The button stroke width
          */
-        'stroke-width'?: number;
+        "stroke-width"?: number;
         /**
          * The border radius
          */
@@ -3416,7 +3418,7 @@ declare namespace Highcharts {
          * @default ['50%', '50%']
          * @since 2.3.0
          */
-        center?: Array<number|string>;
+        center?: Array<number | string>;
         /**
          * The end angle of the polar X axis or gauge value axis, given in degrees where 0 is north.
          * @default startAngle + 360
@@ -4033,7 +4035,7 @@ declare namespace Highcharts {
         halo?: boolean | Halo;
     }
 
-    interface PieStates extends BarStates, LineStates { }
+    interface PieStates extends BarStates, LineStates {}
 
     interface AreaZone {
         /**
@@ -4682,11 +4684,9 @@ declare namespace Highcharts {
         dataLabels?: RangeDataLabels;
     }
 
-    interface AreaSplineChart extends AreaChart {
-    }
+    interface AreaSplineChart extends AreaChart {}
 
-    interface AreaSplineRangeChart extends AreaRangeChart {
-    }
+    interface AreaSplineRangeChart extends AreaRangeChart {}
 
     interface BarChart extends SeriesChart {
         /**
@@ -4925,8 +4925,7 @@ declare namespace Highcharts {
         zThreshold?: number;
     }
 
-    interface ColumnChart extends BarChart {
-    }
+    interface ColumnChart extends BarChart {}
 
     /**
      * The column range is a cartesian series type with higher and lower Y values along an X axis. Requires
@@ -5874,7 +5873,14 @@ declare namespace Highcharts {
          *            [3, 7, 8]
          *
          */
-        data?: Array<number | [number, number] | [string, number] | [string, number, number] | [number, number, number] | DataPoint>;
+        data?: Array<
+            | number
+            | [number, number]
+            | [string, number]
+            | [string, number, number]
+            | [number, number, number]
+            | DataPoint
+        >;
         /**
          * A description of the series to add to the screen reader information about the series.
          * @since 5.0.0
@@ -5942,31 +5948,73 @@ declare namespace Highcharts {
         zIndex?: number;
     }
 
-    interface SeriesOptions extends IndividualSeriesOptions, SeriesChart { }
+    interface SeriesOptions extends IndividualSeriesOptions, SeriesChart {}
 
-    interface AreaChartSeriesOptions extends IndividualSeriesOptions, AreaChart { }
-    interface AreaRangeChartSeriesOptions extends IndividualSeriesOptions, AreaRangeChart { }
-    interface AreaSplineChartSeriesOptions extends IndividualSeriesOptions, AreaSplineChart { }
-    interface AreaSplineRangeChartSeriesOptions extends IndividualSeriesOptions, AreaSplineRangeChart { }
-    interface BarChartSeriesOptions extends IndividualSeriesOptions, BarChart { }
-    interface BoxPlotChartSeriesOptions extends IndividualSeriesOptions, BoxPlotChart { }
-    interface BubbleChartSeriesOptions extends IndividualSeriesOptions, BubbleChart { }
-    interface ColumnChartSeriesOptions extends IndividualSeriesOptions, ColumnChart { }
-    interface ColumnRangeChartSeriesOptions extends IndividualSeriesOptions, ColumnRangeChart { }
-    interface ErrorBarChartSeriesOptions extends IndividualSeriesOptions, ErrorBarChart { }
-    interface FunnelChartSeriesOptions extends IndividualSeriesOptions, FunnelChart { }
-    interface GaugeChartSeriesOptions extends IndividualSeriesOptions, GaugeChart { }
-    interface HeatMapSeriesOptions extends IndividualSeriesOptions, HeatMapChart { }
-    interface LineChartSeriesOptions extends IndividualSeriesOptions, LineChart { }
-    interface PieChartSeriesOptions extends IndividualSeriesOptions, PieChart { }
-    interface PolygonChartSeriesOptions extends IndividualSeriesOptions, PolygonChart { }
-    interface PyramidChartSeriesOptions extends IndividualSeriesOptions, PyramidChart { }
-    interface ScatterChartSeriesOptions extends IndividualSeriesOptions, ScatterChart { }
-    interface SolidGaugeChartSeriesOptions extends IndividualSeriesOptions, SolidGaugeChart { }
-    interface SplineChartSeriesOptions extends IndividualSeriesOptions, SplineChart { }
-    interface TreeMapChartSeriesOptions extends IndividualSeriesOptions, TreeMapChart { }
-    interface WaterFallChartSeriesOptions extends IndividualSeriesOptions, WaterFallChart { }
-    interface WordCloudChartSeriesOptions extends IndividualSeriesOptions, WordCloudChart { }
+    interface AreaChartSeriesOptions
+        extends IndividualSeriesOptions,
+            AreaChart {}
+    interface AreaRangeChartSeriesOptions
+        extends IndividualSeriesOptions,
+            AreaRangeChart {}
+    interface AreaSplineChartSeriesOptions
+        extends IndividualSeriesOptions,
+            AreaSplineChart {}
+    interface AreaSplineRangeChartSeriesOptions
+        extends IndividualSeriesOptions,
+            AreaSplineRangeChart {}
+    interface BarChartSeriesOptions extends IndividualSeriesOptions, BarChart {}
+    interface BoxPlotChartSeriesOptions
+        extends IndividualSeriesOptions,
+            BoxPlotChart {}
+    interface BubbleChartSeriesOptions
+        extends IndividualSeriesOptions,
+            BubbleChart {}
+    interface ColumnChartSeriesOptions
+        extends IndividualSeriesOptions,
+            ColumnChart {}
+    interface ColumnRangeChartSeriesOptions
+        extends IndividualSeriesOptions,
+            ColumnRangeChart {}
+    interface ErrorBarChartSeriesOptions
+        extends IndividualSeriesOptions,
+            ErrorBarChart {}
+    interface FunnelChartSeriesOptions
+        extends IndividualSeriesOptions,
+            FunnelChart {}
+    interface GaugeChartSeriesOptions
+        extends IndividualSeriesOptions,
+            GaugeChart {}
+    interface HeatMapSeriesOptions
+        extends IndividualSeriesOptions,
+            HeatMapChart {}
+    interface LineChartSeriesOptions
+        extends IndividualSeriesOptions,
+            LineChart {}
+    interface PieChartSeriesOptions extends IndividualSeriesOptions, PieChart {}
+    interface PolygonChartSeriesOptions
+        extends IndividualSeriesOptions,
+            PolygonChart {}
+    interface PyramidChartSeriesOptions
+        extends IndividualSeriesOptions,
+            PyramidChart {}
+    interface ScatterChartSeriesOptions
+        extends IndividualSeriesOptions,
+            ScatterChart {}
+    interface SolidGaugeChartSeriesOptions
+        extends IndividualSeriesOptions,
+            SolidGaugeChart {}
+    interface SplineChartSeriesOptions
+        extends IndividualSeriesOptions,
+            SplineChart {}
+    interface TreeMapChartSeriesOptions
+        extends IndividualSeriesOptions,
+            TreeMapChart {}
+    interface WaterFallChartSeriesOptions
+        extends IndividualSeriesOptions,
+            WaterFallChart {}
+    interface WordCloudChartSeriesOptions
+        extends IndividualSeriesOptions,
+            WordCloudChart {}
 
     interface DataPoint {
         /**
@@ -6321,7 +6369,12 @@ declare namespace Highcharts {
          *
          * @default null
          */
-        crosshairs?: boolean | [boolean, boolean] | CrosshairObject | [CrosshairObject, CrosshairObject] | null;
+        crosshairs?:
+            | boolean
+            | [boolean, boolean]
+            | CrosshairObject
+            | [CrosshairObject, CrosshairObject]
+            | null;
         /**
          * Enable or disable the tooltip.
          * @default true
@@ -6380,7 +6433,11 @@ declare namespace Highcharts {
          * The return should be an object containing x and y values, for example { x: 100, y: 100 }.
          * @since 2.2.4
          */
-        positioner?(labelWidth: number, labelHeight: number, point: PlotPoint): { x: number; y: number; };
+        positioner?(
+            labelWidth: number,
+            labelHeight: number,
+            point: PlotPoint
+        ): { x: number; y: number };
         /**
          * Whether to apply a drop shadow to the tooltip.
          * @default true
@@ -6751,7 +6808,13 @@ declare namespace Highcharts {
          * The animation can also be a configuration object with properties duration and easing.
          * @since 1.2.0
          */
-        setExtremes(min?: number, max?: number, redraw?: boolean, animation?: boolean | Animation, eventArguments?: any): void;
+        setExtremes(
+            min?: number,
+            max?: number,
+            redraw?: boolean,
+            animation?: boolean | Animation,
+            eventArguments?: any
+        ): void;
         /**
          * Update the title of the axis after render time.
          * @param title  The new title options on the same format as given in xAxis.title.
@@ -6800,7 +6863,12 @@ declare namespace Highcharts {
          * The animation can also be a configuration object with properties duration and easing.
          * @since 3.0
          */
-        addAxis(options: AxisOptions, isX?: boolean, redraw?: boolean, animation?: boolean | Animation): AxisObject;
+        addAxis(
+            options: AxisOptions,
+            isX?: boolean,
+            redraw?: boolean,
+            animation?: boolean | Animation
+        ): AxisObject;
         /**
          * Set a new credits label for the chart.
          * @param A configuration object for the credits as defined at credits.
@@ -6815,7 +6883,11 @@ declare namespace Highcharts {
          * @param [boolean] redraw
          * @since 1.2.0
          */
-        addSeries<T extends IndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean | Animation): SeriesObject;
+        addSeries<T extends IndividualSeriesOptions>(
+            options: T,
+            redraw?: boolean,
+            animation?: boolean | Animation
+        ): SeriesObject;
         /**
          * Add a series to the chart as drilldown from a specific point in the parent series. This method is used for async
          * drilldown, when clicking a point in a series should result in loading and displaying a more high-resolution
@@ -6824,7 +6896,10 @@ declare namespace Highcharts {
          * @param seriesOptions The series options, as documented under plotOptions.series and under the plotOptions for each series type.
          * @since 3.0.8
          */
-        addSeriesAsDrilldown(point: PointObject, seriesOptions: IndividualSeriesOptions): void;
+        addSeriesAsDrilldown(
+            point: PointObject,
+            seriesOptions: IndividualSeriesOptions
+        ): void;
         chartHeight?: number;
         chartWidth?: number;
         /**
@@ -6898,7 +6973,10 @@ declare namespace Highcharts {
          * exported chart. Same as the exportChart params.
          * @since 2.0
          */
-        exportChartLocal(options: ExportingOptions, chartOptions: Options): void;
+        exportChartLocal(
+            options: ExportingOptions,
+            chartOptions: Options
+        ): void;
         /**
          * Get an axis, series or point by its id as given in the configuration options.
          * @param  id The id of the axis, series or point to get.
@@ -6975,7 +7053,11 @@ declare namespace Highcharts {
          * @param animation Defaults to true. When true, the resize will be animated with default animation options.
          *  The animation can also be a configuration object with properties duration and easing.
          */
-        setSize(width: number, height: number, animation?: boolean | Animation): void;
+        setSize(
+            width: number,
+            height: number,
+            animation?: boolean | Animation
+        ): void;
         /**
          * Set a new title or subtitle for the chart
          * @param title A configuration object for the new title as defined at #title.
@@ -6983,7 +7065,11 @@ declare namespace Highcharts {
          * @param [boolean] redraw Whether to redraw the chart. Defaults to true.
          * @since 2.1.0
          */
-        setTitle(title: TitleOptions, subtitle?: SubtitleOptions, redraw?: boolean): void;
+        setTitle(
+            title: TitleOptions,
+            subtitle?: SubtitleOptions,
+            redraw?: boolean
+        ): void;
         /**
          * Dim the chart's plot area and show a loading label text. Options for the loading screen are defined at
          * options.loading. A custom text can be given as a parameter for loading.
@@ -7015,7 +7101,12 @@ declare namespace Highcharts {
          * @param [(boolean | AnimationOptions)] animation Whether to apply animation, and optionally animation configuration.
          * @since 5.0.0
          */
-        update(options: Options, redraw?: boolean, oneToOne?: boolean, animation?: boolean | AnimationOptions): void;
+        update(
+            options: Options,
+            redraw?: boolean,
+            oneToOne?: boolean,
+            animation?: boolean | AnimationOptions
+        ): void;
         /**
          * This method is deprecated as of 2.0.1. Updating the chart position after a move operation is no longer necessary.
          * @since 1.2.5
@@ -7052,7 +7143,10 @@ declare namespace Highcharts {
          * and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart().
          * s a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
          */
-        new (options: Options, callback: (chart: ChartObject) => void): ChartObject;
+        new (
+            options: Options,
+            callback: (chart: ChartObject) => void
+        ): ChartObject;
         /**
          * This is the constructor for creating a new chart object.
          * @param renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
@@ -7068,7 +7162,11 @@ declare namespace Highcharts {
          * and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart().
          * As a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
          */
-        new (renderTo: string | HTMLElement, options: Options, callback: (chart: ChartObject) => void): ChartObject;
+        new (
+            renderTo: string | HTMLElement,
+            options: Options,
+            callback: (chart: ChartObject) => void
+        ): ChartObject;
     }
 
     /**
@@ -7121,7 +7219,7 @@ declare namespace Highcharts {
          * @return An object containing x, y, width and height values for the element.
          * @since 2.0
          */
-        getBBox(): { x: number; y: number; height: number; width: number; };
+        getBBox(): { x: number; y: number; height: number; width: number };
         /**
          * Apply an event handler to the element
          * @param eventType The event type to attach, for example 'click', 'mouseover', 'touch'.
@@ -7160,7 +7258,14 @@ declare namespace Highcharts {
          * @param  end The ending angle of the arc in radians, where 0 is to the right and -Math.PI/2 is up.
          * @since 2.0
          */
-        arc(centerX: number, centerY: number, outerRadius: number, innerRadius: number, start: number, end: number): ElementObject;
+        arc(
+            centerX: number,
+            centerY: number,
+            outerRadius: number,
+            innerRadius: number,
+            start: number,
+            end: number
+        ): ElementObject;
         /**
          * Draw circle on the renderer canvas.
          * @param  centerX The x position of the circle's center in the SVG element.
@@ -7200,7 +7305,13 @@ declare namespace Highcharts {
          * @param  height The height of the image.
          * @since 2.0
          */
-        image(source: string, x: number, y: number, width: number, height: number): ElementObject;
+        image(
+            source: string,
+            x: number,
+            y: number,
+            width: number,
+            height: number
+        ): ElementObject;
         /**
          * Draw a label, which is an extended text element with support for border and background. Highcharts creates a g
          * element with a text and a path or rect inside, to make it behave somewhat like a HTML div. Border and background
@@ -7218,7 +7329,17 @@ declare namespace Highcharts {
          * @param  [string] className A class name for the g element surrounding the label.
          * @since 2.0
          */
-        label(str: string, x: number, y: number, shape?: string, anchorX?: number, anchorY?: number, useHTML?: boolean, baseline?: boolean, className?: string): ElementObject;
+        label(
+            str: string,
+            x: number,
+            y: number,
+            shape?: string,
+            anchorX?: number,
+            anchorY?: number,
+            useHTML?: boolean,
+            baseline?: boolean,
+            className?: string
+        ): ElementObject;
         /**
          * Add a path based on SVG's path commands. In SVG capable browsers all path commands are supported, but in VML only
          * a subset is supported: absolute moveTo (M), absolute lineTo (L), absolute curveTo (C) and close (Z).
@@ -7234,7 +7355,13 @@ declare namespace Highcharts {
          * @param  cornerRadius The corner radius of all the rectangle's corners.
          * @since 2.0
          */
-        rect(x: number, y: number, width: number, height: number, cornerRadius: number): ElementObject;
+        rect(
+            x: number,
+            y: number,
+            width: number,
+            height: number,
+            cornerRadius: number
+        ): ElementObject;
         /**
          * Draw text. The text can contain a subset of HTML, like spans and anchors and some basic text styling of these.
          * For more advanced features like border and background, use label instead.
@@ -7262,7 +7389,11 @@ declare namespace Highcharts {
     }
 
     interface Renderer {
-        new (parentNode: HTMLElement, width: number, height: number): RendererObject;
+        new (
+            parentNode: HTMLElement,
+            width: number,
+            height: number
+        ): RendererObject;
     }
 
     interface Static {
@@ -7274,12 +7405,19 @@ declare namespace Highcharts {
          * As Highcharts.Chart, but without need for the new keyword.
          * @since 4.2.0
          */
-        chart(options: Options, callback?: (chart: ChartObject) => void): ChartObject;
+        chart(
+            options: Options,
+            callback?: (chart: ChartObject) => void
+        ): ChartObject;
         /**
          * As Highcharts.Chart, but without need for the new keyword.
          * @since 4.2.0
          */
-        chart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
+        chart(
+            renderTo: string | HTMLElement,
+            options: Options,
+            callback?: (chart: ChartObject) => void
+        ): ChartObject;
         /**
          * An array containing the current chart objects in the page. A chart's position in the array is preserved
          * throughout the page's lifetime. When a chart is destroyed, the array item becomes undefined.
@@ -7318,7 +7456,12 @@ declare namespace Highcharts {
          * @param  decimalPoint The decimal point. Defaults to '.' or to the string specified globally in options.lang.decimalPoint.
          * @param  thousandsSep The thousands separator. Defaults to ' ' or to the string specified globally in options.lang.thousandsSep.
          */
-        numberFormat(value: number, decimals?: number, decimalPoint?: string, thousandsSep?: string): string;
+        numberFormat(
+            value: number,
+            decimals?: number,
+            decimalPoint?: string,
+            thousandsSep?: string
+        ): string;
         /**
          * Sets the options globally for all charts created after this has been called. Takes an options JavaScript object
          * structure as the argument. These options are merged with the default options and the result is returned.
@@ -7343,7 +7486,11 @@ declare namespace Highcharts {
          * @param type The type of behavior you are extending.
          * @param cb The function that executes when the behavior occurs.
          */
-        wrap(prototype: any, type: string, cb: (proceed: Function, ...args: any[]) => void): void;
+        wrap(
+            prototype: any,
+            type: string,
+            cb: (proceed: Function, ...args: any[]) => void
+        ): void;
 
         /**
          * Add an event listener.
@@ -7356,9 +7503,11 @@ declare namespace Highcharts {
          * @param cb      The function callback to execute when the event is fired.
          * @returns A callback function to remove the added event.
          */
-        addEvent(element: HTMLElement | ElementObject | object,
-                 type: string,
-                 cb: (evt: Event) => void): () => void;
+        addEvent(
+            element: HTMLElement | ElementObject | object,
+            type: string,
+            cb: (evt: Event) => void
+        ): () => void;
 
         /**
          * Fire an event that was registered with
@@ -7370,10 +7519,12 @@ declare namespace Highcharts {
          * @param eventArguments  Custom event arguments that are passed on as an argument to the event handler.
          * @param defaultFunction The default function to execute if the other listeners haven't returned false.
          */
-        fireEvent(element: HTMLElement | ElementObject | object,
-                  type: string,
-                  eventArguments?: any,
-                  defaultFunction?: () => void): void;
+        fireEvent(
+            element: HTMLElement | ElementObject | object,
+            type: string,
+            eventArguments?: any,
+            defaultFunction?: () => void
+        ): void;
 
         distribute(array: any[], value: number): void;
 
@@ -7443,7 +7594,11 @@ declare namespace Highcharts {
          * The animation can also be a configuration object with properties duration and easing.
          * @since 1.2.0
          */
-        slice(sliced?: boolean, redraw?: boolean, animation?: boolean | Animation): void;
+        slice(
+            sliced?: boolean,
+            redraw?: boolean,
+            animation?: boolean | Animation
+        ): void;
         /**
          * The total of a stack for stacked series, or pie in pie charts.
          */
@@ -7459,7 +7614,11 @@ declare namespace Highcharts {
          * The animation can also be a configuration object with properties duration and easing.
          * @since 1.2.0
          */
-        update(options: number | [number, number] | DataPoint, redraw?: boolean, animation?: boolean | Animation): void;
+        update(
+            options: number | [number, number] | DataPoint,
+            redraw?: boolean,
+            animation?: boolean | Animation
+        ): void;
         /**
          * The x value for the point.
          * @since 1.2.0
@@ -7500,7 +7659,12 @@ declare namespace Highcharts {
          * Use this option for live charts monitoring a value over time.
          * @since 1.2.0
          */
-        addPoint(options: number | [number, number] | DataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | Animation): void;
+        addPoint(
+            options: number | [number, number] | DataPoint,
+            redraw?: boolean,
+            shift?: boolean,
+            animation?: boolean | Animation
+        ): void;
         /**
          * Read only. The chart that the series belongs to.
          * @since 1.2.0
@@ -7544,7 +7708,11 @@ declare namespace Highcharts {
          * The animation can also be a configuration object with properties duration and easing.
          * @since 4.1.0
          */
-        removePoint(index: number, redraw?: boolean, animation?: boolean | Animation): void;
+        removePoint(
+            index: number,
+            redraw?: boolean,
+            animation?: boolean | Animation
+        ): void;
         /**
          * Select or unselect the series. This means its selected property is set,the checkbox in the legend is toggled and
          * when selected, the series is returned in the chart.getSelectedSeries() method.
@@ -7569,7 +7737,12 @@ declare namespace Highcharts {
          * This option prevents this, and makes setData behave like it did prior to Highcharts 3.0.10.
          * @since 1.2.0
          */
-        setData(data: number[] | number[][] | DataPoint[], redraw?: boolean, animation?: boolean | Animation, updatePoints?: boolean): void;
+        setData(
+            data: number[] | number[][] | DataPoint[],
+            redraw?: boolean,
+            animation?: boolean | Animation,
+            updatePoints?: boolean
+        ): void;
         /**
          * A utility function to show or hide the series with an optional redraw.
          * @param [boolean] visible - Whether to show or hide the series. If undefined, the visibility is toggled.
@@ -7656,7 +7829,10 @@ declare global {
          * @param callback Callback function used to manipulate the constructed chart instance
          * @return current {JQuery} selector the current JQuery selector
          */
-        highcharts(options: Highcharts.Options, callback: (chart: Highcharts.ChartObject) => void): JQuery;
+        highcharts(
+            options: Highcharts.Options,
+            callback: (chart: Highcharts.ChartObject) => void
+        ): JQuery;
     }
 }
 
