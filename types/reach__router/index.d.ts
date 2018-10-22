@@ -147,3 +147,5 @@ export interface RedirectRequest {
 export function isRedirect(error: any): error is RedirectRequest;
 
 export function redirectTo(uri: string): void;
+
+export const globalHistory: History;
