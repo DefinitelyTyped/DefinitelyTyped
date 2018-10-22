@@ -1417,22 +1417,22 @@ export namespace plugins {
      */
     function throttle(options?: ThrottleOptions): RequestHandler;
 
-    interface MetricsCallback {
+    type MetricsCallback = (
         /**
          *  An error if the request had an error
          */
-        err: Error;
+        err: Error,
 
-        metrics: MetricsCallbackOptions;
+        metrics: MetricsCallbackOptions,
 
-        req: Request;
-        res: Response;
+        req: Request,
+        res: Response,
 
         /**
          * The route obj that serviced the request
          */
-        route: Route;
-    }
+        route: Route,
+    ) => void;
 
     type TMetricsCallback = 'close' | 'aborted' | undefined;
 
