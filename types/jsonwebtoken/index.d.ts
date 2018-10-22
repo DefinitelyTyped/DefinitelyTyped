@@ -90,6 +90,30 @@ export interface SignCallback {
     (err: Error, encoded: string): void;
 }
 
+
+export interface JwtHeader {
+    alg: string
+    typ?: string
+    kid?: string
+    jku?: string
+    x5u?: string
+    x5t?: string
+}
+
+export interface SigningKeyCallback {
+    (
+        err: any,
+        signingKey?: Secret,
+    ): void
+}
+
+export interface GetPublicKeyOrSecret {
+    (
+        header: JwtHeader,
+        callback: SigningKeyCallback
+    ): void;
+}
+
 export type Secret = string | Buffer | { key: string; passphrase: string };
 
 /**
@@ -150,12 +174,12 @@ export declare function verify(
  */
 export declare function verify(
     token: string,
-    secretOrPublicKey: string | Buffer | Function,
+    secretOrPublicKey: string | Buffer | GetPublicKeyOrSecret,
     callback?: VerifyCallback,
 ): void;
 export declare function verify(
     token: string,
-    secretOrPublicKey: string | Buffer | Function,
+    secretOrPublicKey: string | Buffer | GetPublicKeyOrSecret,
     options?: VerifyOptions,
     callback?: VerifyCallback,
 ): void;

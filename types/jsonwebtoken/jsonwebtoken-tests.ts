@@ -84,7 +84,7 @@ jwt.verify(token, cert, function(err, decoded) {
 });
 
 // verify a token assymetric with async key fetch function
-function getKey(header: Object, callback: Function) {
+function getKey(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
     cert = fs.readFileSync("public.pem");
 
     callback(null, cert);
