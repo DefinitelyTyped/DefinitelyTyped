@@ -1039,6 +1039,7 @@ function JQueryStatic() {
     }
 
     function proxy() {
+        interface JContext { kind: 'JContext'; }
         interface J1 { kind: 'J1'; }
         interface J2 { kind: 'J2'; }
         interface J3 { kind: 'J3'; }
@@ -1048,6 +1049,7 @@ function JQueryStatic() {
         interface J7 { kind: 'J7'; }
         interface J8 { kind: 'J8'; }
 
+        const context: JContext = {} as any;
         const a: J8 = {} as any;
         const b: J7 = {} as any;
         const c: J6 = {} as any;
@@ -1055,7 +1057,7 @@ function JQueryStatic() {
         const e: J4 = {} as any;
         const f: J3 = {} as any;
         const g: J2 = {} as any;
-        const h: J2 = {} as any;
+        const h: J1 = {} as any;
 
         type A = typeof a;
         type B = typeof b;
@@ -1064,9 +1066,8 @@ function JQueryStatic() {
         type E = typeof e;
         type F = typeof f;
         type G = typeof g;
-        type H = typeof h;
 
-        // (fn, null)
+        // (funсtion, null)
         {
             // $ExpectType () => void
             $.proxy((a, b, c, d, e, f, g) => { }, null, a, b, c, d, e, f, g);
@@ -1288,7 +1289,7 @@ function JQueryStatic() {
             $.proxy((a, b, c, d, e, f, g, h, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) => { }, null, a, b, c, d, e, f, g, h);
         }
 
-        // (fn, undefined)
+        // (funсtion, undefined)
         {
             // $ExpectType () => void
             $.proxy((a, b, c, d, e, f, g) => { }, undefined, a, b, c, d, e, f, g);
@@ -1510,232 +1511,451 @@ function JQueryStatic() {
             $.proxy((a, b, c, d, e, f, g, h, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) => { }, undefined, a, b, c, d, e, f, g, h);
         }
 
-        // (fn, context)
+        // (funсtion, context)
         {
-            // $ExpectType (this: {}) => void
-            $.proxy((a, b, c, d, e, f, g) => { }, {}, a, b, c, d, e, f, g);
-
-            // $ExpectType (this: {}) => void
-            $.proxy((a, b, c, d, e, f) => { }, {}, a, b, c, d, e, f);
-
-            // $ExpectType (this: {}) => void
-            $.proxy((a, b, c, d, e) => { }, {}, a, b, c, d, e);
-
-            // $ExpectType (this: {}) => void
-            $.proxy((a, b, c, d) => { }, {}, a, b, c, d);
-
-            // $ExpectType (this: {}) => void
-            $.proxy((a, b, c) => { }, {}, a, b, c);
-
-            // $ExpectType (this: {}) => void
-            $.proxy((a, b) => { }, {}, a, b);
-
-            // $ExpectType (this: {}) => void
-            $.proxy((a) => { }, {}, a);
-
-            // $ExpectType (this: {}) => void
-            $.proxy(() => { }, {});
-
-            // $ExpectType (this: {}, t: J1) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1) => { }, {}, a, b, c, d, e, f, g);
-
-            // $ExpectType (this: {}, t: J1) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: J1) => { }, {}, a, b, c, d, e, f);
-
-            // $ExpectType (this: {}, t: J1) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, t: J1) => { }, {}, a, b, c, d, e);
-
-            // $ExpectType (this: {}, t: J1) => void
-            $.proxy((a: A, b: B, c: C, d: D, t: J1) => { }, {}, a, b, c, d);
-
-            // $ExpectType (this: {}, t: J1) => void
-            $.proxy((a: A, b: B, c: C, t: J1) => { }, {}, a, b, c);
-
-            // $ExpectType (this: {}, t: J1) => void
-            $.proxy((a: A, b: B, t: J1) => { }, {}, a, b);
-
-            // $ExpectType (this: {}, t: J1) => void
-            $.proxy((a: A, t: J1) => { }, {}, a);
-
-            // $ExpectType (this: {}, t: J1) => void
-            $.proxy((t: J1) => { }, {});
-
-            // $ExpectType (this: {}, t: J1, u: J2) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2) => { }, {}, a, b, c, d, e, f, g);
-
-            // $ExpectType (this: {}, t: J1, u: J2) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2) => { }, {}, a, b, c, d, e, f);
-
-            // $ExpectType (this: {}, t: J1, u: J2) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, t: J1, u: J2) => { }, {}, a, b, c, d, e);
-
-            // $ExpectType (this: {}, t: J1, u: J2) => void
-            $.proxy((a: A, b: B, c: C, d: D, t: J1, u: J2) => { }, {}, a, b, c, d);
-
-            // $ExpectType (this: {}, t: J1, u: J2) => void
-            $.proxy((a: A, b: B, c: C, t: J1, u: J2) => { }, {}, a, b, c);
-
-            // $ExpectType (this: {}, t: J1, u: J2) => void
-            $.proxy((a: A, b: B, t: J1, u: J2) => { }, {}, a, b);
-
-            // $ExpectType (this: {}, t: J1, u: J2) => void
-            $.proxy((a: A, t: J1, u: J2) => { }, {}, a);
-
-            // $ExpectType (this: {}, t: J1, u: J2) => void
-            $.proxy((t: J1, u: J2) => { }, {});
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2, v: J3) => { }, {}, a, b, c, d, e, f, g);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2, v: J3) => { }, {}, a, b, c, d, e, f);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, t: J1, u: J2, v: J3) => { }, {}, a, b, c, d, e);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3) => void
-            $.proxy((a: A, b: B, c: C, d: D, t: J1, u: J2, v: J3) => { }, {}, a, b, c, d);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3) => void
-            $.proxy((a: A, b: B, c: C, t: J1, u: J2, v: J3) => { }, {}, a, b, c);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3) => void
-            $.proxy((a: A, b: B, t: J1, u: J2, v: J3) => { }, {}, a, b);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3) => void
-            $.proxy((a: A, t: J1, u: J2, v: J3) => { }, {}, a);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3) => void
-            $.proxy((t: J1, u: J2, v: J3) => { }, {});
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2, v: J3, w: J4) => { }, {}, a, b, c, d, e, f, g);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2, v: J3, w: J4) => { }, {}, a, b, c, d, e, f);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, t: J1, u: J2, v: J3, w: J4) => { }, {}, a, b, c, d, e);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4) => void
-            $.proxy((a: A, b: B, c: C, d: D, t: J1, u: J2, v: J3, w: J4) => { }, {}, a, b, c, d);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4) => void
-            $.proxy((a: A, b: B, c: C, t: J1, u: J2, v: J3, w: J4) => { }, {}, a, b, c);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4) => void
-            $.proxy((a: A, b: B, t: J1, u: J2, v: J3, w: J4) => { }, {}, a, b);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4) => void
-            $.proxy((a: A, t: J1, u: J2, v: J3, w: J4) => { }, {}, a);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4) => void
-            $.proxy((t: J1, u: J2, v: J3, w: J4) => { }, {});
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2, v: J3, w: J4, x: J5) => { }, {}, a, b, c, d, e, f, g);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2, v: J3, w: J4, x: J5) => { }, {}, a, b, c, d, e, f);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, t: J1, u: J2, v: J3, w: J4, x: J5) => { }, {}, a, b, c, d, e);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5) => void
-            $.proxy((a: A, b: B, c: C, d: D, t: J1, u: J2, v: J3, w: J4, x: J5) => { }, {}, a, b, c, d);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5) => void
-            $.proxy((a: A, b: B, c: C, t: J1, u: J2, v: J3, w: J4, x: J5) => { }, {}, a, b, c);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5) => void
-            $.proxy((a: A, b: B, t: J1, u: J2, v: J3, w: J4, x: J5) => { }, {}, a, b);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5) => void
-            $.proxy((a: A, t: J1, u: J2, v: J3, w: J4, x: J5) => { }, {}, a);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5) => void
-            $.proxy((t: J1, u: J2, v: J3, w: J4, x: J5) => { }, {});
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => { }, {}, a, b, c, d, e, f, g);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => { }, {}, a, b, c, d, e, f);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => { }, {}, a, b, c, d, e);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
-            $.proxy((a: A, b: B, c: C, d: D, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => { }, {}, a, b, c, d);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
-            $.proxy((a: A, b: B, c: C, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => { }, {}, a, b, c);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
-            $.proxy((a: A, b: B, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => { }, {}, a, b);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
-            $.proxy((a: A, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => { }, {}, a);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
-            $.proxy((t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => { }, {});
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) => { }, {}, a, b, c, d, e, f, g);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) => { }, {}, a, b, c, d, e, f);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) => { }, {}, a, b, c, d, e);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, b: B, c: C, d: D, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) => { }, {}, a, b, c, d);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, b: B, c: C, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) => { }, {}, a, b, c);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, b: B, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) => { }, {}, a, b);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) => { }, {}, a);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) => { }, {});
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) => { }, {}, a, b, c, d, e, f, g);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) => { }, {}, a, b, c, d, e, f);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, b: B, c: C, d: D, e: E, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) => { }, {}, a, b, c, d, e);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, b: B, c: C, d: D, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) => { }, {}, a, b, c, d);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, b: B, c: C, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) => { }, {}, a, b, c);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, b: B, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) => { }, {}, a, b);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((a: A, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) => { }, {}, a);
-
-            // $ExpectType (this: {}, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
-            $.proxy((t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) => { }, {});
-
-            // $ExpectType (this: {}, ...args: any[]) => void
-            $.proxy((a, b, c, d, e, f, g, h, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) => { }, {}, a, b, c, d, e, f, g, h);
+            // $ExpectType () => void
+            $.proxy(function(a, b, c, d, e, f, g) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f, g);
+
+            // $ExpectType () => void
+            $.proxy(function(a, b, c, d, e, f) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f);
+
+            // $ExpectType () => void
+            $.proxy(function(a, b, c, d, e) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e);
+
+            // $ExpectType () => void
+            $.proxy(function(a, b, c, d) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d);
+
+            // $ExpectType () => void
+            $.proxy(function(a, b, c) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c);
+
+            // $ExpectType () => void
+            $.proxy(function(a, b) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b);
+
+            // $ExpectType () => void
+            $.proxy(function(a) {
+                // $ExpectType JContext
+                this;
+            }, context, a);
+
+            // $ExpectType () => void
+            $.proxy(function() {
+                // $ExpectType JContext
+                this;
+            }, context);
+
+            // $ExpectType (t: J1) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: J1) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, t: J1) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f);
+
+            // $ExpectType (t: J1) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, t: J1) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e);
+
+            // $ExpectType (t: J1) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, t: J1) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d);
+
+            // $ExpectType (t: J1) => void
+            $.proxy(function(a: A, b: B, c: C, t: J1) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c);
+
+            // $ExpectType (t: J1) => void
+            $.proxy(function(a: A, b: B, t: J1) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b);
+
+            // $ExpectType (t: J1) => void
+            $.proxy(function(a: A, t: J1) {
+                // $ExpectType JContext
+                this;
+            }, context, a);
+
+            // $ExpectType (t: J1) => void
+            $.proxy(function(t: J1) {
+                // $ExpectType JContext
+                this;
+            }, context);
+
+            // $ExpectType (t: J1, u: J2) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: J1, u: J2) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f);
+
+            // $ExpectType (t: J1, u: J2) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, t: J1, u: J2) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e);
+
+            // $ExpectType (t: J1, u: J2) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, t: J1, u: J2) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d);
+
+            // $ExpectType (t: J1, u: J2) => void
+            $.proxy(function(a: A, b: B, c: C, t: J1, u: J2) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c);
+
+            // $ExpectType (t: J1, u: J2) => void
+            $.proxy(function(a: A, b: B, t: J1, u: J2) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b);
+
+            // $ExpectType (t: J1, u: J2) => void
+            $.proxy(function(a: A, t: J1, u: J2) {
+                // $ExpectType JContext
+                this;
+            }, context, a);
+
+            // $ExpectType (t: J1, u: J2) => void
+            $.proxy(function(t: J1, u: J2) {
+                // $ExpectType JContext
+                this;
+            }, context);
+
+            // $ExpectType (t: J1, u: J2, v: J3) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2, v: J3) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: J1, u: J2, v: J3) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2, v: J3) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f);
+
+            // $ExpectType (t: J1, u: J2, v: J3) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, t: J1, u: J2, v: J3) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e);
+
+            // $ExpectType (t: J1, u: J2, v: J3) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, t: J1, u: J2, v: J3) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d);
+
+            // $ExpectType (t: J1, u: J2, v: J3) => void
+            $.proxy(function(a: A, b: B, c: C, t: J1, u: J2, v: J3) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c);
+
+            // $ExpectType (t: J1, u: J2, v: J3) => void
+            $.proxy(function(a: A, b: B, t: J1, u: J2, v: J3) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b);
+
+            // $ExpectType (t: J1, u: J2, v: J3) => void
+            $.proxy(function(a: A, t: J1, u: J2, v: J3) {
+                // $ExpectType JContext
+                this;
+            }, context, a);
+
+            // $ExpectType (t: J1, u: J2, v: J3) => void
+            $.proxy(function(t: J1, u: J2, v: J3) {
+                // $ExpectType JContext
+                this;
+            }, context);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2, v: J3, w: J4) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2, v: J3, w: J4) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, t: J1, u: J2, v: J3, w: J4) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, t: J1, u: J2, v: J3, w: J4) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4) => void
+            $.proxy(function(a: A, b: B, c: C, t: J1, u: J2, v: J3, w: J4) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4) => void
+            $.proxy(function(a: A, b: B, t: J1, u: J2, v: J3, w: J4) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4) => void
+            $.proxy(function(a: A, t: J1, u: J2, v: J3, w: J4) {
+                // $ExpectType JContext
+                this;
+            }, context, a);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4) => void
+            $.proxy(function(t: J1, u: J2, v: J3, w: J4) {
+                // $ExpectType JContext
+                this;
+            }, context);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2, v: J3, w: J4, x: J5) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2, v: J3, w: J4, x: J5) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, t: J1, u: J2, v: J3, w: J4, x: J5) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, t: J1, u: J2, v: J3, w: J4, x: J5) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5) => void
+            $.proxy(function(a: A, b: B, c: C, t: J1, u: J2, v: J3, w: J4, x: J5) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5) => void
+            $.proxy(function(a: A, b: B, t: J1, u: J2, v: J3, w: J4, x: J5) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5) => void
+            $.proxy(function(a: A, t: J1, u: J2, v: J3, w: J4, x: J5) {
+                // $ExpectType JContext
+                this;
+            }, context, a);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5) => void
+            $.proxy(function(t: J1, u: J2, v: J3, w: J4, x: J5) {
+                // $ExpectType JContext
+                this;
+            }, context);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
+            $.proxy(function(a: A, b: B, c: C, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
+            $.proxy(function(a: A, b: B, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
+            $.proxy(function(a: A, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) {
+                // $ExpectType JContext
+                this;
+            }, context, a);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) => void
+            $.proxy(function(t: J1, u: J2, v: J3, w: J4, x: J5, y: J6) {
+                // $ExpectType JContext
+                this;
+            }, context);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, b: B, c: C, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, b: B, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) {
+                // $ExpectType JContext
+                this;
+            }, context, a);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7) {
+                // $ExpectType JContext
+                this;
+            }, context);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, f: F, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, e: E, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, b: B, c: C, d: D, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, b: B, c: C, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, b: B, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(a: A, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) {
+                // $ExpectType JContext
+                this;
+            }, context, a);
+
+            // $ExpectType (t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, ...args: any[]) => void
+            $.proxy(function(t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) {
+                // $ExpectType JContext
+                this;
+            }, context);
+
+            // $ExpectType (...args: any[]) => void
+            $.proxy(function(a, b, c, d, e, f, g, h, t: J1, u: J2, v: J3, w: J4, x: J5, y: J6, z: J7, _: J8) {
+                // $ExpectType JContext
+                this;
+            }, context, a, b, c, d, e, f, g, h);
         }
 
-        // $ExpectType (this: { myFunc: () => undefined; }, ...args: any[]) => any
+        // $ExpectType (...args: any[]) => any
         $.proxy({ myFunc: $.noop }, 'myFunc', 1, 2);
 
-        // $ExpectType (this: { myFunc: () => undefined; }, ...args: any[]) => any
+        // $ExpectType (...args: any[]) => any
         $.proxy({ myFunc: $.noop }, 'myFunc');
     }
 
