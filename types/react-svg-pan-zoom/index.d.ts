@@ -49,6 +49,7 @@ export type Tool = typeof TOOL_AUTO | typeof TOOL_NONE | typeof TOOL_PAN |
 										typeof TOOL_ZOOM_IN | typeof TOOL_ZOOM_OUT;
 export type ToolbarPosition = typeof POSITION_NONE | typeof POSITION_TOP | typeof POSITION_RIGHT |
 										typeof POSITION_BOTTOM | typeof POSITION_LEFT;
+export type MiniaturePosition = typeof POSITION_NONE | typeof POSITION_RIGHT | typeof POSITION_LEFT;
 
 export interface OptionalProps {
 	// background of the viewer
@@ -74,6 +75,9 @@ export interface OptionalProps {
 
 	// toolbar position
 	toolbarPosition: ToolbarPosition;
+    
+    // miniature position
+	miniaturePosition: MiniaturePosition;
 
 	// handler something changed
 	onChangeValue(value: Value): void;
