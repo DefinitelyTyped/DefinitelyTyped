@@ -10,7 +10,10 @@ export type WindowLocation = Window["location"] & HLocation;
 
 export type HistoryActionType = "PUSH" | "POP";
 export type HistoryLocation = WindowLocation & { state?: any };
-export type HistoryListenerParameter = { location: HistoryLocation, action: HistoryActionType };
+export interface HistoryListenerParameter {
+	location: HistoryLocation;
+	action: HistoryActionType;
+}
 export type HistoryListener = (parameter: HistoryListenerParameter) => void;
 export type HistoryUnsubscribe = () => void;
 
