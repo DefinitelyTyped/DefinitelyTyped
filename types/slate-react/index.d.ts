@@ -93,9 +93,9 @@ export interface Plugin {
     renderEditor?: (props: RenderAttributes, editor?: Editor) => object | void;
     schema?: Schema;
     decorateNode?: (node: Node) => Range[] | void;
-    renderMark?: (props: RenderMarkProps) => any;
-    renderNode?: (props: RenderNodeProps) => any;
-    renderPlaceholder?: (props: RenderAttributes) => any;
+    renderMark?: (props: RenderMarkProps, next: () => void) => any;
+    renderNode?: (props: RenderNodeProps, next: () => void) => any;
+    renderPlaceholder?: (props: RenderAttributes, next: () => void) => any;
     renderPortal?: (props: RenderAttributes) => any;
     validateNode?: (node: Node) => any;
 }
