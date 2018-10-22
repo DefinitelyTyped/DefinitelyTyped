@@ -944,6 +944,14 @@ $( "#log" ).append( JSON.stringify( object1 ) );
      * Merge the contents of two or more objects together into the first object.
      * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
      * @param target The object to extend. It will receive the new properties.
+     * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
+     * @since 1.1.4
+     */
+    extend<T>(deep: true, target: T): this & T;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
+     * @param target The object to extend. It will receive the new properties.
      * @param object1 An object containing additional properties to merge in.
      * @param objectN Additional objects containing properties to merge in.
      * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
@@ -1431,6 +1439,14 @@ $( "#log" ).append( "<div><b>settings -- </b>" + JSON.stringify( settings ) + "<
 ```
      */
     extend<T, U>(target: T, object1: U): T & U;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     * @param target An object that will receive the new properties if additional objects are passed in or that will
+     *               extend the jQuery namespace if it is the sole argument.
+     * @see \`{@link https://api.jquery.com/jQuery.extend/ }\`
+     * @since 1.0
+     */
+    extend<T>(target: T): this & T;
     /**
      * Merge the contents of two or more objects together into the first object.
      * @param target An object that will receive the new properties if additional objects are passed in or that will

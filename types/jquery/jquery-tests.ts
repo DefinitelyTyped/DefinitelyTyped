@@ -463,6 +463,9 @@ function JQueryStatic() {
         // $ExpectType { name: string; } & EventTarget
         $.extend(true, t, u);
 
+        // $ExpectType JQueryStatic & { name: string; }
+        $.extend(true, t);
+
         // $ExpectType any
         $.extend(true, t, u, v, w, x, y, z, a);
 
@@ -483,6 +486,9 @@ function JQueryStatic() {
 
         // $ExpectType { name: string; } & EventTarget
         $.extend(t, u);
+
+        // $ExpectType JQueryStatic & { name: string; }
+        $.extend(t);
 
         // $ExpectType any
         $.extend(t, u, v, w, x, y, z, a);
