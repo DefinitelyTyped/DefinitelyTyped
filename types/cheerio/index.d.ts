@@ -1,6 +1,6 @@
 // Type definitions for Cheerio v0.22.0
 // Project: https://github.com/cheeriojs/cheerio
-// Definitions by: Bret Little <https://github.com/blittle>, VILIC VANE <http://vilic.info>, Wayne Maurer <https://github.com/wmaurer>, Umar Nizamani <https://github.com/umarniz>, LiJinyao <https://github.com/LiJinyao>, Chennakrishna <https://github.com/chennakrishna8>
+// Definitions by: Bret Little <https://github.com/blittle>, VILIC VANE <http://vilic.info>, Wayne Maurer <https://github.com/wmaurer>, Umar Nizamani <https://github.com/umarniz>, LiJinyao <https://github.com/LiJinyao>, Chennakrishna <https://github.com/chennakrishna8>, AzSiAz <https://github.com/AzSiAz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Cheerio {
@@ -112,8 +112,10 @@ interface Cheerio {
     eq(index: number): Cheerio;
 
     get(): string[];
+    get<T>(): T[];
     get(): CheerioElement[];
     get(index: number): CheerioElement;
+    get<T>(index: number): T;
 
     index(): number;
     index(selector: string): number;
