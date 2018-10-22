@@ -4,6 +4,7 @@
 //                 Haroen Viaene <https://github.com/haroenv>
 //                 Aurélien Hervé <https://github.com/aherve>
 //                 Samuel Vaillant <https://github.com/samouss>
+//                 Kai Eichinger <https://github.com/keichinger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
