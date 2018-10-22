@@ -4,7 +4,7 @@
 //                 Justin Simms <https://github.com/jhsimms>
 //                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -19,7 +19,6 @@
 /// <reference types='node' />
 
 import * as Boom from 'boom';
-import * as catbox from 'catbox';
 import * as http from 'http';
 import * as https from 'https';
 import * as Shot from 'shot';
@@ -31,6 +30,7 @@ import { MimosOptions } from 'mimos';
 import { SealOptions, SealOptionsSub } from 'iron';
 import { AnySchema, ValidationOptions } from 'joi';
 import Podium = require('podium');
+import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePrototype, Policy } from 'catbox';
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -2103,6 +2103,11 @@ export interface ServerAuth {
     test(strategy: string, request: Request): Promise<any>;
 }
 
+export type CachePolicyOptions<T> = PolicyOptionVariants<T> & {
+    cache?: string;
+    segment?: string;
+};
+
 /**
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servercacheoptions)
  */
@@ -2132,7 +2137,7 @@ export interface ServerCache {
      * @return Catbox Policy.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servercacheoptions)
      */
-    (options: ServerOptionsCache): catbox.Policy;
+    <T, O extends CachePolicyOptions<T> = CachePolicyOptions<T>>(options: O): Policy<T, O>;
 
     /**
      * Provisions a server cache as described in server.cache where:
@@ -2661,7 +2666,7 @@ export type ServerMethod = (...args: any[]) => Promise<any>;
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servermethodname-method-options)
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servercacheoptions)
  */
-export interface ServerMethodCache extends catbox.PolicyOptions {
+export interface ServerMethodCache extends PolicyOptions<any> {
     generateTimeout: number | false;
 }
 
@@ -2690,7 +2695,7 @@ export interface ServerMethodOptions {
      * unique key if the function's arguments are all of types 'string', 'number', or 'boolean'. However if the method uses other types of arguments, a key generation function must be provided which
      * takes the same arguments as the function and returns a unique string (or null if no key can be generated).
      */
-    generateKey?: (...args: any[]) => string | null;
+    generateKey?(...args: any[]): string | null;
 }
 
 /**
@@ -2720,9 +2725,9 @@ export interface ServerMethodConfigurationObject {
  * MongoDB, Memcached, Riak, among others). Caching is only utilized if methods and plugins explicitly store their state in the cache.
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-cache)
  */
-export interface ServerOptionsCache extends catbox.PolicyOptions {
+export interface ServerOptionsCache extends PolicyOptions<any> {
     /** a class, a prototype function, or a catbox engine object. */
-    engine?: catbox.EnginePrototypeOrObject;
+    engine?: EnginePrototypeOrObject;
 
     /**
      * an identifier used later when provisioning or configuring caching for server methods or plugins. Each cache name must be unique. A single item may omit the name option which defines
@@ -2800,7 +2805,7 @@ export interface ServerOptions {
      * * * other options passed to the catbox strategy used. Other options are only passed to catbox when engine above is a class or function and ignored if engine is a catbox engine object).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serveroptionscache)
      */
-    cache?: catbox.EnginePrototype | ServerOptionsCache | ServerOptionsCache[];
+    cache?: EnginePrototype<any> | ServerOptionsCache | ServerOptionsCache[];
 
     /**
      * Default value: { minBytes: 1024 }.
