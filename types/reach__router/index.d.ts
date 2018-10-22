@@ -15,7 +15,9 @@ export interface History {
     navigate: NavigateFn;
 }
 
-export type HistoryListener = () => void;
+export type HistoryListenerLocation = WindowLocation & { state?: any };
+export type HistoryListenerParameter = { location: HistoryListenerLocation, action: "PUSH" | "POP" };
+export type HistoryListener = (parameter: HistoryListenerParameter) => void;
 export type HistoryUnsubscribe = () => void;
 
 export class Router extends React.Component<RouterProps> { }
