@@ -2173,6 +2173,7 @@ export interface NightwatchTestHooks {
     after?: NightwatchTestHook;
     beforeEach?: NightwatchTestHook;
     afterEach?: NightwatchTestHook;
+    '@disabled'?: boolean;
 }
 
 export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;
