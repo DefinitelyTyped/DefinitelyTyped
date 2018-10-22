@@ -111,6 +111,7 @@ interface Cheerio {
 
     eq(index: number): Cheerio;
 
+	get(): any[]
     get(): string[];
     get(): CheerioElement[];
     get(index: number): CheerioElement;
