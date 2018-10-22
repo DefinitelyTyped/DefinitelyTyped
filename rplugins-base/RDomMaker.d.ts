@@ -3,60 +3,52 @@
 // Definitions by: Robert Wu <https://github.com/k66880/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/** 元素生成器 */
 declare interface RDomMaker {
-    /** #name */
+    /** 名称 */
     name: any;
-    /** #map */
+    /** 图纸内容 */
     map: any;
-    constructor(name: any, map: any);
+    constructor(name: string, map: object);
     /**
      * 遍历map对每一项执行指定的函数
-     * @param fn #fn
+     * @param fn 要执行的函数
      */
-    eachDoms(fn: any): any;
+    eachDoms(fn: Function): this;
     /**
-     * 初始化map中的所有项到doms
-     * @param doms #doms
-     * @param root #root
-     * @param postfixname #postfixname
-     * @param makingDom #makingDom
+     * 初始化map中的所有项到容器
+     * @param doms 用于存放元素的容器（一个对象）
+     * @param root 根节点
+     * @param postfixname 后缀名称
+     * @param makingDom 在生成完每个元素时执行的回调函数
      */
-    initDoms(doms: object, root: JQuery, postfixname: string, makingDom: Function): any;
+    initDoms(doms: object, root: JQuery, postfixname?: string, makingDom?: Function): this;
     /**
-     * 初始化map中的所有项到doms（编程用）
-     * @param doms #doms
+     * 初始化map中的所有项到容器（编程用）
+     * @param doms 用于存放元素的容器（一个对象）
      */
-    initDomsCoding(doms: any): any;
+    initDomsCoding(doms: object): this;
     /**
-     * 创建指定名称的元素
-     * @param name #name
-     * @param doms #doms
-     * @param root #root
-     * @param postfixname #postfixname
+     * 创建指定名称的元素到容器
+     * @param name 指定名称
+     * @param doms 用于存放元素的容器（一个对象）
+     * @param root 根节点
+     * @param postfixname 后缀名称
      */
-    createDom(name: any, doms: any, root: any, postfixname: any): any;
+    createDom(name: string, doms: object, root?: JQuery, postfixname?: string): JQuery;
     /**
-     * 创建指定名称数组的元素
-     * @param names #names
-     * @param doms #doms
-     * @param root #root
-     * @param postfixname #postfixname
-     * @param makingDom #makingDom
+     * 创建指定名称数组的元素到容器
+     * @param names 指定名称数组
+     * @param doms 用于存放元素的容器（一个对象）
+     * @param root 根节点
+     * @param postfixname 后缀名称
+     * @param makingDom 在生成完每个元素时执行的回调函数
      */
-    createDoms(names: any, doms: any, root: any, postfixname: any, makingDom: any): any;
+    createDoms(names: Array<string>, doms: object, root?: JQuery, postfixname?: string, makingDom?: Function): this;
     /**
-     * 创建指定名称数组的元素
-     * @param name #name
-     * @param data #data
-     * @param doms #doms
-     * @param root #root
-     * @param postfixname #postfixname
+     * 从容器中移除所有元素
+     * @param doms 存放元素的容器（一个对象）
      */
-    _createDom(name: any, data: any, doms: any, root: any, postfixname: any): any;
-    /**
-     * 移除所有元素
-     * @param doms #doms
-     */
-    removeAll(doms: any): any;
+    removeAll(doms: object): this;
 }
 
