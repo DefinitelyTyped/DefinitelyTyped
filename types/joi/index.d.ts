@@ -910,15 +910,28 @@ export interface BinarySchema extends AnySchema {
 
 export interface DateSchema extends AnySchema {
     /**
+     * Specifies that the value must be greater than date.
+     * Notes: 'now' can be passed in lieu of date so as to always compare relatively to the current date,
+     * allowing to explicitly ensure a date is either in the past or in the future.
+     * It can also be a reference to another field.
+     */
+    greater(date: 'now' | Date | number | string | Reference): this;
+
+    /**
+     * Specifies that the value must be less than date.
+     * Notes: 'now' can be passed in lieu of date so as to always compare relatively to the current date,
+     * allowing to explicitly ensure a date is either in the past or in the future.
+     * It can also be a reference to another field.
+     */
+    less(date: 'now' | Date | number | string | Reference): this;
+
+    /**
      * Specifies the oldest date allowed.
      * Notes: 'now' can be passed in lieu of date so as to always compare relatively to the current date,
      * allowing to explicitly ensure a date is either in the past or in the future.
      * It can also be a reference to another field.
      */
-    min(date: Date): this;
-    min(date: number): this;
-    min(date: string): this;
-    min(date: Reference): this;
+    min(date: 'now' | Date | number | string | Reference): this;
 
     /**
      * Specifies the latest date allowed.
@@ -926,17 +939,13 @@ export interface DateSchema extends AnySchema {
      * allowing to explicitly ensure a date is either in the past or in the future.
      * It can also be a reference to another field.
      */
-    max(date: Date): this;
-    max(date: number): this;
-    max(date: string): this;
-    max(date: Reference): this;
+    max(date: 'now' | Date | number | string | Reference): this;
 
     /**
      * Specifies the allowed date format:
      * @param format - string or array of strings that follow the moment.js format.
      */
-    format(format: string): this;
-    format(format: string[]): this;
+    format(format: string | string[]): this;
 
     /**
      * Requires the string value to be in valid ISO 8601 date format.
