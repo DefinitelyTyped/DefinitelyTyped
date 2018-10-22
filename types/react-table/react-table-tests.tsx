@@ -124,7 +124,7 @@ const Component = (props: {}) => {
           minWidth: 100,
           className: '',
           style: {},
-          getProps: () => { },
+          getProps: (finalState: any) => ({}),
           headerClassName: '',
           headerStyle: {},
           getHeaderProps: () => { },

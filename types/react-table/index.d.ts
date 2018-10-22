@@ -1,6 +1,8 @@
 // Type definitions for react-table 6.7
 // Project: https://github.com/react-tools/react-table
-// Definitions by: Roy Xue <https://github.com/royxue>, Pavel Sakalo <https://github.com/psakalo>, Krzysztof Porębski <https://github.com/Havret>
+// Definitions by: Roy Xue <https://github.com/royxue>,
+//                 Pavel Sakalo <https://github.com/psakalo>,
+//                 Krzysztof Porębski <https://github.com/Havret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import * as React from 'react';
@@ -444,7 +446,7 @@ export namespace Column {
         /**
          * @default () => ({})
          */
-        getProps: ReactTableFunction;
+        getProps: ComponentPropsGetterRC;
     }
 
     /** Configuration of a columns header section */
