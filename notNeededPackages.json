@@ -1201,6 +1201,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "react-i18next",
+            "typingsPackageName": "react-i18next",
+            "sourceRepoURL": "https://github.com/i18next/react-i18next",
+            "asOfVersion": "8.1.0"
+        },
+        {
             "libraryName": "react-monaco-editor",
             "typingsPackageName": "react-monaco-editor",
             "sourceRepoURL": "https://github.com/superRaytin/react-monaco-editor",
