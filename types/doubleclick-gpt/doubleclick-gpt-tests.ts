@@ -41,7 +41,7 @@ googletag.openConsole();
 
 googletag.setAdIframeTitle("title");
 
-googletag.cmd.push(function() {
+googletag.cmd.push(() => {
     googletag.defineSlot("/1234567/sports", [160, 600]).
             addService(googletag.pubads());
 });
@@ -262,7 +262,7 @@ googletag.pubads().updateCorrelator();
 // The listener will be called only when the pubads service renders a slot.
 // To listen to companion ads, add a similar listener to
 // googletag.companionAds().
-googletag.pubads().addEventListener("slotRenderEnded", function(event: googletag.events.SlotRenderEndedEvent) {
+googletag.pubads().addEventListener("slotRenderEnded", (event: googletag.events.SlotRenderEndedEvent) => {
     console.log("Slot has been rendered:");
     console.log(event);
 });
@@ -273,7 +273,7 @@ googletag.pubads().addEventListener("slotRenderEnded", function(event: googletag
 // however, programmatically filter a listener to respond only to a certain
 // ad slot, using this pattern:
 let targetSlot = slot1;
-googletag.pubads().addEventListener("slotRenderEnded", function(event: googletag.events.SlotRenderEndedEvent) {
+googletag.pubads().addEventListener("slotRenderEnded", (event: googletag.events.SlotRenderEndedEvent) => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
@@ -283,7 +283,7 @@ googletag.pubads().addEventListener("slotRenderEnded", function(event: googletag
 // The listener will be called when the impression is considered viewable.
 // This event also operates at service level, but, as above, you can filter
 // to respond only to a certain ad slot by using this pattern:
-googletag.pubads().addEventListener("impressionViewable", function(event: googletag.events.ImpressionViewableEvent) {
+googletag.pubads().addEventListener("impressionViewable", (event: googletag.events.ImpressionViewableEvent) => {
     if (event.slot === targetSlot) {
         // Slot specific logic.
     }
