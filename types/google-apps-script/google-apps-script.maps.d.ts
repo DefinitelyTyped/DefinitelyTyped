@@ -81,7 +81,7 @@ declare namespace GoogleAppsScript {
       setDestination(latitude: Number, longitude: Number): DirectionFinder;
       setDestination(address: string): DirectionFinder;
       setLanguage(language: string): DirectionFinder;
-      setMode(mode: string): DirectionFinder;
+      setMode(mode: Mode): DirectionFinder;
       setOptimizeWaypoints(optimizeOrder: boolean): DirectionFinder;
       setOrigin(latitude: Number, longitude: Number): DirectionFinder;
       setOrigin(address: string): DirectionFinder;

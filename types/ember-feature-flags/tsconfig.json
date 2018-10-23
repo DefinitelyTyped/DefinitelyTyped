@@ -47,6 +47,7 @@
     "files": [
         "index.d.ts",
         "tests/helpers/with-feature.d.ts",
+        "test-support/index.d.ts",
         "ember-feature-flags-tests.ts"
     ]
 }
