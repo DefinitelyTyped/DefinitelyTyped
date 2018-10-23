@@ -317,7 +317,6 @@ slot.clearCategoryExclusions();
 
 // Make an ad request. Any ad can be returned for the slot.
 
-
 slot = googletag.defineSlot("/1234567/sports", [160, 600], "div-1").
         setTargeting("allow_expandable", "true").
         setTargeting("interests", ["sports", "music", "movies"]).
