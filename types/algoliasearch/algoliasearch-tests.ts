@@ -137,7 +137,7 @@ let _algoliaQueryParameters: QueryParameters = {
   removeStopWords: [''],
   disableExactOnAttributes: [''],
   exactOnSingleWordQuery: 'attribute',
-  alternativesAsExact: [],
+  alternativesAsExact: ["ignorePlurals"],
   distinct: 0,
   getRankingInfo: false,
   numericAttributesToIndex: [''],

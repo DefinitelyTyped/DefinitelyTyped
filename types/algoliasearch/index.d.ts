@@ -1373,7 +1373,7 @@ declare namespace algoliasearch {
      * 'multiWordsSynonym': multiple-words synonym
      * https://www.algolia.com/doc/api-reference/api-parameters/alternativesAsExact/
      */
-    alternativesAsExact?: string[];
+    alternativesAsExact?: Array<"ignorePlurals"|"singleWordSynonym"|"multiWordsSynonym">;
     /**
      * If set to 1, enables the distinct feature, disabled by default, if the attributeForDistinct index setting is set.
      * https://www.algolia.com/doc/api-reference/api-parameters/distinct/
