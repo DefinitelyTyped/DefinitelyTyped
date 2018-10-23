@@ -42,9 +42,9 @@ declare namespace googletag {
     }
 
     export interface LazyLoadOptionsConfig {
-        fetchMarginPercent?: number,
-        renderMarginPercent?: number,
-        mobileScaling?: number
+        fetchMarginPercent?: number;
+        renderMarginPercent?: number;
+        mobileScaling?: number;
     }
 
     export interface ResponseInformation {
