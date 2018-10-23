@@ -383,7 +383,7 @@ declare namespace algoliasearch {
      * default: null
      * https://www.algolia.com/doc/api-reference/api-parameters/insideBoundingBox/
      */
-    insideBoundingBox?: Array<number|number[]>;
+    insideBoundingBox?: number[][];
     /**
      * Selects how the query words are interpreted
      * default: 'prefixLast'
