@@ -5,6 +5,7 @@
 //                 Aurélien Hervé <https://github.com/aherve>
 //                 Samuel Vaillant <https://github.com/samouss>
 //                 Claas Brüggemann <https://github.com/ClaasBrueggemann>
+//                 Kai Eichinger <https://github.com/keichinger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
