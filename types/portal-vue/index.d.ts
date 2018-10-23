@@ -3,4 +3,4 @@
 // Definitions by: nodegin <https://github.com/nodegin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// nothing
+declare module 'portal-vue';
