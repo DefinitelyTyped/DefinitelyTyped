@@ -76,6 +76,7 @@ declare module "react-jsonschema-form" {
       
     export type Options = {
         enumOptions: EnumOption[] | false;  
+        [key: string]: any;
     }
 
     export interface WidgetProps extends React.HTMLAttributes<HTMLElement> {
