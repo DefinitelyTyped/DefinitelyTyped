@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "ban-types": false,
         "no-consecutive-blank-lines": false,
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,

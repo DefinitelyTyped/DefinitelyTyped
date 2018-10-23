@@ -3,6 +3,7 @@
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 //                 Steven Joyce <https://github.com/steven-joyce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare namespace googletag {
     export type SingleSizeArray = number[];
@@ -20,7 +21,7 @@ declare namespace googletag {
     export type SizeMappingArray = SizeMapping[];
 
     export interface CommandArray {
-        push(f: Function): number;
+        push(f: () => void): number;
     }
 
     export interface Service {
@@ -37,7 +38,7 @@ declare namespace googletag {
     }
 
     export interface ContentService extends Service {
-        setContent(slot: Slot, content: String): void;
+        setContent(slot: Slot, content: string): void;
     }
 
     export interface LazyLoadOptionsConfig {
@@ -109,7 +110,7 @@ declare namespace googletag {
         setTagForChildDirectedTreatment(value: number): PassbackSlot;
         setTagForUnderAgeOfConsent(value: number): PassbackSlot;
         setTargeting(key: string, value: string | string[]): PassbackSlot;
-        updateTargetingFromMap(map: Object): PassbackSlot;
+        updateTargetingFromMap(map: object): PassbackSlot;
     }
 
     export interface PubAdsService extends Service {
