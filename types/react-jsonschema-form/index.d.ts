@@ -71,11 +71,11 @@ declare module "react-jsonschema-form" {
 
     export type EnumOption = {
         label: string;
-        value: string;
+        value: any;
     };
       
     export type Options = {
-        enumOptions: EnumOption[] | false;  
+        enumOptions?: EnumOption[] | false;  
         [key: string]: any;
     }
 
