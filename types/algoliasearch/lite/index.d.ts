@@ -484,6 +484,8 @@ declare namespace algoliasearch {
      */
     numericFilters?: string[];
     /**
+     * @deprecated
+     *
      * Filter the query by a set of tags.
      * Default: []
      * https://www.algolia.com/doc/api-reference/api-parameters/tagFilters/
