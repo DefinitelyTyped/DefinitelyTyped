@@ -3,4 +3,4 @@
 // Definitions by: nodegin <https://github.com/nodegin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'portal-vue';
+export function install(): void;
