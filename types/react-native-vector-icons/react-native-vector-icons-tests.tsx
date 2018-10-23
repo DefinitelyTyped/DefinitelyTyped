@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View, Text, TabBarIOS } from 'react-native';
 import { createIconSet } from 'react-native-vector-icons';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
@@ -18,6 +19,9 @@ const CustomIconTabBarItem     = CustomIcon.TabBarItem;
 const CustomIconTabBarItemIOS  = CustomIcon.TabBarItemIOS;
 const CustomIconToolbarAndroid = CustomIcon.ToolbarAndroid;
 const CustomIcongetImageSource = CustomIcon.getImageSource;
+
+const rawGlyphMap = AntDesignIcon.getRawGlyphMap();
+const fontFamily = AntDesignIcon.getFontFamily();
 
 class Example extends React.Component {
   handleButton() {

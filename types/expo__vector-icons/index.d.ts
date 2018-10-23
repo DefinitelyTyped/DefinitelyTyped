@@ -1,6 +1,7 @@
-// Type definitions for @expo/vector-icons 6.2
+// Type definitions for @expo/vector-icons 8.0
 // Project: https://github.com/expo/vector-icons
 // Definitions by: Hyeonsu Lee <https://github.com/incleaf>
+//                 Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -8,6 +9,7 @@ import * as React from 'react';
 import { TextProps } from 'react-native';
 
 export { createIconSet, createIconSetFromFontello, createIconSetFromIcoMoon } from 'react-native-vector-icons';
+export { default as AntDesign } from 'react-native-vector-icons/AntDesign';
 export { default as Entypo } from 'react-native-vector-icons/Entypo';
 export { default as EvilIcons } from 'react-native-vector-icons/EvilIcons';
 export { default as Feather } from 'react-native-vector-icons/Feather';
