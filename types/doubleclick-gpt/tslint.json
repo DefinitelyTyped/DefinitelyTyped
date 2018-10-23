@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "object-literal-key-quotes": false,
         "only-arrow-functions": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false

@@ -79,8 +79,8 @@ googletag.pubads().definePassback("/1234567/sports", [468, 60]).
             display();
 
 googletag.pubads().definePassback("/1234567/sports", [160, 600]).
-    updateTargetingFromMap({"color": "red",
-                                                    "interests": ["sports", "music", "movies"]}).
+    updateTargetingFromMap({color: "red",
+                            interests: ["sports", "music", "movies"]}).
             display();
 
 googletag.pubads().enableLazyLoad();
