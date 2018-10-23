@@ -9,6 +9,7 @@ declare namespace GLTF {
     /**
      * The datatype of the components in the attribute
      */
+    // tslint:disable-next-line no-const-enum
     const enum AccessorComponentType {
         /**
          * Byte
@@ -38,6 +39,7 @@ declare namespace GLTF {
     /**
      * Specifies if the attirbute is a scalar, vector, or matrix
      */
+    // tslint:disable-next-line no-const-enum
     const enum AccessorType {
         /**
          * Scalar
@@ -71,6 +73,7 @@ declare namespace GLTF {
     /**
      * The name of the node's TRS property to modify, or the weights of the Morph Targets it instantiates
      */
+    // tslint:disable-next-line no-const-enum
     const enum AnimationChannelTargetPath {
         /**
          * Translation
@@ -92,6 +95,7 @@ declare namespace GLTF {
     /**
      * Interpolation algorithm
      */
+    // tslint:disable-next-line no-const-enum
     const enum AnimationSamplerInterpolation {
         /**
          * The animated values are linearly interpolated between keyframes
@@ -109,6 +113,7 @@ declare namespace GLTF {
     /**
      * The target that the GPU buffer should be bound to
      */
+    // tslint:disable-next-line no-const-enum
     const enum BufferViewTarget {
         /**
          * Buffer containing vertex attributes, such as vertex coordinates, texture coordinate data, or vertex color data
@@ -122,6 +127,7 @@ declare namespace GLTF {
     /**
      * A camera's projection.  A node can reference a camera to apply a transform to place the camera in the scene
      */
+    // tslint:disable-next-line no-const-enum
     const enum CameraType {
         /**
          * A perspective camera containing properties to create a perspective projection matrix
@@ -135,6 +141,7 @@ declare namespace GLTF {
     /**
      * The mime-type of the image
      */
+    // tslint:disable-next-line no-const-enum
     const enum ImageMimeType {
         /**
          * JPEG Mime-type
@@ -148,6 +155,7 @@ declare namespace GLTF {
     /**
      * The alpha rendering mode of the material
      */
+    // tslint:disable-next-line no-const-enum
     const enum MaterialAlphaMode {
         /**
          * The alpha value is ignored and the rendered output is fully opaque
@@ -167,6 +175,7 @@ declare namespace GLTF {
     /**
      * The type of the primitives to render
      */
+    // tslint:disable-next-line no-const-enum
     const enum MeshPrimitiveMode {
         /**
          * Points
@@ -200,6 +209,7 @@ declare namespace GLTF {
     /**
      * Magnification filter.  Valid values correspond to WebGL enums: 9728 (NEAREST) and 9729 (LINEAR)
      */
+    // tslint:disable-next-line no-const-enum
     const enum TextureMagFilter {
         /**
          * Nearest
@@ -213,6 +223,7 @@ declare namespace GLTF {
     /**
      * Minification filter.  All valid values correspond to WebGL enums
      */
+    // tslint:disable-next-line no-const-enum
     const enum TextureMinFilter {
         /**
          * Nearest
@@ -242,6 +253,7 @@ declare namespace GLTF {
     /**
      * S (U) wrapping mode.  All valid values correspond to WebGL enums
      */
+    // tslint:disable-next-line no-const-enum
     const enum TextureWrapMode {
         /**
          * Clamp to Edge
