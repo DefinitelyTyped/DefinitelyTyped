@@ -1,41 +1,27 @@
 {
-  "private": true,
-  "name": "DefinitelyTyped",
-  "version": "0.0.1",
-  "homepage": "https://github.com/borisyankov/DefinitelyTyped",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/borisyankov/DefinitelyTyped.git"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/borisyankov/DefinitelyTyped/blob/master/LICENSE"
+    "private": true,
+    "name": "definitely-typed",
+    "version": "0.0.3",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
+    },
+    "engines": {
+        "node": ">=7.8.0"
+    },
+    "scripts": {
+        "compile-scripts": "tsc -p scripts",
+        "not-needed": "node scripts/not-needed.js",
+        "test": "node node_modules/types-publisher/bin/tester/test.js --run-from-definitely-typed",
+        "lint": "dtslint types"
+    },
+    "devDependencies": {
+        "dtslint": "github:Microsoft/dtslint#production",
+        "types-publisher": "Microsoft/types-publisher#production"
     }
-  ],
-  "bugs": {
-    "url": "https://github.com/borisyankov/DefinitelyTyped/issues"
-  },
-  "engines": {
-    "node": ">= 0.12.0"
-  },
-  "scripts": {
-    "test": "dt --changes",
-    "changes": "dt --changes",
-    "lint": "dt --lint",
-    "tscparams": "dt --tscparams --no-tests --no-headers",
-    "all": "dt",
-    "dry": "dt --dry --changes",
-    "list": "dt --dry --print-files --print-refmap",
-    "last": "dt --dry --print-files --print-refmap --changes",
-    "files": "dt --dry --print-files",
-    "refmap": "dt --dry --print-refmap",
-    "help": "dt -h"
-  },
-  "dependencies": {
-  },
-  "devDependencies": {
-    "definition-tester": "0.3.0",
-    "typescript": "1.7.3"
-  }
 }

@@ -1,0 +1,8 @@
+{
+	"extends": "dtslint/dt.json",
+	"rules": {
+		// TODO
+		"no-unnecessary-class": false,
+		"no-var-keyword": false
+	}
+}

@@ -1,0 +1,15 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // All are TODOs
+        "interface-name": false,
+        "no-declare-current-package": false,
+        "no-internal-module": false,
+        "no-mergeable-namespace": false,
+        "no-redundant-jsdoc": false,
+        "no-redundant-jsdoc-2": false,
+        "no-single-declare-module": false,
+        "no-unnecessary-class": false,
+        "no-unnecessary-qualifier": false
+    }
+}

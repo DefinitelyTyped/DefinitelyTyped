@@ -1,0 +1,35 @@
+{
+    "files": [
+        "constants.d.ts",
+        "adapter.d.ts",
+        "helper-text/constants.d.ts",
+        "helper-text/adapter.d.ts",
+        "helper-text/index.d.ts",
+        "helper-text/foundation.d.ts",
+        "icon/constants.d.ts",
+        "icon/adapter.d.ts",
+        "icon/index.d.ts",
+        "icon/foundation.d.ts",
+        "index.d.ts",
+        "foundation.d.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

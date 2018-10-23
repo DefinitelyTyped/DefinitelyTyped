@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@sindresorhus/df": [
+                "sindresorhus__df"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "sindresorhus__df-tests.ts"
+    ]
+}
