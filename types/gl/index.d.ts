@@ -10,12 +10,14 @@ declare global {
     }
 }
 
-export interface STACKGL_resize_drawingbuffer {
+interface STACKGL_resize_drawingbuffer {
     resize(width: GLint, height: GLint): void;
 }
 
-export interface STACKGL_destroy_context {
+interface STACKGL_destroy_context {
     destroy(): void;
 }
 
-export default function createContext(width: number, height: number, options?: WebGLContextAttributes): WebGLRenderingContext;
+declare function createContext(width: number, height: number, options?: WebGLContextAttributes): WebGLRenderingContext;
+
+export = createContext;

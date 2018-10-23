@@ -1,4 +1,4 @@
-import createContext from "gl";
+import createContext = require("gl");
 
 const gl = createContext(0, 0); gl; // $ExpectType WebGLRenderingContext
 const resizeDrawingbuffer = gl.getExtension("STACKGL_resize_drawingbuffer"); resizeDrawingbuffer; // $ExpectType STACKGL_resize_drawingbuffer | null
