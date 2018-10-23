@@ -1319,7 +1319,7 @@ declare namespace algoliasearch {
      * defauly: ''
      * https://www.algolia.com/doc/api-reference/api-parameters/insidePolygon/
      */
-    insidePolygon?: Array<number|number[]>;
+    insidePolygon?: number[][];
     /**
      * This option is used to select a strategy in order to avoid having an empty result page
      * default: 'none'
