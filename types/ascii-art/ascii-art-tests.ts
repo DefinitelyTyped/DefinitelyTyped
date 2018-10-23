@@ -12,7 +12,7 @@ art.font('my text', 'Doom', '', (rendered) => {
 
 art.artwork({
 	artwork: 'textfiles.com/art/st-char.asc'
-}).lines(31, 45, function(rendered: string) {
+}).lines(31, 45, (rendered: string) => {
 	// cleanup non-unix terminators
 	rendered = rendered.replace(/\r/g, '');
 	art.image({
@@ -23,11 +23,11 @@ art.artwork({
 		y: -1,
 		style: 'red+blink',
 		transparent: '&'
-	}, function(_final: any) {});
+	}, (_final: any) => {});
 });
 
-art.font('Ghost Wire BBS', 'Doom', function(logo) {
-    art.font('No place like home', 'rusted', function(subtext) {
+art.font('Ghost Wire BBS', 'Doom', (logo) => {
+    art.font('No place like home', 'rusted', (subtext) => {
         art.table({
             verticalBar : ' ',
             horizontalBar : ' ',
@@ -37,7 +37,7 @@ art.font('Ghost Wire BBS', 'Doom', function(logo) {
                 {name: 'operator', value: 'vince.vega'},
                 {name: 'dial-in', value: '(917)555-4202'},
             ]
-        }).lines(2, function(table: any) {
+        }).lines(2, (table: any) => {
             art.image({
                 filepath : '~/Images/starburst_red.jpg',
                 alphabet : 'ultra-wide'
@@ -53,7 +53,7 @@ art.font('Ghost Wire BBS', 'Doom', function(logo) {
                 x: -1,
                 y: -1,
                 style: 'green',
-            }, function(_final: any) {
+            }, (_final: any) => {
             });
         });
     });
@@ -63,7 +63,7 @@ art.image({
 	width : 40,
 	filepath : '/Images/initech.png',
 	alphabet : 'wide'
-}).font('INITECH', 'Doom', 'cyan', function(_ascii) {
+}).font('INITECH', 'Doom', 'cyan', (_ascii) => {
 });
 
 art.table({
@@ -76,7 +76,7 @@ art.table({
     verticalBar : ' ',
     horizontalBar : ' ',
     intersection : ' '
-}).lines(2, function(table: any) {
+}).lines(2, (table: any) => {
     art.strings([
         'ANDRE',
         'the',
@@ -84,8 +84,8 @@ art.table({
         'POSSE',
         '7\'4"',
         '520 LB'
-    ], 'rusted', function(andre: any, the: any, giant: any, posse: any, height: any, weight: any) {
-        art.strings([ 'has', 'a'], 'twopoint', function(has: any, a: any) {
+    ], 'rusted', (andre: any, the: any, giant: any, posse: any, height: any, weight: any) => {
+        art.strings([ 'has', 'a'], 'twopoint', (has: any, a: any) => {
             art.image({
                 filepath : '/Images/andre_has_a_posse.jpeg',
                 alphabet : 'ultra-wide'
@@ -122,7 +122,7 @@ art.table({
                 x: 6, y: -6,
                 style: 'bright_black',
                 transparent: true
-            }, function(_final: any) {
+            }, (_final: any) => {
             });
         });
     });
@@ -134,17 +134,17 @@ const image = new art.Image({
 	filepath: '~/Images/metropolis.jpg',
 	alphabet: 'variant4'
 });
-image.write(function(_err: any, _rendered: string) {
+image.write((_err: any, _rendered: string) => {
 });
 
-art.font('Prompt', 'Basic', 'red').font('v1', 'Doom', 'magenta', function(_rendered) {
+art.font('Prompt', 'Basic', 'red').font('v1', 'Doom', 'magenta', (_rendered) => {
 });
 
 art.image({
 	width : 40,
 	filepath : '/Images/initech.png',
 	alphabet : 'wide'
-}).font('INITECH', 'Doom', 'cyan', function(_ascii) {
+}).font('INITECH', 'Doom', 'cyan', (_ascii) => {
 });
 
 art.style('my text', 'red+underline');
@@ -167,7 +167,7 @@ art.table({
             style : 'white'
         }
     ]
-}, function(_rendered) {
+}, (_rendered) => {
     // use rendered text
 });
 
@@ -188,6 +188,6 @@ art.table({
         horizontal: '━',
     },
     borderColor : 'bright_white',
-}, function(_rendered) {
+}, (_rendered) => {
 	// use rendered text
 });
