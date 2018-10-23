@@ -1823,6 +1823,12 @@ declare namespace Office {
          */
         AppointmentTimeChanged,
         /**
+         * Triggers when an attachment is added to or removed from an item.
+         * 
+         * [Api set: Mailbox Preview]
+         */
+        AttachmentsChanged,
+        /**
          * Occurs when data within the binding is changed. 
          * To add an event handler for the BindingDataChanged event of a binding, use the addHandlerAsync method of the Binding object. 
          * The event handler receives an argument of type {@link Office.BindingDataChangedEventArgs}.
@@ -7341,6 +7347,62 @@ declare namespace Office {
 declare namespace Office {
     namespace MailboxEnums {
         /**
+         * Specifies which string formatting to apply to an attachment's content.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * <table><tr><td>
+         * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
+         * </td><td>Compose or read</td></tr></table>
+         * 
+         * @beta
+         */
+        enum AttachmentContentFormat {
+            /**
+             * The content of the attachment is returned as a base64-encoded string.
+             */
+            Base64 = "base64",
+
+            /**
+             * The content of the attachment is returned as a string representing a url.
+             */
+            Url = "url",
+
+            /**
+             * The content of the attachment is returned as a string representing an .eml formatted file.
+             */
+            Eml = "eml",
+
+            /**
+             * The content of the attachment is returned as a string representing an .ical formatted file.
+             */
+            ICal
+        }
+        /**
+         * Specifies whether an attachment was added to or removed from an item.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * <table><tr><td>
+         * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
+         * </td><td>Compose or read</td></tr></table>
+         * 
+         * @beta
+         */
+        enum AttachmentStatus {
+            /**
+             * An attachment was added to the item.
+             */
+            Added = "added",
+
+            /**
+             * An attachment was removed from the item.
+             */
+            Removed = "removed"
+        }
+        /**
          * Specifies an attachment's type.
          *
          * [Api set: Mailbox 1.0]
@@ -8495,6 +8557,30 @@ declare namespace Office {
         subject: string;
     }
     /**
+     * Represents the content of an attachment on a message or appointment item.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+     *
+     * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+     */
+    interface AttachmentContent {
+        /**
+         * The content of an attachment in a string format.
+         */
+        content: string;
+        /**
+         * The string format to use for an attachment's content.
+         * For file attachments, the formatting is a base64-encoded string. 
+         * For item attachments that represent messages, the formatting is a string representing an .eml formatted file. 
+         * For item attachments that represent calendar items, the formatting is an .ical file. 
+         * For cloud attachments, the formatting is a url string.
+         */
+        format: Office.MailboxEnums.AttachmentContentFormat;
+    }
+    /**
      * Represents an attachment on an item from the server. Read mode only.
      *
      * An array of AttachmentDetail objects is returned as the attachments property of an Appointment or Message object.
@@ -9280,6 +9366,102 @@ declare namespace Office {
     }
 
     /**
+     * The InternetHeaders object represents properties that are preserved after the item leaves Exchange and converted to a MIME message. 
+     * These properties are stored as x-headers in the MIME message.
+     * 
+     * InternetHeaders are stored as key/value pairs on a per-item basis.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+     *
+     * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+     * 
+     * @beta
+     */
+    export interface InternetHeaders {
+        /**
+         * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
+         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results. 
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+         * 
+         * In addition to this signature, this method also has the following signature:
+         * 
+         * `getAsync(coerciontype: Office.CoercionType, callback: (result: AsyncResult<Office.Body>) => void): void;`
+         * 
+         * @param names The names of the internet headers to be returned.
+         * @param options Optional. An object literal that contains one or more of the following properties:
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        getAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.InternetHeaders>) => void): void;
+        /**
+         * Given an array of internet header names, this method removes the specified headers from the internet header collection.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * In addition to this signature, this method also has the following signature:
+         * 
+         * `getAsync(coerciontype: Office.CoercionType, callback: (result: AsyncResult<Office.Body>) => void): void;`
+         * 
+         * @param names The names of the internet headers to be removed.
+         * @param options Optional. An object literal that contains one or more of the following properties:
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        removeAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.InternetHeaders>) => void): void;
+        /**
+         * Sets the specified internet headers to the specified values.
+         * 
+         * The setAsync method creates a new header if the specified header does not already exist; otherwise, the existing value is replaced with 
+         * the new value.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
+         *
+         * <tr><td>Errors</td><td>DataExceedsMaximumSize - The data parameter is longer than 1,000,000 characters.</td></tr><tr><td></td><td>InvalidFormatError - The options.coercionType parameter is set to Office.CoercionType.Html and the message body is in plain text.</td></tr></table>
+         * 
+         * In addition to this signature, this method also has the following signatures:
+         * 
+         * `setAsync(data: string, options: Office.AsyncContextOptions & CoercionTypeOptions): void;`
+         * 
+         * `setAsync(data: string, callback: (result: AsyncResult<void>) => void): void;`
+         * 
+         * `setAsync(data: string): void;`
+         *
+         * @param headers The names and corresponding values of the headers to be set. Should be a dictionary object with keys being the names of the 
+         *                internet headers and values being the values of the internet headers.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         */
+        setAsync(headers: Object, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
+    }
+
+    /**
      * Represents the appointment organizer, even if an alias or a delegate was used to create the appointment. 
      * This object provides a method to get the organizer value of an appointment in an Outlook add-in.
      * 
@@ -9669,7 +9851,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9695,8 +9878,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9855,6 +10038,26 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr></table>
          */
         close(): void;
+        /**
+         * Gets an array of attachments for the item.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
+         *                 the failure.
+         * 
+         * @beta
+         */
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.AttachmentDetails[]>) => void): void;
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
@@ -10066,8 +10269,8 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+        * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -10093,7 +10296,8 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+        * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -10681,8 +10885,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10709,8 +10913,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -11062,8 +11266,8 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+        * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -11089,8 +11293,8 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+        * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -11237,7 +11441,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -11264,7 +11469,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -11281,6 +11487,36 @@ declare namespace Office {
          *                 asyncResult, which is an Office.AsyncResult object.
          */
         addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;
+
+        /**
+         * Gets an attachment from a message or appointment and returns it as an Office.AttachmentContent object.
+         * 
+         * The getAttachmentContentAsync method gets the attachment with the specified identifier from the item. As a best practice, you should use 
+         * the identifier to retrieve an attachment in the same session that the attachmentIds were retrieved with the `getAttachmentsAsync` or 
+         * `item.attachments` call. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. A session 
+         * is over when the user closes the app, or if the user starts composing an inline form and subsequently pops out the line form to continue 
+         * in separate window. 
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr>
+         * 
+         * <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr></table>
+         * 
+         * @param attachmentId The identifier of the attachment you want to get. The maximum length of the string is 100 characters. 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object. If the call fails, the asyncResult.error property will contain and error code 
+         *                 with the reason for the failure.
+         * 
+         * @beta
+         */
+        getAttachmentContentAsync(attachmentId: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.AttachmentContent>) => void): void;
 		
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
@@ -11383,8 +11619,8 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+        * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -11411,8 +11647,8 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+        * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -11732,6 +11968,26 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
          */
         close(): void;
+        /**
+         * Gets an array of attachments for the item.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
+         *                 the failure.
+         * 
+         * @beta
+         */
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.AttachmentDetails[]>) => void): void;
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
@@ -12741,6 +12997,20 @@ declare namespace Office {
          */
         from: Office.From;
         /**
+         * Sets the internet headers of a message.
+         * 
+         * The internetHeaders property returns an InternetHeaders object that provides methods to set internet headers on the message.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr></table>
+         */
+        internetHeaders: Office.InternetHeaders;
+        /**
          * Gets the type of item that an instance represents.
          *
          * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or 
@@ -12978,7 +13248,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13004,8 +13275,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13166,6 +13437,26 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr></table>
          */
         close(): void;
+        /**
+         * Gets an array of attachments for the item.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
+         *                 the failure.
+         * 
+         * @beta
+         */
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.AttachmentDetails[]>) => void): void;
         /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
@@ -13381,8 +13672,8 @@ declare namespace Office {
         /**
          * Removes an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13408,8 +13699,8 @@ declare namespace Office {
         /**
          * Removes an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13803,6 +14094,20 @@ declare namespace Office {
          */
         from: EmailAddressDetails;
         /**
+         * Gets the internet headers of a message.
+         * 
+         * The internetHeaders property returns an InternetHeaders object that provides a method to get the internet headers on the message.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr></table>
+         */
+        internetHeaders: Office.InternetHeaders;
+        /**
          * Gets the Internet message identifier for an email message.
          *
          * [Api set: Mailbox 1.0]
@@ -14013,8 +14318,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14041,8 +14346,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14398,8 +14703,8 @@ declare namespace Office {
         /**
          * Removes an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14425,8 +14730,8 @@ declare namespace Office {
         /**
          * Removes an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.AttachmentsChanged` (Preview), 
+         * `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
          * 
          * [Api set: Mailbox 1.7]
          *
