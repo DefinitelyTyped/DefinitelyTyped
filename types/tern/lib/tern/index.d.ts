@@ -6,7 +6,7 @@
 // Still WIP! some definitions may be incomplete or missing
 
 import * as ESTree from "estree";
-import { AVal, Scope } from "../infer";
+import { Scope, Type } from "../infer";
 
 // #### Programming interface ####
 export interface ConstructorOptions {
@@ -142,15 +142,6 @@ export interface IQuery {
     type: string;
     lineCharPositions?: boolean;
     docFormat?: "full";
-}
-
-export interface Type {
-    name: string;
-    origin: string;
-    originNode: ESTree.Node;
-    toString(maxDepth: number): string;
-    getProp(prop: string): AVal;
-    forAllProps(f: (prop: string, val: AVal, local: boolean) => void): void;
 }
 
 interface Position {
