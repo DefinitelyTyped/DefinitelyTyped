@@ -28,6 +28,8 @@ Intercom('onActivatorClick', () => { /* Do stuff */ });
 Intercom('trackEvent', 'invited-friend');
 const visitorId = Intercom('getVisitorId');
 
+Intercom.booted;
+
 const metadata = {
   invitee_email: 'pi@example.org',
   invite_code: 'ADDAFRIEND'
