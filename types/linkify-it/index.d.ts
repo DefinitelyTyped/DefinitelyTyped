@@ -45,7 +45,7 @@ declare namespace LinkifyIt {
 
     interface LinkifyIt {
         add(schema: string, rule: Rule): LinkifyIt;
-        match(text: string): Match[];
+        match(text: string): Match[] | null;
         normalize(raw: string): string;
         pretest(text: string): boolean;
         set(options: Options): LinkifyIt;

@@ -25,7 +25,6 @@ import { Tapable, HookMap,
          AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook } from 'tapable';
 import * as UglifyJS from 'uglify-js';
 import { RawSourceMap } from 'source-map';
-import * as WebpackDevServer from 'webpack-dev-server';
 
 export = webpack;
 
@@ -113,8 +112,6 @@ declare namespace webpack {
         parallelism?: number;
         /** Optimization options */
         optimization?: Options.Optimization;
-        /** A set of options picked up by `webpack-dev-server` to change the dev server's default behavior. */
-        devServer?: WebpackDevServer.Configuration;
     }
 
     interface Entry {

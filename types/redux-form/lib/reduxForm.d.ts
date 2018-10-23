@@ -111,7 +111,7 @@ export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     initialValues?: Partial<FormData>;
     keepDirtyOnReinitialize?: boolean;
     updateUnregisteredFields?: boolean;
-    onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P, ErrorType>): void;
+    onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P, ErrorType>, previousValues: Partial<FormData>): void;
     onSubmit?: FormSubmitHandler<FormData, P & InjectedFormProps<FormData, P, ErrorType>, ErrorType> | SubmitHandler<FormData, P & InjectedFormProps<FormData, P, ErrorType>, ErrorType>;
     onSubmitFail?(
         errors: FormErrors<FormData, ErrorType> | undefined,

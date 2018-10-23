@@ -16,7 +16,6 @@ import {
   formatGroupLabel,
   getOptionLabel,
   getOptionValue,
-  isOptionDisabled,
 } from './builtins';
 
 import {
@@ -51,7 +50,7 @@ export interface FormatOptionLabelMeta<OptionType> {
   selectValue: ValueType<OptionType>;
 }
 
-export interface Props<OptionType> {
+export interface Props<OptionType = { label: string; value: string }> {
   /* Aria label (for assistive tech) */
   'aria-label'?: string;
   /* HTML ID of an element that should be used as the label (for assistive tech) */
@@ -105,13 +104,13 @@ export interface Props<OptionType> {
     rawInput: string
   ) => boolean) | null;
   /* Formats group labels in the menu as React components */
-  formatGroupLabel?: typeof formatGroupLabel;
+  formatGroupLabel?: formatGroupLabel<OptionType>;
   /* Formats option labels in the menu and control as React components */
   formatOptionLabel?: (option: OptionType, labelMeta: FormatOptionLabelMeta<OptionType>) => React.ReactNode;
   /* Resolves option data to a string to be displayed as the label by components */
-  getOptionLabel?: typeof getOptionLabel;
+  getOptionLabel?: getOptionLabel<OptionType>;
   /* Resolves option data to a string to compare options and specify value attributes */
-  getOptionValue?: typeof getOptionValue;
+  getOptionValue?: getOptionValue<OptionType>;
   /* Hide the selected option from the menu */
   hideSelectedOptions?: boolean;
   /* The id to set on the SelectContainer component. */
@@ -320,8 +319,8 @@ export default class Select<OptionType> extends React.Component<Props<OptionType
   getNextFocusedValue(nextSelectValue: OptionsType<OptionType>): OptionType;
 
   getNextFocusedOption(options: OptionsType<OptionType>): OptionType;
-  getOptionLabel: (data: OptionType) => string;
-  getOptionValue: (data: OptionType) => string;
+  getOptionLabel: getOptionLabel<OptionType>;
+  getOptionValue: getOptionValue<OptionType>;
   getStyles: (key: string, props: {}) => {};
   getElementId: (element: 'group' | 'input' | 'listbox' | 'option') => string;
   getActiveDescendentId: () => any;
@@ -346,7 +345,7 @@ export default class Select<OptionType> extends React.Component<Props<OptionType
   isOptionSelected(option: OptionType, selectValue: OptionsType<OptionType>): boolean;
   filterOption(option: {}, inputValue: string): boolean;
   formatOptionLabel(data: OptionType, context: FormatOptionLabelContext): React.ReactNode;
-  formatGroupLabel(data: GroupType<OptionType>): React.ReactNode;
+  formatGroupLabel: formatGroupLabel<OptionType>;
 
   // ==============================
   // Mouse Handlers
