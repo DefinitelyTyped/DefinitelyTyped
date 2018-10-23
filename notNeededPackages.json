@@ -931,6 +931,12 @@
             "asOfVersion": "1.0.1"
         },
         {
+            "libraryName": "mali",
+            "typingsPackageName": "mali",
+            "sourceRepoURL": "https://github.com/malijs/mali",
+            "asOfVersion": "0.9.2"
+        },
+        {
             "libraryName": "maquette",
             "typingsPackageName": "maquette",
             "sourceRepoURL": "http://maquettejs.org/",
