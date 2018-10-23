@@ -1,6 +1,6 @@
-import GLTF from 'gltf';
+import { GLTF2 } from 'gltf';
 
-const animatedCube: GLTF.GLTF = {
+const animatedCube: GLTF2.GLTF = {
     accessors : [
         {
             bufferView : 0,
@@ -13,7 +13,7 @@ const animatedCube: GLTF.GLTF = {
             min : [
                 0.000000
             ],
-            type : "SCALAR" as GLTF.AccessorType.SCALAR
+            type : "SCALAR" as GLTF2.AccessorType.SCALAR
         },
         {
             bufferView : 1,
@@ -32,7 +32,7 @@ const animatedCube: GLTF.GLTF = {
                 0.000000,
                 -1.000000
             ],
-            type : "VEC4" as GLTF.AccessorType.VEC4
+            type : "VEC4" as GLTF2.AccessorType.VEC4
         },
         {
             bufferView : 2,
@@ -45,7 +45,7 @@ const animatedCube: GLTF.GLTF = {
             min : [
                 0
             ],
-            type : "SCALAR" as GLTF.AccessorType.SCALAR
+            type : "SCALAR" as GLTF2.AccessorType.SCALAR
         },
         {
             bufferView : 3,
@@ -62,7 +62,7 @@ const animatedCube: GLTF.GLTF = {
                 -1.000000,
                 -1.000000
             ],
-            type : "VEC3" as GLTF.AccessorType.VEC3
+            type : "VEC3" as GLTF2.AccessorType.VEC3
         },
         {
             bufferView : 4,
@@ -79,7 +79,7 @@ const animatedCube: GLTF.GLTF = {
                 -1.000000,
                 -1.000000
             ],
-            type : "VEC3" as GLTF.AccessorType.VEC3
+            type : "VEC3" as GLTF2.AccessorType.VEC3
         },
         {
             bufferView : 5,
@@ -98,7 +98,7 @@ const animatedCube: GLTF.GLTF = {
                 -1.000000,
                 -1.000000
             ],
-            type : "VEC4" as GLTF.AccessorType.VEC4
+            type : "VEC4" as GLTF2.AccessorType.VEC4
         },
         {
             bufferView : 6,
@@ -113,7 +113,7 @@ const animatedCube: GLTF.GLTF = {
                 -1.000000,
                 -1.000000
             ],
-            type : "VEC2" as GLTF.AccessorType.VEC2
+            type : "VEC2" as GLTF2.AccessorType.VEC2
         }
     ],
     animations : [
@@ -123,7 +123,7 @@ const animatedCube: GLTF.GLTF = {
                     sampler : 0,
                     target : {
                         node : 0,
-                        path : "rotation" as GLTF.AnimationChannelTargetPath.ROTATION
+                        path : "rotation" as GLTF2.AnimationChannelTargetPath.ROTATION
                     }
                 }
             ],
@@ -131,7 +131,7 @@ const animatedCube: GLTF.GLTF = {
             samplers : [
                 {
                     input : 0,
-                    interpolation : "LINEAR" as GLTF.AnimationSamplerInterpolation.LINEAR,
+                    interpolation : "LINEAR" as GLTF2.AnimationSamplerInterpolation.LINEAR,
                     output : 1
                 }
             ]
@@ -263,7 +263,7 @@ const animatedCube: GLTF.GLTF = {
     ]
 };
 
-const cameras: GLTF.GLTF = {
+const cameras: GLTF2.GLTF = {
     scenes : [
         {
             nodes : [ 0, 1, 2 ]
@@ -286,7 +286,7 @@ const cameras: GLTF.GLTF = {
 
     cameras : [
         {
-            type: "perspective" as GLTF.CameraType.PERSPECTIVE,
+            type: "perspective" as GLTF2.CameraType.PERSPECTIVE,
             perspective: {
                 aspectRatio: 1.0,
                 yfov: 0.7,
@@ -295,7 +295,7 @@ const cameras: GLTF.GLTF = {
             }
         },
         {
-            type: "orthographic" as GLTF.CameraType.ORTHOGRAPHIC,
+            type: "orthographic" as GLTF2.CameraType.ORTHOGRAPHIC,
             orthographic: {
                 xmag: 1.0,
                 ymag: 1.0,
@@ -342,7 +342,7 @@ const cameras: GLTF.GLTF = {
             byteOffset : 0,
             componentType : 5123,
             count : 6,
-            type : "SCALAR" as GLTF.AccessorType.SCALAR,
+            type : "SCALAR" as GLTF2.AccessorType.SCALAR,
             max : [ 3 ],
             min : [ 0 ]
         },
@@ -351,7 +351,7 @@ const cameras: GLTF.GLTF = {
             byteOffset : 0,
             componentType : 5126,
             count : 4,
-            type : "VEC3" as GLTF.AccessorType.VEC3,
+            type : "VEC3" as GLTF2.AccessorType.VEC3,
             max : [ 1.0, 1.0, 0.0 ],
             min : [ 0.0, 0.0, 0.0 ]
         }
@@ -362,7 +362,7 @@ const cameras: GLTF.GLTF = {
     }
 };
 
-const simpleMorph: GLTF.GLTF = {
+const simpleMorph: GLTF2.GLTF = {
     scenes: [
         {
             nodes: [
@@ -404,7 +404,7 @@ const simpleMorph: GLTF.GLTF = {
             samplers: [
                 {
                     input: 4,
-                    interpolation: "LINEAR" as GLTF.AnimationSamplerInterpolation.LINEAR,
+                    interpolation: "LINEAR" as GLTF2.AnimationSamplerInterpolation.LINEAR,
                     output: 5
                 }
             ],
@@ -413,7 +413,7 @@ const simpleMorph: GLTF.GLTF = {
                     sampler: 0,
                     target: {
                         node: 0,
-                        path: "weights" as GLTF.AnimationChannelTargetPath.WEIGHTS
+                        path: "weights" as GLTF2.AnimationChannelTargetPath.WEIGHTS
                     }
                 }
             ]
@@ -460,7 +460,7 @@ const simpleMorph: GLTF.GLTF = {
             byteOffset: 0,
             componentType: 5123,
             count: 3,
-            type: "SCALAR" as GLTF.AccessorType.SCALAR,
+            type: "SCALAR" as GLTF2.AccessorType.SCALAR,
             max: [
                 2
             ],
@@ -473,7 +473,7 @@ const simpleMorph: GLTF.GLTF = {
             byteOffset: 0,
             componentType: 5126,
             count: 3,
-            type: "VEC3" as GLTF.AccessorType.VEC3,
+            type: "VEC3" as GLTF2.AccessorType.VEC3,
             max: [
                 1.0,
                 0.5,
@@ -490,7 +490,7 @@ const simpleMorph: GLTF.GLTF = {
             byteOffset: 36,
             componentType: 5126,
             count: 3,
-            type: "VEC3" as GLTF.AccessorType.VEC3,
+            type: "VEC3" as GLTF2.AccessorType.VEC3,
             max: [
                 0.0,
                 1.0,
@@ -507,7 +507,7 @@ const simpleMorph: GLTF.GLTF = {
             byteOffset: 72,
             componentType: 5126,
             count: 3,
-            type: "VEC3" as GLTF.AccessorType.VEC3,
+            type: "VEC3" as GLTF2.AccessorType.VEC3,
             max: [
                 1.0,
                 1.0,
@@ -524,7 +524,7 @@ const simpleMorph: GLTF.GLTF = {
             byteOffset: 0,
             componentType: 5126,
             count: 5,
-            type: "SCALAR" as GLTF.AccessorType.SCALAR,
+            type: "SCALAR" as GLTF2.AccessorType.SCALAR,
             max: [
                 4.0
             ],
@@ -537,7 +537,7 @@ const simpleMorph: GLTF.GLTF = {
             byteOffset: 0,
             componentType: 5126,
             count: 10,
-            type: "SCALAR" as GLTF.AccessorType.SCALAR,
+            type: "SCALAR" as GLTF2.AccessorType.SCALAR,
             max: [
                 1.0
             ],

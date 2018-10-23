@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-declare namespace GLTF {
+export namespace GLTF2 {
     /**
      * The datatype of the components in the attribute
      */
@@ -888,5 +888,3 @@ declare namespace GLTF {
         textures?: Texture[];
     }
 }
-
-export default GLTF;
