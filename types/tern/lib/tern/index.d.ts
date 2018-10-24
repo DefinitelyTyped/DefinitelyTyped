@@ -9,38 +9,44 @@ import * as ESTree from "estree";
 import { Scope, Type } from "../infer";
 
 // #### Programming interface ####
-export interface ConstructorOptions {
-    /** Indicates whether `getFile` is asynchronous. Default is `false`. */
-    async: boolean;
+export type ConstructorOptions = CtorOptions & (SyncConstructorOptions | ASyncConstructorOptions);
 
+interface CtorOptions {
     /** The definition objects to load into the server’s environment. */
-    defs: Def[];
-
+    defs?: Def[];
     /** The ECMAScript version to parse. Should be either 5 or 6. Default is 6. */
-    ecmaVersion: 5 | 6;
-
+    ecmaVersion?: 5 | 6;
     /** Indicates the maximum amount of milliseconds to wait for an asynchronous getFile before giving up on it. Defaults to 1000. */
-    fetchTimeout: number;
-
+    fetchTimeout?: number;
     /** Specifies the set of plugins that the server should load. The property names of the object name the plugins, and their values hold options that will be passed to them. */
-    plugins: { [key: string]: object };
-
-    /**
-     * Provides a way for the server to try and fetch the content of files.
-     * Depending on the `async` option, this is either a function that takes a filename and returns a string (when not `async`), or
-     * a function that takes a `filename` and a `callback`, and calls the callback with an optional `error` as the first argument,
-     * and the `content` string (if no error) as the second.
-     */
-    getFile(filename: string): string;
-    /**
-     * Provides a way for the server to try and fetch the content of files.
-     * Depending on the `async` option, this is either a function that takes a filename and returns a string (when not `async`), or
-     * a function that takes a `filename` and a `callback`, and calls the callback with an optional `error` as the first argument,
-     * and the `content` string (if no error) as the second.
-     */
-    getFile(filename: string, callback: (error: Error | undefined, content?: string) => void): void;
-
+    plugins?: { [key: string]: object };
 }
+
+interface SyncConstructorOptions {
+    /** Indicates whether `getFile` is asynchronous. Default is `false`. */
+    async?: false;
+    /**
+     * Provides a way for the server to try and fetch the content of files.
+     * Depending on the `async` option, this is either a function that takes a filename and returns a string (when not `async`), or
+     * a function that takes a `filename` and a `callback`, and calls the callback with an optional `error` as the first argument,
+     * and the `content` string (if no error) as the second.
+     */
+    getFile?(filename: string): string;
+}
+
+interface ASyncConstructorOptions {
+    /** Indicates whether `getFile` is asynchronous. Default is `false`. */
+    async: true;
+    /**
+     * Provides a way for the server to try and fetch the content of files.
+     * Depending on the `async` option, this is either a function that takes a filename and returns a string (when not `async`), or
+     * a function that takes a `filename` and a `callback`, and calls the callback with an optional `error` as the first argument,
+     * and the `content` string (if no error) as the second.
+     */
+    getFile?(filename: string, callback: (error: Error | undefined, content?: string) => void): void;
+}
+
+
 
 interface TernConstructor {
     new(options?: ConstructorOptions): Server;
@@ -104,20 +110,43 @@ export interface Server {
 
 // #### JSON Protocol ####
 
-type QueryResult<Q extends Query> = QueryResultMap[Q["type"]];
+type QueryResult<Q extends Query> = QueryMap[Q["type"]]["result"];
 
-export type Query = CompletionsQuery | TypeQuery | DefinitionQuery
-    | DocumentationQuery | RefsQuery | RenameQuery | PropertiesQuery | FilesQuery;
+type Query = QueryMap[keyof QueryMap]["query"];
 
-interface QueryResultMap {
-    completions: CompletionsQueryResult;
-    type: TypeQueryResult;
-    definition: DefinitionQueryResult;
-    documentation: DocumentationQueryResult;
-    refs: RefsQueryResult;
-    rename: RenameQueryResult;
-    properties: PropertiesQueryResult;
-    files: FilesQueryResult;
+export interface QueryMap {
+    completions: {
+        query: CompletionsQuery,
+        result: CompletionsQueryResult
+    };
+    type: {
+        query: TypeQuery,
+        result: TypeQueryResult
+    };
+    definition: {
+        query: DefinitionQuery,
+        result: DefinitionQueryResult
+    };
+    documentation: {
+        query: DocumentationQuery;
+        result: DocumentationQueryResult;
+    };
+    refs: {
+        query: RefsQuery;
+        result: RefsQueryResult;
+    };
+    rename: {
+        query: RenameQuery,
+        result: RenameQueryResult
+    };
+    properties: {
+        query: PropertiesQuery,
+        result: PropertiesQueryResult
+    };
+    files: {
+        query: FilesQuery,
+        result: FilesQueryResult
+    };
 }
 
 export interface Def {
@@ -434,7 +463,7 @@ export const version: string;
 export function registerPlugin(name: string, init: (server: Server, options?: ConstructorOptions) => void): void;
 
 interface Desc<T extends Query["type"]> {
-    run(Server: Server, query: Extract<Query, { type: T }>, file?: File): void;
+    run(Server: Server, query: QueryMap[T]["query"], file?: File): QueryMap[T]["result"];
     takesfile?: boolean;
 }
 
@@ -446,5 +475,23 @@ interface Desc<T extends Query["type"]> {
  * the query operates (from its file property) and pass that (a {name, text, scope, ast} object) as
  * a third argument to the run function. You will probably need to use the inference
  * module’s API to do someting useful in this function.
+ *
+ * To be able to use this function and the `request` function in a useful way, you probably want
+ * to define an interface for the query and the result of the query and extend the interface `QueryMap` via
+ * [declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html)
+ * in the following manner:
+ *
+ * ```typescript
+ * declare module "tern/lib/tern" {
+ *   interface QueryMap {
+ *     [CustomQueryType]: {
+ *       query: CustomQuery
+ *       result: CustomQueryResult
+ *     }
+ *   }
+ * }
+ * ```
+ * _Note that your query interface should extend_ `IQuery` _and that its_ `type` _property has to be spelled
+ * exactly like the key in the_ `QueryMap` _interface._
  */
-export function defineQueryType<name extends Query["type"]>(name: name, desc: Desc<name>): void;
+export function defineQueryType<T extends Query["type"]>(name: T, desc: Desc<T>): void;
