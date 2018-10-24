@@ -210,6 +210,6 @@ const Memoized2 = React.memo(
 const Memoized3 = React.memo(class Test extends React.Component<{ x?: string }> {});
 <Memoized3 ref={ref => { if (ref) { ref.props.x; } }}/>;
 
-const memoized4Ref = React.createRef<HTMLDivElement>()
+const memoized4Ref = React.createRef<HTMLDivElement>();
 const Memoized4 = React.memo(React.forwardRef((props: {}, ref: React.Ref<HTMLDivElement>) => <div ref={ref}/>));
-<Memoized4 ref={memoized4Ref}/>
+<Memoized4 ref={memoized4Ref}/>;
