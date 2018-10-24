@@ -266,6 +266,13 @@ declare namespace React {
     // We don't just use ComponentType or SFC types because you are not supposed to attach statics to this
     // object, but rather to the original function.
     interface SpecialSFC<P = {}> {
+        /**
+         * # WARNING
+         *
+         * SpecialSFC are not actually callable
+         *
+         * @deprecated SpecialSFC are not callable
+         */
         (props: P): (ReactElement<any>|null);
         readonly $$typeof: symbol;
     }
