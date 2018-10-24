@@ -1529,21 +1529,21 @@ export interface PathUtils {
 }
 
 export class Editor extends Immutable.Record({}) {
-  object: "editor";
-  onChange: (change: Change) => void;
-  plugins: any[];
-  readOnly: boolean;
-  value: Value;
+    object: "editor";
+    onChange: (change: Change) => void;
+    plugins: any[];
+    readOnly: boolean;
+    value: Value;
 
-  change(customChange: (change: Change, ...args: any[]) => Change): void;
-  command(name: string, ...args: any[]): void;
-  event(handler: string, event: any): void;
-  query(query: string, ...args: any[]): any;
-  registerCommand(command: string): void;
-  registerQuery(query: string): void;
-  run(key: string, ...args: any[]): any;
-  setReadOnly(readOnly: boolean): Editor;
-  setValue(value: Value, options?: object): Editor;
+    change(customChange: (change: Change, ...args: any[]) => Change): void;
+    command(name: string, ...args: any[]): void;
+    event(handler: string, event: any): void;
+    query(query: string, ...args: any[]): any;
+    registerCommand(command: string): void;
+    registerQuery(query: string): void;
+    run(key: string, ...args: any[]): any;
+    setReadOnly(readOnly: boolean): Editor;
+    setValue(value: Value, options?: object): Editor;
 }
 
 export {};
