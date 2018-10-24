@@ -1,4 +1,4 @@
-// Type definitions for slate 0.40
+// Type definitions for slate 0.42
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
