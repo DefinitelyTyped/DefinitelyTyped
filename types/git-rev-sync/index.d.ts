@@ -1,4 +1,4 @@
-// Type definitions for git-rev-sync 1.12.0
+// Type definitions for git-rev-sync 1.12
 // Project: https://github.com/tblobaum/git-rev
 // Definitions by: Khoi Nguyen <http://hellokhoi.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
