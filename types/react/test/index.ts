@@ -721,6 +721,6 @@ React.createElement(Memoized1, { foo: 'string' });
 
 const Memoized2 = React.memo(
     function Bar(props: { bar: string }) { return null; },
-    (prevProps, nextProps) => prevProps.bar !== nextProps.bar
+    (prevProps, nextProps) => prevProps.bar === nextProps.bar
 );
 React.createElement(Memoized2, { bar: 'string' });
