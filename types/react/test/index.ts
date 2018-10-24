@@ -725,7 +725,7 @@ const Memoized2 = React.memo(
 );
 React.createElement(Memoized2, { bar: 'string' });
 
-const specialSfc1: React.SpecialSFC<any> = Memoized1;
+const specialSfc1: React.ExoticComponent<any> = Memoized1;
 const sfc: React.SFC<any> = Memoized2;
 // this $ExpectError is failing on TypeScript@next
 // // $ExpectError Property '$$typeof' is missing in type

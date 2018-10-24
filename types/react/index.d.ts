@@ -265,20 +265,20 @@ declare namespace React {
     //
     // We don't just use ComponentType or SFC types because you are not supposed to attach statics to this
     // object, but rather to the original function.
-    interface SpecialSFC<P = {}> {
+    interface ExoticComponent<P = {}> {
         /**
          * # WARNING
          *
-         * SpecialSFC are not actually callable
+         * Exotic components are not actually callable
          *
-         * @deprecated SpecialSFC are not callable
+         * @deprecated Exotic components are not callable
          */
         (props: P): (ReactElement<any>|null);
         readonly $$typeof: symbol;
     }
 
-    type Provider<T> = SpecialSFC<ProviderProps<T>>;
-    type Consumer<T> = SpecialSFC<ConsumerProps<T>>;
+    type Provider<T> = ExoticComponent<ProviderProps<T>>;
+    type Consumer<T> = ExoticComponent<ConsumerProps<T>>;
     interface Context<T> {
         Provider: Provider<T>;
         Consumer: Consumer<T>;
@@ -291,8 +291,8 @@ declare namespace React {
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
     const Children: ReactChildren;
-    const Fragment: SpecialSFC<{ children?: ReactNode }>;
-    const StrictMode: SpecialSFC<{ children?: ReactNode }>;
+    const Fragment: ExoticComponent<{ children?: ReactNode }>;
+    const StrictMode: ExoticComponent<{ children?: ReactNode }>;
     const version: string;
 
     //
@@ -580,7 +580,7 @@ declare namespace React {
 
     function createRef<T>(): RefObject<T>;
 
-    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): SpecialSFC<P & ClassAttributes<T>>;
+    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ExoticComponent<P & ClassAttributes<T>>;
 
     type ComponentProps<T extends ComponentType<any>> =
         T extends ComponentType<infer P> ? P : {};
@@ -594,7 +594,7 @@ declare namespace React {
     function memo<T extends ComponentType<any>>(
         Component: T,
         propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean
-    ): SpecialSFC<ComponentPropsWithRef<T>>;
+    ): ExoticComponent<ComponentPropsWithRef<T>>;
 
     //
     // React Hooks
