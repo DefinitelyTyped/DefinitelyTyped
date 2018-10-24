@@ -598,7 +598,7 @@ export class TreeTransformer extends TreeWalker {
     constructor(visitor: visitor, after: visitor);
 }
 
-// TODO: http://lisperator.net/Terser/ast
+// TODO: http://lisperator.net/uglifyjs/ast
 
 export class AST_PropAccess extends AST_Node {
 }
