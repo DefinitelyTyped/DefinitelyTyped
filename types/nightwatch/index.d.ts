@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface NightwatchCustomPageObjects {
-    page: {[name: string]: () => NightwatchBrowser};
+    page: {[name: string]: () => EnhancedPageObject};
 }
 
 export interface NightwatchDesiredCapabilities {
@@ -1877,7 +1877,7 @@ type url = urlString | urlFunc;
 
 export interface EnhancedPageObject extends SharedFunctions {
     api: NightwatchAPI;
-    elements: EnhancedElementInstance;
+    elements: {[name: string]: EnhancedElementInstance};
     name: string;
     props: props;
     section: EnhancedSectionInstance;
