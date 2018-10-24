@@ -255,8 +255,20 @@ declare namespace React {
         unstable_observedBits?: number;
     }
 
-    type Provider<T> = ComponentType<ProviderProps<T>>;
-    type Consumer<T> = ComponentType<ConsumerProps<T>>;
+    // TODO: similar to how Fragment is actually a symbol, the values returned from createContext,
+    // forwardRef and memo are actually objects that are treated specially by the renderer; see:
+    // https://github.com/facebook/react/blob/v16.6.0/packages/react/src/ReactContext.js#L35-L48
+    // https://github.com/facebook/react/blob/v16.6.0/packages/react/src/forwardRef.js#L42-L45
+    // https://github.com/facebook/react/blob/v16.6.0/packages/react/src/memo.js#L27-L31
+    // However, we have no way of telling the JSX parser that it's a JSX element type or its props other than
+    // by pretending to be a normal component.
+    //
+    // We don't just use ComponentType or SFC types because you are not supposed to attach statics to this
+    // object, but rather to the original function.
+    type SpecialSFC<P = {}> = (props: P) => (ReactElement<any>|null);
+
+    type Provider<T> = SpecialSFC<ProviderProps<T>>;
+    type Consumer<T> = SpecialSFC<ConsumerProps<T>>;
     interface Context<T> {
         Provider: Provider<T>;
         Consumer: Consumer<T>;
@@ -269,8 +281,8 @@ declare namespace React {
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
     const Children: ReactChildren;
-    const Fragment: ComponentType;
-    const StrictMode: ComponentType;
+    const Fragment: SpecialSFC;
+    const StrictMode: SpecialSFC;
     const version: string;
 
     //
@@ -557,17 +569,6 @@ declare namespace React {
     }
 
     function createRef<T>(): RefObject<T>;
-
-    // TODO: similar to how Fragment is actually a symbol, the values returned from forwardRef and memo
-    // are actually objects that are treated specially by the renderer; see:
-    // https://github.com/facebook/react/blob/v16.6.0/packages/react/src/forwardRef.js#L42-L45
-    // https://github.com/facebook/react/blob/v16.6.0/packages/react/src/memo.js#L27-L31
-    // However, we have no way of telling the JSX parser that it's a JSX element type or its props other than
-    // by pretending to be a normal component.
-    //
-    // We don't just use ComponentType or SFC types because you are not supposed to attach statics to this
-    // object, but rather to the original function.
-    type SpecialSFC<P = {}> = (props: P) => (ReactElement<any>|null);
 
     function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): SpecialSFC<P & ClassAttributes<T>>;
 
