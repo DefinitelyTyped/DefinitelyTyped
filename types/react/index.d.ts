@@ -284,8 +284,8 @@ declare namespace React {
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
     const Children: ReactChildren;
-    const Fragment: SpecialSFC;
-    const StrictMode: SpecialSFC;
+    const Fragment: SpecialSFC<{ children?: ReactNode }>;
+    const StrictMode: SpecialSFC<{ children?: ReactNode }>;
     const version: string;
 
     //
