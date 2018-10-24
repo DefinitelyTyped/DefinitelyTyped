@@ -265,7 +265,10 @@ declare namespace React {
     //
     // We don't just use ComponentType or SFC types because you are not supposed to attach statics to this
     // object, but rather to the original function.
-    type SpecialSFC<P = {}> = (props: P) => (ReactElement<any>|null);
+    interface SpecialSFC<P = {}> {
+        (props: P): (ReactElement<any>|null);
+        readonly $$typeof: symbol;
+    }
 
     type Provider<T> = SpecialSFC<ProviderProps<T>>;
     type Consumer<T> = SpecialSFC<ConsumerProps<T>>;
