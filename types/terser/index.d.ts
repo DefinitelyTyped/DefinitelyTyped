@@ -1,4 +1,4 @@
-// Type definitions for terser 3.8.1
+// Type definitions for terser 3.8
 // Project: https://github.com/terser-js/terser
 // Definitions by: JordiAnderl <https://github.com/JordiAnderl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -53,7 +53,7 @@ export interface Tokenizer {
     comments_before: string[];
 }
 
-declare class AST_Node {
+class AST_Node {
     // The first token of this node
     start: AST_Node;
 
@@ -70,7 +70,7 @@ declare class AST_Node {
     walk(walker: TreeWalker): void;
 }
 
-declare class AST_Toplevel extends AST_Node {
+class AST_Toplevel extends AST_Node {
     // Terser contains a scope analyzer which figures out variable/function definitions, references etc.
     // You need to call it manually before compression or mangling.
     // The figure_out_scope method is defined only on the AST_Toplevel node.
@@ -84,7 +84,6 @@ declare class AST_Toplevel extends AST_Node {
     print(stream: OutputStream): void;
 
     print_to_string(options?: BeautifierOptions): string;
-
 }
 
 export interface MinifyOptions {
@@ -108,7 +107,7 @@ export interface MinifyOutput {
     ast?: boolean | AST_Toplevel;
 }
 
-declare function minify(files: {}, options?: MinifyOptions): MinifyOutput;
+function minify(files: {}, options?: MinifyOptions): MinifyOutput;
 
 export interface ParseOptions {
     // Default is false
@@ -125,7 +124,7 @@ export interface ParseOptions {
  * The parser creates a custom abstract syntax tree given a piece of JavaScript code.
  * Perhaps you should read about the AST first.
  */
-declare function parse(code: string, options?: ParseOptions): AST_Toplevel;
+function parse(code: string, options?: ParseOptions): AST_Toplevel;
 
 export interface BeautifierOptions {
     /**
@@ -213,7 +212,7 @@ export interface OutputStream {
     indentation(): number;
 
     // return the width of the current line text minus indentation.
-    current_width(): number
+    current_width(): number;
 
     // Return true if current_width() is bigger than options.width (assuming options.width is non-null, non-zero).
     should_break(): boolean;
@@ -262,18 +261,18 @@ export interface OutputStream {
 
     // Sets the current indentation to col (column), calls the function and thereafter restores the previous indentation level.
     // If beautification is off it simply calls func.
-    with_indent(col: number, func: Function): void;
+    with_indent(col: number, func: () => void): void;
 
     // This is used to output blocks in curly brackets.
     // It'll print an open bracket at current point, then call newline() and with the next indentation level it calls your func.
     // Lastly, it'll print an indented closing bracket. As usual, if beautification is off you'll just get {x} where x is whatever func outputs.
-    with_block(func: Function): void;
+    with_block(func: () => void): void;
 
     // Adds parens around the output that your function prints.
-    with_parens(func: Function): void;
+    with_parens(func: () => void): void;
 
     // Adds square brackets around the output that your function prints.
-    with_square(func: Function): void;
+    with_square(func: () => void): void;
 
     // If options.source_map is set, this will generate a source mapping between the given token (which should be an AST_Token-like {}) and the current line/col.
     // The name is optional; in most cases it will be inferred from the token.
@@ -307,8 +306,7 @@ export interface OutputStream {
  * The stream {} supports a lot of options that control the output.
  * You can specify whether you'd like to get human-readable (indented) output, the indentation level, whether you'd like to quote all properties in {} literals etc.
  */
-declare function OutputStream(options?: BeautifierOptions): OutputStream;
-
+function OutputStream(options?: BeautifierOptions): OutputStream;
 
 export interface SourceMapOptions {
     /**
@@ -341,8 +339,7 @@ export interface SourceMap {
  * To use this functionality, you must load this library (it's automatically require-d by Terser in the NodeJS version, but in a browser you must load it yourself)
  * and make it available via the global MOZ_SourceMap variable.
  */
-declare function SourceMap(options?: SourceMapOptions): SourceMap;
-
+function SourceMap(options?: SourceMapOptions): SourceMap;
 
 export interface CompressorOptions {
     // Join consecutive statemets with the “comma operator”
@@ -406,8 +403,7 @@ export interface CompressorOptions {
 /**
  * The compressor is a tree transformer which reduces the code size by applying various optimizations on the AST
  */
-declare function Compressor(options?: CompressorOptions): AST_Toplevel;
-
+function Compressor(options?: CompressorOptions): AST_Toplevel;
 
 // TODO:
 
@@ -415,13 +411,13 @@ declare function Compressor(options?: CompressorOptions): AST_Toplevel;
  * Terser provides a TreeWalker {} and every node has a walk method that given a walker will apply your visitor to each node in the tree.
  * Your visitor can return a non-falsy value in order to prevent descending the current node.
  */
-declare class TreeWalker {
+class TreeWalker {
     constructor(visitor: visitor);
     parent: () => AST_Scope;
     stack: AST_Scope[];
 }
 
-export type visitor = (node: AST_Node, descend: Function) => boolean | void;
+export type visitor = (node: AST_Node, descend: () => void) => boolean | void;
 
 // TODO:
 
@@ -429,29 +425,29 @@ export type visitor = (node: AST_Node, descend: Function) => boolean | void;
  * The tree transformer is a special case of a tree walker.
  * In fact it even inherits from TreeWalker and you can use the same methods, but initialization and visitor protocol are a bit different.
  */
-declare class TreeTransformer extends TreeWalker {
+class TreeTransformer extends TreeWalker {
     constructor(visitor: visitor, after: visitor);
 }
 
 // TODO: http://lisperator.net/Terser/ast 
 
-declare class AST_PropAccess extends AST_Node {
+class AST_PropAccess extends AST_Node {
 }
 
-declare class AST_{}KeyVal extends AST_Node {
+class AST_ObjectKeyVal extends AST_Node {
 }
 
-declare class AST_Scope extends AST_Node {
+class AST_Scope extends AST_Node {
     find_variable(name: string): AST_SymbolDeclaration;
 }
 
-declare class AST_Symbol extends AST_Node {
+class AST_Symbol extends AST_Node {
     scope?: AST_Scope;
     name: string;
     thedef: unknown;
 }
 
-declare class AST_SymbolDeclaration extends AST_Symbol {
+class AST_SymbolDeclaration extends AST_Symbol {
     orig: AST_SymbolDeclaration[];
     references: AST_SymbolRef[];
     global: boolean;
@@ -461,27 +457,27 @@ declare class AST_SymbolDeclaration extends AST_Symbol {
     mangled_name?: string;
 }
 
-declare class AST_SymbolRef extends AST_Symbol {
+class AST_SymbolRef extends AST_Symbol {
 
 }
 
-declare class AST_Call extends AST_Node {
+class AST_Call extends AST_Node {
     expression: { name?: string, property?: string };
     args: AST_Node[];
 }
-declare class AST_String extends AST_Node {
+class AST_String extends AST_Node {
     value: string;
 }
-declare class AST_Lambda extends AST_Node {
+class AST_Lambda extends AST_Node {
     name?: string;
 }
-declare class AST_SymbolMethod extends AST_Node {
+class AST_SymbolMethod extends AST_Node {
     name?: string;
 }
-declare class AST_ConciseMethod extends AST_Node {
+class AST_ConciseMethod extends AST_Node {
 
 }
-declare class AST_SymbolVar extends AST_Node {
+class AST_SymbolVar extends AST_Node {
     name?: string;
 }
 
