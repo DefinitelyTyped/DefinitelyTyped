@@ -1,7 +1,8 @@
-// Type definitions for nightwatch 0.9
+// Type definitions for nightwatch 1.0
 // Project: http://nightwatchjs.org/api
 // Definitions by: Rahul Kavalapara <https://github.com/rkavalap>
 //                 Connor Schlesiger <https://github.com/schlesiger>
+//                 Clayton Astrom <https://github.com/ClaytonAstrom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface NightwatchCustomPageObjects {
@@ -1848,16 +1849,64 @@ export interface Nightwatch {
     client: NightwatchClient;
 }
 
+/**
+ * [Enhanced Element Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-element-instances)
+ * 
+ * Element instances encapsulate the definition used to handle element selectors. 
+ * Generally you won't need to access them directly, 
+ * instead referring to them using their `@`-prefixed names for selector arguments, 
+ * but they are available through a page object or section's elements property.
+ */
 export interface EnhancedElementInstance {
+    
+    /**
+     * The name of the element as defined by its key in the parent section or the page object's `elements` definition. 
+     * This is the same name used with the `@` prefix in selector arguments for page object commands that refer to the element.
+     */
     name: string;
+
+    /**
+     * The locate strategy to be used with `selector` when finding the element within the DOM.
+     */
     locateStrategy: string;
+
+    /**
+     * A reference to the parent object instance. 
+     * This is the parent section or the page object that contained the definition for this object.
+     */
     parent: EnhancedPageObject;
+
+    /**
+     * The selector string used to find the element in the DOM.
+     */
     selector: string;
 }
 
+/**
+ * [Enhanced Page Object Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-page-object-instances)
+ * 
+ * Page object module definitions are used to define page object instances when their respective factory functions within the page reference of the standard command API is called.
+ * ```
+ * var myPageObject = browser.page.MyPage(); // defined in MyPage.js module
+ * ```
+ * Every time a factory function like MyPage above is called, a new instance of the page object is instantiated.
+ */
 export interface EnhancedPageObject extends SharedFunctions {
+    /**
+     * A reference providing access to the full Nightwatch command API, 
+     * usually known as "client" or "browser" in test cases. 
+     * This is used to access those commands that are not part of the subset of commands within the page object API.
+     */
     api: NightwatchAPI;
+
+    /**
+     * A map of Element objects (see [Enhanced Element Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-element-instances)) used by element selectors.
+     */
     elements: {[name: string]: EnhancedElementInstance};
+
+    /**
+     * The name of the page object as defined by its module name (not including the extension). This is the same name used to access the `page` object factory from the page reference in the command API.
+     */
     name: string;
 }
 
