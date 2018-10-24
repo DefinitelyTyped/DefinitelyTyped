@@ -582,7 +582,7 @@ declare namespace React {
 
     function memo<T extends ComponentType<any>>(
         Component: T,
-        compare?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean
+        propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean
     ): SpecialSFC<ComponentPropsWithRef<T>>;
 
     //
