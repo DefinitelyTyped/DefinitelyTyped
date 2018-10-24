@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 export { InstantSearch, InstantSearchProps } from 'react-instantsearch-dom';
 export { Index } from 'react-instantsearch-dom';
 export { Breadcrumb } from 'react-instantsearch-dom';
