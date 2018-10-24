@@ -1855,33 +1855,11 @@ export interface EnhancedElementInstance {
     selector: string;
 }
 
-interface EnhancedPropObj {
-    props: {[key: string]: any};
-}
-
-interface EnhancedPropFunc {
-    props: () => any;
-}
-
-type props = EnhancedPropFunc | EnhancedPropObj;
-
-interface urlString {
-    url: string;
-}
-
-interface urlFunc {
-    url: () => any;
-}
-
-type url = urlString | urlFunc;
-
 export interface EnhancedPageObject extends SharedFunctions {
     api: NightwatchAPI;
     elements: {[name: string]: EnhancedElementInstance};
     name: string;
-    props: props;
-    section: EnhancedSectionInstance;
-    url: url;
+    section: {[name: string]: EnhancedSectionInstance};
 }
 
 export interface EnhancedSectionInstance extends EnhancedPageObject {}
