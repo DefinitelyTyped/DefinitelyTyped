@@ -13,6 +13,7 @@ export default feathersAuthentication;
 export const hooks: AuthHooks.Hooks;
 
 export interface FeathersAuthenticationOptions {
+    secret: string;
     path?: string;
     header?: string;
     entity?: string;
