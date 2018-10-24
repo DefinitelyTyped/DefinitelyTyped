@@ -43,8 +43,8 @@ function test_get_exclude_userDefinedFonts() {
 
 function test_get_excludeUserAgent() {
    const options: Fingerprint2Options = {
-      exludes: {
-         excludeUserAgent: true
+      excludes: {
+         userAgent: true
       }
    };
 
@@ -53,16 +53,16 @@ function test_get_excludeUserAgent() {
 
 function test_get_excludeLanguage() {
    const options: Fingerprint2Options = {
-      exludes: {
-         excludeLanguage: true
+      excludes: {
+         language: true
       }
    };
 }
 
 function test_get_excludeColorDepth() {
-   const options = {
-      exludes: {
-         excludeColorDepth: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         colorDepth: true
       }
    };
 
@@ -70,9 +70,9 @@ function test_get_excludeColorDepth() {
 }
 
 function test_get_excludeScreenResolution() {
-   const options = {
-      exludes: {
-         excludeScreenResolution: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         screenResolution: true
       }
    };
 
@@ -80,9 +80,9 @@ function test_get_excludeScreenResolution() {
 }
 
 function test_get_excludeTimezoneOffset() {
-   const options = {
-      exludes: {
-         excludeTimezoneOffset: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         timezoneOffset: true
       }
    };
 
@@ -90,9 +90,9 @@ function test_get_excludeTimezoneOffset() {
 }
 
 function test_get_excludeSessionStorage() {
-   const options = {
-      exludes: {
-         excludeSessionStorage: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         sessionStorage: true
       }
    };
 
@@ -100,9 +100,9 @@ function test_get_excludeSessionStorage() {
 }
 
 function test_get_excludeIndexedDB() {
-   const options = {
-      exludes: {
-         excludeIndexedDB: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         indexedDb: true
       }
    };
 
@@ -110,9 +110,9 @@ function test_get_excludeIndexedDB() {
 }
 
 function test_get_excludeAddBehavior() {
-   const options = {
-      exludes: {
-         excludeAddBehavior: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         addBehavior: true
       }
    };
 
@@ -120,9 +120,9 @@ function test_get_excludeAddBehavior() {
 }
 
 function test_get_excludeOpenDatabase() {
-   const options = {
-      exludes: {
-         excludeOpenDatabase: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         openDatabase: true
       }
    };
 
@@ -130,9 +130,9 @@ function test_get_excludeOpenDatabase() {
 }
 
 function test_get_excludeCpuClass() {
-   const options = {
-      exludes: {
-         excludeCpuClass: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         cpuClass: true
       }
    };
 
@@ -140,9 +140,9 @@ function test_get_excludeCpuClass() {
 }
 
 function test_get_excludePlatform() {
-   const options = {
-      exludes: {
-         excludePlatform: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         platform: true
       }
    };
 
@@ -150,9 +150,9 @@ function test_get_excludePlatform() {
 }
 
 function test_get_excludeDoNotTrack() {
-   const options = {
-      exludes: {
-         excludeDoNotTrack: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         doNotTrack: true
       }
    };
 
@@ -160,9 +160,9 @@ function test_get_excludeDoNotTrack() {
 }
 
 function test_get_excludeCanvas() {
-   const options = {
-      exludes: {
-         excludeCanvas: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         canvas: true
       }
    };
 
@@ -170,9 +170,9 @@ function test_get_excludeCanvas() {
 }
 
 function test_get_excludeWebGL() {
-   const options = {
-      exludes: {
-         excludeWebGL: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         webgl: true
       }
    };
 
@@ -180,9 +180,9 @@ function test_get_excludeWebGL() {
 }
 
 function test_get_excludeAdBlock() {
-   const options = {
-      exludes: {
-         excludeAdBlock: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         adBlock: true
       }
    };
 
@@ -190,9 +190,9 @@ function test_get_excludeAdBlock() {
 }
 
 function test_get_excludeHasLiedLanguages() {
-   const options = {
-      exludes: {
-         excludeHasLiedLanguages: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         hasLiedLanguages: true
       }
    };
 
@@ -200,9 +200,9 @@ function test_get_excludeHasLiedLanguages() {
 }
 
 function test_get_excludeHasLiedResolution() {
-   const options = {
-      exludes: {
-         excludeHasLiedResolution: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         hasLiedResolution: true
       }
    };
 
@@ -210,9 +210,9 @@ function test_get_excludeHasLiedResolution() {
 }
 
 function test_get_excludeHasLiedOs() {
-   const options = {
-      exludes: {
-         excludeHasLiedOs: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         hasLiedOs: true
       }
    };
 
@@ -220,9 +220,9 @@ function test_get_excludeHasLiedOs() {
 }
 
 function test_get_excludeHasLiedBrowser() {
-   const options = {
-      exludes: {
-         excludeHasLiedBrowser: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         hasLiedBrowser: true
       }
    };
 
@@ -230,9 +230,9 @@ function test_get_excludeHasLiedBrowser() {
 }
 
 function test_get_excludeFlashFonts() {
-   const options = {
-      exludes: {
-         excludeFontsFlash: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         fontsFlash: true
       }
    };
 
@@ -240,9 +240,9 @@ function test_get_excludeFlashFonts() {
 }
 
 function test_get_excludePlugins() {
-   const options = {
-      exludes: {
-         excludePlugins: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         plugins: true
       }
    };
 
@@ -250,9 +250,9 @@ function test_get_excludePlugins() {
 }
 
 function test_get_excludeTouchSupport() {
-   const options = {
-      exludes: {
-         excludeTouchSupport: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         touchSupport: true
       }
    };
 
@@ -260,9 +260,9 @@ function test_get_excludeTouchSupport() {
 }
 
 function test_get_excludePixelRatio() {
-   const options = {
-      exludes: {
-         excludePixelRatio: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         pixelRatio: true
       }
    };
 
@@ -270,9 +270,9 @@ function test_get_excludePixelRatio() {
 }
 
 function test_get_excludeHardwareConcurrency() {
-   const options = {
-      exludes: {
-         excludeHardwareConcurrency: true
+   const options: Fingerprint2Options = {
+      excludes: {
+         hardwareConcurrency: true
       }
    };
 
