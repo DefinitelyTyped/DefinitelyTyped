@@ -27,7 +27,7 @@ wsNewed.empty();
 
 // - create an instance with plugins
 class SamplePlugin {
-    constructor(ws: WaveSurfer, params: object) { }
+    constructor(params: object, ws: WaveSurfer) { }
     static create(params: object): WaveSurfer.PluginDefinition {
         return {
             name: "samplePlugin",
