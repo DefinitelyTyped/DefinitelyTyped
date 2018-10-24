@@ -57,4 +57,4 @@ editor.setReadOnly(true).setValue(value);
 editor.command("testCommand");
 editor.query("testQuery");
 editor.run("testCommand");
-editor.event("mouseDown", () => { });
+editor.event("mouseDown", new Event("mouseDown"));

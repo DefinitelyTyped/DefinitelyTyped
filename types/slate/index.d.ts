@@ -1528,22 +1528,31 @@ export interface PathUtils {
     ): Immutable.List<number>;
 }
 
-export class Editor extends Immutable.Record({}) {
+export interface EditorProperties {
+    onChange?: (change: Change) => void;
+    plugins?: any[];
+    readOnly?: boolean;
+    value?: Value;
+  }
+  
+  export class Editor {
     object: "editor";
     onChange: (change: Change) => void;
     plugins: any[];
     readOnly: boolean;
     value: Value;
-
+    constructor(attributes: EditorProperties)
+  
     change(customChange: (change: Change, ...args: any[]) => Change): void;
     command(name: string, ...args: any[]): void;
-    event(handler: string, event: any): void;
+    event(handler: string, event: Event): void;
     query(query: string, ...args: any[]): any;
     registerCommand(command: string): void;
     registerQuery(query: string): void;
     run(key: string, ...args: any[]): any;
     setReadOnly(readOnly: boolean): Editor;
     setValue(value: Value, options?: object): Editor;
-}
+  }
+  
 
 export {};
