@@ -414,6 +414,19 @@ import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buff
         const cf = util.promisify(fs.copyFile);
         cf('/path/to/src', '/path/to/dest', fs.constants.COPYFILE_EXCL).then(console.log);
     }
+
+    {
+        fs.mkdir('some/test/path', {
+            recursive: true,
+            mode: 0o777,
+        }, () => {
+        });
+
+        fs.mkdirSync('some/test/path', {
+            recursive: true,
+            mode: 0o777,
+        });
+    }
 }
 
 ///////////////////////////////////////////////////////
@@ -763,6 +776,15 @@ function bufferTests() {
         ]);
         assert.equal(params.toString(), 'user=abc&query=first&query=second');
     }
+
+    {
+        let path: string = url.fileURLToPath('file://test');
+        path = url.fileURLToPath(new url.URL('file://test'));
+    }
+
+    {
+        const path: url.URL = url.pathToFileURL('file://test');
+    }
 }
 
 /////////////////////////////////////////////////////
@@ -781,7 +803,10 @@ function bufferTests() {
             showProxy: true,
             maxArrayLength: 10,
             breakLength: 20,
-            compact: true
+            compact: true,
+            sorted(a, b) {
+                return b.localeCompare(a);
+            },
         });
         util.inspect(["This is nice"], {
             colors: true,
@@ -790,7 +815,8 @@ function bufferTests() {
             showProxy: true,
             maxArrayLength: null,
             breakLength: Infinity,
-            compact: false
+            compact: false,
+            sorted: true,
         });
         assert(typeof util.inspect.custom === 'symbol');
 
@@ -1474,6 +1500,60 @@ async function asyncStreamPipelineFinished() {
         ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "uncompressed");
         ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "compressed");
         ret = crypto.ECDH.convertKey(key, curve, "hex", "hex", "hybrid");
+    }
+
+    {
+        const rsaRes: {
+            publicKey: Buffer;
+            privateKey: string;
+        } = crypto.generateKeyPairSync('rsa', {
+            modulusLength: 123,
+            publicKeyEncoding: {
+                format: 'der',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                ciper: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        });
+
+        const dsaRes: {
+            publicKey: string;
+            privateKey: Buffer;
+        } = crypto.generateKeyPairSync('dsa', {
+            modulusLength: 123,
+            divisorLength: 123,
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'spki',
+            },
+            privateKeyEncoding: {
+                ciper: 'some-cipher',
+                format: 'der',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        });
+
+        const ecRes: {
+            publicKey: string;
+            privateKey: string;
+        } = crypto.generateKeyPairSync('ec', {
+            namedCurve: 'curve',
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                ciper: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        });
     }
 }
 
@@ -3087,6 +3167,7 @@ import * as p from "process";
         process.prependOnceListener("SIGBREAK", () => { });
         process.on("newListener", (event: string | symbol, listener: Function) => { });
         process.once("removeListener", (event: string | symbol, listener: Function) => { });
+        process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
 
         const listeners = process.listeners('uncaughtException');
         const oldHandler = listeners[listeners.length - 1];
@@ -3863,6 +3944,7 @@ import * as constants from 'constants';
         http2Session.on('remoteSettings', (settings: http2.Settings) => {});
         http2Session.on('stream', (stream: http2.Http2Stream, headers: http2.IncomingHttpHeaders, flags: number) => {});
         http2Session.on('timeout', () => {});
+        http2Session.on('ping', () => {});
 
         http2Session.destroy();
 
@@ -4440,6 +4522,7 @@ import * as constants from 'constants';
 ////////////////////////////////////////////////////
 /// module tests : http://nodejs.org/api/modules.html
 ////////////////////////////////////////////////////
+import moduleModule = require('module');
 
 {
     require.extensions[".ts"] = () => "";
@@ -4452,6 +4535,8 @@ import * as constants from 'constants';
     const b: string[] = Module.builtinModules;
     let paths: string[] = module.paths;
     paths = m1.paths;
+
+    moduleModule.createRequireFromPath('./test')('test');
 }
 
 ////////////////////////////////////////////////////

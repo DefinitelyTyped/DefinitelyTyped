@@ -98,6 +98,7 @@ interface Auth0LockAuthOptions {
     params?: Auth0LockAuthParamsOptions;
     redirect?: boolean;
     redirectUrl?: string;
+    responseMode?: string;
     responseType?: string;
     sso?: boolean;
     audience?: string;

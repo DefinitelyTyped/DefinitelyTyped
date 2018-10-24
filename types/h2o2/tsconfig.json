@@ -23,9 +23,6 @@
             "hapi": [
                 "hapi/v16"
             ],
-            "inert": [
-                "inert/v4"
-            ],
             "wreck": [
                 "wreck/v7"
             ]

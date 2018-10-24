@@ -6,14 +6,22 @@
 
 import * as express from 'express';
 
-export interface Sitemap {
-    [url: string]: string;
+export interface LeafObject {
+    changeFreq?: string;
+    lastMod?: string | Date;
+    url: string;
 }
 
-declare function expressSitemapXml(getUrls: (() => (string[] | Promise<string[]>)), base: string): express.RequestHandler;
+export type SitemapLeaf = string | LeafObject;
+
+export interface Sitemap {
+    [leaf: string]: string;
+}
+
+declare function expressSitemapXml(getUrls: (() => (SitemapLeaf[] | Promise<SitemapLeaf[]>)), base: string): express.RequestHandler;
 
 declare namespace expressSitemapXml {
-    function buildSitemaps(urls: string[], base: string): Promise<Sitemap>;
+    function buildSitemaps(urls: SitemapLeaf[], base: string): Promise<Sitemap>;
 }
 
 export default expressSitemapXml;

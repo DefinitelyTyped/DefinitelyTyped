@@ -56,6 +56,7 @@ declare namespace Intercom_ {
     (command: 'onUnreadCountChange', cb: (unreadCount: number) => void): void;
     (command: 'getVisitorId'): string;
     (command: IntercomCommand, param1?: any, param2?: any): void;
+    booted: boolean;
   }
 }
 
