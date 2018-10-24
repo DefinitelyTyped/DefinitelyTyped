@@ -1533,16 +1533,16 @@ export interface EditorProperties {
     plugins?: any[];
     readOnly?: boolean;
     value?: Value;
-  }
-  
-  export class Editor {
+}
+
+export class Editor {
     object: "editor";
     onChange: (change: Change) => void;
     plugins: any[];
     readOnly: boolean;
     value: Value;
     constructor(attributes: EditorProperties)
-  
+
     change(customChange: (change: Change, ...args: any[]) => Change): void;
     command(name: string, ...args: any[]): void;
     event(handler: string, event: Event): void;
@@ -1552,7 +1552,6 @@ export interface EditorProperties {
     run(key: string, ...args: any[]): any;
     setReadOnly(readOnly: boolean): Editor;
     setValue(value: Value, options?: object): Editor;
-  }
-  
+}
 
 export {};
