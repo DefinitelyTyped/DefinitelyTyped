@@ -1,0 +1,25 @@
+{
+    "name": "@types/terser",
+    "version": "3.8.1",
+    "private": true,
+    "description": "TypeScript definitions for terser",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Jordi Anderl",
+            "url": "https://github.com/JordiAnderl",
+            "githubUsername": "JordiAnderl"
+        }
+    ],
+    "main": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/uglify-js": "*",
+        "source-map": "*"
+    },
+    "typeScriptVersion": "2.2"
+}
