@@ -4,6 +4,7 @@
 //                 Pavel Ivanov <https://github.com/schfkt>
 //                 JounQin <https://github.com/JounQin>
 //                 Romain Faust <https://github.com/romain-faust>
+//                 Guillaume Mayer <https://github.com/Guillaume-Mayer>
 // Definitions: https://github.com/hellopao/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -85,6 +86,10 @@ declare namespace Router {
         name: string;
         sensitive?: boolean;
         strict?: boolean;
+    }
+    
+    export interface IUrlOptionsQuery {
+        query?: object | string;
     }
 
     export class ParamName {
@@ -261,6 +266,23 @@ declare class Router {
      */
     url(name: string, params: Object): string;
     url(name: string, params: Object): Error;
+
+    /**
+     * Generate URL for route with query part.
+     * 
+     * Takes either map of named `params` or series of
+     * arguments (for regular expression routes)
+     * 
+     * Query is generated from `options` argument:
+     * 
+     * router.url('user', { id: 3 }, { query: { limit: 1 } });
+     * // => "/users/3?limit=1"
+     *
+     * router.url('user', { id: 3 }, { query: "limit=1" });
+     * // => "/users/3?limit=1"
+     */
+    url(name: string, params: Object, options?: Router.IUrlOptionsQuery): string;
+    url(name: string, params: Object, options?: Router.IUrlOptionsQuery): Error;
 
     /**
      * Match given `path` and return corresponding routes.
