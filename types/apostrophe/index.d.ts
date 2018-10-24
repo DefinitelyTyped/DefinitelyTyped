@@ -147,6 +147,7 @@ declare namespace apostrophe {
         choices?: SelectChoice[];
         widgetType?: string;
         titleField?: string;
+        schema?: Field[];
     }
 
     interface SelectChoice {
