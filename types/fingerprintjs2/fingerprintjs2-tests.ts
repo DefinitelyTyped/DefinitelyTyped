@@ -1,7 +1,7 @@
-function defaultCallback(components: FingerPrint2Component[]){
-   components.map(function(component) {
+function defaultCallback(components: FingerPrint2Component[]) {
+   components.map((component) => {
       console.log(component.value);
-   })
+   });
 }
 
 function test_get_x64hash128() {
@@ -13,52 +13,50 @@ function test_default_settings() {
 }
 
 function test_get_exclude_swfContainerId() {
-   const options = {
+   const options: Fingerprint2Options = {
       fonts: {
          swfContainerId: 'swfContainerId'
-      }
-   } as Fingerprint2Options;
+      },
+   };
    Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_exclude_swfPath() {
-   const options = {
+   const options: Fingerprint2Options = {
       fonts: {
          swfPath: 'pathToSwf'
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_exclude_userDefinedFonts() {
-   const options = {
+   const options: Fingerprint2Options = {
       fonts: {
          userDefinedFonts: ['font1', 'font2']
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeUserAgent() {
-   const options = {
+   const options: Fingerprint2Options = {
       exludes: {
          excludeUserAgent: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeLanguage() {
-   const options = {
+   const options: Fingerprint2Options = {
       exludes: {
          excludeLanguage: true
       }
-   } as Fingerprint2Options;
-
-   Fingerprint2.get(options, defaultCallback);
+   };
 }
 
 function test_get_excludeColorDepth() {
@@ -66,7 +64,7 @@ function test_get_excludeColorDepth() {
       exludes: {
          excludeColorDepth: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -76,7 +74,7 @@ function test_get_excludeScreenResolution() {
       exludes: {
          excludeScreenResolution: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -86,7 +84,7 @@ function test_get_excludeTimezoneOffset() {
       exludes: {
          excludeTimezoneOffset: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -96,7 +94,7 @@ function test_get_excludeSessionStorage() {
       exludes: {
          excludeSessionStorage: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -106,7 +104,7 @@ function test_get_excludeIndexedDB() {
       exludes: {
          excludeIndexedDB: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -116,7 +114,7 @@ function test_get_excludeAddBehavior() {
       exludes: {
          excludeAddBehavior: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -126,7 +124,7 @@ function test_get_excludeOpenDatabase() {
       exludes: {
          excludeOpenDatabase: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -136,7 +134,7 @@ function test_get_excludeCpuClass() {
       exludes: {
          excludeCpuClass: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -146,7 +144,7 @@ function test_get_excludePlatform() {
       exludes: {
          excludePlatform: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -156,7 +154,7 @@ function test_get_excludeDoNotTrack() {
       exludes: {
          excludeDoNotTrack: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -166,7 +164,7 @@ function test_get_excludeCanvas() {
       exludes: {
          excludeCanvas: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -176,7 +174,7 @@ function test_get_excludeWebGL() {
       exludes: {
          excludeWebGL: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -186,7 +184,7 @@ function test_get_excludeAdBlock() {
       exludes: {
          excludeAdBlock: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -196,7 +194,7 @@ function test_get_excludeHasLiedLanguages() {
       exludes: {
          excludeHasLiedLanguages: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -206,7 +204,7 @@ function test_get_excludeHasLiedResolution() {
       exludes: {
          excludeHasLiedResolution: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -216,7 +214,7 @@ function test_get_excludeHasLiedOs() {
       exludes: {
          excludeHasLiedOs: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -226,7 +224,7 @@ function test_get_excludeHasLiedBrowser() {
       exludes: {
          excludeHasLiedBrowser: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -236,7 +234,7 @@ function test_get_excludeJsFonts() {
       exludes: {
          excludeJsFonts: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -246,7 +244,7 @@ function test_get_excludeFlashFonts() {
       exludes: {
          excludeFlashFonts: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -256,7 +254,7 @@ function test_get_excludePlugins() {
       exludes: {
          excludePlugins: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -266,7 +264,7 @@ function test_get_excludeIEPlugins() {
       exludes: {
          excludeIEPlugins: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -276,7 +274,7 @@ function test_get_excludeTouchSupport() {
       exludes: {
          excludeTouchSupport: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -286,7 +284,7 @@ function test_get_excludePixelRatio() {
       exludes: {
          excludePixelRatio: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
@@ -296,7 +294,7 @@ function test_get_excludeHardwareConcurrency() {
       exludes: {
          excludeHardwareConcurrency: true
       }
-   } as Fingerprint2Options;
+   };
 
    Fingerprint2.get(options, defaultCallback);
 }
