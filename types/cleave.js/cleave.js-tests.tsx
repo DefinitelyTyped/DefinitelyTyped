@@ -1,7 +1,6 @@
 import * as React from "react";
+import CleaveReact, { CleaveProps } from "cleave.js/react";
 import Cleave = require("cleave.js");
-import CleaveReact = require("cleave.js/react");
-import { Props } from "cleave.js/react/props";
 
 const ExampleSelector1 = () => {
     const cleave = new Cleave("#my-input", { phone: true });
@@ -31,7 +30,7 @@ const ExampleReact1 = (props: any) => {
     );
 };
 
-const ExampleReact2 = (props: Props) => {
+const ExampleReact2 = (props: CleaveProps) => {
     return (
         <CleaveReact
             value="test"
