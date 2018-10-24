@@ -48,7 +48,7 @@ interface Fingerprint2Options {
      { key: string; getData: (done: any, options: any) => void }
    ];
 
-   exludes?: {
+   excludes?: {
      excludeUserAgent?: boolean;
      excludeLanguage?: boolean;
      excludeColorDepth?: boolean;
