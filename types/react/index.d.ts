@@ -567,7 +567,7 @@ declare namespace React {
     //
     // We don't just use ComponentType or SFC types because you are not supposed to attach statics to this
     // object, but rather to the original function.
-    type SpecialSFC<P = {}> = (props: P) => (React.ReactElement<any>|null);
+    type SpecialSFC<P = {}> = (props: P) => (ReactElement<any>|null);
 
     function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): SpecialSFC<P & ClassAttributes<T>>;
 
@@ -575,7 +575,7 @@ declare namespace React {
         T extends ComponentType<infer P> ? P : {};
     type ComponentPropsWithRef<T extends ComponentType<any>> =
         T extends ComponentClass<infer P>
-            ? P & React.ClassAttributes<InstanceType<T>>
+            ? P & ClassAttributes<InstanceType<T>>
             : T extends SFC<infer P>
                 ? P
                 : {};
