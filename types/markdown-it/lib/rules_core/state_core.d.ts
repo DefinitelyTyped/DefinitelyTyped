@@ -1,0 +1,22 @@
+import * as MarkdownIt from "..";
+import * as Token from "../token";
+
+export = StateCore;
+
+declare class StateCore {
+    env: any;
+    level: number;
+
+    /** Link to parser instance */
+    md: MarkdownIt;
+
+    /** The markdown source code that is being parsed. */
+    src: string;
+
+    tokens: Token[];
+
+    /** Return any for a yet untyped property */
+    [undocumented: string]: any;
+}
+
+declare module StateCore {}

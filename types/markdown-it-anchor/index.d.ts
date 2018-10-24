@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { MarkdownIt, Core, Token } from 'markdown-it';
+import * as MarkdownIt from 'markdown-it';
+import * as Core from 'markdown-it/lib/parser_core';
+import * as Token from 'markdown-it/lib/token';
 
 declare namespace anchor {
 	interface AnchorInfo {
