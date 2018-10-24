@@ -11,6 +11,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 import * as Immutable from "immutable";
+import { SyntheticEvent } from "react";
 
 export class Data extends Immutable.Record({}) {
     [key: string]: any;
@@ -1545,7 +1546,7 @@ export class Editor {
 
     change(customChange: (change: Change, ...args: any[]) => Change): void;
     command(name: string, ...args: any[]): void;
-    event(handler: string, event: Event): void;
+    event(handler: string, event: Event | SyntheticEvent): void;
     query(query: string, ...args: any[]): any;
     registerCommand(command: string): void;
     registerQuery(query: string): void;
