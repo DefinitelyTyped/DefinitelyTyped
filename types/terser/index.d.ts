@@ -53,7 +53,7 @@ export interface Tokenizer {
     comments_before: string[];
 }
 
-declare class AST_Node {
+export class AST_Node {
     // The first token of this node
     start: AST_Node;
 
@@ -70,7 +70,7 @@ declare class AST_Node {
     walk(walker: TreeWalker): void;
 }
 
-class AST_Toplevel extends AST_Node {
+export class AST_Toplevel extends AST_Node {
     // Terser contains a scope analyzer which figures out variable/function definitions, references etc.
     // You need to call it manually before compression or mangling.
     // The figure_out_scope method is defined only on the AST_Toplevel node.
@@ -411,7 +411,7 @@ function Compressor(options?: CompressorOptions): AST_Toplevel;
  * Terser provides a TreeWalker {} and every node has a walk method that given a walker will apply your visitor to each node in the tree.
  * Your visitor can return a non-falsy value in order to prevent descending the current node.
  */
-class TreeWalker {
+export class TreeWalker {
     constructor(visitor: visitor);
     parent: () => AST_Scope;
     stack: AST_Scope[];
@@ -425,29 +425,29 @@ export type visitor = (node: AST_Node, descend: () => void) => boolean | void;
  * The tree transformer is a special case of a tree walker.
  * In fact it even inherits from TreeWalker and you can use the same methods, but initialization and visitor protocol are a bit different.
  */
-class TreeTransformer extends TreeWalker {
+export class TreeTransformer extends TreeWalker {
     constructor(visitor: visitor, after: visitor);
 }
 
 // TODO: http://lisperator.net/Terser/ast
 
-class AST_PropAccess extends AST_Node {
+export class AST_PropAccess extends AST_Node {
 }
 
-class AST_ObjectKeyVal extends AST_Node {
+export class AST_ObjectKeyVal extends AST_Node {
 }
 
-class AST_Scope extends AST_Node {
+export class AST_Scope extends AST_Node {
     find_variable(name: string): AST_SymbolDeclaration;
 }
 
-class AST_Symbol extends AST_Node {
+export class AST_Symbol extends AST_Node {
     scope?: AST_Scope;
     name: string;
     thedef: unknown;
 }
 
-class AST_SymbolDeclaration extends AST_Symbol {
+export class AST_SymbolDeclaration extends AST_Symbol {
     orig: AST_SymbolDeclaration[];
     references: AST_SymbolRef[];
     global: boolean;
@@ -457,27 +457,26 @@ class AST_SymbolDeclaration extends AST_Symbol {
     mangled_name?: string;
 }
 
-class AST_SymbolRef extends AST_Symbol {
+export class AST_SymbolRef extends AST_Symbol {
 }
 
-class AST_Call extends AST_Node {
+export class AST_Call extends AST_Node {
     expression: { name?: string, property?: string };
     args: AST_Node[];
 }
-class AST_String extends AST_Node {
+export class AST_String extends AST_Node {
     value: string;
 }
-class AST_Lambda extends AST_Node {
+export class AST_Lambda extends AST_Node {
     name?: string;
 }
-class AST_SymbolMethod extends AST_Node {
+export class AST_SymbolMethod extends AST_Node {
     name?: string;
 }
-class AST_ConciseMethod extends AST_Node {
+export class AST_ConciseMethod extends AST_Node {
 }
-class AST_SymbolVar extends AST_Node {
+export class AST_SymbolVar extends AST_Node {
     name?: string;
 }
 
 export * from 'uglify-js';
-
