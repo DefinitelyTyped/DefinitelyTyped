@@ -1,123 +1,302 @@
-function defaultCallback(result: string, components: [{ key: string, value: string }]) {
-    console.log(`res: ${result}; components: ${components}`);
+function defaultCallback(components: FingerPrint2Component[]){
+   components.map(function(component) {
+      console.log(component.value);
+   })
+}
+
+function test_get_x64hash128() {
+   Fingerprint2.x64hash128("abc", 99);
 }
 
 function test_default_settings() {
-    const fingerprint = new Fingerprint2().get(defaultCallback);
+    Fingerprint2.get(defaultCallback);
 }
 
 function test_get_exclude_swfContainerId() {
-    const fingerprint = new Fingerprint2({ swfContainerId: 'swfContainerId' }).get(defaultCallback);
+   const options = {
+      fonts: {
+         swfContainerId: 'swfContainerId'
+      }
+   } as Fingerprint2Options;
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_exclude_swfPath() {
-    const fingerprint = new Fingerprint2({swfPath: 'pathToSwf'}).get(defaultCallback);
+   const options = {
+      fonts: {
+         swfPath: 'pathToSwf'
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_exclude_userDefinedFonts() {
-    const fingerprint = new Fingerprint2({ userDefinedFonts: ['font1', 'font2']}).get(defaultCallback);
+   const options = {
+      fonts: {
+         userDefinedFonts: ['font1', 'font2']
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeUserAgent() {
-    const fingerprint = new Fingerprint2({ excludeUserAgent: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeUserAgent: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeLanguage() {
-    const fingerprint = new Fingerprint2({ excludeLanguage: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeLanguage: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeColorDepth() {
-    const fingerprint = new Fingerprint2({ excludeColorDepth: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeColorDepth: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeScreenResolution() {
-    const fingerprint = new Fingerprint2({ excludeScreenResolution: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeScreenResolution: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeTimezoneOffset() {
-    const fingerprint = new Fingerprint2({ excludeTimezoneOffset: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeTimezoneOffset: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeSessionStorage() {
-    const fingerprint = new Fingerprint2({ excludeSessionStorage: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeSessionStorage: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeIndexedDB() {
-    const fingerprint = new Fingerprint2({ excludeIndexedDB: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeIndexedDB: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeAddBehavior() {
-    const fingerprint = new Fingerprint2({ excludeAddBehavior: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeAddBehavior: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeOpenDatabase() {
-    const fingerprint = new Fingerprint2({ excludeOpenDatabase: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeOpenDatabase: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeCpuClass() {
-    const fingerprint = new Fingerprint2({ excludeCpuClass: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeCpuClass: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludePlatform() {
-    const fingerprint = new Fingerprint2({ excludePlatform: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludePlatform: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeDoNotTrack() {
-    const fingerprint = new Fingerprint2({ excludeDoNotTrack: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeDoNotTrack: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeCanvas() {
-    const fingerprint = new Fingerprint2({ excludeCanvas: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeCanvas: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeWebGL() {
-    const fingerprint = new Fingerprint2({ excludeWebGL: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeWebGL: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeAdBlock() {
-    const fingerprint = new Fingerprint2({ excludeAdBlock: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeAdBlock: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeHasLiedLanguages() {
-    const fingerprint = new Fingerprint2({ excludeHasLiedLanguages: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeHasLiedLanguages: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeHasLiedResolution() {
-    const fingerprint = new Fingerprint2({ excludeHasLiedResolution: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeHasLiedResolution: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeHasLiedOs() {
-    const fingerprint = new Fingerprint2({ excludeHasLiedOs: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeHasLiedOs: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeHasLiedBrowser() {
-    const fingerprint = new Fingerprint2({ excludeHasLiedBrowser: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeHasLiedBrowser: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeJsFonts() {
-    const fingerprint = new Fingerprint2({ excludeJsFonts: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeJsFonts: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeFlashFonts() {
-    const fingerprint = new Fingerprint2({ excludeFlashFonts: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeFlashFonts: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludePlugins() {
-    const fingerprint = new Fingerprint2({ excludePlugins: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludePlugins: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeIEPlugins() {
-    const fingerprint = new Fingerprint2({ excludeIEPlugins: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeIEPlugins: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeTouchSupport() {
-    const fingerprint = new Fingerprint2({ excludeTouchSupport: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeTouchSupport: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludePixelRatio() {
-    const fingerprint = new Fingerprint2({ excludePixelRatio: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludePixelRatio: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
 
 function test_get_excludeHardwareConcurrency() {
-    const fingerprint = new Fingerprint2({ excludeHardwareConcurrency: true }).get(defaultCallback);
+   const options = {
+      exludes: {
+         excludeHardwareConcurrency: true
+      }
+   } as Fingerprint2Options;
+
+   Fingerprint2.get(options, defaultCallback);
 }
