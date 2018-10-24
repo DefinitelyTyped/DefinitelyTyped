@@ -1,9 +1,7 @@
 {
     "name": "@types/terser",
     "version": "3.8.1",
-    "private": true,
     "description": "TypeScript definitions for terser",
-    "license": "MIT",
     "contributors": [
         {
             "name": "Jordi Anderl",
