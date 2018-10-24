@@ -1861,7 +1861,7 @@ export interface EnhancedPageObject extends SharedFunctions {
     name: string;
 }
 
-interface SharedFunctions {
+export interface SharedFunctions {
     /**
      * Clear a textarea or a text input element's value. Uses elementIdValue protocol command.
      *
