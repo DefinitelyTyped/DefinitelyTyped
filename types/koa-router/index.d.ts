@@ -89,7 +89,7 @@ declare namespace Router {
     }
     
     export interface IUrlOptionsQuery {
-        query?: object | string;
+        query: object | string;
     }
 
     export class ParamName {
