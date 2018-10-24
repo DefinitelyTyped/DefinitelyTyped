@@ -53,7 +53,7 @@ export interface Tokenizer {
     comments_before: string[];
 }
 
-class AST_Node {
+declare class AST_Node {
     // The first token of this node
     start: AST_Node;
 
@@ -429,7 +429,7 @@ class TreeTransformer extends TreeWalker {
     constructor(visitor: visitor, after: visitor);
 }
 
-// TODO: http://lisperator.net/Terser/ast 
+// TODO: http://lisperator.net/Terser/ast
 
 class AST_PropAccess extends AST_Node {
 }
@@ -458,7 +458,6 @@ class AST_SymbolDeclaration extends AST_Symbol {
 }
 
 class AST_SymbolRef extends AST_Symbol {
-
 }
 
 class AST_Call extends AST_Node {
@@ -475,7 +474,6 @@ class AST_SymbolMethod extends AST_Node {
     name?: string;
 }
 class AST_ConciseMethod extends AST_Node {
-
 }
 class AST_SymbolVar extends AST_Node {
     name?: string;
