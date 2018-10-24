@@ -1,18 +1,5 @@
 {
     "private": true,
-    "contributors": [
-        {
-            "name": "Jordi Anderl",
-            "url": "https://github.com/JordiAnderl",
-            "githubUsername": "JordiAnderl"
-        }
-    ],
-    "main": "",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
-    },
-    "scripts": {},
     "dependencies": {
         "source-map": "*"
     },
