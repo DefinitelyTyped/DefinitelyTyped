@@ -11,6 +11,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 import * as Immutable from "immutable";
+
 export class Data extends Immutable.Record({}) {
     [key: string]: any;
 
