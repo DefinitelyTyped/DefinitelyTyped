@@ -7,10 +7,10 @@
 //                 Kalley Powell <https://github.com/kalley>
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Irwan Fario Subastian <https://github.com/isubasti>
+//                 Sebastian Greaves <https://github.com/sgreav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 import * as Immutable from "immutable";
-
 export class Data extends Immutable.Record({}) {
     [key: string]: any;
 
@@ -1525,6 +1525,24 @@ export interface PathUtils {
         a: Immutable.List<number>,
         b: Immutable.List<number>
     ): Immutable.List<number>;
+}
+
+export class Editor extends Immutable.Record({}) {
+  object: "editor";
+  onChange: (change: Change) => void;
+  plugins: any[];
+  readOnly: boolean;
+  value: Value;
+
+  change(customChange: (change: Change, ...args: any[]) => Change): void;
+  command(name: string, ...args: any[]): void;
+  event(handler: string, event: any): void;
+  query(query: string, ...args: any[]): any;
+  registerCommand(command: string): void;
+  registerQuery(query: string): void;
+  run(key: string, ...args: any[]): any;
+  setReadOnly(readOnly: boolean): Editor;
+  setValue(value: Value, options?: object): Editor;
 }
 
 export {};
