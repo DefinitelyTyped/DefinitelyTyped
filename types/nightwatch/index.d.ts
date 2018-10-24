@@ -1881,8 +1881,7 @@ export interface EnhancedElementInstance {
 }
 
 /**
- * [Enhanced Page Object Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-page-object-instances)
- * 
+ * #### [Enhanced Page Object Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-page-object-instances)
  * Page object module definitions are used to define page object instances when their respective factory functions within the page reference of the standard command API is called.
  * ```
  * var myPageObject = browser.page.MyPage(); // defined in MyPage.js module
@@ -1891,8 +1890,8 @@ export interface EnhancedElementInstance {
  */
 export interface EnhancedPageObject extends SharedFunctions {
     /**
-     * A reference providing access to the full Nightwatch command API, 
-     * usually known as "client" or "browser" in test cases. 
+     * A reference providing access to the full Nightwatch command API,
+     * usually known as "client" or "browser" in test cases.
      * This is used to access those commands that are not part of the subset of commands within the page object API.
      */
     api: NightwatchAPI;
@@ -1903,7 +1902,8 @@ export interface EnhancedPageObject extends SharedFunctions {
     elements: {[name: string]: EnhancedElementInstance};
 
     /**
-     * The name of the page object as defined by its module name (not including the extension). This is the same name used to access the `page` object factory from the page reference in the command API.
+     * The name of the page object as defined by its module name (not including the extension).
+     * This is the same name used to access the `page` object factory from the page reference in the command API.
      */
     name: string;
 }
