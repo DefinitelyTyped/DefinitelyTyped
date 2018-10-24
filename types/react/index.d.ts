@@ -558,7 +558,32 @@ declare namespace React {
 
     function createRef<T>(): RefObject<T>;
 
-    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ComponentType<P & ClassAttributes<T>>;
+    // TODO: similar to how Fragment is actually a symbol, the values returned from forwardRef and memo
+    // are actually objects that are treated specially by the renderer; see:
+    // https://github.com/facebook/react/blob/v16.6.0/packages/react/src/forwardRef.js#L42-L45
+    // https://github.com/facebook/react/blob/v16.6.0/packages/react/src/memo.js#L27-L31
+    // However, we have no way of telling the JSX parser that it's a JSX element type or its props other than
+    // by pretending to be a normal component.
+    //
+    // We don't just use ComponentType or SFC types because you are not supposed to attach statics to this
+    // object, but rather to the original function.
+    type SpecialSFC<P = {}> = (props: P) => (React.ReactElement<any>|null);
+
+    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): SpecialSFC<P & ClassAttributes<T>>;
+
+    type ComponentProps<T extends ComponentType<any>> =
+        T extends ComponentType<infer P> ? P : {};
+    type ComponentPropsWithRef<T extends ComponentType<any>> =
+        T extends ComponentClass<infer P>
+            ? P & React.ClassAttributes<InstanceType<T>>
+            : T extends SFC<infer P>
+                ? P
+                : {};
+
+    function memo<T extends ComponentType<any>>(
+        Component: T,
+        compare?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean
+    ): SpecialSFC<ComponentPropsWithRef<T>>;
 
     //
     // React Hooks

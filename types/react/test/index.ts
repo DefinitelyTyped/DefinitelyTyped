@@ -715,3 +715,12 @@ class RenderChildren extends React.Component {
         return children !== undefined ? children : null;
     }
 }
+
+const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
+React.createElement(Memoized1, { foo: 'string' });
+
+const Memoized2 = React.memo(
+    function Bar(props: { bar: string }) { return null; },
+    (prevProps, nextProps) => prevProps.bar !== nextProps.bar
+);
+React.createElement(Memoized2, { bar: 'string' });

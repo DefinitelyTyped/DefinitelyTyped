@@ -197,3 +197,19 @@ componentWithBadLifecycle.getSnapshotBeforeUpdate = () => { // $ExpectError
 componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, snapshot?: string) => { // $ExpectError
     return;
 };
+
+const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
+<Memoized1 foo='string'/>;
+
+const Memoized2 = React.memo(
+    function Bar(props: { bar: string }) { return null; },
+    (prevProps, nextProps) => prevProps.bar !== nextProps.bar
+);
+<Memoized2 bar='string'/>;
+
+const Memoized3 = React.memo(class Test extends React.Component<{ x?: string }> {});
+<Memoized3 ref={ref => { if (ref) { ref.props.x; } }}/>;
+
+const memoized4Ref = React.createRef<HTMLDivElement>()
+const Memoized4 = React.memo(React.forwardRef((props: {}, ref: React.Ref<HTMLDivElement>) => <div ref={ref}/>));
+<Memoized4 ref={memoized4Ref}/>
