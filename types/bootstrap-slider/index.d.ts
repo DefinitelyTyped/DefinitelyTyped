@@ -171,6 +171,11 @@ interface JQuery {
     bootstrapSlider: SliderPlugin<this>;
 
     on(event: 'slide', handler: (slideEvt: SliderEvent) => false | void): this;
+    on(event: 'slideStart', handler: (slideEvt: SliderEvent) => false | void): this;
+    on(event: 'slideStop', handler: (slideEvt: SliderEvent) => false | void): this;
+    on(event: 'change', handler: (slideEvt: SliderEvent) => false | void): this;
+    on(event: 'slideEnabled', handler: (slideEvt: SliderEvent) => false | void): this;
+    on(event: 'slideDisabled', handler: (slideEvt: SliderEvent) => false | void): this;
 }
 
 interface SliderPlugin<TJQuery> {
