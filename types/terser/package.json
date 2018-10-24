@@ -16,7 +16,6 @@
     },
     "scripts": {},
     "dependencies": {
-        "@types/uglify-js": "*",
         "source-map": "*"
     },
     "typeScriptVersion": "2.2"
