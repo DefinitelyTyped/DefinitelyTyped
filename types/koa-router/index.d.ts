@@ -263,26 +263,24 @@ declare class Router {
     /**
      * Generate URL for route. Takes either map of named `params` or series of
      * arguments (for regular expression routes)
-     */
-    url(name: string, params: Object): string;
-    url(name: string, params: Object): Error;
-
-    /**
-     * Generate URL for route with query part.
      * 
-     * Takes either map of named `params` or series of
-     * arguments (for regular expression routes)
+     * router = new Router();
+     * router.get('user', "/users/:id", ...
      * 
-     * Query is generated from `options` argument:
+     * router.url('user', { id: 3 });
+     * // => "/users/3"
+     * 
+     * Query can be generated from third argument:
      * 
      * router.url('user', { id: 3 }, { query: { limit: 1 } });
      * // => "/users/3?limit=1"
-     *
+     * 
      * router.url('user', { id: 3 }, { query: "limit=1" });
      * // => "/users/3?limit=1"
+     * 
      */
-    url(name: string, params: Object, options?: Router.IUrlOptionsQuery): string;
-    url(name: string, params: Object, options?: Router.IUrlOptionsQuery): Error;
+    url(name: string, params: any, options?: Router.IUrlOptionsQuery): string;
+    url(name: string, params: any, options?: Router.IUrlOptionsQuery): Error;
 
     /**
      * Match given `path` and return corresponding routes.
