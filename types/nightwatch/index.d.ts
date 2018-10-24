@@ -1850,17 +1850,15 @@ export interface Nightwatch {
 }
 
 /**
- * [Enhanced Element Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-element-instances)
- * 
- * Element instances encapsulate the definition used to handle element selectors. 
- * Generally you won't need to access them directly, 
- * instead referring to them using their `@`-prefixed names for selector arguments, 
+ * #### [Enhanced Element Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-element-instances)
+ * Element instances encapsulate the definition used to handle element selectors.
+ * Generally you won't need to access them directly,
+ * instead referring to them using their `@`-prefixed names for selector arguments,
  * but they are available through a page object or section's elements property.
  */
 export interface EnhancedElementInstance {
-    
     /**
-     * The name of the element as defined by its key in the parent section or the page object's `elements` definition. 
+     * The name of the element as defined by its key in the parent section or the page object's `elements` definition.
      * This is the same name used with the `@` prefix in selector arguments for page object commands that refer to the element.
      */
     name: string;
@@ -1871,7 +1869,7 @@ export interface EnhancedElementInstance {
     locateStrategy: string;
 
     /**
-     * A reference to the parent object instance. 
+     * A reference to the parent object instance.
      * This is the parent section or the page object that contained the definition for this object.
      */
     parent: EnhancedPageObject;
