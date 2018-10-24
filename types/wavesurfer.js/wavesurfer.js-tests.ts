@@ -1,5 +1,3 @@
-/// <reference types="node" />
-import * as fs from "fs";
 import * as WaveSurfer from "wavesurfer.js";
 
 // https://www.npmjs.com/package/wavesurfer.js#api-in-examples
