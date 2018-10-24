@@ -229,20 +229,10 @@ function test_get_excludeHasLiedBrowser() {
    Fingerprint2.get(options, defaultCallback);
 }
 
-function test_get_excludeJsFonts() {
-   const options = {
-      exludes: {
-         excludeJsFonts: true
-      }
-   };
-
-   Fingerprint2.get(options, defaultCallback);
-}
-
 function test_get_excludeFlashFonts() {
    const options = {
       exludes: {
-         excludeFlashFonts: true
+         excludeFontsFlash: true
       }
    };
 
@@ -253,16 +243,6 @@ function test_get_excludePlugins() {
    const options = {
       exludes: {
          excludePlugins: true
-      }
-   };
-
-   Fingerprint2.get(options, defaultCallback);
-}
-
-function test_get_excludeIEPlugins() {
-   const options = {
-      exludes: {
-         excludeIEPlugins: true
       }
    };
 

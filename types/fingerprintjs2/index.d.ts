@@ -5,15 +5,15 @@
 
 declare namespace Fingerprint2Js {
    interface Fingerprint2Interface {
-      VERSION: string;
-      get(
-      options: Fingerprint2Options,
-      callback: (components: FingerPrint2Component[]) => void
-      ): void;
+     VERSION: string;
+     get(
+       options: Fingerprint2Options,
+       callback: (components: FingerPrint2Component[]) => void
+     ): void;
 
-      get(callback: (components: FingerPrint2Component[]) => void): void;
+     get(callback: (components: FingerPrint2Component[]) => void): void;
 
-      x64hash128(value: string, num: number): string;
+     x64hash128(value: string, num: number): string;
    }
 }
 
@@ -24,59 +24,64 @@ interface FingerPrint2Component {
 interface Fingerprint2Options {
    preprocessor?: (key: string, value: string) => void;
    audio?: {
-   timeout: number;
-   excludeIOS11: boolean;
+     timeout: number;
+     excludeIOS11: boolean;
    };
    fonts?: {
-   swfContainerId?: string;
-   swfPath?: string;
-   userDefinedFonts?: string[];
-   extendedJsFonts?: boolean;
+     swfContainerId?: string;
+     swfPath?: string;
+     userDefinedFonts?: string[];
+     extendedJsFonts?: boolean;
    };
 
    screen?: {
-   // To ensure consistent fingerprints when users rotate their mobile devices
-   detectScreenOrientation: boolean;
+     // To ensure consistent fingerprints when users rotate their mobile devices
+     detectScreenOrientation: boolean;
    };
 
    plugins?: {
-   sortPluginsFor: RegExp[];
-   excludeIE: boolean;
+     sortPluginsFor: RegExp[];
+     excludeIE: boolean;
    };
 
-   extraComponents?: [{ key: string; getData: (done: any, options: any) => void }];
+   extraComponents?: [
+     { key: string; getData: (done: any, options: any) => void }
+   ];
 
    exludes?: {
-   swfContainerId?: string;
-   swfPath?: string;
-   userDefinedFonts?: string[];
-   excludeUserAgent?: boolean;
-   excludeLanguage?: boolean;
-   excludeColorDepth?: boolean;
-   excludeScreenResolution?: boolean;
-   excludeTimezoneOffset?: boolean;
-   excludeSessionStorage?: boolean;
-   excludeIndexedDB?: boolean;
-   excludeAddBehavior?: boolean;
-   excludeOpenDatabase?: boolean;
-   excludeCpuClass?: boolean;
-   excludePlatform?: boolean;
-   excludeDoNotTrack?: boolean;
-   excludeCanvas?: boolean;
-   excludeWebGL?: boolean;
-   excludeAdBlock?: boolean;
-   excludeHasLiedLanguages?: boolean;
-   excludeHasLiedResolution?: boolean;
-   excludeHasLiedOs?: boolean;
-   excludeHasLiedBrowser?: boolean;
-   excludeJsFonts?: boolean;
-   excludeFlashFonts?: boolean;
-   excludePlugins?: boolean;
-   excludeIEPlugins?: boolean;
-   excludeTouchSupport?: boolean;
-   excludePixelRatio?: boolean;
-   excludeHardwareConcurrency?: boolean;
+     excludeUserAgent?: boolean;
+     excludeLanguage?: boolean;
+     excludeColorDepth?: boolean;
+     excludeDeviceMemory?: boolean;
+     excludePixelRatio?: boolean;
+     excludeHardwareConcurrency?: boolean;
+     excludeScreenResolution?: boolean;
+     excludeAvailableScreenResolution?: boolean;
+     excludeTimezoneOffset?: boolean;
+     excludeTimezone?: boolean;
+     excludeSessionStorage?: boolean;
+     excludeLocalStorage?: boolean;
+     excludeIndexedDB?: boolean;
+     excludeAddBehavior?: boolean;
+     excludeOpenDatabase?: boolean;
+     excludeCpuClass?: boolean;
+     excludePlatform?: boolean;
+     excludeDoNotTrack?: boolean;
+     excludePlugins?: boolean;
+     excludeCanvas?: boolean;
+     excludeWebGL?: boolean;
+     excludeWebglVendorAndRenderer?: boolean;
+     excludeAdBlock?: boolean;
+     excludeHasLiedLanguages?: boolean;
+     excludeHasLiedResolution?: boolean;
+     excludeHasLiedOs?: boolean;
+     excludeHasLiedBrowser?: boolean;
+     excludeTouchSupport?: boolean;
+     excludeFonts?: boolean;
+     excludeFontsFlash?: boolean;
+     excludeAudio?: boolean;
+     excludeEnumerateDevices?: boolean;
    };
-}
+ }
 
 declare var Fingerprint2: Fingerprint2Js.Fingerprint2Interface;
