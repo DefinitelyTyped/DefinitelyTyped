@@ -3378,18 +3378,18 @@ export class Color {
      */
     getStyle(): string;
 
-    offsetHSL(h: number, s: number, l: number): self;
+    offsetHSL(h: number, s: number, l: number): this;
 
-    add(color: Color): self;
-    addColors(color1: Color, color2: Color): self;
-    addScalar(s: number): self;
-    sub(color: Color): self;
-    multiply(color: Color): self;
-    multiplyScalar(s: number): self;
-    lerp(color: Color, alpha: number): self;
-    lerpHSL(color: Color, alpha: number): self;
+    add(color: Color): this;
+    addColors(color1: Color, color2: Color): this;
+    addScalar(s: number): this;
+    sub(color: Color): this;
+    multiply(color: Color): this;
+    multiplyScalar(s: number): this;
+    lerp(color: Color, alpha: number): this;
+    lerpHSL(color: Color, alpha: number): this;
     equals(color: Color): boolean;
-    fromArray(rgb: number[], offset?: number): self;
+    fromArray(rgb: number[], offset?: number): this;
     toArray(array?: number[], offset?: number): number[];
 }
 
