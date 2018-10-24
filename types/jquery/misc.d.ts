@@ -4744,12 +4744,1290 @@ $( "button" ).click(function( event ) {
         result?: any;
     }
 
+    // region Event
+    // #region Event
+
+    interface EventBase<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends TriggeredEvent<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        /**
+         * The other DOM element involved in the event, if any.
+         * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
+         * @since 1.1.4
+         * @example ​ ````On mouseout of anchors, alert the element type being entered.
+```javascript
+$( "a" ).mouseout(function( event ) {
+  alert( event.relatedTarget.nodeName ); // "DIV"
+});
+```
+        */
+        relatedTarget?: undefined;
+
+        // Event
+
+        bubbles: boolean;
+        cancelable: boolean;
+        eventPhase: number;
+
+        // UIEvent
+
+        detail: undefined;
+        view: undefined;
+
+        // MouseEvent
+
+        button: undefined;
+        buttons: undefined;
+        clientX: undefined;
+        clientY: undefined;
+        offsetX: undefined;
+        offsetY: undefined;
+        /**
+         * The mouse position relative to the left edge of the document.
+         * @see \`{@link https://api.jquery.com/event.pageX/ }\`
+         * @since 1.0.4
+         * @example ​ ````Show the mouse position relative to the left and top edges of the document (within this iframe).
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.pageX demo</title>
+  <style>
+  body {
+    background-color: #eef;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div id="log"></div>
+​
+<script>
+$( document ).on( "mousemove", function( event ) {
+  $( "#log" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        pageX: undefined;
+        /**
+         * The mouse position relative to the top edge of the document.
+         * @see \`{@link https://api.jquery.com/event.pageY/ }\`
+         * @since 1.0.4
+         * @example ​ ````Show the mouse position relative to the left and top edges of the document (within this iframe).
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.pageY demo</title>
+  <style>
+  body {
+    background-color: #eef;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div id="log"></div>
+​
+<script>
+$( document ).on( "mousemove", function( event ) {
+  $( "#log" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        pageY: undefined;
+        screenX: undefined;
+        screenY: undefined;
+        /** @deprecated */
+        toElement: undefined;
+
+        // PointerEvent
+
+        pointerId: undefined;
+        pointerType: undefined;
+
+        // KeyboardEvent
+
+        /** @deprecated */
+        char: undefined;
+        /** @deprecated */
+        charCode: undefined;
+        key: undefined;
+        /** @deprecated */
+        keyCode: undefined;
+
+        // TouchEvent
+
+        changedTouches: undefined;
+        targetTouches: undefined;
+        touches: undefined;
+
+        // MouseEvent, KeyboardEvent
+
+        /**
+         * For key or mouse events, this property indicates the specific key or button that was pressed.
+         * @see \`{@link https://api.jquery.com/event.which/ }\`
+         * @since 1.1.3
+         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
+         * @example ​ ````Log which key was depressed.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.which demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<input id="whichkey" value="type something">
+<div id="log"></div>
+​
+<script>
+$( "#whichkey" ).on( "keydown", function( event ) {
+  $( "#log" ).html( event.type + ": " +  event.which );
+});
+</script>
+​
+</body>
+</html>
+```
+         * @example ​ ````Log which mouse button was depressed.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.which demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<input id="whichkey" value="click here">
+<div id="log"></div>
+​
+<script>
+$( "#whichkey" ).on( "mousedown", function( event ) {
+  $( "#log" ).html( event.type + ": " +  event.which );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        which: undefined;
+
+        // MouseEvent, KeyboardEvent, TouchEvent
+
+        altKey: undefined;
+        ctrlKey: undefined;
+        /**
+         * Indicates whether the META key was pressed when the event fired.
+         * @see \`{@link https://api.jquery.com/event.metaKey/ }\`
+         * @since 1.0.4
+         * @example ​ ````Determine whether the META key was pressed when the event fired.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.metaKey demo</title>
+  <style>
+  body {
+    background-color: #eef;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<button value="Test" name="Test" id="checkMetaKey">Click me!</button>
+<div id="display"></div>
+​
+<script>
+$( "#checkMetaKey" ).click(function( event ) {
+  $( "#display" ).text( event.metaKey );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        metaKey: undefined;
+        shiftKey: undefined;
+
+        originalEvent?: _Event;
+    }
+
+    interface ChangeEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'change';
+    }
+
+    interface ResizeEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'resize';
+    }
+
+    interface ScrollEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'scroll';
+    }
+
+    interface SelectEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'select';
+    }
+
+    interface SubmitEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends EventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'submit';
+    }
+
+    // #endregion
+
+    // region UIEvent
+    // #region UIEvent
+
+    interface UIEventBase<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends TriggeredEvent<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        // Event
+
+        bubbles: boolean;
+        cancelable: boolean;
+        eventPhase: number;
+
+        // UIEvent
+
+        detail: number;
+        view: Window;
+
+        originalEvent?: _UIEvent;
+    }
+
+    // region MouseEvent
+    // #region MouseEvent
+
+    interface MouseEventBase<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        /**
+         * The other DOM element involved in the event, if any.
+         * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
+         * @since 1.1.4
+         * @example ​ ````On mouseout of anchors, alert the element type being entered.
+```javascript
+$( "a" ).mouseout(function( event ) {
+  alert( event.relatedTarget.nodeName ); // "DIV"
+});
+```
+        */
+        relatedTarget?: EventTarget | null;
+
+        // MouseEvent
+
+        button: number;
+        buttons: number;
+        clientX: number;
+        clientY: number;
+        offsetX: number;
+        offsetY: number;
+        /**
+         * The mouse position relative to the left edge of the document.
+         * @see \`{@link https://api.jquery.com/event.pageX/ }\`
+         * @since 1.0.4
+         * @example ​ ````Show the mouse position relative to the left and top edges of the document (within this iframe).
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.pageX demo</title>
+  <style>
+  body {
+    background-color: #eef;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div id="log"></div>
+​
+<script>
+$( document ).on( "mousemove", function( event ) {
+  $( "#log" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        pageX: number;
+        /**
+         * The mouse position relative to the top edge of the document.
+         * @see \`{@link https://api.jquery.com/event.pageY/ }\`
+         * @since 1.0.4
+         * @example ​ ````Show the mouse position relative to the left and top edges of the document (within this iframe).
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.pageY demo</title>
+  <style>
+  body {
+    background-color: #eef;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div id="log"></div>
+​
+<script>
+$( document ).on( "mousemove", function( event ) {
+  $( "#log" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        pageY: number;
+        screenX: number;
+        screenY: number;
+        /** @deprecated */
+        toElement: Element;
+
+        // PointerEvent
+
+        pointerId: undefined;
+        pointerType: undefined;
+
+        // KeyboardEvent
+
+        /** @deprecated */
+        char: undefined;
+        /** @deprecated */
+        charCode: undefined;
+        key: undefined;
+        /** @deprecated */
+        keyCode: undefined;
+
+        // TouchEvent
+
+        changedTouches: undefined;
+        targetTouches: undefined;
+        touches: undefined;
+
+        // MouseEvent, KeyboardEvent
+
+        /**
+         * For key or mouse events, this property indicates the specific key or button that was pressed.
+         * @see \`{@link https://api.jquery.com/event.which/ }\`
+         * @since 1.1.3
+         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
+         * @example ​ ````Log which key was depressed.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.which demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<input id="whichkey" value="type something">
+<div id="log"></div>
+​
+<script>
+$( "#whichkey" ).on( "keydown", function( event ) {
+  $( "#log" ).html( event.type + ": " +  event.which );
+});
+</script>
+​
+</body>
+</html>
+```
+         * @example ​ ````Log which mouse button was depressed.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.which demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<input id="whichkey" value="click here">
+<div id="log"></div>
+​
+<script>
+$( "#whichkey" ).on( "mousedown", function( event ) {
+  $( "#log" ).html( event.type + ": " +  event.which );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        which: number;
+
+        // MouseEvent, KeyboardEvent, TouchEvent
+
+        altKey: boolean;
+        ctrlKey: boolean;
+        /**
+         * Indicates whether the META key was pressed when the event fired.
+         * @see \`{@link https://api.jquery.com/event.metaKey/ }\`
+         * @since 1.0.4
+         * @example ​ ````Determine whether the META key was pressed when the event fired.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.metaKey demo</title>
+  <style>
+  body {
+    background-color: #eef;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<button value="Test" name="Test" id="checkMetaKey">Click me!</button>
+<div id="display"></div>
+​
+<script>
+$( "#checkMetaKey" ).click(function( event ) {
+  $( "#display" ).text( event.metaKey );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        metaKey: boolean;
+        shiftKey: boolean;
+
+        originalEvent?: _MouseEvent;
+    }
+
+    interface ClickEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        /**
+         * The other DOM element involved in the event, if any.
+         * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
+         * @since 1.1.4
+         * @example ​ ````On mouseout of anchors, alert the element type being entered.
+ ```javascript
+ $( "a" ).mouseout(function( event ) {
+  alert( event.relatedTarget.nodeName ); // "DIV"
+ });
+ ```
+        */
+        relatedTarget?: null;
+
+        type: 'click';
+    }
+
+    interface ContextMenuEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        /**
+         * The other DOM element involved in the event, if any.
+         * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
+         * @since 1.1.4
+         * @example ​ ````On mouseout of anchors, alert the element type being entered.
+ ```javascript
+ $( "a" ).mouseout(function( event ) {
+  alert( event.relatedTarget.nodeName ); // "DIV"
+ });
+ ```
+        */
+        relatedTarget?: null;
+
+        type: 'contextmenu';
+    }
+
+    interface DoubleClickEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        /**
+         * The other DOM element involved in the event, if any.
+         * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
+         * @since 1.1.4
+         * @example ​ ````On mouseout of anchors, alert the element type being entered.
+ ```javascript
+ $( "a" ).mouseout(function( event ) {
+  alert( event.relatedTarget.nodeName ); // "DIV"
+ });
+ ```
+        */
+        relatedTarget?: null;
+
+        type: 'dblclick';
+    }
+
+    interface MouseDownEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        /**
+         * The other DOM element involved in the event, if any.
+         * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
+         * @since 1.1.4
+         * @example ​ ````On mouseout of anchors, alert the element type being entered.
+ ```javascript
+ $( "a" ).mouseout(function( event ) {
+  alert( event.relatedTarget.nodeName ); // "DIV"
+ });
+ ```
+        */
+        relatedTarget?: null;
+
+        type: 'mousedown';
+    }
+
+    interface MouseEnterEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        // Special handling by jQuery.
+        type: 'mouseover';
+    }
+
+    interface MouseLeaveEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        // Special handling by jQuery.
+        type: 'mouseout';
+    }
+
+    interface MouseMoveEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        /**
+         * The other DOM element involved in the event, if any.
+         * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
+         * @since 1.1.4
+         * @example ​ ````On mouseout of anchors, alert the element type being entered.
+ ```javascript
+ $( "a" ).mouseout(function( event ) {
+  alert( event.relatedTarget.nodeName ); // "DIV"
+ });
+ ```
+        */
+        relatedTarget?: null;
+
+        type: 'mousemove';
+    }
+
+    interface MouseOutEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'mouseout';
+    }
+
+    interface MouseOverEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'mouseover';
+    }
+
+    interface MouseUpEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends MouseEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        /**
+         * The other DOM element involved in the event, if any.
+         * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
+         * @since 1.1.4
+         * @example ​ ````On mouseout of anchors, alert the element type being entered.
+ ```javascript
+ $( "a" ).mouseout(function( event ) {
+  alert( event.relatedTarget.nodeName ); // "DIV"
+ });
+ ```
+        */
+        relatedTarget?: null;
+
+        type: 'mouseup';
+    }
+
+    // #endregion
+
+    // region KeyboardEvent
+    // #region KeyboardEvent
+
+    interface KeyboardEventBase<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        /**
+         * The other DOM element involved in the event, if any.
+         * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
+         * @since 1.1.4
+         * @example ​ ````On mouseout of anchors, alert the element type being entered.
+```javascript
+$( "a" ).mouseout(function( event ) {
+  alert( event.relatedTarget.nodeName ); // "DIV"
+});
+```
+        */
+        relatedTarget?: undefined;
+
+        // MouseEvent
+
+        button: undefined;
+        buttons: undefined;
+        clientX: undefined;
+        clientY: undefined;
+        offsetX: undefined;
+        offsetY: undefined;
+        /**
+         * The mouse position relative to the left edge of the document.
+         * @see \`{@link https://api.jquery.com/event.pageX/ }\`
+         * @since 1.0.4
+         * @example ​ ````Show the mouse position relative to the left and top edges of the document (within this iframe).
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.pageX demo</title>
+  <style>
+  body {
+    background-color: #eef;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div id="log"></div>
+​
+<script>
+$( document ).on( "mousemove", function( event ) {
+  $( "#log" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        pageX: undefined;
+        /**
+         * The mouse position relative to the top edge of the document.
+         * @see \`{@link https://api.jquery.com/event.pageY/ }\`
+         * @since 1.0.4
+         * @example ​ ````Show the mouse position relative to the left and top edges of the document (within this iframe).
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.pageY demo</title>
+  <style>
+  body {
+    background-color: #eef;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div id="log"></div>
+​
+<script>
+$( document ).on( "mousemove", function( event ) {
+  $( "#log" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        pageY: undefined;
+        screenX: undefined;
+        screenY: undefined;
+        /** @deprecated */
+        toElement: undefined;
+
+        // PointerEvent
+
+        pointerId: undefined;
+        pointerType: undefined;
+
+        // KeyboardEvent
+
+        /** @deprecated */
+        char: string | undefined;
+        /** @deprecated */
+        charCode: number;
+        key: string;
+        /** @deprecated */
+        keyCode: number;
+
+        // TouchEvent
+
+        changedTouches: undefined;
+        targetTouches: undefined;
+        touches: undefined;
+
+        // MouseEvent, KeyboardEvent
+
+        /**
+         * For key or mouse events, this property indicates the specific key or button that was pressed.
+         * @see \`{@link https://api.jquery.com/event.which/ }\`
+         * @since 1.1.3
+         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
+         * @example ​ ````Log which key was depressed.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.which demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<input id="whichkey" value="type something">
+<div id="log"></div>
+​
+<script>
+$( "#whichkey" ).on( "keydown", function( event ) {
+  $( "#log" ).html( event.type + ": " +  event.which );
+});
+</script>
+​
+</body>
+</html>
+```
+         * @example ​ ````Log which mouse button was depressed.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.which demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<input id="whichkey" value="click here">
+<div id="log"></div>
+​
+<script>
+$( "#whichkey" ).on( "mousedown", function( event ) {
+  $( "#log" ).html( event.type + ": " +  event.which );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        which: number;
+
+        // MouseEvent, KeyboardEvent, TouchEvent
+
+        altKey: boolean;
+        ctrlKey: boolean;
+        /**
+         * Indicates whether the META key was pressed when the event fired.
+         * @see \`{@link https://api.jquery.com/event.metaKey/ }\`
+         * @since 1.0.4
+         * @example ​ ````Determine whether the META key was pressed when the event fired.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.metaKey demo</title>
+  <style>
+  body {
+    background-color: #eef;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<button value="Test" name="Test" id="checkMetaKey">Click me!</button>
+<div id="display"></div>
+​
+<script>
+$( "#checkMetaKey" ).click(function( event ) {
+  $( "#display" ).text( event.metaKey );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        metaKey: boolean;
+        shiftKey: boolean;
+
+        originalEvent?: _KeyboardEvent;
+    }
+
+    interface KeyDownEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends KeyboardEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'keydown';
+    }
+
+    interface KeyPressEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends KeyboardEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'keypress';
+    }
+
+    interface KeyUpEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends KeyboardEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'keyup';
+    }
+
+    // #endregion
+
+    // region FocusEvent
+    // #region FocusEvent
+
+    interface FocusEventBase<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        /**
+         * The other DOM element involved in the event, if any.
+         * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
+         * @since 1.1.4
+         * @example ​ ````On mouseout of anchors, alert the element type being entered.
+```javascript
+$( "a" ).mouseout(function( event ) {
+  alert( event.relatedTarget.nodeName ); // "DIV"
+});
+```
+        */
+        relatedTarget?: EventTarget | null;
+
+        // MouseEvent
+
+        button: undefined;
+        buttons: undefined;
+        clientX: undefined;
+        clientY: undefined;
+        offsetX: undefined;
+        offsetY: undefined;
+        /**
+         * The mouse position relative to the left edge of the document.
+         * @see \`{@link https://api.jquery.com/event.pageX/ }\`
+         * @since 1.0.4
+         * @example ​ ````Show the mouse position relative to the left and top edges of the document (within this iframe).
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.pageX demo</title>
+  <style>
+  body {
+    background-color: #eef;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div id="log"></div>
+​
+<script>
+$( document ).on( "mousemove", function( event ) {
+  $( "#log" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        pageX: undefined;
+        /**
+         * The mouse position relative to the top edge of the document.
+         * @see \`{@link https://api.jquery.com/event.pageY/ }\`
+         * @since 1.0.4
+         * @example ​ ````Show the mouse position relative to the left and top edges of the document (within this iframe).
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.pageY demo</title>
+  <style>
+  body {
+    background-color: #eef;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<div id="log"></div>
+​
+<script>
+$( document ).on( "mousemove", function( event ) {
+  $( "#log" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        pageY: undefined;
+        screenX: undefined;
+        screenY: undefined;
+        /** @deprecated */
+        toElement: undefined;
+
+        // PointerEvent
+
+        pointerId: undefined;
+        pointerType: undefined;
+
+        // KeyboardEvent
+
+        /** @deprecated */
+        char: undefined;
+        /** @deprecated */
+        charCode: undefined;
+        key: undefined;
+        /** @deprecated */
+        keyCode: undefined;
+
+        // TouchEvent
+
+        changedTouches: undefined;
+        targetTouches: undefined;
+        touches: undefined;
+
+        // MouseEvent, KeyboardEvent
+
+        /**
+         * For key or mouse events, this property indicates the specific key or button that was pressed.
+         * @see \`{@link https://api.jquery.com/event.which/ }\`
+         * @since 1.1.3
+         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
+         * @example ​ ````Log which key was depressed.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.which demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<input id="whichkey" value="type something">
+<div id="log"></div>
+​
+<script>
+$( "#whichkey" ).on( "keydown", function( event ) {
+  $( "#log" ).html( event.type + ": " +  event.which );
+});
+</script>
+​
+</body>
+</html>
+```
+         * @example ​ ````Log which mouse button was depressed.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.which demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<input id="whichkey" value="click here">
+<div id="log"></div>
+​
+<script>
+$( "#whichkey" ).on( "mousedown", function( event ) {
+  $( "#log" ).html( event.type + ": " +  event.which );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        which: undefined;
+
+        // MouseEvent, KeyboardEvent, TouchEvent
+
+        altKey: undefined;
+        ctrlKey: undefined;
+        /**
+         * Indicates whether the META key was pressed when the event fired.
+         * @see \`{@link https://api.jquery.com/event.metaKey/ }\`
+         * @since 1.0.4
+         * @example ​ ````Determine whether the META key was pressed when the event fired.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>event.metaKey demo</title>
+  <style>
+  body {
+    background-color: #eef;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+​
+<button value="Test" name="Test" id="checkMetaKey">Click me!</button>
+<div id="display"></div>
+​
+<script>
+$( "#checkMetaKey" ).click(function( event ) {
+  $( "#display" ).text( event.metaKey );
+});
+</script>
+​
+</body>
+</html>
+```
+         */
+        metaKey: undefined;
+        shiftKey: undefined;
+
+        originalEvent?: _FocusEvent;
+    }
+
+    interface BlurEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'blur';
+    }
+
+    interface FocusEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'focus';
+    }
+
+    interface FocusInEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'focusin';
+    }
+
+    interface FocusOutEvent<
+        TDelegateTarget = any,
+        TData = any,
+        TCurrentTarget = any,
+        TTarget = any
+    > extends FocusEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
+        type: 'focusout';
+    }
+
+    // #endregion
+
+    // #endregion
+
     interface TypeToTriggeredEventMap<
         TDelegateTarget,
         TData,
         TCurrentTarget,
         TTarget
     > {
+        // Event
+
+        change: ChangeEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        resize: ResizeEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        scroll: ScrollEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        select: SelectEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        submit: SubmitEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+
+        // UIEvent
+
+        // MouseEvent
+
+        click: ClickEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        contextmenu: ContextMenuEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        dblclick: DoubleClickEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        mousedown: MouseDownEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        mouseenter: MouseEnterEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        mouseleave: MouseLeaveEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        mousemove: MouseMoveEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        mouseout: MouseOutEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        mouseover: MouseOverEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        mouseup: MouseUpEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+
+        // KeyboardEvent
+
+        keydown: KeyDownEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        keypress: KeyPressEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        keyup: KeyUpEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+
+        // FocusEvent
+
+        blur: BlurEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        focus: FocusEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        focusin: FocusInEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        focusout: FocusOutEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+
         [type: string]: TriggeredEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
     }
 
@@ -4985,6 +6263,10 @@ declare const jQuery: JQueryStatic;
 declare const $: JQueryStatic;
 
 type _Event = Event;
+type _UIEvent = UIEvent;
+type _MouseEvent = MouseEvent;
+type _KeyboardEvent = KeyboardEvent;
+type _FocusEvent = FocusEvent;
 
 // region ES5 compatibility
 // #region ES5 compatibility

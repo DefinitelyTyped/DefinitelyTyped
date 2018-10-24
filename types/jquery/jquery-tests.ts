@@ -3916,6 +3916,12 @@ function JQuery() {
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
                     event;
+                },
+                click(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+                    event;
                 }
             });
        }
@@ -3947,6 +3953,12 @@ function JQuery() {
                     // $ExpectType any
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, undefined, any, any>
+                    event;
+                },
+                click(event) {
+                    // $ExpectType any
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, undefined, any, any>
                     event;
                 }
             });
@@ -4139,6 +4151,12 @@ function JQuery() {
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, string, any, any>
                     event;
+                },
+                click(event) {
+                    // $ExpectType any
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, string, any, any>
+                    event;
                 }
             }, 'td', 'myData');
 
@@ -4149,6 +4167,12 @@ function JQuery() {
                     // $ExpectType HTMLElement
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, string, HTMLElement, HTMLElement>
+                    event;
+                },
+                click(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, string, HTMLElement, HTMLElement>
                     event;
                 }
             }, null, 'myData');
@@ -4161,6 +4185,12 @@ function JQuery() {
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, string, HTMLElement, HTMLElement>
                     event;
+                },
+                click(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, string, HTMLElement, HTMLElement>
+                    event;
                 }
             }, undefined, 'myData');
 
@@ -4171,6 +4201,12 @@ function JQuery() {
                     // $ExpectType any
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, undefined, any, any>
+                    event;
+                },
+                click(event) {
+                    // $ExpectType any
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, undefined, any, any>
                     event;
                 }
             }, 'td');
@@ -4183,6 +4219,12 @@ function JQuery() {
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, number, HTMLElement, HTMLElement>
                     event;
+                },
+                click(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, number, HTMLElement, HTMLElement>
+                    event;
                 }
             }, 3);
 
@@ -4193,6 +4235,12 @@ function JQuery() {
                     // $ExpectType HTMLElement
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+                    event;
+                },
+                click(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
                     event;
                 }
             });
@@ -4261,6 +4309,12 @@ function JQuery() {
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, string, any, any>
                     event;
+                },
+                click(event) {
+                    // $ExpectType any
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, string, any, any>
+                    event;
                 }
             }, 'td', 'myData');
 
@@ -4271,6 +4325,12 @@ function JQuery() {
                     // $ExpectType HTMLElement
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, string, HTMLElement, HTMLElement>
+                    event;
+                },
+                click(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, string, HTMLElement, HTMLElement>
                     event;
                 }
             }, null, 'myData');
@@ -4283,6 +4343,12 @@ function JQuery() {
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, string, HTMLElement, HTMLElement>
                     event;
+                },
+                click(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, string, HTMLElement, HTMLElement>
+                    event;
                 }
             }, undefined, 'myData');
 
@@ -4293,6 +4359,12 @@ function JQuery() {
                     // $ExpectType any
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, undefined, any, any>
+                    event;
+                },
+                click(event) {
+                    // $ExpectType any
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, undefined, any, any>
                     event;
                 }
             }, 'td');
@@ -4305,6 +4377,12 @@ function JQuery() {
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, number, HTMLElement, HTMLElement>
                     event;
+                },
+                click(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, number, HTMLElement, HTMLElement>
+                    event;
                 }
             }, 3);
 
@@ -4315,6 +4393,12 @@ function JQuery() {
                     // $ExpectType HTMLElement
                     this;
                     // $ExpectType TriggeredEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+                    event;
+                },
+                click(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
                     event;
                 }
             });
@@ -4445,7 +4529,7 @@ function JQuery() {
             $('p').blur('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType BlurEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4453,7 +4537,7 @@ function JQuery() {
             $('p').blur(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType BlurEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4469,7 +4553,7 @@ function JQuery() {
             $('p').change('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType ChangeEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4477,7 +4561,7 @@ function JQuery() {
             $('p').change(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType ChangeEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4493,7 +4577,7 @@ function JQuery() {
             $('p').click('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType ClickEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4501,7 +4585,7 @@ function JQuery() {
             $('p').click(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType ClickEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4517,7 +4601,7 @@ function JQuery() {
             $('p').contextmenu('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType ContextMenuEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4525,7 +4609,7 @@ function JQuery() {
             $('p').contextmenu(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType ContextMenuEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4541,7 +4625,7 @@ function JQuery() {
             $('p').dblclick('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType DoubleClickEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4549,7 +4633,7 @@ function JQuery() {
             $('p').dblclick(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType DoubleClickEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4565,7 +4649,7 @@ function JQuery() {
             $('p').focus('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType FocusEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4573,7 +4657,7 @@ function JQuery() {
             $('p').focus(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType FocusEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4589,7 +4673,7 @@ function JQuery() {
             $('p').focusin('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType FocusInEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4597,7 +4681,7 @@ function JQuery() {
             $('p').focusin(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType FocusInEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4613,7 +4697,7 @@ function JQuery() {
             $('p').focusout('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType FocusOutEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4621,7 +4705,7 @@ function JQuery() {
             $('p').focusout(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType FocusOutEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4637,7 +4721,7 @@ function JQuery() {
             $('p').keydown('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType KeyDownEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4645,7 +4729,7 @@ function JQuery() {
             $('p').keydown(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType KeyDownEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4661,7 +4745,7 @@ function JQuery() {
             $('p').keypress('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType KeyPressEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4669,7 +4753,7 @@ function JQuery() {
             $('p').keypress(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType KeyPressEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4685,7 +4769,7 @@ function JQuery() {
             $('p').keyup('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType KeyUpEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4693,7 +4777,7 @@ function JQuery() {
             $('p').keyup(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType KeyUpEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4709,7 +4793,7 @@ function JQuery() {
             $('p').mousedown('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType MouseDownEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4717,7 +4801,7 @@ function JQuery() {
             $('p').mousedown(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType MouseDownEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4733,7 +4817,7 @@ function JQuery() {
             $('p').mouseenter('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType MouseEnterEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4741,7 +4825,7 @@ function JQuery() {
             $('p').mouseenter(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType MouseEnterEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4757,7 +4841,7 @@ function JQuery() {
             $('p').mouseleave('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType MouseLeaveEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4765,7 +4849,7 @@ function JQuery() {
             $('p').mouseleave(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType MouseLeaveEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4781,7 +4865,7 @@ function JQuery() {
             $('p').mousemove('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType MouseMoveEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4789,7 +4873,7 @@ function JQuery() {
             $('p').mousemove(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType MouseMoveEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4805,7 +4889,7 @@ function JQuery() {
             $('p').mouseout('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType MouseOutEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4813,7 +4897,7 @@ function JQuery() {
             $('p').mouseout(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType MouseOutEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4829,7 +4913,7 @@ function JQuery() {
             $('p').mouseover('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType MouseOverEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4837,7 +4921,7 @@ function JQuery() {
             $('p').mouseover(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType MouseOverEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4853,7 +4937,7 @@ function JQuery() {
             $('p').mouseup('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType MouseUpEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4861,7 +4945,7 @@ function JQuery() {
             $('p').mouseup(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType MouseUpEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4877,7 +4961,7 @@ function JQuery() {
             $('p').resize('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType ResizeEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4885,7 +4969,7 @@ function JQuery() {
             $('p').resize(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType ResizeEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4901,7 +4985,7 @@ function JQuery() {
             $('p').scroll('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType ScrollEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4909,7 +4993,7 @@ function JQuery() {
             $('p').scroll(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType ScrollEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4925,7 +5009,7 @@ function JQuery() {
             $('p').select('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType SelectEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4933,7 +5017,7 @@ function JQuery() {
             $('p').select(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType SelectEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4949,7 +5033,7 @@ function JQuery() {
             $('p').submit('myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType SubmitEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4957,7 +5041,7 @@ function JQuery() {
             $('p').submit(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType SubmitEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4973,12 +5057,12 @@ function JQuery() {
             $('p').hover(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType MouseEnterEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             }, function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType MouseLeaveEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4986,7 +5070,7 @@ function JQuery() {
             $('p').hover(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType MouseEnterEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             }, false);
 
@@ -4994,7 +5078,7 @@ function JQuery() {
             $('p').hover(false, function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType MouseLeaveEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -5005,8 +5089,23 @@ function JQuery() {
             $('p').hover(function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType MouseEnterEvent<HTMLElement, null, HTMLElement, HTMLElement> | MouseLeaveEvent<HTMLElement, null, HTMLElement, HTMLElement>
                 event;
+
+                switch (event.type) {
+                    case 'mouseover':
+                        // $ExpectType MouseEnterEvent<HTMLElement, null, HTMLElement, HTMLElement>
+                        event;
+                        break;
+                    case 'mouseout':
+                        // $ExpectType MouseLeaveEvent<HTMLElement, null, HTMLElement, HTMLElement>
+                        event;
+                        break;
+                    default:
+                        // $ExpectType never
+                        event;
+                        break;
+                }
             });
 
             // $ExpectType JQuery<HTMLElement>

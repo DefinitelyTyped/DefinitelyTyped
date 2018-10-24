@@ -1521,7 +1521,7 @@ $( "div.test" ).bind({
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     blur<TData>(eventData: TData,
-                handler: JQuery.EventHandler<TElement, TData>): this;
+                handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'blur'>): this;
     /**
      * Bind an event handler to the "blur" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -1537,7 +1537,8 @@ $( "div.test" ).bind({
 $( "p" ).blur();
 ```
      */
-    blur(handler?: JQuery.EventHandler<TElement> | false): this;
+    blur(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'blur'> |
+                   false): this;
     /**
      * Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -1551,7 +1552,7 @@ $( "p" ).blur();
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     change<TData>(eventData: TData,
-                  handler: JQuery.EventHandler<TElement, TData>): this;
+                  handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'change'>): this;
     /**
      * Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -1610,7 +1611,8 @@ $( "input[type='text']" ).change(function() {
 });
 ```
      */
-    change(handler?: JQuery.EventHandler<TElement> | false): this;
+    change(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'change'> |
+                     false): this;
     /**
      * Get the children of each element in the set of matched elements, optionally filtered by a selector.
      * @param selector A string containing a selector expression to match elements against.
@@ -1863,7 +1865,7 @@ $( "#stop" ).click(function() {
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     click<TData>(eventData: TData,
-                 handler: JQuery.EventHandler<TElement, TData>): this;
+                 handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'click'>): this;
     /**
      * Bind an event handler to the "click" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -1913,7 +1915,8 @@ $( "p" ).click(function() {
 $( "p" ).click();
 ```
      */
-    click(handler?: JQuery.EventHandler<TElement> | false): this;
+    click(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'click'> |
+                    false): this;
     /**
      * Create a deep copy of the set of matched elements.
      * @param withDataAndEvents A Boolean indicating whether event handlers and data should be copied along with the elements. The
@@ -2101,7 +2104,7 @@ $( "#frameDemo" ).contents().find( "a" ).css( "background-color", "#BADA55" );
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     contextmenu<TData>(eventData: TData,
-                       handler: JQuery.EventHandler<TElement, TData>): this;
+                       handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'contextmenu'>): this;
     /**
      * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -2155,7 +2158,8 @@ div.contextmenu(function() {
 </html>
 ```
      */
-    contextmenu(handler?: JQuery.EventHandler<TElement> | false): this;
+    contextmenu(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'contextmenu'> |
+                          false): this;
     /**
      * Set one or more CSS properties for the set of matched elements.
      * @param propertyName A CSS property name.
@@ -2616,7 +2620,7 @@ $( "button" ).click(function() {
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     dblclick<TData>(eventData: TData,
-                    handler: JQuery.EventHandler<TElement, TData>): this;
+                    handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'dblclick'>): this;
     /**
      * Bind an event handler to the "dblclick" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -2670,7 +2674,8 @@ divdbl.dblclick(function() {
 </html>
 ```
      */
-    dblclick(handler?: JQuery.EventHandler<TElement> | false): this;
+    dblclick(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'dblclick'> |
+                       false): this;
     /**
      * Set a timer to delay execution of subsequent items in the queue.
      * @param duration An integer indicating the number of milliseconds to delay execution of the next item in the queue.
@@ -4293,7 +4298,7 @@ $( "p span" ).first().addClass( "highlight" );
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     focus<TData>(eventData: TData,
-                 handler: JQuery.EventHandler<TElement, TData>): this;
+                 handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'focus'>): this;
     /**
      * Bind an event handler to the "focus" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -4345,7 +4350,8 @@ $( document ).ready(function() {
 });
 ```
      */
-    focus(handler?: JQuery.EventHandler<TElement> | false): this;
+    focus(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'focus'> |
+                    false): this;
     /**
      * Bind an event handler to the "focusin" event.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -4359,7 +4365,7 @@ $( document ).ready(function() {
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     focusin<TData>(eventData: TData,
-                   handler: JQuery.EventHandler<TElement, TData>): this;
+                   handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'focusin'>): this;
     /**
      * Bind an event handler to the "focusin" event.
      * @param handler A function to execute each time the event is triggered.
@@ -4399,7 +4405,8 @@ $( "p" ).focusin(function() {
 </html>
 ```
      */
-    focusin(handler?: JQuery.EventHandler<TElement> | false): this;
+    focusin(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'focusin'> |
+                      false): this;
     /**
      * Bind an event handler to the "focusout" JavaScript event.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -4413,7 +4420,7 @@ $( "p" ).focusin(function() {
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     focusout<TData>(eventData: TData,
-                    handler: JQuery.EventHandler<TElement, TData>): this;
+                    handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'focusout'>): this;
     /**
      * Bind an event handler to the "focusout" JavaScript event.
      * @param handler A function to execute each time the event is triggered.
@@ -4474,7 +4481,8 @@ $( "p" )
 </html>
 ```
      */
-    focusout(handler?: JQuery.EventHandler<TElement> | false): this;
+    focusout(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'focusout'> |
+                       false): this;
     /**
      * Retrieve one of the elements matched by the jQuery object.
      * @param index A zero-based integer indicating which element to retrieve.
@@ -4917,12 +4925,11 @@ $( "button" ).click(function() {
      */
     hide(duration_complete_options?: JQuery.Duration | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
     /**
-     * Bind one or two handlers to the matched elements, to be executed when the mouse pointer enters and leaves the elements.
-     * @param handlerInOut A function to execute when the mouse pointer enters or leaves the element.
+     * Bind two handlers to the matched elements, to be executed when the mouse pointer enters and leaves the elements.
+     * @param handlerIn A function to execute when the mouse pointer enters the element.
      * @param handlerOut A function to execute when the mouse pointer leaves the element.
      * @see \`{@link https://api.jquery.com/hover/ }\`
      * @since 1.0
-     * @since 1.4
      * @deprecated ​ Deprecated.
      *
      * **Cause**: The `.hover()` method is a shorthand for the use of the `mouseover`/`mouseout` events. It is often a poor user interface choice because it does not allow for any small amounts of delay between when the mouse enters or exits an area and when the event fires. This can make it quite difficult to use with UI widgets such as drop-down menus. For more information on the problems of hovering, see the \`{@link http://cherne.net/brian/resources/jquery.hoverIntent.html hoverIntent plugin}\`.
@@ -4990,6 +4997,21 @@ $( "td" ).hover(
 ```javascript
 $( "td" ).off( "mouseenter mouseleave" );
 ```
+     */
+    hover(handlerIn: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'mouseenter'> |
+                     false,
+          handlerOut: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'mouseleave'> |
+                      false): this;
+    /**
+     * Bind a single handler to the matched elements, to be executed when the mouse pointer enters or leaves the elements.
+     * @param handlerInOut A function to execute when the mouse pointer enters or leaves the element.
+     * @see \`{@link https://api.jquery.com/hover/ }\`
+     * @since 1.4
+     * @deprecated ​ Deprecated.
+     *
+     * **Cause**: The `.hover()` method is a shorthand for the use of the `mouseover`/`mouseout` events. It is often a poor user interface choice because it does not allow for any small amounts of delay between when the mouse enters or exits an area and when the event fires. This can make it quite difficult to use with UI widgets such as drop-down menus. For more information on the problems of hovering, see the \`{@link http://cherne.net/brian/resources/jquery.hoverIntent.html hoverIntent plugin}\`.
+     *
+     * **Solution**: Review uses of `.hover()` to determine if they are appropriate, and consider use of plugins such as `hoverIntent` as an alternative. The direct replacement for `.hover(fn1, fn2)`, is `.on("mouseenter", fn1).on("mouseleave", fn2)`.
      * @example ​ ````Slide the next sibling LI up or down on hover, and toggle a class.
 ```html
 <!doctype html>
@@ -5045,10 +5067,8 @@ $( "li" )
 </html>
 ```
      */
-    // HACK: The type parameter T is not used but ensures the 'event' callback parameter is typed correctly.
-    // tslint:disable-next-line:no-unnecessary-generics
-    hover<T>(handlerInOut: JQuery.EventHandler<TElement> | false,
-             handlerOut?: JQuery.EventHandler<TElement> | false): this;
+    hover(handlerInOut: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'mouseenter' | 'mouseleave'> |
+                        false): this;
     /**
      * Set the HTML contents of each element in the set of matched elements.
      * @param htmlString_function _&#x40;param_ `htmlString_function`
@@ -5862,7 +5882,7 @@ $( "li" ).click(function() {
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     keydown<TData>(eventData: TData,
-                   handler: JQuery.EventHandler<TElement, TData>): this;
+                   handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'keydown'>): this;
     /**
      * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -5934,7 +5954,8 @@ $( "#other" ).click(function() {
 </html>
 ```
      */
-    keydown(handler?: JQuery.EventHandler<TElement> | false): this;
+    keydown(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'keydown'> |
+                      false): this;
     /**
      * Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -5948,7 +5969,7 @@ $( "#other" ).click(function() {
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     keypress<TData>(eventData: TData,
-                    handler: JQuery.EventHandler<TElement, TData>): this;
+                    handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'keypress'>): this;
     /**
      * Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -6020,7 +6041,8 @@ $( "#other" ).click(function() {
 </html>
 ```
      */
-    keypress(handler?: JQuery.EventHandler<TElement> | false): this;
+    keypress(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'keypress'> |
+                       false): this;
     /**
      * Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -6034,7 +6056,7 @@ $( "#other" ).click(function() {
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     keyup<TData>(eventData: TData,
-                 handler: JQuery.EventHandler<TElement, TData>): this;
+                 handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'keyup'>): this;
     /**
      * Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -6107,7 +6129,8 @@ $( "#other").click(function() {
 </html>
 ```
      */
-    keyup(handler?: JQuery.EventHandler<TElement> | false): this;
+    keyup(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'keyup'> |
+                    false): this;
     /**
      * Reduce the set of matched elements to the final one in the set.
      * @see \`{@link https://api.jquery.com/last/ }\`
@@ -6396,7 +6419,7 @@ $( "input" ).click(function() {
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     mousedown<TData>(eventData: TData,
-                     handler: JQuery.EventHandler<TElement, TData>): this;
+                     handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'mousedown'>): this;
     /**
      * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -6434,7 +6457,8 @@ $( "p" )
 </html>
 ```
      */
-    mousedown(handler?: JQuery.EventHandler<TElement> | false): this;
+    mousedown(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'mousedown'> |
+                        false): this;
     /**
      * Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -6448,7 +6472,7 @@ $( "p" )
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     mouseenter<TData>(eventData: TData,
-                      handler: JQuery.EventHandler<TElement, TData>): this;
+                      handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'mouseenter'>): this;
     /**
      * Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -6529,7 +6553,8 @@ $( "div.enterleave" )
 </html>
 ```
      */
-    mouseenter(handler?: JQuery.EventHandler<TElement> | false): this;
+    mouseenter(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'mouseenter'> |
+                         false): this;
     /**
      * Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -6543,7 +6568,7 @@ $( "div.enterleave" )
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     mouseleave<TData>(eventData: TData,
-                      handler: JQuery.EventHandler<TElement, TData>): this;
+                      handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'mouseleave'>): this;
     /**
      * Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -6622,7 +6647,8 @@ $( "div.enterleave" )
 </html>
 ```
      */
-    mouseleave(handler?: JQuery.EventHandler<TElement> | false): this;
+    mouseleave(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'mouseleave'> |
+                         false): this;
     /**
      * Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -6636,7 +6662,7 @@ $( "div.enterleave" )
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     mousemove<TData>(eventData: TData,
-                     handler: JQuery.EventHandler<TElement, TData>): this;
+                     handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'mousemove'>): this;
     /**
      * Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -6700,7 +6726,8 @@ $( "div" ).mousemove(function( event ) {
 </html>
 ```
      */
-    mousemove(handler?: JQuery.EventHandler<TElement> | false): this;
+    mousemove(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'mousemove'> |
+                        false): this;
     /**
      * Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -6714,7 +6741,7 @@ $( "div" ).mousemove(function( event ) {
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     mouseout<TData>(eventData: TData,
-                    handler: JQuery.EventHandler<TElement, TData>): this;
+                    handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'mouseout'>): this;
     /**
      * Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -6795,7 +6822,8 @@ $( "div.enterleave" )
 </html>
 ```
      */
-    mouseout(handler?: JQuery.EventHandler<TElement> | false): this;
+    mouseout(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'mouseout'> |
+                       false): this;
     /**
      * Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -6809,7 +6837,7 @@ $( "div.enterleave" )
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     mouseover<TData>(eventData: TData,
-                     handler: JQuery.EventHandler<TElement, TData>): this;
+                     handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'mouseover'>): this;
     /**
      * Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -6890,7 +6918,8 @@ $( "div.enterleave" )
 </html>
 ```
      */
-    mouseover(handler?: JQuery.EventHandler<TElement> | false): this;
+    mouseover(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'mouseover'> |
+                        false): this;
     /**
      * Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -6904,7 +6933,7 @@ $( "div.enterleave" )
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     mouseup<TData>(eventData: TData,
-                   handler: JQuery.EventHandler<TElement, TData>): this;
+                   handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'mouseup'>): this;
     /**
      * Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -6942,7 +6971,8 @@ $( "p" )
 </html>
 ```
      */
-    mouseup(handler?: JQuery.EventHandler<TElement> | false): this;
+    mouseup(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'mouseup'> |
+                      false): this;
     /**
      * Get the immediately following sibling of each element in the set of matched elements. If a selector is provided, it retrieves the next sibling only if it matches that selector.
      * @param selector A string containing a selector expression to match elements against.
@@ -9970,7 +10000,7 @@ $( "button" ).on( "click", function() {
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     resize<TData>(eventData: TData,
-                  handler: JQuery.EventHandler<TElement, TData>): this;
+                  handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'resize'>): this;
     /**
      * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -9988,7 +10018,8 @@ $( window ).resize(function() {
 });
 ```
      */
-    resize(handler?: JQuery.EventHandler<TElement> | false): this;
+    resize(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'resize'> |
+                     false): this;
     /**
      * Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.
@@ -10002,7 +10033,7 @@ $( window ).resize(function() {
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     scroll<TData>(eventData: TData,
-                  handler: JQuery.EventHandler<TElement, TData>): this;
+                  handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'scroll'>): this;
     /**
      * Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -10052,7 +10083,8 @@ $( window ).scroll(function() {
 </html>
 ```
      */
-    scroll(handler?: JQuery.EventHandler<TElement> | false): this;
+    scroll(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'scroll'> |
+                     false): this;
     /**
      * Set the current horizontal position of the scroll bar for each of the set of matched elements.
      * @param value An integer indicating the new position to set the scroll bar to.
@@ -10226,7 +10258,7 @@ $( "p:last" ).text( "scrollTop:" + p.scrollTop() );
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     select<TData>(eventData: TData,
-                  handler: JQuery.EventHandler<TElement, TData>): this;
+                  handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'select'>): this;
     /**
      * Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -10275,7 +10307,8 @@ $( ":input" ).select(function() {
 $( "input" ).select();
 ```
      */
-    select(handler?: JQuery.EventHandler<TElement> | false): this;
+    select(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'select'> |
+                     false): this;
     /**
      * Encode a set of form elements as a string for submission.
      * @see \`{@link https://api.jquery.com/serialize/ }\`
@@ -11246,7 +11279,7 @@ $( "#toggle" ).on( "click", function() {
      * **Solution**: Instead of `.click(fn)` use `.on("click", fn)`. Instead of `.click()` use `.trigger("click")`.
      */
     submit<TData>(eventData: TData,
-                  handler: JQuery.EventHandler<TElement, TData>): this;
+                  handler: JQuery.TypeEventHandler<TElement, TData, TElement, TElement, TElement, 'submit'>): this;
     /**
      * Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.
      * @param handler A function to execute each time the event is triggered.
@@ -11315,7 +11348,8 @@ $( "form" ).submit(function() {
 $( "form:first" ).submit();
 ```
      */
-    submit(handler?: JQuery.EventHandler<TElement> | false): this;
+    submit(handler?: JQuery.TypeEventHandler<TElement, null, TElement, TElement, TElement, 'submit'> |
+                     false): this;
     /**
      * Set the content of each element in the set of matched elements to the specified text.
      * @param text_function _&#x40;param_ `text_function`
