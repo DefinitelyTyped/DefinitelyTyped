@@ -1851,7 +1851,7 @@ export interface Nightwatch {
 export interface EnhancedElementInstance {
     name: string;
     locateStrategy: string;
-    parent: EnhancedPageObject | EnhancedSectionInstance;
+    parent: EnhancedPageObject;
     selector: string;
 }
 
@@ -1859,10 +1859,7 @@ export interface EnhancedPageObject extends SharedFunctions {
     api: NightwatchAPI;
     elements: {[name: string]: EnhancedElementInstance};
     name: string;
-    section: {[name: string]: EnhancedSectionInstance};
 }
-
-export interface EnhancedSectionInstance extends EnhancedPageObject {}
 
 interface SharedFunctions {
     /**
