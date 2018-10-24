@@ -1,6 +1,5 @@
 {
     "private": true,
-    "description": "TypeScript definitions for terser",
     "contributors": [
         {
             "name": "Jordi Anderl",
