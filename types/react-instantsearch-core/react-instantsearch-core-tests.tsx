@@ -4,7 +4,10 @@ import {
   createIndex,
   createConnector,
   SearchResults,
-  connectStateResults
+  connectStateResults,
+  SearchBoxProvided,
+  connectSearchBox,
+  connectRefinementList
 } from 'react-instantsearch-core';
 
 () => {
@@ -134,4 +137,19 @@ import {
     () => null, // $ExpectError
     {}
   );
+};
+
+// https://community.algolia.com/react-instantsearch/guide/Connectors.html
+() => {
+  const MySearchBox = ({currentRefinement, refine}: SearchBoxProvided) =>
+    <input
+      type="text"
+      value={currentRefinement}
+      onChange={e => refine(e.target.value)}
+    />;
+
+  // `ConnectedSearchBox` renders a `<MySearchBox>` widget that is connected to
+  // the <InstantSearch> state, providing it with `currentRefinement` and `refine` props for
+  // reading and manipulating the current query of the search.
+  const ConnectedSearchBox = connectSearchBox(MySearchBox);
 };
