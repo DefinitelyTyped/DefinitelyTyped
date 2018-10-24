@@ -148,8 +148,7 @@ declare namespace React {
     type ReactChild = ReactElement<any> | ReactText;
 
     interface ReactNodeArray extends Array<ReactNode> {}
-    type ReactFragment = {} | ReactNodeArray;
-    type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+    type ReactNode = ReactChild | ReactNodeArray | ReactPortal | boolean | null | undefined;
 
     //
     // Top Level API
@@ -269,8 +268,8 @@ declare namespace React {
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
     const Children: ReactChildren;
-    const Fragment: ComponentType;
-    const StrictMode: ComponentType;
+    const Fragment: StatelessComponent;
+    const StrictMode: StatelessComponent;
     const version: string;
 
     //
