@@ -35,7 +35,7 @@ function special() {
             bindType: "click",
             handle(event) {
                 const handleObj = event.handleObj;
-                const targetData = jQuery.data(event.target);
+                const targetData = jQuery.data(event.target as Element);
                 let ret = null;
 
                 // If a multiple of the click count, run the handler

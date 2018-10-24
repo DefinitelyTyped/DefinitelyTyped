@@ -2430,7 +2430,7 @@ function JQuery() {
             $(document).ajaxComplete(function(event, jqXHR, ajaxOptions) {
                 // $ExpectType Document
                 this;
-                // $ExpectType Event<Document, null>
+                // $ExpectType TriggeredEvent<Document, undefined, Document, Document>
                 event;
                 // $ExpectType jqXHR<any>
                 jqXHR;
@@ -2446,7 +2446,7 @@ function JQuery() {
             $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
                 // $ExpectType Document
                 this;
-                // $ExpectType Event<Document, null>
+                // $ExpectType TriggeredEvent<Document, undefined, Document, Document>
                 event;
                 // $ExpectType jqXHR<any>
                 jqXHR;
@@ -2464,7 +2464,7 @@ function JQuery() {
             $(document).ajaxSend(function(event, jqXHR, ajaxOptions) {
                 // $ExpectType Document
                 this;
-                // $ExpectType Event<Document, null>
+                // $ExpectType TriggeredEvent<Document, undefined, Document, Document>
                 event;
                 // $ExpectType jqXHR<any>
                 jqXHR;
@@ -2500,7 +2500,7 @@ function JQuery() {
             $(document).ajaxSuccess(function(event, jqXHR, ajaxOptions, data) {
                 // $ExpectType Document
                 this;
-                // $ExpectType Event<Document, null>
+                // $ExpectType TriggeredEvent<Document, undefined, Document, Document>
                 event;
                 // $ExpectType jqXHR<any>
                 jqXHR;
@@ -3887,7 +3887,7 @@ function JQuery() {
             $('p').bind('myEvent', 'myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType TriggeredEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -3895,7 +3895,7 @@ function JQuery() {
             $('p').bind('myEvent', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType TriggeredEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -3903,37 +3903,37 @@ function JQuery() {
             $('p').bind('myEvent', false);
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').bind('myEvent', null);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').bind('myEvent', undefined);
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').bind({
                 myEvent1: false,
                 myEvent2(event) {
                     // $ExpectType HTMLElement
                     this;
-                    // $ExpectType Event<HTMLElement, null>
+                    // $ExpectType TriggeredEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
                     event;
                 }
             });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').bind('myEvent', null);
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').bind('myEvent', undefined);
-        }
+       }
 
         function delegate() {
             // $ExpectType JQuery<HTMLElement>
             $('table').delegate('td', 'myEvent', 'myData', function(event) {
-                // $ExpectType HTMLElement
+                // $ExpectType any
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType TriggeredEvent<HTMLElement, string, any, any>
                 event;
             });
 
             // $ExpectType JQuery<HTMLElement>
             $('table').delegate('td', 'myEvent', function(event) {
-                // $ExpectType HTMLElement
+                // $ExpectType any
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType TriggeredEvent<HTMLElement, undefined, any, any>
                 event;
             });
 
@@ -3942,20 +3942,20 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('table').delegate('td', {
-                myEvent1(event) {
-                    // $ExpectType HTMLElement
+                myEvent1: false,
+                myEvent2(event) {
+                    // $ExpectType any
                     this;
-                    // $ExpectType Event<HTMLElement, null>
+                    // $ExpectType TriggeredEvent<HTMLElement, undefined, any, any>
                     event;
-                },
-                myEvent2: false
+                }
             });
         }
 
         function off() {
-            function defaultData(this: HTMLElement, event: JQuery.Event<HTMLElement>) { }
+            function defaultData(this: HTMLElement, event: JQuery.TriggeredEvent<HTMLElement>) { }
 
-            function customData(this: HTMLElement, event: JQuery.Event<HTMLElement, string>) { }
+            function customData(this: HTMLElement, event: JQuery.TriggeredEvent<HTMLElement, string>) { }
 
             // $ExpectType JQuery<HTMLElement>
             $('table').off('myEvent', 'td', defaultData);
@@ -3995,27 +3995,19 @@ function JQuery() {
                 customData
             });
 
+            const ev: JQuery.TriggeredEvent<HTMLElement> = undefined!;
             // $ExpectType JQuery<HTMLElement>
-            $('table').off($.Event('myEvent'));
+            $('table').off(ev);
 
             // $ExpectType JQuery<HTMLElement>
             $('table').off();
         }
 
         function on() {
-            // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', 'td', 'myData', function(event) {
-                // $ExpectType HTMLElement
+                // $ExpectType any
                 this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').on('myEvent', 'td', 'myData', function(event: JQueryEventObject) {
-                // $ExpectType HTMLElement
-                this;
-                // $ExpectType JQueryEventObject
+                // $ExpectType TriggeredEvent<HTMLElement, string, any, any>
                 event;
             });
 
@@ -4023,12 +4015,38 @@ function JQuery() {
             $('table').on('myEvent', null, 'myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType TriggeredEvent<HTMLElement, string, HTMLElement, HTMLElement>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', undefined, 'myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType TriggeredEvent<HTMLElement, string, HTMLElement, HTMLElement>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 'td', 'myData', function(event: JQueryEventObject) {
+                // $ExpectType any
+                this;
+                // $ExpectType JQueryEventObject
                 event;
             });
 
             // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', null, 'myData', function(event: JQueryEventObject) {
+                // TODO: Why is this HTMLElement? The callback signature doesn't even have `this` declared.
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType JQueryEventObject
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', undefined, 'myData', function(event: JQueryEventObject) {
+                // TODO: Why is this HTMLElement? The callback signature doesn't even have `this` declared.
                 // $ExpectType HTMLElement
                 this;
                 // $ExpectType JQueryEventObject
@@ -4037,17 +4055,9 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', 'td', function(event) {
-                // $ExpectType HTMLElement
+                // $ExpectType any
                 this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').on('myEvent', 'td', function(event: JQueryEventObject) {
-                // $ExpectType HTMLElement
-                this;
-                // $ExpectType JQueryEventObject
+                // $ExpectType TriggeredEvent<HTMLElement, undefined, any, any>
                 event;
             });
 
@@ -4058,7 +4068,15 @@ function JQuery() {
             $('table').on('myEvent', 3, function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, number>
+                // $ExpectType TriggeredEvent<HTMLElement, number, HTMLElement, HTMLElement>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 'td', function(event: JQueryEventObject) {
+                // $ExpectType any
+                this;
+                // $ExpectType JQueryEventObject
                 event;
             });
 
@@ -4074,9 +4092,12 @@ function JQuery() {
             $('table').on('myEvent', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType TriggeredEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
                 event;
             });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', false);
 
             // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', function(event: JQueryEventObject) {
@@ -4111,15 +4132,12 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('table').on('myEvent', false);
-
-            // $ExpectType JQuery<HTMLElement>
             $('table').on({
                 myEvent1: false,
                 myEvent2(event) {
-                    // $ExpectType HTMLElement
+                    // $ExpectType any
                     this;
-                    // $ExpectType Event<HTMLElement, string>
+                    // $ExpectType TriggeredEvent<HTMLElement, string, any, any>
                     event;
                 }
             }, 'td', 'myData');
@@ -4130,7 +4148,7 @@ function JQuery() {
                 myEvent2(event) {
                     // $ExpectType HTMLElement
                     this;
-                    // $ExpectType Event<HTMLElement, string>
+                    // $ExpectType TriggeredEvent<HTMLElement, string, HTMLElement, HTMLElement>
                     event;
                 }
             }, null, 'myData');
@@ -4141,7 +4159,18 @@ function JQuery() {
                 myEvent2(event) {
                     // $ExpectType HTMLElement
                     this;
-                    // $ExpectType Event<HTMLElement, null>
+                    // $ExpectType TriggeredEvent<HTMLElement, string, HTMLElement, HTMLElement>
+                    event;
+                }
+            }, undefined, 'myData');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on({
+                myEvent1: false,
+                myEvent2(event) {
+                    // $ExpectType any
+                    this;
+                    // $ExpectType TriggeredEvent<HTMLElement, undefined, any, any>
                     event;
                 }
             }, 'td');
@@ -4152,7 +4181,7 @@ function JQuery() {
                 myEvent2(event) {
                     // $ExpectType HTMLElement
                     this;
-                    // $ExpectType Event<HTMLElement, number>
+                    // $ExpectType TriggeredEvent<HTMLElement, number, HTMLElement, HTMLElement>
                     event;
                 }
             }, 3);
@@ -4163,7 +4192,7 @@ function JQuery() {
                 myEvent2(event) {
                     // $ExpectType HTMLElement
                     this;
-                    // $ExpectType Event<HTMLElement, null>
+                    // $ExpectType TriggeredEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
                     event;
                 }
             });
@@ -4172,9 +4201,9 @@ function JQuery() {
         function one() {
             // $ExpectType JQuery<HTMLElement>
             $('table').one('myEvent', 'td', 'myData', function(event) {
-                // $ExpectType HTMLElement
+                // $ExpectType any
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType TriggeredEvent<HTMLElement, string, any, any>
                 event;
             });
 
@@ -4182,15 +4211,23 @@ function JQuery() {
             $('table').one('myEvent', null, 'myData', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, string>
+                // $ExpectType TriggeredEvent<HTMLElement, string, HTMLElement, HTMLElement>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one('myEvent', undefined, 'myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType TriggeredEvent<HTMLElement, string, HTMLElement, HTMLElement>
                 event;
             });
 
             // $ExpectType JQuery<HTMLElement>
             $('table').one('myEvent', 'td', function(event) {
-                // $ExpectType HTMLElement
+                // $ExpectType any
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType TriggeredEvent<HTMLElement, undefined, any, any>
                 event;
             });
 
@@ -4201,7 +4238,7 @@ function JQuery() {
             $('table').one('myEvent', 3, function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, number>
+                // $ExpectType TriggeredEvent<HTMLElement, number, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4209,7 +4246,7 @@ function JQuery() {
             $('table').one('myEvent', function(event) {
                 // $ExpectType HTMLElement
                 this;
-                // $ExpectType Event<HTMLElement, null>
+                // $ExpectType TriggeredEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
                 event;
             });
 
@@ -4220,9 +4257,9 @@ function JQuery() {
             $('table').one({
                 myEvent1: false,
                 myEvent2(event) {
-                    // $ExpectType HTMLElement
+                    // $ExpectType any
                     this;
-                    // $ExpectType Event<HTMLElement, string>
+                    // $ExpectType TriggeredEvent<HTMLElement, string, any, any>
                     event;
                 }
             }, 'td', 'myData');
@@ -4233,7 +4270,7 @@ function JQuery() {
                 myEvent2(event) {
                     // $ExpectType HTMLElement
                     this;
-                    // $ExpectType Event<HTMLElement, string>
+                    // $ExpectType TriggeredEvent<HTMLElement, string, HTMLElement, HTMLElement>
                     event;
                 }
             }, null, 'myData');
@@ -4244,7 +4281,18 @@ function JQuery() {
                 myEvent2(event) {
                     // $ExpectType HTMLElement
                     this;
-                    // $ExpectType Event<HTMLElement, null>
+                    // $ExpectType TriggeredEvent<HTMLElement, string, HTMLElement, HTMLElement>
+                    event;
+                }
+            }, undefined, 'myData');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one({
+                myEvent1: false,
+                myEvent2(event) {
+                    // $ExpectType any
+                    this;
+                    // $ExpectType TriggeredEvent<HTMLElement, undefined, any, any>
                     event;
                 }
             }, 'td');
@@ -4255,7 +4303,7 @@ function JQuery() {
                 myEvent2(event) {
                     // $ExpectType HTMLElement
                     this;
-                    // $ExpectType Event<HTMLElement, number>
+                    // $ExpectType TriggeredEvent<HTMLElement, number, HTMLElement, HTMLElement>
                     event;
                 }
             }, 3);
@@ -4266,7 +4314,7 @@ function JQuery() {
                 myEvent2(event) {
                     // $ExpectType HTMLElement
                     this;
-                    // $ExpectType Event<HTMLElement, null>
+                    // $ExpectType TriggeredEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
                     event;
                 }
             });
@@ -4337,9 +4385,9 @@ function JQuery() {
         }
 
         function unbind() {
-            function defaultData(this: HTMLElement, event: JQuery.Event<HTMLElement>) { }
+            function defaultData(this: HTMLElement, event: JQuery.TriggeredEvent<HTMLElement>) { }
 
-            function customData(this: HTMLElement, event: JQuery.Event<HTMLElement, string>) { }
+            function customData(this: HTMLElement, event: JQuery.TriggeredEvent<HTMLElement, string>) { }
 
             // $ExpectType JQuery<HTMLElement>
             $('p').unbind('myEvent', defaultData);
@@ -4353,17 +4401,18 @@ function JQuery() {
             // $ExpectType JQuery<HTMLElement>
             $('p').unbind('myEvent');
 
+            const ev: JQuery.TriggeredEvent<HTMLElement> = undefined!;
             // $ExpectType JQuery<HTMLElement>
-            $('p').unbind($.Event('myEvent'));
+            $('p').unbind(ev);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').unbind();
         }
 
         function undelegate() {
-            function defaultData(this: HTMLElement, event: JQuery.Event<HTMLElement>) { }
+            function defaultData(this: HTMLElement, event: JQuery.TriggeredEvent<HTMLElement>) { }
 
-            function customData(this: HTMLElement, event: JQuery.Event<HTMLElement, string>) { }
+            function customData(this: HTMLElement, event: JQuery.TriggeredEvent<HTMLElement, string>) { }
 
             // $ExpectType JQuery<HTMLElement>
             $('table').undelegate('td', 'click', defaultData);
@@ -7696,18 +7745,18 @@ function JQuery_Effects() {
 
 function JQuery_Event() {
     function call_signature() {
-        // $ExpectType Event<HTMLElement, null> & Coordinates
+        // $ExpectType Event & Coordinates
         $.Event('keydown', $('p').offset());
     }
 
     function constructor() {
-        // $ExpectType Event<HTMLElement, null> & Coordinates
+        // $ExpectType Event & Coordinates
         new $.Event('keydown', $('p').offset());
     }
 
     // https://stackoverflow.com/questions/49892574/trigger-a-jquery-3-event-with-ctrlkey-set
     function stackoverflow_49892574() {
-        const event = $.Event<object, Window>("keydown");
+        const event = $.Event("keydown");
         event.which = 77;
         event.ctrlKey = true;
         $(window).trigger(event);
@@ -7727,7 +7776,7 @@ function JQuery_EventExtensions() {
                 data;
                 // $ExpectType string
                 namespaces;
-                // $ExpectType EventHandler<EventTarget, any>
+                // $ExpectType EventHandlerBase<EventTarget, TriggeredEvent<EventTarget, any, any, any>>
                 eventHandle;
 
                 return false;
@@ -7753,7 +7802,7 @@ function JQuery_EventExtensions() {
             trigger(event, data) {
                 // $ExpectType EventTarget
                 this;
-                // $ExpectType Event<EventTarget, any>
+                // $ExpectType Event
                 event;
                 // $ExpectType any
                 data;
@@ -7761,7 +7810,7 @@ function JQuery_EventExtensions() {
                 return false;
             },
             _default(event, data) {
-                // $ExpectType Event<EventTarget, any>
+                // $ExpectType TriggeredEvent<EventTarget, any, any, any>
                 event;
                 // $ExpectType any
                 data;
@@ -7769,7 +7818,7 @@ function JQuery_EventExtensions() {
                 return false;
             },
             handle(event, data) {
-                // $ExpectType Event<EventTarget, any> & { handleObj: HandleObject<EventTarget, any>; }
+                // $ExpectType TriggeredEvent<EventTarget, any, any, any> & { handleObj: HandleObject<EventTarget, any>; }
                 event;
                 // $ExpectType any
                 data;
@@ -7777,7 +7826,7 @@ function JQuery_EventExtensions() {
             preDispatch(event) {
                 // $ExpectType EventTarget
                 this;
-                // $ExpectType Event<EventTarget, any>
+                // $ExpectType Event
                 event;
 
                 return false;
@@ -7785,7 +7834,7 @@ function JQuery_EventExtensions() {
             postDispatch(event) {
                 // $ExpectType EventTarget
                 this;
-                // $ExpectType Event<EventTarget, any>
+                // $ExpectType Event
                 event;
             }
         };
