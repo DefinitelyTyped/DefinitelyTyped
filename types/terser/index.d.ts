@@ -107,7 +107,7 @@ export interface MinifyOutput {
     ast?: boolean | AST_Toplevel;
 }
 
-function minify(files: {}, options?: MinifyOptions): MinifyOutput;
+export function minify(files: {}, options?: MinifyOptions): MinifyOutput;
 
 export interface ParseOptions {
     // Default is false
@@ -124,7 +124,7 @@ export interface ParseOptions {
  * The parser creates a custom abstract syntax tree given a piece of JavaScript code.
  * Perhaps you should read about the AST first.
  */
-function parse(code: string, options?: ParseOptions): AST_Toplevel;
+export function parse(code: string, options?: ParseOptions): AST_Toplevel;
 
 export interface BeautifierOptions {
     /**
@@ -306,7 +306,7 @@ export interface OutputStream {
  * The stream {} supports a lot of options that control the output.
  * You can specify whether you'd like to get human-readable (indented) output, the indentation level, whether you'd like to quote all properties in {} literals etc.
  */
-function OutputStream(options?: BeautifierOptions): OutputStream;
+export function OutputStream(options?: BeautifierOptions): OutputStream;
 
 export interface SourceMapOptions {
     /**
@@ -339,7 +339,7 @@ export interface SourceMap {
  * To use this functionality, you must load this library (it's automatically require-d by Terser in the NodeJS version, but in a browser you must load it yourself)
  * and make it available via the global MOZ_SourceMap variable.
  */
-function SourceMap(options?: SourceMapOptions): SourceMap;
+export function SourceMap(options?: SourceMapOptions): SourceMap;
 
 export interface CompressorOptions {
     // Join consecutive statemets with the “comma operator”
@@ -403,7 +403,7 @@ export interface CompressorOptions {
 /**
  * The compressor is a tree transformer which reduces the code size by applying various optimizations on the AST
  */
-function Compressor(options?: CompressorOptions): AST_Toplevel;
+export function Compressor(options?: CompressorOptions): AST_Toplevel;
 
 // TODO:
 
