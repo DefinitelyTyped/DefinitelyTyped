@@ -14,6 +14,7 @@
 //                 Dominik Heigl <https://github.com/various89>
 //                 Fazendaaa <https://github.com/Fazendaaa>
 //                 Norman Perrin <https://github.com/NormanPerrin>
+//                 Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -867,6 +868,7 @@ declare module "mongoose" {
     /** controls document#toObject behavior when called manually - defaults to true */
     minimize?: boolean;
     read?: string;
+    writeConcern?: WriteConcern;
     /** defaults to true. */
     safe?: boolean | { w?: number | string; wtimeout?: number; j?: boolean };
 
