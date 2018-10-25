@@ -48,7 +48,6 @@ import divide from './divide';
 import drop from './drop';
 import dropLast from './dropLast';
 import dropLastWhile from './dropLastWhile';
-import dropLastWhile from './dropLastWhile';
 import either from './either';
 import empty from './empty';
 import endsWith from './endsWith';
