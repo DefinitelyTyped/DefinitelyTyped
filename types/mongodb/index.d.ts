@@ -1158,23 +1158,16 @@ export interface FindAndModifyWriteOpResultObject<TSchema = Default> {
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndReplace */
-export interface FindOneAndReplaceOption {
+export interface FindOneAndReplaceOption extends CommonOptions {
     projection?: Object;
     sort?: Object;
     maxTimeMS?: number;
     upsert?: boolean;
     returnOriginal?: boolean;
-    session?: ClientSession;
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndUpdate */
-export interface FindOneAndUpdateOption {
-    projection?: Object;
-    sort?: Object;
-    maxTimeMS?: number;
-    upsert?: boolean;
-    returnOriginal?: boolean;
-    session?: ClientSession;
+export interface FindOneAndUpdateOption extends FindOneAndReplaceOption {
     arrayFilters?: Object[];
 }
 
@@ -1368,21 +1361,13 @@ export interface ReplaceOneOptions extends CommonOptions {
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateOne */
-export interface UpdateOneOptions extends CommonOptions {
-    upsert?: boolean;
-    w?: number | string;
-    wtimeout?: number;
-    j?: boolean;
-    bypassDocumentValidation?: boolean;
+export interface UpdateOneOptions extends ReplaceOneOptions {
     arrayFilters?: Object[];
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateMany */
 export interface UpdateManyOptions extends CommonOptions {
     upsert?: boolean;
-    w?: number | string;
-    wtimeout?: number;
-    j?: boolean;
     arrayFilters: Object[];
 }
 
