@@ -21,7 +21,7 @@ type CSSProperties = Omit<BaseCSSProperties, 'fontFamily' | 'transition' | 'anim
 
 // For pseudo selectors and media queries
 interface OpenCSSProperties extends CSSProperties {
-    [k: string]: CSSProperties[keyof CSSProperties] | CSSProperties;
+    [k: string]: CSSProperties[NonNullable<keyof CSSProperties>] | CSSProperties;
 }
 
 /**
