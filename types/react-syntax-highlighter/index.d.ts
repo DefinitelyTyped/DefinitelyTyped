@@ -7,8 +7,6 @@
 
 type lineTagPropsFunction = (lineNumber: number) => React.DOMAttributes<HTMLElement>
 
-type f = React.SyntheticEvent;
-
 interface SyntaxHighlighterProps {
     language?: string;
     style?: any;
