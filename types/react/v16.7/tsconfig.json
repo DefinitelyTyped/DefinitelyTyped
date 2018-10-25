@@ -4,20 +4,25 @@
         "test/index.ts",
         "test/tsx.tsx",
         "test/cssProperties.tsx",
-        "test/managedAttributes.tsx"
+        "test/managedAttributes.tsx",
+        "test/hooks.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
             "es6"
         ],
+        "paths": {
+            "react": ["react/v16.7"],
+            "react-dom": ["react-dom/v16.7"]
+        },
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
