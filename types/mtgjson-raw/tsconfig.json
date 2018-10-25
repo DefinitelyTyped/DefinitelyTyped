@@ -15,9 +15,6 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": [
-        "./**/*.test.ts"
-    ],
     "files": [
         "index.d.ts",
         "card.d.ts",
@@ -25,6 +22,9 @@
         "token.d.ts",
         "lib/game.d.ts",
         "lib/meta.d.ts",
-        "lib/physical.d.ts"
+        "lib/physical.d.ts",
+        "tests/BladeOfSithPride.test.ts",
+        "tests/Brisela.test.ts",
+        "tests/NivMizzet.test.ts"
     ]
 }
