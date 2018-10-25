@@ -88,7 +88,7 @@ function codeTagProps() {
     )
 }
 
-function lineTagPropsObject() {
+function linePropsObject() {
     const codeString: string = `class CPP {
         private year: number;
         public constructor(private version: string) {
@@ -100,7 +100,7 @@ function lineTagPropsObject() {
     }
     `;
     
-    const lineTagProps = {
+    const lineProps = {
         otherProp: 'otherProp',
         className: 'some-classname',
         style: {
@@ -111,7 +111,7 @@ function lineTagPropsObject() {
 
     return (
         <PrismLightHighlighter
-            lineTagProps={lineTagProps} />
+            lineProps={lineProps} />
     )
 }
 
@@ -127,7 +127,7 @@ function lineTagPropsFunction() {
     }
     `;
     
-    const lineTagProps = (lineNumber: number) => ({
+    const lineProps = (lineNumber: number) => ({
         otherProp: 'otherProp',
         className: 'some-classname',
         style: {
@@ -138,7 +138,7 @@ function lineTagPropsFunction() {
 
     return (
         <PrismLightHighlighter
-            lineTagProps={lineTagProps} />
+            lineProps={lineProps} />
     )
 }
 

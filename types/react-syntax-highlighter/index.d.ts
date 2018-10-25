@@ -13,7 +13,7 @@ interface SyntaxHighlighterProps {
     language?: string;
     style?: any;
     customStyle?: any;
-    lineTagProps?: lineTagPropsFunction | React.DOMAttributes<HTMLElement>
+    lineProps?: lineTagPropsFunction | React.DOMAttributes<HTMLElement>
     codeTagProps?: React.DOMAttributes<HTMLElement>;
     useInlineStyles?: boolean;
     showLineNumbers?: boolean;
