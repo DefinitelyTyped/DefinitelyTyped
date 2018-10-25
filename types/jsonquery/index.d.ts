@@ -14,11 +14,11 @@ declare namespace jsonquery {
     type Query<T> = BinaryQueryCondition<T> | QueryValue<T> | PathQuery;
 
     interface OrQueryCondition<T> {
-        $or: Array<Query<T>>;
+        $or: ReadonlyArray<Query<T>>;
     }
 
     interface AndQueryCondition<T> {
-        $and: Array<Query<T>>;
+        $and: ReadonlyArray<Query<T>>;
     }
 
     type BinaryQueryCondition<T> = OrQueryCondition<T> | AndQueryCondition<T>;
@@ -30,9 +30,9 @@ declare namespace jsonquery {
         $gte: P;
         $mod: [number, number];
         $ne: P;
-        $in: P[];
-        $nin: P[];
-        $all: P[];
+        $in: ReadonlyArray<P>;
+        $nin: ReadonlyArray<P>;
+        $all: ReadonlyArray<P>;
         $elemMatch: Partial<P>;
     }
 
