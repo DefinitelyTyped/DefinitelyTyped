@@ -1,5 +1,4 @@
 import * as React from 'react';
-import styled from 'styled-components/native';
 
 import * as ReactNative from 'react';
 
@@ -10,7 +9,7 @@ import styled, {
     ThemeProvider,
     withTheme,
     ThemeConsumer,
-} from 'styled-components';
+} from 'styled-components/native';
 
 /**
  * general usage

@@ -11,17 +11,12 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "styled-compoents/native": [
-                "styled-components__native"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "styled-components__native-tests.ts"
+        "styled-components-native-tests.ts"
     ]
 }
