@@ -61,3 +61,84 @@ function primsLightHighlighter(): JSX.Element {
         </PrismLightHighlighter>
     )
 }
+
+function codeTagProps() {
+    const codeString: string = `class CPP {
+        private year: number;
+        public constructor(private version: string) {
+            this.year = Number(version.match(/.+\d+$/));
+        }
+        public version(): string {
+            return this.version;
+        }
+    }
+    `;
+
+    const codeTagProps = {
+        className: 'some-classname',
+        style: {
+            opacity: 0,
+        },
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo",
+    }
+
+    return (
+        <PrismLightHighlighter
+            codeTagProps={codeTagProps} />
+    )
+}
+
+function lineTagPropsObject() {
+    const codeString: string = `class CPP {
+        private year: number;
+        public constructor(private version: string) {
+            this.year = Number(version.match(/.+\d+$/));
+        }
+        public version(): string {
+            return this.version;
+        }
+    }
+    `;
+    
+    const lineTagProps = {
+        otherProp: 'otherProp',
+        className: 'some-classname',
+        style: {
+            opacity: 0,
+        },
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo"
+    }
+
+    return (
+        <PrismLightHighlighter
+            lineTagProps={lineTagProps} />
+    )
+}
+
+function lineTagPropsFunction() {
+    const codeString: string = `class CPP {
+        private year: number;
+        public constructor(private version: string) {
+            this.year = Number(version.match(/.+\d+$/));
+        }
+        public version(): string {
+            return this.version;
+        }
+    }
+    `;
+    
+    const lineTagProps = (lineNumber: number) => ({
+        otherProp: 'otherProp',
+        className: 'some-classname',
+        style: {
+            opacity: 0,
+        },
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => lineNumber * 5
+    })
+
+    return (
+        <PrismLightHighlighter
+            lineTagProps={lineTagProps} />
+    )
+}
+

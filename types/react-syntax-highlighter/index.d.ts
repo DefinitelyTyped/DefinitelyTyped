@@ -5,11 +5,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+type lineTagPropsFunction = (lineNumber: number) => React.DOMAttributes<HTMLElement>
+
+type f = React.SyntheticEvent;
+
 interface SyntaxHighlighterProps {
     language?: string;
     style?: any;
     customStyle?: any;
-    codeTagProps?: HTMLElement;
+    lineTagProps?: lineTagPropsFunction | React.DOMAttributes<HTMLElement>
+    codeTagProps?: React.DOMAttributes<HTMLElement>;
     useInlineStyles?: boolean;
     showLineNumbers?: boolean;
     startingLineNumber?: number;
