@@ -23,7 +23,7 @@
         "lib/game.d.ts",
         "lib/meta.d.ts",
         "lib/physical.d.ts",
-        "tests/BladeOfSithPride.test.ts",
+        "tests/BladeOfSixthPride.test.ts",
         "tests/Brisela.test.ts",
         "tests/NivMizzet.test.ts"
     ]
