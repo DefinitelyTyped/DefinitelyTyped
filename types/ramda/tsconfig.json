@@ -75,7 +75,7 @@
         "es/empty.d.ts",
         "es/endsWith.d.ts",
         "es/eqBy.d.ts",
-        "es/eqPeop.d.ts",
+        "es/eqProps.d.ts",
         "es/equals.d.ts",
         "es/evolve.d.ts",
         "es/F.d.ts",
