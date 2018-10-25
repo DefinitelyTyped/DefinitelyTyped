@@ -1,11 +1,12 @@
-// Type definitions for prompts v1.1.1
+// Type definitions for prompts 1.1
 // Project: https://github.com/terkelg/prompts
 // Definitions by: Berkay GURSOY <https://github.com/Berkays>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 export = prompts;
 
-declare function prompts(questions: prompts.PromptObject | Array<prompts.PromptObject>, options?: prompts.Options): any;
+declare function prompts(questions: prompts.PromptObject | prompts.PromptObject[], options?: prompts.Options): any;
 
 declare namespace prompts {
     // Circular reference from prompts
@@ -16,7 +17,6 @@ declare namespace prompts {
     namespace inject {
         const prototype: {
         };
-
     }
 
     namespace prompts {
@@ -39,40 +39,38 @@ declare namespace prompts {
         function text(args: PromptObject): void;
 
         function toggle(args: PromptObject): void;
-
     }
 
     interface Choice {
-        title: string,
-        value: string
+        title: string;
+        value: string;
     }
 
     interface Options {
-        onSubmit: Function,
-        onCancel: Function
+        onSubmit: (prompt: PromptObject, answer: any, answers: any[]) => void;
+        onCancel: (prompt: PromptObject, answers: any) => void;
     }
 
     interface PromptObject {
-        type: string | Function,
-        name: string | Function,
-        message?: string | Function,
-        initial?: string,
-        style?: string,
-        format?: Function,
-        validate?: Function,
-        onState?: Function,
-        min?: number,
-        max?: number,
-        float?: boolean,
-        round?: number,
-        increment?: number,
-        seperator?: string,
-        active?: string,
-        inactive?: string,
-        choices?: Array<Choice>,
-        hint?: string,
-        suggest?: Function,
-        limit?: number
+        type: string | ((prev: any, values: any, prompt: PromptObject) => void);
+        name: string | ((prev: any, values: any, prompt: PromptObject) => void);
+        message?: string | ((prev: any, values: any, prompt: PromptObject) => void);
+        initial?: string;
+        style?: string;
+        format?: ((prev: any, values: any, prompt: PromptObject) => void);
+        validate?: ((prev: any, values: any, prompt: PromptObject) => void);
+        onState?: ((prev: any, values: any, prompt: PromptObject) => void);
+        min?: number;
+        max?: number;
+        float?: boolean;
+        round?: number;
+        increment?: number;
+        seperator?: string;
+        active?: string;
+        inactive?: string;
+        choices?: Choice[];
+        hint?: string;
+        suggest?: ((prev: any, values: any, prompt: PromptObject) => void);
+        limit?: number;
     }
 }
-
