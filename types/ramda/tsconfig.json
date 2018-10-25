@@ -261,6 +261,7 @@
         "es/xprod.d.ts",
         "es/zip.d.ts",
         "es/zipObj.d.ts",
-        "es/zipWith.d.ts"
+        "es/zipWith.d.ts",
+        "es/index.ts"
     ]
 }
