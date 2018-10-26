@@ -176,6 +176,8 @@ interface LeaveMeAloneDtslint { foo: string; }
 
 // const MemoFunctionalComponent = React.memo(FunctionalComponent);
 // const MemoAnnotatedDefaultProps = React.memo(AnnotatedDefaultProps);
+// const LazyMemoFunctionalComponent = React.lazy(async () => ({ default: MemoFunctionalComponent }));
+// const LazyMemoAnnotatedDefaultProps = React.lazy(async () => ({ default: MemoAnnotatedDefaultProps }));
 
 // const memoTests = [
 //     // $ExpectError
@@ -186,8 +188,22 @@ interface LeaveMeAloneDtslint { foo: string; }
 //     <MemoAnnotatedDefaultProps />,
 //     <AnnotatedDefaultProps str='abc' />,
 //     // $ExpectError this doesn't work despite JSX.LibraryManagedAttributes returning the correct type
-//     <MemoAnnotatedDefaultProps str='abc' />
+//     <MemoAnnotatedDefaultProps str='abc' />,
+//     // $ExpectError won't work as long as FunctionalComponent doesn't work either
+//     <LazyMemoFunctionalComponent str='abc' />,
+//     // $ExpectError
+//     <LazyMemoAnnotatedDefaultProps />,
+//     // $ExpectError this doesn't work despite JSX.LibraryManagedAttributes returning the correct type
+//     <LazyMemoAnnotatedDefaultProps str='abc' />
 // ];
+
+// type AnnotatedDefaultPropsLibraryManagedAttributes = JSX.LibraryManagedAttributes<typeof AnnotatedDefaultProps, Props>;
+// // $ExpectType AnnotatedDefaultPropsLibraryManagedAttributes
+// type FunctionalComponentLibraryManagedAttributes = JSX.LibraryManagedAttributes<typeof FunctionalComponent, Props>;
+// // $ExpectType FunctionalComponentLibraryManagedAttributes
+// type MemoFunctionalComponentLibraryManagedAttributes = JSX.LibraryManagedAttributes<typeof MemoFunctionalComponent, Props>;
+// // $ExpectType FunctionalComponentLibraryManagedAttributes
+// type LazyMemoFunctionalComponentLibraryManagedAttributes = JSX.LibraryManagedAttributes<typeof LazyMemoFunctionalComponent, Props>;
 
 // const ForwardRef = React.forwardRef((props: Props, ref: React.Ref<ComponentWithNoDefaultProps>) => (
 //     <ComponentWithNoDefaultProps ref={ref} {...props}/>

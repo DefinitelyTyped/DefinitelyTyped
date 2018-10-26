@@ -239,3 +239,14 @@ const Memoized6 = React.memo(props => null);
 // })());
 // // $ExpectType boolean
 // Memoized7.type.defaultProps.test;
+
+const LazyClassComponent = React.lazy(async () => ({ default: ComponentWithPropsAndState }));
+const LazyMemoized3 = React.lazy(async () => ({ default: Memoized3 }));
+const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
+
+<React.Suspense fallback={<Memoized1 foo='string' />}>
+    <LazyClassComponent hello='test'/>
+    <LazyClassComponent ref={ref => { if (ref) { ref.props.hello; } }} hello='test'/>
+    <LazyMemoized3 ref={ref => { if (ref) { ref.props.x; } }}/>
+    <LazyRefForwarding ref={memoized4Ref}/>
+</React.Suspense>;

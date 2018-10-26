@@ -300,6 +300,23 @@ declare namespace React {
     const Children: ReactChildren;
     const Fragment: ExoticComponent<{ children?: ReactNode }>;
     const StrictMode: ExoticComponent<{ children?: ReactNode }>;
+    /**
+     * This feature is not yet available for server-side rendering.
+     * Suspense support will be added in a later release.
+     */
+    const Suspense: ExoticComponent<{
+        children?: ReactNode
+
+        /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
+        fallback?: ReactNode
+
+        // I tried looking at the code but I have no idea what it does.
+        // https://github.com/facebook/react/issues/13206#issuecomment-432489986
+        /**
+         * Not implemented yet, requires unstable_ConcurrentMode
+         */
+        // maxDuration?: number
+    }>;
     const version: string;
 
     //
@@ -312,6 +329,29 @@ declare namespace React {
     // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
     class Component<P, S> {
+        // tslint won't let me format the sample code in a way that vscode likes it :(
+        /**
+         * If set, `this.context` will be set at runtime to the current value of the given Context.
+         *
+         * Usage:
+         *
+         * ```ts
+         * type MyContext = number
+         * const Ctx = React.createContext<MyContext>(0)
+         *
+         * class Foo extends React.Component {
+         *   static contextType = Ctx
+         *   context!: MyContext
+         *   render () {
+         *     return <>My context's value: {this.context}</>;
+         *   }
+         * }
+         * ```
+         *
+         * @see https://reactjs.org/docs/context.html#classcontexttype
+         */
+        static contextType?: Context<any>;
+
         constructor(props: Readonly<P>);
         /**
          * @deprecated
@@ -337,11 +377,6 @@ declare namespace React {
         // on the existence of `children` in `P`, then we should remove this.
         readonly props: Readonly<{ children?: ReactNode }> & Readonly<P>;
         state: Readonly<S>;
-        /**
-         * @deprecated
-         * https://reactjs.org/docs/legacy-context.html
-         */
-        context: any;
         /**
          * @deprecated
          * https://reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs
@@ -446,6 +481,7 @@ declare namespace React {
     // Unfortunately, we have no way of declaring that the component constructor must implement this
     interface StaticLifecycle<P, S> {
         getDerivedStateFromProps?: GetDerivedStateFromProps<P, S>;
+        getDerivedStateFromError?: GetDerivedStateFromError<P, S>;
     }
 
     type GetDerivedStateFromProps<P, S> =
@@ -455,6 +491,15 @@ declare namespace React {
          * Note: its presence prevents any of the deprecated lifecycle methods from being invoked
          */
         (nextProps: Readonly<P>, prevState: S) => Partial<S> | null;
+
+    type GetDerivedStateFromError<P, S> =
+        /**
+         * This lifecycle is invoked after an error has been thrown by a descendant component.
+         * It receives the error that was thrown as a parameter and should return a value to update state.
+         *
+         * Note: its presence prevents any of the deprecated lifecycle methods from being invoked
+         */
+        (error: any) => Partial<S> | null;
 
     // This should be "infer SS" but can't use it yet
     interface NewLifecycle<P, S, SS> {
@@ -618,6 +663,14 @@ declare namespace React {
         Component: T,
         propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean
     ): MemoExoticComponent<T>;
+
+    interface LazyExoticComponent<T extends ComponentType<any>> extends ExoticComponent<ComponentPropsWithRef<T>> {
+        readonly _result: T;
+    }
+
+    function lazy<T extends ComponentType<any>>(
+        factory: () => Promise<{ default: T }>
+    ): LazyExoticComponent<T>;
 
     //
     // React Hooks
@@ -2537,8 +2590,12 @@ declare global {
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
-        type LibraryManagedAttributes<C, P> = C extends React.MemoExoticComponent<infer T>
-            ? ReactManagedAttributes<T, P>
+        // We can't recurse forever because `type` can't be self-referential;
+        // let's assume it's reasonable to do a single React.lazy() around a single React.memo() / vice-versa
+        type LibraryManagedAttributes<C, P> = C extends React.MemoExoticComponent<infer T> | React.LazyExoticComponent<infer T>
+            ? T extends React.MemoExoticComponent<infer U> | React.LazyExoticComponent<infer U>
+                ? ReactManagedAttributes<U, P>
+                : ReactManagedAttributes<T, P>
             : ReactManagedAttributes<C, P>;
 
         // tslint:disable-next-line:no-empty-interface
