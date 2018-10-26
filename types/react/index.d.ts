@@ -20,7 +20,7 @@
 //                 Martin Hochel <https://github.com/hotell>
 //                 Frank Li <https://github.com/franklixuefei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 /// <reference path="global.d.ts" />
 
@@ -475,7 +475,7 @@ declare namespace React {
          * Catches exceptions generated in descendant components. Unhandled exceptions will cause
          * the entire component tree to unmount.
          */
-        componentDidCatch?(error: Error, errorInfo: ErrorInfo): void;
+        componentDidCatch?(error: unknown, errorInfo: ErrorInfo): void;
     }
 
     // Unfortunately, we have no way of declaring that the component constructor must implement this
