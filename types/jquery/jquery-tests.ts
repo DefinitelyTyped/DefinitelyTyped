@@ -8427,22 +8427,6 @@ function JQuery_Event() {
 }
 
 function JQuery_EventExtensions() {
-    function fixHooks() {
-        jQuery.event.fixHooks.drop = {
-            props: ['dataTransfer'],
-            filter(event, originalEvent) {
-                // $ExpectType Event<EventTarget, null>
-                event;
-                // $ExpectType Event
-                originalEvent;
-            },
-        };
-
-        // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-        // $ExpectError
-        jQuery.event.fixHooks.drop = ['dataTransfer'];
-    }
-
     function special() {
         jQuery.event.special.multiclick = {
             noBubble: true,

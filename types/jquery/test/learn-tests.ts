@@ -21,24 +21,6 @@ jQuery("a").greenify(); // Makes all the links green.
 
 // Events
 
-function fixHooks() {
-    function setHook() {
-        jQuery.event.fixHooks.drop = {
-            props: ["dataTransfer"]
-        };
-    }
-
-    function conflictResolution() {
-        if (jQuery.event.fixHooks.drop) {
-            throw new Error("Someone else took the jQuery.event.fixHooks.drop hook!");
-        }
-
-        jQuery.event.fixHooks.drop = {
-            props: ["dataTransfer"]
-        };
-    }
-}
-
 function special() {
     function defineSpecialEvent() {
         jQuery.event.special.pushy = {
