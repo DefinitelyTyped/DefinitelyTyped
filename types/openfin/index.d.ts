@@ -1,12 +1,13 @@
-// Type definitions for OpenFin API 34.0
+// Type definitions for OpenFin API 37.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
 //                 Ricardo de Pena <https://github.com/rdepena>
 //                 Roma <https://github.com/whyn07m3>
+//                 Li Cui <https://github.com/licui3936>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-// based on v9.61.34.22
+// based on v9.61.37.14
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
 
 /**

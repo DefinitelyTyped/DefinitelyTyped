@@ -19,6 +19,7 @@ import { RegistryInfo } from './registry-info';
 import { DownloadPreloadOption, DownloadPreloadInfo } from './download-preload';
 import { ClearCacheOption } from './clearCacheOption';
 import { CrashReporterOption } from './crashReporterOption';
+import { SystemEvents } from '../events/system';
 /**
  * AppAssetInfo interface
  * @typedef { Object } AppAssetInfo
@@ -164,7 +165,7 @@ import { CrashReporterOption } from './crashReporterOption';
  * clearing the cache and exiting the runtime.
  * @namespace
  */
-export default class System extends EmitterBase {
+export default class System extends EmitterBase<SystemEvents> {
     constructor(wire: Transport);
     /**
      * Returns the version of the runtime. The version contains the major, minor,
@@ -224,13 +225,6 @@ export default class System extends EmitterBase {
      * @tutorial System.getCrashReporterState
      */
     getCrashReporterState(): Promise<CrashReporterOption>;
-    /**
-     * Returns a unique identifier (UUID) for the machine (SHA256 hash of the system's MAC address).
-     * This call will return the same value on subsequent calls on the same machine(host).
-     * The values will be different on different machines, and should be considered globally unique.
-     * @return {Promise.<string>}
-     * @tutorial System.getDeviceId
-     */
     getDeviceId(): Promise<string>;
     /**
      * Start the crash reporter for the browser process if not already running.
@@ -275,6 +269,12 @@ export default class System extends EmitterBase {
      * @tutorial System.getLog
      */
     getLog(options: GetLogRequestType): Promise<string>;
+    /**
+     * Returns a unique identifier (UUID) provided by the machine.
+     * @return {Promise.<string>}
+     * @tutorial System.getMachineId
+     */
+    getMachineId(): Promise<string>;
     /**
      * Returns the minimum (inclusive) logging level that is currently being written to the log.
      * @return {Promise.<LogLevel>}
