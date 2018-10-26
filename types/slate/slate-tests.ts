@@ -59,6 +59,6 @@ editor.query("testQuery");
 editor.run("testCommand");
 editor.event("mouseDown", new Event("mouseDown"));
 
-KeyUtils.setGenerator(() => 'Test');
+KeyUtils.setGenerator(() => "Test");
 KeyUtils.create();
 KeyUtils.resetGenerator();
