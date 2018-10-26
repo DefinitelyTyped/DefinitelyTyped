@@ -5210,9 +5210,79 @@ declare namespace Stripe {
          */
         type ISourceCreationOptionsExtended = string | cards.ISourceCreationOptionsExtended;
 
+        type ISource = ISourceBase & (ICardSource | IOtherSource)
         type ISourceTypes = "ach_credit_transfer" | "ach_debit" | "alipay" | "bancontat" | "card" | "card_present" | "eps" | "giropay" | "ideal" | "multibanco" | "p24" | "paper_check" | "sepa_credit_transfer" | "sepa_debit" | "sofort" | "three_d_secure";
 
-        interface ISource extends IResourceObject {
+        interface IOtherSource extends ISourceBase {
+            type: ISourceTypes;
+            [k: string]: any;
+        }
+
+        interface ICardSource extends ISourceBase {
+            type: "card";
+            card: {
+                /**
+                 * Two-digit number representing the card’s expiration month.
+                 */
+                exp_month: number;
+                /**
+                 * Four-digit number representing the card’s expiration year.
+                 */
+                exp_year: number;
+                /**
+                 * If address_zip was provided, results of the check
+                 */
+                address_zip_check: "pass" | "fail" | "unavailable" | "unchecked",
+                /**
+                 * Card brand.
+                 */
+                brand: "American Express" | "Diners Club" | "Discover" | "JCB" | "MasterCard" | "UnionPay" | "Visa" | "Unknown";
+                /**
+                 * Two-letter ISO code representing the country of the card. You could
+                 * use this attribute to get a sense of the international breakdown of
+                 * cards you’ve collected.
+                 */
+                country: string,
+                /**
+                 * If a CVC was provided, results of the check.
+                 */
+                cvc_check: "pass" | "fail" | "unavailable" | "unchecked",
+                /**
+                 * Uniquely identifies this particular bank account. You can use
+                 * this attribute to check whether two bank accounts are the same.
+                 */
+                fingerprint: string,
+                /**
+                 * Card funding type. Can be credit, debit, prepaid, or unknown.
+                 */
+                funding: "credit" | "debit" | "prepaid" | "unknown";
+                /**
+                 * The last four digits of the card.
+                 */
+                last4: string,
+                /**
+                 * Cardholder name.
+                 */
+                name: string | null,
+                /**
+                 * If address_line1 was provided, results of the check: pass, fail,
+                 * unavailable, or unchecked.
+                 */
+                address_line1_check?: "pass" | "fail" | "unavailable" | "unchecked",
+                /**
+                 * If the card number is tokenized, this is the method that was used.
+                 * Can be apple_pay or android_pay.
+                 */
+                tokenization_method?: "apple_pay" | "android_pay",
+                /**
+                 * (For tokenized numbers only.) The last four digits of the device
+                 * account number.
+                 */
+                dynamic_last4?: string;
+            }
+        }
+
+        interface ISourceBase extends IResourceObject {
             /**
              * A positive integer in the smallest currency unit (that is, 100
              * cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal
