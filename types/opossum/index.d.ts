@@ -10,8 +10,27 @@ import * as stream from "stream";
 export type Action = () => any;
 
 export class CircuitBreaker {
+    clearCache(): void;
+    close(): void;
+    disable(): void;
+    enable(): void;
+    fallback(): CircuitBreaker;
+    fire(): Promise<any>;
+    healthCheck(func: () => Promise<any>, interval: number): Promise<any>;
+    open(): void;
     promisify(action: Action): Promise<Action>;
     stats(): stream.Transform;
+
+    static readonly name: symbol;
+    static readonly group: symbol;
+    static readonly pendingClose: symbol;
+    static readonly closed: symbol;
+    static readonly opened: symbol;
+    static readonly halfOpen: symbol;
+    static readonly status: symbol;
+    static readonly hystrixStats: symbol;
+    static readonly enabled: symbol;
+    static readonly warmUp: symbol;
 }
 
 export interface CircuitBreakerOptions {

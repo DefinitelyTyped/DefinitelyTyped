@@ -2,7 +2,7 @@
 // Project: https://github.com/taion/graphql-type-json#readme
 // Definitions by: Pavel Ivanov <https://github.com/schfkt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import { GraphQLScalarType } from "graphql";
 

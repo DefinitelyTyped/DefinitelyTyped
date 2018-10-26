@@ -2613,6 +2613,7 @@ declare namespace google.maps {
       strictBounds?: boolean;
       types?: string[];
       type?: string;
+      fields?: string[];
     }
 
     export interface AutocompletePrediction {

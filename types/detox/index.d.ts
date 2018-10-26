@@ -1,6 +1,6 @@
-// Type definitions for detox 7.3
+// Type definitions for detox 9.0
 // Project: https://github.com/wix/detox
-// Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>
+// Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>, Steve Chun <https://github.com/stevechun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const detox: Detox.Detox;
@@ -22,7 +22,7 @@ declare namespace Detox {
          *      await detox.init(config);
          * });
          */
-        init(config: any, options: DetoxInitOptions): Promise<void>;
+        init(config: any, options?: DetoxInitOptions): Promise<void>;
         /**
          * Artifacts currently include only logs from the app process before each task
          * @param args
@@ -158,18 +158,6 @@ declare namespace Detox {
         (by: Matchers): DetoxAny;
 
         /**
-         * Select by parent element
-         * @param parent
-         * @example await element(by.id('Grandson883').withAncestor(by.id('Son883')));
-         */
-        withAncestor(parent: Element): DetoxAny;
-        /**
-         * Select by child element
-         * @param parent
-         * @example await element(by.id('Son883').withDescendant(by.id('Grandson883')));
-         */
-        withDescendant(child: Element): DetoxAny;
-        /**
          * Choose from multiple elements matching the same matcher using index
          * @param index
          * @example await element(by.text('Product')).atIndex(2);
@@ -177,6 +165,8 @@ declare namespace Detox {
         atIndex(index: number): DetoxAny;
     }
     interface Matchers {
+        (by: Matchers): Matchers;
+
         /**
          * by.id will match an id that is given to the view via testID prop.
          * @param id
@@ -209,6 +199,24 @@ declare namespace Detox {
          * @example await element(by.traits(['button']));
          */
         traits(traits: string[]): Matchers;
+        /**
+         * Find an element by a matcher with a parent matcher
+         * @param parentBy
+         * @example await element(by.id('Grandson883').withAncestor(by.id('Son883')));
+         */
+        withAncestor(parentBy: Matchers): Matchers;
+        /**
+         * Find an element by a matcher with a child matcher
+         * @param childBy
+         * @example await element(by.id('Son883').withDescendant(by.id('Grandson883')));
+         */
+        withDescendant(childBy: Matchers): Matchers;
+        /**
+         * Find an element by multiple matchers
+         * @param by
+         * @example await element(by.text('Product').and(by.id('product_name'));
+         */
+        and(by: Matchers): Matchers;
     }
     interface Expect<R> {
         (element: Element): Expect<any>;
@@ -275,7 +283,7 @@ declare namespace Detox {
         withTimeout(millis: number): Promise<void>;
         /**
          * Performs the action repeatedly on the element until an expectation is met
-         * @param element
+         * @param by
          * @example await waitFor(element(by.text('Text5'))).toBeVisible().whileElement(by.id('ScrollView630')).scroll(50, 'down');
          */
         whileElement(by: Matchers): DetoxAny;
