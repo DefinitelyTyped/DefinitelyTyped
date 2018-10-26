@@ -1,4 +1,4 @@
-import * as prompts from "prompts";
+import prompts = require("prompts");
 
 const response = prompts({
     type: 'number',
