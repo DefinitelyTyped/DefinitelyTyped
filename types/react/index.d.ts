@@ -566,6 +566,7 @@ declare namespace React {
 
     // based on the code in https://github.com/facebook/react/pull/13968
 
+    // Unlike the class component setState, the updates are not allowed to be partial
     type SetStateAction<S> = S | ((prevState: S) => S);
     // this technically does accept a second argument, but it's already under a deprecation warning
     // and it's not even released so probably better to not define it.
