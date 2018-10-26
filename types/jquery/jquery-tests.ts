@@ -3883,8 +3883,6 @@ function JQuery() {
     function events() {
         // [bind() overloads] https://github.com/jquery/api.jquery.com/issues/1048
         function bind() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').bind('myEvent', 'myData', function(event) {
                 // $ExpectType HTMLElement
@@ -3894,24 +3892,8 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').bind('myEvent', 'myData', function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').bind('myEvent', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').bind('myEvent', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, null>
                 event;
@@ -3928,12 +3910,6 @@ function JQuery() {
                     this;
                     // $ExpectType Event<HTMLElement, null>
                     event;
-                },
-                myEvent3(this: J1, event) {
-                    // $ExpectType J1
-                    this;
-                    // $ExpectType Event<HTMLElement, null>
-                    event;
                 }
             });
 
@@ -3945,8 +3921,6 @@ function JQuery() {
         }
 
         function delegate() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('table').delegate('td', 'myEvent', 'myData', function(event) {
                 // $ExpectType HTMLElement
@@ -3956,24 +3930,8 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('table').delegate('td', 'myEvent', 'myData', function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('table').delegate('td', 'myEvent', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').delegate('td', 'myEvent', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, null>
                 event;
@@ -3990,38 +3948,20 @@ function JQuery() {
                     // $ExpectType Event<HTMLElement, null>
                     event;
                 },
-                myEvent2: false,
-                myEvent3(this: J1, event) {
-                    // $ExpectType J1
-                    this;
-                    // $ExpectType Event<HTMLElement, null>
-                    event;
-                }
+                myEvent2: false
             });
         }
 
         function off() {
-            function defaultContext_defaultData(this: HTMLElement, event: JQuery.Event<HTMLElement>) { }
+            function defaultData(this: HTMLElement, event: JQuery.Event<HTMLElement>) { }
 
-            function defaultContext_customData(this: HTMLElement, event: JQuery.Event<HTMLElement, string>) { }
-
-            function customContext_defaultData(this: J1, event: JQuery.Event<HTMLElement>) { }
-
-            function customContext_customData(this: J1, event: JQuery.Event<HTMLElement, string>) { }
-
-            interface J1 { kind: 'J1'; }
+            function customData(this: HTMLElement, event: JQuery.Event<HTMLElement, string>) { }
 
             // $ExpectType JQuery<HTMLElement>
-            $('table').off('myEvent', 'td', defaultContext_defaultData);
+            $('table').off('myEvent', 'td', defaultData);
 
             // $ExpectType JQuery<HTMLElement>
-            $('table').off('myEvent', 'td', defaultContext_customData);
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').off('myEvent', 'td', customContext_defaultData);
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').off('myEvent', 'td', customContext_customData);
+            $('table').off('myEvent', 'td', customData);
 
             // $ExpectType JQuery<HTMLElement>
             $('table').off('myEvent', 'td', false);
@@ -4030,16 +3970,10 @@ function JQuery() {
             $('table').off('myEvent', 'td');
 
             // $ExpectType JQuery<HTMLElement>
-            $('table').off('myEvent', defaultContext_defaultData);
+            $('table').off('myEvent', defaultData);
 
             // $ExpectType JQuery<HTMLElement>
-            $('table').off('myEvent', defaultContext_customData);
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').off('myEvent', customContext_defaultData);
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').off('myEvent', customContext_customData);
+            $('table').off('myEvent', customData);
 
             // $ExpectType JQuery<HTMLElement>
             $('table').off('myEvent', false);
@@ -4050,19 +3984,15 @@ function JQuery() {
             // $ExpectType JQuery<HTMLElement>
             $('table').off({
                 myEvent1: false,
-                defaultContext_defaultData,
-                defaultContext_customData,
-                customContext_defaultData,
-                customContext_customData
+                defaultData,
+                customData
             }, 'td');
 
             // $ExpectType JQuery<HTMLElement>
             $('table').off({
                 myEvent1: false,
-                defaultContext_defaultData,
-                defaultContext_customData,
-                customContext_defaultData,
-                customContext_customData
+                defaultData,
+                customData
             });
 
             // $ExpectType JQuery<HTMLElement>
@@ -4073,8 +4003,6 @@ function JQuery() {
         }
 
         function on() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', 'td', 'myData', function(event) {
                 // $ExpectType HTMLElement
@@ -4088,14 +4016,6 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 this;
                 // $ExpectType JQueryEventObject
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').on('myEvent', 'td', 'myData', function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, string>
                 event;
             });
 
@@ -4116,14 +4036,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('table').on('myEvent', null, 'myData', function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', 'td', function(event) {
                 // $ExpectType HTMLElement
                 this;
@@ -4136,14 +4048,6 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 this;
                 // $ExpectType JQueryEventObject
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').on('myEvent', 'td', function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
                 event;
             });
 
@@ -4163,14 +4067,6 @@ function JQuery() {
                 // $ExpectType HTMLElement
                 this;
                 // $ExpectType JQueryEventObject
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').on('myEvent', 3, function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, number>
                 event;
             });
 
@@ -4215,14 +4111,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('table').on('myEvent', function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('table').on('myEvent', false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -4230,12 +4118,6 @@ function JQuery() {
                 myEvent1: false,
                 myEvent2(event) {
                     // $ExpectType HTMLElement
-                    this;
-                    // $ExpectType Event<HTMLElement, string>
-                    event;
-                },
-                myEvent3(this: J1, event) {
-                    // $ExpectType J1
                     this;
                     // $ExpectType Event<HTMLElement, string>
                     event;
@@ -4250,12 +4132,6 @@ function JQuery() {
                     this;
                     // $ExpectType Event<HTMLElement, string>
                     event;
-                },
-                myEvent3(this: J1, event) {
-                    // $ExpectType J1
-                    this;
-                    // $ExpectType Event<HTMLElement, string>
-                    event;
                 }
             }, null, 'myData');
 
@@ -4264,12 +4140,6 @@ function JQuery() {
                 myEvent1: false,
                 myEvent2(event) {
                     // $ExpectType HTMLElement
-                    this;
-                    // $ExpectType Event<HTMLElement, null>
-                    event;
-                },
-                myEvent3(this: J1, event) {
-                    // $ExpectType J1
                     this;
                     // $ExpectType Event<HTMLElement, null>
                     event;
@@ -4284,12 +4154,6 @@ function JQuery() {
                     this;
                     // $ExpectType Event<HTMLElement, number>
                     event;
-                },
-                myEvent3(this: J1, event) {
-                    // $ExpectType J1
-                    this;
-                    // $ExpectType Event<HTMLElement, number>
-                    event;
                 }
             }, 3);
 
@@ -4301,30 +4165,14 @@ function JQuery() {
                     this;
                     // $ExpectType Event<HTMLElement, null>
                     event;
-                },
-                myEvent3(this: J1, event) {
-                    // $ExpectType J1
-                    this;
-                    // $ExpectType Event<HTMLElement, null>
-                    event;
                 }
             });
         }
 
         function one() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('table').one('myEvent', 'td', 'myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').one('myEvent', 'td', 'myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -4339,24 +4187,8 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('table').one('myEvent', null, 'myData', function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('table').one('myEvent', 'td', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').one('myEvent', 'td', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, null>
                 event;
@@ -4374,24 +4206,8 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('table').one('myEvent', 3, function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, number>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('table').one('myEvent', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').one('myEvent', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, null>
                 event;
@@ -4408,12 +4224,6 @@ function JQuery() {
                     this;
                     // $ExpectType Event<HTMLElement, string>
                     event;
-                },
-                myEvent3(this: J1, event) {
-                    // $ExpectType J1
-                    this;
-                    // $ExpectType Event<HTMLElement, string>
-                    event;
                 }
             }, 'td', 'myData');
 
@@ -4422,12 +4232,6 @@ function JQuery() {
                 myEvent1: false,
                 myEvent2(event) {
                     // $ExpectType HTMLElement
-                    this;
-                    // $ExpectType Event<HTMLElement, string>
-                    event;
-                },
-                myEvent3(this: J1, event) {
-                    // $ExpectType J1
                     this;
                     // $ExpectType Event<HTMLElement, string>
                     event;
@@ -4442,12 +4246,6 @@ function JQuery() {
                     this;
                     // $ExpectType Event<HTMLElement, null>
                     event;
-                },
-                myEvent3(this: J1, event) {
-                    // $ExpectType J1
-                    this;
-                    // $ExpectType Event<HTMLElement, null>
-                    event;
                 }
             }, 'td');
 
@@ -4459,12 +4257,6 @@ function JQuery() {
                     this;
                     // $ExpectType Event<HTMLElement, number>
                     event;
-                },
-                myEvent3(this: J1, event) {
-                    // $ExpectType J1
-                    this;
-                    // $ExpectType Event<HTMLElement, number>
-                    event;
                 }
             }, 3);
 
@@ -4473,12 +4265,6 @@ function JQuery() {
                 myEvent1: false,
                 myEvent2(event) {
                     // $ExpectType HTMLElement
-                    this;
-                    // $ExpectType Event<HTMLElement, null>
-                    event;
-                },
-                myEvent3(this: J1, event) {
-                    // $ExpectType J1
                     this;
                     // $ExpectType Event<HTMLElement, null>
                     event;
@@ -4551,27 +4337,15 @@ function JQuery() {
         }
 
         function unbind() {
-            function defaultContext_defaultData(this: HTMLElement, event: JQuery.Event<HTMLElement>) { }
+            function defaultData(this: HTMLElement, event: JQuery.Event<HTMLElement>) { }
 
-            function defaultContext_customData(this: HTMLElement, event: JQuery.Event<HTMLElement, string>) { }
-
-            function customContext_defaultData(this: J1, event: JQuery.Event<HTMLElement>) { }
-
-            function customContext_customData(this: J1, event: JQuery.Event<HTMLElement, string>) { }
-
-            interface J1 { kind: 'J1'; }
+            function customData(this: HTMLElement, event: JQuery.Event<HTMLElement, string>) { }
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').unbind('myEvent', defaultContext_defaultData);
+            $('p').unbind('myEvent', defaultData);
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').unbind('myEvent', defaultContext_customData);
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').unbind('myEvent', customContext_defaultData);
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').unbind('myEvent', customContext_customData);
+            $('p').unbind('myEvent', customData);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').unbind('myEvent', false);
@@ -4587,27 +4361,15 @@ function JQuery() {
         }
 
         function undelegate() {
-            function defaultContext_defaultData(this: HTMLElement, event: JQuery.Event<HTMLElement>) { }
+            function defaultData(this: HTMLElement, event: JQuery.Event<HTMLElement>) { }
 
-            function defaultContext_customData(this: HTMLElement, event: JQuery.Event<HTMLElement, string>) { }
-
-            function customContext_defaultData(this: J1, event: JQuery.Event<HTMLElement>) { }
-
-            function customContext_customData(this: J1, event: JQuery.Event<HTMLElement, string>) { }
-
-            interface J1 { kind: 'J1'; }
+            function customData(this: HTMLElement, event: JQuery.Event<HTMLElement, string>) { }
 
             // $ExpectType JQuery<HTMLElement>
-            $('table').undelegate('td', 'click', defaultContext_defaultData);
+            $('table').undelegate('td', 'click', defaultData);
 
             // $ExpectType JQuery<HTMLElement>
-            $('table').undelegate('td', 'click', defaultContext_customData);
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').undelegate('td', 'click', customContext_defaultData);
-
-            // $ExpectType JQuery<HTMLElement>
-            $('table').undelegate('td', 'click', customContext_customData);
+            $('table').undelegate('td', 'click', customData);
 
             // $ExpectType JQuery<HTMLElement>
             $('table').undelegate('td', 'click', false);
@@ -4618,10 +4380,8 @@ function JQuery() {
             // $ExpectType JQuery<HTMLElement>
             $('table').undelegate('td', {
                 myEvent1: false,
-                defaultContext_defaultData,
-                defaultContext_customData,
-                customContext_defaultData,
-                customContext_customData
+                defaultData,
+                customData
             });
 
             // $ExpectType JQuery<HTMLElement>
@@ -4632,19 +4392,9 @@ function JQuery() {
         }
 
         function blur() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').blur('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').blur('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -4659,14 +4409,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').blur(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').blur(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -4674,19 +4416,9 @@ function JQuery() {
         }
 
         function change() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').change('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').change('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -4701,14 +4433,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').change(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').change(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -4716,19 +4440,9 @@ function JQuery() {
         }
 
         function click() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').click('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').click('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -4743,14 +4457,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').click(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').click(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -4758,19 +4464,9 @@ function JQuery() {
         }
 
         function contextmenu() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').contextmenu('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').contextmenu('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -4785,14 +4481,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').contextmenu(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').contextmenu(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -4800,19 +4488,9 @@ function JQuery() {
         }
 
         function dblclick() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').dblclick('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').dblclick('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -4827,14 +4505,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').dblclick(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').dblclick(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -4842,19 +4512,9 @@ function JQuery() {
         }
 
         function focus() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').focus('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').focus('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -4869,14 +4529,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').focus(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').focus(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -4884,19 +4536,9 @@ function JQuery() {
         }
 
         function focusin() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').focusin('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').focusin('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -4911,14 +4553,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').focusin(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').focusin(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -4926,19 +4560,9 @@ function JQuery() {
         }
 
         function focusout() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').focusout('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').focusout('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -4953,14 +4577,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').focusout(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').focusout(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -4968,19 +4584,9 @@ function JQuery() {
         }
 
         function keydown() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').keydown('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').keydown('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -4995,14 +4601,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').keydown(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').keydown(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5010,19 +4608,9 @@ function JQuery() {
         }
 
         function keypress() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').keypress('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').keypress('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -5037,14 +4625,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').keypress(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').keypress(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5052,19 +4632,9 @@ function JQuery() {
         }
 
         function keyup() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').keyup('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').keyup('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -5079,14 +4649,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').keyup(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').keyup(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5094,19 +4656,9 @@ function JQuery() {
         }
 
         function mousedown() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').mousedown('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').mousedown('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -5121,14 +4673,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').mousedown(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').mousedown(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5136,19 +4680,9 @@ function JQuery() {
         }
 
         function mouseenter() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').mouseenter('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').mouseenter('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -5163,14 +4697,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').mouseenter(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').mouseenter(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5178,19 +4704,9 @@ function JQuery() {
         }
 
         function mouseleave() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').mouseleave('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').mouseleave('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -5205,14 +4721,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').mouseleave(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').mouseleave(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5220,19 +4728,9 @@ function JQuery() {
         }
 
         function mousemove() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').mousemove('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').mousemove('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -5247,14 +4745,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').mousemove(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').mousemove(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5262,19 +4752,9 @@ function JQuery() {
         }
 
         function mouseout() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').mouseout('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').mouseout('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -5289,14 +4769,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').mouseout(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').mouseout(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5304,19 +4776,9 @@ function JQuery() {
         }
 
         function mouseover() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').mouseover('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').mouseover('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -5331,14 +4793,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').mouseover(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').mouseover(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5346,19 +4800,9 @@ function JQuery() {
         }
 
         function mouseup() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').mouseup('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').mouseup('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -5373,14 +4817,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').mouseup(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').mouseup(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5388,19 +4824,9 @@ function JQuery() {
         }
 
         function resize() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').resize('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').resize('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -5415,14 +4841,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').resize(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').resize(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5430,19 +4848,9 @@ function JQuery() {
         }
 
         function scroll() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').scroll('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').scroll('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -5457,14 +4865,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').scroll(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').scroll(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5472,19 +4872,9 @@ function JQuery() {
         }
 
         function select() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').select('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').select('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -5499,14 +4889,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').select(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').select(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5514,19 +4896,9 @@ function JQuery() {
         }
 
         function submit() {
-            interface J1 { kind: 'J1'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').submit('myData', function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, string>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').submit('myData', function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, string>
                 event;
@@ -5541,14 +4913,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').submit(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').submit(false);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5556,9 +4920,6 @@ function JQuery() {
         }
 
         function hover() {
-            interface J1 { kind: 'J1'; }
-            interface J2 { kind: 'J2'; }
-
             // $ExpectType JQuery<HTMLElement>
             $('p').hover(function(event) {
                 // $ExpectType HTMLElement
@@ -5573,55 +4934,8 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').hover(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            }, function(event) {
-                // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').hover(function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            }, function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').hover(function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            }, function(this: J2, event) {
-                // $ExpectType J2
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').hover(function(event) {
-                // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            }, false);
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').hover(function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, null>
                 event;
@@ -5636,27 +4950,11 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').hover(false, function(this: J1, event) {
-                // $ExpectType J1
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').hover(false, false);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').hover(function(event) {
                 // $ExpectType HTMLElement
-                this;
-                // $ExpectType Event<HTMLElement, null>
-                event;
-            });
-
-            // $ExpectType JQuery<HTMLElement>
-            $('p').hover(function(this: J1, event) {
-                // $ExpectType J1
                 this;
                 // $ExpectType Event<HTMLElement, null>
                 event;
