@@ -277,9 +277,13 @@ declare namespace React {
         displayName?: string;
     }
 
+    interface ProviderExoticComponent<P> extends ExoticComponent<P> {
+        propTypes?: ValidationMap<P>;
+    }
+
     // NOTE: only the Context object itself can get a displayName
     // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
-    type Provider<T> = ExoticComponent<ProviderProps<T>>;
+    type Provider<T> = ProviderExoticComponent<ProviderProps<T>>;
     type Consumer<T> = ExoticComponent<ConsumerProps<T>>;
     interface Context<T> {
         Provider: Provider<T>;
@@ -585,7 +589,11 @@ declare namespace React {
 
     // will show `ForwardRef(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
-    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): NamedExoticComponent<P & ClassAttributes<T>>;
+    interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
+        defaultProps?: Partial<P>;
+    }
+
+    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<P & ClassAttributes<T>>;
 
     type ComponentProps<T extends ComponentType<any>> =
         T extends ComponentType<infer P> ? P : {};
@@ -598,6 +606,10 @@ declare namespace React {
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
+    interface MemoExoticComponent<T extends ComponentType<any>> extends NamedExoticComponent<ComponentPropsWithRef<T>> {
+        readonly type: T;
+    }
+
     function memo<P extends object>(
         Component: SFC<P>,
         propsAreEqual?: (prevProps: Readonly<P & { children?: ReactNode }>, nextProps: Readonly<P & { children?: ReactNode }>) => boolean
@@ -605,7 +617,7 @@ declare namespace React {
     function memo<T extends ComponentType<any>>(
         Component: T,
         propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean
-    ): NamedExoticComponent<ComponentPropsWithRef<T>>;
+    ): MemoExoticComponent<T>;
 
     //
     // React Hooks
@@ -2507,6 +2519,14 @@ type Defaultize<P, D> = P extends any
         & Partial<Pick<D, Exclude<keyof D, keyof P>>>
     : never;
 
+type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D; }
+    ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
+    : C extends { propTypes: infer T; }
+        ? MergePropTypes<P, PropTypes.InferProps<T>>
+        : C extends { defaultProps: infer D; }
+            ? Defaultize<P, D>
+            : P;
+
 declare global {
     namespace JSX {
         // tslint:disable-next-line:no-empty-interface
@@ -2517,13 +2537,9 @@ declare global {
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
 
-        type LibraryManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D; }
-            ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
-            : C extends { propTypes: infer T; }
-                ? MergePropTypes<P, PropTypes.InferProps<T>>
-                : C extends { defaultProps: infer D; }
-                    ? Defaultize<P, D>
-                    : P;
+        type LibraryManagedAttributes<C, P> = C extends React.MemoExoticComponent<infer T>
+            ? ReactManagedAttributes<T, P>
+            : ReactManagedAttributes<C, P>;
 
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicAttributes extends React.Attributes { }
