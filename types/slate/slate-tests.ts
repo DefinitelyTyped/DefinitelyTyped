@@ -1,4 +1,4 @@
-import { Value, Data, BlockJSON, Document, Editor, Change } from "slate";
+import { Value, Data, BlockJSON, Document, Editor, Change, KeyUtils } from "slate";
 
 const data = Data.create({ foo: "bar " });
 const value = Value.create({ data });
@@ -58,3 +58,7 @@ editor.command("testCommand");
 editor.query("testQuery");
 editor.run("testCommand");
 editor.event("mouseDown", new Event("mouseDown"));
+
+KeyUtils.setGenerator(() => 'Test');
+KeyUtils.create();
+KeyUtils.resetGenerator();
