@@ -306,7 +306,7 @@ declare namespace Parse {
         addUnique(attr: string, item: any): any;
         change(options: any): this;
         changedAttributes(diff: any): boolean;
-        clear(options: any): any;
+        clear(): any;
         clone(): this;
         destroy(options?: Object.DestroyOptions): Promise<this>;
         dirty(attr?: string): boolean;
