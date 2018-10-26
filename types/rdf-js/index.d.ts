@@ -2,6 +2,7 @@
 // Project: https://github.com/rdfjs/representation-task-force
 // Definitions by: Ruben Taelman <https://github.com/rubensworks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -170,9 +171,41 @@ export type Quad_Object = NamedNode | Literal | BlankNode | Variable;
 export type Quad_Graph = DefaultGraph | NamedNode | BlankNode | Variable;
 
 /**
+ * An RDF quad, taking any Term in its positions, containing the subject, predicate, object and graph terms.
+ */
+export interface BaseQuad {
+  /**
+   * The subject.
+   * @see Quad_Subject
+   */
+  subject: Term;
+  /**
+   * The predicate.
+   * @see Quad_Predicate
+   */
+  predicate: Term;
+  /**
+   * The object.
+   * @see Quad_Object
+   */
+  object: Term;
+  /**
+   * The named graph.
+   * @see Quad_Graph
+   */
+  graph: Term;
+
+  /**
+   * @param other The term to compare with.
+   * @return True if and only if the argument is a) of the same type b) has all components equal.
+   */
+  equals(other: BaseQuad): boolean;
+}
+
+/**
  * An RDF quad, containing the subject, predicate, object and graph terms.
  */
-export interface Quad {
+export interface Quad extends BaseQuad {
     /**
      * The subject.
      * @see Quad_Subject
@@ -198,7 +231,7 @@ export interface Quad {
      * @param other The term to compare with.
      * @return True if and only if the argument is a) of the same type b) has all components equal.
      */
-    equals(other: Quad): boolean;
+    equals(other: BaseQuad): boolean;
 }
 
 /**
@@ -263,7 +296,7 @@ export interface DataFactory {
      * @see Triple
      * @see DefaultGraph
      */
-    triple(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object): Quad;
+    triple<Q_In extends BaseQuad = Quad,  Q_Out extends BaseQuad = Quad>(subject: Q_In['subject'], predicate: Q_In['predicate'], object: Q_In['object']): Q_Out;
 
     /**
      * @param subject   The quad subject term.
@@ -273,7 +306,7 @@ export interface DataFactory {
      * @return A new instance of Quad.
      * @see Quad
      */
-    quad(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object, graph?: Quad_Graph): Quad;
+    quad<Q_In extends BaseQuad = Quad, Q_Out extends BaseQuad = Quad>(subject: Q_In['subject'], predicate: Q_In['predicate'], object: Q_In['object'], graph?: Q_In['graph']): Q_Out;
 }
 
 /* Stream Interfaces */
@@ -292,14 +325,14 @@ export interface DataFactory {
  * Optional events:
  * * prefix(prefix: string, iri: RDF.NamedNode): This event is emitted every time a prefix is mapped to some IRI.
  */
-export interface Stream extends EventEmitter {
+export interface Stream<Q extends BaseQuad = Quad> extends EventEmitter {
     /**
      * This method pulls a quad out of the internal buffer and returns it.
      * If there is no quad available, then it will return null.
      *
      * @return A quad from the internal buffer, or null if none is available.
      */
-    read(): Quad;
+    read(): Q;
 }
 
 /**
@@ -309,7 +342,7 @@ export interface Stream extends EventEmitter {
  *
  * For example, parsers and transformations which generate quads can implement the Source interface.
  */
-export interface Source {
+export interface Source<Q extends BaseQuad = Quad> {
     /**
      * Returns a stream that processes all quads matching the pattern.
      *
@@ -319,8 +352,7 @@ export interface Source {
      * @param graph     The optional exact graph or graph regex to match.
      * @return The resulting quad stream.
      */
-    match(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp)
-        : Stream;
+    match(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp): Stream<Q>;
 }
 
 /**
@@ -330,7 +362,7 @@ export interface Source {
  *
  * For example parsers, serializers, transformations and stores can implement the Sink interface.
  */
-export interface Sink {
+export interface Sink<Q extends BaseQuad = Quad> {
     /**
      * Consumes the given stream.
      *
@@ -341,7 +373,7 @@ export interface Sink {
      * @param stream The stream that will be consumed.
      * @return The resulting event emitter.
      */
-    import(stream: Stream): EventEmitter;
+    import(stream: Stream<Q>): EventEmitter;
 }
 
 /**
@@ -352,7 +384,7 @@ export interface Sink {
  *
  * Access to stores LDP or SPARQL endpoints can be implemented with a Store inteface.
  */
-export interface Store extends Source, Sink {
+export interface Store<Q extends BaseQuad = Quad> extends Source, Sink {
     /**
      * Removes all streamed quads.
      *
@@ -362,7 +394,7 @@ export interface Store extends Source, Sink {
      * @param stream The stream that will be consumed.
      * @return The resulting event emitter.
      */
-    remove(stream: Stream): EventEmitter;
+    remove(stream: Stream<Q>): EventEmitter;
 
     /**
      * All quads matching the pattern will be removed.
@@ -388,5 +420,5 @@ export interface Store extends Source, Sink {
      * @param graph The graph term or string to match.
      * @return The resulting event emitter.
      */
-    deleteGraph(graph: Term | string): EventEmitter;
+    deleteGraph(graph: Q['graph'] | string): EventEmitter;
 }
