@@ -1,6 +1,5 @@
 import * as React from 'react';
-
-import * as ReactNative from 'react';
+import * as ReactNative from 'react-native';
 
 import styled, {
     css,
@@ -44,7 +43,7 @@ class MyButton extends React.Component<ButtonProps> {
     render() {
         return (
             <ReactNative.Button>
-                Custom button
+                {this.props.name}
             </ReactNative.Button>
         );
     }
@@ -87,8 +86,14 @@ class Example extends React.Component {
                         Hello World, this is my first styled component!
                     </Title>
                     <TomatoButton name="demo" />
+                    <CustomizableButton
+                    name="CustomizableButton"
+                    primary
+                    theme={{
+                        primary: true
+                    }}
+                    />
                 </Wrapper>
-                ;
             </ThemeProvider>
         );
     }
@@ -335,7 +340,7 @@ class MyComponent extends React.Component<ThemeProps<{}>> {
 
         console.log('Current theme: ', theme);
 
-        return <Text>Hello</Text>;
+        return <ReactNative.Text>Hello</ReactNative.Text>;
     }
 }
 
@@ -349,7 +354,7 @@ interface WithThemeProps {
 }
 
 const Component = (props: WithThemeProps) => (
-    <View style={{ color: props.theme.color }}>{props.text}</View>
+    <ReactNative.View style={{ color: props.theme.color }}>{props.text}</ReactNative.View>
 );
 
 const ComponentWithTheme = withTheme(Component);
@@ -367,11 +372,11 @@ const ComponentWithTheme = withTheme(Component);
 
 const StyledComponent = styled.View``;
 
-const StatelessComponent = () => <Text />;
+const StatelessComponent = () => <ReactNative.Text />;
 
 class ClassComponent extends React.Component {
     render() {
-        return <Text />;
+        return <ReactNative.Text />;
     }
 }
 
@@ -379,7 +384,6 @@ isStyledComponent(StyledComponent);
 isStyledComponent(StatelessComponent);
 isStyledComponent(ClassComponent);
 isStyledComponent('View');
-
 
 interface TestContainerProps {
     size: 'big' | 'small';
