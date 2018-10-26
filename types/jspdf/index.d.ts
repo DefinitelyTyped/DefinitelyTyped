@@ -33,7 +33,7 @@ declare module 'jspdf' {
             'scaleFactor':number;
             'pageSize': {
                 width:number;
-                getWitdh: () => number;
+                getWidth: () => number;
                 height:number;
                 getHeight: () => number;
             };
