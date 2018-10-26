@@ -536,6 +536,12 @@ export interface PlotData {
 	ygap: number;
 	xgap: number;
 	transpose: boolean;
+	autobinx: boolean;
+	xbins: {
+		start: number | string;
+		end: number | string;
+		size: number | string;
+	};
 }
 
 /**
