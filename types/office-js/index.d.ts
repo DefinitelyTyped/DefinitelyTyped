@@ -21397,12 +21397,11 @@ declare namespace Excel {
         inCellDropDown: boolean;
         /**
          *
-         * Source of the list for data validation
-            When setting the value, it can be passed in as a Excel Range object, or a string that contains comma separated number, boolean or date.
+         * The source of the list for data validation. The value is a string, which can either be a range reference (e.g. `"=Names!$A$1:$A$3"`) or a comma-separated list of the values themselves.
          *
          * [Api set: ExcelApi 1.8]
          */
-        source: string | Range;
+        source: string;
     }
     /**
      *
