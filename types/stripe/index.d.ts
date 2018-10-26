@@ -79,11 +79,11 @@ declare class Stripe {
 
 
     setHost(host: string): void;
-    setHost(host: string, port: string|number): void;
-    setHost(host: string, port: string|number, protocol: string): void;
+    setHost(host: string, port: string | number): void;
+    setHost(host: string, port: string | number, protocol: string): void;
 
     setProtocol(protocol: string): void;
-    setPort(port: string|number): void;
+    setPort(port: string | number): void;
     setApiVersion(version?: string): void;
     setApiKey(key?: string): void;
     setTimeout(timeout?: number): void;
@@ -432,7 +432,7 @@ declare namespace Stripe {
              * dictionary containing a user’s credit card details (with the options shown
              * below). Stripe will automatically validate the card.
              */
-            external_account: string ;
+            external_account: string;
 
             /**
              * Only applicable on accounts (not customers or recipients). If you set this to true (or if this is the first external account being added
@@ -461,7 +461,7 @@ declare namespace Stripe {
              * The reason for rejecting the account. May be one of "fraud",
              * "terms_of_service", or "other".
              */
-            reason: "fraud" | "terms_of_service" | "other" ;
+            reason: "fraud" | "terms_of_service" | "other";
         }
     }
 
@@ -541,7 +541,7 @@ declare namespace Stripe {
             /**
              * Value is "fee_refund"
              */
-            object:string;
+            object: string;
 
             /**
              * Amount, in cents/pence.
@@ -1232,7 +1232,7 @@ declare namespace Stripe {
             /**
              * One of "forever", "once", and "repeating". Describes how long a customer who applies this coupon will get the discount.
              */
-            duration: "forever" | "once" | "repeating" ;
+            duration: "forever" | "once" | "repeating";
 
             /**
              * If duration is repeating, the number of months the coupon applies. Null if coupon duration is forever or once.
@@ -1281,7 +1281,7 @@ declare namespace Stripe {
             /**
              * Specifies how long the discount will be in effect. Can be forever, once, or repeating.
              */
-            duration: "forever" | "once" | "repeating" ;
+            duration: "forever" | "once" | "repeating";
 
             /**
              * A positive integer representing the amount to subtract from an invoice total (required if percent_off is not passed)
@@ -1377,7 +1377,7 @@ declare namespace Stripe {
             /**
              * The customer’s payment sources, if any
              */
-            sources?: IList<cards.ICard | bitcoinReceivers.IBitcoinReceiver>;
+            sources?: IList<sources.ISource>;
 
             cards?: resources.CustomerCards;
 
@@ -1387,7 +1387,7 @@ declare namespace Stripe {
             subscriptions: ICustomerSubscriptions;
         }
 
-        interface ICustomerSubscriptions extends IList<subscriptions.ISubscription>, resources.CustomerSubscriptions {}
+        interface ICustomerSubscriptions extends IList<subscriptions.ISubscription>, resources.CustomerSubscriptions { }
 
         interface ICustomerCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -1844,7 +1844,7 @@ declare namespace Stripe {
              */
             type: string;
         }
-     }
+    }
 
     namespace fileUploads {
         interface IFileUpdate extends IResourceObject {
@@ -1900,7 +1900,7 @@ declare namespace Stripe {
         }
 
         type IPurpose = "business_logo" | "dispute_evidence" | "identity_document" | "incorporation_article" | "incorporation_document";
-     }
+    }
 
     namespace invoices {
         /**
@@ -2261,11 +2261,11 @@ declare namespace Stripe {
         }
 
         interface IInvoicePayOptions extends IDataOptionsWithMetadata {
-          /**
-             * A payment source to be charged. The source must be the ID of a source
-             * belonging to the customer associated with the invoice being paid.
-             */
-          source?: sources.ISourceCreationOptions;
+            /**
+               * A payment source to be charged. The source must be the ID of a source
+               * belonging to the customer associated with the invoice being paid.
+               */
+            source?: sources.ISourceCreationOptions;
         }
 
         interface IInvoiceListOptions extends IListOptions {
@@ -2377,7 +2377,7 @@ declare namespace Stripe {
 
             /**
              * If null, the invoice item is pending and will be included in the upcoming invoice.
-             */ 
+             */
             invoice: string | null;
             livemode: boolean;
             metadata: IMetadata;
@@ -2604,7 +2604,7 @@ declare namespace Stripe {
             /**
              * The type of line item. One of "sku", "tax", "shipping", or "discount".
              */
-            type: "sku" | "tax" | "shipping" | "discount" ;
+            type: "sku" | "tax" | "shipping" | "discount";
         }
 
         interface IOrderCreationOptions extends IDataOptionsWithMetadata {
@@ -2766,7 +2766,7 @@ declare namespace Stripe {
             /**
              * The type of line item. One of "sku", "tax", "shipping", or "discount".
              */
-            type?: "sku" | "tax" | "shipping" | "discount" ;
+            type?: "sku" | "tax" | "shipping" | "discount";
         }
 
         interface IShippingMethod {
@@ -3497,7 +3497,7 @@ declare namespace Stripe {
         interface IRecipient extends IResourceObject {
 
         }
-     }
+    }
 
     namespace skus {
         interface ISku extends IResourceObject {
@@ -3670,7 +3670,7 @@ declare namespace Stripe {
             /**
              * Inventory type. Possible values are "finite", "bucket"" (not quantified), and "infinite".
              */
-            type: "finite" | "bucket" | "infinite" ;
+            type: "finite" | "bucket" | "infinite";
 
             /**
              * An indicator of the inventory available. Possible values are "in_stock", "limited", and "out_of_stock".
@@ -3684,7 +3684,7 @@ declare namespace Stripe {
          * If, for example, a product’s attributes are ["size", "gender"],
          * a valid SKU has the following dictionary of attributes: {"size": "Medium", "gender": "Unisex"}.
          */
-        interface ISkuAttributes {}
+        interface ISkuAttributes { }
     }
 
     namespace webhooks {
@@ -3694,7 +3694,7 @@ declare namespace Stripe {
             api_version: string;
             created: number;
             data: {
-              object: T;
+                object: T;
             };
             livemode: boolean;
             pending_webhooks: number;
@@ -3757,7 +3757,7 @@ declare namespace Stripe {
             /**
              * Value is "token""
              */
-            object: "token" ;
+            object: "token";
 
             /**
              * IP address of the client that generated the token
@@ -3770,7 +3770,7 @@ declare namespace Stripe {
             /**
              * Type of the token: card or bank_account
              */
-            type: "card" | "bank_account" ;
+            type: "card" | "bank_account";
 
             /**
              * Whether or not this token has already been used (tokens can be used only once)
@@ -3930,10 +3930,10 @@ declare namespace Stripe {
             /**
              * Can be card, bank_account, or stripe_account.
              */
-            type: "card" | "bank_account" | "stripe_account" ;
+            type: "card" | "bank_account" | "stripe_account";
         }
 
-        interface ITransferReversals extends IList<transferReversals.IReversal>, resources.TransferReversals {}
+        interface ITransferReversals extends IList<transferReversals.IReversal>, resources.TransferReversals { }
 
         interface ITransferCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -4145,7 +4145,7 @@ declare namespace Stripe {
              * transfer sent to this bank account fails, we’ll set the status to "errored""
              * and will not continue to send transfers until the bank details are updated.
              */
-            status: "new" | "validated" | "verified" | "verification_failed" | "error" ;
+            status: "new" | "validated" | "verified" | "verification_failed" | "error";
         }
 
         interface ISourceCreationOptions {
@@ -4187,7 +4187,7 @@ declare namespace Stripe {
              * "individual" or "company". This field is required when
              * attaching the bank account to a customer object.
              */
-            account_holder_type?: "individual" | "company" ;
+            account_holder_type?: "individual" | "company";
         }
 
         interface IBankAccountUpdateOptions extends IDataOptionsWithMetadata {
@@ -4432,7 +4432,7 @@ declare namespace Stripe {
             /**
              * Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.
              */
-            brand: "Visa" | "American Express" | "MasterCard" | "Discover" | "JCB" | "Diners Club" | "Unknown" ;
+            brand: "Visa" | "American Express" | "MasterCard" | "Discover" | "JCB" | "Diners Club" | "Unknown";
             exp_month: number;
             exp_year: number;
 
@@ -4460,7 +4460,7 @@ declare namespace Stripe {
             /**
              * If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked.
              */
-            address_zip_check: "pass" | "fail" | "unavailable" | "unchecked" ;
+            address_zip_check: "pass" | "fail" | "unavailable" | "unchecked";
 
             /**
              * Two-letter ISO code representing the country of the card. You could use this
@@ -5209,6 +5209,188 @@ declare namespace Stripe {
          * card.
          */
         type ISourceCreationOptionsExtended = string | cards.ISourceCreationOptionsExtended;
+
+        type ISourceTypes = "ach_credit_transfer" | "ach_debit" | "alipay" | "bancontat" | "card" | "card_present" | "eps" | "giropay" | "ideal" | "multibanco" | "p24" | "paper_check" | "sepa_credit_transfer" | "sepa_debit" | "sofort" | "three_d_secure";
+
+        interface ISource extends IResourceObject {
+            /**
+             * A positive integer in the smallest currency unit (that is, 100
+             * cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal
+             * currency) representing the total amount associated with the
+             * source. This is the amount for which the source will be
+             * chargeable once ready. Required for single_use sources.
+             */
+            amount?: number;
+            /**
+             * The client secret of the source. Used for client-side retrieval
+             * using a publishable key.
+             */
+            client_secret: string;
+            /**
+             * Information related to the code verification flow. Present if the
+             * source is authenticated by a verification code (flow is
+             * code_verification).
+             */
+            code_verification?: {
+                /**
+                 * The number of attempts remaining to authenticate the source object with a
+                 * verification code.
+                 */
+                attempts_remaining: number;
+                /**
+                 * The status of the code verification, either pending (awaiting verification,
+                 * attempts_remaining should be greater than 0), succeeded (successful verification)
+                 * or failed (failed verification, cannot be verified anymore as attempts_remaining
+                 * should be 0).
+                 */
+                status: "pending" | "succeeded" | "failed";
+            }
+            /**
+             * Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+            /**
+             * Three-letter ISO code for the currency associated with the source. This is the currency
+             * for which the source will be chargeable once ready. Required for single_use sources.
+             */
+            currency?: string;
+            /**
+             * The ID of the customer to which this source is attached.
+             * This will not be present when the source has not been attached to a customer.
+             */
+            customer?: string;
+            /**
+             * The authentication flow of the source.
+             */
+            flow: "redirect" | "receiver" | "code_verification" | "none";
+            /**
+             * Has the value true if the object exists in live mode or the value false if the object
+             * exists in test mode.
+             */
+            livemode: boolean;
+            /**
+             * Set of key-value pairs that you can attach to an object.
+             * This can be useful for storing additional information about the object in a structured format.
+             */
+            metadata: IMetadata;
+            /**
+             * Information about the owner of the payment instrument that may be used or required by
+             * particular source types.
+             */
+            owner: {
+                /**
+                 * Owner’s address.
+                 */
+                address?: IShippingInformation;
+                /**
+                 * Owner’s email address.
+                 */
+                email?: string;
+                /**
+                 * Owner’s full name.
+                 */
+                name?: string;
+                /**
+                 * Owner’s phone number (including extension).
+                 */
+                phone?: string,
+                /**
+                 * Verified owner’s address. Verified values are verified or provided by the payment
+                 * method directly (and if supported) at the time of authorization or settlement.
+                 * They cannot be set or mutated.
+                 */
+                verified_address?: IShippingInformation;
+                /**
+                 * Verified owner’s email address. Verified values are verified or provided by the
+                 * payment method directly (and if supported) at the time of authorization or settlement.
+                 * They cannot be set or mutated.
+                 */
+                verified_email?: string;
+                /**
+                 * Verified owner’s full name. Verified values are verified or provided by the payment
+                 * method directly (and if supported) at the time of authorization or settlement.
+                 * They cannot be set or mutated.
+                 */
+                verified_name?: string;
+                /**
+                 * Verified owner’s phone number (including extension). Verified values are verified or
+                 * provided by the payment method directly (and if supported) at the time of authorization
+                 * or settlement. They cannot be set or mutated.
+                 */
+                verified_phone?: string;
+            },
+            /**
+             * Information related to the receiver flow. Present if the source is a
+             * receiver (flow is receiver).
+             */
+            receiver?: {
+                /**
+                 * The address of the receiver source. This is the value that should be communicated
+                 * to the customer to send their funds to.
+                 */
+                address: string;
+                /**
+                 * The total amount that was charged by you. The amount charged is expressed in the
+                 * source’s currency.
+                 */
+                amount_charged: number;
+                /**
+                 * The total amount received by the receiver source. amount_received = amount_returned
+                 * + amount_charged is true at all time. The amount received is expressed in the
+                 * source’s currency.
+                 */
+                amount_received: number;
+                /**
+                 * The total amount that was returned to the customer. The amount returned is expressed
+                 * in the source’s currency.
+                 */
+                amount_returned: number;
+            },
+            /**
+             * Information related to the redirect flow. Present if the source is authenticated
+             * by a redirect (flow is redirect).
+             */
+            redirect?: {
+                /**
+                 * The failure reason for the redirect, either user_abort (the customer aborted or dropped
+                 * out of the redirect flow), declined (the authentication failed or the transaction was
+                 * declined), or processing_error (the redirect failed due to a technical error).
+                 * Present only if the redirect status is failed.
+                 */
+                failure_reason: "user_abort" | "declined";
+                /**
+                 * The URL you provide to redirect the customer to after they authenticated their payment.
+                 */
+                return_url: string;
+                /**
+                 * The status of the redirect, either pending (ready to be used by your customer to authenticate
+                 * the transaction), succeeded (succesful authentication, cannot be reused) or not_required
+                 * (redirect should not be used) or failed (failed authentication, cannot be reused).
+                 */
+                status: "pending" | "succeeded" | "not_required" | "failed";
+                /**
+                 * The URL provided to you to redirect a customer to as part of a redirect authentication flow.
+                 */
+                url: string;
+            }
+            /**
+             * Extra information about a source. This will appear on your customer’s
+             * statement every time you charge the source.
+             */
+            statement_descriptor?: null;
+            /**
+             * The status of the source, one of canceled, chargeable, consumed, failed,
+             * or pending. Only chargeable sources can be used to create a charge.
+             */
+            status: "canceled" | "chargeable" | "consumed" | "failed" | "pending";
+            /**
+             * Either reusable or single_use. Whether this source should be reusable or not.
+             * Some source types may or may not be reusable by construction, while other
+             * may leave the option at creation. If an incompatible value is passed, an
+             * error will be returned.
+             */
+            usage: "reusable" | "single_use";
+        }
     }
 
     namespace countrySpecs {
@@ -5308,28 +5490,28 @@ declare namespace Stripe {
         type IUsageRecordAction = "increment" | "set";
 
         interface IUsageRecordCreationOptions {
-          /**
-           * The usage quantity for the specified timestamp
-           */
-          quantity: number;
-          /**
-           * The timestamp for the usage event. This timestamp must be within the current billing period of the subscription of the provided subscription_item
-           */
-          timestamp: number;
-          /**
-           * Valid values are increment (default) or set. When using increment the specified quantity will be added to the usage at the specified
-           * timestamp. The set action will overwrite the usage quantity at that timestamp.
-           */
-          action?: IUsageRecordAction;
+            /**
+             * The usage quantity for the specified timestamp
+             */
+            quantity: number;
+            /**
+             * The timestamp for the usage event. This timestamp must be within the current billing period of the subscription of the provided subscription_item
+             */
+            timestamp: number;
+            /**
+             * Valid values are increment (default) or set. When using increment the specified quantity will be added to the usage at the specified
+             * timestamp. The set action will overwrite the usage quantity at that timestamp.
+             */
+            action?: IUsageRecordAction;
         }
 
         interface IUsageRecord extends IObject {
-          object: 'usage_record';
-          id: string;
-          livemode: boolean;
-          quantity: number;
-          subscription_item: string;
-          timestamp: number;
+            object: 'usage_record';
+            id: string;
+            livemode: boolean;
+            quantity: number;
+            subscription_item: string;
+            timestamp: number;
         }
     }
 
@@ -5339,7 +5521,7 @@ declare namespace Stripe {
          * starting after summary starting_after. Each entry in the array is a separate summary object.
          * If no more summaries are available, the resulting array is empty.
          */
-        interface IUsageRecordSummarys extends IList<IUsageRecordSummarysItem>{
+        interface IUsageRecordSummarys extends IList<IUsageRecordSummarysItem> {
             object: 'list'
         }
 
@@ -5353,7 +5535,7 @@ declare namespace Stripe {
             total_usage: number;
         }
 
-        interface IUsageRecordSummarysListOptions extends IListOptions{
+        interface IUsageRecordSummarysListOptions extends IListOptions {
             /**
              * Only summary items for the given subscription item.
              */
