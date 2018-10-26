@@ -1,4 +1,4 @@
-// Type definitions for Victory 0.9.3
+// Type definitions for Victory 1.0.0
 // Project: https://github.com/FormidableLabs/victory
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 snerks <https://github.com/snerks>
@@ -38,11 +38,19 @@ declare module "victory" {
   /**
    * Style interface used in components/themeing
    */
+  type VictoryStyleCallback<T> = (datum: any, active: boolean) => T;
+
+  type SVGAttrs = React.SVGAttributes<SVGElement>;
+
+  type SVGAttributesWithCallbacks = {
+    [k in keyof SVGAttrs]: SVGAttrs[k] | VictoryStyleCallback<SVGAttrs[k]>
+  }
+
   export interface VictoryStyleInterface {
-    parent?: React.CSSProperties;
-    data?: React.CSSProperties;
-    labels?: React.CSSProperties;
-    tickLabels?: React.CSSProperties;
+    parent?: SVGAttributesWithCallbacks;
+    data?: SVGAttributesWithCallbacks;
+    labels?: SVGAttributesWithCallbacks;
+    tickLabels?: SVGAttributesWithCallbacks;
   }
 
   export interface VictoryAnimationProps {
@@ -305,6 +313,15 @@ declare module "victory" {
   }
 
   export class VictoryCursorContainer extends React.Component<VictoryCursorContainerProps, any> {}
+
+  export interface VictoryVoronoiContainerProps extends VictoryContainerProps {
+    voronoiDimension: string;
+    labels?: any;
+    labelComponent?: any;
+    voronoiBlacklist?: any;
+  }
+
+  export class VictoryVoronoiContainer extends React.Component<VictoryVoronoiContainerProps, any> {}
 
   export interface VictoryBrushContainerProps extends VictoryContainerProps {
     /**
@@ -999,7 +1016,7 @@ declare module "victory" {
 
   export interface VictoryAreaProps extends VictoryCommonProps, VictoryDatableProps, VictorySingleLabableProps {
     /**
-     * The event prop take an array of event objects. Event objects are composed of
+     * The events prop take an array of event objects. Event objects are composed of
      * a target, an eventKey, and eventHandlers. Targets may be any valid style namespace
      * for a given component, so "data" and "labels" are all valid targets for VictoryArea events.
      * Since VictoryArea only renders a single element, the eventKey property is not used.
@@ -1104,7 +1121,7 @@ declare module "victory" {
      */
     domain?: DomainPropType;
     /**
-     * The event prop take an array of event objects. Event objects are composed of
+     * The events prop take an array of event objects. Event objects are composed of
      * a target, an eventKey, and eventHandlers. Targets may be any valid style namespace
      * for a given component, so "axis", "axisLabel", "ticks", "tickLabels", and "grid" are
      * all valid targets for VictoryAxis events. The eventKey may optionally be used to select a
@@ -1254,7 +1271,14 @@ declare module "victory" {
 
   export interface VictoryBarProps extends VictoryCommonProps, VictoryDatableProps, VictoryMultiLabeableProps {
     /**
-     * The event prop take an array of event objects. Event objects are composed of
+     * The alignment prop specifies how bars should be aligned relative to their data points. 
+     * This prop may be given as “start”, “middle” or “end”. When this prop is not specified, bars 
+     * will have “middle” alignment relative to their data points.
+     */
+    alignment?: "start" | "middle" | "end",
+
+    /**
+     * The events prop take an array of event objects. Event objects are composed of
      * a target, an eventKey, and eventHandlers. Targets may be any valid style namespace
      * for a given component, so "data" and "labels" are all valid targets for VictoryBar events.
      * The eventKey may optionally be used to select a single element by index rather than an entire
@@ -1342,7 +1366,7 @@ declare module "victory" {
      */
     domainPadding?: DomainPaddingPropType;
     /**
-     * The event prop take an array of event objects. Event objects are composed of
+     * The events prop take an array of event objects. Event objects are composed of
      * a childName, target, eventKey, and eventHandlers. Targets may be any valid style namespace
      * for a given component, (i.e. "data" and "labels"). The childName will refer to an
      * individual child of VictoryChart, either by its name prop, or by index. The eventKey
@@ -1447,7 +1471,7 @@ declare module "victory" {
      */
     domainPadding?: DomainPaddingPropType;
     /**
-     * The event prop take an array of event objects. Event objects are composed of
+     * The events prop take an array of event objects. Event objects are composed of
      * a childName, target, eventKey, and eventHandlers. Targets may be any valid style namespace
      * for a given component, (i.e. "data" and "labels"). The childName will refer to an
      * individual child of VictoryGroup, either by its name prop, or by index. The eventKey
@@ -1505,13 +1529,20 @@ declare module "victory" {
      * applied to all grouped children
      */
     style?: VictoryStyleInterface;
+    /**
+     * The offset prop determines the number of pixels each element in a group should 
+     * be offset from its original position of the on the independent axis. In the case 
+     * of groups of bars, this number should be equal to the width of the bar plus the 
+     * desired spacing between bars.
+     */
+    offset?: number;
   }
 
   export class VictoryGroup extends React.Component<VictoryGroupProps, any> {}
 
   export interface VictoryLineProps extends VictoryCommonProps, VictoryDatableProps, VictorySingleLabableProps {
     /**
-     * The event prop take an array of event objects. Event objects are composed of
+     * The events prop take an array of event objects. Event objects are composed of
      * a target, an eventKey, and eventHandlers. Targets may be any valid style namespace
      * for a given component, so "data" and "labels" are all valid targets for VictoryLine events.
      * Since VictoryLine only renders a single element, the eventKey property is not used.
@@ -1580,6 +1611,7 @@ declare module "victory" {
      * @examples{data: {stroke: "red"}, labels: {fontSize: 12}}
      */
     style?: VictoryStyleInterface;
+    domainPadding?: DomainPaddingPropType;
   }
 
   /**
@@ -1751,7 +1783,7 @@ declare module "victory" {
      */
     bubbleProperty?: string;
     /**
-     * The event prop take an array of event objects. Event objects are composed of
+     * The events prop take an array of event objects. Event objects are composed of
      * a target, an eventKey, and eventHandlers. Targets may be any valid style namespace
      * for a given component, so "data" and "labels" are all valid targets for VictoryScatter
      * events. The eventKey may optionally be used to select a single element by index rather than
@@ -1868,7 +1900,7 @@ declare module "victory" {
      */
     domainPadding?: DomainPaddingPropType;
     /**
-     * The event prop take an array of event objects. Event objects are composed of
+     * The events prop take an array of event objects. Event objects are composed of
      * a childName, target, eventKey, and eventHandlers. Targets may be any valid style namespace
      * for a given component, (i.e. "data" and "labels"). The childName will refer to an
      * individual child of VictoryStack, either by its name prop, or by index. The eventKey
@@ -1976,7 +2008,7 @@ declare module "victory" {
      */
     endAngle?: number;
     /**
-     * The event prop takes an array of event objects. Event objects are composed of
+     * The events prop takes an array of event objects. Event objects are composed of
      * a target, an eventKey, and eventHandlers. Targets may be any valid style namespace
      * for a given component, so "data" and "labels" are all valid targets for VictoryPie
      * events. The eventKey may optionally be used to select a single element by index rather than

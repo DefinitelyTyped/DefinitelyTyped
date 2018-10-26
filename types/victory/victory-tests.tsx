@@ -628,7 +628,7 @@ test = (
         style={{
             data: { fill: "tomato", opacity: 0.7 },
             labels: { fontSize: 12 },
-            parent: { border: "1px solid #ccc" }
+            parent: { color: "red" }
         }}
         standalone
         padding={{ top: 20, right: 40, bottom: 60, left: 20 }}
