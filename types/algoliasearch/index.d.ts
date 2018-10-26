@@ -1,4 +1,4 @@
-// Type definitions for algoliasearch-client-js 3.27.0
+// Type definitions for algoliasearch-client-js 3.30.0
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
@@ -6,6 +6,8 @@
 //                 Samuel Vaillant <https://github.com/samouss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 declare namespace algoliasearch {
   /**
@@ -615,12 +617,17 @@ declare namespace algoliasearch {
      * Browse an index
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
      */
+    browse(query: string, parameters: BrowseParameters, cb: (err: Error, res: BrowseResponse) => void): void;
+    /**
+     * Browse an index
+     * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
+     */
     browse(query: string, cb: (err: Error, res: BrowseResponse) => void): void;
     /**
      * Browse an index
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
      */
-    browse(query: string): Promise<BrowseResponse>;
+    browse(query: string, parameters?: BrowseParameters): Promise<BrowseResponse>;
     /**
      * Browse an index from a cursor
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
@@ -638,7 +645,7 @@ declare namespace algoliasearch {
      * Browse an entire index
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
      */
-    browseAll(): Promise<Response>;
+    browseAll(query?: string, parameters?: BrowseParameters): Browser;
     /**
      * Clear an index content
      * https://github.com/algolia/algoliasearch-client-js#clear-index---clearindex
@@ -965,6 +972,22 @@ declare namespace algoliasearch {
     params: string;
     query: string;
     processingTimeMS: number;
+  }
+  type BrowseParameters = Omit<
+    QueryParameters,
+    | "typoTolerance"
+    | "distinct"
+    | "facets"
+    | "getRankingInfo"
+    | "attributesToHighlight"
+    | "attributesToSnippet"
+  >
+  interface Browser {
+    on(type: "error", cb: (err: Error) => void): void
+    on(type: "end", cb: () => void): void
+    on(type: "stop", cb: () => void): void
+    on(type: "result", cb: (content: BrowseResponse) => void): void
+    stop(): void
   }
   /**
    * Describes a synonym object
