@@ -1,22 +1,17 @@
 {
     "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "lib": ["es6", "dom"],
         "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
+        "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "typeRoots": ["../"],
+        "types": []
     },
-    "files": [
-        "index.d.ts",
-        "styled-components-native-tests.ts"
-    ]
+    "files": ["index.d.ts", "styled-components-native-tests.tsx"]
 }
