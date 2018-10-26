@@ -7,7 +7,7 @@ declare module 'jspdf' {
     class jsPDF {
         constructor(orientation?:any,
                     unit?:string,
-                    format?:string,
+                    format?:any,
                     compressPdf?:number);
 
         CapJoinStyles:any;
