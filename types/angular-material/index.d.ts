@@ -340,6 +340,7 @@ declare module 'angular' {
 
         interface IMenuService {
             hide(response?: any, options?: any): IPromise<any>;
+            open(event?: MouseEvent): void;
         }
 
         interface IColorPalette {
