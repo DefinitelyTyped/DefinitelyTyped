@@ -5703,7 +5703,7 @@ declare namespace sequelize {
         /**
          * Set to `true` to enable connecting over SSL.
          *
-         * Defaults to false
+         * Defaults to undefined
          */
         ssl?: boolean;
     }
