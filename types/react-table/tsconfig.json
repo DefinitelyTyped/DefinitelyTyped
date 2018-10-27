@@ -20,6 +20,8 @@
     },
     "files": [
         "index.d.ts",
-        "react-table-tests.tsx"
+        "react-table-tests.tsx",
+        "select-table-tests.tsx",
+        "tree-table-tests.tsx"
     ]
 }
