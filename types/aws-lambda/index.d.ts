@@ -22,11 +22,8 @@
 //                 Louis Larry <https://github.com/louislarry>
 //                 Daniel Papukchiev <https://github.com/dpapukchiev>
 //                 Oliver Hookins <https://github.com/ohookins>
-<<<<<<< HEAD
 //                 Trevor Leach <https://github.com/trevor-leach>
-=======
 //                 James Gregory <https://github.com/jagregory>
->>>>>>> upstream/master
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
