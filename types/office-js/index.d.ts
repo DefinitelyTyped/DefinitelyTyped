@@ -10336,7 +10336,7 @@ declare namespace Office {
         * 
         * `removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param options Optional. An object literal that contains one or more of the following properties.
@@ -10359,7 +10359,7 @@ declare namespace Office {
         *
         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr></table>
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -11333,7 +11333,7 @@ declare namespace Office {
         * 
         * `removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param options Optional. An object literal that contains one or more of the following properties.
@@ -11356,7 +11356,7 @@ declare namespace Office {
         *
         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr></table>
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -11686,7 +11686,7 @@ declare namespace Office {
         * 
         * `removeHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param options Optional. An object literal that contains one or more of the following properties.
@@ -11710,7 +11710,7 @@ declare namespace Office {
         *
         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -13741,7 +13741,7 @@ declare namespace Office {
          * 
          * `removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
          * 
-         * @param eventType The event that should invoke the handler.
+         * @param eventType The event that should revoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
          *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -13764,7 +13764,7 @@ declare namespace Office {
          *
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr></table>
          * 
-         * @param eventType The event that should invoke the handler.
+         * @param eventType The event that should revoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
          *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -14774,7 +14774,7 @@ declare namespace Office {
          * 
          * `removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
          * 
-         * @param eventType The event that should invoke the handler.
+         * @param eventType The event that should revoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
          *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -14797,7 +14797,7 @@ declare namespace Office {
          *
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr></table>
          * 
-         * @param eventType The event that should invoke the handler.
+         * @param eventType The event that should revoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
          *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -15094,7 +15094,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          *
-         * Currently, the supported event types are `Office.EventType.ItemChanged` and `Office.EventType.OfficeThemeChanged`.
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`. In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -15500,6 +15500,27 @@ declare namespace Office {
          * @param userContext Optional. Any state data that is passed to the asynchronous method.
          */
         makeEwsRequestAsync(data: any, callback: (result: AsyncResult<string>) => void, userContext?: any): void;
+        /**
+         * Removes an event handler for a supported event.
+         *
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`. In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         *
+         * [Api set: Mailbox 1.5]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+         *
+         * @param eventType The event that should revoke the handler.
+         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
+         *                The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
+         * @param options Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         */
+        removeHandlerAsync(eventType: Office.EventType, handler: (type: EventType) => void, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
     }
 
     /**
