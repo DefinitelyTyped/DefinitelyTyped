@@ -177,3 +177,31 @@ client.copyIndex('from', 'to', ()=> {})
 // with scope
 client.copyIndex('from', 'to', ['settings']).then(()=>{})
 client.copyIndex('from', 'to', ['synonyms', 'rules'], ()=> {})
+
+// Browsing
+const browser = index.browseAll();
+index.browseAll('query');
+index.browseAll('', {
+  filters: 'dog',
+});
+
+let hits: Object[] = [];
+
+browser.on('result', function onResult(content) {
+  hits = hits.concat(content.hits);
+});
+
+browser.on('end', function onEnd() {
+  const _message = `We got ${hits.length} hits`
+});
+
+browser.on('error', function onError(err) {
+  throw err;
+});
+
+browser.stop()
+
+index.browse("", {
+  advancedSyntax: false,
+  attributesToRetrieve: ['dogs']
+})

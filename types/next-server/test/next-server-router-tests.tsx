@@ -70,14 +70,14 @@ Router.prefetch("/route").then(Component => {
     const element = <Component />;
 });
 
-interface TestComponentProps {
+interface TestComponentProps extends WithRouterProps {
     testValue: string;
 }
 
-class TestComponent extends React.Component<TestComponentProps & WithRouterProps> {
+class TestComponent extends React.Component<TestComponentProps> {
     state = { ready: false };
 
-    constructor(props: TestComponentProps & WithRouterProps) {
+    constructor(props: TestComponentProps) {
         super(props);
         props.router.ready(() => {
             this.setState({ ready: true });
@@ -97,12 +97,57 @@ class TestComponent extends React.Component<TestComponentProps & WithRouterProps
 
 withRouter(TestComponent);
 
+interface TestComponent2Props extends WithRouterProps {
+    testValue: string;
+}
+
+class TestComponent2 extends React.Component<TestComponent2Props> {
+    state = { ready: false };
+
+    constructor(props: TestComponent2Props) {
+        super(props);
+        props.router.ready(() => {
+            this.setState({ ready: true });
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>{this.state.ready ? 'Ready' : 'Not Ready'}</h1>
+                <h2>Route: {this.props.router.route}</h2>
+                <p>Another prop: {this.props.testValue}</p>
+            </div>
+        );
+    }
+}
+
+const TestComponent2WithRouter = withRouter(TestComponent2);
+const res = <TestComponent2WithRouter testValue="" />;
+
 interface TestSFCQuery {
     test?: string;
 }
 
-interface TestSFCProps extends WithRouterProps<TestSFCQuery> { }
+interface TestSFCProps extends WithRouterProps<TestSFCQuery> {
+    testProp: string;
+}
 
 const TestSFC: React.SFC<TestSFCProps> = ({ router }) => {
     return <div>{router.query && router.query.test}</div>;
 };
+const TestSFCComponent = withRouter(TestSFC);
+
+const res2 = <TestSFCComponent testProp="asdf"/>;
+
+const TestSFC2 = withRouter<TestSFCProps>(({ router }) => {
+    return <div>{router.query && router.query.test}</div>;
+});
+
+const res3 = <TestSFC2 testProp="asdf" />;
+
+const TestSFC3 = withRouter(({ router }) => {
+    return <div>{router.query && router.query.test}</div>;
+});
+
+const res4 = <TestSFC3 />;

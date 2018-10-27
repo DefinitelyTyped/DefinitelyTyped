@@ -434,10 +434,26 @@ expect.extend({
     }
 });
 expect.extend({
+    foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
+        return {
+            message: JSON.stringify(received),
+            pass: false,
+        };
+    }
+});
+expect.extend({
     async foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
         return {
             message: () => JSON.stringify(received),
             pass: false,
+        };
+    }
+});
+expect.extend({
+    async foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
+        return {
+            message: JSON.stringify(received),
+            pass: false
         };
     }
 });

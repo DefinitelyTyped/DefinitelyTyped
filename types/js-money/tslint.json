@@ -1,1 +1,9 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // All are TODOs
+        "dt-header": false,
+        "eofline": false,
+        "no-unnecessary-qualifier": false
+    }
+}
