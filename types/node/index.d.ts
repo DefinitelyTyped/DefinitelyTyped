@@ -8129,7 +8129,7 @@ declare module "http2" {
         prependOnceListener(event: "finish", listener: () => void): this;
     }
 
-    // Public API constants
+    // Public constants
 
     export namespace constants {
         const DEFAULT_SETTINGS_ENABLE_PUSH: number;
