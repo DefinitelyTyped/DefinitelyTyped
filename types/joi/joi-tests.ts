@@ -514,15 +514,28 @@ binSchema = binSchema.length(num);
 
 dateSchema = Joi.date();
 
+dateSchema = dateSchema.greater('now');
+dateSchema = dateSchema.less('now');
+dateSchema = dateSchema.min('now');
+dateSchema = dateSchema.max('now');
+
+dateSchema = dateSchema.greater(date);
+dateSchema = dateSchema.less(date);
 dateSchema = dateSchema.min(date);
 dateSchema = dateSchema.max(date);
 
+dateSchema = dateSchema.greater(str);
+dateSchema = dateSchema.less(str);
 dateSchema = dateSchema.min(str);
 dateSchema = dateSchema.max(str);
 
+dateSchema = dateSchema.greater(num);
+dateSchema = dateSchema.less(num);
 dateSchema = dateSchema.min(num);
 dateSchema = dateSchema.max(num);
 
+dateSchema = dateSchema.greater(ref);
+dateSchema = dateSchema.less(ref);
 dateSchema = dateSchema.min(ref);
 dateSchema = dateSchema.max(ref);
 
