@@ -20,22 +20,22 @@ export interface LightboxProps {
      * Allow users to exit the lightbox by clicking the backdrop. Default value: false.
      */
     backdropClosesModal?: boolean;
-    
+
     /**
      * Supports keyboard input - esc, arrow left, and arrow right. Default value: true
      */
     enableKeyboardInput?: boolean;
-    
+
     /**
      * The index of the image to display initially. Default value: 0
      */
     currentImage?: number;
-    
+
     /**
      * An array of elements to display as custom controls on the top of lightbox. Default value: undefined
      */
-    customControls?: React.ReactHTMLElement<any>[];
-    
+    customControls?: Array<React.ReactHTMLElement<any>>;
+
     /**
      * Whether or not the lightbox is displayed. Default value: false;
      */
@@ -45,17 +45,17 @@ export interface LightboxProps {
      * Based on the direction the user is navigating, preload the next available image. Default value: true
      */
     preloadNextImage?: boolean;
-    
+
     /**
      * Optionally display a close "X" button in top right corner. Default value: true
      */
     showCloseButton?: boolean;
-    
+
     /**
      * Optionally display image index, e.g., "3 of 20". Default value: true
      */
     showImageCount?: boolean;
-    
+
     /**
      * Maximum width of the carousel; defaults to 1024px
      */
@@ -64,18 +64,18 @@ export interface LightboxProps {
     /**
      * Spinner component.
      */
-    spinner?: () => React.ReactElement<any>;	
-    
+    spinner?: () => React.ReactElement<any>;
+
     /**
      *  Color of spinner. Default value: 'white'
      */
     spinnerColor?:	string;
-    
+
     /**
      * Size of spinner. Default value: 100
-     */ 
+     */
     spinnerSize?: number;
-    
+
     /**
      * Determines whether scrolling is prevented via react-scrolllock. Default value: true
      */
@@ -95,7 +95,7 @@ export interface LightboxProps {
      * Customize right arrow title. Default value: ' Next (Right arrow key) '
      */
     rightArrowTitle?: string;
-    
+
     /**
      * Custom of left arrow title. Default value: ' Previous (Left arrow key) '
      */
@@ -109,23 +109,23 @@ export interface LightboxProps {
     /**
      * Handle closing of the lightbox. Required.
      */
-    onClose: () => void
+    onClose: () => void;
 
     /**
      * Fired on request of the previous image.
      */
     onClickPrev?: () => void;
-    
+
     /**
      * Fired on request of the next image.
      */
-    onClickNext?: () => void; 
-    
+    onClickNext?: () => void;
+
     /**
      * Handle click on image.
      */
     onClickImage?: (e: React.MouseEvent<HTMLImageElement>) => void;
-    
+
     /**
      * Handle click on thumbnail.
      */
