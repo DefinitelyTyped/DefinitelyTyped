@@ -11,7 +11,7 @@
 ///<reference types="node" />
 
 declare const SocketIO: SocketIOStatic;
-export = SocketIO;
+export default SocketIO;
 /** @deprecated Available as a global for backwards-compatibility. */
 export as namespace SocketIO;
 
