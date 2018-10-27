@@ -1,7 +1,6 @@
 import { ComponentType } from 'react';
 
 import { TableProps } from '../../index';
-import { HOCWithOptions } from './hoc-type';
 
 export type SelectType = 'checkbox' | 'radio';
 
@@ -49,10 +48,9 @@ export interface SelectTableHOCOptions {
     floatingLeft?: boolean;
 }
 
-declare const selectTableHOC: HOCWithOptions<
-    Partial<TableProps>,
-    SelectTableAdditionalProps,
-    SelectTableHOCOptions
->;
+declare function selectTableHOC<Props extends Partial<TableProps>>(
+    Component: ComponentType<Props>,
+    options?: SelectTableHOCOptions
+): ComponentType<Props & SelectTableAdditionalProps>;
 
 export default selectTableHOC;

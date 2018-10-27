@@ -1,10 +1,9 @@
 import { ComponentType } from 'react';
 
 import { TableProps } from '../../index';
-import { HOC } from './hoc-type';
 
-interface TreeTableAdditionalProps {}
-
-declare const treeTableHOC: HOC<Partial<TableProps>, TreeTableAdditionalProps>;
+declare function treeTableHOC<Props extends Partial<TableProps>>(
+    Component: ComponentType<Props>
+): ComponentType<Props>;
 
 export default treeTableHOC;
