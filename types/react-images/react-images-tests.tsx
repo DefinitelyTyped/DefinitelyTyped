@@ -26,6 +26,7 @@ class ImageGalerie extends React.Component<undefined, ImageGalerieState> {
             }];
 
         return <Lightbox
+                    isOpen={this.state.showLightbox}
                     images={images}
                     onClose={() => this.setState({showLightbox: false})}
                     onClickImage={e => {}}
