@@ -110,6 +110,13 @@ jwt.verify(token, cert, { ignoreExpiration: true }, function(err, decoded) {
     // if ignoreExpration == false and token is expired, err == expired token
 });
 
+// verify with get secret or public key function
+jwt.verify(token, (header, callback) => {
+    callback(null, fs.readFileSync("public.pem"))
+}, function(err, decoded) {
+
+})
+
 /**
  * jwt.decode
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken

@@ -1,9 +1,10 @@
-// Type definitions for jsonwebtoken 7.2.2
+// Type definitions for jsonwebtoken 8.3.0
 // Project: https://github.com/auth0/node-jsonwebtoken
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>,
 //                 Daniel Heim <https://github.com/danielheim>,
 //                 Brice BERNARD <https://github.com/brikou>,
-//                 Veli-Pekka Kestilä <https://github.com/vpk>
+//                 Veli-Pekka Kestilä <https://github.com/vpk>,
+//                 Anthony Telljohann-Smothers <https://github.com/atelljohannsmothers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -77,6 +78,19 @@ export interface DecodeOptions {
     complete?: boolean;
     json?: boolean;
 }
+
+export interface SecretOrPublicKeyCallback {
+    (
+        err: VerifyErrors,
+        secretOrPublicKey: string | Buffer
+    ): void
+}
+export interface GetSecretOrPublicKeyCallback {
+    (
+        header: object,
+        callback: SecretOrPublicKeyCallback
+    ): void
+}
 export type VerifyErrors=JsonWebTokenError | NotBeforeError | TokenExpiredError;
 export interface VerifyCallback {
     (
@@ -143,18 +157,18 @@ export declare function verify(
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
  * @param {String} token - JWT string to verify
- * @param {String|Buffer} secretOrPublicKey - Either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA.
+ * @param {String|Buffer|GetSecretOrPublicKeyCallback} secretOrPublicKey - Either the secret for HMAC algorithms, the PEM encoded public key for RSA and ECDSA, or a function that can fetch the secret or public key.
  * @param {VerifyOptions} [options] - Options for the verification
  * @param {Function} callback - Callback to get the decoded token on
  */
 export declare function verify(
     token: string,
-    secretOrPublicKey: string | Buffer,
+    secretOrPublicKey: string | Buffer | GetSecretOrPublicKeyCallback,
     callback?: VerifyCallback,
 ): void;
 export declare function verify(
     token: string,
-    secretOrPublicKey: string | Buffer,
+    secretOrPublicKey: string | Buffer | GetSecretOrPublicKeyCallback,
     options?: VerifyOptions,
     callback?: VerifyCallback,
 ): void;
