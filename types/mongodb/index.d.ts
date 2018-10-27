@@ -707,8 +707,8 @@ export interface Collection<TSchema = Default> {
     findOneAndReplace(filter: FilterQuery<TSchema>, replacement: Object, options: FindOneAndReplaceOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndUpdate */
     findOneAndUpdate(filter: FilterQuery<TSchema>, update: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
-    findOneAndUpdate(filter: FilterQuery<TSchema>, update: Object, options?: FindOneAndReplaceOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
-    findOneAndUpdate(filter: FilterQuery<TSchema>, update: Object, options: FindOneAndReplaceOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
+    findOneAndUpdate(filter: FilterQuery<TSchema>, update: Object, options?: FindOneAndUpdateOption): Promise<FindAndModifyWriteOpResultObject<TSchema>>;
+    findOneAndUpdate(filter: FilterQuery<TSchema>, update: Object, options: FindOneAndUpdateOption, callback: MongoCallback<FindAndModifyWriteOpResultObject<TSchema>>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#geoHaystackSearch */
     geoHaystackSearch(x: number, y: number, callback: MongoCallback<any>): void;
     geoHaystackSearch(x: number, y: number, options?: GeoHaystackSearchOptions): Promise<any>;
@@ -804,17 +804,17 @@ export interface Collection<TSchema = Default> {
     /** @deprecated use updateOne, updateMany or bulkWrite */
     update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<WriteOpResult>): void;
     /** @deprecated use updateOne, updateMany or bulkWrite */
-    update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: ReplaceOneOptions & { multi?: boolean }): Promise<WriteOpResult>;
+    update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: UpdateOneOptions & { multi?: boolean }): Promise<WriteOpResult>;
     /** @deprecated use updateOne, updateMany or bulkWrite */
-    update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: ReplaceOneOptions & { multi?: boolean }, callback: MongoCallback<WriteOpResult>): void;
+    update(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: UpdateOneOptions & { multi?: boolean }, callback: MongoCallback<WriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateMany */
     updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<UpdateWriteOpResult>): void;
-    updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: CommonOptions & { upsert?: boolean }): Promise<UpdateWriteOpResult>;
-    updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: CommonOptions & { upsert?: boolean }, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: UpdateManyOptions): Promise<UpdateWriteOpResult>;
+    updateMany(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: UpdateManyOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateOne */
     updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, callback: MongoCallback<UpdateWriteOpResult>): void;
-    updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult>;
-    updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
+    updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options?: UpdateOneOptions): Promise<UpdateWriteOpResult>;
+    updateOne(filter: FilterQuery<TSchema>, update: UpdateQuery<TSchema> | TSchema, options: UpdateOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#watch */
     watch(pipeline?: Object[], options?: ChangeStreamOptions & { startAtClusterTime?: Timestamp, session?: ClientSession }): ChangeStream;
 }
@@ -1158,13 +1158,17 @@ export interface FindAndModifyWriteOpResultObject<TSchema = Default> {
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndReplace */
-export interface FindOneAndReplaceOption {
+export interface FindOneAndReplaceOption extends CommonOptions {
     projection?: Object;
     sort?: Object;
     maxTimeMS?: number;
     upsert?: boolean;
     returnOriginal?: boolean;
-    session?: ClientSession;
+}
+
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#findOneAndUpdate */
+export interface FindOneAndUpdateOption extends FindOneAndReplaceOption {
+    arrayFilters?: Object[];
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#geoHaystackSearch */
@@ -1354,6 +1358,17 @@ export interface ParallelCollectionScanOptions {
 export interface ReplaceOneOptions extends CommonOptions {
     upsert?: boolean;
     bypassDocumentValidation?: boolean;
+}
+
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateOne */
+export interface UpdateOneOptions extends ReplaceOneOptions {
+    arrayFilters?: Object[];
+}
+
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateMany */
+export interface UpdateManyOptions extends CommonOptions {
+    upsert?: boolean;
+    arrayFilters: Object[];
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~updateWriteOpResult */

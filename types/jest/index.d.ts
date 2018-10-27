@@ -16,6 +16,7 @@
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Martin Hochel <https://github.com/hotell>
 //                 Sebastian Sebald <https://github.com/sebald>
+//                 Andy <https://github.com/andys8>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

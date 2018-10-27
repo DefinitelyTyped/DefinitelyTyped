@@ -388,6 +388,8 @@ cognitoUserPoolEvent.triggerSource === "TokenGeneration_Authentication";
 cognitoUserPoolEvent.triggerSource === "TokenGeneration_NewPasswordChallenge";
 cognitoUserPoolEvent.triggerSource === "TokenGeneration_AuthenticateDevice";
 cognitoUserPoolEvent.triggerSource === "TokenGeneration_RefreshTokens";
+cognitoUserPoolEvent.triggerSource === "UserMigration_Authentication";
+cognitoUserPoolEvent.triggerSource === "UserMigration_ForgotPassword";
 str = cognitoUserPoolEvent.region;
 str = cognitoUserPoolEvent.userPoolId;
 strOrUndefined = cognitoUserPoolEvent.userName;
@@ -409,6 +411,7 @@ strOrUndefined = cognitoUserPoolEvent.request.session![0].challengeMetadata;
 strOrUndefined = cognitoUserPoolEvent.request.challengeName;
 str = cognitoUserPoolEvent.request.privateChallengeParameters!["answer"];
 str = cognitoUserPoolEvent.request.challengeAnswer!;
+strOrUndefined = cognitoUserPoolEvent.request.password;
 boolOrUndefined = cognitoUserPoolEvent.response.answerCorrect;
 strOrUndefined = cognitoUserPoolEvent.response.smsMessage;
 strOrUndefined = cognitoUserPoolEvent.response.emailMessage;
@@ -420,6 +423,14 @@ str = cognitoUserPoolEvent.response.publicChallengeParameters!["captchaUrl"];
 str = cognitoUserPoolEvent.response.privateChallengeParameters!["answer"];
 strOrUndefined = cognitoUserPoolEvent.response.challengeMetadata;
 boolOrUndefined = cognitoUserPoolEvent.response.answerCorrect;
+str = cognitoUserPoolEvent.response.userAttributes!["username"];
+cognitoUserPoolEvent.response.finalUserStatus === "CONFIRMED";
+cognitoUserPoolEvent.response.finalUserStatus === "RESET_REQUIRED";
+cognitoUserPoolEvent.response.messageAction === "SUPPRESS";
+cognitoUserPoolEvent.response.desiredDeliveryMediums === ["EMAIL"];
+cognitoUserPoolEvent.response.desiredDeliveryMediums === ["SMS"];
+cognitoUserPoolEvent.response.desiredDeliveryMediums === ["SMS", "EMAIL"];
+boolOrUndefined = cognitoUserPoolEvent.response.forceAliasCreation;
 
 // CloudFormation Custom Resource
 switch (cloudformationCustomResourceEvent.RequestType) {
