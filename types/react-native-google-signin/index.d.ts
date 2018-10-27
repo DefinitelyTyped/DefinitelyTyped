@@ -3,6 +3,7 @@
 // Definitions by: Jacob Froman <https://github.com/j-fro>
 //                 Michele Bombardi <https://github.com/bm-software>
 //                 Christian Chown <https://github.com/christianchown>
+//                 Eric Chen <https://github.com/echentw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -52,6 +53,11 @@ export interface ConfigureParams {
      * Web client ID from Developer Console. Required for offline access
      */
     webClientId?: string;
+
+    /**
+     * If you want to specify the client ID of type iOS
+     */
+    iosClientId?: string;
 
     /**
      * Must be true if you wish to access user APIs on behalf of the user from
