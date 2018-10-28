@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "lib": ["es6", "dom"],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "typeRoots": ["../"],
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "macro.d.ts",
+        "test/index.tsx",
+        "test/macro.tsx"
+    ]
+}

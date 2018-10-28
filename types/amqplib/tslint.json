@@ -1,0 +1,9 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // All are TODOs
+        "no-any-union": false,
+        "no-empty-interface": false,
+        "prefer-const": false
+    }
+}
