@@ -2065,3 +2065,14 @@ db.createCollection('customers').
   // visible outside of the transaction.
   then(() => session.commitTransaction()).
   then(() => Customer.findOne({ name: 'Test' }).exec())
+
+/**
+ * https://mongoosejs.com/docs/guide.html#writeConcern
+ */
+new mongoose.Schema({ name: String }, {
+  writeConcern: {
+    w: 'majority',
+    j: true,
+    wtimeout: 1000
+  }
+});

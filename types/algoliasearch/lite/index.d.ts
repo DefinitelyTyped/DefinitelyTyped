@@ -1,4 +1,4 @@
-// Type definitions for algoliasearch-client-js 3.27.0
+// Type definitions for algoliasearch-client-js 3.30.0
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
@@ -6,7 +6,9 @@
 //                 Samuel Vaillant <https://github.com/samouss>
 //                 Claas Brüggemann <https://github.com/ClaasBrueggemann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.8
+
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 declare namespace algoliasearch {
   /**
@@ -134,12 +136,17 @@ declare namespace algoliasearch {
      * Browse an index
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
      */
+    browse(query: string, parameters: BrowseParameters, cb: (err: Error, res: BrowseResponse) => void): void;
+    /**
+     * Browse an index
+     * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
+     */
     browse(query: string, cb: (err: Error, res: BrowseResponse) => void): void;
     /**
      * Browse an index
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
      */
-    browse(query: string): Promise<BrowseResponse>;
+    browse(query: string, parameters?: BrowseParameters): Promise<BrowseResponse>;
     /**
      * Browse an index from a cursor
      * https://github.com/algolia/algoliasearch-client-js#backup--export-an-index---browse
@@ -194,7 +201,15 @@ declare namespace algoliasearch {
     query: string;
     processingTimeMS: number;
   }
-
+  type BrowseParameters = Omit<
+    QueryParameters,
+    | "typoTolerance"
+    | "distinct"
+    | "facets"
+    | "getRankingInfo"
+    | "attributesToHighlight"
+    | "attributesToSnippet"
+  >
   interface QueryParameters {
     /**
      * Query string used to perform the search

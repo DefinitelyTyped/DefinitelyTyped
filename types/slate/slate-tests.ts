@@ -1,4 +1,4 @@
-import { Value, Data, BlockJSON, Document } from "slate";
+import { Value, Data, BlockJSON, Document, Editor, Change, KeyUtils } from "slate";
 
 const data = Data.create({ foo: "bar " });
 const value = Value.create({ data });
@@ -45,3 +45,20 @@ const doc = Document.fromJSON({
 	data: {},
 	nodes: [node]
 });
+
+const editor = new Editor({ value });
+editor.change((change: Change) => {
+	return change.insertText("test");
+});
+
+editor.registerQuery("testQuery");
+editor.registerCommand("testCommand");
+editor.setReadOnly(true).setValue(value);
+editor.command("testCommand");
+editor.query("testQuery");
+editor.run("testCommand");
+editor.event("mouseDown", new Event("mouseDown"));
+
+KeyUtils.setGenerator(() => "Test");
+KeyUtils.create();
+KeyUtils.resetGenerator();
