@@ -1,5 +1,4 @@
-import _deepDiff = require('deep-diff');
-const diff = _deepDiff.diff;
+import { diff, observableDiff, applyChange, Diff } from 'deep-diff';
 
 let lhs = {
     name: 'my object',
@@ -21,14 +20,11 @@ let rhs = {
     }
 };
 
-const differences: Array<deepDiff.Diff<any>> = diff(lhs, rhs);
+const differences: Array<Diff<any>> = diff(lhs, rhs);
 
 console.log(differences);
 
 // --------------------------
-
-const observableDiff = _deepDiff.observableDiff;
-const applyChange = _deepDiff.applyChange;
 
 lhs = {
     name: 'my object',
