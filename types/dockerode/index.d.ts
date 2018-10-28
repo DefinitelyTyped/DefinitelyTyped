@@ -824,11 +824,11 @@ declare namespace Dockerode {
   	src: string[];
   }
 
-  interface DockerVersion{
+  interface DockerVersion {
     ApiVersion: string;
     Arch: string;
     BuildTime: Date;
-    Components: {
+    Components: Array<{
       Details: {
         ApiVersion: string;
         Arch: string;
@@ -841,7 +841,7 @@ declare namespace Dockerode {
       };
       Name: string;
       Version: string;
-    }[];
+    }>;
     GitCommit: string;
     GoVersion: string;
     KernelVersion: string;
@@ -852,7 +852,6 @@ declare namespace Dockerode {
     };
     Version: string;
   }
-
 }
 
 type Callback<T> = (error?: any, result?: T) => void;
