@@ -144,7 +144,7 @@ function test_form() {
         },
         onSuccess(event, fields) {
             this; // $ExpectType JQuery<HTMLElement>
-            event; // $ExpectType Event<HTMLElement, null>
+            event; // $ExpectType TriggeredEvent<HTMLElement, any, any, any>
             fields; // $ExpectType any
         },
         onFailure(formErrors, fields) {
