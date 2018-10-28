@@ -1,42 +1,79 @@
-// Type definitions for deep-diff
+// TypeScript Version: 2.3
+// Type definitions for deep-diff 1.0.2
 // Project: https://github.com/flitbit/diff/
 // Definitions by: ZauberNerd <https://github.com/ZauberNerd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace deepDiff {
-    interface IDiff {
-        kind: string;
-        path: string[];
-        lhs: any;
-        rhs: any;
-        index?: number;
-        item?: IDiff;
+
+    interface DiffNew<RHS,Kind='N'> {
+        kind: Kind;
+        path?: any[];
+        rhs: RHS;
     }
 
-    interface IAccumulator {
-        push(diff: IDiff): void;
+    interface DiffDeleted<LHS,Kind='D'> {
+        kind: Kind;
+        path?: any[];
+        lhs: LHS;
+    }
+
+    interface DiffEdit<LHS,RHS=LHS,Kind='E'> {
+        kind: Kind;
+        path?: any[];
+        lhs: LHS;
+        rhs: RHS;
+    }
+
+    interface DiffArray<LHS,RHS=LHS,Kind='A'> {
+        kind: Kind;
+        path?: any[];
+        index: number;
+        item: Diff<LHS,RHS>;
+    }
+
+    type Diff<LHS,RHS=LHS> = DiffNew<RHS> | DiffDeleted<LHS> | DiffEdit<LHS,RHS> | DiffArray<LHS,RHS>;
+
+    interface PreFilterFunction {
+        (path: any[], key: any): boolean;
+    }
+    interface PreFilterObject<LHS,RHS=LHS> {
+        prefilter?(path: any[], key: any): boolean;
+        normalize?(currentPath: any, key: any, lhs: LHS, rhs: RHS): [ LHS, RHS ] | undefined;
+    }
+    type PreFilter<LHS,RHS=LHS> = PreFilterFunction | PreFilterObject<LHS,RHS>;
+
+    interface Accumulator<LHS,RHS=LHS> {
+        push(diff: Diff<LHS,RHS>): void;
         length: number;
     }
 
-    interface IPrefilter {
-        (path: string[], key: string): boolean;
+    interface Observer<LHS,RHS=LHS> {
+        (diff: Diff<LHS,RHS>): void;
     }
 
-    interface IDeepDiff {        
-        diff(lhs: Object, rhs: Object, prefilter?: IPrefilter, acc?: IAccumulator): IDiff[];
-        diff(): IDiff;
-        observableDiff(lhs: Object, rhs: Object, changes: Function, prefilter?: IPrefilter, path?: string[], key?: string, stack?: Object[]): void;
-        applyDiff(target: Object, source: Object, filter: Function): void;
-        applyChange(target: Object, source: Object, change: IDiff): void;
-        revertChange(target: Object, source: Object, change: IDiff): void;
+    interface Filter<LHS,RHS=LHS> {
+        (target: LHS, source: RHS, change: Diff<LHS,RHS>): boolean;
+    }
+
+    interface DeepDiff {        
+        diff<LHS,RHS=LHS>(lhs: LHS, rhs: RHS, prefilter?: PreFilter<LHS,RHS>): Diff<LHS,RHS>[] | undefined;
+        diff<LHS,RHS=LHS>(lhs: LHS, rhs: RHS, prefilter?: PreFilter<LHS,RHS>, acc?: Accumulator<LHS,RHS>): Accumulator<LHS,RHS>;
+        orderIndependentDiff: typeof DeepDiff.diff;
+        observableDiff<LHS,RHS=LHS>(lhs: LHS, rhs: RHS, observer?: Observer<LHS,RHS>, prefilter?: PreFilter<LHS,RHS>, orderIndependent?: boolean): Diff<LHS,RHS>[];
+        orderIndependentDeepDiff<LHS,RHS=LHS>(lhs: LHS, rhs: RHS, changes: Diff<LHS,RHS>[], prefilter: PreFilter<LHS,RHS>, path: any[], key: any, stack: any[]): void;
+        orderIndepHash(object: any): number;
+        applyDiff<LHS,RHS=LHS>(target: LHS, source: RHS, filter?: Filter<LHS,RHS>): void;
+        applyChange<LHS,RHS>(target: LHS, source: any, change: Diff<LHS,RHS>): void;
+        revertChange<LHS,RHS=LHS>(target: LHS, source: any, change: Diff<LHS,RHS>): void;
         isConflict(): boolean;
-        noConflict(): IDeepDiff;
+        noConflict(): DeepDiff;
     }
 }
 
-declare var DeepDiff: deepDiff.IDeepDiff;
+declare var DeepDiff: deepDiff.DeepDiff;
 
 declare module "deep-diff" {
-    var diff: deepDiff.IDeepDiff;
+    var diff: deepDiff.DeepDiff;
     export = diff;
 }
