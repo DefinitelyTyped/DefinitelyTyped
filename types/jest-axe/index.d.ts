@@ -8,10 +8,6 @@
 
 import { AxeResults, Result, RunOnly } from "axe-core";
 
-declare module "axe-core" {
-	interface Node {}
-}
-
 /**
  * Version of the aXe verifier with defaults set.
  *
@@ -86,4 +82,7 @@ declare global {
             toHaveNoViolations: IToHaveNoViolations;
         }
     }
+
+    // axe-core depends on a global Node
+    interface Node {}
 }
