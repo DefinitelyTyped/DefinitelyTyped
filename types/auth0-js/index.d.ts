@@ -172,7 +172,7 @@ export class WebAuth {
      *
      * @param callback: any(err, token_payload)
      */
-    parseHash(callback: Auth0Callback<Auth0DecodedHash>): void;
+    parseHash(callback: Auth0Callback<Auth0DecodedHash | null, Auth0ParseHashError>): void;
 
     /**
      * Parse the url hash and extract the returned tokens depending on the transaction.
@@ -183,7 +183,7 @@ export class WebAuth {
      *
      * @param callback: any(err, token_payload)
      */
-    parseHash(options: ParseHashOptions, callback: Auth0Callback<Auth0DecodedHash>): void;
+    parseHash(options: ParseHashOptions, callback: Auth0Callback<Auth0DecodedHash | null, Auth0ParseHashError>): void;
 
     /**
      * Decodes the id_token and verifies  the nonce.
@@ -482,7 +482,7 @@ export class CrossOriginAuthentication {
     callback(): void;
 }
 
-export type Auth0Callback<T> = (error: null | Auth0Error, result: T) => void;
+export type Auth0Callback<T, E = Auth0Error> = (error: null | E, result: T) => void;
 
 export interface TokenProvider {
     enableCache?: boolean;
@@ -522,16 +522,49 @@ export interface PasswordlessAuthOptions {
     email: string;
 }
 
+/**
+ * These are error codes defined by the auth0-js lib.
+ */
+export type LibErrorCodes = 'timeout' | 'request_error' | 'invalid_token';
+
+/**
+ * The user was not logged in at Auth0, so silent authentication is not possible.
+ */
+export type LoginRequiredErrorCode = 'login_required';
+
+/**
+ * The user was logged in at Auth0 and has authorized the application, but needs to
+ * be redirected elsewhere before authentication can be completed; for example, when
+ * using a redirect rule.
+ */
+export type InteractionRequiredErrorCode = 'interaction_required';
+
+/**
+ * The user was logged in at Auth0, but needs to give consent to authorize the application.
+ */
+export type ConsentRequiredErrorCode = 'consent_required';
+
+/**
+ * These are error codes defined by the OpenID Connect specification.
+ */
+export type SpecErrorCodes =
+    LoginRequiredErrorCode |
+    InteractionRequiredErrorCode |
+    ConsentRequiredErrorCode |
+    'account_selection_required' |
+    'invalid_request_uri' |
+    'invalid_request_object' |
+    'request_not_supported' |
+    'request_uri_not_supported' |
+    'registration_not_supported';
+
 export interface Auth0Error {
-    error?: any;
-    errorDescription?: string;
-    code?: string;
-    description?: string;
-    name?: string;
-    policy?: string;
-    original?: any;
-    statusCode?: number;
-    statusText?: string;
+    error: LibErrorCodes | SpecErrorCodes | string;
+    errorDescription: string;
+}
+
+export type Auth0ParseHashError = Auth0Error & {
+    state?: string;
 }
 
 /**
