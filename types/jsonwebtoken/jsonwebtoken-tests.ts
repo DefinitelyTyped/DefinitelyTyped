@@ -112,10 +112,10 @@ jwt.verify(token, cert, { ignoreExpiration: true }, function(err, decoded) {
 
 // verify with get secret or public key function
 jwt.verify(token, (header, callback) => {
-    callback(null, fs.readFileSync("public.pem"))
+    callback(null, fs.readFileSync("public.pem"));
 }, function(err, decoded) {
 
-})
+});
 
 /**
  * jwt.decode
