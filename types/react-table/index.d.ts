@@ -6,17 +6,17 @@
 import * as React from 'react';
 
 export type ReactTableFunction = (value?: any) => void;
-export type AccessorFunction<D> = (row: D) => any;
-export type Accessor<D> = string | string[] | AccessorFunction<D>;
+export type AccessorFunction<D = any> = (row: D) => any;
+export type Accessor<D = any> = string | string[] | AccessorFunction<D>;
 export type Aggregator = (values: any, rows: any) => any;
 export type TableCellRenderer = ((data: any, column: any) => React.ReactNode) | React.ReactNode;
-export type FilterRender = (params: { column: Column<any>, filter: any, onChange: ReactTableFunction, key?: string }) => React.ReactElement<any>;
+export type FilterRender = (params: { column: Column, filter: any, onChange: ReactTableFunction, key?: string }) => React.ReactElement<any>;
 export type PivotRenderer = ((cellInfo: any) => React.ReactNode) | (() => any) | string | React.ReactNode;
 
 export type ComponentPropsGetter0 = (finalState: any, rowInfo: undefined, column: undefined, instance?: any) => object | undefined;
 export type ComponentPropsGetterR = (finalState: any, rowInfo?: RowInfo, column?: undefined, instance?: any) => object | undefined;
-export type ComponentPropsGetterC = (finalState: any, rowInfo?: undefined, column?: Column<any>, instance?: any) => object | undefined;
-export type ComponentPropsGetterRC = (finalState: any, rowInfo?: RowInfo, column?: Column<any>, instance?: any) => object | undefined;
+export type ComponentPropsGetterC = (finalState: any, rowInfo?: undefined, column?: Column, instance?: any) => object | undefined;
+export type ComponentPropsGetterRC = (finalState: any, rowInfo?: RowInfo, column?: Column, instance?: any) => object | undefined;
 
 export type DefaultFilterFunction = (filter: Filter, row: any, column: any) => boolean;
 export type FilterFunction = (filter: Filter, rows: any[], column: any) => boolean;
@@ -46,7 +46,7 @@ export interface SortingRule {
     desc?: true;
 }
 
-export interface TableProps<D> extends
+export interface TableProps<D = any> extends
     Partial<TextProps>,
     Partial<ComponentDecoratorProps>,
     Partial<ControlledStateCallbackProps>,
@@ -548,7 +548,7 @@ export interface PivotDefaults {
     render: TableCellRenderer;
 }
 
-export interface Column<D> extends
+export interface Column<D = any> extends
     Partial<Column.Basics>,
     Partial<Column.CellProps>,
     Partial<Column.FilterProps>,
@@ -608,7 +608,7 @@ export interface Column<D> extends
     pivot?: boolean;
 }
 
-export interface ColumnRenderProps<D> {
+export interface ColumnRenderProps<D = any> {
     /** Sorted data. */
     data: D[];
 
@@ -662,7 +662,7 @@ export interface RowInfo {
     original: any;
 }
 
-export interface FinalState<D> extends TableProps<D> {
+export interface FinalState<D = any> extends TableProps<D> {
     frozen: boolean;
     startRow: number;
     endRow: number;
@@ -681,10 +681,10 @@ export interface FinalState<D> extends TableProps<D> {
     headerGroups: any[];
 }
 
-export const ReactTableDefaults: TableProps<any>;
+export const ReactTableDefaults: TableProps;
 export default class ReactTable<D> extends React.Component<Partial<TableProps<D>>> { }
 
-export interface Instance<D> extends ReactTable<D> {
+export interface Instance<D = any> extends ReactTable<D> {
     context: any;
     props: Partial<TableProps<D>>;
     refs: any;
