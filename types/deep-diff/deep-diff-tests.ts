@@ -1,9 +1,7 @@
-
-
 import _deepDiff = require('deep-diff');
-var diff = _deepDiff.diff;
+const diff = _deepDiff.diff;
 
-var lhs = {
+let lhs = {
     name: 'my object',
     description: 'it\'s an object!',
     details: {
@@ -13,7 +11,7 @@ var lhs = {
     }
 };
 
-var rhs = {
+let rhs = {
     name: 'updated object',
     description: 'it\'s an object!',
     details: {
@@ -23,17 +21,16 @@ var rhs = {
     }
 };
 
-var differences: deepDiff.Diff<any>[] = diff(lhs, rhs);
+const differences: Array<deepDiff.Diff<any>> = diff(lhs, rhs);
 
 console.log(differences);
 
-
 // --------------------------
 
-var observableDiff = _deepDiff.observableDiff;
-var applyChange = _deepDiff.applyChange;
+const observableDiff = _deepDiff.observableDiff;
+const applyChange = _deepDiff.applyChange;
 
-var lhs = {
+lhs = {
     name: 'my object',
     description: 'it\'s an object!',
     details: {
@@ -43,7 +40,7 @@ var lhs = {
     }
 };
 
-var rhs = {
+rhs = {
     name: 'updated object',
     description: 'it\'s an object!',
     details: {
@@ -53,7 +50,7 @@ var rhs = {
     }
 };
 
-observableDiff(lhs, rhs, function (d) {
+observableDiff(lhs, rhs, d => {
     // Apply all changes except those to the 'name' property...
     if (d.path.length !== 1 || d.path.join('.') !== 'name') {
         applyChange(lhs, rhs, d);
