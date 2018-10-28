@@ -1368,7 +1368,7 @@ export interface UpdateOneOptions extends ReplaceOneOptions {
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#updateMany */
 export interface UpdateManyOptions extends CommonOptions {
     upsert?: boolean;
-    arrayFilters: Object[];
+    arrayFilters?: Object[];
 }
 
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#~updateWriteOpResult */
