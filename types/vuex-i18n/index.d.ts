@@ -19,8 +19,8 @@ declare module "vue/types/vue" {
 }
 
 export interface i18nState {
-  fallback: string;
-  locale: string;
+  fallback: string | null;
+  locale: string | null;
   translations: {
     [key: string]: Translations;
   };
