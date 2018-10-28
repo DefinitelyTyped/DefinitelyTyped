@@ -92,7 +92,7 @@ declare namespace Backbone {
     }
 
     interface EventsHash {
-        [selector: string]: string | {(eventObject: JQueryEventObject): void};
+        [selector: string]: string | {(eventObject: JQuery.TriggeredEvent): void};
     }
 
     export const Events: Events;
