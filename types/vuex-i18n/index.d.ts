@@ -32,7 +32,7 @@ export interface Translations {
 
 export interface Ii18n {
   /** get the current locale */
-  locale(): string;
+  locale(): string | null;
 
   /** get all the registered locales */
   locales(): string[];
