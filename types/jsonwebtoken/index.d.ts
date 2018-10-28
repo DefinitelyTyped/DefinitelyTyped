@@ -83,13 +83,13 @@ export interface SecretOrPublicKeyCallback {
     (
         err: VerifyErrors,
         secretOrPublicKey: string | Buffer
-    ): void
+    ): void;
 }
 export interface GetSecretOrPublicKeyCallback {
     (
         header: object,
         callback: SecretOrPublicKeyCallback
-    ): void
+    ): void;
 }
 export type VerifyErrors=JsonWebTokenError | NotBeforeError | TokenExpiredError;
 export interface VerifyCallback {
