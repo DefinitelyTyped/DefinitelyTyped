@@ -163,11 +163,21 @@ interface RTCRtcCapabilities {
     headerExtensions: RTCRtpHeaderExtensionCapability[];
 }
 
+// https://www.w3.org/TR/webrtc/#rtcdtmfsender
+interface RTCDTMFSender extends EventTarget {
+    readonly canInsertDTMF: boolean;
+    readonly toneBuffer: string;
+    ontonechange: EventHandler;
+    insertDTMF(tones: String, duration?: number, interToneGap?: number): void;
+}
+
 // https://www.w3.org/TR/webrtc/#dom-rtcrtpsender
 interface RTCRtpSender {
     //readonly track?: MediaStreamTrack;
     //readonly transport?: RTCDtlsTransport;
     //readonly rtcpTransport?: RTCDtlsTransport;
+    // Extension: https://www.w3.org/TR/webrtc/#rtcrtpsender-interface-extensions
+    readonly dtmf?: RTCDTMFSender;
     setParameters(parameters?: RTCRtpParameters): Promise<void>;
     getParameters(): RTCRtpParameters;
     replaceTrack(withTrack: MediaStreamTrack): Promise<void>;
@@ -276,6 +286,11 @@ interface RTCTrackEvent extends Event {
     readonly track: MediaStreamTrack;
     readonly streams: MediaStream[];
     readonly transceiver: RTCRtpTransceiver;
+}
+
+// https://www.w3.org/TR/webrtc/#dom-rtcdtmftonechangeevent
+interface RTCDTMFToneChangeEvent {
+    readonly tone: string;
 }
 
 // https://www.w3.org/TR/webrtc/#h-rtcpeerconnectioniceevent
