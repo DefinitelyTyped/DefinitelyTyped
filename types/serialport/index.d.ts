@@ -40,7 +40,7 @@ declare class SerialPort extends Stream.Duplex {
 
 	static Binding: SerialPort.BaseBinding;
 
-	static list(): Promise<any>;
+	static list(callback?: SerialPort.ListCallback): Promise<any>;
 }
 
 declare namespace SerialPort {
