@@ -1,4 +1,4 @@
-// Type definitions for slate 0.42
+// Type definitions for slate 0.43
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -1478,10 +1478,10 @@ export class SlateError extends Error {
     [key: string]: any;
 }
 
-export interface KeyUtils {
-    create(key: string): string;
-    setGenerator(func: () => any): void;
-    resetGenerator(): void;
+export namespace KeyUtils {
+    function create(key?: string): string;
+    function setGenerator(func: () => any): void;
+    function resetGenerator(): void;
 }
 
 export type useMemoization = () => void;
