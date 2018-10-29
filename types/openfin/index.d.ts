@@ -24,16 +24,31 @@
  * When running within the OpenFin Runtime your web applications have access to the "fin" namespace and all the modules within the API
  * without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "documennt" objects.
  */
+import { Identity } from './_v2/identity';
+import { ShortCutConfig } from './_v2/api/application/application';
+import { ExternalApplicationInfo } from './_v2/api/external-application/external-application';
+import { ClearCacheOption } from './_v2/api/system/clearCacheOption';
+import { CookieInfo, CookieOption } from './_v2/api/system/cookie';
+import { AppAssetInfo, AppAssetRequest, RuntimeDownloadOptions, RuntimeDownloadProgress } from './_v2/api/system/download-asset';
+import { DownloadPreloadInfo, DownloadPreloadOption } from './_v2/api/system/download-preload';
+import { EntityInfo } from './_v2/api/system/entity';
+import { ProcessInfo } from './_v2/api/system/process';
+import { RegistryInfo } from './_v2/api/system/registry-info';
+
+// tslint:disable-next-line:export-just-namespace
+export = fin;
+export as namespace fin;
+
 declare namespace fin {
-    var Application: import('./_v2/api/application/application').default
-    var Clipboard: import('./_v2/api/clipboard/clipboard').default
+    var Application: import('./_v2/api/application/application').default;
+    var Clipboard: import('./_v2/api/clipboard/clipboard').default;
     var ExternalApplication: import('./_v2/api/external-application/external-application').default
-    var Frame: import('./_v2/api/frame/frame').default
-    var GlobalHotkey: import('./_v2/api/global-hotkey/index').default
-    var InterApplicationBus: import('./_v2/api/interappbus/interappbus').default
-    var Notification: import('./_v2/api/notification/notification').default
-    var System: import('./_v2/api/system/system').default
-    var Window: import('./_v2/api/window/window').default
+    var Frame: import('./_v2/api/frame/frame').default;
+    var GlobalHotkey: import('./_v2/api/global-hotkey/index').default;
+    var InterApplicationBus: import('./_v2/api/interappbus/interappbus').default;
+    var Notification: import('./_v2/api/notification/notification').default;
+    var System: import('./_v2/api/system/system').default;
+    var Window: import('./_v2/api/window/window').default;
 
     const desktop: OpenFinDesktop;
 
@@ -187,21 +202,6 @@ declare namespace fin {
          * The Application's uuid
          */
         uuid: string;
-    }
-
-    interface ShortCutConfig {
-        /**
-         * application has a shortcut on the desktop
-         */
-        desktop?: boolean;
-        /**
-         * application has no shortcut in the start menu
-         */
-        startMenu?: boolean;
-        /**
-         * application will be launched on system startup
-         */
-        systemStartup?: boolean;
     }
 
     interface SuccessObj {
@@ -638,7 +638,7 @@ declare namespace fin {
          * Clears cached data containing window state/positions,
          * application resource files (images, HTML, JavaScript files), cookies, and items stored in the Local Storage.
          */
-        clearCache(options: CacheOptions, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        clearCache(options: ClearCacheOption, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Clears all cached data when OpenFin Runtime exits.
          */
@@ -684,7 +684,7 @@ declare namespace fin {
         /**
          * Returns information about the app asset.
          */
-        getAppAssetInfo(options: AppAssetOptions, callback?: (appAssetInfo: AppAssetInfo) => void, errorCallback?: (reason: string) => void): void;
+        getAppAssetInfo(options: AppAssetRequest, callback?: (appAssetInfo: AppAssetInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Get additional info of cookies.
          */
@@ -830,27 +830,6 @@ declare namespace fin {
         updateProxySettings(type: string, address: string, port: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
     }
 
-    interface CacheOptions {
-        cache?: boolean;
-        cookies?: boolean;
-        localStorage?: boolean;
-        appcache?: boolean;
-        userData?: boolean;
-    }
-
-    interface AppAssetInfo {
-        src?: string;
-        alias?: string;
-        version?: string;
-        target?: string;
-        args?: string;
-        mandatory?: boolean;
-    }
-
-    interface AppAssetOptions {
-        alias: string;
-    }
-
     interface ApplicationInfo {
         /**
          * true when the application is running.
@@ -864,56 +843,6 @@ declare namespace fin {
          * uuid of the application that launches this application.
          */
         parentUuid?: string;
-    }
-
-    interface Identity {
-        uuid: string;
-        name: string;
-    }
-
-    interface EntityInfo {
-        name: string;
-        uuid: string;
-        parent: Identity;
-        entityType: string;
-    }
-
-    interface DownloadPreloadOption {
-        url: string;
-    }
-
-    interface DownloadPreloadInfo {
-        success: boolean;
-        url?: string;
-        error: string;
-    }
-
-    interface CookieInfo {
-        name: string;
-        // expirationDate: Date;
-        domain: string;
-        path: string;
-    }
-
-    interface CookieOption {
-        name: string;
-    }
-
-    interface RegistryInfo {
-        data: any;
-        rootKey: string;
-        subkey: string;
-        type: string;
-        value: string;
-    }
-
-    interface RuntimeDownloadOptions {
-        version: string;
-    }
-
-    interface RuntimeDownloadProgress {
-        downloadedBytes: number;
-        totalBytes: number;
     }
 
     interface WindowDetails {
@@ -1013,61 +942,6 @@ declare namespace fin {
          * the unix time at which the log was created "Thu Jan 08 2015 14:40:30 GMT-0500 (Eastern Standard Time)"
          */
         date?: string;
-    }
-
-    interface ProcessInfo {
-        /**
-         * the percentage of total CPU usage
-         */
-        cpuUsage?: number;
-        /**
-         * the application name
-         */
-        name?: string;
-        /**
-         * the current nonpaged pool usage in bytes
-         */
-        nonPagedPoolUsage?: number;
-        /**
-         * the number of page faults
-         */
-        pageFaultCount?: number;
-        /**
-         * the current paged pool usage in bytes
-         */
-        pagedPoolUsage?: number;
-        /**
-         * the total amount of memory in bytes that the memory manager has committed
-         */
-        pagefileUsage?: number;
-        /**
-         * the peak nonpaged pool usage in bytes
-         */
-        peakNonPagedPoolUsage?: number;
-        /**
-         * the peak paged pool usage in bytes
-         */
-        peakPagedPoolUsage?: number;
-        /**
-         * the peak value in bytes of pagefileUsage during the lifetime of this process
-         */
-        peakPagefileUsage?: number;
-        /**
-         * the peak working set size in bytes
-         */
-        peakWorkingSetSize?: number;
-        /**
-         * the native process identifier
-         */
-        processId?: number;
-        /**
-         * the application UUID
-         */
-        uuid?: string;
-        /**
-         * the current working set size (both shared and private data) in bytes
-         */
-        workingSetSize?: number;
     }
 
     interface ProxyInfo {
@@ -1795,13 +1669,6 @@ declare namespace fin {
          * the width of the window.
          */
         width?: number;
-    }
-
-    interface ExternalApplicationInfo {
-        parent: {
-            uuid: string;
-            name: string;
-        };
     }
 
     interface SessionChangedEvent {

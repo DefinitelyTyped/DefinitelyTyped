@@ -235,8 +235,7 @@ function test_system() {
         cache: true,
         cookies: true,
         localStorage: true,
-        appcache: true,
-        userData: true
+        appcache: true
     });
     // deleteCacheOnExit
     fin.desktop.System.deleteCacheOnExit(() => {
