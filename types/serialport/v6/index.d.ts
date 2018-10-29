@@ -1,4 +1,4 @@
-// Type definitions for serialport 7.0
+// Type definitions for serialport 6.0
 // Project: https://github.com/EmergingTechnologyAdvisors/node-serialport
 // Definitions by: Jeremy Foster <https://github.com/codefoster>
 //                 Andrew Pearson <https://github.com/apearson>
@@ -40,7 +40,7 @@ declare class SerialPort extends Stream.Duplex {
 
 	static Binding: SerialPort.BaseBinding;
 
-	static list(callback?: SerialPort.ListCallback): Promise<SerialPort.PortInfo[]>;
+	static list(): Promise<any>;
 }
 
 declare namespace SerialPort {
@@ -77,16 +77,6 @@ declare namespace SerialPort {
 		dsr?: boolean;
 		dtr?: boolean;
 		rts?: boolean;
-    }
-
-	interface PortInfo {
-		comName: string;
-		manufacturer?: string;
-		serialNumber?: string;
-		pnpId?: string;
-		locationId?: string;
-		productId?: string;
-		vendorId?: string;
 	}
 
 	namespace parsers {
@@ -129,7 +119,7 @@ declare namespace SerialPort {
 			get(): Promise<any>;
 			flush(): Promise<any>;
 			drain(): Promise<any>;
-			static list(): Promise<PortInfo[]>;
+			static list(): Promise<any>;
 		}
 }
 

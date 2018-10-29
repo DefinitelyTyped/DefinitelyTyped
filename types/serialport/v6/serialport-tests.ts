@@ -126,14 +126,3 @@ function test_properties() {
     const isOpen: boolean = port.isOpen;
     const path: string = port.path;
 }
-
-function test_list_ports_promise() {
-    const ports = SerialPort
-        .list()
-        .then((ports: any) => {})
-        .catch((err: Error) => {});
-}
-
-function test_list_ports_callback() {
-    const ports = SerialPort.list((error: Error, port: any[]) => {});
-}
