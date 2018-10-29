@@ -97,8 +97,12 @@ declare namespace got {
 
     type GotUrl = string | https.RequestOptions | Url | URL;
 
+    type Hook<T> = (options: T) => any;
+    type Hooks<T> = Record<'beforeRequest', Hook<T>[]>;
+
     interface GotBodyOptions<E extends string | null> extends GotOptions<E> {
         body?: string | Buffer | nodeStream.Readable;
+        hooks?: Hooks<GotBodyOptions<E>>;
     }
 
     interface GotJSONOptions extends GotOptions<string | null> {
@@ -106,15 +110,15 @@ declare namespace got {
         body?: object;
         form?: boolean;
         json: true;
+        hooks?: Hooks<GotJSONOptions>;
     }
 
     interface GotFormOptions<E extends string | null> extends GotOptions<E> {
         body?: {[key: string]: any};
         form: true;
         json?: boolean;
+        hooks?: Hooks<GotFormOptions<E>>;
     }
-
-    type Hook = (options?: https.RequestOptions) => any;
 
     interface GotOptions<E extends string | null> extends InternalRequestOptions {
         baseUrl?: string;
@@ -128,7 +132,6 @@ declare namespace got {
         useElectronNet?: boolean;
         throwHttpErrors?: boolean;
         agent?: http.Agent | boolean | AgentOptions;
-        hooks?: Record<'beforeRequest', Hook[]>;
         cache?: Cache;
     }
 
