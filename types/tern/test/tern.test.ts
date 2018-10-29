@@ -1,6 +1,6 @@
 import * as tern from "tern";
 
-const server: tern.Server = null;
+const server: tern.Server = null as any;
 
 server.request({
     query: {
@@ -9,7 +9,7 @@ server.request({
         end: 0
     }
 }, (error, response) => {
-    if (response.isProperty) {
+    if (response && response.isProperty) {
         //
     }
 });
@@ -17,7 +17,7 @@ server.request({
 server.request({
 }, (error, response) => {
     // $ExpectError
-    if (response.isProperty) {
+    if (response && response.isProperty) {
         //
     }
 });
@@ -40,7 +40,7 @@ server.request({
         type: "someUnknownType"
     }
 }, (error, response) => {
-    if (response.abc) {
+    if (response && response.abc) {
         //
     }
 });
@@ -49,7 +49,7 @@ server.request({
     query: undefined
 }, (error, response) => {
     // $ExpectError
-    if (response.isProperty) {
+    if (response && response.isProperty) {
         //
     }
 });
