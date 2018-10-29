@@ -1,9 +1,14 @@
-// Type definitions for tern 1.3 0.22
+// Type definitions for tern
 // Project: https://github.com/ternjs/tern
 // Definitions by: Nikolaj Kappler <https://github.com/nkappler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Still WIP! some definitions may be incomplete or missing
+// IMPORTANT Note: These type definitions are oriented closely to the official documentation,
+// which does not seem to match the implementation exactly in some places.
+// As a result, these type definitions may lack some parts of the API that are actually exposed.
+// The type definitions are at a point where they are usable and match the documentation,
+// thus if you want to use undocumented APIs, you should extends these definitions with
+// ambient declaration merging: https://www.typescriptlang.org/docs/handbook/declaration-merging.html
 
 import * as ESTree from "estree";
 import { Scope, Type } from "../infer";
@@ -110,11 +115,11 @@ export interface Server {
 
 // #### JSON Protocol ####
 
-type QueryResult<Q extends Query> = QueryMap[Q["type"]]["result"];
+type QueryResult<Q extends Query> = QueryRegistry[Q["type"]]["result"];
 
-type Query = QueryMap[keyof QueryMap]["query"];
+type Query = QueryRegistry[keyof QueryRegistry]["query"];
 
-export interface QueryMap {
+export interface QueryRegistry {
     completions: {
         query: CompletionsQuery,
         result: CompletionsQueryResult
@@ -463,7 +468,7 @@ export const version: string;
 export function registerPlugin(name: string, init: (server: Server, options?: ConstructorOptions) => void): void;
 
 interface Desc<T extends Query["type"]> {
-    run(Server: Server, query: QueryMap[T]["query"], file?: File): QueryMap[T]["result"];
+    run(Server: Server, query: QueryRegistry[T]["query"], file?: File): QueryRegistry[T]["result"];
     takesfile?: boolean;
 }
 
@@ -477,13 +482,13 @@ interface Desc<T extends Query["type"]> {
  * module’s API to do someting useful in this function.
  *
  * To be able to use this function and the `request` function in a useful way, you probably want
- * to define an interface for the query and the result of the query and extend the interface `QueryMap` via
+ * to define an interface for the query and the result of the query and extend the interface `QueryRegistry` via
  * [declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html)
  * in the following manner:
  *
  * ```typescript
  * declare module "tern/lib/tern" {
- *   interface QueryMap {
+ *   interface QueryRegistry {
  *     [CustomQueryType]: {
  *       query: CustomQuery
  *       result: CustomQueryResult
@@ -492,6 +497,6 @@ interface Desc<T extends Query["type"]> {
  * }
  * ```
  * _Note that your query interface should extend_ `IQuery` _and that its_ `type` _property has to be spelled
- * exactly like the key in the_ `QueryMap` _interface._
+ * exactly like the key in the_ `QueryRegistry` _interface._
  */
 export function defineQueryType<T extends Query["type"]>(name: T, desc: Desc<T>): void;

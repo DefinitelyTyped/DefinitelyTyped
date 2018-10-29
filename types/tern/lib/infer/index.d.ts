@@ -1,3 +1,8 @@
+// Type definitions for tern
+// Project: https://github.com/ternjs/tern
+// Definitions by: Nikolaj Kappler <https://github.com/nkappler>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 import * as ESTree from "estree";
 
 // #### Context ####
@@ -8,11 +13,11 @@ export const Context: ContextConstructor;
 export interface Context {
     topScope: Scope;
     /** The primitive number type. */
-    num: object;
+    num: Type;
     /** The primitive string type. */
-    str: object;
+    str: Type;
     /** The primitive boolean type. */
-    bool: object;
+    bool: Type;
 }
 export function cx(): Context;
 export function withContext(context: Context, f: () => void): void;
