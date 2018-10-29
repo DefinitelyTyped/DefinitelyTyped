@@ -978,8 +978,8 @@ declare class Dockerode {
   df(callback: Callback<any>): void;
   df(): Promise<any>;
 
-  version(callback: Callback<DockerVersion>): void;
-  version(): Promise<DockerVersion>;
+  version(callback: Callback<Dockerode.DockerVersion>): void;
+  version(): Promise<Dockerode.DockerVersion>;
 
   ping(callback: Callback<any>): void;
   ping(): Promise<any>;
