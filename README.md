@@ -258,7 +258,7 @@ When it graduates draft mode, we may remove it from DefinitelyTyped and deprecat
 
 #### I want to update a package to a new major version
 
-If you intend to continue updating the older version of the package, you may create a new subfolder with the current version e.g. `v2`, and copy existing files to it. If so, you will need to:
+When you bump the major version of a types package, you should create a new subfolder with the previous version e.g. `v2`, and copy existing files to it. If so, you will need to:
 
 1. Update the relative paths in `tsconfig.json` as well as `tslint.json`.
 2. Add path mapping rules to ensure that tests are running against the intended version.
