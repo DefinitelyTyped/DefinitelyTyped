@@ -3810,7 +3810,7 @@ declare global {
             view: React.SVGProps<SVGViewElement>;
         }
 
-        type IntrinsicElement = keyof IntrinsicElements
-        type ElementProps<K extends IntrinsicElement> = IntrinsicElements[K]
+        type IntrinsicElement = keyof IntrinsicElements;
+        type ElementProps<K extends IntrinsicElement> = IntrinsicElements[K];
     }
 }
