@@ -50,15 +50,15 @@ declare namespace wx {
 		header?: RequestHeader;
 		/** 默认为 GET，有效值：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT */
 		method?:
-			| "GET"
-			| "OPTIONS"
-			| "GET"
-			| "HEAD"
-			| "POST"
-			| "PUT"
-			| "DELETE"
-			| "TRACE"
-			| "CONNECT";
+		| "GET"
+		| "OPTIONS"
+		| "GET"
+		| "HEAD"
+		| "POST"
+		| "PUT"
+		| "DELETE"
+		| "TRACE"
+		| "CONNECT";
 		/** 如果设为json，会尝试对返回的数据做一次 JSON.parse */
 		dataType?: string;
 		/**
@@ -2611,6 +2611,9 @@ declare namespace wx {
 	}
 	type LineCapType = "butt" | "round" | "square";
 	type LineJoinType = "bevel" | "round" | "miter";
+	interface CanvasGradient {
+		addColorStop(index: number, color: string): void;
+	}
 	/**
 	 * context只是一个记录方法调用的容器，用于生成记录绘制行为的actions数组。context跟<canvas/>不存在对应关系，一个context生成画布的绘制动作数组可以应用于多个<canvas/>。
 	 */
@@ -2873,7 +2876,7 @@ declare namespace wx {
 			y0: number,
 			x1: number,
 			y1: number
-		): void;
+		): CanvasGradient;
 		/**
 		 * 创建一个颜色的渐变点。
 		 * Tip: 小于最小 stop 的部分会按最小 stop 的 color 来渲染，大于最大 stop 的部分会按最大 stop 的 color 来渲染。
@@ -3291,13 +3294,13 @@ declare namespace wx {
 	// 开放接口-----设置
 	interface AuthSetting {
 		scope:
-			| "scope.userInfo"
-			| "scope.userLocation"
-			| "scope.address"
-			| "scope.invoiceTitle"
-			| "scope.werun"
-			| "scope.record"
-			| "scope.writePhotosAlbum";
+		| "scope.userInfo"
+		| "scope.userLocation"
+		| "scope.address"
+		| "scope.invoiceTitle"
+		| "scope.werun"
+		| "scope.record"
+		| "scope.writePhotosAlbum";
 		success?(res: ErrMsgResponse): void;
 		fail?(): void;
 		complete?(): void;
@@ -3487,10 +3490,10 @@ declare namespace wx {
 	}
 
 	interface BuiltInEvent<T extends EventType, Detail>
-		extends BaseEvent<T, Detail> {}
+		extends BaseEvent<T, Detail> { }
 
 	interface CustomEvent<T extends string, Detail>
-		extends BaseEvent<T, Detail> {}
+		extends BaseEvent<T, Detail> { }
 
 	/**
 	 * 指定focus时的光标位置
@@ -3498,22 +3501,22 @@ declare namespace wx {
 	 */
 	interface InputEvent
 		extends BuiltInEvent<
-				"input",
-				{
-					value: string;
-					cursor: number;
-				}
-			> {}
+		"input",
+		{
+			value: string;
+			cursor: number;
+		}
+		> { }
 
 	interface FormEvent
 		extends BuiltInEvent<
-				"form",
-				{
-					value: { [name: string]: string | boolean | number };
-				}
-			> {}
+		"form",
+		{
+			value: { [name: string]: string | boolean | number };
+		}
+		> { }
 
-	interface ScrollEvent extends BuiltInEvent<"scroll", {}> {}
+	interface ScrollEvent extends BuiltInEvent<"scroll", {}> { }
 
 	interface Touch {
 		identifier: number;
@@ -3525,12 +3528,12 @@ declare namespace wx {
 
 	interface TouchEvent<T extends TouchEventType>
 		extends BuiltInEvent<
-				T,
-				{
-					x: number;
-					y: number;
-				}
-			> {
+		T,
+		{
+			x: number;
+			y: number;
+		}
+		> {
 		touches: Touch[];
 		changedTouches: Touch[];
 	}
@@ -3670,7 +3673,7 @@ declare namespace wx {
 		Data,
 		Methods,
 		Props
-	> = CombinedInstance<Instance, Data, Methods, Props> &
+		> = CombinedInstance<Instance, Data, Methods, Props> &
 		Component<Data, Props>;
 
 	// CombinedInstance models the `this`, i.e. instance type for (user defined) component
@@ -3679,9 +3682,9 @@ declare namespace wx {
 		Data,
 		Methods,
 		Props
-	> = Methods & Instance;
+		> = Methods & Instance;
 
-	type Prop<T> = (() => T) | { new (...args: any[]): T & object };
+	type Prop<T> = (() => T) | { new(...args: any[]): T & object };
 
 	type PropValidator<T> = PropOptions<T> | Prop<T> | Array<Prop<T>>;
 
@@ -3723,7 +3726,7 @@ declare namespace wx {
 		Data,
 		Methods,
 		Props
-	> = object &
+		> = object &
 		ComponentOptions<V, Data | ((this: V) => Data), Methods, Props> &
 		ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>>>;
 
@@ -3786,7 +3789,7 @@ declare namespace wx {
 		Data = DefaultData<Instance>,
 		Methods = DefaultMethods<Instance>,
 		Props = PropsDefinition<DefaultProps>
-	> extends Partial<Lifetimes> {
+		> extends Partial<Lifetimes> {
 		/**
 		 * 组件的对外属性，是属性名到属性设置的映射表
 		 * 属性设置中可包含三个字段:
@@ -3839,7 +3842,7 @@ declare namespace wx {
 		 * 参见 [behaviors](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/behaviors.html)
 		 */
 		behaviors?: Array<
-			(ComponentOptions<Component<object, object>>) | string
+		(ComponentOptions<Component<object, object>>) | string
 		>;
 
 		/**
@@ -3911,13 +3914,13 @@ declare namespace wx {
 		setData(
 			data: {
 				[key in keyof D]?:
-					| string
-					| number
-					| boolean
-					| symbol
-					| object
-					| null
-					| any[]
+				| string
+				| number
+				| boolean
+				| symbol
+				| object
+				| null
+				| any[]
 			},
 			callback?: () => void
 		): void;
@@ -4168,7 +4171,7 @@ declare function Component<D, M, P>(
 		D,
 		M,
 		P
-	>
+		>
 ): wx.ExtendedComponent<wx.Component<D, P>, D, M, P>;
 /**
  * behaviors 是用于组件间代码共享的特性
@@ -4184,7 +4187,7 @@ declare function Behavior<D, M, P>(
 		D,
 		M,
 		P
-	>
+		>
 ): wx.ExtendedComponent<wx.Component<D, P>, D, M, P>;
 // #endregion
 // #region Page
