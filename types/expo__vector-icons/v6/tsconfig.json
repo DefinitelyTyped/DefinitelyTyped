@@ -6,12 +6,12 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
-            "@expo/vector-icons": [ "expo__vector-icons" ]
+            "@expo/vector-icons": [ "expo__vector-icons/v6" ]
         },
         "types": [],
         "noEmit": true,

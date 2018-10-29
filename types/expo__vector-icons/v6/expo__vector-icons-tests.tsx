@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, TabBarIOS } from 'react-native';
-import { createIconSet, AntDesign, MaterialIcons, FontAwesome, Ionicons } from '@expo/vector-icons';
+import { createIconSet, MaterialIcons, FontAwesome, Ionicons } from '@expo/vector-icons';
 
 const glyphMap = {
   custom: 58918
@@ -13,9 +13,6 @@ const CustomIconTabBarItem     = CustomIcon.TabBarItem;
 const CustomIconTabBarItemIOS  = CustomIcon.TabBarItemIOS;
 const CustomIconToolbarAndroid = CustomIcon.ToolbarAndroid;
 const CustomIcongetImageSource = CustomIcon.getImageSource;
-
-const rawGlyphMap = AntDesign.getRawGlyphMap();
-const fontFamily = AntDesign.getFontFamily();
 
 class Example extends React.Component {
   handleButton() {

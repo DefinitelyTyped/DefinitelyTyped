@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { View, Text, TabBarIOS } from 'react-native';
-import { createIconSet, AntDesign, MaterialIcons, FontAwesome, Ionicons } from '@expo/vector-icons';
+import { createIconSet } from 'react-native-vector-icons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome5ProIcon from 'react-native-vector-icons/FontAwesome5Pro';
+import Ionicon from 'react-native-vector-icons/Ionicons';
 
 const glyphMap = {
   custom: 58918
@@ -14,9 +19,6 @@ const CustomIconTabBarItemIOS  = CustomIcon.TabBarItemIOS;
 const CustomIconToolbarAndroid = CustomIcon.ToolbarAndroid;
 const CustomIcongetImageSource = CustomIcon.getImageSource;
 
-const rawGlyphMap = AntDesign.getRawGlyphMap();
-const fontFamily = AntDesign.getFontFamily();
-
 class Example extends React.Component {
   handleButton() {
     console.log('You pressed me');
@@ -26,10 +28,13 @@ class Example extends React.Component {
     return (
       <View>
         {/* Normal Icon */}
-        <MaterialIcons size={30} color="red" name="exit" />
+        <MaterialIcon size={30} color="red" name="exit" />
+        <FontAwesome5Icon size={10} name="handshake" />
+        <FontAwesome5Icon size={10} name="handshake" solid />
+        <FontAwesome5ProIcon size={10} name="parachute-box" light />
 
         {/* Icon button  */}
-        <FontAwesome.Button
+        <FontAwesomeIcon.Button
           backgroundColor="#3b5998"
           name="facebook"
           onPress={() => this.handleButton()}
@@ -37,7 +42,7 @@ class Example extends React.Component {
           <Text style={{ fontFamily: 'Arial', fontSize: 15 }}>
             Login with Facebook
           </Text>
-        </FontAwesome.Button>
+        </FontAwesomeIcon.Button>
       </View>
     );
   }
@@ -51,7 +56,7 @@ class TabTest extends React.Component<{}, { selectedTab: string }> {
   render() {
     return (
       <TabBarIOS barTintColor="white">
-        <Ionicons.TabBarItemIOS
+        <Ionicon.TabBarItemIOS
           title="Tab1"
           iconName="ios-keypad-outline"
           selectedIconName="ios-keypad"
@@ -61,9 +66,9 @@ class TabTest extends React.Component<{}, { selectedTab: string }> {
           onPress={() => this.setState({ selectedTab: 'tab1' })}
         >
           <View />
-        </Ionicons.TabBarItemIOS>
+        </Ionicon.TabBarItemIOS>
 
-        <Ionicons.TabBarItemIOS
+        <Ionicon.TabBarItemIOS
           title="Tab2"
           iconName="ios-bookmark-outline"
           selectedIconName="ios-bookmark"
@@ -73,7 +78,7 @@ class TabTest extends React.Component<{}, { selectedTab: string }> {
           onPress={() => this.setState({ selectedTab: 'tab2' })}
         >
           <View />
-        </Ionicons.TabBarItemIOS>
+        </Ionicon.TabBarItemIOS>
       </TabBarIOS>
     );
   }
