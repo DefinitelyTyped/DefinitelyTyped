@@ -1,5 +1,3 @@
-/// <reference types="colresizable" />
-
 $("#table").colResizable(); // $ExpectType JQuery<HTMLElement>
 
 $("#table").colResizable({
