@@ -5243,7 +5243,6 @@ declare namespace sequelize {
          */
         schema?: string;
 
-
         /**
          * Change the database schema delimiter. Defaults to "." on PG but for other dialects can be also changed to "_".
          */
