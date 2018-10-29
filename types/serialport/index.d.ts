@@ -40,7 +40,7 @@ declare class SerialPort extends Stream.Duplex {
 
 	static Binding: SerialPort.BaseBinding;
 
-	static list(callback?: SerialPort.ListCallback): Promise<any>;
+	static list(callback?: SerialPort.ListCallback): Promise<SerialPort.PortInfo[]>;
 }
 
 declare namespace SerialPort {
@@ -77,6 +77,16 @@ declare namespace SerialPort {
 		dsr?: boolean;
 		dtr?: boolean;
 		rts?: boolean;
+    }
+
+	interface PortInfo {
+		comName: string;
+		manufacturer?: string;
+		serialNumber?: string;
+		pnpId?: string;
+		locationId?: string;
+		productId?: string;
+		vendorId?: string;
 	}
 
 	namespace parsers {
@@ -119,7 +129,7 @@ declare namespace SerialPort {
 			get(): Promise<any>;
 			flush(): Promise<any>;
 			drain(): Promise<any>;
-			static list(): Promise<any>;
+			static list(): Promise<PortInfo[]>;
 		}
 }
 
