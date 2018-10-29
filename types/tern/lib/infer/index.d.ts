@@ -1,10 +1,5 @@
-// Type definitions for tern
-// Project: https://github.com/ternjs/tern
-// Definitions by: Nikolaj Kappler <https://github.com/nkappler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as ESTree from "estree";
+export { };
 
 // #### Context ####
 interface ContextConstructor {
@@ -71,25 +66,26 @@ interface FnConstructor {
 }
 /** Constructor for the type that implements functions. Inherits from `Obj`. The `AVal` types are used to track the input and output types of the function. */
 export const Fn: FnConstructor;
-export interface Fn extends Obj { }
+export type Fn = Obj;
 
 interface ArrConstructor {
     /** Constructor that creates an array type with the given content type. */
     new(contentType: AVal): Arr;
 }
 export const Arr: ArrConstructor;
-export interface Arr extends Obj { }
+export type Arr = Obj;
 
 export interface Type extends AVal {
     /** The name of the type, if any. */
     name: string;
     /** The origin file of the type. */
     origin: string;
-    /** The syntax node that defined the type. Only present for object and function types,
+    /**
+     * The syntax node that defined the type. Only present for object and function types,
      * and even for those it may be missing (if the type was created by a type definition file,
      * or synthesized in some other way).
      */
-    originNode?: ESTree.Node | undefined;
+    originNode?: ESTree.Node;
     /** Return a string that describes the type. maxDepth indicates the depth to which inner types should be shown. */
     toString(maxDepth: number): string;
     /** Get an `AVal` that represents the named property of this type. */
@@ -141,32 +137,23 @@ export interface AVal {
      * or properties will have, when possible, an `originNode`
      * property pointing to an AST node.
      */
-    originNode?: ESTree.Node | undefined;
+    originNode?: ESTree.Node;
 }
 
 export const ANull: ANull;
 export interface ANull extends AVal {
     addType(): void;
     propagate(target: never): void;
-    // getProp(): ANull;
-    // forAllProps(): void;
     hasType(): false;
-    isEmpty(): boolean; //always true
+    isEmpty(): true;
     getFunctionType(): undefined;
-    // getObjType(): void;
-    // getSymbolType(): void;
     getType(): null;
-    // gatherProperties(): void;
-    // propagatesTo(): void;
-    // typeHint(): void;
-    // propHint(): void;
-    // toString(): "?";
     originNode: undefined;
 }
 
 // #### Constraints ####
 interface ConstraintConstructor {
-    new(methods: { [key: string]: Function }): { new(): Constraint };
+    new(methods: { [key: string]: any }): { new(): Constraint };
 }
 /**
  * This is a constructor-constructor for constraints. It’ll create a
@@ -229,4 +216,3 @@ export function findPropRefs(ast: ESTree.Program, scope: Scope, objType: Obj, pr
 export function didGuess(): boolean;
 /** Whenever infer guesses a type through fuzzy heuristics (through `getType` or `expressionType`), it sets a flag. `resetGuessing` resets the guessing flag. */
 export function resetGuessing(val?: boolean): void;
-

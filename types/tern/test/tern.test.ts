@@ -1,4 +1,4 @@
-import * as tern from "tern/lib/tern";
+import * as tern from "tern";
 
 const server: tern.Server = null;
 
@@ -14,9 +14,9 @@ server.request({
     }
 });
 
-
 server.request({
 }, (error, response) => {
+    // $ExpectError
     if (response.isProperty) {
         //
     }
@@ -45,12 +45,11 @@ server.request({
     }
 });
 
-
 server.request({
     query: undefined
 }, (error, response) => {
+    // $ExpectError
     if (response.isProperty) {
         //
     }
 });
-

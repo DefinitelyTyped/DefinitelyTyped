@@ -1,11 +1,15 @@
-// Type definitions for tern
+// Type definitions for tern 1.3 0.22
 // Project: https://github.com/ternjs/tern
 // Definitions by: Nikolaj Kappler <https://github.com/nkappler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
-declare module "tern" {
-    import * as infer from "tern/lib/infer";
-    import * as tern from "tern/lib/tern";
-    const t: typeof tern & typeof infer;
-    export = t;
-}
+// IMPORTANT Note: These type definitions are oriented closely to the official documentation,
+// which does not seem to match the implementation exactly in some places.
+// As a result, these type definitions may lack some parts of the API that are actually exposed.
+// The type definitions are at a point where they are usable and match the documentation,
+// thus if you want to use undocumented APIs, you should extends these definitions with
+// ambient declaration merging: https://www.typescriptlang.org/docs/handbook/declaration-merging.html
+
+export * from "./lib/tern";
+export * from "./lib/infer";

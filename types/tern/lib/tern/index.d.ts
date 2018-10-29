@@ -1,18 +1,7 @@
-// Type definitions for tern
-// Project: https://github.com/ternjs/tern
-// Definitions by: Nikolaj Kappler <https://github.com/nkappler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-// IMPORTANT Note: These type definitions are oriented closely to the official documentation,
-// which does not seem to match the implementation exactly in some places.
-// As a result, these type definitions may lack some parts of the API that are actually exposed.
-// The type definitions are at a point where they are usable and match the documentation,
-// thus if you want to use undocumented APIs, you should extends these definitions with
-// ambient declaration merging: https://www.typescriptlang.org/docs/handbook/declaration-merging.html
-
 import * as ESTree from "estree";
 import { Scope, Type } from "../infer";
+
+export { };
 
 // #### Programming interface ####
 export type ConstructorOptions = CtorOptions & (SyncConstructorOptions | ASyncConstructorOptions);
@@ -52,8 +41,6 @@ interface ASyncConstructorOptions {
     getFile?(filename: string, callback: (error: Error | undefined, content?: string) => void): void;
 }
 
-
-
 interface TernConstructor {
     new(options?: ConstructorOptions): Server;
 }
@@ -61,7 +48,6 @@ interface TernConstructor {
 export const Server: TernConstructor;
 
 export interface Server {
-
     /**
      * Add a set of type definitions to the server. If `atFront` is true, they will be added before all other
      * existing definitions. Otherwise, they are added at the back.
@@ -111,7 +97,6 @@ export interface Server {
             response: (D extends { query: undefined } ? {} : D extends { query: Query } ? QueryResult<Q> : {}) | undefined
         ) => void
     ): void;
-
 }
 
 // #### JSON Protocol ####
@@ -173,7 +158,7 @@ export interface File {
     type?: "full" | "part" | "delete";
 }
 
-export interface IQuery {
+export interface BaseQuery {
     type: string;
     lineCharPositions?: boolean;
     docFormat?: "full";
@@ -185,7 +170,7 @@ interface Position {
 }
 
 /** Asks the server for a set of completions at the given point. */
-export interface CompletionsQuery extends IQuery {
+export interface CompletionsQuery extends BaseQuery {
     /** Asks the server for a set of completions at the given point. */
     type: "completions";
     /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
@@ -210,7 +195,10 @@ export interface CompletionsQuery extends IQuery {
     guess?: boolean;
     /** Determines whether the result set will be sorted. Default `true` */
     sort?: boolean;
-    /** When disabled, only the text before the given position is considered part of the word. When enabled (the default), the whole variable name that the cursor is on will be included. Default `true` */
+    /**
+     * When disabled, only the text before the given position is considered part of the word. When enabled (the default),
+     * the whole variable name that the cursor is on will be included. Default `true`
+     */
     expandWordForward?: boolean;
     /** Whether to ignore the properties of `Object.prototype` unless they have been spelled out by at least two characters. Default `true` */
     omitObjectPrototype?: boolean;
@@ -234,18 +222,18 @@ interface CompletionsQueryResult {
      * and, depending on the options, `type`, `depth`, `doc`, `url`, and `origin` properties.
      * When none of these options are enabled, the result array will hold plain strings.
      */
-    completions: string[] | {
+    completions: string[] | Array<{
         name: string,
         type?: string,
         depth?: number,
         doc?: string,
         url?: string,
         origin?: string
-    }[];
+    }>;
 }
 
 /** Query the type of something. */
-export interface TypeQuery extends IQuery {
+export interface TypeQuery extends BaseQuery {
     /** Query the type of something. */
     type: "type";
     /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
@@ -254,9 +242,18 @@ export interface TypeQuery extends IQuery {
     end: number | Position;
     /** Specify the location of the expression. */
     start?: number | Position;
-    /** Set to `true` when you are interested in a function type. This will cause function types to win when something has multiple types. Default `false` */
+    /**
+     * Set to `true` when you are interested in a function type.
+     * This will cause function types to win when something has multiple types.
+     * Default `false`
+     */
     preferFunction?: boolean;
-    /** Determines how deep the type string must be expanded. Nested objects will only display property types up to this depth, and be represented by their type name or a representation showing only property names below it. Default `0` */
+    /**
+     * Determines how deep the type string must be expanded.
+     * Nested objects will only display property types up to this depth,
+     * and be represented by their type name or a representation showing
+     * only property names below it. Default `0`
+     */
     depth?: number;
 }
 
@@ -285,7 +282,7 @@ interface TypeQueryResult {
  * type is not an object or function (other types don’t store their definition site),
  * it will fail to return useful information.
  */
-export interface DefinitionQuery extends IQuery {
+export interface DefinitionQuery extends BaseQuery {
     /**
      * Asks for the definition of something. This will try, for a variable or property,
      * to return the point at which it was defined. If that fails, or the chosen
@@ -323,7 +320,7 @@ interface DefinitionQueryResult {
 }
 
 /** Get the documentation string and URL for a given expression, if any. */
-export interface DocumentationQuery extends IQuery {
+export interface DocumentationQuery extends BaseQuery {
     /** Get the documentation string and URL for a given expression, if any. */
     type: "documentation";
     /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
@@ -344,7 +341,7 @@ interface DocumentationQueryResult {
 }
 
 /** Used to find all references to a given variable or property. */
-export interface RefsQuery extends IQuery {
+export interface RefsQuery extends BaseQuery {
     /** Used to find all references to a given variable or property. */
     type: "refs";
     /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
@@ -358,17 +355,17 @@ export interface RefsQuery extends IQuery {
 interface RefsQueryResult {
     /** The name of the variable or property */
     name: string;
-    refs: {
+    refs: Array<{
         file: string,
         start: number | Position,
         end: number | Position
-    }[];
+    }>;
     /** for variables: a type property holding either "global" or "local". */
     type?: "global" | "local";
 }
 
 /** Rename a variable in a scope-aware way. */
-export interface RenameQuery extends IQuery {
+export interface RenameQuery extends BaseQuery {
     /** Rename a variable in a scope-aware way. */
     type: "rename";
     /** may hold either a filename, or a string in the form "#N", where N should be an integer referring to one of the files included in the request */
@@ -387,16 +384,16 @@ export interface RenameQuery extends IQuery {
  */
 interface RenameQueryResult {
     /** Array of changes that must be performed to apply the rename. The client is responsible for doing the actual modification. */
-    changes: {
+    changes: Array<{
         file: string,
         start: number | Position,
         end: number | Position,
         text: string
-    }[];
+    }>;
 }
 
 /** Get a list of all known object property names (for any object). */
-export interface PropertiesQuery extends IQuery {
+export interface PropertiesQuery extends BaseQuery {
     /** Get a list of all known object property names (for any object). */
     type: "properties";
     /** Causes the server to only return properties that start with the given string. */
@@ -411,7 +408,7 @@ interface PropertiesQueryResult {
 }
 
 /** Get the files that the server currently holds in its set of analyzed files. */
-export interface FilesQuery extends IQuery {
+export interface FilesQuery extends BaseQuery {
     /** Get the files that the server currently holds in its set of analyzed files. */
     type: "files";
     docFormat?: never;
@@ -455,7 +452,7 @@ export interface Events {
 
 export const version: string;
 
-//###### Plugins ########
+// ###### Plugins ########
 
 /**
  * This can be used to register an initialization function for the plugin with the given name.
@@ -497,7 +494,7 @@ interface Desc<T extends Query["type"]> {
  *   }
  * }
  * ```
- * _Note that your query interface should extend_ `IQuery` _and that its_ `type` _property has to be spelled
+ * _Note that your query interface should extend_ `BaseQuery` _and that its_ `type` _property has to be spelled
  * exactly like the key in the_ `QueryRegistry` _interface._
  */
 export function defineQueryType<T extends Query["type"]>(name: T, desc: Desc<T>): void;
