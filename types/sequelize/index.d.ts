@@ -5237,13 +5237,13 @@ declare namespace sequelize {
          * `this.constructor.prototype.find.apply(this, arguments)`
          */
         classMethods?: Object;
-        
+
         /**
          * Change the database schema. PG only feature, but also works with other dialects.
          */
         schema?: string;
-        
-        
+
+
         /**
          * Change the database schema delimiter. Defaults to "." on PG but for other dialects can be also changed to "_".
          */
@@ -6493,6 +6493,10 @@ declare namespace sequelize {
          */
         logging?: Function;
 
+        /**
+         * See `Sequelize.Transaction.Deferrable` for possible options
+         */
+        deferrable?: Deferrable
     }
 
     //
