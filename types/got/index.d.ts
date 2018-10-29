@@ -98,7 +98,7 @@ declare namespace got {
     type GotUrl = string | https.RequestOptions | Url | URL;
 
     type Hook<T> = (options: T) => any;
-    type Hooks<T> = Record<'beforeRequest', Hook<T>[]>;
+    type Hooks<T> = Record<'beforeRequest', Array<Hook<T>>>;
 
     interface GotBodyOptions<E extends string | null> extends GotOptions<E> {
         body?: string | Buffer | nodeStream.Readable;
