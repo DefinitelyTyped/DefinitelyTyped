@@ -23,7 +23,7 @@ server.request({
 });
 
 declare module "tern/lib/tern" {
-    interface QueryMap {
+    interface QueryRegistry {
         someUnknownType: {
             query: {
                 type: "someUnknownType"
