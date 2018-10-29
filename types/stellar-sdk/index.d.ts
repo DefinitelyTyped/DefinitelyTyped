@@ -4,6 +4,7 @@
 //                 Triston Jones <https://github.com/tristonj>
 //                 Paul Selden <https://github.com/pselden>
 //                 Max Bause <https://github.com/maxbause>
+//                 Timur Ramazanov <https://github.com/charlie-wasp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -455,6 +456,8 @@ export class AccountResponse implements AccountRecord {
 
 export class Asset {
     static native(): Asset;
+    static fromOperation(xdr: xdr.Asset): Asset;
+
     constructor(code: string, issuer: string)
 
     getCode(): string;
@@ -462,6 +465,7 @@ export class Asset {
     getAssetType(): 'native' | 'credit_alphanum4' | 'credit_alphanum12';
     isNative(): boolean;
     equals(other: Asset): boolean;
+    toXDRObject(): xdr.Asset;
 
     code: string;
     issuer: string;
