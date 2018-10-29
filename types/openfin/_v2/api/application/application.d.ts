@@ -22,7 +22,7 @@ export declare class NavigationRejectedReply extends Reply<'window-navigation-re
     sourceName: string;
     url: string;
 }
-export interface ConfigInterface {
+export interface ShortCutConfig {
     desktop?: boolean;
     startMenu?: boolean;
     systemStartup?: boolean;
@@ -138,10 +138,10 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
     getParentUuid(): Promise<string>;
     /**
      * Retrieves current application's shortcut configuration.
-     * @return {Promise.<ConfigInterface>}
+     * @return {Promise.<ShortCutConfig>}
      * @tutorial Application.getShortcuts
      */
-    getShortcuts(): Promise<ConfigInterface>;
+    getShortcuts(): Promise<ShortCutConfig>;
     /**
      * Returns the current zoom level of the application.
      * @return {Promise.<number>}
@@ -202,7 +202,7 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      * @return {Promise.<void>}
      * @tutorial Application.setShortcuts
      */
-    setShortcuts(config: ConfigInterface): Promise<void>;
+    setShortcuts(config: ShortCutConfig): Promise<void>;
     /**
      * Sets the zoom level of the application. The original size is 0 and each increment above or below represents zooming 20%
      * larger or smaller to default limits of 300% and 50% of original size, respectively.
