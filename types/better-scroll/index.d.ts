@@ -1,6 +1,7 @@
 // Type definitions for better-scroll 1.12
 // Project: https://github.com/ustbhuangyi/better-scroll
 // Definitions by: cloudstone <https://github.com/stoneChen>
+//                 jack <https://github.com/cnjack>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 2.2
@@ -42,11 +43,33 @@ export interface PullUpOption {
     threshold: number;
 }
 
+export interface MouseWheelOption {
+  speed: number;
+  invert: boolean;
+  easeTime: number;
+}
+
+export interface ZoomOption {
+  start: number;
+  min: number;
+  max: number;
+}
+
+export interface InfinityOption {
+  fetch: (count: number) => void;
+  render: (item: any, div: Element) => Element;
+  createTombstone: () => Element;
+}
+
 export interface BounceObjectOption {
     top?: boolean;
     bottom?: boolean;
     left?: boolean;
     right?: boolean;
+}
+
+export interface DoubleClick {
+  delay: number;
 }
 
 export interface EaseOption {
@@ -73,6 +96,7 @@ export interface BsOption {
     directionLockThreshold: number;
     eventPassthrough: string | boolean;
     click: boolean;
+    dblclick: boolean | DoubleClick;
     tap: boolean;
     bounce: boolean | BounceObjectOption;
     bounceTime: number;
@@ -140,6 +164,23 @@ export interface BsOption {
      * }
      */
     pullUpLoad: Partial<PullUpOption> | boolean;
+
+    // mouseWheel: {
+    //  speed: 20,
+    //  invert: false,
+    //  easeTime: 300
+    // }
+    mouseWheel: Partial<MouseWheelOption> | boolean;
+
+    // zoom: {
+    //  start: 1,
+    //  min: 1,
+    //  max: 4
+    // }
+    zoom: Partial<ZoomOption> | boolean;
+
+    // https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/options-advanced.html
+    infinity: Partial<InfinityOption> | boolean;
 }
 
 export interface Position {

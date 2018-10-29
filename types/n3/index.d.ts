@@ -12,11 +12,12 @@ import * as stream from "stream";
 import * as RDF from "rdf-js";
 import { EventEmitter } from "events";
 
-export interface Prefixes {
-    [key: string]: RDF.NamedNode;
+export interface Prefixes<I = RDF.NamedNode> {
+  [key: string]: I;
 }
 
 export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
+export type PrefixedToIri = (suffix: string) => RDF.NamedNode;
 
 export class NamedNode implements RDF.NamedNode {
     termType: "NamedNode";
@@ -168,7 +169,7 @@ export interface N3StreamParser<Q extends BaseQuad = Quad> extends RDF.Stream<Q>
 
 export interface WriterOptions {
     format?: string;
-    prefixes?: Prefixes;
+    prefixes?: Prefixes<RDF.NamedNode | string>;
     end?: boolean;
 }
 
@@ -186,8 +187,8 @@ export interface N3Writer<Q extends RDF.BaseQuad = RDF.Quad> {
     addQuad(subject: Q['subject'], predicate: Q['predicate'], object: Q['object'] | Array<Q['object']>, graph?: Q['graph'], done?: () => void): void;
     addQuad(quad: RDF.Quad): void;
     addQuads(quads: RDF.Quad[]): void;
-    addPrefix(prefix: string, iri: string, done?: () => void): void;
-    addPrefixes(prefixes: Prefixes, done?: () => void): void;
+    addPrefix(prefix: string, iri: RDF.NamedNode | string , done?: () => void): void;
+    addPrefixes(prefixes: Prefixes<RDF.NamedNode | string>, done?: () => void): void;
     end(err?: ErrorCallback, result?: string): void;
     blank(predicate: Q['predicate'], object: Q['object']): BlankNode;
     blank(triple: BlankTriple | RDF.Quad | BlankTriple[] | RDF.Quad[]): BlankNode;
@@ -247,6 +248,9 @@ export namespace Util {
     function isVariable(value: RDF.Term | null): boolean;
     function isDefaultGraph(value: RDF.Term | null): boolean;
     function inDefaultGraph(value: RDF.Quad): boolean;
-    function prefix(iri: string, factory?: RDF.DataFactory): (suffix: string) => NamedNode;
-    function prefixes(defaultPrefixes: Prefixes, factory?: RDF.DataFactory): (iri: string) => (suffix: string) => NamedNode;
+    function prefix(iri: RDF.NamedNode|string, factory?: RDF.DataFactory): PrefixedToIri;
+    function prefixes(
+      defaultPrefixes: Prefixes<RDF.NamedNode|string>,
+      factory?: RDF.DataFactory
+    ): (prefix: string) => PrefixedToIri;
 }

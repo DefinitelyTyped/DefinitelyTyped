@@ -17,7 +17,8 @@ function test_add_prefixes() {
 
     writer.addPrefixes({
         freebase: N3.DataFactory.namedNode("http://rdf.freebase.com/ns/"),
-        xsd: N3.DataFactory.namedNode("http://www.w3.org/2001/XMLSchema#")
+        xsd: N3.DataFactory.namedNode("http://www.w3.org/2001/XMLSchema#"),
+        rdf: 'http://test'
     });
 
     writer.end((error, result) => {
@@ -31,7 +32,7 @@ function test_serialize() {
             format: "ttl",
             prefixes: {
                 foaf: "http://xmlns.com/foaf/0.1",
-                freebase: "http://rdf.freebase.com/ns/",
+                freebase: N3.DataFactory.namedNode("http://rdf.freebase.com/ns/"),
                 g: "http://base.google.com/ns/1.0"
             }
         });

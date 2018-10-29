@@ -1,4 +1,4 @@
-// Type definitions for WebdriverIO 4.10
+// Type definitions for WebdriverIO 4.13
 // Project: http://www.webdriver.io/
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti>
 //                 Tim Brust <https://github.com/timbru31>
@@ -327,6 +327,7 @@ declare namespace WebdriverIO {
         httpOnly?: boolean;
         expiry?: number;
         secure?: boolean;
+        domain?: string;
     }
 
     interface Suite {

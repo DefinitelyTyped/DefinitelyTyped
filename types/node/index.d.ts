@@ -30,6 +30,7 @@
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
+//                 Jeremie Rodriguez <https://github.com/jeremiergz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -6394,7 +6395,7 @@ declare module "crypto" {
 
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
-        ciper: string;
+        cipher: string;
         passphrase: string;
     }
 

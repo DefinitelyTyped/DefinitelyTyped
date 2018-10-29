@@ -62,7 +62,9 @@ sourceCode.getNodeByRangeIndex(0);
 
 sourceCode.isSpaceBetweenTokens(TOKEN, TOKEN);
 
-sourceCode.getLocFromIndex(0);
+const loc = sourceCode.getLocFromIndex(0);
+loc.line; // $ExpectType number
+loc.column; // $ExpectType number
 
 sourceCode.getIndexFromLoc({ line: 0, column: 0 });
 

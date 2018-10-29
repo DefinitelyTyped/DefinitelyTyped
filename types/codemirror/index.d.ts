@@ -260,16 +260,7 @@ declare namespace CodeMirror {
         line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
         options, when given, should be an object that configures the behavior of the widget.
         Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
-        addLineWidget(line: any, node: HTMLElement, options?: {
-            /** Whether the widget should cover the gutter. */
-            coverGutter?: boolean;
-            /** Whether the widget should stay fixed in the face of horizontal scrolling. */
-            noHScroll?: boolean;
-            /** Causes the widget to be placed above instead of below the text of the line. */
-            above?: boolean;
-            /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
-            showIfHidden?: boolean;
-        }): CodeMirror.LineWidget;
+        addLineWidget(line: any, node: HTMLElement, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
 
 
         /** Programatically set the size of the editor (overriding the applicable CSS rules).
@@ -726,6 +717,17 @@ declare namespace CodeMirror {
         /** Call this if you made some change to the widget's DOM node that might affect its height.
         It'll force CodeMirror to update the height of the line that contains the widget. */
         changed(): void;
+    }
+
+    interface LineWidgetOptions {
+        /** Whether the widget should cover the gutter. */
+        coverGutter?: boolean;
+        /** Whether the widget should stay fixed in the face of horizontal scrolling. */
+        noHScroll?: boolean;
+        /** Causes the widget to be placed above instead of below the text of the line. */
+        above?: boolean;
+        /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
+        showIfHidden?: boolean;
     }
 
     interface EditorChange {
