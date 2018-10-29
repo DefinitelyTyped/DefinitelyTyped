@@ -4,6 +4,7 @@
 //                 Matt Durrant <https://github.com/mdurrant>
 //                 Peter Blazejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 export as namespace auth0;
 
