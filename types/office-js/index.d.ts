@@ -1070,9 +1070,9 @@ declare namespace Office {
         displayDialogAsync(startAddress: string, options?: DialogOptions, callback?: (result: AsyncResult<Dialog>) => void): void;
         /**
          * Delivers a message from the dialog box to its parent/opener page. The page calling this API must be on the same domain as the parent. 
-         * @param message Accepts a message from the dialog to deliver to the add-in. In addition to a boolean, anything that can serialized to a string including JSON and XML can be sent. 
+         * @param messageObject Accepts a message from the dialog to deliver to the add-in.
          */
-        messageParent(message: boolean | string): void;
+        messageParent(messageObject: any): void;
         /**
          * Closes the UI container where the JavaScript is executing.
          *
