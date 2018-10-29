@@ -25,6 +25,7 @@
 //                 Denis Frezzato <https://github.com/DenisFrezzato>
 //                 Mickael Wegerich <https://github.com/mickaelw>
 //                 Max Davidson <https://github.com/maxdavidson>
+//                 Alec Hill <https://github.com/alechill>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1240,7 +1241,7 @@ export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 export type InferProps<T extends React.ComponentType<any>> = T extends React.ComponentType<infer P> ? P : never;
 
 export interface NavigationInjectedProps<P = NavigationParams> {
-  navigation: NavigationScreenProp<NavigationState, P>;
+  navigation: NavigationScreenProp<NavigationRoute<P>, P>;
 }
 
 // If the wrapped component is a class, we can get a ref to it

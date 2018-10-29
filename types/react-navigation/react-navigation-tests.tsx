@@ -17,12 +17,14 @@ import {
     NavigationNavigateAction,
     NavigationProp,
     NavigationResetAction,
+    NavigationRoute,
     NavigationRouteConfigMap,
     NavigationScreenProp,
     NavigationScreenProps,
     NavigationSetParamsAction,
     NavigationStackAction,
     NavigationStackScreenOptions,
+    NavigationStateRoute,
     NavigationTabScreenOptions,
     NavigationTransitionProps,
     StackViewTransitionConfigs,
@@ -70,10 +72,22 @@ interface StartScreenNavigationParams {
  */
 class StartScreen extends React.Component<NavigationScreenProps<StartScreenNavigationParams>> {
     render() {
-        // Implicit type checks.
+        // Injected type checks
+        const props: NavigationInjectedProps<StartScreenNavigationParams> = this.props;
+        // route state...
+        const navigationState: NavigationRoute<StartScreenNavigationParams> = this.props.navigation.state;
+        const index: number = navigationState.index;
+        const key: string = navigationState.key;
+        const routeName: string = navigationState.routeName;
+        const path: string | undefined = navigationState.path;
+        let routes: NavigationRoute[];
+        if (isNavigationStateRoute(navigationState)) {
+            routes = navigationState.routes;
+        }
+        // params...
         const navigationStateParams: StartScreenNavigationParams | undefined = this.props.navigation.state.params;
-        const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
-        const s = this.props.navigation.state.params && this.props.navigation.state.params.s;
+        const id: number | undefined = this.props.navigation.state.params && this.props.navigation.state.params.id;
+        const s: string | undefined = this.props.navigation.state.params && this.props.navigation.state.params.s;
 
         return (
             <View>
@@ -107,15 +121,30 @@ interface NextScreenNavigationParams {
 
 class NextScreen extends React.Component<NavigationScreenProps<NextScreenNavigationParams>> {
     render() {
-        // Implicit type checks.
-        const navigationStateParams: NextScreenNavigationParams | undefined = this.props.navigation.state.params;
+        // Injected type checks
+        const props: NavigationInjectedProps<NextScreenNavigationParams> = this.props;
+        // route state...
+        const navigationState: NavigationRoute<NextScreenNavigationParams> = this.props.navigation.state;
+        const index: number = navigationState.index;
+        const key: string = navigationState.key;
+        const routeName: string = navigationState.routeName;
+        const path: string | undefined = navigationState.path;
+        let routes: NavigationRoute[];
+        if (isNavigationStateRoute(navigationState)) {
+            routes = navigationState.routes;
+        }
+        // params...
+        const navigationStateParams: NextScreenNavigationParams | undefined = navigationState.params;
         const id = this.props.navigation.state.params && this.props.navigation.state.params.id;
         const name = this.props.navigation.getParam('name', 'Peter');
-
         return (
             <View />
         );
     }
+}
+
+function isNavigationStateRoute<P>(route: NavigationRoute<P>): route is NavigationStateRoute<P> {
+    return !!(route as NavigationStateRoute<P>).routes;
 }
 
 const navigationOptions = {
