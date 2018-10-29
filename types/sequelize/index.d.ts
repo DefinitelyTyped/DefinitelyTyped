@@ -5751,7 +5751,7 @@ declare namespace sequelize {
         /**
          * A reference to the deferrable collection. Use this to access the different deferrable options.
          */
-        Deferrable: Deferrable;
+        Deferrable:  DeferrableInitiallyDeferred | DeferrableInitiallyImmediate | DeferrableNot | DeferrableSetDeferred | DeferrableSetImmediate;
 
         /**
          * A reference to the sequelize instance class.
