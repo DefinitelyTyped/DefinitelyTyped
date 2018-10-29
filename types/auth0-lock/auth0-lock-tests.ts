@@ -1,4 +1,3 @@
-// TypeScript Version: 2.7
 import * as auth0 from 'auth0-js';
 import Auth0Lock from 'auth0-lock';
 
@@ -236,7 +235,7 @@ const checkboxFieldOptions : Auth0LockConstructorOptions = {
       type: "checkbox",
       name: "remember",
       placeholder: "Remember Me",
-      prefill: "false"
+      prefill: "false" as 'false'
     }]
   };
 
