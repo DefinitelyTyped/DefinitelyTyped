@@ -19,6 +19,7 @@
 //                 Olivier Pascal <https://github.com/pascaloliv>
 //                 Martin Hochel <https://github.com/hotell>
 //                 Frank Li <https://github.com/franklixuefei>
+//                 Zhongliang Wang <https://github.com/Cryrivers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -154,6 +155,13 @@ declare namespace React {
     //
     // Top Level API
     // ----------------------------------------------------------------------
+
+    // Lazy - new in 16.6
+    function lazy<T>(
+        importFunction: T,
+      ): T extends () => Promise<{ default: React.ComponentType<infer P> }>
+        ? React.ComponentType<P>
+        : React.ComponentType;
 
     // DOM Elements
     function createFactory<T extends HTMLElement>(

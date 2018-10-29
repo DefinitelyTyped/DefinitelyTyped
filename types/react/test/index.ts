@@ -715,3 +715,7 @@ class RenderChildren extends React.Component {
         return children !== undefined ? children : null;
     }
 }
+
+// Test React.Lazy
+const Test = React.lazy(() => import('./classComponent'));
+const Test2 = React.lazy(() => import('./statelessFunctionalComponent'));
