@@ -566,7 +566,7 @@ export interface Auth0Error {
 
 export type Auth0ParseHashError = Auth0Error & {
     state?: string;
-}
+};
 
 /**
  * The contents of the authResult object returned by {@link WebAuth#parseHash }
