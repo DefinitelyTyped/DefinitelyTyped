@@ -34,8 +34,11 @@ import { AppAssetInfo, AppAssetRequest, RuntimeDownloadOptions, RuntimeDownloadP
 import { DownloadPreloadInfo, DownloadPreloadOption } from './_v2/api/system/download-preload';
 import { EntityInfo } from './_v2/api/system/entity';
 import { HostSpecs } from './_v2/api/system/host-specs';
+import { LogInfo } from './_v2/api/system/log';
 import { ProcessInfo } from './_v2/api/system/process';
+import { ProxyInfo } from './_v2/api/system/proxy';
 import { RegistryInfo } from './_v2/api/system/registry-info';
+import { RVMInfo} from './_v2/api/system/rvm';
 import { WindowDetail, WindowInfo } from './_v2/api/system/window';
 
 // tslint:disable-next-line:export-just-namespace
@@ -752,7 +755,7 @@ declare namespace fin {
         /**
          * Returns information about the running RVM in an object.
          */
-        getRvmInfo(callback?: (rvmInfo: RvmInfo) => void, errorCallback?: (reason: string) => void): void;
+        getRvmInfo(callback?: (rvmInfo: RVMInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Returns the version of the runtime. The version contains the major, minor, build and revision numbers.
          */
@@ -831,41 +834,6 @@ declare namespace fin {
          * Update the OpenFin Runtime Proxy settings.
          */
         updateProxySettings(type: string, address: string, port: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
-    }
-
-    interface LogInfo {
-        /**
-         * the filename of the log
-         */
-        name?: string;
-        /**
-         * the size of the log in bytes
-         */
-        size?: number;
-        /**
-         * the unix time at which the log was created "Thu Jan 08 2015 14:40:30 GMT-0500 (Eastern Standard Time)"
-         */
-        date?: string;
-    }
-
-    interface ProxyInfo {
-        /**
-         * the configured Proxy Address
-         */
-        proxyAddress?: string;
-        /**
-         * the configured Proxy port
-         */
-        proxyPort?: number;
-        /**
-         * Proxy Type
-         */
-        type?: string;
-    }
-
-    interface RvmInfo {
-        version?: string;
-        "start-time"?: string;
     }
 
     interface ExternalProcessLaunchInfo {

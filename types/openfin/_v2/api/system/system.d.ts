@@ -150,6 +150,13 @@ import { SystemEvents } from '../events/system';
  * @property { string } uuid The uuid of the application
  */
 /**
+ * LogInfo interface
+ * @typedef { Object } LogInfo
+ * @property { string } name The filename of the log
+ * @property { number } size The size of the log in bytes
+ * @property { string } date The unix time at which the log was created "Thu Jan 08 2015 14:40:30 GMT-0500 (Eastern Standard Time)""
+ */
+/**
  * @typedef { verbose | info | warning | error | fatal } LogLevel
  * @summary Log verbosity levels.
  * @desc Describes the minimum level (inclusive) above which logs will be written
@@ -180,9 +187,23 @@ import { SystemEvents } from '../events/system';
 /**
  * ProxyConfig interface
  * @typedef { Object } ProxyConfig
- * @property { numder } proxyPort The port number of the running application
- * @property { string } proxyAddress The address of the running application
- * @property { string } type
+ * @property { string } proxyAddress The configured proxy address
+ * @property { numder } proxyPort The configured proxy port
+ * @property { string } type The proxy Type
+ */
+/**
+ * ProxyInfo interface
+ * @typedef { Object } ProxyInfo
+ * @property { ProxyConfig } config The proxy config
+ * @property { ProxySystemInfo } system The proxy system info
+ */
+/**
+ * ProxySystemInfo interface
+ * @typedef { Object } ProxySystemInfo
+ * @property { string } autoConfigUrl The auto configuration url
+ * @property { string } bypass The proxy bypass info
+ * @property { boolean } enabled Value to check if a proxy is enabled
+ * @property { string } proxy The proxy info
  */
 /**
  * RegistryInfo interface
@@ -198,6 +219,16 @@ import { SystemEvents } from '../events/system';
  * @typedef { Object } RuntimeDownloadOptions
  * @desc These are the options object required by the downloadRuntime function.
  * @property { string } version The given version to download
+ */
+/**
+ * RVMInfo interface
+ * @typedef { Object } RVMInfo
+ * @property { string } action The name of action: "get-rvm-info"
+ * @property { string } appLogDirectory The app log directory
+ * @property { string } path The path of OpenfinRVM.exe
+ * @property { string } 'start-time' The start time of RVM
+ * @property { string } version The version of RVM
+ * @property { string } 'working-dir' The working directory
  */
 /**
  * TerminateExternalRequestType interface
