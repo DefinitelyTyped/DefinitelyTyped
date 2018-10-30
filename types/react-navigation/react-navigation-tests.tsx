@@ -559,15 +559,15 @@ class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedP
 // If you have class methods, you should have a way to use them.
 
 // This is not used and is causing an error with the assignment to BackButtonWithNavigation below
-// const BackButtonWithNavigation = withNavigation(MyBackButton);
-// const BackButtonInstance = <BackButtonWithNavigation
-//     title="Back" onRef={((ref: MyBackButton) => {
-//         // ref is inferred as MyBackButton | null
-//         if (!ref) return;
-//         console.log('found ref rype: ', typeof ref);
-//         ref.triggerBack();
-//     })}
-// />;
+const BackButtonWithNavigation = withNavigation(MyBackButton);
+const BackButtonInstance = <BackButtonWithNavigation
+    title="Back" onRef={((ref: MyBackButton) => {
+        // ref is inferred as MyBackButton | null
+        if (!ref) return;
+        console.log('found ref rype: ', typeof ref);
+        ref.triggerBack();
+    })}
+/>;
 
 function StatelessBackButton(props: BackButtonProps & NavigationInjectedProps) {
   return <MyBackButton {...props} />;
