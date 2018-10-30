@@ -436,6 +436,12 @@ declare namespace R {
     }
 
     interface Static {
+/**
+         * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
+         * position, and it returns a function waiting for its first argument.
+         */
+        __: any; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
+
         /**
          * Adds two numbers (or strings). Equivalent to a + b but curried.
          */
