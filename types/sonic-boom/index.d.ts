@@ -7,7 +7,7 @@
 
 import { EventEmitter } from 'events';
 
-export = SonicBoom
+export = SonicBoom;
 
 declare class SonicBoom extends EventEmitter {
     /**
@@ -15,12 +15,12 @@ declare class SonicBoom extends EventEmitter {
      * relative protocol is enabled. Default: process.stdout
      * @returns a new sonic-boom instance
      */
-    constructor(fileDescriptor: String | Number)
+    constructor(fileDescriptor: string | number)
 
     /**
      * Writes the string to the file. It will return false to signal the producer to slow down.
      */
-    write(string: String): void;
+    write(string: string): void;
 
     /**
      * Writes the current buffer to the file if a write was not in progress.
@@ -31,7 +31,7 @@ declare class SonicBoom extends EventEmitter {
     /**
      * Reopen the file in place, useful for log rotation.
      */
-    reopen(file: String): void;
+    reopen(file: string): void;
 
     /**
      * Flushes the buffered data synchronously. This is a costly operation.
