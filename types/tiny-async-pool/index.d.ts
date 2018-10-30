@@ -4,11 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
- * This declaration specifies that the function is the exported object from the file
- */
-export = asyncPool;
-
-/**
  * Runs multiple promise-returning & async functions in a limited concurrency pool.
  * It rejects immediately as soon as one of the promises rejects.
  * It resolves when all the promises completes.
@@ -22,7 +17,7 @@ export = asyncPool;
  * @template IN Type of the input array
  * @template OUT Type of the resolves of the promises
  */
-declare function asyncPool<IN, OUT>(
+export default function asyncPool<IN, OUT>(
     poolLimit: number,
     array: ReadonlyArray<IN>,
     iteratorFn: (generator: IN) => Promise<OUT>

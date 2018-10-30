@@ -1,4 +1,4 @@
-import asyncPool = require('tiny-async-pool');
+import asyncPool from 'tiny-async-pool';
 
 const expected = JSON.stringify(['A', 'B', 'C']);
 
