@@ -28,7 +28,9 @@ const sendSignedTransactionTxReceipt0: PromiEvent<TransactionReceipt> = web3.eth
 const sendSignedTransactionTxReceipt1: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
     .on("transactionHash", (txHash: string) => { });
 const sendSignedTransactionTxReceipt2: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
-    .on("receipt", (txReceipt: TransactionReceipt) => { });
+    .on("receipt", (txReceipt: TransactionReceipt) => {
+        const { status }: { status: boolean }  = txReceipt;
+    });
 const sendSignedTransactionTxReceipt3: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
     .on("confirmation", (confNumber: number, receipt: TransactionReceipt) => { });
 const sendSignedTransactionTxReceipt4: PromiEvent<TransactionReceipt> = web3.eth.sendSignedTransaction("")
