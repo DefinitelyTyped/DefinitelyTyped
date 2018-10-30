@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 16.3.0.21
+*  version : 16.3.0.29
 *  Copyright Syncfusion Inc. 2001 - 2018. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -44334,6 +44334,11 @@ declare namespace ej {
             /** Gets or sets an object that indicates to customize the import behavior in the Spreadsheet.
              */
             importSettings?: ImportSettings;
+
+            /** Gets a value that indicates whether importing or not while loading the sheets in Spreadsheet.
+             * @Default {false}
+             */
+            isImport?: boolean;
 
             /** Gets or sets a value that indicates whether to enable or disable readonly support in the Spreadsheet.
              * @Default {false}
