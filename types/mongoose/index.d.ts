@@ -1121,7 +1121,7 @@ declare module "mongoose" {
      * Takes a populated field and returns it to its unpopulated state.
      * If the path was not populated, this is a no-op.
      */
-    depopulate(path: string): this;
+    depopulate(path?: string): this;
 
     /**
      * Returns true if the Document stores the same data as doc.

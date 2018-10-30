@@ -7351,7 +7351,7 @@ declare namespace Office {
 declare namespace Office {
     namespace MailboxEnums {
         /**
-         * Specifies which string formatting to apply to an attachment's content.
+         * Specifies the formatting that applies to an attachment's content.
          * 
          * [Api set: Mailbox Preview]
          * 

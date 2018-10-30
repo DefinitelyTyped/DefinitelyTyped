@@ -1,12 +1,13 @@
 // Type definitions for yazl 2.4
 // Project: https://github.com/thejoshwolfe/yazl
 // Definitions by: taoqf <https://github.com/taoqf>
+//                 Sean Marvi Oliver Genabe <https://github.com/seangenabe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
 
-import { Readable, Writable } from 'stream';
+import { Readable } from 'stream';
 import { Buffer } from 'buffer';
 
 export interface Options {
@@ -36,7 +37,7 @@ export interface DosDateTime {
 
 export class ZipFile {
     addFile(realPath: string, metadataPath: string, options?: Partial<Options>): void;
-    outputStream: Writable;
+    outputStream: Readable;
     addReadStream(input: Readable, metadataPath: string, options?: Partial<ReadStreamOptions>): void;
     addBuffer(buffer: Buffer, metadataPath: string, options?: Partial<Options>): void;
     end(optoins?: EndOptions, finalSizeCallback?: () => void): void;
