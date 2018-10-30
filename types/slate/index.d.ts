@@ -1,4 +1,4 @@
-// Type definitions for slate 0.40
+// Type definitions for slate 0.43
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -7,9 +7,11 @@
 //                 Kalley Powell <https://github.com/kalley>
 //                 Francesco Agnoletto <https://github.com/Kornil>
 //                 Irwan Fario Subastian <https://github.com/isubasti>
+//                 Sebastian Greaves <https://github.com/sgreav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 import * as Immutable from "immutable";
+import { SyntheticEvent } from "react";
 
 export class Data extends Immutable.Record({}) {
     [key: string]: any;
@@ -1476,10 +1478,10 @@ export class SlateError extends Error {
     [key: string]: any;
 }
 
-export interface KeyUtils {
-    create(key: string): string;
-    setGenerator(func: () => any): void;
-    resetGenerator(): void;
+export namespace KeyUtils {
+    function create(key?: string): string;
+    function setGenerator(func: () => any): void;
+    function resetGenerator(): void;
 }
 
 export type useMemoization = () => void;
@@ -1525,6 +1527,32 @@ export interface PathUtils {
         a: Immutable.List<number>,
         b: Immutable.List<number>
     ): Immutable.List<number>;
+}
+
+export interface EditorProperties {
+    onChange?: (change: Change) => void;
+    plugins?: any[];
+    readOnly?: boolean;
+    value?: Value;
+}
+
+export class Editor {
+    object: "editor";
+    onChange: (change: Change) => void;
+    plugins: any[];
+    readOnly: boolean;
+    value: Value;
+    constructor(attributes: EditorProperties)
+
+    change(customChange: (change: Change, ...args: any[]) => Change): void;
+    command(name: string, ...args: any[]): void;
+    event(handler: string, event: Event | SyntheticEvent): void;
+    query(query: string, ...args: any[]): any;
+    registerCommand(command: string): void;
+    registerQuery(query: string): void;
+    run(key: string, ...args: any[]): any;
+    setReadOnly(readOnly: boolean): Editor;
+    setValue(value: Value, options?: object): Editor;
 }
 
 export {};

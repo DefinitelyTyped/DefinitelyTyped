@@ -10,7 +10,6 @@
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
 //                 Simon Archer <https://github.com/archy-bold>
 //                 Ken Elkabany <https://github.com/braincore>
-//                 Slavik Nychkalo <https://github.com/gebeto>
 //                 Francesco Benedetto <https://github.com/frabnt>
 //                 Alexandros Dorodoulis <https://github.com/alexdor>
 //                 Manuel Heidrich <https://github.com/mahnuh>
@@ -481,7 +480,12 @@ declare namespace Chart {
         fontStyle?: string;
     }
 
-    interface TickOptions {
+    interface TickOptions extends NestedTickOptions {
+        minor?: NestedTickOptions | false;
+        major?: NestedTickOptions | false;
+    }
+
+    interface NestedTickOptions {
         autoSkip?: boolean;
         autoSkipPadding?: number;
         backdropColor?: ChartColor;
