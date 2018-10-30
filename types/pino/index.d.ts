@@ -13,7 +13,7 @@
 import * as stream from 'stream';
 import * as http from 'http';
 import { EventEmitter } from 'events';
-import SonicBoom = require('sonic-boom')
+import SonicBoom = require('sonic-boom');
 
 export = P;
 
@@ -84,19 +84,19 @@ declare namespace P {
     };
 
     /**
-  *Create a Pino Destination instance: a stream-like object with significantly more throughput (over 30%) than a standard Node.js stream.
-  * @param [fileDescriptor]: File path or numerical file descriptor, by default 1
-  * @returns A Sonic-Boom  stream to be used as destination for the pino function
-  */
-    function destination(fileDescriptor?: String | Number): SonicBoom;
+     * Create a Pino Destination instance: a stream-like object with significantly more throughput (over 30%) than a standard Node.js stream.
+     * @param [fileDescriptor]: File path or numerical file descriptor, by default 1
+     * @returns A Sonic-Boom  stream to be used as destination for the pino function
+     */
+    function destination(fileDescriptor?: string | number): SonicBoom;
 
     /**
-  *Create an extreme mode destination. This yields an additional 60% performance boost.
-  * There are trade-offs that should be understood before usage.
-  * @param [fileDescriptor]: File path or numerical file descriptor, by default 1
-  * @returns A Sonic-Boom  stream to be used as destination for the pino function
-  */
-    function extreme(fileDescriptor?: String | Number): SonicBoom;
+     * Create an extreme mode destination. This yields an additional 60% performance boost.
+     * There are trade-offs that should be understood before usage.
+     * @param [fileDescriptor]: File path or numerical file descriptor, by default 1
+     * @returns A Sonic-Boom  stream to be used as destination for the pino function
+     */
+    function extreme(fileDescriptor?: string | number): SonicBoom;
 
     interface LevelMapping {
         /**
