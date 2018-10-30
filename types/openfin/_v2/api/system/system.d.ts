@@ -66,6 +66,13 @@ import { SystemEvents } from '../events/system';
  * @property { string } name The name of the cookie
  */
 /**
+ * CpuInfo interface
+ * @typedef { Object } CpuInfo
+ * @property { string } model The model of the cpu
+ * @property { number } speed The number in MHz
+ * @property { Time } times The numbers of milliseconds the CPU has spent in different modes.
+ */
+/**
 * CrashReporterOption interface
 * @typedef { Object } CrashReporterOption
 * @property { boolean } diagnosticMode In diagnostic mode the crash reporter will send diagnostic logs to
@@ -107,19 +114,35 @@ import { SystemEvents } from '../events/system';
  * @property { string } uuid The uuid of the external connection
  */
 /**
-* ExternalProcessRequestType interface
-* @typedef { Object } ExternalProcessRequestType
-* @property { string } path The file path to where the running application resides
-* @property { string } arguments The argument passed to the running application
-* @property { Object } listener This is described in the {LaunchExternalProcessListner} type definition
-*/
+ * ExternalProcessRequestType interface
+ * @typedef { Object } ExternalProcessRequestType
+ * @property { string } path The file path to where the running application resides
+ * @property { string } arguments The argument passed to the running application
+ * @property { Object } listener This is described in the {LaunchExternalProcessListner} type definition
+ */
 /**
-* GetLogRequestType interface
-* @typedef { Object } GetLogRequestType
-* @property { string } name The name of the running application
-* @property { number } endFile The file length of the log file
-* @property { number } sizeLimit The set size limit of the log file
-*/
+ * GetLogRequestType interface
+ * @typedef { Object } GetLogRequestType
+ * @property { string } name The name of the running application
+ * @property { number } endFile The file length of the log file
+ * @property { number } sizeLimit The set size limit of the log file
+ */
+/**
+ * GpuInfo interface
+ * @typedef { Object } GpuInfo
+ * @property { string } name The graphics card name
+ */
+/**
+ * HostSpecs interface
+ * @typedef { Object } HostSpecs
+ * @property { boolean } aeroGlassEnabled Value to check if Aero Glass theme is supported on Windows platforms
+ * @property { string } arch "x86" for 32-bit or "x86_64" for 64-bit
+ * @property { Array<CpuInfo> } cpus The same payload as Node's os.cpus()
+ * @property { GpuInfo } gpu The graphics card name
+ * @property { number } memory The same payload as Node's os.totalmem()
+ * @property { string } name The OS name and version/edition
+ * @property { boolean } screenSaver Value to check if screensaver is running. Supported on Windows only
+ */
 /**
  * Identity interface
  * @typedef { Object } Identity
@@ -182,6 +205,15 @@ import { SystemEvents } from '../events/system';
  * @property { string } uuid The uuid of the running application
  * @property { number } timeout Time out period before the running application terminates
  * @property { boolean } killtree Value to terminate the running application
+ */
+/**
+ * Time interface
+ * @typedef { Object } Time
+ * @property { number } user The number of milliseconds the CPU has spent in user mode
+ * @property { number } nice The number of milliseconds the CPU has spent in nice mode
+ * @property { number } sys The number of milliseconds the CPU has spent in sys mode
+ * @property { number } idle The number of milliseconds the CPU has spent in idle mode
+ * @property { number } irq The number of milliseconds the CPU has spent in irq mode
  */
 /**
  * WindowDetail interface
@@ -372,7 +404,7 @@ export default class System extends EmitterBase<SystemEvents> {
     getRvmInfo(): Promise<RVMInfo>;
     /**
      * Retrieves system information.
-     * @return {Promise.<Hostspecs>}
+     * @return {Promise.<HostSpecs>}
      * @tutorial System.getHostSpecs
      */
     getHostSpecs(): Promise<HostSpecs>;

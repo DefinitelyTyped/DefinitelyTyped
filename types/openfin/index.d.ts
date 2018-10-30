@@ -33,6 +33,7 @@ import { CookieInfo, CookieOption } from './_v2/api/system/cookie';
 import { AppAssetInfo, AppAssetRequest, RuntimeDownloadOptions, RuntimeDownloadProgress } from './_v2/api/system/download-asset';
 import { DownloadPreloadInfo, DownloadPreloadOption } from './_v2/api/system/download-preload';
 import { EntityInfo } from './_v2/api/system/entity';
+import { HostSpecs } from './_v2/api/system/host-specs';
 import { ProcessInfo } from './_v2/api/system/process';
 import { RegistryInfo } from './_v2/api/system/registry-info';
 import { WindowDetail, WindowInfo } from './_v2/api/system/window';
@@ -718,7 +719,7 @@ declare namespace fin {
         /**
          * Retrieves system information.
          */
-        getHostSpecs(callback?: (info: HostSpecInfo) => void, errorCallback?: (reason: string) => void): void;
+        getHostSpecs(callback?: (info: HostSpecs) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Retrieves the contents of the log with the specified filename.
          */
@@ -830,61 +831,6 @@ declare namespace fin {
          * Update the OpenFin Runtime Proxy settings.
          */
         updateProxySettings(type: string, address: string, port: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
-    }
-
-    interface HostSpecInfo {
-        /**
-         * "x86" for 32-bit or "x86_64" for 64-bit
-         */
-        arch: string;
-        /**
-         * Same payload as Node's os.cpus()
-         */
-        cpus: NodeCpuInfo[];
-        gpu: {
-            /**
-             * Graphics card name
-             */
-            name: string;
-        };
-        /**
-         * Same payload as Node's os.totalmem()
-         */
-        memory: number;
-        /**
-         * OS name and version/edition
-         */
-        name: string;
-    }
-
-    interface NodeCpuInfo {
-        model: string;
-        /**
-         * in MHz
-         */
-        speed: number;
-        times: {
-            /**
-             * The number of milliseconds the CPU has spent in user mode.
-             */
-            user: number;
-            /**
-             * The number of milliseconds the CPU has spent in nice mode.
-             */
-            nice: number;
-            /**
-             * The number of milliseconds the CPU has spent in sys mode.
-             */
-            sys: number;
-            /**
-             * The number of milliseconds the CPU has spent in idle mode.
-             */
-            idle: number;
-            /**
-             * The number of milliseconds the CPU has spent in irq mode.
-             */
-            irq: number;
-        };
     }
 
     interface LogInfo {
