@@ -5,7 +5,7 @@
     ],
     "compilerOptions": {
         "module": "commonjs",
-        "target": "node",
+        "target": "es5",
         "lib": [
             "es6"
         ],
@@ -17,8 +17,8 @@
         "typeRoots": [
             "../"
         ],
-        "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "types": ["node"]
     }
 }
