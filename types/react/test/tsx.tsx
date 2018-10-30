@@ -250,3 +250,7 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
     <LazyMemoized3 ref={ref => { if (ref) { ref.props.x; } }}/>
     <LazyRefForwarding ref={memoized4Ref}/>
 </React.Suspense>;
+
+<React.Suspense fallback={null}/>;
+// $ExpectError
+<React.Suspense/>;

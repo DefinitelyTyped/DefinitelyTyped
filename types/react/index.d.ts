@@ -308,7 +308,7 @@ declare namespace React {
         children?: ReactNode
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
-        fallback?: ReactNode
+        fallback: NonNullable<ReactNode>|null
 
         // I tried looking at the code but I have no idea what it does.
         // https://github.com/facebook/react/issues/13206#issuecomment-432489986
