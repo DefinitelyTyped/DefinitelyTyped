@@ -54,7 +54,7 @@ export interface RedirectProps {
   to: H.LocationDescriptor;
   push?: boolean;
   from?: string;
-  path?: string;
+  path?: string | string[];
   exact?: boolean;
   strict?: boolean;
 }
