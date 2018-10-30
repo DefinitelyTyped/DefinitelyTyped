@@ -558,7 +558,6 @@ class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedP
 
 // withNavigation returns a component that wraps MyBackButton and passes in the navigation prop.
 // If you have class methods, you should have a way to use them.
-
 // This is not used and is causing an error with the assignment to BackButtonWithNavigation below
 const BackButtonWithNavigation = withNavigation(MyBackButton);
 const BackButtonInstance = <BackButtonWithNavigation
@@ -576,19 +575,19 @@ function StatelessBackButton(props: BackButtonProps & NavigationInjectedProps) {
 
 // Wrapped stateless components don't accept an onRef
 // This is not used and is causing an error with the assignment to StatelessBackButtonWithNavigation below
-// const StatelessBackButtonWithNavigation = withNavigation(StatelessBackButton);
-// const StatelessBackButtonInstance = <StatelessBackButtonWithNavigation title="Back" />;
+const StatelessBackButtonWithNavigation = withNavigation(StatelessBackButton);
+const StatelessBackButtonInstance = <StatelessBackButtonWithNavigation title="Back" />;
 
 // The old way of passing in the props should still work
 // This is not used and is causing an error with the assignment to BackButtonWithNavigationWithExplicitProps below
-// const BackButtonWithNavigationWithExplicitProps = withNavigation<BackButtonProps>(MyBackButton);
-// const BackButtonWithExplicitPropsInstance = <BackButtonWithNavigationWithExplicitProps
-//     title="Back" onRef={((ref: React.Component<BackButtonProps & NavigationInjectedProps<NavigationParams>>) => {
-//         if (!ref) return;
-//         // We can't infer the component type if we pass in the props
-//         (ref as MyBackButton).triggerBack();
-//     })}
-// />;
+const BackButtonWithNavigationWithExplicitProps = withNavigation<BackButtonProps>(MyBackButton);
+const BackButtonWithExplicitPropsInstance = <BackButtonWithNavigationWithExplicitProps
+    title="Back" onRef={((ref: React.Component<BackButtonProps & NavigationInjectedProps<NavigationParams>>) => {
+        if (!ref) return;
+        // We can't infer the component type if we pass in the props
+        (ref as MyBackButton).triggerBack();
+    })}
+/>;
 
 // Test withNavigationFocus
 
@@ -602,10 +601,10 @@ class MyFocusedComponent extends React.Component<MyFocusedComponentProps & Navig
 // This is not used and is causing an error with the assignment to MyFocusedComponentWithNavigationFocus below
 // withNavigationFocus returns a component that wraps MyFocusedComponent and passes in the
 // navigation and isFocused prop
-// const MyFocusedComponentWithNavigationFocus = withNavigationFocus(MyFocusedComponent);
-// const MyFocusedComponentInstance = <MyFocusedComponentWithNavigationFocus
-//     expectsFocus={true} onRef={((ref: MyFocusedComponent) => { const backButtonRef = ref; })}
-// />;
+const MyFocusedComponentWithNavigationFocus = withNavigationFocus(MyFocusedComponent);
+const MyFocusedComponentInstance = <MyFocusedComponentWithNavigationFocus
+    expectsFocus={true} onRef={((ref: MyFocusedComponent) => { const backButtonRef = ref; })}
+/>;
 
 // Test Screen with params
 
@@ -626,11 +625,11 @@ createStackNavigator(
 
 // Test NavigationEvents component
 // This is not used and is causing an error with the assignment to ViewWithNavigationEvents below
-// const ViewWithNavigationEvents = (
-//   <NavigationEvents
-//     onWillFocus={console.log}
-//     onDidFocus={console.log}
-//     onWillBlur={console.log}
-//     onDidBlur={console.log}
-//   />
-// );
+const ViewWithNavigationEvents = (
+  <NavigationEvents
+    onWillFocus={console.log}
+    onDidFocus={console.log}
+    onWillBlur={console.log}
+    onDidBlur={console.log}
+  />
+);
