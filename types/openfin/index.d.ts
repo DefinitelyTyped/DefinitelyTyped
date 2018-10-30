@@ -25,7 +25,7 @@
  * without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "documennt" objects.
  */
 import { Identity } from './_v2/identity';
-import { ShortCutConfig } from './_v2/api/application/application';
+import { ShortCutConfig, TrayInfo } from './_v2/api/application/application';
 import { ExternalApplicationInfo } from './_v2/api/external-application/external-application';
 import { ApplicationInfo } from './_v2/api/system/application';
 import { ClearCacheOption } from './_v2/api/system/clearCacheOption';
@@ -35,11 +35,15 @@ import { DownloadPreloadInfo, DownloadPreloadOption } from './_v2/api/system/dow
 import { EntityInfo } from './_v2/api/system/entity';
 import { HostSpecs } from './_v2/api/system/host-specs';
 import { LogInfo } from './_v2/api/system/log';
+import { MonitorInfo } from './_v2/api/system/monitor';
+import { PointTopLeft } from './_v2/api/system/point';
 import { ProcessInfo } from './_v2/api/system/process';
 import { ProxyInfo } from './_v2/api/system/proxy';
 import { RegistryInfo } from './_v2/api/system/registry-info';
 import { RVMInfo} from './_v2/api/system/rvm';
 import { WindowDetail, WindowInfo } from './_v2/api/system/window';
+import Bounds from './_v2/api/window/bounds';
+import { Transition, TransitionOptions } from './_v2/api/window/transition';
 
 // tslint:disable-next-line:export-just-namespace
 export = fin;
@@ -146,7 +150,7 @@ declare namespace fin {
         /**
          * Retrieves information about the system tray.
          */
-        getTrayIconInfo(callback?: (trayInfo: TrayIconInfo) => void, errorCallback?: (reason: string) => void): void;
+        getTrayIconInfo(callback?: (trayInfo: TrayInfo) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Determines if the application is currently running.
          */
@@ -742,7 +746,7 @@ declare namespace fin {
         /**
          * Returns the mouse in virtual screen coordinates (left, top).
          */
-        getMousePosition(callback?: (mousePosition: VirtualScreenCoordinates) => void, errorCallback?: (reason: string) => void): void;
+        getMousePosition(callback?: (mousePosition: PointTopLeft) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Retrieves an array of all of the runtime processes that are currently running.
          * Each element in the array is an object containing the uuid and the name of the application to which the process belongs.
@@ -989,7 +993,7 @@ declare namespace fin {
         /**
          * Performs the specified window transitions
          */
-        animate(transitions: AnimationTransition, options: AnimationOptions, callback?: (event: any) => void, errorCallback?: (reason: string) => void): void;
+        animate(transitions: Transition, options: TransitionOptions, callback?: (event: any) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Provides credentials to authentication requests
          */
@@ -1034,7 +1038,7 @@ declare namespace fin {
         /**
          * Gets the current bounds (top, left, width, height) of the window.
          */
-        getBounds(callback?: (bounds: WindowBounds) => void, errorCallback?: (reason: string) => void): void;
+        getBounds(callback?: (bounds: Bounds) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Retrieves an array containing wrapped fin.desktop.Windows that are grouped with this window. If a window is not in a group an empty array is returned.
          * Please note that calling window is included in the result array.
@@ -1214,51 +1218,6 @@ declare namespace fin {
     interface MonitorInfoChangedEvent extends MonitorInfo {
         topic: "system";
         type: "monitor-info-changed";
-    }
-
-    interface MonitorInfo {
-        nonPrimaryMonitors: MonitorInfoDetail[];
-        primaryMonitor: MonitorInfoDetail;
-        reason: string;
-        taskbar: {
-            edge: "left" | "right" | "top" | "bottom",
-            rect: MontiorCoordinates
-        };
-        topic: "system";
-        type: "monitor-info-changed";
-        virtualScreen: MontiorCoordinates;
-    }
-
-	interface TrayIconInfo {
-		x: number;
-		y: number;
-		bounds: {
-			x: number;
-			y: number;
-			width: number;
-			height: number;
-		};
-		monitorInfo: MonitorInfo;
-	}
-
-    interface MonitorInfoDetail {
-        availableRect: MontiorCoordinates;
-        deviceId: string;
-        displayDeviceActive: boolean;
-        monitorRect: MontiorCoordinates;
-        name: string;
-    }
-
-    interface MontiorCoordinates {
-        bottom: number;
-        left: number;
-        right: number;
-        top: number;
-    }
-
-    interface VirtualScreenCoordinates {
-        left: number;
-        top: number;
     }
 
     interface SystemBaseEvent {
@@ -1458,89 +1417,6 @@ declare namespace fin {
          * the UUID of the application the window belongs to.
          */
         uuid: string;
-    }
-
-    interface AnimationTransition {
-        opacity?: {
-            /**
-             * This value is clamped from 0.0 to 1.0
-             */
-            opacity?: number;
-            /**
-             * The total time in milliseconds this transition should take.
-             */
-            duration?: number;
-            /**
-             * Treat 'opacity' as absolute or as a delta. Defaults to false.
-             */
-            relative?: boolean;
-        };
-        position?: {
-            /**
-             * Defaults to the window's current left position in virtual screen coordinates.
-             */
-            left?: number;
-            /**
-             * Defaults to the window's current top position in virtual screen coordinates.
-             */
-            top?: number;
-            /**
-             * The total time in milliseconds this transition should take.
-             */
-            duration?: number;
-            /**
-             * Treat 'left' and 'top' as absolute or as deltas. Defaults to false.
-             */
-            relative?: boolean;
-        };
-        size?: {
-            /**
-             * Optional if height is present. Defaults to the window's current width.
-             */
-            width?: number;
-            /**
-             * Optional if width is present. Defaults to the window's current height.
-             */
-            height?: number;
-            /**
-             * The total time in milliseconds this transition should take.
-             */
-            duration?: number;
-            /**
-             * Treat 'width' and 'height' as absolute or as deltas. Defaults to false.
-             */
-            relative?: boolean;
-        };
-    }
-
-    interface AnimationOptions {
-        /**
-         * This option interrupts the current animation. When false it pushes this animation onto the end of the animation queue.
-         */
-        interrupt?: boolean;
-        /**
-         * Transition effect. Defaults to 'ease-in-out'.
-         */
-        tween?: OpenFinTweenType;
-    }
-
-    interface WindowBounds {
-        /**
-         * the height of the window.
-         */
-        height?: number;
-        /**
-         * left-most coordinate of the window.
-         */
-        left?: number;
-        /**
-         * top-most coordinate of the window.
-         */
-        top?: number;
-        /**
-         * the width of the window.
-         */
-        width?: number;
     }
 
     interface SessionChangedEvent {
