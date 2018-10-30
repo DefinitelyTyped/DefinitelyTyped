@@ -27,6 +27,7 @@
 import { Identity } from './_v2/identity';
 import { ShortCutConfig } from './_v2/api/application/application';
 import { ExternalApplicationInfo } from './_v2/api/external-application/external-application';
+import { ApplicationInfo } from './_v2/api/system/application';
 import { ClearCacheOption } from './_v2/api/system/clearCacheOption';
 import { CookieInfo, CookieOption } from './_v2/api/system/cookie';
 import { AppAssetInfo, AppAssetRequest, RuntimeDownloadOptions, RuntimeDownloadProgress } from './_v2/api/system/download-asset';
@@ -34,6 +35,7 @@ import { DownloadPreloadInfo, DownloadPreloadOption } from './_v2/api/system/dow
 import { EntityInfo } from './_v2/api/system/entity';
 import { ProcessInfo } from './_v2/api/system/process';
 import { RegistryInfo } from './_v2/api/system/registry-info';
+import { WindowDetail, WindowInfo } from './_v2/api/system/window';
 
 // tslint:disable-next-line:export-just-namespace
 export = fin;
@@ -680,7 +682,7 @@ declare namespace fin {
         /**
          * Retrieves an array of data (name, ids, bounds) for all application windows.
          */
-        getAllWindows(callback?: (windowInfoList: WindowDetails[]) => void, errorCallback?: (reason: string) => void): void;
+        getAllWindows(callback?: (windowInfoList: WindowInfo[]) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Returns information about the app asset.
          */
@@ -828,50 +830,6 @@ declare namespace fin {
          * Update the OpenFin Runtime Proxy settings.
          */
         updateProxySettings(type: string, address: string, port: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
-    }
-
-    interface ApplicationInfo {
-        /**
-         * true when the application is running.
-         */
-        isRunning?: boolean;
-        /**
-         * uuid of the application.
-         */
-        uuid?: string;
-        /**
-         * uuid of the application that launches this application.
-         */
-        parentUuid?: string;
-    }
-
-    interface WindowDetails {
-        uuid?: string;
-        mainWindow?: WindowInfo;
-        childWindows?: WindowInfo[];
-    }
-
-    interface WindowInfo {
-        /**
-         * name of the child window
-         */
-        name?: string;
-        /**
-         * top-most coordinate of the child window
-         */
-        top?: number;
-        /**
-         * right-most coordinate of the child window
-         */
-        right?: number;
-        /**
-         * bottom-most coordinate of the child window
-         */
-        bottom?: number;
-        /**
-         * left-most coordinate of the child window
-         */
-        left?: number;
     }
 
     interface HostSpecInfo {
