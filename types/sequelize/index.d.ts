@@ -139,7 +139,7 @@ declare namespace sequelize {
      * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
      * @see Instance
      */
-    interface BelongsToCreateAssociationMixin<TAttributes> {
+    interface BelongsToCreateAssociationMixin<TAttributes, TInstance> {
         /**
          * Create a new instance of the associated model and associate it with this.
          * @param values The values used to create the association.
@@ -148,7 +148,7 @@ declare namespace sequelize {
         (
             values?: TAttributes,
             options?: BelongsToCreateAssociationMixinOptions | CreateOptions | BelongsToSetAssociationMixinOptions
-        ): Promise<void>;
+        ): Promise<TInstance>;
     }
 
     /**
