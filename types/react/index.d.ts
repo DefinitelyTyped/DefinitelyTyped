@@ -591,6 +591,10 @@ declare namespace React {
                 ? P
                 : {};
 
+    function memo<P extends object>(
+        Component: SFC<P>,
+        propsAreEqual?: (prevProps: Readonly<P & { children?: ReactNode }>, nextProps: Readonly<P & { children?: ReactNode }>) => boolean
+    ): ExoticComponent<P>;
     function memo<T extends ComponentType<any>>(
         Component: T,
         propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean

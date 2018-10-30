@@ -213,3 +213,17 @@ const Memoized3 = React.memo(class Test extends React.Component<{ x?: string }> 
 const memoized4Ref = React.createRef<HTMLDivElement>();
 const Memoized4 = React.memo(React.forwardRef((props: {}, ref: React.Ref<HTMLDivElement>) => <div ref={ref}/>));
 <Memoized4 ref={memoized4Ref}/>;
+
+const Memoized5 = React.memo<{ test: boolean }>(
+    prop => <>{prop.test && prop.children}</>,
+    (prevProps, nextProps) => nextProps.test ? prevProps.children === nextProps.children : prevProps.test
+);
+
+<Memoized5 test/>;
+
+// for some reason the ExpectType doesn't work if the type is namespaced
+// $ExpectType ExoticComponent<{}>
+const Memoized6 = React.memo(props => null);
+<Memoized6/>;
+// $ExpectError
+<Memoized6 foo/>;
