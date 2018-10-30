@@ -1,6 +1,6 @@
 {
     "files": [
-        "ansi.d.ts",
+        "index.d.ts",
         "ansi-tests.ts"
     ],
     "compilerOptions": {
@@ -19,6 +19,6 @@
         ],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "types": ["node"]
+        "types": []
     }
 }
