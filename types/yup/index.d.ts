@@ -1,4 +1,4 @@
-// Type definitions for yup 0.26
+// Type definitions for yup 0.27
 // Project: https://github.com/jquense/yup
 // Definitions by: Dominik Hardtke <https://github.com/dhardtke>,
 //                 Vladyslav Tserman <https://github.com/vtserman>,
@@ -163,7 +163,7 @@ export interface ArraySchema<T> extends Schema<T[]> {
     min(limit: number | Ref, message?: string): ArraySchema<T>;
     max(limit: number | Ref, message?: string): ArraySchema<T>;
     ensure(): ArraySchema<T>;
-    compact(rejector: (value: any) => boolean): ArraySchema<T>;
+    compact(rejector?: (value: any) => boolean): ArraySchema<T>;
 }
 
 export interface ObjectSchemaConstructor {
