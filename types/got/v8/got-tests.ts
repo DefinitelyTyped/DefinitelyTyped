@@ -7,7 +7,6 @@ import * as http from 'http';
 import * as https from 'https';
 import * as url from 'url';
 import QuickLRU = require('quick-lru');
-import tough = require('tough-cookie');
 
 let str: string;
 let buf: Buffer;
@@ -261,11 +260,3 @@ got(new url.URL('http://todomvc.com'));
 got(url.parse('http://todomvc.com'));
 
 got('https://todomvc.com', { rejectUnauthorized: false });
-
-got('/examples/angularjs', { baseUrl: 'http://todomvc.com' });
-got('http://todomvc.com', { headers: { foo: 'bar'} });
-got('http://todomvc.com', { cookieJar: new tough.CookieJar() });
-got('http://todomvc.com', { retry: 2 });
-got('http://todomvc.com', { retry: { retries: 2, methods: ['GET'], statusCodes: [408, 504], maxRetryAfter: 1 } });
-got('http://todomvc.com', { throwHttpErrors: false });
-got('http://todomvc.com', { hooks: { beforeRequest: [ () => 'foo']} });
