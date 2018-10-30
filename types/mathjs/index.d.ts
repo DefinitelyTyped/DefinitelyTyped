@@ -2876,6 +2876,7 @@ declare namespace math {
     interface Parser {
         eval(expr: string): any;
         get(variable: string): any;
+        getAll(): { [key: string]: any; };
         set: (variable: string, value: any) => void;
         clear: () => void;
     }
