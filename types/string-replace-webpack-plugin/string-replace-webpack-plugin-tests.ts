@@ -1,4 +1,4 @@
-import * as StringReplacePlugin from 'string-replace-webpack-plugin';
+import StringReplacePlugin = require('string-replace-webpack-plugin');
 
 StringReplacePlugin.replace('babel-loader', {
     replacements: [
