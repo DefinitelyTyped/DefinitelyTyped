@@ -1,0 +1,24 @@
+{
+    "files": [
+        "ansi.d.ts",
+        "ansi-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "node",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
