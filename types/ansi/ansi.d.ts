@@ -12,34 +12,6 @@ declare module 'ansi';
  *
  */
 
-/**
- * Module dependencies.
- */
-declare const prefix = '\x1b[' // For all escape codes
-            , suffix = 'm'     // Only for color codes
-
-/**
- * The ANSI escape sequences.
- */
-declare const codes : Map<string, string>;
-
-/**
- * Rendering ANSI codes.
- */
-
-declare const styles : Map<string, number>;
-
-/**
- * The negating ANSI code for the rendering modes.
- */
-
-declare const reset : Map<string, number>;
-
-/**
- * The standard, styleable ANSI colors.
- */
-declare const colors : Map<string, number>;
-
 
 /**
  * Creates a Cursor instance based off the given `writable stream` instance.
