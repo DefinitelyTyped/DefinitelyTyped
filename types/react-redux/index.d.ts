@@ -35,11 +35,28 @@ import {
 
 import {
     Action,
-    ActionCreator,
     AnyAction,
     Dispatch,
     Store
 } from 'redux';
+
+import { ThunkAction } from 'redux-thunk';
+
+/**
+ * When using thunk middleware (https://github.com/reduxjs/redux-thunk), the middleware
+ * will provide the action creator with the dispatch function and return the type R which is inferred here.
+ */
+type FixThunkAction<ActionCreator> =
+    ActionCreator extends (...args: infer Args) => ThunkAction<infer R, any, any, any>
+    ? (...args: Args) => R
+    : ActionCreator;
+
+type FixThunkActions<TDispatchProps> =
+    TDispatchProps extends object
+    ? {
+        [P in keyof TDispatchProps]: FixThunkAction<TDispatchProps[P]>
+    }
+    : TDispatchProps;
 
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
@@ -142,12 +159,12 @@ export interface Connect {
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-    ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<FixThunkActions<TDispatchProps>, TOwnProps>;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<TStateProps & FixThunkActions<TDispatchProps>, TOwnProps>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
@@ -158,7 +175,7 @@ export interface Connect {
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
         mapStateToProps: null | undefined,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
-        mergeProps: MergeProps<undefined, TDispatchProps, TOwnProps, TMergedProps>,
+        mergeProps: MergeProps<undefined, FixThunkActions<TDispatchProps>, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
     <no_state = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}>(
@@ -170,7 +187,7 @@ export interface Connect {
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
-        mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
+        mergeProps: MergeProps<TStateProps, FixThunkActions<TDispatchProps>, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = {}>(
@@ -185,19 +202,19 @@ export interface Connect {
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
         options: Options<{}, TStateProps, TOwnProps>
-    ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<FixThunkActions<TDispatchProps>, TOwnProps>;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
         options: Options<State, TStateProps, TOwnProps>
-    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<TStateProps & FixThunkActions<TDispatchProps>, TOwnProps>;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
-        mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
+        mergeProps: MergeProps<TStateProps, FixThunkActions<TDispatchProps>, TOwnProps, TMergedProps>,
         options: Options<State, TStateProps, TOwnProps, TMergedProps>
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 }
