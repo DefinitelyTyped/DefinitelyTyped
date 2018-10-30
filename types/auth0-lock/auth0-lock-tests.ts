@@ -235,7 +235,7 @@ const checkboxFieldOptions : Auth0LockConstructorOptions = {
       type: "checkbox",
       name: "remember",
       placeholder: "Remember Me",
-      prefill: "false" as 'false'
+      prefill: "false"
     }]
   };
 
