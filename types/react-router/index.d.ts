@@ -1,4 +1,4 @@
-// Type definitions for React Router 4.0
+// Type definitions for React Router v4.4.0-beta.4
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>
 //                 Yuichi Murata <https://github.com/mrk21>
