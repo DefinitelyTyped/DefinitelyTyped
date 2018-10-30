@@ -1,28 +1,7 @@
-import { Value, Data, BlockJSON, Document, Editor, Change, KeyUtils } from "slate";
+import { Value, Data, BlockJSON, Document, Editor, KeyUtils } from "slate";
 
 const data = Data.create({ foo: "bar " });
 const value = Value.create({ data });
-const change = value
-	.change()
-	.focus()
-	.moveAnchorToStartOfDocument()
-	.moveFocusToEndOfDocument()
-	.delete()
-	.insertText("A bit of rich text, followed by...")
-	.moveToStartOfText()
-	.move(10)
-	.moveFocusForward(4)
-	.addMark("bold")
-	.moveToEndOfNextBlock()
-	.insertBlock({
-		type: "image",
-		data: {
-			src: "http://placekitten.com/200/300",
-			alt: "Kittens",
-			className: "img-responsive"
-		}
-	})
-	.insertBlock("paragraph");
 
 const node: BlockJSON = {
 	object: "block",
@@ -47,9 +26,6 @@ const doc = Document.fromJSON({
 });
 
 const editor = new Editor({ value });
-editor.change((change: Change) => {
-	return change.insertText("test");
-});
 
 editor.registerQuery("testQuery");
 editor.registerCommand("testCommand");
@@ -58,6 +34,25 @@ editor.command("testCommand");
 editor.query("testQuery");
 editor.run("testCommand");
 editor.event("mouseDown", new Event("mouseDown"));
+editor
+.focus()
+.moveAnchorToStartOfDocument()
+.moveFocusToEndOfDocument()
+.delete()
+.insertText("A bit of rich text, followed by...")
+.moveToStartOfText()
+.moveFocusForward(4)
+.addMark("bold")
+.moveToEndOfNextBlock()
+.insertBlock({
+	type: "image",
+	data: {
+		src: "http://placekitten.com/200/300",
+		alt: "Kittens",
+		className: "img-responsive"
+	}
+})
+.insertBlock("paragraph");
 
 KeyUtils.setGenerator(() => "Test");
 KeyUtils.create();

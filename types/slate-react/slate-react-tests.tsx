@@ -1,5 +1,5 @@
 import { Editor, Plugin, EditorProps, RenderNodeProps } from "slate-react";
-import { Change, Value } from "slate";
+import { Value } from "slate";
 import * as React from "react";
 
 class MyPlugin implements Plugin {
@@ -18,10 +18,6 @@ class MyPlugin implements Plugin {
             }
         }
     }
-
-    onChange(change: Change): void {
-        change.blur();
-    }
 }
 
 const myPlugin = new MyPlugin();
@@ -37,11 +33,9 @@ class MyEditor extends React.Component<EditorProps, MyEditorState> {
             value: Value.create()
         };
     }
-
     render() {
         return <Editor
             value={this.state.value}
-            onChange={myPlugin.onChange}
             renderNode={myPlugin.renderNode} />;
     }
 }
