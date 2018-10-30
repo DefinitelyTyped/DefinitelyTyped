@@ -991,6 +991,7 @@ declare namespace React {
 
         // Standard HTML Attributes
         accessKey?: string;
+        autofocus?: boolean;
         className?: string;
         contentEditable?: boolean;
         contextMenu?: string;
