@@ -54,7 +54,7 @@ export interface RedirectProps {
   to: H.LocationDescriptor;
   push?: boolean;
   from?: string;
-  path?: string | string[];
+  path?: string;
   exact?: boolean;
   strict?: boolean;
 }
@@ -76,7 +76,7 @@ export interface RouteProps {
   component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   render?: ((props: RouteComponentProps<any>) => React.ReactNode);
   children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
-  path?: string;
+  path?: string | string[];
   exact?: boolean;
   sensitive?: boolean;
   strict?: boolean;
