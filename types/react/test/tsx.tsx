@@ -227,3 +227,15 @@ const Memoized6 = React.memo(props => null);
 <Memoized6/>;
 // $ExpectError
 <Memoized6 foo/>;
+
+// NOTE: this test _requires_ TypeScript 3.1
+// It is passing, for what it's worth.
+// const Memoized7 = React.memo((() => {
+//     function HasDefaultProps(props: { test: boolean }) { return null; }
+//     HasDefaultProps.defaultProps = {
+//         test: true
+//     };
+//     return HasDefaultProps;
+// })());
+// // $ExpectType boolean
+// Memoized7.type.defaultProps.test;
