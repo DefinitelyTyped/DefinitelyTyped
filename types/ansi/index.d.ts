@@ -14,11 +14,16 @@
 /// <reference types="node" />
 import { Stream } from "stream";
 
-declare function ansi(stream: Stream, options?: any): ansi.Cursor;
+interface CursorOptions {
+    enabled: boolean;
+    buffering: boolean;
+}
+
+declare function ansi(stream: Stream, options?: CursorOptions): ansi.Cursor;
 
 declare namespace ansi {
     class Cursor {
-        constructor(stream: Stream, options?: any);
+        constructor(stream: Stream, options?: CursorOptions);
 
         /**
          * Helper function that calls `write()` on the underlying Stream.
