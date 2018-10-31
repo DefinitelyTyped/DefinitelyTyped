@@ -6314,20 +6314,18 @@ $( "#checkMetaKey" ).click(function( event ) {
         TData,
         TCurrentTarget,
         TTarget,
-        TContext,
         TType extends keyof TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>
-    > = EventHandlerBase<TContext, TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>[TType]>;
+    > = EventHandlerBase<TCurrentTarget, TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>[TType]>;
 
     interface TypeEventHandlers<
         TDelegateTarget,
         TData,
         TCurrentTarget,
-        TTarget,
-        TContext
-    > extends _TypeEventHandlers<TDelegateTarget, TData, TCurrentTarget, TTarget, TContext> {
+        TTarget
+    > extends _TypeEventHandlers<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         // No idea why it's necessary to include `object` in the union but otherwise TypeScript complains that
         // derived types of Event are not assignable to Event.
-        [type: string]: TypeEventHandler<TDelegateTarget, TData, TCurrentTarget, TTarget, TContext, string> |
+        [type: string]: TypeEventHandler<TDelegateTarget, TData, TCurrentTarget, TTarget, string> |
                         false |
                         undefined |
                         object;
@@ -6337,11 +6335,10 @@ $( "#checkMetaKey" ).click(function( event ) {
         TDelegateTarget,
         TData,
         TCurrentTarget,
-        TTarget,
-        TContext
+        TTarget
     > = {
         [TType in keyof TypeToTriggeredEventMap<TDelegateTarget, TData, TCurrentTarget, TTarget>]?:
-            TypeEventHandler<TDelegateTarget, TData, TCurrentTarget, TTarget, TContext, TType> |
+            TypeEventHandler<TDelegateTarget, TData, TCurrentTarget, TTarget, TType> |
             false |
             object;
     };

@@ -538,7 +538,7 @@ function longdesc() {
         $('#foo').slideUp(300).delay(800).fadeIn(400);
     }
 
-    function delegate_0(elements: HTMLElement[], selector: string, events: string, data: any, handler: JQuery.TypeEventHandler<HTMLElement, any, any, any, any, string>) {
+    function delegate_0(elements: HTMLElement[], selector: string, events: string, data: any, handler: JQuery.TypeEventHandler<HTMLElement, any, any, any, string>) {
         // jQuery 1.4.3+
         $(elements).delegate(selector, events, data, handler);
         // jQuery 1.7+
