@@ -886,6 +886,7 @@ declare namespace R {
         /**
          * Divides two numbers. Equivalent to a / b.
          */
+        divide(__: Placeholder, b: number): (a: number) => number;
         divide(a: number, b: number): number;
         divide(a: number): (b: number) => number;
 
