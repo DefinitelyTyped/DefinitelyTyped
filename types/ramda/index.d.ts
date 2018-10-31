@@ -762,6 +762,7 @@ declare namespace R {
          * Returns a new list consisting of the elements of the first list followed by the elements
          * of the second.
          */
+        concat<T>(placeholder: Placeholder): (list1: ReadonlyArray<T>, list2: ReadonlyArray<T>) => T[];
         concat<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
         concat<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
         concat(list1: string, list2: string): string;
