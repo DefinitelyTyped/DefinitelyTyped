@@ -79,13 +79,13 @@ export interface DecodeOptions {
     json?: boolean;
 }
 
-export interface SecretOrPublicKeyCallback {
+export type SecretOrPublicKeyCallback = {
     (
         err: VerifyErrors,
         secretOrPublicKey: string | Buffer
     ): void;
 }
-export interface GetSecretOrPublicKeyCallback {
+export type GetSecretOrPublicKeyCallback = {
     (
         header: any,
         callback: SecretOrPublicKeyCallback
