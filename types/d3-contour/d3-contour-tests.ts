@@ -10,7 +10,7 @@ import * as d3Contour from 'd3-contour';
 import {
     range,
     thresholdSturges,
-    ThresholdArrayGenerator,
+    ThresholdNumberArrayGenerator,
     ThresholdCountGenerator
 } from 'd3-array';
 import { geoPath } from 'd3-geo';
@@ -39,13 +39,13 @@ function goldsteinPrice(x: number, y: number) {
 
 let size: [number, number];
 let boolFlag: boolean;
-const thresholdArrayGen: ThresholdArrayGenerator<number> = (values: ArrayLike<number>, min?: number, max?: number) => {
+const thresholdArrayGen: ThresholdNumberArrayGenerator<number> = (values: ArrayLike<number>, min?: number, max?: number) => {
     let thresholds: number[];
     thresholds = [values[1], values[2], values[4]];
     return thresholds;
 };
 
-let thresholdGenerator: ThresholdArrayGenerator<number> | ThresholdCountGenerator;
+let thresholdGenerator: ThresholdNumberArrayGenerator<number> | ThresholdCountGenerator<number>;
 let pathStringMaybe: string | null;
 let num: number;
 

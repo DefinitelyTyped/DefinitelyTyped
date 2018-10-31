@@ -82,6 +82,9 @@ function test_color() {
     chroma('aquamarine').luminance(0.5, 'lab');
     chroma('aquamarine').luminance(0.5, 'hsl');
     chroma('orange').hex();
+    chroma('orange').hex('auto');
+    chroma('orange').hex('rgb');
+    chroma('orange').alpha(0.5).hex('rgba');
     chroma('#ffa500').name();
     chroma('#ffa505').name();
     chroma('teal').css();
@@ -107,6 +110,11 @@ function test_color() {
     chroma('teal').alpha(0.5).css();
     chroma('teal').css('hsl');
     chroma('orange').rgb();
+
+    chroma('#000000').num();
+    chroma('#0000ff').num();
+    chroma('#00ff00').num();
+    chroma('#ff0000').num();
 }
 
 function test_scale() {

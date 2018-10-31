@@ -104,10 +104,12 @@ declare namespace Storage {
     interface BucketQuery {
         autoPaginate?: boolean;
         delimiter?: string;
+        directory?: string;
         prefix?: string;
         maxApiCalls?: number;
         maxResults?: number;
         pageToken?: string;
+        userProject?: string;
         versions?: boolean;
     }
 

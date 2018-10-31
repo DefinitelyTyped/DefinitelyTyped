@@ -5,7 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
 
 type DataKey = string | number;
 
@@ -44,17 +44,17 @@ interface SortableListProps {
     /**
      * style of HOC
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 
     /**
      * these styles will be applied to the inner scroll view content container
      */
-    contentContainerStyle?: ViewStyle
+    contentContainerStyle?: StyleProp<ViewStyle>
 
     /**
      * these styles will be applied to the inner scroll view content container, excluding the header and footer
      */
-    innerContainerStyle?: ViewStyle
+    innerContainerStyle?: StyleProp<ViewStyle>
 
     /**
      * when true, the SortableList's children are arranged horizontally in a row instead of vertically in a column.

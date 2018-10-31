@@ -1,5 +1,5 @@
-import Application from '@ember/application';
 import EmberResolver from 'ember-resolver';
+import Ember from 'ember';
 
 const MyResolver = EmberResolver.extend({
     pluralizedTypes: {
@@ -7,6 +7,6 @@ const MyResolver = EmberResolver.extend({
     }
 });
 
-const App = Application.extend({
+const App = Ember.Application.extend({
     Resolver: MyResolver
 });

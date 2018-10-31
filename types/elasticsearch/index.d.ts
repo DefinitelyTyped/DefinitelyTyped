@@ -39,8 +39,8 @@ export class Client {
     deleteScript(params: DeleteScriptParams, callback: (error: any, response: any) => void): void;
     deleteTemplate(params: DeleteTemplateParams): Promise<any>;
     deleteTemplate(params: DeleteTemplateParams, callback: (error: any, response: any) => void): void;
-    exists(params: ExistsParams): Promise<any>;
-    exists(params: ExistsParams, callback: (error: any, response: any, status?: any) => void): void;
+    exists(params: ExistsParams): Promise<boolean>;
+    exists(params: ExistsParams, callback: (error: any, response: boolean, status?: any) => void): void;
     explain(params: ExplainParams): Promise<ExplainResponse>;
     explain(params: ExplainParams, callback: (error: any, response: ExplainResponse) => void): void;
     fieldStats(params: FieldStatsParams): Promise<FieldStatsResponse>;
@@ -281,26 +281,13 @@ export interface DeleteDocumentByQueryParams extends GenericParams {
     scrollSize?: number;
     waitForCompletion?: boolean;
     requestsPerSecond?: number;
+    slices?: number;
     index?: string;
     type?: string;
 }
 
-export interface DeleteDocumentByQueryResponse {
-    took: number;
-    timed_out: boolean;
-    deleted: number;
-    batches: number;
-    version_conflicts: number;
-    noops: number;
-    retries: {
-        bulk: number;
-        search: number;
-    };
-    throttled_millis: number;
-    requests_per_second: number;
-    throttled_until_millis: number;
-    total: number;
-    failures: any[];
+export interface DeleteDocumentByQueryResponse extends ReindexResponse {
+    // DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
 }
 
 export interface DeleteScriptParams extends GenericParams {
@@ -443,7 +430,7 @@ export interface IndexDocumentParams<T> extends GenericParams {
     waitForActiveShards?: string;
     opType?: "index" | "create";
     parent?: string;
-    refresh?: string;
+    refresh?: Refresh;
     routing?: string;
     timeout?: TimeSpan;
     timestamp?: Date | number;
@@ -531,6 +518,7 @@ export interface ReindexParams extends GenericParams {
     waitForActiveShards?: string;
     waitForCompletion?: boolean;
     requestsPerSecond?: number;
+    slices?: number;
     body: {
         conflicts?: string;
         source: {
@@ -557,20 +545,6 @@ export interface ReindexParams extends GenericParams {
             lang: string;
         }
     };
-}
-
-export interface ReindexResponse {
-    took: number;
-    updated: number;
-    created: number;
-    batches: number;
-    version_conflicts: number;
-    retries: {
-        bulk: number;
-        search: number;
-    };
-    throttled_millis: number;
-    failures: any[];
 }
 
 export interface ReindexRethrottleParams extends GenericParams {
@@ -645,6 +619,7 @@ export interface SearchResponse<T> {
             fields?: any;
             highlight?: any;
             inner_hits?: any;
+            matched_queries?: string[];
             sort?: string[];
         }>;
     };
@@ -783,13 +758,28 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     scrollSize?: number;
     waitForCompletion?: boolean;
     requestsPerSecond?: number;
+    slices?: number;
     index: NameList;
     type: NameList;
 }
 
-export interface UpdateDocumentByQueryResponse {
+export interface UpdateDocumentByQueryResponse extends ReindexResponse {
+    // DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
+}
+
+export interface ReindexResponse extends ReindexResponseBase {
     took: number;
     timed_out: boolean;
+    failures: any[];
+    slices?: ReindexOrByQueryResponseSlice[];
+}
+
+export interface ReindexOrByQueryResponseSlice extends ReindexResponseBase {
+    slice_id: number;
+}
+
+export interface ReindexResponseBase {
+    total: number;
     updated: number;
     deleted: number;
     batches: number;
@@ -802,8 +792,6 @@ export interface UpdateDocumentByQueryResponse {
     throttled_millis: number;
     requests_per_second: number;
     throttled_until_millis: number;
-    total: number;
-    failures: any[];
 }
 
 export interface Cat {
@@ -1035,14 +1023,14 @@ export class Indices {
     deleteAlias(params: IndicesDeleteAliasParams): Promise<any>;
     deleteTemplate(params: IndicesDeleteTemplateParams, callback: (error: any, response: any, status: any) => void): void;
     deleteTemplate(params: IndicesDeleteTemplateParams): Promise<any>;
-    exists(params: IndicesExistsParams, callback: (error: any, response: any, status: any) => void): void;
-    exists(params: IndicesExistsParams): Promise<any>;
-    existsAlias(params: IndicesExistsAliasParams, callback: (error: any, response: any, status: any) => void): void;
-    existsAlias(params: IndicesExistsAliasParams): Promise<any>;
-    existsTemplate(params: IndicesExistsTemplateParams, callback: (error: any, response: any, status: any) => void): void;
-    existsTemplate(params: IndicesExistsTemplateParams): Promise<any>;
-    existsType(params: IndicesExistsTypeParams, callback: (error: any, response: any, status: any) => void): void;
-    existsType(params: IndicesExistsTypeParams): Promise<any>;
+    exists(params: IndicesExistsParams, callback: (error: any, response: boolean, status: any) => void): void;
+    exists(params: IndicesExistsParams): Promise<boolean>;
+    existsAlias(params: IndicesExistsAliasParams, callback: (error: any, response: boolean, status: any) => void): void;
+    existsAlias(params: IndicesExistsAliasParams): Promise<boolean>;
+    existsTemplate(params: IndicesExistsTemplateParams, callback: (error: any, response: boolean, status: any) => void): void;
+    existsTemplate(params: IndicesExistsTemplateParams): Promise<boolean>;
+    existsType(params: IndicesExistsTypeParams, callback: (error: any, response: boolean, status: any) => void): void;
+    existsType(params: IndicesExistsTypeParams): Promise<boolean>;
     flush(params: IndicesFlushParams, callback: (error: any, response: any, status: any) => void): void;
     flush(params: IndicesFlushParams): Promise<any>;
     flushSynced(params: IndicesFlushSyncedParams, callback: (error: any, response: any, status: any) => void): void;

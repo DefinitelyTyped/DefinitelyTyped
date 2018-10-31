@@ -1,16 +1,11 @@
 import * as React from "react";
-
-import { NextContext } from ".";
+import { NextContext, NextComponentType } from ".";
+import { DefaultQuery } from "./router";
 
 export interface RenderPageResponse {
-    buildManifest: { [key: string]: any };
-    chunks: {
-        names: string[];
-        filenames: string[];
-    };
+    buildManifest: Record<string, any>;
     html?: string;
-    head: Array<React.ReactElement<any>>;
-    errorHtml: string;
+    head?: Array<React.ReactElement<any>>;
 }
 
 export interface PageProps {
@@ -21,42 +16,95 @@ export interface AnyPageProps extends PageProps {
     [key: string]: any;
 }
 
-export type Enhancer<E extends PageProps = AnyPageProps, P extends any = E> = (page: React.ComponentType<P>) => React.ComponentType<E>;
+export type Enhancer<E extends PageProps = AnyPageProps, P extends any = E> = (
+    page: React.ComponentType<P>
+) => React.ComponentType<E>;
 
 /**
- * Context object used inside `Document`
+ * Context passed to Document.getInitialProps.
+ *
+ * @template Q Query object schema.
  */
-export interface NextDocumentContext extends NextContext {
+export interface NextDocumentContext<Q extends DefaultQuery = DefaultQuery> extends NextContext<Q> {
     /** A callback that executes the actual React rendering logic (synchronously) */
-    renderPage<E extends PageProps = AnyPageProps, P extends any = E>(enhancer?: Enhancer<E, P>): RenderPageResponse; // tslint:disable-line:no-unnecessary-generics
+    renderPage<E extends PageProps = AnyPageProps, P extends any = E>(
+        enhancer?: Enhancer<E, P> // tslint:disable-line no-unnecessary-generics
+    ): RenderPageResponse;
 }
 
-export interface DocumentProps {
-    __NEXT_DATA__?: any;
-    dev?: boolean;
-    chunks?: {
-        names: string[];
-        filenames: string[];
+/**
+ * Initial Props returned from base Document class.
+ * https://github.com/zeit/next.js/blob/7.0.0/server/document.js#L16
+ */
+export interface DefaultDocumentIProps extends RenderPageResponse {
+    styles?: React.ReactNode;
+}
+
+/**
+ * Props passed to the Document component.
+ * https://github.com/zeit/next.js/blob/7.0.0/server/render.js#L165
+ */
+export interface DocumentProps<Q extends DefaultQuery = DefaultQuery> {
+    __NEXT_DATA__: {
+        props: any;
+        page: string;
+        pathname: string;
+        query: Q;
+        buildId: string;
+        assetPrefix?: string;
+        runtimeConfig?: any;
+        nextExport?: boolean;
+        err?: any;
     };
-    html?: string;
-    head?: Array<React.ReactElement<any>>;
-    errorHtml?: string;
-    styles?: Array<React.ReactElement<any>>;
-    [key: string]: any;
+    dev: boolean;
+    dir?: string;
+    staticMarkup: boolean;
+    buildManifest: Record<string, any>;
+    devFiles: string[];
+    files: string[];
+    dynamicImports: string[];
+    assetPrefix: string;
 }
 
+/**
+ * Props supported by the Head component.
+ * https://github.com/zeit/next.js/blob/7.0.0/server/document.js#L42
+ */
 export interface HeadProps {
     nonce?: string;
     [key: string]: any;
 }
 
+/**
+ * Props supported by the NextScript component.
+ * https://github.com/zeit/next.js/blob/7.0.0/server/document.js#L141
+ */
 export interface NextScriptProps {
     nonce?: string;
+    [key: string]: any;
 }
+
+/**
+ * Document component type. Differs from the default type because the context it passes
+ * to getInitialProps and the props is passes to the component are different.
+ *
+ * @template P Component props.
+ * @template IP Initial props returned from getInitialProps.
+ * @template C Context passed to getInitialProps.
+ */
+export type DocumentComponentType<P = {}, IP = P, C = NextDocumentContext> = NextComponentType<
+    P & DocumentProps,
+    IP,
+    C
+>;
 
 export class Head extends React.Component<HeadProps> {}
 export class Main extends React.Component {}
 export class NextScript extends React.Component<NextScriptProps> {}
-export default class extends React.Component<DocumentProps> {
-    static getInitialProps(ctx: NextDocumentContext): Promise<DocumentProps> | DocumentProps;
+export default class Document<P = {}> extends React.Component<
+    P & DefaultDocumentIProps & DocumentProps
+> {
+    static getInitialProps(
+        context: NextDocumentContext
+    ): DefaultDocumentIProps | Promise<DefaultDocumentIProps>;
 }

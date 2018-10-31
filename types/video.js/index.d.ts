@@ -8,6 +8,7 @@
 //                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
 //                 Stéphane Roucheray <https://github.com/sroucheray>
 //                 Adam Eisenreich <https://github.com/AkxeOne>
+//                 Mei Qingguang <https://github.com/meikidd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -32,7 +33,7 @@
  * @return A player instance
  */
 declare function videojs(id: any, options?: videojs.PlayerOptions, ready?: () => void): videojs.Player;
-export = videojs;
+export default videojs;
 export as namespace videojs;
 
 declare namespace videojs {
@@ -2628,7 +2629,8 @@ declare namespace videojs {
 		 *         the listener function; otherwise, _all_ listeners bound to the
 		 *         event type(s) will be removed.
 		 */
-		off(targetOrType?: string | string[], typeOrListener?: (...args: any[]) => void, listener?: (...args: any[]) => void): void;
+		off(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		off(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
 		 * Add a listener to an event (or events) on this object or another evented
@@ -2653,7 +2655,8 @@ declare namespace videojs {
 		 *         If the first argument was another evented object, this will be
 		 *         the listener function.
 		 */
-		on(targetOrType: string | string[], typeOrListener: (...args: any[]) => void, listener?: (...args: any[]) => void): void;
+		on(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		on(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
 		 * Add a listener to an event (or events) on this object or another evented
@@ -2678,7 +2681,8 @@ declare namespace videojs {
 		 *         If the first argument was another evented object, this will be
 		 *         the listener function.
 		 */
-		one(targetOrType: string | string[], typeOrListener: (...args: any[]) => void, listener?: (...args: any[]) => void): void;
+		one(target?: Component | Element, type?: string | string[], listener?: (...args: any[]) => void): void;
+		one(type?: string | string[], listener?: (...args: any[]) => void): void;
 
 		/**
 		 * Fire an event on this evented object, causing its listeners to be called.
@@ -3765,6 +3769,18 @@ declare namespace videojs {
 		autoplay(): boolean | string;
 
 		/**
+		 * Get the remote {@link TextTrackList}
+		 * @return The current remote text track list
+		 */
+		textTracks(): TextTrackList;
+
+		/**
+		 * Get the remote {@link TextTrackList}
+		 * @return The current remote text track list
+		 */
+		remoteTextTracks(): TextTrackList;
+
+		/**
 		 * Create a remote {@link TextTrack} and an {@link HTMLTrackElement}. It will
 		 * automatically removed from the video element whenever the source changes, unless
 		 * manualCleanup is set to false.
@@ -4364,7 +4380,7 @@ declare namespace videojs {
 		 *
 		 * @fires Player#fullscreenchange
 		 */
-		requestFullScreen(): Player;
+		requestFullscreen(): Player;
 
 		/**
 		 * Report user activity
@@ -4379,6 +4395,20 @@ declare namespace videojs {
 		 * and calls `reset` on the tech`.
 		 */
 		reset(): void;
+
+		/**
+		 * Returns whether or not the player is in the "seeking" state.
+		 *
+		 * @return boolean True if the player is in the seeking state, false if not.
+		 */
+		seeking(): boolean;
+
+		/**
+		 * Returns the TimeRanges of the media that are currently available for seeking to.
+		 *
+		 * @return TimeRanges Returns the TimeRanges of the media that are currently available for seeking to.
+		 */
+		 seekable(): TimeRanges;
 
 		/**
 		 * Select source based on tech-order or source-order

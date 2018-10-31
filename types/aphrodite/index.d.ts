@@ -14,12 +14,13 @@ type FontFamily =
 
 type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
-type CSSProperties = Omit<BaseCSSProperties, 'fontFamily'> & {
+type CSSProperties = Omit<BaseCSSProperties, 'fontFamily' | 'transition' | 'animationName' > & {
     fontFamily?: FontFamily | FontFamily[];
+    animationName?: string | OpenCSSProperties | OpenCSSProperties[];
 };
 
 // For pseudo selectors and media queries
-interface OpenCSSProperties  extends CSSProperties {
+interface OpenCSSProperties extends CSSProperties {
     [k: string]: CSSProperties[keyof CSSProperties] | CSSProperties;
 }
 

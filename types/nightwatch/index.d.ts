@@ -1220,10 +1220,10 @@ export interface NightwatchAPI {
      *  browser.pause();
      * };
      * ```
-     * @param ms: The number of milliseconds to wait.
+     * @param ms: Optional - The number of milliseconds to wait.
      * @param callback: Optional callback function to be called when the command finishes.
      */
-    pause(ms: number, callback?: (result: NightwatchCallbackResult) => void): this;
+    pause(ms?: number, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * A simple perform command which allows access to the "api" in a callback. Can be useful if you want to read variables set by other commands.
@@ -2173,6 +2173,7 @@ export interface NightwatchTestHooks {
     after?: NightwatchTestHook;
     beforeEach?: NightwatchTestHook;
     afterEach?: NightwatchTestHook;
+    '@disabled'?: boolean;
 }
 
 export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;

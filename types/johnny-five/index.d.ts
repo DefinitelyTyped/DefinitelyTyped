@@ -378,6 +378,8 @@ export declare class LCD {
     autoscroll(): void;
     noAutoscroll(): void;
     bgColor(color: any): void;
+    noBacklight(): void;
+    backlight(): void;
 }
 
 export interface LedOption {

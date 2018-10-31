@@ -251,6 +251,58 @@ knex('users').whereRaw('id = ?', [1]);
 knex('users').whereRaw('id = :id', { id: 1 });
 knex('users').whereRaw('id = :id', { id: knex('users').select('id').limit(1) });
 
+// Aggregate functions can use string/object parameters
+knex('users').count();
+knex('users').count('*');
+knex('users').count('id', 'votes');
+knex('users').count({count: '*'});
+knex('users').count({count: ['id', 'votes']});
+knex('users').count({count: knex.raw('*')});
+knex('users').count(knex.raw('id'));
+
+knex('users').countDistinct('votes');
+knex('users').countDistinct(knex.raw('votes'));
+knex('users').countDistinct({votes: 'votes'});
+knex('users').countDistinct({votes: knex.raw('votes')});
+
+knex('users').avg('id');
+knex('users').avg('id', 'votes');
+knex('users').avg({avg: 'id'});
+knex('users').avg({avg: ['id', 'votes']});
+knex('users').avg({ab: knex.raw('a + b')});
+knex('users').avg(knex.raw('votes'));
+
+knex('users').avgDistinct('votes');
+knex('users').avgDistinct(knex.raw('votes'));
+knex('users').avgDistinct({votes: 'votes'});
+knex('users').avgDistinct({votes: knex.raw('votes')});
+
+knex('users').max('id');
+knex('users').max('id', 'votes');
+knex('users').max({max: 'id'});
+knex('users').max({max: ['id', 'votes']});
+knex('users').max({ab: knex.raw('a + b')});
+knex('users').max(knex.raw('votes'));
+
+knex('users').min('id');
+knex('users').min('id', 'votes');
+knex('users').min({min: 'id'});
+knex('users').min({min: ['id', 'votes']});
+knex('users').min({ab: knex.raw('a + b')});
+knex('users').min(knex.raw('votes'));
+
+knex('users').sum('id');
+knex('users').sum('id', 'votes');
+knex('users').sum({sum: 'id'});
+knex('users').sum({sum: ['id', 'votes']});
+knex('users').sum({ab: knex.raw('a + b')});
+knex('users').sum(knex.raw('votes'));
+
+knex('users').sumDistinct('votes');
+knex('users').sumDistinct(knex.raw('votes'));
+knex('users').sumDistinct({votes: 'votes'});
+knex('users').sumDistinct({votes: knex.raw('votes')});
+
 // Join methods
 knex('users')
   .join('contacts', 'users.id', '=', 'contacts.user_id')
@@ -444,6 +496,13 @@ knex.select('*').from('users').leftJoin('accounts', (join: Knex.JoinClause) => {
   join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id');
 });
 
+knex.select('*').from('users').leftJoin('accounts', (join) => {
+  join.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+  .andOn((join2) => {
+    join2.on('col1', 'col2').orOn('col3', 'col4');
+  });
+});
+
 knex.select('*').from('users').leftOuterJoin('accounts', 'users.id', 'accounts.user_id');
 
 knex.select('*').from('users').leftOuterJoin('accounts', function() {
@@ -589,6 +648,9 @@ knex.with('new_books', 'select * from books where published_date >= :year', { ye
 knex.with('new_books', 'select * from books where published_date >= ?', [2016])
   .select('*').from('new_books');
 
+knex.with('new_books', knex.select('*').from('books').where("published_date", ">=", 2016))
+  .select('*').from('new_books');
+
 knex.withRaw('recent_books', 'select * from books where published_date >= :year', { year: 2013 })
   .select('*').from('recent_books');
 
@@ -598,6 +660,9 @@ knex.withRaw('recent_books', knex.raw('select * from books where published_date 
 knex.withWrapped("antique_books", function (qb) {
   qb.select('*').from('books').where('published_date', '<', 1899);
 }).select('*').from('antique_books');
+
+knex.withWrapped('new_books', knex.select('*').from('books').where("published_date", ">=", 2016))
+  .select('*').from('new_books');
 
 var someExternalMethod: Function;
 
@@ -930,19 +995,11 @@ knex.select('name').from('users')
   .where('id', '>', 20)
   .andWhere('id', '<', 200)
   .limit(10)
-  .offset(x)
-  .exec(function(err: any, rows: any[]) {
-    if (err) return console.error(err);
-    knex.select('id').from('nicknames').whereIn('nickname', rows.map((r: any) => r.name))
-      .exec(function(err: any, rows: any[]) {
-        if (err) return console.error(err);
-        console.log(rows);
-      });
-  });
+  .offset(x);
 
 // Retrieve the stream:
 var stream = knex.select('*').from('users').stream();
-var writableStream: any;
+var writableStream: NodeJS.WritableStream;
 stream.pipe(writableStream);
 
 // With options:
@@ -985,13 +1042,13 @@ knex('users')
   .select('*')
   .join('contacts', function(builder) {
     this.on(function(builder) {
-      let self: Knex.QueryBuilder = this;
+      let self: Knex.JoinClause = this;
       self = builder;
     }).andOn(function(builder) {
-      let self: Knex.QueryBuilder = this;
+      let self: Knex.JoinClause = this;
       self = builder;
     }).orOn(function(builder) {
-      let self: Knex.QueryBuilder = this;
+      let self: Knex.JoinClause = this;
       self = builder;
     }).onExists(function(builder) {
       let self: Knex.QueryBuilder = this;

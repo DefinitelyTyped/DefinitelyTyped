@@ -1,26 +1,9 @@
 {
   "extends": "dtslint/dt.json",
   "rules": {
-    // All are TODOs
     "ban-types": false,
-    "dt-header": false,
-    "max-line-length": false,
-    "no-any-union": false,
-    "no-duplicate-imports": false,
-    "no-duplicate-variable": false,
+    "unified-signatures": false,
     "no-empty-interface": false,
-    "no-inferrable-types": false,
-    "no-internal-module": false,
-    "no-namespace": false,
-    "no-redundant-jsdoc": false,
-    "no-redundant-jsdoc-2": false,
-    "no-unnecessary-class": false,
-    "no-unnecessary-generics": false,
-    "no-unnecessary-qualifier": false,
-    "no-var-keyword": false,
-    "prefer-const": false,
-    "prefer-method-signature": false,
-    "strict-export-declare-modifiers": false,
-    "unified-signatures": false
+    "strict-export-declare-modifiers": false // http2 needs this
   }
 }

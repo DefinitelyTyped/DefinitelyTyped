@@ -36,13 +36,13 @@ declare namespace Mithril {
 		oninit?(this: State, vnode: Vnode<Attrs, State>): any;
 		/** The oncreate hook is called after a DOM element is created and attached to the document. */
 		oncreate?(this: State, vnode: VnodeDOM<Attrs, State>): any;
-		/** The onbeforeupdate hook is called before a vnode is diffed in a update. */
-		onbeforeremove?(this: State, vnode: VnodeDOM<Attrs, State>): Promise<any> | void;
-		/** The onupdate hook is called after a DOM element is updated, while attached to the document. */
-		onremove?(this: State, vnode: VnodeDOM<Attrs, State>): any;
 		/** The onbeforeremove hook is called before a DOM element is detached from the document. If a Promise is returned, Mithril only detaches the DOM element after the promise completes. */
-		onbeforeupdate?(this: State, vnode: Vnode<Attrs, State>, old: VnodeDOM<Attrs, State>): boolean | void;
+		onbeforeremove?(this: State, vnode: VnodeDOM<Attrs, State>): Promise<any> | void;
 		/** The onremove hook is called before a DOM element is removed from the document. */
+		onremove?(this: State, vnode: VnodeDOM<Attrs, State>): any;
+		/** The onbeforeupdate hook is called before a vnode is diffed in a update. */
+		onbeforeupdate?(this: State, vnode: Vnode<Attrs, State>, old: VnodeDOM<Attrs, State>): boolean | void;
+		/** The onupdate hook is called after a DOM element is updated, while attached to the document. */
 		onupdate?(this: State, vnode: VnodeDOM<Attrs, State>): any;
 		/** WORKAROUND: TypeScript 2.4 does not allow extending an interface with all-optional properties. */
 		[_: number]: any;
@@ -225,13 +225,13 @@ declare namespace Mithril {
 		oninit?(vnode: Vnode<A, this>): any;
 		/** The oncreate hook is called after a DOM element is created and attached to the document. */
 		oncreate?(vnode: VnodeDOM<A, this>): any;
-		/** The onbeforeupdate hook is called before a vnode is diffed in a update. */
-		onbeforeremove?(vnode: VnodeDOM<A, this>): Promise<any> | void;
-		/** The onupdate hook is called after a DOM element is updated, while attached to the document. */
-		onremove?(vnode: VnodeDOM<A, this>): any;
 		/** The onbeforeremove hook is called before a DOM element is detached from the document. If a Promise is returned, Mithril only detaches the DOM element after the promise completes. */
-		onbeforeupdate?(vnode: Vnode<A, this>, old: VnodeDOM<A, this>): boolean | void;
+		onbeforeremove?(vnode: VnodeDOM<A, this>): Promise<any> | void;
 		/** The onremove hook is called before a DOM element is removed from the document. */
+		onremove?(vnode: VnodeDOM<A, this>): any;
+		/** The onbeforeupdate hook is called before a vnode is diffed in a update. */
+		onbeforeupdate?(vnode: Vnode<A, this>, old: VnodeDOM<A, this>): boolean | void;
+		/** The onupdate hook is called after a DOM element is updated, while attached to the document. */
 		onupdate?(vnode: VnodeDOM<A, this>): any;
 		/** Creates a view out of virtual elements. */
 		view(vnode: Vnode<A, this>): Children | null | void;

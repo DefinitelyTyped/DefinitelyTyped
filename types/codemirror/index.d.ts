@@ -17,14 +17,22 @@ declare namespace CodeMirror {
     export var Pos: CodeMirror.PositionConstructor;
     export var Pass: {toString(): "CodeMirror.PASS"};
 
+    /** Find the column position at a given string index using a given tabsize. */
     function countColumn(line: string, index: number | null, tabSize: number): number;
     function fromTextArea(host: HTMLTextAreaElement, options?: EditorConfiguration): CodeMirror.EditorFromTextArea;
 
-    /** It contains a string that indicates the version of the library. This is a triple of integers "major.minor.patch", 
+    /** Compare two positions, return 0 if they are the same, a negative number when a is less, and a positive number otherwise. */
+    function cmpPos(a: Position, b: Position): number;
+
+    /** Utility function that computes an end position from a change (an object with from, to, and text properties, as passed to various event handlers).
+    The returned position will be the end of the changed range, after the change is applied. */
+    function changeEnd(change: EditorChange): Position;
+
+    /** It contains a string that indicates the version of the library. This is a triple of integers "major.minor.patch",
     where patch is zero for releases, and something else (usually one) for dev snapshots. */
     var version: string;
 
-    /** An object containing default values for all options. 
+    /** An object containing default values for all options.
     You can assign to its properties to modify defaults (though this won't affect editors that have already been created). */
     var defaults: any;
 
@@ -51,6 +59,14 @@ declare namespace CodeMirror {
     CodeMirror.registerHelper("hint", "foo", myFoo), the value CodeMirror.hint.foo will point to myFoo. */
     function registerHelper(namespace: string, name: string, helper: any): void;
 
+    /** Given a state object, returns a {state, mode} object with the inner mode and its state for the current position. */
+    function innerMode(mode: Mode<any>, state: any): { state: any, mode: Mode<any> };
+
+    /** Sometimes, it is useful to add or override mode object properties from external code.
+    The CodeMirror.extendMode function can be used to add properties to mode objects produced for a specific mode.
+    Its first argument is the name of the mode, its second an object that specifies the properties that should be added.
+    This is mostly useful to add utilities that can later be looked up through getMode. */
+    function extendMode(name: string, properties: Mode<any>): void;
 
     function on(element: any, eventName: string, handler: Function): void;
     function off(element: any, eventName: string, handler: Function): void;
@@ -244,16 +260,7 @@ declare namespace CodeMirror {
         line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
         options, when given, should be an object that configures the behavior of the widget.
         Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
-        addLineWidget(line: any, node: HTMLElement, options?: {
-            /** Whether the widget should cover the gutter. */
-            coverGutter: boolean;
-            /** Whether the widget should stay fixed in the face of horizontal scrolling. */
-            noHScroll: boolean;
-            /** Causes the widget to be placed above instead of below the text of the line. */
-            above: boolean;
-            /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
-            showIfHidden: boolean;
-        }): CodeMirror.LineWidget;
+        addLineWidget(line: any, node: HTMLElement, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
 
 
         /** Programatically set the size of the editor (overriding the applicable CSS rules).
@@ -324,11 +331,14 @@ declare namespace CodeMirror {
         you should probably follow up by calling this method to ensure CodeMirror is still looking as intended. */
         refresh(): void;
 
+        /** Gets the inner mode at a given position. This will return the same as getMode for simple modes, but will return an inner mode for nesting modes (such as htmlmixed). */
+        getModeAt(pos: Position): any;
+
         /** Retrieves information about the token the current mode found before the given position (a {line, ch} object). */
         getTokenAt(pos: CodeMirror.Position, precise?: boolean): Token;
 
-        /** This is a (much) cheaper version of getTokenAt useful for when you just need the type of the token at a given position, 
-        and no other information. Will return null for unstyled tokens, and a string, potentially containing multiple 
+        /** This is a (much) cheaper version of getTokenAt useful for when you just need the type of the token at a given position,
+        and no other information. Will return null for unstyled tokens, and a string, potentially containing multiple
         space-separated style names, otherwise. */
         getTokenTypeAt(pos: CodeMirror.Position): string;
 
@@ -345,6 +355,12 @@ declare namespace CodeMirror {
         It will call the function, buffering up all changes, and only doing the expensive update after the function returns.
         This can be a lot faster. The return value from this method will be the return value of your function. */
         operation<T>(fn: ()=> T): T;
+        
+        /** In normal circumstances, use the above operation method. But if you want to buffer operations happening asynchronously, or that can't all be wrapped in a callback
+        function, you can call startOperation to tell CodeMirror to start buffering changes, and endOperation to actually render all the updates. Be careful: if you use this
+        API and forget to call endOperation, the editor will just never update. */
+        startOperation(): void;
+        endOperation(): void;
 
         /** Adjust the indentation of the given line.
         The second argument (which defaults to "smart") may be one of:
@@ -407,7 +423,7 @@ declare namespace CodeMirror {
         off(eventName: 'cursorActivity', handler: (instance: CodeMirror.Editor) => void ): void;
 
         /** This event is fired before the selection is moved. Its handler may modify the resulting selection head and anchor.
-        Handlers for this event have the same restriction as "beforeChange" handlers � they should not do anything to directly update the state of the editor. */
+        Handlers for this event have the same restriction as "beforeChange" handlers they should not do anything to directly update the state of the editor. */
         on(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, selection: { head: CodeMirror.Position; anchor: CodeMirror.Position; }) => void ): void;
         off(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, selection: { head: CodeMirror.Position; anchor: CodeMirror.Position; }) => void ): void;
 
@@ -518,20 +534,20 @@ declare namespace CodeMirror {
         Note that line handles have a text property containing the line's content (as a string). */
         eachLine(start: number, end: number, f: (line: CodeMirror.LineHandle) => void ): void;
 
-        /** Set the editor content as 'clean', a flag that it will retain until it is edited, and which will be set again 
-        when such an edit is undone again. Useful to track whether the content needs to be saved. This function is deprecated 
+        /** Set the editor content as 'clean', a flag that it will retain until it is edited, and which will be set again
+        when such an edit is undone again. Useful to track whether the content needs to be saved. This function is deprecated
         in favor of changeGeneration, which allows multiple subsystems to track different notions of cleanness without interfering.*/
         markClean(): void;
-        
-        /** Returns a number that can later be passed to isClean to test whether any edits were made (and not undone) in the 
-        meantime. If closeEvent is true, the current history event will be ‘closed’, meaning it can't be combined with further 
+
+        /** Returns a number that can later be passed to isClean to test whether any edits were made (and not undone) in the
+        meantime. If closeEvent is true, the current history event will be ‘closed’, meaning it can't be combined with further
         changes (rapid typing or deleting events are typically combined).*/
         changeGeneration(closeEvent?: boolean): number;
 
-        /** Returns whether the document is currently clean — not modified since initialization or the last call to markClean if 
+        /** Returns whether the document is currently clean — not modified since initialization or the last call to markClean if
         no argument is passed, or since the matching call to changeGeneration if a generation value is given. */
         isClean(generation?: number): boolean;
-        
+
 
         /** Get the currently selected code. */
         getSelection(): string;
@@ -540,7 +556,7 @@ declare namespace CodeMirror {
         getSelections(lineSep?: string): Array<string>;
 
         /** Replace the selection with the given string. By default, the new selection will span the inserted text.
-        The optional collapse argument can be used to change this � passing "start" or "end" will collapse the selection to the start or end of the inserted text. */
+        The optional collapse argument can be used to change this -- passing "start" or "end" will collapse the selection to the start or end of the inserted text. */
         replaceSelection(replacement: string, collapse?: string): void;
 
         /** start is a an optional string indicating which end of the selection to return.
@@ -555,8 +571,10 @@ declare namespace CodeMirror {
         /** Return true if any text is selected. */
         somethingSelected(): boolean;
 
-        /** Set the cursor position.You can either pass a single { line , ch } object , or the line and the character as two separate parameters. */
-        setCursor(pos: CodeMirror.Position): void;
+        /** Set the cursor position. You can either pass a single {line, ch} object, or the line and the character as two separate parameters.
+        Will replace all selections with a single, empty selection at the given position.
+        The supported options are the same as for setSelection */
+        setCursor(pos: CodeMirror.Position | number, ch?: number, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
 
         /** Set a single selection range. anchor and head should be {line, ch} objects. head defaults to anchor when not given. */
         setSelection(anchor: CodeMirror.Position, head: CodeMirror.Position, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
@@ -701,6 +719,17 @@ declare namespace CodeMirror {
         changed(): void;
     }
 
+    interface LineWidgetOptions {
+        /** Whether the widget should cover the gutter. */
+        coverGutter?: boolean;
+        /** Whether the widget should stay fixed in the face of horizontal scrolling. */
+        noHScroll?: boolean;
+        /** Causes the widget to be placed above instead of below the text of the line. */
+        above?: boolean;
+        /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
+        showIfHidden?: boolean;
+    }
+
     interface EditorChange {
         /** Position (in the pre-change coordinate system) where the change started. */
         from: CodeMirror.Position;
@@ -709,9 +738,9 @@ declare namespace CodeMirror {
         /** Array of strings representing the text that replaced the changed range (split by line). */
         text: string[];
         /**  Text that used to be between from and to, which is overwritten by this change. */
-        removed: string[];
+        removed?: string[];
         /**  String representing the origin of the change event and wether it can be merged with history */
-        origin: string;
+        origin?: string;
     }
 
     interface EditorChangeLinkedList extends CodeMirror.EditorChange {
@@ -1083,7 +1112,7 @@ declare namespace CodeMirror {
          * This function should read one token from the stream it is given as an argument, optionally update its state,
          * and return a style string, or null for tokens that do not have to be styled. Multiple styles can be returned, separated by spaces.
          */
-        token(stream: StringStream, state: T): string | null;
+        token?: (stream: StringStream, state: T) => string | null;
 
         /**
          * A function that produces a state object to be used at the start of a document.

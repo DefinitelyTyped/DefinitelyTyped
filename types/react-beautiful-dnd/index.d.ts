@@ -73,6 +73,7 @@ export interface DroppableStateSnapshot {
 export interface DroppableProps {
     droppableId: DroppableId;
     type?: TypeId;
+    ignoreContainerClipping?: boolean;
     isDropDisabled?: boolean;
     direction?: 'vertical' | 'horizontal';
     children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<any>;

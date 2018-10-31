@@ -197,6 +197,7 @@ new Chartist.Bar('.ct-chart', {
 }, {
     // Default mobile configuration
     stackBars: true,
+    stackMode: 'accumulate',
     axisX: {
         labelInterpolationFnc: (value: string) => {
             return value.split(/\s+/).map((word: string) => {

@@ -2,6 +2,7 @@
 // Project: http://shopify.github.io/js-buy-sdk/api/
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
+//                 Rosana Ruiz <https://github.com/totemika>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -50,7 +51,6 @@ declare namespace ShopifyBuy {
         fetchWithProducts(id: string): Promise<any[]>; // TODO fix to be a type: Docs: Fetches a single collection by ID on the shop, not including products.
         fetchAll(pageSizeopt?: number): Promise<any[]>; // TODO fix to be a type: Docs: Fetches all collections on the shop, not including products.
         fetchAllWithProducts(): Promise<any[]>; // TODO fix to be a type: DOC: Fetches all collections on the shop, including products.
-        fetchWithProducts(id: string): Promise<any[]>; // TODO fix to be a type: DOC: Fetches all collections on the shop, including products.
         fetchByHandle(handle: string): Promise<any[]>; // TODO fix to be a type: DOC: Fetches a collection by handle on the shop. Assuming it does not give products
         fetchQuery(query: Query): Promise<any[]>; // TODO fix to be a type: DOC: Fetches a collection by handle on the shop. Assuming it does not give products
     }
@@ -106,7 +106,7 @@ declare namespace ShopifyBuy {
     export interface Query {
      /**
       * query: title, collection_type, updated_at
-      * TODO probably will remove before Defintely Typed PR, 
+      * TODO probably will remove before Defintely Typed PR,
       * as their  community guidelines
       */
         query: string;
@@ -168,6 +168,11 @@ declare namespace ShopifyBuy {
          * The product title
          */
         title: string;
+
+        /**
+         * The product’s vendor name
+         */
+        vendor: string;
     }
 
     export interface ProductVariant extends GraphModel {
@@ -305,10 +310,10 @@ declare namespace ShopifyBuy {
         lineItems: LineItem[];
 
         /**
-         * Get current subtotal price for all line items.
+         * Get current subtotal price for all line items, before shipping, taxes, and discounts.
          * Example: two items have been added to the cart that cost $1.25 then the subtotal will be 2.50
          */
-        subtotal: string;
+        subtotalPrice: string;
     }
 
     export interface LineItem extends GraphModel {

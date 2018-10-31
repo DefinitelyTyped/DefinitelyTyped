@@ -165,55 +165,55 @@ declare class Router {
      * HTTP get method
      */
     get(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    get(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    get(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP post method
      */
     post(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    post(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    post(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP put method
      */
     put(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    put(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    put(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP delete method
      */
     delete(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    delete(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    delete(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * Alias for `router.delete()` because delete is a reserved word
      */
     del(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    del(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    del(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP head method
      */
     head(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    head(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    head(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP options method
      */
     options(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    options(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    options(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * HTTP path method
      */
     patch(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    patch(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    patch(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * Register route with all methods.
      */
     all(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
-    all(path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    all(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
 
     /**
      * Set the path prefix for a Router instance that was already initialized.

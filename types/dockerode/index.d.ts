@@ -823,6 +823,35 @@ declare namespace Dockerode {
   	context: string;
   	src: string[];
   }
+
+  interface DockerVersion {
+    ApiVersion: string;
+    Arch: string;
+    BuildTime: Date;
+    Components: Array<{
+      Details: {
+        ApiVersion: string;
+        Arch: string;
+        BuilTime: Date;
+        Experimental: string;
+        GitCommit: string;
+        GoVersion: string;
+        KernelVersion: string;
+        Os: string;
+      };
+      Name: string;
+      Version: string;
+    }>;
+    GitCommit: string;
+    GoVersion: string;
+    KernelVersion: string;
+    MinAPIVersion: string;
+    Os: string;
+    Platform: {
+      Name: string;
+    };
+    Version: string;
+  }
 }
 
 type Callback<T> = (error?: any, result?: T) => void;
@@ -949,8 +978,8 @@ declare class Dockerode {
   df(callback: Callback<any>): void;
   df(): Promise<any>;
 
-  version(callback: Callback<any>): void;
-  version(): Promise<any>;
+  version(callback: Callback<Dockerode.DockerVersion>): void;
+  version(): Promise<Dockerode.DockerVersion>;
 
   ping(callback: Callback<any>): void;
   ping(): Promise<any>;

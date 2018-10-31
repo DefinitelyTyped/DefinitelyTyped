@@ -157,12 +157,6 @@
             "asOfVersion": "2.0.0"
         },
         {
-            "libraryName": "better-scroll",
-            "typingsPackageName": "better-scroll",
-            "sourceRepoURL": "https://github.com/ustbhuangyi/better-scroll",
-            "asOfVersion": "1.5.0"
-        },
-        {
             "libraryName": "BigInteger.js",
             "typingsPackageName": "big-integer",
             "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
@@ -179,6 +173,12 @@
             "typingsPackageName": "bingmaps",
             "sourceRepoURL": "https://github.com/Microsoft/Bing-Maps-V8-TypeScript-Definitions",
             "asOfVersion": "2.0.15"
+        },
+        {
+            "libraryName": "bitwise",
+            "typingsPackageName": "bitwise",
+            "sourceRepoURL": "https://github.com/dodekeract/bitwise",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "botvs",
@@ -395,6 +395,18 @@
             "typingsPackageName": "decimal.js",
             "sourceRepoURL": "https://github.com/MikeMcl/decimal.js",
             "asOfVersion": "7.4.0"
+        },
+        {
+            "libraryName": "deepmerge",
+            "typingsPackageName": "deepmerge",
+            "sourceRepoURL": "git@github.com:KyleAMathews/deepmerge.git",
+            "asOfVersion": "2.2.0"
+        },
+        {
+            "libraryName": "delay",
+            "typingsPackageName": "delay",
+            "sourceRepoURL": "https://github.com/sindresorhus/delay",
+            "asOfVersion": "3.1.0"
         },
         {
             "libraryName": "DevExtreme",
@@ -919,6 +931,12 @@
             "asOfVersion": "1.0.1"
         },
         {
+            "libraryName": "mali",
+            "typingsPackageName": "mali",
+            "sourceRepoURL": "https://github.com/malijs/mali",
+            "asOfVersion": "0.9.2"
+        },
+        {
             "libraryName": "maquette",
             "typingsPackageName": "maquette",
             "sourceRepoURL": "http://maquettejs.org/",
@@ -977,6 +995,12 @@
             "typingsPackageName": "mqtt",
             "sourceRepoURL": "https://github.com/mqttjs/MQTT.js",
             "asOfVersion": "2.5.0"
+        },
+        {
+            "libraryName": "nano",
+            "typingsPackageName": "nano",
+            "sourceRepoURL": "https://github.com/apache/couchdb-nano",
+            "asOfVersion": "7.0.0"
         },
         {
             "libraryName": "ng-table",
@@ -1183,6 +1207,12 @@
             "asOfVersion": "2.3.0"
         },
         {
+            "libraryName": "react-i18next",
+            "typingsPackageName": "react-i18next",
+            "sourceRepoURL": "https://github.com/i18next/react-i18next",
+            "asOfVersion": "8.1.0"
+        },
+        {
             "libraryName": "react-monaco-editor",
             "typingsPackageName": "react-monaco-editor",
             "sourceRepoURL": "https://github.com/superRaytin/react-monaco-editor",
@@ -1271,6 +1301,12 @@
             "typingsPackageName": "redux-devtools-extension",
             "sourceRepoURL": "https://github.com/zalmoxisus/redux-devtools-extension",
             "asOfVersion": "2.13.2"
+        },
+        {
+            "libraryName": "redux-little-router",
+            "typingsPackageName": "redux-little-router",
+            "sourceRepoURL": "https://github.com/FormidableLabs/redux-little-router",
+            "asOfVersion": "15.1.0"
         },
         {
             "libraryName": "redux-persist",
@@ -1535,6 +1571,12 @@
             "typingsPackageName": "tstl",
             "sourceRepoURL": "https://github.com/samchon/tstl",
             "asOfVersion": "1.5.7"
+        },
+        {
+            "libraryName": "typed.js",
+            "typingsPackageName": "typed.js",
+            "sourceRepoURL": "https://github.com/mattboldt/typed.js",
+            "asOfVersion": "2.0.9"
         },
         {
             "libraryName": "TypeScript",

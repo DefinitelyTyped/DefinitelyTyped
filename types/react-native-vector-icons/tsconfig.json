@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "dom",
-            "es6"
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -25,6 +24,8 @@
         "EvilIcons.d.ts",
         "Feather.d.ts",
         "FontAwesome.d.ts",
+        "FontAwesome5.d.ts",
+        "FontAwesome5Pro.d.ts",
         "Foundation.d.ts",
         "Ionicons.d.ts",
         "MaterialCommunityIcons.d.ts",

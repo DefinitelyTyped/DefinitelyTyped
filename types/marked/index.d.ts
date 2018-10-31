@@ -1,5 +1,5 @@
 // Type definitions for Marked 0.4
-// Project: https://github.com/chjj/marked
+// Project: https://github.com/markedjs/marked
 // Definitions by: William Orr <https://github.com/worr>
 //                 BendingBender <https://github.com/BendingBender>
 //                 CrossR <https://github.com/CrossR>
@@ -73,7 +73,7 @@ declare namespace marked {
         html(html: string): string;
         heading(text: string, level: number, raw: string): string;
         hr(): string;
-        list(body: string, ordered: boolean): string;
+        list(body: string, ordered: boolean, start: number): string;
         listitem(text: string): string;
         paragraph(text: string): string;
         table(header: string, body: string): string;

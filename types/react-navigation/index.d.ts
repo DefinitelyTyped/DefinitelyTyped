@@ -1,4 +1,4 @@
-// Type definitions for react-navigation 2.0
+// Type definitions for react-navigation 2.13
 // Project: https://github.com/react-navigation/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
@@ -21,6 +21,11 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Yosuke Seki <https://github.com/jshosomichi>
 //                 Jake <https://github.com/jakebooyah>
+//                 Gustavo Brunoro <https://github.com/brunoro>
+//                 Denis Frezzato <https://github.com/DenisFrezzato>
+//                 Mickael Wegerich <https://github.com/mickaelw>
+//                 Max Davidson <https://github.com/maxdavidson>
+//                 Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -274,7 +279,8 @@ export interface NavigationInitAction extends NavigationInitActionPayload {
 }
 
 export interface NavigationReplaceActionPayload {
-    key: string;
+    key?: string;
+    newKey?: string;
     routeName: string;
     params?: NavigationParams;
     action?: NavigationNavigateAction;
@@ -454,10 +460,16 @@ export type NavigationTabAction =
   | NavigationNavigateAction
   | NavigationBackAction;
 
+export type NavigationDrawerAction =
+  | NavigationOpenDrawerAction
+  | NavigationCloseDrawerAction
+  | NavigationToggleDrawerAction;
+
 export type NavigationAction =
   | NavigationInitAction
   | NavigationStackAction
-  | NavigationTabAction;
+  | NavigationTabAction
+  | NavigationDrawerAction;
 
 export type NavigationRouteConfig =
   | NavigationComponent
@@ -479,15 +491,21 @@ export interface NavigationPathsConfig {
   [routeName: string]: string;
 }
 
-export interface NavigationTabRouterConfig {
+// tslint:disable-next-line:strict-export-declare-modifiers
+interface NavigationTabRouterConfigBase {
   initialRouteName?: string;
   initialRouteParams?: NavigationParams;
   paths?: NavigationPathsConfig;
-  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
   order?: string[]; // todo: type these as the real route names rather than 'string'
 
   // Does the back button cause the router to switch to the initial tab
   backBehavior?: 'none' | 'initialRoute'; // defaults `initialRoute`
+}
+export interface NavigationTabRouterConfig extends NavigationTabRouterConfigBase {
+  navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
+}
+export interface NavigationBottomTabRouterConfig extends NavigationTabRouterConfigBase {
+  navigationOptions?: NavigationScreenConfig<NavigationBottomTabScreenOptions>;
 }
 export interface TabScene {
   route: NavigationRoute;
@@ -495,12 +513,13 @@ export interface TabScene {
   index: number;
   tintColor?: string;
 }
-export interface NavigationTabScreenOptions {
+// tslint:disable-next-line:strict-export-declare-modifiers
+interface NavigationTabScreenOptionsBase {
   title?: string;
   tabBarIcon?:
   | React.ReactElement<any>
   | ((
-    options: { tintColor: string | null; focused: boolean }
+    options: { tintColor: string | null; focused: boolean; horizontal: boolean }
   ) => React.ReactElement<any> | null);
   tabBarLabel?:
   | string
@@ -510,10 +529,24 @@ export interface NavigationTabScreenOptions {
   ) => React.ReactElement<any> | string | null);
   tabBarVisible?: boolean;
   tabBarTestIDProps?: { testID?: string; accessibilityLabel?: string };
+}
+export interface NavigationTabScreenOptions
+  extends NavigationTabScreenOptionsBase {
+  swipeEnabled?: boolean;
   tabBarOnPress?: (
     options: {
+      previousScene: TabScene;
       scene: TabScene;
       jumpToIndex: (index: number) => void;
+    }
+  ) => void;
+}
+export interface NavigationBottomTabScreenOptions
+  extends NavigationTabScreenOptionsBase {
+  tabBarOnPress?: (
+    options: {
+      navigation: NavigationScreenProp<NavigationRoute>;
+      defaultHandler: () => void;
     }
   ) => void;
 }
@@ -565,8 +598,18 @@ export interface NavigationEventSubscription {
   remove: () => void;
 }
 
+export interface NavigationEventsProps extends ViewProps {
+  navigation?: NavigationNavigator;
+  onWillFocus?: NavigationEventCallback;
+  onDidFocus?: NavigationEventCallback;
+  onWillBlur?: NavigationEventCallback;
+  onDidBlur?: NavigationEventCallback;
+}
+
+export const NavigationEvents: React.ComponentType<NavigationEventsProps>;
+
 export interface NavigationScreenProp<S, P = NavigationParams> {
-  state: S;
+  state: S & { params?: P };
   dispatch: NavigationDispatch;
   goBack: (routeKey?: string | null) => boolean;
   dismiss: () => boolean;
@@ -905,6 +948,13 @@ export interface TabNavigatorConfig
   removeClippedSubviews?: boolean;
   initialLayout?: { height: number; width: number };
 }
+export interface BottomTabNavigatorConfig
+  extends NavigationBottomTabRouterConfig,
+  TabViewConfig {
+  lazy?: boolean;
+  removeClippedSubviews?: boolean;
+  initialLayout?: { height: number; width: number };
+}
 
 // From navigators/TabNavigator.js
 export function TabNavigator(
@@ -919,7 +969,7 @@ export function createTabNavigator(
 
 export function createBottomTabNavigator(
   routeConfigMap: NavigationRouteConfigMap,
-  drawConfig?: TabNavigatorConfig
+  drawConfig?: BottomTabNavigatorConfig
 ): NavigationContainer;
 
 export function createMaterialTopTabNavigator(
@@ -996,25 +1046,16 @@ export namespace NavigationActions {
   const BACK: 'Navigation/BACK';
   const INIT: 'Navigation/INIT';
   const NAVIGATE: 'Navigation/NAVIGATE';
-  const RESET: 'Navigation/RESET';
   const SET_PARAMS: 'Navigation/SET_PARAMS';
-  const URI: 'Navigation/URI';
-  const POP: 'Navigation/POP';
-  const POP_TO_TOP: 'Navigation/POP_TO_TOP';
 
   function init(options?: NavigationInitActionPayload): NavigationInitAction;
   function navigate(
     options: NavigationNavigateActionPayload
   ): NavigationNavigateAction;
-  function reset(options: NavigationResetActionPayload): NavigationResetAction;
   function back(options?: NavigationBackActionPayload): NavigationBackAction;
   function setParams(
     options: NavigationSetParamsActionPayload
   ): NavigationSetParamsAction;
-  function pop(options: NavigationPopActionPayload): NavigationPopAction;
-  function popToTop(
-    options: NavigationPopToTopActionPayload
-  ): NavigationPopToTopAction;
 }
 
 /**
@@ -1191,22 +1232,49 @@ export const HeaderBackButton: React.ComponentClass<HeaderBackButtonProps>;
 /**
  * Header Component
  */
-export const Header: React.ComponentClass<HeaderProps>;
+export class Header extends React.Component<HeaderProps> {
+  static HEIGHT: number;
+}
+
+export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+
+export type InferProps<T extends React.ComponentType<any>> = T extends React.ComponentType<infer P> ? P : never;
 
 export interface NavigationInjectedProps<P = NavigationParams> {
   navigation: NavigationScreenProp<NavigationState, P>;
 }
 
-export function withNavigation<T = {}>(
-  Component: React.ComponentType<T & NavigationInjectedProps>
-): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationInjectedProps>> }>;
+// If the wrapped component is a class, we can get a ref to it
+export function withNavigation<T extends React.ComponentClass<NavigationInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationInjectedProps> & { onRef?: React.Ref<InstanceType<T>> }>;
 
-export interface NavigationFocusInjectedProps extends NavigationInjectedProps {
+export function withNavigation<T extends React.ComponentType<NavigationInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationInjectedProps>>;
+
+// For backwards compatibility
+export function withNavigation<T = {}, P = NavigationParams>(
+  Component: React.ComponentType<T | (T & NavigationInjectedProps<P>)>,
+): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationInjectedProps<P>>> }>;
+
+export interface NavigationFocusInjectedProps<P = NavigationParams> extends NavigationInjectedProps<P> {
   isFocused: boolean;
 }
-export function withNavigationFocus<T = {}>(
-  Component: React.ComponentType<T & NavigationFocusInjectedProps>
-): React.ComponentType<T & { onRef?: React.Ref<typeof Component> }>;
+
+// If the wrapped component is a class, we can get a ref to it
+export function withNavigationFocus<T extends React.ComponentClass<NavigationFocusInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationFocusInjectedProps> & { onRef?: React.Ref<InstanceType<T>> }>;
+
+export function withNavigationFocus<T extends React.ComponentType<NavigationFocusInjectedProps>>(
+  Component: T,
+): React.ComponentType<Omit<InferProps<T>, keyof NavigationFocusInjectedProps>>;
+
+// For backwards compatibility
+export function withNavigationFocus<T = {}, P = NavigationParams>(
+  Component: React.ComponentType<T & NavigationFocusInjectedProps<P>>,
+): React.ComponentType<T & { onRef?: React.Ref<React.Component<T & NavigationFocusInjectedProps<P>>> }>;
 
 /**
  * SafeAreaView Component

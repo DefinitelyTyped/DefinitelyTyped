@@ -8,6 +8,7 @@ declare let error: Error;
 declare let bool: boolean;
 declare let boolOrUndefined: boolean | undefined;
 declare let apiGwEvtReqCtx: AWSLambda.APIGatewayEventRequestContext;
+declare let apiGwEvtReqCtxOpt: AWSLambda.APIGatewayEventRequestContext | null | undefined;
 declare let apiGwEvt: AWSLambda.APIGatewayEvent;
 declare let customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
 declare let clientCtx: AWSLambda.ClientContext;
@@ -102,11 +103,13 @@ str = apiGwEvtReqCtx.resourcePath;
 /* API Gateway Event */
 strOrNull = apiGwEvt.body;
 str = apiGwEvt.headers["example"];
+str = apiGwEvt.multiValueHeaders["example"][0];
 str = apiGwEvt.httpMethod;
 bool = apiGwEvt.isBase64Encoded;
 str = apiGwEvt.path;
 str = apiGwEvt.pathParameters!["example"];
 str = apiGwEvt.queryStringParameters!["example"];
+str = apiGwEvt.multiValueQueryStringParameters!["example"][0];
 str = apiGwEvt.stageVariables!["example"];
 apiGwEvtReqCtx = apiGwEvt.requestContext;
 str = apiGwEvt.resource;
@@ -115,10 +118,12 @@ str = apiGwEvt.resource;
 str = customAuthorizerEvt.type;
 str = customAuthorizerEvt.methodArn;
 strOrUndefined = customAuthorizerEvt.authorizationToken;
-str = apiGwEvt.pathParameters!["example"];
-str = apiGwEvt.queryStringParameters!["example"];
-str = apiGwEvt.stageVariables!["example"];
-apiGwEvtReqCtx = apiGwEvt.requestContext;
+str = customAuthorizerEvt.headers!["example"];
+str = customAuthorizerEvt.multiValueHeaders!["example"][0];
+str = customAuthorizerEvt.pathParameters!["example"];
+str = customAuthorizerEvt.queryStringParameters!["example"];
+str = customAuthorizerEvt.multiValueQueryStringParameters!["example"][0];
+apiGwEvtReqCtxOpt = customAuthorizerEvt.requestContext;
 
 /* DynamoDB Stream Event */
 const dynamoDBStreamEvent: AWSLambda.DynamoDBStreamEvent = {
@@ -245,6 +250,9 @@ num = proxyResult.statusCode;
 proxyResult.headers!["example"] = str;
 proxyResult.headers!["example"] = bool;
 proxyResult.headers!["example"] = num;
+proxyResult.multiValueHeaders!["example"][0] = str;
+proxyResult.multiValueHeaders!["example"][0] = bool;
+proxyResult.multiValueHeaders!["example"][0] = num;
 boolOrUndefined = proxyResult.isBase64Encoded;
 str = proxyResult.body;
 
@@ -383,6 +391,8 @@ cognitoUserPoolEvent.triggerSource === "TokenGeneration_Authentication";
 cognitoUserPoolEvent.triggerSource === "TokenGeneration_NewPasswordChallenge";
 cognitoUserPoolEvent.triggerSource === "TokenGeneration_AuthenticateDevice";
 cognitoUserPoolEvent.triggerSource === "TokenGeneration_RefreshTokens";
+cognitoUserPoolEvent.triggerSource === "UserMigration_Authentication";
+cognitoUserPoolEvent.triggerSource === "UserMigration_ForgotPassword";
 str = cognitoUserPoolEvent.region;
 str = cognitoUserPoolEvent.userPoolId;
 strOrUndefined = cognitoUserPoolEvent.userName;
@@ -400,10 +410,11 @@ cognitoUserPoolEvent.request.session![0].challengeName === "DEVICE_SRP_AUTH";
 cognitoUserPoolEvent.request.session![0].challengeName === "DEVICE_PASSWORD_VERIFIER";
 cognitoUserPoolEvent.request.session![0].challengeName === "ADMIN_NO_SRP_AUTH";
 bool = cognitoUserPoolEvent.request.session![0].challengeResult;
-strOrUndefined = cognitoUserPoolEvent.request.session![0].challengeMetaData;
+strOrUndefined = cognitoUserPoolEvent.request.session![0].challengeMetadata;
 strOrUndefined = cognitoUserPoolEvent.request.challengeName;
 str = cognitoUserPoolEvent.request.privateChallengeParameters!["answer"];
-str = cognitoUserPoolEvent.request.challengeAnswer!["answer"];
+str = cognitoUserPoolEvent.request.challengeAnswer!;
+strOrUndefined = cognitoUserPoolEvent.request.password;
 boolOrUndefined = cognitoUserPoolEvent.response.answerCorrect;
 strOrUndefined = cognitoUserPoolEvent.response.smsMessage;
 strOrUndefined = cognitoUserPoolEvent.response.emailMessage;
@@ -413,8 +424,16 @@ boolOrUndefined = cognitoUserPoolEvent.response.issueTokens;
 boolOrUndefined = cognitoUserPoolEvent.response.failAuthentication;
 str = cognitoUserPoolEvent.response.publicChallengeParameters!["captchaUrl"];
 str = cognitoUserPoolEvent.response.privateChallengeParameters!["answer"];
-strOrUndefined = cognitoUserPoolEvent.response.challengeMetaData;
+strOrUndefined = cognitoUserPoolEvent.response.challengeMetadata;
 boolOrUndefined = cognitoUserPoolEvent.response.answerCorrect;
+str = cognitoUserPoolEvent.response.userAttributes!["username"];
+cognitoUserPoolEvent.response.finalUserStatus === "CONFIRMED";
+cognitoUserPoolEvent.response.finalUserStatus === "RESET_REQUIRED";
+cognitoUserPoolEvent.response.messageAction === "SUPPRESS";
+cognitoUserPoolEvent.response.desiredDeliveryMediums === ["EMAIL"];
+cognitoUserPoolEvent.response.desiredDeliveryMediums === ["SMS"];
+cognitoUserPoolEvent.response.desiredDeliveryMediums === ["SMS", "EMAIL"];
+boolOrUndefined = cognitoUserPoolEvent.response.forceAliasCreation;
 
 // CloudFormation Custom Resource
 switch (cloudformationCustomResourceEvent.RequestType) {
@@ -581,7 +600,7 @@ const CodePipelineEvent: AWSLambda.CodePipelineEvent = {
 CodePipelineEvent["CodePipeline.job"].data.encryptionKey = { type: 'KMS', id: 'key' };
 
 /* CloudFront events, see http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html */
-const CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
+const CloudFrontRequestWithCustomOriginEvent: AWSLambda.CloudFrontRequestEvent = {
   Records: [
     {
       cf: {
@@ -630,7 +649,44 @@ const CloudFrontRequestEvent: AWSLambda.CloudFrontRequestEvent = {
                 "TLSv1",
                 "TLSv1.1"
               ]
-            },
+            }
+          }
+        }
+      }
+    }
+  ]
+};
+
+const CloudFrontRequestWithS3OriginEvent: AWSLambda.CloudFrontRequestEvent = {
+  Records: [
+    {
+      cf: {
+        config: {
+          distributionDomainName: "d123.cloudfront.net",
+          distributionId: "EDFDVBD6EXAMPLE",
+          eventType: "viewer-request",
+          requestId: "MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE=="
+        },
+        request: {
+          clientIp: "2001:0db8:85a3:0:0:8a2e:0370:7334",
+          method: "GET",
+          uri: "/picture.jpg",
+          querystring: "size=large",
+          headers: {
+            host: [
+              {
+                key: "Host",
+                value: "d111111abcdef8.cloudfront.net"
+              }
+            ],
+            "user-agent": [
+              {
+                key: "User-Agent",
+                value: "curl/7.51.0"
+              }
+            ]
+          },
+          origin: {
             s3: {
               authMethod: "origin-access-identity",
               customHeaders: {
@@ -812,6 +868,56 @@ apiGtwProxyHandler = proxyHandler;
 const codePipelineHandler: AWSLambda.CodePipelineHandler = (event: AWSLambda.CodePipelineEvent, context: AWSLambda.Context, cb: AWSLambda.Callback<void>) => {};
 
 const cloudFrontRequestHandler: AWSLambda.CloudFrontRequestHandler = (event: AWSLambda.CloudFrontRequestEvent, context: AWSLambda.Context, cb: AWSLambda.CloudFrontRequestCallback) => {
+    event = CloudFrontRequestWithCustomOriginEvent;
+    // $ExpectType CloudFrontRequestEvent
+    event;
+    let request = event.Records[0].cf.request;
+
+    let s3Origin: AWSLambda.CloudFrontS3Origin = {
+        authMethod: 'none',
+        customHeaders: {},
+        domainName: 'example.com',
+        path: '/',
+        region: 'us-east-1'
+    };
+
+    if (request.origin && request.origin.custom) {
+        request.origin.custom.domainName;
+        request.origin.custom.domainName = "example2.com";
+
+        // $ExpectError
+        s3Origin = request.origin.s3;
+
+        // $ExpectError
+        request.origin.s3.path = '/';
+    }
+
+    let customOrigin: AWSLambda.CloudFrontCustomOrigin = {
+        customHeaders: {},
+        domainName: 'example.com',
+        keepaliveTimeout: 60,
+        path: '/',
+        port: 80,
+        protocol: 'http',
+        readTimeout: 30,
+        sslProtocols: []
+    };
+
+    event = CloudFrontRequestWithS3OriginEvent;
+    // $ExpectType CloudFrontRequestEvent
+    event;
+    request = event.Records[0].cf.request;
+    if (request.origin && request.origin.s3) {
+        request.origin.s3.path;
+        request.origin.s3.path = "/new_path";
+
+        // $ExpectError
+        customOrigin = request.origin.custom;
+
+        // $ExpectError
+        request.origin.custom.path = '/';
+    }
+
     cb();
     cb(null);
     cb(new Error(''));

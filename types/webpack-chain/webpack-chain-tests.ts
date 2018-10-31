@@ -46,8 +46,20 @@ config
 		.use(webpack.DefinePlugin, [])
 		.end()
 
+	.plugin('bar')
+		.use(webpack.DefinePlugin, [])
+		.before('foo')
+		.end()
+
+	.plugin('baz')
+		.use(webpack.DefinePlugin, [])
+		.after('bar')
+		.end()
+
 	.plugins
 		.delete('foo')
+		.delete('bar')
+		.delete('baz')
 		.end()
 
 	.devServer
@@ -107,8 +119,14 @@ config
 				.loader('babel-loader')
 				.options({})
 				.end()
+			.use('eslint')
+				.loader('eslint-loader')
+				.options({})
+				.after('babel')
+				.end()
 			.uses
 				.delete('babel')
+				.delete('eslint')
 				.end()
 			.pre()
 			.post()

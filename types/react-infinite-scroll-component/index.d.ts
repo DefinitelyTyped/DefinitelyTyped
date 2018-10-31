@@ -2,6 +2,8 @@
 // Project: https://github.com/ankeetmaini/react-infinite-scroll-component#readme
 // Definitions by: Stephanie Roy <https://github.com/sroy3>
 //                 Bartosz Dotryw <https://github.com/burtek>
+//                 David Kevork <https://github.com/davidkevork>
+//                 Joshua R. <https://github.com/JoshuaScript>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -29,12 +31,12 @@ declare namespace InfiniteScroll {
         /**
          * This message is shown to the user when he has seen all the records which means he's at the bottom and hasMore is false
          */
-        endMessage: React.ReactNode;
+        endMessage?: React.ReactNode;
 
         /**
          * You can send a loader component to show while the component waits for the next load of data. e.g. <h3>Loading...</h3> or any fancy loader element
          */
-        loader?: React.ReactNode;
+        loader: React.ReactNode;
 
         /**
          * This function will be called, it should return the fresh data that you want to show the user
@@ -59,7 +61,7 @@ declare namespace InfiniteScroll {
         /**
          * Any JSX that you want to show the user, default={<h3>Release to refresh</h3>}
          */
-        releaseToRefreshContent?: boolean;
+        releaseToRefreshContent?: React.ReactNode;
 
         /**
          * A threshold value defining when InfiniteScroll will call next. Default value is 0.8. It means the next will be called when user comes below 80% of the total height.
@@ -83,6 +85,11 @@ declare namespace InfiniteScroll {
          * if your children is not an array, specify this prop to tell if your items are 0 or more.
          */
         hasChildren?: boolean;
+
+        /**
+         * Children component which will be rendered
+         */
+        children?: React.ReactNode;
 
         /**
          * Set a scroll y position for the component to render with.

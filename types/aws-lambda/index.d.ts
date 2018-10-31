@@ -21,6 +21,9 @@
 //                 Jeremy Nagel <https://github.com/jeznag>
 //                 Louis Larry <https://github.com/louislarry>
 //                 Daniel Papukchiev <https://github.com/dpapukchiev>
+//                 Oliver Hookins <https://github.com/ohookins>
+//                 Trevor Leach <https://github.com/trevor-leach>
+//                 James Gregory <https://github.com/jagregory>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -57,11 +60,13 @@ export interface APIGatewayEventRequestContext {
 export interface APIGatewayProxyEvent {
     body: string | null;
     headers: { [name: string]: string };
+    multiValueHeaders: { [name: string]: string[] };
     httpMethod: string;
     isBase64Encoded: boolean;
     path: string;
     pathParameters: { [name: string]: string } | null;
     queryStringParameters: { [name: string]: string } | null;
+    multiValueQueryStringParameters: { [name: string]: string[] } | null;
     stageVariables: { [name: string]: string } | null;
     requestContext: APIGatewayEventRequestContext;
     resource: string;
@@ -74,8 +79,10 @@ export interface CustomAuthorizerEvent {
     methodArn: string;
     authorizationToken?: string;
     headers?: { [name: string]: string };
+    multiValueHeaders?: { [name: string]: string[] };
     pathParameters?: { [name: string]: string } | null;
     queryStringParameters?: { [name: string]: string } | null;
+    multiValueQueryStringParameters?: { [name: string]: string[] } | null;
     requestContext?: APIGatewayEventRequestContext;
 }
 
@@ -233,7 +240,9 @@ export interface CognitoUserPoolTriggerEvent {
     | "TokenGeneration_Authentication"
     | "TokenGeneration_NewPasswordChallenge"
     | "TokenGeneration_AuthenticateDevice"
-    | "TokenGeneration_RefreshTokens";
+    | "TokenGeneration_RefreshTokens"
+    | "UserMigration_Authentication"
+    | "UserMigration_ForgotPassword";
     region: string;
     userPoolId: string;
     userName?: string;
@@ -250,11 +259,12 @@ export interface CognitoUserPoolTriggerEvent {
         session?: Array<{
             challengeName: "CUSTOM_CHALLENGE" | "PASSWORD_VERIFIER" | "SMS_MFA" | "DEVICE_SRP_AUTH" | "DEVICE_PASSWORD_VERIFIER" | "ADMIN_NO_SRP_AUTH";
             challengeResult: boolean;
-            challengeMetaData?: string;
+            challengeMetadata?: string;
         }>;
         challengeName?: string;
         privateChallengeParameters?: { [key: string]: string };
-        challengeAnswer?: { [key: string]: string };
+        challengeAnswer?: string;
+        password?: string;
     };
     response: {
         autoConfirmUser?: boolean;
@@ -266,8 +276,13 @@ export interface CognitoUserPoolTriggerEvent {
         failAuthentication?: boolean;
         publicChallengeParameters?: { [key: string]: string };
         privateChallengeParameters?: { [key: string]: string };
-        challengeMetaData?: string;
+        challengeMetadata?: string;
         answerCorrect?: boolean;
+        userAttributes?: { [key: string]: string };
+        finalUserStatus?: "CONFIRMED" | "RESET_REQUIRED";
+        messageAction?: "SUPPRESS";
+        desiredDeliveryMediums?: Array<"EMAIL" | "SMS">;
+        forceAliasCreation?: boolean;
     };
 }
 export type CognitoUserPoolEvent = CognitoUserPoolTriggerEvent;
@@ -432,6 +447,9 @@ export interface APIGatewayProxyResult {
     headers?: {
         [header: string]: boolean | number | string;
     };
+    multiValueHeaders?: {
+        [header: string]: Array<boolean | number | string>;
+    };
     body: string;
     isBase64Encoded?: boolean;
 }
@@ -561,12 +579,38 @@ export interface CodePipelineEvent {
 /**
  * CloudFront events
  * http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html
+ * Bear in mind that the "example" event structure in the page above includes
+ * both an S3 and a Custom origin, which is not strictly allowed. Only one
+ * of these per event may be present.
  */
 export interface CloudFrontHeaders {
     [name: string]: Array<{
         key: string;
         value: string;
     }>;
+}
+
+export type CloudFrontOrigin =
+    | { s3: CloudFrontS3Origin, custom?: never }
+    | { custom: CloudFrontCustomOrigin, s3?: never };
+
+export interface CloudFrontCustomOrigin {
+    customHeaders: CloudFrontHeaders;
+    domainName: string;
+    keepaliveTimeout: number;
+    path: string;
+    port: number;
+    protocol: 'http' | 'https';
+    readTimeout: number;
+    sslProtocols: string[];
+}
+
+export interface CloudFrontS3Origin {
+    authMethod: 'origin-access-identity' | 'none';
+    customHeaders: CloudFrontHeaders;
+    domainName: string;
+    path: string;
+    region: string;
 }
 
 export interface CloudFrontResponse {
@@ -581,6 +625,7 @@ export interface CloudFrontRequest {
     uri: string;
     querystring: string;
     headers: CloudFrontHeaders;
+    origin?: CloudFrontOrigin;
 }
 
 export interface CloudFrontEvent {

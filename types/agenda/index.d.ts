@@ -203,17 +203,7 @@ declare namespace Agenda {
         /**
          * Specifies that Agenda should be initialized using and existing MongoDB connection.
          */
-        mongo?: {
-            /**
-             * The MongoDB database connection to use.
-             */
-            db: Db;
-
-            /**
-             * The name of the collection to use.
-             */
-            collection?: string;
-        }
+        mongo?: Db;
 
         /**
          * Specifies that Agenda should connect to MongoDB.
@@ -221,8 +211,10 @@ declare namespace Agenda {
         db?: {
             /**
              * The connection URL.
+             * Required when using `db` option to connect.
+             * Not required when an existing connection is passed as `mongo` property.
              */
-            address: string;
+            address?: string;
 
             /**
              * The name of the collection to use.
@@ -231,6 +223,7 @@ declare namespace Agenda {
 
             /**
              * Connection options to pass to MongoDB.
+             * Not required when an existing connection is passed as `mongo` property.
              */
             options?: any;
         }

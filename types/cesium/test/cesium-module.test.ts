@@ -48,3 +48,7 @@ const entity = new Cesium.Entity({
     })
 });
 viewer.entities.add(entity);
+
+const hpr = new Cesium.HeadingPitchRoll(1.0, 2.2, 3.4);
+const quat: Cesium.Quaternion = Cesium.Quaternion.fromHeadingPitchRoll(hpr);
+const matrix: Cesium.Matrix3 = Cesium.Matrix3.fromHeadingPitchRoll(hpr);

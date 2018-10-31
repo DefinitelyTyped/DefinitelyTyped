@@ -1,8 +1,9 @@
-// Type definitions for puppeteer 1.6
+// Type definitions for puppeteer 1.9
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
 //                 Konstantin Simon Maria Möllers <https://github.com/ksm2>
+//                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -290,6 +291,8 @@ export interface TracingStartOptions {
   categories?: string[];
 }
 
+export type DialogType = "alert" | "beforeunload" | "confirm" | "prompt";
+
 /** Dialog objects are dispatched by page via the 'dialog' event. */
 export interface Dialog {
   /**
@@ -308,8 +311,27 @@ export interface Dialog {
   message(): string;
 
   /** The dialog type. Dialog's type, can be one of `alert`, `beforeunload`, `confirm` or `prompt`. */
-  type(): "alert" | "beforeunload" | "confirm" | "prompt";
+  type(): DialogType;
 }
+
+export type ConsoleMessageType = "log"
+  | "debug"
+  | "info"
+  | "error"
+  | "warning"
+  | "dir"
+  | "dirxml"
+  | "table"
+  | "trace"
+  | "clear"
+  | "startGroup"
+  | "startGroupCollapsed"
+  | "endGroup"
+  | "assert"
+  | "profile"
+  | "profileEnd"
+  | "count"
+  | "timeEnd";
 
 /** ConsoleMessage objects are dispatched by page via the 'console' event. */
 export interface ConsoleMessage {
@@ -317,9 +339,7 @@ export interface ConsoleMessage {
   args(): JSHandle[];
   /** The message text. */
   text(): string;
-  type(): 'log' | 'debug' | 'info' | 'error' | 'warning' | 'dir' | 'dirxml' | 'table' |
-  'trace' | 'clear' | 'startGroup' | 'startGroupCollapsed' | 'endGroup' | 'assert' |
-  'profile' | 'profileEnd' | 'count' | 'timeEnd';
+  type(): ConsoleMessageType;
 }
 
 export type PageEvents =
@@ -353,16 +373,18 @@ export interface AuthOptions {
 export type MouseButtons = "left" | "right" | "middle";
 
 export interface ClickOptions {
-  /** defaults to left */
+  /** @default MouseButtons.Left */
   button?: MouseButtons;
-  /** defaults to 1 */
+  /** @default 1 */
   clickCount?: number;
   /**
    * Time to wait between mousedown and mouseup in milliseconds.
-   * Defaults to 0.
+   * @default 0
    */
   delay?: number;
 }
+
+export type SameSiteSetting = "Strict" | "Lax";
 
 /** Represents a browser cookie. */
 export interface Cookie {
@@ -383,7 +405,7 @@ export interface Cookie {
   /** The cookie secure flag. */
   secure: boolean;
   /** The cookie same site definition. */
-  sameSite: "Strict" | "Lax";
+  sameSite: SameSiteSetting;
 }
 
 export interface DeleteCookie {
@@ -415,7 +437,7 @@ export interface SetCookie {
   /** The cookie secure flag. */
   secure?: boolean;
   /** The cookie same site definition. */
-  sameSite?: "Strict" | "Lax";
+  sameSite?: SameSiteSetting;
 }
 
 export interface Viewport {
@@ -473,6 +495,18 @@ export interface NavigationOptions {
    * @default load Navigation is consider when the `load` event is fired.
    */
   waitUntil?: LoadEvent | LoadEvent[];
+}
+
+/**
+ * Navigation options for `page.goto`.
+ */
+export interface DirectNavigationOptions extends NavigationOptions {
+  /**
+   * Referer header value.
+   * If provided it will take preference over the referer header value set by
+   * [page.setExtraHTTPHeaders()](#pagesetextrahttpheadersheaders).
+   */
+  referer?: string;
 }
 
 export type PDFFormat =
@@ -533,11 +567,14 @@ export interface PDFOptions {
    */
   landscape?: boolean;
   /**
-   * Paper ranges to print, e.g., '1-5, 8, 11-13'. Defaults to the empty
-   * string, which means print all pages.
+   * Paper ranges to print, e.g., '1-5, 8, 11-13'.
+   * @default '' which means print all pages.
    */
   pageRanges?: string;
-  /** Paper format. If set, takes priority over width or height options. Defaults to 'Letter'. */
+  /**
+   * Paper format. If set, takes priority over width or height options.
+   * @default 'Letter'
+   */
   format?: PDFFormat;
   /** Paper width, accepts values labeled with units. */
   width?: string;
@@ -554,6 +591,13 @@ export interface PDFOptions {
     /** Left margin, accepts values labeled with units. */
     left?: string;
   };
+
+  /**
+   * Give any CSS @page size declared in the page priority over what is declared in width and
+   * height or format options.
+   * @default false which will scale the content to fit the paper size.
+   */
+  preferCSSPageSize?: boolean;
 }
 
 /** Defines the screenshot options. */
@@ -585,6 +629,19 @@ export interface ScreenshotOptions {
    * @default false
    */
   omitBackground?: boolean;
+  /**
+   * The encoding of the image, can be either base64 or binary.
+   * @default binary
+   */
+  encoding?: "base64" | "binary";
+}
+
+export interface BinaryScreenShotOptions extends ScreenshotOptions {
+    encoding?: "binary";
+}
+
+export interface Base64ScreenShotOptions extends ScreenshotOptions {
+    encoding: "base64";
 }
 
 /** Options for `addStyleTag` */
@@ -742,7 +799,9 @@ export interface ElementHandle<E extends Element = Element> extends JSHandle, Ev
    * If the element is detached from DOM, the method throws an error.
    * @param options Same options as in page.screenshot.
    */
-  screenshot(options?: ScreenshotOptions): Promise<Buffer>;
+  screenshot(options?: Base64ScreenShotOptions): Promise<string>;
+  screenshot(options?: BinaryScreenShotOptions): Promise<Buffer>;
+  screenshot(options?: ScreenshotOptions): Promise<string | Buffer>;
   /**
    * This method scrolls element into view if needed, and then uses touchscreen.tap to tap in the center of the element.
    * If the element is detached from DOM, the method throws an error.
@@ -969,10 +1028,19 @@ export interface RespondOptions {
   body?: Buffer | string;
 }
 
+export interface RemoteInfo {
+    /** the IP address of the remote server */
+    ip: string;
+    /** the port used to connect to the remote server */
+    port: number;
+}
+
 /** Response class represents responses which are received by page. */
 export interface Response {
   /** Promise which resolves to a buffer with response body. */
   buffer(): Promise<Buffer>;
+  /** A Frame that initiated this response, or null if navigating to error pages. */
+  frame(): Frame | null;
   /** True if the response was served from either the browser's disk cache or memory cache. */
   fromCache(): boolean;
   /** True if the response was served by a service worker. */
@@ -986,14 +1054,39 @@ export interface Response {
   json(): Promise<any>;
   /** Contains a boolean stating whether the response was successful (status in the range 200-299) or not. */
   ok(): boolean;
+  /** Returns remote connection info */
+  remoteAddress(): RemoteInfo;
   /** A matching Request object. */
   request(): Request;
   /** Contains the status code of the response (e.g., 200 for a success). */
   status(): number;
+  /** Contains the status text of the response (e.g. usually an "OK" for a success).  */
+  statusText(): string;
   /** Promise which resolves to a text representation of response body. */
   text(): Promise<string>;
   /** Contains the URL of the response. */
   url(): string;
+}
+
+export interface WaitForSelectorOptions {
+    /**
+     * Wait for element to be present in DOM and to be visible,
+     * i.e. to not have display: none or visibility: hidden CSS properties.
+     * @default false
+     */
+    visible?: boolean;
+    /**
+     * Wait for element to not be found in the DOM or to be hidden,
+     * i.e. have display: none or visibility: hidden CSS properties.
+     * @default false
+     */
+    hidden?: boolean;
+    /**
+     * Maximum time to wait for in milliseconds.
+     * Pass 0 to disable timeout.
+     * @default 30000 (30 seconds).
+     */
+    timeout?: number;
 }
 
 export interface FrameBase extends Evalable {
@@ -1034,6 +1127,13 @@ export interface FrameBase extends Evalable {
   content(): Promise<string>;
 
   /**
+   * Navigates to a URL.
+   * @param url URL to navigate page to. The url should include scheme, e.g. `https://`
+   * @param options The navigation parameters.
+   */
+  goto(url: string, options?: DirectNavigationOptions): Promise<Response | null>;
+
+  /**
    * Evaluates a function in the browser context.
    * If the function, passed to the frame.evaluate, returns a Promise, then frame.evaluate would wait for the promise to resolve and return its value.
    * If the function passed into frame.evaluate returns a non-Serializable value, then frame.evaluate resolves to undefined.
@@ -1070,6 +1170,15 @@ export interface FrameBase extends Evalable {
   hover(selector: string): Promise<void>;
 
   /**
+   * Triggers a `change` and `input` event once all the provided options have been selected.
+   * If there's no `<select>` element matching selector, the method throws an error.
+   * @param selector A selector to query page for.
+   * @param values Values of options to select. If the `<select>` has the `multiple` attribute,
+   * all values are considered, otherwise only the first one is taken into account.
+   */
+  select(selector: string, ...values: string[]): Promise<string[]>;
+
+  /**
    * Sets the page content.
    * @param html HTML markup to assign to the page.
    */
@@ -1097,30 +1206,44 @@ export interface FrameBase extends Evalable {
   /** Returns frame's url. */
   url(): string;
 
-  waitFor(
-    // fn can be an abritary function
-    // tslint:disable-next-line ban-types
-    selectorOrFunctionOrTimeout: string | number | Function,
-    options?: any,
-    ...args: any[]
-  ): Promise<any>;
+  /**
+   * Waits for a certain amount of time before resolving.
+   * @param duration The time to wait for.
+   */
+  waitFor(duration: number): Promise<void>;
+  /**
+   * Shortcut for waitForSelector and waitForXPath
+   */
+  waitFor(selector: string, options?: WaitForSelectorOptions): Promise<ElementHandle>;
 
+  /**
+   * Shortcut for waitForFunction.
+   */
+  waitFor(selector: ((...args: any[]) => any) | string, options?: WaitForSelectorOptions, ...args: any[]): Promise<any>;
+
+  /**
+   * Allows waiting for various conditions.
+   */
   waitForFunction(
-    // fn can be an abritary function
-    // tslint:disable-next-line ban-types
-    fn: string | Function,
+    fn: string | ((...args: any[]) => any),
     options?: PageFnOptions,
     ...args: any[]
   ): Promise<any>;
 
+  /**
+   * Wait for the page navigation occur.
+   * @param options The navigation parameters.
+   */
+  waitForNavigation(options?: NavigationOptions): Promise<Response>;
+
   waitForSelector(
     selector: string,
-    options?: { visible?: boolean; hidden?: boolean; timeout?: number }
+    options?: WaitForSelectorOptions,
   ): Promise<ElementHandle>;
 
   waitForXPath(
     xpath: string,
-    options?: { visible?: boolean; hidden?: boolean; timeout?: number }
+    options?: WaitForSelectorOptions,
   ): Promise<ElementHandle>;
 }
 
@@ -1163,9 +1286,9 @@ export interface PageEventObj {
    * Emitted when the JavaScript code makes a call to `console.timeStamp`.
    * For the list of metrics see `page.metrics`.
    */
-  metrics: { title: string, metrics: any };
+  metrics: { title: string, metrics: Metrics };
   /** Emitted when an uncaught exception happens within the page. */
-  pageerror: string;
+  pageerror: Error;
   /**
    * Emitted when a page issues a request. The request object is read-only.
    * In order to intercept and mutate requests, see page.setRequestInterceptionEnabled.
@@ -1184,9 +1307,29 @@ export interface PageEventObj {
 }
 
 export interface PageCloseOptions {
-  /** Defaults to `false`. Whether to run the before unload page handlers. */
+  /**
+   * Whether to run the before unload page handlers.
+   * @default false
+   */
   runBeforeUnload?: boolean;
 }
+
+export interface GeoOptions {
+  /**
+   * Latitude between -90 and 90.
+   */
+  latitude: number;
+  /**
+   * Longitude between -180 and 180.
+   */
+  longitude: number;
+  /**
+   * Non-negative accuracy value.
+   */
+  accuracy?: number;
+}
+
+export type MediaType = "screen" | "print";
 
 /** Page provides methods to interact with a single tab in Chromium. One Browser instance might have multiple Page instances. */
 export interface Page extends EventEmitter, FrameBase {
@@ -1223,7 +1366,7 @@ export interface Page extends EventEmitter, FrameBase {
   bringToFront(): Promise<void>;
 
   /** Get the browser the page belongs to. */
-  browser(): Promise<Browser>;
+  browser(): Browser;
 
   /** Closes the current page. */
   close(options?: PageCloseOptions): Promise<void>;
@@ -1243,10 +1386,10 @@ export interface Page extends EventEmitter, FrameBase {
   deleteCookie(...cookies: DeleteCookie[]): Promise<void>;
 
   /** Emulates given device metrics and user agent. This method is a shortcut for `setUserAgent` and `setViewport`.  */
-  emulate(options: Partial<EmulateOptions>): Promise<void>;
+  emulate(options: EmulateOptions): Promise<void>;
 
   /** Emulates the media. */
-  emulateMedia(mediaType: 'screen' | 'print' | null): Promise<void>;
+  emulateMedia(mediaType: MediaType | null): Promise<void>;
 
   /**
    * Evaluates a function in the page context.
@@ -1288,20 +1431,13 @@ export interface Page extends EventEmitter, FrameBase {
    * Navigate to the previous page in history.
    * @param options The navigation parameters.
    */
-  goBack(options?: Partial<NavigationOptions>): Promise<Response | null>;
+  goBack(options?: NavigationOptions): Promise<Response | null>;
 
   /**
    * Navigate to the next page in history.
    * @param options The navigation parameters.
    */
-  goForward(options?: Partial<NavigationOptions>): Promise<Response | null>;
-
-  /**
-   * Navigates to a URL.
-   * @param url URL to navigate page to. The url should include scheme, e.g. `https://`
-   * @param options The navigation parameters.
-   */
-  goto(url: string, options?: Partial<NavigationOptions>): Promise<Response | null>;
+  goForward(options?: NavigationOptions): Promise<Response | null>;
 
   /** Returns the virtual keyboard. */
   keyboard: Keyboard;
@@ -1323,7 +1459,7 @@ export interface Page extends EventEmitter, FrameBase {
    * To generate a pdf with `screen` media, call `page.emulateMedia('screen')` before calling `page.pdf()`:
    * @param options The PDF parameters.
    */
-  pdf(options?: Partial<PDFOptions>): Promise<Buffer>;
+  pdf(options?: PDFOptions): Promise<Buffer>;
 
   /**
    * The method iterates JavaScript heap and finds all the objects with the given prototype.
@@ -1341,16 +1477,9 @@ export interface Page extends EventEmitter, FrameBase {
    * Captures a screenshot of the page.
    * @param options The screenshot options.
    */
-  screenshot(options?: ScreenshotOptions): Promise<Buffer>;
-
-  /**
-   * Triggers a `change` and `input` event once all the provided options have been selected.
-   * If there's no `<select>` element matching selector, the method throws an error.
-   * @param selector A selector to query page for.
-   * @param values Values of options to select. If the `<select>` has the `multiple` attribute,
-   * all values are considered, otherwise only the first one is taken into account.
-   */
-  select(selector: string, ...values: string[]): Promise<string[]>;
+  screenshot(options?: Base64ScreenShotOptions): Promise<string>;
+  screenshot(options?: BinaryScreenShotOptions): Promise<Buffer>;
+  screenshot(options?: ScreenshotOptions): Promise<string | Buffer>;
 
   /**
    * Toggles bypassing page's Content-Security-Policy.
@@ -1387,6 +1516,11 @@ export interface Page extends EventEmitter, FrameBase {
    * @param headers An object containing additional http headers to be sent with every request. All header values must be strings.
    */
   setExtraHTTPHeaders(headers: Headers): Promise<void>;
+
+  /**
+   * Sets the page's geolocation.
+   */
+  setGeolocation(options: GeoOptions): Promise<void>;
 
   /**
    * Determines whether JavaScript is enabled on the page.
@@ -1436,12 +1570,6 @@ export interface Page extends EventEmitter, FrameBase {
 
   /** Gets the page viewport. */
   viewport(): Viewport;
-
-  /**
-   * Wait for the page navigation occur.
-   * @param options The navigation parameters.
-   */
-  waitForNavigation(options?: NavigationOptions): Promise<Response>;
 
   waitForRequest(
     urlOrPredicate: string | ((req: Request) => boolean),
@@ -1506,6 +1634,12 @@ export interface Browser extends EventEmitter {
    */
   disconnect(): void;
 
+  /**
+   * Returns the default browser context.
+   * The default browser context can not be closed.
+   */
+  defaultBrowserContext(): BrowserContext;
+
   /** Promise which resolves to a new Page object. */
   newPage(): Promise<Page>;
 
@@ -1514,6 +1648,9 @@ export interface Browser extends EventEmitter {
 
   /** Spawned browser process. Returns `null` if the browser instance was created with `puppeteer.connect` method */
   process(): ChildProcess;
+
+  /** A target associated with the browser. */
+  target(): Target;
 
   /** Promise which resolves to an array of all active targets. */
   targets(): Promise<Target[]>;
@@ -1544,6 +1681,24 @@ export interface BrowserEventObj {
   /** Emitted when a target is destroyed, for example when a page is closed. */
   targetdestroyed: Target;
 }
+
+export type Permission =
+  "geolocation" |
+  "midi" |
+  "midi-sysex" |
+  "notifications" |
+  "push" |
+  "camera" |
+  "microphone" |
+  "background-sync" |
+  "ambient-light-sensor" |
+  "accelerometer" |
+  "gyroscope" |
+  "magnetometer" |
+  "accessibility-events" |
+  "clipboard-read" |
+  "clipboard-write" |
+  "payment-handler";
 
 /**
  * BrowserContexts provide a way to operate multiple independent browser sessions.
@@ -1577,6 +1732,11 @@ export interface BrowserContext extends EventEmitter {
   /** The browser this browser context belongs to. */
   browser(): Browser;
 
+  /**
+   * Clears all permission overrides for the browser context.
+   */
+  clearPermissionOverrides(): Promise<void>;
+
   /** Closes the browser context. All the targets that belong to the browser context will be closed. */
   close(): Promise<void>;
 
@@ -1588,6 +1748,17 @@ export interface BrowserContext extends EventEmitter {
 
   /** Creates a new page in the browser context. */
   newPage(): Promise<Page>;
+
+  /**
+   *
+   * @param origin The origin to grant permissions to, e.g. "https://example.com".
+   * @param permissions An array of permissions to grant.
+   * All permissions that are not listed here will be automatically denied.
+   */
+  overridePermissions(origin: string, permissions: Permission[]): Promise<void>;
+
+  /** Promise which resolves to an array of all open pages. */
+  pages(): Promise<Page[]>;
 
   /** An array of all active targets inside the browser context. */
   targets(): Target[];
@@ -1603,6 +1774,8 @@ export interface BrowserContextEventObj {
   /** Emitted when a target is destroyed, for example when a page is closed. */
   targetdestroyed: Target;
 }
+
+export type TargetType = "page" | "background_page" | "service_worker" | "browser" | "other";
 
 export interface Target {
   /** Get the browser the target belongs to. */
@@ -1621,20 +1794,32 @@ export interface Target {
   page(): Promise<Page>;
 
   /** Identifies what kind of target this is.  */
-  type(): "page" | "background_page" | "service_worker" | "browser" | "other";
+  type(): TargetType;
 
   /** Returns the target URL. */
   url(): string;
 }
 
 export interface LaunchOptions {
-  /** Whether to open chrome in appMode. Defaults to false. */
+  /**
+   * Whether to open chrome in appMode.
+   * @default false
+   */
   appMode?: boolean;
-  /** Whether to ignore HTTPS errors during navigation. Defaults to false. */
+  /**
+   * Whether to ignore HTTPS errors during navigation.
+   * @default false
+   */
   ignoreHTTPSErrors?: boolean;
-  /** Do not use `puppeteer.defaultArgs()` for launching Chromium. Defaults to false. */
-  ignoreDefaultArgs?: boolean;
-  /** Whether to run Chromium in headless mode. Defaults to true. */
+  /**
+   * Do not use `puppeteer.defaultArgs()` for launching Chromium.
+   * @default false
+   */
+  ignoreDefaultArgs?: boolean | string[];
+  /**
+   * Whether to run Chromium in headless mode.
+   * @default true
+   */
   headless?: boolean;
   /**
    * Path to a Chromium executable to run instead of bundled Chromium. If
@@ -1648,34 +1833,111 @@ export interface LaunchOptions {
    */
   slowMo?: number;
   /**
+   * Sets a consistent viewport for each page. Defaults to an 800x600 viewport. null disables the default viewport.
+   */
+  defaultViewport?: {
+    /**
+     * page width in pixels.
+     */
+    width?: number;
+    /**
+     * page height in pixels.
+     */
+    height?: number;
+    /**
+     * Specify device scale factor (can be thought of as dpr).
+     * @default 1
+     */
+    deviceScaleFactor?: number;
+    /**
+     * Whether the meta viewport tag is taken into account.
+     * @default false
+     */
+    isMobile?: boolean;
+    /**
+     *
+     * Specifies if viewport supports touch events.
+     * @default false
+     */
+    hasTouch?: boolean;
+    /**
+     * Specifies if viewport is in landscape mode.
+     * @default false
+     */
+    isLandscape?: boolean;
+  };
+  /**
    * Additional arguments to pass to the Chromium instance. List of Chromium
    * flags can be found here.
    */
   args?: string[];
-  /** Close chrome process on Ctrl-C. Defaults to true. */
+  /**
+   * Close chrome process on Ctrl-C.
+   * @default true
+   */
   handleSIGINT?: boolean;
-  /** Close chrome process on SIGTERM. Defaults to true. */
+  /**
+   * Close chrome process on SIGTERM.
+   * @default true
+   */
   handleSIGTERM?: boolean;
-  /** Close chrome process on SIGHUP. Defaults to true. */
+  /**
+   * Close chrome process on SIGHUP.
+   * @default true
+   */
   handleSIGHUP?: boolean;
   /**
    * Maximum time in milliseconds to wait for the Chrome instance to start.
-   * Defaults to 30000 (30 seconds). Pass 0 to disable timeout.
+   * Pass 0 to disable timeout.
+   * @default 30000 (30 seconds).
    */
   timeout?: number;
   /**
    * Whether to pipe browser process stdout and stderr into process.stdout and
-   * process.stderr. Defaults to false.
+   * process.stderr.
+   * @default false
    */
   dumpio?: boolean;
   /** Path to a User Data Directory. */
   userDataDir?: string;
-  /** Specify environment variables that will be visible to Chromium. Defaults to process.env. */
-  env?: any;
-  /** Whether to auto-open DevTools panel for each tab. If this option is true, the headless option will be set false. */
+  /**
+   * Specify environment variables that will be visible to Chromium.
+   * @default `process.env`.
+   */
+  env?: {
+    [key: string]: string | boolean | number;
+  };
+  /**
+   * Whether to auto-open DevTools panel for each tab. If this option is true, the headless option will be set false.
+   */
   devtools?: boolean;
-  /** Connects to the browser over a pipe instead of a WebSocket. Defaults to false. */
+  /**
+   * Connects to the browser over a pipe instead of a WebSocket.
+   * @default false
+   */
   pipe?: boolean;
+}
+
+export interface DefaultArgsOptions {
+    /**
+     * Whether to run browser in headless mode.
+     * @default true unless the devtools option is true.
+     */
+    headless?: boolean;
+    /**
+     * Additional arguments to pass to the browser instance.
+     * The list of Chromium flags can be found here.
+     */
+    args?: string[];
+    /**
+     * Path to a User Data Directory.
+     */
+    userDataDir?: string;
+    /**
+     * Whether to auto-open a DevTools panel for each tab.
+     * If this option is true, the headless option will be set false.
+     */
+    devtools?: boolean;
 }
 
 export interface ConnectOptions {
@@ -1698,7 +1960,7 @@ export interface CDPSession extends EventEmitter {
   /**
    * @param method Protocol method name
    */
-  send(method: string, params?: object): Promise<any>;
+  send(method: string, params?: object): Promise<object>;
 }
 
 export interface Coverage {
@@ -1709,9 +1971,15 @@ export interface Coverage {
 }
 
 export interface StartCoverageOptions {
-  /** Whether to reset coverage on every navigation. Defaults to `true`. */
+  /**
+   * Whether to reset coverage on every navigation.
+   * @default true
+   */
   resetOnNavigation?: boolean;
-  /** Whether anonymous scripts generated by the page should be reported. Defaults to `false`. */
+  /**
+   * Whether anonymous scripts generated by the page should be reported.
+   * @default false
+   */
   reportAnonymousScripts?: boolean;
 }
 
@@ -1724,7 +1992,7 @@ export interface CoverageEntry {
 /** Attaches Puppeteer to an existing Chromium instance */
 export function connect(options?: ConnectOptions): Promise<Browser>;
 /** The default flags that Chromium will be launched with */
-export function defaultArgs(): string[];
+export function defaultArgs(options?: DefaultArgsOptions): string[];
 /** Path where Puppeteer expects to find bundled Chromium */
 export function executablePath(): string;
 /** The method launches a browser instance with given arguments. The browser will be closed when the parent node.js process is closed. */

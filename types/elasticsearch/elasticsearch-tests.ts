@@ -37,6 +37,21 @@ client.search({
 }, (error) => {
 });
 
+client.search({
+  body: {
+    query: {
+      match_all: {
+        _name: 'test'
+      }
+    }
+  }
+}
+).then((body) => {
+  const hit = body.hits.hits[0];
+  const names = hit && hit.matched_queries;
+}, (error) => {
+});
+
 client.indices.delete({
   index: 'test_index',
   ignore: [404]
@@ -321,6 +336,21 @@ client.indices.updateAliases({
   // ...
 }, (error) => {
   // ...
+});
+
+client.reindex({
+    body: {
+        source: {
+          index: "twitter"
+        },
+        dest: {
+          index: "new_twitter"
+        }
+      }
+})
+.then(response => {
+    const { took, timed_out } = response;
+    // ...
 });
 
 // Errors

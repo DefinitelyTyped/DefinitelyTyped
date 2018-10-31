@@ -1,4 +1,4 @@
-// Type definitions for qrcode 1.2
+// Type definitions for qrcode 1.3
 // Project: https://github.com/soldair/node-qrcode
 // Definitions by: York Yao <https://github.com/plantain-00>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -79,6 +79,12 @@ export interface QRCodeRenderersOptions extends QRCodeOptions {
      * Default: 4
      */
     scale?: number;
+    /**
+     * Forces a specific width for the output image.
+     * If width is too small to contain the qr symbol, this option will be ignored.
+     * Takes precedence over scale.
+     */
+    width?: number;
     color?: {
         /**
          * Color of dark module. Value must be in hex format (RGBA).

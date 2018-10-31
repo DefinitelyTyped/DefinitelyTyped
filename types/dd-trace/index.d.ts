@@ -1,11 +1,15 @@
-// Type definitions for dd-trace-js 0.2
+// Type definitions for dd-trace-js 0.6
 // Project: https://github.com/DataDog/dd-trace-js
 // Definitions by: Colin Bradley <https://github.com/ColinBradley>
+//                 Eloy Durán <https://github.com/alloy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
-import Tracer = require('./src/opentracing/tracer');
-import Span = require('./src/opentracing/span');
-import SpanContext = require('./src/opentracing/span_context');
+// Prettified with:
+// $ prettier --parser typescript --tab-width 4 --semi --trailing-comma es5 --write --print-width 120 types/dd-trace/{,*}/*.ts*
+
+import { Tracer, Span, SpanContext } from "opentracing";
+import DatadogSpanContext = require("./src/opentracing/span_context");
 
 declare var trace: TraceProxy;
 export = trace;
@@ -21,7 +25,7 @@ declare class TraceProxy extends Tracer {
      * @param plugin The name of a built-in plugin.
      * @param config Configuration options.
      */
-    use(plugin: string, config: PluginOptions): this;
+    use<P extends Plugin>(plugin: P, config: PluginConfiguration[P]): this;
 
     /**
      * Initiate a trace and creates a new span.
@@ -42,6 +46,11 @@ declare class TraceProxy extends Tracer {
      * @returns The current span or null if outside a trace context.
      */
     currentSpan(): Span | null;
+
+    /**
+     * Get the scope manager to manager context propagation for the tracer.
+     */
+    scopeManager(): ScopeManager;
 }
 
 interface TracerOptions {
@@ -98,25 +107,12 @@ interface TracerOptions {
      * see https://datadog.github.io/dd-trace-js/#custom-logging__anchor
      */
     logger?: {
-        debug: (message: string) => void
-        error: (err: Error) => void
+        debug: (message: string) => void;
+        error: (err: Error) => void;
     };
 }
 
-interface ExperimentalOptions {
-    /**
-     * Whether to use Node's experimental async hooks.
-     * @default false
-     */
-    asyncHooks?: boolean;
-}
-
-interface PluginOptions {
-    /**
-     * The service name to be used for this plugin.
-     */
-    service: string;
-}
+interface ExperimentalOptions {}
 
 interface TraceOptions {
     /**
@@ -139,11 +135,122 @@ interface TraceOptions {
     /**
      * The parent span or span context for the new span. Generally this is not needed as it will be
      * fetched from the current context.
+     * If creating your own, this must be an instance of DatadogSpanContext from ./src/opentracing/span_context
+     * See: https://github.com/DataDog/dd-trace-js/blob/master/src/opentracing/tracer.js#L99
      */
-    childOf?: Span | SpanContext;
+    childOf?: Span | SpanContext | DatadogSpanContext;
 
     /**
      * Global tags that should be assigned to every span.
      */
     tags?: { [key: string]: any } | string;
 }
+
+declare class ScopeManager {
+    /**
+     * Get the current active scope or null if there is none.
+     *
+     * @todo The dd-trace source returns null, but opentracing's childOf span
+     *       option is typed as taking undefined or a scope, so using undefined
+     *       here instead.
+     */
+    active(): Scope | undefined;
+
+    /**
+     * Activate a new scope wrapping the provided span.
+     *
+     * @param span The span for which to activate the new scope.
+     * @param finishSpanOnClose Whether to automatically finish the span when the scope is closed.
+     */
+    activate(span: Span, finishSpanOnClose?: boolean): Scope;
+}
+
+declare class Scope {
+    /**
+     * Get the span wrapped by this scope.
+     */
+    span(): Span;
+
+    /**
+     * Close the scope, and finish the span if the scope was created with `finishSpanOnClose` set to true.
+     */
+    close(): void;
+}
+
+type Plugin =
+    | "amqp10"
+    | "amqplib"
+    | "elasticsearch"
+    | "express"
+    | "graphql"
+    | "hapi"
+    | "http"
+    | "ioredis"
+    | "koa"
+    | "memcached"
+    | "mongodb-core"
+    | "mysql"
+    | "mysql2"
+    | "pg"
+    | "redis"
+    | "restify";
+
+interface BasePluginOptions {
+    /**
+     * The service name to be used for this plugin.
+     */
+    service?: string;
+}
+
+interface BaseWebFrameworkPluginOptions extends BasePluginOptions {
+    /**
+     * An array of headers to include in the span metadata.
+     */
+    headers?: string[];
+
+    /**
+     * Callback function to determine if there was an error. It should take a
+     * status code as its only parameter and return `true` for success or `false`
+     * for errors.
+     */
+    validateStatus?: (code: number) => boolean;
+}
+
+interface ExpressPluginOptions extends BaseWebFrameworkPluginOptions {}
+
+interface HapiPluginOptions extends BaseWebFrameworkPluginOptions {}
+
+interface KoaPluginOptions extends BaseWebFrameworkPluginOptions {}
+
+interface RestifyPluginOptions extends BaseWebFrameworkPluginOptions {}
+
+interface GraphQLPluginOptions extends BasePluginOptions {
+    /**
+     * The maximum depth of fields/resolvers to instrument. Set to `0` to only
+     * instrument the operation or to -1 to instrument all fields/resolvers.
+     */
+    depth?: number;
+
+    /**
+     * A callback to enable recording of variables. By default, no variables are
+     * recorded. For example, using `variables => variables` would record all
+     * variables.
+     */
+    variables?: <T extends { [key: string]: any }>(variables: T) => Partial<T>;
+}
+
+interface HTTPPluginOptions extends BasePluginOptions {
+    /**
+     * Use the remote endpoint host as the service name instead of the default.
+     */
+    splitByDomain?: boolean;
+}
+
+type PluginConfiguration = { [K in Plugin]: BasePluginOptions } & {
+    express: ExpressPluginOptions;
+    graphql: GraphQLPluginOptions;
+    hapi: HapiPluginOptions;
+    http: HTTPPluginOptions;
+    koa: KoaPluginOptions;
+    restify: RestifyPluginOptions;
+};
