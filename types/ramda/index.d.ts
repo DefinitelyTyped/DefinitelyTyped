@@ -1376,6 +1376,7 @@ declare namespace R {
          * mathMod(-17, 5) is 3. mathMod requires Integer arguments, and returns NaN
          * when the modulus is zero or negative.
          */
+        mathMod(__: Placeholder, b: number): (a: number) => number;
         mathMod(a: number, b: number): number;
         mathMod(a: number): (b: number) => number;
 

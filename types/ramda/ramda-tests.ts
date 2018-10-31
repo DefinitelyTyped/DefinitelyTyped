@@ -132,6 +132,7 @@ class F2 {
   R.divide(R.__, 2)(42); // 21
   R.gt(R.__, 2)(10); // true
   R.has(R.__, {x: 0, y: 0})('x'); // true;
+  R.mathMod(R.__, 12)(15); // 3
 };
 
 () => {
