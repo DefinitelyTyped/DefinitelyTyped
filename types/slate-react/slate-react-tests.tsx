@@ -3,7 +3,7 @@ import { Value } from "slate";
 import * as React from "react";
 
 class MyPlugin implements Plugin {
-    renderNode(props: RenderNodeProps) {
+    renderNode(props: RenderNodeProps, next: () => void) {
         const { node } = props;
         if (node) {
             switch (node.object) {

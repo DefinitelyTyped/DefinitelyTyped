@@ -1,9 +1,10 @@
-// Type definitions for pino 5.6
+// Type definitions for pino 5.8
 // Project: https://github.com/pinojs/pino.git
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 BendingBender <https://github.com/BendingBender>
 //                 Christian Rackerseder <https://github.com/screendriver>
 //                 GP <https://github.com/paambaati>
+//                 Alex Ferrando <https://github.com/alferpal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,6 +13,7 @@
 import * as stream from 'stream';
 import * as http from 'http';
 import { EventEmitter } from 'events';
+import SonicBoom = require('sonic-boom');
 
 export = P;
 
@@ -20,7 +22,7 @@ export = P;
  * relative protocol is enabled. Default: process.stdout
  * @returns a new logger instance.
  */
-declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream): P.Logger;
+declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream | SonicBoom): P.Logger;
 
 /**
  * @param [options]: an options object
@@ -28,7 +30,7 @@ declare function P(optionsOrStream?: P.LoggerOptions | stream.Writable | stream.
  * relative protocol is enabled. Default: process.stdout
  * @returns a new logger instance.
  */
-declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream): P.Logger;
+declare function P(options: P.LoggerOptions, stream: stream.Writable | stream.Duplex | stream.Transform | NodeJS.WritableStream | SonicBoom): P.Logger;
 
 declare namespace P {
     /**
@@ -76,23 +78,25 @@ declare namespace P {
          */
         epochTime: TimeFn;
         /**
-         * Returns an ISO formatted string like `,"time":"2017-04-29T004749.354Z"`. It is highly recommended that you avoid this function.
-         * It incurs a significant performance penalty.
-         */
-        slowTime: TimeFn;
-        /**
          * Returns an empty string. This function is used when the `timestamp` option is set to `false`.
          */
         nullTime: TimeFn;
     };
 
     /**
-     * Provides access to the CLI log prettifier as an API.
-     * This can also be enabled via the constructor by setting the `prettyPrint` option to either `true` or a configuration object described in this section.
-     * @param [options]: an options object
-     * @returns A transform stream to be used as input for the constructor.
+     * Create a Pino Destination instance: a stream-like object with significantly more throughput (over 30%) than a standard Node.js stream.
+     * @param [fileDescriptor]: File path or numerical file descriptor, by default 1
+     * @returns A Sonic-Boom  stream to be used as destination for the pino function
      */
-    function pretty(options?: PrettyOptions): stream.Transform;
+    function destination(fileDescriptor?: string | number): SonicBoom;
+
+    /**
+     * Create an extreme mode destination. This yields an additional 60% performance boost.
+     * There are trade-offs that should be understood before usage.
+     * @param [fileDescriptor]: File path or numerical file descriptor, by default 1
+     * @returns A Sonic-Boom  stream to be used as destination for the pino function
+     */
+    function extreme(fileDescriptor?: string | number): SonicBoom;
 
     interface LevelMapping {
         /**
@@ -128,19 +132,6 @@ declare namespace P {
          * Caution: any sort of formatted time will significantly slow down Pino's performance.
          */
         timestamp?: TimeFn | false;
-        /**
-         * @deprecated
-         * This option is scheduled to be removed in Pino 5.0.0. Use `timestamp: pino.stdTimeFunctions.slowTime` instead.
-         * Outputs ISO time stamps ('2016-03-09T15:18:53.889Z') instead of Epoch time stamps (1457536759176).
-         * WARNING: This option carries a 25% performance drop, we recommend using default Epoch timestamps and transforming logs after if required.
-         * The pino -t command will do this for you (see CLI). Default: `false`.
-         */
-        slowtime?: boolean;
-        /**
-         * Enables extreme mode, yields an additional 60% performance (from 250ms down to 100ms per 10000 ops).
-         * There are trade-off's should be understood before usage. See Extreme mode explained. Default: `false`.
-         */
-        extreme?: boolean;
         /**
          * One of the supported levels or `silent` to disable logging. Any other value defines a custom level and
          * requires supplying a level value via `levelVal`. Default: 'info'.
