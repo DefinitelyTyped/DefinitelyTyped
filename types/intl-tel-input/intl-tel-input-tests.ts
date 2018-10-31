@@ -1,70 +1,69 @@
-$('#phone').intlTelInput();
+import IntlTelInput = require("intl-tel-input");
 
-$('#phone').intlTelInput({
-  customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+const input = document.querySelector("#phone");
+window.intlTelInput(input);
+
+window.intlTelInput(input, {
+  customPlaceholder(selectedCountryPlaceholder, selectedCountryData) {
     return 'e.g. ' + selectedCountryPlaceholder;
   }
 });
 
-$('#phone').intlTelInput({
-  placeholderNumberType: "MOBILE",
+window.intlTelInput(input, {
+  placeholderNumberType: IntlTelInput.NumberType.MOBILE,
 });
 
-$('#phone').intlTelInput({
-  geoIpLookup: function(callback) {
-    $.get('http://ipinfo.io', function() {}, 'jsonp').always(function(resp) {
-      let countryCode = (resp && resp.country) ? <string> resp.country : '';
+window.intlTelInput(input, {
+  geoIpLookup(callback) {
+      const countryCode = 'XY';
       callback(countryCode);
-    });
   }
 });
 
-$('#phone').intlTelInput('destroy');
+window.intlTelInput(input).destroy();
 
-let extension = $('#phone').intlTelInput('getExtension');
+const extension = window.intlTelInput(input).getExtension();
 
-let intlNumber = $('#phone').intlTelInput('getNumber');
-let ntlNumber = $('#phone').intlTelInput('getNumber', intlTelInputUtils.numberFormat.NATIONAL);
+const intlNumber = window.intlTelInput(input).getNumber();
+const ntlNumber = window.intlTelInput(input).getNumber(IntlTelInput.NumberFormat.NATIONAL);
 
-let numberType = $('#phone').intlTelInput('getNumberType');
-if (numberType === intlTelInputUtils.numberType.MOBILE) {}
+const numberType = window.intlTelInput(input).getNumberType();
+if (numberType === IntlTelInput.NumberType.MOBILE) {}
 
-let selectedCountryData = $('#phone').intlTelInput('getSelectedCountryData');
+const selectedCountryData = window.intlTelInput(input).getSelectedCountryData();
 
-let error = $('#phone').intlTelInput('getValidationError');
-if (error === intlTelInputUtils.validationError.TOO_SHORT) {}
+const error = window.intlTelInput(input).getValidationError();
+if (error === IntlTelInput.ValidationError.TOO_SHORT) {}
 
-let isValid = $('#phone').intlTelInput('isValidNumber');
+const isValid = window.intlTelInput(input).isValidNumber();
 
-$('#phone').intlTelInput('setCountry', 'gb');
+window.intlTelInput(input).setCountry('gb');
 
-$('#phone').intlTelInput('setNumber', '+447733123456');
+window.intlTelInput(input).setNumber('+447733123456');
 
-let countryData = $.fn.intlTelInput.getCountryData();
+const countryData = window.intlTelInput.getCountryData();
 
-$.fn.intlTelInput.loadUtils('build/js/utils.js');
+window.intlTelInput.loadUtils('build/js/utils.js');
 
-$('#phone').intlTelInput({
+window.intlTelInput(input, {
   utilsScript: '../../build/js/utils.js'
 });
 
-$('#phone').intlTelInput({
+window.intlTelInput(input, {
   initialCountry: 'auto',
-  geoIpLookup: function(callback) {
-    $.get('http://ipinfo.io', function() {}, 'jsonp').always(function(resp) {
-      let countryCode = (resp && resp.country) ? resp.country : '';
+  geoIpLookup: (callback) => {
+      const countryCode = 'XY';
       callback(countryCode);
-    });
   },
   utilsScript: '../../build/js/utils.js'
 });
 
-$('#phone').intlTelInput({
+window.intlTelInput(input, {
   nationalMode: true,
   utilsScript: '../../build/js/utils.js'
 });
 
-$('#phone').intlTelInput({
+window.intlTelInput(input, {
   onlyCountries: ['al'],
   utilsScript: '../../build/js/utils.js'
 });
