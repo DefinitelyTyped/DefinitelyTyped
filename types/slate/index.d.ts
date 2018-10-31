@@ -1546,15 +1546,15 @@ export class Editor {
     /**
      * Move the start of the current selection backward n characters
      */
-    moveStartForward(point: Point, n?: number): Editor;
+    moveStartForward(n?: number): Editor;
     /**
      * Move the start of the current selection forward n characters
      */
-    moveStartBackward(point: Point, n?: number): Editor;
+    moveStartBackward(n?: number): Editor;
     /**
      * Move the start of the current selection to a new path and offset
      */
-    moveStartTo(point: Point, n?: number): Editor;
+    moveStartTo(path: Path, n?: number): Editor;
     /**
      * Move the start of the current selection to the end of the closest block parent.
      */
@@ -1894,7 +1894,7 @@ export class Editor {
         key: string,
         offset: number,
         length: number,
-        mark: Mark
+        mark: MarkProperties | Mark | string
     ): Editor;
     /**
      * Add a mark to length characters starting at an offset in a node by path
@@ -1962,7 +1962,7 @@ export class Editor {
         key: string,
         offset: number,
         length: number,
-        mark: Mark
+        mark: Mark | Mark | string
     ): Editor;
     /**
      * Remove a mark from length characters starting at an offset in a node by path
@@ -2020,14 +2020,11 @@ export class Editor {
     /**
      * Set a dictionary of properties on a node by its key.
      */
-    setNodeByKey(
-        key: string,
-        properties: BlockProperties | InlineProperties | string
-    ): Editor;
+    setNodeByKey(key: string, properties: BlockProperties | InlineProperties | string): Editor;
     /**
      * Set a dictionary of properties on a node by its key.
      */
-    setNodeByPath(path: Path, properties: NodeProperties): Editor;
+    setNodeByPath(path: Path, properties: NodeProperties | InlineProperties | string): Editor;
     /**
      * Split a node by its key at an offset
      */
@@ -2051,7 +2048,7 @@ export class Editor {
     /**
      * Unwrap all inner content of a block node by its path that match properties
      */
-    unwrapBlockByPath(path: Path, properties: BlockProperties): Editor;
+    unwrapBlockByPath(path: Path, properties: BlockProperties | string): Editor;
     /**
      * Unwrap a single node from its parent. if the node is surrounded with siblings the parent will be split.
      * If the node is an only child, it will replace the parent
