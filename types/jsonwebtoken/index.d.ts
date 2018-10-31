@@ -88,8 +88,8 @@ export interface JsonWebTokenHeader {
   x5t?: string;
 }
 
-export type SecretOrPublicKeyCallback = (err: VerifyErrors, secretOrPublicKey: string | Buffer) => void
-export type GetSecretOrPublicKeyCallback = (header: JsonWebTokenHeader, callback: SecretOrPublicKeyCallback) => void
+export type SecretOrPublicKeyCallback = (err: VerifyErrors, secretOrPublicKey: string | Buffer) => void;
+export type GetSecretOrPublicKeyCallback = (header: JsonWebTokenHeader, callback: SecretOrPublicKeyCallback) => void;
 
 export type VerifyErrors=JsonWebTokenError | NotBeforeError | TokenExpiredError;
 export interface VerifyCallback {
