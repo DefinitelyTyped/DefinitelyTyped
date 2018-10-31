@@ -762,7 +762,8 @@ declare namespace R {
          * Returns a new list consisting of the elements of the first list followed by the elements
          * of the second.
          */
-        concat<T>(placeholder: Placeholder): (list1: ReadonlyArray<T>, list2: ReadonlyArray<T>) => T[];
+        concat<T>(placeholder: Placeholder): (list2: ReadonlyArray<T>, list1: ReadonlyArray<T>) => T[];
+        concat<T>(placeholder: Placeholder, list2: ReadonlyArray<T>): (list1: ReadonlyArray<T>) => T[];
         concat<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
         concat<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
         concat(list1: string, list2: string): string;
@@ -791,7 +792,8 @@ declare namespace R {
          * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
          * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
          */
-        contains(__: Placeholder): <T>(list: ReadonlyArray<T>, a: T) => boolean;
+        contains(__: Placeholder, list: string): (a: string) => boolean;
+        contains<T>(__: Placeholder, list: T[]): (a: T) => boolean;
         contains(a: string, list: string): boolean;
         contains<T>(a: T, list: ReadonlyArray<T>): boolean;
         contains(a: string): (list: string) => boolean;
@@ -1064,6 +1066,7 @@ declare namespace R {
         /**
          * Returns true if the first parameter is greater than the second.
          */
+        gt(__: Placeholder, b: number): (a: number) => boolean;
         gt(a: number, b: number): boolean;
         gt(a: number): (b: number) => boolean;
 
