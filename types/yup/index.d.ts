@@ -1,4 +1,4 @@
-// Type definitions for yup 0.27
+// Type definitions for yup 0.26
 // Project: https://github.com/jquense/yup
 // Definitions by: Dominik Hardtke <https://github.com/dhardtke>,
 //                 Vladyslav Tserman <https://github.com/vtserman>,
