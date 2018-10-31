@@ -77,7 +77,7 @@ function test_datafactory() {
       object: Term;
       graph: Term;
     }
-    const quad = dataFactory.quad<QuadBnode, QuadBnode>(literal1, blankNode1, term, term);
+    const quad = dataFactory.quad<QuadBnode>(literal1, blankNode1, term, term);
     const hasBnode = quad.predicate.termType === "BlankNode";
 }
 
