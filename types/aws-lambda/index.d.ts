@@ -60,7 +60,7 @@ export interface APIGatewayEventRequestContext {
 export interface APIGatewayProxyEvent {
     body: string | null;
     headers: { [name: string]: string };
-    multiValueHeaders: { [name: string]: string };
+    multiValueHeaders: { [name: string]: string[] };
     httpMethod: string;
     isBase64Encoded: boolean;
     path: string;
@@ -446,6 +446,9 @@ export interface APIGatewayProxyResult {
     statusCode: number;
     headers?: {
         [header: string]: boolean | number | string;
+    };
+    multiValueHeaders?: {
+        [header: string]: Array<boolean | number | string>;
     };
     body: string;
     isBase64Encoded?: boolean;

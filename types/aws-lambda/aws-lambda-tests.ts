@@ -250,6 +250,9 @@ num = proxyResult.statusCode;
 proxyResult.headers!["example"] = str;
 proxyResult.headers!["example"] = bool;
 proxyResult.headers!["example"] = num;
+proxyResult.multiValueHeaders!["example"][0] = str;
+proxyResult.multiValueHeaders!["example"][0] = bool;
+proxyResult.multiValueHeaders!["example"][0] = num;
 boolOrUndefined = proxyResult.isBase64Encoded;
 str = proxyResult.body;
 
