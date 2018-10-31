@@ -124,6 +124,12 @@ class F2 {
     }
 };
 
+/** R.__ */
+() => {
+  R.concat(R.__)([4, 5, 6], [1, 2, 3]); //=> [1, 2, 3, 4, 5, 6]
+  R.contains(R.__)([1, 2, 3], 3) //=> true
+};
+
 () => {
     const addFour          = (a: number) => (b: number) => (c: number) => (d: number) => a + b + c + d;
     const uncurriedAddFour = R.uncurryN<number>(4, addFour);
