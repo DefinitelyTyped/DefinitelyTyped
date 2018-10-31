@@ -2,7 +2,7 @@
 // Project: https://github.com/MindscapeHQ/raygun4node
 // Definitions by: Taylor Lodge <https://github.com/UberMouse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 declare namespace raygun {
     interface KeyValueObject  {
@@ -108,7 +108,7 @@ declare namespace raygun {
         groupingKey(groupingKey: string): Client;
         offline(): Client;
         online(): Client;
-        send(exception: Error | string, customData?: KeyValueObject, offlineStorageCallback?: (error?: Error) => void, request?: RaygunRequest, tags?: ReadonlyArray<string>): RaygunPayload;
+        send(exception: Error | string | object, customData?: KeyValueObject, offlineStorageCallback?: (error?: Error) => void, request?: RaygunRequest, tags?: ReadonlyArray<string>): RaygunPayload;
         expressHandler(error: Error, request: RaygunRequest, res: any, next: any): void;
     }
 }
