@@ -161,7 +161,7 @@ declare namespace ansi {
     }
 
     interface Cursor {
-        [key: string]: (...anything: any) => Cursor;
+        [key: string]: (...anything: any[]) => Cursor;
     }
 }
 
