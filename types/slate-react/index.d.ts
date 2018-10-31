@@ -95,7 +95,7 @@ export interface BasicEditorProps {
     autoCorrect?: boolean;
     autoFocus?: boolean;
     className?: string;
-    onChange?: (operations: Immutable.List<Operation>, value: Value) => any;
+    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => any;
     placeholder?: any;
     plugins?: Plugin[];
     readOnly?: boolean;

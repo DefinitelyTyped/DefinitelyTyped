@@ -1048,7 +1048,7 @@ export interface PathUtils {
 }
 
 export interface EditorProperties {
-    onChange?: (value: Value) => void;
+    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
     plugins?: any[];
     readOnly?: boolean;
     value?: Value;
@@ -1056,7 +1056,7 @@ export interface EditorProperties {
 
 export class Editor {
     object: "editor";
-    onChange: (value: Value) => void;
+    onChange: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
     plugins: any[];
     readOnly: boolean;
     value: Value;
@@ -1099,7 +1099,7 @@ export class Editor {
      * You can optionally provide a normalize option to either for the editor to completely re-normalize the new value based on its schema or not.
      * By default, the editor will re-normalize only if the value is not equal to its previously seen value (which it knows was normalized).
      */
-    setValue(value: Value, options?: { normalize: () => void }): Editor;
+    setValue(value: Value, options?: { normalize: boolean }): Editor;
 
     // Built in Command Operations //
     // Current Selection Commands //
@@ -1250,7 +1250,7 @@ export class Editor {
     /**
      * Move the anchor of the current selection to a new path and offset
      */
-    moveAnchorTo(path: Path, offset: number): Editor;
+    moveAnchorTo(path: Path, offset?: number): Editor;
     /**
      * Move the anchor of the current selection to the end of the closest block parent.
      */
@@ -1352,7 +1352,7 @@ export class Editor {
     /**
      * Move the end of the selection to a new path and offset
      */
-    moveEndTo(path: Path, offset: number): Editor;
+    moveEndTo(path: Path, offset?: number): Editor;
     /**
      * Move the end of the current selection to the end of the closest block parent.
      */
@@ -1453,7 +1453,7 @@ export class Editor {
     /**
      * Move the focus of the current selection to a new path and offset
      */
-    moveFocusTo(path: Path, offset: number): Editor;
+    moveFocusTo(path: Path, offset?: number): Editor;
     /**
      * Move the focus of the current selection to the end of the closest block parent.
      */
@@ -1655,7 +1655,7 @@ export class Editor {
     /**
      * Collapse the current selection at the provided new path and offset.
      */
-    moveTo(path: Path, offset: number): Editor;
+    moveTo(path: Path, offset?: number): Editor;
     /**
      * Collapse the current selection at the anchor.
      */
@@ -2096,7 +2096,7 @@ export class Editor {
      *
      * This allows for sequence change operations to not be interrupted by normalization
      */
-    withoutNormalization(fn: () => void): Editor;
+    withoutNormalizing(fn: () => void): Editor;
     /**
      * By default all operations are saved to the editor's history. If you have
      * changes that you don't want to show up in history, use this function.
