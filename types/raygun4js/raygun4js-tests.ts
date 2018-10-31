@@ -1,8 +1,7 @@
 // V2 Api
+// Used in CommonJS-like environments
 
-// To use the V2 api you will need to declare a `rg4js` variable
-// This is because `rg4js` name is configurable by users
-declare var rg4js: RaygunV2;
+import rg4js, { RaygunStatic } from 'raygun4js';
 
 rg4js("apiKey", "api-key");
 rg4js("enableCrashReporting", true);
@@ -13,7 +12,17 @@ rg4js('setUser', {
     fullName: "Robert Raygun"
 });
 
+try {
+    throw new Error('oops');
+}
+catch (e) {
+    rg4js('send', e);
+}
+
 // V1 Api
+// Used in non CommonJS enviroments
+declare const Raygun: RaygunStatic;
+
 var client: RaygunStatic = Raygun.noConflict();
 var newClient: RaygunStatic = client.constructNewRaygun();
 
