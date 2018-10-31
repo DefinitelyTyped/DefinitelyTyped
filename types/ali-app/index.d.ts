@@ -152,9 +152,9 @@ declare namespace my {
 		/** prompt框标题 */
 		title?: string;
 		/** prompt框文本，默认‘请输入内容’ */
-		message: string;
+		message?: string;
 		/** 输入框内的提示文案 */
-		placeholder: string;
+		placeholder?: string;
 		/** message对齐方式，可用枚举left/center/right，iOS ‘center’, android ‘left’ */
 		align?: 'left' | 'center' | 'right' | string;
 		/** 确认按钮文字，默认‘确定’ */
