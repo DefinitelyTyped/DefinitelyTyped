@@ -312,6 +312,12 @@ const AttrsInput = styled.input.attrs({
     padding: ${props => props.padding};
 `;
 
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/30042
+const AttrsWithOnlyNewProps = styled.h2.attrs({ as: 'h1' })`
+    color: ${props => props.as === 'h1' ? 'red' : 'blue'};
+    font-size: ${props => props.as === 'h1' ? 2 : 1};
+`;
+
 /**
  * component type
  */
