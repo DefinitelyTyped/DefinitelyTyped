@@ -1079,6 +1079,7 @@ declare namespace R {
         /**
          * Returns whether or not an object has an own property with the specified name.
          */
+        has<T>(__: Placeholder, obj: T): (s: string) => boolean;
         has<T>(s: string, obj: T): boolean;
         has(s: string): <T>(obj: T) => boolean;
 

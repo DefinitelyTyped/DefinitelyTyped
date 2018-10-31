@@ -131,6 +131,7 @@ class F2 {
   R.contains(R.__, [1, 2, 3])(3); // true
   R.divide(R.__, 2)(42); // 21
   R.gt(R.__, 2)(10); // true
+  R.has(R.__, {x: 0, y: 0})('x'); // true;
 };
 
 () => {
