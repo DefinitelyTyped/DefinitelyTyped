@@ -1,5 +1,3 @@
-import { Stream } from "stream";
-
 // Type definitions for ansi 0.3
 // Project: https://www.npmjs.com/package/ansi
 // Definitions by: Gustavo6046 <https://github.com/Gustavo6046>
@@ -14,6 +12,8 @@ import { Stream } from "stream";
  */
 
 /// <reference types="node" />
+import { Stream } from "stream";
+
 declare function ansi(stream: Stream, options?: any): ansi.Cursor;
 
 declare namespace ansi {
