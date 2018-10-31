@@ -40,7 +40,7 @@ export interface RenderMarkProps {
 }
 
 export interface RenderNodeProps {
-    attributes: object;
+    attributes: RenderAttributes;
     children: React.ReactNode;
     editor: Controller;
     isFocused: boolean;
