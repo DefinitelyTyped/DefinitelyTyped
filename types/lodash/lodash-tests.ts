@@ -3484,6 +3484,11 @@ fp.now(); // $ExpectType number
 
     // $ExpectType MapCache
     new _.memoize.Cache();
+    _.memoize.Cache = WeakMap;
+    _.memoize.Cache = Map;
+    const memoizedFn = _.memoize(memoizeFn);
+    memoizedFn.cache = new WeakMap();
+    memoizedFn.cache = new Map();
 }
 
 // _.overArgs
