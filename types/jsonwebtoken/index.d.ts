@@ -87,7 +87,7 @@ export interface SecretOrPublicKeyCallback {
 }
 export interface GetSecretOrPublicKeyCallback {
     (
-        header: object,
+        header: any,
         callback: SecretOrPublicKeyCallback
     ): void;
 }
