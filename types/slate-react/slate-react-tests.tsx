@@ -1,9 +1,10 @@
 import { Editor, Plugin, EditorProps, RenderNodeProps } from "slate-react";
-import { Value } from "slate";
+import { Value, Editor as Controller, Operation } from "slate";
 import * as React from "react";
+import * as Immutable from "immutable";
 
 class MyPlugin implements Plugin {
-    renderNode(props: RenderNodeProps, next: () => void) {
+    renderNode(props: RenderNodeProps, editor: Controller, next: () => void) {
         const { node } = props;
         if (node) {
             switch (node.object) {
@@ -17,6 +18,9 @@ class MyPlugin implements Plugin {
                     return undefined;
             }
         }
+    }
+    onChange = (operations: Immutable.List<Operation>, value: Value) => {
+        console.log(value);
     }
 }
 
@@ -36,6 +40,7 @@ class MyEditor extends React.Component<EditorProps, MyEditorState> {
     render() {
         return <Editor
             value={this.state.value}
-            renderNode={myPlugin.renderNode} />;
+            renderNode={ myPlugin.renderNode }
+            onChange={ myPlugin.onChange }/>;
     }
 }
