@@ -82,8 +82,10 @@ export interface DecodeOptions {
 export interface JsonWebTokenHeader {
   alg: string;
   typ?: string;
+  jku?: string;
   kid?: string;
-  [key: string]: number | string | boolean | object;
+  x5u?: string;
+  x5t?: string;
 }
 
 export type SecretOrPublicKeyCallback = (err: VerifyErrors, secretOrPublicKey: string | Buffer) => void
