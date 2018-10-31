@@ -494,7 +494,11 @@ export interface TileLayerOptions extends GridLayerOptions {
     zoomReverse?: boolean;
     detectRetina?: boolean;
     crossOrigin?: boolean;
-    [name: string]: any;
+    // [name: string]: any;
+    // You are able add additional properties, but it makes this interface unchackable.
+    // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/15313
+    // Example:
+    // tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 }
 
 export class TileLayer extends GridLayer {
