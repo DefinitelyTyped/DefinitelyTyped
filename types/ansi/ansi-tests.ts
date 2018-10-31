@@ -1,4 +1,5 @@
-import ansi from 'ansi';
+/// <reference types="node" />
+import ansi = require('ansi');
 const cursor = ansi(process.stdout);
 
 Object.keys({
@@ -20,5 +21,5 @@ Object.keys({
   , brightCyan: 96
   , brightWhite: 97
 }).forEach((color) => {
-    cursor[color]().bold().write(`Hello, bold ${color.replace(/([a-z])([A-Z])/g, (_: string, l: string, u: string): string => `${u} ${l.toLowerCase()}`)} world!\n`).reset();
+    cursor[color]().bold().write(`Hello, bold ${color.replace(/([a-z])([A-Z])/g, (_: string, l: string, u: string): string => `${l} ${u.toLowerCase()}`)} world!\n`).reset();
 });

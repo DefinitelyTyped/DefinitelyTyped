@@ -1,3 +1,5 @@
+import { Stream } from "stream";
+
 // Type definitions for ansi 0.3
 // Project: https://www.npmjs.com/package/ansi
 // Definitions by: Gustavo6046 <https://github.com/Gustavo6046>
@@ -11,11 +13,12 @@
  *
  */
 
-declare function ansi(stream: ansi.Cursor, options?: any): ansi.Cursor;
+/// <reference types="node" />
+declare function ansi(stream: Stream, options?: any): ansi.Cursor;
 
 declare namespace ansi {
     class Cursor {
-        constructor(stream: Cursor, options?: any);
+        constructor(stream: Stream, options?: any);
 
         /**
          * Helper function that calls `write()` on the underlying Stream.
@@ -156,4 +159,10 @@ declare namespace ansi {
         brightCyan(): Cursor;
         brightWhite(): Cursor;
     }
+
+    interface Cursor {
+        [key: string]: (...anything: any) => Cursor;
+    }
 }
+
+export = ansi;
