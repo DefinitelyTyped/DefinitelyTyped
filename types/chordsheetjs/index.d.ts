@@ -261,7 +261,7 @@ export class ChordProParser {
     addWarning(message: string): void;
 }
 
-interface ChordSheetParserProps {
+export interface ChordSheetParserProps {
     preserveWhitespace: boolean;
 }
 
@@ -298,7 +298,7 @@ export class ChordSheetParser {
     ensureChordLyricsPairInitialized(): void;
 }
 
-interface SongHeader {
+export interface SongHeader {
     title: string;
     subtitle: string;
 }
@@ -335,7 +335,7 @@ export class HtmlTableFormatter {
     constructor();
     /**
      * Formats a song into HTML.
-     * @param {Song} song The song to be formatted
+     * @param song The song to be formatted
      */
     format(song: Song): string;
 }
@@ -347,7 +347,7 @@ export class HtmlDivFormatter {
     constructor();
     /**
      * Formats a song into HTML.
-     * @param {Song} song The song to be formatted
+     * @param song The song to be formatted
      */
     format(song: Song): string;
 }
@@ -359,7 +359,7 @@ export class ChordProFormatter {
     constructor();
     /**
      * Formats a song into a ChordPro chord sheet.
-     * @param {Song} song The song to be formatted
+     * @param song The song to be formatted
      */
     format(song: Song): string;
 
