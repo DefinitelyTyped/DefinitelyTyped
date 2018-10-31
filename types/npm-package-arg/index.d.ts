@@ -1,6 +1,7 @@
-// Type definitions for npm-package-arg 5.1
+// Type definitions for npm-package-arg 6.1
 // Project: https://github.com/npm/npm-package-arg
 // Definitions by: Melvin Groenhoff <https://github.com/mgroenhoff>
+//                 Jason <https://github.com/OiYouYeahYou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
