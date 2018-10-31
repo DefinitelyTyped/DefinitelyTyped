@@ -1,5 +1,5 @@
-import * as ChordSheetJS from 'chordsheetjs';
+import { Song, HtmlTableFormatter } from 'chordsheetjs';
 
-const song = new ChordSheetJS.Song({ key: 'value' });
-const formatter = new ChordSheetJS.HtmlTableFormatter();
+const song = new Song({ key: 'value' });
+const formatter = new HtmlTableFormatter();
 formatter.format(song);
