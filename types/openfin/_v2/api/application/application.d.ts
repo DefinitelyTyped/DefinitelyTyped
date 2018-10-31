@@ -6,6 +6,7 @@ import { MonitorInfo } from '../system/monitor';
 import Transport from '../../transport/transport';
 import Bounds from '../window/bounds';
 import { ApplicationEvents } from '../events/application';
+import { ApplicationOption } from './applicationOption';
 export interface TrayIconClickReply extends Point, Reply<'application', 'tray-icon-clicked'> {
     button: number;
     monitorInfo: MonitorInfo;
@@ -55,12 +56,12 @@ export default class ApplicationModule extends Base {
     wrapSync(identity: Identity): Application;
     /**
      * Creates a new Application.
-     * @param {*} appOptions
+     * @param { ApplicationOption } appOptions
      * @return {Promise.<Application>}
      * @tutorial Application.create
      * @static
      */
-    create(appOptions: any): Promise<Application>;
+    create(appOptions: ApplicationOption): Promise<Application>;
     /**
      * Asynchronously returns an Application object that represents the current application
      * @return {Promise.<Application>}

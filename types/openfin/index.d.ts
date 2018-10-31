@@ -25,7 +25,8 @@
  * without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "documennt" objects.
  */
 import { Identity } from './_v2/identity';
-import { ShortCutConfig, TrayInfo } from './_v2/api/application/application';
+import { ApplicationInfo as LaunchInfo, ShortCutConfig, TrayInfo } from './_v2/api/application/application';
+import { ApplicationOption } from './_v2/api/application/applicationOption';
 import { ExternalApplicationInfo } from './_v2/api/external-application/external-application';
 import { ApplicationInfo } from './_v2/api/system/application';
 import { ClearCacheOption } from './_v2/api/system/clearCacheOption';
@@ -42,8 +43,10 @@ import { ProxyInfo } from './_v2/api/system/proxy';
 import { RegistryInfo } from './_v2/api/system/registry-info';
 import { RVMInfo} from './_v2/api/system/rvm';
 import { WindowDetail, WindowInfo } from './_v2/api/system/window';
+import { AnchorType } from './_v2/api/window/anchor-type';
 import Bounds from './_v2/api/window/bounds';
 import { Transition, TransitionOptions } from './_v2/api/window/transition';
+import { WindowOption } from './_v2/api/window/windowOption';
 
 // tslint:disable-next-line:export-just-namespace
 export = fin;
@@ -79,7 +82,7 @@ declare namespace fin {
          * An object representing an application. Allows the developer to create, execute, show/close an application as well as listen to application events.
          */
         new (
-            options: ApplicationOptions,
+            options: ApplicationOption,
             callback?: (successObj: { httpResponseCode: number }) => void,
             errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinApplication;
         /**
@@ -225,192 +228,6 @@ declare namespace fin {
     interface ErrorInfo {
         stack: string;
         message: string;
-    }
-
-    interface ApplicationOptions {
-        /**
-         * The name of the application.
-         */
-        name?: string;
-        /**
-         * The url to the application.
-         */
-        url?: string;
-        /**
-         * The UUID of the application, unique within the set of all other applications running in the OpenFin Runtime. name and uuid must match.
-         */
-        uuid?: string;
-        /**
-         * Enable Flash at the application level. Default: false.
-         */
-        plugins?: boolean;
-        /**
-         * The options of the main window of the application.
-         */
-        mainWindowOptions?: WindowOptions;
-    }
-
-    interface WindowOptions {
-        /**
-         * Enable keyboard shortcuts for devtools and zoom. Default: false for both.
-         */
-        accelerator?: {
-            devtools?: boolean,
-            zoom?: boolean,
-            reload?: boolean,
-            reloadIgnoreCache?: boolean,
-        };
-        /**
-         * A flag to always position the window at the top of the window stack. Default: false.
-         * Updatable
-         */
-        alwaysOnTop?: boolean;
-        /**
-         * A flag to automatically show the Window when it is created. Default: false.
-         */
-        autoShow?: boolean;
-        /**
-         * A flag to show the context menu when right-clicking on a window. Gives access to the Developer Console for the Window. Default: true
-         * Updatable
-         */
-        contextMenu?: boolean;
-        /**
-         * This defines and applies rounded corners for a frameless window. Default for both width and height: 0.
-         * Updatable
-         */
-        cornerRounding?: {
-            width?: number;
-            height?: number;
-        };
-        /**
-         * A field that the user can attach serializable data to to be ferried around with the window options. Default: ''.
-         */
-        customData?: any;
-        /**
-         * Specifies that the window will be positioned in the center of the primary monitor when loaded for the first time on a machine.
-         * When the window corresponding to that id is loaded again, the position from before the window was closed is used.
-         * This option overrides defaultLeft and defaultTop. Default: false.
-         */
-        defaultCentered?: boolean;
-        /**
-         * The default height of the window. Specifies the height of the window when loaded for the first time on a machine.
-         *  When the window corresponding to that id is loaded again, the height is taken to be the last height of the window before it was closed. Default: 500.
-         */
-        defaultHeight?: number;
-        /**
-         * The default left position of the window. Specifies the position of the left of the window when loaded for the first time on a machine.
-         *  When the window corresponding to that id is loaded again, the value of left is taken to be the last value before the window was closed. Default: 100.
-         */
-        defaultWidth?: number;
-        /**
-         * The default top position of the window. Specifies the position of the top of the window when loaded for the first time on a machine.
-         * When the window corresponding to that id is loaded again, the value of top is taken to be the last value before the window was closed. Default: 100.
-         */
-        defaultTop?: number;
-        /**
-         * The default width of the window. Specifies the width of the window when loaded for the first time on a machine.
-         * When the window corresponding to that id is loaded again, the width is taken to be the last width of the window before it was closed. Default: 800.
-         */
-        defaultLeft?: number;
-        /**
-         * A flag to show the frame. Default: true.
-         * Updatable
-         */
-        frame?: boolean;
-        /**
-         * A flag to allow a window to be hidden when the close button is clicked.Default: false.
-         * Updatable
-         */
-        hideOnClose?: boolean;
-        /**
-         * A URL for the icon to be shown in the window title bar and the taskbar.Default: The parent application's applicationIcon.
-         * Updatable
-         */
-        icon?: string;
-        /**
-         * The maximum height of a window.Will default to the OS defined value if set to - 1. Default: -1.
-         * Updatable
-         */
-        maxHeight?: number;
-        /**
-         * A flag that lets the window be maximized.Default: true.
-         * Updatable
-         */
-        maximizable?: boolean;
-        /**
-         * The maximum width of a window.Will default to the OS defined value if set to - 1. Default: -1.
-         * Updatable
-         */
-        maxWidth?: number;
-        /**
-         * The minimum height of a window.Default: 0.
-         * Updatable
-         */
-        minHeight?: number;
-        /**
-         * A flag that lets the window be minimized.Default: true.
-         */
-        minimizable?: boolean;
-        /**
-         * The minimum width of a window.Default: 0.
-         */
-        minWidth?: number;
-        /**
-         * The name for the window which must be unique within the context of the invoking Application.
-         */
-        name?: string;
-        /**
-         * A flag that specifies how transparent the window will be.This value is clamped between 0.0 and 1.0.Default: 1.0.
-         * Updatable
-         */
-        opacity?: number;
-        /**
-         * A flag to drop to allow the user to resize the window.Default: true.
-         * Updatable
-         */
-        resizable?: boolean;
-        /**
-         * Defines a region in pixels that will respond to user mouse interaction for resizing a frameless window.
-         * Updatable
-         */
-        resizeRegion?: {
-            /**
-             * The size in pixels (Default: 2),
-             */
-            size?: number;
-            /**
-             * The size in pixels of an additional
-             * square resizable region located at the
-             * bottom right corner of a
-             * frameless window. (Default: 4)
-             */
-            bottomRightCorner?: number;
-        };
-        /**
-         * A flag to show the Window's icon in the taskbar. Default: true.
-         */
-        showTaskbarIcon?: boolean;
-        /**
-         * A flag to cache the location of the window or not. Default: true.
-         */
-        saveWindowState?: boolean;
-        /**
-         * Specify a taskbar group for the window. Default: app's uuid.
-         */
-        taskbarIconGroup?: string;
-        /**
-         * A string that sets the window to be "minimized", "maximized", or "normal" on creation. Default: "normal".
-         */
-        state?: string;
-        /**
-         * The URL of the window. Default: "about:blank".
-         */
-        url?: string;
-        /**
-         * When set to false, the window will render before the "load" event is fired on the content's window.
-         * Caution, when false you will see an initial empty white window. Default: true.
-         */
-        waitForPageLoad?: boolean;
     }
 
     /**
@@ -930,7 +747,7 @@ declare namespace fin {
          * @param [callback.successObj] - httpResponseCode
          */
         new (
-            options: WindowOptions,
+            options: WindowOption,
             callback?: (successObj: { httpResponseCode: number }) => void,
             errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinWindow;
         /**
@@ -1047,7 +864,7 @@ declare namespace fin {
         /**
          * Gets the current settings of the window.
          */
-        getOptions(callback?: (options: WindowOptions) => void, errorCallback?: (reason: string) => void): void;
+        getOptions(callback?: (options: WindowOption) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Gets a base64 encoded PNG snapshot of the window.
          */
@@ -1114,11 +931,11 @@ declare namespace fin {
         /**
          * Resizes the window by a specified amount.
          */
-        resizeBy(deltaWidth: number, deltaHeight: number, anchor: OpenFinAnchor, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        resizeBy(deltaWidth: number, deltaHeight: number, anchor: AnchorType, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Resizes the window by a specified amount.
          */
-        resizeTo(width: number, height: number, anchor: OpenFinAnchor, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        resizeTo(width: number, height: number, anchor: AnchorType, callback?: () => void, errorCallback?: (reason: string) => void): void;
         /**
          * Restores the window to its normal state (i.e., unminimized, unmaximized).
          */
@@ -1151,7 +968,7 @@ declare namespace fin {
         /**
          * Updates the window using the passed options
          */
-        updateOptions(options: WindowOptions, callback?: () => void, errorCallback?: (reason: string) => void): void;
+        updateOptions(options: WindowOption, callback?: () => void, errorCallback?: (reason: string) => void): void;
     }
 
     interface OpenFinFrameStatic {
@@ -1432,34 +1249,6 @@ declare namespace fin {
         type: "session-changed";
     }
 
-    interface LaunchInfo {
-        launchMode: "fin-protocol"
-            | "fins-protocol"
-            | "shortcut"
-            | "command-line"
-            | "adapter"
-            | "other"
-            | string;
-    }
-
-    type OpenFinTweenType = "linear"
-        | "ease-in"
-        | "ease-out"
-        | "ease-in-out"
-        | "ease-in-quad"
-        | "ease-out-quad"
-        | "ease-in-out-quad"
-        | "ease-in-cubic"
-        | "ease-out-cubic"
-        | "ease-in-out-cubic"
-        | "ease-out-bounce"
-        | "ease-in-back"
-        | "ease-out-back"
-        | "ease-in-out-back"
-        | "ease-in-elastic"
-        | "ease-out-elastic"
-        | "ease-in-out-elastic";
-
     type OpenFinApplicationEventType = "closed"
         | "connected"
         | "crashed"
@@ -1515,9 +1304,4 @@ declare namespace fin {
         | "restored"
         | "show-requested"
         | "shown";
-
-    type OpenFinAnchor = "top-left"
-        | "top-right"
-        | "bottom-left"
-        | "bottom-right";
 }
