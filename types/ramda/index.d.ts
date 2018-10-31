@@ -430,6 +430,8 @@ declare namespace R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
     }
 
+    interface Placeholder { __isRamdaPlaceholder__: true }
+
     interface Reduced<T> {
         '@@transducer/value': T;
         '@@transducer/reduced': true;
@@ -440,7 +442,7 @@ declare namespace R {
          * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
          * position, and it returns a function waiting for its first argument.
          */
-        __: any; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
+        __: Placeholder; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
 
         /**
          * Adds two numbers (or strings). Equivalent to a + b but curried.
