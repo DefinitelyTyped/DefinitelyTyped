@@ -12,7 +12,7 @@ import { RVMInfo } from './rvm';
 import { RuntimeInfo } from './runtime-info';
 import { Entity, EntityInfo } from './entity';
 import { HostSpecs } from './host-specs';
-import { ExternalProcessRequestType, TerminateExternalRequestType, ExternalConnection } from './external-process';
+import { ExternalProcessRequestType, TerminateExternalRequestType, ExternalConnection, ExternalProcessInfo } from './external-process';
 import Transport from '../../transport/transport';
 import { CookieInfo, CookieOption } from './cookie';
 import { RegistryInfo } from './registry-info';
@@ -454,11 +454,11 @@ export default class System extends EmitterBase<SystemEvents> {
     launchExternalProcess(options: ExternalProcessRequestType): Promise<Identity>;
     /**
      * Monitors a running process.
-     * @param { number } pid See tutorial for more details
+     * @param { ExternalProcessInfo } options See tutorial for more details
      * @return {Promise.<Identity>}
      * @tutorial System.monitorExternalProcess
      */
-    monitorExternalProcess(pid: number): Promise<Identity>;
+    monitorExternalProcess(options: ExternalProcessInfo): Promise<Identity>;
     /**
      * Writes the passed message into both the log file and the console.
      * @param { string } level The log level for the entry. Can be either "info", "warning" or "error"

@@ -34,6 +34,7 @@ import { CookieInfo, CookieOption } from './_v2/api/system/cookie';
 import { AppAssetInfo, AppAssetRequest, RuntimeDownloadOptions, RuntimeDownloadProgress } from './_v2/api/system/download-asset';
 import { DownloadPreloadInfo, DownloadPreloadOption } from './_v2/api/system/download-preload';
 import { EntityInfo } from './_v2/api/system/entity';
+import { ExternalProcessRequestType, ExternalProcessInfo } from './_v2/api/system/external-process';
 import { HostSpecs } from './_v2/api/system/host-specs';
 import { LogInfo } from './_v2/api/system/log';
 import { MonitorInfo } from './_v2/api/system/monitor';
@@ -584,7 +585,7 @@ declare namespace fin {
         /**
          * Runs an executable or batch file.
          */
-        launchExternalProcess(options: ExternalProcessLaunchInfo, callback?: (payload: { uuid: string }) => void, errorCallback?: (reason: string) => void): void;
+        launchExternalProcess(options: ExternalProcessRequestType, callback?: (payload: { uuid: string }) => void, errorCallback?: (reason: string) => void): void;
         /**
          * Writes the passed message into both the log file and the console.
          */
@@ -655,80 +656,6 @@ declare namespace fin {
          * Update the OpenFin Runtime Proxy settings.
          */
         updateProxySettings(type: string, address: string, port: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
-    }
-
-    interface ExternalProcessLaunchInfo {
-        path?: string;
-        /**
-         * Additionally note that the executable found in the zip file specified in appAssets
-         * will default to the one mentioned by appAssets.target
-         * If the the path below refers to a specific path it will override this default
-         */
-        alias?: string;
-        /**
-         * When using alias; if no arguments are passed then the arguments (if any)
-         * are taken from the 'app.json' file, from the  'args' parameter
-         * of the 'appAssets' Object with the relevant 'alias'.
-         * If 'arguments' is passed as a parameter it takes precedence
-         * over any 'args' set in the 'app.json'.
-         */
-        arguments?: string;
-        listener?(result: {
-            /**
-             * "Exited" Or "released" on a call to releaseExternalProcess
-             */
-            topic?: string;
-            /**
-             * The mapped UUID which identifies the launched process
-             */
-            uuid?: string;
-            /*
-             * Process exit code
-             */
-            exitCode?: number;
-        }): void;
-        certificate?: CertificationInfo;
-    }
-
-    interface CertificationInfo {
-        /**
-         * A hex string with or without spaces
-         */
-        serial?: string;
-        /**
-         * An internally tokenized and comma delimited string allowing partial or full checks of the subject fields
-         */
-        subject?: string;
-        /**
-         * A hex string with or without spaces
-         */
-        publickey?: string;
-        /**
-         * A hex string with or without spaces
-         */
-        thumbprint?: string;
-        /**
-         * A boolean indicating that the certificate is trusted and not revoked
-         */
-        trusted?: boolean;
-    }
-
-    interface ExternalProcessInfo {
-        pid?: number;
-        listener?(result: {
-            /**
-             * "Exited" Or "released" on a call to releaseExternalProcess
-             */
-            topic?: string;
-            /**
-             * The mapped UUID which identifies the launched process
-             */
-            uuid?: string;
-            /*
-             * Process exit code
-             */
-            exitCode?: number;
-        }): void;
     }
 
     interface OpenFinWindowStatic {
