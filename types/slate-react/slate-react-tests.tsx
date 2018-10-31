@@ -11,8 +11,6 @@ class MyPlugin implements Plugin {
                     return <div id="slate-block-test"/>;
                 case "inline":
                     return <span id="slate-inline-test">Hello world</span>;
-                case "text":
-                    return <p id="slate-text-test">Hello world</p>;
                 default:
                     return undefined;
             }

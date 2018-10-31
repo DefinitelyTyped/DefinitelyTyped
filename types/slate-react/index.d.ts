@@ -5,9 +5,10 @@
 //                 Jan Löbel <https://github.com/JanLoebel>
 //                 Patrick Sachs <https://github.com/PatrickSachs>
 //                 Brandon Shelton <https://github.com/YangusKhan>
+//                 Francesco Agnoletto <https://github.com/Kornil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import { Mark, Node, Block, Change, Schema, Value, Stack } from 'slate';
+import { Mark, Node, Block, Inline, Change, Schema, Value, Stack } from 'slate';
 import * as Immutable from 'immutable';
 import * as React from 'react';
 
@@ -33,7 +34,7 @@ export interface RenderNodeProps {
   editor: Editor;
   isSelected: boolean;
   key: string;
-  node: Node;
+  node: Block | Inline;
   parent: Node;
 }
 
