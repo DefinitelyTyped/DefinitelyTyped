@@ -1,4 +1,4 @@
-module AccordionComponent {
+﻿module AccordionComponent {
     $(function () {
         var sample = new ej.Accordion($("#basicAccordion"), {
             width: "100%",
@@ -2754,7 +2754,8 @@ module ScrollerComponent {
         });
         $(window).bind('resize', function () {
             scrollerSample.refresh();
-        });    });
+        });
+    });
 }
 
 
