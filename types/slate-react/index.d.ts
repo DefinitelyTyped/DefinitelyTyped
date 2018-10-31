@@ -9,9 +9,9 @@
 //                 Francesco Agnoletto <https://github.com/Kornil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import { Mark, Node, Block, Inline, Change, Schema, Value, Stack, Document } from 'slate';
-import * as Immutable from 'immutable';
-import * as React from 'react';
+import { Mark, Node, Block, Inline, Change, Schema, Value, Stack, Document } from "slate";
+import * as Immutable from "immutable";
+import * as React from "react";
 
 // Values prefixed with "data-..." (Used for spellchecking according to docs)
 export interface RenderAttributes {
