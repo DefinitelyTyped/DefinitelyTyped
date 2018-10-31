@@ -1,4 +1,4 @@
-// Type definitions for async-mkdirp v.1.2.4
+// Type definitions for async-mkdirp 1.2.4
 // Project: https://github.com/simonlc/async-mkdirp
 // Definitions by: Andrey Sakharov <https://github.com/muturgan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
