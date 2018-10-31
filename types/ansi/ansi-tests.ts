@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import ansi = require('ansi');
 const cursor = ansi(process.stdout);
 
