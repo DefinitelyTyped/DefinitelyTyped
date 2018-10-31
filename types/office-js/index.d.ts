@@ -1070,9 +1070,9 @@ declare namespace Office {
         displayDialogAsync(startAddress: string, options?: DialogOptions, callback?: (result: AsyncResult<Dialog>) => void): void;
         /**
          * Delivers a message from the dialog box to its parent/opener page. The page calling this API must be on the same domain as the parent. 
-         * @param messageObject Accepts a message from the dialog to deliver to the add-in.
+         * @param message Accepts a message from the dialog to deliver to the add-in. In addition to a boolean, anything that can serialized to a string including JSON and XML can be sent. 
          */
-        messageParent(messageObject: any): void;
+        messageParent(message: boolean | string): void;
         /**
          * Closes the UI container where the JavaScript is executing.
          *
@@ -7351,7 +7351,7 @@ declare namespace Office {
 declare namespace Office {
     namespace MailboxEnums {
         /**
-         * Specifies which string formatting to apply to an attachment's content.
+         * Specifies the formatting that applies to an attachment's content.
          * 
          * [Api set: Mailbox Preview]
          * 
