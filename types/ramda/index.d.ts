@@ -791,6 +791,7 @@ declare namespace R {
          * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
          * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
          */
+        contains(__: Placeholder): <T>(list: ReadonlyArray<T>, a: T) => boolean;
         contains(a: string, list: string): boolean;
         contains<T>(a: T, list: ReadonlyArray<T>): boolean;
         contains(a: string): (list: string) => boolean;
