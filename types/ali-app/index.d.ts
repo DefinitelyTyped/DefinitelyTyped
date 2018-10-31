@@ -3034,29 +3034,29 @@ declare namespace my {
 		 * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
 		 * 生命周期函数
 		 */
-		onLaunch?: (option: LaunchOptions) => void;
+		onLaunch?: (this: App, option: LaunchOptions) => void;
 		/**
 		 * 监听小程序显示。
 		 * 当小程序启动，或从后台进入前台显示，会触发 onShow
 		 * 生命周期函数
 		 */
-		onShow?: (option: LaunchOptions) => void;
+		onShow?: (this: App, option: LaunchOptions) => void;
 		/**
 		 * 监听小程序隐藏。
 		 * 当小程序从前台进入后台，会触发 onHide
 		 * 生命周期函数
 		 */
-		onHide?: () => void;
+		onHide?: (this: App) => void;
 		/**
 		 * 错误监听函数
 		 * 当小程序发生脚本错误或者 api 调用失败时
 		 * 会触发 onError 并带上错误信息
 		 */
-		onError?: (msg: string) => void;
+		onError?: (this: App, msg: string) => void;
 		/**
 		 * 小程序退出时触发
 		 */
-		onUnlaunch?: () => void;
+		onUnlaunch?: (this: App) => void;
 		/**
 		 * 全局Data
 		 */
@@ -3191,10 +3191,12 @@ declare namespace my {
 		[key: string]: any;
 	}
 	interface App {
+		data: any;
 		/**
 		 * 获取当前页面
 		 */
 		getCurrentPage(): Page;
+		[key: string]: any;
 	}
 	interface EventTarget {
 		id: string;
