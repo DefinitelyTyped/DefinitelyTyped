@@ -14,8 +14,7 @@ rg4js('setUser', {
 
 try {
     throw new Error('oops');
-}
-catch (e) {
+} catch (e) {
     rg4js('send', e);
 }
 
@@ -23,15 +22,15 @@ catch (e) {
 // Used in non CommonJS enviroments
 declare const Raygun: RaygunStatic;
 
-var client: RaygunStatic = Raygun.noConflict();
-var newClient: RaygunStatic = client.constructNewRaygun();
+const client: RaygunStatic = Raygun.noConflict();
+const newClient: RaygunStatic = client.constructNewRaygun();
 
 client.init('api-key');
 client.init('api-key', { allowInsecureSubmissions: true, disablePulse: false });
 client.init('api-key', { allowInsecureSubmissions: true, disablePulse: false }, { some: 'data' });
 
 client.withCustomData({ some: 'data' });
-client.withCustomData(function() {
+client.withCustomData(() => {
     return { some: 'data' };
 });
 
@@ -45,8 +44,7 @@ client.send(new Error('a error'), { some: 'data' }, ['tag1', 'tag2']);
 
 try {
     throw new Error('oops');
-}
-catch (e) {
+} catch (e) {
     client.send(e);
 }
 
@@ -66,7 +64,7 @@ client.setFilterScope('all');
 
 client.whitelistCrossOriginDomains(['domain1', 'domain2']);
 
-client.onBeforeSend(payload=> {
+client.onBeforeSend(payload => {
     payload.OccurredOn = new Date();
     return payload;
 });
