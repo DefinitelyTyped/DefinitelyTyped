@@ -60,9 +60,9 @@ export interface CommonCalendarProps {
 	/** default: none */
 	onChange?: (range: Range) => void;
 	/** default: none */
-	minDate?: DateInputType;
+	minDate?: DateInputType | Date;
 	/** default: none */
-	maxDate?: DateInputType;
+	maxDate?: DateInputType | Date;
 	/**
 	 * Calendar languages.
 	 * ('cn' - Chinese, 'jp' - Japanese,
