@@ -171,7 +171,7 @@ declare namespace my {
 		 */
 		content: string;
 		/** toast 类型，展示相应图标，默认 none，支持 success / fail / exception / none’。其中 exception 类型必须传文字信息 */
-		type: 'none' | 'success' | 'fail' | 'exception' | string;
+		type?: 'none' | 'success' | 'fail' | 'exception' | string;
 		/**
 		 * 显示时长，单位为 ms，默认 2000
 		 */
@@ -187,9 +187,11 @@ declare namespace my {
 		/**
 		 * loading的文字内容
 		 */
-		content: string;
-		/** 延迟显示，单位 ms，默认 0。如果在此时间之前调用了 my.hideLoading 则不会显示 */
-		delay: number;
+		content?: string;
+		/**
+		 * 延迟显示，单位 ms，默认 0。如果在此时间之前调用了 my.hideLoading 则不会显示
+		 */
+		delay?: number;
 	}
 	/**
 	 * 显示加载提示
@@ -225,11 +227,11 @@ declare namespace my {
 	}
 	interface ActionSheetOptions extends BaseOptions {
 		/** 菜单标题 */
-		title: string;
+		title?: string;
 		/**
 		 * 菜单按钮文字数组
 		 */
-		items?: string[];
+		items: string[];
 		/**
 		 * 取消按钮文案。默认为‘取消’。注：Android平台此字段无效，不会显示取消按钮。
 		 */
