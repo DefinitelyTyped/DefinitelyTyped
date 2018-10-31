@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-export type Client = <TReq, TRes>(path: string, body: TReq, options?: {} | null) => Promise<TRes>;
+export type Client = <TRes>(path: string, body: any, options?: {} | null) => Promise<TRes>;
 
 export default function crpc(baseUrl: string, options?: {}): Client;
