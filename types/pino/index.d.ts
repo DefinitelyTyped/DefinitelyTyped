@@ -98,6 +98,23 @@ declare namespace P {
      */
     function extreme(fileDescriptor?: string | number): SonicBoom;
 
+    /**
+     * The pino.final method can be used to create an exit listener function.
+     * This listener function can be supplied to process exit events.
+     * The exit listener function will cal the handler with
+     * @param [logger]: pino logger that serves as reference for the final logger
+     * @param [handler]: Function that will be called by the handler returned from this function
+     * @returns Exit listener function that can be supplied to process exit events and will call the supplied handler function
+     */
+    function final(logger: Logger, handler: (error: Error, finalLogger: Logger, ...args: any[]) => void): (error: Error | null, ...args: any[]) => void;
+
+    /**
+     * The pino.final method can be used to acquire a final logger instance that synchronously flushes on every write.
+     * @param [logger]: pino logger that serves as reference for the final logger
+     * @returns Final, synchronous logger
+     */
+    function final(logger: Logger): Logger;
+
     interface LevelMapping {
         /**
          * Returns the mappings of level names to their respective internal number representation.
