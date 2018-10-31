@@ -126,7 +126,7 @@ export function contours(): Contours;
  * the elements of the data array used with the density contour generator are two-element arrays.
  * The first element corresponds to the x-dimension, the second to the y-dimension.
  */
-export interface ContourDensity<Datum = [number, number]> {
+export interface ContourDensity<Datum =[number, number]> {
     /**
      * Estimates the density contours for the given array of data, returning an array of GeoJSON MultiPolygon geometry objects.
      * Each geometry object represents the area where the estimated number of points per square pixel is greater than or equal to
@@ -168,6 +168,18 @@ export interface ContourDensity<Datum = [number, number]> {
      * y-coordinate.
      */
     y(y: (d: Datum) => number): this;
+
+    /**
+     * Returns the current point weight accessor.
+     */
+    weight(): (d: Datum) => number;
+
+    /**
+     * Sets the point weight accessor and returns the density contour estimator.
+     *
+     * @param weight A point weight accessor function.
+     */
+    weight(weight: (d: Datum) => number): this;
 
     /**
      * Returns the current size, which defaults to [960, 500].
@@ -254,4 +266,4 @@ export interface ContourDensity<Datum = [number, number]> {
  * Important: ensure that the x- and y-accessor functions are configured to
  * match the data type used for the generic Datum.
  */
-export function contourDensity<Datum = [number, number]>(): ContourDensity<Datum>;
+export function contourDensity<Datum =[number, number]>(): ContourDensity<Datum>;
