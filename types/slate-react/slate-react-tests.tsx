@@ -19,8 +19,8 @@ class MyPlugin implements Plugin {
             }
         }
     }
-    onChange = (operations: Immutable.List<Operation>, value: Value) => {
-        console.log(value);
+    onChange = (change: {operations: Immutable.List<Operation>, value: Value}) => {
+        console.log(change.value);
     }
 }
 

@@ -265,7 +265,7 @@ editor
 .unwrapNodeByKey("a")
 .unwrapNodeByPath("a")
 .withoutMerging(() => { /* noop */ })
-.withoutNormalization(() => { /* noop */ })
+.withoutNormalizing(() => { /* noop */ })
 .withoutSaving(() => { /* noop */ })
 .wrapBlock("paragraph")
 .wrapBlockAtRange(range, "paragraph")
