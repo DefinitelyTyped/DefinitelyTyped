@@ -12,12 +12,12 @@
 import * as React from 'react';
 
 export namespace ReactStripeElements {
-	import ElementChangeResponse = stripe.elements.ElementChangeResponse;
-	import ElementsOptions = stripe.elements.ElementsOptions;
-	import TokenOptions = stripe.TokenOptions;
-	import TokenResponse = stripe.TokenResponse;
-	import SourceResponse = stripe.SourceResponse;
-	import SourceOptions = stripe.SourceOptions;
+	type ElementChangeResponse = stripe.elements.ElementChangeResponse;
+	type ElementsOptions = stripe.elements.ElementsOptions;
+	type TokenOptions = stripe.TokenOptions;
+	type TokenResponse = stripe.TokenResponse;
+	type SourceResponse = stripe.SourceResponse;
+	type SourceOptions = stripe.SourceOptions;
 
 	/**
 	 * There's a bug in @types/stripe which defines the property as
