@@ -136,6 +136,7 @@ class F2 {
   R.lt(R.__, 5)(10); // false
   R.lte(R.__, 2)(1); // true
   R.mathMod(R.__, 12)(15); // 3
+  R.modulo(R.__, 2)(42); // 0
   R.merge(R.__, {x: 0})({x: 5, y: 2}); // {x: 0, y: 2}
 };
 
