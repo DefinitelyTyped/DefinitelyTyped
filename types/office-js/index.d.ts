@@ -15086,7 +15086,7 @@ declare namespace Office {
          */
         restUrl: string;
         /**
-         * Information about the user associated with the mailbox. This includes their account type, display name, email adddress, and time zone.
+         * Information about the user associated with the mailbox. This includes their account type, display name, email address, and time zone.
          * 
          * More information is under {@link Office.UserProfile}
          */
@@ -17150,7 +17150,7 @@ declare namespace Office {
 
     }
     /**
-     * Information about the user associated with the mailbox. This includes their account type, display name, email adddress, and time zone.
+     * Information about the user associated with the mailbox. This includes their account type, display name, email address, and time zone.
      * 
      * [Api set: Mailbox 1.0]
      *
