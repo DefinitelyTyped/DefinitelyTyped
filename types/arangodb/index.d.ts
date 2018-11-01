@@ -1440,6 +1440,77 @@ declare module "@arangodb/foxx/router" {
     export = createRouter;
 }
 
+declare module "@arangodb/foxx/queues" {
+    interface QueueItem {
+        name: string;
+        mount: string;
+        backOff: ((failureCount: number) => number) | number | undefined;
+        maxFailures: number | undefined;
+        schema: Foxx.Schema | undefined;
+        preprocess: ((data: any) => any) | undefined;
+    }
+
+    interface Script {
+        name: string;
+        mount: string;
+    }
+
+    // TODO: flesh this out
+    type JobCallback = (result: any, jobData: any, job: ArangoDB.Document<Job>) => void;
+
+    interface Job {
+        status: string;
+        queue: string;
+        type: Script;
+        failures: object[];
+        runs: number;
+        data: any;
+        created: number;
+        modified: number;
+        delayUntil: number;
+        maxFailures: number;
+        repeatDelay: number;
+        repeatTimes: number;
+        repeatUntil: number;
+        success: string | undefined;
+        failure: string | undefined;
+        runFailures: number;
+        abort(): void;
+    }
+
+    interface JobOptions {
+        success: JobCallback | undefined;
+        failure: JobCallback | undefined;
+        delayUntil: number | Date | undefined;
+        backOff: ((failureCount: number) => number) | number | undefined;
+        maxFailures: number | undefined;
+        repeatTimes: number | undefined;
+        repeatUntil: number | Date | undefined;
+        repeatDelay: number | undefined;
+    }
+
+    interface Queue {
+        push(item: QueueItem, data: any): void;
+        get(jobId: string): ArangoDB.Document<Job>;
+        delete(jobId: string): boolean;
+        pending(script: Script | undefined): string[];
+        progress(script: Script | undefined): string[];
+        complete(script: Script | undefined): string[];
+        failed(script: Script | undefined): string[];
+        all(script: Script | undefined): string[];
+    }
+
+    function createQueue(name: string, maxWorkers?: number): Queue;
+    function deleteQueue(name: string): boolean;
+    function get(name: string): Queue;
+
+    export {
+        createQueue as create,
+        deleteQueue as delete,
+        get,
+    };
+}
+
 declare module "@arangodb/foxx/graphql" {
     import { formatError, GraphQLSchema } from "graphql";
     type GraphQLModule = object;
