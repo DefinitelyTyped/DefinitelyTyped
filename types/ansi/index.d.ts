@@ -168,11 +168,13 @@ declare namespace ansi {
         brightWhite(): Cursor;
     }
 
-    /* Removed index signatures due to conflicts. Now you have to
-     * add them in consumer code:
-     *
-     *    <{ [key: string]: (..._: any[]) => Cursor }> myCursorOrColorer;
-     */
+    interface Cursor {
+        [key: string]: ((...anything: any[]) => Cursor) | Colorer;
+    }
+
+    interface Colorer {
+        [key: string]: (...anything: any[]) => (Cursor | Colorer);
+    }
 }
 
 export = ansi;
