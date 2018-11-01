@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/ansi
 // Definitions by: Gustavo6046 <https://github.com/Gustavo6046>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript version: 2.1
+// TypeScript version: 2.1  
 
 /**
  * References:
