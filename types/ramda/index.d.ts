@@ -1073,6 +1073,7 @@ declare namespace R {
         /**
          * Returns true if the first parameter is greater than or equal to the second.
          */
+        gte(__: Placeholder, b: number): (a: number) => boolean;
         gte(a: number, b: number): boolean;
         gte(a: number): (b: number) => boolean;
 
@@ -1513,6 +1514,7 @@ declare namespace R {
          * Note that this functions preserves the JavaScript-style behavior for
          * modulo. For mathematical modulo see `mathMod`
          */
+        modulo(__: Placeholder, b: number): (a: number) => number;
         modulo(a: number, b: number): number;
         modulo(a: number): (b: number) => number;
 
