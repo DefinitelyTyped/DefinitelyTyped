@@ -23,6 +23,9 @@ declare function ansi(stream: Stream, options?: CursorOptions): ansi.Cursor;
 
 declare namespace ansi {
     class Cursor {
+        bg: Colorer;
+        fg: Colorer;
+
         constructor(stream: Stream, options?: CursorOptions);
 
         /**
@@ -165,9 +168,11 @@ declare namespace ansi {
         brightWhite(): Cursor;
     }
 
-    interface Cursor {
-        [key: string]: (...anything: any[]) => Cursor;
-    }
+    /* Removed index signatures due to conflicts. Now you have to
+     * add them in consumer code:
+     *
+     *    <{ [key: string]: (..._: any[]) => Cursor }> myCursorOrColorer;
+     */
 }
 
 export = ansi;
