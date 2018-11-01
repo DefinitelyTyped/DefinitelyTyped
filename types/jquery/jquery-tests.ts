@@ -7862,6 +7862,167 @@ function JQuery_Event() {
     }
 }
 
+function JQuery_TypeEventHandlers() {
+    const events: JQuery.TypeEventHandlers<HTMLElement, undefined, HTMLElement, HTMLElement> = {
+        change(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType ChangeEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        resize(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType ResizeEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        scroll(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType ScrollEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        select(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType SelectEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        submit(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType SubmitEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        click(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType ClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        contextmenu(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType ContextMenuEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dblclick(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DoubleClickEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        mousedown(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType MouseDownEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        mouseenter(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType MouseEnterEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        mouseleave(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType MouseLeaveEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        mousemove(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType MouseMoveEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        mouseout(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType MouseOutEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        mouseover(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType MouseOverEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        mouseup(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType MouseUpEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        keydown(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType KeyDownEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        keypress(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType KeyPressEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        keyup(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType KeyUpEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        touchcancel(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType TouchCancelEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        touchend(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType TouchEndEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        touchmove(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType TouchMoveEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        touchstart(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType TouchStartEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        blur(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType BlurEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        focus(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType FocusEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        focusin(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType FocusInEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        focusout(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType FocusOutEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        }
+    };
+}
+
 function JQuery_EventExtensions() {
     function special() {
         jQuery.event.special.multiclick = {
