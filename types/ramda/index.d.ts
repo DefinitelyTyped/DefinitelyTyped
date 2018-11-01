@@ -1316,12 +1316,14 @@ declare namespace R {
         /**
          * Returns true if the first parameter is less than the second.
          */
+        lt(__: Placeholder, b: number): (a: number) => boolean;
         lt(a: number, b: number): boolean;
         lt(a: number): (b: number) => boolean;
 
         /**
          * Returns true if the first parameter is less than or equal to the second.
          */
+        lte(__: Placeholder, b: number): (a: number) => boolean;
         lte(a: number, b: number): boolean;
         lte(a: number): (b: number) => boolean;
 

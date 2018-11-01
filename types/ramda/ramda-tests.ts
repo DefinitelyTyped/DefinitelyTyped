@@ -133,6 +133,8 @@ class F2 {
   R.gt(R.__, 2)(10); // true
   R.gte(R.__, 6)(2); // false
   R.has(R.__, {x: 0, y: 0})('x'); // true;
+  R.lt(R.__, 5)(10); // false
+  R.lte(R.__, 2)(1); // true
   R.mathMod(R.__, 12)(15); // 3
   R.merge(R.__, {x: 0})({x: 5, y: 2}); // {x: 0, y: 2}
 };
