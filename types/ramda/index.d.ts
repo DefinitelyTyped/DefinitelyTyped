@@ -794,6 +794,10 @@ declare namespace R {
          */
         contains(__: Placeholder, list: string): (a: string) => boolean;
         contains<T>(__: Placeholder, list: T[]): (a: T) => boolean;
+
+        contains(__: Placeholder): (list: string, a: string) => boolean;
+        contains<T>(__: Placeholder): (list: T[], a: T) => boolean;
+
         contains(a: string, list: string): boolean;
         contains<T>(a: T, list: ReadonlyArray<T>): boolean;
         contains(a: string): (list: string) => boolean;
@@ -1068,6 +1072,7 @@ declare namespace R {
          * Returns true if the first parameter is greater than the second.
          */
         gt(__: Placeholder, b: number): (a: number) => boolean;
+        gt(__: Placeholder): (b: number, a: number) => boolean;
         gt(a: number, b: number): boolean;
         gt(a: number): (b: number) => boolean;
 
@@ -1075,6 +1080,7 @@ declare namespace R {
          * Returns true if the first parameter is greater than or equal to the second.
          */
         gte(__: Placeholder, b: number): (a: number) => boolean;
+        gte(__: Placeholder): (b: number, a: number) => boolean;
         gte(a: number, b: number): boolean;
         gte(a: number): (b: number) => boolean;
 
@@ -1082,6 +1088,7 @@ declare namespace R {
          * Returns whether or not an object has an own property with the specified name.
          */
         has<T>(__: Placeholder, obj: T): (s: string) => boolean;
+        has<T>(__: Placeholder): (obj: T, s: string) => boolean;
         has<T>(s: string, obj: T): boolean;
         has(s: string): <T>(obj: T) => boolean;
 
@@ -1318,6 +1325,7 @@ declare namespace R {
          * Returns true if the first parameter is less than the second.
          */
         lt(__: Placeholder, b: number): (a: number) => boolean;
+        lt(__: Placeholder): (b: number, a: number) => boolean;
         lt(a: number, b: number): boolean;
         lt(a: number): (b: number) => boolean;
 
@@ -1325,6 +1333,7 @@ declare namespace R {
          * Returns true if the first parameter is less than or equal to the second.
          */
         lte(__: Placeholder, b: number): (a: number) => boolean;
+        lte(__: Placeholder): (b: number, a: number) => boolean;
         lte(a: number, b: number): boolean;
         lte(a: number): (b: number) => boolean;
 
@@ -1381,6 +1390,7 @@ declare namespace R {
          * when the modulus is zero or negative.
          */
         mathMod(__: Placeholder, b: number): (a: number) => number;
+        mathMod(__: Placeholder): (b: number, a: number) => number;
         mathMod(a: number, b: number): number;
         mathMod(a: number): (b: number) => number;
 
@@ -1430,6 +1440,7 @@ declare namespace R {
          * This function will *not* mutate passed-in objects.
          */
         merge<T2>(__: Placeholder, b: T2): <T1>(a: T1) => T1 & T2;
+        merge(__: Placeholder): <T1, T2>(b: T2, a: T1) => T1 & T2;
         merge<T1, T2>(a: T1, b: T2): T1 & T2;
         merge<T1>(a: T1): <T2>(b: T2) => T1 & T2;
 
@@ -1518,6 +1529,7 @@ declare namespace R {
          * modulo. For mathematical modulo see `mathMod`
          */
         modulo(__: Placeholder, b: number): (a: number) => number;
+        modulo(__: Placeholder): (b: number, a: number) => number;
         modulo(a: number, b: number): number;
         modulo(a: number): (b: number) => number;
 
@@ -2305,6 +2317,7 @@ declare namespace R {
          * Subtracts two numbers. Equivalent to `a - b` but curried.
          */
         subtract(__: Placeholder, b: number): (a: number) => number;
+        subtract(__: Placeholder): (b: number, a: number) => number;
         subtract(a: number, b: number): number;
         subtract(a: number): (b: number) => number;
 
