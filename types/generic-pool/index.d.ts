@@ -24,6 +24,7 @@ export class Pool<T> extends EventEmitter {
     drain(): PromiseLike<void>;
     clear(): PromiseLike<void>;
     use<U>(cb: (resource: T) => U): PromiseLike<U>;
+    isBorrowedResource(resource: T): boolean;
 }
 
 export interface Factory<T> {
