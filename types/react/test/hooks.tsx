@@ -42,7 +42,7 @@ interface AppState {
 
 type AppActions =
     | { type: "getOlder" }
-    | { type: "resetAge" }
+    | { type: "resetAge" };
 
 function reducer(s: AppState, action: AppActions): AppState {
     switch (action.type) {
@@ -56,7 +56,7 @@ function reducer(s: AppState, action: AppActions): AppState {
 const initialState = {
     name: "Daniel",
     age: 26
-}
+};
 
 export function App() {
     const [state, dispatch] = React.useReducer(reducer, initialState);
@@ -76,3 +76,44 @@ export function App() {
         </FancyButton>
     </>;
 }
+
+interface Context {
+    test: true;
+}
+const context = React.createContext<Context>({ test: true });
+
+function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
+    const value: Context = React.useContext(context);
+    const [, setState] = React.useState(() => 0);
+    const [reducerState, dispatch] = React.useReducer(reducer, initialState, { type: 'resetAge' });
+    const didLayout = React.useRef(false);
+
+    const id = React.useMemo(() => Math.random(), []);
+    React.useImperativeMethods(ref, () => ({ id }), [id]);
+
+    React.useMutationEffect(() => {
+        setState(1);
+        setState(prevState => prevState - 1);
+    }, []);
+    React.useLayoutEffect(() => {
+        didLayout.current = true;
+    }, []);
+    React.useEffect(() => {
+        dispatch({ type: 'getOlder' });
+        setState(reducerState.age);
+    }, []);
+
+    return React.useCallback(() => didLayout.current, []);
+}
+
+const UsesEveryHook = React.forwardRef(
+    function UsesEveryHook(props: {}, ref?: React.Ref<{ id: number }>) {
+        // $ExpectType boolean
+        useEveryHook(ref)();
+
+        return null;
+    }
+);
+const everyHookRef = React.createRef<{ id: number }>();
+<UsesEveryHook ref={everyHookRef}/>;
+<UsesEveryHook ref={ref => { ref && console.log(ref.id); }}/>;
