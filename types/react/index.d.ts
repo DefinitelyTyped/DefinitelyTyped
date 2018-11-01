@@ -624,6 +624,18 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#useref
      */
     function useRef<T>(initialValue: T): MutableRefObject<T>;
+    // convenience overload for refs given as a ref prop as they typically start with a null value
+    /**
+     * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
+     * (`initialValue`). The returned object will persist for the full lifetime of the component.
+     *
+     * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
+     * value around similar to how you’d use instance fields in classes.
+     *
+     * @version experimental
+     * @see https://reactjs.org/docs/hooks-reference.html#useref
+     */
+    function useRef<T>(initialValue: T|null): MutableRefObject<T|null>;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously during the same phase that
      * React performs its DOM mutations, before sibling components have been updated. Use this to perform

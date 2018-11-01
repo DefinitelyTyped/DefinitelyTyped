@@ -60,7 +60,7 @@ const initialState = {
 
 export function App() {
     const [state, dispatch] = React.useReducer(reducer, initialState);
-    const birthdayRef = React.useRef<FancyButton | null>(null);
+    const birthdayRef = React.useRef<FancyButton>(null);
 
     React.useLayoutEffect(() => {
         birthdayRef.current!.fancyClick();
@@ -86,6 +86,8 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     const value: Context = React.useContext(context);
     const [, setState] = React.useState(() => 0);
     const [reducerState, dispatch] = React.useReducer(reducer, initialState, { type: 'resetAge' });
+    // make sure this is not going to the |null overload
+    // $ExpectType MutableRefObject<boolean>
     const didLayout = React.useRef(false);
 
     const id = React.useMemo(() => Math.random(), []);
