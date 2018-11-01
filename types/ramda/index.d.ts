@@ -23,6 +23,7 @@
 //                 Marcin Biernat <https://github.com/biern>
 //                 Rayhaneh Banyassady <https://github.com/rayhaneh>
 //                 Ryan McCuaig <https://github.com/rgm>
+//                 Drew Wyatt <https://github.com/drewwyatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
