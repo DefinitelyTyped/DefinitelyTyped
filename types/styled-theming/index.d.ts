@@ -28,4 +28,4 @@ declare namespace theme {
     ): VariantSet;
 }
 
-export default theme;
+export = theme;
