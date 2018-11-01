@@ -1444,10 +1444,10 @@ declare module "@arangodb/foxx/queues" {
     interface QueueItem {
         name: string;
         mount: string;
-        backOff: ((failureCount: number) => number) | number | undefined;
-        maxFailures: number | undefined;
-        schema: Foxx.Schema | undefined;
-        preprocess: ((data: any) => any) | undefined;
+        backOff?: ((failureCount: number) => number) | number;
+        maxFailures?: number;
+        schema?: Foxx.Schema;
+        preprocess?: (data: any) => any;
     }
 
     interface Script {
@@ -1455,7 +1455,6 @@ declare module "@arangodb/foxx/queues" {
         mount: string;
     }
 
-    // TODO: flesh this out
     type JobCallback = (result: any, jobData: any, job: ArangoDB.Document<Job>) => void;
 
     interface Job {
@@ -1472,32 +1471,32 @@ declare module "@arangodb/foxx/queues" {
         repeatDelay: number;
         repeatTimes: number;
         repeatUntil: number;
-        success: string | undefined;
-        failure: string | undefined;
+        success?: string;
+        failure?: string;
         runFailures: number;
         abort(): void;
     }
 
     interface JobOptions {
-        success: JobCallback | undefined;
-        failure: JobCallback | undefined;
-        delayUntil: number | Date | undefined;
-        backOff: ((failureCount: number) => number) | number | undefined;
-        maxFailures: number | undefined;
-        repeatTimes: number | undefined;
-        repeatUntil: number | Date | undefined;
-        repeatDelay: number | undefined;
+        success?: JobCallback;
+        failure?: JobCallback;
+        delayUntil?: number | Date;
+        backOff?: ((failureCount: number) => number) | number;
+        maxFailures?: number;
+        repeatTimes?: number;
+        repeatUntil?: number | Date;
+        repeatDelay?: number;
     }
 
     interface Queue {
-        push(item: QueueItem, data: any): void;
+        push(item: QueueItem, data: any, opts?: JobOptions): void;
         get(jobId: string): ArangoDB.Document<Job>;
         delete(jobId: string): boolean;
-        pending(script: Script | undefined): string[];
-        progress(script: Script | undefined): string[];
-        complete(script: Script | undefined): string[];
-        failed(script: Script | undefined): string[];
-        all(script: Script | undefined): string[];
+        pending(script?: Script): string[];
+        progress(script?: Script): string[];
+        complete(script?: Script): string[];
+        failed(script?: Script): string[];
+        all(script?: Script): string[];
     }
 
     function createQueue(name: string, maxWorkers?: number): Queue;
@@ -1508,6 +1507,11 @@ declare module "@arangodb/foxx/queues" {
         createQueue as create,
         deleteQueue as delete,
         get,
+        JobOptions,
+        Job,
+        Queue,
+        QueueItem,
+        Script,
     };
 }
 
