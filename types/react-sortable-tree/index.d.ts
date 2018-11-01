@@ -158,7 +158,7 @@ export interface TreeRendererProps {
 export interface ThemeProps {
     style?: { [index: string]: any };
     innerStyle?: { [index: string]: any };
-    reactVirtualizedListProps?: ListProps;
+    reactVirtualizedListProps?: Partial<ListProps>;
     scaffoldBlockPxWidth?: number;
     slideRegionSize?: number;
     rowHeight?: ((info: Index) => number) | number;
@@ -184,7 +184,7 @@ export interface ReactSortableTreeProps {
     onVisibilityToggle?(data: OnVisibilityToggleData): void;
     canDrag?: ((data: ExtendedNodeData) => boolean) | boolean;
     canDrop?(data: OnDragPreviousAndNextLocation & NodeData): boolean;
-    reactVirtualizedListProps?: ListProps;
+    reactVirtualizedListProps?: Partial<ListProps>;
     rowHeight?: ((info: Index) => number) | number;
     slideRegionSize?: number;
     scaffoldBlockPxWidth?: number;

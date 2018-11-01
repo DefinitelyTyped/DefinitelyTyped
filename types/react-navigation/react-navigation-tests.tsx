@@ -179,7 +179,8 @@ const tabNavigatorConfig: TabNavigatorConfig = {
     tabBarComponent: TabBarTop,
     tabBarOptions: { activeBackgroundColor: "blue" },
     navigationOptions: () => ({
-        tabBarOnPress: ({ scene, jumpToIndex }) => jumpToIndex(scene.index)
+        tabBarOnPress: ({ scene, jumpToIndex }) => jumpToIndex(scene.index),
+        tabBarIcon: ({ horizontal }) => <View />,
     })
 };
 

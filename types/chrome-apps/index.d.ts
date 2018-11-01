@@ -612,7 +612,10 @@ declare namespace chrome {
              * @deprecated Deprecated since Chrome 36. Use innerBounds or outerBounds.
              */
             maxHeight?: integer;
-            /** Type of window to create */
+            /**
+             * @deprecated Deprecated since Chrome 69. All app windows use the 'shell' window type.
+             * @description Type of window to create
+             **/
             type?: 'shell';
             /**
              * If true, the window will have its own shelf icon.
@@ -919,7 +922,8 @@ declare namespace chrome {
             level?: integer;
         }
         /**
-         * Device properties by which to filter the list of returned audio devices. If the filter is not set or set to {}, returned device list will contain all available audio devices.
+         * Device properties by which to filter the list of returned audio devices.
+         * If the filter is not set or set to {}, returned device list will contain all available audio devices.
          */
         interface Filter {
             /**
@@ -1083,8 +1087,9 @@ declare namespace chrome {
         function getDevices(callback: (devices: Device[]) => void): void;
 
         /**
-         * Get a list of Bluetooth devices known to the system, including paired and recently discovered devices.
-         * @param filter Since Chrome 67. Some criteria to filter the list of returned bluetooth devices. If the filter is not set or set to {}, returned device list will contain all bluetooth devices. Right now this is only supported in ChromeOS, for other platforms, a full list is returned.
+         * @since Chrome 67.
+         * @description Get a list of Bluetooth devices known to the system, including paired and recently discovered devices.
+         * @param filter Some criteria to filter the list of returned bluetooth devices. If the filter is not set or set to {}, returned device list will contain all bluetooth devices. Right now this is only supported in ChromeOS, for other platforms, a full list is returned.
          * @param callback Called when the search is completed.
          */
         function getDevices(filter: DeviceFilter, callback: (devices: Device[]) => void): void;
@@ -2082,12 +2087,12 @@ declare namespace chrome {
         /**
          * **Dev channel only.**
          * Sets image data to clipboard
-         * @param imageData The encoded image data. *Since Chrome 70. Warning: this is the current Beta channel.*
-         * @param type The type of image being passed. *Since Chrome 70. Warning: this is the current Beta channel.*
+         * @param imageData The encoded image data. *Since Chrome 71. Warning: this is the current Dev channel.*
+         * @param type The type of image being passed. *Since Chrome 71. Warning: this is the current Dev channel.*
          * @param [additionalItems] Additional data items for describing image data.
          *      The callback is called with chrome.runtime.lastError set to error code if there is an error.
          *      Requires clipboard and clipboardWrite permissions.
-         *      *Since Chrome 70. Warning: this is the current Beta channel.*
+         *      *Since Chrome 71. Warning: this is the current Dev channel.*
          * @param [callback]
          */
         function setImageData(imageData: ArrayBuffer, type: ImageType, additionalItems?: AdditionalItems, callback?: () => void): void;
@@ -3078,7 +3083,8 @@ declare namespace chrome {
             'document_end' |
             'document_idle';
         /**
-         * The origin of injected CSS.
+         * @since Chrome 66.
+         * @description The origin of injected CSS.
          **/
         type CSSOrigin =
             'author' |
@@ -5968,6 +5974,11 @@ declare namespace chrome {
             SSID?: S;
             /** The network signal strength. */
             SignalStrength?: integer;
+            /**
+             * @since Chrome 70
+             * @description The tethering state associated with the connection.
+             */
+            TetheringState?: string;
         }
         interface WiFiProperties<M extends ManagedObject = 'unmanaged',
             OF extends _internal_.ObjectFunction = 'getter',
@@ -6379,8 +6390,8 @@ declare namespace chrome {
             progress?: integer;
 
             /**
-             * Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification.
-             * @since Chrome 32.
+             * @deprecated Deprecated since Chrome 67. This UI hint is ignored as of Chrome 67
+             * @description Whether to show UI indicating that the app will visibly respond to clicks on the body of a notification.
              */
             isClickable?: boolean;
 
@@ -6391,6 +6402,13 @@ declare namespace chrome {
              * @since Chrome 50
              */
             requireInteraction?: boolean;
+
+            /**
+             * @since Chrome 70.
+             * @description Indicates that no sounds or vibrations should be made when the notification is being shown.
+             * @default false
+             */
+            silent?: boolean;
         }
 
         /** The notification closed, either by the system or by user action. */
@@ -6405,8 +6423,10 @@ declare namespace chrome {
          */
         const onPermissionLevelChanged: chrome.events.Event<(level: string) => void>;
         /**
-         * The user clicked on a link for the app's notification settings.
-         * @since Chrome 32.
+         * @deprecated Deprecated since Chrome 65. Custom notification settings button is no longer supported.
+         * @description The user clicked on a link for the app's notification settings.
+         * As of Chrome 47, only ChromeOS has UI that dispatches this event.
+         * As of Chrome 65, that UI has been removed from ChromeOS, too.
          */
         const onShowSettings: chrome.events.Event<() => void>;
 
@@ -9319,7 +9339,10 @@ declare namespace chrome {
             /** The display mode height in native pixels. */
             heightInNativePixels: integer;
 
-            /** The display mode UI scale factor. */
+            /**
+             * @deprecated Deprecated since Chrome 70. Use `displayZoomFactor`
+             * @description The display mode UI scale factor.
+             **/
             uiScale: integer;
 
             /** The display mode device scale factor. */
@@ -9380,15 +9403,16 @@ declare namespace chrome {
              * If set to true, changes the display mode to unified desktop.
              * If set to false, unified desktop mode will be disabled.
              * This is only valid for the primary display.
-             * If provided, mirroringSourceId must not be provided and other properties may not apply. This is has no effect if not provided.
-             * @see(See enableUnifiedDesktop for details).
+             * If provided, mirroringSourceId must not be provided and other properties may not apply.
+             * This is has no effect if not provided.
+             * @see(See `enableUnifiedDesktop` for details).
              * @since Chrome 59
              * */
             isUnified?: boolean;
 
             /**
              * @requires(CrOS) Chrome OS only.
-             * @deprecated Deprecated since Chrome 68. Use *setMirrorMode*
+             * @deprecated Deprecated since Chrome 68. Use ´setMirrorMode´
              * @see setMirrorMode
              * @description
              * If set and not empty, enables mirroring for this display.
@@ -9912,10 +9936,10 @@ declare namespace chrome {
             /** The language that this voice supports, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
             lang?: string;
             /**
-             * This voice's gender.
-             * One of: 'male', or 'female'
+             * @deprecated Deprecated since Chrome 70. Gender is deprecated and will be ignored.
+             * @description This voice's gender.
              */
-            gender?: string;
+            gender?: 'male' | 'female';
             /** The name of the voice. */
             voiceName?: string;
             /** The ID of the extension providing this voice. */
@@ -9959,10 +9983,10 @@ declare namespace chrome {
             /** The extension ID of the speech engine to use, if known. */
             extensionId?: string;
             /**
-             * Gender of voice for synthesized speech.
-             * One of: 'male', or 'female'
+             * @deprecated Deprecated since Chrome 70. Gender is deprecated and will be ignored.
+             * @description Gender of voice for synthesized speech.
              */
-            gender?: string;
+            gender?: 'male' | 'female';
             /** The TTS event types the voice must support. */
             requiredEventTypes?: string[];
             /** The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
@@ -10983,7 +11007,7 @@ declare namespace chrome {
          */
         class RequestMatcher {
             protected readonly typeGuard: 'RequestMatcher';
-            constructor (parameters?: RequestMatcherFields);
+            constructor(parameters?: RequestMatcherFields);
             public readonly instanceType: string;
         }
 
@@ -11001,7 +11025,7 @@ declare namespace chrome {
         /** Declarative event action that redirects a network request.  */
         class RedirectRequest {
             protected readonly typeGuard: 'RedirectRequest';
-            constructor (parameters: RedirectRequestParams);
+            constructor(parameters: RedirectRequestParams);
             public readonly instanceType: string;
         }
 
@@ -11036,7 +11060,7 @@ declare namespace chrome {
          */
         class RedirectByRegEx {
             protected readonly typeGuard: 'RedirectByRegEx';
-            constructor (parameters: RedirectByRegExParams);
+            constructor(parameters: RedirectByRegExParams);
             public readonly instanceType: string;
         }
 
@@ -11055,7 +11079,7 @@ declare namespace chrome {
          */
         class SetRequestHeader {
             protected readonly typeGuard: 'SetRequestHeader';
-            constructor (parameters: SetRequestHeaderParams);
+            constructor(parameters: SetRequestHeaderParams);
             public readonly instanceType: string;
         }
 
@@ -11072,7 +11096,7 @@ declare namespace chrome {
          */
         class RemoveRequestHeader {
             protected readonly typeGuard: 'RemoveRequestHeader';
-            constructor (parameters: RemoveRequestHeaderParams);
+            constructor(parameters: RemoveRequestHeaderParams);
             public readonly instanceType: string;
         }
 
@@ -11091,7 +11115,7 @@ declare namespace chrome {
          */
         class AddResponseHeader {
             protected readonly typeGuard: 'AddResponseHeader';
-            constructor (parameters: AddResponseHeaderParams);
+            constructor(parameters: AddResponseHeaderParams);
             public readonly instanceType: string;
         }
 
@@ -11107,7 +11131,7 @@ declare namespace chrome {
          */
         class RemoveResponseHeader {
             protected readonly typeGuard: 'RemoveResponseHeader';
-            constructor (parameters: RemoveResponseHeaderParams);
+            constructor(parameters: RemoveResponseHeaderParams);
             public readonly instanceType: string;
         }
 
@@ -11133,7 +11157,7 @@ declare namespace chrome {
          */
         class IgnoreRules {
             protected readonly typeGuard: 'IgnoreRules';
-            constructor (parameters: IgnoreRulesParams);
+            constructor(parameters: IgnoreRulesParams);
             public readonly instanceType: string;
         }
 
@@ -11150,7 +11174,7 @@ declare namespace chrome {
          */
         class SendMessageToExtension {
             protected readonly typeGuard: 'SendMessageToExtension';
-            constructor (parameters: SendMessageParams);
+            constructor(parameters: SendMessageParams);
             public readonly instanceType: string;
         }
 
@@ -11248,7 +11272,7 @@ declare namespace chrome {
          */
         class AddRequestCookie {
             protected readonly typeGuard: 'AddRequestCookie';
-            constructor (parameters: AddCookie<RequestCookie>);
+            constructor(parameters: AddCookie<RequestCookie>);
             public readonly instanceType: string;
         }
 
@@ -11259,7 +11283,7 @@ declare namespace chrome {
          */
         class AddResponseCookie {
             protected readonly typeGuard: 'AddResponseCookie';
-            constructor (parameters: AddCookie<ResponseCookie>);
+            constructor(parameters: AddCookie<ResponseCookie>);
             public readonly instanceType: string;
         }
 
@@ -11292,7 +11316,7 @@ declare namespace chrome {
              * @param modification Attributes that shall be overridden in cookies that machted the filter.
              *                     Attributes that are set to an empty string are removed.
              */
-            constructor (parameters: EditCookieParams<RequestCookie, RequestCookie>);
+            constructor(parameters: EditCookieParams<RequestCookie, RequestCookie>);
             public readonly instanceType: string;
         }
 
@@ -11306,7 +11330,7 @@ declare namespace chrome {
              * @param filter Filter for cookies that will be modified.All empty entries are ignored.
              * @param modification
              */
-            constructor (parameter: EditCookieParams<FilterResponseCookie, ResponseCookie>);
+            constructor(parameter: EditCookieParams<FilterResponseCookie, ResponseCookie>);
             public readonly instanceType: string;
         }
 
@@ -11316,7 +11340,7 @@ declare namespace chrome {
          */
         class RemoveRequestCookie {
             protected readonly typeGuard: 'RemoveRequestCookie';
-            constructor (parameters: RemoveCookieParams<RequestCookie>);
+            constructor(parameters: RemoveCookieParams<RequestCookie>);
             public readonly instanceType: string;
         }
 
@@ -11340,7 +11364,7 @@ declare namespace chrome {
          */
         class RemoveResponseCookie {
             protected readonly typeGuard: 'RemoveResponseCookie';
-            constructor (parameters: RemoveCookieParams<FilterResponseCookie>);
+            constructor(parameters: RemoveCookieParams<FilterResponseCookie>);
             public readonly instanceType: string;
         }
 
@@ -11518,7 +11542,7 @@ declare namespace chrome {
  */
 declare class HTMLAppViewElement extends HTMLElement {
     /** Create a new AppView tag */
-    constructor ();
+    constructor();
     /**
      * Requests another app to be embedded.
      * @param app The extension id of the app to be embedded.
@@ -11626,7 +11650,7 @@ declare class HTMLWebViewElement extends HTMLElement {
     src: string;
 
     /** Create a new element */
-    constructor ();
+    constructor();
 
     /**
      * Queries audio state.
@@ -11907,6 +11931,21 @@ declare class HTMLWebViewElement extends HTMLElement {
      * @since Chrome 40.
      */
     loadDataWithBaseUrl(dataUrl: string, baseUrl: string, virtualUrl?: string): void;
+
+    /**
+     * @since Chrome 71
+     * @description Sets spatial navigation state of the webview.
+     * @param enabled Spatial navigation state value.
+     */
+    setSpatialNavigationEnabled(enabled: boolean): void;
+
+    /**
+     * @since Chrome 71
+     * @description Queries whether spatial navigation is enabled for the webview.
+     * @param callback Callback that will provide the value of the spatial navigation state.
+     */
+    isSpatialNavigationEnabled(callback: (enabled: boolean) => void): void;
+
 
     /**
      * Forcibly kills the guest web page's renderer process.

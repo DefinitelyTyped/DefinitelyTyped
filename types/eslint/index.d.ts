@@ -136,7 +136,7 @@ export class SourceCode {
 
     isSpaceBetweenTokens(first: AST.Token, second: AST.Token): boolean;
 
-    getLocFromIndex(index: number): ESTree.SourceLocation;
+    getLocFromIndex(index: number): ESTree.Position;
 
     getIndexFromLoc(location: ESTree.Position): number;
 

@@ -1070,9 +1070,9 @@ declare namespace Office {
         displayDialogAsync(startAddress: string, options?: DialogOptions, callback?: (result: AsyncResult<Dialog>) => void): void;
         /**
          * Delivers a message from the dialog box to its parent/opener page. The page calling this API must be on the same domain as the parent. 
-         * @param messageObject Accepts a message from the dialog to deliver to the add-in.
+         * @param message Accepts a message from the dialog to deliver to the add-in. In addition to a boolean, anything that can serialized to a string including JSON and XML can be sent. 
          */
-        messageParent(messageObject: any): void;
+        messageParent(message: boolean | string): void;
         /**
          * Closes the UI container where the JavaScript is executing.
          *
@@ -1823,6 +1823,14 @@ declare namespace Office {
          */
         AppointmentTimeChanged,
         /**
+         * Triggers when an attachment is added to or removed from an item.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @beta
+         */
+        AttachmentsChanged,
+        /**
          * Occurs when data within the binding is changed. 
          * To add an event handler for the BindingDataChanged event of a binding, use the addHandlerAsync method of the Binding object. 
          * The event handler receives an argument of type {@link Office.BindingDataChangedEventArgs}.
@@ -1918,6 +1926,8 @@ declare namespace Office {
          * Triggers when the OfficeTheme is changed in Outlook.
          * 
          * [Api set: Mailbox Preview]
+         * 
+         * @beta
          */
         OfficeThemeChanged,
         /**
@@ -7341,6 +7351,57 @@ declare namespace Office {
 declare namespace Office {
     namespace MailboxEnums {
         /**
+         * Specifies the formatting that applies to an attachment's content.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * <table><tr><td>
+         * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
+         * </td><td>Compose or read</td></tr></table>
+         * 
+         * @beta
+         */
+        enum AttachmentContentFormat {
+            /**
+             * The content of the attachment is returned as a base64-encoded string.
+             */
+            Base64 = "base64",
+
+            /**
+             * The content of the attachment is returned as a string representing a URL.
+             */
+            Url = "url",
+
+            /**
+             * The content of the attachment is returned as a string representing an .eml formatted file.
+             */
+            Eml = "eml"
+        }
+        /**
+         * Specifies whether an attachment was added to or removed from an item.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * <table><tr><td>
+         * {@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}
+         * </td><td>Compose or read</td></tr></table>
+         * 
+         * @beta
+         */
+        enum AttachmentStatus {
+            /**
+             * An attachment was added to the item.
+             */
+            Added = "added",
+
+            /**
+             * An attachment was removed from the item.
+             */
+            Removed = "removed"
+        }
+        /**
          * Specifies an attachment's type.
          *
          * [Api set: Mailbox 1.0]
@@ -8495,6 +8556,31 @@ declare namespace Office {
         subject: string;
     }
     /**
+     * Represents the content of an attachment on a message or appointment item.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+     *
+     * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+     * 
+     * @beta
+     */
+    interface AttachmentContent {
+        /**
+         * The content of an attachment as a string.
+         */
+        content: string;
+        /**
+         * The string format to use for an attachment's content.
+         * For file attachments, the formatting is a base64-encoded string. 
+         * For item attachments that represent messages, the formatting is a string representing an .eml formatted file. 
+         * For cloud attachments, the formatting is a URL string.
+         */
+        format: Office.MailboxEnums.AttachmentContentFormat;
+    }
+    /**
      * Represents an attachment on an item from the server. Read mode only.
      *
      * An array of AttachmentDetail objects is returned as the attachments property of an Appointment or Message object.
@@ -8562,7 +8648,7 @@ declare namespace Office {
          * 
          * In addition to this signature, this method also has the following signature:
          * 
-         * `getAsync(coerciontype: Office.CoercionType, callback: (result: AsyncResult<Office.Body>) => void): void;`
+         * `getAsync(coerciontype: Office.CoercionType, callback: (result: AsyncResult<string>) => void): void;`
          * 
          * @param coercionType The format for the returned body.
          * @param options Optional. An object literal that contains one or more of the following properties:
@@ -8570,7 +8656,7 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. 
          *                  The body is provided in the requested format in the asyncResult.value property.
          */
-        getAsync(coerciontype: Office.CoercionType, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.Body>) => void): void;
+        getAsync(coerciontype: Office.CoercionType, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
         /**
          * Returns the current body in a specified format.
          *
@@ -8591,7 +8677,7 @@ declare namespace Office {
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          *                  The body is provided in the requested format in the asyncResult.value property.
          */
-        getAsync(coerciontype: Office.CoercionType, callback: (result: AsyncResult<Office.Body>) => void): void;
+        getAsync(coerciontype: Office.CoercionType, callback: (result: AsyncResult<string>) => void): void;
 
         /**
          * Gets a value that indicates whether the content is in HTML or text format.
@@ -9280,6 +9366,154 @@ declare namespace Office {
     }
 
     /**
+     * The InternetHeaders object represents properties that are preserved after the item leaves Exchange and converted to a MIME message. 
+     * These properties are stored as x-headers in the MIME message.
+     * 
+     * InternetHeaders are stored as key/value pairs on a per-item basis.
+     *
+     * [Api set: Mailbox Preview]
+     *
+     * @remarks
+     * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+     *
+     * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+     * 
+     * @beta
+     */
+    export interface InternetHeaders {
+        /**
+         * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
+         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results. 
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+         * 
+         * In addition to this signature, this method also has the following signature:
+         * 
+         * `getAsync(names: string[], callback: (result: AsyncResult<Office.InternetHeaders>) => void): void;`
+         * 
+         * @param names The names of the internet headers to be returned.
+         * @param options Optional. An object literal that contains one or more of the following properties:
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        getAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.InternetHeaders>) => void): void;
+        /**
+         * Given an array of internet header names, this method returns a dictionary containing those internet headers and their values. 
+         * If the add-in requests an x-header that is not available, that x-header will not be returned in the results. 
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+         * 
+         * @param names The names of the internet headers to be returned.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        getAsync(names: string[], callback?: (result: AsyncResult<Office.InternetHeaders>) => void): void;
+        /**
+         * Given an array of internet header names, this method removes the specified headers from the internet header collection.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * In addition to this signature, this method also has the following signature:
+         * 
+         * `removeAsync(names: string[], callback: (result: AsyncResult<Office.Body>) => void): void;`
+         * 
+         * @param names The names of the internet headers to be removed.
+         * @param options Optional. An object literal that contains one or more of the following properties:
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        removeAsync(names: string[], options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.InternetHeaders>) => void): void;
+        /**
+         * Given an array of internet header names, this method removes the specified headers from the internet header collection.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * @param names The names of the internet headers to be removed.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object.
+         * 
+         * @beta
+         */
+        removeAsync(names: string[], callback?: (result: AsyncResult<Office.InternetHeaders>) => void): void;
+        /**
+         * Sets the specified internet headers to the specified values.
+         * 
+         * The setAsync method creates a new header if the specified header does not already exist; otherwise, the existing value is replaced with 
+         * the new value.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
+         *
+         * In addition to this signature, this method also has the following signatures:
+         * 
+         * `setAsync(headers: string, callback: (result: AsyncResult<void>) => void): void;`
+         * 
+         * @param headers The names and corresponding values of the headers to be set. Should be a dictionary object with keys being the names of the 
+         *                internet headers and values being the values of the internet headers.
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         * 
+         * @beta
+         */
+        setAsync(headers: Object, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
+        /**
+         * Sets the specified internet headers to the specified values.
+         * 
+         * The setAsync method creates a new header if the specified header does not already exist; otherwise, the existing value is replaced with 
+         * the new value.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadWriteItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr>
+         *
+         * @param headers The names and corresponding values of the headers to be set. Should be a dictionary object with keys being the names of the 
+         *                internet headers and values being the values of the internet headers.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
+         *                  Any errors encountered will be provided in the asyncResult.error property.
+         * 
+         * @beta
+         */
+        setAsync(headers: Object, callback?: (result: AsyncResult<void>) => void): void;
+    }
+
+    /**
      * Represents the appointment organizer, even if an alias or a delegate was used to create the appointment. 
      * This object provides a method to get the organizer value of an appointment in an Outlook add-in.
      * 
@@ -9669,7 +9903,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9696,7 +9931,7 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -9856,6 +10091,26 @@ declare namespace Office {
          */
         close(): void;
         /**
+         * Gets the item's attachments as an array.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
+         *                 the failure.
+         * 
+         * @beta
+         */
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.AttachmentDetails[]>) => void): void;
+        /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
@@ -9963,8 +10218,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -9997,8 +10252,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -10019,8 +10274,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -10044,8 +10299,8 @@ declare namespace Office {
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. 
          * In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -10067,7 +10322,7 @@ declare namespace Office {
         * Removes an event handler for a supported event.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -10081,7 +10336,7 @@ declare namespace Office {
         * 
         * `removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param options Optional. An object literal that contains one or more of the following properties.
@@ -10093,7 +10348,8 @@ declare namespace Office {
        /**
         * Removes an event handler for a supported event.
         * 
-        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+        * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -10103,7 +10359,7 @@ declare namespace Office {
         *
         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Organizer</td></tr></table>
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -10147,13 +10403,13 @@ declare namespace Office {
          * 
          * `saveAsync(options: Office.AsyncContextOptions): void;`
          * 
-         * `saveAsync(callback: (result: AsyncResult<void>) => void): void;`
+         * `saveAsync(callback: (result: AsyncResult<string>) => void): void;`
          *
          * @param options Optional. An object literal that contains one or more of the following properties.
          *        asyncContext: Developers can provide any object they wish to access in the callback method.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult. 
          */
-        saveAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
+        saveAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<string>) => void): void;
         /**
          * Asynchronously saves an item.
          *
@@ -10254,7 +10510,7 @@ declare namespace Office {
          *
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of type Office.AsyncResult.
          */
-        saveAsync(callback: (result: AsyncResult<void>) => void): void;
+        saveAsync(callback: (result: AsyncResult<string>) => void): void;
         /**
          * Asynchronously inserts data into the body or subject of a message.
          *
@@ -10378,7 +10634,7 @@ declare namespace Office {
      */
     interface AppointmentRead extends Appointment, ItemRead {
         /**
-         * Gets an array of attachments for the item.
+         * Gets the item's attachments as an array.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -10682,7 +10938,7 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -10710,7 +10966,7 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -11063,7 +11319,7 @@ declare namespace Office {
         * Removes an event handler for a supported event.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -11077,7 +11333,7 @@ declare namespace Office {
         * 
         * `removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param options Optional. An object literal that contains one or more of the following properties.
@@ -11090,7 +11346,7 @@ declare namespace Office {
         * Removes an event handler for a supported event.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -11100,7 +11356,7 @@ declare namespace Office {
         *
         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Appointment Attendee</td></tr></table>
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -11237,7 +11493,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -11264,7 +11521,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -11281,6 +11539,36 @@ declare namespace Office {
          *                 asyncResult, which is an Office.AsyncResult object.
          */
         addHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;
+
+        /**
+         * Gets an attachment from a message or appointment and returns it as an `Office.AttachmentContent` object.
+         * 
+         * The `getAttachmentContentAsync` method gets the attachment with the specified identifier from the item. As a best practice, you should use 
+         * the identifier to retrieve an attachment in the same session that the attachmentIds were retrieved with the `getAttachmentsAsync` or 
+         * `item.attachments` call. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr>
+         * 
+         * <tr><td>Errors</td><td>InvalidAttachmentId - The attachment identifier does not exist.</td></tr></table>
+         * 
+         * @param attachmentId The identifier of the attachment you want to get. The maximum length of the string is 100 characters. 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
+         *                 asyncResult, which is an Office.AsyncResult object. If the call fails, the asyncResult.error property will contain and error code 
+         *                 with the reason for the failure.
+         * 
+         * @beta
+         */
+        getAttachmentContentAsync(attachmentId: string, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.AttachmentContent>) => void): void;
 		
         /**
          * Gets initialization data passed when the add-in is {@link https://docs.microsoft.com/outlook/actionable-messages/invoke-add-in-from-actionable-message | activated by an actionable message}.
@@ -11384,7 +11672,7 @@ declare namespace Office {
         * Removes an event handler for a supported event.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -11398,7 +11686,7 @@ declare namespace Office {
         * 
         * `removeHandlerAsync(eventType: Office.EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param options Optional. An object literal that contains one or more of the following properties.
@@ -11412,7 +11700,7 @@ declare namespace Office {
         * Removes an event handler for a supported event.
         * 
         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-        * `Office.EventType.RecurrenceChanged`.
+        * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
         * 
         * [Api set: Mailbox 1.7]
         *
@@ -11422,7 +11710,7 @@ declare namespace Office {
         *
         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
         * 
-        * @param eventType The event that should invoke the handler.
+        * @param eventType The event that should revoke the handler.
         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
         *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -11733,6 +12021,26 @@ declare namespace Office {
          */
         close(): void;
         /**
+         * Gets the item's attachments as an array.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
+         *                 the failure.
+         * 
+         * @beta
+         */
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.AttachmentDetails[]>) => void): void;
+        /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web for Office 365.
@@ -11818,8 +12126,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -11853,8 +12161,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -11875,8 +12183,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -11899,8 +12207,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -12192,7 +12500,7 @@ declare namespace Office {
      */
     interface ItemRead extends Item {
         /**
-         * Gets an array of attachments for the item.
+         * Gets the item's attachments as an array.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -12741,6 +13049,22 @@ declare namespace Office {
          */
         from: Office.From;
         /**
+         * Sets the internet headers of a message.
+         * 
+         * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr></table>
+         * 
+         * @beta
+         */
+        internetHeaders: Office.InternetHeaders;
+        /**
          * Gets the type of item that an instance represents.
          *
          * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or 
@@ -12978,7 +13302,8 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          * 
-         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and `Office.EventType.RecurrenceChanged`.
+         * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13005,7 +13330,7 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13167,6 +13492,26 @@ declare namespace Office {
          */
         close(): void;
         /**
+         * Gets the item's attachments as an array.
+         * 
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose</td></tr></table>
+         * 
+         * @param options Optional. An object literal that contains one or more of the following properties.
+         *        asyncContext: Developers can provide any object they wish to access in the callback method.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult. If the call fails, the asyncResult.error property will contain and error code with the reason for 
+         *                 the failure.
+         * 
+         * @beta
+         */
+        getAttachmentsAsync(options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<Office.AttachmentDetails[]>) => void): void;
+        /**
          * Gets initialization data passed when the add-in is activated by an actionable message.
          *
          * Note: This method is only supported by Outlook 2016 for Windows (Click-to-Run versions greater than 16.0.8413.1000) and Outlook on the web 
@@ -13278,8 +13623,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -13313,8 +13658,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -13335,8 +13680,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -13359,8 +13704,8 @@ declare namespace Office {
          * The removeAttachmentAsync method removes the attachment with the specified identifier from the item. 
          * As a best practice, you should use the attachment identifier to remove an attachment only if the same mail app has added that attachment 
          * in the same session. In Outlook Web App and OWA for Devices, the attachment identifier is valid only within the same session. 
-         * A session is over when the user closes the app, or if the user starts composing in an inline form and subsequently pops out the inline form 
-         * to continue in a separate window.
+         * A session is over when the user closes the app, or if the user starts composing an inline form then subsequently pops out the form to 
+         * continue in a separate window.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -13382,7 +13727,7 @@ declare namespace Office {
          * Removes an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13396,7 +13741,7 @@ declare namespace Office {
          * 
          * `removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
          * 
-         * @param eventType The event that should invoke the handler.
+         * @param eventType The event that should revoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
          *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -13409,7 +13754,7 @@ declare namespace Office {
          * Removes an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -13419,7 +13764,7 @@ declare namespace Office {
          *
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Compose</td></tr></table>
          * 
-         * @param eventType The event that should invoke the handler.
+         * @param eventType The event that should revoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
          *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -13694,7 +14039,7 @@ declare namespace Office {
      */
     interface MessageRead extends Message, ItemRead {
         /**
-         * Gets an array of attachments for the item.
+         * Gets the item's attachments as an array.
          *
          * [Api set: Mailbox 1.0]
          *
@@ -13802,6 +14147,22 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr></table>
          */
         from: EmailAddressDetails;
+        /**
+         * Gets the internet headers of a message.
+         * 
+         * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
+         *
+         * [Api set: Mailbox Preview]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr></table>
+         * 
+         * @beta
+         */
+        internetHeaders: Office.InternetHeaders;
         /**
          * Gets the Internet message identifier for an email message.
          *
@@ -14014,7 +14375,7 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14042,7 +14403,7 @@ declare namespace Office {
          * Adds an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14399,7 +14760,7 @@ declare namespace Office {
          * Removes an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14413,7 +14774,7 @@ declare namespace Office {
          * 
          * `removeHandlerAsync(eventType:EventType, handler: any, callback?: (result: AsyncResult<void>) => void): void;`
          * 
-         * @param eventType The event that should invoke the handler.
+         * @param eventType The event that should revoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
          *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param options Optional. An object literal that contains one or more of the following properties.
@@ -14426,7 +14787,7 @@ declare namespace Office {
          * Removes an event handler for a supported event.
          * 
          * Currently the supported event types are `Office.EventType.AppointmentTimeChanged`, `Office.EventType.RecipientsChanged`, and 
-         * `Office.EventType.RecurrenceChanged`.
+         * `Office.EventType.RecurrenceChanged`. In Preview, `Office.EventType.AttachmentsChanged` is also supported.
          * 
          * [Api set: Mailbox 1.7]
          *
@@ -14436,7 +14797,7 @@ declare namespace Office {
          *
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Message Read</td></tr></table>
          * 
-         * @param eventType The event that should invoke the handler.
+         * @param eventType The event that should revoke the handler.
          * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
          *                The type property on the parameter will match the eventType parameter passed to removeHandlerAsync.
          * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter, 
@@ -14733,7 +15094,7 @@ declare namespace Office {
         /**
          * Adds an event handler for a supported event.
          *
-         * Currently, the supported event types are `Office.EventType.ItemChanged` and `Office.EventType.OfficeThemeChanged`.
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`. In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -15139,6 +15500,27 @@ declare namespace Office {
          * @param userContext Optional. Any state data that is passed to the asynchronous method.
          */
         makeEwsRequestAsync(data: any, callback: (result: AsyncResult<string>) => void, userContext?: any): void;
+        /**
+         * Removes an event handler for a supported event.
+         *
+         * Currently, the only supported event type is `Office.EventType.ItemChanged`. In Preview, `Office.EventType.OfficeThemeChanged` is also supported.
+         *
+         * [Api set: Mailbox 1.5]
+         *
+         * @remarks
+         *
+         * <table><tr><td>{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}</td><td>ReadItem</td></tr>
+         *
+         * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose or read</td></tr></table>
+         *
+         * @param eventType The event that should revoke the handler.
+         * @param handler The function to handle the event. The function must accept a single parameter, which is an object literal. 
+         *                The type property on the parameter will match the eventType parameter passed to addHandlerAsync.
+         * @param options Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. When the method completes, the function passed in the callback parameter is called with a single parameter of 
+         *                 type Office.AsyncResult.
+         */
+        removeHandlerAsync(eventType: Office.EventType, handler: (type: EventType) => void, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
     }
 
     /**
@@ -16444,7 +16826,7 @@ declare namespace Office {
          */
         owner: String;
         /**
-         * The remote REST url related to the owner’s mailbox.
+         * The remote REST URL related to the owner’s mailbox.
          */
         restUrl: String;
         /**
@@ -21397,12 +21779,11 @@ declare namespace Excel {
         inCellDropDown: boolean;
         /**
          *
-         * Source of the list for data validation
-            When setting the value, it can be passed in as a Excel Range object, or a string that contains comma separated number, boolean or date.
+         * The source of the list for data validation. The value is a string, which can either be a range reference (e.g. `"=Names!$A$1:$A$3"`) or a comma-separated list of the values themselves.
          *
          * [Api set: ExcelApi 1.8]
          */
-        source: string | Range;
+        source: string;
     }
     /**
      *

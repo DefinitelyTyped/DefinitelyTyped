@@ -1698,7 +1698,7 @@ declare module "@arangodb/crypto" {
         key: string | null,
         token: string,
         noVerify?: boolean
-    ): string | null;
+    ): object | null;
     function md5(message: string): string;
     function sha1(message: string): string;
     function sha224(message: string): string;
