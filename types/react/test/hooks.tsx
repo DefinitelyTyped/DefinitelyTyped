@@ -90,6 +90,8 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
 
     const id = React.useMemo(() => Math.random(), []);
     React.useImperativeMethods(ref, () => ({ id }), [id]);
+    // $ExpectError
+    React.useImperativeMethods(ref, () => ({}), [id]);
 
     React.useMutationEffect(() => {
         setState(1);

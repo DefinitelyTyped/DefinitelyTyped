@@ -669,7 +669,7 @@ declare namespace React {
      * @version experimental
      * @see https://reactjs.org/docs/hooks-reference.html#useimperativemethods
      */
-    function useImperativeMethods<T>(ref: Ref<T>|undefined, init: () => T, inputs?: InputIdentityList): void;
+    function useImperativeMethods<T, R extends T>(ref: Ref<T>|undefined, init: () => R, inputs?: InputIdentityList): void;
     // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key
     // useCallback(X) is identical to just using X, useMemo(() => Y) is identical to just using Y.
     /**
