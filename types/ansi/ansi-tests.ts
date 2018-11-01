@@ -20,5 +20,12 @@ Object.keys({
   , brightCyan: 96
   , brightWhite: 97
 }).forEach((color) => {
-    (<{ [key: string]: (..._: any[]) => ansi.Cursor }> cursor)[color]().bold().write(`Hello, bold ${color.replace(/([a-z])([A-Z])/g, (_: string, l: string, u: string): string => `${l} ${u.toLowerCase()}`)} world!\n`).reset();
+    let cname = color.replace(/([a-z])([A-Z])/g, (_: string, l: string, u: string): string => `${l} ${u.toLowerCase()}`);
+
+    (<(...anything: any[]) => ansi.Cursor> cursor[color])()
+        .bold()
+        .write(
+            `Hello, bold ${cname} world!\n`
+        )
+        .reset();
 });
