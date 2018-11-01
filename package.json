@@ -23,5 +23,11 @@
     "devDependencies": {
         "dtslint": "github:Microsoft/dtslint#production",
         "types-publisher": "Microsoft/types-publisher#production"
+    },
+    "dependencies": {
+        "express": "^4.16.4",
+        "passport": "^0.4.0",
+        "passport-custom": "^1.0.5",
+        "passport-local": "^1.0.0"
     }
 }
