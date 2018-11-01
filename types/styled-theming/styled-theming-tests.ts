@@ -1,4 +1,4 @@
-import * as theme from "styled-theming";
+import theme from "styled-theming";
 
 const textColor = theme("mode", {
     dark: "white",
