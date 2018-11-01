@@ -5722,8 +5722,9 @@ $( "#checkMetaKey" ).click(function( event ) {
     interface TouchEventBase<
         TDelegateTarget = any,
         TData = any,
-        TCurrentTarget = any
-    > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget> {
+        TCurrentTarget = any,
+        TTarget = any
+    > extends UIEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         /**
          * The other DOM element involved in the event, if any.
          * @see \`{@link https://api.jquery.com/event.relatedTarget/ }\`
@@ -5948,32 +5949,36 @@ $( "#checkMetaKey" ).click(function( event ) {
     interface TouchCancelEvent<
         TDelegateTarget = any,
         TData = any,
-        TCurrentTarget = any
-    > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget> {
+        TCurrentTarget = any,
+        TTarget = any
+    > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'touchcancel';
     }
 
     interface TouchEndEvent<
         TDelegateTarget = any,
         TData = any,
-        TCurrentTarget = any
-    > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget> {
+        TCurrentTarget = any,
+        TTarget = any
+    > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'touchend';
     }
 
     interface TouchMoveEvent<
         TDelegateTarget = any,
         TData = any,
-        TCurrentTarget = any
-    > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget> {
+        TCurrentTarget = any,
+        TTarget = any
+    > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'touchmove';
     }
 
     interface TouchStartEvent<
         TDelegateTarget = any,
         TData = any,
-        TCurrentTarget = any
-    > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget> {
+        TCurrentTarget = any,
+        TTarget = any
+    > extends TouchEventBase<TDelegateTarget, TData, TCurrentTarget, TTarget> {
         type: 'touchstart';
     }
 
@@ -6286,10 +6291,10 @@ $( "#checkMetaKey" ).click(function( event ) {
 
         // TouchEvent
 
-        touchcancel: TouchCancelEvent<TDelegateTarget, TData, TCurrentTarget>;
-        touchend: TouchEndEvent<TDelegateTarget, TData, TCurrentTarget>;
-        touchmove: TouchMoveEvent<TDelegateTarget, TData, TCurrentTarget>;
-        touchstart: TouchStartEvent<TDelegateTarget, TData, TCurrentTarget>;
+        touchcancel: TouchCancelEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        touchend: TouchEndEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        touchmove: TouchMoveEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
+        touchstart: TouchStartEvent<TDelegateTarget, TData, TCurrentTarget, TTarget>;
 
         // FocusEvent
 
