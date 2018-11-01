@@ -795,10 +795,8 @@ declare namespace R {
          */
         contains(__: Placeholder, list: string): (a: string) => boolean;
         contains<T>(__: Placeholder, list: T[]): (a: T) => boolean;
-
         contains(__: Placeholder): (list: string, a: string) => boolean;
         contains<T>(__: Placeholder): (list: T[], a: T) => boolean;
-
         contains(a: string, list: string): boolean;
         contains<T>(a: T, list: ReadonlyArray<T>): boolean;
         contains(a: string): (list: string) => boolean;
