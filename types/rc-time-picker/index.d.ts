@@ -32,7 +32,7 @@ interface TimePickerProps {
     use12Hours: boolean;
     hideDisabledOptions: boolean;
     onChange: (value: moment.Moment) => void;
-    addon: (timepicker: TimePicker) => void;
+    addon: (timepicker: TimePicker) => JSX.Element;
     placement: string;
     transitionName: string;
     onOpen: (state: { open: boolean }) => void;
