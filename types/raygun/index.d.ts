@@ -5,7 +5,7 @@
 // TypeScript Version: 2.4
 
 declare namespace raygun {
-    interface KeyValueObject  {
+    interface KeyValueObject {
         [key: string]: string | number | boolean | KeyValueObject;
     }
     interface StackFrame {
@@ -42,7 +42,7 @@ declare namespace raygun {
         occurredOn: Date;
         details: {
             client: {
-                name: 'raygun-node';
+                name: "raygun-node";
                 version: string;
             };
             groupingKey?: string;
@@ -70,19 +70,38 @@ declare namespace raygun {
             userCustomData?: KeyValueObject;
             tags: string[];
             request?: RaygunRequest;
-            user?: RaygunUser | { identifier: string }
+            user?: RaygunUser | { identifier: string };
             version?: string;
         };
     }
 
-    interface RaygunOfflineStorageProvider<TTransportItem = RaygunPayload, TStorageItem = string> {
+    interface RaygunOfflineStorageProvider<
+        TTransportItem = RaygunPayload,
+        TStorageItem = string
+    > {
         init(options: any): RaygunOfflineStorageProvider;
         save(item: TTransportItem, callback: (error?: Error) => void): void;
-        retrieve(callback: (error: Error, storageItems: ReadonlyArray<TStorageItem>) => void): void;
-        send(callback: (error: Error, sendItems: ReadonlyArray<TStorageItem>) => void): void;
+        retrieve(
+            callback: (
+                error: Error,
+                storageItems: ReadonlyArray<TStorageItem>
+            ) => void
+        ): void;
+        send(
+            callback: (
+                error: Error,
+                sendItems: ReadonlyArray<TStorageItem>
+            ) => void
+        ): void;
     }
 
-    type OnBeforeSend = (payload: RaygunPayload, exception: Error, customData: KeyValueObject, request: RaygunRequest, tags: ReadonlyArray<string>) => boolean | RaygunPayload;
+    type OnBeforeSend = (
+        payload: RaygunPayload,
+        exception: Error,
+        customData: KeyValueObject,
+        request: RaygunRequest,
+        tags: ReadonlyArray<string>
+    ) => boolean | RaygunPayload;
     interface RaygunOptions {
         apiKey: string;
         filters?: ReadonlyArray<string>;
@@ -99,18 +118,29 @@ declare namespace raygun {
         reportColumnNumbers?: boolean;
         innerErrorFieldName?: string;
     }
-
-    class Client {
-        init(options: RaygunOptions): Client;
-        setUser(user: RaygunUser): Client;
-        setVersion(version: string): Client;
-        onBeforeSend(callback: OnBeforeSend): Client;
-        groupingKey(groupingKey: string): Client;
-        offline(): Client;
-        online(): Client;
-        send(exception: Error | string | object, customData?: KeyValueObject, offlineStorageCallback?: (error?: Error) => void, request?: RaygunRequest, tags?: ReadonlyArray<string>): RaygunPayload;
-        expressHandler(error: Error, request: RaygunRequest, res: any, next: any): void;
-    }
 }
 
-export default raygun;
+declare class Client {
+    init(options: raygun.RaygunOptions): Client;
+    setUser(user: raygun.RaygunUser): Client;
+    setVersion(version: string): Client;
+    onBeforeSend(callback: raygun.OnBeforeSend): Client;
+    groupingKey(groupingKey: string): Client;
+    offline(): Client;
+    online(): Client;
+    send(
+        exception: Error | string | object,
+        customData?: raygun.KeyValueObject,
+        offlineStorageCallback?: (error?: Error) => void,
+        request?: raygun.RaygunRequest,
+        tags?: ReadonlyArray<string>
+    ): raygun.RaygunPayload;
+    expressHandler(
+        error: Error,
+        request: raygun.RaygunRequest,
+        res: any,
+        next: any
+    ): void;
+}
+
+export = Client;
