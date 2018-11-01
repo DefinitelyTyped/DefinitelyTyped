@@ -574,7 +574,8 @@ declare namespace React {
     // Unlike redux, the actions _can_ be anything
     type Reducer<S, A> = (prevState: S, action: A) => S;
     // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
-    type InputIdentityList = ReadonlyArray<unknown>;
+    // TODO (TypeScript 3.0): ReadonlyArray<unknown>
+    type InputIdentityList = ReadonlyArray<any>;
 
     // NOTE: the effect callbacks are actually allowed to return anything, but functions are treated
     // specially. I don't think it's intended to accept async functions, should use throw instead of
@@ -678,7 +679,8 @@ declare namespace React {
      * @version experimental
      * @see https://reactjs.org/docs/hooks-reference.html#usecallback
      */
-    function useCallback<T extends (...args: never[]) => unknown>(callback: T, inputs: InputIdentityList): T;
+    // TODO (TypeScript 3.0): <T extends (...args: never[]) => unknown>
+    function useCallback<T extends (...args: any[]) => any>(callback: T, inputs: InputIdentityList): T;
     /**
      * `useMemo` will only recompute the memoized value when one of the `inputs` has changed.
      *
