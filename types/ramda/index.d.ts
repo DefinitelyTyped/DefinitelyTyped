@@ -1,4 +1,4 @@
-// Type definitions for ramda 0.9
+// Type definitions for ramda 0.26
 // Project: https://github.com/donnut/typescript-ramda
 // Definitions by: Erwin Poeze <https://github.com/donnut>
 //                 Tycho Grouwstra <https://github.com/tycho01>
