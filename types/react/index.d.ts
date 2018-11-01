@@ -623,6 +623,7 @@ declare namespace React {
      * @version experimental
      * @see https://reactjs.org/docs/hooks-reference.html#useref
      */
+    // TODO (TypeScript 3.0): <T extends unknown>
     function useRef<T>(initialValue: T): MutableRefObject<T>;
     // convenience overload for refs given as a ref prop as they typically start with a null value
     /**
@@ -635,6 +636,7 @@ declare namespace React {
      * @version experimental
      * @see https://reactjs.org/docs/hooks-reference.html#useref
      */
+    // TODO (TypeScript 3.0): <T extends unknown>
     function useRef<T>(initialValue: T|null): MutableRefObject<T|null>;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously during the same phase that
