@@ -931,6 +931,12 @@
             "asOfVersion": "1.0.1"
         },
         {
+            "libraryName": "mali",
+            "typingsPackageName": "mali",
+            "sourceRepoURL": "https://github.com/malijs/mali",
+            "asOfVersion": "0.9.2"
+        },
+        {
             "libraryName": "maquette",
             "typingsPackageName": "maquette",
             "sourceRepoURL": "http://maquettejs.org/",
@@ -1199,6 +1205,12 @@
             "typingsPackageName": "react-ga",
             "sourceRepoURL": "https://github.com/react-ga/react-ga",
             "asOfVersion": "2.3.0"
+        },
+        {
+            "libraryName": "react-i18next",
+            "typingsPackageName": "react-i18next",
+            "sourceRepoURL": "https://github.com/i18next/react-i18next",
+            "asOfVersion": "8.1.0"
         },
         {
             "libraryName": "react-monaco-editor",

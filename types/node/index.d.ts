@@ -30,6 +30,7 @@
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
+//                 Jeremie Rodriguez <https://github.com/jeremiergz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -5665,7 +5666,7 @@ declare module "path" {
     /**
      * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
      *
-     * Starting from leftmost {from} paramter, resolves {to} to an absolute path.
+     * Starting from leftmost {from} parameter, resolves {to} to an absolute path.
      *
      * If {to} isn't already absolute, {from} arguments are prepended in right to left order,
      * until an absolute path is found. If after using all {from} paths still no absolute path is found,
@@ -6394,7 +6395,7 @@ declare module "crypto" {
 
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
-        ciper: string;
+        cipher: string;
         passphrase: string;
     }
 
