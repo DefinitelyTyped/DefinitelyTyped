@@ -1,7 +1,8 @@
-// Type definitions for opossum 1.8
-// Project: https://github.com/bucharest-gold/opossum
+// Type definitions for opossum 1.9
+// Project: https://github.com/nodeshift/opossum
 // Definitions by: Quinn Langille <https://github.com/quinnlangille>
 //                 Willy Zhang <https://github.com/merufm>
+//                 Lance Ball <https://github.com/lance>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -34,6 +35,7 @@ export class CircuitBreaker extends EventEmitter {
     static readonly hystrixStats: symbol;
     static readonly enabled: symbol;
     static readonly warmUp: symbol;
+    static readonly volumeThreshold: symbol;
 }
 
 export enum Event {
@@ -64,6 +66,7 @@ export interface CircuitBreakerOptions {
     errorThresholdPercentage?: number;
     enabled?: boolean;
     allowWarmUp?: boolean;
+    volumeThreshold?: number;
 }
 
 export default function circuitBreaker(

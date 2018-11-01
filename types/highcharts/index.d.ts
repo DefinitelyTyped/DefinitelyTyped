@@ -2977,6 +2977,21 @@ declare namespace Highcharts {
          */
         printChart?: string;
         /**
+         * The text for the label for the "from" input box in the range selector.
+         * @default 'From'
+         */
+        rangeSelectorFrom?: string;
+        /**
+         * The text for the label for the "to" input box in the range selector.
+         * @default 'To'
+         */
+        rangeSelectorTo?: string;
+        /**
+         * The text for the label for the range selector buttons.
+         * @default 'Zoom'
+         */
+        rangeSelectorZoom?: String;
+        /**
          * The text for the label appearing when a chart is zoomed.
          * @default 'Reset zoom'
          * @since 1.2.4

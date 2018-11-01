@@ -588,7 +588,19 @@ export interface ImpersonateSettingOptions {
   clientId?: string;
 }
 
-
+export type ClientAppType = 'native' | 'spa' | 'regular_web' | 'non_interactive' | 'rms' | 'box' |
+  'cloudbees' | 'concur' | 'dropbox' | 'mscrm' | 'echosign' | 'egnyte' | 'newrelic' | 'office365' |
+  'salesforce' | 'sentry' | 'sharepoint' | 'slack' | 'springcm' | 'zendesk' | 'zoom';
+export interface GetClientsOptions {
+    fields?: string[];
+    include_fields?: boolean;
+    page?: number;
+    per_page?: number;
+    include_totals?: boolean;
+    is_global?: boolean;
+    is_first_party?: boolean;
+    app_type?: ClientAppType[];
+}
 
 export class AuthenticationClient {
 
@@ -661,8 +673,9 @@ export class ManagementClient {
 
 
   // Clients
-  getClients(): Promise<Client[]>;
-  getClients(cb: (err: Error, clients: Client[]) => void): void;
+  getClients(params?: GetClientsOptions): Promise<Client[]>;
+  getClients(cb: (err: Error, clients: Client[]) => void ): void;
+  getClients(params: GetClientsOptions, cb: (err: Error, clients: Client[]) => void ): void;
 
   getClient(params: ClientParams): Promise<Client>;
   getClient(params: ClientParams, cb: (err: Error, client: Client) => void): void;

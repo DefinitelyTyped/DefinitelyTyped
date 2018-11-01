@@ -270,6 +270,13 @@ Matrices examples
 		math.range('2:-1:-3');
 		math.factorial(math.range('1:6'));
 	}
+
+	// map matrix
+	{
+  	math.map([1, 2, 3], function(value) {
+      return value * value;
+	  });  // returns [1, 4, 9]
+	}
 }
 
 /*
