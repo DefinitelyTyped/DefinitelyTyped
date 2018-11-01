@@ -2303,6 +2303,7 @@ declare namespace R {
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
          */
+        subtract(__: Placeholder, b: number): (a: number) => number;
         subtract(a: number, b: number): number;
         subtract(a: number): (b: number) => number;
 
