@@ -5210,13 +5210,11 @@ declare namespace Stripe {
          */
         type ISourceCreationOptionsExtended = string | cards.ISourceCreationOptionsExtended;
 
-        type ISource = ISourceBase & (ICardSource | IOtherSource)
-        type ISourceTypes = "ach_credit_transfer" | "ach_debit" | "alipay" | "bancontat" | "card" | "card_present" | "eps" | "giropay" | "ideal" | "multibanco" | "p24" | "paper_check" | "sepa_credit_transfer" | "sepa_debit" | "sofort" | "three_d_secure";
+        type IOtherSourceType = "ach_credit_transfer" | "ach_debit" | "alipay" | "bancontat" | "card_present" | "eps" | "giropay" | "ideal" | "multibanco" | "p24" | "paper_check" | "sepa_credit_transfer" | "sepa_debit" | "sofort" | "three_d_secure";
+        type ISourceDetails<K extends string> = { [key in K]?: Record<string, any>; } & { type: K };
 
-        interface IOtherSource extends ISourceBase {
-            type: ISourceTypes;
-            [k: string]: any;
-        }
+        type IOtherSource = ISourceDetails<IOtherSourceType>
+        type ISource = ISourceBase & (ICardSource | IOtherSource)
 
         interface ICardSource extends ISourceBase {
             type: "card";
