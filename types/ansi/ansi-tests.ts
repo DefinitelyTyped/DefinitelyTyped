@@ -20,7 +20,7 @@ Object.keys({
   , brightCyan: 96
   , brightWhite: 97
 }).forEach((color) => {
-    let cname = color.replace(/([a-z])([A-Z])/g, (_: string, l: string, u: string): string => `${l} ${u.toLowerCase()}`);
+    const cname = color.replace(/([a-z])([A-Z])/g, (_: string, l: string, u: string): string => `${l} ${u.toLowerCase()}`);
 
     (<(...anything: any[]) => ansi.Cursor> cursor[color])()
         .bold()
