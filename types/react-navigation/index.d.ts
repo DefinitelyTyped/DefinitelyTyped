@@ -1,4 +1,4 @@
-// Type definitions for react-navigation 2.0
+// Type definitions for react-navigation 2.13
 // Project: https://github.com/react-navigation/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
@@ -25,6 +25,7 @@
 //                 Mickael Wegerich <https://github.com/mickaelw>
 //                 Max Davidson <https://github.com/maxdavidson>
 //                 Alec Hill <https://github.com/alechill>
+//                 Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -518,7 +519,7 @@ interface NavigationTabScreenOptionsBase {
   tabBarIcon?:
   | React.ReactElement<any>
   | ((
-    options: { tintColor: string | null; focused: boolean }
+    options: { tintColor: string | null; focused: boolean; horizontal: boolean }
   ) => React.ReactElement<any> | null);
   tabBarLabel?:
   | string

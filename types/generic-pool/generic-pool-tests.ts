@@ -48,6 +48,7 @@ pool.use((conn: Connection) => 'test')
 
 pool.acquire()
     .then((conn: Connection) => {
+        console.log(pool.isBorrowedResource(conn));  // => true
         return pool.release(conn);
     }).then(() => {
         return pool.acquire(5);

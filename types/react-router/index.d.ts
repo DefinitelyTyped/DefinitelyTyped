@@ -1,4 +1,4 @@
-// Type definitions for React Router 4.0
+// Type definitions for React Router 4.4
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>
 //                 Yuichi Murata <https://github.com/mrk21>
@@ -18,6 +18,7 @@
 //                 Rahul Raina <https://github.com/rraina>
 //                 Maksim Sharipov <https://github.com/pret-a-porter>
 //                 Duong Tran <https://github.com/t49tran>
+//                 Ben Smith <https://github.com/8enSmith>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -76,7 +77,7 @@ export interface RouteProps {
   component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   render?: ((props: RouteComponentProps<any>) => React.ReactNode);
   children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
-  path?: string;
+  path?: string | string[];
   exact?: boolean;
   sensitive?: boolean;
   strict?: boolean;

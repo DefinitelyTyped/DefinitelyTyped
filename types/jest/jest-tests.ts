@@ -746,6 +746,13 @@ describe("", () => {
             ghi: expect.stringMatching("foo"),
         }));
 
+        /* Inverse type matchers */
+
+        expect('How are you?').toEqual(expect.not.stringContaining('Hello world!'));
+        expect('How are you?').toEqual(expect.not.stringMatching(/Hello world!/));
+        expect({bar: 'baz'}).toEqual(expect.not.objectContaining({foo: 'bar'}));
+        expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha']));
+
         /* Miscellaneous */
 
         expect.hasAssertions();
