@@ -1212,7 +1212,7 @@ declare namespace Office {
          * 
          * Example: `[{cells: Office.Table.Data, format: {fontColor: "yellow"}}, {cells: {row: 3, column: 4}, format: {borderColor: "white", fontStyle: "bold"}}]`
          */
-        cellFormat?: Array<RangeFormatConfiguration>
+        cellFormat?: RangeFormatConfiguration[]
         /**
          * Explicitly sets the shape of the data object. If not supplied is inferred from the data type.
          */
@@ -1220,7 +1220,7 @@ declare namespace Office {
         /**
         * Only for table bindings in content add-ins for Access. Array of strings. Specifies the column names.
         */
-        columns?: Array<string>
+        columns?: string[]
         /**
         * Only for table bindings in content add-ins for Access. Specifies the pre-defined string "thisRow" to get data in the currently selected row.
         */
@@ -1334,7 +1334,7 @@ declare namespace Office {
         /**
          * The names of the columns involved in the binding.
          */
-        columns?: Array<string>
+        columns?: string[]
         /**
          * A user-defined item of any type that is returned, unchanged, in the asyncContext property of the AsyncResult object that is passed to a callback.
          */
@@ -1407,7 +1407,7 @@ declare namespace Office {
          * 
          * Example: `[\{cells: Office.Table.Data, format: \{fontColor: "yellow"\}\}, \{cells: \{row: 3, column: 4\}, format: \{borderColor: "white", fontStyle: "bold"\}\}]`
          */
-        cellFormat?: Array<RangeFormatConfiguration>
+        cellFormat?: RangeFormatConfiguration[]
         /**
          * Explicitly sets the shape of the data object. If not supplied is inferred from the data type.
          */
@@ -9024,7 +9024,7 @@ declare namespace Office {
         /**
          * An array of strings containing the mailing and street addresses associated with the contact. Nullable.
          */
-        addresses: Array<string>;
+        addresses: string[];
         /**
          * A string containing the name of the business associated with the contact. Nullable.
          */
@@ -9032,7 +9032,7 @@ declare namespace Office {
         /**
          * An array of strings containing the SMTP email addresses associated with the contact. Nullable,
          */
-        emailAddresses: Array<string>;
+        emailAddresses: string[];
         /**
          * A string containing the name of the person associated with the contact. Nullable.
          */
@@ -9040,11 +9040,11 @@ declare namespace Office {
         /**
          * An array containing a PhoneNumber object for each phone number associated with the contact. Nullable.
          */
-        phoneNumbers: Array<PhoneNumber>;
+        phoneNumbers: PhoneNumber[];
         /**
          * An array of strings containing the Internet URLs associated with the contact. Nullable.
          */
-        urls: Array<string>;
+        urls: string[];
     }
     /**
      * The CustomProperties object represents custom properties that are specific to a particular item and specific to a mail add-in for Outlook. 
@@ -17486,7 +17486,7 @@ declare namespace OfficeExtension {
          * If there was an error, this contains all trace messages that were executed before the error occurred. 
          * These messages can help you monitor the program execution sequence and detect the case of the error.
          */
-        traceMessages: Array<string>;
+        traceMessages: string[];
         /** Debug info (useful for detailed logging of the error, i.e., via `JSON.stringify(...)`). */
         debugInfo: DebugInfo;
         /** Inner error, if applicable. */
@@ -20273,7 +20273,7 @@ declare namespace Excel {
          * @param key The Key of the new setting.
          * @param value The Value for the new setting.
          */
-        add(key: string, value: string | number | boolean | Date | Array<any> | any): Excel.Setting;
+        add(key: string, value: string | number | boolean | Date | any[] | any): Excel.Setting;
         /**
          *
          * Gets the number of Settings in the collection.
