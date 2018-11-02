@@ -9839,7 +9839,6 @@ $( "<b>Paragraph. </b>" ).replaceAll( "p" );
 ```
      */
     replaceAll(target: JQuery.Selector | JQuery | JQuery.TypeOrArray<Element>): this;
-    // TODO: Validate signature of `function`.
     /**
      * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
      * @param newContent_function _&#x40;param_ `newContent_function`
@@ -9991,10 +9990,13 @@ $( "button" ).on( "click", function() {
 ```
      */
     replaceWith(newContent_function: JQuery.htmlString |
-                                     JQuery |
+                                     JQuery<JQuery.Node> |
                                      JQuery.TypeOrArray<Element> |
                                      JQuery.Node |
-                                     ((this: TElement) => any)): this;
+                                     ((this: TElement, index: number, oldhtml: JQuery.htmlString) => JQuery.htmlString |
+                                                                                                     JQuery<JQuery.Node> |
+                                                                                                     JQuery.TypeOrArray<Element> |
+                                                                                                     JQuery.Node)): this;
     /**
      * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.

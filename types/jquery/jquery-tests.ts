@@ -5550,11 +5550,15 @@ function JQuery() {
             $('p').replaceWith(document.createComment('bar'));
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').replaceWith(function() {
+            $('p').replaceWith(function(index, oldhtml) {
                 // $ExpectType HTMLElement
                 this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                oldhtml;
 
-                return this;
+                return undefined! as JQuery.htmlString | JQuery<JQuery.Node> | JQuery.TypeOrArray<Element> | JQuery.Node;
             });
         }
 
