@@ -2960,7 +2960,7 @@ $(function () {
             sheets: [{ rangeSettings: [{ dataSource: (<any>window).defaultData, startCell: "A1" }] }],
 			loadComplete: () => {
 			var spreadsheet = $("#basicSpreadsheet").data("ejSpreadsheet"), xlFormat = spreadsheet.XLFormat;
-			if (!(<any>spreadsheet).model.isImport) {
+			if (!(<any>spreadsheet).isImport) {
         spreadsheet.setWidthToColumns([140, 128, 105, 100, 100, 110, 120, 120, 100]);
         xlFormat.format({ "style": { "font-weight": "bold" } }, "A1:H1");
         xlFormat.format({ "type": "currency" }, "E2:H11");
