@@ -6782,7 +6782,8 @@ declare module "util" {
     function print(...param: any[]): void;
     /** @deprecated since v0.11.3 - use a third party module instead. */
     function log(string: string): void;
-    const inspect: {
+    
+    interface Inspect {
         (object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
         (object: any, options: InspectOptions): string;
         colors: {
@@ -6792,8 +6793,10 @@ declare module "util" {
             [style: string]: string | undefined
         }
         defaultOptions: InspectOptions;
-        custom: unique symbol;
-    };
+        readonly custom: unique symbol;
+    }
+    const inspect: Inspect;
+
     /** @deprecated since v4.0.0 - use `Array.isArray()` instead. */
     function isArray(object: any): object is any[];
     /** @deprecated since v4.0.0 - use `util.types.isRegExp()` instead. */
