@@ -15,32 +15,32 @@ declare function CassanKnex (options?: CassanKnex.DriverOptions): CassanKnex.Cas
 
 export = CassanKnex;
 
-/**
- * Will return the `never` type if `T[K]` is not a member of `Type`, for all `T[K]`.
- */
-type TypeMatchedValue<T, K extends keyof T, Type, This> = T[K] extends Type ? This : never;
-
-interface MappedDict<B> {
-	[key: string]: B;
-}
-
-type InRestriction = 'in' | 'IN';
-
-type ComparisonRestriction = '=' | '<' | '>' | '<=' | '>=';
-
 declare namespace CassanKnex {
 	interface DriverOptions {
 		debug?: boolean;
 		connection?: Client | ClientOptions;
 	}
 
+  /**
+   * Will return the `never` type if `T[K]` is not a member of `Type`, for all `T[K]`.
+   */
+  type TypeMatchedValue<T, K extends keyof T, Type, This> = T[K] extends Type ? This : never;
+
+  interface MappedDict<B> {
+    [key: string]: B;
+  }
+
+  type InRestriction = 'in' | 'IN';
+
+  type ComparisonRestriction = '=' | '<' | '>' | '<=' | '>=';
+
+  type SelectAsClause<T> = {
+    [P in keyof T]: string;
+  };
+
 	interface CassanKnex extends EventEmitter {
 		(keyspace?: string): QueryBuilderRoot;
 	}
-
-	type SelectAsClause<T> = {
-		[P in keyof T]: string;
-	};
 
 	interface StreamParams {
 		readable: (this: Readable) => any;
