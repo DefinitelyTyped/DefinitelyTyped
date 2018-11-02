@@ -6,7 +6,7 @@
 
 export = prompts;
 
-declare function prompts(questions: prompts.PromptObject | prompts.PromptObject[], options?: prompts.Options): any;
+declare function prompts<T extends string = string>(questions: prompts.PromptObject<T> | prompts.PromptObject<T>[], options?: prompts.Options): prompts.Answers<T>;
 
 declare namespace prompts {
     // Circular reference from prompts
@@ -51,9 +51,9 @@ declare namespace prompts {
         onCancel: (prompt: PromptObject, answers: any) => void;
     }
 
-    interface PromptObject {
+    interface PromptObject<T extends string = string> {
         type: string | ((prev: any, values: any, prompt: PromptObject) => void);
-        name: string | ((prev: any, values: any, prompt: PromptObject) => void);
+        name: T | ((prev: any, values: any, prompt: PromptObject) => void);
         message?: string | ((prev: any, values: any, prompt: PromptObject) => void);
         initial?: string;
         style?: string;
@@ -73,4 +73,6 @@ declare namespace prompts {
         suggest?: ((prev: any, values: any, prompt: PromptObject) => void);
         limit?: number;
     }
+     
+    type Answers<T extends string = string> = { [id in T]: string };
 }
