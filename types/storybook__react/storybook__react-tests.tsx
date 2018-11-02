@@ -9,7 +9,8 @@ storiesOf('Welcome', module)
     // local addDecorator
     .addDecorator(Decorator)
     .add('to Storybook', () => <div/>)
-    .add('to Storybook as Array', () => [<div />, <div />]);
+    .add('to Storybook as Array', () => [<div />, <div />])
+    .add('to Storybook with options', () => <div/>, { test: 'Hurray'});
 
 // global addDecorator
 addDecorator(Decorator);
