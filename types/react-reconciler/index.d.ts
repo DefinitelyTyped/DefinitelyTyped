@@ -1,4 +1,4 @@
-// Type definitions for react-reconciler 0.15
+// Type definitions for react-reconciler 0.16
 // Project: https://reactjs.org/
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,7 +33,11 @@ declare namespace ReactReconciler {
         // Unique identifier of this child.
         key: null | string;
 
-        // The function/class/module associated with this fiber.
+        // The value of element.type which is used to preserve the identity during
+        // reconciliation of this child.
+        elementType: any,
+
+        // The resolved function/class/ associated with this fiber.
         type: any;
 
         // The local state associated with this fiber.
@@ -74,7 +78,7 @@ declare namespace ReactReconciler {
         firstContextDependency: ContextDependency<any> | null;
 
         // Bitfield that describes properties about the fiber and its subtree. E.g.
-        // the AsyncMode flag indicates whether the subtree should be async-by-
+        // the ConcurrentMode flag indicates whether the subtree should be async-by-
         // default. When a fiber is created, it inherits the mode of its
         // parent. Additional flags can be set at creation time, but after that the
         // value should remain unchanged throughout the fiber's lifetime, particularly
@@ -361,7 +365,7 @@ declare namespace ReactReconciler {
         ): ExpirationTime;
         createContainer(
             containerInfo: Container,
-            isAsync: boolean,
+            isConcurrent: boolean,
             hydrate: boolean,
         ): OpaqueRoot;
         updateContainer(
@@ -458,10 +462,10 @@ declare namespace ReactReconciler {
         nextScheduledRoot: FiberRoot | null;
     }
 
-    // The following attributes are only used by interaction tracking builds.
+    // The following attributes are only used by interaction tracing builds.
     // They enable interactions to be associated with their async work,
     // And expose interaction metadata to the React DevTools Profiler plugin.
-    // Note that these attributes are only defined when the enableSchedulerTracking flag is enabled.
+    // Note that these attributes are only defined when the enableSchedulerTracing flag is enabled.
     interface ProfilingOnlyFiberRootProperties {
         interactionThreadID: number;
         memoizedInteractions: Set<Interaction>;
@@ -473,7 +477,7 @@ declare namespace ReactReconciler {
     // react-reconciler/ReactFiberScheduler
 
     interface Deadline {
-        timeRemaining: () => number;
+        timeRemaining(): number;
         didTimeout: boolean;
     }
 
@@ -510,7 +514,7 @@ declare namespace ReactReconciler {
         lastCapturedEffect: Update<State> | null;
     }
 
-    // schedule/Tracking
+    // scheduler/Tracing
 
     interface Interaction {
         __count: number;
@@ -580,7 +584,9 @@ declare namespace ReactReconciler {
         | 13
         | 14
         | 15
-        | 16;
+        | 16
+        | 17
+        | 18;
 }
 
 export = ReactReconciler;
