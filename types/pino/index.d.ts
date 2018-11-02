@@ -13,7 +13,7 @@
 import * as stream from 'stream';
 import * as http from 'http';
 import { EventEmitter } from 'events';
-import SonicBoom = require('sonic-boom');
+import SonicBoom from 'sonic-boom';
 
 export = P;
 
