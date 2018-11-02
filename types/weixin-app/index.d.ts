@@ -974,7 +974,7 @@ declare namespace wx {
 	 * 异步获取当前storage的相关信息
 	 */
 	function getStorageInfo(options: GetStorageInfoOptions): void;
-	function getStorageInfoSync(): GetStorageInfoOptions;
+	function getStorageInfoSync(): StorageInfo;
 	interface RemoveStorageOptions extends BaseOptions {
 		key: string;
 		success?(res: DataResponse): void;
