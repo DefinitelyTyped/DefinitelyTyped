@@ -9,7 +9,7 @@ declare namespace my {
 	// #region 基本参数
 	interface DataResponse {
 		/** 回调函数返回的内容 */
-		data: string | ArrayBuffer | any;
+		data: any;
 		/** 开发者服务器返回的 HTTP 状态码 */
 		status: number;
 		/** 开发者服务器返回的 HTTP Response Header */
@@ -1701,7 +1701,7 @@ declare namespace my {
 		/** 本地缓存中的指定的 key */
 		key: string;
 		/** 需要存储的内容 */
-		data: any | string;
+		data: any;
 	}
 	/**
 	 * 将数据存储在本地缓存中指定的 key 中，会覆盖掉原来该 key 对应的数据。
@@ -1716,7 +1716,7 @@ declare namespace my {
 	 * @param key 本地缓存中的指定的 key
 	 * @param data 需要存储的内容
 	 */
-	function setStorageSync(options: { key: string, data: any | string }): void;
+	function setStorageSync(options: { key: string; data: any; }): void;
 
 	interface GetStorageOptions extends BaseOptions {
 		/** 本地缓存中的指定的 key */
@@ -1734,7 +1734,7 @@ declare namespace my {
 	 * 同步获取缓存数据。
 	 * 这是同步接口
 	 */
-	function getStorageSync(options: { key: string; }): any | string;
+	function getStorageSync(options: { key: string; }): any;
 
 	interface RemoveStorageOptions extends BaseOptions {
 		key: string;
@@ -2005,7 +2005,7 @@ declare namespace my {
 		/** 默认GET，目前支持GET，POST */
 		method?: "GET" | "POST";
 		/** 请求的参数 */
-		data?: string | ArrayBuffer | any;
+		data?: any;
 		/**
 		 * 超时时间，单位ms，默认30000
 		 */
