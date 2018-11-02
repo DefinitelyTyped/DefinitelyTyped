@@ -6792,7 +6792,7 @@ declare module "util" {
             [style: string]: string | undefined
         }
         defaultOptions: InspectOptions;
-        custom: symbol;
+        custom: unique symbol;
     };
     /** @deprecated since v4.0.0 - use `Array.isArray()` instead. */
     function isArray(object: any): object is any[];
