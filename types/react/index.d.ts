@@ -2324,6 +2324,7 @@ declare global {
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
 
+        type ElementAttributes<K extends keyof IntrinsicElements> = IntrinsicElements[K]
         interface IntrinsicElements {
             // HTML
             a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
