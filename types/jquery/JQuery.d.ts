@@ -83,6 +83,7 @@ $( document.body )
      * @since 1.4
      */
     add(selector: JQuery.Selector, context: Element): this;
+    // TODO: The return type should reflect newly selected types.
     /**
      * Create a new jQuery object with elements added to the set of matched elements.
      * @param selector_elements_html_selection _&#x40;param_ `selector_elements_html_selection`
@@ -226,7 +227,7 @@ collection.css( "background", "yellow" );
 </html>
 ```
      */
-    add(selector_elements_html_selection: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.htmlString | JQuery): this;
+    add(selector_elements_html_selection: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.htmlString | JQuery | JQuery.Node): this;
     /**
      * Add the previous set of elements on the stack to the current set, optionally filtered by a selector.
      * @param selector A string containing a selector expression to match the current set of elements against.
@@ -5141,7 +5142,9 @@ $( "div b" )
 </html>
 ```
      */
-    html(htmlString_function: JQuery.htmlString | ((this: TElement, index: number, oldhtml: JQuery.htmlString) => JQuery.htmlString)): this;
+    html(htmlString_function: JQuery.htmlString |
+                              JQuery.Node |
+                              ((this: TElement, index: number, oldhtml: JQuery.htmlString) => JQuery.htmlString | JQuery.Node)): this;
     /**
      * Get the HTML contents of the first element in the set of matched elements.
      * @see \`{@link https://api.jquery.com/html/ }\`
@@ -9836,6 +9839,7 @@ $( "<b>Paragraph. </b>" ).replaceAll( "p" );
 ```
      */
     replaceAll(target: JQuery.Selector | JQuery | JQuery.TypeOrArray<Element>): this;
+    // TODO: Validate signature of `function`.
     /**
      * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
      * @param newContent_function _&#x40;param_ `newContent_function`
@@ -9986,7 +9990,11 @@ $( "button" ).on( "click", function() {
 </html>
 ```
      */
-    replaceWith(newContent_function: JQuery.htmlString | JQuery | JQuery.TypeOrArray<Element> | ((this: TElement) => any)): this;
+    replaceWith(newContent_function: JQuery.htmlString |
+                                     JQuery |
+                                     JQuery.TypeOrArray<Element> |
+                                     JQuery.Node |
+                                     ((this: TElement) => any)): this;
     /**
      * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
      * @param eventData An object containing data that will be passed to the event handler.

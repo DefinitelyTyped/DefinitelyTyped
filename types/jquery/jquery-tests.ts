@@ -5544,6 +5544,12 @@ function JQuery() {
             $('p').replaceWith([new HTMLElement()]);
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').replaceWith(document.createTextNode('bar'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceWith(document.createComment('bar'));
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').replaceWith(function() {
                 // $ExpectType HTMLElement
                 this;
@@ -5673,6 +5679,12 @@ function JQuery() {
             $('p').html('<span></span>');
 
             // $ExpectType JQuery<HTMLElement>
+            $('p').html(document.createTextNode('bar'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').html(document.createComment('bar'));
+
+            // $ExpectType JQuery<HTMLElement>
             $('p').html(function(index, oldhtml) {
                 // $ExpectType HTMLElement
                 this;
@@ -5681,7 +5693,12 @@ function JQuery() {
                 // $ExpectType string
                 oldhtml;
 
-                return oldhtml;
+                switch (index) {
+                    case 0: return document.createTextNode('bar');
+                    case 1: return document.createComment('bar');
+
+                    default: return oldhtml;
+                }
             });
 
             // $ExpectType string
@@ -5784,6 +5801,12 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('p').add($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add(document.createTextNode('bar'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add(document.createComment('bar'));
         }
 
         function closest() {
