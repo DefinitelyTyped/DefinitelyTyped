@@ -1035,6 +1035,10 @@ declare namespace Office {
         *     <td>12007</td>
         *     <td>A dialog box is already opened from the task pane. A task pane add-in can only have one dialog box open at a time.</td>
         *   </tr>
+        *   <tr>
+        *     <td>12009</td>
+        *     <td>The user chose to ignore the dialog box. This error can occur in online versions of Office, where users may choose not to allow an add-in to present a dialog.</td>
+        *   </tr>
         * </table>
         * 
         * In the callback function passed to the displayDialogAsync method, you can use the properties of the AsyncResult object to return the 
