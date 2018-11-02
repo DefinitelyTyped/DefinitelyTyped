@@ -20,7 +20,7 @@
 //                 Hector Ribes <https://github.com/hector7>
 //                 Florian Richter <https://github.com/floric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/3.1/api/
 
