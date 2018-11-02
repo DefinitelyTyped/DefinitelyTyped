@@ -3,7 +3,6 @@
 // Definitions by: JordiAnderl <https://github.com/JordiAnderl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
-// No support for typescript version 3. See https://github.com/Microsoft/dtslint/issues/137
 
 import * as MOZ_SourceMap from "source-map";
 
