@@ -23,9 +23,9 @@
     },
     "files": [
         "index.d.ts",
+        "node-validation.d.ts",
         "node-validators.d.ts",
         "Utils.d.ts",
-        "Validation.d.ts",
         "business-rules-engine-tests.ts"
     ]
 }
