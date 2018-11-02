@@ -6,7 +6,10 @@
 
 export = prompts;
 
-declare function prompts<T extends string = string>(questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>, options?: prompts.Options): prompts.Answers<T>;
+declare function prompts<T extends string = string>(
+    questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
+    options?: prompts.Options
+): Promise<prompts.Answers<T>>;
 
 declare namespace prompts {
     // Circular reference from prompts
@@ -15,8 +18,7 @@ declare namespace prompts {
     function inject(obj: any): void;
 
     namespace inject {
-        const prototype: {
-        };
+        const prototype: {};
     }
 
     namespace prompts {
@@ -52,14 +54,14 @@ declare namespace prompts {
     }
 
     interface PromptObject<T extends string = string> {
-        type: string | ((prev: any, values: any, prompt: PromptObject) => void);
-        name: T | ((prev: any, values: any, prompt: PromptObject) => void);
-        message?: string | ((prev: any, values: any, prompt: PromptObject) => void);
+        type: ValueOrFunc<string>;
+        name: ValueOrFunc<T>;
+        message?: ValueOrFunc<string>;
         initial?: string;
         style?: string;
-        format?: ((prev: any, values: any, prompt: PromptObject) => void);
-        validate?: ((prev: any, values: any, prompt: PromptObject) => void);
-        onState?: ((prev: any, values: any, prompt: PromptObject) => void);
+        format?: PrevCaller<T, void>;
+        validate?: PrevCaller<T, void>;
+        onState?: PrevCaller<T, void>;
         min?: number;
         max?: number;
         float?: boolean;
@@ -74,5 +76,13 @@ declare namespace prompts {
         limit?: number;
     }
 
-    type Answers<T extends string = string> = { [id in T]: string };
+    type Answers<T extends string = string> = { [id in T]: any };
+
+    type PrevCaller<T extends string = string, R = T> = (
+        prev: any,
+        values: Answers<T>,
+        prompt: PromptObject
+    ) => R;
+
+    type ValueOrFunc<T extends string = string> = T | PrevCaller<T>;
 }
