@@ -96,7 +96,7 @@ export interface MinifyOptions {
     warnings?: boolean;
     mangle?: boolean | MangleOptions;
     output?: OutputOptions;
-    compress?:  boolean | CompressOptions;
+    compress?: boolean | CompressOptions;
     nameCache?: {};
 }
 
