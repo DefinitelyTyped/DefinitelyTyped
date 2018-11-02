@@ -80,12 +80,12 @@ export interface PlotScene {
 }
 
 export interface PlotRelayoutEvent {
-	"yaxis.range[0]"?: number;
-	"yaxis.range[1]"?: number;
 	"xaxis.range[0]"?: number;
 	"xaxis.range[1]"?: number;
-	"yxxis.autorange"?: true,
-	"yaxis.autorange"?: true,
+	"xaxis.autorange"?: true;
+	"yaxis.range[0]"?: number;
+	"yaxis.range[1]"?: number;
+	"yaxis.autorange"?: true;
 	scene?: PlotScene;
 }
 
