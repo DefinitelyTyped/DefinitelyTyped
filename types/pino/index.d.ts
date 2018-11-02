@@ -10,10 +10,10 @@
 
 /// <reference types="node"/>
 
-import * as stream from 'stream';
-import * as http from 'http';
-import { EventEmitter } from 'events';
-import SonicBoom from 'sonic-boom';
+import stream = require('stream');
+import http = require('http');
+import EventEmitter = require('events');
+import SonicBoom = require('sonic-boom');
 
 export = P;
 

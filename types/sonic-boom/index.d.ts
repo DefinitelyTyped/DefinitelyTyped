@@ -7,7 +7,9 @@
 
 import { EventEmitter } from 'events';
 
-export default class SonicBoom extends EventEmitter {
+export = SonicBoom;
+
+declare class SonicBoom extends EventEmitter {
     /**
      * @param [fileDescriptor] File path or numerical file descriptor
      * relative protocol is enabled. Default: process.stdout
