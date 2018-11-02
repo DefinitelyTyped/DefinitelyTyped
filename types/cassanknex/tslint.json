@@ -8,7 +8,7 @@
 		"await-promise": false,
 		"no-for-in-array": false,
 		"no-void-expression": false,
-		"expect": false,
+		"expect": true,
 		"no-declare-current-package": false
 	}
 }
