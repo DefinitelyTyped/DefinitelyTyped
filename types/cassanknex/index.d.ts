@@ -21,7 +21,7 @@ export = CassanKnex;
 type TypeMatchedValue<T, K extends keyof T, Type, This> = T[K] extends Type ? This : never;
 
 interface MappedDict<B> {
-	[key: string]: B
+	[key: string]: B;
 }
 
 type InRestriction = 'in' | 'IN';
