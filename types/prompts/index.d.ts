@@ -6,7 +6,7 @@
 
 export = prompts;
 
-declare function prompts<T extends string = string>(questions: prompts.PromptObject<T> | prompts.PromptObject<T>[], options?: prompts.Options): prompts.Answers<T>;
+declare function prompts<T extends string = string>(questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>, options?: prompts.Options): prompts.Answers<T>;
 
 declare namespace prompts {
     // Circular reference from prompts
@@ -73,6 +73,6 @@ declare namespace prompts {
         suggest?: ((prev: any, values: any, prompt: PromptObject) => void);
         limit?: number;
     }
-     
+
     type Answers<T extends string = string> = { [id in T]: string };
 }
