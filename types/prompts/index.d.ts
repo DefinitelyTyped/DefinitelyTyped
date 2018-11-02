@@ -77,13 +77,13 @@ declare namespace prompts {
         limit?: number;
     }
 
-    type Answers<T extends string = string> = { [id in T]: any };
+    type Answers<T extends string> = { [id in T]: any };
 
-    type PrevCaller<T extends string = string, R = T> = (
+    type PrevCaller<T extends string, R = T> = (
         prev: any,
         values: Answers<T>,
         prompt: PromptObject
     ) => R;
 
-    type ValueOrFunc<T extends string = string> = T | PrevCaller<T>;
+    type ValueOrFunc<T extends string> = T | PrevCaller<T>;
 }
