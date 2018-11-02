@@ -596,6 +596,7 @@ numbersArray = d3Array.pairs(readonlyMergedArray, (a, b) => {
 // getting a permutation of array elements
 mergedArray = d3Array.permute(mergedArray, [1, 0, 2, 5, 3, 4, 6]);
 mergedArray = d3Array.permute(readonlyMergedArray, [1, 0, 2, 5, 3, 4, 6]);
+mergedArray = d3Array.permute(readonlyMergedArray, nums);
 
 // Getting an ordered array with object properties
 
@@ -606,7 +607,10 @@ const testObject = {
     more: [10, 30, 40]
 };
 
-const x: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name', 'val', 'when', 'more']);
+const p1: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name', 'val', 'when', 'more']);
+const p2: Array<Date | number[]> = d3Array.permute(testObject, ['when', 'more']);
+// $ExpectError
+const p3 = d3Array.permute(testObject, ['when', 'unknown']);
 
 // range() ---------------------------------------------------------------------
 
@@ -913,7 +917,7 @@ mixedObject = binMixedObject_DateOrUndefined[0];
 dateOrUndefined = binMixedObject_DateOrUndefined.x0;
 dateOrUndefined = binMixedObject_DateOrUndefined.x1;
 
-// Histogram Tresholds =========================================================
+// Histogram Thresholds ========================================================
 
 numbersArray = [-1, 0, 1, 1, 3, 20, 234];
 typedArray = new Uint8Array(numbersArray);

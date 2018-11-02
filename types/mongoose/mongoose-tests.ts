@@ -22,12 +22,12 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   pass: 'housan',
   config: {
     autoIndex: true,
-    useCreateIndex: true,
   },
   mongos: true,
   bufferCommands: false,
   useNewUrlParser: true,
   useFindAndModify: true,
+  useCreateIndex: true
 });
 const connection3: null = mongoose.connect(connectUri, function (error) {
   error.stack;
@@ -1989,3 +1989,40 @@ db.createCollection('customers').
   // visible outside of the transaction.
   then(() => session.commitTransaction()).
   then(() => Customer.findOne({ name: 'Test' }).exec())
+
+/**
+ * https://mongoosejs.com/docs/guide.html#writeConcern
+ */
+new mongoose.Schema({ name: String }, {
+  writeConcern: {
+    w: 'majority',
+    j: true,
+    wtimeout: 1000
+  }
+});
+
+/* Query helpers: https://mongoosejs.com/docs/guide.html#query-helpers */
+
+interface Animal2 extends mongoose.Document {
+  name: string;
+  type: string;
+  tags: string[];
+}
+var animal2Schema = new mongoose.Schema({
+  name: String,
+  type: String,
+  tags: { type: [String], index: true } // field level
+});
+let animal2QueryHelpers = {
+  byName<Q extends mongoose.DocumentQuery<any, Animal2>>(this: Q, name: string) {
+    return this.where({ name: new RegExp(name, 'i') });
+  }
+};
+animal2Schema.query = animal2QueryHelpers;
+var Animal2 = mongoose.model<Animal2, mongoose.Model<Animal2, typeof animal2QueryHelpers>>('Animal', animal2Schema);
+Animal2.find().byName('fido').exec(function(err, animals) {
+  console.log(animals);
+});
+Animal2.findOne().byName('fido').exec(function(err, animal) {
+  console.log(animal);
+});

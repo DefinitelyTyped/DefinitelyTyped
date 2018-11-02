@@ -1,16 +1,22 @@
 import * as express from 'express';
 
-import expressSitemapXml from 'express-sitemap-xml';
+import expressSitemapXml, { LeafObject } from 'express-sitemap-xml';
 
-const urls = ['/page1', '/page2'];
+const page2Leaf: LeafObject = {
+    changeFreq: 'weekly',
+    lastMod: new Date(),
+    url: '/page2'
+};
+
+const leaves = ['/page1', page2Leaf];
 const base = 'http://example.com';
-const getUrls = () => urls;
-const getUrlsPromise = () => Promise.resolve(urls);
+const getLeaves = () => leaves;
+const getLeavesPromise = () => Promise.resolve(leaves);
 
-expressSitemapXml.buildSitemaps(urls, base).then(sitemap => typeof sitemap === 'object');
+expressSitemapXml.buildSitemaps(leaves, base).then(sitemap => typeof sitemap === 'object');
 
-const sitemap1 = expressSitemapXml(getUrls, base);
-const sitemap2 = expressSitemapXml(getUrlsPromise, base);
+const sitemap1 = expressSitemapXml(getLeaves, base);
+const sitemap2 = expressSitemapXml(getLeavesPromise, base);
 
 express().use(sitemap1);
 express().use(sitemap2);

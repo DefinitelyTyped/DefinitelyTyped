@@ -73,7 +73,9 @@ declare module "node-forge" {
                 prng?: any;
                 algorithm?: string;
             }
-
+            
+            function setPublicKey(n: any, e: any): any;
+            
             function generateKeyPair(bits?: number, e?: number, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
             function generateKeyPair(options?: GenerateKeyPairOptions, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
         }
@@ -141,7 +143,8 @@ declare module "node-forge" {
                 hash: any;
             };
             extensions: any[];
-            publicKey: any;
+            privateKey: Key;
+            publicKey: Key;
             md: any;
             /**
              * Sets the subject of this certificate.
@@ -198,6 +201,16 @@ declare module "node-forge" {
         function decryptRsaPrivateKey(pem: PEM, passphrase?: string): Key;
 
         function createCertificate(): Certificate;
+            
+        function certificationRequestToPem(cert: Certificate, maxline?: number): PEM;
+            
+        function certificationRequestFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
+            
+        function createCertificationRequest(): Certificate;
+            
+        function publicKeyToAsn1(publicKey: Key): any;
+            
+        function publicKeyToRSAPublicKey(publicKey: Key): any;
     }
 
     namespace ssh {
@@ -411,6 +424,7 @@ declare module "node-forge" {
         function pkcs12FromAsn1(obj: any, strict?: boolean, password?: string): Pkcs12Pfx;
         function pkcs12FromAsn1(obj: any, password?: string): Pkcs12Pfx;
     }
+        
     namespace pkcs7 {
         interface PkcsSignedData {
             content?: string | util.ByteBuffer;
@@ -446,6 +460,10 @@ declare module "node-forge" {
         namespace sha256 {
             function create(): MessageDigest;
         }
+            
+        namespace sha512 {
+            function create(): MessageDigest;
+        }
 
         namespace md5 {
             function create(): MessageDigest;
@@ -468,6 +486,16 @@ declare module "node-forge" {
             update: (payload: util.ByteBuffer) => void;
             finish: () => boolean;
             output: util.ByteStringBuffer;
+        }
+    }
+        
+    namespace pss {
+        function create(any: any): any;
+    }
+        
+    namespace mgf {
+        namespace mgf1 {
+            function create(any: any): any;
         }
     }
 }

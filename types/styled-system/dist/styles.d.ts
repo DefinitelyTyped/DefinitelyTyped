@@ -192,7 +192,7 @@ export interface RatioProps {
 
 export function ratio(...args: any[]): any;
 
-export type VerticleAlignValue =
+export type VerticalAlignValue =
     | "baseline"
     | "sub"
     | "super"
@@ -203,13 +203,13 @@ export type VerticleAlignValue =
     | "bottom"
     | string
     | number;
-export type ResponsiveVerticleAlignValue = ResponsiveValue<VerticleAlignValue>;
+export type ResponsiveVerticalAlignValue = ResponsiveValue<VerticalAlignValue>;
 
-export interface VerticleAlignProps {
-    verticalAlign?: ResponsiveVerticleAlignValue;
+export interface VerticalAlignProps {
+    verticalAlign?: ResponsiveVerticalAlignValue;
 }
 
-export function verticleAlign(...args: any[]): any;
+export function verticalAlign(...args: any[]): any;
 
 /**
  * Flexbox
@@ -271,7 +271,6 @@ export type ResponsiveJustifyItemsValue = ResponsiveValue<JustifyItemsValue>;
 export interface JustifyItemsProps {
     justifyItems?: ResponsiveJustifyItemsValue;
 }
-export function alignContent(...args: any[]): any;
 
 export type JustifyContentValue =
     | "center"

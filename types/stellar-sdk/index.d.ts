@@ -4,13 +4,14 @@
 //                 Triston Jones <https://github.com/tristonj>
 //                 Paul Selden <https://github.com/pselden>
 //                 Max Bause <https://github.com/maxbause>
+//                 Timur Ramazanov <https://github.com/charlie-wasp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 /// <reference types="node" />
 
 export class Account {
-    constructor(accountId: string, sequence: string | number)
+    constructor(accountId: string, sequence: string)
     accountId(): string;
     sequenceNumber(): string;
     incrementSequenceNumber(): void;
@@ -98,10 +99,10 @@ export interface AccountRecord extends Record {
         weight: number
     }
     >;
-    data: {
+    data: (options: {value: string}) => Promise<{value: string}>;
+    data_attr: {
         [key: string]: string
     };
-
     effects: CallCollectionFunction<EffectRecord>;
     offers: CallCollectionFunction<OfferRecord>;
     operations: CallCollectionFunction<OperationRecord>;
@@ -437,7 +438,8 @@ export class AccountResponse implements AccountRecord {
             weight: number
         }
         >;
-    data: {
+    data: (options: {value: string}) => Promise<{value: string}>;
+    data_attr: {
         [key: string]: string
     };
 
@@ -454,6 +456,8 @@ export class AccountResponse implements AccountRecord {
 
 export class Asset {
     static native(): Asset;
+    static fromOperation(xdr: xdr.Asset): Asset;
+
     constructor(code: string, issuer: string)
 
     getCode(): string;
@@ -461,6 +465,7 @@ export class Asset {
     getAssetType(): 'native' | 'credit_alphanum4' | 'credit_alphanum12';
     isNative(): boolean;
     equals(other: Asset): boolean;
+    toXDRObject(): xdr.Asset;
 
     code: string;
     issuer: string;
@@ -894,6 +899,7 @@ export namespace xdr {
         static fromXDR(xdr: Buffer): XDRStruct;
 
         toXDR(): Buffer;
+        toXDR(encoding: string): string;
     }
     class Operation<T extends Operation.Operation> extends XDRStruct { }
     class Asset extends XDRStruct { }
