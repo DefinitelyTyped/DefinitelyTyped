@@ -35,7 +35,7 @@ declare namespace ReactReconciler {
 
         // The value of element.type which is used to preserve the identity during
         // reconciliation of this child.
-        elementType: any,
+        elementType: any;
 
         // The resolved function/class/ associated with this fiber.
         type: any;
