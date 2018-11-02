@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as MarkdownIt from "./lib";
+import MarkdownIt = require("./lib");
 export = MarkdownIt;

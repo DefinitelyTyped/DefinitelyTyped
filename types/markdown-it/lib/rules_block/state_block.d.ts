@@ -1,6 +1,6 @@
-import * as MarkdownIt from "..";
-import * as State from "../rules_core/state_core";
-import * as Token from "../token";
+import MarkdownIt = require("..");
+import State = require("../rules_core/state_core");
+import Token = require("../token");
 
 export = StateBlock;
 
@@ -21,5 +21,3 @@ declare class StateBlock extends State {
     lineMax: number;
     tight: boolean;
 }
-
-declare module StateBlock {}

@@ -1,5 +1,5 @@
-import * as MarkdownIt from "..";
-import * as Token from "../token";
+import MarkdownIt = require("..");
+import Token = require("../token");
 
 export = StateCore;
 
@@ -18,5 +18,3 @@ declare class StateCore {
     /** Return any for a yet untyped property */
     [undocumented: string]: any;
 }
-
-declare module StateCore {}

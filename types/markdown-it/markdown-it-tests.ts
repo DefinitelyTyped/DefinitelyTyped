@@ -1,6 +1,6 @@
-import * as MarkdownIt from "markdown-it";
-import * as Renderer from "markdown-it/lib/renderer";
-import * as Token from "markdown-it/lib/token";
+import MarkdownIt = require("markdown-it");
+import Renderer = require("markdown-it/lib/renderer");
+import Token = require("markdown-it/lib/token");
 
 {
     const md = new MarkdownIt();

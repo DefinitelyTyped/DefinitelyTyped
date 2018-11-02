@@ -1,5 +1,5 @@
-import * as MarkdownIt from ".";
-import * as Token from "./token";
+import MarkdownIt = require(".");
+import Token = require("./token");
 
 export = Renderer;
 
@@ -10,5 +10,3 @@ declare class Renderer {
     renderInline(tokens: Token[], options: any, env: any): string;
     renderToken(tokens: Token[], idx: number, options: any): string;
 }
-
-declare module Renderer {}

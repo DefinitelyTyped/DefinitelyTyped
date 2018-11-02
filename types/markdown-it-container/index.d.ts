@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as MarkdownIt from 'markdown-it';
-import * as Renderer from 'markdown-it/lib/renderer';
-import * as Token from 'markdown-it/lib/token';
+import MarkdownIt = require('markdown-it');
+import Renderer = require('markdown-it/lib/renderer');
+import Token = require('markdown-it/lib/token');
 
 declare namespace markdownItContainer {
 	interface ContainerOpts {

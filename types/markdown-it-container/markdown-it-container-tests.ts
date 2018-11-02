@@ -1,5 +1,5 @@
-import * as MarkdownIt from "markdown-it";
-import * as Token from "markdown-it/lib/token";
+import MarkdownIt = require("markdown-it");
+import Token = require("markdown-it/lib/token");
 
 import MarkdownItContainer = require("markdown-it-container");
 

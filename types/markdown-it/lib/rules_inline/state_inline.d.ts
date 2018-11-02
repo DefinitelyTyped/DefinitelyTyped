@@ -1,6 +1,6 @@
-import * as MarkdownIt from "..";
-import * as State from "../rules_core/state_core";
-import * as Token from "../token";
+import MarkdownIt = require("..");
+import State = require("../rules_core/state_core");
+import Token = require("../token");
 
 export = StateInline;
 
@@ -44,5 +44,3 @@ declare class StateInline extends State {
         length: number
     };
 }
-
-declare module StateInline {}

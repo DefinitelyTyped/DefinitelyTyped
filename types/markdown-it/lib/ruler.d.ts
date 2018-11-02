@@ -1,5 +1,5 @@
-import * as MarkdownIt from ".";
-import * as State from "./rules_core/state_core";
+import MarkdownIt = require(".");
+import State = require("./rules_core/state_core");
 
 export = Ruler;
 
@@ -13,5 +13,3 @@ declare class Ruler<S extends State = State> {
     getRules(chain: string): MarkdownIt.Rule<S>[];
     push(ruleName: string, rule: MarkdownIt.Rule<S>, options?: any): void;
 }
-
-declare module Ruler {}

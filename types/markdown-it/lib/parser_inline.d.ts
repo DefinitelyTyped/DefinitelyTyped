@@ -1,6 +1,6 @@
-import * as MarkdownIt from ".";
-import * as State from "./rules_core/state_core";
-import * as Token from "./token";
+import MarkdownIt = require(".");
+import State = require("./rules_core/state_core");
+import Token = require("./token");
 
 export = ParserInline;
 
@@ -11,5 +11,3 @@ declare class ParserInline {
     ruler: MarkdownIt.RulerInline;
     ruler2: MarkdownIt.RulerInline;
 }
-
-declare module ParserInline {}

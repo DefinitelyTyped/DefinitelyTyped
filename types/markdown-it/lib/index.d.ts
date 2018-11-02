@@ -1,16 +1,16 @@
 import { LinkifyIt } from 'linkify-it'
 
-import * as State from './rules_core/state_core';
-import * as StateBlock from './rules_block/state_block';
-import * as StateInline from './rules_inline/state_inline';
+import State = require('./rules_core/state_core');
+import StateBlock = require('./rules_block/state_block');
+import StateInline = require('./rules_inline/state_inline');
 
-import * as Core from './parser_core';
-import * as ParserBlock from './parser_block';
-import * as ParserInline from './parser_inline';
+import Core = require('./parser_core');
+import ParserBlock = require('./parser_block');
+import ParserInline = require('./parser_inline');
 
-import * as Renderer from './renderer';
-import * as Ruler from './ruler';
-import * as Token from './token';
+import Renderer = require('./renderer');
+import Ruler = require('./ruler');
+import Token = require('./token');
 
 export = MarkdownIt;
 export as namespace markdownit;
@@ -61,7 +61,7 @@ interface MarkdownIt {
         escapeRE(str: string): string;
         normalizeReference(str: string): string;
     }
-    
+
     disable(rules: string[] | string, ignoreInvalid?: boolean): MarkdownIt;
     enable(rules: string[] | string, ignoreInvalid?: boolean): MarkdownIt;
     set(options: MarkdownIt.Options): MarkdownIt;
@@ -97,7 +97,7 @@ declare module MarkdownIt {
 
     interface RulerInline extends Ruler<StateInline> {}
     interface RulerBlock extends Ruler<StateBlock> {}
-    
+
     type TokenRender = (tokens: Token[], index: number, options: any, env: any, self: Renderer) => void;
 
     interface Delimiter {

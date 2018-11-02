@@ -21,5 +21,3 @@ declare class Token {
     tag: string;
     type: string;
 }
-
-declare module Token {}
