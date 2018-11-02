@@ -9,10 +9,9 @@ import * as MOZ_SourceMap from "source-map";
 export interface Tokenizer {
     /**
      * The type of this token.
-     * Can be "num", "string", "regexp", "operator", "punc", "atom", "name", "keyword", "comment1" or "comment2".
      * "comment1" and "comment2" are for single-line, respectively multi-line comments.
      */
-    type: string;
+    type: "num" | "string" | "regexp" | "operator" | "punc" | "atom" | "name" | "keyword" | "comment1" | "comment2";
 
     /**
      * The name of the file where this token originated from. Useful when compressing multiple files at once to generate the proper source map.
