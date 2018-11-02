@@ -1,6 +1,6 @@
 import TimePicker from 'rc-time-picker';
 import * as React from 'react';
-import * as moment from 'moment';
+import moment from 'moment';
 
 <TimePicker
     value={moment()}

@@ -7,8 +7,6 @@
 import * as moment from "moment";
 import * as React from 'react';
 
-export {};
-
 interface TimePickerProps {
     prefixCls: string;
     clearText: string;
@@ -46,9 +44,11 @@ interface TimePickerProps {
     clearIcon: React.ReactNode;
 }
 
-export default class TimePicker extends React.Component<Partial<TimePickerProps>> {
+declare class TimePicker extends React.Component<Partial<TimePickerProps>> {
     constructor(props: Readonly<Partial<TimePickerProps>>)
 
     close(): void;
     isAM(): boolean;
 }
+
+export = TimePicker;
