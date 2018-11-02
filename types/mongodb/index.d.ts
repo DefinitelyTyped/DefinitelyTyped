@@ -842,7 +842,7 @@ type Condition<T, P extends keyof T> = {
         $caseSensitive?: boolean;
         $diacraticSensitive?: boolean;
     };
-    $where: Object;
+    $where?: Object;
     $geoIntersects?: Object;
     $geoWithin?: Object;
     $near?: Object;
@@ -869,7 +869,7 @@ export type UpdateQuery<T> = {
     $currentDate?: { [P in keyof T]?: (true | { $type: 'date' | 'timestamp' }) } | { [key: string]: (true | { $type: 'date' | 'timestamp' }) };
     $addToSet?: Partial<T> | { [key: string]: any };
     $pop?: { [P in keyof T]?: -1 | 1 } | { [key: string]: -1 | 1 };
-    $pull?: Partial<T> | { [key: string]: Condition<T, keyof T> | any };
+    $pull?: Partial<T> | { [P in keyof T]?: P extends any[] ? any : Condition<T, P> } | { [key: string]: Condition<T, keyof T> };
     $push?: Partial<T> | { [key: string]: any };
     $pushAll?: Partial<T> | { [key: string]: Array<any> };
     $each?: Partial<T> | { [key: string]: Array<any> };

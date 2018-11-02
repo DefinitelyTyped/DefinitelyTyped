@@ -1,5 +1,6 @@
 // Test source : https://github.com/mongodb/node-mongodb-native
 import mongodb = require('mongodb');
+import { ObjectID } from 'bson';
 var MongoClient = mongodb.MongoClient;
 
 const connectionString = 'mongodb://127.0.0.1:27017/test';
@@ -169,6 +170,24 @@ MongoClient.connect(connectionString, options, function (err: mongodb.MongoError
         });
 
         const res: mongodb.Cursor<TestCollection> = testCollection.find({ _id: 123 });
+    }
+
+    // test for updates
+    {
+        type TestCollection = {
+            _id: ObjectID;
+            docs: TestDocument[];
+            otherVal: number;
+        }
+        
+        type TestDocument = {
+            val: string;
+        }
+          
+        let testCollection = db.collection<TestCollection>('testCollection');
+        testCollection.updateOne({ _id: new ObjectID() }, { $pull: { items: { val: "test" } } });
+        testCollection.updateOne({ _id: new ObjectID() }, { $pull: { items: [{ val: "test" }, { val: "test" }] } });
+        testCollection.updateOne({ _id: new ObjectID() }, { $set: { otherVal: 9 } });
     }
 })
 
