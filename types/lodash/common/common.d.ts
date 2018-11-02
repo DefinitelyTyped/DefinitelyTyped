@@ -149,7 +149,7 @@ declare module "../index" {
          * @param value The value to cache.
          * @return Returns the cache object.
          */
-        set(key: string, value: any): Dictionary<any>;
+        set(key: any, value: any): Dictionary<any>;
 
         /**
          * Removes all key-value entries from the map.
