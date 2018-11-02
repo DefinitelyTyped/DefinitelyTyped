@@ -277,11 +277,18 @@ declare namespace React {
         readonly $$typeof: symbol;
     }
 
+    interface NamedExoticComponent<P = {}> extends ExoticComponent<P> {
+        displayName?: string;
+    }
+
+    // NOTE: only the Context object itself can get a displayName
+    // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
     type Provider<T> = ExoticComponent<ProviderProps<T>>;
     type Consumer<T> = ExoticComponent<ConsumerProps<T>>;
     interface Context<T> {
         Provider: Provider<T>;
         Consumer: Consumer<T>;
+        displayName?: string;
     }
     function createContext<T>(
         defaultValue: T,
@@ -580,7 +587,9 @@ declare namespace React {
 
     function createRef<T>(): RefObject<T>;
 
-    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ExoticComponent<P & ClassAttributes<T>>;
+    // will show `ForwardRef(${Component.displayName || Component.name})` in devtools by default,
+    // but can be given its own specific name
+    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): NamedExoticComponent<P & ClassAttributes<T>>;
 
     type ComponentProps<T extends ComponentType<any>> =
         T extends ComponentType<infer P> ? P : {};
@@ -591,14 +600,16 @@ declare namespace React {
                 ? P
                 : {};
 
+    // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
+    // but can be given its own specific name
     function memo<P extends object>(
         Component: SFC<P>,
         propsAreEqual?: (prevProps: Readonly<P & { children?: ReactNode }>, nextProps: Readonly<P & { children?: ReactNode }>) => boolean
-    ): ExoticComponent<P>;
+    ): NamedExoticComponent<P>;
     function memo<T extends ComponentType<any>>(
         Component: T,
         propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean
-    ): ExoticComponent<ComponentPropsWithRef<T>>;
+    ): NamedExoticComponent<ComponentPropsWithRef<T>>;
 
     //
     // React Hooks
