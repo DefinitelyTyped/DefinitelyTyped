@@ -1,7 +1,7 @@
 import { unstable_scheduleCallback, unstable_cancelCallback, unstable_now } from 'scheduler';
 
 // $ExpectType CallbackNode
-const callbackNode = unstable_scheduleCallback(() => 0, { timeout: 100 });
+const callbackNode = unstable_scheduleCallback(() => {}, { timeout: 100 });
 unstable_cancelCallback(callbackNode);
 
 // $ExpectType number
