@@ -1423,9 +1423,19 @@ export namespace plugins {
          */
         err: Error,
 
+        /**
+         *  Object that contains the various metrics that are returned
+         */
         metrics: MetricsCallbackOptions,
 
+        /**
+         * The request obj
+         */
         req: Request,
+
+        /**
+         * The response obj
+         */
         res: Response,
 
         /**
