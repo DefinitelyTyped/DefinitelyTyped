@@ -4,10 +4,12 @@ import {
     Alert,
     withAlert,
     AlertPosition,
-    AlertTransition
+    AlertTransition,
+    ProviderOptions,
+    InjectedAlertProp
 } from 'react-alert';
 
-class AppWithoutAlert extends React.Component<any> {
+class AppWithoutAlert extends React.Component<{ alert: InjectedAlertProp }> {
     render() {
         return (
             <button
@@ -21,6 +23,8 @@ class AppWithoutAlert extends React.Component<any> {
     }
 }
 
+const App = withAlert(AppWithoutAlert);
+
 class AppAlert extends React.Component {
     render() {
         return (
@@ -28,7 +32,7 @@ class AppAlert extends React.Component {
                 {alert => (
                     <button
                         onClick={() => {
-                            (alert as any).show('Oh look, an alert!');
+                            alert.show('Oh look, an alert!');
                         }}
                     >
                         Show Alert
@@ -38,8 +42,6 @@ class AppAlert extends React.Component {
         );
     }
 }
-
-const App = withAlert(AppWithoutAlert);
 
 class AlertTemplate extends React.Component<any> {
     render() {
@@ -61,7 +63,7 @@ class AlertTemplate extends React.Component<any> {
     }
 }
 
-const options = {
+const options: ProviderOptions = {
     position: 'bottom center' as AlertPosition,
     timeout: 5000,
     offset: '30px',
