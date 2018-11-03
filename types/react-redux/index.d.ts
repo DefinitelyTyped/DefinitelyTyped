@@ -1,4 +1,4 @@
-// Type definitions for react-redux 6.0.4
+// Type definitions for react-redux 6.0.5
 // Project: https://github.com/reduxjs/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
 //                 Kenzie Togami <https://github.com/kenzierocks>,
@@ -11,6 +11,7 @@
 //                 Valentin Descamps <https://github.com/val1984>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
 //                 Anatoli Papirovski <https://github.com/apapirovski>
+//                 Boris Sergeyev <https://github.com/surgeboris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -102,7 +103,7 @@ type ConnectedComponentClass<C, P> = ComponentClass<JSX.LibraryManagedAttributes
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
 export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
-	<C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
+    <C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
 		component: C
 	): ConnectedComponentClass<C, Omit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>
 }
@@ -112,6 +113,19 @@ export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps
 // render.
 export type InferableComponentEnhancer<TInjectedProps> =
     InferableComponentEnhancerWithProps<TInjectedProps, {}>
+
+// redux-thunk middleware returns thunk's return value from dispatch call
+type WithThunkActionCreators<TDispatchProps> =
+    TDispatchProps extends object
+    ? {
+        [C in keyof TDispatchProps]: C extends (...args: any[]) => any
+            ? ReturnType<C> extends (...args: any[]) => any
+                ? ReturnType<ReturnType<C>>
+                : C
+            : never
+    }
+    : TDispatchProps
+
 
 /**
  * Connects a React component to a Redux store.
@@ -142,12 +156,18 @@ export interface Connect {
     <no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
         mapStateToProps: null | undefined,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-    ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<
+        WithThunkActionCreators<TDispatchProps>,
+        TOwnProps
+    >;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<
+        TStateProps & WithThunkActionCreators<TDispatchProps>,
+        TOwnProps
+    >;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
@@ -185,14 +205,20 @@ export interface Connect {
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
         options: Options<{}, TStateProps, TOwnProps>
-    ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<
+        WithThunkActionCreators<TDispatchProps>,
+        TOwnProps
+    >;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
         options: Options<State, TStateProps, TOwnProps>
-    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+    ): InferableComponentEnhancerWithProps<
+        TStateProps & WithThunkActionCreators<TDispatchProps>,
+        TOwnProps
+    >;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = {}>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,

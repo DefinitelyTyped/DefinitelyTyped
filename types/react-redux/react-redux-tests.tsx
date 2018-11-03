@@ -99,6 +99,29 @@ namespace MapDispatch {
     const verifyUndefined = <TestUndefined foo='bar' />
 }
 
+namespace MapDispatchWithThunkActionCreators {
+    interface OwnProps { foo: string }
+    interface DispatchProps {
+        onClick(): void,
+        thunkAction(): Promise<void>
+    }
+
+    class TestComponent extends Component<OwnProps & DispatchProps> {}
+
+    const mapDispatchToProps = () => ({
+        onClick: () => {},
+        thunkAction: () => async () => {}
+    })
+
+    const Test = connect(
+        null,
+        mapDispatchToProps,
+    )(TestComponent)
+
+    const verify = <Test foo='bar' />
+}
+
+
 namespace MapStateAndDispatchObject {
     interface ClickPayload { count: number }
     const onClick: ActionCreator<ClickPayload> = () => ({ count: 1 });
