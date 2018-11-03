@@ -2,12 +2,13 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
+        "strictNullChecks": false,
+        "strictFunctionTypes": false,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "node-gamepad-tests.ts"
+        "w3c-gamepad-tests.ts"
     ]
 }
