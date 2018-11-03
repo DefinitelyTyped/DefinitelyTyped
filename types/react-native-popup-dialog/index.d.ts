@@ -1,4 +1,4 @@
-// Type definitions for react-native-popup-dialog 0.16.0
+// Type definitions for react-native-popup-dialog 16.0
 // Project: https://github.com/jacklam718/react-native-popup-dialog/blob/master/README.md
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
 //                 connectdotz <https://github.com/connectdotz>
