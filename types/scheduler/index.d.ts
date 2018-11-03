@@ -8,7 +8,7 @@ export interface Deadline {
   timeRemaining(): number;
   didTimeout: boolean;
 }
-export type FrameCallbackType = (deadline: Deadline) => FrameCallbackType | undefined;
+export type FrameCallbackType = (deadline: Deadline) => FrameCallbackType | void;
 export interface CallbackNode {
   callback: FrameCallbackType;
   priorityLevel: number;
