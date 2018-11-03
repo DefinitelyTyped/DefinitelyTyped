@@ -71,7 +71,18 @@ declare module "backbone" {
             stopReplying(commandName?: string, callback?: (...args: any[]) => any, context?: any): Requests;
         }
 
-        class Channel extends Backbone.Events implements Commands, Requests {
+        class Channel implements Commands, Requests, Backbone.Events {
+            on(eventName: string, callback?: Function, context?: any): any;
+            on(eventMap: EventsHash): any;
+            on(eventName: any, callback?: any, context?: any): any;
+            off(eventName?: string, callback?: Function, context?: any): any;
+            trigger(eventName: string, ...args: any[]): any;
+            bind(eventName: string, callback: Function, context?: any): any;
+            unbind(eventName?: string, callback?: Function, context?: any): any;
+            once(events: string, callback: Function, context?: any): any;
+            listenTo(object: any, events: string, callback: Function): any;
+            listenToOnce(object: any, events: string, callback: Function): any;
+            stopListening(object?: any, events?: string, callback?: Function): any;
             channelName: string;
             reset(): Channel;
 
