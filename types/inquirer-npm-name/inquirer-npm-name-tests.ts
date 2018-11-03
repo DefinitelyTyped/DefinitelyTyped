@@ -1,6 +1,13 @@
 import inquirer = require("inquirer");
 import askName = require("inquirer-npm-name");
 
-(async () => {
-    (await askName("name", inquirer)).name.toUpperCase();
-})();
+// $ExpectType Promise<{ [key: string]: string; }>
+askName("moduleName", inquirer);
+
+// $ExpectType Promise<{ [key: string]: string; }>
+askName(
+    {
+        name: "moduleName",
+        message: "Whar's the name of your module?"
+    },
+    inquirer);
