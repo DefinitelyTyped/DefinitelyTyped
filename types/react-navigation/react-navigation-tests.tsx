@@ -582,7 +582,7 @@ const StatelessBackButtonInstance = <StatelessBackButtonWithNavigation title="Ba
 // This is not used and is causing an error with the assignment to BackButtonWithNavigationWithExplicitProps below
 const BackButtonWithNavigationWithExplicitProps = withNavigation<BackButtonProps>(MyBackButton);
 const BackButtonWithExplicitPropsInstance = <BackButtonWithNavigationWithExplicitProps
-    title="Back" onRef={((ref: React.Component<BackButtonProps & NavigationInjectedProps<NavigationParams>>) => {
+    title="Back" onRef={((ref: React.Component<BackButtonProps & NavigationInjectedProps>) => {
         if (!ref) return;
         // We can't infer the component type if we pass in the props
         (ref as MyBackButton).triggerBack();
