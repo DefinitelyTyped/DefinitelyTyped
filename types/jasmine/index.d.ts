@@ -1,6 +1,6 @@
-// Type definitions for Jasmine 2.8.0
+// Type definitions for Jasmine 3.3.0
 // Project: http://jasmine.github.io/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>, Boris Breuer <https://github.com/Engineer2B>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>, Boris Breuer <https://github.com/Engineer2B>, Giles Roadnight <https://github.com/Roaders>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -447,6 +447,11 @@ declare namespace jasmine {
         toThrow(expected?: any): boolean;
         toThrowError(message?: string | RegExp): boolean;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
+        toThrowMatching(predicate: (thrown: any) => boolean): boolean;
+        nothing(expectationFailOutput?: any): boolean;
+        toBeNegativeInfinity(expectationFailOutput?: any): boolean;
+        toBePositiveInfinity(expectationFailOutput?: any): boolean;
+        toHaveClass(expected: any, expectationFailOutput?: any): boolean;
 
         not: Matchers<T>;
 
