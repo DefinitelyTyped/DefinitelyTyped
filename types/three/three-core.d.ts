@@ -1127,8 +1127,8 @@ export class EventDispatcher {
 
 export interface Event {
     type: string;
-	target?: any;
-	[attachment: string]: any;
+    target?: any;
+    [attachment: string]: any;
 }
 
 /**
