@@ -1,6 +1,6 @@
 // Type definitions for auth0 2.9.2
 // Project: https://github.com/auth0/node-auth0
-// Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
+// Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
