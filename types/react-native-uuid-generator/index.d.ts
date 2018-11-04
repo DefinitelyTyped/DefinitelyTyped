@@ -3,7 +3,9 @@
 // Definitions by: Bartosz Dotryw <https://github.com/burtek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default class UUIDGenerator {
-    static getRandomUUID(): Promise<string>;
-    static getRandomUUID(callback: (uuid: string) => void): void;
+declare namespace UUIDGenerator {
+    function getRandomUUID(): Promise<string>;
+    function getRandomUUID(callback: (uuid: string) => void): void;
 }
+
+export default UUIDGenerator;
