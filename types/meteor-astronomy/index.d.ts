@@ -1,4 +1,4 @@
-// Type definitions for meteor-astronomy 2.6.2
+// Type definitions for meteor-astronomy 2.6
 // Project: https://github.com/jagi/meteor-astronomy/
 // Definitions by: Igor Golovin <https://github.com/Deadly0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,10 +7,10 @@
 /// <reference types="meteor" />
 
 type TypeOptionsPrimitives = typeof String | typeof Date | typeof Boolean | typeof Object | typeof Number;
-type TypeOptions = TypeOptionsPrimitives | TypeOptionsPrimitives[] | IClass<any> | Enum<any>;
+type TypeOptions = TypeOptionsPrimitives | TypeOptionsPrimitives[] | Class<any> | Enum<any>;
 type MongoQuery = object | string;
 
-interface ISaveAndValidateOptions<K> {
+interface SaveAndValidateOptions<K> {
     fields?: K[];
     stopOnFirstError?: boolean;
     simulation?: boolean;
@@ -20,32 +20,32 @@ interface ISaveAndValidateOptions<K> {
 type SaveAndValidateCallback = (err: any, id: any) => void;
 type RemoveCallback = (err: any, result: any) => void;
 
-interface IValidator {
-    type: string,
-    param: any,
+interface Validator {
+    type: string;
+    param: any;
 }
 
 type DefaultFunc<T> = () => T;
 
-interface IModelFullField<Field, Doc> {
+interface ModelFullField<Field, Doc> {
     type: TypeOptions;
     optional?: boolean;
     transient?: boolean;
     immutable?: boolean;
     default?: Field | DefaultFunc<Field>;
     index?: string | number;
-    validators?: IValidator[];
+    validators?: Validator[];
     resolve?: (doc: Doc) => Field;
 }
 
-type ModelField<Field, Doc> = IModelFullField<Field, Doc> | TypeOptions;
+type ModelField<Field, Doc> = ModelFullField<Field, Doc> | TypeOptions;
 
 type Fields<T> = {
     [P in keyof T]: ModelField<T[P], T>;
-}
+};
 
-interface IClassModel<T> {
-    name: String;
+interface ClassModel<T> {
+    name: string;
     collection?: Mongo.Collection<T>;
     fields: Fields<T>;
     behaviors?: object;
@@ -60,8 +60,8 @@ interface IClassModel<T> {
     indexes?: object;
 }
 
-interface IEnumModel<T> {
-    name: String;
+interface EnumModel<T> {
+    name: string;
     identifiers: T[] | object;
 }
 
@@ -77,33 +77,33 @@ type Model<T> = T & {
     raw(): T;
     raw(field: string): any;
     raw(fields: string[]): any[];
-    save(options?: ISaveAndValidateOptions<keyof T>, callback?: SaveAndValidateCallback): void;
+    save(options?: SaveAndValidateOptions<keyof T>, callback?: SaveAndValidateCallback): void;
     save(callback?: SaveAndValidateCallback): void;
     copy(save: boolean): any;
-    validate(options?: ISaveAndValidateOptions<keyof T>, callback?: SaveAndValidateCallback): void;
+    validate(options?: SaveAndValidateOptions<keyof T>, callback?: SaveAndValidateCallback): void;
     validate(callback?: SaveAndValidateCallback): void;
     remove(callback?: RemoveCallback): void;
 };
 
-interface IClass<T> {
+interface Class<T> {
     new(data?: Partial<T>): Model<T>;
 
     findOne(query?: MongoQuery): Model<T>;
-    find(query?: MongoQuery): Model<T>[];
+    find(query?: MongoQuery): Array<Model<T>>;
     update(search: object | string, query: object, callback?: () => void): void;
 }
 
-type Enum<T> = {
+interface Enum<T> {
     getValues(): any[];
     getIdentifier(identifier: T): any;
 }
 
-declare module 'meteor/jagi:astronomy' {
-    module Class {
-        function create<T extends {}>(model: IClassModel<T>): IClass<T>;
+declare module 'meteor/jagi:astronomy' { // tslint:disable-line:no-single-declare-module
+    namespace Class {
+        function create<T extends {}>(model: ClassModel<T>): Class<T>;
     }
 
-    module Enum {
-        function create<T>(model: IEnumModel<T>): Enum<T>;
+    namespace Enum {
+        function create<T>(model: EnumModel<T>): Enum<T>;
     }
 }

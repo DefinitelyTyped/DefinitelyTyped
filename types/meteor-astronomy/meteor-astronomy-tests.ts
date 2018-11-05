@@ -2,15 +2,15 @@ import { Class, Enum } from 'meteor/jagi:astronomy';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
-interface IPost {
+interface PostInterface {
     title: string;
     userId: string;
     publishedAt: Date;
 }
 
-const Posts = new Mongo.Collection<IPost>('posts');
+const Posts = new Mongo.Collection<PostInterface>('posts');
 
-const Post = Class.create<IPost>({
+const Post = Class.create<PostInterface>({
     name: 'Post',
     collection: Posts,
     fields: {
@@ -46,14 +46,14 @@ post.publishedAt = new Date();
 // with only the fields that have changed.
 post.save({fields: ['title']});
 
-interface IUserProfile {
-    nickname: string,
-    firstName: string,
-    createdAt: Date,
-    age: number,
+interface UserProfileInterface {
+    nickname: string;
+    firstName: string;
+    createdAt: Date;
+    age: number;
 }
 
-const UserProfile = Class.create<IUserProfile>({
+const UserProfile = Class.create<UserProfileInterface>({
     name: 'UserProfile',
     fields: {
         nickname: String,
@@ -63,15 +63,15 @@ const UserProfile = Class.create<IUserProfile>({
     }
 });
 
-interface IUser extends Meteor.User {
+interface UserInterface extends Meteor.User {
     address: object;
     phone: string;
     phoneNumber: string;
 }
 
-const User = Class.create<IUser>({
+const User = Class.create<UserInterface>({
     name: 'User',
-    collection: Meteor.users as Mongo.Collection<IUser>,
+    collection: Meteor.users as Mongo.Collection<UserInterface>,
     fields: {
         createdAt: Number,
         emails: {
@@ -128,7 +128,6 @@ const Issue = Class.create({
         }
     }
 });
-
 
 Status.getValues(); // [0, 1, 2, 3]
 
