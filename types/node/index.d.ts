@@ -2259,7 +2259,7 @@ declare module "child_process" {
         addListener(event: "close", listener: (code: number, signal: string) => void): this;
         addListener(event: "disconnect", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "exit", listener: (code: number, signal: string) => void): this;
+        addListener(event: "exit", listener: (code: number | null, signal: string | null) => void): this;
         addListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
