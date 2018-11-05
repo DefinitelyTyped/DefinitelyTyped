@@ -3608,6 +3608,30 @@ declare namespace wx {
 		enableDebug: boolean;
 	}
 	// #region App里的onLaunch、onShow回调参数
+
+	// #region Account
+	interface AccountInfo {
+		/* 小程序账号信息 */
+		miniProgram: {
+			/*小程序 appId	 */
+			appId: string;
+		};
+		/* 插件账号信息（仅在插件中调用时包含这一项）	 */
+		plugin?: {
+			/* 插件 appId	 */
+			appId: string;
+			/* 插件版本号	 */
+			version: string;
+		};
+	}
+
+	/**
+	 * 获取当前账号信息
+	 * @version >= 2.2.2
+	 */
+	function getAccountInfoSync(): AccountInfo;
+	// #endregion
+
 	/**
 	 * App 实现的接口对象
 	 * 开发者可以添加任意的函数或数据到 Object 参数中，用 this 可以访问
@@ -4074,25 +4098,22 @@ declare namespace wx {
 		/**
 		 * 当场景为由从另一个小程序或公众号或App打开时，返回此字段
 		 */
-		referrerInfo: object;
-		/**
-		 * 来源小程序或公众号或App的 appId，详见下方说明
-		 */
-		"referrerInfo.appId": string;
-		/**
-		 * 来源小程序传过来的数据，scene=1037或1038时支持
-		 */
-		"referrerInfo.extraData": object;
+		referrerInfo: {
+			/* 来源小程序或公众号或App的 appId，详见下方说明 */
+			appId: string;
+			/* 来源小程序传过来的数据，scene=1037或1038时支持 */
+			extraData: object;
+		};
 		// #endregion
 	}
 
 	// 云开发
 	// 文档：https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html
-	interface cloud {
+	interface Cloud {
 		/**
 		 * 初始化方法（全局只需一次）
 		 */
-		init: (options: initCloudOptions) => void;
+		init: (options: InitCloudOptions) => void;
 		/**
 		 * 接受一个可选对象参数 env：环境 ID，获取数据库的引用
 		 */
@@ -4105,12 +4126,12 @@ declare namespace wx {
 	/**
 	 * 定义了云开发的默认配置，该配置会作为之后调用其他所有云 API 的默认配置
 	 */
-	interface initCloudOptions {
+	interface InitCloudOptions {
 		/**
 		 * 默认环境配置，传入字符串形式的环境 ID 可以指定所有服务的默认环境，传入对象 initCloudEnvOptions 可以分别指定各个服务的默认环境
 		 * 默认值： default
 		 */
-		env?: string | initCloudEnvOptions;
+		env?: string | InitCloudEnvOptions;
 		/**
 		 * 是否在将用户访问记录到用户管理中，在控制台中可见
 		 * 默认值： false
@@ -4120,7 +4141,7 @@ declare namespace wx {
 	/**
 	 * initCloudOptions 的 env 参数，可以指定各个服务的默认环境
 	 */
-	interface initCloudEnvOptions {
+	interface InitCloudEnvOptions {
 		/**
 		 * 数据库 API 默认环境配置
 		 * 默认值： default
