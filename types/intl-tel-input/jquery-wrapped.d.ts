@@ -1,6 +1,6 @@
 /// <reference types="jquery" />
 
-import { CountryData, NumberFormat, Options, NumberType, ValidationError } from ".";
+import * as IntlTelInput from "./index";
 
 // Additional definitions for intl-tel-input (jQuery-wrapped)
 
@@ -9,7 +9,7 @@ export interface JQueryPlugin {
      * Get all of the plugin's country data - either to re-use elsewhere
      * e.g. to populate a country dropdown.
      */
-    getCountryData(): CountryData[];
+    getCountryData(): IntlTelInput.CountryData[];
 
     /**
      * Load the utils.js script (included in the lib directory) to enable
@@ -21,7 +21,7 @@ export interface JQueryPlugin {
      * initialise the plugin with optional options.
      * @param options options that can be provided during initialization.
      */
-    (options?: Options): JQueryDeferred<any>;
+    (options?: IntlTelInput.Options): JQueryDeferred<any>;
 
     /**
      * Remove the plugin from the input, and unbind any event listeners.
@@ -45,8 +45,8 @@ export interface JQueryPlugin {
      * international number.
      * @param numberFormat the format in which the number will be returned.
      */
-    (method: 'getNumber', numberFormat?: NumberFormat): string;
-    (method: string, numberFormat: NumberFormat): string;
+    (method: 'getNumber', numberFormat?: IntlTelInput.NumberFormat): string;
+    (method: string, numberFormat: IntlTelInput.NumberFormat): string;
 
     /**
      * Get the type (fixed-line/mobile/toll-free etc) of the current number.
@@ -56,12 +56,12 @@ export interface JQueryPlugin {
      * Note that in the US there's no way to differentiate between fixed-line and
      * mobile numbers, so instead it will return FIXED_LINE_OR_MOBILE.
      */
-    (method: 'getNumberType'): NumberType;
+    (method: 'getNumberType'): IntlTelInput.NumberType;
 
     /**
      * Get the country data for the currently selected flag.
      */
-    (method: 'getSelectedCountryData'): CountryData;
+    (method: 'getSelectedCountryData'): IntlTelInput.CountryData;
 
     /**
      * Get more information about a validation error.
@@ -69,7 +69,7 @@ export interface JQueryPlugin {
      * Returns an integer, which you can match against the various options in the
      * global enum ValidationError
      */
-    (method: 'getValidationError'): ValidationError;
+    (method: 'getValidationError'): IntlTelInput.ValidationError;
 
     /**
      * Validate the current number. Expects an internationally formatted number
@@ -99,11 +99,11 @@ export interface JQueryPlugin {
      * Set the type of the placeholder number
      * @param type Placeholder number type to be set
      */
-    (method: 'setPlaceholderNumberType', type: NumberType): void;
-  }
+    (method: 'setPlaceholderNumberType', type: IntlTelInput.NumberType): void;
+}
 
 declare global {
-  interface JQuery {
-    intlTelInput: JQueryPlugin;
-  }
+    interface JQuery {
+        intlTelInput: JQueryPlugin;
+    }
 }
