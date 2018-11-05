@@ -919,6 +919,12 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
      */
     resetStyle(layer: Layer): Layer;
 
+    /**
+     * Same as FeatureGroup's setStyle method, but style-functions are also
+     * allowed here to set the style according to the feature.
+     */
+    setStyle(style: PathOptions | StyleFunction<P>): this;
+
     options: GeoJSONOptions<P>;
 }
 

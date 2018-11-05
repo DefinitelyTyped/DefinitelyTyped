@@ -162,7 +162,7 @@ export interface Transaction {
     };
     notify_url?: string;
     order_url?: string;
-    readonly related_resources?: RelatedResources;
+    readonly related_resources?: RelatedResources[];
 }
 
 export interface Payee {
