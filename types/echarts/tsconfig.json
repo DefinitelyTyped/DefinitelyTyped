@@ -17,7 +17,11 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
+    "include": [
+        "./options/**/*.d.ts"
+    ],
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "zrender.d.ts"
     ]
 }
