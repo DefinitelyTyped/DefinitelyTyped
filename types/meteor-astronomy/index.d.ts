@@ -7,6 +7,11 @@
 /// <reference types="meteor" />
 
 declare namespace MeteorAstronomy {
+    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]; // tslint:disable-line:ban-types
+    type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
+    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T]; // tslint:disable-line:ban-types
+    type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>;
+
     type TypeOptionsPrimitives = typeof String | typeof Date | typeof Boolean | typeof Object | typeof Number;
     type TypeOptions = TypeOptionsPrimitives | TypeOptionsPrimitives[] | Class<any> | Enum<any>;
     type MongoQuery = object | string;
@@ -40,7 +45,11 @@ declare namespace MeteorAstronomy {
     type ModelField<Field, Doc> = ModelFullField<Field, Doc> | TypeOptions;
 
     type Fields<T> = {
-        [P in keyof T]: ModelField<T[P], T>;
+        [P in keyof NonFunctionProperties<T>]: ModelField<T[P], T>;
+    };
+
+    type Helpers<T> = {
+        [P in keyof FunctionProperties<T>]: (this: T, ...args: any) => any;
     };
 
     interface ClassModel<T> {
@@ -53,7 +62,7 @@ declare namespace MeteorAstronomy {
             update: boolean,
             remove: boolean,
         } | boolean;
-        helpers?: object;
+        helpers?: Helpers<T>;
         events?: object;
         meteorMethods?: object;
         indexes?: object;
@@ -61,7 +70,7 @@ declare namespace MeteorAstronomy {
 
     interface EnumModel<T> {
         name: string;
-        identifiers: T[] | object;
+        identifiers: string[] | T;
     }
 
     type Model<T> = T & {
@@ -92,10 +101,10 @@ declare namespace MeteorAstronomy {
         update(search: object | string, query: object, callback?: () => void): void;
     }
 
-    interface Enum<T> {
+    type Enum<T> = T & {
         getValues(): any[];
-        getIdentifier(identifier: T): any;
-    }
+        getIdentifier(identifier: any): string;
+    };
 }
 
 declare module 'meteor/jagi:astronomy' { // tslint:disable-line:no-single-declare-module
