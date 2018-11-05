@@ -8584,7 +8584,7 @@ declare namespace Office {
          * 
          * For item attachments that represent messages, the formatting is a string representing an .eml formatted file.
          * 
-         * For item attachments that represent calendar items, the formatting is an .icalendar file.
+         * For item attachments that represent calendar items, the formatting is a string representing an .icalendar file.
          * 
          * For cloud attachments, the formatting is a URL string.
          */
