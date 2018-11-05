@@ -3278,9 +3278,7 @@ export interface HSL {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Color.js">src/math/Color.js</a>
  */
 export class Color {
-    constructor(color?: Color);
-    constructor(color?: string);
-    constructor(color?: number);
+    constructor(color?: Color|string|number);
     constructor(r: number, g: number, b: number);
 
     /**
