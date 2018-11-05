@@ -32,7 +32,12 @@ declare namespace SmoothScroll {
         // Speed & Easing
         speed?: number;
         clip?: boolean;
-        offset?: number | ((anchor?: Node | number, toggle?: Node) => number);
+        offset?:
+            | number
+            | ((
+                  anchor?: Element | number | null,
+                  toggle?: Element | null
+              ) => number);
         easing?: Easing;
         customEasing?: (time: number) => number;
 
@@ -53,8 +58,8 @@ declare class SmoothScroll {
     destroy(): void;
 
     animateScroll(
-        anchor: Node | number,
-        toggle?: Node,
+        anchor: Element | number | null,
+        toggle?: Element | null,
         options?: SmoothScroll.Options
     ): void;
 

@@ -17,7 +17,7 @@ example1.destroy();
 // Scrolling to an anchor
 const example2 = () => {
     const scroll = new SmoothScroll();
-    const anchor: Node = document.querySelector("#bazinga");
+    const anchor = document.querySelector("#bazinga");
     scroll.animateScroll(anchor, null, { speed: 1000 });
 };
 
