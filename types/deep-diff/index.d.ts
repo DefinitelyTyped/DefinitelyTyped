@@ -4,27 +4,27 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-export interface DiffNew<RHS, Kind = 'N'> {
-    kind: Kind;
+export interface DiffNew<RHS> {
+    kind: 'N';
     path?: any[];
     rhs: RHS;
 }
 
-export interface DiffDeleted<LHS, Kind = 'D'> {
-    kind: Kind;
+export interface DiffDeleted<LHS> {
+    kind: 'D';
     path?: any[];
     lhs: LHS;
 }
 
-export interface DiffEdit<LHS, RHS = LHS, Kind = 'E'> {
-    kind: Kind;
+export interface DiffEdit<LHS, RHS = LHS> {
+    kind: 'E';
     path?: any[];
     lhs: LHS;
     rhs: RHS;
 }
 
-export interface DiffArray<LHS, RHS = LHS, Kind = 'A'> {
-    kind: Kind;
+export interface DiffArray<LHS, RHS = LHS> {
+    kind: 'A';
     path?: any[];
     index: number;
     item: Diff<LHS, RHS>;
