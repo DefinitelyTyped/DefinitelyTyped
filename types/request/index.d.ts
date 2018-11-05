@@ -134,7 +134,7 @@ declare namespace request {
         jsonReplacer?: (key: string, value: any) => any;
         multipart?: RequestPart[] | Multipart;
         agent?: http.Agent | https.Agent;
-        agentOptions?: http.AgentOptions | https.AgentOptions | SecureContextOptions;
+        agentOptions?: http.AgentOptions | https.AgentOptions;
         agentClass?: any;
         forever?: any;
         host?: string;

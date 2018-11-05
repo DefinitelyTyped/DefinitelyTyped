@@ -550,7 +550,9 @@ request.get(options);
 request.get({
     url: 'https://api.some-server.com/',
     agentOptions: {
-        secureProtocol: 'SSLv3_method'
+        secureProtocol: 'SSLv3_method',
+        maxCachedSessions: 3,
+        keepAlive: true,
     }
 });
 
