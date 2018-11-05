@@ -16,6 +16,29 @@ diffArraysResult.forEach(result => {
     }
 });
 
+interface DiffObj {
+    value: number;
+}
+const a: DiffObj = {value: 0};
+const b: DiffObj = {value: 1};
+const c: DiffObj = {value: 2};
+const d: DiffObj = {value: 3};
+const arrayOptions: jsdiff.IArrayOptions = {
+    comparator: (left: DiffObj, right: DiffObj) => {
+      return left.value === right.value;
+    }
+};
+const diffResult = jsdiff.diffArrays([a, b, c], [a, b, d], arrayOptions);
+diffResult.forEach(result => {
+    if (result.added) {
+        console.log(`added ${result.value.length} line(s):`, ...result.value);
+    } else if (result.removed) {
+        console.log(`removed ${result.value.length} line(s):`, ...result.value);
+    } else {
+        console.log(`no changes`);
+    }
+});
+
 // --------------------------
 
 class LineDiffWithoutWhitespace extends jsdiff.Diff {
