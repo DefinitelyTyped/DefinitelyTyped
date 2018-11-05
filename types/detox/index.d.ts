@@ -369,7 +369,7 @@ declare namespace Detox {
     type Direction = "left" | "right" | "top" | "bottom" | "up" | "down";
     type Orientation = "portrait" | "landscape";
     type Speed = "fast" | "slow";
-    
+
     interface LanguageAndLocale {
         language?: string;
         locale?: string;
