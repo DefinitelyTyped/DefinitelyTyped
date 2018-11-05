@@ -1,7 +1,7 @@
-// Type definitions for jsPDF v1.1.136
+// Type definitions for jsPDF 1.2
 // Project: https://github.com/MrRio/jsPDF
-// Definitions by:  Amber Schühmacher <https://github.com/amberjs>
-//                  Kevin Gonnord <https://github.com/lleios>
+// Definitions by: Amber Schühmacher <https://github.com/amberjs>
+//                 Kevin Gonnord <https://github.com/lleios>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'jspdf' {
