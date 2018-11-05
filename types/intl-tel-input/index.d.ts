@@ -21,10 +21,10 @@ export interface IntlTelInputStatic {
    * initialise the plugin with optional options.
    * @param options options that can be provided during initialization.
    */
-  (node: Element, options?: IntlTelInputOptions): IntlTelInput;
+  (node: Element, options?: Options): Plugin;
 }
 
-export interface IntlTelInput {
+export interface Plugin {
   /**
    * Remove the plugin from the input, and unbind any event listeners.
    */
@@ -103,7 +103,7 @@ export interface IntlTelInput {
   setPlaceholderNumberType(type: NumberType): void;
 }
 
-export interface IntlTelInputOptions {
+export interface Options {
   /**
    * Whether or not to allow the dropdown. If disabled, there is no dropdown
    * arrow, and the selected flag is not clickable. Also we display the

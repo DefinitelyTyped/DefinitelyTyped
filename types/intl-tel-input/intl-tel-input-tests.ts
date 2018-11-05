@@ -1,4 +1,5 @@
 import IntlTelInput = require("intl-tel-input");
+import { NumberFormat } from "intl-tel-input";
 
 const input = document.querySelector("#phone");
 window.intlTelInput(input);
@@ -41,7 +42,13 @@ window.intlTelInput(input).setCountry('gb');
 
 window.intlTelInput(input).setNumber('+447733123456');
 
+window.intlTelInput(input).setPlaceholderNumberType(IntlTelInput.NumberType.FIXED_LINE);
+
 const countryData = window.intlTelInput.getCountryData();
+const country = countryData[0];
+const dialCode = country.dialCode;
+const iso2 = country.iso2;
+const name = country.name;
 
 window.intlTelInput.loadUtils('build/js/utils.js');
 
@@ -66,4 +73,17 @@ window.intlTelInput(input, {
 window.intlTelInput(input, {
   onlyCountries: ['al'],
   utilsScript: '../../build/js/utils.js'
+});
+
+window.intlTelInput(input, {
+  allowDropdown: false,
+  autoHideDialCode: false,
+  autoPlaceholder: "aggressive",
+  dropdownContainer: document.body,
+  excludeCountries: [ "us", "uk" ],
+  formatOnDisplay: false,
+  hiddenInput: "hidden-input",
+  localizedCountries: { de: "Deutschland"},
+  preferredCountries: ["us", "gb"],
+  separateDialCode: false
 });
