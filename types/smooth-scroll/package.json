@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "smooth-scroll": "^14.2.1"
+  }
+}
