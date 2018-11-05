@@ -1074,7 +1074,6 @@ export class Editor {
     flush(): Editor;
 
     command(name: string, ...args: any[]): void;
-    event(handler: string, event: Event | SyntheticEvent): void;
     query(query: string, ...args: any[]): any;
 
     /**

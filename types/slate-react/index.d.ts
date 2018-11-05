@@ -120,6 +120,9 @@ export class Editor extends React.Component<EditorProps, EditorState> {
     stack: Stack;
 
     readonly plugins: Plugin[];
+    readonly operations: Immutable.List<Operation>;
+    readonly readOnly: boolean;
+    readonly value: Value;
 
     // Instance Methods
     applyOperation(...args: any[]): Controller;
@@ -127,12 +130,9 @@ export class Editor extends React.Component<EditorProps, EditorState> {
     command(...args: any[]): Controller;
     focus(): void;
     normalize(...args: any[]): Controller;
-    operations(): Operations;
     query(...args: any[]): Controller;
-    readOnly(): boolean;
     resolveController(plugins: Plugin[], schema: Schema, commands: any[], queries: any[]): void;
     run(...args: any[]): any;
-    value(): Value;
     withoutNormalizing(...args: any[]): Controller;
 }
 
