@@ -1,7 +1,7 @@
 // https://github.com/mrdoob/three.js/blob/master/examples/js/loaders/FBXLoader.js
 
 import { LoadingManager } from "./three-core";
-import {Group} from "./three-core";
+import { AnimationClip, Group } from "./three-core";
 
 interface ILoadedModel extends Group {
 	animations?: AnimationClip[];
