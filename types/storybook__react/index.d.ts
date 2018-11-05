@@ -2,6 +2,7 @@
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Joscha Feth <https://github.com/joscha>
 //                 Anton Izmailov <https://github.com/wapgear>
+//                 Dan Dean <https://github.com/dandean>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -16,7 +17,7 @@ export type StoryDecorator = (story: RenderFunction, context: { kind: string, st
 
 export interface Story {
     readonly kind: string;
-    add(storyName: string, callback: RenderFunction): this;
+    add(storyName: string, callback: RenderFunction, parameters?: { [key: string]: any }): this;
     addDecorator(decorator: StoryDecorator): this;
 }
 

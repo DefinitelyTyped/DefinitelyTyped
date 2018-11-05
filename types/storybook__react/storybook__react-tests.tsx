@@ -30,6 +30,7 @@ storiesOf<AnyAddon>('withAnyAddon', module)
     .addWithSideEffect('more', () => <div/>)
     .add('another story', () => <div/>)
     .add('to Storybook as Array', () => [<div />, <div />])
+    .add('and a story with additional parameters', () => <div/>, { parameter: 'foo' })
     .addWithSideEffect('even more', () => <div/>);
 
 // configure
