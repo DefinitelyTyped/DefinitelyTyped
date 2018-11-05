@@ -50,15 +50,15 @@ declare namespace wx {
 		header?: RequestHeader;
 		/** 默认为 GET，有效值：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT */
 		method?:
-		| "GET"
-		| "OPTIONS"
-		| "GET"
-		| "HEAD"
-		| "POST"
-		| "PUT"
-		| "DELETE"
-		| "TRACE"
-		| "CONNECT";
+			| "GET"
+			| "OPTIONS"
+			| "GET"
+			| "HEAD"
+			| "POST"
+			| "PUT"
+			| "DELETE"
+			| "TRACE"
+			| "CONNECT";
 		/** 如果设为json，会尝试对返回的数据做一次 JSON.parse */
 		dataType?: string;
 		/**
@@ -289,9 +289,7 @@ declare namespace wx {
 	 * 需要用户授权 scope.writePhotosAlbum
 	 * @version 1.2.0
 	 */
-	function saveImageToPhotosAlbum(
-		options: SaveImageToPhotosAlbumOptions
-	): void;
+	function saveImageToPhotosAlbum(options: SaveImageToPhotosAlbumOptions): void;
 	// 媒体-----录音
 	interface StartRecordAudioOptions extends BaseOptions {
 		/** 录音成功后调用，返回录音文件的临时文件路径，res = {tempFilePath: '录音文件的临时路径'} */
@@ -387,13 +385,9 @@ declare namespace wx {
 		/** 录音恢复事件 */
 		onResume(callback?: () => void): void;
 		/** 录音停止事件，会回调文件地址 */
-		onStop(
-			callback?: (options: OnRecorderManagerStopOptions) => void
-		): void;
+		onStop(callback?: (options: OnRecorderManagerStopOptions) => void): void;
 		/** 已录制完指定帧大小的文件，会回调录音分片结果数据。如果设置了 frameSize ，则会回调此事件 */
-		onFrameRecorded(
-			callback?: (options: OnFrameRecordedOptions) => void
-		): void;
+		onFrameRecorded(callback?: (options: OnFrameRecordedOptions) => void): void;
 		/** 录音错误事件, 会回调错误信息 */
 		onError(callback?: (err: ErrMsgResponse) => void): void;
 	}
@@ -1066,9 +1060,7 @@ declare namespace wx {
 		/**
 		 * 获取当前地图中心的经纬度，返回的是 gcj02 坐标系，可以用于 wx.openLocation
 		 */
-		getCenterLocation(
-			options: GetCenterLocationOptions
-		): OpenLocationOptions;
+		getCenterLocation(options: GetCenterLocationOptions): OpenLocationOptions;
 		/**
 		 * 将地图中心移动到当前定位点，需要配合map组件的show-location使用
 		 */
@@ -3294,13 +3286,13 @@ declare namespace wx {
 	// 开放接口-----设置
 	interface AuthSetting {
 		scope:
-		| "scope.userInfo"
-		| "scope.userLocation"
-		| "scope.address"
-		| "scope.invoiceTitle"
-		| "scope.werun"
-		| "scope.record"
-		| "scope.writePhotosAlbum";
+			| "scope.userInfo"
+			| "scope.userLocation"
+			| "scope.address"
+			| "scope.invoiceTitle"
+			| "scope.werun"
+			| "scope.record"
+			| "scope.writePhotosAlbum";
 		success?(res: ErrMsgResponse): void;
 		fail?(): void;
 		complete?(): void;
@@ -3490,10 +3482,10 @@ declare namespace wx {
 	}
 
 	interface BuiltInEvent<T extends EventType, Detail>
-		extends BaseEvent<T, Detail> { }
+		extends BaseEvent<T, Detail> {}
 
 	interface CustomEvent<T extends string, Detail>
-		extends BaseEvent<T, Detail> { }
+		extends BaseEvent<T, Detail> {}
 
 	/**
 	 * 指定focus时的光标位置
@@ -3501,22 +3493,22 @@ declare namespace wx {
 	 */
 	interface InputEvent
 		extends BuiltInEvent<
-		"input",
-		{
-			value: string;
-			cursor: number;
-		}
-		> { }
+				"input",
+				{
+					value: string;
+					cursor: number;
+				}
+			> {}
 
 	interface FormEvent
 		extends BuiltInEvent<
-		"form",
-		{
-			value: { [name: string]: string | boolean | number };
-		}
-		> { }
+				"form",
+				{
+					value: { [name: string]: string | boolean | number };
+				}
+			> {}
 
-	interface ScrollEvent extends BuiltInEvent<"scroll", {}> { }
+	interface ScrollEvent extends BuiltInEvent<"scroll", {}> {}
 
 	interface Touch {
 		identifier: number;
@@ -3528,12 +3520,12 @@ declare namespace wx {
 
 	interface TouchEvent<T extends TouchEventType>
 		extends BuiltInEvent<
-		T,
-		{
-			x: number;
-			y: number;
-		}
-		> {
+				T,
+				{
+					x: number;
+					y: number;
+				}
+			> {
 		touches: Touch[];
 		changedTouches: Touch[];
 	}
@@ -3673,8 +3665,7 @@ declare namespace wx {
 		Data,
 		Methods,
 		Props
-		> = CombinedInstance<Instance, Data, Methods, Props> &
-		Component<Data, Props>;
+	> = CombinedInstance<Instance, Data, Methods, Props> & Component<Data, Props>;
 
 	// CombinedInstance models the `this`, i.e. instance type for (user defined) component
 	type CombinedInstance<
@@ -3682,9 +3673,9 @@ declare namespace wx {
 		Data,
 		Methods,
 		Props
-		> = Methods & Instance;
+	> = Methods & Instance;
 
-	type Prop<T> = (() => T) | { new(...args: any[]): T & object };
+	type Prop<T> = (() => T) | { new (...args: any[]): T & object };
 
 	type PropValidator<T> = PropOptions<T> | Prop<T> | Array<Prop<T>>;
 
@@ -3705,9 +3696,7 @@ declare namespace wx {
 
 	type ArrayPropsDefinition<T> = Array<keyof T>;
 
-	type PropsDefinition<T> =
-		| ArrayPropsDefinition<T>
-		| RecordPropsDefinition<T>;
+	type PropsDefinition<T> = ArrayPropsDefinition<T> | RecordPropsDefinition<T>;
 
 	interface ComponentRelation<D = any, P = any> {
 		/** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
@@ -3726,7 +3715,7 @@ declare namespace wx {
 		Data,
 		Methods,
 		Props
-		> = object &
+	> = object &
 		ComponentOptions<V, Data | ((this: V) => Data), Methods, Props> &
 		ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>>>;
 
@@ -3789,7 +3778,7 @@ declare namespace wx {
 		Data = DefaultData<Instance>,
 		Methods = DefaultMethods<Instance>,
 		Props = PropsDefinition<DefaultProps>
-		> extends Partial<Lifetimes> {
+	> extends Partial<Lifetimes> {
 		/**
 		 * 组件的对外属性，是属性名到属性设置的映射表
 		 * 属性设置中可包含三个字段:
@@ -3841,9 +3830,7 @@ declare namespace wx {
 		 * 类似于mixins和traits的组件间代码复用机制
 		 * 参见 [behaviors](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/behaviors.html)
 		 */
-		behaviors?: Array<
-		(ComponentOptions<Component<object, object>>) | string
-		>;
+		behaviors?: Array<(ComponentOptions<Component<object, object>>) | string>;
 
 		/**
 		 * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
@@ -3914,13 +3901,13 @@ declare namespace wx {
 		setData(
 			data: {
 				[key in keyof D]?:
-				| string
-				| number
-				| boolean
-				| symbol
-				| object
-				| null
-				| any[]
+					| string
+					| number
+					| boolean
+					| symbol
+					| object
+					| null
+					| any[]
 			},
 			callback?: () => void
 		): void;
@@ -4171,7 +4158,7 @@ declare function Component<D, M, P>(
 		D,
 		M,
 		P
-		>
+	>
 ): wx.ExtendedComponent<wx.Component<D, P>, D, M, P>;
 /**
  * behaviors 是用于组件间代码共享的特性
@@ -4187,7 +4174,7 @@ declare function Behavior<D, M, P>(
 		D,
 		M,
 		P
-		>
+	>
 ): wx.ExtendedComponent<wx.Component<D, P>, D, M, P>;
 // #endregion
 // #region Page
