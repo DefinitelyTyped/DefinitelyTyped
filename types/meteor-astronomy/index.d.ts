@@ -2,6 +2,7 @@
 // Project: https://github.com/jagi/meteor-astronomy/
 // Definitions by: Igor Golovin <https://github.com/Deadly0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 /// <reference types="meteor" />
 
@@ -48,7 +49,7 @@ declare namespace MeteorAstronomy {
     };
 
     type Helpers<T> = {
-        [P in keyof FunctionProperties<T>]: (this: T, ...args: any) => any;
+        [P in keyof FunctionProperties<T>]: (this: T, ...args: any[]) => any;
     };
 
     interface ClassModel<T> {
