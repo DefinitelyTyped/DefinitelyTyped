@@ -416,5 +416,10 @@ declare namespace Detox {
          * The added launchArgs will be passed through the launch command to the device and be accessible via [[NSProcessInfo processInfo] arguments]
          */
         launchArgs?: any;
+
+        /**
+         * Launch config for specifying the native language and locale
+         */
+        languageAndLocale?: any;
     }
 }
