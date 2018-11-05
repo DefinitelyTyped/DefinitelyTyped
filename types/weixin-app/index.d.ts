@@ -50,15 +50,15 @@ declare namespace wx {
 		header?: RequestHeader;
 		/** 默认为 GET，有效值：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT */
 		method?:
-		| "GET"
-		| "OPTIONS"
-		| "GET"
-		| "HEAD"
-		| "POST"
-		| "PUT"
-		| "DELETE"
-		| "TRACE"
-		| "CONNECT";
+			| "GET"
+			| "OPTIONS"
+			| "GET"
+			| "HEAD"
+			| "POST"
+			| "PUT"
+			| "DELETE"
+			| "TRACE"
+			| "CONNECT";
 		/** 如果设为json，会尝试对返回的数据做一次 JSON.parse */
 		dataType?: string;
 		/**
@@ -289,9 +289,7 @@ declare namespace wx {
 	 * 需要用户授权 scope.writePhotosAlbum
 	 * @version 1.2.0
 	 */
-	function saveImageToPhotosAlbum(
-		options: SaveImageToPhotosAlbumOptions
-	): void;
+	function saveImageToPhotosAlbum(options: SaveImageToPhotosAlbumOptions): void;
 	// 媒体-----录音
 	interface StartRecordAudioOptions extends BaseOptions {
 		/** 录音成功后调用，返回录音文件的临时文件路径，res = {tempFilePath: '录音文件的临时路径'} */
@@ -387,13 +385,9 @@ declare namespace wx {
 		/** 录音恢复事件 */
 		onResume(callback?: () => void): void;
 		/** 录音停止事件，会回调文件地址 */
-		onStop(
-			callback?: (options: OnRecorderManagerStopOptions) => void
-		): void;
+		onStop(callback?: (options: OnRecorderManagerStopOptions) => void): void;
 		/** 已录制完指定帧大小的文件，会回调录音分片结果数据。如果设置了 frameSize ，则会回调此事件 */
-		onFrameRecorded(
-			callback?: (options: OnFrameRecordedOptions) => void
-		): void;
+		onFrameRecorded(callback?: (options: OnFrameRecordedOptions) => void): void;
 		/** 录音错误事件, 会回调错误信息 */
 		onError(callback?: (err: ErrMsgResponse) => void): void;
 	}
@@ -1066,9 +1060,7 @@ declare namespace wx {
 		/**
 		 * 获取当前地图中心的经纬度，返回的是 gcj02 坐标系，可以用于 wx.openLocation
 		 */
-		getCenterLocation(
-			options: GetCenterLocationOptions
-		): OpenLocationOptions;
+		getCenterLocation(options: GetCenterLocationOptions): OpenLocationOptions;
 		/**
 		 * 将地图中心移动到当前定位点，需要配合map组件的show-location使用
 		 */
@@ -3294,13 +3286,13 @@ declare namespace wx {
 	// 开放接口-----设置
 	interface AuthSetting {
 		scope:
-		| "scope.userInfo"
-		| "scope.userLocation"
-		| "scope.address"
-		| "scope.invoiceTitle"
-		| "scope.werun"
-		| "scope.record"
-		| "scope.writePhotosAlbum";
+			| "scope.userInfo"
+			| "scope.userLocation"
+			| "scope.address"
+			| "scope.invoiceTitle"
+			| "scope.werun"
+			| "scope.record"
+			| "scope.writePhotosAlbum";
 		success?(res: ErrMsgResponse): void;
 		fail?(): void;
 		complete?(): void;
@@ -3490,10 +3482,10 @@ declare namespace wx {
 	}
 
 	interface BuiltInEvent<T extends EventType, Detail>
-		extends BaseEvent<T, Detail> { }
+		extends BaseEvent<T, Detail> {}
 
 	interface CustomEvent<T extends string, Detail>
-		extends BaseEvent<T, Detail> { }
+		extends BaseEvent<T, Detail> {}
 
 	/**
 	 * 指定focus时的光标位置
@@ -3501,22 +3493,22 @@ declare namespace wx {
 	 */
 	interface InputEvent
 		extends BuiltInEvent<
-		"input",
-		{
-			value: string;
-			cursor: number;
-		}
-		> { }
+				"input",
+				{
+					value: string;
+					cursor: number;
+				}
+			> {}
 
 	interface FormEvent
 		extends BuiltInEvent<
-		"form",
-		{
-			value: { [name: string]: string | boolean | number };
-		}
-		> { }
+				"form",
+				{
+					value: { [name: string]: string | boolean | number };
+				}
+			> {}
 
-	interface ScrollEvent extends BuiltInEvent<"scroll", {}> { }
+	interface ScrollEvent extends BuiltInEvent<"scroll", {}> {}
 
 	interface Touch {
 		identifier: number;
@@ -3528,12 +3520,12 @@ declare namespace wx {
 
 	interface TouchEvent<T extends TouchEventType>
 		extends BuiltInEvent<
-		T,
-		{
-			x: number;
-			y: number;
-		}
-		> {
+				T,
+				{
+					x: number;
+					y: number;
+				}
+			> {
 		touches: Touch[];
 		changedTouches: Touch[];
 	}
@@ -3616,6 +3608,30 @@ declare namespace wx {
 		enableDebug: boolean;
 	}
 	// #region App里的onLaunch、onShow回调参数
+
+	// #region Account
+	interface AccountInfo {
+		/* 小程序账号信息 */
+		miniProgram: {
+			/*小程序 appId	 */
+			appId: string;
+		};
+		/* 插件账号信息（仅在插件中调用时包含这一项）	 */
+		plugin?: {
+			/* 插件 appId	 */
+			appId: string;
+			/* 插件版本号	 */
+			version: string;
+		};
+	}
+
+	/**
+	 * 获取当前账号信息
+	 * @version >= 2.2.2
+	 */
+	function getAccountInfoSync(): AccountInfo;
+	// #endregion
+
 	/**
 	 * App 实现的接口对象
 	 * 开发者可以添加任意的函数或数据到 Object 参数中，用 this 可以访问
@@ -3673,8 +3689,7 @@ declare namespace wx {
 		Data,
 		Methods,
 		Props
-		> = CombinedInstance<Instance, Data, Methods, Props> &
-		Component<Data, Props>;
+	> = CombinedInstance<Instance, Data, Methods, Props> & Component<Data, Props>;
 
 	// CombinedInstance models the `this`, i.e. instance type for (user defined) component
 	type CombinedInstance<
@@ -3682,9 +3697,9 @@ declare namespace wx {
 		Data,
 		Methods,
 		Props
-		> = Methods & Instance;
+	> = Methods & Instance;
 
-	type Prop<T> = (() => T) | { new(...args: any[]): T & object };
+	type Prop<T> = (() => T) | { new (...args: any[]): T & object };
 
 	type PropValidator<T> = PropOptions<T> | Prop<T> | Array<Prop<T>>;
 
@@ -3705,9 +3720,7 @@ declare namespace wx {
 
 	type ArrayPropsDefinition<T> = Array<keyof T>;
 
-	type PropsDefinition<T> =
-		| ArrayPropsDefinition<T>
-		| RecordPropsDefinition<T>;
+	type PropsDefinition<T> = ArrayPropsDefinition<T> | RecordPropsDefinition<T>;
 
 	interface ComponentRelation<D = any, P = any> {
 		/** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
@@ -3726,7 +3739,7 @@ declare namespace wx {
 		Data,
 		Methods,
 		Props
-		> = object &
+	> = object &
 		ComponentOptions<V, Data | ((this: V) => Data), Methods, Props> &
 		ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>>>;
 
@@ -3789,7 +3802,7 @@ declare namespace wx {
 		Data = DefaultData<Instance>,
 		Methods = DefaultMethods<Instance>,
 		Props = PropsDefinition<DefaultProps>
-		> extends Partial<Lifetimes> {
+	> extends Partial<Lifetimes> {
 		/**
 		 * 组件的对外属性，是属性名到属性设置的映射表
 		 * 属性设置中可包含三个字段:
@@ -3841,9 +3854,7 @@ declare namespace wx {
 		 * 类似于mixins和traits的组件间代码复用机制
 		 * 参见 [behaviors](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/behaviors.html)
 		 */
-		behaviors?: Array<
-		(ComponentOptions<Component<object, object>>) | string
-		>;
+		behaviors?: Array<(ComponentOptions<Component<object, object>>) | string>;
 
 		/**
 		 * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
@@ -3914,13 +3925,13 @@ declare namespace wx {
 		setData(
 			data: {
 				[key in keyof D]?:
-				| string
-				| number
-				| boolean
-				| symbol
-				| object
-				| null
-				| any[]
+					| string
+					| number
+					| boolean
+					| symbol
+					| object
+					| null
+					| any[]
 			},
 			callback?: () => void
 		): void;
@@ -4087,25 +4098,22 @@ declare namespace wx {
 		/**
 		 * 当场景为由从另一个小程序或公众号或App打开时，返回此字段
 		 */
-		referrerInfo: object;
-		/**
-		 * 来源小程序或公众号或App的 appId，详见下方说明
-		 */
-		"referrerInfo.appId": string;
-		/**
-		 * 来源小程序传过来的数据，scene=1037或1038时支持
-		 */
-		"referrerInfo.extraData": object;
+		referrerInfo: {
+			/* 来源小程序或公众号或App的 appId，详见下方说明 */
+			appId: string;
+			/* 来源小程序传过来的数据，scene=1037或1038时支持 */
+			extraData: object;
+		};
 		// #endregion
 	}
 
 	// 云开发
 	// 文档：https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html
-	interface cloud {
+	interface Cloud {
 		/**
 		 * 初始化方法（全局只需一次）
 		 */
-		init: (options: initCloudOptions) => void;
+		init: (options: InitCloudOptions) => void;
 		/**
 		 * 接受一个可选对象参数 env：环境 ID，获取数据库的引用
 		 */
@@ -4118,12 +4126,12 @@ declare namespace wx {
 	/**
 	 * 定义了云开发的默认配置，该配置会作为之后调用其他所有云 API 的默认配置
 	 */
-	interface initCloudOptions {
+	interface InitCloudOptions {
 		/**
 		 * 默认环境配置，传入字符串形式的环境 ID 可以指定所有服务的默认环境，传入对象 initCloudEnvOptions 可以分别指定各个服务的默认环境
 		 * 默认值： default
 		 */
-		env?: string | initCloudEnvOptions;
+		env?: string | InitCloudEnvOptions;
 		/**
 		 * 是否在将用户访问记录到用户管理中，在控制台中可见
 		 * 默认值： false
@@ -4133,7 +4141,7 @@ declare namespace wx {
 	/**
 	 * initCloudOptions 的 env 参数，可以指定各个服务的默认环境
 	 */
-	interface initCloudEnvOptions {
+	interface InitCloudEnvOptions {
 		/**
 		 * 数据库 API 默认环境配置
 		 * 默认值： default
@@ -4171,7 +4179,7 @@ declare function Component<D, M, P>(
 		D,
 		M,
 		P
-		>
+	>
 ): wx.ExtendedComponent<wx.Component<D, P>, D, M, P>;
 /**
  * behaviors 是用于组件间代码共享的特性
@@ -4187,7 +4195,7 @@ declare function Behavior<D, M, P>(
 		D,
 		M,
 		P
-		>
+	>
 ): wx.ExtendedComponent<wx.Component<D, P>, D, M, P>;
 // #endregion
 // #region Page
