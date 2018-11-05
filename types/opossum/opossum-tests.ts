@@ -17,7 +17,8 @@ const options: CircuitBreakerOptions = {
     capacity: 1,
     errorThresholdPercentage: 1,
     enabled: true,
-    allowWarmUp: true
+    allowWarmUp: true,
+    volumeThreshold: 1
 };
 
 const testWithOptions: CircuitBreaker = circuitBreaker(_blank, options);
@@ -44,3 +45,4 @@ const shouldBeSymbol7: symbol = CircuitBreaker.hystrixStats;
 const shouldBeSymbol8: symbol = CircuitBreaker.status;
 const shouldBeSymbol9: symbol = CircuitBreaker.enabled;
 const shouldBeSymbol10: symbol = CircuitBreaker.warmUp;
+const shouldBeSymbol11: symbol = CircuitBreaker.volumeThreshold;

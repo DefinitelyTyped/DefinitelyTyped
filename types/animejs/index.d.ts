@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-type FunctionBasedParamter = (element: HTMLElement, index: number, length: number) => number;
+type FunctionBasedParameter = (element: HTMLElement, index: number, length: number) => number;
 type AnimeCallbackFunction = (anim: anime.AnimeInstance) => void;
 // Allowing null is necessary because DOM queries may not return anything.
 type AnimeTarget = string | object | HTMLElement | SVGElement | NodeList | null;
@@ -55,10 +55,10 @@ declare namespace anime {
 	interface AnimeAnimParams {
 		targets: AnimeTarget | ReadonlyArray<AnimeTarget>;
 
-		duration?: number | FunctionBasedParamter;
-		delay?: number | FunctionBasedParamter;
-		elasticity?: number | FunctionBasedParamter;
-		round?: number | boolean | FunctionBasedParamter;
+		duration?: number | FunctionBasedParameter;
+		delay?: number | FunctionBasedParameter;
+		elasticity?: number | FunctionBasedParameter;
+		round?: number | boolean | FunctionBasedParameter;
 
 		easing?: EasingOptions | string | ReadonlyArray<number>;
 
@@ -106,7 +106,7 @@ declare namespace anime {
 	}
 
 	interface AnimeTimelineAnimParams extends AnimeAnimParams {
-		offset: number | string | FunctionBasedParamter;
+		offset: number | string | FunctionBasedParameter;
 	}
 
 	interface AnimeTimelineInstance extends AnimeInstance {

@@ -414,6 +414,14 @@ let nestedTwoCoords = [ [12, 13], [13, 14], [14, 15] ];
 const nestedLatLngs: L.LatLng[] = L.GeoJSON.coordsToLatLngs(nestedTwoCoords, 1);
 nestedTwoCoords = L.GeoJSON.latLngsToCoords(nestedLatLngs, 1);
 
+const geojson = new L.GeoJSON();
+const style: L.PathOptions = {
+    className: "string",
+};
+const styler: L.StyleFunction<MyProperties> = () => style;
+geojson.setStyle(style);
+geojson.setStyle(styler);
+
 class MyMarker extends L.Marker {
 	constructor() {
 		super([12, 13]);
