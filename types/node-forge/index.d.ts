@@ -519,6 +519,6 @@ declare module "node-forge" {
     }
 
     namespace random {
-        function getBytesSync(length: number): util.ByteBuffer;
+        function getBytesSync(length: number): Bytes;
     }
 }
