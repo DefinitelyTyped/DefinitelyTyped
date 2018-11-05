@@ -114,17 +114,19 @@ export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps
 export type InferableComponentEnhancer<TInjectedProps> =
     InferableComponentEnhancerWithProps<TInjectedProps, {}>
 
+type HandleThunkActionCreator<TActionCreator> =
+    TActionCreator extends (...args: any[]) => (...args: any[]) => any
+        ? ReturnType<TActionCreator>
+        : TActionCreator
+
 // redux-thunk middleware returns thunk's return value from dispatch call
+// https://github.com/reduxjs/redux-thunk#composition
 type WithThunkActionCreators<TDispatchProps> =
-    TDispatchProps extends object
-    ? {
-        [C in keyof TDispatchProps]: C extends (...args: any[]) => any
-            ? ReturnType<C> extends (...args: any[]) => any
-                ? ReturnType<ReturnType<C>>
-                : C
-            : never
-    }
-    : TDispatchProps
+    TDispatchProps extends { [key: string]: any }
+        ? {
+            [C in keyof TDispatchProps]: HandleThunkActionCreator<TDispatchProps[C]>
+        }
+        : TDispatchProps
 
 
 /**

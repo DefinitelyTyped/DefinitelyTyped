@@ -99,14 +99,13 @@ namespace MapDispatch {
     const verifyUndefined = <TestUndefined foo='bar' />
 }
 
+
 namespace MapDispatchWithThunkActionCreators {
-    interface OwnProps { foo: string }
-    interface DispatchProps {
+    class TestComponent extends Component<{
+        foo: string,
         onClick(): void,
         thunkAction(): Promise<void>
-    }
-
-    class TestComponent extends Component<OwnProps & DispatchProps> {}
+    }>{}
 
     const mapDispatchToProps = () => ({
         onClick: () => {},
