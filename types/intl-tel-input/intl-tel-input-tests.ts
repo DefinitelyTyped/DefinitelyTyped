@@ -41,13 +41,13 @@ window.intlTelInput(input).setNumber('+447733123456');
 
 window.intlTelInput(input).setPlaceholderNumberType(intlTelInputUtils.numberType.FIXED_LINE);
 
-const countryData = window.intlTelInput.getCountryData();
+const countryData = window.intlTelInputGlobals.getCountryData();
 const country = countryData[0];
 const dialCode = country.dialCode;
 const iso2 = country.iso2;
 const countryName = country.name;
 
-window.intlTelInput.loadUtils('build/js/utils.js');
+window.intlTelInputGlobals.loadUtils('build/js/utils.js');
 
 window.intlTelInput(input, {
     utilsScript: '../../build/js/utils.js'

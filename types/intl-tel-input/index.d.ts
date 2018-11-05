@@ -7,6 +7,11 @@
 declare namespace IntlTelInput {
     interface Static {
         /**
+         * Default options for all instances
+         */
+        defaults: Options;
+
+        /**
          * Get all of the plugin's country data - either to re-use elsewhere
          * e.g. to populate a country dropdown.
          */
@@ -17,12 +22,6 @@ declare namespace IntlTelInput {
          * formatting/validation etc.
          */
         loadUtils(path: string, utilsScriptDeferred?: boolean): void;
-
-        /**
-         * initialise the plugin with optional options.
-         * @param options options that can be provided during initialization.
-         */
-        (node: Element, options?: Options): Plugin;
     }
 
     interface Plugin {
@@ -288,5 +287,11 @@ declare namespace intlTelInputUtils {
 }
 
 interface Window {
-    intlTelInput: IntlTelInput.Static;
+    intlTelInputGlobals: IntlTelInput.Static;
+
+    /**
+     * initialise the plugin with optional options.
+     * @param options options that can be provided during initialization.
+     */
+    intlTelInput(node: Element, options?: IntlTelInput.Options): IntlTelInput.Plugin;
 }

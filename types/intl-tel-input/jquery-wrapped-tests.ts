@@ -42,13 +42,13 @@ $('#phone').intlTelInput('setNumber', '+447733123456');
 
 $('#phone').intlTelInput('setPlaceholderNumberType', intlTelInputUtils.numberType.FIXED_LINE);
 
-const jqueryCountryData = $.fn.intlTelInput.getCountryData();
+const jqueryCountryData = window.intlTelInputGlobals.getCountryData();
 const jqueryCountry = countryData[0];
 const jqueryDialCode = country.dialCode;
 const jqueryIso2 = country.iso2;
 const jqueryName = country.name;
 
-$.fn.intlTelInput.loadUtils('build/js/utils.js');
+window.intlTelInputGlobals.loadUtils('build/js/utils.js');
 
 $('#phone').intlTelInput({
     utilsScript: '../../build/js/utils.js'

@@ -5,18 +5,6 @@
 declare namespace IntlTelInput {
     interface JQueryPlugin {
         /**
-         * Get all of the plugin's country data - either to re-use elsewhere
-         * e.g. to populate a country dropdown.
-         */
-        getCountryData(): intlTelInputUtils.CountryData[];
-
-        /**
-         * Load the utils.js script (included in the lib directory) to enable
-         * formatting/validation etc.
-         */
-        loadUtils(path: string, utilsScriptDeferred?: boolean): void;
-
-        /**
          * initialise the plugin with optional options.
          * @param options options that can be provided during initialization.
          */
