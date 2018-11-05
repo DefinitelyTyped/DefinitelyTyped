@@ -110,9 +110,15 @@ declare module "node-forge" {
 
             function publicKeyFromPrivateKey(options: { privateKey: NativeBuffer }): NativeBuffer;
 
-            function sign(options: { privateKey: NativeBuffer }): NativeBuffer;
+            function sign(options: {
+                message: string,
+                encoding: string,
+                privateKey: NativeBuffer
+            }): NativeBuffer;
 
             function verify(options: {
+                message: string,
+                encoding: string,
                 signature: Buffer | Uint8Array | util.ByteBuffer | string,
                 publicKey: NativeBuffer
             }): boolean;
