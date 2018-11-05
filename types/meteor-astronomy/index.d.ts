@@ -25,14 +25,12 @@ interface Validator {
     param: any;
 }
 
-type DefaultFunc<T> = () => T;
-
 interface ModelFullField<Field, Doc> {
     type: TypeOptions;
     optional?: boolean;
     transient?: boolean;
     immutable?: boolean;
-    default?: Field | DefaultFunc<Field>;
+    default?: () => Field | Field;
     index?: string | number;
     validators?: Validator[];
     resolve?: (doc: Doc) => Field;
