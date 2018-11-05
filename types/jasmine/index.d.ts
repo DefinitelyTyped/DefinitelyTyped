@@ -454,6 +454,12 @@ declare namespace jasmine {
         toThrowError(message?: string | RegExp): boolean;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
 
+        /**
+         * Add some context for an expect.
+         * @param message - Additional context to show when the matcher fails
+         */
+        withContext(message: string): Matchers<T>;
+
         not: Matchers<T>;
 
         Any: Any;
