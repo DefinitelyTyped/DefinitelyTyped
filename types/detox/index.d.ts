@@ -369,6 +369,10 @@ declare namespace Detox {
     type Direction = "left" | "right" | "top" | "bottom" | "up" | "down";
     type Orientation = "portrait" | "landscape";
     type Speed = "fast" | "slow";
+    type LanguageAndLocale = {
+        language?: string;
+        locale?: string;
+    };
 
     interface DetoxInitOptions {
         /**
@@ -420,6 +424,6 @@ declare namespace Detox {
         /**
          * Launch config for specifying the native language and locale
          */
-        languageAndLocale?: any;
+        languageAndLocale?: LanguageAndLocale;
     }
 }
