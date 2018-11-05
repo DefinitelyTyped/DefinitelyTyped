@@ -1,5 +1,3 @@
-import IntlTelInput = require("intl-tel-input");
-
 const input = document.querySelector("#phone");
 window.intlTelInput(input);
 
@@ -10,7 +8,7 @@ window.intlTelInput(input, {
 });
 
 window.intlTelInput(input, {
-    placeholderNumberType: IntlTelInput.NumberType.MOBILE,
+    placeholderNumberType: intlTelInputUtils.numberType.MOBILE,
 });
 
 window.intlTelInput(input, {
@@ -25,15 +23,15 @@ window.intlTelInput(input).destroy();
 const extension = window.intlTelInput(input).getExtension();
 
 const intlNumber = window.intlTelInput(input).getNumber();
-const ntlNumber = window.intlTelInput(input).getNumber(IntlTelInput.NumberFormat.NATIONAL);
+const ntlNumber = window.intlTelInput(input).getNumber(intlTelInputUtils.numberFormat.NATIONAL);
 
 const numberType = window.intlTelInput(input).getNumberType();
-if (numberType === IntlTelInput.NumberType.MOBILE) { }
+if (numberType === intlTelInputUtils.numberType.MOBILE) { }
 
 const selectedCountryData = window.intlTelInput(input).getSelectedCountryData();
 
 const error = window.intlTelInput(input).getValidationError();
-if (error === IntlTelInput.ValidationError.TOO_SHORT) { }
+if (error === intlTelInputUtils.validationError.TOO_SHORT) { }
 
 const isValid = window.intlTelInput(input).isValidNumber();
 
@@ -41,13 +39,13 @@ window.intlTelInput(input).setCountry('gb');
 
 window.intlTelInput(input).setNumber('+447733123456');
 
-window.intlTelInput(input).setPlaceholderNumberType(IntlTelInput.NumberType.FIXED_LINE);
+window.intlTelInput(input).setPlaceholderNumberType(intlTelInputUtils.numberType.FIXED_LINE);
 
 const countryData = window.intlTelInput.getCountryData();
 const country = countryData[0];
 const dialCode = country.dialCode;
 const iso2 = country.iso2;
-const name = country.name;
+const countryName = country.name;
 
 window.intlTelInput.loadUtils('build/js/utils.js');
 

@@ -1,7 +1,5 @@
 /// <reference types="jquery" />
 
-import * as IntlTelInput from "intl-tel-input";
-
 $('#phone').intlTelInput();
 
 $('#phone').intlTelInput({
@@ -11,7 +9,7 @@ $('#phone').intlTelInput({
 });
 
 $('#phone').intlTelInput({
-    placeholderNumberType: IntlTelInput.NumberType.MOBILE,
+    placeholderNumberType: intlTelInputUtils.numberType.MOBILE,
 });
 
 $('#phone').intlTelInput({
@@ -23,32 +21,32 @@ $('#phone').intlTelInput({
 
 $('#phone').intlTelInput('destroy');
 
-const extension = $('#phone').intlTelInput('getExtension');
+const jqueryExtension = $('#phone').intlTelInput('getExtension');
 
-const intlNumber = $('#phone').intlTelInput('getNumber');
-const ntlNumber = $('#phone').intlTelInput('getNumber', IntlTelInput.NumberFormat.NATIONAL);
+const jqueryIntlNumber = $('#phone').intlTelInput('getNumber');
+const jqueryNtlNumber = $('#phone').intlTelInput('getNumber', intlTelInputUtils.numberFormat.NATIONAL);
 
-const numberType = $('#phone').intlTelInput('getNumberType');
-if (numberType === IntlTelInput.NumberType.MOBILE) { }
+const jqueryNumberType = $('#phone').intlTelInput('getNumberType');
+if (numberType === intlTelInputUtils.numberType.MOBILE) { }
 
-const selectedCountryData = $('#phone').intlTelInput('getSelectedCountryData');
+const jquerySelectedCountryData = $('#phone').intlTelInput('getSelectedCountryData');
 
-const error = $('#phone').intlTelInput('getValidationError');
-if (error === IntlTelInput.ValidationError.TOO_SHORT) { }
+const jqueryError = $('#phone').intlTelInput('getValidationError');
+if (error === intlTelInputUtils.validationError.TOO_SHORT) { }
 
-const isValid = $('#phone').intlTelInput('isValidNumber');
+const jqueryIsValid = $('#phone').intlTelInput('isValidNumber');
 
 $('#phone').intlTelInput('setCountry', 'gb');
 
 $('#phone').intlTelInput('setNumber', '+447733123456');
 
-$('#phone').intlTelInput('setPlaceholderNumberType', IntlTelInput.NumberType.FIXED_LINE);
+$('#phone').intlTelInput('setPlaceholderNumberType', intlTelInputUtils.numberType.FIXED_LINE);
 
-const countryData = $.fn.intlTelInput.getCountryData();
-const country = countryData[0];
-const dialCode = country.dialCode;
-const iso2 = country.iso2;
-const name = country.name;
+const jqueryCountryData = $.fn.intlTelInput.getCountryData();
+const jqueryCountry = countryData[0];
+const jqueryDialCode = country.dialCode;
+const jqueryIso2 = country.iso2;
+const jqueryName = country.name;
 
 $.fn.intlTelInput.loadUtils('build/js/utils.js');
 
