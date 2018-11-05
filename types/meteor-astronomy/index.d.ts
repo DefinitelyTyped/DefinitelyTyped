@@ -2,7 +2,6 @@
 // Project: https://github.com/jagi/meteor-astronomy/
 // Definitions by: Igor Golovin <https://github.com/Deadly0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
 
 /// <reference types="meteor" />
 
