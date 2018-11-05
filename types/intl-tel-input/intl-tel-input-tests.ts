@@ -1,5 +1,4 @@
 import IntlTelInput = require("intl-tel-input");
-import { NumberFormat } from "intl-tel-input";
 
 const input = document.querySelector("#phone");
 window.intlTelInput(input);

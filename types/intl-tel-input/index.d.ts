@@ -68,7 +68,7 @@ export interface Plugin {
    * Get more information about a validation error.
    * Requires the utilsScript option.
    * Returns an integer, which you can match against the various options in the
-   * global enum intlTelInputUtils.validationError
+   * global enum ValidationError
    */
   getValidationError(): ValidationError;
 
