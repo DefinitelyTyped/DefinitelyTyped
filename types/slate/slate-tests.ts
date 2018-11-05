@@ -38,7 +38,6 @@ editor.setReadOnly(true).setValue(value);
 editor.command("testCommand");
 editor.query("testQuery");
 editor.run("testCommand");
-editor.event("mouseDown", new Event("mouseDown"));
 
 // Test all editor commands
 editor
