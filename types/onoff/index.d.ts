@@ -28,6 +28,8 @@ declare namespace __ONOFF {
             options?: GpioOptions
         );
         
+        static accessible: boolean;
+
         gpio: number;
         gpioPath: string;
         opts: GpioOptions;

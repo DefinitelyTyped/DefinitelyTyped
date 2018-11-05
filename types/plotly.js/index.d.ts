@@ -479,7 +479,7 @@ export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 // Bar Scatter
 export interface PlotData {
-	type: 'bar' | 'histogram' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' | 'surface';
+	type: 'bar' | 'box' | 'heatmap' | 'histogram' | 'pointcloud' | 'scatter' | 'scattergl' | 'scatter3d' | 'surface';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -530,6 +530,18 @@ export interface PlotData {
 	visible: boolean | 'legendonly';
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
+	boxmean: boolean | 'sd';
+	colorscale: string | Array<[number, string]>;
+	zsmooth: 'fast' | 'best' | false;
+	ygap: number;
+	xgap: number;
+	transpose: boolean;
+	autobinx: boolean;
+	xbins: {
+		start: number | string;
+		end: number | string;
+		size: number | string;
+	};
 }
 
 /**

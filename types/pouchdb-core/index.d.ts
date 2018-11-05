@@ -1,13 +1,15 @@
-// Type definitions for pouchdb-core 6.4
+// Type definitions for pouchdb-core 7.0
 // Project: https://pouchdb.com/
 // Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>,
 //                 Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>,
-//                 Tobias Bales <https://github.com/TobiasBales>, Sebastián Ramírez <https://github.com/tiangolo>
+//                 Tobias Bales <https://github.com/TobiasBales>, Sebastián Ramírez <https://github.com/tiangolo>,
+//                 Katy Moe <https://github.com/kmoe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="debug" />
 /// <reference types="pouchdb-find" />
+/// <reference types="node-fetch" />
 
 interface Blob {
     readonly size: number;
@@ -87,6 +89,11 @@ interface EventEmitter {
     eventNames(): Array<string | symbol>;
 }
 
+type Fetch = (
+    url: string | Request,
+    opts?: RequestInit
+) => Promise<Response>;
+
 declare namespace PouchDB {
     namespace Core {
         interface Error {
@@ -110,7 +117,7 @@ declare namespace PouchDB {
         type AttachmentData = string | Blob | Buffer;
 
         interface Options {
-          ajax?: Configuration.RemoteRequesterConfiguration;
+          fetch?: Fetch;
         }
 
         interface BasicResponse {
@@ -568,33 +575,8 @@ declare namespace PouchDB {
             size?: number;
         }
 
-        interface RemoteRequesterConfiguration {
-            /**
-             * Time before HTTP requests time out (in ms).
-             */
-            timeout?: number;
-            /**
-             * Appends a random string to the end of all HTTP GET requests to avoid
-             * them being cached on IE. Set this to true to prevent this happening.
-             */
-            cache?: boolean;
-            /**
-             * HTTP headers to add to requests.
-             */
-            headers?: {
-                [name: string]: string;
-            };
-
-            /**
-             * Enables transferring cookies and HTTP Authorization information.
-             *
-             * Defaults to true.
-             */
-            withCredentials?: boolean;
-        }
-
         interface RemoteDatabaseConfiguration extends CommonDatabaseConfiguration {
-            ajax?: RemoteRequesterConfiguration;
+            fetch?: Fetch;
 
             auth?: {
                 username?: string;
@@ -614,6 +596,8 @@ declare namespace PouchDB {
         plugin(plugin: Plugin): Static;
 
         version: string;
+
+        fetch: Fetch;
 
         on(event: 'created' | 'destroyed', listener: (dbName: string) => any): this;
 

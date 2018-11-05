@@ -1,4 +1,4 @@
-// Type definitions for slate-react 0.18
+// Type definitions for slate-react 0.20
 // Project: https://github.com/ianstormtaylor/slate
 // Definitions by: Andy Kent <https://github.com/andykent>
 //                 Jamie Talbot <https://github.com/majelbstoat>
@@ -6,10 +6,23 @@
 //                 Patrick Sachs <https://github.com/PatrickSachs>
 //                 Brandon Shelton <https://github.com/YangusKhan>
 //                 Irwan Fario Subastian <https://github.com/isubasti>
+//                 Sebastian Greaves <https://github.com/sgreav>
 //                 Francesco Agnoletto <https://github.com/Kornil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import { Mark, Node, Block, Inline, Change, Schema, Value, Stack, Document } from "slate";
+import {
+    Document,
+    Editor as Controller,
+    Mark,
+    Node,
+    Block,
+    Inline,
+    Operations,
+    Schema,
+    Stack,
+    Value,
+    Operation,
+} from "slate";
 import * as Immutable from "immutable";
 import * as React from "react";
 
@@ -21,7 +34,7 @@ export interface RenderAttributes {
 export interface RenderMarkProps {
     attributes: RenderAttributes;
     children: React.ReactNode;
-    editor: Editor;
+    editor: Controller;
     mark: Mark;
     marks: Immutable.Set<Mark>;
     node: Node;
@@ -32,73 +45,53 @@ export interface RenderMarkProps {
 export interface RenderNodeProps {
   attributes: RenderAttributes;
   children: React.ReactNode;
-  editor: Editor;
+  editor: Controller;
+  isFocused: boolean;
   isSelected: boolean;
   key: string;
   node: Block | Inline;
   parent: Node;
+  readOnly: boolean;
 }
 
+export interface RenderPlaceholderProps {
+    editor: Controller;
+    readOnly: boolean;
+}
+
+export type EventHook = (
+    event: Event,
+    editor: Controller,
+    next: () => any
+) => any;
+
 export interface Plugin {
-    onBeforeInput?: (
-        event: Event,
-        change: Change,
-        editor: Editor
-    ) => Change | void;
-    onBlur?: (event: Event, change: Change, editor?: Editor) => Change | void;
-    onFocus?: (event: Event, change: Change, editor?: Editor) => Change | void;
-    onClick?: (event: Event, change: Change, editor?: Editor) => Change | void;
-    onCopy?: (event: Event, change: Change, editor?: Editor) => Change | void;
-    onCut?: (event: Event, change: Change, editor?: Editor) => Change | void;
-    onDragEnd?: (
-        event: Event,
-        change: Change,
-        editor?: Editor
-    ) => Change | void;
-    onDragEnter?: (
-        event: Event,
-        change: Change,
-        editor?: Editor
-    ) => Change | void;
-    onDragExit?: (
-        event: Event,
-        change: Change,
-        editor?: Editor
-    ) => Change | void;
-    onDragLeave?: (
-        event: Event,
-        change: Change,
-        editor?: Editor
-    ) => Change | void;
-    onDragOver?: (
-        event: Event,
-        change: Change,
-        editor?: Editor
-    ) => Change | void;
-    onDragStart?: (
-        event: Event,
-        change: Change,
-        editor?: Editor
-    ) => Change | void;
-    onDrop?: (event: Event, change: Change, editor?: Editor) => Change | void;
-    onInput?: (event: Event, change: Change, editor?: Editor) => Change | void;
-    onKeyDown?: (
-        event: Event,
-        change: Change,
-        editor?: Editor
-    ) => Change | void;
-    onKeyUp?: (event: Event, change: Change, editor?: Editor) => Change | void;
-    onPaste?: (event: Event, change: Change, editor?: Editor) => Change | void;
-    onSelect?: (event: Event, change: Change, editor?: Editor) => Change | void;
-    onChange?: (change: Change, editor?: Editor) => any;
-    renderEditor?: (props: RenderAttributes, editor?: Editor) => object | void;
-    schema?: Schema;
-    decorateNode?: (node: Node) => Range[] | void;
-    renderMark?: (props: RenderMarkProps, next: () => void) => any;
-    renderNode?: (props: RenderNodeProps, next: () => void) => any;
-    renderPlaceholder?: (props: RenderAttributes, next: () => void) => any;
-    renderPortal?: (props: RenderAttributes) => any;
-    validateNode?: (node: Node) => any;
+    decorateNode?: (node: Node, editor: Controller, next: () => any) => any;
+    renderEditor?: (props: EditorProps, editor: Controller, next: () => any) => any;
+    renderMark?: (props: RenderMarkProps, editor: Controller, next: () => any) => any;
+    renderNode?: (props: RenderNodeProps, editor: Controller, next: () => any) => any;
+    renderPlaceholder?: (props: RenderPlaceholderProps, editor: Controller, next: () => any) => any;
+    shouldNodeComponentUpdate?: (previousProps: RenderNodeProps, props: RenderNodeProps, editor: Controller, next: () => any) => any;
+
+    onBeforeInput?: EventHook;
+    onBlur?: EventHook;
+    onClick?: EventHook;
+    onCompositionEnd?: EventHook;
+    onCompositionStart?: EventHook;
+    onCopy?: EventHook;
+    onCut?: EventHook;
+    onDragEnd?: EventHook;
+    onDragEnter?: EventHook;
+    onDragExit?: EventHook;
+    onDragLeave?: EventHook;
+    onDragOver?: EventHook;
+    onDragStart?: EventHook;
+    onDrop?: EventHook;
+    onFocus?: EventHook;
+    onInput?: EventHook;
+    onKeyDown?: EventHook;
+    onPaste?: EventHook;
+    onSelect?: EventHook;
 }
 
 export interface BasicEditorProps {
@@ -106,7 +99,7 @@ export interface BasicEditorProps {
     autoCorrect?: boolean;
     autoFocus?: boolean;
     className?: string;
-    onChange?: (change: Change) => any;
+    onChange?: (change: { operations: Immutable.List<Operation>, value: Value }) => any;
     placeholder?: any;
     plugins?: Plugin[];
     readOnly?: boolean;
@@ -117,27 +110,34 @@ export interface BasicEditorProps {
     tabIndex?: number;
 }
 
-// tsling:disable interface-over-type-literal
 export type EditorProps = BasicEditorProps & Plugin;
 
 export interface EditorState {
     schema: Schema;
     value: Value;
-    stack: Stack; // [TODO] define stack
+    stack: Stack;
 }
 
 export class Editor extends React.Component<EditorProps, EditorState> {
+    controller: Controller;
     schema: Schema;
-    value: Value;
     stack: Stack;
 
     readonly plugins: Plugin[];
+    readonly operations: Immutable.List<Operation>;
+    readonly readOnly: boolean;
+    readonly value: Value;
 
     // Instance Methods
+    applyOperation(...args: any[]): Controller;
     blur(): void;
-    change(fn: (change: Change) => any): void;
-    change(...args: any[]): void;
+    command(...args: any[]): Controller;
     focus(): void;
+    normalize(...args: any[]): Controller;
+    query(...args: any[]): Controller;
+    resolveController(plugins: Plugin[], schema: Schema, commands: any[], queries: any[]): void;
+    run(...args: any[]): any;
+    withoutNormalizing(...args: any[]): Controller;
 }
 
 export type SlateType =

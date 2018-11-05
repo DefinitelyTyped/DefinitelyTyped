@@ -1,4 +1,4 @@
-// Type definitions for react-native-popup-dialog 1.0
+// Type definitions for react-native-popup-dialog 0.16
 // Project: https://github.com/jacklam718/react-native-popup-dialog/blob/master/README.md
 // Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
 //                 connectdotz <https://github.com/connectdotz>
@@ -55,7 +55,7 @@ export interface PopupDialogProps {
     dismissOnTouchOutside?: boolean;
     dismissOnHardwareBackPress?: boolean;
     haveOverlay?: boolean;
-    show?: boolean;
+    visible?: boolean;
     onShown?: () => void;
     onDismissed?: () => void;
     actions?: any[];

@@ -24,7 +24,9 @@ export interface History {
     navigate: NavigateFn;
 }
 
-export class Router extends React.Component<RouterProps> { }
+export class Router extends React.Component<
+  RouterProps & React.HTMLProps<HTMLDivElement>
+> {}
 
 export interface RouterProps {
     basepath?: string;

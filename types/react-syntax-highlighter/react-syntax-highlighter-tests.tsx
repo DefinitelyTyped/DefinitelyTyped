@@ -61,3 +61,84 @@ function primsLightHighlighter(): JSX.Element {
         </PrismLightHighlighter>
     )
 }
+
+function codeTagProps() {
+    const codeString: string = `class CPP {
+        private year: number;
+        public constructor(private version: string) {
+            this.year = Number(version.match(/.+\d+$/));
+        }
+        public version(): string {
+            return this.version;
+        }
+    }
+    `;
+
+    const codeTagProps = {
+        className: 'some-classname',
+        style: {
+            opacity: 0,
+        },
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo",
+    }
+
+    return (
+        <PrismLightHighlighter
+            codeTagProps={codeTagProps} />
+    )
+}
+
+function linePropsObject() {
+    const codeString: string = `class CPP {
+        private year: number;
+        public constructor(private version: string) {
+            this.year = Number(version.match(/.+\d+$/));
+        }
+        public version(): string {
+            return this.version;
+        }
+    }
+    `;
+    
+    const lineProps = {
+        otherProp: 'otherProp',
+        className: 'some-classname',
+        style: {
+            opacity: 0,
+        },
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => "foo"
+    }
+
+    return (
+        <PrismLightHighlighter
+            lineProps={lineProps} />
+    )
+}
+
+function lineTagPropsFunction() {
+    const codeString: string = `class CPP {
+        private year: number;
+        public constructor(private version: string) {
+            this.year = Number(version.match(/.+\d+$/));
+        }
+        public version(): string {
+            return this.version;
+        }
+    }
+    `;
+    
+    const lineProps = (lineNumber: number) => ({
+        otherProp: 'otherProp',
+        className: 'some-classname',
+        style: {
+            opacity: 0,
+        },
+        onMouseOver: (event: React.MouseEvent<HTMLElement>) => lineNumber * 5
+    })
+
+    return (
+        <PrismLightHighlighter
+            lineProps={lineProps} />
+    )
+}
+
