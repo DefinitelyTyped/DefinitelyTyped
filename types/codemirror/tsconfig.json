@@ -24,6 +24,7 @@
         "codemirror-runmode.d.ts",
         "codemirror-showhint.d.ts",
         "codemirror-comment.d.ts",
+        "codemirror-tern.d.ts",
         "searchcursor.d.ts",
         "test/index.ts",
         "test/matchbrackets.ts",
