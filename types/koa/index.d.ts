@@ -694,6 +694,7 @@ declare namespace Application {
          * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
          */
         respond?: boolean;
+        [key: string]: any;
     }
 }
 
