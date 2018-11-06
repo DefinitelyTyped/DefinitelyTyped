@@ -35,39 +35,39 @@ export interface LocalizationProps {
     isRTL: boolean;
 }
 
-export class Localization {
+export namespace Localization {
     /**
      * Native device language, returned in standard format. ex: `en-US`, `es-US`
      */
-    static locale: string;
+    const locale: string;
 
     /**
      * List of all the native languages provided by the user settings. These are returned in the order the user defines in their native settings
      */
-    static locales: string[];
+    const locales: string[];
 
     /**
      * Country code for your device
      */
-    static country: string | undefined;
+    const country: string | undefined;
 
     /**
      * A list of all the supported ISO codes
      */
-    static isoCurrencyCodes: string[] | undefined;
+    const isoCurrencyCodes: string[] | undefined;
 
     /**
      * The current time zone in display format. ex: `America/Los_Angeles`
      */
-    static timezone: string;
+    const timezone: string;
 
     /**
      * This will return `true` if the current language is Right-to-Left
      */
-    static isRTL: boolean;
+    const isRTL: boolean;
 
     /**
      * Android only, on iOS changing the locale settings will cause all the apps to reset
      */
-    static getLocalizationAsync(): Promise<LocalizationProps>;
+    function getLocalizationAsync(): Promise<LocalizationProps>;
 }
