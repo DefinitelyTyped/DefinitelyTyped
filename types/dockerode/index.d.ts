@@ -587,6 +587,13 @@ declare namespace Dockerode {
     };
   }
 
+  interface AuthConfig {
+    username: string;
+    password: string;
+    serveraddress: string;
+    email?: string;
+  }
+
   interface PortBinding {
     HostIp?: string;
     HostPort?: string;
@@ -601,7 +608,7 @@ declare namespace Dockerode {
     MaximumRetryCount?: number;
   }
 
-    type LoggingDriverType =
+  type LoggingDriverType =
     | "json-file"
     | "syslog"
     | "journald"
