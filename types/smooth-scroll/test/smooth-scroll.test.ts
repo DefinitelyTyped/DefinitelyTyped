@@ -1,4 +1,4 @@
-import SmoothScroll from "smooth-scroll";
+import SmoothScroll = require("smooth-scroll");
 
 // Initialize and destroy SmoothScroll
 const example1 = new SmoothScroll('a[href*="#"]', {
