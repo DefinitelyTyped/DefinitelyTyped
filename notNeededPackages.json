@@ -541,6 +541,12 @@
             "asOfVersion": "4.0.1"
         },
         {
+            "libraryName": "fast-diff",
+            "typingsPackageName": "fast-diff",
+            "sourceRepoURL": "https://github.com/jhchen/fast-diff",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "JSON-Patch",
             "typingsPackageName": "fast-json-patch",
             "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
