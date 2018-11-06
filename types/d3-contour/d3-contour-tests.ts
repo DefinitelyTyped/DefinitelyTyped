@@ -144,6 +144,13 @@ contDensCustom = contDensCustom.y((datum) => {
 // get
 const yAcc: (d: CustomDatum) => number = contDensCustom.y();
 
+// weight(...) -----------------------------------------------------------------
+contDensCustom = contDensCustom.weight((datum) => {
+    return 5;
+});
+
+// get
+const weightAcc: (d: CustomDatum) => number = contDensCustom.weight();
 // size(...) -------------------------------------------------------------------
 
 // set with chainability

@@ -1170,6 +1170,15 @@ export interface FrameBase extends Evalable {
   hover(selector: string): Promise<void>;
 
   /**
+   * Triggers a `change` and `input` event once all the provided options have been selected.
+   * If there's no `<select>` element matching selector, the method throws an error.
+   * @param selector A selector to query page for.
+   * @param values Values of options to select. If the `<select>` has the `multiple` attribute,
+   * all values are considered, otherwise only the first one is taken into account.
+   */
+  select(selector: string, ...values: string[]): Promise<string[]>;
+
+  /**
    * Sets the page content.
    * @param html HTML markup to assign to the page.
    */
@@ -1471,15 +1480,6 @@ export interface Page extends EventEmitter, FrameBase {
   screenshot(options?: Base64ScreenShotOptions): Promise<string>;
   screenshot(options?: BinaryScreenShotOptions): Promise<Buffer>;
   screenshot(options?: ScreenshotOptions): Promise<string | Buffer>;
-
-  /**
-   * Triggers a `change` and `input` event once all the provided options have been selected.
-   * If there's no `<select>` element matching selector, the method throws an error.
-   * @param selector A selector to query page for.
-   * @param values Values of options to select. If the `<select>` has the `multiple` attribute,
-   * all values are considered, otherwise only the first one is taken into account.
-   */
-  select(selector: string, ...values: string[]): Promise<string[]>;
 
   /**
    * Toggles bypassing page's Content-Security-Policy.

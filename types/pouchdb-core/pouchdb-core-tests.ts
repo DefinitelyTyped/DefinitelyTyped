@@ -233,12 +233,8 @@ function testChanges() {
 
 function testRemoteOptions() {
     const db = new PouchDB('http://example.com/dbname', {
-        ajax: {
-            cache: false,
-            timeout: 10000,
-            headers: {
-                'X-Some-Special-Header': 'foo'
-            },
+        fetch(url, opts) {
+            return PouchDB.fetch(url, opts);
         },
         auth: {
             username: 'mysecretusername',

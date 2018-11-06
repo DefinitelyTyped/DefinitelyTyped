@@ -82,7 +82,7 @@ export interface ThemedStyledFunction<P, T, O = P> {
         strings: TemplateStringsArray,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P & U, T>>>
     ): StyledComponentClass<P & U, T, O & U>;
-    attrs<U, A extends Partial<P & U> = {}>(
+    attrs<U, A extends Partial<P & U> & { [others: string]: any; } = {}>(
         attrs: Attrs<P & U, A, T>,
     ): ThemedStyledFunction<DiffBetween<A, P & U>, T, DiffBetween<A, O & U>>;
 }

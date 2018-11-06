@@ -8,17 +8,25 @@ import * as React from "react";
 import { Location as HLocation } from "history";
 export type WindowLocation = Window["location"] & HLocation;
 
+export type HistoryActionType = "PUSH" | "POP";
+export type HistoryLocation = WindowLocation & { state?: any };
+export interface HistoryListenerParameter {
+	location: HistoryLocation;
+	action: HistoryActionType;
+}
+export type HistoryListener = (parameter: HistoryListenerParameter) => void;
+export type HistoryUnsubscribe = () => void;
+
 export interface History {
-    readonly location: string;
+    readonly location: HistoryLocation;
     readonly transitioning: boolean;
     listen: (listener: HistoryListener) => HistoryUnsubscribe;
     navigate: NavigateFn;
 }
 
-export type HistoryListener = () => void;
-export type HistoryUnsubscribe = () => void;
-
-export class Router extends React.Component<RouterProps> { }
+export class Router extends React.Component<
+  RouterProps & React.HTMLProps<HTMLDivElement>
+> {}
 
 export interface RouterProps {
     basepath?: string;
@@ -147,3 +155,5 @@ export interface RedirectRequest {
 export function isRedirect(error: any): error is RedirectRequest;
 
 export function redirectTo(uri: string): void;
+
+export const globalHistory: History;
