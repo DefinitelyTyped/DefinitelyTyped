@@ -4,7 +4,7 @@ import { LoadingManager } from "./three-core";
 import { AnimationClip, Group } from "./three-core";
 
 interface IFbxSceneGraph extends Group {
-	animations: AnimationClip[];
+    animations: AnimationClip[];
 }
 export class FBXLoader {
 
