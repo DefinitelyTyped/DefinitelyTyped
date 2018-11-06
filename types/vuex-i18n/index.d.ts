@@ -97,7 +97,7 @@ export interface Ii18n {
    * fallback: current locale, parent language locale and fallback locale
    * the default is fallback
    */
-  keyExists(key: string, mode?: string): boolean;
+  keyExists(key: string, scope?: string): boolean;
 }
 
 declare const _default: {
