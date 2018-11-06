@@ -1,4 +1,4 @@
-// Type definitions for Recharts 1.0
+// Type definitions for Recharts 1.1
 // Project: http://recharts.org/
 // Definitions by: Maarten Mulders <https://github.com/mthmulders>
 //                 Raphael Mueller <https://github.com/rapmue>
@@ -484,7 +484,7 @@ export interface PolarAngleAxisProps extends EventAttributes, Partial<Presentati
     ticks?: PolarAngleAxisTick[];
     stroke?: string;
     orientation?: 'inner' | 'outer';
-    tickFormatter: TickFormatterFunction;
+    tickFormatter?: TickFormatterFunction;
 }
 
 export class PolarAngleAxis extends React.Component<PolarAngleAxisProps> { }
@@ -521,7 +521,7 @@ export interface PolarRadiusAxisProps extends EventAttributes, Partial<Presentat
     axisLine?: boolean | object;
     tick?: boolean | object | React.ReactElement<any> | ContentRenderer<any>;
     stroke?: string;
-    tickFormatter: TickFormatterFunction;
+    tickFormatter?: TickFormatterFunction;
     domain?: [PolarRadiusAxisDomain, PolarRadiusAxisDomain];
     scale?: ScaleType | RechartsFunction;
     allowDataOverflow?: boolean;

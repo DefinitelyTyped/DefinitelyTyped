@@ -28,11 +28,11 @@ declare namespace CodeMirror {
     The returned position will be the end of the changed range, after the change is applied. */
     function changeEnd(change: EditorChange): Position;
 
-    /** It contains a string that indicates the version of the library. This is a triple of integers "major.minor.patch", 
+    /** It contains a string that indicates the version of the library. This is a triple of integers "major.minor.patch",
     where patch is zero for releases, and something else (usually one) for dev snapshots. */
     var version: string;
 
-    /** An object containing default values for all options. 
+    /** An object containing default values for all options.
     You can assign to its properties to modify defaults (though this won't affect editors that have already been created). */
     var defaults: any;
 
@@ -260,16 +260,7 @@ declare namespace CodeMirror {
         line should be either an integer or a line handle, and node should be a DOM node, which will be displayed below the given line.
         options, when given, should be an object that configures the behavior of the widget.
         Note that the widget node will become a descendant of nodes with CodeMirror-specific CSS classes, and those classes might in some cases affect it. */
-        addLineWidget(line: any, node: HTMLElement, options?: {
-            /** Whether the widget should cover the gutter. */
-            coverGutter?: boolean;
-            /** Whether the widget should stay fixed in the face of horizontal scrolling. */
-            noHScroll?: boolean;
-            /** Causes the widget to be placed above instead of below the text of the line. */
-            above?: boolean;
-            /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
-            showIfHidden?: boolean;
-        }): CodeMirror.LineWidget;
+        addLineWidget(line: any, node: HTMLElement, options?: CodeMirror.LineWidgetOptions): CodeMirror.LineWidget;
 
 
         /** Programatically set the size of the editor (overriding the applicable CSS rules).
@@ -346,8 +337,8 @@ declare namespace CodeMirror {
         /** Retrieves information about the token the current mode found before the given position (a {line, ch} object). */
         getTokenAt(pos: CodeMirror.Position, precise?: boolean): Token;
 
-        /** This is a (much) cheaper version of getTokenAt useful for when you just need the type of the token at a given position, 
-        and no other information. Will return null for unstyled tokens, and a string, potentially containing multiple 
+        /** This is a (much) cheaper version of getTokenAt useful for when you just need the type of the token at a given position,
+        and no other information. Will return null for unstyled tokens, and a string, potentially containing multiple
         space-separated style names, otherwise. */
         getTokenTypeAt(pos: CodeMirror.Position): string;
 
@@ -364,6 +355,12 @@ declare namespace CodeMirror {
         It will call the function, buffering up all changes, and only doing the expensive update after the function returns.
         This can be a lot faster. The return value from this method will be the return value of your function. */
         operation<T>(fn: ()=> T): T;
+        
+        /** In normal circumstances, use the above operation method. But if you want to buffer operations happening asynchronously, or that can't all be wrapped in a callback
+        function, you can call startOperation to tell CodeMirror to start buffering changes, and endOperation to actually render all the updates. Be careful: if you use this
+        API and forget to call endOperation, the editor will just never update. */
+        startOperation(): void;
+        endOperation(): void;
 
         /** Adjust the indentation of the given line.
         The second argument (which defaults to "smart") may be one of:
@@ -426,7 +423,7 @@ declare namespace CodeMirror {
         off(eventName: 'cursorActivity', handler: (instance: CodeMirror.Editor) => void ): void;
 
         /** This event is fired before the selection is moved. Its handler may modify the resulting selection head and anchor.
-        Handlers for this event have the same restriction as "beforeChange" handlers � they should not do anything to directly update the state of the editor. */
+        Handlers for this event have the same restriction as "beforeChange" handlers they should not do anything to directly update the state of the editor. */
         on(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, selection: { head: CodeMirror.Position; anchor: CodeMirror.Position; }) => void ): void;
         off(eventName: 'beforeSelectionChange', handler: (instance: CodeMirror.Editor, selection: { head: CodeMirror.Position; anchor: CodeMirror.Position; }) => void ): void;
 
@@ -537,20 +534,20 @@ declare namespace CodeMirror {
         Note that line handles have a text property containing the line's content (as a string). */
         eachLine(start: number, end: number, f: (line: CodeMirror.LineHandle) => void ): void;
 
-        /** Set the editor content as 'clean', a flag that it will retain until it is edited, and which will be set again 
-        when such an edit is undone again. Useful to track whether the content needs to be saved. This function is deprecated 
+        /** Set the editor content as 'clean', a flag that it will retain until it is edited, and which will be set again
+        when such an edit is undone again. Useful to track whether the content needs to be saved. This function is deprecated
         in favor of changeGeneration, which allows multiple subsystems to track different notions of cleanness without interfering.*/
         markClean(): void;
-        
-        /** Returns a number that can later be passed to isClean to test whether any edits were made (and not undone) in the 
-        meantime. If closeEvent is true, the current history event will be ‘closed’, meaning it can't be combined with further 
+
+        /** Returns a number that can later be passed to isClean to test whether any edits were made (and not undone) in the
+        meantime. If closeEvent is true, the current history event will be ‘closed’, meaning it can't be combined with further
         changes (rapid typing or deleting events are typically combined).*/
         changeGeneration(closeEvent?: boolean): number;
 
-        /** Returns whether the document is currently clean — not modified since initialization or the last call to markClean if 
+        /** Returns whether the document is currently clean — not modified since initialization or the last call to markClean if
         no argument is passed, or since the matching call to changeGeneration if a generation value is given. */
         isClean(generation?: number): boolean;
-        
+
 
         /** Get the currently selected code. */
         getSelection(): string;
@@ -559,7 +556,7 @@ declare namespace CodeMirror {
         getSelections(lineSep?: string): Array<string>;
 
         /** Replace the selection with the given string. By default, the new selection will span the inserted text.
-        The optional collapse argument can be used to change this � passing "start" or "end" will collapse the selection to the start or end of the inserted text. */
+        The optional collapse argument can be used to change this -- passing "start" or "end" will collapse the selection to the start or end of the inserted text. */
         replaceSelection(replacement: string, collapse?: string): void;
 
         /** start is a an optional string indicating which end of the selection to return.
@@ -720,6 +717,17 @@ declare namespace CodeMirror {
         /** Call this if you made some change to the widget's DOM node that might affect its height.
         It'll force CodeMirror to update the height of the line that contains the widget. */
         changed(): void;
+    }
+
+    interface LineWidgetOptions {
+        /** Whether the widget should cover the gutter. */
+        coverGutter?: boolean;
+        /** Whether the widget should stay fixed in the face of horizontal scrolling. */
+        noHScroll?: boolean;
+        /** Causes the widget to be placed above instead of below the text of the line. */
+        above?: boolean;
+        /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
+        showIfHidden?: boolean;
     }
 
     interface EditorChange {

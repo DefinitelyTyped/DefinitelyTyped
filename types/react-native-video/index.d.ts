@@ -68,6 +68,7 @@ export interface VideoProperties extends ViewProps {
     currentTime?: number;
     progressUpdateInterval?: number;
     useTextureView?: boolean;
+    allowsExternalPlayback?: boolean;
     onLoadStart?(): void;
     onLoad?(data: OnLoadData): void;
     onBuffer?(): void;
@@ -75,6 +76,7 @@ export interface VideoProperties extends ViewProps {
     onProgress?(data: {
         currentTime: number;
         playableDuration: number;
+        seekableDuration: number;
     }): void;
     onSeek?(): void;
     onEnd?(): void;
@@ -98,7 +100,7 @@ export interface VideoProperties extends ViewProps {
 }
 
 export default class Video extends React.Component<VideoProperties> {
-    seek(time: number): void;
+    seek(time: number, tolerance?: number): void;
     presentFullscreenPlayer(): void;
     dismissFullscreenPlayer(): void;
 }

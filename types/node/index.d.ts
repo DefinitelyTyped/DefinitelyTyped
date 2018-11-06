@@ -1,4 +1,4 @@
-// Type definitions for Node.js 10.11
+// Type definitions for Node.js 10.12
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -30,6 +30,7 @@
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
+//                 Jeremie Rodriguez <https://github.com/jeremiergz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -109,6 +110,10 @@ interface Console {
      */
     timeEnd(label?: string): void;
     /**
+     * For a timer that was previously started by calling {@link console.time()}, prints the elapsed time and other `data` arguments to `stdout`.
+     */
+    timeLog(label: string, ...data: any[]): void;
+    /**
      * Prints to `stderr` the string 'Trace :', followed by the {@link util.format()} formatted message and stack trace to the current position in the code.
      */
     trace(message?: any, ...optionalParams: any[]): void;
@@ -154,13 +159,16 @@ interface ErrorConstructor {
     stackTraceLimit: number;
 }
 
-// compat for TypeScript 1.8
+// compat for TypeScript 1.8 and default es5 target
 // if you use with --target es3 or --target es5 and use below definitions,
 // use the lib.es6.d.ts that is bundled with TypeScript 1.8.
 interface MapConstructor { }
 interface WeakMapConstructor { }
 interface SetConstructor { }
 interface WeakSetConstructor { }
+
+interface Set<T> {}
+interface ReadonlySet<T> {}
 
 // Forward-declare needed types from lib.es2015.d.ts (in case users are using `--lib es5`)
 interface Iterable<T> { }
@@ -174,7 +182,7 @@ interface SymbolConstructor {
     readonly iterator: symbol;
     readonly asyncIterator: symbol;
 }
-// declare const Symbol: SymbolConstructor;
+declare var Symbol: SymbolConstructor;
 interface SharedArrayBuffer {
     readonly byteLength: number;
     slice(begin?: number, end?: number): SharedArrayBuffer;
@@ -193,27 +201,27 @@ interface String {
  *                   GLOBAL                      *
  *                                               *
  ------------------------------------------------*/
-declare const process: NodeJS.Process;
-declare const global: NodeJS.Global;
+declare var process: NodeJS.Process;
+declare var global: NodeJS.Global;
 declare var console: Console;
 
-declare const __filename: string;
-declare const __dirname: string;
+declare var __filename: string;
+declare var __dirname: string;
 
-declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
 declare namespace setTimeout {
     function __promisify__(ms: number): Promise<void>;
     function __promisify__<T>(ms: number, value: T): Promise<T>;
 }
-declare function clearTimeout(timeoutId: NodeJS.Timer): void;
-declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
-declare function clearInterval(intervalId: NodeJS.Timer): void;
-declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
+declare function clearTimeout(timeoutId: NodeJS.Timeout): void;
+declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
+declare function clearInterval(intervalId: NodeJS.Timeout): void;
+declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
 declare namespace setImmediate {
     function __promisify__(): Promise<void>;
     function __promisify__<T>(value: T): Promise<T>;
 }
-declare function clearImmediate(immediateId: any): void;
+declare function clearImmediate(immediateId: NodeJS.Immediate): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
@@ -240,7 +248,7 @@ interface NodeExtensions {
     [ext: string]: (m: NodeModule, filename: string) => any;
 }
 
-declare const require: NodeRequire;
+declare var require: NodeRequire;
 
 interface NodeModule {
     exports: any;
@@ -253,10 +261,10 @@ interface NodeModule {
     paths: string[];
 }
 
-declare const module: NodeModule;
+declare var module: NodeModule;
 
 // Same as module.exports
-declare const exports: any;
+declare var exports: any;
 declare const SlowBuffer: {
     new(str: string, encoding?: string): Buffer;
     new(size: number): Buffer;
@@ -486,6 +494,7 @@ declare namespace NodeJS {
         maxArrayLength?: number | null;
         breakLength?: number;
         compact?: boolean;
+        sorted?: boolean | ((a: string, b: string) => number);
     }
 
     interface ConsoleConstructor {
@@ -684,6 +693,8 @@ declare namespace NodeJS {
         "SIGSTOP" | "SIGSYS" | "SIGTERM" | "SIGTRAP" | "SIGTSTP" | "SIGTTIN" | "SIGTTOU" | "SIGUNUSED" | "SIGURG" |
         "SIGUSR1" | "SIGUSR2" | "SIGVTALRM" | "SIGWINCH" | "SIGXCPU" | "SIGXFSZ" | "SIGBREAK" | "SIGLOST" | "SIGINFO";
 
+    type MultipleResolveType = 'resolve' | 'reject';
+
     type BeforeExitListener = (code: number) => void;
     type DisconnectListener = () => void;
     type ExitListener = (code: number) => void;
@@ -695,6 +706,7 @@ declare namespace NodeJS {
     type SignalsListener = (signal: Signals) => void;
     type NewListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
     type RemoveListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
+    type MultipleResolveListener = (type: MultipleResolveType, promise: Promise<any>, value: any) => void;
 
     interface Socket extends ReadWriteStream {
         isTTY?: true;
@@ -811,8 +823,7 @@ declare namespace NodeJS {
          * read-only `Set` of flags allowable within the [`NODE_OPTIONS`][]
          * environment variable.
          */
-        // TODO: This Set is readonly
-        allowedNodeEnvironmentFlags: Set<string>;
+        allowedNodeEnvironmentFlags: ReadonlySet<string>;
 
         /**
          * EventEmitter
@@ -839,6 +850,7 @@ declare namespace NodeJS {
         addListener(event: Signals, listener: SignalsListener): this;
         addListener(event: "newListener", listener: NewListenerListener): this;
         addListener(event: "removeListener", listener: RemoveListenerListener): this;
+        addListener(event: "multipleResolves", listener: MultipleResolveListener): this;
 
         emit(event: "beforeExit", code: number): boolean;
         emit(event: "disconnect"): boolean;
@@ -851,6 +863,7 @@ declare namespace NodeJS {
         emit(event: Signals, signal: Signals): boolean;
         emit(event: "newListener", eventName: string | symbol, listener: (...args: any[]) => void): this;
         emit(event: "removeListener", eventName: string, listener: (...args: any[]) => void): this;
+        emit(event: "multipleResolves", listener: MultipleResolveListener): this;
 
         on(event: "beforeExit", listener: BeforeExitListener): this;
         on(event: "disconnect", listener: DisconnectListener): this;
@@ -863,6 +876,7 @@ declare namespace NodeJS {
         on(event: Signals, listener: SignalsListener): this;
         on(event: "newListener", listener: NewListenerListener): this;
         on(event: "removeListener", listener: RemoveListenerListener): this;
+        on(event: "multipleResolves", listener: MultipleResolveListener): this;
 
         once(event: "beforeExit", listener: BeforeExitListener): this;
         once(event: "disconnect", listener: DisconnectListener): this;
@@ -875,6 +889,7 @@ declare namespace NodeJS {
         once(event: Signals, listener: SignalsListener): this;
         once(event: "newListener", listener: NewListenerListener): this;
         once(event: "removeListener", listener: RemoveListenerListener): this;
+        once(event: "multipleResolves", listener: MultipleResolveListener): this;
 
         prependListener(event: "beforeExit", listener: BeforeExitListener): this;
         prependListener(event: "disconnect", listener: DisconnectListener): this;
@@ -887,6 +902,7 @@ declare namespace NodeJS {
         prependListener(event: Signals, listener: SignalsListener): this;
         prependListener(event: "newListener", listener: NewListenerListener): this;
         prependListener(event: "removeListener", listener: RemoveListenerListener): this;
+        prependListener(event: "multipleResolves", listener: MultipleResolveListener): this;
 
         prependOnceListener(event: "beforeExit", listener: BeforeExitListener): this;
         prependOnceListener(event: "disconnect", listener: DisconnectListener): this;
@@ -899,6 +915,7 @@ declare namespace NodeJS {
         prependOnceListener(event: Signals, listener: SignalsListener): this;
         prependOnceListener(event: "newListener", listener: NewListenerListener): this;
         prependOnceListener(event: "removeListener", listener: RemoveListenerListener): this;
+        prependOnceListener(event: "multipleResolves", listener: MultipleResolveListener): this;
 
         listeners(event: "beforeExit"): BeforeExitListener[];
         listeners(event: "disconnect"): DisconnectListener[];
@@ -911,6 +928,7 @@ declare namespace NodeJS {
         listeners(event: Signals): SignalsListener[];
         listeners(event: "newListener"): NewListenerListener[];
         listeners(event: "removeListener"): RemoveListenerListener[];
+        listeners(event: "multipleResolves"): MultipleResolveListener[];
     }
 
     interface Global {
@@ -953,9 +971,9 @@ declare namespace NodeJS {
         Uint8ClampedArray: Function;
         WeakMap: WeakMapConstructor;
         WeakSet: WeakSetConstructor;
-        clearImmediate: (immediateId: any) => void;
-        clearInterval: (intervalId: Timer) => void;
-        clearTimeout: (timeoutId: Timer) => void;
+        clearImmediate: (immediateId: Immediate) => void;
+        clearInterval: (intervalId: Timeout) => void;
+        clearTimeout: (timeoutId: Timeout) => void;
         console: typeof console;
         decodeURI: typeof decodeURI;
         decodeURIComponent: typeof decodeURIComponent;
@@ -970,9 +988,9 @@ declare namespace NodeJS {
         parseInt: typeof parseInt;
         process: Process;
         root: Global;
-        setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => any;
-        setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timer;
-        setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timer;
+        setImmediate: (callback: (...args: any[]) => void, ...args: any[]) => Immediate;
+        setInterval: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
+        setTimeout: (callback: (...args: any[]) => void, ms: number, ...args: any[]) => Timeout;
         undefined: typeof undefined;
         unescape: (str: string) => string;
         gc: () => void;
@@ -981,12 +999,26 @@ declare namespace NodeJS {
 
     interface Timer {
         ref(): void;
+        refresh(): void;
+        unref(): void;
+    }
+
+    class Immediate {
+        ref(): void;
+        unref(): void;
+        _onImmediate: Function; // to distinguish it from the Timeout class
+    }
+
+    class Timeout implements Timer {
+        ref(): void;
+        refresh(): void;
         unref(): void;
     }
 
     class Module {
         static runMain(): void;
         static wrap(code: string): string;
+        static createRequireFromPath(path: string): (path: string) => any;
         static builtinModules: string[];
 
         static Module: typeof Module;
@@ -2599,6 +2631,20 @@ declare module "url" {
     function domainToASCII(domain: string): string;
     function domainToUnicode(domain: string): string;
 
+    /**
+     * This function ensures the correct decodings of percent-encoded characters as
+     * well as ensuring a cross-platform valid absolute path string.
+     * @param url The file URL string or URL object to convert to a path.
+     */
+    function fileURLToPath(url: string | URL): string;
+
+    /**
+     * This function ensures that path is resolved absolutely, and that the URL
+     * control characters are correctly encoded when converting into a File URL.
+     * @param url The path to convert to a File URL.
+     */
+    function pathToFileURL(url: string): URL;
+
     interface URLFormatOptions {
         auth?: boolean;
         fragment?: boolean;
@@ -2651,6 +2697,7 @@ declare module "dns" {
         family?: number;
         hints?: number;
         all?: boolean;
+        verbatim?: boolean;
     }
 
     interface LookupOneOptions extends LookupOptions {
@@ -3974,12 +4021,25 @@ declare module "fs" {
      */
     function rmdirSync(path: PathLike): void;
 
+    export interface MakeDirectoryOptions {
+        /**
+         * Indicates whether parent folders should be created.
+         * @default false
+         */
+        recursive?: boolean;
+        /**
+         * A file mode. If a string is passed, it is parsed as an octal integer. If not specified
+         * @default 0o777.
+         */
+        mode?: number;
+    }
+
     /**
      * Asynchronous mkdir(2) - create a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdir(path: PathLike, mode: number | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    function mkdir(path: PathLike, mode: number | string | MakeDirectoryOptions | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronous mkdir(2) - create a directory with a mode of `0o777`.
@@ -3994,7 +4054,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
-        function __promisify__(path: PathLike, mode?: number | string | null): Promise<void>;
+        function __promisify__(path: PathLike, mode?: number | string | MakeDirectoryOptions | null): Promise<void>;
     }
 
     /**
@@ -4002,7 +4062,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdirSync(path: PathLike, mode?: number | string | null): void;
+    function mkdirSync(path: PathLike, mode?: number | string | MakeDirectoryOptions | null): void;
 
     /**
      * Asynchronously creates a unique temporary directory.
@@ -5606,7 +5666,7 @@ declare module "path" {
     /**
      * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
      *
-     * Starting from leftmost {from} paramter, resolves {to} to an absolute path.
+     * Starting from leftmost {from} parameter, resolves {to} to an absolute path.
      *
      * If {to} isn't already absolute, {from} arguments are prepended in right to left order,
      * until an absolute path is found. If after using all {from} paths still no absolute path is found,
@@ -6329,6 +6389,88 @@ declare module "crypto" {
     function timingSafeEqual(a: Buffer | NodeJS.TypedArray | DataView, b: Buffer | NodeJS.TypedArray | DataView): boolean;
     /** @deprecated since v10.0.0 */
     const DEFAULT_ENCODING: string;
+
+    export type KeyType = 'rsa' | 'dsa' | 'ec';
+    export type KeyFormat = 'pem' | 'der';
+
+    interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
+        format: T;
+        cipher: string;
+        passphrase: string;
+    }
+
+    interface RSAKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
+        /**
+         * Key size in bits
+         */
+        modulusLength: number;
+        /**
+         * @default 0x10001
+         */
+        publicExponent?: number;
+
+        publicKeyEncoding: {
+            type: 'pkcs1' | 'spki';
+            format: PubF;
+        };
+        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
+            type: 'pkcs1' | 'pkcs8';
+        };
+    }
+
+    interface DSAKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
+        /**
+         * Key size in bits
+         */
+        modulusLength: number;
+        /**
+         * Size of q in bits
+         */
+        divisorLength: number;
+
+        publicKeyEncoding: {
+            type: 'spki';
+            format: PubF;
+        };
+        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
+            type: 'pkcs8';
+        };
+    }
+
+    interface ECKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
+        /**
+         * Name of the curve to use.
+         */
+        namedCurve: string;
+
+        publicKeyEncoding: {
+            type: 'pkcs1' | 'spki';
+            format: PubF;
+        };
+        privateKeyEncoding: BasePrivateKeyEncodingOptions<PrivF> & {
+            type: 'sec1' | 'pkcs8';
+        };
+    }
+
+    interface KeyPairSyncResult<T1 extends string | Buffer, T2 extends string | Buffer> {
+        publicKey: T1;
+        privateKey: T2;
+    }
+
+    function generateKeyPairSync(type: 'rsa', options: RSAKeyPairOptions<'pem', 'pem'>): KeyPairSyncResult<string, string>;
+    function generateKeyPairSync(type: 'rsa', options: RSAKeyPairOptions<'pem', 'der'>): KeyPairSyncResult<string, Buffer>;
+    function generateKeyPairSync(type: 'rsa', options: RSAKeyPairOptions<'der', 'pem'>): KeyPairSyncResult<Buffer, string>;
+    function generateKeyPairSync(type: 'rsa', options: RSAKeyPairOptions<'der', 'der'>): KeyPairSyncResult<Buffer, Buffer>;
+
+    function generateKeyPairSync(type: 'dsa', options: DSAKeyPairOptions<'pem', 'pem'>): KeyPairSyncResult<string, string>;
+    function generateKeyPairSync(type: 'dsa', options: DSAKeyPairOptions<'pem', 'der'>): KeyPairSyncResult<string, Buffer>;
+    function generateKeyPairSync(type: 'dsa', options: DSAKeyPairOptions<'der', 'pem'>): KeyPairSyncResult<Buffer, string>;
+    function generateKeyPairSync(type: 'dsa', options: DSAKeyPairOptions<'der', 'der'>): KeyPairSyncResult<Buffer, Buffer>;
+
+    function generateKeyPairSync(type: 'ec', options: ECKeyPairOptions<'pem', 'pem'>): KeyPairSyncResult<string, string>;
+    function generateKeyPairSync(type: 'ec', options: ECKeyPairOptions<'pem', 'der'>): KeyPairSyncResult<string, Buffer>;
+    function generateKeyPairSync(type: 'ec', options: ECKeyPairOptions<'der', 'pem'>): KeyPairSyncResult<Buffer, string>;
+    function generateKeyPairSync(type: 'ec', options: ECKeyPairOptions<'der', 'der'>): KeyPairSyncResult<Buffer, Buffer>;
 }
 
 declare module "stream" {
@@ -7204,20 +7346,20 @@ declare module "v8" {
 }
 
 declare module "timers" {
-    function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+    function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
     namespace setTimeout {
         function __promisify__(ms: number): Promise<void>;
         function __promisify__<T>(ms: number, value: T): Promise<T>;
     }
-    function clearTimeout(timeoutId: NodeJS.Timer): void;
-    function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
-    function clearInterval(intervalId: NodeJS.Timer): void;
-    function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
+    function clearTimeout(timeoutId: NodeJS.Timeout): void;
+    function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
+    function clearInterval(intervalId: NodeJS.Timeout): void;
+    function setImmediate(callback: (...args: any[]) => void, ...args: any[]): NodeJS.Immediate;
     namespace setImmediate {
         function __promisify__(): Promise<void>;
         function __promisify__<T>(value: T): Promise<T>;
     }
-    function clearImmediate(immediateId: any): void;
+    function clearImmediate(immediateId: NodeJS.Immediate): void;
 }
 
 declare module "console" {
@@ -7645,6 +7787,7 @@ declare module "http2" {
         addListener(event: "localSettings", listener: (settings: Settings) => void): this;
         addListener(event: "remoteSettings", listener: (settings: Settings) => void): this;
         addListener(event: "timeout", listener: () => void): this;
+        addListener(event: "ping", listener: () => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
@@ -7654,6 +7797,7 @@ declare module "http2" {
         emit(event: "localSettings", settings: Settings): boolean;
         emit(event: "remoteSettings", settings: Settings): boolean;
         emit(event: "timeout"): boolean;
+        emit(event: "ping"): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "close", listener: () => void): this;
@@ -7663,6 +7807,7 @@ declare module "http2" {
         on(event: "localSettings", listener: (settings: Settings) => void): this;
         on(event: "remoteSettings", listener: (settings: Settings) => void): this;
         on(event: "timeout", listener: () => void): this;
+        on(event: "ping", listener: () => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: () => void): this;
@@ -7672,6 +7817,7 @@ declare module "http2" {
         once(event: "localSettings", listener: (settings: Settings) => void): this;
         once(event: "remoteSettings", listener: (settings: Settings) => void): this;
         once(event: "timeout", listener: () => void): this;
+        once(event: "ping", listener: () => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "close", listener: () => void): this;
@@ -7681,6 +7827,7 @@ declare module "http2" {
         prependListener(event: "localSettings", listener: (settings: Settings) => void): this;
         prependListener(event: "remoteSettings", listener: (settings: Settings) => void): this;
         prependListener(event: "timeout", listener: () => void): this;
+        prependListener(event: "ping", listener: () => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
@@ -7690,6 +7837,7 @@ declare module "http2" {
         prependOnceListener(event: "localSettings", listener: (settings: Settings) => void): this;
         prependOnceListener(event: "remoteSettings", listener: (settings: Settings) => void): this;
         prependOnceListener(event: "timeout", listener: () => void): this;
+        prependOnceListener(event: "ping", listener: () => void): this;
     }
 
     export interface ClientHttp2Session extends Http2Session {
@@ -7879,7 +8027,8 @@ declare module "http2" {
         prependOnceListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
     }
 
-    export interface Http2ServerRequest extends stream.Readable {
+    export class Http2ServerRequest extends stream.Readable {
+        private constructor();
         headers: IncomingHttpHeaders;
         httpVersion: string;
         method: string;
@@ -7910,7 +8059,8 @@ declare module "http2" {
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
     }
 
-    export interface Http2ServerResponse extends events.EventEmitter {
+    export class Http2ServerResponse extends events.EventEmitter {
+        private constructor();
         addTrailers(trailers: OutgoingHttpHeaders): void;
         connection: net.Socket | tls.TLSSocket;
         end(callback?: () => void): void;

@@ -2,7 +2,7 @@
 // Project: https://github.com/arangodb/arangodb
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 /// <reference types="node" />
 
@@ -1698,7 +1698,7 @@ declare module "@arangodb/crypto" {
         key: string | null,
         token: string,
         noVerify?: boolean
-    ): string | null;
+    ): object | null;
     function md5(message: string): string;
     function sha1(message: string): string;
     function sha224(message: string): string;

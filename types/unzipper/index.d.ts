@@ -7,7 +7,7 @@
 // TypeScript Version: 2.2
 /// <reference types="node" />
 
-import { Readable, Stream, PassThrough, Duplex } from "stream";
+import { Readable, Stream, PassThrough, Duplex, Transform } from "stream";
 import { ClientRequest, RequestOptions } from "http";
 
 export interface PullStream extends Duplex {
@@ -16,7 +16,9 @@ export interface PullStream extends Duplex {
 }
 
 export interface Entry extends PassThrough {
-    autodrain(): Promise<void>;
+    autodrain(): Transform & {
+        promise(): Promise<void>;
+    };
     buffer(): Promise<Buffer>;
     path: string;
 

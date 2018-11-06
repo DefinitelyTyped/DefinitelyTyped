@@ -73,7 +73,7 @@ declare namespace marked {
         html(html: string): string;
         heading(text: string, level: number, raw: string): string;
         hr(): string;
-        list(body: string, ordered: boolean): string;
+        list(body: string, ordered: boolean, start: number): string;
         listitem(text: string): string;
         paragraph(text: string): string;
         table(header: string, body: string): string;

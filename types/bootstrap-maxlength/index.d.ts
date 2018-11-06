@@ -113,7 +113,7 @@ declare namespace BootstrapMaxlength {
          */
         message?: string | ((currentText : string, maxLength: Number) => string),
         /**
-         * If true the input will count using utf8 bytesize/encoding. For example: the '�' character is counted as two characters.
+         * If true the input will count using utf8 bytesize/encoding. For example: the '¢' character is counted as two characters.
          * @default false
          */
         utf8?: boolean,

@@ -292,6 +292,7 @@ declare module 'twit' {
       app_only_auth?: boolean,
       timeout_ms?: number,
       trusted_cert_fingerprints?: string[],
+      strictSSL?: boolean
     }
     export interface Stream extends EventEmitter {
       start(): void;

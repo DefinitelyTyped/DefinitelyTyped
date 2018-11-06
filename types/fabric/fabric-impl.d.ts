@@ -104,7 +104,7 @@ export function warn(...values: any[]): void;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Data Object Interfaces - These intrface are not specific part of fabric,
-// They are just helpful for for defining function paramters
+// They are just helpful for for defining function parameters
 //////////////////////////////////////////////////////////////////////////////
 interface IDataURLOptions {
 	/**
@@ -1650,6 +1650,13 @@ export class Group {
 	 * @chainable
 	 */
 	destroy(): Group;
+    /**
+     * make a group an active selection, remove the group from canvas
+     * the group has to be on canvas for this to work.
+     * @return {fabric.ActiveSelection} thisArg
+     * @chainable
+     */
+    toActiveSelection(): ActiveSelection;
 	/**
 	 * Checks whether this group was moved (since `saveCoords` was called last)
 	 * @return true if an object was moved (since fabric.Group#saveCoords was called)
@@ -4675,4 +4682,3 @@ export interface WebglFilterBackend extends FilterBackend, WebglFilterBackendOpt
 export class WebglFilterBackend {
 	constructor(options?: WebglFilterBackendOptions);
 }
-

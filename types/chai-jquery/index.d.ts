@@ -25,6 +25,7 @@ declare namespace Chai {
         selected(): Assertion;
         checked(): Assertion;
         disabled(): Assertion;
+        enabled(): Assertion;
         (selector: string): Assertion;
     }
 

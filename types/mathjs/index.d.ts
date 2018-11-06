@@ -1345,7 +1345,7 @@ declare namespace math {
          * the Matrix/array being traversed.
          * @returns Transformed map of x
          */
-        map(x: Matrix | MathArray, callback: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray)): Matrix | MathArray;
+        map(x: Matrix | MathArray, callback: ((value: any, index: any, matrix: Matrix | MathArray) => MathType | string)): Matrix | MathArray;
 
         /**
          * Create a matrix filled with ones. The created matrix can have one or
@@ -2876,6 +2876,7 @@ declare namespace math {
     interface Parser {
         eval(expr: string): any;
         get(variable: string): any;
+        getAll(): { [key: string]: any; };
         set: (variable: string, value: any) => void;
         clear: () => void;
     }

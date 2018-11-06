@@ -1,4 +1,4 @@
-// Type definitions for bcrypt 2.0
+// Type definitions for bcrypt 3.0
 // Project: https://www.npmjs.org/package/bcrypt
 // Definitions by:  Peter Harris <https://github.com/codeanimal>
 //                  Ayman Nedjmeddine <https://github.com/IOAyman>
