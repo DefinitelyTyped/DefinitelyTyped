@@ -292,7 +292,7 @@ export interface LolexWithContext {
     timers: GlobalTimers<TimerId>;
     createClock: <TClock extends Clock>(now?: number | Date, loopLimit?: number) => TClock;
     install: (opts?: LolexInstallOpts) => InstalledClock;
-    withGlobal: (global: object) => LolexWithContext;
+    withGlobal: (global: Object) => LolexWithContext;
 }
 
 /**
@@ -300,6 +300,6 @@ export interface LolexWithContext {
  *
  * @param global   New context to apply like `window` (in browsers) or `global` (in node).
  */
-export declare function withGlobal(global: object): LolexWithContext;
+export declare function withGlobal(global: Object): LolexWithContext;
 
 export declare const timers: GlobalTimers<TimerId>;
