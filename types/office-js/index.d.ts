@@ -1035,6 +1035,10 @@ declare namespace Office {
         *     <td>12007</td>
         *     <td>A dialog box is already opened from the task pane. A task pane add-in can only have one dialog box open at a time.</td>
         *   </tr>
+        *   <tr>
+        *     <td>12009</td>
+        *     <td>The user chose to ignore the dialog box. This error can occur in online versions of Office, where users may choose not to allow an add-in to present a dialog.</td>
+        *   </tr>
         * </table>
         * 
         * In the callback function passed to the displayDialogAsync method, you can use the properties of the AsyncResult object to return the 
@@ -7376,7 +7380,12 @@ declare namespace Office {
             /**
              * The content of the attachment is returned as a string representing an .eml formatted file.
              */
-            Eml = "eml"
+            Eml = "eml",
+
+            /**
+             * The content of the attachment is returned as a string representing an .icalendar formatted file.
+             */
+            ICalendar = "iCalendar"
         }
         /**
          * Specifies whether an attachment was added to or removed from an item.
@@ -8574,8 +8583,13 @@ declare namespace Office {
         content: string;
         /**
          * The string format to use for an attachment's content.
-         * For file attachments, the formatting is a base64-encoded string. 
-         * For item attachments that represent messages, the formatting is a string representing an .eml formatted file. 
+         * 
+         * For file attachments, the formatting is a base64-encoded string.
+         * 
+         * For item attachments that represent messages, the formatting is a string representing an .eml formatted file.
+         * 
+         * For item attachments that represent calendar items, the formatting is a string representing an .icalendar file.
+         * 
          * For cloud attachments, the formatting is a URL string.
          */
         format: Office.MailboxEnums.AttachmentContentFormat;
