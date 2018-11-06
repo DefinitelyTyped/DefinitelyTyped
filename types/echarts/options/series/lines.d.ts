@@ -2022,1693 +2022,7 @@ declare namespace echarts {
              *
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data
              */
-            data?: {
-
-                /**
-                 * the name of data.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.name
-                 */
-                name?: string;
-
-                /**
-                 * An array includes two ore more than two coordinates.
-                 * Each coordinate could be `[x, y]` in
-                 * [rectangular coordinate](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
-                 * and `[lng, lat]` in
-                 * [geographic coordinate](https://ecomfe.github.io/echarts-doc/public/en/option.html#geo)
-                 * .
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.coords
-                 */
-                coords?: any[];
-
-                /**
-                 * The line style of this data item.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle
-                 */
-                lineStyle?: {
-
-                    /**
-                     * Line color.
-                     *
-                     * > Color can be represented in RGB, for example `'rgb(128,
-                     * 128, 128)'`.
-                     * RGBA can be used when you need alpha channel, for example
-                     * `'rgba(128, 128, 128, 0.5)'`.
-                     * You may also use hexadecimal format, for example `'#ccc'`.
-                     * Gradient color and texture are also supported besides
-                     * single colors.
-                     * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.lineStyle)
-                     *
-                     *
-                     * @default
-                     * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * line width.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.width
-                     */
-                    width?: number;
-
-                    /**
-                     * line type.
-                     *
-                     * Options are:
-                     *
-                     * + `'solid'`
-                     * + `'dashed'`
-                     * + `'dotted'`
-                     *
-                     *
-                     * @default
-                     * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.type
-                     */
-                    type?: string;
-
-                    /**
-                     * Size of shadow blur.
-                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                     * `shadowOffsetY` to set shadow to component.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.lineStyle)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.shadowBlur
-                     */
-                    shadowBlur?: number;
-
-                    /**
-                     * Shadow color. Support same format as `color`.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.shadowColor
-                     */
-                    shadowColor?: string;
-
-                    /**
-                     * Offset distance on the horizontal direction of shadow.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.shadowOffsetX
-                     */
-                    shadowOffsetX?: number;
-
-                    /**
-                     * Offset distance on the vertical direction of shadow.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.shadowOffsetY
-                     */
-                    shadowOffsetY?: number;
-
-                    /**
-                     * Opacity of the component.
-                     * Supports value from 0 to 1, and the component will not
-                     * be drawn when set to 0.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.opacity
-                     */
-                    opacity?: number;
-
-                    /**
-                     * Edge curvature, which supports value from 0 to 1.
-                     * The larger the value, the greater the curvature.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.curveness
-                     */
-                    curveness?: number;
-                };
-
-                /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label
-                 */
-                label?: {
-
-                    /**
-                     * Whether to show label.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.show
-                     */
-                    show?: boolean;
-
-                    /**
-                     * the position of label, options:
-                     *
-                     * + `'start'`
-                     * + `'middle'`
-                     * + `'end'`
-                     *
-                     *
-                     * @default
-                     * "end"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.position
-                     */
-                    position?: string;
-
-                    /**
-                     * Data label formatter, which supports string template
-                     * and callback function.
-                     * In either form, `\n` is supported to represent a new
-                     * line.
-                     *
-                     * **String template**
-                     *
-                     * Model variation includes:
-                     *
-                     * + `{a}`: series name.
-                     * + `{b}`: the name of a data item.
-                     * + `{c}`: the value of a data item.
-                     * + `{d}`: the percent.
-                     * + `{@xxx}: the value of a dimension named`'xxx'`, for
-                     * example,`{@product}`refers the value of`'product'\` dimension。
-                     * + `{@[n]}: the value of a dimension at the index of`n`,
-                     * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
-                     *
-                     * **example:**
-                     *
-                     * ```
-                     * formatter: '{b}: {d}'
-                     *
-                     * ```
-                     *
-                     * **Callback function**
-                     *
-                     * Callback function is in form of:
-                     *
-                     * ```
-                     * (params: Object|Array) => string
-                     *
-                     * ```
-                     *
-                     * where `params` is the single dataset needed by formatter,
-                     * which is formed as:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.formatter
-                     */
-                    formatter?: Function | string;
-
-                    /**
-                     * text color.
-                     *
-                     *
-                     * @default
-                     * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.color
-                     */
-                    color?: string;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.fontStyle
-                     */
-                    fontStyle?: string;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.fontWeight
-                     */
-                    fontWeight?: string;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.fontFamily
-                     */
-                    fontFamily?: string;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.fontSize
-                     */
-                    fontSize?: number;
-
-                    /**
-                     * Horizontal alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'left'`
-                     * + `'center'`
-                     * + `'right'`
-                     *
-                     * If `align` is not set in `rich`, `align` in parent level
-                     * will be used. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.align
-                     */
-                    align?: string;
-
-                    /**
-                     * Vertical alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'top'`
-                     * + `'middle'`
-                     * + `'bottom'`
-                     *
-                     * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                     * in parent level will be used. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.verticalAlign
-                     */
-                    verticalAlign?: string;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.lineHeight
-                     */
-                    lineHeight?: number;
-
-                    /**
-                     * Background color of the text fregment.
-                     *
-                     * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                     *
-                     * Or image can be used, for example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label)
-                     *
-                     * `width` or `height` can be specified when using background
-                     * image, or auto adapted by default.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.backgroundColor
-                     */
-                    backgroundColor?: object | string;
-
-                    /**
-                     * Border color of the text fregment.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * Border width of the text fregment.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * Border radius of the text fregment.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.borderRadius
-                     */
-                    borderRadius?: number;
-
-                    /**
-                     * Padding of the text fregment, for example:
-                     *
-                     * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
-                     * right, bottom, left]`.
-                     * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                     * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.padding
-                     */
-                    padding?: any[] | number;
-
-                    /**
-                     * Shadow color of the text block.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.shadowColor
-                     */
-                    shadowColor?: string;
-
-                    /**
-                     * Show blur of the text block.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.shadowBlur
-                     */
-                    shadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text block.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.shadowOffsetX
-                     */
-                    shadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text block.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.shadowOffsetY
-                     */
-                    shadowOffsetY?: number;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.width
-                     */
-                    width?: number | string;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.height
-                     */
-                    height?: number | string;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.textBorderColor
-                     */
-                    textBorderColor?: string;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.textBorderWidth
-                     */
-                    textBorderWidth?: number;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.textShadowColor
-                     */
-                    textShadowColor?: string;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.textShadowBlur
-                     */
-                    textShadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number;
-
-                    /**
-                     * "Rich text styles" can be defined in this `rich` property.
-                     * For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label)
-                     *
-                     * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
-                     * please.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich
-                     */
-                    rich?: {
-
-                        /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E
-                         */
-                        [userStyle: string]: {
-
-                            /**
-                             * text color.
-                             *
-                             *
-                             * @default
-                             * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                             */
-                            color?: string;
-
-                            /**
-                             * font style
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'italic'`
-                             * + `'oblique'`
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                             */
-                            fontStyle?: string;
-
-                            /**
-                             * font thick weight
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'bold'`
-                             * + `'bolder'`
-                             * + `'lighter'`
-                             * + 100 | 200 | 300 | 400...
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                             */
-                            fontWeight?: string;
-
-                            /**
-                             * font family
-                             *
-                             * Can also be 'serif' , 'monospace', ...
-                             *
-                             *
-                             * @default
-                             * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                             */
-                            fontFamily?: string;
-
-                            /**
-                             * font size
-                             *
-                             *
-                             * @default
-                             * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                             */
-                            fontSize?: number;
-
-                            /**
-                             * Horizontal alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'left'`
-                             * + `'center'`
-                             * + `'right'`
-                             *
-                             * If `align` is not set in `rich`, `align` in parent
-                             * level will be used. For example:
-                             *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                             */
-                            align?: string;
-
-                            /**
-                             * Vertical alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'top'`
-                             * + `'middle'`
-                             * + `'bottom'`
-                             *
-                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                             */
-                            verticalAlign?: string;
-
-                            /**
-                             * Line height of the text fregment.
-                             *
-                             * If `lineHeight` is not set in `rich`, `lineHeight`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                             */
-                            lineHeight?: number;
-
-                            /**
-                             * Background color of the text fregment.
-                             *
-                             * Can be color string, like `'#123234'`, `'red'`,
-                             * `rgba(0,23,11,0.3)'`.
-                             *
-                             * Or image can be used, for example:
-                             *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             * `width` or `height` can be specified when using
-                             * background image, or auto adapted by default.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                             */
-                            backgroundColor?: object | string;
-
-                            /**
-                             * Border color of the text fregment.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                             */
-                            borderColor?: string;
-
-                            /**
-                             * Border width of the text fregment.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                             */
-                            borderWidth?: number;
-
-                            /**
-                             * Border radius of the text fregment.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                             */
-                            borderRadius?: number;
-
-                            /**
-                             * Padding of the text fregment, for example:
-                             *
-                             * + `padding: [3, 4, 5, 6]`: represents padding
-                             * of `[top, right, bottom, left]`.
-                             * + `padding: 4`: represents `padding: [4, 4, 4,
-                             * 4]`.
-                             * + `padding: [3, 4]`: represents `padding: [3,
-                             * 4, 3, 4]`.
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                             */
-                            padding?: any[] | number;
-
-                            /**
-                             * Shadow color of the text block.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                             */
-                            shadowColor?: string;
-
-                            /**
-                             * Show blur of the text block.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                             */
-                            shadowBlur?: number;
-
-                            /**
-                             * Shadow X offset of the text block.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                             */
-                            shadowOffsetX?: number;
-
-                            /**
-                             * Shadow Y offset of the text block.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                             */
-                            shadowOffsetY?: number;
-
-                            /**
-                             * Width of the text block.
-                             * It is the width of the text by default.
-                             * In most cases, there is no need to specify it.
-                             * You may want to use it in some cases like make
-                             * simple table or using background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * `width` can also be percent string, like `'100%'`,
-                             * which represents the percent of `contentWidth`
-                             * (that is, the width without `padding`) of its
-                             * container box.
-                             * It is based on `contentWidth` because that each
-                             * text fregment is layout based on the `content
-                             * box`, where it makes no sense that calculating
-                             * width based on `outerWith` in prectice.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                             */
-                            width?: number | string;
-
-                            /**
-                             * Height of the text block.
-                             * It is the width of the text by default.
-                             * You may want to use it in some cases like using
-                             * background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                             */
-                            height?: number | string;
-
-                            /**
-                             * Storke color of the text.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                             */
-                            textBorderColor?: string;
-
-                            /**
-                             * Storke line width of the text.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                             */
-                            textBorderWidth?: number;
-
-                            /**
-                             * Shadow color of the text itself.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                             */
-                            textShadowColor?: string;
-
-                            /**
-                             * Shadow blue of the text itself.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                             */
-                            textShadowBlur?: number;
-
-                            /**
-                             * Shadow X offset of the text itself.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                             */
-                            textShadowOffsetX?: number;
-
-                            /**
-                             * Shadow Y offset of the text itself.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                             */
-                            textShadowOffsetY?: number;
-                        };
-                    };
-                };
-
-                /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis
-                 */
-                emphasis?: {
-
-                    /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle
-                     */
-                    lineStyle?: {
-
-                        /**
-                         * Line color.
-                         *
-                         * > Color can be represented in RGB, for example `'rgb(128,
-                         * 128, 128)'`.
-                         * RGBA can be used when you need alpha channel, for
-                         * example `'rgba(128, 128, 128, 0.5)'`.
-                         * You may also use hexadecimal format, for example
-                         * `'#ccc'`.
-                         * Gradient color and texture are also supported besides
-                         * single colors.
-                         * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.lineStyle)
-                         *
-                         *
-                         * @default
-                         * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * line width.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.width
-                         */
-                        width?: number;
-
-                        /**
-                         * line type.
-                         *
-                         * Options are:
-                         *
-                         * + `'solid'`
-                         * + `'dashed'`
-                         * + `'dotted'`
-                         *
-                         *
-                         * @default
-                         * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.type
-                         */
-                        type?: string;
-
-                        /**
-                         * Size of shadow blur.
-                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                         * `shadowOffsetY` to set shadow to component.
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.lineStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow color. Support same format as `color`.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Offset distance on the horizontal direction of shadow.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Offset distance on the vertical direction of shadow.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Opacity of the component.
-                         * Supports value from 0 to 1, and the component will
-                         * not be drawn when set to 0.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.opacity
-                         */
-                        opacity?: number;
-
-                        /**
-                         * Edge curvature, which supports value from 0 to 1.
-                         * The larger the value, the greater the curvature.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.curveness
-                         */
-                        curveness?: number;
-                    };
-
-                    /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label
-                     */
-                    label?: {
-
-                        /**
-                         * Whether to show label.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.show
-                         */
-                        show?: boolean;
-
-                        /**
-                         * the position of label, options:
-                         *
-                         * + `'start'`
-                         * + `'middle'`
-                         * + `'end'`
-                         *
-                         *
-                         * @default
-                         * "end"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.position
-                         */
-                        position?: string;
-
-                        /**
-                         * Data label formatter, which supports string template
-                         * and callback function.
-                         * In either form, `\n` is supported to represent a
-                         * new line.
-                         *
-                         * **String template**
-                         *
-                         * Model variation includes:
-                         *
-                         * + `{a}`: series name.
-                         * + `{b}`: the name of a data item.
-                         * + `{c}`: the value of a data item.
-                         * + `{d}`: the percent.
-                         * + `{@xxx}: the value of a dimension named`'xxx'`,
-                         * for example,`{@product}`refers the value of`'product'\`
-                         * dimension。
-                         * + `{@[n]}: the value of a dimension at the index
-                         * of`n`, for example,`{@\[3\]}\` refers the value at
-                         * dimensions\[3\].
-                         *
-                         * **example:**
-                         *
-                         * ```
-                         * formatter: '{b}: {d}'
-                         *
-                         * ```
-                         *
-                         * **Callback function**
-                         *
-                         * Callback function is in form of:
-                         *
-                         * ```
-                         * (params: Object|Array) => string
-                         *
-                         * ```
-                         *
-                         * where `params` is the single dataset needed by formatter,
-                         * which is formed as:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.formatter
-                         */
-                        formatter?: Function | string;
-
-                        /**
-                         * text color.
-                         *
-                         *
-                         * @default
-                         * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Horizontal alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'left'`
-                         * + `'center'`
-                         * + `'right'`
-                         *
-                         * If `align` is not set in `rich`, `align` in parent
-                         * level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.align
-                         */
-                        align?: string;
-
-                        /**
-                         * Vertical alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'top'`
-                         * + `'middle'`
-                         * + `'bottom'`
-                         *
-                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.verticalAlign
-                         */
-                        verticalAlign?: string;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Background color of the text fregment.
-                         *
-                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                         *
-                         * Or image can be used, for example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label)
-                         *
-                         * `width` or `height` can be specified when using background
-                         * image, or auto adapted by default.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.backgroundColor
-                         */
-                        backgroundColor?: object | string;
-
-                        /**
-                         * Border color of the text fregment.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.borderColor
-                         */
-                        borderColor?: string;
-
-                        /**
-                         * Border width of the text fregment.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.borderWidth
-                         */
-                        borderWidth?: number;
-
-                        /**
-                         * Border radius of the text fregment.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.borderRadius
-                         */
-                        borderRadius?: number;
-
-                        /**
-                         * Padding of the text fregment, for example:
-                         *
-                         * + `padding: [3, 4, 5, 6]`: represents padding of
-                         * `[top, right, bottom, left]`.
-                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                         * + `padding: [3, 4]`: represents `padding: [3, 4,
-                         * 3, 4]`.
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.padding
-                         */
-                        padding?: any[] | number;
-
-                        /**
-                         * Shadow color of the text block.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Show blur of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-
-                        /**
-                         * "Rich text styles" can be defined in this `rich`
-                         * property. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label)
-                         *
-                         * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
-                         * please.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich
-                         */
-                        rich?: {
-
-                            /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
-                             */
-                            [userStyle: string]: {
-
-                                /**
-                                 * text color.
-                                 *
-                                 *
-                                 * @default
-                                 * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                                 */
-                                color?: string;
-
-                                /**
-                                 * font style
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'italic'`
-                                 * + `'oblique'`
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                                 */
-                                fontStyle?: string;
-
-                                /**
-                                 * font thick weight
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'bold'`
-                                 * + `'bolder'`
-                                 * + `'lighter'`
-                                 * + 100 | 200 | 300 | 400...
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                                 */
-                                fontWeight?: string;
-
-                                /**
-                                 * font family
-                                 *
-                                 * Can also be 'serif' , 'monospace', ...
-                                 *
-                                 *
-                                 * @default
-                                 * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                                 */
-                                fontFamily?: string;
-
-                                /**
-                                 * font size
-                                 *
-                                 *
-                                 * @default
-                                 * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                                 */
-                                fontSize?: number;
-
-                                /**
-                                 * Horizontal alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'left'`
-                                 * + `'center'`
-                                 * + `'right'`
-                                 *
-                                 * If `align` is not set in `rich`, `align`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                                 */
-                                align?: string;
-
-                                /**
-                                 * Vertical alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'top'`
-                                 * + `'middle'`
-                                 * + `'bottom'`
-                                 *
-                                 * If `verticalAlign` is not set in `rich`,
-                                 * `verticalAlign` in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                                 */
-                                verticalAlign?: string;
-
-                                /**
-                                 * Line height of the text fregment.
-                                 *
-                                 * If `lineHeight` is not set in `rich`, `lineHeight`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                                 */
-                                lineHeight?: number;
-
-                                /**
-                                 * Background color of the text fregment.
-                                 *
-                                 * Can be color string, like `'#123234'`, `'red'`,
-                                 * `rgba(0,23,11,0.3)'`.
-                                 *
-                                 * Or image can be used, for example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * `width` or `height` can be specified when
-                                 * using background image, or auto adapted by
-                                 * default.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                                 */
-                                backgroundColor?: object | string;
-
-                                /**
-                                 * Border color of the text fregment.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                                 */
-                                borderColor?: string;
-
-                                /**
-                                 * Border width of the text fregment.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                                 */
-                                borderWidth?: number;
-
-                                /**
-                                 * Border radius of the text fregment.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                                 */
-                                borderRadius?: number;
-
-                                /**
-                                 * Padding of the text fregment, for example:
-                                 *
-                                 * + `padding: [3, 4, 5, 6]`: represents padding
-                                 * of `[top, right, bottom, left]`.
-                                 * + `padding: 4`: represents `padding: [4,
-                                 * 4, 4, 4]`.
-                                 * + `padding: [3, 4]`: represents `padding:
-                                 * [3, 4, 3, 4]`.
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                                 */
-                                padding?: any[] | number;
-
-                                /**
-                                 * Shadow color of the text block.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                                 */
-                                shadowColor?: string;
-
-                                /**
-                                 * Show blur of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                                 */
-                                shadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                                 */
-                                shadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                                 */
-                                shadowOffsetY?: number;
-
-                                /**
-                                 * Width of the text block.
-                                 * It is the width of the text by default.
-                                 * In most cases, there is no need to specify
-                                 * it.
-                                 * You may want to use it in some cases like
-                                 * make simple table or using background image
-                                 * (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * `width` can also be percent string, like
-                                 * `'100%'`, which represents the percent of
-                                 * `contentWidth` (that is, the width without
-                                 * `padding`) of its container box.
-                                 * It is based on `contentWidth` because that
-                                 * each text fregment is layout based on the
-                                 * `content box`, where it makes no sense that
-                                 * calculating width based on `outerWith` in
-                                 * prectice.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                                 */
-                                width?: number | string;
-
-                                /**
-                                 * Height of the text block.
-                                 * It is the width of the text by default.
-                                 * You may want to use it in some cases like
-                                 * using background image (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                                 */
-                                height?: number | string;
-
-                                /**
-                                 * Storke color of the text.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                                 */
-                                textBorderColor?: string;
-
-                                /**
-                                 * Storke line width of the text.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                                 */
-                                textBorderWidth?: number;
-
-                                /**
-                                 * Shadow color of the text itself.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                                 */
-                                textShadowColor?: string;
-
-                                /**
-                                 * Shadow blue of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                                 */
-                                textShadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                                 */
-                                textShadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                                 */
-                                textShadowOffsetY?: number;
-                            };
-                        };
-                    };
-                };
-            };
+            data?: SeriesLines.DataObject[];
 
             /**
              * Mark point in a chart.
@@ -14926,6 +13240,1698 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.animationDelayUpdate
              */
             animationDelayUpdate?: Function | number;
+        }
+
+        namespace SeriesLines {
+            interface DataObject {
+
+                /**
+                 * the name of data.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.name
+                 */
+                name?: string;
+
+                children: [DataObject];
+
+                /**
+                 * An array includes two ore more than two coordinates.
+                 * Each coordinate could be `[x, y]` in
+                 * [rectangular coordinate](https://ecomfe.github.io/echarts-doc/public/en/option.html#grid)
+                 * and `[lng, lat]` in
+                 * [geographic coordinate](https://ecomfe.github.io/echarts-doc/public/en/option.html#geo)
+                 * .
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.coords
+                 */
+                coords?: any[];
+
+                /**
+                 * The line style of this data item.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle
+                 */
+                lineStyle?: {
+
+                    /**
+                     * Line color.
+                     *
+                     * > Color can be represented in RGB, for example `'rgb(128,
+                     * 128, 128)'`.
+                     * RGBA can be used when you need alpha channel, for example
+                     * `'rgba(128, 128, 128, 0.5)'`.
+                     * You may also use hexadecimal format, for example `'#ccc'`.
+                     * Gradient color and texture are also supported besides
+                     * single colors.
+                     * >
+                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.lineStyle)
+                     *
+                     *
+                     * @default
+                     * "#000"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.color
+                     */
+                    color?: string;
+
+                    /**
+                     * line width.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.width
+                     */
+                    width?: number;
+
+                    /**
+                     * line type.
+                     *
+                     * Options are:
+                     *
+                     * + `'solid'`
+                     * + `'dashed'`
+                     * + `'dotted'`
+                     *
+                     *
+                     * @default
+                     * "solid"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.type
+                     */
+                    type?: string;
+
+                    /**
+                     * Size of shadow blur.
+                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                     * `shadowOffsetY` to set shadow to component.
+                     *
+                     * For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.lineStyle)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * Shadow color. Support same format as `color`.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.shadowColor
+                     */
+                    shadowColor?: string;
+
+                    /**
+                     * Offset distance on the horizontal direction of shadow.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Offset distance on the vertical direction of shadow.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * Opacity of the component.
+                     * Supports value from 0 to 1, and the component will not
+                     * be drawn when set to 0.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.opacity
+                     */
+                    opacity?: number;
+
+                    /**
+                     * Edge curvature, which supports value from 0 to 1.
+                     * The larger the value, the greater the curvature.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.lineStyle.curveness
+                     */
+                    curveness?: number;
+                };
+
+                /**
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label
+                 */
+                label?: {
+
+                    /**
+                     * Whether to show label.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.show
+                     */
+                    show?: boolean;
+
+                    /**
+                     * the position of label, options:
+                     *
+                     * + `'start'`
+                     * + `'middle'`
+                     * + `'end'`
+                     *
+                     *
+                     * @default
+                     * "end"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.position
+                     */
+                    position?: string;
+
+                    /**
+                     * Data label formatter, which supports string template
+                     * and callback function.
+                     * In either form, `\n` is supported to represent a new
+                     * line.
+                     *
+                     * **String template**
+                     *
+                     * Model variation includes:
+                     *
+                     * + `{a}`: series name.
+                     * + `{b}`: the name of a data item.
+                     * + `{c}`: the value of a data item.
+                     * + `{d}`: the percent.
+                     * + `{@xxx}: the value of a dimension named`'xxx'`, for
+                     * example,`{@product}`refers the value of`'product'\` dimension。
+                     * + `{@[n]}: the value of a dimension at the index of`n`,
+                     * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
+                     *
+                     * **example:**
+                     *
+                     * ```
+                     * formatter: '{b}: {d}'
+                     *
+                     * ```
+                     *
+                     * **Callback function**
+                     *
+                     * Callback function is in form of:
+                     *
+                     * ```
+                     * (params: Object|Array) => string
+                     *
+                     * ```
+                     *
+                     * where `params` is the single dataset needed by formatter,
+                     * which is formed as:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.formatter
+                     */
+                    formatter?: Function | string;
+
+                    /**
+                     * text color.
+                     *
+                     *
+                     * @default
+                     * ""#fff""
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.color
+                     */
+                    color?: string;
+
+                    /**
+                     * font style
+                     *
+                     * Options are:
+                     *
+                     * + `'normal'`
+                     * + `'italic'`
+                     * + `'oblique'`
+                     *
+                     *
+                     * @default
+                     * "normal"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.fontStyle
+                     */
+                    fontStyle?: string;
+
+                    /**
+                     * font thick weight
+                     *
+                     * Options are:
+                     *
+                     * + `'normal'`
+                     * + `'bold'`
+                     * + `'bolder'`
+                     * + `'lighter'`
+                     * + 100 | 200 | 300 | 400...
+                     *
+                     *
+                     * @default
+                     * "normal"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.fontWeight
+                     */
+                    fontWeight?: string;
+
+                    /**
+                     * font family
+                     *
+                     * Can also be 'serif' , 'monospace', ...
+                     *
+                     *
+                     * @default
+                     * "sans-serif"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.fontFamily
+                     */
+                    fontFamily?: string;
+
+                    /**
+                     * font size
+                     *
+                     *
+                     * @default
+                     * 12
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.fontSize
+                     */
+                    fontSize?: number;
+
+                    /**
+                     * Horizontal alignment of text, automatic by default.
+                     *
+                     * Options are:
+                     *
+                     * + `'left'`
+                     * + `'center'`
+                     * + `'right'`
+                     *
+                     * If `align` is not set in `rich`, `align` in parent level
+                     * will be used. For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.align
+                     */
+                    align?: string;
+
+                    /**
+                     * Vertical alignment of text, automatic by default.
+                     *
+                     * Options are:
+                     *
+                     * + `'top'`
+                     * + `'middle'`
+                     * + `'bottom'`
+                     *
+                     * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                     * in parent level will be used. For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.verticalAlign
+                     */
+                    verticalAlign?: string;
+
+                    /**
+                     * Line height of the text fregment.
+                     *
+                     * If `lineHeight` is not set in `rich`, `lineHeight` in
+                     * parent level will be used. For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.lineHeight
+                     */
+                    lineHeight?: number;
+
+                    /**
+                     * Background color of the text fregment.
+                     *
+                     * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                     *
+                     * Or image can be used, for example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label)
+                     *
+                     * `width` or `height` can be specified when using background
+                     * image, or auto adapted by default.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.backgroundColor
+                     */
+                    backgroundColor?: object | string;
+
+                    /**
+                     * Border color of the text fregment.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.borderColor
+                     */
+                    borderColor?: string;
+
+                    /**
+                     * Border width of the text fregment.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.borderWidth
+                     */
+                    borderWidth?: number;
+
+                    /**
+                     * Border radius of the text fregment.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.borderRadius
+                     */
+                    borderRadius?: number;
+
+                    /**
+                     * Padding of the text fregment, for example:
+                     *
+                     * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
+                     * right, bottom, left]`.
+                     * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                     * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
+                     *
+                     * Notice, `width` and `height` specifies the width and
+                     * height of the content, without `padding`.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.padding
+                     */
+                    padding?: any[] | number;
+
+                    /**
+                     * Shadow color of the text block.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.shadowColor
+                     */
+                    shadowColor?: string;
+
+                    /**
+                     * Show blur of the text block.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * Shadow X offset of the text block.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Shadow Y offset of the text block.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * Width of the text block.
+                     * It is the width of the text by default.
+                     * In most cases, there is no need to specify it.
+                     * You may want to use it in some cases like make simple
+                     * table or using background image (see `backgroundColor`).
+                     *
+                     * Notice, `width` and `height` specifies the width and
+                     * height of the content, without `padding`.
+                     *
+                     * `width` can also be percent string, like `'100%'`, which
+                     * represents the percent of `contentWidth` (that is, the
+                     * width without `padding`) of its container box.
+                     * It is based on `contentWidth` because that each text
+                     * fregment is layout based on the `content box`, where
+                     * it makes no sense that calculating width based on `outerWith`
+                     * in prectice.
+                     *
+                     * Notice, `width` and `height` only work when `rich` specified.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.width
+                     */
+                    width?: number | string;
+
+                    /**
+                     * Height of the text block.
+                     * It is the width of the text by default.
+                     * You may want to use it in some cases like using background
+                     * image (see `backgroundColor`).
+                     *
+                     * Notice, `width` and `height` specifies the width and
+                     * height of the content, without `padding`.
+                     *
+                     * Notice, `width` and `height` only work when `rich` specified.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.height
+                     */
+                    height?: number | string;
+
+                    /**
+                     * Storke color of the text.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.textBorderColor
+                     */
+                    textBorderColor?: string;
+
+                    /**
+                     * Storke line width of the text.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.textBorderWidth
+                     */
+                    textBorderWidth?: number;
+
+                    /**
+                     * Shadow color of the text itself.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.textShadowColor
+                     */
+                    textShadowColor?: string;
+
+                    /**
+                     * Shadow blue of the text itself.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.textShadowBlur
+                     */
+                    textShadowBlur?: number;
+
+                    /**
+                     * Shadow X offset of the text itself.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.textShadowOffsetX
+                     */
+                    textShadowOffsetX?: number;
+
+                    /**
+                     * Shadow Y offset of the text itself.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.textShadowOffsetY
+                     */
+                    textShadowOffsetY?: number;
+
+                    /**
+                     * "Rich text styles" can be defined in this `rich` property.
+                     * For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label)
+                     *
+                     * For more details, see
+                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * please.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich
+                     */
+                    rich?: {
+
+                        /**
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E
+                         */
+                        [userStyle: string]: {
+
+                            /**
+                             * text color.
+                             *
+                             *
+                             * @default
+                             * ""#fff""
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             */
+                            color?: string;
+
+                            /**
+                             * font style
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'italic'`
+                             * + `'oblique'`
+                             *
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             */
+                            fontStyle?: string;
+
+                            /**
+                             * font thick weight
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'bold'`
+                             * + `'bolder'`
+                             * + `'lighter'`
+                             * + 100 | 200 | 300 | 400...
+                             *
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             */
+                            fontWeight?: string;
+
+                            /**
+                             * font family
+                             *
+                             * Can also be 'serif' , 'monospace', ...
+                             *
+                             *
+                             * @default
+                             * "sans-serif"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             */
+                            fontFamily?: string;
+
+                            /**
+                             * font size
+                             *
+                             *
+                             * @default
+                             * 12
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             */
+                            fontSize?: number;
+
+                            /**
+                             * Horizontal alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'left'`
+                             * + `'center'`
+                             * + `'right'`
+                             *
+                             * If `align` is not set in `rich`, `align` in parent
+                             * level will be used. For example:
+                             *
+                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             */
+                            align?: string;
+
+                            /**
+                             * Vertical alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'top'`
+                             * + `'middle'`
+                             * + `'bottom'`
+                             *
+                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             */
+                            verticalAlign?: string;
+
+                            /**
+                             * Line height of the text fregment.
+                             *
+                             * If `lineHeight` is not set in `rich`, `lineHeight`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             */
+                            lineHeight?: number;
+
+                            /**
+                             * Background color of the text fregment.
+                             *
+                             * Can be color string, like `'#123234'`, `'red'`,
+                             * `rgba(0,23,11,0.3)'`.
+                             *
+                             * Or image can be used, for example:
+                             *
+                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             * `width` or `height` can be specified when using
+                             * background image, or auto adapted by default.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             */
+                            backgroundColor?: object | string;
+
+                            /**
+                             * Border color of the text fregment.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             */
+                            borderColor?: string;
+
+                            /**
+                             * Border width of the text fregment.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             */
+                            borderWidth?: number;
+
+                            /**
+                             * Border radius of the text fregment.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             */
+                            borderRadius?: number;
+
+                            /**
+                             * Padding of the text fregment, for example:
+                             *
+                             * + `padding: [3, 4, 5, 6]`: represents padding
+                             * of `[top, right, bottom, left]`.
+                             * + `padding: 4`: represents `padding: [4, 4, 4,
+                             * 4]`.
+                             * + `padding: [3, 4]`: represents `padding: [3,
+                             * 4, 3, 4]`.
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             */
+                            padding?: any[] | number;
+
+                            /**
+                             * Shadow color of the text block.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             */
+                            shadowColor?: string;
+
+                            /**
+                             * Show blur of the text block.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             */
+                            shadowBlur?: number;
+
+                            /**
+                             * Shadow X offset of the text block.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             */
+                            shadowOffsetX?: number;
+
+                            /**
+                             * Shadow Y offset of the text block.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             */
+                            shadowOffsetY?: number;
+
+                            /**
+                             * Width of the text block.
+                             * It is the width of the text by default.
+                             * In most cases, there is no need to specify it.
+                             * You may want to use it in some cases like make
+                             * simple table or using background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * `width` can also be percent string, like `'100%'`,
+                             * which represents the percent of `contentWidth`
+                             * (that is, the width without `padding`) of its
+                             * container box.
+                             * It is based on `contentWidth` because that each
+                             * text fregment is layout based on the `content
+                             * box`, where it makes no sense that calculating
+                             * width based on `outerWith` in prectice.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             */
+                            width?: number | string;
+
+                            /**
+                             * Height of the text block.
+                             * It is the width of the text by default.
+                             * You may want to use it in some cases like using
+                             * background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             */
+                            height?: number | string;
+
+                            /**
+                             * Storke color of the text.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             */
+                            textBorderColor?: string;
+
+                            /**
+                             * Storke line width of the text.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             */
+                            textBorderWidth?: number;
+
+                            /**
+                             * Shadow color of the text itself.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             */
+                            textShadowColor?: string;
+
+                            /**
+                             * Shadow blue of the text itself.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             */
+                            textShadowBlur?: number;
+
+                            /**
+                             * Shadow X offset of the text itself.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             */
+                            textShadowOffsetX?: number;
+
+                            /**
+                             * Shadow Y offset of the text itself.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             */
+                            textShadowOffsetY?: number;
+                        };
+                    };
+                };
+
+                /**
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis
+                 */
+                emphasis?: {
+
+                    /**
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle
+                     */
+                    lineStyle?: {
+
+                        /**
+                         * Line color.
+                         *
+                         * > Color can be represented in RGB, for example `'rgb(128,
+                         * 128, 128)'`.
+                         * RGBA can be used when you need alpha channel, for
+                         * example `'rgba(128, 128, 128, 0.5)'`.
+                         * You may also use hexadecimal format, for example
+                         * `'#ccc'`.
+                         * Gradient color and texture are also supported besides
+                         * single colors.
+                         * >
+                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.lineStyle)
+                         *
+                         *
+                         * @default
+                         * "#000"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.color
+                         */
+                        color?: string;
+
+                        /**
+                         * line width.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.width
+                         */
+                        width?: number;
+
+                        /**
+                         * line type.
+                         *
+                         * Options are:
+                         *
+                         * + `'solid'`
+                         * + `'dashed'`
+                         * + `'dotted'`
+                         *
+                         *
+                         * @default
+                         * "solid"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.type
+                         */
+                        type?: string;
+
+                        /**
+                         * Size of shadow blur.
+                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                         * `shadowOffsetY` to set shadow to component.
+                         *
+                         * For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.lineStyle)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow color. Support same format as `color`.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Offset distance on the horizontal direction of shadow.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Offset distance on the vertical direction of shadow.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Opacity of the component.
+                         * Supports value from 0 to 1, and the component will
+                         * not be drawn when set to 0.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.opacity
+                         */
+                        opacity?: number;
+
+                        /**
+                         * Edge curvature, which supports value from 0 to 1.
+                         * The larger the value, the greater the curvature.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.lineStyle.curveness
+                         */
+                        curveness?: number;
+                    };
+
+                    /**
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label
+                     */
+                    label?: {
+
+                        /**
+                         * Whether to show label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.show
+                         */
+                        show?: boolean;
+
+                        /**
+                         * the position of label, options:
+                         *
+                         * + `'start'`
+                         * + `'middle'`
+                         * + `'end'`
+                         *
+                         *
+                         * @default
+                         * "end"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.position
+                         */
+                        position?: string;
+
+                        /**
+                         * Data label formatter, which supports string template
+                         * and callback function.
+                         * In either form, `\n` is supported to represent a
+                         * new line.
+                         *
+                         * **String template**
+                         *
+                         * Model variation includes:
+                         *
+                         * + `{a}`: series name.
+                         * + `{b}`: the name of a data item.
+                         * + `{c}`: the value of a data item.
+                         * + `{d}`: the percent.
+                         * + `{@xxx}: the value of a dimension named`'xxx'`,
+                         * for example,`{@product}`refers the value of`'product'\`
+                         * dimension。
+                         * + `{@[n]}: the value of a dimension at the index
+                         * of`n`, for example,`{@\[3\]}\` refers the value at
+                         * dimensions\[3\].
+                         *
+                         * **example:**
+                         *
+                         * ```
+                         * formatter: '{b}: {d}'
+                         *
+                         * ```
+                         *
+                         * **Callback function**
+                         *
+                         * Callback function is in form of:
+                         *
+                         * ```
+                         * (params: Object|Array) => string
+                         *
+                         * ```
+                         *
+                         * where `params` is the single dataset needed by formatter,
+                         * which is formed as:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.formatter
+                         */
+                        formatter?: Function | string;
+
+                        /**
+                         * text color.
+                         *
+                         *
+                         * @default
+                         * ""#fff""
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.color
+                         */
+                        color?: string;
+
+                        /**
+                         * font style
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'italic'`
+                         * + `'oblique'`
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.fontStyle
+                         */
+                        fontStyle?: string;
+
+                        /**
+                         * font thick weight
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'bold'`
+                         * + `'bolder'`
+                         * + `'lighter'`
+                         * + 100 | 200 | 300 | 400...
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.fontWeight
+                         */
+                        fontWeight?: string;
+
+                        /**
+                         * font family
+                         *
+                         * Can also be 'serif' , 'monospace', ...
+                         *
+                         *
+                         * @default
+                         * "sans-serif"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.fontFamily
+                         */
+                        fontFamily?: string;
+
+                        /**
+                         * font size
+                         *
+                         *
+                         * @default
+                         * 12
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.fontSize
+                         */
+                        fontSize?: number;
+
+                        /**
+                         * Horizontal alignment of text, automatic by default.
+                         *
+                         * Options are:
+                         *
+                         * + `'left'`
+                         * + `'center'`
+                         * + `'right'`
+                         *
+                         * If `align` is not set in `rich`, `align` in parent
+                         * level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.align
+                         */
+                        align?: string;
+
+                        /**
+                         * Vertical alignment of text, automatic by default.
+                         *
+                         * Options are:
+                         *
+                         * + `'top'`
+                         * + `'middle'`
+                         * + `'bottom'`
+                         *
+                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.verticalAlign
+                         */
+                        verticalAlign?: string;
+
+                        /**
+                         * Line height of the text fregment.
+                         *
+                         * If `lineHeight` is not set in `rich`, `lineHeight`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.lineHeight
+                         */
+                        lineHeight?: number;
+
+                        /**
+                         * Background color of the text fregment.
+                         *
+                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                         *
+                         * Or image can be used, for example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label)
+                         *
+                         * `width` or `height` can be specified when using background
+                         * image, or auto adapted by default.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.backgroundColor
+                         */
+                        backgroundColor?: object | string;
+
+                        /**
+                         * Border color of the text fregment.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.borderColor
+                         */
+                        borderColor?: string;
+
+                        /**
+                         * Border width of the text fregment.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.borderWidth
+                         */
+                        borderWidth?: number;
+
+                        /**
+                         * Border radius of the text fregment.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.borderRadius
+                         */
+                        borderRadius?: number;
+
+                        /**
+                         * Padding of the text fregment, for example:
+                         *
+                         * + `padding: [3, 4, 5, 6]`: represents padding of
+                         * `[top, right, bottom, left]`.
+                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                         * + `padding: [3, 4]`: represents `padding: [3, 4,
+                         * 3, 4]`.
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.padding
+                         */
+                        padding?: any[] | number;
+
+                        /**
+                         * Shadow color of the text block.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Show blur of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Width of the text block.
+                         * It is the width of the text by default.
+                         * In most cases, there is no need to specify it.
+                         * You may want to use it in some cases like make simple
+                         * table or using background image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * `width` can also be percent string, like `'100%'`,
+                         * which represents the percent of `contentWidth` (that
+                         * is, the width without `padding`) of its container
+                         * box.
+                         * It is based on `contentWidth` because that each text
+                         * fregment is layout based on the `content box`, where
+                         * it makes no sense that calculating width based on
+                         * `outerWith` in prectice.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.width
+                         */
+                        width?: number | string;
+
+                        /**
+                         * Height of the text block.
+                         * It is the width of the text by default.
+                         * You may want to use it in some cases like using background
+                         * image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.height
+                         */
+                        height?: number | string;
+
+                        /**
+                         * Storke color of the text.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.textBorderColor
+                         */
+                        textBorderColor?: string;
+
+                        /**
+                         * Storke line width of the text.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.textBorderWidth
+                         */
+                        textBorderWidth?: number;
+
+                        /**
+                         * Shadow color of the text itself.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.textShadowColor
+                         */
+                        textShadowColor?: string;
+
+                        /**
+                         * Shadow blue of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.textShadowBlur
+                         */
+                        textShadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.textShadowOffsetX
+                         */
+                        textShadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.textShadowOffsetY
+                         */
+                        textShadowOffsetY?: number;
+
+                        /**
+                         * "Rich text styles" can be defined in this `rich`
+                         * property. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label)
+                         *
+                         * For more details, see
+                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * please.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich
+                         */
+                        rich?: {
+
+                            /**
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                             */
+                            [userStyle: string]: {
+
+                                /**
+                                 * text color.
+                                 *
+                                 *
+                                 * @default
+                                 * ""#fff""
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 */
+                                color?: string;
+
+                                /**
+                                 * font style
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'italic'`
+                                 * + `'oblique'`
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 */
+                                fontStyle?: string;
+
+                                /**
+                                 * font thick weight
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'bold'`
+                                 * + `'bolder'`
+                                 * + `'lighter'`
+                                 * + 100 | 200 | 300 | 400...
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 */
+                                fontWeight?: string;
+
+                                /**
+                                 * font family
+                                 *
+                                 * Can also be 'serif' , 'monospace', ...
+                                 *
+                                 *
+                                 * @default
+                                 * "sans-serif"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 */
+                                fontFamily?: string;
+
+                                /**
+                                 * font size
+                                 *
+                                 *
+                                 * @default
+                                 * 12
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 */
+                                fontSize?: number;
+
+                                /**
+                                 * Horizontal alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'left'`
+                                 * + `'center'`
+                                 * + `'right'`
+                                 *
+                                 * If `align` is not set in `rich`, `align`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 */
+                                align?: string;
+
+                                /**
+                                 * Vertical alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'top'`
+                                 * + `'middle'`
+                                 * + `'bottom'`
+                                 *
+                                 * If `verticalAlign` is not set in `rich`,
+                                 * `verticalAlign` in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 */
+                                verticalAlign?: string;
+
+                                /**
+                                 * Line height of the text fregment.
+                                 *
+                                 * If `lineHeight` is not set in `rich`, `lineHeight`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 */
+                                lineHeight?: number;
+
+                                /**
+                                 * Background color of the text fregment.
+                                 *
+                                 * Can be color string, like `'#123234'`, `'red'`,
+                                 * `rgba(0,23,11,0.3)'`.
+                                 *
+                                 * Or image can be used, for example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 * `width` or `height` can be specified when
+                                 * using background image, or auto adapted by
+                                 * default.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 */
+                                backgroundColor?: object | string;
+
+                                /**
+                                 * Border color of the text fregment.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 */
+                                borderColor?: string;
+
+                                /**
+                                 * Border width of the text fregment.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 */
+                                borderWidth?: number;
+
+                                /**
+                                 * Border radius of the text fregment.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 */
+                                borderRadius?: number;
+
+                                /**
+                                 * Padding of the text fregment, for example:
+                                 *
+                                 * + `padding: [3, 4, 5, 6]`: represents padding
+                                 * of `[top, right, bottom, left]`.
+                                 * + `padding: 4`: represents `padding: [4,
+                                 * 4, 4, 4]`.
+                                 * + `padding: [3, 4]`: represents `padding:
+                                 * [3, 4, 3, 4]`.
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 */
+                                padding?: any[] | number;
+
+                                /**
+                                 * Shadow color of the text block.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 */
+                                shadowColor?: string;
+
+                                /**
+                                 * Show blur of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 */
+                                shadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 */
+                                shadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 */
+                                shadowOffsetY?: number;
+
+                                /**
+                                 * Width of the text block.
+                                 * It is the width of the text by default.
+                                 * In most cases, there is no need to specify
+                                 * it.
+                                 * You may want to use it in some cases like
+                                 * make simple table or using background image
+                                 * (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * `width` can also be percent string, like
+                                 * `'100%'`, which represents the percent of
+                                 * `contentWidth` (that is, the width without
+                                 * `padding`) of its container box.
+                                 * It is based on `contentWidth` because that
+                                 * each text fregment is layout based on the
+                                 * `content box`, where it makes no sense that
+                                 * calculating width based on `outerWith` in
+                                 * prectice.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 */
+                                width?: number | string;
+
+                                /**
+                                 * Height of the text block.
+                                 * It is the width of the text by default.
+                                 * You may want to use it in some cases like
+                                 * using background image (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 */
+                                height?: number | string;
+
+                                /**
+                                 * Storke color of the text.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 */
+                                textBorderColor?: string;
+
+                                /**
+                                 * Storke line width of the text.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 */
+                                textBorderWidth?: number;
+
+                                /**
+                                 * Shadow color of the text itself.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 */
+                                textShadowColor?: string;
+
+                                /**
+                                 * Shadow blue of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 */
+                                textShadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 */
+                                textShadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-lines.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 */
+                                textShadowOffsetY?: number;
+                            };
+                        };
+                    };
+                };
+            }
         }
     }
 }

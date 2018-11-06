@@ -2952,2894 +2952,10 @@ declare namespace echarts {
              *
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data
              */
-            data?: {
-
-                /**
-                 * The name of data item.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.name
-                 */
-                name?: string;
-
-                /**
-                 * The value of a single data item.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.value
-                 */
-                value?: number;
-
-                /**
-                 * Specify the type of graphic elements.
-                 *
-                 * Icon types provided by ECharts includes `'circle'`, `'rect'`,
-                 * `'roundRect'`, `'triangle'`, `'diamond'`, `'pin'`, `'arrow'`,
-                 * `'none'`
-                 *
-                 * It can be set to an image with `'image://url'` , in which
-                 * URL is the link to an image, or `dataURI` of an image.
-                 *
-                 * An image URL example:
-                 *
-                 * ```
-                 * 'image://http://xxx.xxx.xxx/a/b.png'
-                 *
-                 * ```
-                 *
-                 * A `dataURI` example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * Icons can be set to arbitrary vector path via `'path://'`
-                 * in ECharts.
-                 * As compared with raster image, vector paths prevent from
-                 * jagging and blurring when scaled, and have a better control
-                 * over changing colors.
-                 * Size of vectoer icon will be adapted automatically.
-                 * Refer to
-                 * [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)
-                 * for more information about format of path.
-                 * You may export vector paths from tools like Adobe Illustrator.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * Example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * This attribute can be set at the
-                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbol)
-                 * , where all data items in the series will be affected by
-                 * this attribute. And this attribute can also be set at
-                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbol)
-                 * in
-                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
-                 * , where only the data item is affected by this attribute.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @default
-                 * "circle"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbol
-                 */
-                symbol?: string;
-
-                /**
-                 * Symbol size.
-                 *
-                 * It can be set as a array, which means \[width, height\].
-                 * For example, `[20, 10]` means width `20` and height `10`.
-                 * It can also be set as a single number, like `10`, which is
-                 * equivalent to `[10, 10]`.
-                 *
-                 * Absolute value can be used (like `10`), or percent value
-                 * can be used (like `'120%'`, `['55%', 23]`).
-                 *
-                 * When percent value is used, final size of the graphic element
-                 * is calculated based on its
-                 * [reference bar](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar)
-                 * .
-                 *
-                 * For example, there is a reference bar based on x axis (that
-                 * is, it is a vertical bar), and
-                 * [symbolSize](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolSize)
-                 * is set as `['30%', '50%']`, the final size of its graphic
-                 * elements is:
-                 *
-                 * + width: `<width of reference bar> * 30%`。
-                 * + height:
-                 * + If
-                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
-                 * is used: `<height of reference bar> * 50%`.
-                 * + If
-                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
-                 * is not used: `<height of reference bar> * 50%`.
-                 *
-                 * Analogously, the case that based on y axis can be obtained
-                 * by exchanging them.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * This attribute can be set at the
-                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolSize)
-                 * , where all data items in the series will be affected by
-                 * this attribute. And this attribute can also be set at
-                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolSize)
-                 * in
-                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
-                 * , where only the data item is affected by this attribute.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @default
-                 * ['100%', '100%']
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolSize
-                 */
-                symbolSize?: any[] | number;
-
-                /**
-                 * Specify the location of the graphic elements.
-                 * Optional values:
-                 *
-                 * + `'start'`: The edge of graphic element inscribes with the
-                 * start of the reference bar.
-                 * + `'end'`: The edge of graphic element inscribes with the
-                 * end of the reference bar.
-                 * + `'center'`: The graphic element is at the center of the
-                 * reference bar.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * This attribute can be set at the
-                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolPosition)
-                 * , where all data items in the series will be affected by
-                 * this attribute. And this attribute can also be set at
-                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolPosition)
-                 * in
-                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
-                 * , where only the data item is affected by this attribute.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @default
-                 * "start"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolPosition
-                 */
-                symbolPosition?: string;
-
-                /**
-                 * Specify the offset of graphic element according to its original
-                 * position.
-                 * Adopting `symbolOffset` is the final step in layout, which
-                 * enables adjustment of graphic element position.
-                 *
-                 * A absolute value can be set (like `10`), or a percent value
-                 * can be set (like `'120%'`、`['55%', 23]`), which is based
-                 * on its
-                 * [symbolSize](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolSize)
-                 * .
-                 *
-                 * For example, `[0, '-50%']` means the graphic element will
-                 * be adjusted upward half of the size of itself.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * This attribute can be set at the
-                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolOffset)
-                 * , where all data items in the series will be affected by
-                 * this attribute. And this attribute can also be set at
-                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolOffset)
-                 * in
-                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
-                 * , where only the data item is affected by this attribute.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @default
-                 * [0, 0]
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolOffset
-                 */
-                symbolOffset?: any[];
-
-                /**
-                 * The degree of the rotation of a graphic element.
-                 *
-                 * Notice, `symbolRotate` will not affect the position of the
-                 * graphic element, but just rotating by its center.
-                 *
-                 * This attribute can be set at the
-                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRotate)
-                 * , where all data items in the series will be affected by
-                 * this attribute. And this attribute can also be set at
-                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolRotate)
-                 * in
-                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
-                 * , where only the data item is affected by this attribute.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolRotate
-                 */
-                symbolRotate?: number;
-
-                /**
-                 * Whether to repeat a graphic element. Optional values:
-                 *
-                 * + `false`/`null`/`undefined`: Do not repeat, that is, each
-                 * graphic element represents a data item.
-                 * + `true`: Repeat, that is, a group of repeated graphic elements
-                 * represent a data item.
-                 * The repeat times is calculated according to
-                 * [data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data)
-                 * .
-                 * + a number: Repeat, that is a group of repeated graphic elements
-                 * represent a data item.
-                 * The repeat times is always the given number.
-                 * + `'fixed'`: Repeat, that is a group of repeated graphic
-                 * elements represent a data item.
-                 * The repeat times is calcuated according to
-                 * [symbolBoundingData](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolBoundingData)
-                 * , that is, the repeat times has nothing to do with
-                 * [data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data)
-                 *
-                 *
-                 * The setting is useful when graphic elements are used as background.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * This attribute can be set at the
-                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
-                 * , where all data items in the series will be affected by
-                 * this attribute. And this attribute can also be set at
-                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolRepeat)
-                 * in
-                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
-                 * , where only the data item is affected by this attribute.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolRepeat
-                 */
-                symbolRepeat?: boolean | number | string;
-
-                /**
-                 * When
-                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
-                 * is used, `symbolRepeatDirection` specifies the render order
-                 * of the repeatd graphic elements.
-                 * The setting is useful in these cases below:
-                 *
-                 * + If
-                 * [symbolMargin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolMargin)
-                 * is set as a negative value, repeated elements will overlap
-                 * with each other.
-                 * `symbolRepeatDirection` can be used to specify the order
-                 * of overlap.
-                 *
-                 * + If
-                 * [animationDelay](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.animationDelay)
-                 * or
-                 * [animationDelayUpdate](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.animationDelayUpdate)
-                 * is used, `symbolRepeatDirection` specifies the order of index.
-                 *
-                 * Optional values can be `'start'` and `'end'`.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * This attribute can be set at the
-                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeatDirection)
-                 * , where all data items in the series will be affected by
-                 * this attribute. And this attribute can also be set at
-                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolRepeatDirection)
-                 * in
-                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
-                 * , where only the data item is affected by this attribute.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @default
-                 * "start"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolRepeatDirection
-                 */
-                symbolRepeatDirection?: string;
-
-                /**
-                 * Specify margin of both sides of a graphic element.
-                 * ("both sides" means the two sides in the direction of its
-                 * value axis). It works only when
-                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
-                 * is used.
-                 *
-                 * Absolute value can be used (like `20`), or percent value
-                 * can be used (like `'-30%'`), which is based on its
-                 * [symbolSize](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolSize)
-                 * .
-                 *
-                 * `symbolMargin` can be positive value or negative value, which
-                 * enables overlap of graphic elements when
-                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
-                 * is used.
-                 *
-                 * A `"!"` can be appended on the end of the value, like `"30%!"`
-                 * or `25!`, which means a extra blank will be added on the
-                 * both ends, otherwise the graphic elements on both ends will
-                 * reach the boundary by default.
-                 *
-                 * Notice:
-                 *
-                 * + When
-                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
-                 * is `true`/`'fixed'`: The given `symbolMargin` is just a reference
-                 * value.
-                 * The final gap of graphic elements will be calculated according
-                 * to
-                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
-                 * , `symbolMargin` and
-                 * [symbolBoundingData](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolBoundingData)
-                 * .
-                 * + When
-                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
-                 * is set as a number: `symbolMargin` does not work any more.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * This attribute can be set at the
-                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolMargin)
-                 * , where all data items in the series will be affected by
-                 * this attribute. And this attribute can also be set at
-                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolMargin)
-                 * in
-                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
-                 * , where only the data item is affected by this attribute.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolMargin
-                 */
-                symbolMargin?: number | string;
-
-                /**
-                 * Whether to clip graphic elements.
-                 *
-                 * + `false`/null/undefined: The whole graphic elements represent
-                 * the size of value.
-                 * + `true`: The clipped graphic elements reperent the size
-                 * of value.
-                 *
-                 * `symbolClip` is usually used in this case: both "amont value"
-                 * and "current value" should be displayed.
-                 * In this case, tow series can be used.
-                 * One for background, using complete graphic elements, while
-                 * another for current value, using clipped graphic elements.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * Notice, in the example above,
-                 *
-                 * + The same
-                 * [symbolBoundingData](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.pictorialBar.symbolBoundingData)
-                 * is used in "background series" and "current value seires",
-                 * which makes their graphic elements are the same size.
-                 * + A bigger
-                 * [z](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.pictorialBar.z)
-                 * is set on "current value series", which makes it is over
-                 * "background series".
-                 *
-                 * This attribute can be set at the
-                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolClip)
-                 * , where all data items in the series will be affected by
-                 * this attribute. And this attribute can also be set at
-                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolClip)
-                 * in
-                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
-                 * , where only the data item is affected by this attribute.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolClip
-                 */
-                symbolClip?: boolean;
-
-                /**
-                 * Defines a bounding area availble for the graphic elements.
-                 * This setting gives a data, which will then be translated
-                 * to a coordinate on the coordinate system.
-                 * The coordinate specifies the bounding.
-                 * Namely, if `symbolBoundingData` is set, the final size (or
-                 * layout) of the graphic elements depend on the `symbolBoundingData`.
-                 *
-                 * When reference bar is horizontal, `symbolBoundingData` is
-                 * coresponding to x axis, while reference bar is vertical,
-                 * `symbolBoundingData` is coresponding to y axis.
-                 *
-                 * Rule:
-                 *
-                 * + If
-                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
-                 * is not used:
-                 *
-                 * `symbolBoundingData` is the same as the size of reference
-                 * bar by default.
-                 * The size of the graphic element is detemined by `symbolBoundingData`.
-                 * For example, if reference bar is vertical, its data is `24`,
-                 * `symbolSize` is set as `[30, '50%']`, `symbolBoundingData`
-                 * is set as `124`, the final size of the graphic element will
-                 * be `124 * 50% = 62`.
-                 * If `symbolBoundingData` is not set, the final size will be
-                 * `24 * 50% = 12`.
-                 *
-                 * + If
-                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
-                 * is used:
-                 *
-                 * `symbolBoundingData` is the extreme value of the coordinate
-                 * system.
-                 * `symbolBoundingData` defines a bounding area, where repeated
-                 * graphic elements layout according to
-                 * [symbolMargin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolMargin)
-                 * and
-                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
-                 * and
-                 * [symbolSize](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolSize)
-                 *
-                 *
-                 * Both these settings determine the gap size of the repeated
-                 * graphic elements.
-                 *
-                 * `symbolBoundingData` is usually used in these cases:
-                 *
-                 * + When
-                 * [symbolCilp](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolClip)
-                 * is used:
-                 *
-                 * And a series is used to display "amont value", while another
-                 * series is used to display "current value".
-                 * `symbolBoundingData` can be used to ensure that the graphic
-                 * elements of these two series are at the same size.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * + When
-                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
-                 * is used:
-                 *
-                 * `symbolBoundingData` can be use to ensure the gaps of the
-                 * elements in different bars are the same.
-                 * Of cource, you can do not set `symbolBoundingData`, whose
-                 * default value is a stable value (extreme value of the coordinate
-                 * system).
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * `symbolBoundingData` can also be an array, such as `[-40,
-                 * 60]`, which specifies both negative and positive symbolBoundingData.
-                 *
-                 * Check this example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * This attribute can be set at the
-                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolBoundingData)
-                 * , where all data items in the series will be affected by
-                 * this attribute. And this attribute can also be set at
-                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolBoundingData)
-                 * in
-                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
-                 * , where only the data item is affected by this attribute.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolBoundingData
-                 */
-                symbolBoundingData?: number;
-
-                /**
-                 * Image can be used as the pattern of graphic elements.
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * `symbolPatternSize` specifies the size of pattern image.
-                 * For example, if `symbolPatternSize` is `400`, the pattern
-                 * image will be displayed at the size of `400px * 400px`.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * This attribute can be set at the
-                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolPatternSize)
-                 * , where all data items in the series will be affected by
-                 * this attribute. And this attribute can also be set at
-                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolPatternSize)
-                 * in
-                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
-                 * , where only the data item is affected by this attribute.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @default
-                 * 400
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolPatternSize
-                 */
-                symbolPatternSize?: number;
-
-                /**
-                 * Specify the relationship of overlap between gaphic elements.
-                 * A bigger value means higher.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.z
-                 */
-                z?: number;
-
-                /**
-                 * Whether to enable hover animation.
-                 *
-                 * This attribute can be set at the
-                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.hoverAnimation)
-                 * , where all data items in the series will be affected by
-                 * this attribute. And this attribute can also be set at
-                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.hoverAnimation)
-                 * in
-                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
-                 * , where only the data item is affected by this attribute.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.hoverAnimation
-                 */
-                hoverAnimation?: boolean;
-
-                /**
-                 * Whether to enable animation.
-                 *
-                 *
-                 * @default
-                 * "true"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animation
-                 */
-                animation?: boolean;
-
-                /**
-                 * Whether to set graphic number threshold to animation.
-                 * Animation will be disabled when graphic number is larger
-                 * than threshold.
-                 *
-                 *
-                 * @default
-                 * 2000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationThreshold
-                 */
-                animationThreshold?: number;
-
-                /**
-                 * Duration of the first animation, which supports callback
-                 * function for different data to have different animation effect:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @default
-                 * 1000
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationDuration
-                 */
-                animationDuration?: Function | number;
-
-                /**
-                 * Easing method used for the first animation.
-                 * Varied easing effects can be found at
-                 * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
-                 * .
-                 *
-                 *
-                 * @default
-                 * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationEasing
-                 */
-                animationEasing?: string;
-
-                /**
-                 * Time for animation to complete, which supports callback function
-                 * for different data to have different animation effect:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @default
-                 * 300
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationDurationUpdate
-                 */
-                animationDurationUpdate?: Function | number;
-
-                /**
-                 * Easing method used for animation.
-                 *
-                 *
-                 * @default
-                 * "cubicOut"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationEasingUpdate
-                 */
-                animationEasingUpdate?: string;
-
-                /**
-                 * Specify the delay time before animation start.
-                 * Callback function can be used, where different delay time
-                 * can be used on different element.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationDelay
-                 */
-                animationDelay?: Function | number;
-
-                /**
-                 * Specify the delay time before update animation.
-                 * Callback function can be used, where different delay time
-                 * can be used on different element.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationDelayUpdate
-                 */
-                animationDelayUpdate?: Function | number;
-
-                /**
-                 * The style setting of the text label in a single bar.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label
-                 */
-                label?: {
-
-                    /**
-                     * Whether to show label.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.show
-                     */
-                    show?: boolean;
-
-                    /**
-                     * Label position.
-                     *
-                     * **Followings are the options:**
-                     *
-                     * + \[x, y\]
-                     *
-                     * Use relative percentage, or absolute pixel values to
-                     * represent position of label relative to top-left corner
-                     * of bounding box. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label)
-                     *
-                     * + 'top'
-                     *
-                     * + 'left'
-                     * + 'right'
-                     * + 'bottom'
-                     * + 'inside'
-                     * + 'insideLeft'
-                     * + 'insideRight'
-                     * + 'insideTop'
-                     * + 'insideBottom'
-                     * + 'insideTopLeft'
-                     * + 'insideBottomLeft'
-                     * + 'insideTopRight'
-                     * + 'insideBottomRight'
-                     *
-                     * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
-                     * .
-                     *
-                     *
-                     * @default
-                     * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.position
-                     */
-                    position?: any[] | string;
-
-                    /**
-                     * Distance to the host graphic element.
-                     * Works when position is string value (like `'top'`、`'insideRight'`).
-                     *
-                     * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
-                     * .
-                     *
-                     *
-                     * @default
-                     * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.distance
-                     */
-                    distance?: number;
-
-                    /**
-                     * Rotate label, from -90 degree to 90, positive value represents
-                     * rotate anti-clockwise.
-                     *
-                     * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
-                     * .
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rotate
-                     */
-                    rotate?: number;
-
-                    /**
-                     * Whether to move text slightly.
-                     * For example: `[30, 40]` means move `30` horizontally
-                     * and move `40` vertically.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.offset
-                     */
-                    offset?: any[];
-
-                    /**
-                     * text color.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.color
-                     */
-                    color?: string;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.fontStyle
-                     */
-                    fontStyle?: string;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.fontWeight
-                     */
-                    fontWeight?: string;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.fontFamily
-                     */
-                    fontFamily?: string;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.fontSize
-                     */
-                    fontSize?: number;
-
-                    /**
-                     * Horizontal alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'left'`
-                     * + `'center'`
-                     * + `'right'`
-                     *
-                     * If `align` is not set in `rich`, `align` in parent level
-                     * will be used. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.align
-                     */
-                    align?: string;
-
-                    /**
-                     * Vertical alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'top'`
-                     * + `'middle'`
-                     * + `'bottom'`
-                     *
-                     * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                     * in parent level will be used. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.verticalAlign
-                     */
-                    verticalAlign?: string;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.lineHeight
-                     */
-                    lineHeight?: number;
-
-                    /**
-                     * Background color of the text fregment.
-                     *
-                     * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                     *
-                     * Or image can be used, for example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label)
-                     *
-                     * `width` or `height` can be specified when using background
-                     * image, or auto adapted by default.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.backgroundColor
-                     */
-                    backgroundColor?: object | string;
-
-                    /**
-                     * Border color of the text fregment.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * Border width of the text fregment.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * Border radius of the text fregment.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.borderRadius
-                     */
-                    borderRadius?: number;
-
-                    /**
-                     * Padding of the text fregment, for example:
-                     *
-                     * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
-                     * right, bottom, left]`.
-                     * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                     * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.padding
-                     */
-                    padding?: any[] | number;
-
-                    /**
-                     * Shadow color of the text block.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.shadowColor
-                     */
-                    shadowColor?: string;
-
-                    /**
-                     * Show blur of the text block.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.shadowBlur
-                     */
-                    shadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text block.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.shadowOffsetX
-                     */
-                    shadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text block.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.shadowOffsetY
-                     */
-                    shadowOffsetY?: number;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.width
-                     */
-                    width?: number | string;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.height
-                     */
-                    height?: number | string;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.textBorderColor
-                     */
-                    textBorderColor?: string;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.textBorderWidth
-                     */
-                    textBorderWidth?: number;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.textShadowColor
-                     */
-                    textShadowColor?: string;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.textShadowBlur
-                     */
-                    textShadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number;
-
-                    /**
-                     * "Rich text styles" can be defined in this `rich` property.
-                     * For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label)
-                     *
-                     * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
-                     * please.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich
-                     */
-                    rich?: {
-
-                        /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E
-                         */
-                        [userStyle: string]: {
-
-                            /**
-                             * text color.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                             */
-                            color?: string;
-
-                            /**
-                             * font style
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'italic'`
-                             * + `'oblique'`
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                             */
-                            fontStyle?: string;
-
-                            /**
-                             * font thick weight
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'bold'`
-                             * + `'bolder'`
-                             * + `'lighter'`
-                             * + 100 | 200 | 300 | 400...
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                             */
-                            fontWeight?: string;
-
-                            /**
-                             * font family
-                             *
-                             * Can also be 'serif' , 'monospace', ...
-                             *
-                             *
-                             * @default
-                             * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                             */
-                            fontFamily?: string;
-
-                            /**
-                             * font size
-                             *
-                             *
-                             * @default
-                             * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                             */
-                            fontSize?: number;
-
-                            /**
-                             * Horizontal alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'left'`
-                             * + `'center'`
-                             * + `'right'`
-                             *
-                             * If `align` is not set in `rich`, `align` in parent
-                             * level will be used. For example:
-                             *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                             */
-                            align?: string;
-
-                            /**
-                             * Vertical alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'top'`
-                             * + `'middle'`
-                             * + `'bottom'`
-                             *
-                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                             */
-                            verticalAlign?: string;
-
-                            /**
-                             * Line height of the text fregment.
-                             *
-                             * If `lineHeight` is not set in `rich`, `lineHeight`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                             */
-                            lineHeight?: number;
-
-                            /**
-                             * Background color of the text fregment.
-                             *
-                             * Can be color string, like `'#123234'`, `'red'`,
-                             * `rgba(0,23,11,0.3)'`.
-                             *
-                             * Or image can be used, for example:
-                             *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             * `width` or `height` can be specified when using
-                             * background image, or auto adapted by default.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                             */
-                            backgroundColor?: object | string;
-
-                            /**
-                             * Border color of the text fregment.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                             */
-                            borderColor?: string;
-
-                            /**
-                             * Border width of the text fregment.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                             */
-                            borderWidth?: number;
-
-                            /**
-                             * Border radius of the text fregment.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                             */
-                            borderRadius?: number;
-
-                            /**
-                             * Padding of the text fregment, for example:
-                             *
-                             * + `padding: [3, 4, 5, 6]`: represents padding
-                             * of `[top, right, bottom, left]`.
-                             * + `padding: 4`: represents `padding: [4, 4, 4,
-                             * 4]`.
-                             * + `padding: [3, 4]`: represents `padding: [3,
-                             * 4, 3, 4]`.
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                             */
-                            padding?: any[] | number;
-
-                            /**
-                             * Shadow color of the text block.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                             */
-                            shadowColor?: string;
-
-                            /**
-                             * Show blur of the text block.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                             */
-                            shadowBlur?: number;
-
-                            /**
-                             * Shadow X offset of the text block.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                             */
-                            shadowOffsetX?: number;
-
-                            /**
-                             * Shadow Y offset of the text block.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                             */
-                            shadowOffsetY?: number;
-
-                            /**
-                             * Width of the text block.
-                             * It is the width of the text by default.
-                             * In most cases, there is no need to specify it.
-                             * You may want to use it in some cases like make
-                             * simple table or using background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * `width` can also be percent string, like `'100%'`,
-                             * which represents the percent of `contentWidth`
-                             * (that is, the width without `padding`) of its
-                             * container box.
-                             * It is based on `contentWidth` because that each
-                             * text fregment is layout based on the `content
-                             * box`, where it makes no sense that calculating
-                             * width based on `outerWith` in prectice.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                             */
-                            width?: number | string;
-
-                            /**
-                             * Height of the text block.
-                             * It is the width of the text by default.
-                             * You may want to use it in some cases like using
-                             * background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                             */
-                            height?: number | string;
-
-                            /**
-                             * Storke color of the text.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                             */
-                            textBorderColor?: string;
-
-                            /**
-                             * Storke line width of the text.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                             */
-                            textBorderWidth?: number;
-
-                            /**
-                             * Shadow color of the text itself.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                             */
-                            textShadowColor?: string;
-
-                            /**
-                             * Shadow blue of the text itself.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                             */
-                            textShadowBlur?: number;
-
-                            /**
-                             * Shadow X offset of the text itself.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                             */
-                            textShadowOffsetX?: number;
-
-                            /**
-                             * Shadow Y offset of the text itself.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                             */
-                            textShadowOffsetY?: number;
-                        };
-                    };
-                };
-
-                /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle
-                 */
-                itemStyle?: {
-
-                    /**
-                     * color.
-                     *
-                     * > Color can be represented in RGB, for example `'rgb(128,
-                     * 128, 128)'`.
-                     * RGBA can be used when you need alpha channel, for example
-                     * `'rgba(128, 128, 128, 0.5)'`.
-                     * You may also use hexadecimal format, for example `'#ccc'`.
-                     * Gradient color and texture are also supported besides
-                     * single colors.
-                     * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.itemStyle)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * border color, whose format is similar to that of `color`.
-                     *
-                     *
-                     * @default
-                     * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * border width. No border when it is set to be 0.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
-                     * `'solid'` by default.
-                     *
-                     *
-                     * @default
-                     * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.borderType
-                     */
-                    borderType?: string;
-
-                    /**
-                     * Size of shadow blur.
-                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                     * `shadowOffsetY` to set shadow to component.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.itemStyle)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.shadowBlur
-                     */
-                    shadowBlur?: number;
-
-                    /**
-                     * Shadow color. Support same format as `color`.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.shadowColor
-                     */
-                    shadowColor?: string;
-
-                    /**
-                     * Offset distance on the horizontal direction of shadow.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.shadowOffsetX
-                     */
-                    shadowOffsetX?: number;
-
-                    /**
-                     * Offset distance on the vertical direction of shadow.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.shadowOffsetY
-                     */
-                    shadowOffsetY?: number;
-
-                    /**
-                     * Opacity of the component.
-                     * Supports value from 0 to 1, and the component will not
-                     * be drawn when set to 0.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.opacity
-                     */
-                    opacity?: number;
-                };
-
-                /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis
-                 */
-                emphasis?: {
-
-                    /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label
-                     */
-                    label?: {
-
-                        /**
-                         * Whether to show label.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.show
-                         */
-                        show?: boolean;
-
-                        /**
-                         * Label position.
-                         *
-                         * **Followings are the options:**
-                         *
-                         * + \[x, y\]
-                         *
-                         * Use relative percentage, or absolute pixel values
-                         * to represent position of label relative to top-left
-                         * corner of bounding box. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label)
-                         *
-                         * + 'top'
-                         *
-                         * + 'left'
-                         * + 'right'
-                         * + 'bottom'
-                         * + 'inside'
-                         * + 'insideLeft'
-                         * + 'insideRight'
-                         * + 'insideTop'
-                         * + 'insideBottom'
-                         * + 'insideTopLeft'
-                         * + 'insideBottomLeft'
-                         * + 'insideTopRight'
-                         * + 'insideBottomRight'
-                         *
-                         * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
-                         * .
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.position
-                         */
-                        position?: any[] | string;
-
-                        /**
-                         * Distance to the host graphic element.
-                         * Works when position is string value (like `'top'`、`'insideRight'`).
-                         *
-                         * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
-                         * .
-                         *
-                         *
-                         * @default
-                         * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.distance
-                         */
-                        distance?: number;
-
-                        /**
-                         * Rotate label, from -90 degree to 90, positive value
-                         * represents rotate anti-clockwise.
-                         *
-                         * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
-                         * .
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rotate
-                         */
-                        rotate?: number;
-
-                        /**
-                         * Whether to move text slightly.
-                         * For example: `[30, 40]` means move `30` horizontally
-                         * and move `40` vertically.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.offset
-                         */
-                        offset?: any[];
-
-                        /**
-                         * text color.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Horizontal alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'left'`
-                         * + `'center'`
-                         * + `'right'`
-                         *
-                         * If `align` is not set in `rich`, `align` in parent
-                         * level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.align
-                         */
-                        align?: string;
-
-                        /**
-                         * Vertical alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'top'`
-                         * + `'middle'`
-                         * + `'bottom'`
-                         *
-                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.verticalAlign
-                         */
-                        verticalAlign?: string;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Background color of the text fregment.
-                         *
-                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                         *
-                         * Or image can be used, for example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label)
-                         *
-                         * `width` or `height` can be specified when using background
-                         * image, or auto adapted by default.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.backgroundColor
-                         */
-                        backgroundColor?: object | string;
-
-                        /**
-                         * Border color of the text fregment.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.borderColor
-                         */
-                        borderColor?: string;
-
-                        /**
-                         * Border width of the text fregment.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.borderWidth
-                         */
-                        borderWidth?: number;
-
-                        /**
-                         * Border radius of the text fregment.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.borderRadius
-                         */
-                        borderRadius?: number;
-
-                        /**
-                         * Padding of the text fregment, for example:
-                         *
-                         * + `padding: [3, 4, 5, 6]`: represents padding of
-                         * `[top, right, bottom, left]`.
-                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                         * + `padding: [3, 4]`: represents `padding: [3, 4,
-                         * 3, 4]`.
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.padding
-                         */
-                        padding?: any[] | number;
-
-                        /**
-                         * Shadow color of the text block.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Show blur of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-
-                        /**
-                         * "Rich text styles" can be defined in this `rich`
-                         * property. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label)
-                         *
-                         * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
-                         * please.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich
-                         */
-                        rich?: {
-
-                            /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
-                             */
-                            [userStyle: string]: {
-
-                                /**
-                                 * text color.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                                 */
-                                color?: string;
-
-                                /**
-                                 * font style
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'italic'`
-                                 * + `'oblique'`
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                                 */
-                                fontStyle?: string;
-
-                                /**
-                                 * font thick weight
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'bold'`
-                                 * + `'bolder'`
-                                 * + `'lighter'`
-                                 * + 100 | 200 | 300 | 400...
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                                 */
-                                fontWeight?: string;
-
-                                /**
-                                 * font family
-                                 *
-                                 * Can also be 'serif' , 'monospace', ...
-                                 *
-                                 *
-                                 * @default
-                                 * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                                 */
-                                fontFamily?: string;
-
-                                /**
-                                 * font size
-                                 *
-                                 *
-                                 * @default
-                                 * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                                 */
-                                fontSize?: number;
-
-                                /**
-                                 * Horizontal alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'left'`
-                                 * + `'center'`
-                                 * + `'right'`
-                                 *
-                                 * If `align` is not set in `rich`, `align`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                                 */
-                                align?: string;
-
-                                /**
-                                 * Vertical alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'top'`
-                                 * + `'middle'`
-                                 * + `'bottom'`
-                                 *
-                                 * If `verticalAlign` is not set in `rich`,
-                                 * `verticalAlign` in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                                 */
-                                verticalAlign?: string;
-
-                                /**
-                                 * Line height of the text fregment.
-                                 *
-                                 * If `lineHeight` is not set in `rich`, `lineHeight`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                                 */
-                                lineHeight?: number;
-
-                                /**
-                                 * Background color of the text fregment.
-                                 *
-                                 * Can be color string, like `'#123234'`, `'red'`,
-                                 * `rgba(0,23,11,0.3)'`.
-                                 *
-                                 * Or image can be used, for example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * `width` or `height` can be specified when
-                                 * using background image, or auto adapted by
-                                 * default.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                                 */
-                                backgroundColor?: object | string;
-
-                                /**
-                                 * Border color of the text fregment.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                                 */
-                                borderColor?: string;
-
-                                /**
-                                 * Border width of the text fregment.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                                 */
-                                borderWidth?: number;
-
-                                /**
-                                 * Border radius of the text fregment.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                                 */
-                                borderRadius?: number;
-
-                                /**
-                                 * Padding of the text fregment, for example:
-                                 *
-                                 * + `padding: [3, 4, 5, 6]`: represents padding
-                                 * of `[top, right, bottom, left]`.
-                                 * + `padding: 4`: represents `padding: [4,
-                                 * 4, 4, 4]`.
-                                 * + `padding: [3, 4]`: represents `padding:
-                                 * [3, 4, 3, 4]`.
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                                 */
-                                padding?: any[] | number;
-
-                                /**
-                                 * Shadow color of the text block.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                                 */
-                                shadowColor?: string;
-
-                                /**
-                                 * Show blur of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                                 */
-                                shadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                                 */
-                                shadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                                 */
-                                shadowOffsetY?: number;
-
-                                /**
-                                 * Width of the text block.
-                                 * It is the width of the text by default.
-                                 * In most cases, there is no need to specify
-                                 * it.
-                                 * You may want to use it in some cases like
-                                 * make simple table or using background image
-                                 * (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * `width` can also be percent string, like
-                                 * `'100%'`, which represents the percent of
-                                 * `contentWidth` (that is, the width without
-                                 * `padding`) of its container box.
-                                 * It is based on `contentWidth` because that
-                                 * each text fregment is layout based on the
-                                 * `content box`, where it makes no sense that
-                                 * calculating width based on `outerWith` in
-                                 * prectice.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                                 */
-                                width?: number | string;
-
-                                /**
-                                 * Height of the text block.
-                                 * It is the width of the text by default.
-                                 * You may want to use it in some cases like
-                                 * using background image (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                                 */
-                                height?: number | string;
-
-                                /**
-                                 * Storke color of the text.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                                 */
-                                textBorderColor?: string;
-
-                                /**
-                                 * Storke line width of the text.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                                 */
-                                textBorderWidth?: number;
-
-                                /**
-                                 * Shadow color of the text itself.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                                 */
-                                textShadowColor?: string;
-
-                                /**
-                                 * Shadow blue of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                                 */
-                                textShadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                                 */
-                                textShadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                                 */
-                                textShadowOffsetY?: number;
-                            };
-                        };
-                    };
-
-                    /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle
-                     */
-                    itemStyle?: {
-
-                        /**
-                         * color.
-                         *
-                         * > Color can be represented in RGB, for example `'rgb(128,
-                         * 128, 128)'`.
-                         * RGBA can be used when you need alpha channel, for
-                         * example `'rgba(128, 128, 128, 0.5)'`.
-                         * You may also use hexadecimal format, for example
-                         * `'#ccc'`.
-                         * Gradient color and texture are also supported besides
-                         * single colors.
-                         * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.itemStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * border color, whose format is similar to that of
-                         * `color`.
-                         *
-                         *
-                         * @default
-                         * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.borderColor
-                         */
-                        borderColor?: string;
-
-                        /**
-                         * border width. No border when it is set to be 0.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.borderWidth
-                         */
-                        borderWidth?: number;
-
-                        /**
-                         * Border type, which can be `'solid'`, `'dashed'`,
-                         * or `'dotted'`. `'solid'` by default.
-                         *
-                         *
-                         * @default
-                         * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.borderType
-                         */
-                        borderType?: string;
-
-                        /**
-                         * Size of shadow blur.
-                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                         * `shadowOffsetY` to set shadow to component.
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.itemStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow color. Support same format as `color`.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Offset distance on the horizontal direction of shadow.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Offset distance on the vertical direction of shadow.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Opacity of the component.
-                         * Supports value from 0 to 1, and the component will
-                         * not be drawn when set to 0.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.opacity
-                         */
-                        opacity?: number;
-                    };
-                };
-
-                /**
-                 * tooltip settings in this series data.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip
-                 */
-                tooltip?: {
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The position of the tooltip's floating layer, which would
-                     * follow the position of mouse by default.
-                     *
-                     * Options:
-                     *
-                     * + `Array`
-                     *
-                     * Display the position of tooltip's floating layer through
-                     * array, which supports absolute position and relative
-                     * percentage.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
-                     *
-                     * + `Function`
-                     *
-                     * Callback function in the following form:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
-                     *
-                     * **Parameters:**
-                     * point: Mouse position.
-                     * param: The same as formatter.
-                     * dom: The DOM object of tooltip.
-                     * rect: It is valid only when mouse is on graphic elements,
-                     * which stands for a bounding box with `x`, `y`, `width`,
-                     * and `height`.
-                     * size: The size of dom echarts container.
-                     * For example: `{contentSize: [width, height], viewSize:
-                     * [width, height]}`.
-                     *
-                     * **Return:**
-                     * Return value is an array standing for tooltip position,
-                     * which can be absolute pixels, or relative percentage.
-                     * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                     * '20%', bottom: 40}`.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
-                     *
-                     * Or:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
-                     *
-                     * + `'inside'`
-                     *
-                     * Center position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'top'`
-                     *
-                     * Top position of the graphic element where the mouse is
-                     * in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'left'`
-                     *
-                     * Left position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'right'`
-                     *
-                     * Right position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'bottom'`
-                     *
-                     * Bottom position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.position
-                     */
-                    position?: any[] | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The content formatter of tooltip's floating layer which
-                     * supports string template and callback function.
-                     *
-                     * **1\. String template**
-                     *
-                     * The template variables are `{a}`, `{b}`, `{c}`, `{d}`
-                     * and `{e}`, which stands for series name, data name and
-                     * data value and ect. When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is set to be `'axis'`, there may be data from multiple
-                     * series.
-                     * In this time, series index can be refered as `{a0}`,
-                     * `{a1}`, or `{a2}`.
-                     *
-                     * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for
-                     * different series types:
-                     *
-                     * + Line (area) charts, bar (column) charts, K charts:
-                     * `{a}` for series name, `{b}` for category name, `{c}`
-                     * for data value, `{d}` for none;
-                     *
-                     * + Scatter (bubble) charts: `{a}` for series name, `{b}`
-                     * for data name, `{c}` for data value, `{d}` for none;
-                     *
-                     * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                     * for merging data, `{d}` for none;
-                     *
-                     * + Pie charts, gauge charts, funnel charts: `{a}` for
-                     * series name, `{b}` for data item name, `{c}` for data
-                     * value, `{d}` for percentage.
-                     *
-                     * **Example:**
-                     *
-                     * ```
-                     * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                     *
-                     * ```
-                     *
-                     * **2\. Callback function**
-                     *
-                     * The format of callback function:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
-                     *
-                     * The first parameter `params` is the data that the formatter
-                     * needs. Its format is shown as follows:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
-                     *
-                     * When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'axis'`, or when tooltip is triggered by
-                     * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
-                     * , `params` is the data array of multiple series.
-                     * The content of each item of the array is the same as
-                     * above. Besides,
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
-                     *
-                     * **Note:** Using array to present all the parameters in
-                     * ECharts 2.x is not supported anymore.
-                     *
-                     * The second parameter `ticket` is the asynchronous callback
-                     * flag which should be used along with the third parameter
-                     * `callback` when it is used.
-                     *
-                     * The third parameter `callback` is asynchronous callback.
-                     * When the content of tooltip is acquired asynchronously,
-                     * `ticket` and `htm` as introduced above can be used to
-                     * update tooltip with callback.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.formatter
-                     */
-                    formatter?: Function | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The background color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * "rgba(50,50,50,0.7)"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.backgroundColor
-                     */
-                    backgroundColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * '#333'
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border width of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The floating layer of tooltip space around content.
-                     * The unit is px.
-                     * Default values for each position are 5.
-                     * And they can be set to different values with left, right,
-                     * top, and bottom.
-                     *
-                     * Examples:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
-                     *
-                     *
-                     * @default
-                     * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.padding
-                     */
-                    padding?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The text syle of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle
-                     */
-                    textStyle?: {
-
-                        /**
-                         * text color.
-                         *
-                         *
-                         * @default
-                         * "#fff"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 14
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip.textStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-                    };
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * Extra CSS style for floating layer.
-                     * The following is an example for adding shadow.
-                     *
-                     * ```
-                     * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                     *
-                     * ```
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.extraCssText
-                     */
-                    extraCssText?: string;
-                };
-            };
+            data?: (
+                (void | number | string | SeriesPictorialBar.DataObject)[]
+                | (void | number | string | SeriesPictorialBar.DataObject)[][]
+            );
 
             /**
              * Mark point in a chart.
@@ -17952,6 +15068,2897 @@ declare namespace echarts {
                  */
                 extraCssText?: string;
             };
+        }
+
+        namespace SeriesPictorialBar {
+            interface DataObject {
+
+                /**
+                 * The name of data item.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.name
+                 */
+                name?: string;
+
+                /**
+                 * The value of a single data item.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.value
+                 */
+                value?: number;
+
+                /**
+                 * Specify the type of graphic elements.
+                 *
+                 * Icon types provided by ECharts includes `'circle'`, `'rect'`,
+                 * `'roundRect'`, `'triangle'`, `'diamond'`, `'pin'`, `'arrow'`,
+                 * `'none'`
+                 *
+                 * It can be set to an image with `'image://url'` , in which
+                 * URL is the link to an image, or `dataURI` of an image.
+                 *
+                 * An image URL example:
+                 *
+                 * ```
+                 * 'image://http://xxx.xxx.xxx/a/b.png'
+                 *
+                 * ```
+                 *
+                 * A `dataURI` example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * Icons can be set to arbitrary vector path via `'path://'`
+                 * in ECharts.
+                 * As compared with raster image, vector paths prevent from
+                 * jagging and blurring when scaled, and have a better control
+                 * over changing colors.
+                 * Size of vectoer icon will be adapted automatically.
+                 * Refer to
+                 * [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)
+                 * for more information about format of path.
+                 * You may export vector paths from tools like Adobe Illustrator.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * Example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * This attribute can be set at the
+                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbol)
+                 * , where all data items in the series will be affected by
+                 * this attribute. And this attribute can also be set at
+                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbol)
+                 * in
+                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
+                 * , where only the data item is affected by this attribute.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @default
+                 * "circle"
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbol
+                 */
+                symbol?: string;
+
+                /**
+                 * Symbol size.
+                 *
+                 * It can be set as a array, which means \[width, height\].
+                 * For example, `[20, 10]` means width `20` and height `10`.
+                 * It can also be set as a single number, like `10`, which is
+                 * equivalent to `[10, 10]`.
+                 *
+                 * Absolute value can be used (like `10`), or percent value
+                 * can be used (like `'120%'`, `['55%', 23]`).
+                 *
+                 * When percent value is used, final size of the graphic element
+                 * is calculated based on its
+                 * [reference bar](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar)
+                 * .
+                 *
+                 * For example, there is a reference bar based on x axis (that
+                 * is, it is a vertical bar), and
+                 * [symbolSize](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolSize)
+                 * is set as `['30%', '50%']`, the final size of its graphic
+                 * elements is:
+                 *
+                 * + width: `<width of reference bar> * 30%`。
+                 * + height:
+                 * + If
+                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
+                 * is used: `<height of reference bar> * 50%`.
+                 * + If
+                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
+                 * is not used: `<height of reference bar> * 50%`.
+                 *
+                 * Analogously, the case that based on y axis can be obtained
+                 * by exchanging them.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * This attribute can be set at the
+                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolSize)
+                 * , where all data items in the series will be affected by
+                 * this attribute. And this attribute can also be set at
+                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolSize)
+                 * in
+                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
+                 * , where only the data item is affected by this attribute.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @default
+                 * ['100%', '100%']
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolSize
+                 */
+                symbolSize?: any[] | number;
+
+                /**
+                 * Specify the location of the graphic elements.
+                 * Optional values:
+                 *
+                 * + `'start'`: The edge of graphic element inscribes with the
+                 * start of the reference bar.
+                 * + `'end'`: The edge of graphic element inscribes with the
+                 * end of the reference bar.
+                 * + `'center'`: The graphic element is at the center of the
+                 * reference bar.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * This attribute can be set at the
+                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolPosition)
+                 * , where all data items in the series will be affected by
+                 * this attribute. And this attribute can also be set at
+                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolPosition)
+                 * in
+                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
+                 * , where only the data item is affected by this attribute.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @default
+                 * "start"
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolPosition
+                 */
+                symbolPosition?: string;
+
+                /**
+                 * Specify the offset of graphic element according to its original
+                 * position.
+                 * Adopting `symbolOffset` is the final step in layout, which
+                 * enables adjustment of graphic element position.
+                 *
+                 * A absolute value can be set (like `10`), or a percent value
+                 * can be set (like `'120%'`、`['55%', 23]`), which is based
+                 * on its
+                 * [symbolSize](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolSize)
+                 * .
+                 *
+                 * For example, `[0, '-50%']` means the graphic element will
+                 * be adjusted upward half of the size of itself.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * This attribute can be set at the
+                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolOffset)
+                 * , where all data items in the series will be affected by
+                 * this attribute. And this attribute can also be set at
+                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolOffset)
+                 * in
+                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
+                 * , where only the data item is affected by this attribute.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @default
+                 * [0, 0]
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolOffset
+                 */
+                symbolOffset?: any[];
+
+                /**
+                 * The degree of the rotation of a graphic element.
+                 *
+                 * Notice, `symbolRotate` will not affect the position of the
+                 * graphic element, but just rotating by its center.
+                 *
+                 * This attribute can be set at the
+                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRotate)
+                 * , where all data items in the series will be affected by
+                 * this attribute. And this attribute can also be set at
+                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolRotate)
+                 * in
+                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
+                 * , where only the data item is affected by this attribute.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolRotate
+                 */
+                symbolRotate?: number;
+
+                /**
+                 * Whether to repeat a graphic element. Optional values:
+                 *
+                 * + `false`/`null`/`undefined`: Do not repeat, that is, each
+                 * graphic element represents a data item.
+                 * + `true`: Repeat, that is, a group of repeated graphic elements
+                 * represent a data item.
+                 * The repeat times is calculated according to
+                 * [data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data)
+                 * .
+                 * + a number: Repeat, that is a group of repeated graphic elements
+                 * represent a data item.
+                 * The repeat times is always the given number.
+                 * + `'fixed'`: Repeat, that is a group of repeated graphic
+                 * elements represent a data item.
+                 * The repeat times is calcuated according to
+                 * [symbolBoundingData](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolBoundingData)
+                 * , that is, the repeat times has nothing to do with
+                 * [data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data)
+                 *
+                 *
+                 * The setting is useful when graphic elements are used as background.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * This attribute can be set at the
+                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
+                 * , where all data items in the series will be affected by
+                 * this attribute. And this attribute can also be set at
+                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolRepeat)
+                 * in
+                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
+                 * , where only the data item is affected by this attribute.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolRepeat
+                 */
+                symbolRepeat?: boolean | number | string;
+
+                /**
+                 * When
+                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
+                 * is used, `symbolRepeatDirection` specifies the render order
+                 * of the repeatd graphic elements.
+                 * The setting is useful in these cases below:
+                 *
+                 * + If
+                 * [symbolMargin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolMargin)
+                 * is set as a negative value, repeated elements will overlap
+                 * with each other.
+                 * `symbolRepeatDirection` can be used to specify the order
+                 * of overlap.
+                 *
+                 * + If
+                 * [animationDelay](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.animationDelay)
+                 * or
+                 * [animationDelayUpdate](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.animationDelayUpdate)
+                 * is used, `symbolRepeatDirection` specifies the order of index.
+                 *
+                 * Optional values can be `'start'` and `'end'`.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * This attribute can be set at the
+                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeatDirection)
+                 * , where all data items in the series will be affected by
+                 * this attribute. And this attribute can also be set at
+                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolRepeatDirection)
+                 * in
+                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
+                 * , where only the data item is affected by this attribute.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @default
+                 * "start"
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolRepeatDirection
+                 */
+                symbolRepeatDirection?: string;
+
+                /**
+                 * Specify margin of both sides of a graphic element.
+                 * ("both sides" means the two sides in the direction of its
+                 * value axis). It works only when
+                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
+                 * is used.
+                 *
+                 * Absolute value can be used (like `20`), or percent value
+                 * can be used (like `'-30%'`), which is based on its
+                 * [symbolSize](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolSize)
+                 * .
+                 *
+                 * `symbolMargin` can be positive value or negative value, which
+                 * enables overlap of graphic elements when
+                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
+                 * is used.
+                 *
+                 * A `"!"` can be appended on the end of the value, like `"30%!"`
+                 * or `25!`, which means a extra blank will be added on the
+                 * both ends, otherwise the graphic elements on both ends will
+                 * reach the boundary by default.
+                 *
+                 * Notice:
+                 *
+                 * + When
+                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
+                 * is `true`/`'fixed'`: The given `symbolMargin` is just a reference
+                 * value.
+                 * The final gap of graphic elements will be calculated according
+                 * to
+                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
+                 * , `symbolMargin` and
+                 * [symbolBoundingData](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolBoundingData)
+                 * .
+                 * + When
+                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
+                 * is set as a number: `symbolMargin` does not work any more.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * This attribute can be set at the
+                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolMargin)
+                 * , where all data items in the series will be affected by
+                 * this attribute. And this attribute can also be set at
+                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolMargin)
+                 * in
+                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
+                 * , where only the data item is affected by this attribute.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolMargin
+                 */
+                symbolMargin?: number | string;
+
+                /**
+                 * Whether to clip graphic elements.
+                 *
+                 * + `false`/null/undefined: The whole graphic elements represent
+                 * the size of value.
+                 * + `true`: The clipped graphic elements reperent the size
+                 * of value.
+                 *
+                 * `symbolClip` is usually used in this case: both "amont value"
+                 * and "current value" should be displayed.
+                 * In this case, tow series can be used.
+                 * One for background, using complete graphic elements, while
+                 * another for current value, using clipped graphic elements.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * Notice, in the example above,
+                 *
+                 * + The same
+                 * [symbolBoundingData](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.pictorialBar.symbolBoundingData)
+                 * is used in "background series" and "current value seires",
+                 * which makes their graphic elements are the same size.
+                 * + A bigger
+                 * [z](https://ecomfe.github.io/echarts-doc/public/en/option.html#series.pictorialBar.z)
+                 * is set on "current value series", which makes it is over
+                 * "background series".
+                 *
+                 * This attribute can be set at the
+                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolClip)
+                 * , where all data items in the series will be affected by
+                 * this attribute. And this attribute can also be set at
+                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolClip)
+                 * in
+                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
+                 * , where only the data item is affected by this attribute.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolClip
+                 */
+                symbolClip?: boolean;
+
+                /**
+                 * Defines a bounding area availble for the graphic elements.
+                 * This setting gives a data, which will then be translated
+                 * to a coordinate on the coordinate system.
+                 * The coordinate specifies the bounding.
+                 * Namely, if `symbolBoundingData` is set, the final size (or
+                 * layout) of the graphic elements depend on the `symbolBoundingData`.
+                 *
+                 * When reference bar is horizontal, `symbolBoundingData` is
+                 * coresponding to x axis, while reference bar is vertical,
+                 * `symbolBoundingData` is coresponding to y axis.
+                 *
+                 * Rule:
+                 *
+                 * + If
+                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
+                 * is not used:
+                 *
+                 * `symbolBoundingData` is the same as the size of reference
+                 * bar by default.
+                 * The size of the graphic element is detemined by `symbolBoundingData`.
+                 * For example, if reference bar is vertical, its data is `24`,
+                 * `symbolSize` is set as `[30, '50%']`, `symbolBoundingData`
+                 * is set as `124`, the final size of the graphic element will
+                 * be `124 * 50% = 62`.
+                 * If `symbolBoundingData` is not set, the final size will be
+                 * `24 * 50% = 12`.
+                 *
+                 * + If
+                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
+                 * is used:
+                 *
+                 * `symbolBoundingData` is the extreme value of the coordinate
+                 * system.
+                 * `symbolBoundingData` defines a bounding area, where repeated
+                 * graphic elements layout according to
+                 * [symbolMargin](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolMargin)
+                 * and
+                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
+                 * and
+                 * [symbolSize](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolSize)
+                 *
+                 *
+                 * Both these settings determine the gap size of the repeated
+                 * graphic elements.
+                 *
+                 * `symbolBoundingData` is usually used in these cases:
+                 *
+                 * + When
+                 * [symbolCilp](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolClip)
+                 * is used:
+                 *
+                 * And a series is used to display "amont value", while another
+                 * series is used to display "current value".
+                 * `symbolBoundingData` can be used to ensure that the graphic
+                 * elements of these two series are at the same size.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * + When
+                 * [symbolRepeat](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolRepeat)
+                 * is used:
+                 *
+                 * `symbolBoundingData` can be use to ensure the gaps of the
+                 * elements in different bars are the same.
+                 * Of cource, you can do not set `symbolBoundingData`, whose
+                 * default value is a stable value (extreme value of the coordinate
+                 * system).
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * `symbolBoundingData` can also be an array, such as `[-40,
+                 * 60]`, which specifies both negative and positive symbolBoundingData.
+                 *
+                 * Check this example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * This attribute can be set at the
+                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolBoundingData)
+                 * , where all data items in the series will be affected by
+                 * this attribute. And this attribute can also be set at
+                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolBoundingData)
+                 * in
+                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
+                 * , where only the data item is affected by this attribute.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolBoundingData
+                 */
+                symbolBoundingData?: number;
+
+                /**
+                 * Image can be used as the pattern of graphic elements.
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * `symbolPatternSize` specifies the size of pattern image.
+                 * For example, if `symbolPatternSize` is `400`, the pattern
+                 * image will be displayed at the size of `400px * 400px`.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * This attribute can be set at the
+                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.symbolPatternSize)
+                 * , where all data items in the series will be affected by
+                 * this attribute. And this attribute can also be set at
+                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolPatternSize)
+                 * in
+                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
+                 * , where only the data item is affected by this attribute.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @default
+                 * 400
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.symbolPatternSize
+                 */
+                symbolPatternSize?: number;
+
+                /**
+                 * Specify the relationship of overlap between gaphic elements.
+                 * A bigger value means higher.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.z
+                 */
+                z?: number;
+
+                /**
+                 * Whether to enable hover animation.
+                 *
+                 * This attribute can be set at the
+                 * [root level of a series](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.hoverAnimation)
+                 * , where all data items in the series will be affected by
+                 * this attribute. And this attribute can also be set at
+                 * [each data item](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.hoverAnimation)
+                 * in
+                 * [series-pictorialBar.data](https://ecomfe.github.io/echarts-doc/public/en/option.htmlseries-pictorialBar.data)
+                 * , where only the data item is affected by this attribute.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.hoverAnimation
+                 */
+                hoverAnimation?: boolean;
+
+                /**
+                 * Whether to enable animation.
+                 *
+                 *
+                 * @default
+                 * "true"
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animation
+                 */
+                animation?: boolean;
+
+                /**
+                 * Whether to set graphic number threshold to animation.
+                 * Animation will be disabled when graphic number is larger
+                 * than threshold.
+                 *
+                 *
+                 * @default
+                 * 2000
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationThreshold
+                 */
+                animationThreshold?: number;
+
+                /**
+                 * Duration of the first animation, which supports callback
+                 * function for different data to have different animation effect:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @default
+                 * 1000
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationDuration
+                 */
+                animationDuration?: Function | number;
+
+                /**
+                 * Easing method used for the first animation.
+                 * Varied easing effects can be found at
+                 * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+                 * .
+                 *
+                 *
+                 * @default
+                 * "cubicOut"
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationEasing
+                 */
+                animationEasing?: string;
+
+                /**
+                 * Time for animation to complete, which supports callback function
+                 * for different data to have different animation effect:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @default
+                 * 300
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationDurationUpdate
+                 */
+                animationDurationUpdate?: Function | number;
+
+                /**
+                 * Easing method used for animation.
+                 *
+                 *
+                 * @default
+                 * "cubicOut"
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationEasingUpdate
+                 */
+                animationEasingUpdate?: string;
+
+                /**
+                 * Specify the delay time before animation start.
+                 * Callback function can be used, where different delay time
+                 * can be used on different element.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationDelay
+                 */
+                animationDelay?: Function | number;
+
+                /**
+                 * Specify the delay time before update animation.
+                 * Callback function can be used, where different delay time
+                 * can be used on different element.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data)
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.animationDelayUpdate
+                 */
+                animationDelayUpdate?: Function | number;
+
+                /**
+                 * The style setting of the text label in a single bar.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label
+                 */
+                label?: {
+
+                    /**
+                     * Whether to show label.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.show
+                     */
+                    show?: boolean;
+
+                    /**
+                     * Label position.
+                     *
+                     * **Followings are the options:**
+                     *
+                     * + \[x, y\]
+                     *
+                     * Use relative percentage, or absolute pixel values to
+                     * represent position of label relative to top-left corner
+                     * of bounding box. For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label)
+                     *
+                     * + 'top'
+                     *
+                     * + 'left'
+                     * + 'right'
+                     * + 'bottom'
+                     * + 'inside'
+                     * + 'insideLeft'
+                     * + 'insideRight'
+                     * + 'insideTop'
+                     * + 'insideBottom'
+                     * + 'insideTopLeft'
+                     * + 'insideBottomLeft'
+                     * + 'insideTopRight'
+                     * + 'insideBottomRight'
+                     *
+                     * See:
+                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * .
+                     *
+                     *
+                     * @default
+                     * "inside"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.position
+                     */
+                    position?: any[] | string;
+
+                    /**
+                     * Distance to the host graphic element.
+                     * Works when position is string value (like `'top'`、`'insideRight'`).
+                     *
+                     * See:
+                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * .
+                     *
+                     *
+                     * @default
+                     * 5
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.distance
+                     */
+                    distance?: number;
+
+                    /**
+                     * Rotate label, from -90 degree to 90, positive value represents
+                     * rotate anti-clockwise.
+                     *
+                     * See:
+                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * .
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rotate
+                     */
+                    rotate?: number;
+
+                    /**
+                     * Whether to move text slightly.
+                     * For example: `[30, 40]` means move `30` horizontally
+                     * and move `40` vertically.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.offset
+                     */
+                    offset?: any[];
+
+                    /**
+                     * text color.
+                     *
+                     * If set as `'auto'`, the color will assigned as visual
+                     * color, such as series color.
+                     *
+                     *
+                     * @default
+                     * ""#fff""
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.color
+                     */
+                    color?: string;
+
+                    /**
+                     * font style
+                     *
+                     * Options are:
+                     *
+                     * + `'normal'`
+                     * + `'italic'`
+                     * + `'oblique'`
+                     *
+                     *
+                     * @default
+                     * "normal"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.fontStyle
+                     */
+                    fontStyle?: string;
+
+                    /**
+                     * font thick weight
+                     *
+                     * Options are:
+                     *
+                     * + `'normal'`
+                     * + `'bold'`
+                     * + `'bolder'`
+                     * + `'lighter'`
+                     * + 100 | 200 | 300 | 400...
+                     *
+                     *
+                     * @default
+                     * "normal"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.fontWeight
+                     */
+                    fontWeight?: string;
+
+                    /**
+                     * font family
+                     *
+                     * Can also be 'serif' , 'monospace', ...
+                     *
+                     *
+                     * @default
+                     * "sans-serif"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.fontFamily
+                     */
+                    fontFamily?: string;
+
+                    /**
+                     * font size
+                     *
+                     *
+                     * @default
+                     * 12
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.fontSize
+                     */
+                    fontSize?: number;
+
+                    /**
+                     * Horizontal alignment of text, automatic by default.
+                     *
+                     * Options are:
+                     *
+                     * + `'left'`
+                     * + `'center'`
+                     * + `'right'`
+                     *
+                     * If `align` is not set in `rich`, `align` in parent level
+                     * will be used. For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.align
+                     */
+                    align?: string;
+
+                    /**
+                     * Vertical alignment of text, automatic by default.
+                     *
+                     * Options are:
+                     *
+                     * + `'top'`
+                     * + `'middle'`
+                     * + `'bottom'`
+                     *
+                     * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                     * in parent level will be used. For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.verticalAlign
+                     */
+                    verticalAlign?: string;
+
+                    /**
+                     * Line height of the text fregment.
+                     *
+                     * If `lineHeight` is not set in `rich`, `lineHeight` in
+                     * parent level will be used. For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.lineHeight
+                     */
+                    lineHeight?: number;
+
+                    /**
+                     * Background color of the text fregment.
+                     *
+                     * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                     *
+                     * Or image can be used, for example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label)
+                     *
+                     * `width` or `height` can be specified when using background
+                     * image, or auto adapted by default.
+                     *
+                     * If set as `'auto'`, the color will assigned as visual
+                     * color, such as series color.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.backgroundColor
+                     */
+                    backgroundColor?: object | string;
+
+                    /**
+                     * Border color of the text fregment.
+                     *
+                     * If set as `'auto'`, the color will assigned as visual
+                     * color, such as series color.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.borderColor
+                     */
+                    borderColor?: string;
+
+                    /**
+                     * Border width of the text fregment.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.borderWidth
+                     */
+                    borderWidth?: number;
+
+                    /**
+                     * Border radius of the text fregment.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.borderRadius
+                     */
+                    borderRadius?: number;
+
+                    /**
+                     * Padding of the text fregment, for example:
+                     *
+                     * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
+                     * right, bottom, left]`.
+                     * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                     * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
+                     *
+                     * Notice, `width` and `height` specifies the width and
+                     * height of the content, without `padding`.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.padding
+                     */
+                    padding?: any[] | number;
+
+                    /**
+                     * Shadow color of the text block.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.shadowColor
+                     */
+                    shadowColor?: string;
+
+                    /**
+                     * Show blur of the text block.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * Shadow X offset of the text block.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Shadow Y offset of the text block.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * Width of the text block.
+                     * It is the width of the text by default.
+                     * In most cases, there is no need to specify it.
+                     * You may want to use it in some cases like make simple
+                     * table or using background image (see `backgroundColor`).
+                     *
+                     * Notice, `width` and `height` specifies the width and
+                     * height of the content, without `padding`.
+                     *
+                     * `width` can also be percent string, like `'100%'`, which
+                     * represents the percent of `contentWidth` (that is, the
+                     * width without `padding`) of its container box.
+                     * It is based on `contentWidth` because that each text
+                     * fregment is layout based on the `content box`, where
+                     * it makes no sense that calculating width based on `outerWith`
+                     * in prectice.
+                     *
+                     * Notice, `width` and `height` only work when `rich` specified.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.width
+                     */
+                    width?: number | string;
+
+                    /**
+                     * Height of the text block.
+                     * It is the width of the text by default.
+                     * You may want to use it in some cases like using background
+                     * image (see `backgroundColor`).
+                     *
+                     * Notice, `width` and `height` specifies the width and
+                     * height of the content, without `padding`.
+                     *
+                     * Notice, `width` and `height` only work when `rich` specified.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.height
+                     */
+                    height?: number | string;
+
+                    /**
+                     * Storke color of the text.
+                     *
+                     * If set as `'auto'`, the color will assigned as visual
+                     * color, such as series color.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.textBorderColor
+                     */
+                    textBorderColor?: string;
+
+                    /**
+                     * Storke line width of the text.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.textBorderWidth
+                     */
+                    textBorderWidth?: number;
+
+                    /**
+                     * Shadow color of the text itself.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.textShadowColor
+                     */
+                    textShadowColor?: string;
+
+                    /**
+                     * Shadow blue of the text itself.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.textShadowBlur
+                     */
+                    textShadowBlur?: number;
+
+                    /**
+                     * Shadow X offset of the text itself.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.textShadowOffsetX
+                     */
+                    textShadowOffsetX?: number;
+
+                    /**
+                     * Shadow Y offset of the text itself.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.textShadowOffsetY
+                     */
+                    textShadowOffsetY?: number;
+
+                    /**
+                     * "Rich text styles" can be defined in this `rich` property.
+                     * For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label)
+                     *
+                     * For more details, see
+                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * please.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich
+                     */
+                    rich?: {
+
+                        /**
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E
+                         */
+                        [userStyle: string]: {
+
+                            /**
+                             * text color.
+                             *
+                             * If set as `'auto'`, the color will assigned as
+                             * visual color, such as series color.
+                             *
+                             *
+                             * @default
+                             * ""#fff""
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             */
+                            color?: string;
+
+                            /**
+                             * font style
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'italic'`
+                             * + `'oblique'`
+                             *
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             */
+                            fontStyle?: string;
+
+                            /**
+                             * font thick weight
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'bold'`
+                             * + `'bolder'`
+                             * + `'lighter'`
+                             * + 100 | 200 | 300 | 400...
+                             *
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             */
+                            fontWeight?: string;
+
+                            /**
+                             * font family
+                             *
+                             * Can also be 'serif' , 'monospace', ...
+                             *
+                             *
+                             * @default
+                             * "sans-serif"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             */
+                            fontFamily?: string;
+
+                            /**
+                             * font size
+                             *
+                             *
+                             * @default
+                             * 12
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             */
+                            fontSize?: number;
+
+                            /**
+                             * Horizontal alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'left'`
+                             * + `'center'`
+                             * + `'right'`
+                             *
+                             * If `align` is not set in `rich`, `align` in parent
+                             * level will be used. For example:
+                             *
+                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             */
+                            align?: string;
+
+                            /**
+                             * Vertical alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'top'`
+                             * + `'middle'`
+                             * + `'bottom'`
+                             *
+                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             */
+                            verticalAlign?: string;
+
+                            /**
+                             * Line height of the text fregment.
+                             *
+                             * If `lineHeight` is not set in `rich`, `lineHeight`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             */
+                            lineHeight?: number;
+
+                            /**
+                             * Background color of the text fregment.
+                             *
+                             * Can be color string, like `'#123234'`, `'red'`,
+                             * `rgba(0,23,11,0.3)'`.
+                             *
+                             * Or image can be used, for example:
+                             *
+                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             * `width` or `height` can be specified when using
+                             * background image, or auto adapted by default.
+                             *
+                             * If set as `'auto'`, the color will assigned as
+                             * visual color, such as series color.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             */
+                            backgroundColor?: object | string;
+
+                            /**
+                             * Border color of the text fregment.
+                             *
+                             * If set as `'auto'`, the color will assigned as
+                             * visual color, such as series color.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             */
+                            borderColor?: string;
+
+                            /**
+                             * Border width of the text fregment.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             */
+                            borderWidth?: number;
+
+                            /**
+                             * Border radius of the text fregment.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             */
+                            borderRadius?: number;
+
+                            /**
+                             * Padding of the text fregment, for example:
+                             *
+                             * + `padding: [3, 4, 5, 6]`: represents padding
+                             * of `[top, right, bottom, left]`.
+                             * + `padding: 4`: represents `padding: [4, 4, 4,
+                             * 4]`.
+                             * + `padding: [3, 4]`: represents `padding: [3,
+                             * 4, 3, 4]`.
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             */
+                            padding?: any[] | number;
+
+                            /**
+                             * Shadow color of the text block.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             */
+                            shadowColor?: string;
+
+                            /**
+                             * Show blur of the text block.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             */
+                            shadowBlur?: number;
+
+                            /**
+                             * Shadow X offset of the text block.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             */
+                            shadowOffsetX?: number;
+
+                            /**
+                             * Shadow Y offset of the text block.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             */
+                            shadowOffsetY?: number;
+
+                            /**
+                             * Width of the text block.
+                             * It is the width of the text by default.
+                             * In most cases, there is no need to specify it.
+                             * You may want to use it in some cases like make
+                             * simple table or using background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * `width` can also be percent string, like `'100%'`,
+                             * which represents the percent of `contentWidth`
+                             * (that is, the width without `padding`) of its
+                             * container box.
+                             * It is based on `contentWidth` because that each
+                             * text fregment is layout based on the `content
+                             * box`, where it makes no sense that calculating
+                             * width based on `outerWith` in prectice.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             */
+                            width?: number | string;
+
+                            /**
+                             * Height of the text block.
+                             * It is the width of the text by default.
+                             * You may want to use it in some cases like using
+                             * background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             */
+                            height?: number | string;
+
+                            /**
+                             * Storke color of the text.
+                             *
+                             * If set as `'auto'`, the color will assigned as
+                             * visual color, such as series color.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             */
+                            textBorderColor?: string;
+
+                            /**
+                             * Storke line width of the text.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             */
+                            textBorderWidth?: number;
+
+                            /**
+                             * Shadow color of the text itself.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             */
+                            textShadowColor?: string;
+
+                            /**
+                             * Shadow blue of the text itself.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             */
+                            textShadowBlur?: number;
+
+                            /**
+                             * Shadow X offset of the text itself.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             */
+                            textShadowOffsetX?: number;
+
+                            /**
+                             * Shadow Y offset of the text itself.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             */
+                            textShadowOffsetY?: number;
+                        };
+                    };
+                };
+
+                /**
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle
+                 */
+                itemStyle?: {
+
+                    /**
+                     * color.
+                     *
+                     * > Color can be represented in RGB, for example `'rgb(128,
+                     * 128, 128)'`.
+                     * RGBA can be used when you need alpha channel, for example
+                     * `'rgba(128, 128, 128, 0.5)'`.
+                     * You may also use hexadecimal format, for example `'#ccc'`.
+                     * Gradient color and texture are also supported besides
+                     * single colors.
+                     * >
+                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.itemStyle)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.color
+                     */
+                    color?: string;
+
+                    /**
+                     * border color, whose format is similar to that of `color`.
+                     *
+                     *
+                     * @default
+                     * "#000"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.borderColor
+                     */
+                    borderColor?: string;
+
+                    /**
+                     * border width. No border when it is set to be 0.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.borderWidth
+                     */
+                    borderWidth?: number;
+
+                    /**
+                     * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
+                     * `'solid'` by default.
+                     *
+                     *
+                     * @default
+                     * "solid"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.borderType
+                     */
+                    borderType?: string;
+
+                    /**
+                     * Size of shadow blur.
+                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                     * `shadowOffsetY` to set shadow to component.
+                     *
+                     * For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.itemStyle)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * Shadow color. Support same format as `color`.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.shadowColor
+                     */
+                    shadowColor?: string;
+
+                    /**
+                     * Offset distance on the horizontal direction of shadow.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Offset distance on the vertical direction of shadow.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * Opacity of the component.
+                     * Supports value from 0 to 1, and the component will not
+                     * be drawn when set to 0.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.itemStyle.opacity
+                     */
+                    opacity?: number;
+                };
+
+                /**
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis
+                 */
+                emphasis?: {
+
+                    /**
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label
+                     */
+                    label?: {
+
+                        /**
+                         * Whether to show label.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.show
+                         */
+                        show?: boolean;
+
+                        /**
+                         * Label position.
+                         *
+                         * **Followings are the options:**
+                         *
+                         * + \[x, y\]
+                         *
+                         * Use relative percentage, or absolute pixel values
+                         * to represent position of label relative to top-left
+                         * corner of bounding box. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label)
+                         *
+                         * + 'top'
+                         *
+                         * + 'left'
+                         * + 'right'
+                         * + 'bottom'
+                         * + 'inside'
+                         * + 'insideLeft'
+                         * + 'insideRight'
+                         * + 'insideTop'
+                         * + 'insideBottom'
+                         * + 'insideTopLeft'
+                         * + 'insideBottomLeft'
+                         * + 'insideTopRight'
+                         * + 'insideBottomRight'
+                         *
+                         * See:
+                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * .
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.position
+                         */
+                        position?: any[] | string;
+
+                        /**
+                         * Distance to the host graphic element.
+                         * Works when position is string value (like `'top'`、`'insideRight'`).
+                         *
+                         * See:
+                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * .
+                         *
+                         *
+                         * @default
+                         * 5
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.distance
+                         */
+                        distance?: number;
+
+                        /**
+                         * Rotate label, from -90 degree to 90, positive value
+                         * represents rotate anti-clockwise.
+                         *
+                         * See:
+                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * .
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rotate
+                         */
+                        rotate?: number;
+
+                        /**
+                         * Whether to move text slightly.
+                         * For example: `[30, 40]` means move `30` horizontally
+                         * and move `40` vertically.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.offset
+                         */
+                        offset?: any[];
+
+                        /**
+                         * text color.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * ""#fff""
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.color
+                         */
+                        color?: string;
+
+                        /**
+                         * font style
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'italic'`
+                         * + `'oblique'`
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.fontStyle
+                         */
+                        fontStyle?: string;
+
+                        /**
+                         * font thick weight
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'bold'`
+                         * + `'bolder'`
+                         * + `'lighter'`
+                         * + 100 | 200 | 300 | 400...
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.fontWeight
+                         */
+                        fontWeight?: string;
+
+                        /**
+                         * font family
+                         *
+                         * Can also be 'serif' , 'monospace', ...
+                         *
+                         *
+                         * @default
+                         * "sans-serif"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.fontFamily
+                         */
+                        fontFamily?: string;
+
+                        /**
+                         * font size
+                         *
+                         *
+                         * @default
+                         * 12
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.fontSize
+                         */
+                        fontSize?: number;
+
+                        /**
+                         * Horizontal alignment of text, automatic by default.
+                         *
+                         * Options are:
+                         *
+                         * + `'left'`
+                         * + `'center'`
+                         * + `'right'`
+                         *
+                         * If `align` is not set in `rich`, `align` in parent
+                         * level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.align
+                         */
+                        align?: string;
+
+                        /**
+                         * Vertical alignment of text, automatic by default.
+                         *
+                         * Options are:
+                         *
+                         * + `'top'`
+                         * + `'middle'`
+                         * + `'bottom'`
+                         *
+                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.verticalAlign
+                         */
+                        verticalAlign?: string;
+
+                        /**
+                         * Line height of the text fregment.
+                         *
+                         * If `lineHeight` is not set in `rich`, `lineHeight`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.lineHeight
+                         */
+                        lineHeight?: number;
+
+                        /**
+                         * Background color of the text fregment.
+                         *
+                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                         *
+                         * Or image can be used, for example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label)
+                         *
+                         * `width` or `height` can be specified when using background
+                         * image, or auto adapted by default.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.backgroundColor
+                         */
+                        backgroundColor?: object | string;
+
+                        /**
+                         * Border color of the text fregment.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.borderColor
+                         */
+                        borderColor?: string;
+
+                        /**
+                         * Border width of the text fregment.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.borderWidth
+                         */
+                        borderWidth?: number;
+
+                        /**
+                         * Border radius of the text fregment.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.borderRadius
+                         */
+                        borderRadius?: number;
+
+                        /**
+                         * Padding of the text fregment, for example:
+                         *
+                         * + `padding: [3, 4, 5, 6]`: represents padding of
+                         * `[top, right, bottom, left]`.
+                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                         * + `padding: [3, 4]`: represents `padding: [3, 4,
+                         * 3, 4]`.
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.padding
+                         */
+                        padding?: any[] | number;
+
+                        /**
+                         * Shadow color of the text block.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Show blur of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Width of the text block.
+                         * It is the width of the text by default.
+                         * In most cases, there is no need to specify it.
+                         * You may want to use it in some cases like make simple
+                         * table or using background image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * `width` can also be percent string, like `'100%'`,
+                         * which represents the percent of `contentWidth` (that
+                         * is, the width without `padding`) of its container
+                         * box.
+                         * It is based on `contentWidth` because that each text
+                         * fregment is layout based on the `content box`, where
+                         * it makes no sense that calculating width based on
+                         * `outerWith` in prectice.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.width
+                         */
+                        width?: number | string;
+
+                        /**
+                         * Height of the text block.
+                         * It is the width of the text by default.
+                         * You may want to use it in some cases like using background
+                         * image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.height
+                         */
+                        height?: number | string;
+
+                        /**
+                         * Storke color of the text.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.textBorderColor
+                         */
+                        textBorderColor?: string;
+
+                        /**
+                         * Storke line width of the text.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.textBorderWidth
+                         */
+                        textBorderWidth?: number;
+
+                        /**
+                         * Shadow color of the text itself.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.textShadowColor
+                         */
+                        textShadowColor?: string;
+
+                        /**
+                         * Shadow blue of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.textShadowBlur
+                         */
+                        textShadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.textShadowOffsetX
+                         */
+                        textShadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.textShadowOffsetY
+                         */
+                        textShadowOffsetY?: number;
+
+                        /**
+                         * "Rich text styles" can be defined in this `rich`
+                         * property. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label)
+                         *
+                         * For more details, see
+                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * please.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich
+                         */
+                        rich?: {
+
+                            /**
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                             */
+                            [userStyle: string]: {
+
+                                /**
+                                 * text color.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * ""#fff""
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 */
+                                color?: string;
+
+                                /**
+                                 * font style
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'italic'`
+                                 * + `'oblique'`
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 */
+                                fontStyle?: string;
+
+                                /**
+                                 * font thick weight
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'bold'`
+                                 * + `'bolder'`
+                                 * + `'lighter'`
+                                 * + 100 | 200 | 300 | 400...
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 */
+                                fontWeight?: string;
+
+                                /**
+                                 * font family
+                                 *
+                                 * Can also be 'serif' , 'monospace', ...
+                                 *
+                                 *
+                                 * @default
+                                 * "sans-serif"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 */
+                                fontFamily?: string;
+
+                                /**
+                                 * font size
+                                 *
+                                 *
+                                 * @default
+                                 * 12
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 */
+                                fontSize?: number;
+
+                                /**
+                                 * Horizontal alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'left'`
+                                 * + `'center'`
+                                 * + `'right'`
+                                 *
+                                 * If `align` is not set in `rich`, `align`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 */
+                                align?: string;
+
+                                /**
+                                 * Vertical alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'top'`
+                                 * + `'middle'`
+                                 * + `'bottom'`
+                                 *
+                                 * If `verticalAlign` is not set in `rich`,
+                                 * `verticalAlign` in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 */
+                                verticalAlign?: string;
+
+                                /**
+                                 * Line height of the text fregment.
+                                 *
+                                 * If `lineHeight` is not set in `rich`, `lineHeight`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 */
+                                lineHeight?: number;
+
+                                /**
+                                 * Background color of the text fregment.
+                                 *
+                                 * Can be color string, like `'#123234'`, `'red'`,
+                                 * `rgba(0,23,11,0.3)'`.
+                                 *
+                                 * Or image can be used, for example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 * `width` or `height` can be specified when
+                                 * using background image, or auto adapted by
+                                 * default.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 */
+                                backgroundColor?: object | string;
+
+                                /**
+                                 * Border color of the text fregment.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 */
+                                borderColor?: string;
+
+                                /**
+                                 * Border width of the text fregment.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 */
+                                borderWidth?: number;
+
+                                /**
+                                 * Border radius of the text fregment.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 */
+                                borderRadius?: number;
+
+                                /**
+                                 * Padding of the text fregment, for example:
+                                 *
+                                 * + `padding: [3, 4, 5, 6]`: represents padding
+                                 * of `[top, right, bottom, left]`.
+                                 * + `padding: 4`: represents `padding: [4,
+                                 * 4, 4, 4]`.
+                                 * + `padding: [3, 4]`: represents `padding:
+                                 * [3, 4, 3, 4]`.
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 */
+                                padding?: any[] | number;
+
+                                /**
+                                 * Shadow color of the text block.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 */
+                                shadowColor?: string;
+
+                                /**
+                                 * Show blur of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 */
+                                shadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 */
+                                shadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 */
+                                shadowOffsetY?: number;
+
+                                /**
+                                 * Width of the text block.
+                                 * It is the width of the text by default.
+                                 * In most cases, there is no need to specify
+                                 * it.
+                                 * You may want to use it in some cases like
+                                 * make simple table or using background image
+                                 * (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * `width` can also be percent string, like
+                                 * `'100%'`, which represents the percent of
+                                 * `contentWidth` (that is, the width without
+                                 * `padding`) of its container box.
+                                 * It is based on `contentWidth` because that
+                                 * each text fregment is layout based on the
+                                 * `content box`, where it makes no sense that
+                                 * calculating width based on `outerWith` in
+                                 * prectice.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 */
+                                width?: number | string;
+
+                                /**
+                                 * Height of the text block.
+                                 * It is the width of the text by default.
+                                 * You may want to use it in some cases like
+                                 * using background image (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 */
+                                height?: number | string;
+
+                                /**
+                                 * Storke color of the text.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 */
+                                textBorderColor?: string;
+
+                                /**
+                                 * Storke line width of the text.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 */
+                                textBorderWidth?: number;
+
+                                /**
+                                 * Shadow color of the text itself.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 */
+                                textShadowColor?: string;
+
+                                /**
+                                 * Shadow blue of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 */
+                                textShadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 */
+                                textShadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 */
+                                textShadowOffsetY?: number;
+                            };
+                        };
+                    };
+
+                    /**
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle
+                     */
+                    itemStyle?: {
+
+                        /**
+                         * color.
+                         *
+                         * > Color can be represented in RGB, for example `'rgb(128,
+                         * 128, 128)'`.
+                         * RGBA can be used when you need alpha channel, for
+                         * example `'rgba(128, 128, 128, 0.5)'`.
+                         * You may also use hexadecimal format, for example
+                         * `'#ccc'`.
+                         * Gradient color and texture are also supported besides
+                         * single colors.
+                         * >
+                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.itemStyle)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.color
+                         */
+                        color?: string;
+
+                        /**
+                         * border color, whose format is similar to that of
+                         * `color`.
+                         *
+                         *
+                         * @default
+                         * "#000"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.borderColor
+                         */
+                        borderColor?: string;
+
+                        /**
+                         * border width. No border when it is set to be 0.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.borderWidth
+                         */
+                        borderWidth?: number;
+
+                        /**
+                         * Border type, which can be `'solid'`, `'dashed'`,
+                         * or `'dotted'`. `'solid'` by default.
+                         *
+                         *
+                         * @default
+                         * "solid"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.borderType
+                         */
+                        borderType?: string;
+
+                        /**
+                         * Size of shadow blur.
+                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                         * `shadowOffsetY` to set shadow to component.
+                         *
+                         * For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.emphasis.itemStyle)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow color. Support same format as `color`.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Offset distance on the horizontal direction of shadow.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Offset distance on the vertical direction of shadow.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Opacity of the component.
+                         * Supports value from 0 to 1, and the component will
+                         * not be drawn when set to 0.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.emphasis.itemStyle.opacity
+                         */
+                        opacity?: number;
+                    };
+                };
+
+                /**
+                 * tooltip settings in this series data.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip
+                 */
+                tooltip?: {
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The position of the tooltip's floating layer, which would
+                     * follow the position of mouse by default.
+                     *
+                     * Options:
+                     *
+                     * + `Array`
+                     *
+                     * Display the position of tooltip's floating layer through
+                     * array, which supports absolute position and relative
+                     * percentage.
+                     *
+                     * Example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
+                     *
+                     * + `Function`
+                     *
+                     * Callback function in the following form:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
+                     *
+                     * **Parameters:**
+                     * point: Mouse position.
+                     * param: The same as formatter.
+                     * dom: The DOM object of tooltip.
+                     * rect: It is valid only when mouse is on graphic elements,
+                     * which stands for a bounding box with `x`, `y`, `width`,
+                     * and `height`.
+                     * size: The size of dom echarts container.
+                     * For example: `{contentSize: [width, height], viewSize:
+                     * [width, height]}`.
+                     *
+                     * **Return:**
+                     * Return value is an array standing for tooltip position,
+                     * which can be absolute pixels, or relative percentage.
+                     * Or can be an object, like `{left: 10, top: 30}`, or `{right:
+                     * '20%', bottom: 40}`.
+                     *
+                     * For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
+                     *
+                     * Or:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
+                     *
+                     * + `'inside'`
+                     *
+                     * Center position of the graphic element where the mouse
+                     * is in, which is only valid when
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is `'item'`.
+                     *
+                     * + `'top'`
+                     *
+                     * Top position of the graphic element where the mouse is
+                     * in, which is only valid when
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is `'item'`.
+                     *
+                     * + `'left'`
+                     *
+                     * Left position of the graphic element where the mouse
+                     * is in, which is only valid when
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is `'item'`.
+                     *
+                     * + `'right'`
+                     *
+                     * Right position of the graphic element where the mouse
+                     * is in, which is only valid when
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is `'item'`.
+                     *
+                     * + `'bottom'`
+                     *
+                     * Bottom position of the graphic element where the mouse
+                     * is in, which is only valid when
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is `'item'`.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.position
+                     */
+                    position?: any[] | string;
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The content formatter of tooltip's floating layer which
+                     * supports string template and callback function.
+                     *
+                     * **1\. String template**
+                     *
+                     * The template variables are `{a}`, `{b}`, `{c}`, `{d}`
+                     * and `{e}`, which stands for series name, data name and
+                     * data value and ect. When
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is set to be `'axis'`, there may be data from multiple
+                     * series.
+                     * In this time, series index can be refered as `{a0}`,
+                     * `{a1}`, or `{a2}`.
+                     *
+                     * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for
+                     * different series types:
+                     *
+                     * + Line (area) charts, bar (column) charts, K charts:
+                     * `{a}` for series name, `{b}` for category name, `{c}`
+                     * for data value, `{d}` for none;
+                     *
+                     * + Scatter (bubble) charts: `{a}` for series name, `{b}`
+                     * for data name, `{c}` for data value, `{d}` for none;
+                     *
+                     * + Map: `{a}` for series name, `{b}` for area name, `{c}`
+                     * for merging data, `{d}` for none;
+                     *
+                     * + Pie charts, gauge charts, funnel charts: `{a}` for
+                     * series name, `{b}` for data item name, `{c}` for data
+                     * value, `{d}` for percentage.
+                     *
+                     * **Example:**
+                     *
+                     * ```
+                     * formatter: '{b0}: {c0}<br />{b1}: {c1}'
+                     *
+                     * ```
+                     *
+                     * **2\. Callback function**
+                     *
+                     * The format of callback function:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
+                     *
+                     * The first parameter `params` is the data that the formatter
+                     * needs. Its format is shown as follows:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
+                     *
+                     * When
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is `'axis'`, or when tooltip is triggered by
+                     * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
+                     * , `params` is the data array of multiple series.
+                     * The content of each item of the array is the same as
+                     * above. Besides,
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
+                     *
+                     * **Note:** Using array to present all the parameters in
+                     * ECharts 2.x is not supported anymore.
+                     *
+                     * The second parameter `ticket` is the asynchronous callback
+                     * flag which should be used along with the third parameter
+                     * `callback` when it is used.
+                     *
+                     * The third parameter `callback` is asynchronous callback.
+                     * When the content of tooltip is acquired asynchronously,
+                     * `ticket` and `htm` as introduced above can be used to
+                     * update tooltip with callback.
+                     *
+                     * Example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.formatter
+                     */
+                    formatter?: Function | string;
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The background color of tooltip's floating layer.
+                     *
+                     *
+                     * @default
+                     * "rgba(50,50,50,0.7)"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.backgroundColor
+                     */
+                    backgroundColor?: string;
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The border color of tooltip's floating layer.
+                     *
+                     *
+                     * @default
+                     * '#333'
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.borderColor
+                     */
+                    borderColor?: string;
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The border width of tooltip's floating layer.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.borderWidth
+                     */
+                    borderWidth?: number;
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The floating layer of tooltip space around content.
+                     * The unit is px.
+                     * Default values for each position are 5.
+                     * And they can be set to different values with left, right,
+                     * top, and bottom.
+                     *
+                     * Examples:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip)
+                     *
+                     *
+                     * @default
+                     * 5
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.padding
+                     */
+                    padding?: number;
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The text syle of tooltip's floating layer.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle
+                     */
+                    textStyle?: {
+
+                        /**
+                         * text color.
+                         *
+                         *
+                         * @default
+                         * "#fff"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.color
+                         */
+                        color?: string;
+
+                        /**
+                         * font style
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'italic'`
+                         * + `'oblique'`
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.fontStyle
+                         */
+                        fontStyle?: string;
+
+                        /**
+                         * font thick weight
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'bold'`
+                         * + `'bolder'`
+                         * + `'lighter'`
+                         * + 100 | 200 | 300 | 400...
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.fontWeight
+                         */
+                        fontWeight?: string;
+
+                        /**
+                         * font family
+                         *
+                         * Can also be 'serif' , 'monospace', ...
+                         *
+                         *
+                         * @default
+                         * "sans-serif"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.fontFamily
+                         */
+                        fontFamily?: string;
+
+                        /**
+                         * font size
+                         *
+                         *
+                         * @default
+                         * 14
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.fontSize
+                         */
+                        fontSize?: number;
+
+                        /**
+                         * Line height of the text fregment.
+                         *
+                         * If `lineHeight` is not set in `rich`, `lineHeight`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.pictorialBar.data.tooltip.textStyle)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.lineHeight
+                         */
+                        lineHeight?: number;
+
+                        /**
+                         * Width of the text block.
+                         * It is the width of the text by default.
+                         * In most cases, there is no need to specify it.
+                         * You may want to use it in some cases like make simple
+                         * table or using background image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * `width` can also be percent string, like `'100%'`,
+                         * which represents the percent of `contentWidth` (that
+                         * is, the width without `padding`) of its container
+                         * box.
+                         * It is based on `contentWidth` because that each text
+                         * fregment is layout based on the `content box`, where
+                         * it makes no sense that calculating width based on
+                         * `outerWith` in prectice.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.width
+                         */
+                        width?: number | string;
+
+                        /**
+                         * Height of the text block.
+                         * It is the width of the text by default.
+                         * You may want to use it in some cases like using background
+                         * image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.height
+                         */
+                        height?: number | string;
+
+                        /**
+                         * Storke color of the text.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.textBorderColor
+                         */
+                        textBorderColor?: string;
+
+                        /**
+                         * Storke line width of the text.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.textBorderWidth
+                         */
+                        textBorderWidth?: number;
+
+                        /**
+                         * Shadow color of the text itself.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.textShadowColor
+                         */
+                        textShadowColor?: string;
+
+                        /**
+                         * Shadow blue of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.textShadowBlur
+                         */
+                        textShadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.textShadowOffsetX
+                         */
+                        textShadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.textStyle.textShadowOffsetY
+                         */
+                        textShadowOffsetY?: number;
+                    };
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * Extra CSS style for floating layer.
+                     * The following is an example for adding shadow.
+                     *
+                     * ```
+                     * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
+                     *
+                     * ```
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pictorialBar.data.tooltip.extraCssText
+                     */
+                    extraCssText?: string;
+                };
+            }
         }
     }
 }

@@ -1307,7 +1307,7 @@ declare namespace echarts {
                      *
                      * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.data
                      */
-                    data?: Axis.Data[];
+                    data?: (string | Axis.DataObject)[];
 
                     /**
                      * axisPointer settings on the axis.
@@ -1488,7 +1488,7 @@ declare namespace echarts {
                     /**
                      * @todo describe
                      */
-                    interface Data {
+                    interface DataObject {
                         value?: string;
                         textStyle?: TextStyle;
                     }

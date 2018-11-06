@@ -2257,7 +2257,11 @@ declare namespace echarts {
              *
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-pie.data
              */
-            data?: SeriesPie.Data | SeriesPie.Data[];
+            data?: (
+                number[]
+                | number[][]
+                | SeriesPie.DataObject[]
+            );
 
             /**
              * Mark point in a chart.
@@ -13914,7 +13918,7 @@ declare namespace echarts {
         }
 
         namespace SeriesPie {
-            interface Data {
+            interface DataObject {
 
                 /**
                  * The name of data item.

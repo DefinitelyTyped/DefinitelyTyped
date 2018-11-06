@@ -491,715 +491,7 @@ declare namespace echarts {
              *
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data
              */
-            data?: {
-
-                /**
-                 * Name of data item.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.name
-                 */
-                name?: string;
-
-                /**
-                 * Value of data item.
-                 *
-                 * ```
-                 * [min, Q1, median (or Q2), Q3, max]
-                 *
-                 * ```
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.value
-                 */
-                value?: any[];
-
-                /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle
-                 */
-                itemStyle?: {
-
-                    /**
-                     * boxplot color. Color is taken from
-                     * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
-                     * by default.
-                     *
-                     * > Color can be represented in RGB, for example `'rgb(128,
-                     * 128, 128)'`.
-                     * RGBA can be used when you need alpha channel, for example
-                     * `'rgba(128, 128, 128, 0.5)'`.
-                     * You may also use hexadecimal format, for example `'#ccc'`.
-                     * Gradient color and texture are also supported besides
-                     * single colors.
-                     * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.itemStyle)
-                     *
-                     *
-                     * @default
-                     * "#fff"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * boxplot border color, whose format is similar to that
-                     * of `color`.
-                     *
-                     *
-                     * @default
-                     * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * boxplot border width.
-                     * No border when it is set to be 0.
-                     *
-                     *
-                     * @default
-                     * 1
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
-                     * `'solid'` by default.
-                     *
-                     *
-                     * @default
-                     * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.borderType
-                     */
-                    borderType?: string;
-
-                    /**
-                     * Size of shadow blur.
-                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                     * `shadowOffsetY` to set shadow to component.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.itemStyle)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.shadowBlur
-                     */
-                    shadowBlur?: number;
-
-                    /**
-                     * Shadow color. Support same format as `color`.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.shadowColor
-                     */
-                    shadowColor?: string;
-
-                    /**
-                     * Offset distance on the horizontal direction of shadow.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.shadowOffsetX
-                     */
-                    shadowOffsetX?: number;
-
-                    /**
-                     * Offset distance on the vertical direction of shadow.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.shadowOffsetY
-                     */
-                    shadowOffsetY?: number;
-
-                    /**
-                     * Opacity of the component.
-                     * Supports value from 0 to 1, and the component will not
-                     * be drawn when set to 0.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.opacity
-                     */
-                    opacity?: number;
-                };
-
-                /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis
-                 */
-                emphasis?: {
-
-                    /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle
-                     */
-                    itemStyle?: {
-
-                        /**
-                         * boxplot color. Color is taken from
-                         * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
-                         * by default.
-                         *
-                         * > Color can be represented in RGB, for example `'rgb(128,
-                         * 128, 128)'`.
-                         * RGBA can be used when you need alpha channel, for
-                         * example `'rgba(128, 128, 128, 0.5)'`.
-                         * You may also use hexadecimal format, for example
-                         * `'#ccc'`.
-                         * Gradient color and texture are also supported besides
-                         * single colors.
-                         * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.emphasis.itemStyle)
-                         *
-                         *
-                         * @default
-                         * "#fff"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * boxplot border color, whose format is similar to
-                         * that of `color`.
-                         *
-                         *
-                         * @default
-                         * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.borderColor
-                         */
-                        borderColor?: string;
-
-                        /**
-                         * boxplot border width.
-                         * No border when it is set to be 0.
-                         *
-                         *
-                         * @default
-                         * 2
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.borderWidth
-                         */
-                        borderWidth?: number;
-
-                        /**
-                         * Border type, which can be `'solid'`, `'dashed'`,
-                         * or `'dotted'`. `'solid'` by default.
-                         *
-                         *
-                         * @default
-                         * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.borderType
-                         */
-                        borderType?: string;
-
-                        /**
-                         * Size of shadow blur.
-                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                         * `shadowOffsetY` to set shadow to component.
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.emphasis.itemStyle)
-                         *
-                         *
-                         * @default
-                         * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow color. Support same format as `color`.
-                         *
-                         *
-                         * @default
-                         * "rgba(0,0,0,0.4)"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Offset distance on the horizontal direction of shadow.
-                         *
-                         *
-                         * @default
-                         * 2
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Offset distance on the vertical direction of shadow.
-                         *
-                         *
-                         * @default
-                         * 2
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Opacity of the component.
-                         * Supports value from 0 to 1, and the component will
-                         * not be drawn when set to 0.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.opacity
-                         */
-                        opacity?: number;
-                    };
-                };
-
-                /**
-                 * tooltip settings in this series data.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip
-                 */
-                tooltip?: {
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The position of the tooltip's floating layer, which would
-                     * follow the position of mouse by default.
-                     *
-                     * Options:
-                     *
-                     * + `Array`
-                     *
-                     * Display the position of tooltip's floating layer through
-                     * array, which supports absolute position and relative
-                     * percentage.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
-                     *
-                     * + `Function`
-                     *
-                     * Callback function in the following form:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
-                     *
-                     * **Parameters:**
-                     * point: Mouse position.
-                     * param: The same as formatter.
-                     * dom: The DOM object of tooltip.
-                     * rect: It is valid only when mouse is on graphic elements,
-                     * which stands for a bounding box with `x`, `y`, `width`,
-                     * and `height`.
-                     * size: The size of dom echarts container.
-                     * For example: `{contentSize: [width, height], viewSize:
-                     * [width, height]}`.
-                     *
-                     * **Return:**
-                     * Return value is an array standing for tooltip position,
-                     * which can be absolute pixels, or relative percentage.
-                     * Or can be an object, like `{left: 10, top: 30}`, or `{right:
-                     * '20%', bottom: 40}`.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
-                     *
-                     * Or:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
-                     *
-                     * + `'inside'`
-                     *
-                     * Center position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'top'`
-                     *
-                     * Top position of the graphic element where the mouse is
-                     * in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'left'`
-                     *
-                     * Left position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'right'`
-                     *
-                     * Right position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     * + `'bottom'`
-                     *
-                     * Bottom position of the graphic element where the mouse
-                     * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'item'`.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.position
-                     */
-                    position?: any[] | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The content formatter of tooltip's floating layer which
-                     * supports string template and callback function.
-                     *
-                     * **1\. String template**
-                     *
-                     * The template variables are `{a}`, `{b}`, `{c}`, `{d}`
-                     * and `{e}`, which stands for series name, data name and
-                     * data value and ect. When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is set to be `'axis'`, there may be data from multiple
-                     * series.
-                     * In this time, series index can be refered as `{a0}`,
-                     * `{a1}`, or `{a2}`.
-                     *
-                     * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for
-                     * different series types:
-                     *
-                     * + Line (area) charts, bar (column) charts, K charts:
-                     * `{a}` for series name, `{b}` for category name, `{c}`
-                     * for data value, `{d}` for none;
-                     *
-                     * + Scatter (bubble) charts: `{a}` for series name, `{b}`
-                     * for data name, `{c}` for data value, `{d}` for none;
-                     *
-                     * + Map: `{a}` for series name, `{b}` for area name, `{c}`
-                     * for merging data, `{d}` for none;
-                     *
-                     * + Pie charts, gauge charts, funnel charts: `{a}` for
-                     * series name, `{b}` for data item name, `{c}` for data
-                     * value, `{d}` for percentage.
-                     *
-                     * **Example:**
-                     *
-                     * ```
-                     * formatter: '{b0}: {c0}<br />{b1}: {c1}'
-                     *
-                     * ```
-                     *
-                     * **2\. Callback function**
-                     *
-                     * The format of callback function:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
-                     *
-                     * The first parameter `params` is the data that the formatter
-                     * needs. Its format is shown as follows:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
-                     *
-                     * When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * is `'axis'`, or when tooltip is triggered by
-                     * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
-                     * , `params` is the data array of multiple series.
-                     * The content of each item of the array is the same as
-                     * above. Besides,
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
-                     *
-                     * **Note:** Using array to present all the parameters in
-                     * ECharts 2.x is not supported anymore.
-                     *
-                     * The second parameter `ticket` is the asynchronous callback
-                     * flag which should be used along with the third parameter
-                     * `callback` when it is used.
-                     *
-                     * The third parameter `callback` is asynchronous callback.
-                     * When the content of tooltip is acquired asynchronously,
-                     * `ticket` and `htm` as introduced above can be used to
-                     * update tooltip with callback.
-                     *
-                     * Example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.formatter
-                     */
-                    formatter?: Function | string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The background color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * "rgba(50,50,50,0.7)"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.backgroundColor
-                     */
-                    backgroundColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border color of tooltip's floating layer.
-                     *
-                     *
-                     * @default
-                     * '#333'
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The border width of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The floating layer of tooltip space around content.
-                     * The unit is px.
-                     * Default values for each position are 5.
-                     * And they can be set to different values with left, right,
-                     * top, and bottom.
-                     *
-                     * Examples:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
-                     *
-                     *
-                     * @default
-                     * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.padding
-                     */
-                    padding?: number;
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * The text syle of tooltip's floating layer.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle
-                     */
-                    textStyle?: {
-
-                        /**
-                         * text color.
-                         *
-                         *
-                         * @default
-                         * "#fff"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 14
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip.textStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-                    };
-
-                    /**
-                     * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
-                     * > is `'item'`.
-                     *
-                     * Extra CSS style for floating layer.
-                     * The following is an example for adding shadow.
-                     *
-                     * ```
-                     * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
-                     *
-                     * ```
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.extraCssText
-                     */
-                    extraCssText?: string;
-                };
-            };
+            data?: (number | SeriesBoxplot.DataObject)[][];
 
             /**
              * Mark point in a chart.
@@ -13247,6 +12539,718 @@ declare namespace echarts {
                  */
                 extraCssText?: string;
             };
+        }
+
+        namespace SeriesBoxplot {
+            interface DataObject {
+
+                /**
+                 * Name of data item.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.name
+                 */
+                name?: string;
+
+                /**
+                 * Value of data item.
+                 *
+                 * ```
+                 * [min, Q1, median (or Q2), Q3, max]
+                 *
+                 * ```
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.value
+                 */
+                value?: any[];
+
+                /**
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle
+                 */
+                itemStyle?: {
+
+                    /**
+                     * boxplot color. Color is taken from
+                     * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                     * by default.
+                     *
+                     * > Color can be represented in RGB, for example `'rgb(128,
+                     * 128, 128)'`.
+                     * RGBA can be used when you need alpha channel, for example
+                     * `'rgba(128, 128, 128, 0.5)'`.
+                     * You may also use hexadecimal format, for example `'#ccc'`.
+                     * Gradient color and texture are also supported besides
+                     * single colors.
+                     * >
+                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.itemStyle)
+                     *
+                     *
+                     * @default
+                     * "#fff"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.color
+                     */
+                    color?: string;
+
+                    /**
+                     * boxplot border color, whose format is similar to that
+                     * of `color`.
+                     *
+                     *
+                     * @default
+                     * "#000"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.borderColor
+                     */
+                    borderColor?: string;
+
+                    /**
+                     * boxplot border width.
+                     * No border when it is set to be 0.
+                     *
+                     *
+                     * @default
+                     * 1
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.borderWidth
+                     */
+                    borderWidth?: number;
+
+                    /**
+                     * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
+                     * `'solid'` by default.
+                     *
+                     *
+                     * @default
+                     * "solid"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.borderType
+                     */
+                    borderType?: string;
+
+                    /**
+                     * Size of shadow blur.
+                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                     * `shadowOffsetY` to set shadow to component.
+                     *
+                     * For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.itemStyle)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * Shadow color. Support same format as `color`.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.shadowColor
+                     */
+                    shadowColor?: string;
+
+                    /**
+                     * Offset distance on the horizontal direction of shadow.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Offset distance on the vertical direction of shadow.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * Opacity of the component.
+                     * Supports value from 0 to 1, and the component will not
+                     * be drawn when set to 0.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.itemStyle.opacity
+                     */
+                    opacity?: number;
+                };
+
+                /**
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis
+                 */
+                emphasis?: {
+
+                    /**
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle
+                     */
+                    itemStyle?: {
+
+                        /**
+                         * boxplot color. Color is taken from
+                         * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                         * by default.
+                         *
+                         * > Color can be represented in RGB, for example `'rgb(128,
+                         * 128, 128)'`.
+                         * RGBA can be used when you need alpha channel, for
+                         * example `'rgba(128, 128, 128, 0.5)'`.
+                         * You may also use hexadecimal format, for example
+                         * `'#ccc'`.
+                         * Gradient color and texture are also supported besides
+                         * single colors.
+                         * >
+                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.emphasis.itemStyle)
+                         *
+                         *
+                         * @default
+                         * "#fff"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.color
+                         */
+                        color?: string;
+
+                        /**
+                         * boxplot border color, whose format is similar to
+                         * that of `color`.
+                         *
+                         *
+                         * @default
+                         * "#000"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.borderColor
+                         */
+                        borderColor?: string;
+
+                        /**
+                         * boxplot border width.
+                         * No border when it is set to be 0.
+                         *
+                         *
+                         * @default
+                         * 2
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.borderWidth
+                         */
+                        borderWidth?: number;
+
+                        /**
+                         * Border type, which can be `'solid'`, `'dashed'`,
+                         * or `'dotted'`. `'solid'` by default.
+                         *
+                         *
+                         * @default
+                         * "solid"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.borderType
+                         */
+                        borderType?: string;
+
+                        /**
+                         * Size of shadow blur.
+                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                         * `shadowOffsetY` to set shadow to component.
+                         *
+                         * For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.emphasis.itemStyle)
+                         *
+                         *
+                         * @default
+                         * 5
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow color. Support same format as `color`.
+                         *
+                         *
+                         * @default
+                         * "rgba(0,0,0,0.4)"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Offset distance on the horizontal direction of shadow.
+                         *
+                         *
+                         * @default
+                         * 2
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Offset distance on the vertical direction of shadow.
+                         *
+                         *
+                         * @default
+                         * 2
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Opacity of the component.
+                         * Supports value from 0 to 1, and the component will
+                         * not be drawn when set to 0.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.emphasis.itemStyle.opacity
+                         */
+                        opacity?: number;
+                    };
+                };
+
+                /**
+                 * tooltip settings in this series data.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip
+                 */
+                tooltip?: {
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The position of the tooltip's floating layer, which would
+                     * follow the position of mouse by default.
+                     *
+                     * Options:
+                     *
+                     * + `Array`
+                     *
+                     * Display the position of tooltip's floating layer through
+                     * array, which supports absolute position and relative
+                     * percentage.
+                     *
+                     * Example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
+                     *
+                     * + `Function`
+                     *
+                     * Callback function in the following form:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
+                     *
+                     * **Parameters:**
+                     * point: Mouse position.
+                     * param: The same as formatter.
+                     * dom: The DOM object of tooltip.
+                     * rect: It is valid only when mouse is on graphic elements,
+                     * which stands for a bounding box with `x`, `y`, `width`,
+                     * and `height`.
+                     * size: The size of dom echarts container.
+                     * For example: `{contentSize: [width, height], viewSize:
+                     * [width, height]}`.
+                     *
+                     * **Return:**
+                     * Return value is an array standing for tooltip position,
+                     * which can be absolute pixels, or relative percentage.
+                     * Or can be an object, like `{left: 10, top: 30}`, or `{right:
+                     * '20%', bottom: 40}`.
+                     *
+                     * For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
+                     *
+                     * Or:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
+                     *
+                     * + `'inside'`
+                     *
+                     * Center position of the graphic element where the mouse
+                     * is in, which is only valid when
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is `'item'`.
+                     *
+                     * + `'top'`
+                     *
+                     * Top position of the graphic element where the mouse is
+                     * in, which is only valid when
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is `'item'`.
+                     *
+                     * + `'left'`
+                     *
+                     * Left position of the graphic element where the mouse
+                     * is in, which is only valid when
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is `'item'`.
+                     *
+                     * + `'right'`
+                     *
+                     * Right position of the graphic element where the mouse
+                     * is in, which is only valid when
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is `'item'`.
+                     *
+                     * + `'bottom'`
+                     *
+                     * Bottom position of the graphic element where the mouse
+                     * is in, which is only valid when
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is `'item'`.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.position
+                     */
+                    position?: any[] | string;
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The content formatter of tooltip's floating layer which
+                     * supports string template and callback function.
+                     *
+                     * **1\. String template**
+                     *
+                     * The template variables are `{a}`, `{b}`, `{c}`, `{d}`
+                     * and `{e}`, which stands for series name, data name and
+                     * data value and ect. When
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is set to be `'axis'`, there may be data from multiple
+                     * series.
+                     * In this time, series index can be refered as `{a0}`,
+                     * `{a1}`, or `{a2}`.
+                     *
+                     * `{a}`, `{b}`, `{c}`, `{d}` have different meanings for
+                     * different series types:
+                     *
+                     * + Line (area) charts, bar (column) charts, K charts:
+                     * `{a}` for series name, `{b}` for category name, `{c}`
+                     * for data value, `{d}` for none;
+                     *
+                     * + Scatter (bubble) charts: `{a}` for series name, `{b}`
+                     * for data name, `{c}` for data value, `{d}` for none;
+                     *
+                     * + Map: `{a}` for series name, `{b}` for area name, `{c}`
+                     * for merging data, `{d}` for none;
+                     *
+                     * + Pie charts, gauge charts, funnel charts: `{a}` for
+                     * series name, `{b}` for data item name, `{c}` for data
+                     * value, `{d}` for percentage.
+                     *
+                     * **Example:**
+                     *
+                     * ```
+                     * formatter: '{b0}: {c0}<br />{b1}: {c1}'
+                     *
+                     * ```
+                     *
+                     * **2\. Callback function**
+                     *
+                     * The format of callback function:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
+                     *
+                     * The first parameter `params` is the data that the formatter
+                     * needs. Its format is shown as follows:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
+                     *
+                     * When
+                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * is `'axis'`, or when tooltip is triggered by
+                     * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
+                     * , `params` is the data array of multiple series.
+                     * The content of each item of the array is the same as
+                     * above. Besides,
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
+                     *
+                     * **Note:** Using array to present all the parameters in
+                     * ECharts 2.x is not supported anymore.
+                     *
+                     * The second parameter `ticket` is the asynchronous callback
+                     * flag which should be used along with the third parameter
+                     * `callback` when it is used.
+                     *
+                     * The third parameter `callback` is asynchronous callback.
+                     * When the content of tooltip is acquired asynchronously,
+                     * `ticket` and `htm` as introduced above can be used to
+                     * update tooltip with callback.
+                     *
+                     * Example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.formatter
+                     */
+                    formatter?: Function | string;
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The background color of tooltip's floating layer.
+                     *
+                     *
+                     * @default
+                     * "rgba(50,50,50,0.7)"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.backgroundColor
+                     */
+                    backgroundColor?: string;
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The border color of tooltip's floating layer.
+                     *
+                     *
+                     * @default
+                     * '#333'
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.borderColor
+                     */
+                    borderColor?: string;
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The border width of tooltip's floating layer.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.borderWidth
+                     */
+                    borderWidth?: number;
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The floating layer of tooltip space around content.
+                     * The unit is px.
+                     * Default values for each position are 5.
+                     * And they can be set to different values with left, right,
+                     * top, and bottom.
+                     *
+                     * Examples:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip)
+                     *
+                     *
+                     * @default
+                     * 5
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.padding
+                     */
+                    padding?: number;
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * The text syle of tooltip's floating layer.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle
+                     */
+                    textStyle?: {
+
+                        /**
+                         * text color.
+                         *
+                         *
+                         * @default
+                         * "#fff"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.color
+                         */
+                        color?: string;
+
+                        /**
+                         * font style
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'italic'`
+                         * + `'oblique'`
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.fontStyle
+                         */
+                        fontStyle?: string;
+
+                        /**
+                         * font thick weight
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'bold'`
+                         * + `'bolder'`
+                         * + `'lighter'`
+                         * + 100 | 200 | 300 | 400...
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.fontWeight
+                         */
+                        fontWeight?: string;
+
+                        /**
+                         * font family
+                         *
+                         * Can also be 'serif' , 'monospace', ...
+                         *
+                         *
+                         * @default
+                         * "sans-serif"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.fontFamily
+                         */
+                        fontFamily?: string;
+
+                        /**
+                         * font size
+                         *
+                         *
+                         * @default
+                         * 14
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.fontSize
+                         */
+                        fontSize?: number;
+
+                        /**
+                         * Line height of the text fregment.
+                         *
+                         * If `lineHeight` is not set in `rich`, `lineHeight`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.boxplot.data.tooltip.textStyle)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.lineHeight
+                         */
+                        lineHeight?: number;
+
+                        /**
+                         * Width of the text block.
+                         * It is the width of the text by default.
+                         * In most cases, there is no need to specify it.
+                         * You may want to use it in some cases like make simple
+                         * table or using background image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * `width` can also be percent string, like `'100%'`,
+                         * which represents the percent of `contentWidth` (that
+                         * is, the width without `padding`) of its container
+                         * box.
+                         * It is based on `contentWidth` because that each text
+                         * fregment is layout based on the `content box`, where
+                         * it makes no sense that calculating width based on
+                         * `outerWith` in prectice.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.width
+                         */
+                        width?: number | string;
+
+                        /**
+                         * Height of the text block.
+                         * It is the width of the text by default.
+                         * You may want to use it in some cases like using background
+                         * image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.height
+                         */
+                        height?: number | string;
+
+                        /**
+                         * Storke color of the text.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.textBorderColor
+                         */
+                        textBorderColor?: string;
+
+                        /**
+                         * Storke line width of the text.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.textBorderWidth
+                         */
+                        textBorderWidth?: number;
+
+                        /**
+                         * Shadow color of the text itself.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.textShadowColor
+                         */
+                        textShadowColor?: string;
+
+                        /**
+                         * Shadow blue of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.textShadowBlur
+                         */
+                        textShadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.textShadowOffsetX
+                         */
+                        textShadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.textStyle.textShadowOffsetY
+                         */
+                        textShadowOffsetY?: number;
+                    };
+
+                    /**
+                     * > **Notice：**series.data.tooltip only works when
+                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > is `'item'`.
+                     *
+                     * Extra CSS style for floating layer.
+                     * The following is an example for adding shadow.
+                     *
+                     * ```
+                     * extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'
+                     *
+                     * ```
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-boxplot.data.tooltip.extraCssText
+                     */
+                    extraCssText?: string;
+                };
+            }
         }
     }
 }

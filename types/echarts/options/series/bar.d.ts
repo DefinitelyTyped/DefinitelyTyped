@@ -2315,7 +2315,10 @@ declare namespace echarts {
              *
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar.data
              */
-            data?: SeriesBar.Data | SeriesBar.Data[];
+            data?: (
+                (void | string | number | SeriesBar.DataObject)[]
+                | (void | string | number | SeriesBar.DataObject)[][]
+            );
 
             /**
              * Mark point in a chart.
@@ -14418,7 +14421,7 @@ declare namespace echarts {
         }
 
         namespace SeriesBar {
-            interface Data {
+            interface DataObject {
 
                 /**
                  * The name of data item.

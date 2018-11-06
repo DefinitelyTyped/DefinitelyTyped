@@ -487,237 +487,10 @@ declare namespace echarts {
              *
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data
              */
-            data?: {
-
-                /**
-                 * The name of a data item.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.name
-                 */
-                name?: string;
-
-                /**
-                 * The value of a data item.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.value
-                 */
-                value?: any[];
-
-                /**
-                 * Line style.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.lineStyle
-                 */
-                lineStyle?: object;
-
-                /**
-                 * Line color.
-                 *
-                 * > Color can be represented in RGB, for example `'rgb(128,
-                 * 128, 128)'`.
-                 * RGBA can be used when you need alpha channel, for example
-                 * `'rgba(128, 128, 128, 0.5)'`.
-                 * You may also use hexadecimal format, for example `'#ccc'`.
-                 * Gradient color and texture are also supported besides single
-                 * colors.
-                 * >
-                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.data)
-                 *
-                 *
-                 * @default
-                 * "#000"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.color
-                 */
-                color?: string;
-
-                /**
-                 * line width.
-                 *
-                 *
-                 * @default
-                 * 2
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.width
-                 */
-                width?: number;
-
-                /**
-                 * line type.
-                 *
-                 * Options are:
-                 *
-                 * + `'solid'`
-                 * + `'dashed'`
-                 * + `'dotted'`
-                 *
-                 *
-                 * @default
-                 * "solid"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.type
-                 */
-                type?: string;
-
-                /**
-                 * Size of shadow blur.
-                 * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                 * `shadowOffsetY` to set shadow to component.
-                 *
-                 * For example:
-                 *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.data)
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.shadowBlur
-                 */
-                shadowBlur?: number;
-
-                /**
-                 * Shadow color. Support same format as `color`.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.shadowColor
-                 */
-                shadowColor?: string;
-
-                /**
-                 * Offset distance on the horizontal direction of shadow.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.shadowOffsetX
-                 */
-                shadowOffsetX?: number;
-
-                /**
-                 * Offset distance on the vertical direction of shadow.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.shadowOffsetY
-                 */
-                shadowOffsetY?: number;
-
-                /**
-                 * Opacity of the component.
-                 * Supports value from 0 to 1, and the component will not be
-                 * drawn when set to 0.
-                 *
-                 *
-                 * @default
-                 * 0.45
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.opacity
-                 */
-                opacity?: number;
-
-                /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis
-                 */
-                emphasis?: {
-
-                    /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle
-                     */
-                    lineStyle?: {
-
-                        /**
-                         * Line color.
-                         *
-                         * > Color can be represented in RGB, for example `'rgb(128,
-                         * 128, 128)'`.
-                         * RGBA can be used when you need alpha channel, for
-                         * example `'rgba(128, 128, 128, 0.5)'`.
-                         * You may also use hexadecimal format, for example
-                         * `'#ccc'`.
-                         * Gradient color and texture are also supported besides
-                         * single colors.
-                         * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.data.emphasis.lineStyle)
-                         *
-                         *
-                         * @default
-                         * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * line width.
-                         *
-                         *
-                         * @default
-                         * 2
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.width
-                         */
-                        width?: number;
-
-                        /**
-                         * line type.
-                         *
-                         * Options are:
-                         *
-                         * + `'solid'`
-                         * + `'dashed'`
-                         * + `'dotted'`
-                         *
-                         *
-                         * @default
-                         * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.type
-                         */
-                        type?: string;
-
-                        /**
-                         * Size of shadow blur.
-                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                         * `shadowOffsetY` to set shadow to component.
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.data.emphasis.lineStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow color. Support same format as `color`.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Offset distance on the horizontal direction of shadow.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Offset distance on the vertical direction of shadow.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Opacity of the component.
-                         * Supports value from 0 to 1, and the component will
-                         * not be drawn when set to 0.
-                         *
-                         *
-                         * @default
-                         * 0.45
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.opacity
-                         */
-                        opacity?: number;
-                    };
-                };
-            };
+            data?: (
+                (number | string | SeriesParallel.DataObject)[]
+                | (number | string | SeriesParallel.DataObject)[][]
+            );
 
             /**
              * `zlevel` value of all graghical elements in parallel.
@@ -1324,6 +1097,240 @@ declare namespace echarts {
                  */
                 extraCssText?: string;
             };
+        }
+
+        namespace SeriesParallel {
+            interface DataObject {
+
+                /**
+                 * The name of a data item.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.name
+                 */
+                name?: string;
+
+                /**
+                 * The value of a data item.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.value
+                 */
+                value?: any[];
+
+                /**
+                 * Line style.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.lineStyle
+                 */
+                lineStyle?: object;
+
+                /**
+                 * Line color.
+                 *
+                 * > Color can be represented in RGB, for example `'rgb(128,
+                 * 128, 128)'`.
+                 * RGBA can be used when you need alpha channel, for example
+                 * `'rgba(128, 128, 128, 0.5)'`.
+                 * You may also use hexadecimal format, for example `'#ccc'`.
+                 * Gradient color and texture are also supported besides single
+                 * colors.
+                 * >
+                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.data)
+                 *
+                 *
+                 * @default
+                 * "#000"
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.color
+                 */
+                color?: string;
+
+                /**
+                 * line width.
+                 *
+                 *
+                 * @default
+                 * 2
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.width
+                 */
+                width?: number;
+
+                /**
+                 * line type.
+                 *
+                 * Options are:
+                 *
+                 * + `'solid'`
+                 * + `'dashed'`
+                 * + `'dotted'`
+                 *
+                 *
+                 * @default
+                 * "solid"
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.type
+                 */
+                type?: string;
+
+                /**
+                 * Size of shadow blur.
+                 * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                 * `shadowOffsetY` to set shadow to component.
+                 *
+                 * For example:
+                 *
+                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.data)
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.shadowBlur
+                 */
+                shadowBlur?: number;
+
+                /**
+                 * Shadow color. Support same format as `color`.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.shadowColor
+                 */
+                shadowColor?: string;
+
+                /**
+                 * Offset distance on the horizontal direction of shadow.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.shadowOffsetX
+                 */
+                shadowOffsetX?: number;
+
+                /**
+                 * Offset distance on the vertical direction of shadow.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.shadowOffsetY
+                 */
+                shadowOffsetY?: number;
+
+                /**
+                 * Opacity of the component.
+                 * Supports value from 0 to 1, and the component will not be
+                 * drawn when set to 0.
+                 *
+                 *
+                 * @default
+                 * 0.45
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.opacity
+                 */
+                opacity?: number;
+
+                /**
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis
+                 */
+                emphasis?: {
+
+                    /**
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle
+                     */
+                    lineStyle?: {
+
+                        /**
+                         * Line color.
+                         *
+                         * > Color can be represented in RGB, for example `'rgb(128,
+                         * 128, 128)'`.
+                         * RGBA can be used when you need alpha channel, for
+                         * example `'rgba(128, 128, 128, 0.5)'`.
+                         * You may also use hexadecimal format, for example
+                         * `'#ccc'`.
+                         * Gradient color and texture are also supported besides
+                         * single colors.
+                         * >
+                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.data.emphasis.lineStyle)
+                         *
+                         *
+                         * @default
+                         * "#000"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.color
+                         */
+                        color?: string;
+
+                        /**
+                         * line width.
+                         *
+                         *
+                         * @default
+                         * 2
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.width
+                         */
+                        width?: number;
+
+                        /**
+                         * line type.
+                         *
+                         * Options are:
+                         *
+                         * + `'solid'`
+                         * + `'dashed'`
+                         * + `'dotted'`
+                         *
+                         *
+                         * @default
+                         * "solid"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.type
+                         */
+                        type?: string;
+
+                        /**
+                         * Size of shadow blur.
+                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                         * `shadowOffsetY` to set shadow to component.
+                         *
+                         * For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.data.emphasis.lineStyle)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow color. Support same format as `color`.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Offset distance on the horizontal direction of shadow.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Offset distance on the vertical direction of shadow.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Opacity of the component.
+                         * Supports value from 0 to 1, and the component will
+                         * not be drawn when set to 0.
+                         *
+                         *
+                         * @default
+                         * 0.45
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.opacity
+                         */
+                        opacity?: number;
+                    };
+                };
+            }
         }
     }
 }

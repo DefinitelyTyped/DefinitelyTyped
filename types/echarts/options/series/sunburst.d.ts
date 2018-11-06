@@ -142,4049 +142,7 @@ declare namespace echarts {
              *
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data
              */
-            data?: {
-
-                /**
-                 * Value for each item.
-                 * If contains children, value can be left unset, and sum of
-                 * children values will be used in this case.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.value
-                 */
-                value?: number;
-
-                /**
-                 * Name displayed in each sector.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.name
-                 */
-                name?: string;
-
-                /**
-                 * Link address that redirects to when this sector is clicked.
-                 * Only useful when
-                 * [series-sunburst.nodeClick](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.nodeClick)
-                 * is set to be `'link'`.
-                 *
-                 * See
-                 * [series-sunburst.data.target](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.target)
-                 * .
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.link
-                 */
-                link?: string;
-
-                /**
-                 * Like `target` attribute of HTML `<a>`, which can either be
-                 * `'blank'` or `'self'`. See
-                 * [series-sunburst.data.link](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.link)
-                 * .
-                 *
-                 *
-                 * @default
-                 * "blank"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.target
-                 */
-                target?: string;
-
-                /**
-                 * `label` sets the text style for every sectors.
-                 *
-                 * **Priority:
-                 * [series.data.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label)
-                 * >
-                 * [series.levels.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.label)
-                 * >
-                 * [series.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.label)
-                 * .**
-                 *
-                 * Text label of , to explain some data information about graphic
-                 * item like value, name and so on.
-                 * `label` is placed under `itemStyle` in ECharts 2.x.
-                 * In ECharts 3, to make the configuration structure flatter,
-                 * `label`is taken to be at the same level with `itemStyle`,
-                 * and has `emphasis` as `itemStyle` does.
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label
-                 */
-                label?: {
-
-                    /**
-                     * If it is `number` type, then is stands for rotation,
-                     * from -90 degrees to 90 degrees, and positive values stand
-                     * for counterclockwise.
-                     *
-                     * Besides, it can be string `'radial'`, standing for radial
-                     * rotation; or `'tangential'`, standing for tangential
-                     * rotation.
-                     *
-                     * By default, it is `'radial'`.
-                     * If no rotation is wanted, it can be set to `0`.
-                     *
-                     * The following example shows different `rotate` settings:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
-                     *
-                     *
-                     * @default
-                     * "radial"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rotate
-                     */
-                    rotate?: number | string;
-
-                    /**
-                     * Align of text, which can be `'left'`, `'center'`, or
-                     * `'right'`.
-                     * Note that `'left'` stands for inner side, and `'right'`
-                     * stands for outer side.
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
-                     *
-                     *
-                     * @default
-                     * "center"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.align
-                     */
-                    align?: string;
-
-                    /**
-                     * If angle of data piece is smaller than this value (in
-                     * degrees), then text is not displayed.
-                     * This is used for hiding text for small piece of data.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.minAngle
-                     */
-                    minAngle?: number;
-
-                    /**
-                     * Whether to show label.
-                     *
-                     *
-                     * @default
-                     * "true"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.show
-                     */
-                    show?: boolean;
-
-                    /**
-                     * Label position.
-                     *
-                     * **Followings are the options:**
-                     *
-                     * + \[x, y\]
-                     *
-                     * Use relative percentage, or absolute pixel values to
-                     * represent position of label relative to top-left corner
-                     * of bounding box. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
-                     *
-                     * + 'top'
-                     *
-                     * + 'left'
-                     * + 'right'
-                     * + 'bottom'
-                     * + 'inside'
-                     * + 'insideLeft'
-                     * + 'insideRight'
-                     * + 'insideTop'
-                     * + 'insideBottom'
-                     * + 'insideTopLeft'
-                     * + 'insideBottomLeft'
-                     * + 'insideTopRight'
-                     * + 'insideBottomRight'
-                     *
-                     * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
-                     * .
-                     *
-                     *
-                     * @default
-                     * "inside"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.position
-                     */
-                    position?: any[] | string;
-
-                    /**
-                     * Distance to the host graphic element.
-                     * Works when position is string value (like `'top'`、`'insideRight'`).
-                     *
-                     * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
-                     * .
-                     *
-                     *
-                     * @default
-                     * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.distance
-                     */
-                    distance?: number;
-
-                    /**
-                     * Whether to move text slightly.
-                     * For example: `[30, 40]` means move `30` horizontally
-                     * and move `40` vertically.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.offset
-                     */
-                    offset?: any[];
-
-                    /**
-                     * Data label formatter, which supports string template
-                     * and callback function.
-                     * In either form, `\n` is supported to represent a new
-                     * line.
-                     *
-                     * **String template**
-                     *
-                     * Model variation includes:
-                     *
-                     * + `{a}`: series name.
-                     * + `{b}`: the name of a data item.
-                     * + `{c}`: the value of a data item.
-                     * + `{@xxx}: the value of a dimension named`'xxx'`, for
-                     * example,`{@product}`refers the value of`'product'\` dimension。
-                     * + `{@[n]}: the value of a dimension at the index of`n`,
-                     * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
-                     *
-                     * **example:**
-                     *
-                     * ```
-                     * formatter: '{b}: {@score}'
-                     *
-                     * ```
-                     *
-                     * **Callback function**
-                     *
-                     * Callback function is in form of:
-                     *
-                     * ```
-                     * (params: Object|Array) => string
-                     *
-                     * ```
-                     *
-                     * where `params` is the single dataset needed by formatter,
-                     * which is formed as:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.formatter
-                     */
-                    formatter?: Function | string;
-
-                    /**
-                     * text color.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.color
-                     */
-                    color?: string;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.fontStyle
-                     */
-                    fontStyle?: string;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.fontWeight
-                     */
-                    fontWeight?: string;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.fontFamily
-                     */
-                    fontFamily?: string;
-
-                    /**
-                     * font size
-                     *
-                     *
-                     * @default
-                     * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.fontSize
-                     */
-                    fontSize?: number;
-
-                    /**
-                     * Vertical alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'top'`
-                     * + `'middle'`
-                     * + `'bottom'`
-                     *
-                     * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                     * in parent level will be used. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.verticalAlign
-                     */
-                    verticalAlign?: string;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.lineHeight
-                     */
-                    lineHeight?: number;
-
-                    /**
-                     * Background color of the text fregment.
-                     *
-                     * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                     *
-                     * Or image can be used, for example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
-                     *
-                     * `width` or `height` can be specified when using background
-                     * image, or auto adapted by default.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.backgroundColor
-                     */
-                    backgroundColor?: object | string;
-
-                    /**
-                     * Border color of the text fregment.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * Border width of the text fregment.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * Border radius of the text fregment.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.borderRadius
-                     */
-                    borderRadius?: number;
-
-                    /**
-                     * Padding of the text fregment, for example:
-                     *
-                     * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
-                     * right, bottom, left]`.
-                     * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                     * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.padding
-                     */
-                    padding?: any[] | number;
-
-                    /**
-                     * Shadow color of the text block.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.shadowColor
-                     */
-                    shadowColor?: string;
-
-                    /**
-                     * Show blur of the text block.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.shadowBlur
-                     */
-                    shadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text block.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.shadowOffsetX
-                     */
-                    shadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text block.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.shadowOffsetY
-                     */
-                    shadowOffsetY?: number;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.width
-                     */
-                    width?: number | string;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.height
-                     */
-                    height?: number | string;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.textBorderColor
-                     */
-                    textBorderColor?: string;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.textBorderWidth
-                     */
-                    textBorderWidth?: number;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.textShadowColor
-                     */
-                    textShadowColor?: string;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.textShadowBlur
-                     */
-                    textShadowBlur?: number;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number;
-
-                    /**
-                     * "Rich text styles" can be defined in this `rich` property.
-                     * For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
-                     *
-                     * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
-                     * please.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich
-                     */
-                    rich?: {
-
-                        /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E
-                         */
-                        [userStyle: string]: {
-
-                            /**
-                             * text color.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                             */
-                            color?: string;
-
-                            /**
-                             * font style
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'italic'`
-                             * + `'oblique'`
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                             */
-                            fontStyle?: string;
-
-                            /**
-                             * font thick weight
-                             *
-                             * Options are:
-                             *
-                             * + `'normal'`
-                             * + `'bold'`
-                             * + `'bolder'`
-                             * + `'lighter'`
-                             * + 100 | 200 | 300 | 400...
-                             *
-                             *
-                             * @default
-                             * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                             */
-                            fontWeight?: string;
-
-                            /**
-                             * font family
-                             *
-                             * Can also be 'serif' , 'monospace', ...
-                             *
-                             *
-                             * @default
-                             * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                             */
-                            fontFamily?: string;
-
-                            /**
-                             * font size
-                             *
-                             *
-                             * @default
-                             * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                             */
-                            fontSize?: number;
-
-                            /**
-                             * Horizontal alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'left'`
-                             * + `'center'`
-                             * + `'right'`
-                             *
-                             * If `align` is not set in `rich`, `align` in parent
-                             * level will be used. For example:
-                             *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                             */
-                            align?: string;
-
-                            /**
-                             * Vertical alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'top'`
-                             * + `'middle'`
-                             * + `'bottom'`
-                             *
-                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                             */
-                            verticalAlign?: string;
-
-                            /**
-                             * Line height of the text fregment.
-                             *
-                             * If `lineHeight` is not set in `rich`, `lineHeight`
-                             * in parent level will be used. For example:
-                             *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                             */
-                            lineHeight?: number;
-
-                            /**
-                             * Background color of the text fregment.
-                             *
-                             * Can be color string, like `'#123234'`, `'red'`,
-                             * `rgba(0,23,11,0.3)'`.
-                             *
-                             * Or image can be used, for example:
-                             *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             * `width` or `height` can be specified when using
-                             * background image, or auto adapted by default.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                             */
-                            backgroundColor?: object | string;
-
-                            /**
-                             * Border color of the text fregment.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                             */
-                            borderColor?: string;
-
-                            /**
-                             * Border width of the text fregment.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                             */
-                            borderWidth?: number;
-
-                            /**
-                             * Border radius of the text fregment.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                             */
-                            borderRadius?: number;
-
-                            /**
-                             * Padding of the text fregment, for example:
-                             *
-                             * + `padding: [3, 4, 5, 6]`: represents padding
-                             * of `[top, right, bottom, left]`.
-                             * + `padding: 4`: represents `padding: [4, 4, 4,
-                             * 4]`.
-                             * + `padding: [3, 4]`: represents `padding: [3,
-                             * 4, 3, 4]`.
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                             */
-                            padding?: any[] | number;
-
-                            /**
-                             * Shadow color of the text block.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                             */
-                            shadowColor?: string;
-
-                            /**
-                             * Show blur of the text block.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                             */
-                            shadowBlur?: number;
-
-                            /**
-                             * Shadow X offset of the text block.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                             */
-                            shadowOffsetX?: number;
-
-                            /**
-                             * Shadow Y offset of the text block.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                             */
-                            shadowOffsetY?: number;
-
-                            /**
-                             * Width of the text block.
-                             * It is the width of the text by default.
-                             * In most cases, there is no need to specify it.
-                             * You may want to use it in some cases like make
-                             * simple table or using background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * `width` can also be percent string, like `'100%'`,
-                             * which represents the percent of `contentWidth`
-                             * (that is, the width without `padding`) of its
-                             * container box.
-                             * It is based on `contentWidth` because that each
-                             * text fregment is layout based on the `content
-                             * box`, where it makes no sense that calculating
-                             * width based on `outerWith` in prectice.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                             */
-                            width?: number | string;
-
-                            /**
-                             * Height of the text block.
-                             * It is the width of the text by default.
-                             * You may want to use it in some cases like using
-                             * background image (see `backgroundColor`).
-                             *
-                             * Notice, `width` and `height` specifies the width
-                             * and height of the content, without `padding`.
-                             *
-                             * Notice, `width` and `height` only work when `rich`
-                             * specified.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                             */
-                            height?: number | string;
-
-                            /**
-                             * Storke color of the text.
-                             *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                             */
-                            textBorderColor?: string;
-
-                            /**
-                             * Storke line width of the text.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                             */
-                            textBorderWidth?: number;
-
-                            /**
-                             * Shadow color of the text itself.
-                             *
-                             *
-                             * @default
-                             * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                             */
-                            textShadowColor?: string;
-
-                            /**
-                             * Shadow blue of the text itself.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                             */
-                            textShadowBlur?: number;
-
-                            /**
-                             * Shadow X offset of the text itself.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                             */
-                            textShadowOffsetX?: number;
-
-                            /**
-                             * Shadow Y offset of the text itself.
-                             *
-                             *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                             */
-                            textShadowOffsetY?: number;
-                        };
-                    };
-                };
-
-                /**
-                 * Style of Sunburst sectors.
-                 *
-                 * Style can be set in
-                 * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
-                 * for sectors of this series, or
-                 * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
-                 * for the whole level, or
-                 * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
-                 * for single sector. If
-                 * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
-                 * is defined, it will cover the setting of
-                 * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
-                 * and
-                 * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
-                 * .
-                 *
-                 * **Priority:
-                 * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
-                 * >
-                 * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
-                 * >
-                 * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
-                 * .**
-                 *
-                 * In ECharts, _emphasis_ is for styles when mouse hovers.
-                 * For Sunburst charts, there are two extra states: _highlight_
-                 * for highlighting items that relates to the emphasized one,
-                 * and _downplay_ for others when emphasizing an item. See
-                 * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
-                 * .
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle
-                 */
-                itemStyle?: {
-
-                    /**
-                     * color. Color is taken from
-                     * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
-                     * by default.
-                     *
-                     * > Color can be represented in RGB, for example `'rgb(128,
-                     * 128, 128)'`.
-                     * RGBA can be used when you need alpha channel, for example
-                     * `'rgba(128, 128, 128, 0.5)'`.
-                     * You may also use hexadecimal format, for example `'#ccc'`.
-                     * Gradient color and texture are also supported besides
-                     * single colors.
-                     * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.itemStyle)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.color
-                     */
-                    color?: string;
-
-                    /**
-                     * border color, whose format is similar to that of `color`.
-                     *
-                     *
-                     * @default
-                     * "white"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.borderColor
-                     */
-                    borderColor?: string;
-
-                    /**
-                     * border width. No border when it is set to be 0.
-                     *
-                     *
-                     * @default
-                     * 1
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.borderWidth
-                     */
-                    borderWidth?: number;
-
-                    /**
-                     * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
-                     * `'solid'` by default.
-                     *
-                     *
-                     * @default
-                     * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.borderType
-                     */
-                    borderType?: string;
-
-                    /**
-                     * Size of shadow blur.
-                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                     * `shadowOffsetY` to set shadow to component.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.itemStyle)
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.shadowBlur
-                     */
-                    shadowBlur?: number;
-
-                    /**
-                     * Shadow color. Support same format as `color`.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.shadowColor
-                     */
-                    shadowColor?: string;
-
-                    /**
-                     * Offset distance on the horizontal direction of shadow.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.shadowOffsetX
-                     */
-                    shadowOffsetX?: number;
-
-                    /**
-                     * Offset distance on the vertical direction of shadow.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.shadowOffsetY
-                     */
-                    shadowOffsetY?: number;
-
-                    /**
-                     * Opacity of the component.
-                     * Supports value from 0 to 1, and the component will not
-                     * be drawn when set to 0.
-                     *
-                     *
-                     * @default
-                     * 1
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.opacity
-                     */
-                    opacity?: number;
-                };
-
-                /**
-                 * Item style when mouse is hovering. See
-                 * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
-                 * .
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis
-                 */
-                emphasis?: {
-
-                    /**
-                     * `label` sets the text style for every sectors.
-                     *
-                     * **Priority:
-                     * [series.data.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label)
-                     * >
-                     * [series.levels.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.label)
-                     * >
-                     * [series.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.label)
-                     * .**
-                     *
-                     * Text label of , to explain some data information about
-                     * graphic item like value, name and so on.
-                     * `label` is placed under `itemStyle` in ECharts 2.x.
-                     * In ECharts 3, to make the configuration structure flatter,
-                     * `label`is taken to be at the same level with `itemStyle`,
-                     * and has `emphasis` as `itemStyle` does.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label
-                     */
-                    label?: {
-
-                        /**
-                         * If it is `number` type, then is stands for rotation,
-                         * from -90 degrees to 90 degrees, and positive values
-                         * stand for counterclockwise.
-                         *
-                         * Besides, it can be string `'radial'`, standing for
-                         * radial rotation; or `'tangential'`, standing for
-                         * tangential rotation.
-                         *
-                         * By default, it is `'radial'`.
-                         * If no rotation is wanted, it can be set to `0`.
-                         *
-                         * The following example shows different `rotate` settings:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
-                         *
-                         *
-                         * @default
-                         * "radial"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rotate
-                         */
-                        rotate?: number | string;
-
-                        /**
-                         * Align of text, which can be `'left'`, `'center'`,
-                         * or `'right'`.
-                         * Note that `'left'` stands for inner side, and `'right'`
-                         * stands for outer side.
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
-                         *
-                         *
-                         * @default
-                         * "center"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.align
-                         */
-                        align?: string;
-
-                        /**
-                         * If angle of data piece is smaller than this value
-                         * (in degrees), then text is not displayed.
-                         * This is used for hiding text for small piece of data.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.minAngle
-                         */
-                        minAngle?: number;
-
-                        /**
-                         * Whether to show label.
-                         *
-                         *
-                         * @default
-                         * "true"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.show
-                         */
-                        show?: boolean;
-
-                        /**
-                         * Label position.
-                         *
-                         * **Followings are the options:**
-                         *
-                         * + \[x, y\]
-                         *
-                         * Use relative percentage, or absolute pixel values
-                         * to represent position of label relative to top-left
-                         * corner of bounding box. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
-                         *
-                         * + 'top'
-                         *
-                         * + 'left'
-                         * + 'right'
-                         * + 'bottom'
-                         * + 'inside'
-                         * + 'insideLeft'
-                         * + 'insideRight'
-                         * + 'insideTop'
-                         * + 'insideBottom'
-                         * + 'insideTopLeft'
-                         * + 'insideBottomLeft'
-                         * + 'insideTopRight'
-                         * + 'insideBottomRight'
-                         *
-                         * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
-                         * .
-                         *
-                         *
-                         * @default
-                         * "inside"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.position
-                         */
-                        position?: any[] | string;
-
-                        /**
-                         * Distance to the host graphic element.
-                         * Works when position is string value (like `'top'`、`'insideRight'`).
-                         *
-                         * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
-                         * .
-                         *
-                         *
-                         * @default
-                         * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.distance
-                         */
-                        distance?: number;
-
-                        /**
-                         * Whether to move text slightly.
-                         * For example: `[30, 40]` means move `30` horizontally
-                         * and move `40` vertically.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.offset
-                         */
-                        offset?: any[];
-
-                        /**
-                         * Data label formatter, which supports string template
-                         * and callback function.
-                         * In either form, `\n` is supported to represent a
-                         * new line.
-                         *
-                         * **String template**
-                         *
-                         * Model variation includes:
-                         *
-                         * + `{a}`: series name.
-                         * + `{b}`: the name of a data item.
-                         * + `{c}`: the value of a data item.
-                         * + `{@xxx}: the value of a dimension named`'xxx'`,
-                         * for example,`{@product}`refers the value of`'product'\`
-                         * dimension。
-                         * + `{@[n]}: the value of a dimension at the index
-                         * of`n`, for example,`{@\[3\]}\` refers the value at
-                         * dimensions\[3\].
-                         *
-                         * **example:**
-                         *
-                         * ```
-                         * formatter: '{b}: {@score}'
-                         *
-                         * ```
-                         *
-                         * **Callback function**
-                         *
-                         * Callback function is in form of:
-                         *
-                         * ```
-                         * (params: Object|Array) => string
-                         *
-                         * ```
-                         *
-                         * where `params` is the single dataset needed by formatter,
-                         * which is formed as:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.formatter
-                         */
-                        formatter?: Function | string;
-
-                        /**
-                         * text color.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Vertical alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'top'`
-                         * + `'middle'`
-                         * + `'bottom'`
-                         *
-                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.verticalAlign
-                         */
-                        verticalAlign?: string;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Background color of the text fregment.
-                         *
-                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                         *
-                         * Or image can be used, for example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
-                         *
-                         * `width` or `height` can be specified when using background
-                         * image, or auto adapted by default.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.backgroundColor
-                         */
-                        backgroundColor?: object | string;
-
-                        /**
-                         * Border color of the text fregment.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.borderColor
-                         */
-                        borderColor?: string;
-
-                        /**
-                         * Border width of the text fregment.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.borderWidth
-                         */
-                        borderWidth?: number;
-
-                        /**
-                         * Border radius of the text fregment.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.borderRadius
-                         */
-                        borderRadius?: number;
-
-                        /**
-                         * Padding of the text fregment, for example:
-                         *
-                         * + `padding: [3, 4, 5, 6]`: represents padding of
-                         * `[top, right, bottom, left]`.
-                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                         * + `padding: [3, 4]`: represents `padding: [3, 4,
-                         * 3, 4]`.
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.padding
-                         */
-                        padding?: any[] | number;
-
-                        /**
-                         * Shadow color of the text block.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Show blur of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-
-                        /**
-                         * "Rich text styles" can be defined in this `rich`
-                         * property. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
-                         *
-                         * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
-                         * please.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich
-                         */
-                        rich?: {
-
-                            /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
-                             */
-                            [userStyle: string]: {
-
-                                /**
-                                 * text color.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                                 */
-                                color?: string;
-
-                                /**
-                                 * font style
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'italic'`
-                                 * + `'oblique'`
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                                 */
-                                fontStyle?: string;
-
-                                /**
-                                 * font thick weight
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'bold'`
-                                 * + `'bolder'`
-                                 * + `'lighter'`
-                                 * + 100 | 200 | 300 | 400...
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                                 */
-                                fontWeight?: string;
-
-                                /**
-                                 * font family
-                                 *
-                                 * Can also be 'serif' , 'monospace', ...
-                                 *
-                                 *
-                                 * @default
-                                 * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                                 */
-                                fontFamily?: string;
-
-                                /**
-                                 * font size
-                                 *
-                                 *
-                                 * @default
-                                 * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                                 */
-                                fontSize?: number;
-
-                                /**
-                                 * Horizontal alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'left'`
-                                 * + `'center'`
-                                 * + `'right'`
-                                 *
-                                 * If `align` is not set in `rich`, `align`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                                 */
-                                align?: string;
-
-                                /**
-                                 * Vertical alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'top'`
-                                 * + `'middle'`
-                                 * + `'bottom'`
-                                 *
-                                 * If `verticalAlign` is not set in `rich`,
-                                 * `verticalAlign` in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                                 */
-                                verticalAlign?: string;
-
-                                /**
-                                 * Line height of the text fregment.
-                                 *
-                                 * If `lineHeight` is not set in `rich`, `lineHeight`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                                 */
-                                lineHeight?: number;
-
-                                /**
-                                 * Background color of the text fregment.
-                                 *
-                                 * Can be color string, like `'#123234'`, `'red'`,
-                                 * `rgba(0,23,11,0.3)'`.
-                                 *
-                                 * Or image can be used, for example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * `width` or `height` can be specified when
-                                 * using background image, or auto adapted by
-                                 * default.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                                 */
-                                backgroundColor?: object | string;
-
-                                /**
-                                 * Border color of the text fregment.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                                 */
-                                borderColor?: string;
-
-                                /**
-                                 * Border width of the text fregment.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                                 */
-                                borderWidth?: number;
-
-                                /**
-                                 * Border radius of the text fregment.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                                 */
-                                borderRadius?: number;
-
-                                /**
-                                 * Padding of the text fregment, for example:
-                                 *
-                                 * + `padding: [3, 4, 5, 6]`: represents padding
-                                 * of `[top, right, bottom, left]`.
-                                 * + `padding: 4`: represents `padding: [4,
-                                 * 4, 4, 4]`.
-                                 * + `padding: [3, 4]`: represents `padding:
-                                 * [3, 4, 3, 4]`.
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                                 */
-                                padding?: any[] | number;
-
-                                /**
-                                 * Shadow color of the text block.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                                 */
-                                shadowColor?: string;
-
-                                /**
-                                 * Show blur of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                                 */
-                                shadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                                 */
-                                shadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                                 */
-                                shadowOffsetY?: number;
-
-                                /**
-                                 * Width of the text block.
-                                 * It is the width of the text by default.
-                                 * In most cases, there is no need to specify
-                                 * it.
-                                 * You may want to use it in some cases like
-                                 * make simple table or using background image
-                                 * (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * `width` can also be percent string, like
-                                 * `'100%'`, which represents the percent of
-                                 * `contentWidth` (that is, the width without
-                                 * `padding`) of its container box.
-                                 * It is based on `contentWidth` because that
-                                 * each text fregment is layout based on the
-                                 * `content box`, where it makes no sense that
-                                 * calculating width based on `outerWith` in
-                                 * prectice.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                                 */
-                                width?: number | string;
-
-                                /**
-                                 * Height of the text block.
-                                 * It is the width of the text by default.
-                                 * You may want to use it in some cases like
-                                 * using background image (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                                 */
-                                height?: number | string;
-
-                                /**
-                                 * Storke color of the text.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                                 */
-                                textBorderColor?: string;
-
-                                /**
-                                 * Storke line width of the text.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                                 */
-                                textBorderWidth?: number;
-
-                                /**
-                                 * Shadow color of the text itself.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                                 */
-                                textShadowColor?: string;
-
-                                /**
-                                 * Shadow blue of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                                 */
-                                textShadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                                 */
-                                textShadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                                 */
-                                textShadowOffsetY?: number;
-                            };
-                        };
-                    };
-
-                    /**
-                     * Style of Sunburst sectors.
-                     *
-                     * Style can be set in
-                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
-                     * for sectors of this series, or
-                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
-                     * for the whole level, or
-                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
-                     * for single sector. If
-                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
-                     * is defined, it will cover the setting of
-                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
-                     * and
-                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
-                     * .
-                     *
-                     * **Priority:
-                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
-                     * >
-                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
-                     * >
-                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
-                     * .**
-                     *
-                     * In ECharts, _emphasis_ is for styles when mouse hovers.
-                     * For Sunburst charts, there are two extra states: _highlight_
-                     * for highlighting items that relates to the emphasized
-                     * one, and _downplay_ for others when emphasizing an item.
-                     * See
-                     * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
-                     * .
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle
-                     */
-                    itemStyle?: {
-
-                        /**
-                         * color. Color is taken from
-                         * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
-                         * by default.
-                         *
-                         * > Color can be represented in RGB, for example `'rgb(128,
-                         * 128, 128)'`.
-                         * RGBA can be used when you need alpha channel, for
-                         * example `'rgba(128, 128, 128, 0.5)'`.
-                         * You may also use hexadecimal format, for example
-                         * `'#ccc'`.
-                         * Gradient color and texture are also supported besides
-                         * single colors.
-                         * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.itemStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * border color, whose format is similar to that of
-                         * `color`.
-                         *
-                         *
-                         * @default
-                         * "white"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.borderColor
-                         */
-                        borderColor?: string;
-
-                        /**
-                         * border width. No border when it is set to be 0.
-                         *
-                         *
-                         * @default
-                         * 1
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.borderWidth
-                         */
-                        borderWidth?: number;
-
-                        /**
-                         * Border type, which can be `'solid'`, `'dashed'`,
-                         * or `'dotted'`. `'solid'` by default.
-                         *
-                         *
-                         * @default
-                         * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.borderType
-                         */
-                        borderType?: string;
-
-                        /**
-                         * Size of shadow blur.
-                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                         * `shadowOffsetY` to set shadow to component.
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.itemStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow color. Support same format as `color`.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Offset distance on the horizontal direction of shadow.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Offset distance on the vertical direction of shadow.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Opacity of the component.
-                         * Supports value from 0 to 1, and the component will
-                         * not be drawn when set to 0.
-                         *
-                         *
-                         * @default
-                         * 1
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.opacity
-                         */
-                        opacity?: number;
-                    };
-                };
-
-                /**
-                 * Item style when mouse is hovering related items. See
-                 * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
-                 * .
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight
-                 */
-                highlight?: {
-
-                    /**
-                     * `label` sets the text style for every sectors.
-                     *
-                     * **Priority:
-                     * [series.data.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label)
-                     * >
-                     * [series.levels.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.label)
-                     * >
-                     * [series.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.label)
-                     * .**
-                     *
-                     * Text label of , to explain some data information about
-                     * graphic item like value, name and so on.
-                     * `label` is placed under `itemStyle` in ECharts 2.x.
-                     * In ECharts 3, to make the configuration structure flatter,
-                     * `label`is taken to be at the same level with `itemStyle`,
-                     * and has `emphasis` as `itemStyle` does.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label
-                     */
-                    label?: {
-
-                        /**
-                         * If it is `number` type, then is stands for rotation,
-                         * from -90 degrees to 90 degrees, and positive values
-                         * stand for counterclockwise.
-                         *
-                         * Besides, it can be string `'radial'`, standing for
-                         * radial rotation; or `'tangential'`, standing for
-                         * tangential rotation.
-                         *
-                         * By default, it is `'radial'`.
-                         * If no rotation is wanted, it can be set to `0`.
-                         *
-                         * The following example shows different `rotate` settings:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
-                         *
-                         *
-                         * @default
-                         * "radial"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rotate
-                         */
-                        rotate?: number | string;
-
-                        /**
-                         * Align of text, which can be `'left'`, `'center'`,
-                         * or `'right'`.
-                         * Note that `'left'` stands for inner side, and `'right'`
-                         * stands for outer side.
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
-                         *
-                         *
-                         * @default
-                         * "center"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.align
-                         */
-                        align?: string;
-
-                        /**
-                         * If angle of data piece is smaller than this value
-                         * (in degrees), then text is not displayed.
-                         * This is used for hiding text for small piece of data.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.minAngle
-                         */
-                        minAngle?: number;
-
-                        /**
-                         * Whether to show label.
-                         *
-                         *
-                         * @default
-                         * "true"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.show
-                         */
-                        show?: boolean;
-
-                        /**
-                         * Label position.
-                         *
-                         * **Followings are the options:**
-                         *
-                         * + \[x, y\]
-                         *
-                         * Use relative percentage, or absolute pixel values
-                         * to represent position of label relative to top-left
-                         * corner of bounding box. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
-                         *
-                         * + 'top'
-                         *
-                         * + 'left'
-                         * + 'right'
-                         * + 'bottom'
-                         * + 'inside'
-                         * + 'insideLeft'
-                         * + 'insideRight'
-                         * + 'insideTop'
-                         * + 'insideBottom'
-                         * + 'insideTopLeft'
-                         * + 'insideBottomLeft'
-                         * + 'insideTopRight'
-                         * + 'insideBottomRight'
-                         *
-                         * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
-                         * .
-                         *
-                         *
-                         * @default
-                         * "inside"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.position
-                         */
-                        position?: any[] | string;
-
-                        /**
-                         * Distance to the host graphic element.
-                         * Works when position is string value (like `'top'`、`'insideRight'`).
-                         *
-                         * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
-                         * .
-                         *
-                         *
-                         * @default
-                         * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.distance
-                         */
-                        distance?: number;
-
-                        /**
-                         * Whether to move text slightly.
-                         * For example: `[30, 40]` means move `30` horizontally
-                         * and move `40` vertically.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.offset
-                         */
-                        offset?: any[];
-
-                        /**
-                         * Data label formatter, which supports string template
-                         * and callback function.
-                         * In either form, `\n` is supported to represent a
-                         * new line.
-                         *
-                         * **String template**
-                         *
-                         * Model variation includes:
-                         *
-                         * + `{a}`: series name.
-                         * + `{b}`: the name of a data item.
-                         * + `{c}`: the value of a data item.
-                         * + `{@xxx}: the value of a dimension named`'xxx'`,
-                         * for example,`{@product}`refers the value of`'product'\`
-                         * dimension。
-                         * + `{@[n]}: the value of a dimension at the index
-                         * of`n`, for example,`{@\[3\]}\` refers the value at
-                         * dimensions\[3\].
-                         *
-                         * **example:**
-                         *
-                         * ```
-                         * formatter: '{b}: {@score}'
-                         *
-                         * ```
-                         *
-                         * **Callback function**
-                         *
-                         * Callback function is in form of:
-                         *
-                         * ```
-                         * (params: Object|Array) => string
-                         *
-                         * ```
-                         *
-                         * where `params` is the single dataset needed by formatter,
-                         * which is formed as:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.formatter
-                         */
-                        formatter?: Function | string;
-
-                        /**
-                         * text color.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Vertical alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'top'`
-                         * + `'middle'`
-                         * + `'bottom'`
-                         *
-                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.verticalAlign
-                         */
-                        verticalAlign?: string;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Background color of the text fregment.
-                         *
-                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                         *
-                         * Or image can be used, for example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
-                         *
-                         * `width` or `height` can be specified when using background
-                         * image, or auto adapted by default.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.backgroundColor
-                         */
-                        backgroundColor?: object | string;
-
-                        /**
-                         * Border color of the text fregment.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.borderColor
-                         */
-                        borderColor?: string;
-
-                        /**
-                         * Border width of the text fregment.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.borderWidth
-                         */
-                        borderWidth?: number;
-
-                        /**
-                         * Border radius of the text fregment.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.borderRadius
-                         */
-                        borderRadius?: number;
-
-                        /**
-                         * Padding of the text fregment, for example:
-                         *
-                         * + `padding: [3, 4, 5, 6]`: represents padding of
-                         * `[top, right, bottom, left]`.
-                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                         * + `padding: [3, 4]`: represents `padding: [3, 4,
-                         * 3, 4]`.
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.padding
-                         */
-                        padding?: any[] | number;
-
-                        /**
-                         * Shadow color of the text block.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Show blur of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-
-                        /**
-                         * "Rich text styles" can be defined in this `rich`
-                         * property. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
-                         *
-                         * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
-                         * please.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich
-                         */
-                        rich?: {
-
-                            /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E
-                             */
-                            [userStyle: string]: {
-
-                                /**
-                                 * text color.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                                 */
-                                color?: string;
-
-                                /**
-                                 * font style
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'italic'`
-                                 * + `'oblique'`
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                                 */
-                                fontStyle?: string;
-
-                                /**
-                                 * font thick weight
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'bold'`
-                                 * + `'bolder'`
-                                 * + `'lighter'`
-                                 * + 100 | 200 | 300 | 400...
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                                 */
-                                fontWeight?: string;
-
-                                /**
-                                 * font family
-                                 *
-                                 * Can also be 'serif' , 'monospace', ...
-                                 *
-                                 *
-                                 * @default
-                                 * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                                 */
-                                fontFamily?: string;
-
-                                /**
-                                 * font size
-                                 *
-                                 *
-                                 * @default
-                                 * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                                 */
-                                fontSize?: number;
-
-                                /**
-                                 * Horizontal alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'left'`
-                                 * + `'center'`
-                                 * + `'right'`
-                                 *
-                                 * If `align` is not set in `rich`, `align`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                                 */
-                                align?: string;
-
-                                /**
-                                 * Vertical alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'top'`
-                                 * + `'middle'`
-                                 * + `'bottom'`
-                                 *
-                                 * If `verticalAlign` is not set in `rich`,
-                                 * `verticalAlign` in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                                 */
-                                verticalAlign?: string;
-
-                                /**
-                                 * Line height of the text fregment.
-                                 *
-                                 * If `lineHeight` is not set in `rich`, `lineHeight`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                                 */
-                                lineHeight?: number;
-
-                                /**
-                                 * Background color of the text fregment.
-                                 *
-                                 * Can be color string, like `'#123234'`, `'red'`,
-                                 * `rgba(0,23,11,0.3)'`.
-                                 *
-                                 * Or image can be used, for example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * `width` or `height` can be specified when
-                                 * using background image, or auto adapted by
-                                 * default.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                                 */
-                                backgroundColor?: object | string;
-
-                                /**
-                                 * Border color of the text fregment.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                                 */
-                                borderColor?: string;
-
-                                /**
-                                 * Border width of the text fregment.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                                 */
-                                borderWidth?: number;
-
-                                /**
-                                 * Border radius of the text fregment.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                                 */
-                                borderRadius?: number;
-
-                                /**
-                                 * Padding of the text fregment, for example:
-                                 *
-                                 * + `padding: [3, 4, 5, 6]`: represents padding
-                                 * of `[top, right, bottom, left]`.
-                                 * + `padding: 4`: represents `padding: [4,
-                                 * 4, 4, 4]`.
-                                 * + `padding: [3, 4]`: represents `padding:
-                                 * [3, 4, 3, 4]`.
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                                 */
-                                padding?: any[] | number;
-
-                                /**
-                                 * Shadow color of the text block.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                                 */
-                                shadowColor?: string;
-
-                                /**
-                                 * Show blur of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                                 */
-                                shadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                                 */
-                                shadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                                 */
-                                shadowOffsetY?: number;
-
-                                /**
-                                 * Width of the text block.
-                                 * It is the width of the text by default.
-                                 * In most cases, there is no need to specify
-                                 * it.
-                                 * You may want to use it in some cases like
-                                 * make simple table or using background image
-                                 * (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * `width` can also be percent string, like
-                                 * `'100%'`, which represents the percent of
-                                 * `contentWidth` (that is, the width without
-                                 * `padding`) of its container box.
-                                 * It is based on `contentWidth` because that
-                                 * each text fregment is layout based on the
-                                 * `content box`, where it makes no sense that
-                                 * calculating width based on `outerWith` in
-                                 * prectice.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                                 */
-                                width?: number | string;
-
-                                /**
-                                 * Height of the text block.
-                                 * It is the width of the text by default.
-                                 * You may want to use it in some cases like
-                                 * using background image (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                                 */
-                                height?: number | string;
-
-                                /**
-                                 * Storke color of the text.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                                 */
-                                textBorderColor?: string;
-
-                                /**
-                                 * Storke line width of the text.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                                 */
-                                textBorderWidth?: number;
-
-                                /**
-                                 * Shadow color of the text itself.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                                 */
-                                textShadowColor?: string;
-
-                                /**
-                                 * Shadow blue of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                                 */
-                                textShadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                                 */
-                                textShadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                                 */
-                                textShadowOffsetY?: number;
-                            };
-                        };
-                    };
-
-                    /**
-                     * Style of Sunburst sectors.
-                     *
-                     * Style can be set in
-                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
-                     * for sectors of this series, or
-                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
-                     * for the whole level, or
-                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
-                     * for single sector. If
-                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
-                     * is defined, it will cover the setting of
-                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
-                     * and
-                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
-                     * .
-                     *
-                     * **Priority:
-                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
-                     * >
-                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
-                     * >
-                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
-                     * .**
-                     *
-                     * In ECharts, _emphasis_ is for styles when mouse hovers.
-                     * For Sunburst charts, there are two extra states: _highlight_
-                     * for highlighting items that relates to the emphasized
-                     * one, and _downplay_ for others when emphasizing an item.
-                     * See
-                     * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
-                     * .
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle
-                     */
-                    itemStyle?: {
-
-                        /**
-                         * color. Color is taken from
-                         * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
-                         * by default.
-                         *
-                         * > Color can be represented in RGB, for example `'rgb(128,
-                         * 128, 128)'`.
-                         * RGBA can be used when you need alpha channel, for
-                         * example `'rgba(128, 128, 128, 0.5)'`.
-                         * You may also use hexadecimal format, for example
-                         * `'#ccc'`.
-                         * Gradient color and texture are also supported besides
-                         * single colors.
-                         * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.itemStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * border color, whose format is similar to that of
-                         * `color`.
-                         *
-                         *
-                         * @default
-                         * "white"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.borderColor
-                         */
-                        borderColor?: string;
-
-                        /**
-                         * border width. No border when it is set to be 0.
-                         *
-                         *
-                         * @default
-                         * 1
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.borderWidth
-                         */
-                        borderWidth?: number;
-
-                        /**
-                         * Border type, which can be `'solid'`, `'dashed'`,
-                         * or `'dotted'`. `'solid'` by default.
-                         *
-                         *
-                         * @default
-                         * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.borderType
-                         */
-                        borderType?: string;
-
-                        /**
-                         * Size of shadow blur.
-                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                         * `shadowOffsetY` to set shadow to component.
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.itemStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow color. Support same format as `color`.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Offset distance on the horizontal direction of shadow.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Offset distance on the vertical direction of shadow.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Opacity of the component.
-                         * Supports value from 0 to 1, and the component will
-                         * not be drawn when set to 0.
-                         *
-                         *
-                         * @default
-                         * 1
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.opacity
-                         */
-                        opacity?: number;
-                    };
-                };
-
-                /**
-                 * Item style when mouse is hovering unrelated items. See
-                 * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
-                 * .
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay
-                 */
-                downplay?: {
-
-                    /**
-                     * `label` sets the text style for every sectors.
-                     *
-                     * **Priority:
-                     * [series.data.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label)
-                     * >
-                     * [series.levels.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.label)
-                     * >
-                     * [series.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.label)
-                     * .**
-                     *
-                     * Text label of , to explain some data information about
-                     * graphic item like value, name and so on.
-                     * `label` is placed under `itemStyle` in ECharts 2.x.
-                     * In ECharts 3, to make the configuration structure flatter,
-                     * `label`is taken to be at the same level with `itemStyle`,
-                     * and has `emphasis` as `itemStyle` does.
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label
-                     */
-                    label?: {
-
-                        /**
-                         * If it is `number` type, then is stands for rotation,
-                         * from -90 degrees to 90 degrees, and positive values
-                         * stand for counterclockwise.
-                         *
-                         * Besides, it can be string `'radial'`, standing for
-                         * radial rotation; or `'tangential'`, standing for
-                         * tangential rotation.
-                         *
-                         * By default, it is `'radial'`.
-                         * If no rotation is wanted, it can be set to `0`.
-                         *
-                         * The following example shows different `rotate` settings:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
-                         *
-                         *
-                         * @default
-                         * "radial"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rotate
-                         */
-                        rotate?: number | string;
-
-                        /**
-                         * Align of text, which can be `'left'`, `'center'`,
-                         * or `'right'`.
-                         * Note that `'left'` stands for inner side, and `'right'`
-                         * stands for outer side.
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
-                         *
-                         *
-                         * @default
-                         * "center"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.align
-                         */
-                        align?: string;
-
-                        /**
-                         * If angle of data piece is smaller than this value
-                         * (in degrees), then text is not displayed.
-                         * This is used for hiding text for small piece of data.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.minAngle
-                         */
-                        minAngle?: number;
-
-                        /**
-                         * Whether to show label.
-                         *
-                         *
-                         * @default
-                         * "true"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.show
-                         */
-                        show?: boolean;
-
-                        /**
-                         * Label position.
-                         *
-                         * **Followings are the options:**
-                         *
-                         * + \[x, y\]
-                         *
-                         * Use relative percentage, or absolute pixel values
-                         * to represent position of label relative to top-left
-                         * corner of bounding box. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
-                         *
-                         * + 'top'
-                         *
-                         * + 'left'
-                         * + 'right'
-                         * + 'bottom'
-                         * + 'inside'
-                         * + 'insideLeft'
-                         * + 'insideRight'
-                         * + 'insideTop'
-                         * + 'insideBottom'
-                         * + 'insideTopLeft'
-                         * + 'insideBottomLeft'
-                         * + 'insideTopRight'
-                         * + 'insideBottomRight'
-                         *
-                         * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
-                         * .
-                         *
-                         *
-                         * @default
-                         * "inside"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.position
-                         */
-                        position?: any[] | string;
-
-                        /**
-                         * Distance to the host graphic element.
-                         * Works when position is string value (like `'top'`、`'insideRight'`).
-                         *
-                         * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
-                         * .
-                         *
-                         *
-                         * @default
-                         * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.distance
-                         */
-                        distance?: number;
-
-                        /**
-                         * Whether to move text slightly.
-                         * For example: `[30, 40]` means move `30` horizontally
-                         * and move `40` vertically.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.offset
-                         */
-                        offset?: any[];
-
-                        /**
-                         * Data label formatter, which supports string template
-                         * and callback function.
-                         * In either form, `\n` is supported to represent a
-                         * new line.
-                         *
-                         * **String template**
-                         *
-                         * Model variation includes:
-                         *
-                         * + `{a}`: series name.
-                         * + `{b}`: the name of a data item.
-                         * + `{c}`: the value of a data item.
-                         * + `{@xxx}: the value of a dimension named`'xxx'`,
-                         * for example,`{@product}`refers the value of`'product'\`
-                         * dimension。
-                         * + `{@[n]}: the value of a dimension at the index
-                         * of`n`, for example,`{@\[3\]}\` refers the value at
-                         * dimensions\[3\].
-                         *
-                         * **example:**
-                         *
-                         * ```
-                         * formatter: '{b}: {@score}'
-                         *
-                         * ```
-                         *
-                         * **Callback function**
-                         *
-                         * Callback function is in form of:
-                         *
-                         * ```
-                         * (params: Object|Array) => string
-                         *
-                         * ```
-                         *
-                         * where `params` is the single dataset needed by formatter,
-                         * which is formed as:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.formatter
-                         */
-                        formatter?: Function | string;
-
-                        /**
-                         * text color.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.color
-                         */
-                        color?: string;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.fontStyle
-                         */
-                        fontStyle?: string;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.fontWeight
-                         */
-                        fontWeight?: string;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.fontFamily
-                         */
-                        fontFamily?: string;
-
-                        /**
-                         * font size
-                         *
-                         *
-                         * @default
-                         * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.fontSize
-                         */
-                        fontSize?: number;
-
-                        /**
-                         * Vertical alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'top'`
-                         * + `'middle'`
-                         * + `'bottom'`
-                         *
-                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.verticalAlign
-                         */
-                        verticalAlign?: string;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.lineHeight
-                         */
-                        lineHeight?: number;
-
-                        /**
-                         * Background color of the text fregment.
-                         *
-                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                         *
-                         * Or image can be used, for example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
-                         *
-                         * `width` or `height` can be specified when using background
-                         * image, or auto adapted by default.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.backgroundColor
-                         */
-                        backgroundColor?: object | string;
-
-                        /**
-                         * Border color of the text fregment.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.borderColor
-                         */
-                        borderColor?: string;
-
-                        /**
-                         * Border width of the text fregment.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.borderWidth
-                         */
-                        borderWidth?: number;
-
-                        /**
-                         * Border radius of the text fregment.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.borderRadius
-                         */
-                        borderRadius?: number;
-
-                        /**
-                         * Padding of the text fregment, for example:
-                         *
-                         * + `padding: [3, 4, 5, 6]`: represents padding of
-                         * `[top, right, bottom, left]`.
-                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                         * + `padding: [3, 4]`: represents `padding: [3, 4,
-                         * 3, 4]`.
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.padding
-                         */
-                        padding?: any[] | number;
-
-                        /**
-                         * Shadow color of the text block.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Show blur of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text block.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.width
-                         */
-                        width?: number | string;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.height
-                         */
-                        height?: number | string;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.textBorderColor
-                         */
-                        textBorderColor?: string;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.textBorderWidth
-                         */
-                        textBorderWidth?: number;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.textShadowColor
-                         */
-                        textShadowColor?: string;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.textShadowBlur
-                         */
-                        textShadowBlur?: number;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number;
-
-                        /**
-                         * "Rich text styles" can be defined in this `rich`
-                         * property. For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
-                         *
-                         * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
-                         * please.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich
-                         */
-                        rich?: {
-
-                            /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E
-                             */
-                            [userStyle: string]: {
-
-                                /**
-                                 * text color.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                                 */
-                                color?: string;
-
-                                /**
-                                 * font style
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'italic'`
-                                 * + `'oblique'`
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                                 */
-                                fontStyle?: string;
-
-                                /**
-                                 * font thick weight
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'bold'`
-                                 * + `'bolder'`
-                                 * + `'lighter'`
-                                 * + 100 | 200 | 300 | 400...
-                                 *
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                                 */
-                                fontWeight?: string;
-
-                                /**
-                                 * font family
-                                 *
-                                 * Can also be 'serif' , 'monospace', ...
-                                 *
-                                 *
-                                 * @default
-                                 * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                                 */
-                                fontFamily?: string;
-
-                                /**
-                                 * font size
-                                 *
-                                 *
-                                 * @default
-                                 * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                                 */
-                                fontSize?: number;
-
-                                /**
-                                 * Horizontal alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'left'`
-                                 * + `'center'`
-                                 * + `'right'`
-                                 *
-                                 * If `align` is not set in `rich`, `align`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                                 */
-                                align?: string;
-
-                                /**
-                                 * Vertical alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'top'`
-                                 * + `'middle'`
-                                 * + `'bottom'`
-                                 *
-                                 * If `verticalAlign` is not set in `rich`,
-                                 * `verticalAlign` in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                                 */
-                                verticalAlign?: string;
-
-                                /**
-                                 * Line height of the text fregment.
-                                 *
-                                 * If `lineHeight` is not set in `rich`, `lineHeight`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                                 */
-                                lineHeight?: number;
-
-                                /**
-                                 * Background color of the text fregment.
-                                 *
-                                 * Can be color string, like `'#123234'`, `'red'`,
-                                 * `rgba(0,23,11,0.3)'`.
-                                 *
-                                 * Or image can be used, for example:
-                                 *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * `width` or `height` can be specified when
-                                 * using background image, or auto adapted by
-                                 * default.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                                 */
-                                backgroundColor?: object | string;
-
-                                /**
-                                 * Border color of the text fregment.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                                 */
-                                borderColor?: string;
-
-                                /**
-                                 * Border width of the text fregment.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                                 */
-                                borderWidth?: number;
-
-                                /**
-                                 * Border radius of the text fregment.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                                 */
-                                borderRadius?: number;
-
-                                /**
-                                 * Padding of the text fregment, for example:
-                                 *
-                                 * + `padding: [3, 4, 5, 6]`: represents padding
-                                 * of `[top, right, bottom, left]`.
-                                 * + `padding: 4`: represents `padding: [4,
-                                 * 4, 4, 4]`.
-                                 * + `padding: [3, 4]`: represents `padding:
-                                 * [3, 4, 3, 4]`.
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                                 */
-                                padding?: any[] | number;
-
-                                /**
-                                 * Shadow color of the text block.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                                 */
-                                shadowColor?: string;
-
-                                /**
-                                 * Show blur of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                                 */
-                                shadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                                 */
-                                shadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text block.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                                 */
-                                shadowOffsetY?: number;
-
-                                /**
-                                 * Width of the text block.
-                                 * It is the width of the text by default.
-                                 * In most cases, there is no need to specify
-                                 * it.
-                                 * You may want to use it in some cases like
-                                 * make simple table or using background image
-                                 * (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * `width` can also be percent string, like
-                                 * `'100%'`, which represents the percent of
-                                 * `contentWidth` (that is, the width without
-                                 * `padding`) of its container box.
-                                 * It is based on `contentWidth` because that
-                                 * each text fregment is layout based on the
-                                 * `content box`, where it makes no sense that
-                                 * calculating width based on `outerWith` in
-                                 * prectice.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                                 */
-                                width?: number | string;
-
-                                /**
-                                 * Height of the text block.
-                                 * It is the width of the text by default.
-                                 * You may want to use it in some cases like
-                                 * using background image (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                                 */
-                                height?: number | string;
-
-                                /**
-                                 * Storke color of the text.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                                 */
-                                textBorderColor?: string;
-
-                                /**
-                                 * Storke line width of the text.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                                 */
-                                textBorderWidth?: number;
-
-                                /**
-                                 * Shadow color of the text itself.
-                                 *
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                                 */
-                                textShadowColor?: string;
-
-                                /**
-                                 * Shadow blue of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                                 */
-                                textShadowBlur?: number;
-
-                                /**
-                                 * Shadow X offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                                 */
-                                textShadowOffsetX?: number;
-
-                                /**
-                                 * Shadow Y offset of the text itself.
-                                 *
-                                 *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                                 */
-                                textShadowOffsetY?: number;
-                            };
-                        };
-                    };
-
-                    /**
-                     * Style of Sunburst sectors.
-                     *
-                     * Style can be set in
-                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
-                     * for sectors of this series, or
-                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
-                     * for the whole level, or
-                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
-                     * for single sector. If
-                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
-                     * is defined, it will cover the setting of
-                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
-                     * and
-                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
-                     * .
-                     *
-                     * **Priority:
-                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
-                     * >
-                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
-                     * >
-                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
-                     * .**
-                     *
-                     * In ECharts, _emphasis_ is for styles when mouse hovers.
-                     * For Sunburst charts, there are two extra states: _highlight_
-                     * for highlighting items that relates to the emphasized
-                     * one, and _downplay_ for others when emphasizing an item.
-                     * See
-                     * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
-                     * .
-                     *
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle
-                     */
-                    itemStyle?: {
-
-                        /**
-                         * color. Color is taken from
-                         * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
-                         * by default.
-                         *
-                         * > Color can be represented in RGB, for example `'rgb(128,
-                         * 128, 128)'`.
-                         * RGBA can be used when you need alpha channel, for
-                         * example `'rgba(128, 128, 128, 0.5)'`.
-                         * You may also use hexadecimal format, for example
-                         * `'#ccc'`.
-                         * Gradient color and texture are also supported besides
-                         * single colors.
-                         * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.itemStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.color
-                         */
-                        color?: string;
-
-                        /**
-                         * border color, whose format is similar to that of
-                         * `color`.
-                         *
-                         *
-                         * @default
-                         * "white"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.borderColor
-                         */
-                        borderColor?: string;
-
-                        /**
-                         * border width. No border when it is set to be 0.
-                         *
-                         *
-                         * @default
-                         * 1
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.borderWidth
-                         */
-                        borderWidth?: number;
-
-                        /**
-                         * Border type, which can be `'solid'`, `'dashed'`,
-                         * or `'dotted'`. `'solid'` by default.
-                         *
-                         *
-                         * @default
-                         * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.borderType
-                         */
-                        borderType?: string;
-
-                        /**
-                         * Size of shadow blur.
-                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                         * `shadowOffsetY` to set shadow to component.
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.itemStyle)
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.shadowBlur
-                         */
-                        shadowBlur?: number;
-
-                        /**
-                         * Shadow color. Support same format as `color`.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.shadowColor
-                         */
-                        shadowColor?: string;
-
-                        /**
-                         * Offset distance on the horizontal direction of shadow.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.shadowOffsetX
-                         */
-                        shadowOffsetX?: number;
-
-                        /**
-                         * Offset distance on the vertical direction of shadow.
-                         *
-                         *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.shadowOffsetY
-                         */
-                        shadowOffsetY?: number;
-
-                        /**
-                         * Opacity of the component.
-                         * Supports value from 0 to 1, and the component will
-                         * not be drawn when set to 0.
-                         *
-                         *
-                         * @default
-                         * 1
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.opacity
-                         */
-                        opacity?: number;
-                    };
-                };
-
-                /**
-                 * Children nodes, which is recursively defined.
-                 * In the same format to
-                 * [series-sunburst.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data)
-                 * .
-                 *
-                 *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.children
-                 */
-                children?: any[];
-            };
+            data?: SeriesSunburst.DataObject[];
 
             /**
              * `label` sets the text style for every sectors.
@@ -12287,6 +8245,4052 @@ declare namespace echarts {
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.animationDelayUpdate
              */
             animationDelayUpdate?: Function | number;
+        }
+
+        namespace SeriesSunburst {
+            interface DataObject {
+
+                /**
+                 * Value for each item.
+                 * If contains children, value can be left unset, and sum of
+                 * children values will be used in this case.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.value
+                 */
+                value?: number;
+
+                /**
+                 * Name displayed in each sector.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.name
+                 */
+                name?: string;
+
+                /**
+                 * Link address that redirects to when this sector is clicked.
+                 * Only useful when
+                 * [series-sunburst.nodeClick](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-treemap.nodeClick)
+                 * is set to be `'link'`.
+                 *
+                 * See
+                 * [series-sunburst.data.target](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.target)
+                 * .
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.link
+                 */
+                link?: string;
+
+                /**
+                 * Like `target` attribute of HTML `<a>`, which can either be
+                 * `'blank'` or `'self'`. See
+                 * [series-sunburst.data.link](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.link)
+                 * .
+                 *
+                 *
+                 * @default
+                 * "blank"
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.target
+                 */
+                target?: string;
+
+                /**
+                 * `label` sets the text style for every sectors.
+                 *
+                 * **Priority:
+                 * [series.data.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label)
+                 * >
+                 * [series.levels.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.label)
+                 * >
+                 * [series.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.label)
+                 * .**
+                 *
+                 * Text label of , to explain some data information about graphic
+                 * item like value, name and so on.
+                 * `label` is placed under `itemStyle` in ECharts 2.x.
+                 * In ECharts 3, to make the configuration structure flatter,
+                 * `label`is taken to be at the same level with `itemStyle`,
+                 * and has `emphasis` as `itemStyle` does.
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label
+                 */
+                label?: {
+
+                    /**
+                     * If it is `number` type, then is stands for rotation,
+                     * from -90 degrees to 90 degrees, and positive values stand
+                     * for counterclockwise.
+                     *
+                     * Besides, it can be string `'radial'`, standing for radial
+                     * rotation; or `'tangential'`, standing for tangential
+                     * rotation.
+                     *
+                     * By default, it is `'radial'`.
+                     * If no rotation is wanted, it can be set to `0`.
+                     *
+                     * The following example shows different `rotate` settings:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
+                     *
+                     *
+                     * @default
+                     * "radial"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rotate
+                     */
+                    rotate?: number | string;
+
+                    /**
+                     * Align of text, which can be `'left'`, `'center'`, or
+                     * `'right'`.
+                     * Note that `'left'` stands for inner side, and `'right'`
+                     * stands for outer side.
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
+                     *
+                     *
+                     * @default
+                     * "center"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.align
+                     */
+                    align?: string;
+
+                    /**
+                     * If angle of data piece is smaller than this value (in
+                     * degrees), then text is not displayed.
+                     * This is used for hiding text for small piece of data.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.minAngle
+                     */
+                    minAngle?: number;
+
+                    /**
+                     * Whether to show label.
+                     *
+                     *
+                     * @default
+                     * "true"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.show
+                     */
+                    show?: boolean;
+
+                    /**
+                     * Label position.
+                     *
+                     * **Followings are the options:**
+                     *
+                     * + \[x, y\]
+                     *
+                     * Use relative percentage, or absolute pixel values to
+                     * represent position of label relative to top-left corner
+                     * of bounding box. For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
+                     *
+                     * + 'top'
+                     *
+                     * + 'left'
+                     * + 'right'
+                     * + 'bottom'
+                     * + 'inside'
+                     * + 'insideLeft'
+                     * + 'insideRight'
+                     * + 'insideTop'
+                     * + 'insideBottom'
+                     * + 'insideTopLeft'
+                     * + 'insideBottomLeft'
+                     * + 'insideTopRight'
+                     * + 'insideBottomRight'
+                     *
+                     * See:
+                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * .
+                     *
+                     *
+                     * @default
+                     * "inside"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.position
+                     */
+                    position?: any[] | string;
+
+                    /**
+                     * Distance to the host graphic element.
+                     * Works when position is string value (like `'top'`、`'insideRight'`).
+                     *
+                     * See:
+                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * .
+                     *
+                     *
+                     * @default
+                     * 5
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.distance
+                     */
+                    distance?: number;
+
+                    /**
+                     * Whether to move text slightly.
+                     * For example: `[30, 40]` means move `30` horizontally
+                     * and move `40` vertically.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.offset
+                     */
+                    offset?: any[];
+
+                    /**
+                     * Data label formatter, which supports string template
+                     * and callback function.
+                     * In either form, `\n` is supported to represent a new
+                     * line.
+                     *
+                     * **String template**
+                     *
+                     * Model variation includes:
+                     *
+                     * + `{a}`: series name.
+                     * + `{b}`: the name of a data item.
+                     * + `{c}`: the value of a data item.
+                     * + `{@xxx}: the value of a dimension named`'xxx'`, for
+                     * example,`{@product}`refers the value of`'product'\` dimension。
+                     * + `{@[n]}: the value of a dimension at the index of`n`,
+                     * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
+                     *
+                     * **example:**
+                     *
+                     * ```
+                     * formatter: '{b}: {@score}'
+                     *
+                     * ```
+                     *
+                     * **Callback function**
+                     *
+                     * Callback function is in form of:
+                     *
+                     * ```
+                     * (params: Object|Array) => string
+                     *
+                     * ```
+                     *
+                     * where `params` is the single dataset needed by formatter,
+                     * which is formed as:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.formatter
+                     */
+                    formatter?: Function | string;
+
+                    /**
+                     * text color.
+                     *
+                     * If set as `'auto'`, the color will assigned as visual
+                     * color, such as series color.
+                     *
+                     *
+                     * @default
+                     * ""#fff""
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.color
+                     */
+                    color?: string;
+
+                    /**
+                     * font style
+                     *
+                     * Options are:
+                     *
+                     * + `'normal'`
+                     * + `'italic'`
+                     * + `'oblique'`
+                     *
+                     *
+                     * @default
+                     * "normal"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.fontStyle
+                     */
+                    fontStyle?: string;
+
+                    /**
+                     * font thick weight
+                     *
+                     * Options are:
+                     *
+                     * + `'normal'`
+                     * + `'bold'`
+                     * + `'bolder'`
+                     * + `'lighter'`
+                     * + 100 | 200 | 300 | 400...
+                     *
+                     *
+                     * @default
+                     * "normal"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.fontWeight
+                     */
+                    fontWeight?: string;
+
+                    /**
+                     * font family
+                     *
+                     * Can also be 'serif' , 'monospace', ...
+                     *
+                     *
+                     * @default
+                     * "sans-serif"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.fontFamily
+                     */
+                    fontFamily?: string;
+
+                    /**
+                     * font size
+                     *
+                     *
+                     * @default
+                     * 12
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.fontSize
+                     */
+                    fontSize?: number;
+
+                    /**
+                     * Vertical alignment of text, automatic by default.
+                     *
+                     * Options are:
+                     *
+                     * + `'top'`
+                     * + `'middle'`
+                     * + `'bottom'`
+                     *
+                     * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                     * in parent level will be used. For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.verticalAlign
+                     */
+                    verticalAlign?: string;
+
+                    /**
+                     * Line height of the text fregment.
+                     *
+                     * If `lineHeight` is not set in `rich`, `lineHeight` in
+                     * parent level will be used. For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.lineHeight
+                     */
+                    lineHeight?: number;
+
+                    /**
+                     * Background color of the text fregment.
+                     *
+                     * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                     *
+                     * Or image can be used, for example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
+                     *
+                     * `width` or `height` can be specified when using background
+                     * image, or auto adapted by default.
+                     *
+                     * If set as `'auto'`, the color will assigned as visual
+                     * color, such as series color.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.backgroundColor
+                     */
+                    backgroundColor?: object | string;
+
+                    /**
+                     * Border color of the text fregment.
+                     *
+                     * If set as `'auto'`, the color will assigned as visual
+                     * color, such as series color.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.borderColor
+                     */
+                    borderColor?: string;
+
+                    /**
+                     * Border width of the text fregment.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.borderWidth
+                     */
+                    borderWidth?: number;
+
+                    /**
+                     * Border radius of the text fregment.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.borderRadius
+                     */
+                    borderRadius?: number;
+
+                    /**
+                     * Padding of the text fregment, for example:
+                     *
+                     * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
+                     * right, bottom, left]`.
+                     * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                     * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
+                     *
+                     * Notice, `width` and `height` specifies the width and
+                     * height of the content, without `padding`.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.padding
+                     */
+                    padding?: any[] | number;
+
+                    /**
+                     * Shadow color of the text block.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.shadowColor
+                     */
+                    shadowColor?: string;
+
+                    /**
+                     * Show blur of the text block.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * Shadow X offset of the text block.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Shadow Y offset of the text block.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * Width of the text block.
+                     * It is the width of the text by default.
+                     * In most cases, there is no need to specify it.
+                     * You may want to use it in some cases like make simple
+                     * table or using background image (see `backgroundColor`).
+                     *
+                     * Notice, `width` and `height` specifies the width and
+                     * height of the content, without `padding`.
+                     *
+                     * `width` can also be percent string, like `'100%'`, which
+                     * represents the percent of `contentWidth` (that is, the
+                     * width without `padding`) of its container box.
+                     * It is based on `contentWidth` because that each text
+                     * fregment is layout based on the `content box`, where
+                     * it makes no sense that calculating width based on `outerWith`
+                     * in prectice.
+                     *
+                     * Notice, `width` and `height` only work when `rich` specified.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.width
+                     */
+                    width?: number | string;
+
+                    /**
+                     * Height of the text block.
+                     * It is the width of the text by default.
+                     * You may want to use it in some cases like using background
+                     * image (see `backgroundColor`).
+                     *
+                     * Notice, `width` and `height` specifies the width and
+                     * height of the content, without `padding`.
+                     *
+                     * Notice, `width` and `height` only work when `rich` specified.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.height
+                     */
+                    height?: number | string;
+
+                    /**
+                     * Storke color of the text.
+                     *
+                     * If set as `'auto'`, the color will assigned as visual
+                     * color, such as series color.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.textBorderColor
+                     */
+                    textBorderColor?: string;
+
+                    /**
+                     * Storke line width of the text.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.textBorderWidth
+                     */
+                    textBorderWidth?: number;
+
+                    /**
+                     * Shadow color of the text itself.
+                     *
+                     *
+                     * @default
+                     * "transparent"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.textShadowColor
+                     */
+                    textShadowColor?: string;
+
+                    /**
+                     * Shadow blue of the text itself.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.textShadowBlur
+                     */
+                    textShadowBlur?: number;
+
+                    /**
+                     * Shadow X offset of the text itself.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.textShadowOffsetX
+                     */
+                    textShadowOffsetX?: number;
+
+                    /**
+                     * Shadow Y offset of the text itself.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.textShadowOffsetY
+                     */
+                    textShadowOffsetY?: number;
+
+                    /**
+                     * "Rich text styles" can be defined in this `rich` property.
+                     * For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label)
+                     *
+                     * For more details, see
+                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * please.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich
+                     */
+                    rich?: {
+
+                        /**
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E
+                         */
+                        [userStyle: string]: {
+
+                            /**
+                             * text color.
+                             *
+                             * If set as `'auto'`, the color will assigned as
+                             * visual color, such as series color.
+                             *
+                             *
+                             * @default
+                             * ""#fff""
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             */
+                            color?: string;
+
+                            /**
+                             * font style
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'italic'`
+                             * + `'oblique'`
+                             *
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             */
+                            fontStyle?: string;
+
+                            /**
+                             * font thick weight
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'bold'`
+                             * + `'bolder'`
+                             * + `'lighter'`
+                             * + 100 | 200 | 300 | 400...
+                             *
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             */
+                            fontWeight?: string;
+
+                            /**
+                             * font family
+                             *
+                             * Can also be 'serif' , 'monospace', ...
+                             *
+                             *
+                             * @default
+                             * "sans-serif"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             */
+                            fontFamily?: string;
+
+                            /**
+                             * font size
+                             *
+                             *
+                             * @default
+                             * 12
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             */
+                            fontSize?: number;
+
+                            /**
+                             * Horizontal alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'left'`
+                             * + `'center'`
+                             * + `'right'`
+                             *
+                             * If `align` is not set in `rich`, `align` in parent
+                             * level will be used. For example:
+                             *
+                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             */
+                            align?: string;
+
+                            /**
+                             * Vertical alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'top'`
+                             * + `'middle'`
+                             * + `'bottom'`
+                             *
+                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             */
+                            verticalAlign?: string;
+
+                            /**
+                             * Line height of the text fregment.
+                             *
+                             * If `lineHeight` is not set in `rich`, `lineHeight`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             */
+                            lineHeight?: number;
+
+                            /**
+                             * Background color of the text fregment.
+                             *
+                             * Can be color string, like `'#123234'`, `'red'`,
+                             * `rgba(0,23,11,0.3)'`.
+                             *
+                             * Or image can be used, for example:
+                             *
+                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             *
+                             * `width` or `height` can be specified when using
+                             * background image, or auto adapted by default.
+                             *
+                             * If set as `'auto'`, the color will assigned as
+                             * visual color, such as series color.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             */
+                            backgroundColor?: object | string;
+
+                            /**
+                             * Border color of the text fregment.
+                             *
+                             * If set as `'auto'`, the color will assigned as
+                             * visual color, such as series color.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             */
+                            borderColor?: string;
+
+                            /**
+                             * Border width of the text fregment.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             */
+                            borderWidth?: number;
+
+                            /**
+                             * Border radius of the text fregment.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             */
+                            borderRadius?: number;
+
+                            /**
+                             * Padding of the text fregment, for example:
+                             *
+                             * + `padding: [3, 4, 5, 6]`: represents padding
+                             * of `[top, right, bottom, left]`.
+                             * + `padding: 4`: represents `padding: [4, 4, 4,
+                             * 4]`.
+                             * + `padding: [3, 4]`: represents `padding: [3,
+                             * 4, 3, 4]`.
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             */
+                            padding?: any[] | number;
+
+                            /**
+                             * Shadow color of the text block.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             */
+                            shadowColor?: string;
+
+                            /**
+                             * Show blur of the text block.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             */
+                            shadowBlur?: number;
+
+                            /**
+                             * Shadow X offset of the text block.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             */
+                            shadowOffsetX?: number;
+
+                            /**
+                             * Shadow Y offset of the text block.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             */
+                            shadowOffsetY?: number;
+
+                            /**
+                             * Width of the text block.
+                             * It is the width of the text by default.
+                             * In most cases, there is no need to specify it.
+                             * You may want to use it in some cases like make
+                             * simple table or using background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * `width` can also be percent string, like `'100%'`,
+                             * which represents the percent of `contentWidth`
+                             * (that is, the width without `padding`) of its
+                             * container box.
+                             * It is based on `contentWidth` because that each
+                             * text fregment is layout based on the `content
+                             * box`, where it makes no sense that calculating
+                             * width based on `outerWith` in prectice.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             */
+                            width?: number | string;
+
+                            /**
+                             * Height of the text block.
+                             * It is the width of the text by default.
+                             * You may want to use it in some cases like using
+                             * background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             */
+                            height?: number | string;
+
+                            /**
+                             * Storke color of the text.
+                             *
+                             * If set as `'auto'`, the color will assigned as
+                             * visual color, such as series color.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             */
+                            textBorderColor?: string;
+
+                            /**
+                             * Storke line width of the text.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             */
+                            textBorderWidth?: number;
+
+                            /**
+                             * Shadow color of the text itself.
+                             *
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             */
+                            textShadowColor?: string;
+
+                            /**
+                             * Shadow blue of the text itself.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             */
+                            textShadowBlur?: number;
+
+                            /**
+                             * Shadow X offset of the text itself.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             */
+                            textShadowOffsetX?: number;
+
+                            /**
+                             * Shadow Y offset of the text itself.
+                             *
+                             *
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             */
+                            textShadowOffsetY?: number;
+                        };
+                    };
+                };
+
+                /**
+                 * Style of Sunburst sectors.
+                 *
+                 * Style can be set in
+                 * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
+                 * for sectors of this series, or
+                 * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
+                 * for the whole level, or
+                 * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
+                 * for single sector. If
+                 * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
+                 * is defined, it will cover the setting of
+                 * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
+                 * and
+                 * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
+                 * .
+                 *
+                 * **Priority:
+                 * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
+                 * >
+                 * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
+                 * >
+                 * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
+                 * .**
+                 *
+                 * In ECharts, _emphasis_ is for styles when mouse hovers.
+                 * For Sunburst charts, there are two extra states: _highlight_
+                 * for highlighting items that relates to the emphasized one,
+                 * and _downplay_ for others when emphasizing an item. See
+                 * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
+                 * .
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle
+                 */
+                itemStyle?: {
+
+                    /**
+                     * color. Color is taken from
+                     * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                     * by default.
+                     *
+                     * > Color can be represented in RGB, for example `'rgb(128,
+                     * 128, 128)'`.
+                     * RGBA can be used when you need alpha channel, for example
+                     * `'rgba(128, 128, 128, 0.5)'`.
+                     * You may also use hexadecimal format, for example `'#ccc'`.
+                     * Gradient color and texture are also supported besides
+                     * single colors.
+                     * >
+                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.itemStyle)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.color
+                     */
+                    color?: string;
+
+                    /**
+                     * border color, whose format is similar to that of `color`.
+                     *
+                     *
+                     * @default
+                     * "white"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.borderColor
+                     */
+                    borderColor?: string;
+
+                    /**
+                     * border width. No border when it is set to be 0.
+                     *
+                     *
+                     * @default
+                     * 1
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.borderWidth
+                     */
+                    borderWidth?: number;
+
+                    /**
+                     * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
+                     * `'solid'` by default.
+                     *
+                     *
+                     * @default
+                     * "solid"
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.borderType
+                     */
+                    borderType?: string;
+
+                    /**
+                     * Size of shadow blur.
+                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                     * `shadowOffsetY` to set shadow to component.
+                     *
+                     * For example:
+                     *
+                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.itemStyle)
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.shadowBlur
+                     */
+                    shadowBlur?: number;
+
+                    /**
+                     * Shadow color. Support same format as `color`.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.shadowColor
+                     */
+                    shadowColor?: string;
+
+                    /**
+                     * Offset distance on the horizontal direction of shadow.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.shadowOffsetX
+                     */
+                    shadowOffsetX?: number;
+
+                    /**
+                     * Offset distance on the vertical direction of shadow.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.shadowOffsetY
+                     */
+                    shadowOffsetY?: number;
+
+                    /**
+                     * Opacity of the component.
+                     * Supports value from 0 to 1, and the component will not
+                     * be drawn when set to 0.
+                     *
+                     *
+                     * @default
+                     * 1
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle.opacity
+                     */
+                    opacity?: number;
+                };
+
+                /**
+                 * Item style when mouse is hovering. See
+                 * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
+                 * .
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis
+                 */
+                emphasis?: {
+
+                    /**
+                     * `label` sets the text style for every sectors.
+                     *
+                     * **Priority:
+                     * [series.data.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label)
+                     * >
+                     * [series.levels.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.label)
+                     * >
+                     * [series.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.label)
+                     * .**
+                     *
+                     * Text label of , to explain some data information about
+                     * graphic item like value, name and so on.
+                     * `label` is placed under `itemStyle` in ECharts 2.x.
+                     * In ECharts 3, to make the configuration structure flatter,
+                     * `label`is taken to be at the same level with `itemStyle`,
+                     * and has `emphasis` as `itemStyle` does.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label
+                     */
+                    label?: {
+
+                        /**
+                         * If it is `number` type, then is stands for rotation,
+                         * from -90 degrees to 90 degrees, and positive values
+                         * stand for counterclockwise.
+                         *
+                         * Besides, it can be string `'radial'`, standing for
+                         * radial rotation; or `'tangential'`, standing for
+                         * tangential rotation.
+                         *
+                         * By default, it is `'radial'`.
+                         * If no rotation is wanted, it can be set to `0`.
+                         *
+                         * The following example shows different `rotate` settings:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
+                         *
+                         *
+                         * @default
+                         * "radial"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rotate
+                         */
+                        rotate?: number | string;
+
+                        /**
+                         * Align of text, which can be `'left'`, `'center'`,
+                         * or `'right'`.
+                         * Note that `'left'` stands for inner side, and `'right'`
+                         * stands for outer side.
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
+                         *
+                         *
+                         * @default
+                         * "center"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.align
+                         */
+                        align?: string;
+
+                        /**
+                         * If angle of data piece is smaller than this value
+                         * (in degrees), then text is not displayed.
+                         * This is used for hiding text for small piece of data.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.minAngle
+                         */
+                        minAngle?: number;
+
+                        /**
+                         * Whether to show label.
+                         *
+                         *
+                         * @default
+                         * "true"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.show
+                         */
+                        show?: boolean;
+
+                        /**
+                         * Label position.
+                         *
+                         * **Followings are the options:**
+                         *
+                         * + \[x, y\]
+                         *
+                         * Use relative percentage, or absolute pixel values
+                         * to represent position of label relative to top-left
+                         * corner of bounding box. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
+                         *
+                         * + 'top'
+                         *
+                         * + 'left'
+                         * + 'right'
+                         * + 'bottom'
+                         * + 'inside'
+                         * + 'insideLeft'
+                         * + 'insideRight'
+                         * + 'insideTop'
+                         * + 'insideBottom'
+                         * + 'insideTopLeft'
+                         * + 'insideBottomLeft'
+                         * + 'insideTopRight'
+                         * + 'insideBottomRight'
+                         *
+                         * See:
+                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * .
+                         *
+                         *
+                         * @default
+                         * "inside"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.position
+                         */
+                        position?: any[] | string;
+
+                        /**
+                         * Distance to the host graphic element.
+                         * Works when position is string value (like `'top'`、`'insideRight'`).
+                         *
+                         * See:
+                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * .
+                         *
+                         *
+                         * @default
+                         * 5
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.distance
+                         */
+                        distance?: number;
+
+                        /**
+                         * Whether to move text slightly.
+                         * For example: `[30, 40]` means move `30` horizontally
+                         * and move `40` vertically.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.offset
+                         */
+                        offset?: any[];
+
+                        /**
+                         * Data label formatter, which supports string template
+                         * and callback function.
+                         * In either form, `\n` is supported to represent a
+                         * new line.
+                         *
+                         * **String template**
+                         *
+                         * Model variation includes:
+                         *
+                         * + `{a}`: series name.
+                         * + `{b}`: the name of a data item.
+                         * + `{c}`: the value of a data item.
+                         * + `{@xxx}: the value of a dimension named`'xxx'`,
+                         * for example,`{@product}`refers the value of`'product'\`
+                         * dimension。
+                         * + `{@[n]}: the value of a dimension at the index
+                         * of`n`, for example,`{@\[3\]}\` refers the value at
+                         * dimensions\[3\].
+                         *
+                         * **example:**
+                         *
+                         * ```
+                         * formatter: '{b}: {@score}'
+                         *
+                         * ```
+                         *
+                         * **Callback function**
+                         *
+                         * Callback function is in form of:
+                         *
+                         * ```
+                         * (params: Object|Array) => string
+                         *
+                         * ```
+                         *
+                         * where `params` is the single dataset needed by formatter,
+                         * which is formed as:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.formatter
+                         */
+                        formatter?: Function | string;
+
+                        /**
+                         * text color.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * ""#fff""
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.color
+                         */
+                        color?: string;
+
+                        /**
+                         * font style
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'italic'`
+                         * + `'oblique'`
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.fontStyle
+                         */
+                        fontStyle?: string;
+
+                        /**
+                         * font thick weight
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'bold'`
+                         * + `'bolder'`
+                         * + `'lighter'`
+                         * + 100 | 200 | 300 | 400...
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.fontWeight
+                         */
+                        fontWeight?: string;
+
+                        /**
+                         * font family
+                         *
+                         * Can also be 'serif' , 'monospace', ...
+                         *
+                         *
+                         * @default
+                         * "sans-serif"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.fontFamily
+                         */
+                        fontFamily?: string;
+
+                        /**
+                         * font size
+                         *
+                         *
+                         * @default
+                         * 12
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.fontSize
+                         */
+                        fontSize?: number;
+
+                        /**
+                         * Vertical alignment of text, automatic by default.
+                         *
+                         * Options are:
+                         *
+                         * + `'top'`
+                         * + `'middle'`
+                         * + `'bottom'`
+                         *
+                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.verticalAlign
+                         */
+                        verticalAlign?: string;
+
+                        /**
+                         * Line height of the text fregment.
+                         *
+                         * If `lineHeight` is not set in `rich`, `lineHeight`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.lineHeight
+                         */
+                        lineHeight?: number;
+
+                        /**
+                         * Background color of the text fregment.
+                         *
+                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                         *
+                         * Or image can be used, for example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
+                         *
+                         * `width` or `height` can be specified when using background
+                         * image, or auto adapted by default.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.backgroundColor
+                         */
+                        backgroundColor?: object | string;
+
+                        /**
+                         * Border color of the text fregment.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.borderColor
+                         */
+                        borderColor?: string;
+
+                        /**
+                         * Border width of the text fregment.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.borderWidth
+                         */
+                        borderWidth?: number;
+
+                        /**
+                         * Border radius of the text fregment.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.borderRadius
+                         */
+                        borderRadius?: number;
+
+                        /**
+                         * Padding of the text fregment, for example:
+                         *
+                         * + `padding: [3, 4, 5, 6]`: represents padding of
+                         * `[top, right, bottom, left]`.
+                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                         * + `padding: [3, 4]`: represents `padding: [3, 4,
+                         * 3, 4]`.
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.padding
+                         */
+                        padding?: any[] | number;
+
+                        /**
+                         * Shadow color of the text block.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Show blur of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Width of the text block.
+                         * It is the width of the text by default.
+                         * In most cases, there is no need to specify it.
+                         * You may want to use it in some cases like make simple
+                         * table or using background image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * `width` can also be percent string, like `'100%'`,
+                         * which represents the percent of `contentWidth` (that
+                         * is, the width without `padding`) of its container
+                         * box.
+                         * It is based on `contentWidth` because that each text
+                         * fregment is layout based on the `content box`, where
+                         * it makes no sense that calculating width based on
+                         * `outerWith` in prectice.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.width
+                         */
+                        width?: number | string;
+
+                        /**
+                         * Height of the text block.
+                         * It is the width of the text by default.
+                         * You may want to use it in some cases like using background
+                         * image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.height
+                         */
+                        height?: number | string;
+
+                        /**
+                         * Storke color of the text.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.textBorderColor
+                         */
+                        textBorderColor?: string;
+
+                        /**
+                         * Storke line width of the text.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.textBorderWidth
+                         */
+                        textBorderWidth?: number;
+
+                        /**
+                         * Shadow color of the text itself.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.textShadowColor
+                         */
+                        textShadowColor?: string;
+
+                        /**
+                         * Shadow blue of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.textShadowBlur
+                         */
+                        textShadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.textShadowOffsetX
+                         */
+                        textShadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.textShadowOffsetY
+                         */
+                        textShadowOffsetY?: number;
+
+                        /**
+                         * "Rich text styles" can be defined in this `rich`
+                         * property. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label)
+                         *
+                         * For more details, see
+                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * please.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich
+                         */
+                        rich?: {
+
+                            /**
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                             */
+                            [userStyle: string]: {
+
+                                /**
+                                 * text color.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * ""#fff""
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 */
+                                color?: string;
+
+                                /**
+                                 * font style
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'italic'`
+                                 * + `'oblique'`
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 */
+                                fontStyle?: string;
+
+                                /**
+                                 * font thick weight
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'bold'`
+                                 * + `'bolder'`
+                                 * + `'lighter'`
+                                 * + 100 | 200 | 300 | 400...
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 */
+                                fontWeight?: string;
+
+                                /**
+                                 * font family
+                                 *
+                                 * Can also be 'serif' , 'monospace', ...
+                                 *
+                                 *
+                                 * @default
+                                 * "sans-serif"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 */
+                                fontFamily?: string;
+
+                                /**
+                                 * font size
+                                 *
+                                 *
+                                 * @default
+                                 * 12
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 */
+                                fontSize?: number;
+
+                                /**
+                                 * Horizontal alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'left'`
+                                 * + `'center'`
+                                 * + `'right'`
+                                 *
+                                 * If `align` is not set in `rich`, `align`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 */
+                                align?: string;
+
+                                /**
+                                 * Vertical alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'top'`
+                                 * + `'middle'`
+                                 * + `'bottom'`
+                                 *
+                                 * If `verticalAlign` is not set in `rich`,
+                                 * `verticalAlign` in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 */
+                                verticalAlign?: string;
+
+                                /**
+                                 * Line height of the text fregment.
+                                 *
+                                 * If `lineHeight` is not set in `rich`, `lineHeight`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 */
+                                lineHeight?: number;
+
+                                /**
+                                 * Background color of the text fregment.
+                                 *
+                                 * Can be color string, like `'#123234'`, `'red'`,
+                                 * `rgba(0,23,11,0.3)'`.
+                                 *
+                                 * Or image can be used, for example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 * `width` or `height` can be specified when
+                                 * using background image, or auto adapted by
+                                 * default.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 */
+                                backgroundColor?: object | string;
+
+                                /**
+                                 * Border color of the text fregment.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 */
+                                borderColor?: string;
+
+                                /**
+                                 * Border width of the text fregment.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 */
+                                borderWidth?: number;
+
+                                /**
+                                 * Border radius of the text fregment.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 */
+                                borderRadius?: number;
+
+                                /**
+                                 * Padding of the text fregment, for example:
+                                 *
+                                 * + `padding: [3, 4, 5, 6]`: represents padding
+                                 * of `[top, right, bottom, left]`.
+                                 * + `padding: 4`: represents `padding: [4,
+                                 * 4, 4, 4]`.
+                                 * + `padding: [3, 4]`: represents `padding:
+                                 * [3, 4, 3, 4]`.
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 */
+                                padding?: any[] | number;
+
+                                /**
+                                 * Shadow color of the text block.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 */
+                                shadowColor?: string;
+
+                                /**
+                                 * Show blur of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 */
+                                shadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 */
+                                shadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 */
+                                shadowOffsetY?: number;
+
+                                /**
+                                 * Width of the text block.
+                                 * It is the width of the text by default.
+                                 * In most cases, there is no need to specify
+                                 * it.
+                                 * You may want to use it in some cases like
+                                 * make simple table or using background image
+                                 * (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * `width` can also be percent string, like
+                                 * `'100%'`, which represents the percent of
+                                 * `contentWidth` (that is, the width without
+                                 * `padding`) of its container box.
+                                 * It is based on `contentWidth` because that
+                                 * each text fregment is layout based on the
+                                 * `content box`, where it makes no sense that
+                                 * calculating width based on `outerWith` in
+                                 * prectice.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 */
+                                width?: number | string;
+
+                                /**
+                                 * Height of the text block.
+                                 * It is the width of the text by default.
+                                 * You may want to use it in some cases like
+                                 * using background image (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 */
+                                height?: number | string;
+
+                                /**
+                                 * Storke color of the text.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 */
+                                textBorderColor?: string;
+
+                                /**
+                                 * Storke line width of the text.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 */
+                                textBorderWidth?: number;
+
+                                /**
+                                 * Shadow color of the text itself.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 */
+                                textShadowColor?: string;
+
+                                /**
+                                 * Shadow blue of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 */
+                                textShadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 */
+                                textShadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 */
+                                textShadowOffsetY?: number;
+                            };
+                        };
+                    };
+
+                    /**
+                     * Style of Sunburst sectors.
+                     *
+                     * Style can be set in
+                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
+                     * for sectors of this series, or
+                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
+                     * for the whole level, or
+                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
+                     * for single sector. If
+                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
+                     * is defined, it will cover the setting of
+                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
+                     * and
+                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
+                     * .
+                     *
+                     * **Priority:
+                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
+                     * >
+                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
+                     * >
+                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
+                     * .**
+                     *
+                     * In ECharts, _emphasis_ is for styles when mouse hovers.
+                     * For Sunburst charts, there are two extra states: _highlight_
+                     * for highlighting items that relates to the emphasized
+                     * one, and _downplay_ for others when emphasizing an item.
+                     * See
+                     * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
+                     * .
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle
+                     */
+                    itemStyle?: {
+
+                        /**
+                         * color. Color is taken from
+                         * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                         * by default.
+                         *
+                         * > Color can be represented in RGB, for example `'rgb(128,
+                         * 128, 128)'`.
+                         * RGBA can be used when you need alpha channel, for
+                         * example `'rgba(128, 128, 128, 0.5)'`.
+                         * You may also use hexadecimal format, for example
+                         * `'#ccc'`.
+                         * Gradient color and texture are also supported besides
+                         * single colors.
+                         * >
+                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.itemStyle)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.color
+                         */
+                        color?: string;
+
+                        /**
+                         * border color, whose format is similar to that of
+                         * `color`.
+                         *
+                         *
+                         * @default
+                         * "white"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.borderColor
+                         */
+                        borderColor?: string;
+
+                        /**
+                         * border width. No border when it is set to be 0.
+                         *
+                         *
+                         * @default
+                         * 1
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.borderWidth
+                         */
+                        borderWidth?: number;
+
+                        /**
+                         * Border type, which can be `'solid'`, `'dashed'`,
+                         * or `'dotted'`. `'solid'` by default.
+                         *
+                         *
+                         * @default
+                         * "solid"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.borderType
+                         */
+                        borderType?: string;
+
+                        /**
+                         * Size of shadow blur.
+                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                         * `shadowOffsetY` to set shadow to component.
+                         *
+                         * For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.emphasis.itemStyle)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow color. Support same format as `color`.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Offset distance on the horizontal direction of shadow.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Offset distance on the vertical direction of shadow.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Opacity of the component.
+                         * Supports value from 0 to 1, and the component will
+                         * not be drawn when set to 0.
+                         *
+                         *
+                         * @default
+                         * 1
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.emphasis.itemStyle.opacity
+                         */
+                        opacity?: number;
+                    };
+                };
+
+                /**
+                 * Item style when mouse is hovering related items. See
+                 * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
+                 * .
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight
+                 */
+                highlight?: {
+
+                    /**
+                     * `label` sets the text style for every sectors.
+                     *
+                     * **Priority:
+                     * [series.data.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label)
+                     * >
+                     * [series.levels.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.label)
+                     * >
+                     * [series.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.label)
+                     * .**
+                     *
+                     * Text label of , to explain some data information about
+                     * graphic item like value, name and so on.
+                     * `label` is placed under `itemStyle` in ECharts 2.x.
+                     * In ECharts 3, to make the configuration structure flatter,
+                     * `label`is taken to be at the same level with `itemStyle`,
+                     * and has `emphasis` as `itemStyle` does.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label
+                     */
+                    label?: {
+
+                        /**
+                         * If it is `number` type, then is stands for rotation,
+                         * from -90 degrees to 90 degrees, and positive values
+                         * stand for counterclockwise.
+                         *
+                         * Besides, it can be string `'radial'`, standing for
+                         * radial rotation; or `'tangential'`, standing for
+                         * tangential rotation.
+                         *
+                         * By default, it is `'radial'`.
+                         * If no rotation is wanted, it can be set to `0`.
+                         *
+                         * The following example shows different `rotate` settings:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
+                         *
+                         *
+                         * @default
+                         * "radial"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rotate
+                         */
+                        rotate?: number | string;
+
+                        /**
+                         * Align of text, which can be `'left'`, `'center'`,
+                         * or `'right'`.
+                         * Note that `'left'` stands for inner side, and `'right'`
+                         * stands for outer side.
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
+                         *
+                         *
+                         * @default
+                         * "center"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.align
+                         */
+                        align?: string;
+
+                        /**
+                         * If angle of data piece is smaller than this value
+                         * (in degrees), then text is not displayed.
+                         * This is used for hiding text for small piece of data.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.minAngle
+                         */
+                        minAngle?: number;
+
+                        /**
+                         * Whether to show label.
+                         *
+                         *
+                         * @default
+                         * "true"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.show
+                         */
+                        show?: boolean;
+
+                        /**
+                         * Label position.
+                         *
+                         * **Followings are the options:**
+                         *
+                         * + \[x, y\]
+                         *
+                         * Use relative percentage, or absolute pixel values
+                         * to represent position of label relative to top-left
+                         * corner of bounding box. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
+                         *
+                         * + 'top'
+                         *
+                         * + 'left'
+                         * + 'right'
+                         * + 'bottom'
+                         * + 'inside'
+                         * + 'insideLeft'
+                         * + 'insideRight'
+                         * + 'insideTop'
+                         * + 'insideBottom'
+                         * + 'insideTopLeft'
+                         * + 'insideBottomLeft'
+                         * + 'insideTopRight'
+                         * + 'insideBottomRight'
+                         *
+                         * See:
+                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * .
+                         *
+                         *
+                         * @default
+                         * "inside"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.position
+                         */
+                        position?: any[] | string;
+
+                        /**
+                         * Distance to the host graphic element.
+                         * Works when position is string value (like `'top'`、`'insideRight'`).
+                         *
+                         * See:
+                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * .
+                         *
+                         *
+                         * @default
+                         * 5
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.distance
+                         */
+                        distance?: number;
+
+                        /**
+                         * Whether to move text slightly.
+                         * For example: `[30, 40]` means move `30` horizontally
+                         * and move `40` vertically.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.offset
+                         */
+                        offset?: any[];
+
+                        /**
+                         * Data label formatter, which supports string template
+                         * and callback function.
+                         * In either form, `\n` is supported to represent a
+                         * new line.
+                         *
+                         * **String template**
+                         *
+                         * Model variation includes:
+                         *
+                         * + `{a}`: series name.
+                         * + `{b}`: the name of a data item.
+                         * + `{c}`: the value of a data item.
+                         * + `{@xxx}: the value of a dimension named`'xxx'`,
+                         * for example,`{@product}`refers the value of`'product'\`
+                         * dimension。
+                         * + `{@[n]}: the value of a dimension at the index
+                         * of`n`, for example,`{@\[3\]}\` refers the value at
+                         * dimensions\[3\].
+                         *
+                         * **example:**
+                         *
+                         * ```
+                         * formatter: '{b}: {@score}'
+                         *
+                         * ```
+                         *
+                         * **Callback function**
+                         *
+                         * Callback function is in form of:
+                         *
+                         * ```
+                         * (params: Object|Array) => string
+                         *
+                         * ```
+                         *
+                         * where `params` is the single dataset needed by formatter,
+                         * which is formed as:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.formatter
+                         */
+                        formatter?: Function | string;
+
+                        /**
+                         * text color.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * ""#fff""
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.color
+                         */
+                        color?: string;
+
+                        /**
+                         * font style
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'italic'`
+                         * + `'oblique'`
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.fontStyle
+                         */
+                        fontStyle?: string;
+
+                        /**
+                         * font thick weight
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'bold'`
+                         * + `'bolder'`
+                         * + `'lighter'`
+                         * + 100 | 200 | 300 | 400...
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.fontWeight
+                         */
+                        fontWeight?: string;
+
+                        /**
+                         * font family
+                         *
+                         * Can also be 'serif' , 'monospace', ...
+                         *
+                         *
+                         * @default
+                         * "sans-serif"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.fontFamily
+                         */
+                        fontFamily?: string;
+
+                        /**
+                         * font size
+                         *
+                         *
+                         * @default
+                         * 12
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.fontSize
+                         */
+                        fontSize?: number;
+
+                        /**
+                         * Vertical alignment of text, automatic by default.
+                         *
+                         * Options are:
+                         *
+                         * + `'top'`
+                         * + `'middle'`
+                         * + `'bottom'`
+                         *
+                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.verticalAlign
+                         */
+                        verticalAlign?: string;
+
+                        /**
+                         * Line height of the text fregment.
+                         *
+                         * If `lineHeight` is not set in `rich`, `lineHeight`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.lineHeight
+                         */
+                        lineHeight?: number;
+
+                        /**
+                         * Background color of the text fregment.
+                         *
+                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                         *
+                         * Or image can be used, for example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
+                         *
+                         * `width` or `height` can be specified when using background
+                         * image, or auto adapted by default.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.backgroundColor
+                         */
+                        backgroundColor?: object | string;
+
+                        /**
+                         * Border color of the text fregment.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.borderColor
+                         */
+                        borderColor?: string;
+
+                        /**
+                         * Border width of the text fregment.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.borderWidth
+                         */
+                        borderWidth?: number;
+
+                        /**
+                         * Border radius of the text fregment.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.borderRadius
+                         */
+                        borderRadius?: number;
+
+                        /**
+                         * Padding of the text fregment, for example:
+                         *
+                         * + `padding: [3, 4, 5, 6]`: represents padding of
+                         * `[top, right, bottom, left]`.
+                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                         * + `padding: [3, 4]`: represents `padding: [3, 4,
+                         * 3, 4]`.
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.padding
+                         */
+                        padding?: any[] | number;
+
+                        /**
+                         * Shadow color of the text block.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Show blur of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Width of the text block.
+                         * It is the width of the text by default.
+                         * In most cases, there is no need to specify it.
+                         * You may want to use it in some cases like make simple
+                         * table or using background image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * `width` can also be percent string, like `'100%'`,
+                         * which represents the percent of `contentWidth` (that
+                         * is, the width without `padding`) of its container
+                         * box.
+                         * It is based on `contentWidth` because that each text
+                         * fregment is layout based on the `content box`, where
+                         * it makes no sense that calculating width based on
+                         * `outerWith` in prectice.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.width
+                         */
+                        width?: number | string;
+
+                        /**
+                         * Height of the text block.
+                         * It is the width of the text by default.
+                         * You may want to use it in some cases like using background
+                         * image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.height
+                         */
+                        height?: number | string;
+
+                        /**
+                         * Storke color of the text.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.textBorderColor
+                         */
+                        textBorderColor?: string;
+
+                        /**
+                         * Storke line width of the text.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.textBorderWidth
+                         */
+                        textBorderWidth?: number;
+
+                        /**
+                         * Shadow color of the text itself.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.textShadowColor
+                         */
+                        textShadowColor?: string;
+
+                        /**
+                         * Shadow blue of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.textShadowBlur
+                         */
+                        textShadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.textShadowOffsetX
+                         */
+                        textShadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.textShadowOffsetY
+                         */
+                        textShadowOffsetY?: number;
+
+                        /**
+                         * "Rich text styles" can be defined in this `rich`
+                         * property. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label)
+                         *
+                         * For more details, see
+                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * please.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich
+                         */
+                        rich?: {
+
+                            /**
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E
+                             */
+                            [userStyle: string]: {
+
+                                /**
+                                 * text color.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * ""#fff""
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 */
+                                color?: string;
+
+                                /**
+                                 * font style
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'italic'`
+                                 * + `'oblique'`
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 */
+                                fontStyle?: string;
+
+                                /**
+                                 * font thick weight
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'bold'`
+                                 * + `'bolder'`
+                                 * + `'lighter'`
+                                 * + 100 | 200 | 300 | 400...
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 */
+                                fontWeight?: string;
+
+                                /**
+                                 * font family
+                                 *
+                                 * Can also be 'serif' , 'monospace', ...
+                                 *
+                                 *
+                                 * @default
+                                 * "sans-serif"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 */
+                                fontFamily?: string;
+
+                                /**
+                                 * font size
+                                 *
+                                 *
+                                 * @default
+                                 * 12
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 */
+                                fontSize?: number;
+
+                                /**
+                                 * Horizontal alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'left'`
+                                 * + `'center'`
+                                 * + `'right'`
+                                 *
+                                 * If `align` is not set in `rich`, `align`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 */
+                                align?: string;
+
+                                /**
+                                 * Vertical alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'top'`
+                                 * + `'middle'`
+                                 * + `'bottom'`
+                                 *
+                                 * If `verticalAlign` is not set in `rich`,
+                                 * `verticalAlign` in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 */
+                                verticalAlign?: string;
+
+                                /**
+                                 * Line height of the text fregment.
+                                 *
+                                 * If `lineHeight` is not set in `rich`, `lineHeight`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 */
+                                lineHeight?: number;
+
+                                /**
+                                 * Background color of the text fregment.
+                                 *
+                                 * Can be color string, like `'#123234'`, `'red'`,
+                                 * `rgba(0,23,11,0.3)'`.
+                                 *
+                                 * Or image can be used, for example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 * `width` or `height` can be specified when
+                                 * using background image, or auto adapted by
+                                 * default.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 */
+                                backgroundColor?: object | string;
+
+                                /**
+                                 * Border color of the text fregment.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 */
+                                borderColor?: string;
+
+                                /**
+                                 * Border width of the text fregment.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 */
+                                borderWidth?: number;
+
+                                /**
+                                 * Border radius of the text fregment.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 */
+                                borderRadius?: number;
+
+                                /**
+                                 * Padding of the text fregment, for example:
+                                 *
+                                 * + `padding: [3, 4, 5, 6]`: represents padding
+                                 * of `[top, right, bottom, left]`.
+                                 * + `padding: 4`: represents `padding: [4,
+                                 * 4, 4, 4]`.
+                                 * + `padding: [3, 4]`: represents `padding:
+                                 * [3, 4, 3, 4]`.
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 */
+                                padding?: any[] | number;
+
+                                /**
+                                 * Shadow color of the text block.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 */
+                                shadowColor?: string;
+
+                                /**
+                                 * Show blur of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 */
+                                shadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 */
+                                shadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 */
+                                shadowOffsetY?: number;
+
+                                /**
+                                 * Width of the text block.
+                                 * It is the width of the text by default.
+                                 * In most cases, there is no need to specify
+                                 * it.
+                                 * You may want to use it in some cases like
+                                 * make simple table or using background image
+                                 * (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * `width` can also be percent string, like
+                                 * `'100%'`, which represents the percent of
+                                 * `contentWidth` (that is, the width without
+                                 * `padding`) of its container box.
+                                 * It is based on `contentWidth` because that
+                                 * each text fregment is layout based on the
+                                 * `content box`, where it makes no sense that
+                                 * calculating width based on `outerWith` in
+                                 * prectice.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 */
+                                width?: number | string;
+
+                                /**
+                                 * Height of the text block.
+                                 * It is the width of the text by default.
+                                 * You may want to use it in some cases like
+                                 * using background image (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 */
+                                height?: number | string;
+
+                                /**
+                                 * Storke color of the text.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 */
+                                textBorderColor?: string;
+
+                                /**
+                                 * Storke line width of the text.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 */
+                                textBorderWidth?: number;
+
+                                /**
+                                 * Shadow color of the text itself.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 */
+                                textShadowColor?: string;
+
+                                /**
+                                 * Shadow blue of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 */
+                                textShadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 */
+                                textShadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 */
+                                textShadowOffsetY?: number;
+                            };
+                        };
+                    };
+
+                    /**
+                     * Style of Sunburst sectors.
+                     *
+                     * Style can be set in
+                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
+                     * for sectors of this series, or
+                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
+                     * for the whole level, or
+                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
+                     * for single sector. If
+                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
+                     * is defined, it will cover the setting of
+                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
+                     * and
+                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
+                     * .
+                     *
+                     * **Priority:
+                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
+                     * >
+                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
+                     * >
+                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
+                     * .**
+                     *
+                     * In ECharts, _emphasis_ is for styles when mouse hovers.
+                     * For Sunburst charts, there are two extra states: _highlight_
+                     * for highlighting items that relates to the emphasized
+                     * one, and _downplay_ for others when emphasizing an item.
+                     * See
+                     * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
+                     * .
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle
+                     */
+                    itemStyle?: {
+
+                        /**
+                         * color. Color is taken from
+                         * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                         * by default.
+                         *
+                         * > Color can be represented in RGB, for example `'rgb(128,
+                         * 128, 128)'`.
+                         * RGBA can be used when you need alpha channel, for
+                         * example `'rgba(128, 128, 128, 0.5)'`.
+                         * You may also use hexadecimal format, for example
+                         * `'#ccc'`.
+                         * Gradient color and texture are also supported besides
+                         * single colors.
+                         * >
+                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.itemStyle)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.color
+                         */
+                        color?: string;
+
+                        /**
+                         * border color, whose format is similar to that of
+                         * `color`.
+                         *
+                         *
+                         * @default
+                         * "white"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.borderColor
+                         */
+                        borderColor?: string;
+
+                        /**
+                         * border width. No border when it is set to be 0.
+                         *
+                         *
+                         * @default
+                         * 1
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.borderWidth
+                         */
+                        borderWidth?: number;
+
+                        /**
+                         * Border type, which can be `'solid'`, `'dashed'`,
+                         * or `'dotted'`. `'solid'` by default.
+                         *
+                         *
+                         * @default
+                         * "solid"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.borderType
+                         */
+                        borderType?: string;
+
+                        /**
+                         * Size of shadow blur.
+                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                         * `shadowOffsetY` to set shadow to component.
+                         *
+                         * For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.highlight.itemStyle)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow color. Support same format as `color`.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Offset distance on the horizontal direction of shadow.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Offset distance on the vertical direction of shadow.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Opacity of the component.
+                         * Supports value from 0 to 1, and the component will
+                         * not be drawn when set to 0.
+                         *
+                         *
+                         * @default
+                         * 1
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.highlight.itemStyle.opacity
+                         */
+                        opacity?: number;
+                    };
+                };
+
+                /**
+                 * Item style when mouse is hovering unrelated items. See
+                 * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
+                 * .
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay
+                 */
+                downplay?: {
+
+                    /**
+                     * `label` sets the text style for every sectors.
+                     *
+                     * **Priority:
+                     * [series.data.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.label)
+                     * >
+                     * [series.levels.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.label)
+                     * >
+                     * [series.label](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.label)
+                     * .**
+                     *
+                     * Text label of , to explain some data information about
+                     * graphic item like value, name and so on.
+                     * `label` is placed under `itemStyle` in ECharts 2.x.
+                     * In ECharts 3, to make the configuration structure flatter,
+                     * `label`is taken to be at the same level with `itemStyle`,
+                     * and has `emphasis` as `itemStyle` does.
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label
+                     */
+                    label?: {
+
+                        /**
+                         * If it is `number` type, then is stands for rotation,
+                         * from -90 degrees to 90 degrees, and positive values
+                         * stand for counterclockwise.
+                         *
+                         * Besides, it can be string `'radial'`, standing for
+                         * radial rotation; or `'tangential'`, standing for
+                         * tangential rotation.
+                         *
+                         * By default, it is `'radial'`.
+                         * If no rotation is wanted, it can be set to `0`.
+                         *
+                         * The following example shows different `rotate` settings:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
+                         *
+                         *
+                         * @default
+                         * "radial"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rotate
+                         */
+                        rotate?: number | string;
+
+                        /**
+                         * Align of text, which can be `'left'`, `'center'`,
+                         * or `'right'`.
+                         * Note that `'left'` stands for inner side, and `'right'`
+                         * stands for outer side.
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
+                         *
+                         *
+                         * @default
+                         * "center"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.align
+                         */
+                        align?: string;
+
+                        /**
+                         * If angle of data piece is smaller than this value
+                         * (in degrees), then text is not displayed.
+                         * This is used for hiding text for small piece of data.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.minAngle
+                         */
+                        minAngle?: number;
+
+                        /**
+                         * Whether to show label.
+                         *
+                         *
+                         * @default
+                         * "true"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.show
+                         */
+                        show?: boolean;
+
+                        /**
+                         * Label position.
+                         *
+                         * **Followings are the options:**
+                         *
+                         * + \[x, y\]
+                         *
+                         * Use relative percentage, or absolute pixel values
+                         * to represent position of label relative to top-left
+                         * corner of bounding box. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
+                         *
+                         * + 'top'
+                         *
+                         * + 'left'
+                         * + 'right'
+                         * + 'bottom'
+                         * + 'inside'
+                         * + 'insideLeft'
+                         * + 'insideRight'
+                         * + 'insideTop'
+                         * + 'insideBottom'
+                         * + 'insideTopLeft'
+                         * + 'insideBottomLeft'
+                         * + 'insideTopRight'
+                         * + 'insideBottomRight'
+                         *
+                         * See:
+                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * .
+                         *
+                         *
+                         * @default
+                         * "inside"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.position
+                         */
+                        position?: any[] | string;
+
+                        /**
+                         * Distance to the host graphic element.
+                         * Works when position is string value (like `'top'`、`'insideRight'`).
+                         *
+                         * See:
+                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * .
+                         *
+                         *
+                         * @default
+                         * 5
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.distance
+                         */
+                        distance?: number;
+
+                        /**
+                         * Whether to move text slightly.
+                         * For example: `[30, 40]` means move `30` horizontally
+                         * and move `40` vertically.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.offset
+                         */
+                        offset?: any[];
+
+                        /**
+                         * Data label formatter, which supports string template
+                         * and callback function.
+                         * In either form, `\n` is supported to represent a
+                         * new line.
+                         *
+                         * **String template**
+                         *
+                         * Model variation includes:
+                         *
+                         * + `{a}`: series name.
+                         * + `{b}`: the name of a data item.
+                         * + `{c}`: the value of a data item.
+                         * + `{@xxx}: the value of a dimension named`'xxx'`,
+                         * for example,`{@product}`refers the value of`'product'\`
+                         * dimension。
+                         * + `{@[n]}: the value of a dimension at the index
+                         * of`n`, for example,`{@\[3\]}\` refers the value at
+                         * dimensions\[3\].
+                         *
+                         * **example:**
+                         *
+                         * ```
+                         * formatter: '{b}: {@score}'
+                         *
+                         * ```
+                         *
+                         * **Callback function**
+                         *
+                         * Callback function is in form of:
+                         *
+                         * ```
+                         * (params: Object|Array) => string
+                         *
+                         * ```
+                         *
+                         * where `params` is the single dataset needed by formatter,
+                         * which is formed as:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.formatter
+                         */
+                        formatter?: Function | string;
+
+                        /**
+                         * text color.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * ""#fff""
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.color
+                         */
+                        color?: string;
+
+                        /**
+                         * font style
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'italic'`
+                         * + `'oblique'`
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.fontStyle
+                         */
+                        fontStyle?: string;
+
+                        /**
+                         * font thick weight
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'bold'`
+                         * + `'bolder'`
+                         * + `'lighter'`
+                         * + 100 | 200 | 300 | 400...
+                         *
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.fontWeight
+                         */
+                        fontWeight?: string;
+
+                        /**
+                         * font family
+                         *
+                         * Can also be 'serif' , 'monospace', ...
+                         *
+                         *
+                         * @default
+                         * "sans-serif"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.fontFamily
+                         */
+                        fontFamily?: string;
+
+                        /**
+                         * font size
+                         *
+                         *
+                         * @default
+                         * 12
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.fontSize
+                         */
+                        fontSize?: number;
+
+                        /**
+                         * Vertical alignment of text, automatic by default.
+                         *
+                         * Options are:
+                         *
+                         * + `'top'`
+                         * + `'middle'`
+                         * + `'bottom'`
+                         *
+                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.verticalAlign
+                         */
+                        verticalAlign?: string;
+
+                        /**
+                         * Line height of the text fregment.
+                         *
+                         * If `lineHeight` is not set in `rich`, `lineHeight`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.lineHeight
+                         */
+                        lineHeight?: number;
+
+                        /**
+                         * Background color of the text fregment.
+                         *
+                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                         *
+                         * Or image can be used, for example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
+                         *
+                         * `width` or `height` can be specified when using background
+                         * image, or auto adapted by default.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.backgroundColor
+                         */
+                        backgroundColor?: object | string;
+
+                        /**
+                         * Border color of the text fregment.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.borderColor
+                         */
+                        borderColor?: string;
+
+                        /**
+                         * Border width of the text fregment.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.borderWidth
+                         */
+                        borderWidth?: number;
+
+                        /**
+                         * Border radius of the text fregment.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.borderRadius
+                         */
+                        borderRadius?: number;
+
+                        /**
+                         * Padding of the text fregment, for example:
+                         *
+                         * + `padding: [3, 4, 5, 6]`: represents padding of
+                         * `[top, right, bottom, left]`.
+                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                         * + `padding: [3, 4]`: represents `padding: [3, 4,
+                         * 3, 4]`.
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.padding
+                         */
+                        padding?: any[] | number;
+
+                        /**
+                         * Shadow color of the text block.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Show blur of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text block.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Width of the text block.
+                         * It is the width of the text by default.
+                         * In most cases, there is no need to specify it.
+                         * You may want to use it in some cases like make simple
+                         * table or using background image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * `width` can also be percent string, like `'100%'`,
+                         * which represents the percent of `contentWidth` (that
+                         * is, the width without `padding`) of its container
+                         * box.
+                         * It is based on `contentWidth` because that each text
+                         * fregment is layout based on the `content box`, where
+                         * it makes no sense that calculating width based on
+                         * `outerWith` in prectice.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.width
+                         */
+                        width?: number | string;
+
+                        /**
+                         * Height of the text block.
+                         * It is the width of the text by default.
+                         * You may want to use it in some cases like using background
+                         * image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width
+                         * and height of the content, without `padding`.
+                         *
+                         * Notice, `width` and `height` only work when `rich`
+                         * specified.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.height
+                         */
+                        height?: number | string;
+
+                        /**
+                         * Storke color of the text.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.textBorderColor
+                         */
+                        textBorderColor?: string;
+
+                        /**
+                         * Storke line width of the text.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.textBorderWidth
+                         */
+                        textBorderWidth?: number;
+
+                        /**
+                         * Shadow color of the text itself.
+                         *
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.textShadowColor
+                         */
+                        textShadowColor?: string;
+
+                        /**
+                         * Shadow blue of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.textShadowBlur
+                         */
+                        textShadowBlur?: number;
+
+                        /**
+                         * Shadow X offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.textShadowOffsetX
+                         */
+                        textShadowOffsetX?: number;
+
+                        /**
+                         * Shadow Y offset of the text itself.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.textShadowOffsetY
+                         */
+                        textShadowOffsetY?: number;
+
+                        /**
+                         * "Rich text styles" can be defined in this `rich`
+                         * property. For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label)
+                         *
+                         * For more details, see
+                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * please.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich
+                         */
+                        rich?: {
+
+                            /**
+                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E
+                             */
+                            [userStyle: string]: {
+
+                                /**
+                                 * text color.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * ""#fff""
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 */
+                                color?: string;
+
+                                /**
+                                 * font style
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'italic'`
+                                 * + `'oblique'`
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 */
+                                fontStyle?: string;
+
+                                /**
+                                 * font thick weight
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'bold'`
+                                 * + `'bolder'`
+                                 * + `'lighter'`
+                                 * + 100 | 200 | 300 | 400...
+                                 *
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 */
+                                fontWeight?: string;
+
+                                /**
+                                 * font family
+                                 *
+                                 * Can also be 'serif' , 'monospace', ...
+                                 *
+                                 *
+                                 * @default
+                                 * "sans-serif"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 */
+                                fontFamily?: string;
+
+                                /**
+                                 * font size
+                                 *
+                                 *
+                                 * @default
+                                 * 12
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 */
+                                fontSize?: number;
+
+                                /**
+                                 * Horizontal alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'left'`
+                                 * + `'center'`
+                                 * + `'right'`
+                                 *
+                                 * If `align` is not set in `rich`, `align`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 */
+                                align?: string;
+
+                                /**
+                                 * Vertical alignment of text, automatic by
+                                 * default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'top'`
+                                 * + `'middle'`
+                                 * + `'bottom'`
+                                 *
+                                 * If `verticalAlign` is not set in `rich`,
+                                 * `verticalAlign` in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 */
+                                verticalAlign?: string;
+
+                                /**
+                                 * Line height of the text fregment.
+                                 *
+                                 * If `lineHeight` is not set in `rich`, `lineHeight`
+                                 * in parent level will be used.
+                                 * For example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 */
+                                lineHeight?: number;
+
+                                /**
+                                 * Background color of the text fregment.
+                                 *
+                                 * Can be color string, like `'#123234'`, `'red'`,
+                                 * `rgba(0,23,11,0.3)'`.
+                                 *
+                                 * Or image can be used, for example:
+                                 *
+                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 * `width` or `height` can be specified when
+                                 * using background image, or auto adapted by
+                                 * default.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 */
+                                backgroundColor?: object | string;
+
+                                /**
+                                 * Border color of the text fregment.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 */
+                                borderColor?: string;
+
+                                /**
+                                 * Border width of the text fregment.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 */
+                                borderWidth?: number;
+
+                                /**
+                                 * Border radius of the text fregment.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 */
+                                borderRadius?: number;
+
+                                /**
+                                 * Padding of the text fregment, for example:
+                                 *
+                                 * + `padding: [3, 4, 5, 6]`: represents padding
+                                 * of `[top, right, bottom, left]`.
+                                 * + `padding: 4`: represents `padding: [4,
+                                 * 4, 4, 4]`.
+                                 * + `padding: [3, 4]`: represents `padding:
+                                 * [3, 4, 3, 4]`.
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 */
+                                padding?: any[] | number;
+
+                                /**
+                                 * Shadow color of the text block.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 */
+                                shadowColor?: string;
+
+                                /**
+                                 * Show blur of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 */
+                                shadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 */
+                                shadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text block.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 */
+                                shadowOffsetY?: number;
+
+                                /**
+                                 * Width of the text block.
+                                 * It is the width of the text by default.
+                                 * In most cases, there is no need to specify
+                                 * it.
+                                 * You may want to use it in some cases like
+                                 * make simple table or using background image
+                                 * (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * `width` can also be percent string, like
+                                 * `'100%'`, which represents the percent of
+                                 * `contentWidth` (that is, the width without
+                                 * `padding`) of its container box.
+                                 * It is based on `contentWidth` because that
+                                 * each text fregment is layout based on the
+                                 * `content box`, where it makes no sense that
+                                 * calculating width based on `outerWith` in
+                                 * prectice.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 */
+                                width?: number | string;
+
+                                /**
+                                 * Height of the text block.
+                                 * It is the width of the text by default.
+                                 * You may want to use it in some cases like
+                                 * using background image (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the
+                                 * width and height of the content, without
+                                 * `padding`.
+                                 *
+                                 * Notice, `width` and `height` only work when
+                                 * `rich` specified.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 */
+                                height?: number | string;
+
+                                /**
+                                 * Storke color of the text.
+                                 *
+                                 * If set as `'auto'`, the color will assigned
+                                 * as visual color, such as series color.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 */
+                                textBorderColor?: string;
+
+                                /**
+                                 * Storke line width of the text.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 */
+                                textBorderWidth?: number;
+
+                                /**
+                                 * Shadow color of the text itself.
+                                 *
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 */
+                                textShadowColor?: string;
+
+                                /**
+                                 * Shadow blue of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 */
+                                textShadowBlur?: number;
+
+                                /**
+                                 * Shadow X offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 */
+                                textShadowOffsetX?: number;
+
+                                /**
+                                 * Shadow Y offset of the text itself.
+                                 *
+                                 *
+                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 */
+                                textShadowOffsetY?: number;
+                            };
+                        };
+                    };
+
+                    /**
+                     * Style of Sunburst sectors.
+                     *
+                     * Style can be set in
+                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
+                     * for sectors of this series, or
+                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
+                     * for the whole level, or
+                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
+                     * for single sector. If
+                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
+                     * is defined, it will cover the setting of
+                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
+                     * and
+                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
+                     * .
+                     *
+                     * **Priority:
+                     * [series.data.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.itemStyle)
+                     * >
+                     * [series.levels.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.levels.itemStyle)
+                     * >
+                     * [series.itemStyle](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.itemStyle)
+                     * .**
+                     *
+                     * In ECharts, _emphasis_ is for styles when mouse hovers.
+                     * For Sunburst charts, there are two extra states: _highlight_
+                     * for highlighting items that relates to the emphasized
+                     * one, and _downplay_ for others when emphasizing an item.
+                     * See
+                     * [highlightPolicy](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.highlightPolicy)
+                     * .
+                     *
+                     *
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle
+                     */
+                    itemStyle?: {
+
+                        /**
+                         * color. Color is taken from
+                         * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                         * by default.
+                         *
+                         * > Color can be represented in RGB, for example `'rgb(128,
+                         * 128, 128)'`.
+                         * RGBA can be used when you need alpha channel, for
+                         * example `'rgba(128, 128, 128, 0.5)'`.
+                         * You may also use hexadecimal format, for example
+                         * `'#ccc'`.
+                         * Gradient color and texture are also supported besides
+                         * single colors.
+                         * >
+                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.itemStyle)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.color
+                         */
+                        color?: string;
+
+                        /**
+                         * border color, whose format is similar to that of
+                         * `color`.
+                         *
+                         *
+                         * @default
+                         * "white"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.borderColor
+                         */
+                        borderColor?: string;
+
+                        /**
+                         * border width. No border when it is set to be 0.
+                         *
+                         *
+                         * @default
+                         * 1
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.borderWidth
+                         */
+                        borderWidth?: number;
+
+                        /**
+                         * Border type, which can be `'solid'`, `'dashed'`,
+                         * or `'dotted'`. `'solid'` by default.
+                         *
+                         *
+                         * @default
+                         * "solid"
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.borderType
+                         */
+                        borderType?: string;
+
+                        /**
+                         * Size of shadow blur.
+                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                         * `shadowOffsetY` to set shadow to component.
+                         *
+                         * For example:
+                         *
+                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.sunburst.data.downplay.itemStyle)
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.shadowBlur
+                         */
+                        shadowBlur?: number;
+
+                        /**
+                         * Shadow color. Support same format as `color`.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.shadowColor
+                         */
+                        shadowColor?: string;
+
+                        /**
+                         * Offset distance on the horizontal direction of shadow.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.shadowOffsetX
+                         */
+                        shadowOffsetX?: number;
+
+                        /**
+                         * Offset distance on the vertical direction of shadow.
+                         *
+                         *
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.shadowOffsetY
+                         */
+                        shadowOffsetY?: number;
+
+                        /**
+                         * Opacity of the component.
+                         * Supports value from 0 to 1, and the component will
+                         * not be drawn when set to 0.
+                         *
+                         *
+                         * @default
+                         * 1
+                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.downplay.itemStyle.opacity
+                         */
+                        opacity?: number;
+                    };
+                };
+
+                /**
+                 * Children nodes, which is recursively defined.
+                 * In the same format to
+                 * [series-sunburst.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data)
+                 * .
+                 *
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-sunburst.data.children
+                 */
+                children?: DataObject[];
+            }
         }
     }
 }
