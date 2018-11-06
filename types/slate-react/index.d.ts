@@ -7,6 +7,7 @@
 //                 Brandon Shelton <https://github.com/YangusKhan>
 //                 Irwan Fario Subastian <https://github.com/isubasti>
 //                 Sebastian Greaves <https://github.com/sgreav>
+//                 Francesco Agnoletto <https://github.com/Kornil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 import {
@@ -14,6 +15,8 @@ import {
     Editor as Controller,
     Mark,
     Node,
+    Block,
+    Inline,
     Operations,
     Schema,
     Stack,
@@ -40,14 +43,15 @@ export interface RenderMarkProps {
 }
 
 export interface RenderNodeProps {
-    attributes: RenderAttributes;
-    children: React.ReactNode;
-    editor: Controller;
-    isFocused: boolean;
-    isSelected: boolean;
-    node: Node;
-    parent: Node;
-    readOnly: boolean;
+  attributes: RenderAttributes;
+  children: React.ReactNode;
+  editor: Controller;
+  isFocused: boolean;
+  isSelected: boolean;
+  key: string;
+  node: Block | Inline;
+  parent: Node;
+  readOnly: boolean;
 }
 
 export interface RenderPlaceholderProps {
