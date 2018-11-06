@@ -659,6 +659,10 @@ declare namespace Application {
          * Default error handling.
          */
         onerror(err: Error): void;
+        /**
+         * Custom properties.
+         */
+        [key: string]: any;
     }
 
     interface Request extends BaseRequest {
@@ -694,7 +698,6 @@ declare namespace Application {
          * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
          */
         respond?: boolean;
-        [key: string]: any;
     }
 }
 
