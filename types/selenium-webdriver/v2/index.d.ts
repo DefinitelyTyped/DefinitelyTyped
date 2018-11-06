@@ -2534,6 +2534,8 @@ export class Builder {
  * @final
  */
 export class By {
+  using: string;
+  value: string;
 
   /**
    * @param {string} using the name of the location strategy to use.
