@@ -100,7 +100,7 @@ declare namespace IntlTelInput {
          * Set the type of the placeholder number
          * @param type Placeholder number type to be set
          */
-        setPlaceholderNumberType(type: intlTelInputUtils.numberType): void;
+        setPlaceholderNumberType(type: intlTelInputUtils.placeholderNumberType): void;
     }
 
     interface JQueryPlugin {
@@ -186,7 +186,7 @@ declare namespace IntlTelInput {
          * Set the type of the placeholder number
          * @param type Placeholder number type to be set
          */
-        (method: 'setPlaceholderNumberType', type: intlTelInputUtils.numberType): void;
+        (method: 'setPlaceholderNumberType', type: intlTelInputUtils.placeholderNumberType): void;
     }
 
     interface Options {
@@ -302,7 +302,7 @@ declare namespace IntlTelInput {
          * e.g. "FIXED_LINE" to set the number type to use for the placeholder.
          * Default = MOBILE
          */
-        placeholderNumberType?: intlTelInputUtils.numberType;
+        placeholderNumberType?: intlTelInputUtils.placeholderNumberType;
 
         /**
          * Specify the countries to appear at the top of the list.
@@ -370,6 +370,20 @@ declare namespace intlTelInputUtils {
         TOO_LONG = 3,
         NOT_A_NUMBER = 4
     }
+
+    type placeholderNumberType =
+        | "FIXED_LINE_OR_MOBILE"
+        | "FIXED_LINE"
+        | "MOBILE"
+        | "PAGER"
+        | "PERSONAL_NUMBER"
+        | "PREMIUM_RATE"
+        | "SHARED_COST"
+        | "TOLL_FREE"
+        | "UAN"
+        | "UNKNOWN"
+        | "VOICEMAIL"
+        | "VOIP";
 }
 
 interface Window {

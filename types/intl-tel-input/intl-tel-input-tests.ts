@@ -12,7 +12,7 @@ window.intlTelInput(input, {
 });
 
 window.intlTelInput(input, {
-    placeholderNumberType: intlTelInputUtils.numberType.MOBILE,
+    placeholderNumberType: "MOBILE",
 });
 
 window.intlTelInput(input, {
@@ -43,7 +43,7 @@ window.intlTelInput(input).setCountry('gb');
 
 window.intlTelInput(input).setNumber('+447733123456');
 
-window.intlTelInput(input).setPlaceholderNumberType(intlTelInputUtils.numberType.FIXED_LINE);
+window.intlTelInput(input).setPlaceholderNumberType("FIXED_LINE");
 
 const countryData = window.intlTelInputGlobals.getCountryData();
 const country = countryData[0];
@@ -100,7 +100,7 @@ $('#phone').intlTelInput({
 });
 
 $('#phone').intlTelInput({
-    placeholderNumberType: intlTelInputUtils.numberType.MOBILE,
+    placeholderNumberType: "MOBILE",
 });
 
 $('#phone').intlTelInput({
@@ -131,7 +131,7 @@ $('#phone').intlTelInput('setCountry', 'gb');
 
 $('#phone').intlTelInput('setNumber', '+447733123456');
 
-$('#phone').intlTelInput('setPlaceholderNumberType', intlTelInputUtils.numberType.FIXED_LINE);
+$('#phone').intlTelInput('setPlaceholderNumberType', "FIXED_LINE");
 
 $('#phone').intlTelInput({
     utilsScript: '../../build/js/utils.js'
