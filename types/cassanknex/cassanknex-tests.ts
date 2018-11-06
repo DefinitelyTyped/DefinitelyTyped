@@ -1,4 +1,4 @@
-import * as cassanknex from "cassanknex";
+import cassanknex = require('cassanknex');
 
 const knex = cassanknex({
 	connection: {
