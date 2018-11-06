@@ -4,6 +4,7 @@
 import * as CodeMirror from "codemirror";
 import * as Tern from "tern";
 
+
 declare module "codemiror" {
 
     interface Editor {
@@ -41,7 +42,9 @@ declare module "codemiror" {
 
         selectName: (cm: CodeMirror.Editor) => void;
 
+
         request: (cm: CodeMirror.Editor, query: string | Tern.QueryRegistry[keyof Tern.QueryRegistry]["query"], callback: (error: any, data?: any) => void, pos?: CodeMirror.Position) => void;
+
 
         destroy: () => void;
     }
