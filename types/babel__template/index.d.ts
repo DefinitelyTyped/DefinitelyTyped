@@ -4,7 +4,7 @@
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import { ParserOptions } from "@babel/parser";
 import { Expression, File, Program, Statement } from "@babel/types";
