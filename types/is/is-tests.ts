@@ -449,6 +449,9 @@ is.ie();
 is.ie(6);
 is.not.ie();
 
+is.edge();
+is.not.edge();
+
 is.chrome();
 is.not.chrome();
 

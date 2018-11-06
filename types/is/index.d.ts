@@ -372,6 +372,11 @@ interface IsStatic {
     ie(value?: number): boolean;
 
     /**
+     * Checks if current browser is edge.
+     */
+    edge(): boolean;
+
+    /**
      * Checks if current browser is chrome.
      */
     chrome(): boolean;
