@@ -736,7 +736,7 @@ declare namespace Bull {
 
   type FailedEventCallback<T = any> = (job: Job<T>, error: Error) => void;
 
-  type CleanedEventCallback<T = any> = (jobs: Array<Job<T>>, status: JobStatus) => void;
+  type CleanedEventCallback<T = any> = (jobs: Array<Job<T>>, status: JobStatusClean) => void;
 
   type RemovedEventCallback<T = any> = (job: Job<T>) => void;
 
