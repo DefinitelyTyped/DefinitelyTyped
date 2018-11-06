@@ -19,8 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery-wrapped.d.ts",
-        "intl-tel-input-tests.ts",
-        "jquery-wrapped-tests.ts"
+        "intl-tel-input-tests.ts"
     ]
 }
