@@ -1405,7 +1405,20 @@ declare namespace webpack {
     }
 
     class ProgressPlugin extends Plugin {
-        constructor(options?: (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void);
+        constructor(options?: ProgressPlugin.Handler | ProgressPlugin.Options);
+    }
+
+    namespace ProgressPlugin {
+        type Handler = (percentage: number, msg: string, moduleProgress?: string, activeModules?: string, moduleName?: string) => void;
+
+        interface Options {
+            profile?: boolean;
+            handler: Handler;
+            modulesCount?: number;
+            entries?: boolean;
+            modules?: boolean;
+            activeModules?: boolean;
+        }
     }
 
     class EnvironmentPlugin extends Plugin {
