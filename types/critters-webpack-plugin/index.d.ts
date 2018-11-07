@@ -1,4 +1,4 @@
-// Type definitions for critters-webpack-plugin 1.3
+// Type definitions for critters-webpack-plugin 2.0.1
 // Project: https://github.com/GoogleChromeLabs/critters
 // Definitions by: Juan José González Giraldo <https://github.com/JuanJoseGonGi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,6 +18,26 @@ declare namespace Critters {
          * @default true
          */
         external?: boolean;
+        /**
+         * Inline external stylesheets smaller than a given size.
+         * @default 0
+         */
+        inlineThreshold?: number;
+        /**
+         * If the non-critical external stylesheet would be below this size, just inline it.
+         * @default 0
+         */
+        minimumExternalSize?: number;
+        /**
+         * Remove inlined rules from the external stylesheet.
+         * @default true
+         */
+        pruneSource?: boolean;
+        /**
+         * Merged inlined stylesheets into a single <style> tag.
+         * @default true
+         */
+        mergeStylesheets?: boolean;
         /**
          * The mechanism to use for lazy-loading stylesheets. [JS] indicates that a strategy requires JavaScript (falls back to <noscript>).
          * - default: Move stylesheet links to the end of the document and insert preload meta tags in their place.
