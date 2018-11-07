@@ -173,3 +173,22 @@ new Redis.Cluster([{
     host: 'localhost',
     port: 6379
 }]);
+
+redis.xack('streamName', 'groupName', 'id');
+redis.xadd('streamName', '*', 'field', 'name');
+redis.xclaim('streamName', 'groupName', 'consumerName', 3600000, 'id');
+redis.xdel('streamName', 'id');
+redis.xgroup('CREATE', 'streamName', 'groupName', '$');
+redis.xgroup('SETUP', 'streamName', 'groupName', '$');
+redis.xgroup('DESTROY', 'streamName', 'groupName');
+redis.xgroup('DELCONSUMER', 'streamName', 'groupName', 'consumerName');
+redis.xinfo('CONSUMERS', 'streamName', 'groupName');
+redis.xinfo('GROUPS', 'streamName');
+redis.xinfo('STREAM', 'streamName');
+redis.xlen('streamName');
+redis.xpending('streamName', 'groupName', '-', '+', '10', 'consumerName');
+redis.xrange('streamName', '-', '+', 'COUNT', 1);
+redis.xread('STREAMS', 'streamName', '0-0');
+redis.xreadgroup('GROUP', 'groupName', 'consumerName', 'STREAMS', 'streamName', '>');
+redis.xrevrange('streamName', '+', '-', 'COUNT', 1);
+redis.xtrim('streamName', 'MAXLEN', '~', 1000);
