@@ -24,8 +24,6 @@
 
 /// <reference path="global.d.ts" />
 
-type ForceTest = true;
-
 import * as CSS from 'csstype';
 import * as PropTypes from 'prop-types';
 
