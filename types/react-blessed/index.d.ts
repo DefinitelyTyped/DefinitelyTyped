@@ -18,7 +18,7 @@ declare module 'react-blessed' {
   export function createBlessedRenderer(b: typeof Blessd): renderer;
 }
 
-// relation to blessed export widgets
+// relation to blessed export widgets, prepare for next version of react-blessed
 declare namespace JSX {
   interface IntrinsicElements {
     'blessed-box': any,
