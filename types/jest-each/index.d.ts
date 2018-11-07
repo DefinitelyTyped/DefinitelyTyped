@@ -24,7 +24,7 @@ declare namespace JestEach {
 	}
 
 	interface DescribeObj {
-		(name: string, fn: DescribeFn): void;
+		(name: string, fn: SyncCallback): void;
 		only: DescribeFn;
 		skip: DescribeFn;
 	}
