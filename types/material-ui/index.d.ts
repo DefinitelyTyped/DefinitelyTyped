@@ -12,7 +12,6 @@
 //                 Dan Jones <https://github.com/dan-j>
 //                 Daisuke Mino <https://github.com/minodisk>
 //                 Sam Walsh <https://github.com/samwalshnz>
-//                 Tim de Koning <https://github.com/reggino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
