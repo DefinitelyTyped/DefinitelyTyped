@@ -558,7 +558,6 @@ class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedP
 
 // withNavigation returns a component that wraps MyBackButton and passes in the navigation prop.
 // If you have class methods, you should have a way to use them.
-// This is not used and is causing an error with the assignment to BackButtonWithNavigation below
 const BackButtonWithNavigation = withNavigation(MyBackButton);
 const BackButtonInstance = <BackButtonWithNavigation
     title="Back" onRef={((ref: MyBackButton) => {
@@ -574,12 +573,10 @@ function StatelessBackButton(props: BackButtonProps & NavigationInjectedProps) {
 }
 
 // Wrapped stateless components don't accept an onRef
-// This is not used and is causing an error with the assignment to StatelessBackButtonWithNavigation below
 const StatelessBackButtonWithNavigation = withNavigation(StatelessBackButton);
 const StatelessBackButtonInstance = <StatelessBackButtonWithNavigation title="Back" />;
 
 // The old way of passing in the props should still work
-// This is not used and is causing an error with the assignment to BackButtonWithNavigationWithExplicitProps below
 const BackButtonWithNavigationWithExplicitProps = withNavigation<BackButtonProps>(MyBackButton);
 const BackButtonWithExplicitPropsInstance = <BackButtonWithNavigationWithExplicitProps
     title="Back" onRef={((ref: React.Component<BackButtonProps & NavigationInjectedProps>) => {
@@ -598,7 +595,6 @@ class MyFocusedComponent extends React.Component<MyFocusedComponentProps & Navig
     }
 }
 
-// This is not used and is causing an error with the assignment to MyFocusedComponentWithNavigationFocus below
 // withNavigationFocus returns a component that wraps MyFocusedComponent and passes in the
 // navigation and isFocused prop
 const MyFocusedComponentWithNavigationFocus = withNavigationFocus(MyFocusedComponent);
@@ -624,7 +620,6 @@ createStackNavigator(
 );
 
 // Test NavigationEvents component
-// This is not used and is causing an error with the assignment to ViewWithNavigationEvents below
 const ViewWithNavigationEvents = (
   <NavigationEvents
     onWillFocus={console.log}
