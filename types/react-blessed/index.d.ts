@@ -2,7 +2,7 @@
 // Project: https://github.com/Yomguithereal/react-blessed
 // Definitions by: Century Guo <http://github.com/guoshencheng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 declare module 'react-blessed' {
   import * as React from 'react';
