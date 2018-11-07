@@ -17,12 +17,12 @@ export interface LocalizationProps {
     /**
      * Country code for your device
      */
-    country: string | undefined;
+    country: string | undefined | null;
 
     /**
      * A list of all the supported ISO codes
      */
-    isoCurrencyCodes: string[] | undefined;
+    isoCurrencyCodes: string[] | undefined | null;
 
     /**
      * The current time zone in display format. ex: `America/Los_Angeles`
@@ -49,12 +49,12 @@ export namespace Localization {
     /**
      * Country code for your device
      */
-    const country: string | undefined;
+    const country: string | undefined | null;
 
     /**
      * A list of all the supported ISO codes
      */
-    const isoCurrencyCodes: string[] | undefined;
+    const isoCurrencyCodes: string[] | undefined | null;
 
     /**
      * The current time zone in display format. ex: `America/Los_Angeles`
