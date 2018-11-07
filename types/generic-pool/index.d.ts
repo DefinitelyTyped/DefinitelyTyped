@@ -19,8 +19,8 @@ export class Pool<T> extends EventEmitter {
 
     start(): void;
     acquire(priority?: number): PromiseLike<T>;
-    release(resource: T): void;
-    destroy(resource: T): void;
+    release(resource: T): PromiseLike<T>;
+    destroy(resource: T): PromiseLike<T>;
     drain(): PromiseLike<void>;
     clear(): PromiseLike<void>;
     use<U>(cb: (resource: T) => U): PromiseLike<U>;
