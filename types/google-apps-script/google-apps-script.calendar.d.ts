@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-11-07
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -119,9 +119,9 @@ declare namespace GoogleAppsScript {
       deleteTag(key: string): CalendarEvent;
       getAllDayEndDate(): Date;
       getAllDayStartDate(): Date;
-      getAllTagKeys(): string[];
+      getAllTagKeys(): String[];
       getColor(): string;
-      getCreators(): string[];
+      getCreators(): String[];
       getDateCreated(): Date;
       getDescription(): string;
       getEmailReminders(): Integer[];
@@ -177,9 +177,9 @@ declare namespace GoogleAppsScript {
       anyoneCanAddSelf(): boolean;
       deleteEventSeries(): void;
       deleteTag(key: string): CalendarEventSeries;
-      getAllTagKeys(): string[];
+      getAllTagKeys(): String[];
       getColor(): string;
-      getCreators(): string[];
+      getCreators(): String[];
       getDateCreated(): Date;
       getDescription(): string;
       getEmailReminders(): Integer[];

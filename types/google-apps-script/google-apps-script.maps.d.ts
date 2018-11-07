@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-11-07
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -81,7 +81,7 @@ declare namespace GoogleAppsScript {
       setDestination(latitude: Number, longitude: Number): DirectionFinder;
       setDestination(address: string): DirectionFinder;
       setLanguage(language: string): DirectionFinder;
-      setMode(mode: Mode): DirectionFinder;
+      setMode(mode: string): DirectionFinder;
       setOptimizeWaypoints(optimizeOrder: boolean): DirectionFinder;
       setOrigin(latitude: Number, longitude: Number): DirectionFinder;
       setOrigin(address: string): DirectionFinder;

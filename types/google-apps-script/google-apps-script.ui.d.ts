@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-11-07
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -378,11 +378,11 @@ declare namespace GoogleAppsScript {
       validateNotMatches(widget: Widget, pattern: string): ClientHandler;
       validateNotMatches(widget: Widget, pattern: string, flags: string): ClientHandler;
       validateNotNumber(widget: Widget): ClientHandler;
-      validateNotOptions(widget: Widget, options: string[]): ClientHandler;
+      validateNotOptions(widget: Widget, options: String[]): ClientHandler;
       validateNotRange(widget: Widget, min: Number, max: Number): ClientHandler;
       validateNotSum(widgets: Widget[], sum: Integer): ClientHandler;
       validateNumber(widget: Widget): ClientHandler;
-      validateOptions(widget: Widget, options: string[]): ClientHandler;
+      validateOptions(widget: Widget, options: String[]): ClientHandler;
       validateRange(widget: Widget, min: Number, max: Number): ClientHandler;
       validateSum(widgets: Widget[], sum: Integer): ClientHandler;
     }
@@ -1401,11 +1401,11 @@ declare namespace GoogleAppsScript {
       validateNotMatches(widget: Widget, pattern: string): Handler;
       validateNotMatches(widget: Widget, pattern: string, flags: string): Handler;
       validateNotNumber(widget: Widget): Handler;
-      validateNotOptions(widget: Widget, options: string[]): Handler;
+      validateNotOptions(widget: Widget, options: String[]): Handler;
       validateNotRange(widget: Widget, min: Number, max: Number): Handler;
       validateNotSum(widgets: Widget[], sum: Integer): Handler;
       validateNumber(widget: Widget): Handler;
-      validateOptions(widget: Widget, options: string[]): Handler;
+      validateOptions(widget: Widget, options: String[]): Handler;
       validateRange(widget: Widget, min: Number, max: Number): Handler;
       validateSum(widgets: Widget[], sum: Integer): Handler;
     }
@@ -2355,11 +2355,11 @@ declare namespace GoogleAppsScript {
       validateNotMatches(widget: Widget, pattern: string): ServerHandler;
       validateNotMatches(widget: Widget, pattern: string, flags: string): ServerHandler;
       validateNotNumber(widget: Widget): ServerHandler;
-      validateNotOptions(widget: Widget, options: string[]): ServerHandler;
+      validateNotOptions(widget: Widget, options: String[]): ServerHandler;
       validateNotRange(widget: Widget, min: Number, max: Number): ServerHandler;
       validateNotSum(widgets: Widget[], sum: Integer): ServerHandler;
       validateNumber(widget: Widget): ServerHandler;
-      validateOptions(widget: Widget, options: string[]): ServerHandler;
+      validateOptions(widget: Widget, options: String[]): ServerHandler;
       validateRange(widget: Widget, min: Number, max: Number): ServerHandler;
       validateSum(widgets: Widget[], sum: Integer): ServerHandler;
     }

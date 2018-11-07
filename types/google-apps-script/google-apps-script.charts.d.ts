@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-11-07
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -51,7 +51,7 @@ declare namespace GoogleAppsScript {
       build(): Chart;
       reverseCategories(): AreaChartBuilder;
       setBackgroundColor(cssValue: string): AreaChartBuilder;
-      setColors(cssValues: string[]): AreaChartBuilder;
+      setColors(cssValues: String[]): AreaChartBuilder;
       setDataSourceUrl(url: string): AreaChartBuilder;
       setDataTable(tableBuilder: DataTableBuilder): AreaChartBuilder;
       setDataTable(table: DataTableSource): AreaChartBuilder;
@@ -102,7 +102,7 @@ declare namespace GoogleAppsScript {
       reverseCategories(): BarChartBuilder;
       reverseDirection(): BarChartBuilder;
       setBackgroundColor(cssValue: string): BarChartBuilder;
-      setColors(cssValues: string[]): BarChartBuilder;
+      setColors(cssValues: String[]): BarChartBuilder;
       setDataSourceUrl(url: string): BarChartBuilder;
       setDataTable(tableBuilder: DataTableBuilder): BarChartBuilder;
       setDataTable(table: DataTableSource): BarChartBuilder;
@@ -196,7 +196,7 @@ declare namespace GoogleAppsScript {
       setLabelStacking(orientation: Orientation): CategoryFilterBuilder;
       setSelectedValuesLayout(layout: PickerValuesLayout): CategoryFilterBuilder;
       setSortValues(sortValues: boolean): CategoryFilterBuilder;
-      setValues(values: string[]): CategoryFilterBuilder;
+      setValues(values: String[]): CategoryFilterBuilder;
     }
 
     /**
@@ -336,7 +336,7 @@ declare namespace GoogleAppsScript {
       build(): Chart;
       reverseCategories(): ColumnChartBuilder;
       setBackgroundColor(cssValue: string): ColumnChartBuilder;
-      setColors(cssValues: string[]): ColumnChartBuilder;
+      setColors(cssValues: String[]): ColumnChartBuilder;
       setDataSourceUrl(url: string): ColumnChartBuilder;
       setDataTable(tableBuilder: DataTableBuilder): ColumnChartBuilder;
       setDataTable(table: DataTableSource): ColumnChartBuilder;
@@ -536,7 +536,7 @@ declare namespace GoogleAppsScript {
      *     function doGet() {
      *       // This example creates two table charts side by side. One uses a data view definition to
      *       // restrict the number of displayed columns.
-     *       var app = UiApp.createApplication();
+     *
      *       // Get sample data from a spreadsheet.
      *       var dataSourceUrl = 'https://docs.google.com/spreadsheet/tq?range=A1%3AF' +
      *           '&key=0Aq4s9w_HxMs7dHpfX05JdmVSb1FpT21sbXd4NVE3UEE&gid=4&headers=-1';
@@ -555,9 +555,17 @@ declare namespace GoogleAppsScript {
      *           .setDataViewDefinition(dataViewDefinition)
      *           .build();
      *
-     *       var panel = app.createHorizontalPanel().setSpacing(15);
-     *       panel.add(originalChart).add(limitedChart);
-     *       return app.add(panel);
+     *       var htmlOutput = HtmlService.createHtmlOutput();
+     *       var originalChartData = Utilities.base64Encode(originalChart.getAs('image/png').getBytes());
+     *       var originalChartUrl = "data:image/png;base64," + encodeURI(originalChartData);
+     *       var limitedChartData = Utilities.base64Encode(limitedChart.getAs('image/png').getBytes());
+     *       var limitedChartUrl = "data:image/png;base64," + encodeURI(limitedChartData);
+     *       htmlOutput.append("<table><tr><td>");
+     *       htmlOutput.append("<img border=\"1\" src=\"" + originalChartUrl + "\">");
+     *       htmlOutput.append("</td><td>");
+     *       htmlOutput.append("<img border=\"1\" src=\"" + limitedChartUrl + "\">");
+     *       htmlOutput.append("</td></tr></table>");
+     *       return htmlOutput;
      *     }
      */
     export interface DataViewDefinitionBuilder {
@@ -592,7 +600,7 @@ declare namespace GoogleAppsScript {
       build(): Chart;
       reverseCategories(): LineChartBuilder;
       setBackgroundColor(cssValue: string): LineChartBuilder;
-      setColors(cssValues: string[]): LineChartBuilder;
+      setColors(cssValues: String[]): LineChartBuilder;
       setCurveStyle(style: CurveStyle): LineChartBuilder;
       setDataSourceUrl(url: string): LineChartBuilder;
       setDataTable(tableBuilder: DataTableBuilder): LineChartBuilder;
@@ -725,7 +733,7 @@ declare namespace GoogleAppsScript {
       reverseCategories(): PieChartBuilder;
       set3D(): PieChartBuilder;
       setBackgroundColor(cssValue: string): PieChartBuilder;
-      setColors(cssValues: string[]): PieChartBuilder;
+      setColors(cssValues: String[]): PieChartBuilder;
       setDataSourceUrl(url: string): PieChartBuilder;
       setDataTable(tableBuilder: DataTableBuilder): PieChartBuilder;
       setDataTable(table: DataTableSource): PieChartBuilder;
@@ -773,7 +781,7 @@ declare namespace GoogleAppsScript {
     export interface ScatterChartBuilder {
       build(): Chart;
       setBackgroundColor(cssValue: string): ScatterChartBuilder;
-      setColors(cssValues: string[]): ScatterChartBuilder;
+      setColors(cssValues: String[]): ScatterChartBuilder;
       setDataSourceUrl(url: string): ScatterChartBuilder;
       setDataTable(tableBuilder: DataTableBuilder): ScatterChartBuilder;
       setDataTable(table: DataTableSource): ScatterChartBuilder;

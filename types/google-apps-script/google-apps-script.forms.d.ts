@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-11-07
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -35,20 +35,20 @@ declare namespace GoogleAppsScript {
      */
     export interface CheckboxGridItem {
       clearValidation(): CheckboxGridItem;
-      createResponse(responses: string[][]): ItemResponse;
+      createResponse(responses: String[][]): ItemResponse;
       duplicate(): CheckboxGridItem;
-      getColumns(): string[];
+      getColumns(): String[];
       getHelpText(): string;
       getId(): Integer;
       getIndex(): Integer;
-      getRows(): string[];
+      getRows(): String[];
       getTitle(): string;
       getType(): ItemType;
       isRequired(): boolean;
-      setColumns(columns: string[]): CheckboxGridItem;
+      setColumns(columns: String[]): CheckboxGridItem;
       setHelpText(text: string): CheckboxGridItem;
       setRequired(enabled: boolean): CheckboxGridItem;
-      setRows(rows: string[]): CheckboxGridItem;
+      setRows(rows: String[]): CheckboxGridItem;
       setTitle(title: string): CheckboxGridItem;
       setValidation(validation: CheckboxGridValidation): CheckboxGridItem;
     }
@@ -108,7 +108,7 @@ declare namespace GoogleAppsScript {
       clearValidation(): CheckboxItem;
       createChoice(value: string): Choice;
       createChoice(value: string, isCorrect: boolean): Choice;
-      createResponse(responses: string[]): ItemResponse;
+      createResponse(responses: String[]): ItemResponse;
       duplicate(): CheckboxItem;
       getChoices(): Choice[];
       getFeedbackForCorrect(): QuizFeedback;
@@ -121,7 +121,7 @@ declare namespace GoogleAppsScript {
       getType(): ItemType;
       hasOtherOption(): boolean;
       isRequired(): boolean;
-      setChoiceValues(values: string[]): CheckboxItem;
+      setChoiceValues(values: String[]): CheckboxItem;
       setChoices(choices: Choice[]): CheckboxItem;
       setFeedbackForCorrect(feedback: QuizFeedback): CheckboxItem;
       setFeedbackForIncorrect(feedback: QuizFeedback): CheckboxItem;
@@ -151,9 +151,6 @@ declare namespace GoogleAppsScript {
      *     checkBoxItem.setValidation(checkBoxValidation);
      */
     export interface CheckboxValidation {
-      requireSelectAtLeast(number: Integer): CheckboxValidation;
-      requireSelectAtMost(number: Integer): CheckboxValidation;
-      requireSelectExactly(number: Integer): CheckboxValidation;
     }
 
     /**
@@ -352,7 +349,7 @@ declare namespace GoogleAppsScript {
       addDurationItem(): DurationItem;
       addEditor(emailAddress: string): Form;
       addEditor(user: Base.User): Form;
-      addEditors(emailAddresses: string[]): Form;
+      addEditors(emailAddresses: String[]): Form;
       addGridItem(): GridItem;
       addImageItem(): ImageItem;
       addListItem(): ListItem;
@@ -498,20 +495,20 @@ declare namespace GoogleAppsScript {
      */
     export interface GridItem {
       clearValidation(): GridItem;
-      createResponse(responses: string[]): ItemResponse;
+      createResponse(responses: String[]): ItemResponse;
       duplicate(): GridItem;
-      getColumns(): string[];
+      getColumns(): String[];
       getHelpText(): string;
       getId(): Integer;
       getIndex(): Integer;
-      getRows(): string[];
+      getRows(): String[];
       getTitle(): string;
       getType(): ItemType;
       isRequired(): boolean;
-      setColumns(columns: string[]): GridItem;
+      setColumns(columns: String[]): GridItem;
       setHelpText(text: string): GridItem;
       setRequired(enabled: boolean): GridItem;
-      setRows(rows: string[]): GridItem;
+      setRows(rows: String[]): GridItem;
       setTitle(title: string): GridItem;
       setValidation(validation: GridValidation): GridItem;
     }
@@ -671,7 +668,7 @@ declare namespace GoogleAppsScript {
      *       item.setHelpText('Description of new section.');
      *     }
      */
-    export enum ItemType { CHECKBOX, CHECKBOX_GRID, DATE, DATETIME, DURATION, GRID, IMAGE, LIST, MULTIPLE_CHOICE, PAGE_BREAK, PARAGRAPH_TEXT, SCALE, SECTION_HEADER, TEXT, TIME }
+    export enum ItemType { CHECKBOX, CHECKBOX_GRID, DATE, DATETIME, DURATION, GRID, IMAGE, LIST, MULTIPLE_CHOICE, PAGE_BREAK, PARAGRAPH_TEXT, SCALE, SECTION_HEADER, TEXT, TIME, VIDEO }
 
     /**
      * A question item that allows the respondent to select one choice from a drop-down list. Items can
@@ -703,7 +700,7 @@ declare namespace GoogleAppsScript {
       getTitle(): string;
       getType(): ItemType;
       isRequired(): boolean;
-      setChoiceValues(values: string[]): ListItem;
+      setChoiceValues(values: String[]): ListItem;
       setChoices(choices: Choice[]): ListItem;
       setFeedbackForCorrect(feedback: QuizFeedback): ListItem;
       setFeedbackForIncorrect(feedback: QuizFeedback): ListItem;
@@ -746,7 +743,7 @@ declare namespace GoogleAppsScript {
       getType(): ItemType;
       hasOtherOption(): boolean;
       isRequired(): boolean;
-      setChoiceValues(values: string[]): MultipleChoiceItem;
+      setChoiceValues(values: String[]): MultipleChoiceItem;
       setChoices(choices: Choice[]): MultipleChoiceItem;
       setFeedbackForCorrect(feedback: QuizFeedback): MultipleChoiceItem;
       setFeedbackForIncorrect(feedback: QuizFeedback): MultipleChoiceItem;
@@ -890,7 +887,7 @@ declare namespace GoogleAppsScript {
      *     textItem.setFeedbackForIncorrect(feedback);
      */
     export interface QuizFeedback {
-      getLinkUrls(): string[];
+      getLinkUrls(): String[];
       getText(): string;
     }
 

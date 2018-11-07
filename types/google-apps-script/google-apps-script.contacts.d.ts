@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-11-07
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -91,7 +91,7 @@ declare namespace GoogleAppsScript {
       setPrefix(prefix: string): Contact;
       setShortName(shortName: string): Contact;
       setSuffix(suffix: string): Contact;
-      getEmailAddresses(): string[];
+      getEmailAddresses(): String[];
       getHomeAddress(): string;
       getHomeFax(): string;
       getHomePhone(): string;

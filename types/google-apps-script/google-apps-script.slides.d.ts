@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-11-07
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -267,6 +267,7 @@ declare namespace GoogleAppsScript {
       getLines(): Line[];
       getMaster(): Master;
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPageType(): PageType;
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
@@ -504,6 +505,7 @@ declare namespace GoogleAppsScript {
       getLayouts(): Layout[];
       getLines(): Line[];
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPageType(): PageType;
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
@@ -556,6 +558,7 @@ declare namespace GoogleAppsScript {
       getImages(): Image[];
       getLines(): Line[];
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
       getPlaceholder(placeholderType: PlaceholderType, placeholderIndex: Integer): PageElement;
@@ -579,6 +582,7 @@ declare namespace GoogleAppsScript {
       getImages(): Image[];
       getLines(): Line[];
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
       getPlaceholder(placeholderType: PlaceholderType, placeholderIndex: Integer): PageElement;
@@ -606,6 +610,7 @@ declare namespace GoogleAppsScript {
       getImages(): Image[];
       getLines(): Line[];
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPageType(): PageType;
       getPlaceholder(placeholderType: PlaceholderType): PageElement;
@@ -820,10 +825,10 @@ declare namespace GoogleAppsScript {
     export interface Presentation {
       addEditor(emailAddress: string): Presentation;
       addEditor(user: Base.User): Presentation;
-      addEditors(emailAddresses: string[]): Presentation;
+      addEditors(emailAddresses: String[]): Presentation;
       addViewer(emailAddress: string): Presentation;
       addViewer(user: Base.User): Presentation;
-      addViewers(emailAddresses: string[]): Presentation;
+      addViewers(emailAddresses: String[]): Presentation;
       appendSlide(): Slide;
       appendSlide(layout: Layout): Slide;
       appendSlide(predefinedLayout: PredefinedLayout): Slide;
@@ -836,9 +841,11 @@ declare namespace GoogleAppsScript {
       getNotesMaster(): NotesMaster;
       getNotesPageHeight(): Number;
       getNotesPageWidth(): Number;
+      getPageElementById(id: string): PageElement;
       getPageHeight(): Number;
       getPageWidth(): Number;
       getSelection(): Selection;
+      getSlideById(id: string): Slide;
       getSlides(): Slide[];
       getUrl(): string;
       getViewers(): Base.User[];
@@ -1026,6 +1033,7 @@ declare namespace GoogleAppsScript {
       getLines(): Line[];
       getNotesPage(): NotesPage;
       getObjectId(): string;
+      getPageElementById(id: string): PageElement;
       getPageElements(): PageElement[];
       getPageType(): PageType;
       getPlaceholder(placeholderType: PlaceholderType): PageElement;

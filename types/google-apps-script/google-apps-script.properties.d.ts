@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-11-07
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,9 +17,9 @@ declare namespace GoogleAppsScript {
     export interface Properties {
       deleteAllProperties(): Properties;
       deleteProperty(key: string): Properties;
-      getKeys(): string[];
+      getKeys(): String[];
       getProperties(): Object;
-      getProperty(key: string): string | null;
+      getProperty(key: string): string;
       setProperties(properties: Object): Properties;
       setProperties(properties: Object, deleteAllOthers: boolean): Properties;
       setProperty(key: string, value: string): Properties;
@@ -54,9 +54,9 @@ declare namespace GoogleAppsScript {
     export interface ScriptProperties {
       deleteAllProperties(): ScriptProperties;
       deleteProperty(key: string): ScriptProperties;
-      getKeys(): string[];
+      getKeys(): String[];
       getProperties(): Object;
-      getProperty(key: string): string | null;
+      getProperty(key: string): string;
       setProperties(properties: Object): ScriptProperties;
       setProperties(properties: Object, deleteAllOthers: boolean): ScriptProperties;
       setProperty(key: string, value: string): ScriptProperties;
@@ -71,9 +71,9 @@ declare namespace GoogleAppsScript {
     export interface UserProperties {
       deleteAllProperties(): UserProperties;
       deleteProperty(key: string): UserProperties;
-      getKeys(): string[];
+      getKeys(): String[];
       getProperties(): Object;
-      getProperty(key: string): string | null;
+      getProperty(key: string): string;
       setProperties(properties: Object): UserProperties;
       setProperties(properties: Object, deleteAllOthers: boolean): UserProperties;
       setProperty(key: string, value: string): UserProperties;

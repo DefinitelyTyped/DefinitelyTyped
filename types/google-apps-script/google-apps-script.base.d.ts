@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-11-07
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 
 declare namespace GoogleAppsScript {
   export module Base {
-    /** 
+    /**
      * A data interchange object for Apps Script services.
      */
     export interface Blob {
@@ -74,9 +74,10 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     * This class provides access to G Suite specific dialog boxes.
+     * This class provides access to dialog boxes specific to Google Sheets.
      *
      * The methods in this class are only available for use in the context of a Google Spreadsheet.
+     * Please use G Suite dialogs instead.
      * See also
      *
      * ButtonSet
@@ -305,11 +306,15 @@ declare namespace GoogleAppsScript {
      *     }
      */
     export interface console {
+      error(): void;
       error(formatOrObject: Object, ...values: Object[]): void;
+      info(): void;
       info(formatOrObject: Object, ...values: Object[]): void;
+      log(): void;
       log(formatOrObject: Object, ...values: Object[]): void;
       time(label: string): void;
       timeEnd(label: string): void;
+      warn(): void;
       warn(formatOrObject: Object, ...values: Object[]): void;
     }
 
@@ -321,3 +326,4 @@ declare var Logger: GoogleAppsScript.Base.Logger;
 // conflicts with MimeType in lib.d.ts
 // declare var MimeType: GoogleAppsScript.Base.MimeType;
 declare var Session: GoogleAppsScript.Base.Session;
+declare var console: GoogleAppsScript.Base.console;

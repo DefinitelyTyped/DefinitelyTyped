@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2018-11-07
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -110,13 +110,13 @@ declare namespace GoogleAppsScript {
       addColumn(name: string): Column;
       addHostedAttachment(blob: Base.BlobSource): Attachment;
       addHostedAttachment(blob: Base.BlobSource, description: string): Attachment;
-      addListItem(values: string[]): ListItem;
+      addListItem(values: String[]): ListItem;
       addWebAttachment(title: string, description: string, url: string): Attachment;
       createAnnouncement(title: string, html: string): Page;
       createAnnouncement(title: string, html: string, asDraft: boolean): Page;
       createAnnouncementsPage(title: string, name: string, html: string): Page;
       createFileCabinetPage(title: string, name: string, html: string): Page;
-      createListPage(title: string, name: string, html: string, columnNames: string[]): Page;
+      createListPage(title: string, name: string, html: string, columnNames: String[]): Page;
       createPageFromTemplate(title: string, name: string, template: Page): Page;
       createWebPage(title: string, name: string, html: string): Page;
       deletePage(): void;
@@ -126,7 +126,7 @@ declare namespace GoogleAppsScript {
       getAnnouncements(optOptions: Object): Page[];
       getAttachments(): Attachment[];
       getAttachments(optOptions: Object): Attachment[];
-      getAuthors(): string[];
+      getAuthors(): String[];
       getChildByName(name: string): Page;
       getChildren(): Page[];
       getChildren(options: Object): Page[];
@@ -178,15 +178,15 @@ declare namespace GoogleAppsScript {
     export interface Site {
       addEditor(emailAddress: string): Site;
       addEditor(user: Base.User): Site;
-      addEditors(emailAddresses: string[]): Site;
+      addEditors(emailAddresses: String[]): Site;
       addOwner(email: string): Site;
       addOwner(user: Base.User): Site;
       addViewer(emailAddress: string): Site;
       addViewer(user: Base.User): Site;
-      addViewers(emailAddresses: string[]): Site;
+      addViewers(emailAddresses: String[]): Site;
       createAnnouncementsPage(title: string, name: string, html: string): Page;
       createFileCabinetPage(title: string, name: string, html: string): Page;
-      createListPage(title: string, name: string, html: string, columnNames: string[]): Page;
+      createListPage(title: string, name: string, html: string, columnNames: String[]): Page;
       createPageFromTemplate(title: string, name: string, template: Page): Page;
       createWebPage(title: string, name: string, html: string): Page;
       getAllDescendants(): Page[];
@@ -218,7 +218,7 @@ declare namespace GoogleAppsScript {
       addCollaborator(user: Base.User): Site;
       createAnnouncement(title: string, html: string, parent: Page): Page;
       createComment(inReplyTo: string, html: string, parent: Page): Comment;
-      createListItem(html: string, columnNames: string[], values: string[], parent: Page): ListItem;
+      createListItem(html: string, columnNames: String[], values: String[], parent: Page): ListItem;
       createWebAttachment(title: string, url: string, parent: Page): Attachment;
       deleteSite(): void;
       getAnnouncements(): Page[];
