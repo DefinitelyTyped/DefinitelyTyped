@@ -5849,6 +5849,10 @@ declare namespace Highcharts {
          * Define the visual z index of the series.
          */
         zIndex?: number;
+        /**
+        * Enable color by column
+        */
+        colorByPoint? : boolean;
     }
 
     interface SeriesOptions extends IndividualSeriesOptions, SeriesChart { }
