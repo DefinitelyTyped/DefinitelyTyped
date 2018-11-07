@@ -6,6 +6,7 @@
 //                 Ray Fang <https://github.com/lazarusx>
 //                 Marius Meisenzahl <https://github.com/meisenzahl>
 //                 Rob Moran <https://github.com/thegecko>
+//                 Cameron Diver <https://github.com/CameronDiver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -626,7 +627,7 @@ declare namespace Dockerode {
 
   interface DeviceMapping {
     PathOnHost: string;
-    PathinContainer: string;
+    PathInContainer: string;
     CgroupPermissions: string;
   }
 
