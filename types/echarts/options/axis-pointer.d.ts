@@ -3,7 +3,7 @@ declare namespace echarts {
         /**
          * @todo describe
          */
-        interface AxisPointer extends CommonProps.Axis.Pointer {
+        interface AxisPointer extends BasicComponents.CartesianAxis.Pointer {
             /**
              * Component ID, not specified by default.
              * If specified, it can be used to refer the component

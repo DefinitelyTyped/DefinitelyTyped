@@ -12,8 +12,6 @@ declare namespace echarts {
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-bar
          */
         interface SeriesBar {
-            [k: string]: any;
-
             /**
              * @default
              * "bar"

@@ -9,7 +9,7 @@ declare namespace echarts {
          *
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis
          */
-        interface XAxis extends CommonProps.Axis {
+        interface XAxis extends BasicComponents.CartesianAxis {
             /**
              * The first x axis in grid defaults to be on the bottom of the grid,
              * and the second x axis is on the other side against the first x axis.
@@ -33,7 +33,7 @@ declare namespace echarts {
              * @default 'value'
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.type
              */
-            type?: CommonProps.Axis.Type;
+            type?: BasicComponents.CartesianAxis.Type;
         }
     }
 }

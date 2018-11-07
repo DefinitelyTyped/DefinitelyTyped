@@ -8,7 +8,7 @@ declare namespace echarts {
          *
          * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis
          */
-        interface YAxis extends CommonProps.Axis {
+        interface YAxis extends BasicComponents.CartesianAxis {
             /**
              * The first y axis in grid defaults to be the left (`'left'`)
              * of the grid, and the second y axis is on the other side
@@ -31,7 +31,7 @@ declare namespace echarts {
              * @default 'value'
              * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.type
              */
-            type?: CommonProps.Axis.Type;
+            type?: BasicComponents.CartesianAxis.Type;
         }
     }
 }

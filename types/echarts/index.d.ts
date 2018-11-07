@@ -1023,552 +1023,552 @@ declare namespace echarts {
             | SeriesCustom
         )
 
-        namespace CommonProps {
-                interface Axis {
-                    /**
-                     * Component ID, not specified by default.
-                     * If specified, it can be used to refer the component in option or API.
-                     */
-                    id?: string;
+        namespace BasicComponents {
+            /**
+             * @todo describe
+             */
+            interface Line {
+                show?: boolean;
+                onZero?: boolean;
+                onZeroAxisIndex?: number;
+                symbol?: string | string[];
+                symbolSize?: number[];
+                symbolOffset?: number[];
+                lineStyle?: {
+                    color?: string;
+                    width?: number;
+                    type?: 'solid' | 'dashed' | 'dotted';
+                    shadowBlur?: number;
+                    shadowColor?: string;
+                    shadowOffsetX?: number;
+                    shadowOffsetY?: number;
+                    opacity?: number;
+                };
+            }
 
-                    /**
-                     * If show this axis.
-                     *
-                     * @default 'true'
-                     */
-                    show?: boolean;
+            interface CartesianAxis {
+                /**
+                 * Component ID, not specified by default.
+                 * If specified, it can be used to refer the component in option or API.
+                 */
+                id?: string;
 
-                    /**
-                     * The index of grid which this axis belongs to.
-                     * Defaults to be in the first grid.
-                     *
-                     * @default 0
-                     */
-                    gridIndex?: number;
+                /**
+                 * If show this axis.
+                 *
+                 * @default 'true'
+                 */
+                show?: boolean;
 
-                    /**
-                     * Offset of this axis relative to default position.
-                     * Useful when multiple axis of this type has same position value.
-                     *
-                     * @default 0
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.offset
-                     */
-                    offset?: number;
+                /**
+                 * The index of grid which this axis belongs to.
+                 * Defaults to be in the first grid.
+                 *
+                 * @default 0
+                 */
+                gridIndex?: number;
 
-                    /**
-                     * Name of axis.
-                     */
-                    name?: string;
+                /**
+                 * Offset of this axis relative to default position.
+                 * Useful when multiple axis of this type has same position value.
+                 *
+                 * @default 0
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.offset
+                 */
+                offset?: number;
 
-                    /**
-                     * Location of axis name.
-                     *
-                     * @default 'start'
-                     */
-                    nameLocation?: 'start' | 'middle' | 'center' | 'end';
+                /**
+                 * Name of axis.
+                 */
+                name?: string;
 
-                    /**
-                     * Text style of axis name.
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.nameTextStyle
-                     */
-                    nameTextStyle?: Axis.TextStyle;
+                /**
+                 * Location of axis name.
+                 *
+                 * @default 'start'
+                 */
+                nameLocation?: 'start' | 'middle' | 'center' | 'end';
 
-                    /**
-                     * Gap between axis name and axis line.
-                     *
-                     * @default 15
-                     */
-                    nameGap?: number;
+                /**
+                 * Text style of axis name.
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.nameTextStyle
+                 */
+                nameTextStyle?: CartesianAxis.TextStyle;
 
-                    /**
-                     * Rotation of axis name.
-                     *
-                     * @default null
-                     */
-                    nameRotate?: number;
+                /**
+                 * Gap between axis name and axis line.
+                 *
+                 * @default 15
+                 */
+                nameGap?: number;
 
-                    /**
-                     * Whether axis is inversed. New option from ECharts 3.
-                     *
-                     * @default false
-                     */
-                    inverse?: boolean;
+                /**
+                 * Rotation of axis name.
+                 *
+                 * @default null
+                 */
+                nameRotate?: number;
 
-                    /**
-                     * The boundary gap on both sides of a coordinate axis.
-                     * The setting and behavior of category axes and non-category axes are
-                     * different. The `boundaryGap` of category axis can be set to either
-                     * `true` or `false`. Default value is set to be `true`, in which case
-                     * `axisTick` is served only as a separation line, and labels and data
-                     * appear only in the center part of two axis ticks, which is called
-                     * band. For non-category axis, including time, numerical value, and
-                     * log axes, `boundaryGap` is an array of two values, representing the
-                     * spanning range between minimum and maximum value.
-                     * The value can be set in numeric value or relative percentage,
-                     * which becomes invalid after setting `min` and `max`.
-                     *
-                     * @example
-                     * boundaryGap: ['20%', '20%']
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.boundaryGap
-                     */
-                    boundaryGap?: boolean | (string | number)[];
+                /**
+                 * Whether axis is inversed. New option from ECharts 3.
+                 *
+                 * @default false
+                 */
+                inverse?: boolean;
 
-                    /**
-                     * The minimun value of axis.
-                     * It can be set to a special value `'dataMin'` so that
-                     * the minimum value on this axis is set to be the minimum label.
-                     * It will be automatically computed to make sure axis tick is equally
-                     * distributed when not set. In category axis, it can also be set
-                     * as the ordinal number.
-                     * For example, if a catergory axis has
-                     * `data: ['categoryA', 'categoryB', 'categoryC']`
-                     * , and the ordinal `2` represents `'categoryC'`.
-                     * Moreover, it can be set as negative number, like `-3`.
-                     *
-                     * @default null
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.min
-                     */
-                    min?: number | string;
+                /**
+                 * The boundary gap on both sides of a coordinate axis.
+                 * The setting and behavior of category axes and non-category axes are
+                 * different. The `boundaryGap` of category axis can be set to either
+                 * `true` or `false`. Default value is set to be `true`, in which case
+                 * `axisTick` is served only as a separation line, and labels and data
+                 * appear only in the center part of two axis ticks, which is called
+                 * band. For non-category axis, including time, numerical value, and
+                 * log axes, `boundaryGap` is an array of two values, representing the
+                 * spanning range between minimum and maximum value.
+                 * The value can be set in numeric value or relative percentage,
+                 * which becomes invalid after setting `min` and `max`.
+                 *
+                 * @example
+                 * boundaryGap: ['20%', '20%']
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.boundaryGap
+                 */
+                boundaryGap?: boolean | (string | number)[];
 
-                    /**
-                     * The maximum value of axis.
-                     * It can be set to a special value `'dataMax'` so that
-                     * the minimum value on this axis is set to be the maximum label.
-                     * It will be automatically computed to make sure axis tick is equally
-                     * distributed when not set.
-                     * In category axis, it can also be set as the ordinal number.
-                     * For example, if a catergory axis has
-                     * `data: ['categoryA', 'categoryB', 'categoryC']`
-                     * , and the ordinal `2` represents `'categoryC'`.
-                     * Moreover, it can be set as negative number, like `-3`.
-                     *
-                     * @default null
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.max
-                     */
-                    max?: number | string;
+                /**
+                 * The minimun value of axis.
+                 * It can be set to a special value `'dataMin'` so that
+                 * the minimum value on this axis is set to be the minimum label.
+                 * It will be automatically computed to make sure axis tick is equally
+                 * distributed when not set. In category axis, it can also be set
+                 * as the ordinal number.
+                 * For example, if a catergory axis has
+                 * `data: ['categoryA', 'categoryB', 'categoryC']`
+                 * , and the ordinal `2` represents `'categoryC'`.
+                 * Moreover, it can be set as negative number, like `-3`.
+                 *
+                 * @default null
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.min
+                 */
+                min?: number | string;
 
-                    /**
-                     * It is available only in numerical axis, i.e., type: `'value'`.
-                     * It specifies whether not to contain zero position
-                     * of axis compulsively.
-                     * When it is set to be `true`, the axis may not contain zero position,
-                     * which is useful in the scatter chart for both value axes.
-                     * This configuration item is unavailable when the `min` and `max`
-                     * are set.
-                     *
-                     * @default false
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.scale
-                     */
-                    scale?: boolean;
+                /**
+                 * The maximum value of axis.
+                 * It can be set to a special value `'dataMax'` so that
+                 * the minimum value on this axis is set to be the maximum label.
+                 * It will be automatically computed to make sure axis tick is equally
+                 * distributed when not set.
+                 * In category axis, it can also be set as the ordinal number.
+                 * For example, if a catergory axis has
+                 * `data: ['categoryA', 'categoryB', 'categoryC']`
+                 * , and the ordinal `2` represents `'categoryC'`.
+                 * Moreover, it can be set as negative number, like `-3`.
+                 *
+                 * @default null
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.max
+                 */
+                max?: number | string;
 
-                    /**
-                     * Number of segments that the axis is split into.
-                     * Note that this number serves only as a recommendation,
-                     * and the true segments may be adjusted based on readability.
-                     * This is unavailable for category axis.
-                     *
-                     * @default 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.splitNumber
-                     */
-                    splitNumber?: number;
+                /**
+                 * It is available only in numerical axis, i.e., type: `'value'`.
+                 * It specifies whether not to contain zero position
+                 * of axis compulsively.
+                 * When it is set to be `true`, the axis may not contain zero position,
+                 * which is useful in the scatter chart for both value axes.
+                 * This configuration item is unavailable when the `min` and `max`
+                 * are set.
+                 *
+                 * @default false
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.scale
+                 */
+                scale?: boolean;
 
-                    /**
-                     * Maximum gap between split lines.
-                     * For example, in time axis (type is `'time'`),
-                     * it can be set to be `3600 * 24 * 1000` to make sure
-                     * that the gap between axis labels is less than or equal to one day.
-                     * @example
-                     * {
-                     *     maxInterval: 3600 * 1000 * 24
-                     * }
-                     * It is available only for axis of type `'value'` or `'time'`.
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.minInterval
-                     */
-                    minInterval?: any;
+                /**
+                 * Number of segments that the axis is split into.
+                 * Note that this number serves only as a recommendation,
+                 * and the true segments may be adjusted based on readability.
+                 * This is unavailable for category axis.
+                 *
+                 * @default 5
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.splitNumber
+                 */
+                splitNumber?: number;
 
-                    /**
-                     * Compulsively set segmentation interval for axis.
-                     * As splitNumber is a recommendation value,
-                     * the calculated tick may not be the same as expected.
-                     * In this case, interval should be used along with min and max
-                     * to compulsively set tickings.
-                     * But in most cases, we do not suggest using this,
-                     * out automatic calculation is enough for most situations.
-                     * This is unavailable for category axis.
-                     * Timestamp should be passed for type: `'time'` axis.
-                     * Logged value should be passed for type: `'log'` axis.
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.interval
-                     */
-                    interval?: number;
+                /**
+                 * Maximum gap between split lines.
+                 * For example, in time axis (type is `'time'`),
+                 * it can be set to be `3600 * 24 * 1000` to make sure
+                 * that the gap between axis labels is less than or equal to one day.
+                 * @example
+                 * {
+                 *     maxInterval: 3600 * 1000 * 24
+                 * }
+                 * It is available only for axis of type `'value'` or `'time'`.
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.minInterval
+                 */
+                minInterval?: any;
 
-                    /**
-                     * Base of logarithm, which is valid only for numeric axes with type:
-                     * `'log'`.
-                     *
-                     * @default 10
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.logBase
-                     */
-                    logBase?: number;
+                /**
+                 * Compulsively set segmentation interval for axis.
+                 * As splitNumber is a recommendation value,
+                 * the calculated tick may not be the same as expected.
+                 * In this case, interval should be used along with min and max
+                 * to compulsively set tickings.
+                 * But in most cases, we do not suggest using this,
+                 * out automatic calculation is enough for most situations.
+                 * This is unavailable for category axis.
+                 * Timestamp should be passed for type: `'time'` axis.
+                 * Logged value should be passed for type: `'log'` axis.
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.interval
+                 */
+                interval?: number;
 
-                    /**
-                     * True for axis that cannot be interacted with.
-                     *
-                     * @default false
-                     */
-                    silent?: boolean;
+                /**
+                 * Base of logarithm, which is valid only for numeric axes with type:
+                 * `'log'`.
+                 *
+                 * @default 10
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.logBase
+                 */
+                logBase?: number;
 
-                    /**
-                     * Whether the labels of axis triggers and reacts to mouse events.
-                     * Parameters of event includes:
-                     *
-                     * @example
-                     * {
-                     *     // Component type: xAxis, yAxis, radiusAxis, angleAxis
-                     *     // Each of which has an attribute for index, e.g., xAxisIndex for xAxis
-                     *     componentType: string,
-                     *     // Value on axis before being formatted.
-                     *     // Click on value label to trigger event.
-                     *     value: '',
-                     *     // Name of axis.
-                     *     // Click on laben name to trigger event.
-                     *     name: ''
-                     * }
-                     *
-                     * @default false
-                     */
-                    triggerEvent?: boolean;
+                /**
+                 * True for axis that cannot be interacted with.
+                 *
+                 * @default false
+                 */
+                silent?: boolean;
 
-                    /**
-                     * Settings related to axis line.
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.axisLine
-                     */
-                    axisLine?: Axis.Line;
+                /**
+                 * Whether the labels of axis triggers and reacts to mouse events.
+                 * Parameters of event includes:
+                 *
+                 * @example
+                 * {
+                 *     // Component type: xAxis, yAxis, radiusAxis, angleAxis
+                 *     // Each of which has an attribute for index, e.g., xAxisIndex for xAxis
+                 *     componentType: string,
+                 *     // Value on axis before being formatted.
+                 *     // Click on value label to trigger event.
+                 *     value: '',
+                 *     // Name of axis.
+                 *     // Click on laben name to trigger event.
+                 *     name: ''
+                 * }
+                 *
+                 * @default false
+                 */
+                triggerEvent?: boolean;
 
-                    /**
-                     * Settings related to axis tick.
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.axisTick
-                     */
-                    axisTick?: Axis.Tick;
+                /**
+                 * Settings related to axis line.
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.axisLine
+                 */
+                axisLine?: Line;
 
-                    /**
-                     * Settings related to axis label.
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.axisLabel
-                     */
+                /**
+                 * Settings related to axis tick.
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.axisTick
+                 */
+                axisTick?: CartesianAxis.Tick;
 
-                    axisLabel?: Axis.Label;
+                /**
+                 * Settings related to axis label.
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.axisLabel
+                 */
 
-                    /**
-                     * SplitLine of axis in grid area.
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.splitLine
-                     */
+                axisLabel?: CartesianAxis.Label;
 
-                    splitLine?: Axis.SplitLine;
+                /**
+                 * SplitLine of axis in grid area.
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.splitLine
+                 */
 
-                    /**
-                     * Split area of axis in grid area, not shown by default.
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.splitArea
-                     */
-                    splitArea?: Axis.SplitArea;
+                splitLine?: CartesianAxis.SplitLine;
 
-                    /**
-                     * Category data, available in type: `'category'` axis.
-                     * If `type` is not specified, but `axis.data` is specified,
-                     * the `type` is auto set as `'category'`.
-                     * If type is specified as `'category'`,
-                     * but axis.data is not specified, `axis.data` will be
-                     * auto collected from `series.data`.
-                     * It brings convenience, but we should notice that
-                     * `axis.data` provides then value range of the `'category'` axis.
-                     * If it is auto collected from `series.data`,
-                     * Only the values appearing in series.data can be collected.
-                     * For example, if series.data is empty, nothing will be collected.
-                     *
-                     * @example
-                     *  // Name list of all categories
-                     *  data: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-                     *  // Each item could also be a specific configuration item.
-                     *  // In this case, `value` is used as the category name.
-                     *  data: [{
-                     *      value: 'Monday',
-                     *      // Highlight Monday
-                     *      textStyle: {
-                     *          fontSize: 20,
-                     *          color: 'red'
-                     *      }
-                     *  }, 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.data
-                     */
-                    data?: (string | Axis.DataObject)[];
+                /**
+                 * Split area of axis in grid area, not shown by default.
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.splitArea
+                 */
+                splitArea?: CartesianAxis.SplitArea;
 
-                    /**
-                     * axisPointer settings on the axis.
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.axisPointer
-                     */
-                    axisPointer?: Axis.Pointer;
+                /**
+                 * Category data, available in type: `'category'` axis.
+                 * If `type` is not specified, but `axis.data` is specified,
+                 * the `type` is auto set as `'category'`.
+                 * If type is specified as `'category'`,
+                 * but axis.data is not specified, `axis.data` will be
+                 * auto collected from `series.data`.
+                 * It brings convenience, but we should notice that
+                 * `axis.data` provides then value range of the `'category'` axis.
+                 * If it is auto collected from `series.data`,
+                 * Only the values appearing in series.data can be collected.
+                 * For example, if series.data is empty, nothing will be collected.
+                 *
+                 * @example
+                 *  // Name list of all categories
+                 *  data: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                 *  // Each item could also be a specific configuration item.
+                 *  // In this case, `value` is used as the category name.
+                 *  data: [{
+                 *      value: 'Monday',
+                 *      // Highlight Monday
+                 *      textStyle: {
+                 *          fontSize: 20,
+                 *          color: 'red'
+                 *      }
+                 *  }, 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.data
+                 */
+                data?: (string | CartesianAxis.DataObject)[];
 
-                    /**
-                     * `zlevel` value of all graghical elements in this axis.
-                     * `zlevel` is used to make layers with Canvas.
-                     * Graphical elements with different `zlevel` values will be placed
-                     * in different Canvases, which is a common optimization technique.
-                     * We can put those frequently changed elements
-                     * (like those with animations) to a seperate `zlevel`.
-                     * Notice that too many Canvases will increase memory cost,
-                     * and should be used carefully on mobile phones to avoid crash.
-                     * Canvases with bigger `zlevel` will be placed on Canvases
-                     * with smaller `zlevel`.
-                     *
-                     * @default 0
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.zlevel
-                     */
-                    zlevel?: number;
+                /**
+                 * axisPointer settings on the axis.
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.axisPointer
+                 */
+                axisPointer?: CartesianAxis.Pointer;
 
-                    /**
-                     * z value of all graghical elements in this axis,
-                     * which controls order of drawing graphical components.
-                     * Components with smaller z values may be overwritten by those
-                     * with larger z values.
-                     * z has a lower priority to zlevel, and will not create new Canvas.
-                     *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.z
-                     */
-                    z?: number;
+                /**
+                 * `zlevel` value of all graghical elements in this axis.
+                 * `zlevel` is used to make layers with Canvas.
+                 * Graphical elements with different `zlevel` values will be placed
+                 * in different Canvases, which is a common optimization technique.
+                 * We can put those frequently changed elements
+                 * (like those with animations) to a seperate `zlevel`.
+                 * Notice that too many Canvases will increase memory cost,
+                 * and should be used carefully on mobile phones to avoid crash.
+                 * Canvases with bigger `zlevel` will be placed on Canvases
+                 * with smaller `zlevel`.
+                 *
+                 * @default 0
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.zlevel
+                 */
+                zlevel?: number;
+
+                /**
+                 * z value of all graghical elements in this axis,
+                 * which controls order of drawing graphical components.
+                 * Components with smaller z values may be overwritten by those
+                 * with larger z values.
+                 * z has a lower priority to zlevel, and will not create new Canvas.
+                 *
+                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.z
+                 */
+                z?: number;
+            }
+
+            namespace CartesianAxis {
+                type Type = 'value' | 'category' | 'time' | 'log';
+
+                /**
+                 * @todo describe
+                 */
+                interface Style {
+                    color?: string;
+                    fontStyle?: 'normal' | 'italic' | 'oblique';
+                    fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter'
+                                    | '100' | '200' | '300' | '400';
+                    fontFamily?: string;
+                    fontSize?: number;
+                    align?: string;
+                    verticalAlign?: string;
+                    lineHeight?: number;
+                    backgroundColor?: string | object;
+                    borderColor?: string;
+                    borderWidth?: number;
+                    borderRadius?: number;
+                    padding?: number | number[];
+                    shadowColor?: string;
+                    shadowBlur?: number;
+                    shadowOffsetX?: number;
+                    shadowOffsetY?: number;
+                    width?: number | string;
+                    height?: number | string;
+                    textBorderColor?: string;
+                    textBorderWidth?: number;
+                    textShadowColor?: string;
+                    textShadowBlur?: number;
+                    textShadowOffsetX?: number;
+                    textShadowOffsetY?: number;
                 }
 
-                namespace Axis {
-                    type Type = 'value' | 'category' | 'time' | 'log';
+                /**
+                 * @todo describe
+                 */
+                interface RichStyle {
+                    [userStyleName: string]: Style;
+                }
 
+                interface TextStyle extends Style {
                     /**
-                     * @todo describe
+                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.data.textStyle.rich
                      */
-                    interface Style {
+                    rich?: RichStyle;
+                }
+
+                /**
+                 * @todo describe
+                 */
+                interface Tick {
+                    show?: boolean;
+                    alignWithLabel?: boolean;
+                    interval?: number | Function;
+                    inside?: boolean;
+                    length?: number;
+                    lineStyle?: {
                         color?: string;
-                        fontStyle?: 'normal' | 'italic' | 'oblique';
-                        fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter'
-                                        | '100' | '200' | '300' | '400';
-                        fontFamily?: string;
-                        fontSize?: number;
-                        align?: string;
-                        verticalAlign?: string;
-                        lineHeight?: number;
-                        backgroundColor?: string | object;
-                        borderColor?: string;
-                        borderWidth?: number;
-                        borderRadius?: number;
-                        padding?: number | number[];
-                        shadowColor?: string;
+                        width?: number;
+                        type?: 'solid' | 'dashed' | 'dotted';
                         shadowBlur?: number;
+                        shadowColor?: string;
                         shadowOffsetX?: number;
                         shadowOffsetY?: number;
-                        width?: number | string;
-                        height?: number | string;
-                        textBorderColor?: string;
-                        textBorderWidth?: number;
-                        textShadowColor?: string;
-                        textShadowBlur?: number;
-                        textShadowOffsetX?: number;
-                        textShadowOffsetY?: number;
-                    }
+                        opacity?: number;
+                    };
+                }
 
-                    /**
-                     * @todo describe
-                     */
-                    interface RichStyle {
-                        [userStyleName: string]: Style;
-                    }
+                /**
+                 * @todo describe
+                 */
+                interface Label extends TextStyle {
+                    show?: boolean;
+                    interval?: number | Function;
+                    inside?: boolean;
+                    rotate?: number;
+                    margin?: number;
+                    formatter?: string | Function;
+                    showMinLabel?: boolean;
+                    showMaxLabel?: boolean;
+                }
 
-                    interface TextStyle extends Style {
-                        /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#yAxis.data.textStyle.rich
-                         */
-                        rich?: RichStyle;
-                    }
+                /**
+                 * @todo describe
+                 */
+                interface SplitLine {
+                    show?: boolean;
+                    interval?: number | Function;
+                    lineStyle?: {
+                        color?: string | string[];
+                        width?: number;
+                        type?: 'solid' | 'dashed' | 'dotted';
+                        shadowBlur?: number;
+                        shadowColor?: string;
+                        shadowOffsetX?: number;
+                        shadowOffsetY?: number;
+                        opacity?: number;
+                    };
+                }
 
-                    /**
-                     * @todo describe
-                     */
-                    interface Line {
+                /**
+                 * @todo describe
+                 */
+                interface SplitArea {
+                    interval?: number | Function;
+                    show?: boolean;
+                    areaStyle?: {
+                        color?: string[];
+                        shadowBlur?: number;
+                        shadowColor?: string;
+                        shadowOffsetX?: number;
+                        shadowOffsetY?: number;
+                        opacity?: number;
+                    };
+                }
+
+                /**
+                 * @todo describe
+                 */
+                interface DataObject {
+                    value?: string;
+                    textStyle?: TextStyle;
+                }
+
+                /**
+                 * @todo describe
+                 */
+                interface Pointer {
+                    show?: boolean;
+                    type?: 'line' | 'shadow' | 'none';
+                    snap?: boolean;
+                    z?: number;
+                    label?: PointerLabel;
+                    lineStyle?: {
+                        color?: string;
+                        width?: number;
+                        type?: string;
+                        shadowBlur?: number;
+                        shadowColor?: string;
+                        shadowOffsetX?: number;
+                        shadowOffsetY?: number;
+                        opacity?: number;
+                    };
+                    shadowStyle?: {
+                        color?: string;
+                        shadowBlur?: number;
+                        shadowColor?: string;
+                        shadowOffsetX?: number;
+                        shadowOffsetY?: number;
+                        opacity?: number;
+                    };
+                    triggerTooltip?: boolean;
+                    value?: number;
+                    status?: boolean;
+                    handle?: {
                         show?: boolean;
-                        onZero?: boolean;
-                        onZeroAxisIndex?: number;
-                        symbol?: string | string[];
-                        symbolSize?: number[];
-                        symbolOffset?: number[];
-                        lineStyle?: {
-                            color?: string;
-                            width?: number;
-                            type?: 'solid' | 'dashed' | 'dotted';
-                            shadowBlur?: number;
-                            shadowColor?: string;
-                            shadowOffsetX?: number;
-                            shadowOffsetY?: number;
-                            opacity?: number;
-                        };
-                    }
-
-                    /**
-                     * @todo describe
-                     */
-                    interface Tick {
-                        show?: boolean;
-                        alignWithLabel?: boolean;
-                        interval?: number | Function;
-                        inside?: boolean;
-                        length?: number;
-                        lineStyle?: {
-                            color?: string;
-                            width?: number;
-                            type?: 'solid' | 'dashed' | 'dotted';
-                            shadowBlur?: number;
-                            shadowColor?: string;
-                            shadowOffsetX?: number;
-                            shadowOffsetY?: number;
-                            opacity?: number;
-                        };
-                    }
-
-                    /**
-                     * @todo describe
-                     */
-                    interface Label extends TextStyle {
-                        show?: boolean;
-                        interval?: number | Function;
-                        inside?: boolean;
-                        rotate?: number;
+                        icon?: any;
+                        size?: number | number[];
                         margin?: number;
-                        formatter?: string | Function;
-                        showMinLabel?: boolean;
-                        showMaxLabel?: boolean;
-                    }
-
-                    /**
-                     * @todo describe
-                     */
-                    interface SplitLine {
-                        show?: boolean;
-                        interval?: number | Function;
-                        lineStyle?: {
-                            color?: string | string[];
-                            width?: number;
-                            type?: 'solid' | 'dashed' | 'dotted';
-                            shadowBlur?: number;
-                            shadowColor?: string;
-                            shadowOffsetX?: number;
-                            shadowOffsetY?: number;
-                            opacity?: number;
-                        };
-                    }
-
-                    /**
-                     * @todo describe
-                     */
-                    interface SplitArea {
-                        interval?: number | Function;
-                        show?: boolean;
-                        areaStyle?: {
-                            color?: string[];
-                            shadowBlur?: number;
-                            shadowColor?: string;
-                            shadowOffsetX?: number;
-                            shadowOffsetY?: number;
-                            opacity?: number;
-                        };
-                    }
-
-                    /**
-                     * @todo describe
-                     */
-                    interface DataObject {
-                        value?: string;
-                        textStyle?: TextStyle;
-                    }
-
-                    /**
-                     * @todo describe
-                     */
-                    interface Pointer {
-                        show?: boolean;
-                        type?: 'line' | 'shadow' | 'none';
-                        snap?: boolean;
-                        z?: number;
-                        label?: PointerLabel;
-                        lineStyle?: {
-                            color?: string;
-                            width?: number;
-                            type?: string;
-                            shadowBlur?: number;
-                            shadowColor?: string;
-                            shadowOffsetX?: number;
-                            shadowOffsetY?: number;
-                            opacity?: number;
-                        };
-                        shadowStyle?: {
-                            color?: string;
-                            shadowBlur?: number;
-                            shadowColor?: string;
-                            shadowOffsetX?: number;
-                            shadowOffsetY?: number;
-                            opacity?: number;
-                        };
-                        triggerTooltip?: boolean;
-                        value?: number;
-                        status?: boolean;
-                        handle?: {
-                            show?: boolean;
-                            icon?: any;
-                            size?: number | number[];
-                            margin?: number;
-                            color?: string;
-                            throttle?: number;
-                            shadowBlur?: number;
-                            shadowColor?: string;
-                            shadowOffsetX?: number;
-                            shadowOffsetY?: number;
-                        };
-                    }
-
-                    interface PointerLabel {
-                        show?: boolean;
-                        precision?: number | string;
-                        formatter?: string | Function;
-                        margin?: boolean;
                         color?: string;
-                        fontStyle?: 'normal' | 'italic' | 'oblique';
-                        fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter'
-                                        | '100' | '200' | '300' | '400';
-                        fontFamily?: string;
-                        fontSize?: number;
-                        lineHeight?: number;
-                        backgroundColor?: string | object;
-                        borderColor?: string;
-                        borderWidth?: number;
-                        borderRadius?: number;
-                        padding?: number | number[];
-                        shadowColor?: string;
+                        throttle?: number;
                         shadowBlur?: number;
+                        shadowColor?: string;
                         shadowOffsetX?: number;
                         shadowOffsetY?: number;
-                        width?: number | string;
-                        height?: number | string;
-                        textBorderColor?: string;
-                        textBorderWidth?: number;
-                        textShadowColor?: string;
-                        textShadowBlur?: number;
-                        textShadowOffsetX?: number;
-                        textShadowOffsetY?: number;
-                    }
+                    };
+                }
+
+                interface PointerLabel {
+                    show?: boolean;
+                    precision?: number | string;
+                    formatter?: string | Function;
+                    margin?: boolean;
+                    color?: string;
+                    fontStyle?: 'normal' | 'italic' | 'oblique';
+                    fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter'
+                                    | '100' | '200' | '300' | '400';
+                    fontFamily?: string;
+                    fontSize?: number;
+                    lineHeight?: number;
+                    backgroundColor?: string | object;
+                    borderColor?: string;
+                    borderWidth?: number;
+                    borderRadius?: number;
+                    padding?: number | number[];
+                    shadowColor?: string;
+                    shadowBlur?: number;
+                    shadowOffsetX?: number;
+                    shadowOffsetY?: number;
+                    width?: number | string;
+                    height?: number | string;
+                    textBorderColor?: string;
+                    textBorderWidth?: number;
+                    textShadowColor?: string;
+                    textShadowBlur?: number;
+                    textShadowOffsetX?: number;
+                    textShadowOffsetY?: number;
                 }
             }
+        }
     }
 }
 
