@@ -181,7 +181,8 @@ const MyFieldArray: React.StatelessComponent<MyFieldArrayProps> = ({
     children,
     fields
 }) => null;
-const FieldArrayCustom = FieldArray as new () => GenericFieldArray<MyFieldValue, MyFieldArrayCustomProps>;
+// omitting the "as any" is a compile error in typescript@3.1 but not in typescript@next
+const FieldArrayCustom = FieldArray as any as new () => GenericFieldArray<MyFieldValue, MyFieldArrayCustomProps>;
 
 /* Tests */
 const TestForms: React.StatelessComponent = () => {
