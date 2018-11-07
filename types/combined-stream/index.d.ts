@@ -6,7 +6,6 @@
 /// <reference types="node" />
 
 import { Stream } from 'stream';
-import { ReadStream } from 'fs';
 
 type Appendable = NodeJS.ReadableStream | NodeJS.WritableStream | Buffer | string | NextFunction;
 // tslint:disable-next-line:no-any-union
