@@ -914,6 +914,9 @@ function test_skin() {
     CKEDITOR.skin.loadPart('part', () => console.log('load'));
 
     var path2: string = CKEDITOR.skin.path();
+
+    CKEDITOR.skin.ua_dialog = 'ie,iequirks,ie8,gecko';
+    CKEDITOR.skin.ua_editor = 'ie,gecko';
 }
 
 function test_style() {

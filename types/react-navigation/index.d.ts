@@ -25,6 +25,7 @@
 //                 Mickael Wegerich <https://github.com/mickaelw>
 //                 Max Davidson <https://github.com/maxdavidson>
 //                 Alec Hill <https://github.com/alechill>
+//                 Lachlan Young <https://github.com/builtbyproxy>
 //                 Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -374,7 +375,9 @@ export interface NavigationToggleDrawerAction {
 export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal';
   headerMode?: HeaderMode;
+  headerBackTitleVisible?: boolean;
   headerTransitionPreset?: 'fade-in-place' | 'uikit';
+  headerLayoutPreset?: 'left' | 'center';
   cardStyle?: StyleProp<ViewStyle>;
   transitionConfig?: (
     transitionProps: NavigationTransitionProps,

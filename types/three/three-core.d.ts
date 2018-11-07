@@ -1127,7 +1127,8 @@ export class EventDispatcher {
 
 export interface Event {
     type: string;
-    target: any;
+    target?: any;
+    [attachment: string]: any;
 }
 
 /**
@@ -3277,9 +3278,7 @@ export interface HSL {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Color.js">src/math/Color.js</a>
  */
 export class Color {
-    constructor(color?: Color);
-    constructor(color?: string);
-    constructor(color?: number);
+    constructor(color?: Color|string|number);
     constructor(r: number, g: number, b: number);
 
     /**
@@ -6688,11 +6687,17 @@ export namespace SceneUtils {
     export function attach(child: Object3D, scene: Scene, parent: Object3D): void;
 }
 
+interface Vec2
+{
+    x: number;
+    y: number;
+}
+
 export namespace ShapeUtils {
-    export function area(contour: number[]): number;
-    export function triangulate(contour: number[], indices: boolean): number[];
-    export function triangulateShape(contour: number[], holes: any[]): number[];
-    export function isClockWise(pts: number[]): boolean;
+    export function area(contour: Vec2[]): number;
+    export function triangulate(contour: Vec2[], indices: boolean): number[];
+    export function triangulateShape(contour: Vec2[], holes: Vec2[]): number[][];
+    export function isClockWise(pts: Vec2[]): boolean;
 }
 
 // Extras / Audio /////////////////////////////////////////////////////////////////////

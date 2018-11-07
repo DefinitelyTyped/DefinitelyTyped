@@ -692,6 +692,8 @@ declare namespace mapboxgl {
         clusterMaxZoom?: number;
 
         lineMetrics?: boolean;
+        
+        generateId?: boolean;
     }
 
     /**

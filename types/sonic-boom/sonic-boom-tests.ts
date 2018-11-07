@@ -7,6 +7,8 @@ sonic.flush();
 
 sonic.flushSync();
 
+sonic.reopen();
+
 sonic.end();
 
 sonic.destroy();

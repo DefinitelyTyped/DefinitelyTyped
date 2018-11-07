@@ -328,6 +328,20 @@ declare namespace Dockerode {
     MacAddress: string;
   }
 
+  // not complete definition of network inspection
+  // info which is returned by list / inspect
+  interface NetworkInspectInfo {
+    Id: string;
+    Name: string;
+    Driver: string;
+    Created: string;
+    Scope: string;
+    EnableIPv6: boolean;
+    Internal: boolean;
+    Attachable: boolean;
+    Ingress: boolean;
+  }
+
   interface ContainerInspectInfo {
     Id: string;
     Created: string;
@@ -573,6 +587,49 @@ declare namespace Dockerode {
     };
   }
 
+  interface AuthConfig {
+    username: string;
+    password: string;
+    serveraddress: string;
+    email?: string;
+  }
+
+  interface PortBinding {
+    HostIp?: string;
+    HostPort?: string;
+  }
+
+  interface PortMap {
+    [key: string]: PortBinding[];
+  }
+
+  interface RestartPolicy {
+    Name: string;
+    MaximumRetryCount?: number;
+  }
+
+  type LoggingDriverType =
+    | "json-file"
+    | "syslog"
+    | "journald"
+    | "gelf"
+    | "fluentd"
+    | "awslogs"
+    | "splunk"
+    | "etwlogs"
+    | "none";
+
+  interface LogConfig {
+    Type: LoggingDriverType;
+    Config?: { [key: string]: string };
+  }
+
+  interface DeviceMapping {
+    PathOnHost: string;
+    PathinContainer: string;
+    CgroupPermissions: string;
+  }
+
   interface ContainerCreateOptions {
     name?: string;
     Hostname?: string;
@@ -620,7 +677,7 @@ declare namespace Dockerode {
       OomScoreAdj?: number;
       PidMode?: string;
       PidsLimit?: number;
-      PortBindings?: { [portAndProtocol: string]: Array<{ [index: string]: string }> };
+      PortBindings?: PortMap;
       PublishAllPorts?: boolean;
       Privileged?: boolean;
       ReadonlyRootfs?: boolean;
@@ -632,12 +689,12 @@ declare namespace Dockerode {
       CapAdd?: string[];
       CapDrop?: string[];
       GroupAdd?: string[];
-      RestartPolicy?: { [index: string]: number | string };
+      RestartPolicy?: RestartPolicy;
       NetworkMode?: string;
-      Devices?: any[];
+      Devices?: DeviceMapping[];
       Sysctls?: { [index: string]: string };
       Ulimits?: Array<{}>;
-      LogConfig?: { [index: string]: string | {} };
+      LogConfig?: LogConfig;
       SecurityOpt?: { [index: string]: any };
       CgroupParent?: string;
       VolumeDriver?: string;

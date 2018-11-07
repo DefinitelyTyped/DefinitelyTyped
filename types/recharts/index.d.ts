@@ -761,6 +761,8 @@ export interface TextProps extends Partial<PresentationAttributes> {
     textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
     verticalAnchor?: 'start' | 'middle' | 'end';
     style?: object;
+    capHeight?: string;
+    lineHeight?: string;
 }
 
 export class Text extends React.Component<TextProps> { }
