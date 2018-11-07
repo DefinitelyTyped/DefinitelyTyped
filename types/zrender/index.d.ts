@@ -1,4 +1,4 @@
-// Type definitions for zrender 4.0.4
+// Type definitions for zrender 4.0
 // Project: https://github.com/ecomfe/zrender
 // Definitions by: Roman <https://github.com/iRON5>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,16 +10,15 @@ declare namespace zrender {
     type X2 = number;
     type Y2 = number;
     type GlobalCoords = boolean;
-    type ColorStops = {
+    type ColorStops = Array<{
         offset: number;
         color: string;
-    }[];
+    }>;
 
     /**
      * x, y, x2, y2 are all percent from 0 to 1
      */
     interface LinearGradient {
-
         new (
             /** @default 0 */
             x?: X,
