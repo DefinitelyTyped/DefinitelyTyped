@@ -5850,8 +5850,9 @@ declare namespace Highcharts {
          */
         zIndex?: number;
         /**
-        * Enable color by column
-        */
+         * Enable automatic color by column
+         * @default false
+         */
         colorByPoint? : boolean;
     }
 
