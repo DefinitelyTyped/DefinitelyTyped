@@ -90,7 +90,7 @@ class TestComponent extends React.Component<TestComponentProps & WithRouterProps
         return (
             <div>
                 <h1>{this.state.ready ? 'Ready' : 'Not Ready'}</h1>
-                <h2>Route: {this.props.router ? this.props.router.route : ""}</h2>
+                <h2>Route: { this.props.router ? this.props.router.route : "" }</h2>
                 <p>Another prop: {this.props.testValue}</p>
             </div>
         );
