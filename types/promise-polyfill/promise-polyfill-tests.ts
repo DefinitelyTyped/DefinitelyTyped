@@ -18,3 +18,5 @@ Promise.all([prom1, prom2])
 	console.log(result);
 }, (exception) => console.error(exception))
 .catch((ex) => console.error(ex));
+
+Promise._immediateFn = setTimeout;
