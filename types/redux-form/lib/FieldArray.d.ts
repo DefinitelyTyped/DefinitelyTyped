@@ -1,9 +1,10 @@
 import { Component, ComponentType } from "react";
 import { Validator } from "../index";
 
-export interface BaseFieldArrayProps<P = {}> {
+// TODO (TypeScript 3.0): Field = unknown
+export interface BaseFieldArrayProps<P = {}, Field = any> {
     name: string;
-    component: ComponentType<P>;
+    component: ComponentType<Pick<P, Exclude<keyof P, keyof BaseFieldArrayProps>>>;
     validate?: Validator | Validator[];
     warn?: Validator | Validator[];
     withRef?: boolean;
@@ -11,7 +12,7 @@ export interface BaseFieldArrayProps<P = {}> {
     rerenderOnEveryChange?: boolean;
 }
 
-export interface GenericFieldArray<Field, P = {}> extends Component<BaseFieldArrayProps<P> & Partial<P>> {
+export interface GenericFieldArray<Field, P = {}> extends Component<BaseFieldArrayProps<P, Field> & Partial<P>> {
     name: string;
     valid: boolean;
     getRenderedComponent(): Component<WrappedFieldArrayProps<Field> & P>;
