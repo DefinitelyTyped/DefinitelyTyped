@@ -1,6 +1,6 @@
 // Type definitions for CrossFilter
 // Project: https://github.com/square/crossfilter
-// Definitions by: Schmulik Raskin <https://github.com/schmuli>, Izaak Baker <https://github.com/iebaker>, Einar Norðfjörð <https://github.com/nordfjord>
+// Definitions by: Schmulik Raskin <https://github.com/schmuli>, Izaak Baker <https://github.com/iebaker>, Einar Norðfjörð <https://github.com/nordfjord>, Jan Hartmann <https://github.com/janhartmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace CrossFilter {
