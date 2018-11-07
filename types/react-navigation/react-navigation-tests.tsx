@@ -47,7 +47,6 @@ import {
     withNavigationFocus,
     NavigationFocusInjectedProps
 } from 'react-navigation';
-import { string } from 'prop-types';
 
 // Constants
 const viewStyle: ViewStyle = {
@@ -127,8 +126,6 @@ const initialRouteParams: StartScreenNavigationParams = {
     s: "Start",
 };
 
-const headerLayoutPreset = 'center';
-
 const routeConfigMap: NavigationRouteConfigMap = {
     [ROUTE_NAME_START_SCREEN]: {
         path: "start",
@@ -144,7 +141,7 @@ export const AppNavigator = createStackNavigator(
     {
         initialRouteName: ROUTE_NAME_START_SCREEN,
         initialRouteKey: ROUTE_KEY_START_SCREEN,
-        headerLayoutPreset,
+        headerLayoutPreset: 'center',
         initialRouteParams,
         navigationOptions,
     },
@@ -560,11 +557,11 @@ class MyBackButton extends React.Component<BackButtonProps & NavigationInjectedP
 // If you have class methods, you should have a way to use them.
 const BackButtonWithNavigation = withNavigation(MyBackButton);
 const BackButtonInstance = <BackButtonWithNavigation
-    title="Back" onRef={((ref: MyBackButton) => {
+    title="Back" onRef={ref => {
         // ref is inferred as MyBackButton | null
         if (!ref) return;
         ref.triggerBack();
-    })}
+    }}
 />;
 
 function StatelessBackButton(props: BackButtonProps & NavigationInjectedProps) {
@@ -578,11 +575,11 @@ const StatelessBackButtonInstance = <StatelessBackButtonWithNavigation title="Ba
 // The old way of passing in the props should still work
 const BackButtonWithNavigationWithExplicitProps = withNavigation<BackButtonProps>(MyBackButton);
 const BackButtonWithExplicitPropsInstance = <BackButtonWithNavigationWithExplicitProps
-    title="Back" onRef={((ref: React.Component<BackButtonProps & NavigationInjectedProps>) => {
+    title="Back" onRef={ref => {
         if (!ref) return;
         // We can't infer the component type if we pass in the props
         (ref as MyBackButton).triggerBack();
-    })}
+    }}
 />;
 
 // Test withNavigationFocus
@@ -598,7 +595,7 @@ class MyFocusedComponent extends React.Component<MyFocusedComponentProps & Navig
 // navigation and isFocused prop
 const MyFocusedComponentWithNavigationFocus = withNavigationFocus(MyFocusedComponent);
 const MyFocusedComponentInstance = <MyFocusedComponentWithNavigationFocus
-    expectsFocus={true} onRef={((ref: MyFocusedComponent) => { const backButtonRef = ref; })}
+    expectsFocus={true} onRef={ref => { const backButtonRef = ref; }}
 />;
 
 // Test Screen with params
