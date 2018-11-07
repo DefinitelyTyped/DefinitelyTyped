@@ -30,6 +30,7 @@
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Zane Hannan AU <https://github.com/ZaneHannanAU>
+//                 Jeremie Rodriguez <https://github.com/jeremiergz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -4036,9 +4037,10 @@ declare module "fs" {
     /**
      * Asynchronous mkdir(2) - create a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+     * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdir(path: PathLike, mode: number | string | MakeDirectoryOptions | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    function mkdir(path: PathLike, options: number | string | MakeDirectoryOptions | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronous mkdir(2) - create a directory with a mode of `0o777`.
@@ -4051,17 +4053,19 @@ declare module "fs" {
         /**
          * Asynchronous mkdir(2) - create a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-         * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+         * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
-        function __promisify__(path: PathLike, mode?: number | string | MakeDirectoryOptions | null): Promise<void>;
+        function __promisify__(path: PathLike, options?: number | string | MakeDirectoryOptions | null): Promise<void>;
     }
 
     /**
      * Synchronous mkdir(2) - create a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+     * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdirSync(path: PathLike, mode?: number | string | MakeDirectoryOptions | null): void;
+    function mkdirSync(path: PathLike, options?: number | string | MakeDirectoryOptions | null): void;
 
     /**
      * Asynchronously creates a unique temporary directory.
@@ -5358,9 +5362,10 @@ declare module "fs" {
         /**
          * Asynchronous mkdir(2) - create a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-         * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+         * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
-        function mkdir(path: PathLike, mode?: string | number): Promise<void>;
+        function mkdir(path: PathLike, options?: number | string | MakeDirectoryOptions | null): Promise<void>;
 
         /**
          * Asynchronous readdir(3) - read a directory.
@@ -5665,7 +5670,7 @@ declare module "path" {
     /**
      * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
      *
-     * Starting from leftmost {from} paramter, resolves {to} to an absolute path.
+     * Starting from leftmost {from} parameter, resolves {to} to an absolute path.
      *
      * If {to} isn't already absolute, {from} arguments are prepended in right to left order,
      * until an absolute path is found. If after using all {from} paths still no absolute path is found,
@@ -6394,7 +6399,7 @@ declare module "crypto" {
 
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
-        ciper: string;
+        cipher: string;
         passphrase: string;
     }
 

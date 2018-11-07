@@ -373,7 +373,7 @@ export interface Graphviz<GElement extends BaseType, Datum, PElement extends Bas
      * transition into a subsequent new layout.
      * @param nodeId the ID of the node
      */
-    inserDrawnNode(nodeId: string): this;
+    insertDrawnNode(nodeId: string): this;
 
     /**
      * Removes the node currently drawn with {@link drawNode}. This method cannot
@@ -407,7 +407,7 @@ export type Engine = 'circo' | 'dot' | 'fdp' | 'neato' | 'osage' | 'patchwork' |
 export type TypeNames = 'initEnd' | 'start' | 'layoutStart' | 'layoutEnd' | 'dataExtractEnd' |
     'dataProcessPass1End' | 'dataProcessPass2End' | 'dataProcessEnd' |
     'renderStart' | 'renderEnd' | 'transitionStart' | 'transitionEnd' |
-    'resotreEnd' | 'end' | string; // string included to allow for optional addition of a name, e.g. initEnd.foo
+    'restoreEnd' | 'end' | string; // string included to allow for optional addition of a name, e.g. initEnd.foo
 
 /**
  * Enum defining the valid strings that can be passed as KeyModes

@@ -4,6 +4,7 @@
 //                 ryee-dev <https://github.com/ryee-dev>
 //                 alexdriaguine <https://github.com/alexdriaguine>
 //                 eloiqs <https://github.com/eloiqs>
+//                 jamesmckenzie <https://github.com/jamesmckenzie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

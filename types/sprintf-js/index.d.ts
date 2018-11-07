@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/sprintf-js
 // Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
 //                 BendingBender <https://github.com/BendingBender>
+//                 Caner Dagli <https://github.com/cdagli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -161,8 +162,3 @@ export function sprintf(format: string, ...args: any[]): string;
  * @param args: the arguments for the format string
  */
 export function vsprintf(format: string, args: any[]): string;
-
-declare global {
-    function sprintf(format: string, ...args: any[]): string;
-    function vsprintf(format: string, args: any[]): string;
-}

@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-/// <reference path="module.d.ts"/>
+export = Paho.MQTT;
 
-declare namespace Paho {
+declare global {
     /**
      * Send and receive messages using web browsers.
      * <p>
@@ -40,7 +40,7 @@ declare namespace Paho {
      * an error with any parameter.
      * <p>
      */
-    namespace MQTT {
+    namespace Paho.MQTT {
         /**
          * The Quality of Service used to deliver a message.
          * <dl>

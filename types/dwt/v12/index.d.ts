@@ -2768,7 +2768,7 @@ interface WebTwain {
      * @param {string} InitialDir The initial directory. The algorithm for selecting the initial directory varies on different platforms.
      * @param {bool} AllowMultiSelect True -- allows users to select more than one file, False -- only allows to select one file.
      * @param {bool} OverwritePrompt True -- If a file already exists with the same name, the old file will be simply overwritten, False -- not allows to save and overwrite a same name file.
-     * @param {int} Flags If this parameter equals 0, the program will be initiated with the default flags, otherwise initiated with the cumstom value and paramters "AllowMultiSelect" and "OverwritePrompt" will be useless.
+     * @param {int} Flags If this parameter equals 0, the program will be initiated with the default flags, otherwise initiated with the cumstom value and parameters "AllowMultiSelect" and "OverwritePrompt" will be useless.
      * @return {bool}
      */
     ShowFileDialog(SaveDialog: boolean, Filter: string, FilterIndex: number, DefExtension: string, InitialDir: string, AllowMultiSelect: boolean, OverwritePrompt: boolean, Flags: number): boolean;

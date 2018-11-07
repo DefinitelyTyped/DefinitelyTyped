@@ -180,3 +180,4 @@ interface SVGViewElement extends SVGElement { }
 
 interface Text { }
 interface TouchList { }
+interface WebGLRenderingContext { }
