@@ -2,6 +2,9 @@ import * as React from 'react';
 import * as blessed from 'blessed';
 import { render } from 'react-blessed';
 
+// Testing example from demos page
+// https://github.com/Yomguithereal/react-blessed/blob/master/examples/dashboard.jsx
+
 const { Component } = React;
 
 /**
