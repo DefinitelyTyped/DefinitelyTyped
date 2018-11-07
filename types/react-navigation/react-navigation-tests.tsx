@@ -563,7 +563,6 @@ const BackButtonInstance = <BackButtonWithNavigation
     title="Back" onRef={((ref: MyBackButton) => {
         // ref is inferred as MyBackButton | null
         if (!ref) return;
-        console.log('found ref rype: ', typeof ref);
         ref.triggerBack();
     })}
 />;
