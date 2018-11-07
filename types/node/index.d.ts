@@ -5361,7 +5361,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
-        function mkdir(path: PathLike, mode?: string | number): Promise<void>;
+        function mkdir(path: PathLike, mode?: number | string | MakeDirectoryOptions | null): Promise<void>;
 
         /**
          * Asynchronous readdir(3) - read a directory.
