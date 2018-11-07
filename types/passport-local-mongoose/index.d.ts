@@ -11,7 +11,7 @@ declare module 'mongoose' {
   import passportLocal = require('passport-local');
 
   export interface AuthenticationResult {
-    user: PassportLocalDocument | false;
+    user: any;
     error: any;
   }
 
@@ -22,7 +22,7 @@ declare module 'mongoose' {
     changePassword(oldPassword: string, newPassword: string): Promise<PassportLocalDocument>;
     changePassword(oldPassword: string, newPassword: string, cb: (err: any, res: any) => void): void;
     authenticate(password: string): Promise<AuthenticationResult>;
-    authenticate(password: string, cb: (err: any, user: PassportLocalDocument | boolean, error: any) => void): void;
+    authenticate(password: string, cb: (err: any, user: any, error: any) => void): void;
     resetAttempts(): Promise<PassportLocalDocument>;
     resetAttempts(cb: (err: any, res: any) => void): void;
   }
