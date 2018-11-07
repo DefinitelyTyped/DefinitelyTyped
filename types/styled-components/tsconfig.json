@@ -16,7 +16,9 @@
     "files": [
         "index.d.ts",
         "macro.d.ts",
+        "native.d.ts",
         "test/index.tsx",
-        "test/macro.tsx"
+        "test/macro.tsx",
+        "test/native.tsx"
     ]
 }
