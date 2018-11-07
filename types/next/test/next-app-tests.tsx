@@ -73,7 +73,12 @@ const withExample = <P extends {}>(App: AppComponentType<P & WithExampleProps, P
         }
 
         render() {
-            return <App {...this.props} example={this.test} />;
+            /*
+             * This looks like a bug with TS 3.2 because of the presence of mapped types. The expression _is_
+             * assignable to P, but it's not seen as assignable because the input P is hidden inside a Readonly.
+             */
+            const AppAny = App as any;
+            return <AppAny {...this.props} example={this.test} />;
         }
     };
 
@@ -89,7 +94,12 @@ const withBasic = <P extends {}, C extends {}>(App: AppComponentType<P, P, C>) =
         }
 
         render() {
-            return <App {...this.props} />;
+            /*
+             * This looks like a bug with TS 3.2 because of the presence of mapped types. The expression _is_
+             * assignable to P, but it's not seen as assignable because the input P is hidden inside a Readonly.
+             */
+            const AppAny = App as any;
+            return <AppAny {...this.props} />;
         }
     };
 

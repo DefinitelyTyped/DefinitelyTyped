@@ -69,7 +69,25 @@ const withExample = <P extends {}>(Page: NextComponentType<P & WithExampleProps,
         }
 
         render() {
-            return <Page {...this.props} example={this.test} />;
+            /*
+             * This looks like a bug with TS 3.2 because of the presence of mapped types. The expression _is_
+             * assignable to P, but it's not seen as assignable because the input P is hidden inside a Readonly.
+             *
+             * Type 'Readonly<{ children?: ReactNode; }> & Readonly<P & WithExampleHocProps> & { example: string; }'
+             *     is not assignable to type 'IntrinsicAttributes & P & WithExampleProps & { children?: ReactNode; }'.
+             * Type 'Readonly<{ children?: ReactNode; }> & Readonly<P & WithExampleHocProps> & { example: string; }'
+             *     is not assignable to type 'P'.
+             *
+             * Making the first generic parameter Readonly doesn't help either:
+             *
+             * Type 'Readonly<{ children?: ReactNode; }> & Readonly<P & WithExampleHocProps> & { example: string; }'
+             *     is not assignable to type 'IntrinsicAttributes & Readonly<P & WithExampleProps> & { children?: ReactNode; }'.
+             * Type 'Readonly<{ children?: ReactNode; }> & Readonly<P & WithExampleHocProps> & { example: string; }'
+             *     is not assignable to type 'Readonly<P & WithExampleProps>'.
+             */
+            // return <Page {...this.props} example={this.test} />;
+            const PageAny = Page as any;
+            return <PageAny {...this.props} example={this.test} />;
         }
     };
 
