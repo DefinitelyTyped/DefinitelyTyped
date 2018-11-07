@@ -59,7 +59,7 @@ declare namespace CrossFilter {
     }
 
     export interface GroupAll<T, TValue> {
-        reduce<TValue>(add: (p: TValue, v: T) => TValue, remove: (p: TValue, v: T) => TValue, initial: () => TValue): GroupAll<T, TValue>;
+        reduce<TValue>(add: (p: TValue, v: T, nf?: boolean) => TValue, remove: (p: TValue, v: T, nf?: boolean) => TValue, initial: () => TValue): GroupAll<T, TValue>;
         reduceCount(): GroupAll<T, TValue>;
         reduceSum(value: Selector<T>): GroupAll<T, TValue>;
         dispose(): GroupAll<T, TValue>;
@@ -74,7 +74,7 @@ declare namespace CrossFilter {
     export interface Group<T, TKey, TValue> {
         top(k: number): Grouping<TKey, TValue>[];
         all(): Grouping<TKey, TValue>[];
-        reduce<TGroup>(add: (p: TGroup, v: T) => TGroup, remove: (p: TGroup, v: T) => TGroup, initial: () => TGroup): Group<T, TKey, TGroup>;
+        reduce<TGroup>(add: (p: TGroup, v: T, nf?: boolean) => TGroup, remove: (p: TGroup, v: T, nf?: boolean) => TGroup, initial: () => TGroup): Group<T, TKey, TGroup>;
         reduceCount(): Group<T, TKey, number>;
         reduceSum<TGroup>(value: (data: T) => TGroup): Group<T, TKey, TGroup>;
         order(value?: Selector<TValue>): Group<T, TKey, TValue>;
