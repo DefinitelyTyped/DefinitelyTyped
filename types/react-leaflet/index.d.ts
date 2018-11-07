@@ -306,21 +306,21 @@ export class Tooltip<P extends TooltipProps = TooltipProps, E extends Leaflet.To
 }
 
 export type MapControlProps = Leaflet.ControlOptions;
-export class MapControl<P extends MapControlProps = MapControlProps, E extends Leaflet.Control = Leaflet.Control> extends React.Component<P> {
+export class MapControl<P extends MapControlProps = MapControlProps, E extends Leaflet.Control = Leaflet.Control, S = {}> extends React.Component<P, S> {
     leafletElement: E;
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
 export type AttributionControlProps = Leaflet.Control.AttributionOptions;
-export class AttributionControl<P extends AttributionControlProps = AttributionControlProps, E extends Leaflet.Control.Attribution = Leaflet.Control.Attribution> extends MapControl<P, E> { }
+export class AttributionControl<P extends AttributionControlProps = AttributionControlProps, E extends Leaflet.Control.Attribution = Leaflet.Control.Attribution, S = {}> extends MapControl<P, E, S> { }
 
 export interface LayersControlProps extends LayersControlEvents, Leaflet.Control.LayersOptions {
     baseLayers?: Leaflet.Control.LayersObject;
     children?: Children;
     overlays?: Leaflet.Control.LayersObject;
 }
-export class LayersControl<P extends LayersControlProps = LayersControlProps, E extends Leaflet.Control.Layers = Leaflet.Control.Layers> extends MapControl<P, E> { }
+export class LayersControl<P extends LayersControlProps = LayersControlProps, E extends Leaflet.Control.Layers = Leaflet.Control.Layers, S = {}> extends MapControl<P, E, S> { }
 
 export namespace LayersControl {
     interface BaseControlledLayerProps {
@@ -345,7 +345,7 @@ export namespace LayersControl {
 }
 
 export type ScaleControlProps = Leaflet.Control.ScaleOptions;
-export class ScaleControl<P extends ScaleControlProps = ScaleControlProps, E extends Leaflet.Control.Scale = Leaflet.Control.Scale> extends MapControl<P, E> { }
+export class ScaleControl<P extends ScaleControlProps = ScaleControlProps, E extends Leaflet.Control.Scale = Leaflet.Control.Scale, S = {}> extends MapControl<P, E, S> { }
 
 export type ZoomControlProps = Leaflet.Control.ZoomOptions;
-export class ZoomControl<P extends ZoomControlProps = ZoomControlProps, E extends Leaflet.Control.Zoom = Leaflet.Control.Zoom> extends MapControl<P, E> { }
+export class ZoomControl<P extends ZoomControlProps = ZoomControlProps, E extends Leaflet.Control.Zoom = Leaflet.Control.Zoom, S = {}> extends MapControl<P, E, S> { }
