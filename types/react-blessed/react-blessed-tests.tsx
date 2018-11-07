@@ -125,8 +125,10 @@ class Progress extends Component<any, any> {
     super(props);
     const interval: NodeJS.Timer = setInterval(() => {
       const { progress } = this.state;
-      if (this.state.progress >= 100)
-        return clearInterval(interval);
+      if (this.state.progress >= 100) {
+        clearInterval(interval);
+        return;
+      }
       this.setState({
         progress: progress + 1,
       });

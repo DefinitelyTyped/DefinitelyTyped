@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
+        "react.d.ts",
         "react-blessed-tests.tsx"
     ]
 }
