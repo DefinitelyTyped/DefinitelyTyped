@@ -24,6 +24,7 @@
 //                 Rayhaneh Banyassady <https://github.com/rayhaneh>
 //                 Ryan McCuaig <https://github.com/rgm>
 //                 Drew Wyatt <https://github.com/drewwyatt>
+//                 Mathieu TUDISCO <https://github.com/mathieutu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -545,7 +546,7 @@ declare namespace R {
          * of the same structure, by mapping each property to the result of calling its associated function with
          * the supplied arguments.
          */
-        applySpec<T>(obj: any): (...args: any[]) => T;
+        applySpec<TResult, T extends any[], U extends {[key in keyof TResult]: (...args: T) => TResult[key]}>(obj: U): (...args: T) => TResult;
 
         /**
          * Takes a value and applies a function to it.
