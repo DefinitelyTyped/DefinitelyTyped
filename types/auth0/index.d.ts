@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as Promise from 'bluebird';
-
 export interface ManagementClientOptions {
   token?: string;
   domain: string;
