@@ -13,10 +13,13 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "jasmine": [ "jasmine/v2" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

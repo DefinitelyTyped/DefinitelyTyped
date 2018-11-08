@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.3.0
+// Type definitions for Jasmine 2.8.0
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -453,12 +453,6 @@ declare namespace jasmine {
         toThrow(expected?: any): boolean;
         toThrowError(message?: string | RegExp): boolean;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
-
-        /**
-         * Add some context for an expect.
-         * @param message - Additional context to show when the matcher fails
-         */
-        withContext(message: string): Matchers<T>;
 
         not: Matchers<T>;
 
