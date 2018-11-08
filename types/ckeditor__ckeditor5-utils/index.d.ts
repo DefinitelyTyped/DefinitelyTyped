@@ -167,8 +167,8 @@ export class Config {
     constructor(configurations?: object, defaultConfigurations?: object);
     define(name: object): void;
     define(name: string, value: any): void;
-    get(name: string): any | undefined;
-    set(name: string, value: any | undefined): void;
+    get(name: string): any /*| undefined*/;
+    set(name: string, value: any /*| undefined*/): void;
 }
 
 // utils/count
@@ -224,7 +224,7 @@ export namespace env {
 export class EventInfo<T> {
     readonly name: string;
     readonly path: object[];
-    return: any | undefined;
+    return: any /*| undefined*/;
     readonly source: T;
 
     constructor(source: T, name: string);

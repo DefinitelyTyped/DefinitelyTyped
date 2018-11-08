@@ -10,7 +10,6 @@
                 ["Symbol", "Avoid using the `Symbol` type. Did you mean `symbol`?"]
             ]
         },
-        "no-any-union": false,
         "quotemark": [
             true,
             "double",
