@@ -414,12 +414,18 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     /**
-     * @deprecated Please use `FunctionComponent`
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `FunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
      */
     type SFC<P = {}> = FunctionComponent<P>;
 
     /**
-     * @deprecated Please use `FunctionComponent`
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `FunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
      */
     type StatelessComponent<P = {}> = FunctionComponent<P>;
 
