@@ -15,7 +15,9 @@
     },
     "files": [
         "index.d.ts",
+        "runners/jest/adapters/index.d.ts",
         "tests/detox-globals-tests.ts",
-        "tests/detox-import-modules-tests.ts"
+        "tests/detox-import-modules-tests.ts",
+        "tests/detox-jest-setup-tests.ts"
     ]
 }
