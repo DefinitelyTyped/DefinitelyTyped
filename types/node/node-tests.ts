@@ -1513,7 +1513,7 @@ async function asyncStreamPipelineFinished() {
                 type: 'pkcs1',
             },
             privateKeyEncoding: {
-                ciper: 'some-cipher',
+                cipher: 'some-cipher',
                 format: 'pem',
                 passphrase: 'secret',
                 type: 'pkcs8',
@@ -1531,7 +1531,7 @@ async function asyncStreamPipelineFinished() {
                 type: 'spki',
             },
             privateKeyEncoding: {
-                ciper: 'some-cipher',
+                cipher: 'some-cipher',
                 format: 'der',
                 passphrase: 'secret',
                 type: 'pkcs8',
@@ -1548,7 +1548,7 @@ async function asyncStreamPipelineFinished() {
                 type: 'pkcs1',
             },
             privateKeyEncoding: {
-                ciper: 'some-cipher',
+                cipher: 'some-cipher',
                 format: 'pem',
                 passphrase: 'secret',
                 type: 'pkcs8',

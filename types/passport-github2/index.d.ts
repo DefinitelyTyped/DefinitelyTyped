@@ -21,7 +21,6 @@ export interface StrategyOption extends passport.AuthenticateOptions {
 
     scope?: string[];
     userAgent?: string;
-    state?: boolean;
 
     authorizationURL?: string;
     tokenURL?: string;
@@ -42,7 +41,7 @@ export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequir
 
     scope?: string[];
     userAgent?: string;
-    state?: boolean;
+    state?: string;
 
     authorizationURL?: string;
     tokenURL?: string;

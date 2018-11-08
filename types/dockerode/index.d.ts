@@ -6,6 +6,7 @@
 //                 Ray Fang <https://github.com/lazarusx>
 //                 Marius Meisenzahl <https://github.com/meisenzahl>
 //                 Rob Moran <https://github.com/thegecko>
+//                 Cameron Diver <https://github.com/CameronDiver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -328,6 +329,20 @@ declare namespace Dockerode {
     MacAddress: string;
   }
 
+  // not complete definition of network inspection
+  // info which is returned by list / inspect
+  interface NetworkInspectInfo {
+    Id: string;
+    Name: string;
+    Driver: string;
+    Created: string;
+    Scope: string;
+    EnableIPv6: boolean;
+    Internal: boolean;
+    Attachable: boolean;
+    Ingress: boolean;
+  }
+
   interface ContainerInspectInfo {
     Id: string;
     Created: string;
@@ -573,6 +588,49 @@ declare namespace Dockerode {
     };
   }
 
+  interface AuthConfig {
+    username: string;
+    password: string;
+    serveraddress: string;
+    email?: string;
+  }
+
+  interface PortBinding {
+    HostIp?: string;
+    HostPort?: string;
+  }
+
+  interface PortMap {
+    [key: string]: PortBinding[];
+  }
+
+  interface RestartPolicy {
+    Name: string;
+    MaximumRetryCount?: number;
+  }
+
+  type LoggingDriverType =
+    | "json-file"
+    | "syslog"
+    | "journald"
+    | "gelf"
+    | "fluentd"
+    | "awslogs"
+    | "splunk"
+    | "etwlogs"
+    | "none";
+
+  interface LogConfig {
+    Type: LoggingDriverType;
+    Config?: { [key: string]: string };
+  }
+
+  interface DeviceMapping {
+    PathOnHost: string;
+    PathInContainer: string;
+    CgroupPermissions: string;
+  }
+
   interface ContainerCreateOptions {
     name?: string;
     Hostname?: string;
@@ -620,7 +678,7 @@ declare namespace Dockerode {
       OomScoreAdj?: number;
       PidMode?: string;
       PidsLimit?: number;
-      PortBindings?: { [portAndProtocol: string]: Array<{ [index: string]: string }> };
+      PortBindings?: PortMap;
       PublishAllPorts?: boolean;
       Privileged?: boolean;
       ReadonlyRootfs?: boolean;
@@ -632,12 +690,12 @@ declare namespace Dockerode {
       CapAdd?: string[];
       CapDrop?: string[];
       GroupAdd?: string[];
-      RestartPolicy?: { [index: string]: number | string };
+      RestartPolicy?: RestartPolicy;
       NetworkMode?: string;
-      Devices?: any[];
+      Devices?: DeviceMapping[];
       Sysctls?: { [index: string]: string };
       Ulimits?: Array<{}>;
-      LogConfig?: { [index: string]: string | {} };
+      LogConfig?: LogConfig;
       SecurityOpt?: { [index: string]: any };
       CgroupParent?: string;
       VolumeDriver?: string;
@@ -823,6 +881,35 @@ declare namespace Dockerode {
   	context: string;
   	src: string[];
   }
+
+  interface DockerVersion {
+    ApiVersion: string;
+    Arch: string;
+    BuildTime: Date;
+    Components: Array<{
+      Details: {
+        ApiVersion: string;
+        Arch: string;
+        BuilTime: Date;
+        Experimental: string;
+        GitCommit: string;
+        GoVersion: string;
+        KernelVersion: string;
+        Os: string;
+      };
+      Name: string;
+      Version: string;
+    }>;
+    GitCommit: string;
+    GoVersion: string;
+    KernelVersion: string;
+    MinAPIVersion: string;
+    Os: string;
+    Platform: {
+      Name: string;
+    };
+    Version: string;
+  }
 }
 
 type Callback<T> = (error?: any, result?: T) => void;
@@ -949,8 +1036,8 @@ declare class Dockerode {
   df(callback: Callback<any>): void;
   df(): Promise<any>;
 
-  version(callback: Callback<any>): void;
-  version(): Promise<any>;
+  version(callback: Callback<Dockerode.DockerVersion>): void;
+  version(): Promise<Dockerode.DockerVersion>;
 
   ping(callback: Callback<any>): void;
   ping(): Promise<any>;

@@ -1,8 +1,14 @@
 // Type definitions for Jasmine 2.8.0
 // Project: http://jasmine.github.io/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>, Boris Breuer <https://github.com/Engineer2B>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Theodore Brown <https://github.com/theodorejb>
+//                 David Pärsson <https://github.com/davidparsson>
+//                 Gabe Moothart <https://github.com/gmoothart>
+//                 Lukas Zech <https://github.com/lukas-zech-software>
+//                 Boris Breuer <https://github.com/Engineer2B>
+//                 Chris Yungmann <https://github.com/cyungmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 /**
@@ -129,7 +135,7 @@ declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
     type Expected<T> = T | ObjectContaining<T> | Any | Spy;
-    type SpyObjMethodNames<T = {}> = string[] | {[methodName: string]: any} | Array<keyof T>;
+    type SpyObjMethodNames<T = undefined> = T extends undefined ? (ReadonlyArray<string> | {[methodName: string]: any}) : (ReadonlyArray<keyof T> | {[P in keyof T]?: ReturnType<T[P] extends (...args: any[]) => any ? T[P] : any>});
 
     var clock: () => Clock;
 
@@ -447,6 +453,12 @@ declare namespace jasmine {
         toThrow(expected?: any): boolean;
         toThrowError(message?: string | RegExp): boolean;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
+
+        /**
+         * Add some context for an expect.
+         * @param message - Additional context to show when the matcher fails
+         */
+        withContext(message: string): Matchers<T>;
 
         not: Matchers<T>;
 

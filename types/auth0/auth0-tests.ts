@@ -203,3 +203,26 @@ management.linkUsers('primaryId', { user_id: 'secondaryId' })
 management.linkUsers('primaryId', { user_id: 'secondaryId' },
   (err: Error, result: any) => {});
 
+// Get all clients (with promise)
+management.getClients()
+  .then((clients: auth0.Client[]) => {
+    console.log(clients);
+  })
+  .catch((err) => {
+    // Handle the error
+  });
+
+//Get all clients (with callback)
+management.getClients((err: Error, clients: auth0.Client[]) => {});
+
+// Get all clients with params (with promise)
+management.getClients({fields:['name','client_metadata'], include_fields:true})
+  .then((clients: auth0.Client[]) => {
+    console.log(clients);
+  })
+  .catch((err) => {
+    // Handle the error
+  });
+
+// Get all cients with params (with callback)
+management.getClients({fields:['name','client_metadata'], include_fields:true}, (err:Error, clients:auth0.Client[]) => {});

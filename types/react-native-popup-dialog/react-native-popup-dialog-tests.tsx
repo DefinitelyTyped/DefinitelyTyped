@@ -72,7 +72,7 @@ class Test extends React.Component<any> {
                     dismissOnTouchOutside={false}
                     dismissOnHardwareBackPress={false}
                     haveOverlay={true}
-                    show={true}
+                    visible={true}
                     onShown={() => { console.log('onShown'); }}
                     onDismissed={() => { console.log('onDismissed'); }}
                 />

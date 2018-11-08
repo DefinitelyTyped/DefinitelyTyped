@@ -110,6 +110,11 @@ interface TracerOptions {
         debug: (message: string) => void;
         error: (err: Error) => void;
     };
+
+    /**
+     * Global tags that should be assigned to every span.
+     */
+    tags?: { [key: string]: any };
 }
 
 interface ExperimentalOptions {}

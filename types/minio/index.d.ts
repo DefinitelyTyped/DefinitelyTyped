@@ -61,6 +61,7 @@ export interface IncompleteUploadedBucketItem {
 
 export interface BucketStream<T> extends Stream {
     on(event: 'data', listener: (item: T) => void): this;
+    on(event: 'error', listener: (error: Error) => void): this;
 }
 
 export interface PostPolicyResult {

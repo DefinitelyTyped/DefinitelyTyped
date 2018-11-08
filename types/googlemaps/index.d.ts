@@ -2882,7 +2882,7 @@ declare namespace google.maps {
     export interface FindPlaceFromPhoneNumberRequest {
       fields: string[];
       locationBias?: LocationBias;
-      query: string;
+      phoneNumber: string;
     }
   }
 

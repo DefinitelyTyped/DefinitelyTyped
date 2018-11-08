@@ -1,4 +1,4 @@
-// Type definitions for react-navigation 2.0
+// Type definitions for react-navigation 2.13
 // Project: https://github.com/react-navigation/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
@@ -25,6 +25,8 @@
 //                 Denis Frezzato <https://github.com/DenisFrezzato>
 //                 Mickael Wegerich <https://github.com/mickaelw>
 //                 Max Davidson <https://github.com/maxdavidson>
+//                 Lachlan Young <https://github.com/builtbyproxy>
+//                 Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -373,7 +375,9 @@ export interface NavigationToggleDrawerAction {
 export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal';
   headerMode?: HeaderMode;
+  headerBackTitleVisible?: boolean;
   headerTransitionPreset?: 'fade-in-place' | 'uikit';
+  headerLayoutPreset?: 'left' | 'center';
   cardStyle?: StyleProp<ViewStyle>;
   transitionConfig?: (
     transitionProps: NavigationTransitionProps,
@@ -518,7 +522,7 @@ interface NavigationTabScreenOptionsBase {
   tabBarIcon?:
   | React.ReactElement<any>
   | ((
-    options: { tintColor: string | null; focused: boolean }
+    options: { tintColor: string | null; focused: boolean; horizontal: boolean }
   ) => React.ReactElement<any> | null);
   tabBarLabel?:
   | string

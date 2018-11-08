@@ -125,6 +125,7 @@ const initialRouteParams: StartScreenNavigationParams = {
     id: 1,
     s: "Start",
 };
+
 const routeConfigMap: NavigationRouteConfigMap = {
     [ROUTE_NAME_START_SCREEN]: {
         path: "start",
@@ -140,6 +141,7 @@ export const AppNavigator = createStackNavigator(
     {
         initialRouteName: ROUTE_NAME_START_SCREEN,
         initialRouteKey: ROUTE_KEY_START_SCREEN,
+        headerLayoutPreset: 'center',
         initialRouteParams,
         navigationOptions,
     },
@@ -179,7 +181,8 @@ const tabNavigatorConfig: TabNavigatorConfig = {
     tabBarComponent: TabBarTop,
     tabBarOptions: { activeBackgroundColor: "blue" },
     navigationOptions: () => ({
-        tabBarOnPress: ({ scene, jumpToIndex }) => jumpToIndex(scene.index)
+        tabBarOnPress: ({ scene, jumpToIndex }) => jumpToIndex(scene.index),
+        tabBarIcon: ({ horizontal }) => <View />,
     })
 };
 
@@ -613,7 +616,6 @@ createStackNavigator(
 );
 
 // Test NavigationEvents component
-
 const ViewWithNavigationEvents = (
   <NavigationEvents
     onWillFocus={console.log}
