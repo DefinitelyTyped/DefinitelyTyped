@@ -297,7 +297,7 @@ export interface DataFactory {
      * @see Triple
      * @see DefaultGraph
      */
-    triple<Q_In extends BaseQuad = Quad,  Q_Out extends BaseQuad = Quad>(subject: Q_In['subject'], predicate: Q_In['predicate'], object: Q_In['object']): Q_Out;
+    triple<Q extends BaseQuad = Quad>(subject: Q['subject'], predicate: Q['predicate'], object: Q['object']): Q;
 
     /**
      * @param subject   The quad subject term.
@@ -307,7 +307,7 @@ export interface DataFactory {
      * @return A new instance of Quad.
      * @see Quad
      */
-    quad<Q_In extends BaseQuad = Quad, Q_Out extends BaseQuad = Quad>(subject: Q_In['subject'], predicate: Q_In['predicate'], object: Q_In['object'], graph?: Q_In['graph']): Q_Out;
+    quad<Q extends BaseQuad = Quad>(subject: Q['subject'], predicate: Q['predicate'], object: Q['object'], graph?: Q['graph']): Q;
 }
 
 /* Stream Interfaces */

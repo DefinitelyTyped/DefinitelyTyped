@@ -65,8 +65,11 @@ const UserProfile = Class.create<UserProfileInterface>({
 
 interface UserInterface extends Meteor.User {
     address: object;
+    firstName: string;
+    lastName: string;
     phone: string;
     phoneNumber: string;
+    fullName: (param: string) => string;
 }
 
 const User = Class.create<UserInterface>({
@@ -74,9 +77,11 @@ const User = Class.create<UserInterface>({
     collection: Meteor.users as Mongo.Collection<UserInterface>,
     fields: {
         createdAt: Number,
+        firstName: String,
+        lastName: String,
         emails: {
             type: [Object],
-            default: () => [],
+            default: (): Meteor.UserEmail[] => [],
         },
         profile: {
             type: UserProfile,
@@ -91,10 +96,23 @@ const User = Class.create<UserInterface>({
         },
         phone: {
             type: String,
-            resolve(doc) {
+            resolve(doc: UserInterface) {
                 return doc.phoneNumber;
+            },
+        },
+    },
+    helpers: {
+        fullName(param: string): string {
+            const fullName = `${this.firstName} ${this.lastName}`;
+
+            if (param === 'lower') {
+                return fullName.toLowerCase();
+            } else if (param === 'upper') {
+                return fullName.toUpperCase();
             }
-        }
+
+            return fullName;
+        },
     },
     indexes: {
         fullName: { // Index name.
@@ -111,13 +129,16 @@ const user = User.findOne();
 user.set({username: 'user1'});
 user.save();
 
-enum IStatus {
-    OPENED, CLOSED, DONE, CANCELED
+interface StatusInterface {
+    OPENED: number;
+    CLOSED: number;
+    DONE: number;
+    CANCELED: number;
 }
 
-const Status = Enum.create<IStatus>({
+const Status = Enum.create<StatusInterface>({
     name: 'Status',
-    identifiers: IStatus,
+    identifiers: ['OPENED', 'CLOSED', 'DONE', 'CANCELED'],
 });
 
 const Issue = Class.create({
@@ -131,18 +152,25 @@ const Issue = Class.create({
 
 Status.getValues(); // [0, 1, 2, 3]
 
-const StatusBis = Enum.create({
+interface StatusBisInterface {
+    OPENED: string;
+    CLOSED: string;
+    DONE: string;
+    CANCELED: string;
+}
+
+const StatusBis = Enum.create<StatusBisInterface>({
     name: 'Status',
     identifiers: {
-        OPENED: 5,
-        CLOSED: null,
-        DONE: 15,
-        CANCELED: undefined
+        OPENED: 'OPENED',
+        CLOSED: 'CLOSED',
+        DONE: 'DONE',
+        CANCELED: 'CANCELED',
     }
 });
 
 StatusBis.getValues(); // [5, 6, 15, 16]
 
-const statusNumber = IStatus.OPENED;
+const statusNumber = Status.OPENED;
 
 Status.getIdentifier(statusNumber); // "OPENED"

@@ -7380,7 +7380,12 @@ declare namespace Office {
             /**
              * The content of the attachment is returned as a string representing an .eml formatted file.
              */
-            Eml = "eml"
+            Eml = "eml",
+
+            /**
+             * The content of the attachment is returned as a string representing an .icalendar formatted file.
+             */
+            ICalendar = "iCalendar"
         }
         /**
          * Specifies whether an attachment was added to or removed from an item.
@@ -8578,8 +8583,13 @@ declare namespace Office {
         content: string;
         /**
          * The string format to use for an attachment's content.
-         * For file attachments, the formatting is a base64-encoded string. 
-         * For item attachments that represent messages, the formatting is a string representing an .eml formatted file. 
+         * 
+         * For file attachments, the formatting is a base64-encoded string.
+         * 
+         * For item attachments that represent messages, the formatting is a string representing an .eml formatted file.
+         * 
+         * For item attachments that represent calendar items, the formatting is a string representing an .icalendar file.
+         * 
          * For cloud attachments, the formatting is a URL string.
          */
         format: Office.MailboxEnums.AttachmentContentFormat;

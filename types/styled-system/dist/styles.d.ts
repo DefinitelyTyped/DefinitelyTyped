@@ -299,7 +299,7 @@ export interface JustifyContentProps {
 
 export function justifyContent(...args: any[]): any;
 
-export type FlexWrapValue = true | "nowrap" | "wrap" | "wrap-reverse";
+export type FlexWrapValue = "nowrap" | "wrap" | "wrap-reverse";
 export type ResponsiveFlexWrapValue = ResponsiveValue<FlexWrapValue>;
 
 export interface FlexWrapProps {

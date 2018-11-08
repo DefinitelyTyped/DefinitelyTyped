@@ -125,6 +125,7 @@ const initialRouteParams: StartScreenNavigationParams = {
     id: 1,
     s: "Start",
 };
+
 const routeConfigMap: NavigationRouteConfigMap = {
     [ROUTE_NAME_START_SCREEN]: {
         path: "start",
@@ -140,6 +141,7 @@ export const AppNavigator = createStackNavigator(
     {
         initialRouteName: ROUTE_NAME_START_SCREEN,
         initialRouteKey: ROUTE_KEY_START_SCREEN,
+        headerLayoutPreset: 'center',
         initialRouteParams,
         navigationOptions,
     },
@@ -614,7 +616,6 @@ createStackNavigator(
 );
 
 // Test NavigationEvents component
-
 const ViewWithNavigationEvents = (
   <NavigationEvents
     onWillFocus={console.log}

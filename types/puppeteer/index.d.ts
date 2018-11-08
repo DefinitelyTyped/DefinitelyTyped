@@ -1,4 +1,4 @@
-// Type definitions for puppeteer 1.9
+// Type definitions for puppeteer 1.10
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Christopher Deutsch <https://github.com/cdeutsch>
@@ -483,13 +483,16 @@ export type LoadEvent =
   | "networkidle0"
   | "networkidle2";
 
+export interface Timeoutable {
+    /**
+     * Maximum navigation time in milliseconds, pass 0 to disable timeout.
+     * @default 30000
+     */
+    timeout?: number;
+}
+
 /** The navigation options. */
-export interface NavigationOptions {
-  /**
-   * Maximum navigation time in milliseconds, pass 0 to disable timeout.
-   * @default 30000
-   */
-  timeout?: number;
+export interface NavigationOptions extends Timeoutable {
   /**
    * When to consider navigation succeeded.
    * @default load Navigation is consider when the `load` event is fired.
@@ -665,9 +668,8 @@ export interface ScriptTagOptions {
   type?: string;
 }
 
-export interface PageFnOptions {
+export interface PageFnOptions extends Timeoutable {
   polling?: "raf" | "mutation" | number;
-  timeout?: number;
 }
 
 export interface BoundingBox {
@@ -1068,7 +1070,7 @@ export interface Response {
   url(): string;
 }
 
-export interface WaitForSelectorOptions {
+export interface WaitForSelectorOptions extends Timeoutable {
     /**
      * Wait for element to be present in DOM and to be visible,
      * i.e. to not have display: none or visibility: hidden CSS properties.
@@ -1081,12 +1083,6 @@ export interface WaitForSelectorOptions {
      * @default false
      */
     hidden?: boolean;
-    /**
-     * Maximum time to wait for in milliseconds.
-     * Pass 0 to disable timeout.
-     * @default 30000 (30 seconds).
-     */
-    timeout?: number;
 }
 
 export interface FrameBase extends Evalable {
@@ -1331,6 +1327,137 @@ export interface GeoOptions {
 
 export type MediaType = "screen" | "print";
 
+export interface AXNode {
+  /**
+   * The role.
+   */
+  role: string;
+  /**
+   * A human readable name for the node.
+   */
+  name: string;
+  /**
+   * The current value of the node.
+   */
+  value: string | number;
+  /**
+   * An additional human readable description of the node.
+   */
+  description: string;
+  /**
+   * Keyboard shortcuts associated with this node.
+   */
+  keyshortcuts: string;
+  /**
+   * A human readable alternative to the role.
+   */
+  roledescription: string;
+  /**
+   * A description of the current value.
+   */
+  valuetext: string;
+  /**
+   * Whether the node is disabled.
+   */
+  disabled: boolean;
+  /**
+   * Whether the node is expanded or collapsed.
+   */
+  expanded: boolean;
+  /**
+   * Whether the node is focused.
+   */
+  focused: boolean;
+  /**
+   * Whether the node is modal.
+   */
+  modal: boolean;
+  /**
+   * Whether the node text input supports multiline.
+   */
+  multiline: boolean;
+  /**
+   * Whether more than one child can be selected.
+   */
+  multiselectable: boolean;
+  /**
+   * Whether the node is read only.
+   */
+  readonly: boolean;
+  /**
+   * Whether the node is required.
+   */
+  required: boolean;
+  /**
+   * Whether the node is selected in its parent node.
+   */
+  selected: boolean;
+  /**
+   * Whether the checkbox is checked, or "mixed".
+   */
+  checked: boolean | string;
+  /**
+   * Whether the toggle button is checked, or "mixed".
+   */
+  pressed: boolean | string;
+  /**
+   * The level of a heading.
+   */
+  level: number;
+  /**
+   * The minimum value in a node.
+   */
+  valuemin: number;
+  /**
+   * The maximum value in a node.
+   */
+  valuemax: number;
+  /**
+   * What kind of autocomplete is supported by a control.
+   */
+  autocomplete: string;
+  /**
+   * What kind of popup is currently being shown for a node.
+   */
+  haspopup: string;
+  /**
+   * Whether and in what way this node's value is invalid.
+   */
+  invalid: string;
+  /**
+   * Whether the node is oriented horizontally or vertically.
+   */
+  orientation: string;
+  /**
+   * Child nodes of this node, if any.
+   */
+  children: AXNode[];
+}
+
+export interface SnapshopOptions {
+  /**
+   * Prune uninteresting nodes from the tree.
+   * @default true
+   */
+  interestingOnly?: boolean;
+}
+
+/**
+ * The Accessibility class provides methods for inspecting Chromium's accessibility tree.
+ * The accessibility tree is used by assistive technology such as screen readers.
+ * Accessibility is a very platform-specific thing. On different platforms,
+ * there are different screen readers that might have wildly different output.
+ * Blink - Chrome's rendering engine - has a concept of "accessibility tree",
+ * which is than translated into different platform-specific APIs.
+ * Accessibility namespace gives users access to the Blink Accessibility Tree.
+ * Most of the accessibility tree gets filtered out when converting from Blink AX Tree to Platform-specific AX-Tree or
+ * by screen readers themselves. By default, Puppeteer tries to approximate this filtering,
+ * exposing only the "interesting" nodes of the tree.
+ */
+export interface Accessibility {
+  snapshot(options?: SnapshopOptions): Promise<AXNode>;
+}
+
 /** Page provides methods to interact with a single tab in Chromium. One Browser instance might have multiple Page instances. */
 export interface Page extends EventEmitter, FrameBase {
   /**
@@ -1355,6 +1482,8 @@ export interface Page extends EventEmitter, FrameBase {
     eventName: K,
     handler: (e: PageEventObj[K], ...args: any[]) => void
   ): this;
+
+  accessibility: Accessibility;
 
   /**
    * Provide credentials for http authentication.
@@ -1573,20 +1702,24 @@ export interface Page extends EventEmitter, FrameBase {
 
   waitForRequest(
     urlOrPredicate: string | ((req: Request) => boolean),
-    options?: { timeout?: number }
+    options?: Timeoutable
   ): Promise<Request>;
 
   waitForResponse(
     urlOrPredicate: string | ((res: Response) => boolean),
-    options?: { timeout?: number }
+    options?: Timeoutable
   ): Promise<Response>;
 
   /** This method returns all of the dedicated WebWorkers associated with the page. */
   workers(): Worker[];
 }
 
+export interface TargetAwaiter {
+    waitForTarget(predicate: (target: Target) => boolean, options: Timeoutable): Promise<void>;
+}
+
 /** A Browser is created when Puppeteer connects to a Chromium instance, either through puppeteer.launch or puppeteer.connect. */
-export interface Browser extends EventEmitter {
+export interface Browser extends EventEmitter, TargetAwaiter {
   /**
    * Adds the listener function to the end of the listeners array for the event named `eventName`.
    * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
@@ -1705,7 +1838,7 @@ export type Permission =
  * When a browser is launched, it has a single BrowserContext used by default.
  * The method `browser.newPage()` creates a page in the default browser context.
  */
-export interface BrowserContext extends EventEmitter {
+export interface BrowserContext extends EventEmitter, TargetAwaiter {
   /**
    * Adds the listener function to the end of the listeners array for the event named `eventName`.
    * No checks are made to see if the listener has already been added. Multiple calls passing the same combination of
@@ -1800,7 +1933,7 @@ export interface Target {
   url(): string;
 }
 
-export interface LaunchOptions {
+export interface LaunchOptions extends Timeoutable {
   /**
    * Whether to open chrome in appMode.
    * @default false
@@ -1886,12 +2019,6 @@ export interface LaunchOptions {
    * @default true
    */
   handleSIGHUP?: boolean;
-  /**
-   * Maximum time in milliseconds to wait for the Chrome instance to start.
-   * Pass 0 to disable timeout.
-   * @default 30000 (30 seconds).
-   */
-  timeout?: number;
   /**
    * Whether to pipe browser process stdout and stderr into process.stdout and
    * process.stderr.

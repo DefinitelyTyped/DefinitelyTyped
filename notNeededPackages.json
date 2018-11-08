@@ -541,6 +541,12 @@
             "asOfVersion": "4.0.1"
         },
         {
+            "libraryName": "fast-diff",
+            "typingsPackageName": "fast-diff",
+            "sourceRepoURL": "https://github.com/jhchen/fast-diff",
+            "asOfVersion": "1.2.0"
+        },
+        {
             "libraryName": "JSON-Patch",
             "typingsPackageName": "fast-json-patch",
             "sourceRepoURL": "https://github.com/Starcounter-Jack/JSON-Patch",
@@ -977,6 +983,12 @@
             "typingsPackageName": "mobservable-react",
             "sourceRepoURL": "https://github.com/mweststrate/mobservable-react",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "Mobx Cookie",
+            "typingsPackageName": "mobx-cookie",
+            "sourceRepoURL": "https://github.com/will-stone/mobx-cookie",
+            "asOfVersion": "1.1.0"
         },
         {
             "libraryName": "Moment",
