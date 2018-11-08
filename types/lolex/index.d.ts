@@ -222,7 +222,10 @@ type NodeClock = LolexClock<NodeTimer> & {
  */
 type Clock = BrowserClock | NodeClock;
 
-type InstalledClock = Clock & {
+/**
+ * Additional methods that installed clock have.
+ */
+type InstalledMethods = {
     /**
      * Restores the original methods on the context that was passed to lolex.install,
      * or the native timers if no context was given.
@@ -231,6 +234,13 @@ type InstalledClock = Clock & {
 
     methods: FakeMethod[];
 };
+
+/**
+ * Clock object created by calling `install();`.
+ *
+ * @type TClock   type of base clock (e.g BrowserClock).
+ */
+type InstalledClock<TClock extends Clock> = TClock & InstalledMethods;
 
 /**
  * Creates a clock.
@@ -284,14 +294,14 @@ export interface LolexInstallOpts {
  *
  * @param now   Current time for the clock, as with lolex.createClock().
  * @param toFake   Names of methods that should be faked.
- * @type InstalledClock   Type of clock to create.
+ * @type TClock   Type of clock to create.
  */
-export declare function install(opts?: LolexInstallOpts): InstalledClock;
+export declare function install<TClock extends Clock>(opts?: LolexInstallOpts): InstalledClock<TClock>;
 
 export interface LolexWithContext {
     timers: GlobalTimers<TimerId>;
     createClock: <TClock extends Clock>(now?: number | Date, loopLimit?: number) => TClock;
-    install: (opts?: LolexInstallOpts) => InstalledClock;
+    install: <TClock extends Clock>(opts?: LolexInstallOpts) => InstalledClock<TClock>;
     withGlobal: (global: Object) => LolexWithContext;
 }
 
