@@ -13,7 +13,7 @@ declare namespace GoogleAppsScript {
      */
     export interface GmailApp {
       createDraft(recipient: string, subject: string, body: string): GmailDraft;
-      createDraft(recipient: string, subject: string, body: string, options: Object): GmailDraft;
+      createDraft(recipient: string, subject: string, body: string, options: GmailDraftOptions): GmailDraft;
       createLabel(name: string): GmailLabel;
       deleteLabel(label: GmailLabel): GmailApp;
       getAliases(): string[];
@@ -71,7 +71,7 @@ declare namespace GoogleAppsScript {
       search(query: string): GmailThread[];
       search(query: string, start: Integer, max: Integer): GmailThread[];
       sendEmail(recipient: string, subject: string, body: string): GmailApp;
-      sendEmail(recipient: string, subject: string, body: string, options: Object): GmailApp;
+      sendEmail(recipient: string, subject: string, body: string, options: GmailDraftOptions): GmailApp;
       setCurrentMessageAccessToken(accessToken: string): void;
       starMessage(message: GmailMessage): GmailApp;
       starMessages(messages: GmailMessage[]): GmailApp;
@@ -208,13 +208,13 @@ declare namespace GoogleAppsScript {
      */
     export interface GmailMessage {
       createDraftReply(body: string): GmailDraft;
-      createDraftReply(body: string, options: Object): GmailDraft;
+      createDraftReply(body: string, options: GmailDraftOptions): GmailDraft;
       createDraftReplyAll(body: string): GmailDraft;
-      createDraftReplyAll(body: string, options: Object): GmailDraft;
+      createDraftReplyAll(body: string, options: GmailDraftOptions): GmailDraft;
       forward(recipient: string): GmailMessage;
-      forward(recipient: string, options: Object): GmailMessage;
+      forward(recipient: string, options: GmailDraftOptions): GmailMessage;
       getAttachments(): GmailAttachment[];
-      getAttachments(options: Object): GmailAttachment[];
+      getAttachments(options: GmailDraftOptions): GmailAttachment[];
       getBcc(): string;
       getBody(): string;
       getCc(): string;
@@ -239,9 +239,9 @@ declare namespace GoogleAppsScript {
       moveToTrash(): GmailMessage;
       refresh(): GmailMessage;
       reply(body: string): GmailMessage;
-      reply(body: string, options: Object): GmailMessage;
+      reply(body: string, options: GmailDraftOptions): GmailMessage;
       replyAll(body: string): GmailMessage;
-      replyAll(body: string, options: Object): GmailMessage;
+      replyAll(body: string, options: GmailDraftOptions): GmailMessage;
       star(): GmailMessage;
       unstar(): GmailMessage;
     }
@@ -252,9 +252,9 @@ declare namespace GoogleAppsScript {
     export interface GmailThread {
       addLabel(label: GmailLabel): GmailThread;
       createDraftReply(body: string): GmailDraft;
-      createDraftReply(body: string, options: Object): GmailDraft;
+      createDraftReply(body: string, options: GmailDraftOptions): GmailDraft;
       createDraftReplyAll(body: string): GmailDraft;
-      createDraftReplyAll(body: string, options: Object): GmailDraft;
+      createDraftReplyAll(body: string, options: GmailDraftOptions): GmailDraft;
       getFirstMessageSubject(): string;
       getId(): string;
       getLabels(): GmailLabel[];
@@ -281,9 +281,9 @@ declare namespace GoogleAppsScript {
       refresh(): GmailThread;
       removeLabel(label: GmailLabel): GmailThread;
       reply(body: string): GmailThread;
-      reply(body: string, options: Object): GmailThread;
+      reply(body: string, options: GmailDraftOptions): GmailThread;
       replyAll(body: string): GmailThread;
-      replyAll(body: string, options: Object): GmailThread;
+      replyAll(body: string, options: GmailDraftOptions): GmailThread;
     }
 
   }
