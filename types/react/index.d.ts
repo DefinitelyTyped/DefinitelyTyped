@@ -429,6 +429,8 @@ declare namespace React {
      */
     type StatelessComponent<P = {}> = FunctionComponent<P>;
 
+    type FC<P = {}> = FunctionComponent<P>;
+
     interface FunctionComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
