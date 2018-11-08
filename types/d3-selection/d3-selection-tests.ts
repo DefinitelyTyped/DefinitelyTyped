@@ -685,7 +685,7 @@ circles2 = d3Selection.select<SVGSVGElement, any>('#svg2')
     .selectAll() // create empty Selection
     .data(startCircleData) // assign data for circles to be added (no previous circles)
     .enter() // obtain enter selection
-    .append<SVGCircleElement>('circle');
+    .append('circle');
 
 // UPDATE-selection with continuation in data type ---------------------------------
 
@@ -705,7 +705,7 @@ let enterElements: d3Selection.Selection<d3Selection.EnterElement, CircleDatumAl
 enterElements = circles2.enter(); // enter selection
 
 const enterCircles = enterElements
-    .append<SVGCircleElement>('circle') // enter selection with materialized DOM elements (svg circles)
+    .append('circle') // enter selection with materialized DOM elements (svg circles)
     .attr('cx', d => d.cx)
     .attr('cy', d => d.cy)
     .attr('r', d => d.r)
@@ -763,19 +763,19 @@ let nRow: number[];
 
 let tr: d3Selection.Selection<HTMLTableRowElement, number[], HTMLTableElement, any>;
 tr = d3Selection.select('body')
-    .append<HTMLTableElement>('table')
+    .append('table')
     .selectAll()
     .data(matrix)
     // $ExpectError
     .data<number[]>([{test: 1}, {test: 2}]) // fails, using this data statement instead, would fail because of its type parameter not being met by input
-    .enter().append<HTMLTableRowElement>('tr');
+    .enter().append('tr');
 
 nMatrix = tr.data(); // i.e. matrix
 
 let td: d3Selection.Selection<HTMLTableDataCellElement, number, HTMLTableRowElement, number[]>;
 td = tr.selectAll()
     .data(d => d) // d : Array<number> inferred (Array[4] of number per parent <tr>)
-    .enter().append<HTMLTableDataCellElement>('td')
+    .enter().append('td')
     .text(function(d, i, g) {
         const that: HTMLTableDataCellElement = this;
         const datum: number = d;
