@@ -1,18 +1,13 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "lib": ["es6", "dom"],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
         "paths": {
             "parse": ["parse/v1"],
             "parse/*": ["parse/v1/*"]
@@ -21,8 +16,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": [
-        "index.d.ts",
-        "parse-mockdb-tests.ts"
-    ]
+    "files": ["index.d.ts", "parse-tests.ts"]
 }
