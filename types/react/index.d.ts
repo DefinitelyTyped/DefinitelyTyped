@@ -633,11 +633,14 @@ declare namespace React {
      * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
      * value around similar to how you’d use instance fields in classes.
      *
+     * Usage note: if you need the result of useRef to be directly mutable, include `| null` in the type
+     * of the generic argument.
+     *
      * @version experimental
      * @see https://reactjs.org/docs/hooks-reference.html#useref
      */
     // TODO (TypeScript 3.0): <T extends unknown>
-    function useRef<T>(initialValue: T|null): MutableRefObject<T|null>;
+    function useRef<T>(initialValue: T|null): RefObject<T>;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously during the same phase that
      * React performs its DOM mutations, before sibling components have been updated. Use this to perform
