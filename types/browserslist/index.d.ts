@@ -2,6 +2,7 @@
 // Project: https://github.com/browserslist/browserslist#readme
 // Definitions by: Dave Cardwell <https://github.com/davecardwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.7
 
 declare namespace browserslist {
     interface Browserslist {
@@ -30,4 +31,4 @@ declare namespace browserslist {
 
 declare var browserslist: browserslist.Browserslist;
 
-export default browserslist;
+export = browserslist;
