@@ -29,6 +29,7 @@
         "test/webgl/webgl_camera.ts",
         "test/webgl/webgl_custom_attributes.ts",
         "test/webgl/webgl_geometries.ts",
+        "test/webgl/webgl_geometries_with_context.ts",
         "test/webgl/webgl_helpers.ts",
         "test/webgl/webgl_interactive_cubes.ts",
         "test/webgl/webgl_interactive_raycasting_points.ts",
@@ -56,6 +57,7 @@
         "test/examples/ctm/ctmloader.ts",
         "test/examples/octree.ts",
         "test/examples/loaders/webgl_loader_obj_mtl.ts",
+        "test/examples/exporters/gltf-exporter.ts",
         "test/webvr/webvr.ts"
     ]
 }

@@ -9,84 +9,86 @@
 import * as stream from "stream";
 import * as parse5 from "parse5";
 
-export interface StartTagToken {
-    /**
-     * Tag name.
-     */
-    tagName: string;
-    /**
-     * List of attributes.
-     */
-    attrs: parse5.Attribute[];
-    /**
-     * Indicates if the tag is self-closing.
-     */
-    selfClosing: boolean;
-    /**
-     * Start tag source code location info. Available if location info is enabled via {@link SAXParserOptions}.
-     */
-    sourceCodeLocation?: parse5.StartTagLocation;
-}
+declare namespace SAXParser {
+    interface StartTagToken {
+        /**
+         * Tag name.
+         */
+        tagName: string;
+        /**
+         * List of attributes.
+         */
+        attrs: parse5.Attribute[];
+        /**
+         * Indicates if the tag is self-closing.
+         */
+        selfClosing: boolean;
+        /**
+         * Start tag source code location info. Available if location info is enabled via {@link SAXParserOptions}.
+         */
+        sourceCodeLocation?: parse5.StartTagLocation;
+    }
 
-export interface EndTagToken {
-    /**
-     * Tag name.
-     */
-    tagName: string;
-    /**
-     * End tag source code location info. Available if location info is enabled via {@link SAXParserOptions}.
-     */
-    sourceCodeLocation?: parse5.Location;
-}
+    interface EndTagToken {
+        /**
+         * Tag name.
+         */
+        tagName: string;
+        /**
+         * End tag source code location info. Available if location info is enabled via {@link SAXParserOptions}.
+         */
+        sourceCodeLocation?: parse5.Location;
+    }
 
-export interface CommentToken {
-    /**
-     * Comment text.
-     */
-    text: string;
-    /**
-     * Comment source code location info. Available if location info is enabled via {@link SAXParserOptions}.
-     */
-    sourceCodeLocation?: parse5.Location;
-}
+    interface CommentToken {
+        /**
+         * Comment text.
+         */
+        text: string;
+        /**
+         * Comment source code location info. Available if location info is enabled via {@link SAXParserOptions}.
+         */
+        sourceCodeLocation?: parse5.Location;
+    }
 
-export interface TextToken {
-    /**
-     * Text content.
-     */
-    text: string;
-    /**
-     * Text content source code location info. Available if location info is enabled via {@link SAXParserOptions}.
-     */
-    sourceCodeLocation?: parse5.Location;
-}
+    interface TextToken {
+        /**
+         * Text content.
+         */
+        text: string;
+        /**
+         * Text content source code location info. Available if location info is enabled via {@link SAXParserOptions}.
+         */
+        sourceCodeLocation?: parse5.Location;
+    }
 
-export interface DoctypeToken {
-    /**
-     * Document type name.
-     */
-    name: string;
-    /**
-     * Document type public identifier.
-     */
-    publicId: string;
-    /**
-     * Document type system identifier.
-     */
-    systemId: string;
-    /**
-     * Document type declaration source code location info. Available if location info is enabled via {@link SAXParserOptions}.
-     */
-    sourceCodeLocation?: parse5.Location;
-}
+    interface DoctypeToken {
+        /**
+         * Document type name.
+         */
+        name: string;
+        /**
+         * Document type public identifier.
+         */
+        publicId: string;
+        /**
+         * Document type system identifier.
+         */
+        systemId: string;
+        /**
+         * Document type declaration source code location info. Available if location info is enabled via {@link SAXParserOptions}.
+         */
+        sourceCodeLocation?: parse5.Location;
+    }
 
-export interface SAXParserOptions {
-    /**
-     * Enables source code location information for the tokens.
-     * When enabled, each token event handler will receive {@link Location} (or {@link StartTagLocation})
-     * object as its last argument.
-     */
-    sourceCodeLocationInfo?: boolean;
+    interface SAXParserOptions {
+        /**
+         * Enables source code location information for the tokens.
+         * When enabled, each token event handler will receive {@link Location} (or {@link StartTagLocation})
+         * object as its last argument.
+         */
+        sourceCodeLocationInfo?: boolean;
+    }
 }
 
 /**
@@ -119,43 +121,43 @@ export interface SAXParserOptions {
  * });
  * ```
  */
-export default class SAXParser extends stream.Transform {
+declare class SAXParser extends stream.Transform {
     /**
      * @param options - Parsing options.
      */
-    constructor(options?: SAXParserOptions);
+    constructor(options?: SAXParser.SAXParserOptions);
 
     /**
      * Raised when the parser encounters a start tag.
      *
      * @param listener.startTag - Start tag token.
      */
-    on(event: "startTag", listener: (startTag: StartTagToken) => void): this;
+    on(event: "startTag", listener: (startTag: SAXParser.StartTagToken) => void): this;
 
     /**
      * Raised when parser encounters an end tag.
      *
      * @param listener.endTag - End tag token.
      */
-    on(event: "endTag", listener: (endTag: EndTagToken) => void): this;
+    on(event: "endTag", listener: (endTag: SAXParser.EndTagToken) => void): this;
     /**
      * Raised when parser encounters text content.
      *
      * @param listener.text - Text token.
      */
-    on(event: "text", listener: (text: TextToken) => void): this;
+    on(event: "text", listener: (text: SAXParser.TextToken) => void): this;
     /**
      * Raised when parser encounters a comment.
      *
      * @param listener.comment - Comment content.
      */
-    on(event: "comment", listener: (comment: CommentToken) => void): this;
+    on(event: "comment", listener: (comment: SAXParser.CommentToken) => void): this;
     /**
      * Raised when parser encounters a [document type declaration](https://en.wikipedia.org/wiki/Document_type_declaration).
      *
      * @param listener.doctype - Document type token.
      */
-    on(event: "doctype", listener: (doctype: DoctypeToken) => void): this;
+    on(event: "doctype", listener: (doctype: SAXParser.DoctypeToken) => void): this;
     /**
      * TransformStream events
      */
@@ -190,3 +192,5 @@ export default class SAXParser extends stream.Transform {
      */
     stop(): void;
 }
+
+export = SAXParser;

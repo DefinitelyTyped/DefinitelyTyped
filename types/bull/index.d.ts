@@ -1,4 +1,4 @@
-// Type definitions for bull 3.3
+// Type definitions for bull 3.4
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -7,8 +7,12 @@
 //                 Gabriel Terwesten <https://github.com/blaugold>
 //                 Oleg Repin <https://github.com/iamolegga>
 //                 David Koblas <https://github.com/koblas>
+//                 Bond Akinmade <https://github.com/bondz>
+//                 Wuha Team <https://github.com/wuha-team>
+//                 Alec Brunelle <https://github.com/aleccool213>
+//                 Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 import * as Redis from "ioredis";
 import * as Promise from "bluebird";
@@ -20,9 +24,9 @@ import * as Promise from "bluebird";
  */
 declare const Bull: {
   (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  (queueName: string, url?: string): Bull.Queue; // tslint:disable-line unified-signatures
+  (queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
   new (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  new (queueName: string, url?: string): Bull.Queue; // tslint:disable-line unified-signatures
+  new (queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
 };
 
 declare namespace Bull {
@@ -82,6 +86,19 @@ declare namespace Bull {
      * Delay before processing next job in case of internal error
      */
     retryProcessDelay?: number;
+
+    /**
+     * Define a custom backoff strategy
+     */
+    backoffStrategies?: {
+      [key: string]: (attemptsMade: number, err: typeof Error) => number;
+    };
+
+    /**
+     * A timeout for when the queue is in `drained` state (empty waiting for jobs).
+     * It is used when calling `queue.getNextJob()`, which will pass it to `.brpoplpush` on the Redis client.
+     */
+    drainDelay?: number;
   }
 
   type DoneCallback = (error?: Error | null, value?: any) => void;
@@ -132,6 +149,11 @@ declare namespace Bull {
     retry(): Promise<void>;
 
     /**
+     * Ensure this job is never ran again even if attemptsMade is less than job.attempts.
+     */
+    discard(): Promise<void>;
+
+    /**
      * Returns a promise that resolves to the returned data when the job has been finished.
      * TODO: Add a watchdog to check if the job has finished periodically.
      * since pubsub does not give any guarantees.
@@ -139,9 +161,36 @@ declare namespace Bull {
     finished(): Promise<any>;
 
     /**
+     * Moves a job to the `completed` queue. Pulls a job from 'waiting' to 'active'
+     * and returns a tuple containing the next jobs data and id. If no job is in the `waiting` queue, returns null.
+     */
+    moveToCompleted(returnValue?: string, ignoreLock?: boolean): Promise<[any, JobId] | null>;
+
+    /**
+     * Moves a job to the `failed` queue. Pulls a job from 'waiting' to 'active'
+     * and returns a tuple containing the next jobs data and id. If no job is in the `waiting` queue, returns null.
+     */
+    moveToFailed(errorInfo: { message: string; }, ignoreLock?: boolean): Promise<[any, JobId] | null>;
+
+    /**
      * Promotes a job that is currently "delayed" to the "waiting" state and executed as soon as possible.
      */
     promote(): Promise<void>;
+
+    /**
+     * The lock id of the job
+     */
+    lockKey(): string;
+
+    /**
+     * Releases the lock on the job. Only locks owned by the queue instance can be released.
+     */
+    releaseLock(): Promise<void>;
+
+    /**
+     * Takes a lock for this job so that no other queue worker can process it at the same time.
+     */
+    takeLock(): Promise<number | false>;
   }
 
   type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
@@ -150,20 +199,15 @@ declare namespace Bull {
     /**
      * Backoff type, which can be either `fixed` or `exponential`
      */
-    type: 'fixed' | 'exponential';
+    type: string;
 
     /**
      * Backoff delay, in milliseconds
      */
-    delay: number;
+    delay?: number;
   }
 
   interface RepeatOptions {
-    /**
-     * Cron pattern specifying when the job should execute
-     */
-    cron: string;
-
     /**
      * Timezone
      */
@@ -178,6 +222,25 @@ declare namespace Bull {
      * Number of times the job should repeat at max.
      */
     limit?: number;
+  }
+
+  interface CronRepeatOptions extends RepeatOptions {
+    /**
+     * Cron pattern specifying when the job should execute
+     */
+    cron: string;
+
+    /**
+     * Start date when the repeat job should start repeating (only with cron).
+     */
+    startDate?: Date | string | number;
+  }
+
+  interface EveryRepeatOptions extends RepeatOptions {
+    /**
+     * Repeat every millis (cron setting cannot be used together with this setting.)
+     */
+    every: number;
   }
 
   interface JobOptions {
@@ -201,7 +264,7 @@ declare namespace Bull {
     /**
      * Repeat job according to a cron specification
      */
-    repeat?: RepeatOptions;
+    repeat?: CronRepeatOptions | EveryRepeatOptions;
 
     /**
      * Backoff setting for automatic retries if the job fails
@@ -239,6 +302,11 @@ declare namespace Bull {
      * Default behavior is to keep the job in the completed set.
      */
     removeOnFail?: boolean;
+
+    /**
+     * Limits the amount of stack trace lines that will be recorded in the stacktrace.
+     */
+    stackTraceLimit?: number;
   }
 
   interface JobCounts {
@@ -467,7 +535,7 @@ declare namespace Bull {
      * Returns a promise that will return the job instance associated with the jobId parameter.
      * If the specified job cannot be located, the promise callback parameter will be set to null.
      */
-    getJob(jobId: JobId): Promise<Job<T>>;
+    getJob(jobId: JobId): Promise<Job<T> | null>;
 
     /**
      * Returns a promise that will return an array with the waiting jobs between start and end.
@@ -509,7 +577,7 @@ declare namespace Bull {
      * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
      * used for the job when it was added.
      */
-    removeRepeatable(repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
+    removeRepeatable(repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
 
     /**
      * Removes a given repeatable job. The RepeatOptions and JobId needs to be the same as the ones
@@ -517,7 +585,13 @@ declare namespace Bull {
      *
      * name: The name of the to be removed job
      */
-    removeRepeatable(name: string, repeat: RepeatOptions & { jobId?: JobId }): Promise<void>;
+    removeRepeatable(name: string, repeat: (CronRepeatOptions | EveryRepeatOptions) & { jobId?: JobId }): Promise<void>;
+
+    /**
+     * Returns a promise that will return an array of job instances of the given types.
+     * Optional parameters for range and ordering are provided.
+     */
+    getJobs(types: string[], start?: number, end?: number, asc?: boolean): Promise<Job[]>;
 
     /**
      * Returns a promise that resolves with the job counts for the given queue.
@@ -579,6 +653,11 @@ declare namespace Bull {
     on(event: 'error', callback: ErrorEventCallback): this;
 
     /**
+     * A Job is waiting to be processed as soon as a worker is idling.
+     */
+    on(event: 'waiting', callback: WaitingEventCallback): this;
+
+    /**
      * A job has started. You can use `jobPromise.cancel()` to abort it
      */
     on(event: 'active', callback: ActiveEventCallback<T>): this;
@@ -615,12 +694,23 @@ declare namespace Bull {
     on(event: 'resumed', callback: EventCallback): this; // tslint:disable-line unified-signatures
 
     /**
+     * A job successfully removed.
+     */
+    on(event: 'removed', callback: RemovedEventCallback<T>): this;
+
+    /**
      * Old jobs have been cleaned from the queue.
      * `jobs` is an array of jobs that were removed, and `type` is the type of those jobs.
      *
      * @see Queue#clean() for details
      */
     on(event: 'cleaned', callback: CleanedEventCallback<T>): this;
+
+    /**
+     * Emitted every time the queue has processed all the waiting jobs
+     * (even if there can be some delayed jobs not yet processed)
+     */
+    on(event: 'drained', callback: EventCallback): this; // tslint:disable-line unified-signatures
   }
 
   type EventCallback = () => void;
@@ -645,6 +735,10 @@ declare namespace Bull {
   type FailedEventCallback<T = any> = (job: Job<T>, error: Error) => void;
 
   type CleanedEventCallback<T = any> = (jobs: Array<Job<T>>, status: JobStatus) => void;
+
+  type RemovedEventCallback<T = any> = (job: Job<T>) => void;
+
+  type WaitingEventCallback = (jobId: JobId) => void;
 }
 
 export = Bull;

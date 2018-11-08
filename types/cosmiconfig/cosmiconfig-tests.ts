@@ -1,4 +1,5 @@
-import cosmiconfig, { CosmiconfigResult } from "cosmiconfig";
+import cosmiconfig = require("cosmiconfig");
+import { CosmiconfigResult } from "cosmiconfig";
 import * as path from "path";
 
 const explorer = cosmiconfig("yourModuleName", {

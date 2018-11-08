@@ -10,6 +10,7 @@ import {
     pathToAction
 } from 'redux-first-router';
 import {
+    AnyAction,
     createStore,
     applyMiddleware,
     Middleware,
@@ -18,7 +19,7 @@ import {
     Dispatch,
     compose,
     Action,
-    GenericStoreEnhancer,
+    StoreEnhancer,
     StoreEnhancerStoreCreator,
     combineReducers
 } from 'redux';
@@ -32,7 +33,6 @@ interface Keys {
 }
 interface State {
     location: LocationState<Keys, State>;
-    stale: boolean;
 }
 type StoreCreator = StoreEnhancerStoreCreator<State>;
 
@@ -58,7 +58,7 @@ const {
     enhancer,
     initialDispatch,
     thunk,
-} = connectRoutes(history, routesMap, {
+} = connectRoutes(routesMap, {
         initialDispatch: false,
         onBeforeChange: (dispatch, getState) => {
             dispatch; // $ExpectType Dispatch<any>
@@ -71,14 +71,15 @@ const {
         title: state => {
             const title = state.location.pathname; // $ExpectType string
             return title;
-        }
+        },
+        createHistory: () => history,
     });
 
 const dumbMiddleware: Middleware = store => next => action => next(action);
 
 const composedMiddleware = applyMiddleware(middleware, dumbMiddleware);
 
-const storeEnhancer = compose<StoreCreator, StoreCreator, StoreCreator>(
+const storeEnhancer = compose(
     enhancer,
     composedMiddleware
 );
@@ -112,7 +113,7 @@ const action: ReduxFirstRouterAction = {
 };
 redirect(action); // $ExpectType Action
 
-// $ExpectType Store<State>
+// $ExpectType Store<State, AnyAction>
 store;
 
 store.getState().location.routesMap; // $ExpectType RoutesMap<Keys, State>

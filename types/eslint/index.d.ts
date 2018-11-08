@@ -136,7 +136,7 @@ export class SourceCode {
 
     isSpaceBetweenTokens(first: AST.Token, second: AST.Token): boolean;
 
-    getLocFromIndex(index: number): ESTree.SourceLocation;
+    getLocFromIndex(index: number): ESTree.Position;
 
     getIndexFromLoc(location: ESTree.Position): number;
 
@@ -483,7 +483,7 @@ export class CLIEngine {
 export namespace CLIEngine {
     class Options {
         allowInlineConfig?: boolean;
-        baseConfig?: boolean;
+        baseConfig?: false | { [name: string]: any };
         cache?: boolean;
         cacheFile?: string;
         cacheLocation?: string;

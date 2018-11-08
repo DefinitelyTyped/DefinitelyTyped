@@ -5,7 +5,7 @@
 //                 Vincas Stonys <https://github.com/vincaslt>
 //                 Gavin Gregory <https://github.com/gavingregory>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 

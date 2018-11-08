@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
 
 export type DropdownMenuProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
@@ -7,6 +8,8 @@ export type DropdownMenuProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   className?: string;
   cssModule?: CSSModule;
   flip?: boolean;
+  modifiers?: Popper.Modifiers;
+  persist?: boolean;
 } & T;
 
 declare class DropdownMenu<T = {[key: string]: any}> extends React.Component<DropdownMenuProps<T>> {}

@@ -2,7 +2,7 @@
 // Project: https://github.com/react-component/tree
 // Definitions by: John Reilly <https://github.com/johnnyreilly>, Methuselah96 <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 import { Component } from "react";
 
@@ -110,6 +110,8 @@ export interface OnDropData {
     node: InternalTreeNode;
     dragNode: InternalTreeNode;
     dragNodesKeys: string[];
+    dropPosition: number;
+    dropToGap?: boolean;
 }
 
 export interface OnDragEndData {

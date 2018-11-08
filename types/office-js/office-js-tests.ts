@@ -250,22 +250,6 @@ function test_word() {
 
 }
 
-function test_shared() {
-	Office.context.auth.getAccessTokenAsync({ forceConsent: false },
-		function (result) {
-			if (result.status === Office.AsyncResultStatus.Succeeded) {
-				// result.value is the raw access token
-				console.log(result.value)
-			}
-			else {
-				console.log("Code: " + result.error.code);
-				console.log("Message: " + result.error.message);
-				console.log("name: " + result.error.name);
-			}
-		}
-	);
-}
-
 async function test_visio() {
 	const url = "someurl";
 
@@ -314,5 +298,23 @@ async function test_interfaces() {
 			}
 		};
 		range.set(rangeSettables);
+	});
+}
+
+async function testResumeExistingObject () {
+	let range: Excel.Range;
+	await Excel.run(async context => {
+		range = context.workbook.getSelectedRange();
+		await context.sync();
+	});
+
+	await Excel.run(range, async context => {
+		range.clear();
+		await context.sync();
+	});
+
+	await Excel.run({delayForCellEdit: true, previousObjects: range}, async context => {
+		range.clear();
+		await context.sync();
 	});
 }

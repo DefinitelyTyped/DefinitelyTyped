@@ -3,12 +3,16 @@
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface BlockiesIcon {
-    toDataURL(): string;
-}
-interface BlockiesConfig {
-    seed: string;
-}
-declare function blockies(config: BlockiesConfig): BlockiesIcon;
-
+declare function blockies(config?: blockies.BlockiesConfig): HTMLCanvasElement;
 export = blockies;
+
+declare namespace blockies {
+    interface BlockiesConfig {
+        size?: number;
+        scale?: number;
+        seed?: string;
+        color?: string;
+        bgcolor?: string;
+        spotcolor?: string;
+    }
+}

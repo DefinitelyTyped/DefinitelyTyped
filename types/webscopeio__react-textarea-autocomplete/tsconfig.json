@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "jsx": "react",
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@webscopeio/react-textarea-autocomplete": ["webscopeio__react-textarea-autocomplete"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "webscopeio__react-textarea-autocomplete-tests.tsx"
+    ]
+}

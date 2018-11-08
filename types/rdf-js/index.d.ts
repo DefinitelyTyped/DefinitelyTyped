@@ -1,7 +1,9 @@
-// Type definitions for the RDFJS specification 1.0
+// Type definitions for the RDFJS specification 2.0
 // Project: https://github.com/rdfjs/representation-task-force
 // Definitions by: Ruben Taelman <https://github.com/rubensworks>
+//                 Laurens Rietveld <https://github.com/LaurensRietveld>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -12,32 +14,19 @@ import { EventEmitter } from "events";
 /* https://github.com/rdfjs/representation-task-force/blob/master/interface-spec.md#data-interfaces */
 
 /**
- * Abstract interface for RDF terms (subject, predicate, object or graph).
+ * Contains an Iri, RDF blank Node, RDF literal, variable name, or a default graph
+ * @see NamedNode
+ * @see BlankNode
+ * @see Literal
+ * @see Variable
+ * @see DefaultGraph
  */
-export interface Term {
-    /**
-     * Contains a value that identifies the concrete interface of the term,
-     * since Term itself is not directly instantiated.
-     *
-     * Possible values include "NamedNode", "BlankNode", "Literal", "Variable" and "DefaultGraph".
-     */
-    termType: "NamedNode" | "BlankNode" | "Literal" | "Variable" | "DefaultGraph";
-    /**
-     * Refined by each interface which extends Term
-     */
-    value: string;
-
-    /**
-     * @param other The term to compare with.
-     * @return If the termType is equal and the contents are equal (as defined by concrete subclasses).
-     */
-    equals(other: Term): boolean;
-}
+export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
 
 /**
  * Contains an IRI.
  */
-export interface NamedNode extends Term {
+export interface NamedNode {
     /**
      * Contains the constant "NamedNode".
      */
@@ -57,7 +46,7 @@ export interface NamedNode extends Term {
 /**
  * Contains an RDF blank node.
  */
-export interface BlankNode extends Term {
+export interface BlankNode {
     /**
      * Contains the constant "BlankNode".
      */
@@ -80,7 +69,7 @@ export interface BlankNode extends Term {
 /**
  * An RDF literal, containing a string with an optional language tag and/or datatype.
  */
-export interface Literal extends Term {
+export interface Literal {
     /**
      * Contains the constant "Literal".
      */
@@ -111,7 +100,7 @@ export interface Literal extends Term {
 /**
  * A variable name.
  */
-export interface Variable extends Term {
+export interface Variable {
     /**
      * Contains the constant "Variable".
      */
@@ -132,7 +121,7 @@ export interface Variable extends Term {
  * An instance of DefaultGraph represents the default graph.
  * It's only allowed to assign a DefaultGraph to the .graph property of a Quad.
  */
-export interface DefaultGraph extends Term {
+export interface DefaultGraph {
     /**
      * Contains the constant "DefaultGraph".
      */
@@ -150,44 +139,100 @@ export interface DefaultGraph extends Term {
 }
 
 /**
+ * The subject, which is a NamedNode, BlankNode or Variable.
+ * @see NamedNode
+ * @see BlankNode
+ * @see Variable
+ */
+export type Quad_Subject = NamedNode | BlankNode | Variable;
+
+/**
+ * The predicate, which is a NamedNode or Variable.
+ * @see NamedNode
+ * @see Variable
+ */
+export type Quad_Predicate = NamedNode | Variable;
+
+/**
+ * The object, which is a NamedNode, Literal, BlankNode or Variable.
+ * @see NamedNode
+ * @see Literal
+ * @see BlankNode
+ * @see Variable
+ */
+export type Quad_Object = NamedNode | Literal | BlankNode | Variable;
+
+/**
+ * The named graph, which is a DefaultGraph, NamedNode, BlankNode or Variable.
+ * @see DefaultGraph
+ * @see NamedNode
+ * @see BlankNode
+ * @see Variable
+ */
+export type Quad_Graph = DefaultGraph | NamedNode | BlankNode | Variable;
+
+/**
+ * An RDF quad, taking any Term in its positions, containing the subject, predicate, object and graph terms.
+ */
+export interface BaseQuad {
+  /**
+   * The subject.
+   * @see Quad_Subject
+   */
+  subject: Term;
+  /**
+   * The predicate.
+   * @see Quad_Predicate
+   */
+  predicate: Term;
+  /**
+   * The object.
+   * @see Quad_Object
+   */
+  object: Term;
+  /**
+   * The named graph.
+   * @see Quad_Graph
+   */
+  graph: Term;
+
+  /**
+   * @param other The term to compare with.
+   * @return True if and only if the argument is a) of the same type b) has all components equal.
+   */
+  equals(other: BaseQuad): boolean;
+}
+
+/**
  * An RDF quad, containing the subject, predicate, object and graph terms.
  */
-export interface Quad {
+export interface Quad extends BaseQuad {
     /**
-     * The subject, which is a NamedNode, BlankNode or Variable.
-     * @see NamedNode
-     * @see BlankNode
-     * @see Variable
+     * The subject.
+     * @see Quad_Subject
      */
-    subject: Term;
+    subject: Quad_Subject;
     /**
-     * The predicate, which is a NamedNode or Variable.
-     * @see NamedNode
-     * @see Variable
+     * The predicate.
+     * @see Quad_Predicate
      */
-    predicate: Term;
+    predicate: Quad_Predicate;
     /**
-     * The object, which is a NamedNode, Literal, BlankNode or Variable.
-     * @see NamedNode
-     * @see Literal
-     * @see BlankNode
-     * @see Variable
+     * The object.
+     * @see Quad_Object
      */
-    object: Term;
+    object: Quad_Object;
     /**
-     * The named graph, which is a DefaultGraph, NamedNode, BlankNode or Variable.
-     * @see DefaultGraph
-     * @see NamedNode
-     * @see BlankNode
-     * @see Variable
+     * The named graph.
+     * @see Quad_Graph
      */
-    graph: Term;
+    graph: Quad_Graph;
 
     /**
      * @param other The term to compare with.
      * @return True if and only if the argument is a) of the same type b) has all components equal.
      */
-    equals(other: Quad): boolean;
+    equals(other: BaseQuad): boolean;
 }
 
 /**
@@ -252,7 +297,7 @@ export interface DataFactory {
      * @see Triple
      * @see DefaultGraph
      */
-    triple(subject: Term, predicate: Term, object: Term): Quad;
+    triple<Q extends BaseQuad = Quad>(subject: Q['subject'], predicate: Q['predicate'], object: Q['object']): Q;
 
     /**
      * @param subject   The quad subject term.
@@ -262,7 +307,7 @@ export interface DataFactory {
      * @return A new instance of Quad.
      * @see Quad
      */
-    quad(subject: Term, predicate: Term, object: Term, graph?: Term): Quad;
+    quad<Q extends BaseQuad = Quad>(subject: Q['subject'], predicate: Q['predicate'], object: Q['object'], graph?: Q['graph']): Q;
 }
 
 /* Stream Interfaces */
@@ -281,14 +326,14 @@ export interface DataFactory {
  * Optional events:
  * * prefix(prefix: string, iri: RDF.NamedNode): This event is emitted every time a prefix is mapped to some IRI.
  */
-export interface Stream extends EventEmitter {
+export interface Stream<Q extends BaseQuad = Quad> extends EventEmitter {
     /**
      * This method pulls a quad out of the internal buffer and returns it.
      * If there is no quad available, then it will return null.
      *
      * @return A quad from the internal buffer, or null if none is available.
      */
-    read(): Quad;
+    read(): Q;
 }
 
 /**
@@ -298,7 +343,7 @@ export interface Stream extends EventEmitter {
  *
  * For example, parsers and transformations which generate quads can implement the Source interface.
  */
-export interface Source {
+export interface Source<Q extends BaseQuad = Quad> {
     /**
      * Returns a stream that processes all quads matching the pattern.
      *
@@ -308,8 +353,7 @@ export interface Source {
      * @param graph     The optional exact graph or graph regex to match.
      * @return The resulting quad stream.
      */
-    match(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp)
-        : Stream;
+    match(subject?: Term | RegExp, predicate?: Term | RegExp, object?: Term | RegExp, graph?: Term | RegExp): Stream<Q>;
 }
 
 /**
@@ -319,7 +363,7 @@ export interface Source {
  *
  * For example parsers, serializers, transformations and stores can implement the Sink interface.
  */
-export interface Sink {
+export interface Sink<Q extends BaseQuad = Quad> {
     /**
      * Consumes the given stream.
      *
@@ -330,7 +374,7 @@ export interface Sink {
      * @param stream The stream that will be consumed.
      * @return The resulting event emitter.
      */
-    import(stream: Stream): EventEmitter;
+    import(stream: Stream<Q>): EventEmitter;
 }
 
 /**
@@ -341,7 +385,7 @@ export interface Sink {
  *
  * Access to stores LDP or SPARQL endpoints can be implemented with a Store inteface.
  */
-export interface Store extends Source, Sink {
+export interface Store<Q extends BaseQuad = Quad> extends Source, Sink {
     /**
      * Removes all streamed quads.
      *
@@ -351,7 +395,7 @@ export interface Store extends Source, Sink {
      * @param stream The stream that will be consumed.
      * @return The resulting event emitter.
      */
-    remove(stream: Stream): EventEmitter;
+    remove(stream: Stream<Q>): EventEmitter;
 
     /**
      * All quads matching the pattern will be removed.
@@ -377,5 +421,5 @@ export interface Store extends Source, Sink {
      * @param graph The graph term or string to match.
      * @return The resulting event emitter.
      */
-    deleteGraph(graph: Term | string): EventEmitter;
+    deleteGraph(graph: Q['graph'] | string): EventEmitter;
 }

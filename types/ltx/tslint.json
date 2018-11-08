@@ -1,1 +1,9 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // All are TODOs
+        "jsdoc-format": false,
+        "no-consecutive-blank-lines": false,
+        "strict-export-declare-modifiers": false
+    }
+}

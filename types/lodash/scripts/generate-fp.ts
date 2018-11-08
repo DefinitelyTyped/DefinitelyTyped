@@ -118,7 +118,7 @@ async function main() {
         "    interface LoDashFp {",
         ...interfaceGroups.map(g => `        ${g.functionName}: ${g.interfaces[0].name};`),
         "        __: lodash.__;",
-        "        placehodler: lodash.__;",
+        "        placeholder: lodash.__;",
         "    }",
         "}",
         "",

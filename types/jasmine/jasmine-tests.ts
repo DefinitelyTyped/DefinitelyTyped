@@ -246,6 +246,12 @@ describe("A spec", () => {
     });
 });
 
+describe("withContext", () => {
+    it("can be used after an expectation", () => {
+        expect(1).withContext('context message').toBe(1);
+    });
+});
+
 xdescribe("A spec", () => {
     var foo: number;
 

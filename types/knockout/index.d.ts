@@ -5,50 +5,126 @@
 //                 Clément Bourgeois <https://github.com/moonpyk>,
 //                 Matt Brooks <https://github.com/EnableSoftware>,
 //                 Benjamin Eckardt <https://github.com/BenjaminEckardt>,
-//                 Mathias Lorenzen <https://github.com/ffMathy>
+//                 Mathias Lorenzen <https://github.com/ffMathy>,
+//                 Leonardo Lombardi <https://github.com/ltlombardi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-interface KnockoutExtensionFunctions {
-    [key: string]: any;
-}
-
-interface KnockoutSubscribableFunctions<T> extends KnockoutExtensionFunctions {
+interface KnockoutSubscribableFunctions<T> {
     notifySubscribers(valueToWrite?: T, event?: string): void;
 }
 
-interface KnockoutComputedFunctions<T> extends KnockoutExtensionFunctions {
+interface KnockoutComputedFunctions<T> {
 }
 
-interface KnockoutObservableFunctions<T> extends KnockoutExtensionFunctions {
-    equalityComparer(a: any, b: any): boolean;
+interface KnockoutObservableFunctions<T> {
+    equalityComparer(a: T, b: T): boolean;
 }
 
-interface KnockoutObservableArrayFunctions<T> extends KnockoutExtensionFunctions {
+interface KnockoutObservableArrayFunctions<T> {
     // General Array functions
+    /**
+      * Returns the index of the first occurrence of a value in an array.
+      * @param searchElement The value to locate in the array.
+      * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
+      */
     indexOf(searchElement: T, fromIndex?: number): number;
+    /**
+      * Returns a section of an array.
+      * @param start The beginning of the specified portion of the array.
+      * @param end The end of the specified portion of the array.
+      */
     slice(start: number, end?: number): T[];
+    /**
+     * Removes and returns all the remaining elements starting from a given index.
+     * @param start The zero-based location in the array from which to start removing elements.
+     */
     splice(start: number): T[];
+    /**
+     * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
+     * @param start The zero-based location in the array from which to start removing elements.
+     * @param deleteCount The number of elements to remove.
+     * @param ...items Elements to insert into the array in place of the deleted elements.
+     */
     splice(start: number, deleteCount: number, ...items: T[]): T[];
+    /**
+     * Removes the last value from the array and returns it.
+     */
     pop(): T;
+    /**
+     * Adds a new item to the end of array.
+     * @param ...items Items  to be added
+     */
     push(...items: T[]): void;
+    /**
+     * Removes the first value from the array and returns it.
+     */
     shift(): T;
+    /**
+     * Inserts a new item at the beginning of the array.
+     * @param ...items Items to be added
+     */
     unshift(...items: T[]): number;
+    /**
+     * Reverses the order of the array and returns the observableArray (not the underlying array).
+     */
     reverse(): KnockoutObservableArray<T>;
+    /**
+     * Sorts the array contents and returns the observableArray.
+     */
     sort(): KnockoutObservableArray<T>;
+    /**
+     * Sorts the array contents and returns the observableArray.
+     * @param compareFunction A function that returns negative value if first argument is smaller, positive value if second is smaller, or zero to treat them as equal.
+     */
     sort(compareFunction: (left: T, right: T) => number): KnockoutObservableArray<T>;
 
     // Ko specific
+    /**
+     * Replaces the first value that equals oldItem with newItem
+     * @param oldItem Item to be replaced
+     * @param newItem Replacing item
+     */
     replace(oldItem: T, newItem: T): void;
-
+    /**
+     * Removes all values that equal item and returns them as an array.
+     * @param item The item to be removed
+     */
     remove(item: T): T[];
+    /**
+     * Removes all values  and returns them as an array.
+     * @param removeFunction A function used to determine true if item should be removed and fasle otherwise
+     */
     remove(removeFunction: (item: T) => boolean): T[];
+    /**
+     * Removes all values that equal any of the supplied items
+     * @param items Items to be removed
+     */
     removeAll(items: T[]): T[];
+    /**
+     * Removes all values and returns them as an array.
+     */
     removeAll(): T[];
 
+    // Ko specific Usually relevant to Ruby on Rails developers only
+    /**
+     * Finds any objects in the array that equal someItem and gives them a special property called _destroy with value true.
+     * @param item Items to be marked with the property.
+     */
     destroy(item: T): void;
+    /**
+     * Finds any objects in the array filtered by a function and gives them a special property called _destroy with value true.
+     * @param destroyFunction A function used to determine which items should be marked with the property.
+     */
     destroy(destroyFunction: (item: T) => boolean): void;
+    /**
+     * Finds any objects in the array that equal suplied items and gives them a special property called _destroy with value true.
+     * @param items
+     */
     destroyAll(items: T[]): void;
+    /**
+     * Gives a special property called _destroy with value true to all objects in the array.
+     */
     destroyAll(): void;
 }
 
@@ -82,6 +158,10 @@ interface KnockoutComputedStatic {
 interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFunctions<T> {
     fn: KnockoutComputedFunctions<any>;
 
+    // It's possible for a to be undefined, since the equalityComparer is run on the initial
+    // computation with undefined as the first argument. This is user-relevant for deferred computeds.
+    equalityComparer(a: T | undefined, b: T): boolean;
+
     dispose(): void;
     isActive(): boolean;
     getDependenciesCount(): number;
@@ -106,24 +186,26 @@ interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutOb
 interface KnockoutObservableStatic {
     fn: KnockoutObservableFunctions<any>;
 
-    <T>(value?: T | null): KnockoutObservable<T>;
+    <T>(value: T): KnockoutObservable<T>;
+    <T = any>(value: null): KnockoutObservable<T | null>
+    <T = any>(): KnockoutObservable<T | undefined>
 }
 
 interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
     (): T;
-    (value: T | null): void;
+    (value: T): void;
 
     peek(): T;
-    valueHasMutated?:{(): void;};
-    valueWillMutate?:{(): void;};
+    valueHasMutated?: { (): void; };
+    valueWillMutate?: { (): void; };
     extend(requestedExtenders: { [key: string]: any; }): KnockoutObservable<T>;
 }
 
 interface KnockoutComputedDefine<T> {
     read(): T;
-    write? (value: T): void;
+    write?(value: T): void;
     disposeWhenNodeIsRemoved?: Node;
-    disposeWhen? (): boolean;
+    disposeWhen?(): boolean;
     owner?: any;
     deferEvaluation?: boolean;
     pure?: boolean;
@@ -204,17 +286,17 @@ interface KnockoutMemoization {
     parseMemoText(memoText: string): string;
 }
 
-interface KnockoutVirtualElement {}
+interface KnockoutVirtualElement { }
 
 interface KnockoutVirtualElements {
     allowedBindings: { [bindingName: string]: boolean; };
-    emptyNode(node: KnockoutVirtualElement ): void;
-    firstChild(node: KnockoutVirtualElement ): KnockoutVirtualElement;
-    insertAfter( container: KnockoutVirtualElement, nodeToInsert: Node, insertAfter: Node ): void;
+    emptyNode(node: KnockoutVirtualElement): void;
+    firstChild(node: KnockoutVirtualElement): KnockoutVirtualElement;
+    insertAfter(container: KnockoutVirtualElement, nodeToInsert: Node, insertAfter: Node): void;
     nextSibling(node: KnockoutVirtualElement): Node;
-    prepend(node: KnockoutVirtualElement, toInsert: Node ): void;
-    setDomNodeChildren(node: KnockoutVirtualElement, newChildren: { length: number;[index: number]: Node; } ): void;
-    childNodes(node: KnockoutVirtualElement ): Node[];
+    prepend(node: KnockoutVirtualElement, toInsert: Node): void;
+    setDomNodeChildren(node: KnockoutVirtualElement, newChildren: { length: number;[index: number]: Node; }): void;
+    childNodes(node: KnockoutVirtualElement): Node[];
 }
 
 interface KnockoutExtenders {
@@ -363,12 +445,12 @@ interface KnockoutTemplateSources {
 
     domElement: {
         prototype: KnockoutTemplateSourcesDomElement
-        new (element: Element): KnockoutTemplateSourcesDomElement
+        new(element: Element): KnockoutTemplateSourcesDomElement
     };
 
     anonymousTemplate: {
         prototype: KnockoutTemplateAnonymous;
-        new (element: Element): KnockoutTemplateAnonymous;
+        new(element: Element): KnockoutTemplateAnonymous;
     };
 }
 
@@ -476,7 +558,7 @@ interface KnockoutStatic {
 
         prototype: KnockoutTemplateEngine;
 
-        new (): KnockoutTemplateEngine;
+        new(): KnockoutTemplateEngine;
     };
 
     //////////////////////////////////
@@ -501,7 +583,7 @@ interface KnockoutStatic {
 
         prototype: KnockoutNativeTemplateEngine;
 
-        new (): KnockoutNativeTemplateEngine;
+        new(): KnockoutNativeTemplateEngine;
 
         instance: KnockoutNativeTemplateEngine;
     };
@@ -570,7 +652,7 @@ interface KnockoutStatic {
 
     bindingProvider: {
         instance: KnockoutBindingProvider;
-        new (): KnockoutBindingProvider;
+        new(): KnockoutBindingProvider;
     }
 
     /////////////////////////////////
@@ -629,7 +711,7 @@ declare namespace KnockoutComponentTypes {
 
     interface Config {
         viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
-        template: string | Node[]| DocumentFragment | TemplateElement | AMDModule;
+        template: string | Node[] | DocumentFragment | TemplateElement | AMDModule;
         synchronous?: boolean;
     }
 
@@ -670,16 +752,16 @@ declare namespace KnockoutComponentTypes {
     }
 
     interface Loader {
-        getConfig? (componentName: string, callback: (result: ComponentConfig | null) => void): void;
-        loadComponent? (componentName: string, config: ComponentConfig, callback: (result: Definition | null) => void): void;
-        loadTemplate? (componentName: string, templateConfig: any, callback: (result: Node[] | null) => void): void;
-        loadViewModel? (componentName: string, viewModelConfig: any, callback: (result: any) => void): void;
+        getConfig?(componentName: string, callback: (result: ComponentConfig | null) => void): void;
+        loadComponent?(componentName: string, config: ComponentConfig, callback: (result: Definition | null) => void): void;
+        loadTemplate?(componentName: string, templateConfig: any, callback: (result: Node[] | null) => void): void;
+        loadViewModel?(componentName: string, viewModelConfig: any, callback: (result: any) => void): void;
         suppressLoaderExceptions?: boolean;
     }
 
     interface Definition {
         template: Node[];
-        createViewModel? (params: any, options: { element: Node; }): any;
+        createViewModel?(params: any, options: { element: Node; }): any;
     }
 }
 

@@ -3,6 +3,7 @@
 	"rules": {
 		// TODOs
 		"no-duplicate-imports": false,
-		"no-object-literal-type-assertion": false
+		"no-object-literal-type-assertion": false,
+		"indent": [true, "tabs", 1]
 	}
 }

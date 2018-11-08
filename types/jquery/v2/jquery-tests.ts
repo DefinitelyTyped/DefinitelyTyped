@@ -3554,3 +3554,11 @@ function test_promise_then_not_return_deferred() {
   promise = promise.fail();
   promise = promise.always();
 }
+
+function test_element() {
+    const itemEl = $('#item')[0];
+    $('li').toArray().indexOf(itemEl);
+    $('li').get().indexOf(itemEl);
+    let otherItemEl = $('li').get(0);
+    otherItemEl = itemEl;
+}

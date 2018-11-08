@@ -128,7 +128,7 @@ declare namespace i18n {
 
         loadLanguages(lngs: string[], callback?: () => void): void;
 
-        dir(lng?: string): string;
+        dir(lng?: string): "ltr" | "rtl";
 
         createInstance(options?: Options, callback?: (err: any, t: TranslationFunction) => void): I18n;
 

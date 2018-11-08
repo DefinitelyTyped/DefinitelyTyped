@@ -6,6 +6,8 @@
 
 import ndarray = require("ndarray");
 
+type GLenum = number;
+
 type InputType = ImageData | HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
 
 interface RawObject {

@@ -8,7 +8,8 @@ import {
 } from "chromecast-caf-receiver/cast.framework.system";
 import {
     RequestEvent,
-    Event
+    Event,
+    BreaksEvent
 } from "chromecast-caf-receiver/cast.framework.events";
 import {
     QueueBase,
@@ -29,12 +30,16 @@ import {
     MediaMetadata
 } from "chromecast-caf-receiver/cast.framework.messages";
 
+const breaksEvent = new BreaksEvent('BREAK_STARTED');
+breaksEvent.breakId = 'some-break-id';
+breaksEvent.breakClipId = 'some-break-clip-id';
+
 const track = new Track(1, "TEXT");
 const breakClip = new BreakClip("id");
 const adBreak = new Break("id", ["id"], 1);
 const rEvent = new RequestEvent("BITRATE_CHANGED", { requestId: 2 });
 const pManager = new PlayerManager();
-pManager.addEventListener("STALLED", () => {});
+pManager.addEventListener("STALLED", () => { });
 const ttManager = new TextTracksManager();
 const qManager = new QueueManager();
 const qBase = new QueueBase();
@@ -47,10 +52,10 @@ const breakManager: BreakManager = {
     getBreakClips: () => [breakClip],
     getBreaks: () => [adBreak],
     getPlayWatchedBreak: () => true,
-    setBreakClipLoadInterceptor: () => {},
-    setBreakSeekInterceptor: () => {},
-    setPlayWatchedBreak: () => {},
-    setVastTrackingInterceptor: () => {}
+    setBreakClipLoadInterceptor: () => { },
+    setBreakSeekInterceptor: () => { },
+    setPlayWatchedBreak: () => { },
+    setVastTrackingInterceptor: () => { }
 };
 
 const lrd: LoadRequestData = {
@@ -103,4 +108,4 @@ const pData: PlayerData = {
     whenSkippable: 321
 };
 const binder = new PlayerDataBinder(pData);
-binder.addEventListener("ANY_CHANGE", e => {});
+binder.addEventListener("ANY_CHANGE", e => { });

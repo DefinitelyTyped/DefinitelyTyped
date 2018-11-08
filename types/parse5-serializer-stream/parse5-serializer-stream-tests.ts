@@ -1,5 +1,5 @@
 import { parse, TreeAdapter } from "parse5";
-import SerializerStream from "parse5-serializer-stream";
+import * as SerializerStream from "parse5-serializer-stream";
 import { createReadStream, createWriteStream } from "fs";
 
 const document = parse("<html>");

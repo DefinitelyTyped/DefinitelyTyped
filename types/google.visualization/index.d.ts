@@ -20,6 +20,7 @@ declare namespace google {
 
         export interface ChartSpecs {
             chartType: string;
+            container?: HTMLElement;
             containerId?: string;
             options?: Object;
             dataTable?: Object;
@@ -87,7 +88,7 @@ declare namespace google {
             getColumnProperties(columnIndex: number): Properties;
             getColumnProperty(columnIndex: number, name: string): any;
             getColumnRange(columnIndex: number): { min: any; max: any };
-            getColumnRole(columnIndex: string): string;
+            getColumnRole(columnIndex: number): string;
             getColumnType(columnIndex: number): string;
             getDistinctValues(columnIndex: number): any[];
             getFilteredRows(filters: DataTableCellFilter[]): number[];
@@ -117,7 +118,7 @@ declare namespace google {
             setColumnLabel(columnIndex: number, label: string): void;
             setColumnProperty(columnIndex: number, name: string, value: any): void;
             setColumnProperties(columnIndex: number, properties: Properties): void;
-            setFormattedValue(rowIndex: number, columnIndex: number, formattedValue: string): void;
+            setFormattedValue(rowIndex: number, columnIndex: number, formattedValue: string | null): void;
             setProperty(rowIndex: number, columnIndex: number, name: string, value: any): void;
             setProperties(rowIndex: number, columnIndex: number, properties: Properties): void;
             setRowProperty(rowIndex: number, name: string, value: any): void;

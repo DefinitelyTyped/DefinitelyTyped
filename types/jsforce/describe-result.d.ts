@@ -70,7 +70,7 @@ export interface Field {
     caseSensitive: boolean;
     compoundFieldName?: maybe<string>;
     controllerName?: maybe<string>;
-    creatable: boolean;
+    createable: boolean;
     custom: boolean;
     defaultValue?: maybe<string | boolean>;
     defaultValueFormula?: maybe<string>;

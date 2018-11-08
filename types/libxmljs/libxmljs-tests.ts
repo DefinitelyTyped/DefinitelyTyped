@@ -47,3 +47,22 @@ const doc = new libxmljs.Document();
     .node('sibling', 'with content!');
 
 const {name, externalId, systemId} = doc.getDtd();
+
+const xmlWithNs =  '<?xml version="1.0" encoding="UTF-8"?>' +
+           '<root>' +
+               '<child xmlns:a="http://test.com/test" foo="bar">' +
+                   '<a:grandchild baz="fizbuzz">grandchild content</a:grandchild>' +
+               '</child>' +
+               '<sibling>with content!</sibling>' +
+           '</root>';
+
+const xmlDocWithNs = libxmljs.parseXml(xmlWithNs);
+
+// xpath queries
+const gchildWithNs = xmlDocWithNs.get('//a:grandchild', {a: 'http://test.com/test'})!;
+
+console.log(gchildWithNs.text());  // prints "grandchild content"
+
+const validated: boolean = doc.validate(doc);
+doc.validationErrors[0].message; // inherited from Error
+doc.validationErrors[0].line;

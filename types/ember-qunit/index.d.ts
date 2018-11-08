@@ -1,8 +1,9 @@
-// Type definitions for ember-qunit 3.0
+// Type definitions for ember-qunit 3.4
 // Project: https://github.com/emberjs/ember-qunit#readme
 // Definitions by: Derek Wickern <https://github.com/dwickern>
+//                 Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 
 /// <reference types="qunit" />
 
@@ -97,6 +98,48 @@ declare module 'ember-qunit' {
     export class QUnitAdapter extends Ember.Test.Adapter { }
 
     export { module, test, skip, only, todo } from 'qunit';
+
+    interface QUnitStartOptions {
+        /**
+         * If `false` tests will not be loaded automatically.
+         */
+        loadTests?: boolean;
+
+        /**
+         * If `false` the test container will not be setup based on `devmode`,
+         * `dockcontainer`, or `nocontainer` URL params.
+         */
+        setupTestContainer?: boolean;
+
+        /**
+         * If `false` tests will not be automatically started (you must run
+         * `QUnit.start()` to kick them off).
+         */
+        startTests?: boolean;
+
+        /**
+         * If `false` the default Ember.Test adapter will not be updated.
+         */
+        setupTestAdapter?: boolean;
+
+        /**
+         * `false` opts out of the default behavior of setting `Ember.testing`
+         * to `true` before all tests and back to `false` after each test will.
+         */
+        setupEmberTesting?: boolean;
+
+        /**
+         * If `false` validation of `Ember.onerror` will be disabled.
+         */
+        setupEmberOnerrorValidation?: boolean;
+
+        /**
+         * If `false` test isolation validation will be disabled.
+         */
+        setupTestIsolationValidatoin?: boolean;
+    }
+
+    export function start(options?: QUnitStartOptions): void;
 }
 
 declare module 'qunit' {

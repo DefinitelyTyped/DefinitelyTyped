@@ -154,41 +154,14 @@ topology = {
 
 // Fails
 
+// must fail on "type"
 // $ExpectError
-topology = {
-    type: "Topology",
-    objects: {
-        foo: {
-            type: "hello", // must fail
-            arcs: [[0]],
-        },
-    },
-    arcs: [],
-};
+topology = { type: "Topology", objects: { foo: { type: "hello", arcs: [[0]] } }, arcs: [] };
 
+// must fail:  Property 'coordinates' is missing in type '{ type: "Point"; }'.
 // $ExpectError
-topology = {
-    type: "Topology",
-    objects: {
-        foo: {
-            type: "Point",
-            // must fail:  Property 'coordinates' is missing in type '{ type: "Point"; }'.
-        },
-    },
-    arcs: [],
-};
+topology = { type: "Topology", objects: { foo: { type: "Point" } }, arcs: [] };
 
+// must fail: Property 'arcs' is missing in type '{ type: "Polygon"; }'
 // $ExpectError
-topology = {
-    type: "Topology",
-    objects: {
-        foo: {
-            type: "GeometryCollection",
-            geometries: [
-                {type: "Polygon"}
-                // must fail: Property 'arcs' is missing in type '{ type: "Polygon"; }'
-            ],
-        },
-    },
-    arcs: [],
-};
+topology = { type: "Topology", objects: { foo: { type: "GeometryCollection", geometries: [{type: "Polygon"}] } }, arcs: [] };

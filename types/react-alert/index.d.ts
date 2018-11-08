@@ -1,110 +1,97 @@
-// Type definitions for react-alert 2.4
+// Type definitions for react-alert 4.0
 // Project: https://github.com/schiehll/react-alert
-// Definitions by: Steve Syrell <https://github.com/ssyrell>
+// Definitions by: Yue Yang <https://github.com/g1eny0ung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
-export interface AlertContainerProps {
+export type AlertPosition =
+    | 'top left'
+    | 'top right'
+    | 'top center'
+    | 'bottom left'
+    | 'bottom right'
+    | 'bottom center';
+
+export type AlertType = 'info' | 'success' | 'error';
+export type AlertTransition = 'fade' | 'scale';
+
+export interface ProviderOptions {
     /**
-     * The offset of the alert from the page border, can be any number.
+     * The margin of each alert
      *
-     * Default: 14.
+     * Default value: '10px'
      */
-    offset: number;
-
+    offset?: string;
     /**
-     * The position of the alert. Can be [bottom left, bottom right, top left, top right].
+     * The position of the alerts in the page
      *
-     * Default: 'bottom left'
+     * Default value: 'top center'
      */
-    position: string;
-
+    position?: AlertPosition;
     /**
-     * The color theme of the alert. Can be [dark, light].
+     * Timeout to alert remove itself, if  set to 0 it never removes itself
      *
-     * Default: 'dark'
+     * Default value: 0
      */
-    theme: string;
-
+    timeout?: number;
     /**
-     * The time in milliseconds the alert is displayed. After this
-     * time ellapses, the alert will close itself. Use 0 to prevent self-closure
-     * (applies to all alerts).
+     * The default alert type used when calling this.props.alert.show
      *
-     * Default: 5000
+     * Default value: 'info'
      */
-    time: number;
-
+    type?: AlertType;
     /**
-     * The transition animation. Can be [scale, fade].
+     * The transition animation
      *
-     * Default: 'scale'
+     * Default value: 'fade'
      */
-    transition: string;
+    transition?: AlertTransition;
+    /**
+     * The z-index of alerts
+     *
+     * Default value: 100
+     */
+    zIndex?: number;
 }
 
-export interface AlertShowOptions {
-    /**
-     * The time in milliseconds the alert is displayed. After this
-     * time ellapses, the alert will close itself. Use 0 to prevent self-closure.
-     */
-    time?: number;
+export class Provider extends React.Component<ProviderOptions & {
+    template: React.ComponentType
+}> {}
 
-    /**
-     * The icon to show in the alert.
-     *
-     * Default: the icon which matches the type of alert to be shown.
-     */
-    icon?: React.ReactNode;
+export const Alert: React.Consumer<InjectedAlertProp>;
 
+export interface AlertCustomOptions {
     /**
-     * A callback function that will be called when the alert is closed.
+     * Custom timeout just for this one alert
      */
-    onClose?: () => void;
-
+    timeout?: number;
     /**
-     * The type of alert to show. This will only be used when calling show().
-     * Can be [info, success, error].
-     *
-     * Default: 'info'
+     * Callback that will be executed after this alert open
      */
-    type?: string;
+    onOpen?(): undefined;
+    /**
+     * Callback that will be executed after this alert is removed
+     */
+    onClose?(): undefined;
 }
 
-export default class AlertContainer extends React.Component<AlertContainerProps> {
-    /**
-     * Show a success alert.
-     * @returns The id of the created alert.
-     */
-    success(message: string, options?: AlertShowOptions): string;
-
-    /**
-     * Show an error alert.
-     * @returns The id of the created alert.
-     */
-    error(message: string, options?: AlertShowOptions): string;
-
-    /**
-     * Show an info alert.
-     * @returns The id of the created alert.
-     */
-    info(message: string, options?: AlertShowOptions): string;
-
-    /**
-     * Show an alert.
-     * @returns The id of the created alert.
-     */
-    show(message: string, options?: AlertShowOptions): string;
-
-    /**
-     * Remove all alerts from the page.
-     */
-    removeAll(): void;
-
-    /**
-     * Removes the alert with the specified id from the page.
-     */
-    remove(id: string): void;
+export interface AlertCustomOptionsWithType extends AlertCustomOptions {
+    type?: AlertType;
 }
+
+export interface InjectedAlertProp {
+    show(
+        message?: string,
+        options?: AlertCustomOptionsWithType
+    ): InjectedAlertProp;
+    remove(alert: InjectedAlertProp): undefined;
+    success(message?: string, options?: AlertCustomOptions): InjectedAlertProp;
+    error(message?: string, options?: AlertCustomOptions): InjectedAlertProp;
+    info(message?: string, options?: AlertCustomOptions): InjectedAlertProp;
+}
+
+export function withAlert<P extends { alert: InjectedAlertProp }>(
+    c: React.ComponentType<P>
+): React.ComponentType<Pick<P, Exclude<keyof P, 'alert'>>>;

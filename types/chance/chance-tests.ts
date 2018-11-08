@@ -71,3 +71,18 @@ euro = chance.euro({opt: 'abc'});
 
 let coin = chance.coin();
 coin = chance.coin();
+
+// Make sure date works with min and max parameters
+let date: string|Date = chance.date();
+
+let min = new Date();
+let max = new Date();
+date = chance.date({min, max});
+
+min = new Date();
+min.setFullYear(new Date().getFullYear() - 15);
+max = new Date();
+max.setFullYear(new Date().getFullYear() + 15);
+date = chance.date({min, max});
+date = chance.date({min});
+date = chance.date({max});

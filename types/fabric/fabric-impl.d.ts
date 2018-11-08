@@ -104,7 +104,7 @@ export function warn(...values: any[]): void;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Data Object Interfaces - These intrface are not specific part of fabric,
-// They are just helpful for for defining function paramters
+// They are just helpful for for defining function parameters
 //////////////////////////////////////////////////////////////////////////////
 interface IDataURLOptions {
 	/**
@@ -851,6 +851,12 @@ interface IStaticCanvasOptions {
 	 * Indicates whether the browser can be scrolled when using a touchscreen and dragging on the canvas
 	 */
 	allowTouchScrolling?: boolean;
+
+	/**
+	 * When true, canvas is scaled by devicePixelRatio for better rendering on retina screens
+	 */
+	enableRetinaScaling?: boolean;
+
 	/**
 	 * Indicates whether this canvas will use image smoothing, this is on by default in browsers
 	 */
@@ -1644,11 +1650,13 @@ export class Group {
 	 * @chainable
 	 */
 	destroy(): Group;
-	/**
-	 * Returns requested property
-	 * @param prop Property to get
-	 */
-	get(prop: string): any;
+    /**
+     * make a group an active selection, remove the group from canvas
+     * the group has to be on canvas for this to work.
+     * @return {fabric.ActiveSelection} thisArg
+     * @chainable
+     */
+    toActiveSelection(): ActiveSelection;
 	/**
 	 * Checks whether this group was moved (since `saveCoords` was called last)
 	 * @return true if an object was moved (since fabric.Group#saveCoords was called)
@@ -1867,7 +1875,7 @@ export class Image {
 	 * @param [callback] Callback to invoke when image is created (newly created image is passed as a first argument)
 	 * @param [imgOptions] Options object
 	 */
-	static fromURL(url: string, callback?: (image: Image) => void, objObjects?: IObjectOptions): Image;
+	static fromURL(url: string, callback?: (image: Image) => void, imgOptions?: IImageOptions): Image;
 	/**
 	 * Creates an instance of fabric.Image from its object representation
 	 * @param object Object to create an instance from
@@ -1997,7 +2005,17 @@ interface IObjectOptions {
 	 */
 	scaleY?: number;
 
-	/**
+    /**
+     * Object skew factor (horizontal)
+     */
+    skewX?: number;
+
+    /**
+     * Object skew factor (vertical)
+     */
+    skewY?: number;
+
+    /**
 	 * When true, an object is rendered as flipped horizontally
 	 */
 	flipX?: boolean;
@@ -2036,6 +2054,11 @@ interface IObjectOptions {
 	 * Color of controlling borders of an object (when it's active)
 	 */
 	borderColor?: string;
+
+    /**
+     * Array specifying dash pattern of an object's border (hasBorder must be true)
+     */
+    borderDashArray?: number[];
 
 	/**
 	 * Color of controlling corners of an object (when it's active)
@@ -2307,7 +2330,13 @@ export class Object {
 	getScaleY(): number;
 	setScaleY(value: number): Object;
 
-	setShadow(options: any): Object;
+    getSkewX(): number;
+    setSkewX(value: number): Object;
+
+    getSkewY(): number;
+    setSkewY(value: number): Object;
+
+    setShadow(options: any): Object;
 	getShadow(): Object;
 
 	stateProperties: any[];
@@ -2678,9 +2707,11 @@ export class Object {
 	setCoords(): this;
 	/**
 	 * Returns coordinates of object's bounding rectangle (left, top, width, height)
+     * @param absoluteopt use coordinates without viewportTransform
+     * @param calculateopt use coordinates of current position instead of .oCoords / .aCoords
 	 * @return Object with left, top, width, height properties
 	 */
-	getBoundingRect(): { left: number; top: number; width: number; height: number };
+	getBoundingRect(absoluteopt?: boolean, calculateopt?: boolean): { left: number; top: number; width: number; height: number };
 	/**
 	 * Checks if object is fully contained within area of another object
 	 * @param other Object to test
@@ -3062,8 +3093,27 @@ interface ITextOptions extends IObjectOptions {
 	fontFamily?: string;
 	/**
 	 * Text decoration Possible values?: "", "underline", "overline" or "line-through".
+     * Feels like this has been deprecated in favor of underline, overline, linethrough props
 	 */
 	textDecoration?: string;
+    /**
+     * Text decoration underline.
+     * @type Boolean
+     * @default
+     */
+    underline?: boolean;
+    /**
+     * Text decoration overline.
+     * @type Boolean
+     * @default
+     */
+    overline?: boolean;
+    /**
+     * Text decoration linethrough.
+     * @type Boolean
+     * @default
+     */
+    linethrough?: boolean;
 	/**
 	 * Text alignment. Possible values?: "left", "center", or "right".
 	 */
@@ -3076,6 +3126,10 @@ interface ITextOptions extends IObjectOptions {
 	 * Line height
 	 */
 	lineHeight?: number;
+    /**
+     * Character spacing
+     */
+    charSpacing?: number;
 	/**
 	 * When defined, an object is rendered via stroke and this property specifies its color.
 	 * <b>Backwards incompatibility note?:</b> This property was named "strokeStyle" until v1.1.6
@@ -3171,6 +3225,33 @@ export class Text extends Object {
 	 * @param textDecoration Text decoration
 	 */
 	setTextDecoration(textDecoration: string): Text;
+    /**
+     * Retrieves object's underline
+     */
+    getUnderline(): boolean;
+    /**
+     * Sets object's underline
+     * @param underline Text underline
+     */
+    setUnderline(underline: boolean): Text;
+    /**
+     * Retrieves object's overline
+     */
+    getOverline(): boolean;
+    /**
+     * Sets object's overline
+     * @param overline Text overline
+     */
+    setOverline(overline: boolean): Text;
+    /**
+     * Retrieves object's linethrough
+     */
+    getLinethrough(): boolean;
+    /**
+     * Sets object's linethrough
+     * @param linethrough Text linethrough
+     */
+    setLinethrough(linethrough: boolean): Text;
 	/**
 	 * Retrieves object's fontStyle
 	 */
@@ -3189,6 +3270,15 @@ export class Text extends Object {
 	 * @param lineHeight Line height
 	 */
 	setLineHeight(lineHeight: number): Text;
+    /**
+     * Retrieves object's charSpacing
+     */
+    getCharSpacing(): number;
+    /**
+     * Sets object's charSpacing
+     * @param charSpacing Character spacing
+     */
+    setCharSpacing(charSpacing: number): Text;
 	/**
 	 * Retrieves object's textAlign
 	 */
@@ -3292,6 +3382,52 @@ interface IITextOptions extends IObjectOptions, ITextOptions {
 	 */
 	caching?: boolean;
 }
+export interface Textbox extends IText {}
+export class Textbox extends IText {
+    /**
+     * Constructor
+     * @param text Text string
+     * @param [options] Options object
+     */
+    constructor(text: string, options?: IITextOptions);
+    /**
+     * Detect if the text line is ended with an hard break
+     * text and itext do not have wrapping, return false
+     * @param {Number} lineIndex text to split
+     * @return {Boolean}
+     */
+    isEndOfWrapping(lineIndex: number): boolean;
+    /**
+     * Get minimum width of text box
+     * @return {Number}
+     */
+    getMinWidth(): number;
+    /**
+     * Selects entire text
+     * @return {fabric.Text} thisArg
+     * @chainable
+     */
+    selectAll(): Textbox;
+    /**
+     * Selects a line based on the index
+     * @param {Number} selectionStart Index of a character
+     * @return {fabric.IText} thisArg
+     * @chainable
+     */
+    selectLine(selectionStart: number): Textbox;
+    /**
+     * Enters editing state
+     * @return {fabric.Textbox} thisArg
+     * @chainable
+     */
+    enterEditing(): Textbox;
+    /**
+     * Exits from editing state
+     * @return {fabric.Textbox} thisArg
+     * @chainable
+     */
+    exitEditing(): Textbox;
+}
 export interface IText extends Text, IITextOptions { }
 export class IText extends Object {
 	/**
@@ -3301,9 +3437,10 @@ export class IText extends Object {
 	 */
 	constructor(text: string, options?: IITextOptions);
 	/**
-	 * Returns true if object has no styling
+     * Returns true if object has no styling or no styling in a line
+     * @param {Number} lineIndex , lineIndex is on wrapped lines.
 	 */
-	isEmptyStyles(): boolean;
+	isEmptyStyles(lineIndex: number): boolean;
 	render(ctx: CanvasRenderingContext2D, noTransform: boolean): void;
 	/**
 	 * Returns object representation of an instance
@@ -4545,4 +4682,3 @@ export interface WebglFilterBackend extends FilterBackend, WebglFilterBackendOpt
 export class WebglFilterBackend {
 	constructor(options?: WebglFilterBackendOptions);
 }
-

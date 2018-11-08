@@ -1,8 +1,9 @@
-// Type definitions for cesium 1.44
+// Type definitions for cesium 1.47
 // Project: http://cesiumjs.org
 // Definitions by: Aigars Zeiza <https://github.com/Zuzon>
 //                 Harry Nicholls <https://github.com/hnipps>
 //                 Jared Szechy <https://github.com/szechyjs>
+//                 Radek Goláň jr. <https://github.com/golyalpha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -796,6 +797,22 @@ declare namespace Cesium {
         isLeapSecond: boolean;
     }
 
+    class HeadingPitchRoll {
+        heading: number;
+        pitch: number;
+        roll: number;
+        constructor(heading?: number, pitch?: number, roll?: number);
+        static clone(headingPitchRoll: HeadingPitchRoll, result?: HeadingPitchRoll): HeadingPitchRoll;
+        static equals(left: HeadingPitchRoll | null | undefined, right: HeadingPitchRoll | null | undefined): boolean;
+        static equalsEpsilon(left: HeadingPitchRoll | null | undefined, right: HeadingPitchRoll | null | undefined, relativeEpsilon: number, absoluteEpsilon?: number): boolean;
+        static fromDegrees(heading: number, pitch: number, roll: number, result?: HeadingPitchRoll): HeadingPitchRoll;
+        static fromQuaternion(quaternion: Quaternion, result?: HeadingPitchRoll): HeadingPitchRoll;
+        clone(result?: HeadingPitchRoll): HeadingPitchRoll;
+        equals(right: HeadingPitchRoll | null | undefined): boolean;
+        equalsEpsilon(right: HeadingPitchRoll | null | undefined, relativeEpsilon: number, absoluteEpsilon?: number): boolean;
+        toString(): string;
+    }
+
     class HeightmapTerrainData {
         waterMask: Uint8Array | HTMLImageElement | HTMLCanvasElement;
         constructor(options: {
@@ -958,6 +975,7 @@ declare namespace Cesium {
         static fromArray(array: number[], startingIndex?: number, result?: Matrix3): Matrix3;
         static fromColumnMajorArray(values: number[], result?: Matrix3): Matrix3;
         static fromRowMajorArray(values: number[], result?: Matrix3): Matrix3;
+        static fromHeadingPitchRoll(headingPitchRoll: HeadingPitchRoll, result?: Matrix3): Matrix3;
         static fromQuaternion(quaternion: Quaternion): Matrix3;
         static fromScale(scale: Cartesian3, result?: Matrix3): Matrix3;
         static fromUniformScale(scale: number, result?: Matrix3): Matrix3;
@@ -1235,7 +1253,7 @@ declare namespace Cesium {
         toString(): string;
         static fromAxisAngle(axis: Cartesian3, angle: number, result?: Quaternion): Quaternion;
         static fromRotationMatrix(matrix: Matrix3, result?: Quaternion): Quaternion;
-        static fromHeadingPitchRoll(heading: number, pitch: number, roll: number, result: Quaternion): Quaternion;
+        static fromHeadingPitchRoll(headingPitchRoll: HeadingPitchRoll, result?: Quaternion): Quaternion;
         static pack(value: Quaternion, array: number[], startingIndex?: number): number[];
         static unpack(array: number[], startingIndex?: number, result?: Quaternion): Quaternion;
         static convertPackedArrayForInterpolation(packedArray: number[], startingIndex?: number, lastIndex?: number, result?: number[]): void;
@@ -1437,10 +1455,10 @@ declare namespace Cesium {
     }
 
     class TerrainData {
+        credits: Credit[];
         waterMask: Uint8Array | HTMLImageElement | HTMLCanvasElement;
         interpolateHeight(rectangle: Rectangle, longitude: number, latitude: number): number;
         isChildAvailable(thisX: number, thisY: number, childX: number, childY: number): boolean;
-        createMesh(tilingScheme: TilingScheme, x: number, y: number, level: number): Promise<TerrainMesh>;
         upsample(tilingScheme: TilingScheme, thisX: number, thisY: number, thisLevel: number, descendantX: number, descendantY: number, descendantLevel: number): Promise<TerrainData>;
         wasCreatedByUpsampling(): boolean;
     }
@@ -1459,7 +1477,7 @@ declare namespace Cesium {
     }
 
     abstract class TerrainProvider {
-        availability: any; // TileAvailability
+        availability: TileAvailability;
         credit: Credit;
         errorEvent: Event;
         hasVertexNormals: boolean;
@@ -1473,6 +1491,15 @@ declare namespace Cesium {
         getLevelMaximumGeometricError(level: number): number;
         getTileDataAvailable(x: number, y: number, level: number): boolean;
         requestTileGeometry(x: number, y: number, level: number, throttleRequests?: boolean): Promise<TerrainData>;
+    }
+
+    class TileAvailability {
+        constructor(tilingScheme: TilingScheme, maximumLevel: number);
+        addAvailableTileRange(level: number, startX: number, startY: number, endX: number, endY: number): void;
+        computeBestAvailableLevelOverRectangle(rectangle: Rectangle): number;
+        computeChildMaskForTile(level: number, x: number, y: number): number;
+        computeMaximumLevelAtPosition(position: Cartographic): number;
+        isTileAvailable(level: number, x: number, y: number): boolean;
     }
 
     class TileProviderError {
@@ -1925,15 +1952,15 @@ declare namespace Cesium {
         semiMinorAxis: Property;
         rotation: Property;
         show: Property;
-        material: MaterialProperty;
+        material: MaterialProperty | Color;
         height: Property;
         extrudedHeight: Property;
         granularity: Property;
         stRotation: Property;
-        fill: Property;
-        outline: Property;
-        outlineColor: Property;
-        outlineWidth: Property;
+        fill: boolean;
+        outline: boolean;
+        outlineColor: Color;
+        outlineWidth: number;
         numberOfVerticalLines: Property;
         constructor(options?: {
             semiMajorAxis?: number;
@@ -1941,11 +1968,11 @@ declare namespace Cesium {
             height?: Property;
             extrudedHeight?: Property;
             show?: Property;
-            fill?: Property;
-            material?: MaterialProperty;
-            outline?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property;
+            fill?: boolean;
+            material?: MaterialProperty | Color
+            outline?: boolean;
+            outlineColor?: Color;
+            outlineWidth?: number;
             numberOfVerticalLines?: Property;
             rotation?: Property;
             stRotation?: Property;
@@ -2197,11 +2224,11 @@ declare namespace Cesium {
     class LabelGraphics {
         definitionChanged: Event;
         text: Property;
-        font: Property;
+        font: string;
         style: Property;
-        fillColor: Property;
-        outlineColor: Property;
-        outlineWidth: Property;
+        fillColor: Color;
+        outlineColor: Color;
+        outlineWidth: number;
         horizontalOrigin: Property;
         verticalOrigin: Property;
         eyeOffset: Property;
@@ -2212,11 +2239,11 @@ declare namespace Cesium {
         pixelOffsetScaleByDistance: Property;
         constructor(options?: {
             text?: Property;
-            font?: Property;
+            font?: string;
             style?: Property;
-            fillColor?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property;
+            fillColor?: Color;
+            outlineColor?: Color;
+            outlineWidth?: number;
             show?: Property;
             scale?: Property;
             horizontalOrigin?: Property;
@@ -2352,16 +2379,16 @@ declare namespace Cesium {
     class PolygonGraphics {
         definitionChanged: Event;
         show: Property;
-        material: MaterialProperty;
+        material: MaterialProperty | Color;
         positions: Property;
         hierarchy: Property;
         height: Property;
         extrudedHeight: Property;
         granularity: Property;
         stRotation: Property;
-        fill: Property;
+        fill: boolean;
         outline: Property;
-        outlineColor: Property;
+        outlineColor: Color;
         outlineWidth: Property;
         perPositionHeight: Property;
         constructor(options?: {
@@ -2369,10 +2396,10 @@ declare namespace Cesium {
             height?: number;
             extrudedHeight?: Property;
             show?: Property;
-            fill?: Property;
-            material?: MaterialProperty;
+            fill?: boolean;
+            material?: MaterialProperty | Color;
             outline?: boolean;
-            outlineColor?: Property;
+            outlineColor?: Color;
             outlineWidth?: number;
             stRotation?: Property;
             granularity?: Property;
@@ -3007,21 +3034,82 @@ declare namespace Cesium {
         destroy(): void;
     }
 
+    class GoogleEarthEnterpriseMetadata {
+        imageryPresent: boolean;
+        key: ArrayBuffer;
+        negativeAltitudeExponentBias: number;
+        negativeAltitudeThreshold: number;
+        protoImagery: boolean;
+        readonly proxy: Proxy;
+        readonly readyPromise: Promise<boolean>;
+        readonly resource: Resource;
+        terrainPresent: boolean;
+        readonly url: string;
+        constructor(resourceOrUrl: Resource | string);
+        static quadKeyToTileXY(quadkey: string): {x: number, y: number, level: number};
+        static tileXYToQuadKey(x: number, y: number, level: number): string;
+    }
+
     class GoogleEarthEnterpriseImageryProvider extends ImageryProvider {
-        url: string;
-        path: string;
-        channel: number;
-        version: number;
-        requestType: string;
+        readonly url: string;
         constructor(options: {
-            url: string;
+            url: Resource | string;
+            metadata: GoogleEarthEnterpriseMetadata;
+            ellipsoid?: Ellipsoid;
+            tileDiscardPolicy?: TileDiscardPolicy;
+            credit?: Credit | string;
+        });
+    }
+
+    class GoogleEarthEnterpriseMapsProvider extends ImageryProvider {
+        readonly channel: number;
+        readonly path: string;
+        readonly requestType: string;
+        readonly url: string;
+        readonly version: number;
+        static logoUrl: string;
+        constructor(options: {
+            url: Resource | string;
             channel: number;
             path?: string;
             maximumLevel?: number;
             tileDiscardPolicy?: TileDiscardPolicy;
             ellipsoid?: Ellipsoid;
-            proxy?: Proxy
         });
+    }
+
+    class GoogleEarthEnterpriseTerrainData extends TerrainData {
+        constructor(options: {
+            buffer: ArrayBuffer;
+            negativeAltitudeExponentBias: number;
+            negativeElevationThreshold: number;
+            childTileMask?: number;
+            createdByUpsampling?: boolean;
+            credits?: Credit[];
+        });
+    }
+
+    class GoogleEarthEnterpriseTerrainProvider {
+        static heightmapTerrainQuality: number;
+        availability: TileAvailability;
+        credit: Credit;
+        errorEvent: Event;
+        hasVertexNormals: boolean;
+        hasWaterMask: boolean;
+        ready: boolean;
+        readonly readyPromise: Promise<boolean>;
+        tilingScheme: TilingScheme;
+        constructor(options: {
+            url: Resource | string;
+            metadata: GoogleEarthEnterpriseMetadata;
+            ellipsoid?: Ellipsoid;
+            credit?: Credit | string;
+        })
+        static getEstimatedLevelZeroGeometricErrorForAHeightmap(ellipsoid: Ellipsoid, tileImageWidth: number, numberOfTilesAtLevelZero: number): number;
+        static getRegularGridIndices(width: number, height: number): Uint16Array;
+        getLevelMaximumGeometricError(level: number): number;
+        getTileDataAvailable(x: number, y: number, level: number): boolean;
+        requestTileGeometry(x: number, y: number, level: number, request?: Request): Promise<TerrainData>;
     }
 
     class GridImageryProvider extends ImageryProvider {
@@ -3522,7 +3610,7 @@ declare namespace Cesium {
             cull?: boolean;
             asynchronous?: boolean;
             debugShowBoundingVolume?: boolean;
-            shadows: ShadowMode
+            shadows?: ShadowMode
         });
         destroy(): void;
         getGeometryInstanceAttributes(id: any): any;
@@ -4809,13 +4897,15 @@ declare namespace Cesium {
         function eastNorthUpToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northEastDownToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northUpEastToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
-        function headingPitchRollToFixedFrame(origin: Cartesian3, heading: number, pitch: number, roll: number, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
-        function headingPitchRollQuaternion(origin: Cartesian3, heading: number, pitch: number, roll: number, ellipsoid?: Ellipsoid, result?: Quaternion): Quaternion;
+        function headingPitchRollToFixedFrame(origin: Cartesian3, headingPitchRoll: HeadingPitchRoll, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame, result?: Matrix4): Matrix4;
+        function headingPitchRollQuaternion(origin: Cartesian3, headingPitchRoll: HeadingPitchRoll, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame,
+                                            result?: Quaternion): Quaternion;
         function computeTemeToPseudoFixedMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function preloadIcrfFixed(timeInterval: TimeInterval): Promise<void>;
         function computeIcrfToFixedMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function computeFixedToIcrfMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function pointToWindowCoordinates(modelViewProjectionMatrix: Matrix4, viewportTransformation: Matrix4, point: Cartesian3, result?: Cartesian2): Cartesian2;
+        type LocalFrameToFixedFrame = (origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4) => Matrix4;
     }
 
     namespace TridiagonalSystemSolver {

@@ -6,7 +6,10 @@ import Redis = require("ioredis");
 import Queue = require("bull");
 
 const videoQueue = new Queue('video transcoding', 'redis://127.0.0.1:6379');
-const audioQueue = new Queue('audio transcoding', {redis: {port: 6379, host: '127.0.0.1'}}); // Specify Redis connection using object
+const audioQueue = new Queue('audio transcoding', {
+    redis: {port: 6379, host: '127.0.0.1'}, // Specify Redis connection using object
+    settings: {},
+});
 const imageQueue: Queue.Queue<{ image: string }> = new Queue('image transcoding');
 
 videoQueue.process((job, done) => {
@@ -122,6 +125,7 @@ videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
 pdfQueue
 .on('error', (err: Error) => undefined)
 .on('active', (job: Queue.Job, jobPromise: Queue.JobPromise) => jobPromise.cancel())
+.on('waiting', (jobId: Queue.JobId) => undefined)
 .on('active', (job: Queue.Job) => undefined)
 .on('stalled', (job: Queue.Job) => undefined)
 .on('progress', (job: Queue.Job) => undefined)
@@ -129,4 +133,53 @@ pdfQueue
 .on('failed', (job: Queue.Job) => undefined)
 .on('paused', () => undefined)
 .on('resumed', () => undefined)
-.on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatus) => undefined);
+.on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatus) => undefined)
+.on('drained', () => undefined)
+.on('removed', (job: Queue.Job) => undefined);
+
+// test different process methods
+
+const profileQueue = new Queue('profile');
+// Max concurrency for requestProfile is 100
+profileQueue.process('requestProfile', 100, () => {});
+profileQueue.process(100, () => {});
+
+// other tests
+const myQueue = new Queue('myQueue', {
+    settings: {
+        drainDelay: 5
+    },
+    defaultJobOptions: {
+        stackTraceLimit: 1,
+    }
+});
+
+myQueue.on('active', (job: Queue.Job) => {
+    job.moveToCompleted();
+    job.moveToCompleted('done');
+    job.moveToCompleted('done', true);
+    job.moveToCompleted('done', true).then(val => {
+        if (val) {
+            const nextJobData: any = val[0];
+            const nextJobId: Queue.JobId = val[1];
+        }
+    });
+
+    job.moveToFailed({ message: "Call to external service failed!" }, true);
+    job.moveToFailed(new Error('test error'), true);
+    job.moveToFailed(new Error('test error'), true).then(val => {
+        if (val) {
+            const nextJobData: any = val[0];
+            const nextJobId: Queue.JobId = val[1];
+        }
+    });
+
+    job.discard();
+});
+
+// test all constructor options:
+
+new Queue('profile');
+new Queue('profile', 'url');
+new Queue('profile', { prefix: 'test' });
+new Queue('profile', 'url', { prefix: 'test' });

@@ -1,12 +1,13 @@
 import * as React from 'react';
+import * as Popper from 'popper.js';
 import { CSSModule } from '../index';
-import { Popper } from './Popper';
 
 export type PopoverProps<T = {}> = React.HTMLAttributes<HTMLElement> & {
   isOpen?: boolean;
   toggle?: () => void;
   target: string | HTMLElement;
   container?: string | HTMLElement;
+  boundariesElement?: Popper.Boundary | Element;
   className?: string;
   placement?: Popper.Placement;
   innerClassName?: string;

@@ -1,8 +1,9 @@
-// Type definitions for luxon 0.5
+// Type definitions for luxon 1.4
 // Project: https://github.com/moment/luxon#readme
 // Definitions by: Colby DeHart <https://github.com/colbydehart>
 //                 Hyeonseok Yang <https://github.com/FourwingsY>
 //                 Jonathan Siebern <https://github.com/jsiebern>
+//                 Matt R. Wilson <https://github.com/mastermatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -20,6 +21,11 @@ declare module 'luxon' {
 
         type ToFormatOptions = DateTimeFormatOptions & {
             round?: boolean;
+        };
+
+        type ToSQLOptions = {
+            includeOffset?: boolean;
+            includeZone?: boolean;
         };
 
         type ISOTimeOptions = {
@@ -65,6 +71,17 @@ declare module 'luxon' {
             conversionAccuracy?: string;
         };
 
+        type ExplainedFormat = {
+            input: string;
+            tokens: Array<{ literal: boolean, val: string }>,
+            regex?: RegExp;
+            rawMatches?: RegExpMatchArray | null;
+            matches?: {[k: string]: any};
+            result?: {[k: string]: any} | null;
+            zone?: Zone | null;
+            invalidReason?: string;
+        };
+
         class DateTime {
             static readonly DATETIME_FULL: DateTimeFormatOptions;
             static readonly DATETIME_FULL_WITH_SECONDS: DateTimeFormatOptions;
@@ -108,7 +125,7 @@ declare module 'luxon' {
                 text: string,
                 format: string,
                 opts?: DateTimeOptions
-            ): object;
+            ): ExplainedFormat;
             /**
              * @deprecated since 0.3.0. Use fromFormat instead
              */
@@ -124,7 +141,7 @@ declare module 'luxon' {
                 text: string,
                 format: string,
                 options?: DateTimeOptions
-            ): object;
+            ): ExplainedFormat;
             static invalid(reason: any): DateTime;
             static local(
                 year?: number,
@@ -154,6 +171,7 @@ declare module 'luxon' {
             hour: number;
             invalidReason: string;
             isInDST: boolean;
+            isInLeapYear: boolean;
             isOffsetFixed: boolean;
             isValid: boolean;
             locale: string;
@@ -180,14 +198,14 @@ declare module 'luxon' {
             zoneName: string;
             diff(
                 other: DateTime,
-                unit?: string | string[],
+                unit?: DurationUnit | DurationUnit[],
                 options?: DiffOptions
             ): Duration;
-            diffNow(unit?: string | string[], options?: DiffOptions): Duration;
-            endOf(unit: string): DateTime;
+            diffNow(unit?: DurationUnit | DurationUnit[], options?: DiffOptions): Duration;
+            endOf(unit: DurationUnit): DateTime;
             equals(other: DateTime): boolean;
-            get(unit: string): number;
-            hasSame(other: DateTime, unit: string): boolean;
+            get(unit: keyof DateTime): number;
+            hasSame(other: DateTime, unit: DurationUnit): boolean;
             minus(duration: Duration | number | DurationObject): DateTime;
             plus(duration: Duration | number | DurationObject): DateTime;
             reconfigure(properties: LocaleOptions): DateTime;
@@ -195,7 +213,8 @@ declare module 'luxon' {
             set(values: DateObjectUnits): DateTime;
             setLocale(locale: any): DateTime;
             setZone(zone: string | Zone, options?: ZoneOptions): DateTime;
-            startOf(unit: string): DateTime;
+            startOf(unit: DurationUnit): DateTime;
+            toBSON(): Date;
             toFormat(format: string, options?: ToFormatOptions): string;
             toHTTP(): string;
             toISO(options?: ISOTimeOptions): string;
@@ -207,11 +226,13 @@ declare module 'luxon' {
             toLocal(): DateTime;
             toLocaleParts(options?: DateTimeFormatOptions): any[];
             toLocaleString(options?: DateTimeFormatOptions): string;
+            toMillis(): number;
+            toMillis(): number;
             toObject(options?: { includeConfig?: boolean }): DateObject;
             toRFC2822(): string;
-            toSQL(options?: Object): string;
+            toSQL(options?: ToSQLOptions): string;
             toSQLDate(): string;
-            toSQLTime(options?: Object): string;
+            toSQLTime(options?: ToSQLOptions): string;
             toString(): string;
             toUTC(offset?: number, options?: ZoneOptions): DateTime;
             until(other: DateTime): Interval;
@@ -237,6 +258,9 @@ declare module 'luxon' {
 
         type DurationObject = DurationObjectUnits & DurationOptions;
 
+        type DurationUnit = 'year' | 'years' | 'quarter' | 'quarters' | 'month' | 'months' | 'week' | 'weeks' | 'day' | 'days'
+                            | 'hour' | 'hours' | 'minute' | 'minutes' | 'second' | 'seconds' | 'millisecond' | 'milliseconds';
+
         class Duration {
             static fromISO(text: string, options?: DurationOptions): Duration;
             static fromMillis(
@@ -260,16 +284,16 @@ declare module 'luxon' {
             seconds: number;
             weeks: number;
             years: number;
-            as(unit: string): number;
+            as(unit: DurationUnit): number;
             equals(other: Duration): boolean;
-            get(unit: string): number;
+            get(unit: DurationUnit): number;
             minus(duration: Duration | number | DurationObject): Duration;
             negate(): Duration;
             normalize(): Duration;
             plus(duration: Duration | number | DurationObject): Duration;
             reconfigure(objectPattern: DurationOptions): Duration;
             set(values: DurationObjectUnits): Duration;
-            shiftTo(...units: string[]): Duration;
+            shiftTo(...units: DurationUnit[]): Duration;
             toFormat(format: string, options?: ToFormatOptions): string;
             toISO(): string;
             toJSON(): string;
@@ -277,6 +301,7 @@ declare module 'luxon' {
                 includeConfig?: boolean;
             }): DurationObject;
             toString(): string;
+            valueOf(): number;
         }
 
         type EraLength = 'short' | 'long';
@@ -312,8 +337,8 @@ declare module 'luxon' {
         }
 
         type IntervalObject = {
-            start: DateTime;
-            end: DateTime;
+            start?: DateTime;
+            end?: DateTime;
         };
 
         class Interval {
@@ -331,8 +356,8 @@ declare module 'luxon' {
             ): Interval;
             static fromISO(string: string, options?: DateTimeOptions): Interval;
             static invalid(reason?: string): Interval;
-            static merge(intervals: Interval[]): [Interval];
-            static xor(intervals: Interval[]): [Interval];
+            static merge(intervals: Interval[]): Interval[];
+            static xor(intervals: Interval[]): Interval[];
             end: DateTime;
             invalidReason: string;
             isValid: boolean;
@@ -340,23 +365,23 @@ declare module 'luxon' {
             abutsEnd(other: Interval): boolean;
             abutsStart(other: Interval): boolean;
             contains(dateTime: DateTime): boolean;
-            count(unit?: string): number;
+            count(unit?: DurationUnit): number;
             difference(...intervals: Interval[]): Interval[];
             divideEqually(numberOfParts?: number): Interval[];
             engulfs(other: Interval): boolean;
             equals(other: Interval): boolean;
-            hasSame(unit: string): boolean;
+            hasSame(unit: DurationUnit): boolean;
             intersection(other: Interval): Interval;
             isAfter(dateTime: DateTime): boolean;
             isBefore(dateTime: DateTime): boolean;
             isEmpty(): boolean;
-            length(unit?: string): number;
+            length(unit?: DurationUnit): number;
             overlaps(other: Interval): boolean;
             set(values: IntervalObject): Interval;
             splitAt(...dateTimes: DateTime[]): Interval[];
             splitBy(duration: Duration | DurationObject | number): Interval[];
             toDuration(
-                unit: string | string[],
+                unit: DurationUnit | DurationUnit[],
                 options?: DiffOptions
             ): Duration;
             toFormat(
@@ -394,6 +419,10 @@ declare module 'luxon' {
             static universal: boolean;
             equals(other: Zone): boolean;
             offset(ts: number): number;
+        }
+
+        class IANAZone extends Zone {
+            constructor(ianaString: string);
         }
     }
 

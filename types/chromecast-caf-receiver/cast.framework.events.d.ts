@@ -367,8 +367,14 @@ declare namespace cast.framework.events {
             total?: number,
             whenSkippable?: number,
             endedReason?: EndedReason,
-            breakClipId?: string
+            breakClipId?: string,
+            breakId?: string
         );
+
+        /**
+         * The break's id. Refer to Break.id
+         */
+        breakId?: string;
 
         /**
          * The break clip's id. Refer to BreakClip.id

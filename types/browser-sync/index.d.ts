@@ -368,7 +368,7 @@ declare namespace browserSync {
         ws?: boolean;
         reqHeaders?: (config: object) => Hash<object>;
         proxyRes?: ProxyResponseMiddleware | ProxyResponseMiddleware[];
-        proxyReq?: ((res: http.ServerRequest) => void)[] | ((res: http.ServerRequest) => void);
+        proxyReq?: ((res: http.IncomingMessage) => void)[] | ((res: http.IncomingMessage) => void);
         error?: (err: NodeJS.ErrnoException, req: http.IncomingMessage, res: http.ServerResponse) => void;
     }
 
@@ -457,10 +457,14 @@ declare namespace browserSync {
          */
         (config?: Options, callback?: (err: Error, bs: object) => any): BrowserSyncInstance;
         /**
+         *
+         */
+        instances: Array<BrowserSyncInstance>;
+        /**
          * Create a Browsersync instance
          * @param name an identifier that can used for retrieval later
          */
-        create(name?: string): BrowserSyncInstance;
+        create(name?: string, emitter?: NodeJS.EventEmitter): BrowserSyncInstance;
         /**
          * Get a single instance by name. This is useful if you have your build scripts in separate files
          * @param name the identifier used for retrieval
@@ -471,6 +475,11 @@ declare namespace browserSync {
          * @param name the name of the instance
          */
         has(name: string): boolean;
+        /**
+         * Reset the state of the module.
+         * (should only be needed for test environments)
+         */
+        reset(): void;
     }
 
     interface BrowserSyncInstance {
@@ -481,6 +490,24 @@ declare namespace browserSync {
          * depending on your use-case.
          */
         init(config?: Options, callback?: (err: Error, bs: object) => any): BrowserSyncInstance;
+        /**
+         * This method will close any running server, stop file watching & exit the current process.
+         */
+        exit(): void;
+        /**
+         * Helper method for browser notifications
+         * @param message Can be a simple message such as 'Connected' or HTML
+         * @param timeout How long the message will remain in the browser. @since 1.3.0
+         */
+        notify(message: string, timeout?: number): void;
+        /**
+         * Method to pause file change events
+         */
+        pause(): void;
+        /**
+         * Method to resume paused watchers
+         */
+        resume(): void;
         /**
          * Reload the browser
          * The reload method will inform all browsers about changed files and will either cause the browser
@@ -510,28 +537,30 @@ declare namespace browserSync {
          */
         stream(opts?: StreamOptions): NodeJS.ReadWriteStream;
         /**
-         * Helper method for browser notifications
-         * @param message Can be a simple message such as 'Connected' or HTML
-         * @param timeout How long the message will remain in the browser. @since 1.3.0
+         * Instance Cleanup.
          */
-        notify(message: string, timeout?: number): void;
+        cleanup(fn?: (error: NodeJS.ErrnoException, bs: BrowserSyncInstance) => void): void;
         /**
-         * This method will close any running server, stop file watching & exit the current process.
+         * Register a plugin.
+         * Must implement at least a 'plugin' property that returns
+         * callable function.
+         *
+         * @method use
+         * @param {object} module The object to be `required`.
+         * @param {object} options The
+         * @param {any} cb A callback function that will return any errors.
          */
-        exit(): void;
+        use(module: { "plugin:name"?: string, plugin: (opts: object, bs: BrowserSyncInstance) => any }, options?: object, cb?: any): void;
+        /**
+         * Callback helper to examine what options have been set.
+         * @param {string} name The key to search options map for.
+         */
+        getOption(name: string): any;
         /**
          * Stand alone file-watcher. Use this along with Browsersync to create your own, minimal build system
          */
         watch(patterns: string, opts?: chokidar.WatchOptions, fn?: (event: string, file: fs.Stats) => any)
             : NodeJS.EventEmitter;
-        /**
-         * Method to pause file change events
-         */
-        pause(): void;
-        /**
-         * Method to resume paused watchers
-         */
-        resume(): void;
         /**
          * The internal Event Emitter used by the running Browsersync instance (if there is one). You can use
          * this to emit your own events, such as changed files, logging etc.

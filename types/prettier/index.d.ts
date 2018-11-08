@@ -29,6 +29,8 @@ export type BuiltInParserName =
     | 'less'
     | 'scss'
     | 'json'
+    | 'json5'
+    | 'json-stringify'
     | 'graphql'
     | 'markdown'
     | 'vue';

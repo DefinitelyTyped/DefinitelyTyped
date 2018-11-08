@@ -1,5 +1,5 @@
-import { BlankNode, DataFactory, DefaultGraph, Literal, NamedNode, Quad, Sink, Source, Store, Stream, Triple, Term,
-  Variable } from "rdf-js";
+import { BlankNode, DataFactory, DefaultGraph, Literal, NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Triple, Term,
+  Variable, Quad_Graph } from "rdf-js";
 import { EventEmitter } from "events";
 
 function test_terms() {
@@ -7,6 +7,9 @@ function test_terms() {
     // so this does not have to be functional.
     const someTerm: Term = <any> {};
 
+    if (someTerm.termType === 'Literal') {
+      console.log(someTerm.datatype);
+    }
     const namedNode: NamedNode = <any> {};
     const termType1: string = namedNode.termType;
     const value1: string = namedNode.value;
@@ -66,9 +69,16 @@ function test_datafactory() {
 
     const variable: Variable = dataFactory.variable ? dataFactory.variable('v1') : <any> {};
 
-    const term: Term = <any> {};
+    const term: NamedNode = <any> {};
     const triple: Quad = dataFactory.triple(term, term, term);
-    const quad: Quad = dataFactory.quad(term, term, term, term);
+    interface QuadBnode extends BaseQuad {
+      subject: Term;
+      predicate: Term;
+      object: Term;
+      graph: Term;
+    }
+    const quad = dataFactory.quad<QuadBnode>(literal1, blankNode1, term, term);
+    const hasBnode = quad.predicate.termType === "BlankNode";
 }
 
 function test_stream() {
@@ -88,6 +98,7 @@ function test_stream() {
     const matchStream9: Stream = source.match(term, term, term, /.*/);
 
     const sink: Sink = <any> {};
+    const graph: Quad_Graph = <any> {};
     const eventEmitter1: EventEmitter = sink.import(stream);
 
     const store: Store = <any> {};
@@ -103,6 +114,6 @@ function test_stream() {
     const eventEmitter9: EventEmitter = store.removeMatches(term, term, /.*/);
     const eventEmitter10: EventEmitter = store.removeMatches(term, term, term, term);
     const eventEmitter11: EventEmitter = store.removeMatches(term, term, term, /.*/);
-    const eventEmitter12: EventEmitter = store.deleteGraph(term);
+    const eventEmitter12: EventEmitter = store.deleteGraph(graph);
     const eventEmitter13: EventEmitter = store.deleteGraph('http://example.org');
 }

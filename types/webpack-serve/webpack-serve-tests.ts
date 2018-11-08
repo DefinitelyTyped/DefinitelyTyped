@@ -1,24 +1,49 @@
 import webpack = require('webpack');
 import serve = require('webpack-serve');
 
-const compiler = webpack();
+const webpackConfig: webpack.Configuration = {
+    entry: { index: './index.js' },
+};
 
-const server = serve({
-  config: {
-    serve: {
-      http2: true,
-      dev: {
-        publicPath: '/',
-        logLevel: 'info'
-      },
-      host: 'localhost'
+const webpackCompiler = webpack(webpackConfig);
+
+const serveConfig: serve.Options = {
+    add: (app, middleware, options) => {
+        middleware.content();
+        middleware.webpack();
     },
-  },
-});
+    compiler: webpackCompiler,
+    config: webpackConfig,
+    content: './webroot',
+    clipboard: true,
+    devMiddleware: {
+        logLevel: 'warn',
+        publicPath: '/',
+    },
+    host: 'localhost',
+    hotClient: {
+        logLevel: 'warn',
+        allEntries: true,
+    },
+    http2: true,
+    https: {},
+    logLevel: 'info',
+    logTime: false,
+    on: {
+        'build-finished': args => {
+            console.log(args.stats.toString());
+        },
+    },
+    open: {
+        path: '/index.html',
+    },
+    port: 65080,
+};
 
-server
-  .then((server) => {
-    server.on('listening', () => {
-      server.close();
+const promise = serve({}, serveConfig);
+
+promise.then(result => {
+    result.on('compiler-error', args => {
+        console.log(args.stats);
     });
-  });
+});

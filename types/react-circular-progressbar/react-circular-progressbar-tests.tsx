@@ -10,13 +10,13 @@ render(
         <CircularProgressbar
             className="testing"
             percentage={55}
-            textForPercentage={(val) => (val > 50 ? val.toString() : '')}
+            text={'55%'}
             strokeWidth={16}
         />
         <CircularProgressbar
             className="testing"
             percentage={55}
-            textForPercentage=""
+            text=""
             strokeWidth={16}
         />
     </div>,

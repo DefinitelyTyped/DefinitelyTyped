@@ -3,7 +3,8 @@
         "index.d.ts",
         "test/index.ts",
         "test/tsx.tsx",
-        "test/cssProperties.tsx"
+        "test/cssProperties.tsx",
+        "test/managedAttributes.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",

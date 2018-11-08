@@ -1,12 +1,13 @@
-// Type definitions for Recompose 0.26
+// Type definitions for Recompose 0.27
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 //                 Samuel DeSota <https://github.com/mrapogee>
 //                 Curtis Layne <https://github.com/clayne11>
 //                 Rasmus Eneman <https://github.com/Pajn>
 //                 Lucas Terra <https://github.com/lucasterra>
+//                 Brian Adams <https://github.com/brian-lives-outdoors>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 ///<reference types="react" />
 
@@ -19,8 +20,8 @@ declare module 'recompose' {
     type predicate<T> = mapper<T, boolean>;
     type predicateDiff<T> = (current: T, next: T) => boolean
 
-    // Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-    type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+    // Diff / Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
+    type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
     interface Observer<T>{
         next(props: T): void;
@@ -269,19 +270,19 @@ declare module 'recompose' {
     // Static property helpers: https://github.com/acdlite/recompose/blob/master/docs/API.md#static-property-helpers
 
     // setStatic: https://github.com/acdlite/recompose/blob/master/docs/API.md#setStatic
-    export function setStatic<TOutter>(
+    export function setStatic(
         key: string, value: any
-    ): ComponentEnhancer<TOutter, TOutter>;
+    ): <T extends Component>(component: T) => T;
 
     // setPropTypes: https://github.com/acdlite/recompose/blob/master/docs/API.md#setPropTypes
-    export function setPropTypes<TOutter>(
-        propTypes: ValidationMap<TOutter>
-    ): ComponentEnhancer<any, TOutter>;
+    export function setPropTypes<P>(
+        propTypes: ValidationMap<P>
+    ): <T extends Component<P>>(component: T) => T;
 
     // setDisplayName: https://github.com/acdlite/recompose/blob/master/docs/API.md#setDisplayName
-    export function setDisplayName<TOutter>(
+    export function setDisplayName(
         displayName: string
-    ): ComponentEnhancer<TOutter, TOutter>;
+    ): <T extends Component>(component: T) => T;
 
 
     // Utilities: https://github.com/acdlite/recompose/blob/master/docs/API.md#utilities
@@ -661,37 +662,22 @@ declare module 'recompose/hoistStatics' {
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#componentfromstream
 declare module 'recompose/componentFromStream' {
     import { componentFromStream } from 'recompose';
+    export { componentFromStreamWithConfig } from 'recompose';
     export default componentFromStream;
-}
-
-// https://github.com/acdlite/recompose/blob/master/docs/API.md#componentfromstreamwithconfig
-declare module 'recompose/componentFromStreamWithConfig' {
-    import { componentFromStreamWithConfig } from 'recompose';
-    export default componentFromStreamWithConfig;
 }
 
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#mappropsstream
 declare module 'recompose/mapPropsStream' {
     import { mapPropsStream } from 'recompose';
+    export { mapPropsStreamWithConfig } from 'recompose';
     export default mapPropsStream;
-}
-
-// https://github.com/acdlite/recompose/blob/master/docs/API.md#mappropsstreamwithconfig
-declare module 'recompose/mapPropsStreamWithConfig' {
-    import { mapPropsStreamWithConfig } from 'recompose';
-    export default mapPropsStreamWithConfig;
 }
 
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#createeventhandler
 declare module 'recompose/createEventHandler' {
     import { createEventHandler } from 'recompose';
+    export { createEventHandlerWithConfig } from 'recompose';
     export default createEventHandler;
-}
-
-// https://github.com/acdlite/recompose/blob/master/docs/API.md#createeventhandlerwithconfig
-declare module 'recompose/createEventHandlerWithConfig' {
-    import { createEventHandlerWithConfig } from 'recompose';
-    export default createEventHandlerWithConfig;
 }
 
 // https://github.com/acdlite/recompose/blob/master/docs/API.md#setobservableconfig

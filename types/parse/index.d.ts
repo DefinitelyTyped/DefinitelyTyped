@@ -634,6 +634,7 @@ declare namespace Parse {
         exists(key: string): Query<T>;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
+        fullText(key: string, value: string, options?: Query.FullTextOptions): Query<T>;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
         greaterThan(key: string, value: any): Query<T>;
         greaterThanOrEqualTo(key: string, value: any): Query<T>;
@@ -674,6 +675,13 @@ declare namespace Parse {
             skip?: number;
             // Sort documentation https://docs.mongodb.com/v3.2/reference/operator/aggregation/sort/#pipe._S_sort
             sort?: {[key: string]: 1|-1};
+        }
+
+        // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
+        interface FullTextOptions {
+          language?: string;
+          caseSensitive?: boolean;
+          diacriticSensitive?: boolean;
         }
     }
 
@@ -922,17 +930,19 @@ declare namespace Parse {
             installationId?: String;
             master?: boolean;
             user?: User;
+            ip: string;
+            headers: any;
+            triggerName: string;
+            log: any;
             object: Object;
+            original?: Parse.Object;
         }
-
 
         interface AfterSaveRequest extends TriggerRequest { }
         interface AfterDeleteRequest extends TriggerRequest { }
         interface BeforeDeleteRequest extends TriggerRequest { }
         interface BeforeDeleteResponse extends FunctionResponse { }
-        interface BeforeSaveRequest extends TriggerRequest {
-            original?: Parse.Object;
-        }
+        interface BeforeSaveRequest extends TriggerRequest { }
         interface BeforeSaveResponse extends FunctionResponse {
             success: () => void;
         }
@@ -953,11 +963,20 @@ declare namespace Parse {
             readPreference?: ReadPreferenceOption
         }
 
+        interface AfterFindRequest extends TriggerRequest {
+            objects: Object[]
+        }
+
+        interface AfterFindResponse extends FunctionResponse {
+            success: (objects: Object[]) => void;
+        }
+
         function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => void): void;
         function afterSave(arg1: any, func?: (request: AfterSaveRequest) => void): void;
         function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest, response: BeforeDeleteResponse) => void): void;
         function beforeSave(arg1: any, func?: (request: BeforeSaveRequest, response: BeforeSaveResponse) => void): void;
-        function beforeFind(arg1: any, func?: (request: BeforeFindRequest, response: BeforeFindRequest) => void): void;
+        function beforeFind(arg1: any, func?: (request: BeforeFindRequest) => void): void;
+        function afterFind(arg1: any, func?: (request: AfterFindRequest, response: AfterFindResponse) => void): void;
         function define(name: string, func?: (request: FunctionRequest, response: FunctionResponse) => void): void;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest, status: JobStatus) => void): HttpResponse;
@@ -1158,6 +1177,12 @@ declare namespace Parse {
      */
     function initialize(applicationId: string, javaScriptKey?: string, masterKey?: string): void;
 
+    /**
+     * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
+     * @param AsyncStorage AsyncStorage from 'react-native' package
+     */
+    function setAsyncStorage(AsyncStorage: any): void;
+
 }
 
 declare module "parse/node" {
@@ -1165,6 +1190,11 @@ declare module "parse/node" {
 }
 
 declare module "parse" {
+    import * as parse from "parse/node";
+    export = parse
+}
+
+declare module "parse/react-native" {
     import * as parse from "parse/node";
     export = parse
 }

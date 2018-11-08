@@ -127,11 +127,12 @@ export abstract class SetStateTestForExtendsState<P, S extends { baseProp: strin
 }
 
 // Below tests that & generic still works
-export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
-	foo() {
-		this.setState({ baseProp: 'foobar' });
-	}
-}
+// This is invalid because 'S' may specify a different type for `baseProp`.
+// export abstract class SetStateTestForAndedState<P, S> extends React.Component<P, S & { baseProp: string }> {
+// 	   foo() {
+// 	       this.setState({ baseProp: 'foobar' });
+// 	   }
+// }
 
 interface NewProps { foo: string; }
 interface NewState { bar: string; }
@@ -140,6 +141,10 @@ class ComponentWithNewLifecycles extends React.Component<NewProps, NewState, { b
     static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
         return { bar: `${nextProps.foo}bar` };
     }
+
+    state = {
+        bar: 'foo'
+    };
 
     getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>) {
         return { baz: `${prevProps.foo}baz` };
@@ -159,6 +164,10 @@ class PureComponentWithNewLifecycles extends React.PureComponent<NewProps, NewSt
     static getDerivedStateFromProps: React.GetDerivedStateFromProps<NewProps, NewState> = (nextProps) => {
         return { bar: `${nextProps.foo}bar` };
     }
+
+    state = {
+        bar: 'foo'
+    };
 
     getSnapshotBeforeUpdate(prevProps: Readonly<NewProps>) {
         return { baz: `${prevProps.foo}baz` };

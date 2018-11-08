@@ -4,6 +4,7 @@
 //                 Marcus Weiner <https://github.com/mraerino>
 //                 Moritz Gunz <https://github.com/NeoLegends>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 interface Window {
     onSpotifyWebPlaybackSDKReady(): void;
@@ -91,6 +92,11 @@ declare namespace Spotify {
     type PlaybackInstanceListener = (inst: WebPlaybackInstance) => void;
     type PlaybackStateListener = (s: PlaybackState) => void;
 
+    type AddListenerFn =
+        & ((event: 'ready' | 'not_ready', cb: PlaybackInstanceListener) => void)
+        & ((event: 'player_state_changed', cb: PlaybackStateListener) => void)
+        & ((event: ErrorTypes, cb: ErrorListener) => void);
+
     class SpotifyPlayer {
         constructor(options: PlayerInit);
 
@@ -100,15 +106,11 @@ declare namespace Spotify {
         getVolume(): Promise<number>;
         nextTrack(): Promise<void>;
 
-        addListener(event: 'ready', cb: PlaybackInstanceListener): void;
-        addListener(event: 'player_state_changed', cb: PlaybackStateListener): void;
-        addListener(event: ErrorTypes, cb: ErrorListener): void;
-        on(event: 'ready', cb: PlaybackInstanceListener): void;
-        on(event: 'player_state_changed', cb: PlaybackStateListener): void;
-        on(event: ErrorTypes, cb: ErrorListener): void;
+        addListener: AddListenerFn;
+        on: AddListenerFn;
 
         removeListener(
-            event: 'ready' | 'player_state_changed' | ErrorTypes,
+            event: 'ready' | 'not_ready' | 'player_state_changed' | ErrorTypes,
             cb?: ErrorListener | PlaybackInstanceListener | PlaybackStateListener,
         ): void;
 

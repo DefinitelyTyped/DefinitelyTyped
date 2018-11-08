@@ -8,6 +8,10 @@
 
 import * as angular from 'angular';
 
+export type ILocalStorageServiceProvider = angular.local.storage.ILocalStorageServiceProvider;
+export type ILocalStorageService = angular.local.storage.ILocalStorageService;
+export type ICookie = angular.local.storage.ICookie;
+
 declare module 'angular' {
     export namespace local.storage {
         interface ILocalStorageServiceProvider extends angular.IServiceProvider {

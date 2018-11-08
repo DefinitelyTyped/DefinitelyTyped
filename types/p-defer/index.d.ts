@@ -5,7 +5,7 @@
 
 declare namespace pDefer {
 	interface DeferredPromise<T> {
-		resolve<U>(value: U | PromiseLike<U>): Promise<U>;
+		resolve<U>(value?: U | PromiseLike<U>): Promise<U>;
 		reject(reason: any): Promise<never>;
 		promise: Promise<T>;
 	}
