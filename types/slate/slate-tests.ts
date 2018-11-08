@@ -1,4 +1,4 @@
-import { Block, Value, Data, BlockJSON, Document, Editor, KeyUtils, Range, Point, Inline, Mark, Schema } from "slate";
+import { Block, Value, Data, BlockJSON, Document, Editor, KeyUtils, Range, Point, Inline, Mark, SchemaProperties } from "slate";
 
 const data = Data.create({ foo: "bar " });
 const value = Value.create({ data });
@@ -283,7 +283,7 @@ KeyUtils.setGenerator(() => "Test");
 KeyUtils.create();
 KeyUtils.resetGenerator();
 
-Schema.create({
+const schema: SchemaProperties = {
     document: {
         nodes: [
             {
@@ -314,4 +314,4 @@ Schema.create({
             isVoid: true,
         },
     },
-});
+};
