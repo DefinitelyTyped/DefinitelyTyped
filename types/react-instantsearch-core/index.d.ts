@@ -2,6 +2,7 @@
 // Project: https://community.algolia.com/react-instantsearch/
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
+//                 David Furlong <https://github.com/davidfurlong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -171,21 +172,21 @@ export function connectHighlight(Composed: React.ComponentType<any>): React.Comp
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
-export function connectHits<TProps extends { hits: THit[]}, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, {hits?: THit[]}>;
-                                   
+export function connectHits<TProps extends { hits: THit[] }, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, { hits?: THit[] }>;
+
 export function connectHitsPerPage(Composed: React.ComponentType<any>): React.ComponentClass<any>;
-                                   
-export interface InfiniteHitsProvided {
+
+export interface InfiniteHitsProvided<THit = any> {
   hits: THit[];
   refine: (...args: any[]) => any;
   hasMore: boolean;
 }
 
-export function connectInfiniteHits(Composed: React.ComponentType<InfiniteHitsProvided>): React.ComponentClass<{}>;
-export function connectInfiniteHits<TProps extends Partial<InfiniteHitsProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, InfiniteHitsProvided, {}>;
+export function connectInfiniteHits(Composed: React.ComponentType<InfiniteHitsProvided>): React.ComponentClass;
+export function connectInfiniteHits<TProps extends Partial<InfiniteHitsProvided<THit>>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, InfiniteHitsProvided<THit>>;
 
 export interface MenuProvided {
-  items: Array<{count: number, isRefined: boolean, label: string, value: string}>;
+  items: Array<{ count: number, isRefined: boolean, label: string, value: string }>;
   currentRefinement: string;
   refine: (...args: any[]) => any;
   createURL: (...args: any[]) => any;
