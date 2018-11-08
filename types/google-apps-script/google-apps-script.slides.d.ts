@@ -825,10 +825,10 @@ declare namespace GoogleAppsScript {
     export interface Presentation {
       addEditor(emailAddress: string): Presentation;
       addEditor(user: Base.User): Presentation;
-      addEditors(emailAddresses: String[]): Presentation;
+      addEditors(emailAddresses: string[]): Presentation;
       addViewer(emailAddress: string): Presentation;
       addViewer(user: Base.User): Presentation;
-      addViewers(emailAddresses: String[]): Presentation;
+      addViewers(emailAddresses: string[]): Presentation;
       appendSlide(): Slide;
       appendSlide(layout: Layout): Slide;
       appendSlide(predefinedLayout: PredefinedLayout): Slide;
