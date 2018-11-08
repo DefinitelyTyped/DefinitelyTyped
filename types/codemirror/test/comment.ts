@@ -10,7 +10,7 @@ const opt: CodeMirror.CommentOptions = {
     lineComment: "//",
     padding: " "
 };
-editor.toggleComment(position, position, opt);
+editor.toggleComment(opt);
 editor.blockComment(position, position, opt);
 editor.lineComment(position, position, opt);
 const b: boolean = editor.uncomment(position, position, opt);
