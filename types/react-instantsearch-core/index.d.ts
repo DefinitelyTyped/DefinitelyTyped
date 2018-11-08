@@ -172,9 +172,17 @@ export function connectHighlight(Composed: React.ComponentType<any>): React.Comp
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
 export function connectHits<TProps extends { hits: THit[]}, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, {hits?: THit[]}>;
-
+                                   
 export function connectHitsPerPage(Composed: React.ComponentType<any>): React.ComponentClass<any>;
-export function connectInfiniteHits(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+                                   
+export interface InfiniteHitsProvided {
+  hits: THit[];
+  refine: (...args: any[]) => any;
+  hasMore: boolean;
+}
+
+export function connectInfiniteHits(Composed: React.ComponentType<InfiniteHitsProvided>): React.ComponentClass<{}>;
+export function connectInfiniteHits<TProps extends Partial<InfiniteHitsProvided>>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, InfiniteHitsProvided, {}>;
 
 export interface MenuProvided {
   items: Array<{count: number, isRefined: boolean, label: string, value: string}>;
@@ -256,6 +264,8 @@ export interface RefinementListProvided {
   searchForItems: (...args: any[]) => any;
   /** a boolean that says if the items props contains facet values from the global search or from the search inside items. */
   isFromSearch: boolean;
+  /** a boolean that says whether you can currently refine */
+  canRefine: boolean;
 }
 export interface RefinementListExposed {
   /** the name of the attribute in the record */
