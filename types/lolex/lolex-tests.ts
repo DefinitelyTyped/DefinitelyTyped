@@ -28,7 +28,10 @@ lolex.createClock<lolex.NodeClock>(new Date());
 lolex.createClock<lolex.NodeClock>(7, 9001);
 lolex.createClock<lolex.NodeClock>(new Date(), 9001);
 
-const installedClock = lolex.install({
+// showing two ways to specify the exact clock type for `install()` method:
+
+// first way: passing the exact clock type to `install()`.
+const browserInstalledClock = lolex.install<lolex.BrowserClock>({
 	advanceTimeDelta: 20,
 	loopLimit: 10,
 	now: 0,
@@ -37,7 +40,8 @@ const installedClock = lolex.install({
 	toFake: ["setTimeout", "nextTick", "hrtime"]
 });
 
-lolex.install({
+// second way: specify type for the clock variable as InstallClock<Clock_Type>.
+const nodeInstalledClock: lolex.InstalledClock<lolex.NodeClock> = lolex.install({
 	advanceTimeDelta: 20,
 	loopLimit: 10,
 	now: new Date(0),
@@ -121,7 +125,11 @@ let [secs, nanos] = nodeClock.hrtime([0, 0]);
 secs.toFixed();
 nanos.toExponential();
 
-installedClock.uninstall();
+browserInstalledClock.performance.now();
+nodeInstalledClock.nextTick(() => {});
+
+browserInstalledClock.uninstall();
+nodeInstalledClock.uninstall();
 
 // Clocks should be typed to have unbound method signatures that can be passed around
 const { clearTimeout } = browserClock;
