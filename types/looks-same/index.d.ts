@@ -116,10 +116,12 @@ declare function looksSame(image1: string, image2: string, options: LooksSameOpt
  * @param callback Call when finish compare
  */
 declare function looksSame(image1: string, image2: string, callback: LooksSameCallback): void;
+
 // https://stackoverflow.com/questions/44058101/typescript-declare-third-party-modules
 declare namespace looksSame {
     function createDiff(options: CreateDiffOptions, callback: (error: Error | null) => any): void;
     function createDiff(options: CreateDiffAsBufferOptions, callback: (error: Error | null, buffer: Buffer) => any): void;
+
     /**
      * Compare two colors
      * @param color1 The first color
@@ -128,6 +130,7 @@ declare namespace looksSame {
      */
     function colors(color1: LooksSameColor, color2: LooksSameColor, options: { tolerance: number }): void;
 }
+
 /**
  * Node.js library for comparing PNG-images, taking into account human color perception.
  * It is created specially for the needs of visual regression testing for gemini utility, but can be used for other purposes.
