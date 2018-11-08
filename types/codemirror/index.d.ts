@@ -4,6 +4,7 @@
 //                 nrbernard <https://github.com/nrbernard>
 //                 Pr1st0n <https://github.com/Pr1st0n>
 //                 rileymiller <https://github.com/rileymiller>
+//                 toddself <https://github.com/toddself>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = CodeMirror;
@@ -706,8 +707,27 @@ declare namespace CodeMirror {
         or undefined if the marker is no longer in the document. */
         find(): {from: CodeMirror.Position, to: CodeMirror.Position};
 
+        /**  Called when you've done something that might change the size of the marker and want to cheaply update the display*/
+        changed(): void;
+
         /**  Returns an object representing the options for the marker. If copyWidget is given true, it will clone the value of the replacedWith option, if any. */
         getOptions(copyWidget: boolean): CodeMirror.TextMarkerOptions;
+
+        /** Fired when the cursor enters the marked range */
+        on(eventName: 'beforeCursorEnter', handler: () =>  void) : void;
+        off(eventName: 'beforeCursorEnter', handler: () => void) : void;
+
+        /** Fired when the range is cleared, either through cursor movement in combination with clearOnEnter or through a call to its clear() method */
+        on(eventName: 'clear', handler: (from: Position, to: Position) => void) : void;
+        off(eventName: 'clear', handler: () => void) : void;
+
+        /** Fired when the last part of the marker is removed from the document by editing operations */
+        on(eventName: 'hide', handler: () => void) : void;
+        off(eventname: 'hide', handler: () => void) : void;
+
+        /** Fired when, after the marker was removed by editing, a undo operation brough the marker back */
+        on(eventName: 'unhide', handler: () => void) : void;
+        off(eventname: 'unhide', handler: () => void) : void;
     }
 
     interface LineWidget {

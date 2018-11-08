@@ -9,6 +9,7 @@ tracer.init({
         debug: msg => {},
         error: err => {},
     },
+    tags: { tracerEnv: 'dev'}
 });
 
 function useWebFrameworkPlugin(plugin: "express" | "hapi" | "koa" | "restify") {

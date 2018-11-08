@@ -145,12 +145,32 @@ export interface Message {
     properties: MessageProperties;
 }
 
-export interface MessageFields {
+export interface GetMessage extends Message {
+    fields: GetMessageFields;
+}
+
+export interface ConsumeMessage extends Message {
+    fields: ConsumeMessageFields;
+}
+
+export interface CommonMessageFields {
     deliveryTag: number;
     redelivered: boolean;
     exchange: string;
     routingKey: string;
-    messageCount: string;
+}
+
+export interface MessageFields extends CommonMessageFields {
+    messageCount?: number;
+    consumerTag?: string;
+}
+
+export interface GetMessageFields extends CommonMessageFields {
+    messageCount: number;
+}
+
+export interface ConsumeMessageFields extends CommonMessageFields {
+    deliveryTag: number;
 }
 
 export interface MessageProperties {

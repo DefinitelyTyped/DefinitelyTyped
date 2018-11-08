@@ -3467,7 +3467,7 @@ fp.now(); // $ExpectType number
         delete(key: string) { return true; },
         get(key: string): any { return 1; },
         has(key: string) { return true; },
-        set(key: string, value: any): _.Dictionary<any> { return {}; },
+        set(key: string, value: any): _.MapCache { return this; },
         clear() { },
     };
 
@@ -3484,6 +3484,11 @@ fp.now(); // $ExpectType number
 
     // $ExpectType MapCache
     new _.memoize.Cache();
+    _.memoize.Cache = WeakMap;
+    _.memoize.Cache = Map;
+    const memoizedFn = _.memoize(memoizeFn);
+    memoizedFn.cache = new WeakMap();
+    memoizedFn.cache = new Map();
 }
 
 // _.overArgs

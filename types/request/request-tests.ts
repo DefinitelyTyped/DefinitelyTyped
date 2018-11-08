@@ -550,7 +550,9 @@ request.get(options);
 request.get({
     url: 'https://api.some-server.com/',
     agentOptions: {
-        secureProtocol: 'SSLv3_method'
+        secureProtocol: 'SSLv3_method',
+        maxCachedSessions: 3,
+        keepAlive: true,
     }
 });
 
@@ -626,25 +628,26 @@ request.get('http://10.255.255.1', {timeout: 1500}, (err) => {
 });
 
 const rand = Math.floor(Math.random() * 100000000).toString();
-  request(
-    { method: 'PUT'
-    , uri: 'http://mikeal.iriscouch.com/testjs/' + rand
-    , multipart:
-      [ { headers: { 'content-type': 'application/json' }
-        , body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, content_type: 'text/plain' }}})
-        }
-      , { body: 'I am an attachment' }
-      ]
+
+request(
+{ method: 'PUT'
+, uri: 'http://mikeal.iriscouch.com/testjs/' + rand
+, multipart:
+    [ { headers: { 'content-type': 'application/json' }
+    , body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, content_type: 'text/plain' }}})
     }
-  , (error, response, body) => {
-      if (response.statusCode === 201) {
-        console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand);
-      } else {
-        console.log('error: ' + response.statusCode);
-        console.log(body);
-      }
+    , { body: 'I am an attachment' }
+    ]
+}
+, (error, response, body) => {
+    if (response.statusCode === 201) {
+    console.log('document saved as: http://mikeal.iriscouch.com/testjs/' + rand);
+    } else {
+    console.log('error: ' + response.statusCode);
+    console.log(body);
     }
-  );
+}
+);
 
 request(
     { method: 'GET'

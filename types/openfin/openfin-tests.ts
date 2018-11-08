@@ -78,8 +78,8 @@ function test_application() {
     });
     // getTrayIconInfo
     application.getTrayIconInfo(info => {
-        console.log(info.x, info.y, info.bounds.x, info.bounds.y, info.bounds.height, info.bounds.width,
-                    info.monitorInfo.type, info.monitorInfo.reason);
+        console.log(info.x, info.y, info.bounds.left, info.bounds.top, info.bounds.height, info.bounds.width,
+                    info.monitorInfo.reason);
     });
     // isRunning
     application.isRunning(running => {
@@ -235,8 +235,7 @@ function test_system() {
         cache: true,
         cookies: true,
         localStorage: true,
-        appcache: true,
-        userData: true
+        appcache: true
     });
     // deleteCacheOnExit
     fin.desktop.System.deleteCacheOnExit(() => {

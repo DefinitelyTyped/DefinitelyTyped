@@ -90,7 +90,7 @@ declare namespace SeamlessImmutable {
         flatMap<TTarget>(mapFunction: (item: T[0]) => TTarget): Immutable<TTarget extends any[] ? TTarget : TTarget[]>;
     }
 
-    type BaseImmutable<T> = (T extends any[] ? ImmutableArrayMixin<T> : ImmutableObjectMixin<T>) & T;
+    type BaseImmutable<T> = T extends any[] ? ImmutableArrayMixin<T> : ImmutableObjectMixin<T>;
 
     type Immutable<T> = {
         readonly [P in keyof T]: T[P] extends object ? Immutable<T[P]> : T[P]

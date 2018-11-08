@@ -181,6 +181,7 @@ declare namespace ReactDates {
           ) => string | JSX.Element,
         orientation?: OrientationShape,
         anchorDirection?: AnchorDirectionShape,
+        openDirection?: OpenDirectionShape,
         horizontalMargin?: number,
         withPortal?: boolean,
         withFullScreenPortal?: boolean,

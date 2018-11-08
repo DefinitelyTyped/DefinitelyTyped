@@ -1132,7 +1132,7 @@ export namespace DS {
          * This method unloads all records in the store.
          * It schedules unloading to happen during the next run loop.
          */
-        unloadAll<K extends keyof ModelRegistry>(modelName: K): void;
+        unloadAll<K extends keyof ModelRegistry>(modelName?: K): void;
         /**
          * DEPRECATED:
          * This method has been deprecated and is an alias for store.hasRecordForId, which should
