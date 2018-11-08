@@ -295,13 +295,13 @@ declare namespace m {
         // Drawing Operations
         draw(args: string): State;
         drawArc(x0: number, y0: number, x1: number, y1: number, r0: number, r1: number): State;
-        drawBezier(coord0: number[], coord1: number[], ...coords: number[][]): State;
+        drawBezier(coord0: [number, number], coord1: [number, number], ...coords: [number, number][]): State;
         drawCircle(x0: number, y0: number, x1: number, y1: number): State;
         drawEllipse(x0: number, y0: number, rx: number, ry: number, a0: number, a1: number): State;
         drawLine(x0: number, y0: number, x1: number, y1: number): State;
         drawPoint(x: number, y: number): State;
-        drawPolygon(coord0: number[], coord1: number[], coord2: number[], ...coords: number[][]): State;
-        drawPolyline(coord0: number[], coord1: number[], coord2: number[], ...coords: number[][]): State;
+        drawPolygon(coord0: [number, number], coord1: [number, number], coord2: [number, number], ...coords: [number, number][]): State;
+        drawPolyline(coord0: [number, number], coord1: [number, number], coord2: [number, number], ...coords: [number, number][]): State;
         drawRectangle(x0: number, y0: number, x1: number, y1: number, wc?: number, hc?: number): State;
         drawText(x: number, y: number, text: string, gravity?: GravityDirection | string): State;
         fill(color: string): State;
