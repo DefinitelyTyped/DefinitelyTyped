@@ -28,9 +28,6 @@ lolex.createClock<lolex.NodeClock>(new Date());
 lolex.createClock<lolex.NodeClock>(7, 9001);
 lolex.createClock<lolex.NodeClock>(new Date(), 9001);
 
-// showing two ways to specify the exact clock type for `install()` method:
-
-// first way: passing the exact clock type to `install()`.
 const browserInstalledClock = lolex.install<lolex.BrowserClock>({
 	advanceTimeDelta: 20,
 	loopLimit: 10,
@@ -40,8 +37,7 @@ const browserInstalledClock = lolex.install<lolex.BrowserClock>({
 	toFake: ["setTimeout", "nextTick", "hrtime"]
 });
 
-// second way: specify type for the clock variable as InstallClock<Clock_Type>.
-const nodeInstalledClock: lolex.InstalledClock<lolex.NodeClock> = lolex.install({
+const nodeInstalledClock = lolex.install<lolex.NodeClock>({
 	advanceTimeDelta: 20,
 	loopLimit: 10,
 	now: new Date(0),
