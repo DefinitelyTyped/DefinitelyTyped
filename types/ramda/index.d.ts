@@ -24,6 +24,7 @@
 //                 Rayhaneh Banyassady <https://github.com/rayhaneh>
 //                 Ryan McCuaig <https://github.com/rgm>
 //                 Drew Wyatt <https://github.com/drewwyatt>
+//                 Alan Soares <https://github.com/alanrsoares>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -879,6 +880,7 @@ declare namespace R {
          * Returns a new object that does not contain a prop property.
          */
         // It seems impossible to infer the return type, so this may to be specified explicitely
+        dissoc<T, K extends keyof T>(prop: K, obj: T): Partial<T>;
         dissoc<T>(prop: string, obj: any): T;
         dissoc(prop: string): <U>(obj: any) => U;
 
