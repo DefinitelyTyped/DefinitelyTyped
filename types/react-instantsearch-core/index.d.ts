@@ -177,8 +177,11 @@ export function connectHits<TProps extends { hits: THit[] }, THit>(ctor: React.C
 export function connectHitsPerPage(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 export interface InfiniteHitsProvided<THit = any> {
+  /** the records that matched the search */
   hits: THit[];
+  /** a function to toggle the refinement */
   refine: (...args: any[]) => any;
+  /** indicates if there are more pages to load */
   hasMore: boolean;
 }
 
