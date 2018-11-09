@@ -880,7 +880,7 @@ declare namespace R {
          * Returns a new object that does not contain a prop property.
          */
         // It seems impossible to infer the return type, so this may to be specified explicitely
-        dissoc<T, K extends keyof T>(prop: K, obj: T): Partial<T>;
+        dissoc<T, K extends keyof T>(prop: K, obj: T): Omit<T, K>;
         dissoc<T>(prop: string, obj: any): T;
         dissoc(prop: string): <U>(obj: any) => U;
 
