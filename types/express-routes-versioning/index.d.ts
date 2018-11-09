@@ -2,6 +2,7 @@
 // Project: https://github.com/Prasanna-sr/express-routes-versioning
 // Definitions by: Rogelio Negrete <https://github.com/weffe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import { Handler } from 'express';
 
