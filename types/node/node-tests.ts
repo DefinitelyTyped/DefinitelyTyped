@@ -3196,7 +3196,23 @@ import * as p from "process";
     }
     {
         const writeStream = fs.createWriteStream('./index.d.ts');
-        const consoleInstance = new console.Console(writeStream);
+        let consoleInstance: Console = new console.Console(writeStream);
+
+        consoleInstance = new console.Console(writeStream, writeStream);
+        consoleInstance = new console.Console(writeStream, writeStream, true);
+        consoleInstance = new console.Console({
+            stdout: writeStream,
+            stderr: writeStream,
+            colorMode: 'auto',
+            ignoreErrors: true
+        });
+        consoleInstance = new console.Console({
+            stdout: writeStream,
+            colorMode: false
+        });
+        consoleInstance = new console.Console({
+            stdout: writeStream
+        });
     }
 }
 

@@ -497,9 +497,17 @@ declare namespace NodeJS {
         sorted?: boolean | ((a: string, b: string) => number);
     }
 
+    interface ConsoleConstructorOptions {
+        stdout: WritableStream;
+        stderr?: WritableStream;
+        ignoreErrors?: boolean;
+        colorMode?: boolean | 'auto';
+    }
+
     interface ConsoleConstructor {
         prototype: Console;
-        new(stdout: WritableStream, stderr?: WritableStream): Console;
+        new(stdout: WritableStream, stderr?: WritableStream, ignoreErrors?: boolean): Console;
+        new(options: ConsoleConstructorOptions): Console;
     }
 
     interface CallSite {
