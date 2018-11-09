@@ -1136,7 +1136,7 @@ export interface TransitionerProps {
     transitionProps: NavigationTransitionProps,
     prevTransitionProps?: NavigationTransitionProps
   ) => any;
-  descriptors: { [key: string]: NavigationDescriptor };
+  descriptors?: { [key: string]: NavigationDescriptor };
   style?: StyleProp<ViewStyle>;
 }
 
@@ -1182,7 +1182,7 @@ export interface NavigationDescriptor<Params = NavigationParams> {
   state: NavigationLeafRoute<Params> | NavigationStateRoute<Params>;
   navigation: NavigationScreenProp<any>;
   options: NavigationScreenOptions;
-  getComponent: <T = {}, N = any>() => React.ComponentType<T> & { navigationOptions: N };
+  getComponent: () => React.ComponentType;
 }
 
 export type NavigationView<O, S> = React.ComponentType<{
