@@ -23,6 +23,8 @@ export interface TwixFormatOptions {
     allDay?: any; // boolean | string
     explicitAllDay?: boolean;
     lastNightEndsAt?: number;
+    hideTime?: boolean;
+    hideDate?: boolean;
 }
 
 export interface TwixParseAndFormatOptions extends TwixFormatOptions {
