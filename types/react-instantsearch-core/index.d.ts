@@ -182,6 +182,12 @@ export interface InfiniteHitsProvided<THit = any> {
   hasMore: boolean;
 }
 
+/**
+ * InfiniteHits connector provides the logic to create connected components that will render an continuous list of results retrieved from Algolia. 
+ * This connector provides a function to load more results.
+ * 
+ * https://community.algolia.com/react-instantsearch/connectors/connectInfiniteHits.html
+ */
 export function connectInfiniteHits(Composed: React.ComponentType<InfiniteHitsProvided>): React.ComponentClass;
 export function connectInfiniteHits<TProps extends Partial<InfiniteHitsProvided<THit>>, THit>(ctor: React.ComponentType<TProps>): ConnectedComponentClass<TProps, InfiniteHitsProvided<THit>>;
 
