@@ -498,10 +498,10 @@ declare namespace NodeJS {
     }
 
     interface ConsoleConstructorOptions {
-        stdout: WritableStream,
-        stderr?: WritableStream,
-        ignoreErrors?: boolean,
-        colorMode?: boolean | 'auto'
+        stdout: WritableStream;
+        stderr?: WritableStream;
+        ignoreErrors?: boolean;
+        colorMode?: boolean | 'auto';
     }
 
     interface ConsoleConstructor {
