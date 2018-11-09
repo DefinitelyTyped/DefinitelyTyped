@@ -17,13 +17,25 @@ class CalendarEvent {
     start: Date;
     end: Date;
     desc: string;
+    resourceId?: string;
 
-    constructor(_title: string, _start: Date, _end: Date, _allDay?: boolean, _desc?: string) {
+    constructor(_title: string, _start: Date, _end: Date, _allDay?: boolean, _desc?: string, _resourceId?: string) {
         this.title = _title;
         this.allDay = _allDay || false;
         this.start = _start;
         this.end = _end;
         this.desc = _desc || '';
+        this.resourceId = _resourceId;
+    }
+}
+
+class CalendarResource {
+    title: string;
+    id: string;
+
+    constructor(id: string, title: string) {
+        this.id = id;
+        this.title = title;
     }
 }
 
@@ -51,10 +63,10 @@ class CalendarEvent {
 {
     // Full API Example Test - based on API Documentation
     // http://intljusticemission.github.io/react-big-calendar/examples/index.html#api
-    class FullAPIExample extends React.Component<BigCalendarProps<CalendarEvent>> {
+    class FullAPIExample extends React.Component<BigCalendarProps<CalendarEvent, CalendarResource>> {
         render() {
             return (
-                <BigCalendar
+                <BigCalendar<CalendarEvent, CalendarResource>
                     {...this.props}
                     date={new Date()}
                     view={'day'}
@@ -81,9 +93,9 @@ class CalendarEvent {
                     rtl={true}
                     eventPropGetter={(event, start, end, isSelected) => ({ className: 'some-class' })}
                     titleAccessor={'title'}
-                    allDayAccessor={(event: any) => !!event.allDay}
+                    allDayAccessor={(event: CalendarEvent) => !!event.allDay}
                     startAccessor={'start'}
-                    endAccessor={(event: any) => event.end || event.start}
+                    endAccessor={(event: CalendarEvent) => event.end || event.start}
                     min={new Date()}
                     max={new Date()}
                     scrollToTime={new Date()}
@@ -106,6 +118,10 @@ class CalendarEvent {
                     dayPropGetter={customDayPropGetter}
                     slotPropGetter={customSlotPropGetter}
                     defaultDate={new Date()}
+                    resources={getResources()}
+                    resourceAccessor={event => event.resourceId}
+                    resourceIdAccessor={resource => resource.id}
+                    resourceTitleAccessor={resource => resource.title}
                 />
             );
         }
@@ -130,8 +146,17 @@ function getEvents(): CalendarEvent[] {
         new CalendarEvent('Happy Hour', new Date(2015, 3, 12, 17, 0, 0, 0), new Date(2015, 3, 12, 17, 30, 0, 0), undefined, 'Most important meal of the day'),
         new CalendarEvent('Dinner', new Date(2015, 3, 12, 20, 0, 0, 0), new Date(2015, 3, 12, 21, 0, 0, 0)),
         new CalendarEvent('Birthday Party', new Date(2015, 3, 13, 7, 0, 0), new Date(2015, 3, 13, 10, 30, 0)),
+        new CalendarEvent('Alice\'s break', new Date(2015, 3, 14, 20, 0, 0, 0), new Date(2015, 3, 14, 21, 0, 0, 0), undefined, undefined, "alice"),
+        new CalendarEvent('Bob\'s break', new Date(2015, 3, 15, 7, 0, 0), new Date(2015, 3, 15, 10, 30, 0), undefined, undefined, "bob"),
     ];
     return events;
+}
+
+function getResources(): CalendarResource[] {
+    return [
+        new CalendarResource('alice', 'Alice'),
+        new CalendarResource('bob', 'Bob')
+    ];
 }
 
 class EventAgenda extends React.Component<any, any> {
