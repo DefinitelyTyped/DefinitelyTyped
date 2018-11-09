@@ -267,11 +267,7 @@ declare namespace React {
     // object, but rather to the original function.
     interface ExoticComponent<P = {}> {
         /**
-         * # WARNING
-         *
-         * Exotic components are not actually callable
-         *
-         * @deprecated Exotic components are not callable
+         * **NOTE**: Exotic components are not callable.
          */
         (props: P): (ReactElement<any>|null);
         readonly $$typeof: symbol;
