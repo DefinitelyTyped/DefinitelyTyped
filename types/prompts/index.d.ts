@@ -1,12 +1,16 @@
 // Type definitions for prompts 1.1
 // Project: https://github.com/terkelg/prompts
 // Definitions by: Berkay GURSOY <https://github.com/Berkays>
+//                 Daniel Perez Alvarez <https://github.com/danielpa9708>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.8
 
 export = prompts;
 
-declare function prompts(questions: prompts.PromptObject | prompts.PromptObject[], options?: prompts.Options): any;
+declare function prompts<T extends string = string>(
+    questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
+    options?: prompts.Options
+): Promise<prompts.Answers<T>>;
 
 declare namespace prompts {
     // Circular reference from prompts
@@ -15,8 +19,7 @@ declare namespace prompts {
     function inject(obj: any): void;
 
     namespace inject {
-        const prototype: {
-        };
+        const prototype: {};
     }
 
     namespace prompts {
@@ -51,15 +54,15 @@ declare namespace prompts {
         onCancel: (prompt: PromptObject, answers: any) => void;
     }
 
-    interface PromptObject {
-        type: string | ((prev: any, values: any, prompt: PromptObject) => void);
-        name: string | ((prev: any, values: any, prompt: PromptObject) => void);
-        message?: string | ((prev: any, values: any, prompt: PromptObject) => void);
+    interface PromptObject<T extends string = string> {
+        type: ValueOrFunc<string>;
+        name: ValueOrFunc<T>;
+        message?: ValueOrFunc<string>;
         initial?: string;
         style?: string;
-        format?: ((prev: any, values: any, prompt: PromptObject) => void);
-        validate?: ((prev: any, values: any, prompt: PromptObject) => void);
-        onState?: ((prev: any, values: any, prompt: PromptObject) => void);
+        format?: PrevCaller<T, void>;
+        validate?: PrevCaller<T, void>;
+        onState?: PrevCaller<T, void>;
         min?: number;
         max?: number;
         float?: boolean;
@@ -73,4 +76,14 @@ declare namespace prompts {
         suggest?: ((prev: any, values: any, prompt: PromptObject) => void);
         limit?: number;
     }
+
+    type Answers<T extends string> = { [id in T]: any };
+
+    type PrevCaller<T extends string, R = T> = (
+        prev: any,
+        values: Answers<T>,
+        prompt: PromptObject
+    ) => R;
+
+    type ValueOrFunc<T extends string> = T | PrevCaller<T>;
 }

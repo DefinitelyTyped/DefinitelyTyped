@@ -197,3 +197,60 @@ componentWithBadLifecycle.getSnapshotBeforeUpdate = () => { // $ExpectError
 componentWithBadLifecycle.componentDidUpdate = (prevProps: {}, prevState: {}, snapshot?: string) => { // $ExpectError
     return;
 };
+
+const Memoized1 = React.memo(function Foo(props: { foo: string }) { return null; });
+<Memoized1 foo='string'/>;
+
+const Memoized2 = React.memo(
+    function Bar(props: { bar: string }) { return null; },
+    (prevProps, nextProps) => prevProps.bar === nextProps.bar
+);
+<Memoized2 bar='string'/>;
+
+const Memoized3 = React.memo(class Test extends React.Component<{ x?: string }> {});
+<Memoized3 ref={ref => { if (ref) { ref.props.x; } }}/>;
+
+const memoized4Ref = React.createRef<HTMLDivElement>();
+const Memoized4 = React.memo(React.forwardRef((props: {}, ref: React.Ref<HTMLDivElement>) => <div ref={ref}/>));
+<Memoized4 ref={memoized4Ref}/>;
+
+const Memoized5 = React.memo<{ test: boolean }>(
+    prop => <>{prop.test && prop.children}</>,
+    (prevProps, nextProps) => nextProps.test ? prevProps.children === nextProps.children : prevProps.test
+);
+
+<Memoized5 test/>;
+
+// for some reason the ExpectType doesn't work if the type is namespaced
+// $ExpectType NamedExoticComponent<{}>
+const Memoized6 = React.memo(props => null);
+<Memoized6/>;
+// $ExpectError
+<Memoized6 foo/>;
+
+// NOTE: this test _requires_ TypeScript 3.1
+// It is passing, for what it's worth.
+// const Memoized7 = React.memo((() => {
+//     function HasDefaultProps(props: { test: boolean }) { return null; }
+//     HasDefaultProps.defaultProps = {
+//         test: true
+//     };
+//     return HasDefaultProps;
+// })());
+// // $ExpectType boolean
+// Memoized7.type.defaultProps.test;
+
+const LazyClassComponent = React.lazy(async () => ({ default: ComponentWithPropsAndState }));
+const LazyMemoized3 = React.lazy(async () => ({ default: Memoized3 }));
+const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
+
+<React.Suspense fallback={<Memoized1 foo='string' />}>
+    <LazyClassComponent hello='test'/>
+    <LazyClassComponent ref={ref => { if (ref) { ref.props.hello; } }} hello='test'/>
+    <LazyMemoized3 ref={ref => { if (ref) { ref.props.x; } }}/>
+    <LazyRefForwarding ref={memoized4Ref}/>
+</React.Suspense>;
+
+<React.Suspense fallback={null}/>;
+// $ExpectError
+<React.Suspense/>;
