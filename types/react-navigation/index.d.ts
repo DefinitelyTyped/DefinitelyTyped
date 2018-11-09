@@ -27,6 +27,7 @@
 //                 Max Davidson <https://github.com/maxdavidson>
 //                 Lachlan Young <https://github.com/builtbyproxy>
 //                 Jason Killian <https://github.com/jkillian>
+//                 Fellipe Chagas <https://github.com/chagasaway>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -94,6 +95,9 @@ export interface NavigationState {
    */
   index: number;
   routes: NavigationRoute[];
+  isTransitioning: boolean;
+  key: string;
+  params: NavigationParams;
 }
 
 export interface DrawerNavigationState extends NavigationState {
@@ -129,6 +133,8 @@ export interface NavigationLeafRoute<Params = NavigationParams> {
    * e.g. `{ car_id: 123 }` in a route that displays a car.
    */
   params?: Params;
+  routes: NavigationRoute[];
+  isTransitioning: boolean;
 }
 
 export type NavigationStateRoute<
@@ -280,28 +286,28 @@ export interface NavigationInitAction extends NavigationInitActionPayload {
 }
 
 export interface NavigationReplaceActionPayload {
-    key?: string;
-    newKey?: string;
-    routeName: string;
-    params?: NavigationParams;
-    action?: NavigationNavigateAction;
+  key?: string;
+  newKey?: string;
+  routeName: string;
+  params?: NavigationParams;
+  action?: NavigationNavigateAction;
 }
 
 export interface NavigationReplaceAction {
-    type: 'Navigation/REPLACE';
-    key: string;
-    routeName: string;
-    params?: NavigationParams;
-    action?: NavigationNavigateAction;
+  type: 'Navigation/REPLACE';
+  key: string;
+  routeName: string;
+  params?: NavigationParams;
+  action?: NavigationNavigateAction;
 }
 
 export interface NavigationCompleteTransitionActionPayload {
-    key?: string;
+  key?: string;
 }
 
 export interface NavigationCompleteTransitionAction {
-    type: 'Navigation/COMPLETE_TRANSITION';
-    key: string;
+  type: 'Navigation/COMPLETE_TRANSITION';
+  key: string;
 }
 
 export interface NavigationResetActionPayload {
@@ -343,33 +349,33 @@ export interface NavigationPopToTopAction
 }
 
 export interface NavigationPushActionPayload {
-    routeName: string;
-    params?: NavigationParams;
-    action?: NavigationNavigateAction;
-    key?: string;
+  routeName: string;
+  params?: NavigationParams;
+  action?: NavigationNavigateAction;
+  key?: string;
 }
 
 export interface NavigationPushAction {
-    type: 'Navigation/PUSH';
-    routeName: string;
-    params?: NavigationParams;
-    action?: NavigationNavigateAction;
-    key?: string;
+  type: 'Navigation/PUSH';
+  routeName: string;
+  params?: NavigationParams;
+  action?: NavigationNavigateAction;
+  key?: string;
 }
 
 export interface NavigationOpenDrawerAction {
-    key?: string;
-    type: 'Navigation/OPEN_DRAWER';
+  key?: string;
+  type: 'Navigation/OPEN_DRAWER';
 }
 
 export interface NavigationCloseDrawerAction {
-    key?: string;
-    type: 'Navigation/CLOSE_DRAWER';
+  key?: string;
+  type: 'Navigation/CLOSE_DRAWER';
 }
 
 export interface NavigationToggleDrawerAction {
-    key?: string;
-    type: 'Navigation/TOGGLE_DRAWER';
+  key?: string;
+  type: 'Navigation/TOGGLE_DRAWER';
 }
 
 export interface NavigationStackViewConfig {
@@ -655,9 +661,12 @@ export interface NavigationScreenProp<S, P = NavigationParams> {
   pop: (n?: number, params?: { immediate?: boolean }) => boolean;
   popToTop: (params?: { immediate?: boolean }) => boolean;
   isFocused: () => boolean;
+  router?: NavigationRouter;
+  dangerouslyGetParent: () => NavigationScreenProp<S> | undefined;
 }
 
 export interface NavigationNavigatorProps<O = {}, S = {}> {
+  detached?: boolean;
   navigation?: NavigationProp<S>;
   screenProps?: { [key: string]: any };
   navigationOptions?: O;
@@ -728,6 +737,9 @@ export interface NavigationTransitionSpec {
   easing?: (t: number) => number;
   // A timing function such as `Animated.timing`.
   timing?: (value: AnimatedValue, config: any) => any;
+  friction?: number;
+  tension?: number;
+  useNativeDriver?: boolean;
 }
 
 /**
@@ -1065,41 +1077,41 @@ export namespace NavigationActions {
  * DrawerActions
  */
 export namespace DrawerActions {
-    const OPEN_DRAWER: 'Navigation/OPEN_DRAWER';
-    const CLOSE_DRAWER: 'Navigation/CLOSE_DRAWER';
-    const TOGGLE_DRAWER: 'Navigation/TOGGLE_DRAWER';
+  const OPEN_DRAWER: 'Navigation/OPEN_DRAWER';
+  const CLOSE_DRAWER: 'Navigation/CLOSE_DRAWER';
+  const TOGGLE_DRAWER: 'Navigation/TOGGLE_DRAWER';
 
-    function openDrawer(): NavigationOpenDrawerAction;
-    function closeDrawer(): NavigationCloseDrawerAction;
-    function toggleDrawer(): NavigationToggleDrawerAction;
+  function openDrawer(): NavigationOpenDrawerAction;
+  function closeDrawer(): NavigationCloseDrawerAction;
+  function toggleDrawer(): NavigationToggleDrawerAction;
 }
 
 /**
  * StackActions
  */
 export namespace StackActions {
-    const POP: 'Navigation/POP';
-    const POP_TO_TOP: 'Navigation/POP_TO_TOP';
-    const PUSH: 'Navigation/PUSH';
-    const RESET: 'Navigation/RESET';
-    const REPLACE: 'Navigation/REPLACE';
-    const COMPLETE_TRANSITION: 'Navigation/COMPLETE_TRANSITION';
+  const POP: 'Navigation/POP';
+  const POP_TO_TOP: 'Navigation/POP_TO_TOP';
+  const PUSH: 'Navigation/PUSH';
+  const RESET: 'Navigation/RESET';
+  const REPLACE: 'Navigation/REPLACE';
+  const COMPLETE_TRANSITION: 'Navigation/COMPLETE_TRANSITION';
 
-    function pop(options: NavigationPopActionPayload): NavigationPopAction;
-    function popToTop(
-        options: NavigationPopToTopActionPayload
-    ): NavigationPopToTopAction;
+  function pop(options: NavigationPopActionPayload): NavigationPopAction;
+  function popToTop(
+    options: NavigationPopToTopActionPayload
+  ): NavigationPopToTopAction;
 
-    function push(options: NavigationPushActionPayload): NavigationPushAction;
-    function reset(options: NavigationResetActionPayload): NavigationResetAction;
+  function push(options: NavigationPushActionPayload): NavigationPushAction;
+  function reset(options: NavigationResetActionPayload): NavigationResetAction;
 
-    function replace(
-        options: NavigationReplaceActionPayload
-    ): NavigationReplaceAction;
+  function replace(
+    options: NavigationReplaceActionPayload
+  ): NavigationReplaceAction;
 
-    function completeTransition(
-        payload: NavigationCompleteTransitionActionPayload
-    ): NavigationCompleteTransitionAction;
+  function completeTransition(
+    payload: NavigationCompleteTransitionActionPayload
+  ): NavigationCompleteTransitionAction;
 }
 
 /**
@@ -1124,6 +1136,7 @@ export interface TransitionerProps {
     transitionProps: NavigationTransitionProps,
     prevTransitionProps?: NavigationTransitionProps
   ) => any;
+  descriptors: { [key: string]: NavigationDescriptor };
   style?: StyleProp<ViewStyle>;
 }
 
@@ -1169,11 +1182,13 @@ export interface NavigationDescriptor<Params = NavigationParams> {
   state: NavigationLeafRoute<Params> | NavigationStateRoute<Params>;
   navigation: NavigationScreenProp<any>;
   options: NavigationScreenOptions;
-  getComponent: () => React.ComponentType;
+  getComponent: <T = {}, N = any>() => React.ComponentType<T> & { navigationOptions: N };
 }
 
 export type NavigationView<O, S> = React.ComponentType<{
   descriptors: { [key: string]: NavigationDescriptor };
+  navigationConfig: O;
+  screenProps?: { [key: string]: any };
 } & NavigationInjectedProps>;
 
 export function createNavigator<S, Options>(
