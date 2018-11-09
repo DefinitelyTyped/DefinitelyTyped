@@ -22,7 +22,7 @@
 
 /// <reference types="node" />
 
-export type OutputFormat = ((page_num: number, page_index: number, totalPagesProcessed: number, totalPDFPages: number, name: string, path: string, vm: typeof import ('vm')) => string) | string;
+export type OutputFormat = ((pageNum: number, pageIndex: number, totalPagesProcessed: number, totalPDFPages: number, name: string, path: string, vm: typeof import('vm')) => string) | string;
 
 export interface Options {
 	density: number;
