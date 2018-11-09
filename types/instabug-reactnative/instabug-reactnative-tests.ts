@@ -1,9 +1,9 @@
-import Instabug from "instabug-reactnative";
+import Instabug, { BugReporting, Surveys, FeatureRequests } from "instabug-reactnative";
 
 Instabug.startWithToken("token: string", [""]);
 Instabug.setColorTheme("colorTheme: string");
 Instabug.setPrimaryColor(1);
-Instabug.setFloatingButtonEdge();
+Instabug.setFloatingButtonEdge(Instabug.floatingButtonEdge.left, 20);
 Instabug.setLocale("locale: string");
 Instabug.setStringToKey("key: string");
 Instabug.setWelcomeMessageMode("welcomeMsg: string");
@@ -31,6 +31,37 @@ Instabug.setCrashReportingEnabled(true);
 Instabug.setChatNotificationEnabled(false);
 Instabug.getUnreadMessagesCount((count) => 1);
 Instabug.setOnNewMessageHandler(() => 1);
-Instabug.setPromptOptionsEnabled(true, true, true);
 Instabug.setSurveysEnabled(false);
 Instabug.setPostInvocationHandler();
+Instabug.setReproStepsMode("enabled");
+Instabug.setVideoRecordingFloatingButtonPosition("postion");
+Instabug.logUserEventWithName("name");
+Instabug.logUserEventWithNameAndParams("name", {key: "key", value: "value"});
+Instabug.setEnabledAttachmentTypes(true, true, true, true);
+
+BugReporting.setPromptOptionsEnabled(true, true, true);
+BugReporting.setShakingThresholdForAndroid(450);
+BugReporting.setShakingThresholdForiPhone(450);
+BugReporting.setShakingThresholdForiPad(450);
+BugReporting.reportJSException("Exception");
+BugReporting.onReportSubmitHandler(() => 1);
+BugReporting.invoke();
+BugReporting.invokeWithInvocationModeAndOptions("invocationMode", [
+    "invocationOptions"
+]);
+BugReporting.setPromptOptionsEnabled(false, true, false);
+BugReporting.setInvocationOptions(["invocationOptions"]);
+BugReporting.OnInvokeHandler(() => 1);
+BugReporting.setExtendedBugReportMode("");
+
+Surveys.setAutoShowingEnabled(false);
+Surveys.showSurveyIfAvailable();
+Surveys.showSurvey("token: string");
+Surveys.hasRespondedToSurvey("surveyToken: string", (hasResponded) => 1);
+Surveys.setShouldShowWelcomeScreen(true);
+Surveys.setThresholdForReshowingSurveyAfterDismiss(4, 5);
+Surveys.onShowCallback(() => 1);
+Surveys.onDismissCallback(() => 1);
+
+FeatureRequests.show();
+FeatureRequests.setEmailFieldRequired(true, ["actionTypes"]);
