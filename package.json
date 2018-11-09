@@ -23,5 +23,8 @@
     "devDependencies": {
         "dtslint": "github:Microsoft/dtslint#production",
         "types-publisher": "Microsoft/types-publisher#production"
+    },
+    "dependencies": {
+        "express-routes-versioning": "^1.0.1"
     }
 }
