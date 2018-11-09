@@ -577,9 +577,10 @@ declare namespace React {
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
     type InputIdentityList = ReadonlyArray<any>;
 
-    // NOTE: the effect callbacks are actually allowed to return anything, but functions are treated
-    // specially. I don't think it's intended to accept async functions, should use throw instead of
-    // await to properly engage Suspense.
+    // NOTE: Currently, in alpha.0, the effect callbacks are actually allowed to return anything,
+    // but functions are treated specially. The next version published with hooks will warn if you actually
+    // return anything besides `void` or a callback. Async effects need to call an async function inside
+    // them.
     type EffectCallback = () => (void | (() => void));
 
     interface MutableRefObject<T> {
