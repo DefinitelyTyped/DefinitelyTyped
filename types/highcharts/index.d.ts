@@ -1,4 +1,4 @@
-// Type definitions for Highcharts 5.0.32
+// Type definitions for Highcharts 5.0
 // Project: http://www.highcharts.com/
 // Definitions by: Damiano Gambarotto <https://github.com/damianog>
 //                 Dan Lewi Harkestad <https://github.com/baltie>
