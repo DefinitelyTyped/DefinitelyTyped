@@ -1,4 +1,4 @@
-// Type definitions for express-routes-versioning 1.0.1
+// Type definitions for express-routes-versioning 1.0
 // Project: https://github.com/Prasanna-sr/express-routes-versioning
 // Definitions by: Rogelio Negrete <https://github.com/weffe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,10 +6,10 @@
 
 import { Handler } from 'express';
 
-export interface IOptions {
-    [versionKey: string]: Handler
+export interface Options {
+    [versionKey: string]: Handler;
 }
 
-export type routesVersioningMiddleware = (args: IOptions, notFoundMiddleware?: Handler) => Handler;
+export type RoutesVersioningMiddleware = (args: Options, notFoundMiddleware?: Handler) => Handler;
 
-export default function routesVersioning(): routesVersioningMiddleware;
+export default function routesVersioning(): RoutesVersioningMiddleware;
