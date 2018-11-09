@@ -71,7 +71,7 @@ class CalendarResource {
                     date={new Date()}
                     view={'day'}
                     events={getEvents()}
-                    onNavigate={(newDate: Date, action: Navigate) => { }}
+                    onNavigate={(newDate: Date, view: View, action: Navigate) => { }}
                     onView={(view: View) => { }}
                     onSelectSlot={(slotInfo) => {
                         const start = slotInfo.start;

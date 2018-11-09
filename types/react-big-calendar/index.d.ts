@@ -178,7 +178,7 @@ export interface BigCalendarProps<TEvent extends Event = Event, TResource extend
     now?: Date;
     view?: View;
     events?: TEvent[];
-    onNavigate?: (newDate: Date, action: Navigate) => void;
+    onNavigate?: (newDate: Date, view: View, action: Navigate) => void;
     onView?: (view: View) => void;
     onDrillDown?: (date: Date, view: View) => void;
     onSelectSlot?: (slotInfo: { start: stringOrDate, end: stringOrDate, slots: Date[] | string[], action: 'select' | 'click' | 'doubleClick' }) => void;
