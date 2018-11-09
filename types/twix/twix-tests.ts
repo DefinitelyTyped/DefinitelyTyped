@@ -225,17 +225,21 @@ t.humanizeLength(); //=> "4 hours"
 t.count("days"); //=> 1
 
 
-var t = moment("2012-05-25T8:00").twix("2012-05-27T17:00")
+var t = moment("2012-05-25T8:00").twix("2012-05-27T17:00");
 
 t.format({ hideTime: true }); //=> May 25 - 27, 2012
 
 
-var t = moment("2012-05-25T8:00").twix("2012-05-25T17:00")
+var t = moment("2012-05-25T8:00").twix("2012-05-25T17:00");
 
 t.format({ hideDate: true }); //=> 8 AM - 5 PM
 
 
-var t = moment("2012-01-25").twix("2012-01-25", { allDay: true })
+var t = moment("2012-01-25").twix("2012-01-25", { allDay: true });
 
 t.format({ hideDate: true }); //=> All day
 
+
+var t = moment("2012-05-25").twix("2012-05-27");
+
+t.format({ hideYear: true }); //=> May 25 - May 27
