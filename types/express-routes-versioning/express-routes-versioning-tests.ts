@@ -1,11 +1,11 @@
 import * as express from 'express';
-import routesVersioning, { Options, RoutesVersioningMiddleware } from 'express-routes-versioning';
+import * as routesVersioning from 'express-routes-versioning';
 
 const app = express();
 
-const routesVersioningMiddleware: RoutesVersioningMiddleware = routesVersioning();
+const routesVersioningMiddleware: routesVersioning.RoutesVersioningMiddleware = routesVersioning();
 
-const versioningOptions: Options = {
+const versioningOptions: routesVersioning.VersionOptions = {
     "1.0.0": respondV1,
     "~2.2.1": respondV2
 };

@@ -6,10 +6,14 @@
 
 import { Handler } from 'express';
 
-export interface Options {
-    [versionKey: string]: Handler;
+declare namespace routesVersioning {
+    interface VersionOptions {
+        [versionKey: string]: Handler;
+    }
+
+    type RoutesVersioningMiddleware = (args: VersionOptions, notFoundMiddleware?: Handler) => Handler;
 }
 
-export type RoutesVersioningMiddleware = (args: Options, notFoundMiddleware?: Handler) => Handler;
+declare function routesVersioning(): routesVersioning.RoutesVersioningMiddleware;
 
-export default function routesVersioning(): RoutesVersioningMiddleware;
+export = routesVersioning;
