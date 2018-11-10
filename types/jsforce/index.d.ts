@@ -6,6 +6,7 @@
 //                 Tim Noonan <https://github.com/tnoonan-salesforce>
 //                 Abraham White <https://github.com/whiteabelincoln>
 //                 Borys Kupar <https://github.com/borys-kupar>
+//                 Paul Cothenet <https://github.com/pcothenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
