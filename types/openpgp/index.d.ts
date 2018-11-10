@@ -1,8 +1,9 @@
-// Type definitions for openpgp 4.0.0
+// Type definitions for openpgp 4.0.1
 // Project: http://openpgpjs.org/
 // Definitions by: Guillaume Lacasa <https://blog.lacasa.fr>
 //                 Errietta Kostala <https://github.com/errietta>
 //                 Daniel Montesinos <https://github.com/damonpam>
+//                 Carlos Villavicencio <https://github.com/po5i>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace openpgp;
@@ -269,7 +270,17 @@ export namespace cleartext {
         verify(keys: Array<key.Key>): Array<VerifiedMessage>;
     }
 
-    function readArmored(armoredText: string): CleartextMessage;
+    /** creates new message object from binary data
+        @param bytes
+     */
+    function fromBinary(bytes: string): CleartextMessage;
+
+    /** creates new message object from text
+        @param text
+     */
+    function fromText(text: string): CleartextMessage;
+
+    function readArmored(armoredText: string): Promise<CleartextMessage>;
 }
 
 export namespace config {
@@ -514,7 +525,7 @@ export namespace key {
 
         @param armoredText text to be parsed
      */
-    function readArmored(armoredText: string): KeyResult;
+    function readArmored(armoredText: string): Promise<KeyResult>;
 }
 
 export namespace message {
@@ -580,7 +591,7 @@ export namespace message {
 
         @param armoredText text to be parsed
      */
-    function readArmored(armoredText: string): Message;
+    function readArmored(armoredText: string): Promise<Message>;
 
     /**
      * reads an OpenPGP message as byte array and returns a message object
