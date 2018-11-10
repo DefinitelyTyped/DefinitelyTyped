@@ -17,7 +17,7 @@ const anotherGroup = newDb.createGroup(group, "subgroup-2");
 const yetAnotherGroup = newDb.createGroup(group, "subgroup-3");
 const deepGroup = defaultGroup.groups[0].groups[0];
 
-if (newDb.getGroup(yetAnotherGroup.uuid)){
+if (newDb.getGroup(yetAnotherGroup.uuid)) {
     newDb.remove(yetAnotherGroup);
 }
 const entry = newDb.createEntry(group);
