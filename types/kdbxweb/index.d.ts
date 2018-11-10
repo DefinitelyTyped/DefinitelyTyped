@@ -490,18 +490,26 @@ export class Group {
 export class Entry {
     constructor();
 
-    uuid: string;
-    icon: any;
-    customIcon: any;
-    fgColor: any;
-    bgColor: any;
-    overrideUrl: any;
-    tags: any[];
+    uuid: KdbxUuid;
+    icon: number;
+    customIcon: KdbxUuid;
+    fgColor: string;
+    bgColor: string;
+    overrideUrl: string;
+    tags: string[];
     times: Times;
-    fields: { [name: string]: any };
+    fields: { [key: string]: any };
     binaries: {};
-    autoType: any;
-    history: any[];
+    autoType: {
+        enabled: boolean;
+        obfuscation: number;
+        defaultSequence: string;
+        items: {
+            windows: string;
+            keystrokeSequence: string;
+        };
+    };
+    history: Entry[];
     parentGroup: Group;
     customData: any;
 
