@@ -9,6 +9,8 @@
  */
 export as namespace kdbxweb;
 
+export type KdbxObject = Entry | Group;
+
 export interface Settings {
     binaries: boolean;
     customIcons: boolean;
@@ -16,9 +18,9 @@ export interface Settings {
 }
 
 export interface ObjectMap {
-    objects: object[];
-    remote: object[];
-    deleted: object[];
+    objects: KdbxObject[];
+    remote: KdbxObject[];
+    deleted: KdbxObject[];
 }
 
 export interface editingState {
@@ -59,6 +61,8 @@ export class Int64 {
 export class Kdbx {
     constructor();
 
+    deletedObjects: KdbxObject[];
+
     addDeletedObject(uuid: KdbxUuid, dt: Date): void;
 
     cleanup(settings: Settings): void;
@@ -83,9 +87,9 @@ export class Kdbx {
 
     merge(remote: Kdbx): void;
 
-    move(object: Entry | Group, toGroup: Group, atIndex: number): void;
+    move(object: KdbxObject, toGroup: Group, atIndex?: number): void;
 
-    remove(object: Entry | Group): void;
+    remove(object: KdbxObject): void;
 
     removeLocalEditState(): void;
 
