@@ -1,4 +1,4 @@
-import FieldText, { FieldTextStateless, IFieldTextProp } from "@atlaskit/field-text";
+import FieldText, { FieldTextStateless, FieldTextProp } from "@atlaskit/field-text";
 
 import * as React from "react";
 import { render } from "react-dom";
@@ -6,12 +6,12 @@ import { render } from "react-dom";
 declare const container: Element;
 
 // render without props is fine
-render(    
+render(
     <FieldText/>,
     container
 );
 
-const baseFieldProp: IFieldTextProp = {
+const baseFieldProp: FieldTextProp = {
     autoComplete: 'on',
     form: 's',
     pattern: 's',
@@ -40,43 +40,43 @@ const baseFieldProp: IFieldTextProp = {
     autoFocus: true,
     maxLength: 25,
     isValidationHidden: false
-}
+};
 
 // accepts all definitoin
-render(    
+render(
     <FieldText
         {...baseFieldProp}
     />,
     container
-)
+);
 
 // value can be a number as well
-render(    
+render(
     <FieldText
         {...baseFieldProp}
         value={1}
     />,
     container
-)
+);
 
 // render without props is fine
-render(    
+render(
     <FieldTextStateless/>,
     container
 );
 
-render(    
+render(
     <FieldTextStateless
-        {...baseFieldProp}        
+        {...baseFieldProp}
     />,
     container
-)
+);
 
 // value can be a number as well
-render(    
+render(
     <FieldTextStateless
-        {...baseFieldProp}   
-        value={1}     
+        {...baseFieldProp}
+        value={1}
     />,
     container
-)
+);
