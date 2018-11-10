@@ -12,9 +12,9 @@ export as namespace kdbxweb;
 export type KdbxObject = Entry | Group;
 
 export interface Settings {
-    binaries: boolean;
-    customIcons: boolean;
-    historyRules: boolean;
+    binaries?: boolean;
+    customIcons?: boolean;
+    historyRules?: boolean;
 }
 
 export interface ObjectMap {
