@@ -7,6 +7,7 @@
 export as namespace kdbxweb;
 
 export type KdbxObject = Entry | Group;
+export type StringProtected = ProtectedValue | string;
 
 export interface Settings {
     binaries?: boolean;
@@ -86,7 +87,7 @@ export class Kdbx {
 
     createEntry(group: Group): Entry;
 
-    createGroup(group: Group, name: string): Group;
+    createGroup(group: Group, name: StringProtected): Group;
 
     createRecycleBin(): void;
 
@@ -454,13 +455,13 @@ export class Group {
     constructor();
 
     uuid: KdbxUuid;
-    name: string;
-    notes: string;
+    name: StringProtected;
+    notes: StringProtected;
     icon: number;
     customIcon: KdbxUuid;
     times: Times;
     expanded: boolean;
-    defaultAutoTypeSeq: string;
+    defaultAutoTypeSeq: StringProtected;
     enableAutoType: boolean;
     enableSearching: boolean;
     lastTopVisibleEntry: KdbxUuid;
@@ -469,7 +470,7 @@ export class Group {
     parentGroup: Group;
     customData: {};
 
-    static create(name: string, parentGroup: Group): Group;
+    static create(name: StringProtected, parentGroup: Group): Group;
     static read(xmlNode: Node, ctx: Context, parentGroup: Group): Group;
 
     write(parentNode: Node, ctx: Context): void;
@@ -490,12 +491,12 @@ export class Entry {
     uuid: KdbxUuid;
     icon: number;
     customIcon: KdbxUuid;
-    fgColor: string;
-    bgColor: string;
-    overrideUrl: string;
+    fgColor: StringProtected;
+    bgColor: StringProtected;
+    overrideUrl: StringProtected;
     tags: string[];
     times: Times;
-    fields: { [key: string]: ProtectedValue | string };
+    fields: { [key: string]: StringProtected };
     binaries: {};
     autoType: {
         enabled: boolean;
