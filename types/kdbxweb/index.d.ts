@@ -58,6 +58,9 @@ export class Credentials {
 export class Int64 {
     constructor(lo: number, hi: number);
 
+    lo: number;
+    hi: number;
+
     valueOf(): number;
 
     static from(value: number): Int64;
@@ -66,7 +69,12 @@ export class Int64 {
 export class Kdbx {
     constructor();
 
+    header: Header;
+    credentials: Credentials;
+    meta: Meta;
+    xml: Document;
     binaries: Binaries;
+    groups: Group[];
     deletedObjects: KdbxObject[];
 
     addDeletedObject(uuid: KdbxUuid, dt: Date): void;
@@ -117,12 +125,19 @@ export class Kdbx {
 export class KdbxError {
     constructor(code: number, message: string);
 
+    name: "KdbxError";
+    code: number;
+    message: string;
+
     // Native method; no parameter or return type inference available
     toString(): string;
 }
 
 export class KdbxUuid {
     constructor(ab: string | ArrayBuffer);
+
+    id: string | undefined;
+    empty: boolean;
 
     equals(other: KdbxUuid): boolean;
 
@@ -441,6 +456,22 @@ export class Context {
 export class Group {
     constructor();
 
+    uuid: string;
+    name: string;
+    notes: string;
+    icon: number;
+    customIcon: KdbxUuid;
+    times: Times;
+    expanded: boolean;
+    defaultAutoTypeSeq: string;
+    enableAutoType: boolean;
+    enableSearching: boolean;
+    lastTopVisibleEntry: KdbxUuid;
+    groups: Group[];
+    entries: Entry[];
+    parentGroup: Group;
+    customData: any;
+
     static create(name: string, parentGroup: Group): Group;
     static read(xmlNode: Node, ctx: Context, parentGroup: Group): Group;
 
@@ -458,6 +489,21 @@ export class Group {
 
 export class Entry {
     constructor();
+
+    uuid: string;
+    icon: any;
+    customIcon: any;
+    fgColor: any;
+    bgColor: any;
+    overrideUrl: any;
+    tags: any[];
+    times: Times;
+    fields: { [name: string]: any };
+    binaries: {};
+    autoType: any;
+    history: any[];
+    parentGroup: Group;
+    customData: any;
 
     static create(meta: Meta, parentGroup: Group): Entry;
     static read(xmlNode: Node, ctx: Context, parentGroup: Group): Entry;
@@ -477,4 +523,51 @@ export class Meta {
 
     write(parentNode: Node, ctx: Context): void;
     merge(remote: Meta, objectMap: ObjectMap): void;
+}
+
+export class Header {
+    constructor();
+
+    compression: number;
+    crsAlgorithm: number;
+    dataCipherUuid: KdbxUuid;
+    encryptionIV: any;
+    endPos: number;
+    kdfParameters: VarDictionary;
+    keyEncryptionRounds: number;
+    masterSeed: Uint8Array;
+    protectedStreamKey: any;
+    publicCustomData: any;
+    streamStartBytes: any;
+    transformSeed: any;
+    versionMajor: number;
+    versionMinor: number;
+
+    static read(stm: BinaryStream, ctx: Context): Header;
+    static create(): Header;
+
+    generateSalts(): void;
+    readInnerHeader(stm: BinaryStream, ctx: Context): void;
+    upgrade(): void;
+    write(stm: BinaryStream): void;
+    writeInnerHeader(stm: BinaryStream, ctx: Context): void;
+}
+
+export class Times {
+    constructor();
+
+    creationTime: Date;
+    lastModTime: Date;
+    lastAccessTime: Date;
+    expiryTime: Date;
+    expires: boolean;
+    usageCount: number;
+    locationChanged: Date;
+
+    static create(): Times;
+    static read(xmlNode: Node): Times;
+
+    clone(): Times;
+    update(): void;
+    write(parentNode: Node, ctx: Context): void;
 }
