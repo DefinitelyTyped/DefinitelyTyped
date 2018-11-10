@@ -1,7 +1,9 @@
 import { Stream, Writable } from 'stream';
 
 import { RecordResult } from './record-result';
+import { RecordStream } from './record-stream';
 import { Record } from './record';
+import { SalesforceId } from './salesforce-id';
 
 export interface BatchInfo {
     id: string;
@@ -25,4 +27,5 @@ export class Batch extends Writable {
     retrieve(callback?: (batchInfo: BatchInfo) => void): Promise<RecordResult[] | BatchResultInfo[]>;
     then(): Promise<any>;
     thenAll(callback: (data: any) => void): void;
+    result(id: SalesforceId): RecordStream;
 }
