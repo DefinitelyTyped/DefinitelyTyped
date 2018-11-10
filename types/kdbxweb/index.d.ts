@@ -23,6 +23,11 @@ export interface ObjectMap {
     deleted: KdbxObject[];
 }
 
+export interface BinaryInforamtion {
+    ref: string;
+    value: ProtectedValue | ArrayBuffer;
+}
+
 export interface editingState {
     added: [Date];
     deleted: [Date];
@@ -61,6 +66,7 @@ export class Int64 {
 export class Kdbx {
     constructor();
 
+    binaries: Binaries;
     deletedObjects: KdbxObject[];
 
     addDeletedObject(uuid: KdbxUuid, dt: Date): void;
@@ -413,6 +419,17 @@ export class BinaryStream {
     setUint8(value: number, littleEdian?: boolean): void;
 
     writeBytes(bytes: ArrayBuffer | Uint8Array): void;
+}
+
+export class Binaries {
+    constructor();
+
+    hash(): Promise<any[]>;
+    getBinaryHash(
+        binary: ProtectedValue | ArrayBuffer | Uint8Array
+    ): Promise<string>;
+    assignIds(): void;
+    add(value: ProtectedValue | ArrayBuffer): Promise<BinaryInforamtion>;
 }
 
 export class Context {
