@@ -32,7 +32,7 @@ export interface editingState {
 
 export interface editingStateDict {
     meta: editingState;
-    [uuid: string]: editingState;
+    [uuid: KdbxUuid]: editingState;
 }
 
 export class Credentials {
@@ -453,7 +453,7 @@ export class Context {
 export class Group {
     constructor();
 
-    uuid: string;
+    uuid: KdbxUuid;
     name: string;
     notes: string;
     icon: number;
