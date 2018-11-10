@@ -337,9 +337,9 @@ export namespace ByteUtils {
 }
 
 export namespace CryptoEngine {
-    const subtle: any;
-
-    const webCrypto: any;
+    const subtle: SubtleCrypto | null;
+    const webCrypto: Crypto | null;
+    const NodeCrypto: Crypto | null;
 
     function argon2(
         password: ArrayBuffer,
