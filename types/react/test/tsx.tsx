@@ -3,23 +3,23 @@ import * as React from "react";
 interface SCProps {
     foo?: number;
 }
-const StatelessComponent: React.SFC<SCProps> = ({ foo }: SCProps) => {
+const FunctionComponent: React.FunctionComponent<SCProps> = ({ foo }: SCProps) => {
     return <div>{foo}</div>;
 };
-StatelessComponent.displayName = "StatelessComponent3";
-StatelessComponent.defaultProps = {
+FunctionComponent.displayName = "FunctionComponent3";
+FunctionComponent.defaultProps = {
     foo: 42
 };
-<StatelessComponent />;
+<FunctionComponent />;
 
-const StatelessComponent2: React.SFC<SCProps> = ({ foo, children }) => {
+const FunctionComponent2: React.FunctionComponent<SCProps> = ({ foo, children }) => {
     return <div>{foo}{children}</div>;
 };
-StatelessComponent2.displayName = "StatelessComponent4";
-StatelessComponent2.defaultProps = {
+FunctionComponent2.displayName = "FunctionComponent4";
+FunctionComponent2.defaultProps = {
     foo: 42
 };
-<StatelessComponent2>24</StatelessComponent2>;
+<FunctionComponent2>24</FunctionComponent2>;
 
 // svg sanity check
 <svg viewBox="0 0 1000 1000">
@@ -70,10 +70,10 @@ class ComponentWithoutPropsAndState extends React.Component {
 }
 <ComponentWithoutPropsAndState />;
 
-const StatelessComponentWithoutProps: React.SFC = (props) => {
+const FunctionComponentWithoutProps: React.FunctionComponent = (props) => {
     return <div />;
 };
-<StatelessComponentWithoutProps />;
+<FunctionComponentWithoutProps />;
 
 // React.createContext
 const ContextWithRenderProps = React.createContext('defaultValue');

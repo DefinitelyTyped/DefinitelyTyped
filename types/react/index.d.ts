@@ -50,7 +50,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     type ReactType<P = any> = string | ComponentType<P>;
-    type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
+    type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type Key = string | number;
 
@@ -70,13 +70,18 @@ declare namespace React {
     }
 
     interface ReactElement<P> {
-        type: string | ComponentClass<P> | SFC<P>;
+        type: string | ComponentClass<P> | FunctionComponent<P>;
         props: P;
         key: Key | null;
     }
 
-    interface SFCElement<P> extends ReactElement<P> {
-        type: SFC<P>;
+    /**
+     * @deprecated Please use `FunctionComponentElement`
+     */
+    type SFCElement<P> = FunctionComponentElement<P>;
+
+    interface FunctionComponentElement<P> extends ReactElement<P> {
+        type: FunctionComponent<P>;
     }
 
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
@@ -117,7 +122,12 @@ declare namespace React {
 
     type Factory<P> = (props?: Attributes & P, ...children: ReactNode[]) => ReactElement<P>;
 
-    type SFCFactory<P> = (props?: Attributes & P, ...children: ReactNode[]) => SFCElement<P>;
+    /**
+     * @deprecated Please use `FunctionComponentFactory`
+     */
+    type SFCFactory<P> = FunctionComponentFactory<P>;
+
+    type FunctionComponentFactory<P> = (props?: Attributes & P, ...children: ReactNode[]) => FunctionComponentElement<P>;
 
     type ComponentFactory<P, T extends Component<P, ComponentState>> =
         (props?: ClassAttributes<T> & P, ...children: ReactNode[]) => CElement<P, T>;
@@ -164,7 +174,7 @@ declare namespace React {
         type: string): DOMFactory<P, T>;
 
     // Custom components
-    function createFactory<P>(type: SFC<P>): SFCFactory<P>;
+    function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
     function createFactory<P>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, ComponentState>>;
     function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
@@ -191,10 +201,11 @@ declare namespace React {
         ...children: ReactNode[]): DOMElement<P, T>;
 
     // Custom components
+
     function createElement<P extends {}>(
-        type: SFC<P>,
+        type: FunctionComponent<P>,
         props?: Attributes & P | null,
-        ...children: ReactNode[]): SFCElement<P>;
+        ...children: ReactNode[]): FunctionComponentElement<P>;
     function createElement<P extends {}>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
         props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P | null,
@@ -204,7 +215,7 @@ declare namespace React {
         props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P extends {}>(
-        type: SFC<P> | ComponentClass<P> | string,
+        type: FunctionComponent<P> | ComponentClass<P> | string,
         props?: Attributes & P | null,
         ...children: ReactNode[]): ReactElement<P>;
 
@@ -232,9 +243,9 @@ declare namespace React {
 
     // Custom components
     function cloneElement<P>(
-        element: SFCElement<P>,
+        element: FunctionComponentElement<P>,
         props?: Partial<P> & Attributes,
-        ...children: ReactNode[]): SFCElement<P>;
+        ...children: ReactNode[]): FunctionComponentElement<P>;
     function cloneElement<P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
         props?: Partial<P> & ClassAttributes<T>,
@@ -402,8 +413,25 @@ declare namespace React {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
-    type SFC<P = {}> = StatelessComponent<P>;
-    interface StatelessComponent<P = {}> {
+    /**
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `FunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+     */
+    type SFC<P = {}> = FunctionComponent<P>;
+
+    /**
+     * @deprecated as of recent React versions, function components can no
+     * longer be considered 'stateless'. Please use `FunctionComponent` instead.
+     *
+     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+     */
+    type StatelessComponent<P = {}> = FunctionComponent<P>;
+
+    type FC<P = {}> = FunctionComponent<P>;
+
+    interface FunctionComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
