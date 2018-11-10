@@ -172,13 +172,13 @@ export class ProtectedValue {
 export class VarDictionary {
     constructor();
 
-    get(key: string): any;
+    get(key: string): object;
 
     keys(): string[];
 
     remove(key: string): void;
 
-    set(key: string, type: number, value: any): void;
+    set(key: string, type: number, value: object): void;
 
     write(stm: BinaryStream): void;
 
@@ -467,7 +467,7 @@ export class Group {
     groups: Group[];
     entries: Entry[];
     parentGroup: Group;
-    customData: any;
+    customData: {};
 
     static create(name: string, parentGroup: Group): Group;
     static read(xmlNode: Node, ctx: Context, parentGroup: Group): Group;
@@ -495,7 +495,7 @@ export class Entry {
     overrideUrl: string;
     tags: string[];
     times: Times;
-    fields: { [key: string]: any };
+    fields: { [key: string]: ProtectedValue | string };
     binaries: {};
     autoType: {
         enabled: boolean;
@@ -508,7 +508,7 @@ export class Entry {
     };
     history: Entry[];
     parentGroup: Group;
-    customData: any;
+    customData: {};
 
     static create(meta: Meta, parentGroup: Group): Entry;
     static read(xmlNode: Node, ctx: Context, parentGroup: Group): Entry;
