@@ -95,7 +95,7 @@ export class Kdbx {
 
     getDefaultGroup(): Group;
 
-    getGroup(uuid: KdbxUuid | string, parentGroup: Group): Group | undefined;
+    getGroup(uuid: KdbxUuid | string, parentGroup?: Group): Group | undefined;
 
     getLocalEditState(): editingStateDict;
 
