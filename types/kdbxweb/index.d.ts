@@ -33,7 +33,7 @@ export interface editingState {
 
 export interface editingStateDict {
     meta: editingState;
-    [uuid: KdbxUuid]: editingState;
+    [uuid: string]: editingState;
 }
 
 export class Credentials {
