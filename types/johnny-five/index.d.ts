@@ -533,7 +533,7 @@ export interface MotorOption {
 }
 
 export declare class Motor {
-    constructor(option: Array<number> | MotorOption);
+    constructor(option: number[] | MotorOption);
 
     readonly isOn: boolean;
 
@@ -541,15 +541,14 @@ export declare class Motor {
     fwd(speed: number): void;
     reverse(speed: number): void;
     rev(speed: number): void;
-    start(): void;
-    start(speed: number): void;
+    start(speed?: number): void;
     stop(): void;
     brake(): void;
     release(): void;
 }
 
 export declare class Motors {
-    constructor(option: Array<number> | MotorOption[]);
+    constructor(option: number[] | MotorOption[]);
 
     readonly isOn: boolean;
 
@@ -557,8 +556,7 @@ export declare class Motors {
     fwd(speed: number): void;
     reverse(speed: number): void;
     rev(speed: number): void;
-    start(): void;
-    start(speed: number): void;
+    start(speed?: number): void;
     stop(): void;
     brake(): void;
     release(): void;
