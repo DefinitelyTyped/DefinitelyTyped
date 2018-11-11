@@ -18,7 +18,7 @@ interface Heuristic {
 }
 
 interface Heuristics {
-    manhatten: Heuristic;
+    manhattan: Heuristic;
     diagonal: Heuristic;
 }
 
