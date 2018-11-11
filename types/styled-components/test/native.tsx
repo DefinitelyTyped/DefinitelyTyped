@@ -9,7 +9,7 @@ const StyledText = styled.Text`
   color: palevioletred;
 `;
 
-class MyReactNativeComponent extends React.Component<{}, {}> {
+class MyReactNativeComponent extends React.Component {
   render() {
     return <StyledView>
       <StyledText>Hello World!</StyledText>

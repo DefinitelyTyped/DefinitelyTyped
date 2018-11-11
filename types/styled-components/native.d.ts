@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as ReactNative from 'react-native';
 import { StatelessComponent, ComponentClass } from 'react';
 
