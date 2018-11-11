@@ -1,4 +1,4 @@
-// Type definitions for react-map-gl 3.3
+// Type definitions for react-map-gl 4.0
 // Project: https://github.com/uber/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
@@ -18,7 +18,11 @@ export interface Viewport {
 }
 
 export interface MapError {
+  error?: {
     message: string;
+    status: number;
+  };
+  status: number;
 }
 
 export interface MapRequest {
@@ -145,6 +149,17 @@ export interface InteractiveMapProps extends StaticMapProps {
 
     onHover?: (event: MapEvent) => void;
     onClick?: (event: MapEvent) => void;
+    onDblClick?: (event: MapEvent) => void;
+    onMouseDown?: (event: MapEvent) => void;
+    onMouseMove?: (event: MapEvent) => void;
+    onMouseUp?: (event: MapEvent) => void;
+    onTouchStart?: (event: MapEvent) => void;
+    onTouchMove?: (event: MapEvent) => void;
+    onTouchEnd?: (event: MapEvent) => void;
+    onMouseEnter?: (event: MapEvent) => void;
+    onMouseLeave?: (event: MapEvent) => void;
+    onWheel?: (event: MapEvent) => void;
+    onMouseOut?: (event: MapEvent) => void;
 
     onContextMenu?: (event: MapEvent) => void;
 
@@ -186,6 +201,9 @@ export interface MarkerProps extends BaseControlProps {
     latitude: number;
     offsetLeft?: number;
     offsetTop?: number;
+    onDrag: (event: any) => void;
+    onDragStart: (event: any) => void;
+    onDragEnd: (event: any) => void;
 }
 
 export class Marker extends BaseControl<MarkerProps> {}
@@ -201,6 +219,7 @@ export interface PopupProps extends BaseControlProps {
     closeOnClick?: boolean;
     anchor?: 'top' | 'top-left' | 'top-right' | 'bottom' | 'bottom-left' | 'bottom-right' | 'left' | 'right';
     dynamicPosition?: boolean;
+    sortByDepth?: boolean;
     onClose?: () => void;
 }
 
@@ -251,8 +270,6 @@ export class SVGOverlay extends BaseControl<SVGOverlayProps> {}
 
 export namespace experimental {
     interface Options {
-        // TODO(deprecate): remove this when `onChangeViewport` gets deprecated
-        onChangeViewport?: (viewport: Viewport) => void;
         // TODO(deprecate): remove this when `touchZoomRotate` gets deprecated
         touchZoomRotate?: boolean;
 
