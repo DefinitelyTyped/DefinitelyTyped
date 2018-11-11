@@ -1,13 +1,4 @@
-/// <reference path="calendar.d.ts" />
-/// <reference path="document.d.ts" />
-/// <reference path="gmail.d.ts" />
-/// <reference path="script.d.ts" />
-/// <reference path="url-fetch.d.ts" />
-
-/* tslint:disable */
-/**
- * From https://developers.google.com/apps-script/overview
- */
+// from https://developers.google.com/apps-script/overview
 function createAndSendDocument() {
   // Create a new Google Doc named 'Hello, world!'
   var doc = DocumentApp.create('Hello, world!');
