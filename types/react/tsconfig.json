@@ -4,7 +4,8 @@
         "test/index.ts",
         "test/tsx.tsx",
         "test/cssProperties.tsx",
-        "test/managedAttributes.tsx"
+        "test/managedAttributes.tsx",
+        "test/hooks.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",

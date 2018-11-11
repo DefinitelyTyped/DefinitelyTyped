@@ -1555,6 +1555,107 @@ async function asyncStreamPipelineFinished() {
             },
         });
     }
+
+    {
+        crypto.generateKeyPair('rsa', {
+            modulusLength: 123,
+            publicKeyEncoding: {
+                format: 'der',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        }, (err: NodeJS.ErrnoException | null, publicKey: Buffer, privateKey: string) => {});
+
+        crypto.generateKeyPair('dsa', {
+            modulusLength: 123,
+            divisorLength: 123,
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'spki',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'der',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: Buffer) => {});
+
+        crypto.generateKeyPair('ec', {
+            namedCurve: 'curve',
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        }, (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {});
+    }
+
+    {
+        const generateKeyPairPromisified = util.promisify(crypto.generateKeyPair);
+
+        const rsaRes: Promise<{
+            publicKey: Buffer;
+            privateKey: string;
+        }> = generateKeyPairPromisified('rsa', {
+            modulusLength: 123,
+            publicKeyEncoding: {
+                format: 'der',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        });
+
+        const dsaRes: Promise<{
+            publicKey: string;
+            privateKey: Buffer;
+        }> = generateKeyPairPromisified('dsa', {
+            modulusLength: 123,
+            divisorLength: 123,
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'spki',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'der',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        });
+
+        const ecRes: Promise<{
+            publicKey: string;
+            privateKey: string;
+        }> = generateKeyPairPromisified('ec', {
+            namedCurve: 'curve',
+            publicKeyEncoding: {
+                format: 'pem',
+                type: 'pkcs1',
+            },
+            privateKeyEncoding: {
+                cipher: 'some-cipher',
+                format: 'pem',
+                passphrase: 'secret',
+                type: 'pkcs8',
+            },
+        });
+    }
 }
 
 //////////////////////////////////////////////////
@@ -3196,7 +3297,23 @@ import * as p from "process";
     }
     {
         const writeStream = fs.createWriteStream('./index.d.ts');
-        const consoleInstance = new console.Console(writeStream);
+        let consoleInstance: Console = new console.Console(writeStream);
+
+        consoleInstance = new console.Console(writeStream, writeStream);
+        consoleInstance = new console.Console(writeStream, writeStream, true);
+        consoleInstance = new console.Console({
+            stdout: writeStream,
+            stderr: writeStream,
+            colorMode: 'auto',
+            ignoreErrors: true
+        });
+        consoleInstance = new console.Console({
+            stdout: writeStream,
+            colorMode: false
+        });
+        consoleInstance = new console.Console({
+            stdout: writeStream
+        });
     }
 }
 
