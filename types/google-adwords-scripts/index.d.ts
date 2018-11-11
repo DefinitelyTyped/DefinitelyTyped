@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="google-apps-script" />
+/// <reference types="script" />
 
 // Generics
 interface AdWordsEntity {
@@ -650,7 +650,7 @@ interface Budget extends AdWordsEntity, hasStats {
 // Bulk Uploads
 interface BulkUploads {
     newCsvUpload(columnNames: string[], optArgs: FileUploadArguments): CsvUpload;
-    newFileUpload(file: GoogleAppsScript.Spreadsheet.Sheet | GoogleAppsScript.Base.Blob | GoogleAppsScript.Drive.File, optArgs: FileUploadArguments): FileUpload;
+    newFileUpload(file: Script.Spreadsheet.Sheet | Script.Base.Blob | Script.Drive.File, optArgs: FileUploadArguments): FileUpload;
 }
 
 interface BulkUpload<T> {
@@ -975,7 +975,7 @@ interface Dimensions {
 }
 
 interface ImageBuilder<Media> extends AdWordsBuilder<Media> {
-    withData(data: GoogleAppsScript.Base.Blob): ImageBuilder<Media>;
+    withData(data: Script.Base.Blob): ImageBuilder<Media>;
     withName(name: string): ImageBuilder<Media>;
 }
 
@@ -993,7 +993,7 @@ interface Media {
 }
 
 interface MediaBundleBuilder<Media> extends AdWordsBuilder<Media> {
-    withData(data: GoogleAppsScript.Base.Blob): MediaBundleBuilder<Media>;
+    withData(data: Script.Base.Blob): MediaBundleBuilder<Media>;
     withName(name: string): MediaBundleBuilder<Media>;
 }
 
@@ -1024,7 +1024,7 @@ interface NegativeKeyword extends AdWordsEntity, isAdGroupChild {
 
 // Reports
 interface AdWordsReport {
-    exportToSheet(sheet: GoogleAppsScript.Spreadsheet.Sheet): void;
+    exportToSheet(sheet: Script.Spreadsheet.Sheet): void;
     getColumnHeader(awqlColumnName: string): AdWordsReportColumnHeader;
     rows(): AdWordsReportRowIterator;
 }

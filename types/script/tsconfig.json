@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "google-apps-script-tests.ts"
+        "script-tests.ts"
     ]
 }

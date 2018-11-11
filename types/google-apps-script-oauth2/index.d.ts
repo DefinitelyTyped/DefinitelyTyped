@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="google-apps-script" />
+/// <reference types="script" />
 
 declare namespace GoogleAppsScriptOAuth2 {
     interface OAuth2 {
@@ -87,7 +87,7 @@ declare namespace GoogleAppsScriptOAuth2 {
          * performance. In most cases this should be a private cache, but a public cache may be
          * appropriate if you want to share access across users.
          */
-        setCache(cache: GoogleAppsScript.Cache.Cache): OAuth2Service;
+        setCache(cache: Script.Cache.Cache): OAuth2Service;
         /**
          * Sets the name of the authorization callback function (required).
          * This is the function that will be called when the user completes the authorization flow
@@ -133,7 +133,7 @@ declare namespace GoogleAppsScriptOAuth2 {
          * In most cases this should be user properties, but document or script properties may be appropriate
          * if you want to share access across users.
          */
-        setPropertyStore(propertyStore: GoogleAppsScript.Properties.Properties): OAuth2Service;
+        setPropertyStore(propertyStore: Script.Properties.Properties): OAuth2Service;
         /**
          * Sets the scope or scopes to request during the authorization flow (optional).
          * If the scope value is an array it will be joined using the separator before being sent to the server,

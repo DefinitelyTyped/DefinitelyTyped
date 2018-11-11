@@ -1581,7 +1581,6 @@
 /types/gm/                                          @ChaosinaCan @maartenvanvliet @mlejva
 /types/go/                                          @NorthwoodsSoftware
 /types/google-adwords-scripts/                      @jafaircl
-/types/google-apps-script/                          @motemen @grant
 /types/google-apps-script-oauth2/                   @dhayab
 /types/google-cloud__datastore/                     @beaulac @ogawa0071 @ThomasdenH
 /types/google-cloud__pubsub/                        @pheromonez @LunaPg @msiviero
@@ -4292,6 +4291,7 @@
 /types/screenfull/                                  @icholy @lionelb @joelshepherd
 /types/screeps/                                     @MarkoSulamagi @NhanHo @bryanbecker @resir014 @Arcath @dmarcuse
 /types/screeps-profiler/                            @ramblurr
+/types/script/                                      @motemen @grant
 /types/scriptjs/                                    @ssttevee
 /types/scroll-into-view/                            @zivni
 /types/scroller/                                    @haskellcamargo
