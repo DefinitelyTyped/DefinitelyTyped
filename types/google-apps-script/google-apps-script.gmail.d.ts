@@ -188,6 +188,23 @@ declare namespace GoogleAppsScript {
     }
 
     /**
+     * Options for a Gmail Attachments.
+     */
+    export type GmailAttachmentOptions = {
+      /**
+       * If the returned array of Blob attachments should include inline images.
+       */
+      includeInlineImages?: boolean;
+      /**
+       *  If the returned array of Blob attachments should include regular (non-inline) attachments.
+       */
+      includeAttachments?: boolean;
+      /**
+       * A comma-separated list of email addresses to BCC.
+       */
+    }
+    
+    /**
      * A user-created label in a user's Gmail account.
      */
     export interface GmailLabel {
@@ -213,6 +230,7 @@ declare namespace GoogleAppsScript {
       forward(recipient: string): GmailMessage;
       forward(recipient: string, options: GmailDraftOptions): GmailMessage;
       getAttachments(): GmailAttachment[];
+      getAttachments(options: GmailAttachmentOptions): GmailAttachment[];
       getBcc(): string;
       getBody(): string;
       getCc(): string;
