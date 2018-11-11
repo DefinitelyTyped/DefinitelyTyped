@@ -1,4 +1,4 @@
-// Type definitions for Tracking.js v1.1.2
+// Type definitions for Tracking.js v1.1.3
 // Project: https://github.com/eduardolundgren/tracking.js
 // Definitions by: Tim Perry <https://github.com/pimterry>
 //                 Brendan Ratter <https://github.com/bratter>
