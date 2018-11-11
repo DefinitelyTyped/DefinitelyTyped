@@ -315,7 +315,7 @@ declare namespace Sinon {
         /**
          * Returns an Array of all calls recorded by the spy.
          */
-        getCalls(): SinonSpyCall<TArgs, TReturnValue>[];
+        getCalls(): Array<SinonSpyCall<TArgs, TReturnValue>>;
         /**
          * Resets the state of a spy.
          */
