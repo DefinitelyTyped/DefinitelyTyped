@@ -7,6 +7,7 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Greg Jednaszewski <https://github.com/gjednaszewski>
+//                 John Wood <https://github.com/johnjesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -523,7 +524,7 @@ declare namespace Sinon {
          * Makes the stub call the provided @param func when invoked.
          * @param func
          */
-        callsFake(func: (...args: U) => V): SinonStub<U, V>;
+        callsFake(func: () => V): SinonStub<U, V>;
         /**
          * Replaces a new getter for this stub.
          */
