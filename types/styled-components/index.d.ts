@@ -68,7 +68,7 @@ export type StyledComponentClass<P, T, O = {}> = StyledComponent<P, T, O>;
 type StyledComponentInterpolation = Pick<StyledComponent<any, any>, keyof StyledComponent<any, any>>;
 
 export interface StyledComponent<P, T, O = {}>
-    extends React.ForwardRefExoticComponent<React.PropsWithRef<ThemedOuterStyledProps<P & O, T>>> {
+    extends React.ForwardRefExoticComponent<ThemedOuterStyledProps<React.PropsWithRef<P & O>, T>> {
     withComponent<K extends keyof JSX.IntrinsicElements>(
         tag: K,
     ): StyledComponent<
