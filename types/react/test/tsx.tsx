@@ -1,4 +1,5 @@
-import * as React from "react";
+import PropTypes = require("prop-types");
+import React = require("react");
 
 interface SCProps {
     foo?: number;
@@ -254,3 +255,35 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 <React.Suspense fallback={null}/>;
 // $ExpectError
 <React.Suspense/>;
+
+class LegacyContext extends React.Component {
+    static contextTypes = { foo: PropTypes.node.isRequired };
+
+    render() {
+        // $ExpectType any
+        this.context.foo;
+        return this.context.foo;
+    }
+}
+
+class LegacyContextAnnotated extends React.Component {
+    static contextTypes = { foo: PropTypes.node.isRequired };
+    context!: { foo: React.ReactNode };
+
+    render() {
+        // $ExpectType ReactNode
+        this.context.foo;
+        return this.context.foo;
+    }
+}
+
+class NewContext extends React.Component {
+    static contextType = ContextWithRenderProps;
+    context!: React.ContextType<typeof ContextWithRenderProps>;
+
+    render() {
+        // $ExpectType string
+        this.context;
+        return this.context;
+    }
+}

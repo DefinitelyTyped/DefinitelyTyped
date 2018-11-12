@@ -292,6 +292,8 @@ declare namespace React {
         propTypes?: ValidationMap<P>;
     }
 
+    type ContextType<C extends Context<any>> = C extends Context<infer T> ? T : never;
+
     // NOTE: only the Context object itself can get a displayName
     // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
     type Provider<T> = ProviderExoticComponent<ProviderProps<T>>;
@@ -352,7 +354,7 @@ declare namespace React {
          *
          * class Foo extends React.Component {
          *   static contextType = Ctx
-         *   context!: MyContext
+         *   context!: React.ContextType<typeof Ctx>
          *   render () {
          *     return <>My context's value: {this.context}</>;
          *   }
@@ -363,10 +365,24 @@ declare namespace React {
          */
         static contextType?: Context<any>;
 
+        /**
+         * If using the new style context, re-declare this in your class to be the
+         * `React.ContextType` of your `static contextType`.
+         *
+         * ```ts
+         * static contextType = MyContext
+         * context!: React.ContextType<typeof MyContext>
+         * ```
+         *
+         * @deprecated if used without a type annotation, or without static contextType
+         * @see https://reactjs.org/docs/legacy-context.html
+         */
+        context: any;
+
         constructor(props: Readonly<P>);
         /**
          * @deprecated
-         * https://reactjs.org/docs/legacy-context.html
+         * @see https://reactjs.org/docs/legacy-context.html
          */
         constructor(props: P, context?: any);
 
@@ -450,6 +466,7 @@ declare namespace React {
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
         propTypes?: ValidationMap<P>;
+        contextType?: Context<any>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
