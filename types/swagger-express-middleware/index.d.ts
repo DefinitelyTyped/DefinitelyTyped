@@ -1,6 +1,7 @@
 // Type definitions for swagger-express-middleware 1.x
 // Project: https://github.com/BigstickCarpet/swagger-express-middleware
 // Definitions by: Alexandre Roba <https://github.com/alexandreroba>
+// Updated by: Tromgy <https://github.com/tromgy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -39,8 +40,9 @@ declare module "swagger-express-middleware" {
             (apiDefinitionPathOrObject: string | SwaggerObject, appOrRouter: Application | Router, cb: SwaggerMiddlewareConstructorCallback): SwaggerMiddleware;
         }
         interface SwaggerMiddlewareConstructorCallback {
-            (err: any, middleware: SwaggerMiddleware): void;
+            (err: any, middleware: SwaggerMiddleware, api: any, parser: any): void;
         }
+
         export interface SwaggerMiddleware {
             /**
             * Annotates the HTTP request (the `req` object) with Swagger metadata.
