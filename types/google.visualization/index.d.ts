@@ -478,6 +478,7 @@ declare namespace google {
             showColorCode?: boolean;
             textStyle?: ChartTextStyle;
             trigger?: string;
+            ignoreBounds?: boolean
         }
 
         export interface ChartBoundingBox {
