@@ -315,3 +315,13 @@ const ForwardRef3 = React.forwardRef(
 
 <ForwardRef3 ref={divFnRef}/>;
 <ForwardRef3 ref={divRef}/>;
+
+type ImgProps = React.ComponentProps<'img'>;
+// $ExpectType "async" | "auto" | "sync" | undefined
+type ImgPropsDecoding = ImgProps['decoding'];
+type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
+// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | undefined
+type ImgPropsWithRefRef = ImgPropsWithRef['ref'];
+type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
+// $ExpectType false
+type ImgPropsHasRef = 'ref' extends keyof ImgPropsWithoutRef ? true : false;

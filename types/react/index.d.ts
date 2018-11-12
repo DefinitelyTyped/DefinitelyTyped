@@ -58,7 +58,7 @@ declare namespace React {
         readonly current: T | null;
     }
 
-    type Ref<T> = { bivarianceHack(instance: T | null): any }["bivarianceHack"] | RefObject<T>;
+    type Ref<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"] | RefObject<T>;
     type LegacyRef<T> = string | Ref<T>;
 
     type ComponentState = any;
@@ -690,11 +690,12 @@ declare namespace React {
 
     function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
+    /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
         'ref' extends keyof P
             ? Pick<P, Exclude<keyof P, 'ref'>>
             : P;
-    // helper that returns props, and ensures the ref attribute is not string-like
+    /** Ensures that the props do not include string ref, which cannot be forwarded */
     type PropsWithRef<P> =
         'ref' extends keyof P
             ? P extends { ref?: infer R }
@@ -704,6 +705,10 @@ declare namespace React {
                 : P
             : P;
 
+    /**
+     * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
+     * or ComponentPropsWithoutRef when refs are not supported.
+     */
     type ComponentProps<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
         T extends ComponentType<infer P>
             ? P
