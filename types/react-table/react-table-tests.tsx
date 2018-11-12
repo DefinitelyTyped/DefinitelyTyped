@@ -24,7 +24,11 @@ const columns: Array<Column<Data>> = [
   {
     Header: "Info",
     columns: [
-      { Header: "Age", accessor: (data: Data) => data.age },
+      {
+        Header: "Age",
+        accessor: (data: Data) => data.age,
+        Cell: props => <span className='number'>{props.value}</span>
+      },
       { Header: "Status", accessor: "status" }
     ]
   },
