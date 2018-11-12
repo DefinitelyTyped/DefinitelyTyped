@@ -17,9 +17,8 @@ export interface ThemeProps<T> {
 export type ThemedStyledProps<P, T> = P & ThemeProps<T>;
 export type StyledProps<P> = ThemedStyledProps<P, any>;
 
-export type ThemedOuterStyledProps<P, T> = P & {
+export type ThemedOuterStyledProps<P, T> = WithOptionalTheme<P, T> & {
     as?: React.ReactType | keyof JSX.IntrinsicElements;
-    theme?: T;
 };
 export type OuterStyledProps<P> = ThemedOuterStyledProps<P, any>;
 
@@ -38,7 +37,7 @@ export type InterpolationValue =
     | Styles
     | FalseyValue
     | Keyframes
-    | StyledComponentClass<any, any>;
+    | StyledComponentInterpolation;
 export type SimpleInterpolation =
     | InterpolationValue
     | ReadonlyArray<InterpolationValue | ReadonlyArray<InterpolationValue>>;
@@ -48,7 +47,9 @@ export interface Styles {
 
 export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
 
-type Attrs<P, A extends Partial<P>, T> = {
+type Attrs<P, A extends Partial<P>, T> = ((props: ThemedStyledProps<P, T>) => A) | A;
+
+type DeprecatedAttrs<P, A extends Partial<P>, T> = {
     [K in keyof A]: ((props: ThemedStyledProps<P, T>) => A[K]) | A[K]
 };
 
@@ -59,32 +60,47 @@ export type ThemedGlobalStyledClassProps<P, T> = P & {
 export interface GlobalStyleClass<P, T>
     extends React.ComponentClass<ThemedGlobalStyledClassProps<P, T>> {}
 
-export interface StyledComponentClass<P, T, O = P>
-    extends React.ComponentClass<ThemedOuterStyledProps<O, T>> {
+/** @deprecated Use StyledComponent instead */
+export type StyledComponentClass<P, T, O = {}> = StyledComponent<P, T, O>;
+
+// Make the StyledComponentInterpolation non-callable because typescript can't tell
+// between this and InterpolationFunction when inferring Interpolation
+type StyledComponentInterpolation = Pick<StyledComponent<any, any>, keyof StyledComponent<any, any>>;
+
+export interface StyledComponent<P, T, O = {}>
+    extends React.ForwardRefExoticComponent<React.PropsWithRef<ThemedOuterStyledProps<P & O, T>>> {
     withComponent<K extends keyof JSX.IntrinsicElements>(
         tag: K,
-    ): StyledComponentClass<
+    ): StyledComponent<
         JSX.IntrinsicElements[K],
         T,
-        JSX.IntrinsicElements[K] & O
+        O
     >;
-    withComponent<U = {}>(
+    withComponent<U extends { className?: string } = {}>(
         element: React.ComponentType<U>,
-    ): StyledComponentClass<U, T, U & O>;
+    ): StyledComponent<U, T, O>;
 }
 
-export interface ThemedStyledFunction<P, T, O = P> {
+export interface ThemedStyledFunction<P, T, O = {}> {
     (
         strings: TemplateStringsArray,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
-    ): StyledComponentClass<P, T, O>;
+    ): StyledComponent<P, T, O>;
     <U>(
         strings: TemplateStringsArray,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P & U, T>>>
-    ): StyledComponentClass<P & U, T, O & U>;
-    attrs<U, A extends Partial<P & U> & { [others: string]: any; } = {}>(
-        attrs: Attrs<P & U, A, T>,
-    ): ThemedStyledFunction<DiffBetween<A, P & U>, T, DiffBetween<A, O & U>>;
+    ): StyledComponent<P, T, O & U>;
+    attrs<U, A extends Partial<P & O & U> & { [others: string]: any; } = {}>(
+        attrs: Attrs<P & O & U, A, T>,
+    ): ThemedStyledFunction<DiffBetween<A, P & U>, T, DiffBetween<A, P & O & U>>;
+
+    // these can't be unified because only one of the overloads is deprecated
+    // tslint:disable:unified-signatures
+    /** @deprecated Use the function form instead */
+    attrs<U, A extends Partial<P & O & U> & { [others: string]: any; } = {}>(
+        attrs: DeprecatedAttrs<P & O & U, A, T>,
+    ): ThemedStyledFunction<DiffBetween<A, P & U>, T, DiffBetween<A, P & O & U>>;
+    // tslint:enable:unified-signatures
 }
 
 export type StyledFunction<P> = ThemedStyledFunction<P, any>;
@@ -101,14 +117,14 @@ export interface ThemedBaseStyledInterface<T>
     <P, TTag extends keyof JSX.IntrinsicElements>(
         tag: TTag,
     ): ThemedStyledFunction<P, T, P & JSX.IntrinsicElements[TTag]>;
-    <P, O>(component: StyledComponentClass<P, T, O>): ThemedStyledFunction<
+    <P, O>(component: StyledComponent<P, T, O>): ThemedStyledFunction<
         P,
         T,
         O
     >;
-    <P extends { [prop: string]: any; theme?: T }>(
+    <P extends { [prop: string]: any; className?: string; theme?: T }>(
         component: React.ComponentType<P>,
-    ): ThemedStyledFunction<P, T, WithOptionalTheme<P, T>>;
+    ): ThemedStyledFunction<P, T, WithOptionalTheme<{}, T>>;
 }
 
 export type ThemedStyledInterface<T> = ThemedBaseStyledInterface<Extract<keyof T, string> extends never ? any : T>;
@@ -170,9 +186,9 @@ declare const styled: StyledInterface;
 
 export const css: ThemedCssFunction<DefaultTheme>;
 
-export type BaseWithThemeFnInterface<T> = <P extends { theme?: T }>(
-        component: React.ComponentType<P>,
-    ) => React.ComponentClass<WithOptionalTheme<P, T>>;
+export type BaseWithThemeFnInterface<T> = <C extends React.ComponentType<any>>(
+        component: React.ComponentProps<C> extends { theme?: any } ? C : never,
+    ) => React.ForwardRefExoticComponent<WithOptionalTheme<React.ComponentPropsWithRef<C>, T>>;
 export type WithThemeFnInterface<T> = BaseWithThemeFnInterface<Extract<keyof T, string> extends never ? any : T>;
 export const withTheme: WithThemeFnInterface<DefaultTheme>;
 
@@ -199,7 +215,7 @@ export function createGlobalStyle<P = {}>(
 
 export function isStyledComponent(
     target: any,
-): target is StyledComponentClass<{}, {}>;
+): target is StyledComponent<{}, {}>;
 
 export const ThemeProvider: ThemeProviderComponent<object>;
 
