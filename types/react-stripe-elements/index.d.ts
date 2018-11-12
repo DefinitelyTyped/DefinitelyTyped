@@ -59,7 +59,7 @@ export namespace ReactStripeElements {
 
 		onFocus?(event: ElementChangeResponse): void;
 
-		onReady?(el: any): void;
+		onReady?(el: HTMLElement): void;
 	}
 }
 
