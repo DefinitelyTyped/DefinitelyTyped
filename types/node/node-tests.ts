@@ -3618,7 +3618,7 @@ import * as p from "process";
     {
         let _server: repl.REPLServer;
         let _boolean: boolean;
-        const _ctx: any = 1;
+        const _ctx: vm.Context = {};
 
         _server = _server.addListener("exit", () => { });
         _server = _server.addListener("reset", () => { });
@@ -3640,6 +3640,21 @@ import * as p from "process";
 
         _server.outputStream.write("test");
         const line = _server.inputStream.read();
+
+        _server.clearBufferedCommand();
+        _server.displayPrompt();
+        _server.displayPrompt(true);
+        _server.defineCommand("cmd", text => {
+            // $ExpectType string
+            text;
+        });
+        _server.defineCommand("cmd", {
+            help: "",
+            action: text => {
+                // $ExpectType string
+                text;
+            }
+        });
 
         function test() {
             throw new repl.Recoverable(new Error("test"));
