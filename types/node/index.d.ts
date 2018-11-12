@@ -498,9 +498,17 @@ declare namespace NodeJS {
         sorted?: boolean | ((a: string, b: string) => number);
     }
 
+    interface ConsoleConstructorOptions {
+        stdout: WritableStream;
+        stderr?: WritableStream;
+        ignoreErrors?: boolean;
+        colorMode?: boolean | 'auto';
+    }
+
     interface ConsoleConstructor {
         prototype: Console;
-        new(stdout: WritableStream, stderr?: WritableStream): Console;
+        new(stdout: WritableStream, stderr?: WritableStream, ignoreErrors?: boolean): Console;
+        new(options: ConsoleConstructorOptions): Console;
     }
 
     interface CallSite {
@@ -4038,9 +4046,10 @@ declare module "fs" {
     /**
      * Asynchronous mkdir(2) - create a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+     * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdir(path: PathLike, mode: number | string | MakeDirectoryOptions | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+    function mkdir(path: PathLike, options: number | string | MakeDirectoryOptions | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
 
     /**
      * Asynchronous mkdir(2) - create a directory with a mode of `0o777`.
@@ -4053,17 +4062,19 @@ declare module "fs" {
         /**
          * Asynchronous mkdir(2) - create a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-         * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+         * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
-        function __promisify__(path: PathLike, mode?: number | string | MakeDirectoryOptions | null): Promise<void>;
+        function __promisify__(path: PathLike, options?: number | string | MakeDirectoryOptions | null): Promise<void>;
     }
 
     /**
      * Synchronous mkdir(2) - create a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+     * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdirSync(path: PathLike, mode?: number | string | MakeDirectoryOptions | null): void;
+    function mkdirSync(path: PathLike, options?: number | string | MakeDirectoryOptions | null): void;
 
     /**
      * Asynchronously creates a unique temporary directory.
@@ -5360,9 +5371,10 @@ declare module "fs" {
         /**
          * Asynchronous mkdir(2) - create a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-         * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
+         * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
          */
-        function mkdir(path: PathLike, mode?: string | number): Promise<void>;
+        function mkdir(path: PathLike, options?: number | string | MakeDirectoryOptions | null): Promise<void>;
 
         /**
          * Asynchronous readdir(3) - read a directory.
@@ -6472,6 +6484,38 @@ declare module "crypto" {
     function generateKeyPairSync(type: 'ec', options: ECKeyPairOptions<'pem', 'der'>): KeyPairSyncResult<string, Buffer>;
     function generateKeyPairSync(type: 'ec', options: ECKeyPairOptions<'der', 'pem'>): KeyPairSyncResult<Buffer, string>;
     function generateKeyPairSync(type: 'ec', options: ECKeyPairOptions<'der', 'der'>): KeyPairSyncResult<Buffer, Buffer>;
+
+    function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'pem', 'pem'>, callback: (err: Error | null, publicKey: string, privateKey: string) => void): void;
+    function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'pem', 'der'>, callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void): void;
+    function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
+    function generateKeyPair(type: 'rsa', options: RSAKeyPairOptions<'der', 'der'>, callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void): void;
+
+    function generateKeyPair(type: 'dsa', options: DSAKeyPairOptions<'pem', 'pem'>, callback: (err: Error | null, publicKey: string, privateKey: string) => void): void;
+    function generateKeyPair(type: 'dsa', options: DSAKeyPairOptions<'pem', 'der'>, callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void): void;
+    function generateKeyPair(type: 'dsa', options: DSAKeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
+    function generateKeyPair(type: 'dsa', options: DSAKeyPairOptions<'der', 'der'>, callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void): void;
+
+    function generateKeyPair(type: 'ec', options: ECKeyPairOptions<'pem', 'pem'>, callback: (err: Error | null, publicKey: string, privateKey: string) => void): void;
+    function generateKeyPair(type: 'ec', options: ECKeyPairOptions<'pem', 'der'>, callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void): void;
+    function generateKeyPair(type: 'ec', options: ECKeyPairOptions<'der', 'pem'>, callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void): void;
+    function generateKeyPair(type: 'ec', options: ECKeyPairOptions<'der', 'der'>, callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void): void;
+
+    namespace generateKeyPair {
+        function __promisify__(type: "rsa", options: RSAKeyPairOptions<'pem', 'pem'>): Promise<{ publicKey: string, privateKey: string }>;
+        function __promisify__(type: "rsa", options: RSAKeyPairOptions<'pem', 'der'>): Promise<{ publicKey: string, privateKey: Buffer }>;
+        function __promisify__(type: "rsa", options: RSAKeyPairOptions<'der', 'pem'>): Promise<{ publicKey: Buffer, privateKey: string }>;
+        function __promisify__(type: "rsa", options: RSAKeyPairOptions<'der', 'der'>): Promise<{ publicKey: Buffer, privateKey: Buffer }>;
+
+        function __promisify__(type: "dsa", options: DSAKeyPairOptions<'pem', 'pem'>): Promise<{ publicKey: string, privateKey: string }>;
+        function __promisify__(type: "dsa", options: DSAKeyPairOptions<'pem', 'der'>): Promise<{ publicKey: string, privateKey: Buffer }>;
+        function __promisify__(type: "dsa", options: DSAKeyPairOptions<'der', 'pem'>): Promise<{ publicKey: Buffer, privateKey: string }>;
+        function __promisify__(type: "dsa", options: DSAKeyPairOptions<'der', 'der'>): Promise<{ publicKey: Buffer, privateKey: Buffer }>;
+
+        function __promisify__(type: "ec", options: ECKeyPairOptions<'pem', 'pem'>): Promise<{ publicKey: string, privateKey: string }>;
+        function __promisify__(type: "ec", options: ECKeyPairOptions<'pem', 'der'>): Promise<{ publicKey: string, privateKey: Buffer }>;
+        function __promisify__(type: "ec", options: ECKeyPairOptions<'der', 'pem'>): Promise<{ publicKey: Buffer, privateKey: string }>;
+        function __promisify__(type: "ec", options: ECKeyPairOptions<'der', 'der'>): Promise<{ publicKey: Buffer, privateKey: Buffer }>;
+    }
 }
 
 declare module "stream" {

@@ -1,16 +1,30 @@
-import { Base, EmitterBase, Reply } from '../base';
+import { Base, EmitterBase } from '../base';
 import { Identity } from '../../identity';
 import Transport from '../../transport/transport';
+import { ExternalApplicationEvents } from '../events/externalApplication';
 export interface ExternalApplicationInfo {
     parent: Identity;
 }
+/**
+ * @lends ExternalApplication
+ */
 export default class ExternalApplicationModule extends Base {
     /**
-     * Returns an External Application object that represents an existing external application.
+     * Asynchronously returns an External Application object that represents an existing external application.
      * @param {string} uuid The UUID of the external application to be wrapped
      * @return {Promise.<ExternalApplication>}
+     * @tutorial ExternalApplication.wrap
+     * @static
      */
     wrap(uuid: string): Promise<ExternalApplication>;
+    /**
+     * Synchronously returns an External Application object that represents an existing external application.
+     * @param {string} uuid The UUID of the external application to be wrapped
+     * @return {ExternalApplication}
+     * @tutorial ExternalApplication.wrapSync
+     * @static
+     */
+    wrapSync(uuid: string): ExternalApplication;
 }
 /**
  * @classdesc An ExternalApplication object representing an application. Allows
@@ -18,7 +32,7 @@ export default class ExternalApplicationModule extends Base {
  * well as listen to application events.
  * @class
  */
-export declare class ExternalApplication extends EmitterBase {
+export declare class ExternalApplication extends EmitterBase<ExternalApplicationEvents> {
     identity: Identity;
     constructor(wire: Transport, identity: Identity);
     /**
@@ -27,10 +41,4 @@ export declare class ExternalApplication extends EmitterBase {
      * @tutorial ExternalApplication.getInfo
      */
     getInfo(): Promise<ExternalApplicationInfo>;
-}
-export interface ExternalApplication {
-    on(type: 'connected', listener: (data: Reply<'externalapplication', 'connected'>) => void): Promise<void>;
-    on(type: 'disconnected', listener: (data: Reply<'externalapplication', 'disconnected'>) => void): Promise<void>;
-    on(type: 'removeListener', listener: (eventType: string) => void): Promise<void>;
-    on(type: 'newListener', listener: (eventType: string) => void): Promise<void>;
 }
