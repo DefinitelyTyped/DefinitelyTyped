@@ -1,7 +1,9 @@
 import Database = require('better-sqlite3');
+import { RunResult } from 'better-sqlite3/types';
 
 const integer = Database.Integer(1);
 const err = new Database.SqliteError('ok', 'ok');
+const result: RunResult = { changes: 1, lastInsertRowid: 1 };
 
 let db = Database('.');
 db = new Database('.', {memory: true});
