@@ -1,7 +1,7 @@
 // Type definitions for swagger-express-middleware 1.x
 // Project: https://github.com/BigstickCarpet/swagger-express-middleware
 // Definitions by: Alexandre Roba <https://github.com/alexandreroba>
-// Updated by: Tromgy <https://github.com/tromgy>
+//                 Tromgy <https://github.com/tromgy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
