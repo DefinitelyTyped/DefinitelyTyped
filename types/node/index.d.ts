@@ -34,6 +34,10 @@
 //                 Samuel Ainsworth <https://github.com/samuela>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// NOTE: Until such time as common definitions can be refactored into other
+//       files, please ensure that any relevant changes made in this file
+//       are also made in 'ts3.1/index.d.ts' as well.
+
 /** inspector module types */
 /// <reference path="./inspector.d.ts" />
 

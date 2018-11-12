@@ -1,10 +1,10 @@
-// Type definitions for Node.js
-
 // NOTE: These definitions support NodeJS 10 and TypeScript 3.1 and later.
 
-// compat for TypeScript 1.8 and default es5 target
-// if you use with --target es3 or --target es5 and use below definitions,
-// use the lib.es6.d.ts that is bundled with TypeScript 1.8.
+// NOTE: Until such time as common definitions can be refactored into other
+//       files, please ensure that any relevant changes made in this file
+//       are also made in '../index.d.ts' as well.
+
+// compatibility for default es5 target
 /// <reference lib="es2018" />
 /// <reference lib="esnext.asyncIterable" />
 /// <reference lib="esnext.intl" />
@@ -1940,8 +1940,8 @@ declare module "punycode" {
 }
 
 declare module "repl" {
-    import * as stream from "stream";
-    import * as readline from "readline";
+    import { ReadLine, Completer, AsyncCompleter } from "readline";
+    import { Context } from "vm";
 
     /**
      * evaluates expressions in sloppy mode.
@@ -1954,27 +1954,122 @@ declare module "repl" {
     const REPL_MODE_STRICT: unique symbol;
 
     interface ReplOptions {
+        /**
+         * The input prompt to display.
+         * Default: `"> "`
+         */
         prompt?: string;
+        /**
+         * The `Readable` stream from which REPL input will be read.
+         * Default: `process.stdin`
+         */
         input?: NodeJS.ReadableStream;
+        /**
+         * The `Writable` stream to which REPL output will be written.
+         * Default: `process.stdout`
+         */
         output?: NodeJS.WritableStream;
+        /**
+         * If `true`, specifies that the output should be treated as a TTY terminal, and have
+         * ANSI/VT100 escape codes written to it.
+         * Default: checking the value of the `isTTY` property on the output stream upon instantiation.
+         */
         terminal?: boolean;
-        eval?: Function;
+        /**
+         * The function to be used when evaluating each given line of input.
+         * Default: an async wrapper for the JavaScript `eval()` function. An `eval` function can
+         * error with `repl.Recoverable` to indicate the input was incomplete and prompt for
+         * additional lines.
+         */
+        eval?: (evalCmd: string, context: Context, file: string, cb: (err: Error | null, result: any) => void) => void;
+        /**
+         * If `true`, specifies that the default `writer` function should include ANSI color
+         * styling to REPL output. If a custom `writer` function is provided then this has no
+         * effect.
+         * Default: the REPL instance's `terminal` value.
+         */
         useColors?: boolean;
+        /**
+         * If `true`, specifies that the default evaluation function will use the JavaScript
+         * `global` as the context as opposed to creating a new separate context for the REPL
+         * instance. The node CLI REPL sets this value to `true`.
+         * Default: `false`.
+         */
         useGlobal?: boolean;
+        /**
+         * If `true`, specifies that the default writer will not output the return value of a
+         * command if it evaluates to `undefined`.
+         * Default: `false`.
+         */
         ignoreUndefined?: boolean;
-        writer?: Function;
-        completer?: Function;
+        /**
+         * The function to invoke to format the output of each command before writing to `output`.
+         * Default: `util.inspect()`.
+         */
+        writer?: (obj: any) => string;
+        /**
+         * An optional function used for custom Tab auto completion. See
+         * [`readline.InterfaceCompleter`](https://nodejs.org/dist/latest-v11.x/docs/api/readline.html#readline_use_of_the_completer_function)
+         * for an example.
+         */
+        completer?: Completer | AsyncCompleter;
+        /**
+         * A flag that specifies whether the default evaluator executes all JavaScript commands in
+         * strict mode or default (sloppy) mode.
+         */
         replMode?: typeof REPL_MODE_SLOPPY | typeof REPL_MODE_STRICT;
-        breakEvalOnSigint?: any;
+        /**
+         * Stop evaluating the current piece of code when `SIGINT` is received, i.e. `Ctrl+C` is
+         * pressed. This cannot be used together with a custom `eval` function.
+         * Default: `false`.
+         */
+        breakEvalOnSigint?: boolean;
     }
 
-    interface REPLServer extends readline.ReadLine {
-        context: any;
+    interface REPLCommand {
+        /**
+         * Help text to be displayed when `.help` is entered.
+         */
+        help?: string;
+        /**
+         * The function to execute, optionally accepting a single string argument.
+         */
+        action: (this: REPLServer, text: string) => void;
+    }
+
+    interface REPLServer extends ReadLine {
+        context: Context;
         inputStream: NodeJS.ReadableStream;
         outputStream: NodeJS.WritableStream;
 
-        defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
+        /**
+         * Used to add new `.`-prefixed commands to the REPL instance. Such commands are invoked
+         * by typing a `.` followed by the `keyword`.
+         * @param keyword The command keyword (_without_ a leading `.` character).
+         * @param cmd The function to invoke when the command is processed.
+         */
+        defineCommand(keyword: string, cmd: ((this: REPLServer, text: string) => void) | REPLCommand): void;
+        /**
+         * Readies the REPL instance for input from the user, printing the configured `prompt` to a
+         * new line in the `output` and resuming the `input` to accept new input.
+         *
+         * When multi-line input is being entered, an ellipsis is printed rather than the 'prompt'.
+         *
+         * This method is primarily intended to be called from within the action function for
+         * commands registered using the `replServer.defineCommand()` method.
+         *
+         * @param preserveCursor When `true`, the cursor placement will not be reset to `0`.
+         */
         displayPrompt(preserveCursor?: boolean): void;
+        /**
+         * Clears any command that has been buffered but not yet executed.
+         *
+         * This method is primarily intended to be called from within the action function for
+         * commands registered using the `replServer.defineCommand()` method.
+         *
+         * @since v9.0.0
+         */
+        clearBufferedCommand(): void;
 
         /**
          * events.EventEmitter
@@ -1984,27 +2079,27 @@ declare module "repl" {
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "exit", listener: () => void): this;
-        addListener(event: "reset", listener: (...args: any[]) => void): this;
+        addListener(event: "reset", listener: (context: Context) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "exit"): boolean;
-        emit(event: "reset", context: any): boolean;
+        emit(event: "reset", context: Context): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "exit", listener: () => void): this;
-        on(event: "reset", listener: (...args: any[]) => void): this;
+        on(event: "reset", listener: (context: Context) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "exit", listener: () => void): this;
-        once(event: "reset", listener: (...args: any[]) => void): this;
+        once(event: "reset", listener: (context: Context) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "exit", listener: () => void): this;
-        prependListener(event: "reset", listener: (...args: any[]) => void): this;
+        prependListener(event: "reset", listener: (context: Context) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "exit", listener: () => void): this;
-        prependOnceListener(event: "reset", listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "reset", listener: (context: Context) => void): this;
     }
 
     function start(options?: string | ReplOptions): REPLServer;
