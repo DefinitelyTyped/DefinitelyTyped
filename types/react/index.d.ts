@@ -704,15 +704,18 @@ declare namespace React {
                 : P
             : P;
 
-    type ComponentProps<T extends ComponentType<any>> =
-        T extends ComponentType<infer P> ? P : {};
-    type ComponentPropsWithRef<T extends ComponentType<any>> =
+    type ComponentProps<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+        T extends ComponentType<infer P>
+            ? P
+            : T extends keyof JSX.IntrinsicElements
+                ? JSX.IntrinsicElements[T]
+                : {};
+    type ComponentPropsWithRef<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
         T extends ComponentClass<infer P>
             ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
-            : T extends SFC<infer P>
-                ? PropsWithRef<P>
-                : {};
-    type ComponentPropsWithoutRef<T extends ComponentType<any>> = PropsWithoutRef<ComponentProps<T>>;
+            : PropsWithRef<ComponentProps<T>>;
+    type ComponentPropsWithoutRef<T extends keyof JSX.IntrinsicElements | ComponentType<any>> =
+        PropsWithoutRef<ComponentProps<T>>;
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
