@@ -341,7 +341,7 @@ declare namespace ValidatorJS {
     gt?: number;
   }
 
-  // options for isISO8601Options
+  // options for isISO8601
   interface IsISO8601Options {
     strict?: boolean;
   }
