@@ -26,7 +26,9 @@ export interface DSVRowString {
  *
  * @deprecated
  */
-export type DSVRowAny = object;
+export interface DSVRowAny {
+    [key: string]: any;
+}
 
 /**
  * An array object representing all parsed rows. The array is enhanced with a property listing
