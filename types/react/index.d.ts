@@ -58,15 +58,19 @@ declare namespace React {
         readonly current: T | null;
     }
 
-    type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"] | RefObject<T>;
+    type Ref<T> = { bivarianceHack(instance: T | null): any }["bivarianceHack"] | RefObject<T>;
+    type LegacyRef<T> = string | Ref<T>;
 
     type ComponentState = any;
 
     interface Attributes {
         key?: Key;
     }
-    interface ClassAttributes<T> extends Attributes {
+    interface RefAttributes<T> extends Attributes {
         ref?: Ref<T>;
+    }
+    interface ClassAttributes<T> extends Attributes {
+        ref?: LegacyRef<T>;
     }
 
     interface ReactElement<P> {
@@ -82,12 +86,13 @@ declare namespace React {
 
     interface FunctionComponentElement<P> extends ReactElement<P> {
         type: FunctionComponent<P>;
+        ref?: 'ref' extends keyof P ? P extends { ref?: infer R } ? R : never : never;
     }
 
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
     interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P> {
         type: ComponentClass<P>;
-        ref?: Ref<T>;
+        ref?: LegacyRef<T>;
     }
 
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
@@ -95,7 +100,7 @@ declare namespace React {
     // string fallback for custom web-components
     interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<P> {
         type: string;
-        ref: Ref<T>;
+        ref: LegacyRef<T>;
     }
 
     // ReactHTML for ReactHTMLElement
@@ -683,16 +688,31 @@ declare namespace React {
         defaultProps?: Partial<P>;
     }
 
-    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<P & ClassAttributes<T>>;
+    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+
+    type PropsWithoutRef<P> =
+        'ref' extends keyof P
+            ? Pick<P, Exclude<keyof P, 'ref'>>
+            : P;
+    // helper that returns props, and ensures the ref attribute is not string-like
+    type PropsWithRef<P> =
+        'ref' extends keyof P
+            ? P extends { ref?: infer R }
+                ? string extends R
+                    ? PropsWithoutRef<P> & { ref?: Exclude<R, string> }
+                    : P
+                : P
+            : P;
 
     type ComponentProps<T extends ComponentType<any>> =
         T extends ComponentType<infer P> ? P : {};
     type ComponentPropsWithRef<T extends ComponentType<any>> =
         T extends ComponentClass<infer P>
-            ? P & ClassAttributes<InstanceType<T>>
+            ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
             : T extends SFC<infer P>
-                ? P
+                ? PropsWithRef<P>
                 : {};
+    type ComponentPropsWithoutRef<T extends ComponentType<any>> = PropsWithoutRef<ComponentProps<T>>;
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
@@ -1083,7 +1103,7 @@ declare namespace React {
     interface Props<T> {
         children?: ReactNode;
         key?: Key;
-        ref?: Ref<T>;
+        ref?: LegacyRef<T>;
     }
 
     interface HTMLProps<T> extends AllHTMLAttributes<T>, ClassAttributes<T> {

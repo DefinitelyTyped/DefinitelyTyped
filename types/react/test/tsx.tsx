@@ -287,3 +287,31 @@ class NewContext extends React.Component {
         return this.context;
     }
 }
+
+const ForwardRef = React.forwardRef((props: JSX.IntrinsicElements['div'], ref?: React.Ref<HTMLDivElement>) => <div {...props} ref={ref}/>);
+const ForwardRef2 = React.forwardRef((props: React.ComponentProps<typeof ForwardRef>, ref?: React.Ref<HTMLDivElement>) => <ForwardRef {...props} ref={ref}/>);
+const divFnRef = (ref: HTMLDivElement|null) => { /* empty */ };
+const divRef = React.createRef<HTMLDivElement>();
+
+<ForwardRef ref={divFnRef}/>;
+<ForwardRef ref={divRef}/>;
+<ForwardRef ref='string'/>; // $ExpectError
+<ForwardRef2 ref={divFnRef}/>;
+<ForwardRef2 ref={divRef}/>;
+<ForwardRef2 ref='string'/>; // $ExpectError
+
+const newContextRef = React.createRef<NewContext>();
+<NewContext ref={newContextRef}/>;
+<NewContext ref='string'/>;
+
+const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref}/>);
+<ForwardNewContext ref={newContextRef}/>;
+<ForwardNewContext ref='string'/>; // $ExpectError
+
+const ForwardRef3 = React.forwardRef(
+    (props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
+        <div {...props} ref={ref}/>
+);
+
+<ForwardRef3 ref={divFnRef}/>;
+<ForwardRef3 ref={divRef}/>;
