@@ -46,7 +46,7 @@ declare namespace bodyParser {
          * limit of the json body. Default is 1mb
          */
         jsonLimit?: string;
-        
+
         /**
          * limit of the text body. Default is 1mb.
          */
