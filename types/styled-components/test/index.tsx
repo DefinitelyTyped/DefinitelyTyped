@@ -392,10 +392,13 @@ class MyComponent extends React.Component<ThemeProps<{}>> {
 
 const ThemedMyComponent = withTheme(MyComponent);
 
-<ThemedMyComponent ref={ref => {
-    // $ExpectType MyComponent | null
-    ref;
-}}/>;
+// TODO: passes in TS@3.1, not in TS@3.0
+// <ThemedMyComponent ref={ref => {
+//     // $ExpectType MyComponent | null
+//     ref;
+// }}/>;
+const themedRef = React.createRef<MyComponent>();
+<ThemedMyComponent ref={themedRef}/>;
 
 interface WithThemeProps {
     theme: {
