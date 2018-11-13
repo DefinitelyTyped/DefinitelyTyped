@@ -13,6 +13,7 @@ import styled, {
     ThemeProvider,
     withTheme,
     ThemeConsumer,
+    StyledComponent,
 } from 'styled-components';
 
 /**
@@ -124,16 +125,17 @@ class Example extends React.Component {
     render() {
         return (
             <ThemeProvider theme={theme}>
-                <ExampleGlobalStyle />
-                <Wrapper>
-                    <Title>
-                        Hello World, this is my first styled component!
+                <>
+                    <ExampleGlobalStyle />
+                    <Wrapper>
+                        <Title>
+                            Hello World, this is my first styled component!
                     </Title>
 
-                    <Input placeholder="@mxstbr" type="text" />
-                    <TomatoButton name="demo" />
-                </Wrapper>
-                ;
+                        <Input placeholder="@mxstbr" type="text" />
+                        <TomatoButton name="demo" />
+                    </Wrapper>
+                </>
             </ThemeProvider>
         );
     }
@@ -249,7 +251,7 @@ const MyOtherComponentWithProps = () => (
 
 // Create a <LinkFromStringWithPropsAndGenerics> react component that renders an <a>
 // which takes extra props passed as a generic type argument
-const LinkFromStringWithPropsAndGenerics = styled<LinkProps, 'a'>('a')`
+const LinkFromStringWithPropsAndGenerics = styled('a')<LinkProps>`
     font-size: 1.5em;
     text-align: center;
     color: ${a => (a.canClick ? 'palevioletred' : 'gray')};
@@ -548,25 +550,14 @@ const test = () => [
 ];
 
 const WithComponentRequired = styled((props: { to: string }) => <a href={props.to}/>)``;
-// These tests pass in tsservice, but they fail in tsc. I do not know why.
+// These tests pass in tsservice, but they fail in dtslint. I do not know why.
 // <WithComponentRequired href=''/>; // $ExpectError
 // <WithComponentRequired to=''/>;
-// contrived test to at least verify the props look the same as they did when the tests above were written
-const { ...WithComponentRequiredProps } = {} as any as React.ComponentProps<typeof WithComponentRequired>;
-// $ExpectType { to: string; theme?: any; as?: string | ComponentClass<any, any> | FunctionComponent<any> | undefined; }
-WithComponentRequiredProps;
 
 const WithComponentRequired2 = WithComponentRequired.withComponent('a');
-// These tests pass in tsservice, but they fail in tsc. I do not know why.
+// These tests pass in tsservice, but they fail in dtslint. I do not know why.
 // <WithComponentRequired2 href=''/>;
 // <WithComponentRequired2 to=''/>; // $ExpectError
-const { ...WithComponentRequired2Props } = {} as any as React.ComponentProps<typeof WithComponentRequired2>;
-// for some reason, the ordering of the keys in WithComponentRequired2Props _is not stable_, so
-// it's impossible to assert it directly with $ExpectType. Try to do some bigger contrivances.
-// $ExpectType true
-type ExtendsAnchor = keyof JSX.IntrinsicElements['a'] extends keyof typeof WithComponentRequired2Props ? true : false;
-// $ExpectType false
-type DoesntExtendWithComponentRequired = { to: string } extends typeof WithComponentRequired2Props ? true : false;
 
 // 4.0 With Component
 
@@ -599,7 +590,9 @@ class Test2Container extends React.Component<Test2ContainerProps> {
 }
 
 const containerTest = (
-    <StyledTestContainer as={Test2Container} size="small" />
+    // TODO (TypeScript 3.2): once the polymorphic overload is un-commented-out this should be the correct test
+    // <StyledTestContainer as={Test2Container} type='foo' />
+    <StyledTestContainer as={Test2Container} size='small' />
 );
 
 // 4.0 refs
