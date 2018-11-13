@@ -1,4 +1,4 @@
-// Type definitions for @reach/router 1.2
+// Type definitions for @reach/router 1.3
 // Project: https://github.com/reach/router
 // Definitions by: Kingdaro <https://github.com/kingdaro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -123,7 +123,9 @@ export interface LocationContext {
     navigate: NavigateFn;
 }
 
-export class LocationProvider extends React.Component<LocationProviderProps> { }
+export class LocationProvider extends React.Component<LocationProviderProps> {
+    static defaultProps: LocationProviderProps;
+}
 
 export interface ServerLocationProps {
     url: string;
