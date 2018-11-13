@@ -11,7 +11,7 @@
 
 // Google Services (Google APIs)
 /// <reference path="google-apps-script.calendar.d.ts"/>
-/// <reference path="google-apps-script.card.d.ts"/>
+/// <reference path="google-apps-script.card-service.d.ts"/>
 /// <reference path="google-apps-script.charts.d.ts"/>
 /// <reference path="google-apps-script.contacts.d.ts"/>
 /// <reference path="google-apps-script.content.d.ts"/>
