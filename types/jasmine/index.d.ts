@@ -455,7 +455,6 @@ declare namespace jasmine {
         toThrowError(message?: string | RegExp): boolean;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
         toThrowMatching(predicate: (thrown: any) => boolean): boolean;
-        nothing(expectationFailOutput?: any): boolean;
         toBeNegativeInfinity(expectationFailOutput?: any): boolean;
         toBePositiveInfinity(expectationFailOutput?: any): boolean;
         toHaveClass(expected: any, expectationFailOutput?: any): boolean;
