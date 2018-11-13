@@ -179,10 +179,6 @@ describe("toThrowMatching", () => {
     }).toThrowMatching(error => error != undefined);
 });
 
-describe("nothing", () => {
-    expect("").nothing();
-});
-
 describe("toBeNegativeInfinity", () => {
     expect("").toBeNegativeInfinity();
 });
