@@ -101,9 +101,9 @@ export interface Server {
 
 // #### JSON Protocol ####
 
-type QueryResult<Q extends Query> = QueryRegistry[Q["type"]]["result"];
+export type QueryResult<Q extends Query> = QueryRegistry[Q["type"]]["result"];
 
-type Query = QueryRegistry[keyof QueryRegistry]["query"];
+export type Query = QueryRegistry[keyof QueryRegistry]["query"];
 
 export interface QueryRegistry {
     completions: {
@@ -164,7 +164,7 @@ export interface BaseQuery {
     docFormat?: "full";
 }
 
-interface Position {
+export interface Position {
     ch: number;
     line: number;
 }
@@ -208,7 +208,7 @@ export interface CompletionsQuery extends BaseQuery {
     inLiteral?: boolean;
 }
 
-interface CompletionsQueryResult {
+export interface CompletionsQueryResult {
     /** start offsets of the word that was completed */
     start: number | Position;
     /** end offsets of the word that was completed */
@@ -257,7 +257,7 @@ export interface TypeQuery extends BaseQuery {
     depth?: number;
 }
 
-interface TypeQueryResult {
+export interface TypeQueryResult {
     /** A description of the type of the value. May be "?" when no type was found. */
     type: string;
     /** Whether the given type was guessed, or should be considered reliable. */
@@ -300,7 +300,7 @@ export interface DefinitionQuery extends BaseQuery {
     start?: number | Position;
 }
 
-interface DefinitionQueryResult {
+export interface DefinitionQueryResult {
     /** The start position of the expression. */
     start?: number | Position;
     /** The end position of the expression. */
@@ -331,7 +331,7 @@ export interface DocumentationQuery extends BaseQuery {
     start?: number | Position;
 }
 
-interface DocumentationQueryResult {
+export interface DocumentationQueryResult {
     /** The documentation string of the definition or value, if any. */
     doc?: string;
     /** The url of the definition or value, if any. */
@@ -352,7 +352,7 @@ export interface RefsQuery extends BaseQuery {
     start?: number | Position;
 }
 
-interface RefsQueryResult {
+export interface RefsQueryResult {
     /** The name of the variable or property */
     name: string;
     refs: Array<{
@@ -382,7 +382,7 @@ export interface RenameQuery extends BaseQuery {
  * Returns an object whose `changes` property holds an array of `{file, start, end, text}` objects, which
  * give the changes that must be performed to apply the rename. The client is responsible for doing the actual modification.
  */
-interface RenameQueryResult {
+export interface RenameQueryResult {
     /** Array of changes that must be performed to apply the rename. The client is responsible for doing the actual modification. */
     changes: Array<{
         file: string,
@@ -402,7 +402,7 @@ export interface PropertiesQuery extends BaseQuery {
     sort?: boolean;
 }
 
-interface PropertiesQueryResult {
+export interface PropertiesQueryResult {
     /** The property names. */
     completions: string[];
 }
@@ -415,7 +415,7 @@ export interface FilesQuery extends BaseQuery {
     lineCharPositions?: never;
 }
 
-interface FilesQueryResult {
+export interface FilesQueryResult {
     /** The file names. */
     files: string[];
 }
@@ -465,7 +465,7 @@ export const version: string;
  */
 export function registerPlugin(name: string, init: (server: Server, options?: ConstructorOptions) => void): void;
 
-interface Desc<T extends Query["type"]> {
+export interface Desc<T extends Query["type"]> {
     run(Server: Server, query: QueryRegistry[T]["query"], file?: File): QueryRegistry[T]["result"];
     takesfile?: boolean;
 }
