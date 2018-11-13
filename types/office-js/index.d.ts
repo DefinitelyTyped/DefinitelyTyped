@@ -1254,17 +1254,17 @@ declare namespace Office {
      */
     interface RangeFormatConfiguration {
         /**
-         * Specifies the range. Example of using Office.Table enum: Office.Table.All. Example of using RangeCoordinates: \{row: 3, column: 4\} specifies 
+         * Specifies the range. Example of using Office.Table enum: Office.Table.All. Example of using RangeCoordinates: `{row: 3, column: 4}` specifies 
          * the cell in the 3rd (zero-based) row in the 4th (zero-based) column.
          */
          cells: Office.Table | RangeCoordinates
         /**
-         * Specifies the formatting as key-value pairs. Example: \{borderColor: "white", fontStyle: "bold"\}
+         * Specifies the formatting as key-value pairs. Example: `{borderColor: "white", fontStyle: "bold"}`
          */
          format: object
     }
     /**
-     * Specifies a cell, or row, or column, by its zero-based row and/or column number. Example: \{row: 3, column: 4\} specifies the cell in the 3rd 
+     * Specifies a cell, or row, or column, by its zero-based row and/or column number. Example: `{row: 3, column: 4}` specifies the cell in the 3rd 
      * (zero-based) row in the 4th (zero-based) column.
      */
     interface RangeCoordinates {
@@ -1409,7 +1409,7 @@ declare namespace Office {
          * Use only with binding type table and when a TableData object is passed for the data parameter. An array of objects that specify a range of 
          * columns, rows, or cells and specify, as key-value pairs, the cell formatting to apply to that range. 
          * 
-         * Example: `[\{cells: Office.Table.Data, format: \{fontColor: "yellow"\}\}, \{cells: \{row: 3, column: 4\}, format: \{borderColor: "white", fontStyle: "bold"\}\}]`
+         * Example: `[{cells: Office.Table.Data, format: {fontColor: "yellow"}}, {cells: {row: 3, column: 4}, format: {borderColor: "white", fontStyle: "bold"}}]`
          */
         cellFormat?: RangeFormatConfiguration[]
         /**
@@ -4861,7 +4861,7 @@ declare namespace Office {
          * 
          * **Returned format structure**
          * 
-         * Each JavaScript object in the return value array has this form: `\{cells:\{ cell_range \}, format:\{ format_definition \}\}`
+         * Each JavaScript object in the return value array has this form: `{cells:{ cell_range }, format:{ format_definition }}`
          * 
          * The `cells:` property specifies the range you want format using one of the following values:
          * 
@@ -4873,27 +4873,27 @@ declare namespace Office {
          *     <th>Description</th>
          *   </tr>
          *   <tr>
-         *     <td>\{row: n\}</td>
+         *     <td>`{row: n}`</td>
          *     <td>Specifies the range that is the zero-based nth row of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>\{column: n\}</td>
+         *     <td>`{column: n}`</td>
          *     <td>Specifies the range that is the zero-based nth column of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>\{row: i, column: j\}</td>
+         *     <td>`{row: i, column: j}`</td>
          *     <td>Specifies the single cell that is the ith row and jth column of the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.All</td>
+         *     <td>`Office.Table.All`</td>
          *     <td>Specifies the entire table, including column headers, data, and totals (if any).</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.Data</td>
+         *     <td>`Office.Table.Data`</td>
          *     <td>Specifies only the data in the table (no headers and totals).</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.Headers</td>
+         *     <td>`Office.Table.Headers`</td>
          *     <td>Specifies only the header row.</td>
          *   </tr>
          * </table>
@@ -4919,7 +4919,7 @@ declare namespace Office {
          * The value you pass as the cellFormat parameter is an array that contains a list of one or more JavaScript objects that specify which cells 
          * to target (`cells:`) and the formats (`format:`) to apply to them.
          * 
-         * Each JavaScript object in the cellFormat array has this form: `\{cells:\{ cell_range \}, format:\{ format_definition \}\}`
+         * Each JavaScript object in the cellFormat array has this form: `{cells:{ cell_range }, format:{ format_definition }}`
          * 
          * The `cells:` property specifies the range you want format using one of the following values:
          * 
@@ -4931,27 +4931,27 @@ declare namespace Office {
          *     <th>Description</th>
          *   </tr>
          *   <tr>
-         *     <td>\{row: n\}</td>
+         *     <td>`{row: n}`</td>
          *     <td>Specifies the range that is the zero-based nth row of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>\{column: n\}</td>
+         *     <td>`{column: n}`</td>
          *     <td>Specifies the range that is the zero-based nth column of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>\{row: i, column: j\}</td>
+         *     <td>`{row: i, column: j}`</td>
          *     <td>Specifies the single cell that is the ith row and jth column of the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.All</td>
+         *     <td>`Office.Table.All`</td>
          *     <td>Specifies the entire table, including column headers, data, and totals (if any).</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.Data</td>
+         *     <td>`Office.Table.Data`</td>
          *     <td>Specifies only the data in the table (no headers and totals).</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.Headers</td>
+         *     <td>`Office.Table.Headers`</td>
          *     <td>Specifies only the header row.</td>
          *   </tr>
          * </table>
@@ -4967,22 +4967,22 @@ declare namespace Office {
          * 
          * `//Set cells: font color to green and size to 15 points.`
          * 
-         * `format: \{fontColor : "green", fontSize : 15\}`
+         * `format: {fontColor : "green", fontSize : 15}`
          * 
          * `//Set cells: border to dotted blue.`
          * 
-         * `format: \{borderStyle: "dotted", borderColor: "blue"\}`
+         * `format: {borderStyle: "dotted", borderColor: "blue"}`
          * 
          * `//Set cells: background to red and alignment to centered.`
          * 
-         * `format: \{backgroundColor: "red", alignHorizontal: "center"\}`
+         * `format: {backgroundColor: "red", alignHorizontal: "center"}`
          * 
          * 
          * You can specify number formats by specifying the number formatting "code" string in the `numberFormat:` property. 
          * The number format strings you can specify correspond to those you can set in Excel using the Custom category on the Number tab of the Format Cells dialog box. 
          * This example shows how to format a number as a percentage with two decimal places:
          * 
-         * `format: \{numberFormat:"0.00%"\}`
+         * `format: {numberFormat:"0.00%"}`
          * 
          * For more detail, see how to {@link https://support.office.com/article/create-or-delete-a-custom-number-format-78f2a361-936b-4c03-8772-09fab54be7f4 | Create a custom number format}.
          * 
