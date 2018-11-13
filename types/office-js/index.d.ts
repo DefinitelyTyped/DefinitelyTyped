@@ -1909,9 +1909,9 @@ declare namespace Office {
          */
         DocumentSelectionChanged,
         /**
-         * Triggers when the selected Outlook item is changed.
+         * Triggers when a different Outlook item is selected for viewing while the task pane is pinned.
          * 
-         * [Api set: Mailbox 1.1]
+         * [Api set: Mailbox 1.5]
          */
         ItemChanged,
         /**
