@@ -383,6 +383,7 @@ declare namespace React {
          * @deprecated if used without a type annotation, or without static contextType
          * @see https://reactjs.org/docs/legacy-context.html
          */
+        // TODO (TypeScript 3.0): unknown
         context: any;
 
         constructor(props: Readonly<P>);
