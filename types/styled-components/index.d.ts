@@ -12,6 +12,8 @@
 import * as React from "react";
 import * as CSS from "csstype";
 
+export type CSSObject = CSS.Properties<string | number>;
+
 export interface ThemeProps<T> {
     theme: T;
 }
@@ -57,7 +59,7 @@ export type InterpolationValue =
     | FalseyValue
     | Keyframes
     | StyledComponentInterpolation
-    | CSS.Properties<string | number>;
+    | CSSObject;
 export type SimpleInterpolation =
     | InterpolationValue
     | ReadonlyArray<InterpolationValue | ReadonlyArray<InterpolationValue>>;
@@ -95,7 +97,7 @@ type ForwardRefExoticBase<P> = Pick<
     >;
 
 // any doesn't count as assignable to never in the extends clause, and we default A to never
-type AnyStyledComponent =
+export type AnyStyledComponent =
     | StyledComponent<any, any, any, any>
     | StyledComponent<any, any, any>;
 
@@ -241,7 +243,7 @@ export type ThemedStyledInterface<T extends object> = ThemedBaseStyledInterface<
 export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
 
 export interface BaseThemedCssFunction<T extends object> {
-    (cssObject: CSS.Properties<string | number>): InterpolationValue[];
+    (cssObject: CSSObject): InterpolationValue[];
     (
         strings: TemplateStringsArray,
         ...interpolations: SimpleInterpolation[]
@@ -271,14 +273,14 @@ export interface ThemedStyledComponentsModule<T extends object> {
 
     css: ThemedCssFunction<T>;
 
-    keyframes(cssObject: CSS.Properties<string | number>): Keyframes;
+    keyframes(cssObject: CSSObject): Keyframes;
     keyframes(
         strings: TemplateStringsArray,
         ...interpolations: SimpleInterpolation[]
     ): Keyframes;
 
     createGlobalStyle(
-        cssObject: CSS.Properties<string | number>
+        cssObject: CSSObject
     ): GlobalStyleComponent<{}, T>;
     createGlobalStyle<P = {}>(
         strings: TemplateStringsArray,
@@ -338,7 +340,7 @@ export interface Keyframes {
 }
 
 export function keyframes(
-    cssObject: CSS.Properties<string | number>
+    cssObject: CSSObject
 ): Keyframes;
 export function keyframes(
     strings: TemplateStringsArray,
@@ -346,7 +348,7 @@ export function keyframes(
 ): Keyframes;
 
 export function createGlobalStyle(
-    cssObject: CSS.Properties<string | number>
+    cssObject: CSSObject
 ): GlobalStyleComponent<{}, DefaultTheme>;
 export function createGlobalStyle<P = {}>(
     strings: TemplateStringsArray,
