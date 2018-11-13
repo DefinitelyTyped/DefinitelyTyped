@@ -663,17 +663,40 @@ export interface RowInfo {
 }
 
 export interface CellInfo extends RowInfo, Pick<ControlledStateOverrideProps, "resized"> {
+    /* true if this row is expanded */
     isExpanded: boolean;
+
+    /* the cell's column */
     column: Column;
+
+    /* materialized value of the cell */
     value: any;
+
+    /* true if the column is pivoted */
     pivoted: boolean;
+
+    /* true if this column is an expander */
     expander: boolean;
+
+    /* true if the column is visible */
     show: boolean;
+
+    /* resolved width of the cell */
     width: number;
+
+    /* resolved maxWidth of the cell */
     maxWidth: number;
+
+    /* resolved tdProps from `getTdProps` for this cell */
     tdProps: any;
+
+    /* resolved column props from 'getProps' for this cell's column */
     columnProps: any;
+
+    /* resolved array of classes for the cell */
     classes: string[];
+
+    /* resolved styles for this cell */
     styles: object;
 }
 
