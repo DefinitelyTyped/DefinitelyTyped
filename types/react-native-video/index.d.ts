@@ -30,7 +30,7 @@ export interface LoadError {
   };
 }
 
-declare const TextTrackType: {
+export const TextTrackType: {
   SRT: 'application/x-subrip';
   TTML: 'application/ttml+xml';
   VTT: 'text/vtt';
@@ -101,12 +101,12 @@ export interface VideoProperties extends ViewProps {
     type: 'system' | 'disabled' | 'title' | 'language' | 'index';
     value?: string | number;
   };
-  textTracks?: {
+  textTracks?: Array<{
     title?: string;
     language?: string;
     type: 'application/x-subrip' | 'application/ttml+xml' | 'text/vtt';
     uri: string;
-  }[];
+  }>;
 
   /* Required by react-native */
   scaleX?: number;
