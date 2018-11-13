@@ -1,4 +1,5 @@
-import * as React from "react";
+import PropTypes = require("prop-types");
+import React = require("react");
 
 interface SCProps {
     foo?: number;
@@ -254,3 +255,73 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 <React.Suspense fallback={null}/>;
 // $ExpectError
 <React.Suspense/>;
+
+class LegacyContext extends React.Component {
+    static contextTypes = { foo: PropTypes.node.isRequired };
+
+    render() {
+        // $ExpectType any
+        this.context.foo;
+        return this.context.foo;
+    }
+}
+
+class LegacyContextAnnotated extends React.Component {
+    static contextTypes = { foo: PropTypes.node.isRequired };
+    context!: { foo: React.ReactNode };
+
+    render() {
+        // $ExpectType ReactNode
+        this.context.foo;
+        return this.context.foo;
+    }
+}
+
+class NewContext extends React.Component {
+    static contextType = ContextWithRenderProps;
+    context!: React.ContextType<typeof ContextWithRenderProps>;
+
+    render() {
+        // $ExpectType string
+        this.context;
+        return this.context;
+    }
+}
+
+const ForwardRef = React.forwardRef((props: JSX.IntrinsicElements['div'], ref?: React.Ref<HTMLDivElement>) => <div {...props} ref={ref}/>);
+const ForwardRef2 = React.forwardRef((props: React.ComponentProps<typeof ForwardRef>, ref?: React.Ref<HTMLDivElement>) => <ForwardRef {...props} ref={ref}/>);
+const divFnRef = (ref: HTMLDivElement|null) => { /* empty */ };
+const divRef = React.createRef<HTMLDivElement>();
+
+<ForwardRef ref={divFnRef}/>;
+<ForwardRef ref={divRef}/>;
+<ForwardRef ref='string'/>; // $ExpectError
+<ForwardRef2 ref={divFnRef}/>;
+<ForwardRef2 ref={divRef}/>;
+<ForwardRef2 ref='string'/>; // $ExpectError
+
+const newContextRef = React.createRef<NewContext>();
+<NewContext ref={newContextRef}/>;
+<NewContext ref='string'/>;
+
+const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref}/>);
+<ForwardNewContext ref={newContextRef}/>;
+<ForwardNewContext ref='string'/>; // $ExpectError
+
+const ForwardRef3 = React.forwardRef(
+    (props: JSX.IntrinsicElements['div'] & Pick<JSX.IntrinsicElements['div'] & { theme?: {} }, 'ref'|'theme'>, ref?: React.Ref<HTMLDivElement>) =>
+        <div {...props} ref={ref}/>
+);
+
+<ForwardRef3 ref={divFnRef}/>;
+<ForwardRef3 ref={divRef}/>;
+
+type ImgProps = React.ComponentProps<'img'>;
+// $ExpectType "async" | "auto" | "sync" | undefined
+type ImgPropsDecoding = ImgProps['decoding'];
+type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
+// $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | undefined
+type ImgPropsWithRefRef = ImgPropsWithRef['ref'];
+type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<'img'>;
+// $ExpectType false
+type ImgPropsHasRef = 'ref' extends keyof ImgPropsWithoutRef ? true : false;
