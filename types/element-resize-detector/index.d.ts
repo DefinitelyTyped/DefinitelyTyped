@@ -3,18 +3,17 @@
 // Definitions by: Saransh Kataria <https://github.com/saranshkataria>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function elementResizeDetectorMaker(options?: elementResizeDetectorMaker.ErdmOptions): elementResizeDetectorMaker.Erd;
-
-declare namespace elementResizeDetectorMaker {
-    interface ErdmOptions {
+export interface ElementResizeDetectorProps {
     strategy?: 'scroll' | 'object';
-    }
+}
 
-    interface Erd {
+export interface ElementResizeDetectorActions {
     listenTo(element: HTMLElement, callback: (elem: HTMLElement) => void): void;
     removeListener(element: HTMLElement, callback: (elem: HTMLElement) => void): void;
     removeAllListeners(element: HTMLElement): void;
     uninstall(element: HTMLElement): void;
-    }
 }
-export = elementResizeDetectorMaker;
+
+export default function elementResizeDetectorMaker(
+    options?: ElementResizeDetectorProps
+): ElementResizeDetectorActions;
