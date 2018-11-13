@@ -4151,6 +4151,7 @@ import * as constants from 'constants';
         http2Stream.on('streamClosed', (code: number) => {});
         http2Stream.on('timeout', () => {});
         http2Stream.on('trailers', (trailers: http2.IncomingHttpHeaders, flags: number) => {});
+        http2Stream.on('wantTrailers', () => {});
 
         const aborted: boolean = http2Stream.aborted;
         const closed: boolean = http2Stream.closed;
@@ -4202,7 +4203,7 @@ import * as constants from 'constants';
 
         const options: http2.ServerStreamResponseOptions = {
             endStream: true,
-            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
+            waitForTrailers: true,
         };
         serverHttp2Stream.respond();
         serverHttp2Stream.respond(headers);
