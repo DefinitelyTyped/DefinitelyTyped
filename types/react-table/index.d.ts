@@ -9,7 +9,7 @@ export type ReactTableFunction = (value?: any) => void;
 export type AccessorFunction<D = any> = (row: D) => any;
 export type Accessor<D = any> = string | string[] | AccessorFunction<D>;
 export type Aggregator = (values: any, rows: any) => any;
-export type TableCellRenderer = ((data: CellInfo, column: any) => React.ReactNode) | React.ReactNode;
+export type TableCellRenderer = ((cellInfo: CellInfo, column: any) => React.ReactNode) | React.ReactNode;
 export type FilterRender = (params: { column: Column, filter: any, onChange: ReactTableFunction, key?: string }) => React.ReactElement<any>;
 export type PivotRenderer = ((cellInfo: CellInfo) => React.ReactNode) | (() => any) | string | React.ReactNode;
 
