@@ -615,6 +615,7 @@ async function testChatter(conn: sf.Connection): Promise<void> {
 
     const feedResource: sf.Resource<sf.RequestResult> = chatter.resource('/feed-elements');
 
+    // tslint:disable-next-line:await-promise
     const feedCreateRequest: any = await (feedResource.create({
         body: {
             messageSegments: [{
@@ -624,13 +625,14 @@ async function testChatter(conn: sf.Connection): Promise<void> {
         },
         feedElementType: 'FeedItem',
         subjectId: 'me'
-    }) as Promise<sf.RequestResult>);
+    }));
 
     console.log(`feedCreateRequest.id: ${feedCreateRequest.id}`);
     const itemLikesUrl = `/feed-elements/${feedCreateRequest.id}/capabilities/chatter-likes/items`;
     const itemsLikeResource: sf.Resource<sf.RequestResult> = chatter.resource(itemLikesUrl);
 
-    const itemsLikeCreateResult: sf.RequestResult = await (itemsLikeResource.create('') as Promise<sf.RequestResult>);
+    // tslint:disable-next-line:await-promise
+    const itemsLikeCreateResult: sf.RequestResult = await (itemsLikeResource.create(''));
     console.log(`itemsLikeCreateResult['likedItem']: ${itemsLikeCreateResult as any['likedItem']}`);
 }
 
