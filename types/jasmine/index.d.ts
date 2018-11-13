@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 3.3.0
+// Type definitions for Jasmine 3.0.0
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
