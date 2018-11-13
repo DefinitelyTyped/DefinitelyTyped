@@ -15,6 +15,7 @@
 /// <reference path="google-apps-script.charts.d.ts"/>
 /// <reference path="google-apps-script.contacts.d.ts"/>
 /// <reference path="google-apps-script.content.d.ts"/>
+/// <reference path="google-apps-script.data-studio.d.ts"/>
 /// <reference path="google-apps-script.document.d.ts"/>
 /// <reference path="google-apps-script.drive.d.ts"/>
 /// <reference path="google-apps-script.forms.d.ts"/>
