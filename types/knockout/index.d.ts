@@ -7,6 +7,7 @@
 //                 Benjamin Eckardt <https://github.com/BenjaminEckardt>,
 //                 Mathias Lorenzen <https://github.com/ffMathy>,
 //                 Leonardo Lombardi <https://github.com/ltlombardi>
+//                 Retsam <https://github.com/Retsam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
