@@ -988,7 +988,7 @@
             "libraryName": "Mobx Cookie",
             "typingsPackageName": "mobx-cookie",
             "sourceRepoURL": "https://github.com/will-stone/mobx-cookie",
-            "asOfVersion": "1.1.0"
+            "asOfVersion": "1.1.1"
         },
         {
             "libraryName": "Moment",
