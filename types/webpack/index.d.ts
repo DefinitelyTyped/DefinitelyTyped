@@ -24,7 +24,7 @@ import { Tapable, HookMap,
          SyncBailHook, SyncHook, SyncLoopHook, SyncWaterfallHook,
          AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook } from 'tapable';
 import * as UglifyJS from 'uglify-js';
-import * as anymatch from 'anymatch'
+import * as anymatch from 'anymatch';
 import { RawSourceMap } from 'source-map';
 
 export = webpack;
