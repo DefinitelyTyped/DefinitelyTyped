@@ -1,4 +1,4 @@
-// Type definitions for react-timeago 4.1
+// Type definitions for react-timeago 4.1.9
 // Project: https://github.com/nmn/react-timeago
 // Definitions by: Konstantin Lebedev <https://github.com/koss-lebedev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -32,4 +32,4 @@ declare namespace ReactTimeago {
 }
 
 declare const ReactTimeago: React.ComponentClass<ReactTimeago.ReactTimeagoProps>;
-export = ReactTimeago;
+export default ReactTimeago;
