@@ -5,7 +5,7 @@
 //                 Adam Lavin <https://github.com/lavoaster>
 //                 Jessica Franco <https://github.com/Kovensky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 /// <reference types="node" />
 
