@@ -5,6 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+/// <reference lib="dom" />
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
