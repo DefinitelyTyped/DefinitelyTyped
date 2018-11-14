@@ -499,6 +499,7 @@ export interface LayoutAnimationTypes {
     easeInEaseOut: string;
     easeIn: string;
     easeOut: string;
+    keyboard: string;
 }
 
 export interface LayoutAnimationProperties {
