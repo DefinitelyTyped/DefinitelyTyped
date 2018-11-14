@@ -30,6 +30,6 @@ const component = (
 
 const componentWithFunctionAsChild = (
   <ReactVisibilitySensor>
-    {({ isVisible: bool, visibilityRect: shape }) => <div />}
+    {({ isVisible, visibilityRect }) => <div />}
   </ReactVisibilitySensor>
 );

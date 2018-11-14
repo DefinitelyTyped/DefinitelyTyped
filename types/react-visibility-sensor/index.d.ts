@@ -17,7 +17,7 @@ interface Shape {
 }
 
 interface ChildFunctionArg {
-  isVisible: boolean;
+  isVisible: boolean | null;
   visibilityRect: Shape;
 }
 
