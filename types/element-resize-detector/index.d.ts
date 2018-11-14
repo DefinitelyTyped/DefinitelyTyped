@@ -4,8 +4,23 @@
 //                 Frank Li <https://github.com/franklixuefei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export interface IdHandlerProps {
+    get(element: HTMLElement, readonly: boolean): string;
+    set(element: HTMLElement): string;
+}
+
+export interface ReporterProps {
+    log(): void;
+    warn(): void;
+    error(): void;
+}
+
 export interface ElementResizeDetectorProps {
     strategy?: 'scroll' | 'object';
+    reporter?: ReporterProps;
+    callOnAdd?: boolean;
+    idHandler?: IdHandlerProps;
+    debug?: boolean;
 }
 
 export interface ElementResizeDetectorActions {
