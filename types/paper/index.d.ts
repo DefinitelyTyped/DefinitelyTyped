@@ -1,4 +1,4 @@
-// Type definitions for Paper.js v0.11.6
+// Type definitions for Paper.js v0.11.8
 // Project: http://paperjs.org/
 // Definitions by:  Clark Stevenson <https://github.com/clark-stevenson>,
 //                  Jon Lucas <https://github.com/Xakaloz>,
