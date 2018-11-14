@@ -949,6 +949,12 @@
             "asOfVersion": "2.1.6"
         },
         {
+            "libraryName": "maxmind",
+            "typingsPackageName": "maxmind",
+            "sourceRepoURL": "https://github.com/runk/node-maxmind",
+            "asOfVersion": "2.0.5"
+        },
+        {
             "libraryName": "mendixmodelsdk",
             "typingsPackageName": "mendixmodelsdk",
             "sourceRepoURL": "http://www.mendix.com",
