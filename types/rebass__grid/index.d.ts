@@ -5,12 +5,12 @@
 //                 Louis Hache <https://github.com/lhache>
 //                 Adam Lavin <https://github.com/lavoaster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
 
 import { ComponentType } from "react";
-import { StyledComponentClass } from "styled-components";
+import { StyledComponent, Interpolation } from "styled-components";
 
 export type ResponsiveProp = number | string | Array<string | number>;
 
@@ -34,10 +34,11 @@ export interface CommonProps {
     px?: ResponsiveProp;
     py?: ResponsiveProp;
     theme?: any;
+    css?: Interpolation<any>;
 }
 
 export interface BoxProps
-    extends Omit<React.HTMLProps<HTMLDivElement>, "width" | "wrap" | "is"> {
+    extends Omit<React.ComponentPropsWithRef<'div'>, "color" | "is">, CommonProps {
     flex?: ResponsiveProp;
     order?: ResponsiveProp;
     is?: string | ComponentType<any>;
@@ -51,13 +52,13 @@ export interface FlexProps extends BoxProps {
     flexWrap?: ResponsiveProp;
 }
 
-export type BoxComponent = StyledComponentClass<
-    Partial<CommonProps & BoxProps>,
+export type BoxComponent = StyledComponent<
+    React.ForwardRefExoticComponent<Partial<BoxProps>>,
     any
 >;
 
-export type FlexComponent = StyledComponentClass<
-    Partial<CommonProps & FlexProps>,
+export type FlexComponent = StyledComponent<
+    React.ForwardRefExoticComponent<Partial<FlexProps>>,
     any
 >;
 

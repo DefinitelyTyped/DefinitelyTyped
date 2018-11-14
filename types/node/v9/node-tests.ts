@@ -3038,7 +3038,7 @@ namespace repl_tests {
     {
         let _server: repl.REPLServer;
         let _boolean: boolean;
-        let _ctx: any;
+        const _ctx: vm.Context = {};
 
         _server = _server.addListener("exit", () => { });
         _server = _server.addListener("reset", () => { });
@@ -3059,9 +3059,26 @@ namespace repl_tests {
         _server = _server.prependOnceListener("reset", () => { });
 
         _server.outputStream.write("test");
-        let line = _server.inputStream.read();
+        const line = _server.inputStream.read();
 
-        throw new repl.Recoverable(new Error("test"));
+        _server.clearBufferedCommand();
+        _server.displayPrompt();
+        _server.displayPrompt(true);
+        _server.defineCommand("cmd", text => {
+            // $ExpectType string
+            text;
+        });
+        _server.defineCommand("cmd", {
+            help: "",
+            action: text => {
+                // $ExpectType string
+                text;
+            }
+        });
+
+        function test() {
+            throw new repl.Recoverable(new Error("test"));
+        }
     }
 }
 
