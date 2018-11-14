@@ -281,7 +281,10 @@ type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, "theme"> & {
 };
 type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
 
-export interface ThemedStyledComponentsModule<T extends object> {
+export interface ThemedStyledComponentsModule<
+    T extends object,
+    U extends object = T
+> {
     default: ThemedStyledInterface<T>;
 
     css: ThemedCssFunction<T>;
@@ -298,7 +301,7 @@ export interface ThemedStyledComponentsModule<T extends object> {
     ): GlobalStyleComponent<P, T>;
 
     withTheme: WithThemeFnInterface<T>;
-    ThemeProvider: ThemeProviderComponent<T>;
+    ThemeProvider: ThemeProviderComponent<T, U>;
     ThemeConsumer: React.Consumer<T>;
     ThemeContext: React.Context<T>;
 
@@ -336,16 +339,18 @@ export const withTheme: WithThemeFnInterface<DefaultTheme>;
 // tslint:disable-next-line:no-empty-interface
 export interface DefaultTheme {}
 
-export interface ThemeProviderProps<T extends object> {
+export interface ThemeProviderProps<T extends object, U extends object = T> {
     children?: React.ReactChild; // only one child is allowed, goes through React.Children.only
-    theme: T | ((theme: T) => T);
+    theme: T | ((theme: U) => T);
 }
-export type BaseThemeProviderComponent<T extends object> = React.ComponentClass<
-    ThemeProviderProps<T>
->;
+export type BaseThemeProviderComponent<
+    T extends object,
+    U extends object = T
+> = React.ComponentClass<ThemeProviderProps<T, U>>;
 export type ThemeProviderComponent<
-    T extends object
-> = BaseThemeProviderComponent<AnyIfEmpty<T>>;
+    T extends object,
+    U extends object = T
+> = BaseThemeProviderComponent<AnyIfEmpty<T>, AnyIfEmpty<U>>;
 export const ThemeProvider: ThemeProviderComponent<AnyIfEmpty<DefaultTheme>>;
 // NOTE: this technically starts as undefined, but allowing undefined is unhelpful when used correctly
 export const ThemeContext: React.Context<AnyIfEmpty<DefaultTheme>>;

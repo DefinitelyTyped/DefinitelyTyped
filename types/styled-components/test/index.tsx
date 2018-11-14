@@ -726,3 +726,44 @@ async function reexportCompatibility() {
         themedExports = scExports;
     }
 }
+
+async function themeAugmentation() {
+    interface BaseTheme {
+        background: string;
+    }
+    interface ExtraTheme extends BaseTheme {
+        accent: string;
+    }
+
+    const base = (await import("styled-components")) as ThemedStyledComponentsModule<
+        BaseTheme
+    >;
+    const extra = (await import("styled-components")) as ThemedStyledComponentsModule<
+        ExtraTheme,
+        BaseTheme
+    >;
+
+    return (
+        <base.ThemeProvider
+            theme={{
+                background: "black"
+            }}
+        >
+            <>
+                <extra.ThemeProvider
+                    theme={base => base} // $ExpectError
+                >
+                    <extra.ThemeConsumer>{() => null}</extra.ThemeConsumer>
+                </extra.ThemeProvider>
+                <extra.ThemeProvider
+                    theme={base => ({
+                        ...base,
+                        accent: "blue"
+                    })}
+                >
+                    <extra.ThemeConsumer>{() => null}</extra.ThemeConsumer>
+                </extra.ThemeProvider>
+            </>
+        </base.ThemeProvider>
+    );
+}
