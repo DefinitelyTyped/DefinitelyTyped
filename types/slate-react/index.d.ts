@@ -136,6 +136,11 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     readonly readOnly: boolean;
     readonly value: Value;
 
+    // Instance methods
+    blur(): void;
+    focus(): void;
+    resolveController(plugins: Plugin[], schema: Schema, commands: any[], queries: any[]): void;
+
     // Commandable
     applyOperation(operation: Operation): Editor;
     flush(): Editor;
