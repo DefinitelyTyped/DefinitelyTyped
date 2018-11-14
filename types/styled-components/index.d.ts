@@ -9,10 +9,21 @@
 
 /// <reference types="node" />
 
-import * as React from 'react';
-import * as CSS from 'csstype';
+import * as React from "react";
+import * as CSS from "csstype";
 
-export type CSSObject = CSS.Properties<string | number>;
+export type CSSObject = CSS.Properties<string | number> &
+    // Index type to allow selector nesting
+    // This is "[key in string]" and not "[key: string]" to allow CSSObject to be self-referential
+    {
+        // we need the CSS.Properties in here too to ensure the index signature doesn't create impossible values
+        [key in string]:
+            | CSS.Properties<string | number>[keyof CSS.Properties<
+                  string | number
+              >]
+            | CSSObject
+    };
+export type CSSKeyframes = object & { [key: string]: CSSObject };
 
 export interface ThemeProps<T> {
     theme: T;
@@ -45,27 +56,25 @@ type StyledComponentPropsWithAs<
 
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> =
-    | FlattenInterpolation<P>
-    | ReadonlyArray<
-          FlattenInterpolation<P> | ReadonlyArray<FlattenInterpolation<P>>
-      >;
-export type FlattenInterpolation<P> =
     | InterpolationValue
-    | InterpolationFunction<P>;
+    | InterpolationFunction<P>
+    | FlattenInterpolation<P>;
+// must be an interface to be self-referential
+export interface FlattenInterpolation<P>
+    extends ReadonlyArray<Interpolation<P>> {}
 export type InterpolationValue =
     | string
     | number
-    | Styles
     | FalseyValue
     | Keyframes
     | StyledComponentInterpolation
     | CSSObject;
 export type SimpleInterpolation =
     | InterpolationValue
-    | ReadonlyArray<InterpolationValue | ReadonlyArray<InterpolationValue>>;
-export interface Styles {
-    [ruleOrSelector: string]: string | number | Styles;
-}
+    | FlattenSimpleInterpolation;
+// must be an interface to be self-referential
+interface FlattenSimpleInterpolation
+    extends ReadonlyArray<SimpleInterpolation> {}
 
 export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
 
@@ -76,9 +85,8 @@ type DeprecatedAttrs<P, A extends Partial<P>, T> = {
     [K in keyof A]: ((props: ThemedStyledProps<P, T>) => A[K]) | A[K]
 };
 
-export type ThemedGlobalStyledClassProps<P, T> = P & {
-    suppressMultiMountWarning?: boolean
-    theme?: T
+export type ThemedGlobalStyledClassProps<P, T> = WithOptionalTheme<P, T> & {
+    suppressMultiMountWarning?: boolean;
 };
 
 export interface GlobalStyleComponent<P, T>
@@ -86,8 +94,8 @@ export interface GlobalStyleComponent<P, T>
 
 // remove the call signature from StyledComponent so Interpolation can still infer InterpolationFunction
 type StyledComponentInterpolation = Pick<
-    StyledComponent<any, any>,
-    keyof StyledComponent<any, any>
+    AnyStyledComponent,
+    keyof StyledComponentBase<any, any>
 >;
 
 // abuse Pick to strip the call signature from ForwardRefExoticComponent
@@ -101,7 +109,16 @@ export type AnyStyledComponent =
     | StyledComponent<any, any, any, any>
     | StyledComponent<any, any, any>;
 
-export interface StyledComponent<
+export type StyledComponent<
+    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    T extends object,
+    O extends object = {},
+    A extends keyof any = never
+> = // the "string" allows this to be used as an object key
+    // I really want to avoid this if possible but it's the only way to use nesting with object styles...
+    string & StyledComponentBase<C, T, O, A>;
+
+export interface StyledComponentBase<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object = {},
@@ -127,7 +144,7 @@ export interface StyledComponent<
              *
              * String types need to be cast to themselves to become literal types (as={'a' as 'a'}).
              */
-            as?: keyof JSX.IntrinsicElements | React.ComponentType<any>
+            as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
         }
     ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
     withComponent<WithC extends AnyStyledComponent>(
@@ -145,34 +162,38 @@ export interface StyledComponent<
     ): StyledComponent<WithC, T, O, A>;
 }
 
+export type ThemedStyledFunctionBase<
+    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    T extends object,
+    O extends object = {},
+    A extends keyof any = never
+> =
+    // at least the first argument is required, whatever it is
+    <U extends object>(
+        first: NonNullable<
+            Interpolation<
+                ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
+            >
+        >,
+        ...rest: Array<
+            Interpolation<
+                ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
+            >
+        >
+    ) => StyledComponent<C, T, O & U, A>;
+
 export interface ThemedStyledFunction<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object = {},
     A extends keyof any = never
-> {
-    (
-        strings: TemplateStringsArray,
-        ...interpolations: Array<
-            Interpolation<
-                ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
-            >
-        >
-    ): StyledComponent<C, T, O, A>;
-    <U extends object>(
-        strings: TemplateStringsArray,
-        ...interpolations: Array<
-            Interpolation<
-                ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
-            >
-        >
-    ): StyledComponent<C, T, O & U, A>;
+> extends ThemedStyledFunctionBase<C, T, O, A> {
     // Fun thing: 'attrs' can also provide a polymorphic 'as' prop
     // My head already hurts enough so maybe later...
     attrs<
         U,
         A extends Partial<StyledComponentPropsWithRef<C> & U> & {
-            [others: string]: any
+            [others: string]: any;
         } = {}
     >(
         attrs: Attrs<StyledComponentPropsWithRef<C> & U, A, T>
@@ -183,7 +204,7 @@ export interface ThemedStyledFunction<
     attrs<
         U,
         A extends Partial<StyledComponentPropsWithRef<C> & U> & {
-            [others: string]: any
+            [others: string]: any;
         } = {}
     >(
         attrs: DeprecatedAttrs<StyledComponentPropsWithRef<C> & U, A, T>
@@ -244,20 +265,11 @@ export type ThemedStyledInterface<T extends object> = ThemedBaseStyledInterface<
 >;
 export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
 
-export interface BaseThemedCssFunction<T extends object> {
-    (cssObject: CSSObject): InterpolationValue[];
-    (
-        strings: TemplateStringsArray,
-        ...interpolations: SimpleInterpolation[]
-    ): InterpolationValue[];
-    <P>(
-        strings: TemplateStringsArray,
-        ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
-    ): Array<FlattenInterpolation<ThemedStyledProps<P, T>>>;
-    <P>(func: InterpolationFunction<ThemedStyledProps<P, T>>): Array<
-        FlattenInterpolation<ThemedStyledProps<P, T>>
-    >;
-}
+export type BaseThemedCssFunction<T extends object> = <P>(
+    first: NonNullable<Interpolation<ThemedStyledProps<P, T>>>,
+    ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
+) => Array<FlattenInterpolation<ThemedStyledProps<P, T>>>;
+
 export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<
     Extract<keyof T, string> extends never ? any : T
 >;
@@ -266,8 +278,8 @@ export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 type DiffBetween<T, U> = Pick<T, Exclude<keyof T, keyof U>> &
     Pick<U, Exclude<keyof U, keyof T>>;
-type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, 'theme'> & {
-    theme?: T
+type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, "theme"> & {
+    theme?: T;
 };
 
 export interface ThemedStyledComponentsModule<T extends object> {
@@ -275,19 +287,15 @@ export interface ThemedStyledComponentsModule<T extends object> {
 
     css: ThemedCssFunction<T>;
 
-    keyframes(cssObject: CSSObject): Keyframes;
+    // unfortunately keyframes can't interpolate props from the theme
     keyframes(
-        strings: TemplateStringsArray,
+        strings: TemplateStringsArray | CSSKeyframes,
         ...interpolations: SimpleInterpolation[]
     ): Keyframes;
 
-    createGlobalStyle(cssObject: CSSObject): GlobalStyleComponent<{}, T>;
-    createGlobalStyle<P = {}>(
-        strings: TemplateStringsArray,
+    createGlobalStyle<P extends object = {}>(
+        first: NonNullable<Interpolation<ThemedStyledProps<P, T>>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
-    ): GlobalStyleComponent<P, T>;
-    createGlobalStyle<P = {}>(
-        func: InterpolationFunction<ThemedStyledProps<P, T>>
     ): GlobalStyleComponent<P, T>;
 
     withTheme: WithThemeFnInterface<T>;
@@ -326,32 +334,27 @@ export type BaseThemeProviderComponent<T extends object> = React.ComponentClass<
 >;
 export type ThemeProviderComponent<
     T extends object
-> = BaseThemeProviderComponent<Extract<keyof T, string> extends never ? any : T>;
+> = BaseThemeProviderComponent<
+    Extract<keyof T, string> extends never ? any : T
+>;
 export const ThemeProvider: ThemeProviderComponent<DefaultTheme>;
 // NOTE: this technically starts as undefined
 // Also, this cannot be DefaultTheme as it breaks TypedComponents' assignability
 export const ThemeContext: React.Context<any>;
-export const ThemeConsumer: typeof ThemeContext['Consumer'];
+export const ThemeConsumer: typeof ThemeContext["Consumer"];
 
 export interface Keyframes {
     getName(): string;
 }
 
-export function keyframes(cssObject: CSSObject): Keyframes;
 export function keyframes(
-    strings: TemplateStringsArray,
+    strings: TemplateStringsArray | CSSKeyframes,
     ...interpolations: SimpleInterpolation[]
 ): Keyframes;
 
-export function createGlobalStyle(
-    cssObject: CSSObject
-): GlobalStyleComponent<{}, DefaultTheme>;
-export function createGlobalStyle<P = {}>(
-    strings: TemplateStringsArray,
+export function createGlobalStyle<P extends object = {}>(
+    first: NonNullable<Interpolation<ThemedStyledProps<P, DefaultTheme>>>,
     ...interpolations: Array<Interpolation<ThemedStyledProps<P, DefaultTheme>>>
-): GlobalStyleComponent<P, DefaultTheme>;
-export function createGlobalStyle<P = {}>(
-    func: InterpolationFunction<ThemedStyledProps<P, DefaultTheme>>
 ): GlobalStyleComponent<P, DefaultTheme>;
 
 export function isStyledComponent(
@@ -373,12 +376,12 @@ export class ServerStyleSheet {
 
 type StyleSheetManagerProps =
     | {
-          sheet: ServerStyleSheet
-          target?: never
+          sheet: ServerStyleSheet;
+          target?: never;
       }
     | {
-          sheet?: never
-          target: HTMLElement
+          sheet?: never;
+          target: HTMLElement;
       };
 
 export class StyleSheetManager extends React.Component<
