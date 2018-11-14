@@ -804,6 +804,9 @@ export interface Config {
 
 	/** Which localization should we use? Should be a string like 'en' or 'en-US' */
 	locale: string;
+
+	/** Turn on or off responsive charts */
+	responsive: boolean;
 }
 
 // Components
