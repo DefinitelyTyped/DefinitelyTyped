@@ -59,7 +59,7 @@ declare namespace React {
         readonly current: T | null;
     }
 
-    type Ref<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"] | RefObject<T>;
+    type Ref<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"] | RefObject<T> | null;
     type LegacyRef<T> = string | Ref<T>;
 
     type ComponentState = any;
