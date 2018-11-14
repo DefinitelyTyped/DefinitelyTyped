@@ -76,7 +76,6 @@ editor
 .deleteWordForwardAtRange(range)
 .deselect()
 .flip()
-.flush()
 .focus()
 .insertBlock({
 	type: "image",
@@ -257,8 +256,6 @@ editor
 .setMarksByPath("a", 0, 1, mark, { type: "bold" })
 .setNodeByKey("a", "paragraph")
 .setNodeByPath("a", "paragraph")
-.setReadOnly(true)
-.setValue(value)
 .snapshotSelection()
 .splitBlock(0)
 .splitBlockAtRange(range, 0)

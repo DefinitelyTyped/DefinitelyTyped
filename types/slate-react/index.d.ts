@@ -140,15 +140,6 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     resolveController(plugins: Plugin[], schema: Schema, commands: any[], queries: any[]): void;
 
     // Controller
-    applyOperation(operation: Operation): Editor;
-    flush(): Editor;
-    command(name: string, ...args: any[]): void;
-    query(query: string, ...args: any[]): any;
-    registerCommand(command: string): void;
-    registerQuery(query: string): void;
-    run(key: string, ...args: any[]): any;
-    setReadOnly(readOnly: boolean): Editor;
-    setValue(value: Value, options?: { normalize: boolean }): Editor;
     addMark(mark: Mark | MarkProperties | string): Editor;
     delete(): Editor;
     deleteBackward(n: number): Editor;
