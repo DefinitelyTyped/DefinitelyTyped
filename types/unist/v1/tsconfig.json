@@ -6,8 +6,11 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
+        "paths": {
+            "unist": ["unist/v1"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
