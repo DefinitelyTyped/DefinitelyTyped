@@ -1,4 +1,5 @@
 import Document, {
+    DocumentProps,
     Enhancer,
     Head,
     Main,
@@ -48,6 +49,14 @@ class MyDoc extends Document<WithUrlProps> {
         const url = req!.url;
 
         return { html, head, buildManifest, styles, url };
+    }
+
+    constructor(props: WithUrlProps & DocumentProps) {
+        super(props);
+        const { __NEXT_DATA__, url } = props;
+
+        // Custom __NEXT_DATA__ attribute
+        __NEXT_DATA__.url = url;
     }
 
     render() {
