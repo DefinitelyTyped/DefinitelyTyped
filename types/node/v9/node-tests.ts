@@ -3064,15 +3064,31 @@ namespace repl_tests {
         _server.clearBufferedCommand();
         _server.displayPrompt();
         _server.displayPrompt(true);
-        _server.defineCommand("cmd", text => {
+        _server.defineCommand("cmd", function(text) {
             // $ExpectType string
             text;
+            // $ExpectType REPLServer
+            this;
         });
         _server.defineCommand("cmd", {
             help: "",
-            action: text => {
+            action(text) {
                 // $ExpectType string
                 text;
+                // $ExpectType REPLServer
+                this;
+            }
+        });
+
+        repl.start({
+            eval() {
+                // $ExpectType REPLServer
+                this;
+            },
+            writer() {
+                // $ExpectType REPLServer
+                this;
+                return "";
             }
         });
 
