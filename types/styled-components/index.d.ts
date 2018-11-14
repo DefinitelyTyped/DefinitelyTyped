@@ -261,7 +261,7 @@ export interface ThemedBaseStyledInterface<T extends object>
 }
 
 export type ThemedStyledInterface<T extends object> = ThemedBaseStyledInterface<
-    Extract<keyof T, string> extends never ? any : T
+    AnyIfEmpty<T>
 >;
 export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
 
@@ -271,16 +271,15 @@ export type BaseThemedCssFunction<T extends object> = <P>(
 ) => Array<FlattenInterpolation<ThemedStyledProps<P, T>>>;
 
 export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<
-    Extract<keyof T, string> extends never ? any : T
+    AnyIfEmpty<T>
 >;
 
 // Helper type operators
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-type DiffBetween<T, U> = Pick<T, Exclude<keyof T, keyof U>> &
-    Pick<U, Exclude<keyof U, keyof T>>;
 type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, "theme"> & {
     theme?: T;
 };
+type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
 
 export interface ThemedStyledComponentsModule<T extends object> {
     default: ThemedStyledInterface<T>;
@@ -318,7 +317,7 @@ export type BaseWithThemeFnInterface<T extends object> = <
     WithOptionalTheme<React.ComponentPropsWithRef<C>, T>
 >;
 export type WithThemeFnInterface<T extends object> = BaseWithThemeFnInterface<
-    Extract<keyof T, string> extends never ? any : T
+    AnyIfEmpty<T>
 >;
 export const withTheme: WithThemeFnInterface<DefaultTheme>;
 
@@ -334,13 +333,10 @@ export type BaseThemeProviderComponent<T extends object> = React.ComponentClass<
 >;
 export type ThemeProviderComponent<
     T extends object
-> = BaseThemeProviderComponent<
-    Extract<keyof T, string> extends never ? any : T
->;
-export const ThemeProvider: ThemeProviderComponent<DefaultTheme>;
-// NOTE: this technically starts as undefined
-// Also, this cannot be DefaultTheme as it breaks TypedComponents' assignability
-export const ThemeContext: React.Context<any>;
+> = BaseThemeProviderComponent<AnyIfEmpty<T>>;
+export const ThemeProvider: ThemeProviderComponent<AnyIfEmpty<DefaultTheme>>;
+// NOTE: this technically starts as undefined, but allowing undefined is unhelpful when used correctly
+export const ThemeContext: React.Context<AnyIfEmpty<DefaultTheme>>;
 export const ThemeConsumer: typeof ThemeContext["Consumer"];
 
 export interface Keyframes {
