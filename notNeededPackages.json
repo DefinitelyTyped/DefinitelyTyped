@@ -145,6 +145,12 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "babel__parser",
+            "typingsPackageName": "babel__parser",
+            "sourceRepoURL": "https://github.com/babel/babel",
+            "asOfVersion": "7.0.1"
+        },
+        {
             "libraryName": "BabylonJS",
             "typingsPackageName": "babylonjs",
             "sourceRepoURL": "http://www.babylonjs.com/",

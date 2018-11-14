@@ -4,16 +4,16 @@
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 2.9
 
 import { GeneratorOptions } from "@babel/generator";
 import traverse, { Visitor, NodePath } from "@babel/traverse";
 import template from "@babel/template";
 import * as t from "@babel/types";
-import { ParseOptions } from "@babel/parser";
+import { ParserOptions } from "@babel/parser";
 
 export {
-    ParseOptions,
+    ParserOptions,
     GeneratorOptions,
     t as types,
     template,
@@ -217,7 +217,7 @@ export interface TransformOptions {
      *
      * Default: `{}`
      */
-    parserOpts?: ParseOptions | null;
+    parserOpts?: ParserOptions | null;
 
     /**
      * List of plugins to load and use
