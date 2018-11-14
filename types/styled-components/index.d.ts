@@ -301,6 +301,12 @@ export interface ThemedStyledComponentsModule<T extends object> {
     ThemeProvider: ThemeProviderComponent<T>;
     ThemeConsumer: React.Consumer<T>;
     ThemeContext: React.Context<T>;
+
+    // This could be made to assert `target is StyledComponent<any, T>` instead, but that feels not type safe
+    isStyledComponent: typeof isStyledComponent;
+
+    ServerStyleSheet: typeof ServerStyleSheet;
+    StyleSheetManager: typeof StyleSheetManager;
 }
 
 declare const styled: StyledInterface;
@@ -321,6 +327,12 @@ export type WithThemeFnInterface<T extends object> = BaseWithThemeFnInterface<
 >;
 export const withTheme: WithThemeFnInterface<DefaultTheme>;
 
+/**
+ * This interface can be augmented by users to add types to `styled-components`' default theme
+ * without needing to reexport `ThemedStyledComponentsModule`.
+ */
+// Unfortunately, there is no way to write tests for this
+// as any augmentation will break the tests for the default case (not augmented).
 // tslint:disable-next-line:no-empty-interface
 export interface DefaultTheme {}
 

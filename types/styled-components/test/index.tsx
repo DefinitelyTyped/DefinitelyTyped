@@ -712,3 +712,17 @@ async function typedThemes() {
         </ThemeProvider>
     );
 }
+
+async function reexportCompatibility() {
+    const sc = await import("styled-components");
+    const themed = sc as ThemedStyledComponentsModule<any>;
+
+    let { ...scExports } = sc;
+    let { ...themedExports } = themed;
+    // both branches must be assignable to each other
+    if (Math.random()) {
+        scExports = themedExports;
+    } else {
+        themedExports = scExports;
+    }
+}
