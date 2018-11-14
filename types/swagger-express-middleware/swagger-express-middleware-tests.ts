@@ -4,7 +4,9 @@ import SwaggerExpressMiddleware = require("swagger-express-middleware");
 let app = express();
 let router = express.Router();
 
-SwaggerExpressMiddleware("PetStore.yaml", app, (err: any, middleware: SwaggerExpressMiddleware.SwaggerMiddleware, api) => {
+SwaggerExpressMiddleware("PetStore.yaml", app, (err: any, 
+                                                middleware: SwaggerExpressMiddleware.SwaggerMiddleware,
+                                                api: SwaggerExpressMiddleware.SwaggerObject) => {
     let filesOptions: SwaggerExpressMiddleware.FilesOptions = {
         useBasePath: false,
         apiPath: "/api-docs/",

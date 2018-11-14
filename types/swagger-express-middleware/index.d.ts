@@ -40,7 +40,7 @@ declare module "swagger-express-middleware" {
             (apiDefinitionPathOrObject: string | SwaggerObject, appOrRouter: Application | Router, cb: SwaggerMiddlewareConstructorCallback): SwaggerMiddleware;
         }
         interface SwaggerMiddlewareConstructorCallback {
-            (err: any, middleware: SwaggerMiddleware, api: any, parser: any): void;
+            (err: any, middleware: SwaggerMiddleware, api: SwaggerObject, parser: SwaggerParser): void;
         }
 
         export interface SwaggerMiddleware {
@@ -361,6 +361,11 @@ declare module "swagger-express-middleware" {
             security?: SecurityRequirementObject[]
             tags?: TagObject[]
             externalDocs?: ExternalDocumentationObject
+        }
+
+        export interface SwaggerParser {
+            $refs: any
+            schema: SwaggerObject
         }
 
         type MimeTypes = string[]
