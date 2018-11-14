@@ -12,7 +12,7 @@
 // TypeScript Version: 2.8
 import {
     Document,
-    Editor as Controller,
+    Editor as EditorController,
     Mark,
     Node,
     Block,
@@ -28,8 +28,8 @@ import {
     Path,
     RangeProperties,
     NodeProperties,
-    Commandable,
-    Range
+    Range,
+    Controller
 } from "slate";
 import * as Immutable from "immutable";
 import * as React from "react";
@@ -42,7 +42,7 @@ export interface RenderAttributes {
 export interface RenderMarkProps {
     attributes: RenderAttributes;
     children: React.ReactNode;
-    editor: Controller;
+    editor: EditorController;
     mark: Mark;
     marks: Immutable.Set<Mark>;
     node: Node;
@@ -53,7 +53,7 @@ export interface RenderMarkProps {
 export interface RenderNodeProps {
   attributes: RenderAttributes;
   children: React.ReactNode;
-  editor: Controller;
+  editor: EditorController;
   isFocused: boolean;
   isSelected: boolean;
   key: string;
@@ -63,23 +63,23 @@ export interface RenderNodeProps {
 }
 
 export interface RenderPlaceholderProps {
-    editor: Controller;
+    editor: EditorController;
     readOnly: boolean;
 }
 
 export type EventHook = (
     event: Event,
-    editor: Controller,
+    editor: EditorController,
     next: () => any
 ) => any;
 
 export interface Plugin {
-    decorateNode?: (node: Node, editor: Controller, next: () => any) => any;
-    renderEditor?: (props: EditorProps, editor: Controller, next: () => any) => any;
-    renderMark?: (props: RenderMarkProps, editor: Controller, next: () => any) => any;
-    renderNode?: (props: RenderNodeProps, editor: Controller, next: () => any) => any;
-    renderPlaceholder?: (props: RenderPlaceholderProps, editor: Controller, next: () => any) => any;
-    shouldNodeComponentUpdate?: (previousProps: RenderNodeProps, props: RenderNodeProps, editor: Controller, next: () => any) => any;
+    decorateNode?: (node: Node, editor: EditorController, next: () => any) => any;
+    renderEditor?: (props: EditorProps, editor: EditorController, next: () => any) => any;
+    renderMark?: (props: RenderMarkProps, editor: EditorController, next: () => any) => any;
+    renderNode?: (props: RenderNodeProps, editor: EditorController, next: () => any) => any;
+    renderPlaceholder?: (props: RenderPlaceholderProps, editor: EditorController, next: () => any) => any;
+    shouldNodeComponentUpdate?: (previousProps: RenderNodeProps, props: RenderNodeProps, editor: EditorController, next: () => any) => any;
 
     onBeforeInput?: EventHook;
     onBlur?: EventHook;
@@ -126,8 +126,8 @@ export interface EditorState {
     stack: Stack;
 }
 
-export class Editor extends React.Component<EditorProps, EditorState> implements Commandable {
-    controller: Controller;
+export class Editor extends React.Component<EditorProps, EditorState> implements Controller {
+    controller: EditorController;
     schema: Schema;
     stack: Stack;
 
@@ -139,7 +139,7 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     // Instance methods
     resolveController(plugins: Plugin[], schema: Schema, commands: any[], queries: any[]): void;
 
-    // Commandable
+    // Controller
     applyOperation(operation: Operation): Editor;
     flush(): Editor;
     command(name: string, ...args: any[]): void;
@@ -420,6 +420,12 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     redo(): Editor;
     undo(): Editor;
     snapshotSelection(): Editor;
+    command(name: string, ...args: any[]): Editor;
+    query(query: string, ...args: any[]): Editor;
+    registerCommand(command: string): Editor;
+    registerQuery(query: string): Editor;
+    applyOperation(operation: Operation): Editor;
+    run(key: string, ...args: any[]): Editor;
 }
 
 export type SlateType =

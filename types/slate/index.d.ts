@@ -1054,7 +1054,7 @@ export interface EditorProperties {
     value?: Value;
 }
 
-export class Editor implements Commandable {
+export class Editor implements Controller {
     object: "editor";
     onChange: (change: { operations: Immutable.List<Operation>, value: Value }) => void;
     plugins: any[];
@@ -1063,34 +1063,11 @@ export class Editor implements Commandable {
     constructor(attributes: EditorProperties)
 
     /**
-     * Apply an `operation` to the Editor, updating its value.
-     */
-    applyOperation(operation: Operation): Editor;
-
-    /**
      * Synchronously flush the current changes to editor, calling onChange.
      * In normal operation you never need to use this method! Reserved for testing.
      */
     flush(): Editor;
 
-    command(name: string, ...args: any[]): void;
-    query(query: string, ...args: any[]): any;
-
-    /**
-     * Add a new command by type with the editor. This will make the command available as a top-level method on the editor
-     */
-    registerCommand(command: string): void;
-
-    /**
-     * Add a new query by type with the editor. This will make the query available as a top-level method on the editor.
-     */
-    registerQuery(query: string): void;
-
-    /**
-     * Run the middleware stack by key with args, returning its result.
-     * In normal operation you never need to use this method! Reserved for testing.
-     */
-    run(key: string, ...args: any[]): any;
     setReadOnly(readOnly: boolean): Editor;
 
     /**
@@ -1372,83 +1349,89 @@ export class Editor implements Commandable {
     redo(): Editor;
     undo(): Editor;
     snapshotSelection(): Editor;
+    command(name: string, ...args: any[]): Editor;
+    query(query: string, ...args: any[]): Editor;
+    registerCommand(command: string): Editor;
+    registerQuery(query: string): Editor;
+    applyOperation(operation: Operation): Editor;
+    run(key: string, ...args: any[]): Editor;
 }
 
-export interface Commandable {
+export interface Controller {
     // Current Selection Commands //
     /**
      * Add a mark to the characters in the current selection
      */
-    addMark(mark: Mark | MarkProperties | string): Commandable;
+    addMark(mark: Mark | MarkProperties | string): Controller;
 
     /**
      * Delete everything in the current selection.
      */
-    delete(): Commandable;
+    delete(): Controller;
 
     /**
      * Delete backward n characters at the current cursor.
      * If the selection is expanded, behaviour is equivalent to delete()
      */
-    deleteBackward(n: number): Commandable;
+    deleteBackward(n: number): Controller;
 
     /**
      * Delete backward n characters at the current cursor.
      * If the selection is expanded, behaviour is equivalent to delete()
      */
-    deleteForward(n: number): Commandable;
+    deleteForward(n: number): Controller;
 
     /**
      * Insert a new block at the same level as the current block, splitting the current block to make room if it is non-empty.
      * If the selection is expanded, it will be deleted first.
      */
-    insertBlock(block: Block | BlockProperties | string): Commandable;
+    insertBlock(block: Block | BlockProperties | string): Controller;
 
     /**
      * Insert a document fragment at the current selection. If the selection is expanded, it will be deleted first.
      */
-    insertFragment(fragment: Document): Commandable;
+    insertFragment(fragment: Document): Controller;
 
     /**
      * Insert a new inline at the current cursor position, splitting the text to make room if it is non-empty.
      * If the selection is expanded, it will be deleted first.
      */
-    insertInline(inline: Inline | InlineProperties): Commandable;
+    insertInline(inline: Inline | InlineProperties): Controller;
 
     /**
      * Insert a string of text at the current selection. If the selection is expanded, it will be deleted first
      */
-    insertText(text: string): Commandable;
+    insertText(text: string): Controller;
 
     /**
      * Set the properties of the Blocks in the current selection.
      * Passing a string will set the blocks' type only.
      */
-    setBlocks(properties: BlockProperties | string): Commandable;
+    setBlocks(properties: BlockProperties | string): Controller;
 
     /**
      * Set the properties of the Inlines nodes in the current selection.
      * Passing a string will set the nodes' type only.
      */
-    setInlines(properties: InlineProperties | string): Commandable;
+    setInlines(properties: InlineProperties | string): Controller;
 
     /**
      * Split the Block in the current selection by depth levels.
      * If the selection is expanded, it will be deleted first.
      */
-    splitBlock(depth: number): Commandable;
+    splitBlock(depth: number): Controller;
 
     /**
      * Split the Inline node in the current selection by depth levels.
      * If the selection is expanded, it will be deleted first
      */
-    splitInline(depth: number): Commandable;
+    splitInline(depth: number): Controller;
 
     /**
      * Remove a mark from the characters in the current selection.
      * Passing a string will implicitly create a Mark of that type for removal.
      */
-    removeMark(mark: Mark | MarkProperties | string): Commandable;
+    removeMark(mark: Mark | MarkProperties | string): Controller;
 
     /**
      * Remove a mark from the characters in the current selection.
@@ -1457,595 +1440,595 @@ export interface Commandable {
     replaceMark(
         mark: Mark | MarkProperties | string,
         newMark: Mark | MarkProperties | string
-    ): Commandable;
+    ): Controller;
 
     /**
      * Add or remove a mark from the characters in the current selection, depending on it already exists on any or not.
      * Passing a string will implicitly create a Mark of that type to toggle.
      */
-    toggleMark(mark: Mark | MarkProperties | string): Commandable;
+    toggleMark(mark: Mark | MarkProperties | string): Controller;
 
     /**
      * Unwrap all Block nodes in the current selection that match a type and/or data
      */
-    unwrapBlock(properties: BlockProperties | string): Commandable;
+    unwrapBlock(properties: BlockProperties | string): Controller;
 
     /**
      * Unwrap all Inline nodes in the current selection that match a type and/or data
      */
-    unwrapInline(properties: InlineProperties | string): Commandable;
+    unwrapInline(properties: InlineProperties | string): Controller;
 
     /**
      * Wrap the Block nodes in the current selection with a new Block
      */
-    wrapBlock(properties: BlockProperties | string): Commandable;
+    wrapBlock(properties: BlockProperties | string): Controller;
 
     /**
      *  Wrap the Block nodes in the current selection with a new Inline
      */
-    wrapInline(properties: InlineProperties | string): Commandable;
+    wrapInline(properties: InlineProperties | string): Controller;
 
     /**
      * Surround the text in the current selection with prefix and suffix strings.
      * If the suffix is ommitted, the prefix will be used instead.
      */
-    wrapText(prefix: string, suffix?: string): Commandable;
+    wrapText(prefix: string, suffix?: string): Controller;
 
     // Selection Commands //
     /**
      * Blur the current selection
      */
-    blur(): Commandable;
+    blur(): Controller;
 
     /**
      * Unset the selection
      */
-    deselect(): Commandable;
+    deselect(): Controller;
 
     /**
      * Flip the selection
      */
-    flip(): Commandable;
+    flip(): Controller;
 
     /**
      * Focus the current selection
      */
-    focus(): Commandable;
+    focus(): Controller;
 
     /**
      * Move the anchor of the current selection backward n characters
      */
-    moveAnchorBackward(n?: number): Commandable;
+    moveAnchorBackward(n?: number): Controller;
     /**
      * Move the anchor of the current selection forward n characters
      */
-    moveAnchorForward(n?: number): Commandable;
+    moveAnchorForward(n?: number): Controller;
     /**
      * Move the anchor of the current selection to a new path and offset
      */
-    moveAnchorTo(path: Path, offset?: number): Commandable;
+    moveAnchorTo(path: Path, offset?: number): Controller;
     /**
      * Move the anchor of the current selection to the end of the closest block parent.
      */
-    moveAnchorToEndOfBlock(): Commandable;
+    moveAnchorToEndOfBlock(): Controller;
     /**
      * Move the anchor of the current selection to the end of the closest inline parent.
      */
-    moveAnchorToEndOfInline(): Commandable;
+    moveAnchorToEndOfInline(): Controller;
     /**
      * Move the anchor of the current selection to the end of the document.
      */
-    moveAnchorToEndOfDocument(): Commandable;
+    moveAnchorToEndOfDocument(): Controller;
     /**
      * Move the anchor of the current selection to the end of the next block.
      */
-    moveAnchorToEndOfNextBlock(): Commandable;
+    moveAnchorToEndOfNextBlock(): Controller;
     /**
      * Move the anchor of the current selection to the end of the next inline.
      */
-    moveAnchorToEndOfNextInline(): Commandable;
+    moveAnchorToEndOfNextInline(): Controller;
     /**
      * Move the anchor of the current selection to the end of the next text.
      */
-    moveAnchorToEndOfNextText(): Commandable;
+    moveAnchorToEndOfNextText(): Controller;
     /**
      * Move the anchor of the current selection to the end of the provided node.
      */
-    moveAnchorEndOfNode(node: Node): Commandable;
+    moveAnchorEndOfNode(node: Node): Controller;
     /**
      * Move the anchor of the current selection to the end of the previous block.
      */
-    moveAnchorToEndOfPreviousBlock(): Commandable;
+    moveAnchorToEndOfPreviousBlock(): Controller;
     /**
      * Move the anchor of the current selection to the end of the previous inline.
      */
-    moveAnchorToEndOfPreviousInline(): Commandable;
+    moveAnchorToEndOfPreviousInline(): Controller;
     /**
      * Move the anchor of the current selection to the end of the previous text.
      */
-    moveAnchorToEndOfPreviousText(): Commandable;
+    moveAnchorToEndOfPreviousText(): Controller;
     /**
      * Move the anchor of the current selection to the end of the current text node.
      */
-    moveAnchorToEndOfText(): Commandable;
+    moveAnchorToEndOfText(): Controller;
     /**
      * Move the anchor of the current selection to the start of the closest block parent.
      */
-    moveAnchorToStartOfBlock(): Commandable;
+    moveAnchorToStartOfBlock(): Controller;
     /**
      * Move the anchor of the current selection to the start of the document.
      */
-    moveAnchorToStartOfDocument(): Commandable;
+    moveAnchorToStartOfDocument(): Controller;
     /**
      * Move the anchor of the current selection to the start of the closest inline parent.
      */
-    moveAnchorToStartOfInline(): Commandable;
+    moveAnchorToStartOfInline(): Controller;
     /**
      * Move the anchor of the current selection to the start of the next block.
      */
-    moveAnchorToStartOfNextBlock(): Commandable;
+    moveAnchorToStartOfNextBlock(): Controller;
     /**
      * Move the anchor of the current selection to the start of the next inline.
      */
-    moveAnchorToStartOfNextInline(): Commandable;
+    moveAnchorToStartOfNextInline(): Controller;
     /**
      * Move the anchor of the current selection to the start of the next text node.
      */
-    moveAnchorToStartOfNextText(): Commandable;
+    moveAnchorToStartOfNextText(): Controller;
     /**
      * Move the anchor of the current selection to the start of the provided node.
      */
-    moveAnchorToStartOfNode(node: Node): Commandable;
+    moveAnchorToStartOfNode(node: Node): Controller;
     /**
      * Move the anchor of the current selection to the start of the previous block.
      */
-    moveAnchorToStartOfPreviousBlock(): Commandable;
+    moveAnchorToStartOfPreviousBlock(): Controller;
     /**
      * Move the anchor of the current selection to the start of the previous inline.
      */
-    moveAnchorToStartOfPreviousInline(): Commandable;
+    moveAnchorToStartOfPreviousInline(): Controller;
     /**
      * Move the anchor of the current selection to the start of the previous text node.
      */
-    moveAnchorToStartOfPreviousText(): Commandable;
+    moveAnchorToStartOfPreviousText(): Controller;
     /**
      * Move the anchor of the current selection to the start of the current text node.
      */
-    moveAnchorToStartOfText(): Commandable;
+    moveAnchorToStartOfText(): Controller;
 
     /**
      * Move the end of the selection backward n characters
      */
-    moveEndBackward(n?: number): Commandable;
+    moveEndBackward(n?: number): Controller;
     /**
      * Move the end of the selection foward n characters
      */
-    moveEndForward(n?: number): Commandable;
+    moveEndForward(n?: number): Controller;
 
     /**
      * Move the end of the selection to a new path and offset
      */
-    moveEndTo(path: Path, offset?: number): Commandable;
+    moveEndTo(path: Path, offset?: number): Controller;
     /**
      * Move the end of the current selection to the end of the closest block parent.
      */
-    moveEndToEndOfBlock(): Commandable;
+    moveEndToEndOfBlock(): Controller;
     /**
      * Move the end of the current selection to the end of the document.
      */
-    moveEndToEndOfDocument(): Commandable;
+    moveEndToEndOfDocument(): Controller;
     /**
      * Move the end of the current selection to the end of the closest inline parent.
      */
-    moveEndToEndOfInline(): Commandable;
+    moveEndToEndOfInline(): Controller;
     /**
      * Move the anchor of the current selection to the end of the next block.
      */
-    moveEndToEndOfNextBlock(): Commandable;
+    moveEndToEndOfNextBlock(): Controller;
     /**
      * Move the end of the current selection to the end of the next inline.
      */
-    moveEndToEndOfNextInline(): Commandable;
+    moveEndToEndOfNextInline(): Controller;
     /**
      * Move the end of the current selection to the end of the next text.
      */
-    moveEndToEndOfNextText(): Commandable;
+    moveEndToEndOfNextText(): Controller;
     /**
      * Move the end of the current selection to the end of the provided node.
      */
-    moveEndToEndOfNode(node: Node): Commandable;
+    moveEndToEndOfNode(node: Node): Controller;
     /**
      * Move the end of the current selection to the end of the previous block.
      */
-    moveEndToEndOfPreviousBlock(): Commandable;
+    moveEndToEndOfPreviousBlock(): Controller;
     /**
      * Move the end of the current selection to the end of the previous inline.
      */
-    moveEndToEndOfPreviousInline(): Commandable;
+    moveEndToEndOfPreviousInline(): Controller;
     /**
      * Move the commandable of the current selection to the end of the previous text.
      */
-    moveEndToEndOfPreviousText(): Commandable;
+    moveEndToEndOfPreviousText(): Controller;
     /**
      * Move the end of the current selection to the end of the current text node.
      */
-    moveEndToEndOfText(): Commandable;
+    moveEndToEndOfText(): Controller;
     /**
      * Move the end of the current selection to the start of the closest block parent.
      */
-    moveEndToStartOfBlock(): Commandable;
+    moveEndToStartOfBlock(): Controller;
     /**
      * Move the end of the current selection to the start of the document.
      */
-    moveEndToStartOfDocument(): Commandable;
+    moveEndToStartOfDocument(): Controller;
     /**
      * Move the end of the current selection to the start of the closest inline parent.
      */
-    moveEndToStartOfInline(): Commandable;
+    moveEndToStartOfInline(): Controller;
     /**
      * Move the end of the current selection to the start of the next block.
      */
-    moveEndToStartOfNextBlock(): Commandable;
+    moveEndToStartOfNextBlock(): Controller;
     /**
      * Move the end of the current selection to the start of the next inline.
      */
-    moveEndToStartOfNextInline(): Commandable;
+    moveEndToStartOfNextInline(): Controller;
     /**
      * Move the end of the current selection to the start of the next text node.
      */
-    moveEndToStartOfNextText(): Commandable;
+    moveEndToStartOfNextText(): Controller;
     /**
      * Move the end of the current selection to the start of the provided node.
      */
-    moveEndToStartOfNode(node: Node): Commandable;
+    moveEndToStartOfNode(node: Node): Controller;
     /**
      * Move the end of the current selection to the start of the previous block.
      */
-    moveEndToStartOfPreviousBlock(): Commandable;
+    moveEndToStartOfPreviousBlock(): Controller;
     /**
      * Move the end of the current selection to the start of the previous inline.
      */
-    moveEndToStartOfPreviousInline(): Commandable;
+    moveEndToStartOfPreviousInline(): Controller;
     /**
      * Move the end of the current selection to the start of the previous text node.
      */
-    moveEndToStartOfPreviousText(): Commandable;
+    moveEndToStartOfPreviousText(): Controller;
     /**
      * Move the end of the current selection to the start of the current text node.
      */
-    moveEndToStartOfText(): Commandable;
+    moveEndToStartOfText(): Controller;
 
     /**
      * Move the focus of the current selection backward n characters
      */
-    moveFocusBackward(n?: number): Commandable;
+    moveFocusBackward(n?: number): Controller;
     /**
      * Move the focus of the current selection forward n characters
      */
-    moveFocusForward(n?: number): Commandable;
+    moveFocusForward(n?: number): Controller;
     /**
      * Move the focus of the current selection to a new path and offset
      */
-    moveFocusTo(path: Path, offset?: number): Commandable;
+    moveFocusTo(path: Path, offset?: number): Controller;
     /**
      * Move the focus of the current selection to the end of the closest block parent.
      */
-    moveFocusToEndOfBlock(): Commandable;
+    moveFocusToEndOfBlock(): Controller;
     /**
      * Move the focus of the current selection to the end of the document.
      */
-    moveFocusToEndOfDocument(): Commandable;
+    moveFocusToEndOfDocument(): Controller;
     /**
      * Move the focus of the current selection to the end of the closest inline parent.
      */
-    moveFocusToEndOfInline(): Commandable;
+    moveFocusToEndOfInline(): Controller;
     /**
      * Move the focus of the current selection to the end of the next block.
      */
-    moveFocusToEndOfNextBlock(): Commandable;
+    moveFocusToEndOfNextBlock(): Controller;
     /**
      * Move the focus of the current selection to the end of the next inline.
      */
-    moveFocusToEndOfNextInline(): Commandable;
+    moveFocusToEndOfNextInline(): Controller;
     /**
      * Move the focus of the current selection to the end of the next text.
      */
-    moveFocusToEndOfNextText(): Commandable;
+    moveFocusToEndOfNextText(): Controller;
     /**
      * Move the focus of the current selection to the end of the provided node.
      */
-    moveFocusToEndOfNode(node: Node): Commandable;
+    moveFocusToEndOfNode(node: Node): Controller;
     /**
      * Move the focus of the current selection to the end of the previous block.
      */
-    moveFocusToEndOfPreviousBlock(): Commandable;
+    moveFocusToEndOfPreviousBlock(): Controller;
     /**
      * Move the focus of the current selection to the end of the previous inline.
      */
-    moveFocusToEndOfPreviousInline(): Commandable;
+    moveFocusToEndOfPreviousInline(): Controller;
     /**
      * Move the focus of the current selection to the end of the previous text.
      */
-    moveFocusToEndOfPreviousText(): Commandable;
+    moveFocusToEndOfPreviousText(): Controller;
     /**
      * Move the focus of the current selection to the end of the current text node.
      */
-    moveFocusToEndOfText(): Commandable;
+    moveFocusToEndOfText(): Controller;
     /**
      * Move the focus of the current selection to the start of the closest block parent.
      */
-    moveFocusToStartOfBlock(): Commandable;
+    moveFocusToStartOfBlock(): Controller;
     /**
      * Move the focus of the current selection to the start of the document.
      */
-    moveFocusToStartOfDocument(): Commandable;
+    moveFocusToStartOfDocument(): Controller;
     /**
      * Move the focus of the current selection to the start of the closest inline parent.
      */
-    moveFocusToStartOfInline(): Commandable;
+    moveFocusToStartOfInline(): Controller;
     /**
      * Move the focus of the current selection to the start of the next block.
      */
-    moveFocusToStartOfNextBlock(): Commandable;
+    moveFocusToStartOfNextBlock(): Controller;
     /**
      * Move the focus of the current selection to the start of the next inline.
      */
-    moveFocusToStartOfNextInline(): Commandable;
+    moveFocusToStartOfNextInline(): Controller;
     /**
      * Move the focus of the current selection to the start of the next text node.
      */
-    moveFocusToStartOfNextText(): Commandable;
+    moveFocusToStartOfNextText(): Controller;
     /**
      * Move the focus of the current selection to the start of the provided node.
      */
-    moveFocusToStartOfNode(node: Node): Commandable;
+    moveFocusToStartOfNode(node: Node): Controller;
     /**
      * Move the focus of the current selection to the start of the previous block.
      */
-    moveFocusToStartOfPreviousBlock(): Commandable;
+    moveFocusToStartOfPreviousBlock(): Controller;
     /**
      * Move the focus of the current selection to the start of the previous inline.
      */
-    moveFocusToStartOfPreviousInline(): Commandable;
+    moveFocusToStartOfPreviousInline(): Controller;
     /**
      * Move the focus of the current selection to the start of the previous text node.
      */
-    moveFocusToStartOfPreviousText(): Commandable;
+    moveFocusToStartOfPreviousText(): Controller;
     /**
      * Move the focus of the current selection to the start of the current text node.
      */
-    moveFocusToStartOfText(): Commandable;
+    moveFocusToStartOfText(): Controller;
 
     /**
      * Move the start of the current selection backward n characters
      */
-    moveStartForward(n?: number): Commandable;
+    moveStartForward(n?: number): Controller;
     /**
      * Move the start of the current selection forward n characters
      */
-    moveStartBackward(n?: number): Commandable;
+    moveStartBackward(n?: number): Controller;
     /**
      * Move the start of the current selection to a new path and offset
      */
-    moveStartTo(path: Path, n?: number): Commandable;
+    moveStartTo(path: Path, n?: number): Controller;
     /**
      * Move the start of the current selection to the end of the closest block parent.
      */
-    moveStartToEndOfBlock(): Commandable;
+    moveStartToEndOfBlock(): Controller;
     /**
      * Move the start of the current selection to the end of the document.
      */
-    moveStartToEndOfDocument(): Commandable;
+    moveStartToEndOfDocument(): Controller;
     /**
      * Move the start of the current selection to the end of the closest inline parent.
      */
-    moveStartToEndOfInline(): Commandable;
+    moveStartToEndOfInline(): Controller;
     /**
      * Move the start of the current selection to the end of the next block.
      */
-    moveStartToEndOfNextBlock(): Commandable;
+    moveStartToEndOfNextBlock(): Controller;
     /**
      * Move the start of the current selection to the end of the next inline.
      */
-    moveStartToEndOfNextInline(): Commandable;
+    moveStartToEndOfNextInline(): Controller;
     /**
      * Move the start of the current selection to the end of the next text.
      */
-    moveStartToEndOfNextText(): Commandable;
+    moveStartToEndOfNextText(): Controller;
     /**
      * Move the start of the current selection to the end of the provided node.
      */
-    moveStartToEndOfNode(node: Node): Commandable;
+    moveStartToEndOfNode(node: Node): Controller;
     /**
      * Move the start of the current selection to the end of the previous block.
      */
-    moveStartToEndOfPreviousBlock(): Commandable;
+    moveStartToEndOfPreviousBlock(): Controller;
     /**
      * Move the start of the current selection to the end of the previous inline.
      */
-    moveStartToEndOfPreviousInline(): Commandable;
+    moveStartToEndOfPreviousInline(): Controller;
     /**
      * Move the start of the current selection to the end of the previous text.
      */
-    moveStartToEndOfPreviousText(): Commandable;
+    moveStartToEndOfPreviousText(): Controller;
     /**
      * Move the start of the current selection to the end of the current text node.
      */
-    moveStartToEndOfText(): Commandable;
+    moveStartToEndOfText(): Controller;
     /**
      * Move the start of the current selection to the start of the closest block parent.
      */
-    moveStartToStartOfBlock(): Commandable;
+    moveStartToStartOfBlock(): Controller;
     /**
      * Move the start of the current selection to the start of the document.
      */
-    moveStartToStartOfDocument(): Commandable;
+    moveStartToStartOfDocument(): Controller;
     /**
      * Move the start of the current selection to the start of the closest inline parent.
      */
-    moveStartToStartOfInline(): Commandable;
+    moveStartToStartOfInline(): Controller;
     /**
      * Move the start of the current selection to the start of the next block.
      */
-    moveStartToStartOfNextBlock(): Commandable;
+    moveStartToStartOfNextBlock(): Controller;
     /**
      * Move the start of the current selection to the start of the next inline.
      */
-    moveStartToStartOfNextInline(): Commandable;
+    moveStartToStartOfNextInline(): Controller;
     /**
      * Move the start of the current selection to the start of the next text node.
      */
-    moveStartToStartOfNextText(): Commandable;
+    moveStartToStartOfNextText(): Controller;
     /**
      * Move the start of the current selection to the start of the provided node.
      */
-    moveStartToStartOfNode(node: Node): Commandable;
+    moveStartToStartOfNode(node: Node): Controller;
     /**
      * Move the start of the current selection to the start of the previous block.
      */
-    moveStartToStartOfPreviousBlock(): Commandable;
+    moveStartToStartOfPreviousBlock(): Controller;
     /**
      * Move the start of the current selection to the start of the previous inline.
      */
-    moveStartToStartOfPreviousInline(): Commandable;
+    moveStartToStartOfPreviousInline(): Controller;
     /**
      * Move the start of the current selection to the start of the previous text node.
      */
-    moveStartToStartOfPreviousText(): Commandable;
+    moveStartToStartOfPreviousText(): Controller;
     /**
      * Move the start of the current selection to the start of the current text node.
      */
-    moveStartToStartOfText(): Commandable;
+    moveStartToStartOfText(): Controller;
 
     /**
      * Move the anchor and focus of the selection backward n characters.
      */
-    moveBackward(n?: number): Commandable;
+    moveBackward(n?: number): Controller;
     /**
      * Move the anchor and focus of the selection forward n characters.
      */
-    moveForward(n?: number): Commandable;
+    moveForward(n?: number): Controller;
     /**
      * Collapse the current selection at the provided new path and offset.
      */
-    moveTo(path: Path, offset?: number): Commandable;
+    moveTo(path: Path, offset?: number): Controller;
     /**
      * Collapse the current selection at the anchor.
      */
-    moveToAnchor(): Commandable;
+    moveToAnchor(): Controller;
     /**
      * Collapse the current selection at the focus.
      */
-    moveToFocus(): Commandable;
+    moveToFocus(): Controller;
     /**
      * Collapse the current selection at the start.
      */
-    moveToStart(): Commandable;
+    moveToStart(): Controller;
     /**
      * Collapse the current selection at the end.
      */
-    moveToEnd(): Commandable;
+    moveToEnd(): Controller;
     /**
      * Collapse the current selection at the end of the closest block parent.
      */
-    moveToEndOfBlock(): Commandable;
+    moveToEndOfBlock(): Controller;
     /**
      * Collapse the current selection at the end of the document.
      */
-    moveToEndOfDocument(): Commandable;
+    moveToEndOfDocument(): Controller;
     /**
      * Collapse the current selection at the end of the closest inline parent.
      */
-    moveToEndOfInline(): Commandable;
+    moveToEndOfInline(): Controller;
     /**
      * Collapse the current selection at the end of the next block.
      */
-    moveToEndOfNextBlock(): Commandable;
+    moveToEndOfNextBlock(): Controller;
     /**
      * Collapse the current selection at the end of the inline.
      */
-    moveToEndOfNextInline(): Commandable;
+    moveToEndOfNextInline(): Controller;
     /**
      * Collapse the current selection at the end of the next text node.
      */
-    moveToEndOfNextText(): Commandable;
+    moveToEndOfNextText(): Controller;
     /**
      * Collapse the current selection at the end of the provided node.
      */
-    moveToEndOfNode(node: Node): Commandable;
+    moveToEndOfNode(node: Node): Controller;
     /**
      * Collapse the current selection at the end of the previous block.
      */
-    moveToEndOfPreviousBlock(): Commandable;
+    moveToEndOfPreviousBlock(): Controller;
     /**
      * Collapse the current selection at the end of the previous inline.
      */
-    moveToEndOfPreviousInline(): Commandable;
+    moveToEndOfPreviousInline(): Controller;
     /**
      * Collapse the current selection at the end of the previous text node.
      */
-    moveToEndOfPreviousText(): Commandable;
+    moveToEndOfPreviousText(): Controller;
     /**
      * Collapse the current selection at the end of the current text node.
      */
-    moveToEndOfText(): Commandable;
+    moveToEndOfText(): Controller;
     /**
      * Collapse the current selection at the start of the nearest block parent.
      */
-    moveToStartOfBlock(): Commandable;
+    moveToStartOfBlock(): Controller;
     /**
      * Collapse the current selection at the start of the document.
      */
-    moveToStartOfDocument(): Commandable;
+    moveToStartOfDocument(): Controller;
     /**
      * Collapse the current selection at the start of the nearest inline parent.
      */
-    moveToStartOfInline(): Commandable;
+    moveToStartOfInline(): Controller;
     /**
      * Collapse the current selection at the start of the next block.
      */
-    moveToStartOfNextBlock(): Commandable;
+    moveToStartOfNextBlock(): Controller;
     /**
      * Collapse the current selection at the start of the next inline.
      */
-    moveToStartOfNextInline(): Commandable;
+    moveToStartOfNextInline(): Controller;
     /**
      * Collapse the current selection at the start of the next text node.
      */
-    moveToStartOfNextText(): Commandable;
+    moveToStartOfNextText(): Controller;
     /**
      * Collapse the current selection at the start of the provided node.
      */
-    moveToStartOfNode(node: Node): Commandable;
+    moveToStartOfNode(node: Node): Controller;
     /**
      * Collapse the current selection at the start of the previous block.
      */
-    moveToStartOfPreviousBlock(): Commandable;
+    moveToStartOfPreviousBlock(): Controller;
     /**
      * Collapse the current selection at the start of the previous inline.
      */
-    moveToStartOfPreviousInline(): Commandable;
+    moveToStartOfPreviousInline(): Controller;
     /**
      * Collapse the current selection at the start of the previous text node.
      */
-    moveToStartOfPreviousText(): Commandable;
+    moveToStartOfPreviousText(): Controller;
     /**
      * Collapse the current selection at the start of the current text node.
      */
-    moveToStartOfText(): Commandable;
+    moveToStartOfText(): Controller;
 
     /**
      * Move the current selection's anchor to the start of the document and its focus to the end of it, selecting everything.
      */
-    moveToRangeOfDocument(): Commandable;
+    moveToRangeOfDocument(): Controller;
     /**
      * Move the current selection's anchor to the start of the provided node and its focus to the end of it.
      */
-    moveToRangeOf(node: Node): Commandable;
+    moveToRangeOf(node: Node): Controller;
     /**
      * Merge the current selection with the provided properties
      */
-    select(properties: Range | RangeProperties): Commandable;
+    select(properties: Range | RangeProperties): Controller;
 
     // Document Range Commands //
 
@@ -2053,111 +2036,111 @@ export interface Commandable {
      * Add a mark to the characters in the range.
      * Passing a string as `mark` will implicitly create a mark with that `type`
      */
-    addMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Commandable;
+    addMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Controller;
     /**
      * Delete everything in the range
      */
-    deleteAtRange(range: Range): Commandable;
+    deleteAtRange(range: Range): Controller;
     /**
      * Delete backward until the char boundary at a range
      */
-    deleteCharBackwardAtRange(range: Range): Commandable;
+    deleteCharBackwardAtRange(range: Range): Controller;
     /**
      * Delete backward until the line boundary at a range
      */
-    deleteLineBackwardAtRange(range: Range): Commandable;
+    deleteLineBackwardAtRange(range: Range): Controller;
     /**
      * Delete backward until the word boundary at a range
      */
-    deleteWordBackwardAtRange(range: Range): Commandable;
+    deleteWordBackwardAtRange(range: Range): Controller;
     /**
      * Delete backward n characters at a range
      */
-    deleteBackwardAtRange(range: Range, n: number): Commandable;
+    deleteBackwardAtRange(range: Range, n: number): Controller;
     /**
      * Delete forward until the char boundary at a range
      */
-    deleteCharForwardAtRange(range: Range): Commandable;
+    deleteCharForwardAtRange(range: Range): Controller;
     /**
      * Delete forward until the line boundary at a range
      */
-    deleteLineForwardAtRange(range: Range): Commandable;
+    deleteLineForwardAtRange(range: Range): Controller;
     /**
      * Delete forward until the word boundary at a range
      */
-    deleteWordForwardAtRange(range: Range): Commandable;
+    deleteWordForwardAtRange(range: Range): Controller;
     /**
      * Delete forward n characters at a range
      */
-    deleteForwardAtRange(range: Range, n: number): Commandable;
+    deleteForwardAtRange(range: Range, n: number): Controller;
 
     /**
      * Insert a block node at range, splitting text to make room if it is non-empty.
      * If the range is expanded, it will be deleted first.
      */
-    insertBlockAtRange(range: Range, block: Block | BlockProperties | string): Commandable;
+    insertBlockAtRange(range: Range, block: Block | BlockProperties | string): Controller;
     /**
      * Insert a document fragment at a range, if the range is expanded, it will be deleted first.
      */
-    insertFragmentAtRange(range: Range, fragment: Document): Commandable;
+    insertFragmentAtRange(range: Range, fragment: Document): Controller;
     /**
      * Insert a new inline at range, splitting text to make room if it is non-empty.
      * If the range is expanded, it will be deleted first.
      */
-    insertInlineAtRange(range: Range, inline: Inline | InlineProperties): Commandable;
+    insertInlineAtRange(range: Range, inline: Inline | InlineProperties): Controller;
     /**
      * Insert text at range. If the range is expanded it will be deleted first
      */
-    insertTextAtRange(range: Range, text: string): Commandable;
+    insertTextAtRange(range: Range, text: string): Controller;
     /**
      * Set the properties of the block nodes in a range.
      * Passing a string will set the nodes' type only
      */
-    setBlocksAtRange(range: Range, properties: BlockProperties | string): Commandable;
+    setBlocksAtRange(range: Range, properties: BlockProperties | string): Controller;
     /**
      * Set the properties of the inline nodes in a range.
      * Passing a string will set the nodes' type only
      */
-    setInlinesAtRange(range: Range, properties: InlineProperties | string): Commandable;
+    setInlinesAtRange(range: Range, properties: InlineProperties | string): Controller;
     /**
      * Split the block in a range by depth levels. If the range is expanded it will be deleted first.
      */
-    splitBlockAtRange(range: Range, depth: number): Commandable;
+    splitBlockAtRange(range: Range, depth: number): Controller;
     /**
      * Split the inline in a range by depth levels. If the range is expanded it will be deleted first.
      */
-    splitInlineAtRange(range: Range, depth: number): Commandable;
+    splitInlineAtRange(range: Range, depth: number): Controller;
     /**
      * Remove a mark from characters in the range. Passing a string will
      * implicitly create a mark of that type for deletion.
      */
-    removeMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Commandable;
+    removeMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Controller;
     /**
      * Add or remove a mark from characters in the range. Passing a string will
      * implicitly create a mark of that type for deletion.
      */
-    toggleMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Commandable;
+    toggleMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Controller;
     /**
      * Unwrap all block nodes in a range that match properties
      */
-    unwrapBlockAtRange(range: Range, properties: BlockProperties | string): Commandable;
+    unwrapBlockAtRange(range: Range, properties: BlockProperties | string): Controller;
     /**
      * Unwrap all inline nodes in a range that match properties
      */
-    unwrapInlineAtRange(range: Range, properties: InlineProperties | string): Commandable;
+    unwrapInlineAtRange(range: Range, properties: InlineProperties | string): Controller;
     /**
      * wrap all block nodes in a range with a new block node with the provided properties
      */
-    wrapBlockAtRange(range: Range, properties: BlockProperties | string): Commandable;
+    wrapBlockAtRange(range: Range, properties: BlockProperties | string): Controller;
     /**
      * wrap all inline nodes in a range with a new inline node with the provided properties
      */
-    wrapInlineAtRange(range: Range, properties: InlineProperties | string): Commandable;
+    wrapInlineAtRange(range: Range, properties: InlineProperties | string): Controller;
     /**
      * Surround the text in a range with a prefix and suffix. If the suffix is ommitted,
      * the prefix will be used instead.
      */
-    wrapTextAtRange(range: Range, prefix: string, suffix?: string): Commandable;
+    wrapTextAtRange(range: Range, prefix: string, suffix?: string): Controller;
 
     // Node commands //
     /**
@@ -2168,7 +2151,7 @@ export interface Commandable {
         offset: number,
         length: number,
         mark: MarkProperties | Mark | string
-    ): Commandable;
+    ): Controller;
     /**
      * Add a mark to length characters starting at an offset in a node by path
      */
@@ -2177,23 +2160,23 @@ export interface Commandable {
         offset: number,
         length: number,
         mark: MarkProperties | Mark | string
-    ): Commandable;
+    ): Controller;
     /**
      * Insert a node at index inside a parent node by key
      */
-    insertNodeByKey(key: string, index: number, node: Node): Commandable;
+    insertNodeByKey(key: string, index: number, node: Node): Controller;
     /**
      * Insert a node at index inside a parent node by apth
      */
-    insertNodeByPath(path: Path, index: number, node: Node): Commandable;
+    insertNodeByPath(path: Path, index: number, node: Node): Controller;
     /**
      * Insert a document fragment at index inside a parent node by key
      */
-    insertFragmentByKey(key: string, index: number, fragment: Document): Commandable;
+    insertFragmentByKey(key: string, index: number, fragment: Document): Controller;
     /**
      * Insert a document fragment at index inside a parent node by path
      */
-    insertFragmentByPath(path: Path, index: number, fragment: Document): Commandable;
+    insertFragmentByPath(path: Path, index: number, fragment: Document): Controller;
     /**
      * Insert text at an offset in a text node by its key with optional marks
      */
@@ -2202,7 +2185,7 @@ export interface Commandable {
         offset: number,
         text: string,
         marks?: Immutable.Set<Mark> | Mark[]
-    ): Commandable;
+    ): Controller;
     /**
      * Insert text at an offset in a text node by its path with optional marks
      */
@@ -2211,23 +2194,23 @@ export interface Commandable {
         offset: number,
         text: string,
         marks?: Immutable.Set<Mark> | Mark[]
-    ): Commandable;
+    ): Controller;
     /**
      * Merge a node by its key with its previous sibling
      */
-    mergeNodeByKey(key: string): Commandable;
+    mergeNodeByKey(key: string): Controller;
     /**
      * Merge a node by its path with its previous sibling
      */
-    mergeNodeByPath(path: Path): Commandable;
+    mergeNodeByPath(path: Path): Controller;
     /**
      * Move a node by its key to a new parent node with with newkey at newindex
      */
-    moveNodeByKey(key: string, newKey: string, newIndex: number): Commandable;
+    moveNodeByKey(key: string, newKey: string, newIndex: number): Controller;
     /**
      * Move a node by its path to a new parent node with with newpath at newindex
      */
-    moveNodeByPath(path: Path, newPath: Path, newIndex: number): Commandable;
+    moveNodeByPath(path: Path, newPath: Path, newIndex: number): Controller;
     /**
      * Remove a mark from length characters starting at an offset in a node by key
      */
@@ -2236,7 +2219,7 @@ export interface Commandable {
         offset: number,
         length: number,
         mark: Mark | Mark | string
-    ): Commandable;
+    ): Controller;
     /**
      * Remove a mark from length characters starting at an offset in a node by path
      */
@@ -2245,31 +2228,31 @@ export interface Commandable {
         offset: number,
         length: number,
         mark: MarkProperties | Mark | string
-    ): Commandable;
+    ): Controller;
     /**
      * Remove a node from the document by its key
      */
-    removeNodeByKey(key: string): Commandable;
+    removeNodeByKey(key: string): Controller;
     /**
      * Remove a node from the document by its path
      */
-    removeNodeByPath(path: Path): Commandable;
+    removeNodeByPath(path: Path): Controller;
     /**
      * Replace a node in the document with a new node by key
      */
-    replaceNodeByKey(key: string, node: Node): Commandable;
+    replaceNodeByKey(key: string, node: Node): Controller;
     /**
      * Replace a node in the document with a new node by path
      */
-    replaceNodeByPath(path: Path, newNode: Node): Commandable;
+    replaceNodeByPath(path: Path, newNode: Node): Controller;
     /**
      * Remove length characters of text starting at an offset in a node by key
      */
-    removeTextByKey(key: string, offset: number, length: number): Commandable;
+    removeTextByKey(key: string, offset: number, length: number): Controller;
     /**
      * Remove length characters of text starting at an offset in a node by path
      */
-    removeTextByPath(path: Path, offset: number, length: number): Commandable;
+    removeTextByPath(path: Path, offset: number, length: number): Controller;
     /**
      * Set a dictionary of properties on a mark by its key.
      */
@@ -2279,7 +2262,7 @@ export interface Commandable {
         length: number,
         mark: Mark,
         properties: MarkProperties
-    ): Commandable;
+    ): Controller;
     /**
      * Set a dictionary of properties on a mark by its path.
      */
@@ -2289,111 +2272,130 @@ export interface Commandable {
         length: number,
         mark: Mark,
         properties: MarkProperties
-    ): Commandable;
+    ): Controller;
     /**
      * Set a dictionary of properties on a node by its key.
      */
-    setNodeByKey(key: string, properties: BlockProperties | InlineProperties | string): Commandable;
+    setNodeByKey(key: string, properties: BlockProperties | InlineProperties | string): Controller;
     /**
      * Set a dictionary of properties on a node by its key.
      */
-    setNodeByPath(path: Path, properties: NodeProperties | InlineProperties | string): Commandable;
+    setNodeByPath(path: Path, properties: NodeProperties | InlineProperties | string): Controller;
     /**
      * Split a node by its key at an offset
      */
-    splitNodeByKey(key: string, offset: number): Commandable;
+    splitNodeByKey(key: string, offset: number): Controller;
     /**
      * Split a node by its path at an offset
      */
-    splitNodeByPath(path: Path, position: number): Commandable;
+    splitNodeByPath(path: Path, position: number): Controller;
     /**
      * Unwrap all inner content of an inline node by its key that match properties
      */
-    unwrapInlineByKey(key: string, properties: InlineProperties | string): Commandable;
+    unwrapInlineByKey(key: string, properties: InlineProperties | string): Controller;
     /**
      * Unwrap all inner content of an inline node by its path that match properties
      */
-    unwrapInlineByPath(path: Path, properties: InlineProperties | string): Commandable;
+    unwrapInlineByPath(path: Path, properties: InlineProperties | string): Controller;
     /**
      * Unwrap all inner content of a block node by its key that match properties
      */
-    unwrapBlockByKey(key: string, properties: BlockProperties | string): Commandable;
+    unwrapBlockByKey(key: string, properties: BlockProperties | string): Controller;
     /**
      * Unwrap all inner content of a block node by its path that match properties
      */
-    unwrapBlockByPath(path: Path, properties: BlockProperties | string): Commandable;
+    unwrapBlockByPath(path: Path, properties: BlockProperties | string): Controller;
     /**
      * Unwrap a single node from its parent. if the node is surrounded with siblings the parent will be split.
      * If the node is an only child, it will replace the parent
      */
-    unwrapNodeByKey(key: string): Commandable;
+    unwrapNodeByKey(key: string): Controller;
     /**
      * Unwrap a single node from its parent. if the node is surrounded with siblings the parent will be split.
      * If the node is an only child, it will replace the parent
      */
-    unwrapNodeByPath(path: Path): Commandable;
+    unwrapNodeByPath(path: Path): Controller;
     /**
      * Wrap the given node by key in an Inline node that matches properties.
      */
-    wrapInlineByKey(key: string, properties: InlineProperties | string): Commandable;
+    wrapInlineByKey(key: string, properties: InlineProperties | string): Controller;
     /**
      * Wrap the given node by path in an Inline node that matches properties.
      */
-    wrapInlineByPath(path: Path, properties: InlineProperties | string): Commandable;
+    wrapInlineByPath(path: Path, properties: InlineProperties | string): Controller;
     /**
      * Wrap the given node by key in a block node that matches properties.
      */
-    wrapBlockByKey(key: string, properties: BlockProperties | string): Commandable;
+    wrapBlockByKey(key: string, properties: BlockProperties | string): Controller;
     /**
      * Wrap the given node by path in a block node that matches properties.
      */
-    wrapBlockByPath(path: Path, block: Block | string): Commandable;
+    wrapBlockByPath(path: Path, block: Block | string): Controller;
     /**
      * Wrap the node with the specified key with the parent node, this will clear all children of the parent.
      */
-    wrapNodeByKey(key: string, parent: Node): Commandable;
+    wrapNodeByKey(key: string, parent: Node): Controller;
     /**
      * Wrap the node with the specified key with the parent node, this will clear all children of the parent.
      */
-    wrapNodeByPath(path: Path, parent: Node): Commandable;
+    wrapNodeByPath(path: Path, parent: Node): Controller;
 
     // Miscellaneous Commands //
     /**
      * Normalizes the document with the value's schema. Run automatically unless manually disabled.
      * Use it sparingly and strategically, as it can be very expensive.
      */
-    normalize(): Commandable;
+    normalize(): Controller;
     /**
      * Calls the provided function with the current commandable as the first argument.
      * Normalization does not occur while the function is executing and is deferred to execute immediately after completion.
      *
      * This allows for sequence change operations to not be interrupted by normalization
      */
-    withoutNormalizing(fn: () => void): Commandable;
+    withoutNormalizing(fn: () => void): Controller;
     /**
      * By default all operations are saved to the commandable's history. If you have
      * changes that you don't want to show up in history, use this function.
      */
-    withoutSaving(fn: () => void): Commandable;
+    withoutSaving(fn: () => void): Controller;
     /**
      * Usually all command operations are merged into a single save point in history,
      * if more control is desired, create single save points using this function.
      */
-    withoutMerging(fn: () => void): Commandable;
+    withoutMerging(fn: () => void): Controller;
 
     // History Commands //
     /**
      * Move forward one step in the history
      */
-    redo(): Commandable;
+    redo(): Controller;
     /**
      * Move backward one step in the history
      */
-    undo(): Commandable;
+    undo(): Controller;
     /**
      * Snapshot the current selection for undo purposes.
      */
-    snapshotSelection(): Commandable;
+    snapshotSelection(): Controller;
+    command(name: string, ...args: any[]): Controller;
+    query(query: string, ...args: any[]): Controller;
+    /**
+     * Add a new command by type to the controller. This will make the command available as a top-level method on the controller
+     */
+    registerCommand(command: string): Controller;
+    /**
+     * Add a new query by type to the controller. This will make the query available as a top-level method on the controller.
+     */
+    registerQuery(query: string): Controller;
+    /**
+     * Apply an `operation` to the controller, updating its value.
+     */
+    applyOperation(operation: Operation): Controller;
+    /**
+     * Run the middleware stack by key with args, returning its result.
+     * In normal operation you never need to use this method! Reserved for testing.
+     */
+    run(key: string, ...args: any[]): Controller;
 }
 
 export {};
