@@ -1,9 +1,9 @@
-// Type definitions for w3c MediaStream Recording (Editor’s Draft, 7 November 2018)
+// Type definitions for w3c MediaStream Recording 1.0
 // Project: https://w3c.github.io/mediacapture-record
 // Definitions by: Elias Meire <https://github.com/eliasmeire>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare interface MediaRecorderErrorEventInit extends EventInit {
+interface MediaRecorderErrorEventInit extends EventInit {
     error: DOMException;
 }
 
@@ -12,25 +12,25 @@ declare class MediaRecorderErrorEvent extends Event {
     readonly error: DOMException;
 }
 
-declare interface BlobEventInit extends EventInit {
+interface BlobEventInit extends EventInit {
     data: Blob;
-    timecode?: DOMHighResTimeStamp;
+    timecode?: number;
 }
 
 declare class BlobEvent extends Event {
     constructor(type: string, eventInitDict: BlobEventInit);
     readonly data: Blob;
-    readonly timecode: DOMHighResTimeStamp;
+    readonly timecode: number;
 }
 
-declare interface MediaRecorderOptions {
+interface MediaRecorderOptions {
     mimeType?: string;
     audioBitsPerSecond?: number;
     videoBitsPerSecond?: number;
     bitsPerSecond?: number;
 }
 
-declare type RecordingState = 'inactive' | 'recording' | 'paused';
+type RecordingState = 'inactive' | 'recording' | 'paused';
 
 declare class MediaRecorder extends EventTarget {
     readonly stream: MediaStream;
