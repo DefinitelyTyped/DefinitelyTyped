@@ -1,4 +1,4 @@
-// Type definitions for ioBroker adapters
+// Type definitions for ioBroker 1.4
 // Project: https://github.com/ioBroker/ioBroker
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 
 // Note: This is not the definition for the package `iobroker`,
 // which is just an installer, not a library.
-// The definitions are based on ioBroker.js-controller v1.4.2
+// The definitions may change with updates to ioBroker.js-controller
 
 /// <reference types="node" />
 import * as fs from "fs";
