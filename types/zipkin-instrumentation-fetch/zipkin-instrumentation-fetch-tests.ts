@@ -1,5 +1,5 @@
 import wrapFetch = require('zipkin-instrumentation-fetch');
-import fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 import {
     Tracer,

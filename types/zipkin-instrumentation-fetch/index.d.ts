@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 import { Tracer } from 'zipkin';
-import fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 interface Options {
     tracer: Tracer;
