@@ -40,8 +40,8 @@ recorder.requestData();
 const state: RecordingState = recorder.state;
 const isRecording = state === 'recording';
 
-recorder.addEventListener('dataavailable', onDataAvailable);
-recorder.removeEventListener('dataavailable', onDataAvailable);
+recorder.addEventListener('start', onEvent);
+recorder.removeEventListener('start', onEvent);
 recorder.dispatchEvent(blobEvent);
 
 recorder.ondataavailable = onDataAvailable;
