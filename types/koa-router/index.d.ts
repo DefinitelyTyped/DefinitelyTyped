@@ -5,6 +5,7 @@
 //                 JounQin <https://github.com/JounQin>
 //                 Romain Faust <https://github.com/romain-faust>
 //                 Guillaume Mayer <https://github.com/Guillaume-Mayer>
+//                 Andrea Gueugnaut <https://github.com/falinor>
 // Definitions: https://github.com/hellopao/DefinitelyTyped
 // TypeScript Version: 2.3
 
