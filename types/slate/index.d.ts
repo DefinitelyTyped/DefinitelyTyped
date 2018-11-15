@@ -327,7 +327,7 @@ export class Text extends Immutable.Record({}) {
     getFirstText(): Text;
     getLastText(): Text;
     getText(): string;
-    getMarksBetweenOffset(
+    getMarksBetweenOffsets(
         startOffset: number,
         endOffset: number
     ): Immutable.Set<Mark>;
