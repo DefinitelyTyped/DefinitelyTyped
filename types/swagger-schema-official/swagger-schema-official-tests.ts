@@ -1365,7 +1365,13 @@ const reference_support: swagger.Spec = {
         "/path": {
             "get": {
                 "parameters": [
-                    {"$ref": "#/parameters/operationParameter"}
+                    {"$ref": "#/parameters/operationParameter"},
+                    {
+                        "in": "body",
+                        "name": "bodyParameter",
+                        "type": "string",
+                        "description": "The body parameter"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -1380,7 +1386,13 @@ const reference_support: swagger.Spec = {
                 }
             },
             "parameters": [
-                {"$ref": "#/parameters/pathParameter"}
+                {"$ref": "#/parameters/pathParameter"},
+                {
+                    "in": "query",
+                    "name": "queryParameter",
+                    "type": "string",
+                    "description": "Another query parameter"
+                }
             ]
         }
     },

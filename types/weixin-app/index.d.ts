@@ -3559,19 +3559,19 @@ declare namespace wx {
 		/**
 		 * 写log日志，可以提供任意个参数，每个参数的类型为Object/Array/Number/String，参数p1到pN的内容会写入日志
 		 */
-		log: (...args: any[]) => void;
+		log(...args: any[]): void;
 		/**
 		 * 写warn日志，参数同log方法
 		 */
-		warn: (...args: any[]) => void;
+		warn(...args: any[]): void;
 		/**
 		 * 写debug日志，参数同log方法
 		 */
-		debug: (...args: any[]) => void;
+		debug(...args: any[]): void;
 		/**
 		 * 写info日志，参数同log方法
 		 */
-		info: (...args: any[]) => void;
+		info(...args: any[]): void;
 	}
 
 	// #region LogManager
@@ -3591,6 +3591,14 @@ declare namespace wx {
 	 * @param value 上报数值，经处理后会在小程序管理后台上展示每分钟的上报总量
 	 */
 	function reportMonitor(name: string, value: number): void;
+
+	/**
+	 * 自定义分析数据上报接口。使用前，需要在小程序管理后台自定义分析中新建事件，配置好事件名与字段。
+	 *
+	 * @param eventName 事件名
+	 * @param data 上报的自定义数据
+	 */
+	function reportAnalytics(eventName: string, data: object): void;
 
 	/**
 	 * 用于延迟一部分操作到下一个时间片再执行（类似于 setTimeout）。
@@ -3887,7 +3895,9 @@ declare namespace wx {
 		value?: infer T;
 	}
 		? T
-		: Def extends (...args: any[]) => infer T ? T : never;
+		: Def extends (...args: any[]) => infer T
+		? T
+		: never;
 
 	/**
 	 * Component实例方法

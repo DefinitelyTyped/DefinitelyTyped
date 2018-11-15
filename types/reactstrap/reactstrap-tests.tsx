@@ -3754,7 +3754,7 @@ function Example117() {
 }
 
 function Example118() {
-    const ref: string | ((e: any) => void) | React.RefObject<any> = null as any;
+    const ref: React.Ref<any> = React.createRef();
 
     <Button innerRef={ref}/>;
     <CardLink innerRef={ref}/>;

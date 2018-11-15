@@ -27,7 +27,7 @@ export interface RulesByNodeType {
 
 export interface ObjectAndType {
     object?: string;
-    types?: string;
+    type?: string;
 }
 
 export interface Rules {
