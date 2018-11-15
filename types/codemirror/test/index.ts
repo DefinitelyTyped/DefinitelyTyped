@@ -31,6 +31,17 @@ var myCodeMirror3: CodeMirror.Editor = CodeMirror(function (elt) {
 
 var myCodeMirror4: CodeMirror.Editor = CodeMirror.fromTextArea(myTextArea);
 
+var myCodeMirror5: CodeMirror.Editor = CodeMirror(document.body);
+var myDoc: CodeMirror.Doc= CodeMirror(document.body).doc;
+myCodeMirror5.getValue();
+myCodeMirror5.lineCount();
+myCodeMirror5.markClean();
+// $ExpectError
+myCodeMirror5.copy(true);
+// $ExpectError
+myCodeMirror5.getEditor();
+
+
 var doc: CodeMirror.Doc = new CodeMirror.Doc('text');
 var doc2: CodeMirror.Doc = CodeMirror(document.body).getDoc();
 

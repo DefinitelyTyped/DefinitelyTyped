@@ -6,6 +6,7 @@
 //                 rileymiller <https://github.com/rileymiller>
 //                 toddself <https://github.com/toddself>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.8
 
 export = CodeMirror;
 export as namespace CodeMirror;
@@ -17,6 +18,9 @@ declare namespace CodeMirror {
     export var Doc : CodeMirror.DocConstructor;
     export var Pos: CodeMirror.PositionConstructor;
     export var Pass: {toString(): "CodeMirror.PASS"};
+
+    /** Helper **/
+    type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
     /** Find the column position at a given string index using a given tabsize. */
     function countColumn(line: string, index: number | null, tabSize: number): number;
@@ -150,7 +154,12 @@ declare namespace CodeMirror {
         [keyName: string]: false | string | ((instance: Editor) => void | typeof Pass);
     }
 
-    interface Editor {
+    type DocDelegate = Omit<Doc, 'copy'| 'getEditor'>
+
+    interface Editor extends DocDelegate {
+
+        /** Reference to editor's Doc instance. */
+        doc: Doc;
 
         /** Tells you whether the editor currently has focus. */
         hasFocus(): boolean;
@@ -356,7 +365,7 @@ declare namespace CodeMirror {
         It will call the function, buffering up all changes, and only doing the expensive update after the function returns.
         This can be a lot faster. The return value from this method will be the return value of your function. */
         operation<T>(fn: ()=> T): T;
-        
+
         /** In normal circumstances, use the above operation method. But if you want to buffer operations happening asynchronously, or that can't all be wrapped in a callback
         function, you can call startOperation to tell CodeMirror to start buffering changes, and endOperation to actually render all the updates. Be careful: if you use this
         API and forget to call endOperation, the editor will just never update. */
