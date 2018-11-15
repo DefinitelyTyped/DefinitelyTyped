@@ -14,6 +14,23 @@ import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
 
+// forward declarations (avoids an unnecessary dependency on NodeJS)
+declare global {
+    interface Console {
+        log(message?: any, ...optionalParams: any[]): void;
+    }
+    var console: Console;
+
+    function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
+    function clearInterval(intervalId: NodeJS.Timeout): void;
+
+    namespace NodeJS {
+        // tslint:disable-next-line:no-empty-interface
+        interface Timer {}
+        interface Timeout extends Timer {}
+    }
+}
+
 interface Props extends React.Attributes {
     hello: string;
     world?: string | null;
