@@ -41,10 +41,10 @@ declare class MediaRecorder extends EventTarget {
 
     ondataavailable: (event: BlobEvent) => void;
     onerror: (event: MediaRecorderErrorEvent) => void;
-    onpause: (event: Event) => void;
-    onresume: (event: Event) => void;
-    onstart: (event: Event) => void;
-    onstop: (event: Event) => void;
+    onpause: EventListener;
+    onresume: EventListener;
+    onstart: EventListener;
+    onstop: EventListener;
 
     constructor(stream: MediaStream, options?: MediaRecorderOptions);
 
