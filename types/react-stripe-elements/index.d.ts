@@ -5,6 +5,7 @@
 //                 sonnysangha <https://github.com/sonnysangha>
 //                 Andrew Goh Yisheng <https://github.com/9y5>
 //                 Thomas Chia <https://github.com/thchia>
+//                 Piotr Dabrowski <https://github.com/yhnavein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -59,7 +60,7 @@ export namespace ReactStripeElements {
 
 		onFocus?(event: ElementChangeResponse): void;
 
-		onReady?(): void;
+		onReady?(el: HTMLElement): void;
 	}
 }
 
