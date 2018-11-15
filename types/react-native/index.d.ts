@@ -5226,7 +5226,7 @@ export namespace StyleSheet {
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T extends NamedStyles<T>>(styles: T): { [P in keyof T]: RegisteredStyle<T[P]> };
+    export function create<T extends NamedStyles<T> | NamedStyles<any>>(styles: T): { [P in keyof T]: RegisteredStyle<T[P]> };
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
