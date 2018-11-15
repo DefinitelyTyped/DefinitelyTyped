@@ -13,7 +13,10 @@ const node: BlockJSON = {
 			leaves: [
 				{
 					text: "example",
-					marks: []
+					marks: [{
+                        data: { testData: "data"},
+                        type: "mark"
+                    }]
 				}
 			]
 		}

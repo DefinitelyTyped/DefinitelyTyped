@@ -362,7 +362,7 @@ export interface LeafProperties {
 }
 
 export interface LeafJSON {
-    marks?: Mark[];
+    marks?: MarkJSON[];
     text?: string;
 }
 
