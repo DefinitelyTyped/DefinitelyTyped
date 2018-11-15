@@ -711,7 +711,7 @@ declare namespace NodeJS {
     type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
     type MessageListener = (message: any, sendHandle: any) => void;
-    type SignalsListener = (signal: Signals) => void;
+    type SignalsListener = (signal?: Signals) => void;
     type NewListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
     type RemoveListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
     type MultipleResolveListener = (type: MultipleResolveType, promise: Promise<any>, value: any) => void;
@@ -868,7 +868,7 @@ declare namespace NodeJS {
         emit(event: "unhandledRejection", reason: any, promise: Promise<any>): boolean;
         emit(event: "warning", warning: Error): boolean;
         emit(event: "message", message: any, sendHandle: any): this;
-        emit(event: Signals, signal: Signals): boolean;
+        emit(event: Signals, signal?: Signals): boolean;
         emit(event: "newListener", eventName: string | symbol, listener: (...args: any[]) => void): this;
         emit(event: "removeListener", eventName: string, listener: (...args: any[]) => void): this;
         emit(event: "multipleResolves", listener: MultipleResolveListener): this;

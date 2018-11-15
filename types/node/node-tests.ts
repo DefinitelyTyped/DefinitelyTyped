@@ -3270,6 +3270,9 @@ import * as p from "process";
         process.once("removeListener", (event: string | symbol, listener: Function) => { });
         process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
 
+        process.emit("SIGTERM");
+        process.emit("SIGTERM", "SIGTERM");
+
         const listeners = process.listeners('uncaughtException');
         const oldHandler = listeners[listeners.length - 1];
         process.addListener('uncaughtException', oldHandler);
