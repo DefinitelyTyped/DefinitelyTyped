@@ -92,6 +92,12 @@ declare namespace Router {
         query: object | string;
     }
 
+    export interface IRoutesMatch {
+        path: Layer[];
+        pathAndMethod: Layer[];
+        route: boolean;
+    }
+
     export class ParamName {
         asterisk: boolean;
         delimiter: string;
@@ -298,7 +304,7 @@ declare class Router {
     /**
      * Match given `path` and return corresponding routes.
      */
-    match(name: string, method: string): Object;
+    match(path: string, method: string): Router.IRoutesMatch;
 
     /**
      * Run middleware for named route parameters. Useful for auto-loading or validation.
