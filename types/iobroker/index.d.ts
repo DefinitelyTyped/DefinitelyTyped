@@ -1,11 +1,12 @@
-// Ambient type definitions for adapters for ioBroker
-// Note: This is not the definition for the package `iobroker`,
-// which is just an installer, not a library.
-// The definitions are based on ioBroker.js-controller v1.4.2
+// Type definitions for ioBroker adapters
 // Project: https://github.com/ioBroker/ioBroker
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
+// Note: This is not the definition for the package `iobroker`,
+// which is just an installer, not a library.
+// The definitions are based on ioBroker.js-controller v1.4.2
 
 /// <reference types="node" />
 import * as fs from "fs";
