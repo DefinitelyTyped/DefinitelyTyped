@@ -554,6 +554,8 @@ export interface NavigationBottomTabScreenOptions
   ) => void;
 }
 
+export type DrawerLockMode = 'unlocked' | 'locked-closed' | 'locked-open';
+
 export interface NavigationDrawerScreenOptions {
   title?: string;
   drawerIcon?:
@@ -567,7 +569,7 @@ export interface NavigationDrawerScreenOptions {
   | ((
     options: { tintColor: string | null; focused: boolean }
   ) => React.ReactElement<any> | null);
-  drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
+  drawerLockMode?: DrawerLockMode;
 }
 
 export interface NavigationRouteConfigMap {
@@ -899,6 +901,7 @@ export interface DrawerNavigatorConfig
     style?: StyleProp<ViewStyle>;
     labelStyle?: StyleProp<TextStyle>;
   };
+  drawerLockMode?: DrawerLockMode;
 }
 
 export function DrawerNavigator(
