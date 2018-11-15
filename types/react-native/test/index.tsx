@@ -14,7 +14,6 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 import * as PropTypes from "prop-types";
 import * as React from "react";
 import {
-    RegisteredStyle,
     Alert,
     AppState,
     AppStateIOS,
@@ -56,6 +55,7 @@ import {
     SectionListRenderItemInfo,
     Switch,
     RefreshControl,
+    RegisteredStyle,
     TabBarIOS,
     NativeModules,
     MaskedViewIOS,
