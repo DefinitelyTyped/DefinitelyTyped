@@ -1,3 +1,4 @@
+// Type definitions for react-navigation-fluid-transitions 0.2.73
 import { NavigationRouteConfig, StackNavigatorConfig, NavigationContainer } from 'react-navigation';
 import * as React from 'react';
 import { Animated, Dimensions, StyleSheet } from 'react-native';
