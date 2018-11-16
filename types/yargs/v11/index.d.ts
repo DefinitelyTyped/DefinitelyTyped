@@ -5,6 +5,7 @@
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Jeff Kenney <https://github.com/jeffkenney>
 //                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
+//                 Emily Marigold Klassen <https://github.com/forivall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -31,6 +32,8 @@ declare namespace yargs {
         alias(aliases: { [shortName: string]: string | string[] }): Argv;
 
         argv: Arguments;
+
+        parsed: DetailedArguments | false;
 
         array(key: string | string[]): Argv;
 
@@ -105,6 +108,8 @@ declare namespace yargs {
         epilogue(msg: string): Argv;
 
         example(command: string, description: string): Argv;
+
+        exit(code: number, err: Error): void;
 
         exitProcess(enabled: boolean): Argv;
 
@@ -231,6 +236,28 @@ declare namespace yargs {
         $0: string;
         /** All remaining options */
         [argName: string]: any;
+    }
+
+    interface DetailedArguments {
+        argv: Arguments;
+        error: Error | null;
+        aliases: {[alias: string]: string[]};
+        newAliases: {[alias: string]: boolean};
+        configuration: Configuration;
+    }
+
+    interface Configuration {
+        'boolean-negation': boolean;
+        'camel-case-expansion': boolean;
+        'combine-arrays': boolean;
+        'dot-notation': boolean;
+        'duplicate-arguments-array': boolean;
+        'flatten-duplicate-arrays': boolean;
+        'negation-prefix': string;
+        'parse-numbers': boolean;
+        'populate--': boolean;
+        'set-placeholder-key': boolean;
+        'short-option-groups': boolean;
     }
 
     interface RequireDirectoryOptions {
