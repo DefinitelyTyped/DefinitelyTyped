@@ -8,6 +8,7 @@
 
 import * as Koa from 'koa';
 import * as Joi from 'joi';
+import * as KoaRouter from 'koa-router';
 
 declare module "koa" {
     interface Request {
@@ -50,10 +51,10 @@ declare namespace createRouter {
         routes: Spec[];
         route(spec: Spec|Spec[]): Router;
         middleware(): Koa.Middleware;
-        prefix(path: string): Router;
-        use(handler: Koa.Middleware): Router;
-        use(path: string, handler: Koa.Middleware): Router;
-        param(param: string, handler: (param: string, ctx: Koa.Context, next: () => Promise<any>) => any): Router;
+
+        prefix: KoaRouter['prefix'];
+        use: KoaRouter['use'];
+        param: KoaRouter['param'];
 
         head: Method;
         options: Method;
