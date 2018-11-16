@@ -1,7 +1,9 @@
-import elementResizeDetectorMaker from 'element-resize-detector';
+import * as elementResizeDetectorMaker from 'element-resize-detector';
 
 const erd = elementResizeDetectorMaker({
-    strategy: "scroll"
+    strategy: "scroll",
+    debug: true,
+    callOnAdd: false
 });
 
 const testElement: HTMLElement | null = null;
