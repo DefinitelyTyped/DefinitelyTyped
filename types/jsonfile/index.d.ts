@@ -1,4 +1,4 @@
-// Type definitions for jsonfile 4.0
+// Type definitions for jsonfile 5.0
 // Project: https://github.com/jprichardson/node-jsonfile#readme
 // Definitions by: Daniel Bowring <https://github.com/dbowring>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -49,12 +49,12 @@ export type JFWriteOptions = string | {
 
 export type JFReadCallback = (err: NodeJS.ErrnoException | null, data: any) => void;
 
-export function readFile(file: Path, options?: JFReadOptions, callback?: JFReadCallback): void;
-export function readFile(file: Path, callback: JFReadCallback): void;
+export function readFile(file: Path, options?: JFReadOptions, callback?: JFReadCallback): Promise<any>;
+export function readFile(file: Path, callback: JFReadCallback): Promise<any>;
 
 export function readFileSync(file: Path, options?: JFReadOptions): any;
 
-export function writeFile(file: Path, obj: any, options?: JFWriteOptions, callback?: WriteCallback): void;
-export function writeFile(file: Path, obj: any, callback: WriteCallback): void;
+export function writeFile(file: Path, obj: any, options?: JFWriteOptions, callback?: WriteCallback): Promise<any>;
+export function writeFile(file: Path, obj: any, callback: WriteCallback): Promise<any>;
 
 export function writeFileSync(file: Path, obj: any, options?: JFWriteOptions): void;
