@@ -8,29 +8,29 @@ declare function elementResizeDetectorMaker(options?: elementResizeDetectorMaker
 
 declare namespace elementResizeDetectorMaker {
     interface ErdmOptions {
-    	strategy?: 'scroll' | 'object';
-    	reporter?: ReporterProps;
-	    callOnAdd?: boolean;
-	    idHandler?: IdHandlerProps;
-	    debug?: boolean;
+        strategy?: 'scroll' | 'object';
+        reporter?: ReporterProps;
+        callOnAdd?: boolean;
+        idHandler?: IdHandlerProps;
+        debug?: boolean;
     }
 
     interface IdHandlerProps {
-	    get(element: HTMLElement, readonly: boolean): string;
-	    set(element: HTMLElement): string;
-	}
+        get(element: HTMLElement, readonly: boolean): string;
+        set(element: HTMLElement): string;
+    }
 
-	interface ReporterProps {
-		log(): void;
-		warn(): void;
-		error(): void;
-	}
+    interface ReporterProps {
+        log(): void;
+        warn(): void;
+        error(): void;
+    }
 
     interface Erd {
-	    listenTo(element: HTMLElement, callback: (elem: HTMLElement) => void): void;
-	    removeListener(element: HTMLElement, callback: (elem: HTMLElement) => void): void;
-	    removeAllListeners(element: HTMLElement): void;
-	    uninstall(element: HTMLElement): void;
+        listenTo(element: HTMLElement, callback: (elem: HTMLElement) => void): void;
+        removeListener(element: HTMLElement, callback: (elem: HTMLElement) => void): void;
+        removeAllListeners(element: HTMLElement): void;
+        uninstall(element: HTMLElement): void;
     }
 }
 
