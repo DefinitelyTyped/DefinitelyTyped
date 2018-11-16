@@ -63,7 +63,7 @@ export class Client extends EventEmitter {
 	updateLobbyMember(lobby: { id: string } | string, user: { id: string } | string, metadata: any): Promise<any>;
 
 	subscribe(event: string, callback: (data: any) => void): Promise<Subscription>;
-	subscribe(event: string, args: object, callback: (data: any) => void): Promise<Subscription>;
+	subscribe(event: string, args: any, callback: (data: any) => void): Promise<Subscription>;
 
 	destroy(): Promise<void>;
 }
