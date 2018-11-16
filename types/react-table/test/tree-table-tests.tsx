@@ -4,8 +4,6 @@ import * as ReactDOM from 'react-dom';
 import ReactTable, { Column } from 'react-table';
 import treeTableHOC from 'react-table/lib/hoc/treeTable';
 
-import 'react-table/react-table.css';
-
 const SelectTable = treeTableHOC(ReactTable);
 
 const data = [{ id: 1, name: 'Foo' }, { id: 2, name: 'Bar' }];
