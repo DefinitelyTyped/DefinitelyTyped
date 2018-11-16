@@ -120,7 +120,7 @@ class ModernComponent extends React.Component<Props, State>
                 value: this.state.inputValue
             }),
             React.DOM.input({
-                onChange: event => console.log(event.target)
+                onChange: event => event.target
             }));
     }
 
@@ -342,7 +342,7 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
         event.stopPropagation();
     },
     onAnimationStart: event => {
-        console.log(event.currentTarget.className);
+        event.currentTarget.className;
     },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
@@ -505,17 +505,20 @@ class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
     };
-    private _interval: NodeJS.Timer;
+    // NOTE: creates unnecessary dependency on 'node'. leaving for reference purposes
+    // private _interval: NodeJS.Timer;
     tick() {
         this.setState((prevState, props) => ({
             secondsElapsed: prevState.secondsElapsed + 1
         }));
     }
     componentDidMount() {
-        this._interval = setInterval(() => this.tick(), 1000);
+        // NOTE: creates unnecessary dependency on 'node'. leaving for reference purposes
+        // this._interval = setInterval(() => this.tick(), 1000);
     }
     componentWillUnmount() {
-        clearInterval(this._interval);
+        // NOTE: creates unnecessary dependency on 'node'. leaving for reference purposes
+        // clearInterval(this._interval);
     }
     render() {
         return React.DOM.div(
@@ -602,14 +605,14 @@ Perf.printExclusive();
 Perf.printWasted();
 Perf.printOperations();
 
-console.log(Perf.getExclusive());
-console.log(Perf.getInclusive());
-console.log(Perf.getWasted());
-console.log(Perf.getOperations());
-console.log(Perf.getExclusive(measurements));
-console.log(Perf.getInclusive(measurements));
-console.log(Perf.getWasted(measurements));
-console.log(Perf.getOperations(measurements));
+Perf.getExclusive();
+Perf.getInclusive();
+Perf.getWasted();
+Perf.getOperations();
+Perf.getExclusive(measurements);
+Perf.getInclusive(measurements);
+Perf.getWasted(measurements);
+Perf.getOperations(measurements);
 
 // Renamed to printOperations().  Please use it instead.
 Perf.printDOM(measurements);

@@ -14,23 +14,6 @@ import update = require("react-addons-update");
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";
 
-// forward declarations (avoids an unnecessary dependency on NodeJS)
-declare global {
-    interface Console {
-        log(message?: any, ...optionalParams: any[]): void;
-    }
-    var console: Console;
-
-    function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
-    function clearInterval(intervalId: NodeJS.Timeout): void;
-
-    namespace NodeJS {
-        // tslint:disable-next-line:no-empty-interface
-        interface Timer {}
-        interface Timeout extends Timer {}
-    }
-}
-
 interface Props extends React.Attributes {
     hello: string;
     world?: string | null;
@@ -103,7 +86,7 @@ declare const container: Element;
         render() { return null; }
         componentDidMount() {
             // $ExpectError -> this will be true in next BC release where state is gonna be `null | Readonly<S>`
-            console.log(this.state.inputValue);
+            this.state.inputValue;
         }
         mutateState() {
             // $ExpectError
@@ -184,7 +167,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
                 value: this.state.inputValue ? this.state.inputValue : undefined
             }),
             DOM.input({
-                onChange: event => console.log(event.target)
+                onChange: event => event.target
             }));
     }
 
@@ -518,17 +501,20 @@ class Timer extends React.Component<{}, TimerState> {
     state = {
         secondsElapsed: 0
     };
-    private _interval: NodeJS.Timer;
+    // NOTE: creates unnecessary dependency on 'node'. leaving for reference purposes
+    // private _interval: NodeJS.Timer;
     tick() {
         this.setState((prevState, props) => ({
             secondsElapsed: prevState.secondsElapsed + 1
         }));
     }
     componentDidMount() {
-        this._interval = setInterval(() => this.tick(), 1000);
+        // NOTE: creates unnecessary dependency on 'node'. leaving for reference purposes
+        // this._interval = setInterval(() => this.tick(), 1000);
     }
     componentWillUnmount() {
-        clearInterval(this._interval);
+        // NOTE: creates unnecessary dependency on 'node'. leaving for reference purposes
+        // clearInterval(this._interval);
     }
     render() {
         return DOM.div(
@@ -615,14 +601,14 @@ Perf.printExclusive();
 Perf.printWasted();
 Perf.printOperations();
 
-console.log(Perf.getExclusive());
-console.log(Perf.getInclusive());
-console.log(Perf.getWasted());
-console.log(Perf.getOperations());
-console.log(Perf.getExclusive(measurements));
-console.log(Perf.getInclusive(measurements));
-console.log(Perf.getWasted(measurements));
-console.log(Perf.getOperations(measurements));
+Perf.getExclusive();
+Perf.getInclusive();
+Perf.getWasted();
+Perf.getOperations();
+Perf.getExclusive(measurements);
+Perf.getInclusive(measurements);
+Perf.getWasted(measurements);
+Perf.getOperations(measurements);
 
 // Renamed to printOperations().  Please use it instead.
 Perf.printDOM(measurements);
