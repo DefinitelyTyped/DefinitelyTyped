@@ -383,19 +383,19 @@ Comments.find({ viewNumber: { $gt: 100 } });
 Comments.find({ viewNumber: { $not: { $lt: 100, $gt: 1000 } } });
 Comments.find({ tags: { $in: [ "tag-1", "tag-2", "tag-3" ] } });
 Comments.find({ $or: [ { text: "hello" }, { text: "world" } ] });
-Comments.find({ $or: [ 
-    { text: "hello" }, 
-    { text: "world", viewNumber: { $gt: 0 } } 
+Comments.find({ $or: [
+    { text: "hello" },
+    { text: "world", viewNumber: { $gt: 0 } }
 ], authorId: "test-author-id" });
-Comments.find({ $and: [ 
-    { $or: [{ authorId: "author-id-1" }, { authorId: "author-id-2" }] }, 
+Comments.find({ $and: [
+    { $or: [{ authorId: "author-id-1" }, { authorId: "author-id-2" }] },
     { $or: [{ tags: "tag-1" }, { tags: "tag-2" }] }
 ]});
 
 Comments.find({ $query: { inlineLinks: { $exists: true, $type: "array" } } });
-Comments.find({ inlineLinks: { $elemMatch: { 
-    objectType: InlineObjectType.Image, 
-    objectUrl: { $regex: "https://(www\.?)youtube\.com" } 
+Comments.find({ inlineLinks: { $elemMatch: {
+    objectType: InlineObjectType.Image,
+    objectUrl: { $regex: "https://(www\.?)youtube\.com" }
 } } });
 Comments.find({ "inlineLinks.objectType": InlineObjectType.Person });
 Comments.find({ tags: "tag-1" });
