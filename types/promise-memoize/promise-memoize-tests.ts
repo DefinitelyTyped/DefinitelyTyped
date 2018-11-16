@@ -10,3 +10,5 @@ const cachedLastPosts = promiseMemoize(lastPosts, {maxAge: 60000});
 cachedLastPosts(10).then(posts => {
     posts;
 });
+
+cachedLastPosts.clear();
