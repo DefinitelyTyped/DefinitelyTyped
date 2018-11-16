@@ -9,8 +9,8 @@
 
 /// <reference types="node" />
 
-import * as React from "react";
 import * as CSS from "csstype";
+import * as React from "react";
 
 export type CSSObject = CSS.Properties<string | number> &
     // Index type to allow selector nesting
@@ -30,7 +30,7 @@ export interface ThemeProps<T> {
 }
 
 export type ThemedStyledProps<P, T> = P & ThemeProps<T>;
-export type StyledProps<P> = ThemedStyledProps<P, any>;
+export type StyledProps<P> = ThemedStyledProps<P, AnyIfEmpty<DefaultTheme>>;
 
 export type StyledComponentProps<
     // The Component from whose props are derived
@@ -57,8 +57,8 @@ type StyledComponentPropsWithAs<
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> =
     | InterpolationValue
-    | InterpolationFunction<P>
-    | FlattenInterpolation<P>;
+    | FlattenInterpolation<P>
+    | InterpolationFunction<P>;
 // must be an interface to be self-referential
 export interface FlattenInterpolation<P>
     extends ReadonlyArray<Interpolation<P>> {}
@@ -93,10 +93,15 @@ export interface GlobalStyleComponent<P, T>
     extends React.ComponentClass<ThemedGlobalStyledClassProps<P, T>> {}
 
 // remove the call signature from StyledComponent so Interpolation can still infer InterpolationFunction
-type StyledComponentInterpolation = Pick<
-    AnyStyledComponent,
-    keyof StyledComponentBase<any, any>
->;
+type StyledComponentInterpolation =
+    | Pick<
+          StyledComponentBase<any, any, any, any>,
+          keyof StyledComponentBase<any, any>
+      >
+    | Pick<
+          StyledComponentBase<any, any, any>,
+          keyof StyledComponentBase<any, any>
+      >;
 
 // abuse Pick to strip the call signature from ForwardRefExoticComponent
 type ForwardRefExoticBase<P> = Pick<
@@ -162,25 +167,45 @@ export interface StyledComponentBase<
     ): StyledComponent<WithC, T, O, A>;
 }
 
-export type ThemedStyledFunctionBase<
+export interface ThemedStyledFunctionBase<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object = {},
     A extends keyof any = never
-> =
+> {
+    (
+        first:
+            | TemplateStringsArray
+            | NonNullable<
+                  Interpolation<
+                      ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
+                  >
+              >,
+        ...rest: Array<
+            Interpolation<
+                ThemedStyledProps<StyledComponentPropsWithRef<C> & O, T>
+            >
+        >
+    ): StyledComponent<C, T, O, A>;
     // at least the first argument is required, whatever it is
     <U extends object>(
-        first: NonNullable<
-            Interpolation<
-                ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
-            >
-        >,
+        first:
+            | TemplateStringsArray
+            | NonNullable<
+                  Interpolation<
+                      ThemedStyledProps<
+                          StyledComponentPropsWithRef<C> & O & U,
+                          T
+                      >
+                  >
+              >,
         ...rest: Array<
             Interpolation<
                 ThemedStyledProps<StyledComponentPropsWithRef<C> & O & U, T>
             >
         >
-    ) => StyledComponent<C, T, O & U, A>;
+    ): StyledComponent<C, T, O & U, A>;
+}
 
 export interface ThemedStyledFunction<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
@@ -243,17 +268,13 @@ type StyledComponentInnerAttrs<
 
 export interface ThemedBaseStyledInterface<T extends object>
     extends ThemedStyledComponentFactories<T> {
-    <TTag extends keyof JSX.IntrinsicElements>(tag: TTag): ThemedStyledFunction<
-        TTag,
-        T
-    >;
     <C extends AnyStyledComponent>(component: C): ThemedStyledFunction<
         StyledComponentInnerComponent<C>,
         T,
         StyledComponentInnerOtherProps<C>,
         StyledComponentInnerAttrs<C>
     >;
-    <C extends React.ComponentType<any>>(
+    <C extends keyof JSX.IntrinsicElements | React.ComponentType<any>>(
         // unfortunately using a conditional type to validate that it can receive a `theme?: Theme`
         // causes tests to fail in TS 3.1
         component: C
@@ -265,10 +286,20 @@ export type ThemedStyledInterface<T extends object> = ThemedBaseStyledInterface<
 >;
 export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
 
-export type BaseThemedCssFunction<T extends object> = <P>(
-    first: NonNullable<Interpolation<ThemedStyledProps<P, T>>>,
-    ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
-) => Array<FlattenInterpolation<ThemedStyledProps<P, T>>>;
+export interface BaseThemedCssFunction<T extends object> {
+    (
+        first:
+            | TemplateStringsArray
+            | NonNullable<Interpolation<ThemedStyledProps<{}, T>>>,
+        ...interpolations: Array<Interpolation<ThemedStyledProps<{}, T>>>
+    ): FlattenInterpolation<ThemedStyledProps<{}, T>>;
+    <P extends object>(
+        first:
+            | TemplateStringsArray
+            | NonNullable<Interpolation<ThemedStyledProps<P, T>>>,
+        ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
+    ): FlattenInterpolation<ThemedStyledProps<P, T>>;
+}
 
 export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<
     AnyIfEmpty<T>
@@ -296,7 +327,9 @@ export interface ThemedStyledComponentsModule<
     ): Keyframes;
 
     createGlobalStyle<P extends object = {}>(
-        first: NonNullable<Interpolation<ThemedStyledProps<P, T>>>,
+        first:
+            | TemplateStringsArray
+            | NonNullable<Interpolation<ThemedStyledProps<P, T>>>,
         ...interpolations: Array<Interpolation<ThemedStyledProps<P, T>>>
     ): GlobalStyleComponent<P, T>;
 
@@ -366,7 +399,9 @@ export function keyframes(
 ): Keyframes;
 
 export function createGlobalStyle<P extends object = {}>(
-    first: NonNullable<Interpolation<ThemedStyledProps<P, DefaultTheme>>>,
+    first:
+        | TemplateStringsArray
+        | NonNullable<Interpolation<ThemedStyledProps<P, DefaultTheme>>>,
     ...interpolations: Array<Interpolation<ThemedStyledProps<P, DefaultTheme>>>
 ): GlobalStyleComponent<P, DefaultTheme>;
 
