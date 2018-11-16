@@ -3,16 +3,14 @@
 // Definitions by: Zhongliang Wang <https://github.com/Cryrivers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "react-cache" {
-    interface Resource<I, V> {
-        read: (input?: I) => V;
-        preload: (input?: I) => void;
-    }
-    export function setGlobalCacheLimit(limit: number): void;
-    export function createResource<I, K extends string | number, V>(
-        fetch: (input: I) => Promise<V>,
-        maybeHashInput?: (input: I) => K
-    ): Resource<I, V>;
-    export const unstable_createResource: typeof createResource;
-    export const unstable_setGlobalCacheLimit: typeof setGlobalCacheLimit;
+interface Resource<I, V> {
+    read: (input?: I) => V;
+    preload: (input?: I) => void;
 }
+declare function setGlobalCacheLimit(limit: number): void;
+declare function createResource<I, V>(
+    fetch: (input: I) => Promise<V>,
+    maybeHashInput?: (input: I) => string | number
+): Resource<I, V>;
+declare const unstable_createResource: typeof createResource;
+declare const unstable_setGlobalCacheLimit: typeof setGlobalCacheLimit;
