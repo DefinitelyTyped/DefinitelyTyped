@@ -575,9 +575,9 @@ declare namespace Office {
         * 
         * *Supported errors*
         * <table>
-        *   <tr><th>Office.Error.name                   </th><th>Office.Error.message                                                                              </th><th>Type returned</th></tr>
-        *   <tr><td><strong>HTTPError</strong>          </td><td>The request has failed. Please look at the diagnostics object for the HTTP error code.            </td><td>string       </td></tr>
-        *   <tr><td><strong>InternalServerError</strong></td><td>The Exchange server returned an error. Please look at the diagnostics object for more information.</td><td>string       </td></tr>
+        *   <tr><th>AsyncResult.error.name              </th><th>AsyncResult.error.message                                                                         </th><th>Description of diagnostics object returned                                                                                        </th></tr>
+        *   <tr><td><strong>HTTPRequestFailure</strong> </td><td>The request has failed. Please look at the diagnostics object for the HTTP error code.            </td><td>The HTTP error code in a JSON object e.g., {"HTTPCode":"401"}                                                                     </td></tr>
+        *   <tr><td><strong>InternalServerError</strong></td><td>The Exchange server returned an error. Please look at the diagnostics object for more information.</td><td>The error message from the Exchange server in a JSON object e.g., {"ErrorText": "The mailbox database is temporarily unavailable"}</td></tr>
         * </table>
         */
        diagnostics: any;
