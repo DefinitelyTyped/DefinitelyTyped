@@ -4,32 +4,34 @@
 //                 Frank Li <https://github.com/franklixuefei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface IdHandlerProps {
-    get(element: HTMLElement, readonly: boolean): string;
-    set(element: HTMLElement): string;
+declare function elementResizeDetectorMaker(options?: elementResizeDetectorMaker.ErdmOptions): elementResizeDetectorMaker.Erd;
+
+declare namespace elementResizeDetectorMaker {
+    interface ErdmOptions {
+    	strategy?: 'scroll' | 'object';
+    	reporter?: ReporterProps;
+	    callOnAdd?: boolean;
+	    idHandler?: IdHandlerProps;
+	    debug?: boolean;
+    }
+
+    interface IdHandlerProps {
+	    get(element: HTMLElement, readonly: boolean): string;
+	    set(element: HTMLElement): string;
+	}
+
+	interface ReporterProps {
+		log(): void;
+		warn(): void;
+		error(): void;
+	}
+
+    interface Erd {
+	    listenTo(element: HTMLElement, callback: (elem: HTMLElement) => void): void;
+	    removeListener(element: HTMLElement, callback: (elem: HTMLElement) => void): void;
+	    removeAllListeners(element: HTMLElement): void;
+	    uninstall(element: HTMLElement): void;
+    }
 }
 
-export interface ReporterProps {
-    log(): void;
-    warn(): void;
-    error(): void;
-}
-
-export interface ElementResizeDetectorProps {
-    strategy?: 'scroll' | 'object';
-    reporter?: ReporterProps;
-    callOnAdd?: boolean;
-    idHandler?: IdHandlerProps;
-    debug?: boolean;
-}
-
-export interface ElementResizeDetectorActions {
-    listenTo(element: HTMLElement, callback: (elem: HTMLElement) => void): void;
-    removeListener(element: HTMLElement, callback: (elem: HTMLElement) => void): void;
-    removeAllListeners(element: HTMLElement): void;
-    uninstall(element: HTMLElement): void;
-}
-
-export default function elementResizeDetectorMaker(
-    options?: ElementResizeDetectorProps
-): ElementResizeDetectorActions;
+export = elementResizeDetectorMaker;
