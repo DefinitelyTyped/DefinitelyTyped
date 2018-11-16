@@ -1,6 +1,6 @@
-// Type definitions for lunr.js 2.1
+// Type definitions for lunr.js 2.3
 // Project: https://github.com/olivernn/lunr.js
-// Definitions by: Sean Tan <https://github.com/seantanly>
+// Definitions by: Sean Tan <https://github.com/seantanly>, Andrés Pérez <https://github.com/hokiegeek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -127,9 +127,14 @@ declare namespace lunr {
          * All fields should be added before adding documents to the index. Adding fields after
          * a document has been indexed will have no effect on already indexed documents.
          *
+         * Fields can be boosted at build time. This allows terms within that field to have more
+         * importance when ranking search results. Use a field boost to specify that matches
+         * within one field are more important than other fields.
+         *
          * @param field - The name of a field to index in all documents.
+         * @param attributes - Optional attributes associated with this field.
          */
-        field(field: string): void;
+        field(field: string, attributes?: object): void;
 
         /**
          * A parameter to tune the amount of field length normalisation that is applied when
@@ -160,9 +165,13 @@ declare namespace lunr {
          * it should have all fields defined for indexing, though null or undefined values will not
          * cause errors.
          *
+         * Entire documents can be boosted at build time. Applying a boost to a document indicates that
+         * this document should rank higher in search results than other documents.
+         *
          * @param doc - The document to add to the index.
+         * @param attributes - Optional attributes associated with this document.
          */
-        add(doc: object): void;
+        add(doc: object, attributes?: object): void;
 
         /**
          * Builds the index, creating an instance of lunr.Index.
