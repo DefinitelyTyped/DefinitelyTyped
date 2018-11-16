@@ -12,7 +12,7 @@
 // TypeScript Version: 2.8
 import {
     Document,
-    Editor as EditorController,
+    Editor as CoreEditor,
     Mark,
     Node,
     Block,
@@ -42,7 +42,7 @@ export interface RenderAttributes {
 export interface RenderMarkProps {
     attributes: RenderAttributes;
     children: React.ReactNode;
-    editor: EditorController;
+    editor: CoreEditor;
     mark: Mark;
     marks: Immutable.Set<Mark>;
     node: Node;
@@ -53,7 +53,7 @@ export interface RenderMarkProps {
 export interface RenderNodeProps {
   attributes: RenderAttributes;
   children: React.ReactNode;
-  editor: EditorController;
+  editor: CoreEditor;
   isFocused: boolean;
   isSelected: boolean;
   key: string;
@@ -63,23 +63,23 @@ export interface RenderNodeProps {
 }
 
 export interface RenderPlaceholderProps {
-    editor: EditorController;
+    editor: CoreEditor;
     readOnly: boolean;
 }
 
 export type EventHook = (
     event: Event,
-    editor: EditorController,
+    editor: CoreEditor,
     next: () => any
 ) => any;
 
 export interface Plugin {
-    decorateNode?: (node: Node, editor: EditorController, next: () => any) => any;
-    renderEditor?: (props: EditorProps, editor: EditorController, next: () => any) => any;
-    renderMark?: (props: RenderMarkProps, editor: EditorController, next: () => any) => any;
-    renderNode?: (props: RenderNodeProps, editor: EditorController, next: () => any) => any;
-    renderPlaceholder?: (props: RenderPlaceholderProps, editor: EditorController, next: () => any) => any;
-    shouldNodeComponentUpdate?: (previousProps: RenderNodeProps, props: RenderNodeProps, editor: EditorController, next: () => any) => any;
+    decorateNode?: (node: Node, editor: CoreEditor, next: () => any) => any;
+    renderEditor?: (props: EditorProps, editor: CoreEditor, next: () => any) => any;
+    renderMark?: (props: RenderMarkProps, editor: CoreEditor, next: () => any) => any;
+    renderNode?: (props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
+    renderPlaceholder?: (props: RenderPlaceholderProps, editor: CoreEditor, next: () => any) => any;
+    shouldNodeComponentUpdate?: (previousProps: RenderNodeProps, props: RenderNodeProps, editor: CoreEditor, next: () => any) => any;
 
     onBeforeInput?: EventHook;
     onBlur?: EventHook;
@@ -127,7 +127,7 @@ export interface EditorState {
 }
 
 export class Editor extends React.Component<EditorProps, EditorState> implements Controller {
-    controller: EditorController;
+    controller: CoreEditor;
     schema: Schema;
     stack: Stack;
 
@@ -140,283 +140,238 @@ export class Editor extends React.Component<EditorProps, EditorState> implements
     resolveController(plugins: Plugin[], schema: Schema, commands: any[], queries: any[]): void;
 
     // Controller
-    addMark(mark: Mark | MarkProperties | string): Editor;
-    delete(): Editor;
-    deleteBackward(n: number): Editor;
-    deleteForward(n: number): Editor;
-    insertBlock(block: Block | BlockProperties | string): Editor;
-    insertFragment(fragment: Document): Editor;
-    insertInline(inline: Inline | InlineProperties): Editor;
-    insertText(text: string): Editor;
-    setBlocks(properties: BlockProperties | string): Editor;
-    setInlines(properties: InlineProperties | string): Editor;
-    splitBlock(depth: number): Editor;
-    splitInline(depth: number): Editor;
-    removeMark(mark: Mark | MarkProperties | string): Editor;
-    replaceMark(
-        mark: Mark | MarkProperties | string,
-        newMark: Mark | MarkProperties | string
-    ): Editor;
-    toggleMark(mark: Mark | MarkProperties | string): Editor;
-    unwrapBlock(properties: BlockProperties | string): Editor;
-    unwrapInline(properties: InlineProperties | string): Editor;
-    wrapBlock(properties: BlockProperties | string): Editor;
-    wrapInline(properties: InlineProperties | string): Editor;
-    wrapText(prefix: string, suffix?: string): Editor;
-    blur(): Editor;
-    deselect(): Editor;
-    flip(): Editor;
-    focus(): Editor;
-    moveAnchorBackward(n?: number): Editor;
-    moveAnchorForward(n?: number): Editor;
-    moveAnchorTo(path: Path, offset?: number): Editor;
-    moveAnchorToEndOfBlock(): Editor;
-    moveAnchorToEndOfInline(): Editor;
-    moveAnchorToEndOfDocument(): Editor;
-    moveAnchorToEndOfNextBlock(): Editor;
-    moveAnchorToEndOfNextInline(): Editor;
-    moveAnchorToEndOfNextText(): Editor;
-    moveAnchorEndOfNode(node: Node): Editor;
-    moveAnchorToEndOfPreviousBlock(): Editor;
-    moveAnchorToEndOfPreviousInline(): Editor;
-    moveAnchorToEndOfPreviousText(): Editor;
-    moveAnchorToEndOfText(): Editor;
-    moveAnchorToStartOfBlock(): Editor;
-    moveAnchorToStartOfDocument(): Editor;
-    moveAnchorToStartOfInline(): Editor;
-    moveAnchorToStartOfNextBlock(): Editor;
-    moveAnchorToStartOfNextInline(): Editor;
-    moveAnchorToStartOfNextText(): Editor;
-    moveAnchorToStartOfNode(node: Node): Editor;
-    moveAnchorToStartOfPreviousBlock(): Editor;
-    moveAnchorToStartOfPreviousInline(): Editor;
-    moveAnchorToStartOfPreviousText(): Editor;
-    moveAnchorToStartOfText(): Editor;
-    moveEndBackward(n?: number): Editor;
-    moveEndForward(n?: number): Editor;
-    moveEndTo(path: Path, offset?: number): Editor;
-    moveEndToEndOfBlock(): Editor;
-    moveEndToEndOfDocument(): Editor;
-    moveEndToEndOfInline(): Editor;
-    moveEndToEndOfNextBlock(): Editor;
-    moveEndToEndOfNextInline(): Editor;
-    moveEndToEndOfNextText(): Editor;
-    moveEndToEndOfNode(node: Node): Editor;
-    moveEndToEndOfPreviousBlock(): Editor;
-    moveEndToEndOfPreviousInline(): Editor;
-    moveEndToEndOfPreviousText(): Editor;
-    moveEndToEndOfText(): Editor;
-    moveEndToStartOfBlock(): Editor;
-    moveEndToStartOfDocument(): Editor;
-    moveEndToStartOfInline(): Editor;
-    moveEndToStartOfNextBlock(): Editor;
-    moveEndToStartOfNextInline(): Editor;
-    moveEndToStartOfNextText(): Editor;
-    moveEndToStartOfNode(node: Node): Editor;
-    moveEndToStartOfPreviousBlock(): Editor;
-    moveEndToStartOfPreviousInline(): Editor;
-    moveEndToStartOfPreviousText(): Editor;
-    moveEndToStartOfText(): Editor;
-    moveFocusBackward(n?: number): Editor;
-    moveFocusForward(n?: number): Editor;
-    moveFocusTo(path: Path, offset?: number): Editor;
-    moveFocusToEndOfBlock(): Editor;
-    moveFocusToEndOfDocument(): Editor;
-    moveFocusToEndOfInline(): Editor;
-    moveFocusToEndOfNextBlock(): Editor;
-    moveFocusToEndOfNextInline(): Editor;
-    moveFocusToEndOfNextText(): Editor;
-    moveFocusToEndOfNode(node: Node): Editor;
-    moveFocusToEndOfPreviousBlock(): Editor;
-    moveFocusToEndOfPreviousInline(): Editor;
-    moveFocusToEndOfPreviousText(): Editor;
-    moveFocusToEndOfText(): Editor;
-    moveFocusToStartOfBlock(): Editor;
-    moveFocusToStartOfDocument(): Editor;
-    moveFocusToStartOfInline(): Editor;
-    moveFocusToStartOfNextBlock(): Editor;
-    moveFocusToStartOfNextInline(): Editor;
-    moveFocusToStartOfNextText(): Editor;
-    moveFocusToStartOfNode(node: Node): Editor;
-    moveFocusToStartOfPreviousBlock(): Editor;
-    moveFocusToStartOfPreviousInline(): Editor;
-    moveFocusToStartOfPreviousText(): Editor;
-    moveFocusToStartOfText(): Editor;
-    moveStartForward(n?: number): Editor;
-    moveStartBackward(n?: number): Editor;
-    moveStartTo(path: Path, n?: number): Editor;
-    moveStartToEndOfBlock(): Editor;
-    moveStartToEndOfDocument(): Editor;
-    moveStartToEndOfInline(): Editor;
-    moveStartToEndOfNextBlock(): Editor;
-    moveStartToEndOfNextInline(): Editor;
-    moveStartToEndOfNextText(): Editor;
-    moveStartToEndOfNode(node: Node): Editor;
-    moveStartToEndOfPreviousBlock(): Editor;
-    moveStartToEndOfPreviousInline(): Editor;
-    moveStartToEndOfPreviousText(): Editor;
-    moveStartToEndOfText(): Editor;
-    moveStartToStartOfBlock(): Editor;
-    moveStartToStartOfDocument(): Editor;
-    moveStartToStartOfInline(): Editor;
-    moveStartToStartOfNextBlock(): Editor;
-    moveStartToStartOfNextInline(): Editor;
-    moveStartToStartOfNextText(): Editor;
-    moveStartToStartOfNode(node: Node): Editor;
-    moveStartToStartOfPreviousBlock(): Editor;
-    moveStartToStartOfPreviousInline(): Editor;
-    moveStartToStartOfPreviousText(): Editor;
-    moveStartToStartOfText(): Editor;
-    moveBackward(n?: number): Editor;
-    moveForward(n?: number): Editor;
-    moveTo(path: Path, offset?: number): Editor;
-    moveToAnchor(): Editor;
-    moveToFocus(): Editor;
-    moveToStart(): Editor;
-    moveToEnd(): Editor;
-    moveToEndOfBlock(): Editor;
-    moveToEndOfDocument(): Editor;
-    moveToEndOfInline(): Editor;
-    moveToEndOfNextBlock(): Editor;
-    moveToEndOfNextInline(): Editor;
-    moveToEndOfNextText(): Editor;
-    moveToEndOfNode(node: Node): Editor;
-    moveToEndOfPreviousBlock(): Editor;
-    moveToEndOfPreviousInline(): Editor;
-    moveToEndOfPreviousText(): Editor;
-    moveToEndOfText(): Editor;
-    moveToStartOfBlock(): Editor;
-    moveToStartOfDocument(): Editor;
-    moveToStartOfInline(): Editor;
-    moveToStartOfNextBlock(): Editor;
-    moveToStartOfNextInline(): Editor;
-    moveToStartOfNextText(): Editor;
-    moveToStartOfNode(node: Node): Editor;
-    moveToStartOfPreviousBlock(): Editor;
-    moveToStartOfPreviousInline(): Editor;
-    moveToStartOfPreviousText(): Editor;
-    moveToStartOfText(): Editor;
-    moveToRangeOfDocument(): Editor;
-    moveToRangeOf(node: Node): Editor;
-    select(properties: Range | RangeProperties): Editor;
-    addMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
-    deleteAtRange(range: Range): Editor;
-    deleteCharBackwardAtRange(range: Range): Editor;
-    deleteLineBackwardAtRange(range: Range): Editor;
-    deleteWordBackwardAtRange(range: Range): Editor;
-    deleteBackwardAtRange(range: Range, n: number): Editor;
-    deleteCharForwardAtRange(range: Range): Editor;
-    deleteLineForwardAtRange(range: Range): Editor;
-    deleteWordForwardAtRange(range: Range): Editor;
-    deleteForwardAtRange(range: Range, n: number): Editor;
-    insertBlockAtRange(range: Range, block: Block | BlockProperties | string): Editor;
-    insertFragmentAtRange(range: Range, fragment: Document): Editor;
-    insertInlineAtRange(range: Range, inline: Inline | InlineProperties): Editor;
-    insertTextAtRange(range: Range, text: string): Editor;
-    setBlocksAtRange(range: Range, properties: BlockProperties | string): Editor;
-    setInlinesAtRange(range: Range, properties: InlineProperties | string): Editor;
-    splitBlockAtRange(range: Range, depth: number): Editor;
-    splitInlineAtRange(range: Range, depth: number): Editor;
-    removeMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
-    toggleMarkAtRange(range: Range, mark: Mark | MarkProperties | string): Editor;
-    unwrapBlockAtRange(range: Range, properties: BlockProperties | string): Editor;
-    unwrapInlineAtRange(range: Range, properties: InlineProperties | string): Editor;
-    wrapBlockAtRange(range: Range, properties: BlockProperties | string): Editor;
-    wrapInlineAtRange(range: Range, properties: InlineProperties | string): Editor;
-    wrapTextAtRange(range: Range, prefix: string, suffix?: string): Editor;
-    addMarkByKey(
-        key: string,
-        offset: number,
-        length: number,
-        mark: MarkProperties | Mark | string
-    ): Editor;
-    addMarkByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: MarkProperties | Mark | string
-    ): Editor;
-    insertNodeByKey(key: string, index: number, node: Node): Editor;
-    insertNodeByPath(path: Path, index: number, node: Node): Editor;
-    insertFragmentByKey(key: string, index: number, fragment: Document): Editor;
-    insertFragmentByPath(path: Path, index: number, fragment: Document): Editor;
-    insertTextByKey(
-        key: string,
-        offset: number,
-        text: string,
-        marks?: Immutable.Set<Mark> | Mark[]
-    ): Editor;
-    insertTextByPath(
-        path: Path,
-        offset: number,
-        text: string,
-        marks?: Immutable.Set<Mark> | Mark[]
-    ): Editor;
-    mergeNodeByKey(key: string): Editor;
-    mergeNodeByPath(path: Path): Editor;
-    moveNodeByKey(key: string, newKey: string, newIndex: number): Editor;
-    moveNodeByPath(path: Path, newPath: Path, newIndex: number): Editor;
-    removeMarkByKey(
-        key: string,
-        offset: number,
-        length: number,
-        mark: Mark | Mark | string
-    ): Editor;
-    removeMarkByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: MarkProperties | Mark | string
-    ): Editor;
-    removeNodeByKey(key: string): Editor;
-    removeNodeByPath(path: Path): Editor;
-    replaceNodeByKey(key: string, node: Node): Editor;
-    replaceNodeByPath(path: Path, newNode: Node): Editor;
-    removeTextByKey(key: string, offset: number, length: number): Editor;
-    removeTextByPath(path: Path, offset: number, length: number): Editor;
-    setMarkByKey(
-        key: string,
-        offset: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties
-    ): Editor;
-    setMarksByPath(
-        path: Path,
-        offset: number,
-        length: number,
-        mark: Mark,
-        properties: MarkProperties
-    ): Editor;
-    setNodeByKey(key: string, properties: BlockProperties | InlineProperties | string): Editor;
-    setNodeByPath(path: Path, properties: NodeProperties | InlineProperties | string): Editor;
-    splitNodeByKey(key: string, offset: number): Editor;
-    splitNodeByPath(path: Path, position: number): Editor;
-    unwrapInlineByKey(key: string, properties: InlineProperties | string): Editor;
-    unwrapInlineByPath(path: Path, properties: InlineProperties | string): Editor;
-    unwrapBlockByKey(key: string, properties: BlockProperties | string): Editor;
-    unwrapBlockByPath(path: Path, properties: BlockProperties | string): Editor;
-    unwrapNodeByKey(key: string): Editor;
-    unwrapNodeByPath(path: Path): Editor;
-    wrapInlineByKey(key: string, properties: InlineProperties | string): Editor;
-    wrapInlineByPath(path: Path, properties: InlineProperties | string): Editor;
-    wrapBlockByKey(key: string, properties: BlockProperties | string): Editor;
-    wrapBlockByPath(path: Path, block: Block | string): Editor;
-    wrapNodeByKey(key: string, parent: Node): Editor;
-    wrapNodeByPath(path: Path, parent: Node): Editor;
-    normalize(): Editor;
-    withoutNormalizing(fn: () => void): Editor;
-    withoutSaving(fn: () => void): Editor;
-    withoutMerging(fn: () => void): Editor;
-    redo(): Editor;
-    undo(): Editor;
-    snapshotSelection(): Editor;
-    command(name: string, ...args: any[]): Editor;
-    query(query: string, ...args: any[]): Editor;
-    registerCommand(command: string): Editor;
-    registerQuery(query: string): Editor;
-    applyOperation(operation: Operation): Editor;
-    run(key: string, ...args: any[]): Editor;
+    addMark: CoreEditor['addMark'];
+    delete: CoreEditor['delete'];
+    deleteBackward: CoreEditor['deleteBackward'];
+    deleteForward: CoreEditor['deleteForward'];
+    insertBlock: CoreEditor['insertBlock'];
+    insertFragment: CoreEditor['insertFragment'];
+    insertInline: CoreEditor['insertInline'];
+    insertText: CoreEditor['insertText'];
+    setBlocks: CoreEditor['setBlocks'];
+    setInlines: CoreEditor['setInlines'];
+    splitBlock: CoreEditor['splitBlock'];
+    splitInline: CoreEditor['splitInline'];
+    removeMark: CoreEditor['removeMark'];
+    replaceMark: CoreEditor['replaceMark'];
+    toggleMark: CoreEditor['toggleMark'];
+    unwrapBlock: CoreEditor['unwrapBlock'];
+    unwrapInline: CoreEditor['unwrapInline'];
+    wrapBlock: CoreEditor['wrapBlock'];
+    wrapInline: CoreEditor['wrapInline'];
+    wrapText: CoreEditor['wrapText'];
+    blur: CoreEditor['blur'];
+    deselect: CoreEditor['deselect'];
+    flip: CoreEditor['flip'];
+    focus: CoreEditor['focus'];
+    moveAnchorBackward: CoreEditor['moveAnchorBackward'];
+    moveAnchorForward: CoreEditor['moveAnchorForward'];
+    moveAnchorTo: CoreEditor['moveAnchorTo'];
+    moveAnchorToEndOfBlock: CoreEditor['moveAnchorToEndOfBlock'];
+    moveAnchorToEndOfInline: CoreEditor['moveAnchorToEndOfInline'];
+    moveAnchorToEndOfDocument: CoreEditor['moveAnchorToEndOfDocument'];
+    moveAnchorToEndOfNextBlock: CoreEditor['moveAnchorToEndOfNextBlock'];
+    moveAnchorToEndOfNextInline: CoreEditor['moveAnchorToEndOfNextInline'];
+    moveAnchorToEndOfNextText: CoreEditor['moveAnchorToEndOfNextText'];
+    moveAnchorEndOfNode: CoreEditor['moveAnchorEndOfNode'];
+    moveAnchorToEndOfPreviousBlock: CoreEditor['moveAnchorToEndOfPreviousBlock'];
+    moveAnchorToEndOfPreviousInline: CoreEditor['moveAnchorToEndOfPreviousInline'];
+    moveAnchorToEndOfPreviousText: CoreEditor['moveAnchorToEndOfPreviousText'];
+    moveAnchorToEndOfText: CoreEditor['moveAnchorToEndOfText'];
+    moveAnchorToStartOfBlock: CoreEditor['moveAnchorToStartOfBlock'];
+    moveAnchorToStartOfDocument: CoreEditor['moveAnchorToStartOfDocument'];
+    moveAnchorToStartOfInline: CoreEditor['moveAnchorToStartOfInline'];
+    moveAnchorToStartOfNextBlock: CoreEditor['moveAnchorToStartOfNextBlock'];
+    moveAnchorToStartOfNextInline: CoreEditor['moveAnchorToStartOfNextInline'];
+    moveAnchorToStartOfNextText: CoreEditor['moveAnchorToStartOfNextText'];
+    moveAnchorToStartOfNode: CoreEditor['moveAnchorToStartOfNode'];
+    moveAnchorToStartOfPreviousBlock: CoreEditor['moveAnchorToStartOfPreviousBlock'];
+    moveAnchorToStartOfPreviousInline: CoreEditor['moveAnchorToStartOfPreviousInline'];
+    moveAnchorToStartOfPreviousText: CoreEditor['moveAnchorToStartOfPreviousText'];
+    moveAnchorToStartOfText: CoreEditor['moveAnchorToStartOfText'];
+    moveEndBackward: CoreEditor['moveEndBackward'];
+    moveEndForward: CoreEditor['moveEndForward'];
+    moveEndTo: CoreEditor['moveEndTo'];
+    moveEndToEndOfBlock: CoreEditor['moveEndToEndOfBlock'];
+    moveEndToEndOfDocument: CoreEditor['moveEndToEndOfDocument'];
+    moveEndToEndOfInline: CoreEditor['moveEndToEndOfInline'];
+    moveEndToEndOfNextBlock: CoreEditor['moveEndToEndOfNextBlock'];
+    moveEndToEndOfNextInline: CoreEditor['moveEndToEndOfNextInline'];
+    moveEndToEndOfNextText: CoreEditor['moveEndToEndOfNextText'];
+    moveEndToEndOfNode: CoreEditor['moveEndToEndOfNode'];
+    moveEndToEndOfPreviousBlock: CoreEditor['moveEndToEndOfPreviousBlock'];
+    moveEndToEndOfPreviousInline: CoreEditor['moveEndToEndOfPreviousInline'];
+    moveEndToEndOfPreviousText: CoreEditor['moveEndToEndOfPreviousText'];
+    moveEndToEndOfText: CoreEditor['moveEndToEndOfText'];
+    moveEndToStartOfBlock: CoreEditor['moveEndToStartOfBlock'];
+    moveEndToStartOfDocument: CoreEditor['moveEndToStartOfDocument'];
+    moveEndToStartOfInline: CoreEditor['moveEndToStartOfInline'];
+    moveEndToStartOfNextBlock: CoreEditor['moveEndToStartOfNextBlock'];
+    moveEndToStartOfNextInline: CoreEditor['moveEndToStartOfNextInline'];
+    moveEndToStartOfNextText: CoreEditor['moveEndToStartOfNextText'];
+    moveEndToStartOfNode: CoreEditor['moveEndToStartOfNode'];
+    moveEndToStartOfPreviousBlock: CoreEditor['moveEndToStartOfPreviousBlock'];
+    moveEndToStartOfPreviousInline: CoreEditor['moveEndToStartOfPreviousInline'];
+    moveEndToStartOfPreviousText: CoreEditor['moveEndToStartOfPreviousText'];
+    moveEndToStartOfText: CoreEditor['moveEndToStartOfText'];
+    moveFocusBackward: CoreEditor['moveFocusBackward'];
+    moveFocusForward: CoreEditor['moveFocusForward'];
+    moveFocusTo: CoreEditor['moveFocusTo'];
+    moveFocusToEndOfBlock: CoreEditor['moveFocusToEndOfBlock'];
+    moveFocusToEndOfDocument: CoreEditor['moveFocusToEndOfDocument'];
+    moveFocusToEndOfInline: CoreEditor['moveFocusToEndOfInline'];
+    moveFocusToEndOfNextBlock: CoreEditor['moveFocusToEndOfNextBlock'];
+    moveFocusToEndOfNextInline: CoreEditor['moveFocusToEndOfNextInline'];
+    moveFocusToEndOfNextText: CoreEditor['moveFocusToEndOfNextText'];
+    moveFocusToEndOfNode: CoreEditor['moveFocusToEndOfNode'];
+    moveFocusToEndOfPreviousBlock: CoreEditor['moveFocusToEndOfPreviousBlock'];
+    moveFocusToEndOfPreviousInline: CoreEditor['moveFocusToEndOfPreviousInline'];
+    moveFocusToEndOfPreviousText: CoreEditor['moveFocusToEndOfPreviousText'];
+    moveFocusToEndOfText: CoreEditor['moveFocusToEndOfText'];
+    moveFocusToStartOfBlock: CoreEditor['moveFocusToStartOfBlock'];
+    moveFocusToStartOfDocument: CoreEditor['moveFocusToStartOfDocument'];
+    moveFocusToStartOfInline: CoreEditor['moveFocusToStartOfInline'];
+    moveFocusToStartOfNextBlock: CoreEditor['moveFocusToStartOfNextBlock'];
+    moveFocusToStartOfNextInline: CoreEditor['moveFocusToStartOfNextInline'];
+    moveFocusToStartOfNextText: CoreEditor['moveFocusToStartOfNextText'];
+    moveFocusToStartOfNode: CoreEditor['moveFocusToStartOfNode'];
+    moveFocusToStartOfPreviousBlock: CoreEditor['moveFocusToStartOfPreviousBlock'];
+    moveFocusToStartOfPreviousInline: CoreEditor['moveFocusToStartOfPreviousInline'];
+    moveFocusToStartOfPreviousText: CoreEditor['moveFocusToStartOfPreviousText'];
+    moveFocusToStartOfText: CoreEditor['moveFocusToStartOfText'];
+    moveStartForward: CoreEditor['moveStartForward'];
+    moveStartBackward: CoreEditor['moveStartBackward'];
+    moveStartTo: CoreEditor['moveStartTo'];
+    moveStartToEndOfBlock: CoreEditor['moveStartToEndOfBlock'];
+    moveStartToEndOfDocument: CoreEditor['moveStartToEndOfDocument'];
+    moveStartToEndOfInline: CoreEditor['moveStartToEndOfInline'];
+    moveStartToEndOfNextBlock: CoreEditor['moveStartToEndOfNextBlock'];
+    moveStartToEndOfNextInline: CoreEditor['moveStartToEndOfNextInline'];
+    moveStartToEndOfNextText: CoreEditor['moveStartToEndOfNextText'];
+    moveStartToEndOfNode: CoreEditor['moveStartToEndOfNode'];
+    moveStartToEndOfPreviousBlock: CoreEditor['moveStartToEndOfPreviousBlock'];
+    moveStartToEndOfPreviousInline: CoreEditor['moveStartToEndOfPreviousInline'];
+    moveStartToEndOfPreviousText: CoreEditor['moveStartToEndOfPreviousText'];
+    moveStartToEndOfText: CoreEditor['moveStartToEndOfText'];
+    moveStartToStartOfBlock: CoreEditor['moveStartToStartOfBlock'];
+    moveStartToStartOfDocument: CoreEditor['moveStartToStartOfDocument'];
+    moveStartToStartOfInline: CoreEditor['moveStartToStartOfInline'];
+    moveStartToStartOfNextBlock: CoreEditor['moveStartToStartOfNextBlock'];
+    moveStartToStartOfNextInline: CoreEditor['moveStartToStartOfNextInline'];
+    moveStartToStartOfNextText: CoreEditor['moveStartToStartOfNextText'];
+    moveStartToStartOfNode: CoreEditor['moveStartToStartOfNode'];
+    moveStartToStartOfPreviousBlock: CoreEditor['moveStartToStartOfPreviousBlock'];
+    moveStartToStartOfPreviousInline: CoreEditor['moveStartToStartOfPreviousInline'];
+    moveStartToStartOfPreviousText: CoreEditor['moveStartToStartOfPreviousText'];
+    moveStartToStartOfText: CoreEditor['moveStartToStartOfText'];
+    moveBackward: CoreEditor['moveBackward'];
+    moveForward: CoreEditor['moveForward'];
+    moveTo: CoreEditor['moveTo'];
+    moveToAnchor: CoreEditor['moveToAnchor'];
+    moveToFocus: CoreEditor['moveToFocus'];
+    moveToStart: CoreEditor['moveToStart'];
+    moveToEnd: CoreEditor['moveToEnd'];
+    moveToEndOfBlock: CoreEditor['moveToEndOfBlock'];
+    moveToEndOfDocument: CoreEditor['moveToEndOfDocument'];
+    moveToEndOfInline: CoreEditor['moveToEndOfInline'];
+    moveToEndOfNextBlock: CoreEditor['moveToEndOfNextBlock'];
+    moveToEndOfNextInline: CoreEditor['moveToEndOfNextInline'];
+    moveToEndOfNextText: CoreEditor['moveToEndOfNextText'];
+    moveToEndOfNode: CoreEditor['moveToEndOfNode'];
+    moveToEndOfPreviousBlock: CoreEditor['moveToEndOfPreviousBlock'];
+    moveToEndOfPreviousInline: CoreEditor['moveToEndOfPreviousInline'];
+    moveToEndOfPreviousText: CoreEditor['moveToEndOfPreviousText'];
+    moveToEndOfText: CoreEditor['moveToEndOfText'];
+    moveToStartOfBlock: CoreEditor['moveToStartOfBlock'];
+    moveToStartOfDocument: CoreEditor['moveToStartOfDocument'];
+    moveToStartOfInline: CoreEditor['moveToStartOfInline'];
+    moveToStartOfNextBlock: CoreEditor['moveToStartOfNextBlock'];
+    moveToStartOfNextInline: CoreEditor['moveToStartOfNextInline'];
+    moveToStartOfNextText: CoreEditor['moveToStartOfNextText'];
+    moveToStartOfNode: CoreEditor['moveToStartOfNode'];
+    moveToStartOfPreviousBlock: CoreEditor['moveToStartOfPreviousBlock'];
+    moveToStartOfPreviousInline: CoreEditor['moveToStartOfPreviousInline'];
+    moveToStartOfPreviousText: CoreEditor['moveToStartOfPreviousText'];
+    moveToStartOfText: CoreEditor['moveToStartOfText'];
+    moveToRangeOfDocument: CoreEditor['moveToRangeOfDocument'];
+    moveToRangeOf: CoreEditor['moveToRangeOf'];
+    select: CoreEditor['select'];
+    addMarkAtRange: CoreEditor['addMarkAtRange'];
+    deleteAtRange: CoreEditor['deleteAtRange'];
+    deleteCharBackwardAtRange: CoreEditor['deleteCharBackwardAtRange'];
+    deleteLineBackwardAtRange: CoreEditor['deleteLineBackwardAtRange'];
+    deleteWordBackwardAtRange: CoreEditor['deleteWordBackwardAtRange'];
+    deleteBackwardAtRange: CoreEditor['deleteBackwardAtRange'];
+    deleteCharForwardAtRange: CoreEditor['deleteCharForwardAtRange'];
+    deleteLineForwardAtRange: CoreEditor['deleteLineForwardAtRange'];
+    deleteWordForwardAtRange: CoreEditor['deleteWordForwardAtRange'];
+    deleteForwardAtRange: CoreEditor['deleteForwardAtRange'];
+    insertBlockAtRange: CoreEditor['insertBlockAtRange'];
+    insertFragmentAtRange: CoreEditor['insertFragmentAtRange'];
+    insertInlineAtRange: CoreEditor['insertInlineAtRange'];
+    insertTextAtRange: CoreEditor['insertTextAtRange'];
+    setBlocksAtRange: CoreEditor['setBlocksAtRange'];
+    setInlinesAtRange: CoreEditor['setInlinesAtRange'];
+    splitBlockAtRange: CoreEditor['splitBlockAtRange'];
+    splitInlineAtRange: CoreEditor['splitInlineAtRange'];
+    removeMarkAtRange: CoreEditor['removeMarkAtRange'];
+    toggleMarkAtRange: CoreEditor['toggleMarkAtRange'];
+    unwrapBlockAtRange: CoreEditor['unwrapBlockAtRange'];
+    unwrapInlineAtRange: CoreEditor['unwrapInlineAtRange'];
+    wrapBlockAtRange: CoreEditor['wrapBlockAtRange'];
+    wrapInlineAtRange: CoreEditor['wrapInlineAtRange'];
+    wrapTextAtRange: CoreEditor['wrapTextAtRange'];
+    addMarkByKey: CoreEditor['addMarkByKey'];
+    addMarkByPath: CoreEditor['addMarkByPath'];
+    insertNodeByKey: CoreEditor['insertNodeByKey'];
+    insertNodeByPath: CoreEditor['insertNodeByPath'];
+    insertFragmentByKey: CoreEditor['insertFragmentByKey'];
+    insertFragmentByPath: CoreEditor['insertFragmentByPath'];
+    insertTextByKey: CoreEditor['insertTextByKey'];
+    insertTextByPath: CoreEditor['insertTextByPath'];
+    mergeNodeByKey: CoreEditor['mergeNodeByKey'];
+    mergeNodeByPath: CoreEditor['mergeNodeByPath'];
+    moveNodeByKey: CoreEditor['moveNodeByKey'];
+    moveNodeByPath: CoreEditor['moveNodeByPath'];
+    removeMarkByKey: CoreEditor['removeMarkByKey'];
+    removeMarkByPath: CoreEditor['removeMarkByPath'];
+    removeNodeByKey: CoreEditor['removeNodeByKey'];
+    removeNodeByPath: CoreEditor['removeNodeByPath'];
+    replaceNodeByKey: CoreEditor['replaceNodeByKey'];
+    replaceNodeByPath: CoreEditor['replaceNodeByPath'];
+    removeTextByKey: CoreEditor['removeTextByKey'];
+    removeTextByPath: CoreEditor['removeTextByPath'];
+    setMarkByKey: CoreEditor['setMarkByKey'];
+    setMarksByPath: CoreEditor['setMarksByPath'];
+    setNodeByKey: CoreEditor['setNodeByKey'];
+    setNodeByPath: CoreEditor['setNodeByPath'];
+    splitNodeByKey: CoreEditor['splitNodeByKey'];
+    splitNodeByPath: CoreEditor['splitNodeByPath'];
+    unwrapInlineByKey: CoreEditor['unwrapInlineByKey'];
+    unwrapInlineByPath: CoreEditor['unwrapInlineByPath'];
+    unwrapBlockByKey: CoreEditor['unwrapBlockByKey'];
+    unwrapBlockByPath: CoreEditor['unwrapBlockByPath'];
+    unwrapNodeByKey: CoreEditor['unwrapNodeByKey'];
+    unwrapNodeByPath: CoreEditor['unwrapNodeByPath'];
+    wrapInlineByKey: CoreEditor['wrapInlineByKey'];
+    wrapInlineByPath: CoreEditor['wrapInlineByPath'];
+    wrapBlockByKey: CoreEditor['wrapBlockByKey'];
+    wrapBlockByPath: CoreEditor['wrapBlockByPath'];
+    wrapNodeByKey: CoreEditor['wrapNodeByKey'];
+    wrapNodeByPath: CoreEditor['wrapNodeByPath'];
+    normalize: CoreEditor['normalize'];
+    withoutNormalizing: CoreEditor['withoutNormalizing'];
+    withoutSaving: CoreEditor['withoutSaving'];
+    withoutMerging: CoreEditor['withoutMerging'];
+    redo: CoreEditor['redo'];
+    undo: CoreEditor['undo'];
+    snapshotSelection: CoreEditor['snapshotSelection'];
+    command: CoreEditor['command'];
+    query: CoreEditor['query'];
+    registerCommand: CoreEditor['registerCommand'];
+    registerQuery: CoreEditor['registerQuery'];
+    applyOperation: CoreEditor['applyOperation'];
+    run: CoreEditor['run'];
 }
 
 export type SlateType =
