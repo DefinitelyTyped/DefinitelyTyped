@@ -1,4 +1,4 @@
-// Type definitions for prettier 1.13
+// Type definitions for prettier 1.15
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,7 +33,11 @@ export type BuiltInParserName =
     | 'json-stringify'
     | 'graphql'
     | 'markdown'
-    | 'vue';
+    | 'vue'
+    | 'html'
+    | 'angular'
+    | 'mdx'
+    | 'yaml';
 
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
