@@ -880,35 +880,34 @@ export function createSwitchNavigator(
 export const DrawerItems: React.ComponentType<DrawerItemsProps>;
 
 export interface DrawerItemsProps {
-  navigation: NavigationScreenProp<NavigationState>,
-  items: Array<NavigationRoute>,
-  activeItemKey?: string,
-  activeTintColor?: string,
-  activeBackgroundColor?: string,
-  inactiveTintColor?: string,
-  inactiveBackgroundColor?: string,
-  getLabel: (scene: DrawerScene) => React.ReactNode | string,
-  renderIcon: (scene: DrawerScene) => React.ReactNode,
-  onItemPress: (info: DrawerItem) => void,
-  itemsContainerForceInset?: Object,
-  itemsContainerStyle?: StyleProp<ViewStyle>,
-  itemStyle?: StyleProp<ViewStyle>,
-  labelStyle?: StyleProp<TextStyle>,
-  activeLabelStyle?: StyleProp<TextStyle>,
-  inactiveLabelStyle?: StyleProp<TextStyle>,
-  iconContainerStyle?: StyleProp<ViewStyle>,
-  drawerPosition: 'left' | 'right',
+  navigation: NavigationScreenProp<NavigationState>;
+  items: NavigationRoute[];
+  activeItemKey?: string;
+  activeTintColor?: string;
+  activeBackgroundColor?: string;
+  inactiveTintColor?: string;
+  inactiveBackgroundColor?: string;
+  getLabel: (scene: DrawerScene) => React.ReactNode | string;
+  renderIcon: (scene: DrawerScene) => React.ReactNode;
+  onItemPress: (info: DrawerItem) => void;
+  itemsContainerStyle?: StyleProp<ViewStyle>;
+  itemStyle?: StyleProp<ViewStyle>;
+  labelStyle?: StyleProp<TextStyle>;
+  activeLabelStyle?: StyleProp<TextStyle>;
+  inactiveLabelStyle?: StyleProp<TextStyle>;
+  iconContainerStyle?: StyleProp<ViewStyle>;
+  drawerPosition: 'left' | 'right';
 }
-declare type DrawerScene = {
-  route: NavigationRoute,
-  focused: boolean,
-  index: number,
-  tintColor?: string,
-};
-declare type DrawerItem = {
-  route: NavigationRoute,
-  focused: boolean,
-};
+export interface DrawerScene {
+  route: NavigationRoute;
+  focused: boolean;
+  index: number;
+  tintColor?: string;
+}
+export interface DrawerItem {
+  route: NavigationRoute;
+  focused: boolean;
+}
 
 /**
  * Drawer Navigator
