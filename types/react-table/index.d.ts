@@ -342,6 +342,10 @@ export interface ComponentProps {
     TdComponent: React.ReactType;
     TfootComponent: React.ReactType;
     ExpanderComponent: React.ReactType;
+    AggregatedComponent: React.ReactType,
+    PivotValueComponent: React.ReactType,
+    PivotComponent: React.ReactType,
+    FilterComponent: React.ReactType,
     PaginationComponent: React.ReactType;
     PreviousComponent: React.ReactType;
     NextComponent: React.ReactType;
