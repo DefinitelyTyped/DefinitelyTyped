@@ -49,10 +49,6 @@ import Bounds from './_v2/api/window/bounds';
 import { Transition, TransitionOptions } from './_v2/api/window/transition';
 import { WindowOption } from './_v2/api/window/windowOption';
 
-// tslint:disable-next-line:export-just-namespace
-export = fin;
-export as namespace fin;
-
 declare namespace fin {
     var Application: import('./_v2/api/application/application').default;
     var Clipboard: import('./_v2/api/clipboard/clipboard').default;
