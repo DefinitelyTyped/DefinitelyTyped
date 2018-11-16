@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-export function sanitize<T extends object>(v: T): T;
+export function sanitize<T>(v: T): T;
 
 export as namespace mongoSanitize;
