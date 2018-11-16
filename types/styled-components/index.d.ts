@@ -217,23 +217,23 @@ export interface ThemedStyledFunction<
     // My head already hurts enough so maybe later...
     attrs<
         U,
-        A extends Partial<StyledComponentPropsWithRef<C> & U> & {
+        NewA extends Partial<StyledComponentPropsWithRef<C> & U> & {
             [others: string]: any;
         } = {}
     >(
-        attrs: Attrs<StyledComponentPropsWithRef<C> & U, A, T>
-    ): ThemedStyledFunction<C, T, O & A, keyof A>;
+        attrs: Attrs<StyledComponentPropsWithRef<C> & U, NewA, T>
+    ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
     // Only this overload is deprecated
     // tslint:disable:unified-signatures
     /** @deprecated Prefer using the new single function style, to be removed in v5 */
     attrs<
         U,
-        A extends Partial<StyledComponentPropsWithRef<C> & U> & {
+        NewA extends Partial<StyledComponentPropsWithRef<C> & U> & {
             [others: string]: any;
         } = {}
     >(
-        attrs: DeprecatedAttrs<StyledComponentPropsWithRef<C> & U, A, T>
-    ): ThemedStyledFunction<C, T, O & A, keyof A>;
+        attrs: DeprecatedAttrs<StyledComponentPropsWithRef<C> & U, NewA, T>
+    ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
     // tslint:enable:unified-signatures
 }
 

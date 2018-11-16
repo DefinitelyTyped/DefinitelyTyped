@@ -321,6 +321,10 @@ const AttrsWithOnlyNewProps = styled.h2.attrs({ as: "h1" })`
     font-size: ${props => (props.as === "h1" ? 2 : 1)};
 `;
 
+const AttrsInputExtra = styled(AttrsInput).attrs({ autoComplete: "off" })``;
+
+<AttrsInputExtra />;
+
 /**
  * component type
  */
