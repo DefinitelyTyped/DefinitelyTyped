@@ -2,7 +2,7 @@
 // Project: https://github.com/fram-x/FluidTransitions#readme
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped\
-// TypeScript Version: 3.1.6
+// TypeScript Version: 2.3
 
 import {
   NavigationRouteConfig,
