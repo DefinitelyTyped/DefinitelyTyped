@@ -45,7 +45,8 @@ const mustHaveLength = (minLen: number) => helpers.withParams(
         },
         repeatPassword: {
             sameAsPassword: sameAs('password'),
-            mustBeSame: mustBeSame('password')
+            mustBeSame: mustBeSame('password'),
+            sameAsPassword2: sameAs(vm => vm.password)
         },
         form: {
             nestedA: {
