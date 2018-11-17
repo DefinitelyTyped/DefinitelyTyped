@@ -2,7 +2,6 @@
     "extends": "dtslint/dt.json",
     "rules": {
         // TODO
-        "no-angle-bracket-type-assertion": false,
         "no-this-assignment": false,
         "unified-signatures": false,
         "no-unnecessary-generics": false
