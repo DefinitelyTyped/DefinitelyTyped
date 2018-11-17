@@ -7,12 +7,11 @@
       "noImplicitAny": true,
       "noImplicitThis": true,
       "strictNullChecks": true,
-      "strictFunctionTypes": false,
-      "baseUrl": "../",
-      "jsx": "react",
+        "baseUrl": "../",
       "typeRoots": [
           "../"
       ],
+      "jsx": "react",
       "types": [],
       "noEmit": true,
       "forceConsistentCasingInFileNames": true
