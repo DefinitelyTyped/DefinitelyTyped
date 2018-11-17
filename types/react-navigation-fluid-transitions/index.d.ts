@@ -1,7 +1,9 @@
 // Type definitions for react-navigation-fluid-transitions 0.2
 // Project: https://github.com/fram-x/FluidTransitions#readme
 // Definitions by: My Self <https://github.com/me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped\
+// TypeScript Version: 3.1.6
+
 import {
   NavigationRouteConfig,
   StackNavigatorConfig,
