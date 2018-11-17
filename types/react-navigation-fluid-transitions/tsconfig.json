@@ -14,6 +14,7 @@
       "jsx": "react",
       "types": [],
       "noEmit": true,
+      "strictFunctionTypes": true,
       "forceConsistentCasingInFileNames": true
   },
   "files": [
