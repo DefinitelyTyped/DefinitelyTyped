@@ -14,15 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@babel/parser": [
-                "babel__parser"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "babel__parser-tests.ts"
+        "is-regexp-tests.ts"
     ]
 }

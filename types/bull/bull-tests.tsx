@@ -133,7 +133,7 @@ pdfQueue
 .on('failed', (job: Queue.Job) => undefined)
 .on('paused', () => undefined)
 .on('resumed', () => undefined)
-.on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatus) => undefined)
+.on('cleaned', (jobs: Queue.Job[], status: Queue.JobStatusClean) => undefined)
 .on('drained', () => undefined)
 .on('removed', (job: Queue.Job) => undefined);
 

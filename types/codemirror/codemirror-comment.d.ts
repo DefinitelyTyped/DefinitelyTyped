@@ -13,7 +13,7 @@ declare module "codemirror" {
 
     interface Editor {
         /** Tries to uncomment the current selection, and if that fails, line-comments it. */
-        toggleComment(from: Position, to: Position, options?: CommentOptions): void;
+        toggleComment(options?: CommentOptions): void;
         /** Set the lines in the given range to be line comments. Will fall back to `blockComment` when no line comment style is defined for the mode. */
         lineComment(from: Position, to: Position, options?: CommentOptions): void;
         /** Wrap the code in the given range in a block comment. Will fall back to `lineComment` when no block comment style is defined for the mode. */

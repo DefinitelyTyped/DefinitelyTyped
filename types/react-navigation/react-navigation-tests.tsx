@@ -323,6 +323,7 @@ const drawerNavigatorConfig: DrawerNavigatorConfig = {
         activeTintColor: '#7A9B49',
         inactiveTintColor: '#FFFFFF',
     },
+    drawerLockMode: 'locked-open',
 };
 
 const BasicDrawerNavigator = createDrawerNavigator(

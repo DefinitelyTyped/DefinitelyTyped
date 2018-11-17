@@ -499,6 +499,7 @@ export interface LayoutAnimationTypes {
     easeInEaseOut: string;
     easeIn: string;
     easeOut: string;
+    keyboard: string;
 }
 
 export interface LayoutAnimationProperties {
@@ -5225,7 +5226,7 @@ export namespace StyleSheet {
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T extends NamedStyles<T>>(styles: T): { [P in keyof T]: RegisteredStyle<T[P]> };
+    export function create<T extends NamedStyles<T> | NamedStyles<any>>(styles: T): { [P in keyof T]: RegisteredStyle<T[P]> };
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
@@ -8408,7 +8409,7 @@ export namespace Animated {
     type EndResult = { finished: boolean };
     type EndCallback = (result: EndResult) => void;
 
-    interface CompositeAnimation {
+    export interface CompositeAnimation {
         start: (callback?: EndCallback) => void;
         stop: () => void;
     }

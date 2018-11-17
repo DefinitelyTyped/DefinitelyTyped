@@ -316,6 +316,7 @@ export namespace cst {
     interface FlowChar {
         char: "{" | "}" | "[" | "]" | "," | "?" | ":";
         offset: number;
+        origOffset?: number;
     }
 
     interface FlowCollection extends Node {

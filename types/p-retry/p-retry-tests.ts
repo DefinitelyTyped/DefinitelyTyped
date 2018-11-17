@@ -1,5 +1,5 @@
 import pRetry = require('p-retry');
-import fetch from 'node-fetch';
+import fetch = require('node-fetch');
 
 const run = () => fetch('https://sindresorhus.com/unicorn')
     .then(response => {

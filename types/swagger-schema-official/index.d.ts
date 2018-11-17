@@ -87,7 +87,7 @@ export interface Path {
   options?: Operation;
   head?: Operation;
   patch?: Operation;
-  parameters?: Parameter[] | Reference[];
+  parameters?: Array<Parameter | Reference>;
 }
 
 // ----------------------------- Operation -----------------------------------
@@ -99,7 +99,7 @@ export interface Operation {
   operationId?: string;
   produces?: string[];
   consumes?: string[];
-  parameters?: Parameter[] | Reference[];
+  parameters?: Array<Parameter | Reference>;
   schemes?: string[];
   deprecated?: boolean;
   security?: Security[];

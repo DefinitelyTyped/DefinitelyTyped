@@ -108,6 +108,8 @@ generator.option('opt4', {
   default: 3.2,
 });
 
+const optionValue1 = generator.options.opt1;
+
 const optionsHelp: string = generator.optionsHelp();
 
 const answers: Promise<Answers> = generator.prompt([] as Questions);

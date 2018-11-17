@@ -98,7 +98,7 @@ brush.on('end', function(d, i, g) {
 // -----------------------------------------------------------------------------
 
 const g = select<SVGSVGElement, any>('svg')
-    .append<SVGGElement>('g')
+    .append('g')
     .classed('brush', true)
     .datum<BrushDatum>({
         extent: [[0, 0], [300, 200]],
@@ -108,7 +108,7 @@ const g = select<SVGSVGElement, any>('svg')
 g.call(brush);
 
 const gX = select<SVGSVGElement, any>('svg')
-    .append<SVGGElement>('g')
+    .append('g')
     .classed('brush', true)
     .datum<BrushDatum>({
         extent: [[0, 0], [300, 200]],

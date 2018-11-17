@@ -183,6 +183,19 @@ declare class Router {
      */
     put(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
     put(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    
+    /**
+     * HTTP link method
+     */
+    link(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    link(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    
+    /**
+     * HTTP unlink method
+     */
+    unlink(name: string, path: string | RegExp, ...middleware: Array<Router.IMiddleware>): Router;
+    unlink(path: string | RegExp | (string | RegExp)[], ...middleware: Array<Router.IMiddleware>): Router;
+    
 
     /**
      * HTTP delete method
