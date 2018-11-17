@@ -4,6 +4,6 @@
       // TODO
       "no-any-union": false,
       "strict-export-declare-modifiers": false,
-      "whitespace": false,
+      "whitespace": false
   }
 }
