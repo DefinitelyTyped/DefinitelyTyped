@@ -3,6 +3,7 @@
 // Definitions by: Michael Müller <https://github.com/mad-mike>,
 //                 Troy Lamerton <https://github.com/troy-lamerton>
 //                 Martín Rodriguez <https://github.com/netux>
+//                 Tom Nguyen <https://github.com/lecafard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -98,10 +99,7 @@ export interface OAuthClient {
          * @return the absolute authorization url
          */
         authorizeURL(
-            params?: {
-                /** A key-value pair where key is ModuleOptions#client.idParamName and the value represents the Client-ID */
-                [ idParamName: string ]: string | undefined
-            } & {
+            params: {
                 /** A string that represents the registered application URI where the user is redirected after authentication */
                 redirect_uri?: string,
                 /** A string or array of strings that represents the application privileges */
