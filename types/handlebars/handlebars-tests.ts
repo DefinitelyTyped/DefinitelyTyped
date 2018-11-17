@@ -1,6 +1,4 @@
-
-//import Handlebars = require('handlebars');
-import * as Handlerbars from 'handlebars';
+import * as Handlebars from 'handlebars';
 
 const context = {
     author: { firstName: 'Alan', lastName: 'Johnson' },
@@ -74,6 +72,17 @@ Handlebars.registerHelper('list', (context, options: Handlebars.HelperOptions) =
 });
 template6([{url:"", title:""}])
 
+const source7 = '{{#list nav}}<a href="{{url}}">{{title}}</a>{{/list}}';
+const parsed7 = Handlebars.parse(source7, {srcName: 'source.hbs'})
+const template7 = Handlebars.compile(parsed7, {noEscape: true});
+Handlebars.registerHelper('list', (context, options: Handlebars.HelperOptions) => {
+  let ret = "<ul>";
+  for(let i=0, j=context.length; i<j; i++) {
+    ret = ret + "<li>" + options.fn(context[i]) + "</li>";
+  }
+  return ret + "</ul>";
+});
+template7([{url:"", title:""}])
 
 const escapedExpression = Handlebars.Utils.escapeExpression('<script>alert(\'xss\');</script>');
 

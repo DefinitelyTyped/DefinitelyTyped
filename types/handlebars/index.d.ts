@@ -35,6 +35,16 @@ declare namespace Handlebars {
         [key: string]: HelperDelegate;
     }
 
+    export interface SourceLocationOptions {
+        srcName?: string
+    }
+
+    export interface WhitespaceControlOptions {
+        ignoreStandalone?: boolean
+    }
+
+    export interface ParseOptions extends SourceLocationOptions, WhitespaceControlOptions {}
+
     export function registerHelper(name: string, fn: HelperDelegate): void;
     export function registerHelper(name: HelperDeclareSpec): void;
     export function unregisterHelper(name: string): void;
@@ -52,7 +62,7 @@ declare namespace Handlebars {
     export function blockParams(obj: any[], ids: any[]): any[];
     export function Exception(message: string): void;
     export function log(level: number, obj: any): void;
-    export function parse(input: string): hbs.AST.Program;
+    export function parse(input: string, options?: ParseOptions): hbs.AST.Program;
     export function compile<T = any>(input: any, options?: CompileOptions): HandlebarsTemplateDelegate<T>;
     export function precompile(input: any, options?: PrecompileOptions): TemplateSpecification;
     export function template<T = any>(precompilation: TemplateSpecification): HandlebarsTemplateDelegate<T>;
@@ -157,7 +167,7 @@ interface TemplateSpecification {
 // for backward compatibility of this typing
 type RuntimeOptions = Handlebars.RuntimeOptions;
 
-interface CompileOptions {
+interface CompileOptions extends Handlebars.WhitespaceControlOptions {
     data?: boolean;
     compat?: boolean;
     knownHelpers?: {
@@ -175,12 +185,10 @@ interface CompileOptions {
     strict?: boolean;
     assumeObjects?: boolean;
     preventIndent?: boolean;
-    ignoreStandalone?: boolean;
     explicitPartialContext?: boolean;
 }
 
-interface PrecompileOptions extends CompileOptions {
-    srcName?: string;
+interface PrecompileOptions extends Handlebars.SourceLocationOptions, CompileOptions {
     destName?: string;
 }
 
@@ -335,10 +343,10 @@ declare namespace hbs {
     }
 }
 
-declare module "handlebars" {
+declare module 'handlebars' {
     export = Handlebars;
 }
 
-declare module "handlebars/runtime" {
+declare module 'handlebars/runtime' {
     export = Handlebars;
 }
