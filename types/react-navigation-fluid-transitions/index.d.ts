@@ -24,7 +24,7 @@ declare module 'react-navigation-fluid-transitions' {
     | "vertical"
     | "flip";
   
-  export interface TransitionProps {
+  interface TransitionProps {
       appear?: TransitionEnum;
       disappear?: TransitionEnum;
       anchor?: string;
@@ -40,9 +40,9 @@ declare module 'react-navigation-fluid-transitions' {
     height?: number | string;
   }
   
-  export class Transition extends React.Component<TransitionProps, any> {}
+  class Transition extends React.Component<TransitionProps, any> {}
   
-  export interface TransitionInfo {
+  interface TransitionInfo {
     progress: Animated.Value;
     metrics: Metrics;
     boundingbox: Metrics;
@@ -53,7 +53,7 @@ declare module 'react-navigation-fluid-transitions' {
     dimensions: Dimensions;
   }
   
-  export function FluidNavigator(
+  function FluidNavigator(
     routeConfig: NavigationRouteConfig,
     stachConfig?: StackNavigatorConfig
   ): NavigationContainer;
