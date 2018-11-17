@@ -336,10 +336,10 @@ const BasicDrawerNavigator = createDrawerNavigator(
 const Drawer = (props: DrawerItemsProps) => (
     <DrawerItems {...props} />
 );
-  
+
 const DrawerNavigatorWithCustomDrawer = createDrawerNavigator(
     routeConfigMap,
-    {   
+    {
         contentComponent: Drawer,
     }
 );
