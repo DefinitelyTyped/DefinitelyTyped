@@ -1428,6 +1428,10 @@ export class Map extends Evented {
  */
 export function map(element: string | HTMLElement, options?: MapOptions): Map;
 
+// Types declaration for canvasFlowmapLayer leaflet plugin (https://github.com/jwasilgeo/Leaflet.Canvas-Flowmap-Layer)
+
+export function canvasFlowmapLayer(originAndDestinationGeoJsonPoints: any, opts?: any): any;
+
 export interface BaseIconOptions extends LayerOptions {
     iconUrl?: string;
     iconRetinaUrl?: string;
