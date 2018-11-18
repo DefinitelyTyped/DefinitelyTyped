@@ -11,7 +11,7 @@ declare namespace toobusy_js {
     function interval(newInterval: number): number;
     function lag(): number;
     function maxLag(newLag: number): number;
-    function smmothingFactor(newFactor: number): number;
+    function smoothingFactor(newFactor: number): number;
     function shutdown(): void;
     function onLag(fn: (lag: number) => void, threshold?: number): void;
 
