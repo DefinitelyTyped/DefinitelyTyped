@@ -551,6 +551,37 @@ declare namespace Office {
         */
         asyncContext: any;
         /**
+        * Gets an object that may provide additional information if an error occurred.
+        *
+        * @remarks
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
+        * An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see 
+        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><td><strong>Outlook</strong></td><td> Y (Mailbox Preview)    </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *  </table>
+        * 
+        * *Supported APIs*
+        * 
+        * `Office.context.mailbox.item.getCallbackTokenAsync`, `Office.context.mailbox.item.getUserIdentityTokenAsync`
+        * 
+        * *Supported errors*
+        * <table>
+        *   <tr><th>`AsyncResult.error.name`            </th><th>`AsyncResult.error.message`                                                                       </th><th>Description of diagnostics object returned                                                                                          </th></tr>
+        *   <tr><td><strong>HTTPRequestFailure</strong> </td><td>The request has failed. Please look at the diagnostics object for the HTTP error code.            </td><td>The HTTP error code in a JSON object e.g., `{"HTTPCode":"401"}`                                                                     </td></tr>
+        *   <tr><td><strong>InternalServerError</strong></td><td>The Exchange server returned an error. Please look at the diagnostics object for more information.</td><td>The error message from the Exchange server in a JSON object e.g., `{"ErrorText": "The mailbox database is temporarily unavailable"}`</td></tr>
+        * </table>
+        */
+       diagnostics: any;
+       /**
         * Gets an {@link Office.Error} object that provides a description of the error, if any error occurred.
         *
         * @remarks
@@ -15381,7 +15412,8 @@ declare namespace Office {
          *        isRest: Determines if the token provided will be used for the Outlook REST APIs or Exchange Web Services. Default value is false.
          *        asyncContext: Any state data that is passed to the asynchronous method.
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. The token is provided as a string in the asyncResult.value property.
+         *                 type Office.AsyncResult. The token is provided as a string in the `asyncResult.value` property.
+         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          */
         getCallbackTokenAsync(options: Office.AsyncContextOptions & { isRest?: boolean }, callback: (result: AsyncResult<string>) => void): void;
         /**
@@ -15408,7 +15440,8 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose and read</td></tr></table>
          *
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. 
-         *                 The token is provided as a string in the asyncResult.value property.
+         *                 The token is provided as a string in the `asyncResult.value` property.
+         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          */
         getCallbackTokenAsync(callback: (result: AsyncResult<string>) => void): void;
         /**
@@ -15435,7 +15468,8 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose and read</td></tr></table>
          *
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. The token is provided as a string in the asyncResult.value property.
+         *                 type Office.AsyncResult. The token is provided as a string in the `asyncResult.value` property.
+         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          * @param userContext Optional. Any state data that is passed to the asynchronous method.
          */
         getCallbackTokenAsync(callback: (result: AsyncResult<string>) => void, userContext?: any): void;
@@ -15457,7 +15491,8 @@ declare namespace Office {
          *
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
-         *                 The token is provided as a string in the asyncResult.value property.
+         *                 The token is provided as a string in the `asyncResult.value` property.
+         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          * @param userContext Optional. Any state data that is passed to the asynchronous method.|
          */
         getUserIdentityTokenAsync(callback: (result: AsyncResult<string>) => void, userContext?: any): void;
