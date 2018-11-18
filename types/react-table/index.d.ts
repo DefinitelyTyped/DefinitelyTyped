@@ -38,12 +38,10 @@ export interface Filter {
     value: any;
     pivotId?: string;
 }
-/** NOTE: to many configuration ways (only true values are confusing) */
+
 export interface SortingRule {
     id: string;
-    sort?: 'desc' | 'asc';
-    asc?: true;
-    desc?: true;
+    desc: boolean;
 }
 
 export interface TableProps<D = any> extends
