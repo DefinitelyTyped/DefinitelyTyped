@@ -3,6 +3,7 @@
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 harry0000 <https://github.com/harry0000>
 //                 Roman Nuritdinov (Ky6uk) <https://github.com/Ky6uk>
+//                 Johnny Edwards (igl00) <https://github.com/igl00>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Cross-browser storage for all use cases, used across the web.
@@ -23,6 +24,15 @@ interface StoreJsAPI {
 
 interface StoreJsEngine {
     createStore(storages: any[], plugins?: any[], namespace?: string): StoreJsAPI;
+}
+
+interface StoreJsStorage {
+    name: string;
+    read: (key: string) => string | null;
+    write: (key: string, data: string) => void;
+    each: (callback: (val: string, key: string) => any) => void;
+    remove: (key: string) => void;
+    clearAll: () => void;
 }
 
 declare const store: StoreJsAPI;
@@ -72,4 +82,24 @@ declare module 'store/plugins/update' {
 }
 declare module 'store/plugins/v1-backcompat' {
     export = Function;
+}
+
+declare const storage: StoreJsStorage;
+declare module 'store/storages/cookieStorage' {
+    export = storage;
+}
+declare module 'store/storages/localStorage' {
+    export = storage;
+}
+declare module 'store/storages/memoryStorage' {
+    export = storage;
+}
+declare module 'store/storages/oldFF-globalStorage' {
+    export = storage;
+}
+declare module 'store/storages/oldIE-userDataStorage' {
+    export = storage;
+}
+declare module 'store/storages/sessionStorage' {
+    export = storage;
 }
