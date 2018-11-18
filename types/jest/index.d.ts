@@ -393,6 +393,36 @@ declare namespace jest {
         test(val: any): boolean;
     }
 
+    interface InverseAsymmetricMatchers {
+        /**
+         * `expect.not.arrayContaining(array)` matches a received array which
+         * does not contain all of the elements in the expected array. That is,
+         * the expected array is not a subset of the received array. It is the
+         * inverse of `expect.arrayContaining`.
+         */
+        arrayContaining(arr: any[]): any;
+        /**
+         * `expect.not.objectContaining(object)` matches any received object
+         * that does not recursively match the expected properties. That is, the
+         * expected object is not a subset of the received object. Therefore,
+         * it matches a received object which contains properties that are not
+         * in the expected object. It is the inverse of `expect.objectContaining`.
+         */
+        objectContaining(obj: {}): any;
+        /**
+         * `expect.not.stringMatching(string | regexp)` matches the received
+         * string that does not match the expected regexp. It is the inverse of
+         * `expect.stringMatching`.
+         */
+        stringMatching(str: string | RegExp): any;
+        /**
+         * `expect.not.stringContaining(string)` matches the received string
+         * that does not contain the exact expected string. It is the inverse of
+         * `expect.stringContaining`.
+         */
+        stringContaining(str: string): any;
+    }
+
     /**
      * The `expect` function is used every time you want to test a value.
      * You will rarely call `expect` by itself.
@@ -475,6 +505,8 @@ declare namespace jest {
          * Matches any received string that contains the exact expected string
          */
         stringContaining(str: string): any;
+
+        not: InverseAsymmetricMatchers;
     }
 
     interface Matchers<R> {

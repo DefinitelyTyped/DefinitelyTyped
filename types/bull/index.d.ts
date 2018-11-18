@@ -11,6 +11,7 @@
 //                 Wuha Team <https://github.com/wuha-team>
 //                 Alec Brunelle <https://github.com/aleccool213>
 //                 Dan Manastireanu <https://github.com/danmana>
+//                 Kjell-Morten Bratsberg Thorsen <https://github.com/kjellmorten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -194,6 +195,7 @@ declare namespace Bull {
   }
 
   type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
+  type JobStatusClean = 'completed' | 'wait' | 'active' | 'delayed' | 'failed';
 
   interface BackoffOptions {
     /**
@@ -635,12 +637,12 @@ declare namespace Bull {
 
     /**
      * Tells the queue remove all jobs created outside of a grace period in milliseconds.
-     * You can clean the jobs with the following states: completed, waiting, active, delayed, and failed.
+     * You can clean the jobs with the following states: completed, wait (typo for waiting), active, delayed, and failed.
      * @param grace Grace period in milliseconds.
      * @param status Status of the job to clean. Values are completed, wait, active, delayed, and failed. Defaults to completed.
      * @param limit Maximum amount of jobs to clean per call. If not provided will clean all matching jobs.
      */
-    clean(grace: number, status?: JobStatus, limit?: number): Promise<Array<Job<T>>>;
+    clean(grace: number, status?: JobStatusClean, limit?: number): Promise<Array<Job<T>>>;
 
     /**
      * Listens to queue events
@@ -734,7 +736,7 @@ declare namespace Bull {
 
   type FailedEventCallback<T = any> = (job: Job<T>, error: Error) => void;
 
-  type CleanedEventCallback<T = any> = (jobs: Array<Job<T>>, status: JobStatus) => void;
+  type CleanedEventCallback<T = any> = (jobs: Array<Job<T>>, status: JobStatusClean) => void;
 
   type RemovedEventCallback<T = any> = (job: Job<T>) => void;
 

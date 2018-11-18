@@ -9,7 +9,7 @@
 import pathToRegexp = require('path-to-regexp');
 
 /**
- * Params is a key/value object that represents extracted URL paramters.
+ * Params is a key/value object that represents extracted URL parameters.
  * Each URL parameter resolves to a string.
  */
 export interface Params {

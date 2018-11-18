@@ -1,9 +1,10 @@
 import { Editor, Plugin, EditorProps, RenderNodeProps } from "slate-react";
-import { Change, Value } from "slate";
+import { Value, Editor as Controller, Operation } from "slate";
 import * as React from "react";
+import * as Immutable from "immutable";
 
 class MyPlugin implements Plugin {
-    renderNode(props: RenderNodeProps) {
+    renderNode(props: RenderNodeProps, editor: Controller, next: () => void) {
         const { node } = props;
         if (node) {
             switch (node.object) {
@@ -11,16 +12,13 @@ class MyPlugin implements Plugin {
                     return <div id="slate-block-test"/>;
                 case "inline":
                     return <span id="slate-inline-test">Hello world</span>;
-                case "text":
-                    return <p id="slate-text-test">Hello world</p>;
                 default:
                     return undefined;
             }
         }
     }
-
-    onChange(change: Change): void {
-        change.blur();
+    onChange = (change: {operations: Immutable.List<Operation>, value: Value}) => {
+        console.log(change.value);
     }
 }
 
@@ -37,11 +35,10 @@ class MyEditor extends React.Component<EditorProps, MyEditorState> {
             value: Value.create()
         };
     }
-
     render() {
         return <Editor
             value={this.state.value}
-            onChange={myPlugin.onChange}
-            renderNode={myPlugin.renderNode} />;
+            renderNode={ myPlugin.renderNode }
+            onChange={ myPlugin.onChange }/>;
     }
 }

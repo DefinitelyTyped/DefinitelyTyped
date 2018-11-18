@@ -289,9 +289,7 @@ declare namespace wx {
 	 * 需要用户授权 scope.writePhotosAlbum
 	 * @version 1.2.0
 	 */
-	function saveImageToPhotosAlbum(
-		options: SaveImageToPhotosAlbumOptions
-	): void;
+	function saveImageToPhotosAlbum(options: SaveImageToPhotosAlbumOptions): void;
 	// 媒体-----录音
 	interface StartRecordAudioOptions extends BaseOptions {
 		/** 录音成功后调用，返回录音文件的临时文件路径，res = {tempFilePath: '录音文件的临时路径'} */
@@ -387,13 +385,9 @@ declare namespace wx {
 		/** 录音恢复事件 */
 		onResume(callback?: () => void): void;
 		/** 录音停止事件，会回调文件地址 */
-		onStop(
-			callback?: (options: OnRecorderManagerStopOptions) => void
-		): void;
+		onStop(callback?: (options: OnRecorderManagerStopOptions) => void): void;
 		/** 已录制完指定帧大小的文件，会回调录音分片结果数据。如果设置了 frameSize ，则会回调此事件 */
-		onFrameRecorded(
-			callback?: (options: OnFrameRecordedOptions) => void
-		): void;
+		onFrameRecorded(callback?: (options: OnFrameRecordedOptions) => void): void;
 		/** 录音错误事件, 会回调错误信息 */
 		onError(callback?: (err: ErrMsgResponse) => void): void;
 	}
@@ -974,7 +968,7 @@ declare namespace wx {
 	 * 异步获取当前storage的相关信息
 	 */
 	function getStorageInfo(options: GetStorageInfoOptions): void;
-	function getStorageInfoSync(): GetStorageInfoOptions;
+	function getStorageInfoSync(): StorageInfo;
 	interface RemoveStorageOptions extends BaseOptions {
 		key: string;
 		success?(res: DataResponse): void;
@@ -1066,9 +1060,7 @@ declare namespace wx {
 		/**
 		 * 获取当前地图中心的经纬度，返回的是 gcj02 坐标系，可以用于 wx.openLocation
 		 */
-		getCenterLocation(
-			options: GetCenterLocationOptions
-		): OpenLocationOptions;
+		getCenterLocation(options: GetCenterLocationOptions): OpenLocationOptions;
 		/**
 		 * 将地图中心移动到当前定位点，需要配合map组件的show-location使用
 		 */
@@ -2611,6 +2603,9 @@ declare namespace wx {
 	}
 	type LineCapType = "butt" | "round" | "square";
 	type LineJoinType = "bevel" | "round" | "miter";
+	interface CanvasGradient {
+		addColorStop(index: number, color: string): void;
+	}
 	/**
 	 * context只是一个记录方法调用的容器，用于生成记录绘制行为的actions数组。context跟<canvas/>不存在对应关系，一个context生成画布的绘制动作数组可以应用于多个<canvas/>。
 	 */
@@ -2873,7 +2868,7 @@ declare namespace wx {
 			y0: number,
 			x1: number,
 			y1: number
-		): void;
+		): CanvasGradient;
 		/**
 		 * 创建一个颜色的渐变点。
 		 * Tip: 小于最小 stop 的部分会按最小 stop 的 color 来渲染，大于最大 stop 的部分会按最大 stop 的 color 来渲染。
@@ -3564,19 +3559,19 @@ declare namespace wx {
 		/**
 		 * 写log日志，可以提供任意个参数，每个参数的类型为Object/Array/Number/String，参数p1到pN的内容会写入日志
 		 */
-		log: (...args: any[]) => void;
+		log(...args: any[]): void;
 		/**
 		 * 写warn日志，参数同log方法
 		 */
-		warn: (...args: any[]) => void;
+		warn(...args: any[]): void;
 		/**
 		 * 写debug日志，参数同log方法
 		 */
-		debug: (...args: any[]) => void;
+		debug(...args: any[]): void;
 		/**
 		 * 写info日志，参数同log方法
 		 */
-		info: (...args: any[]) => void;
+		info(...args: any[]): void;
 	}
 
 	// #region LogManager
@@ -3598,6 +3593,14 @@ declare namespace wx {
 	function reportMonitor(name: string, value: number): void;
 
 	/**
+	 * 自定义分析数据上报接口。使用前，需要在小程序管理后台自定义分析中新建事件，配置好事件名与字段。
+	 *
+	 * @param eventName 事件名
+	 * @param data 上报的自定义数据
+	 */
+	function reportAnalytics(eventName: string, data: object): void;
+
+	/**
 	 * 用于延迟一部分操作到下一个时间片再执行（类似于 setTimeout）。
 	 * @param func
 	 * @version 2.2.3
@@ -3613,6 +3616,30 @@ declare namespace wx {
 		enableDebug: boolean;
 	}
 	// #region App里的onLaunch、onShow回调参数
+
+	// #region Account
+	interface AccountInfo {
+		/* 小程序账号信息 */
+		miniProgram: {
+			/*小程序 appId	 */
+			appId: string;
+		};
+		/* 插件账号信息（仅在插件中调用时包含这一项）	 */
+		plugin?: {
+			/* 插件 appId	 */
+			appId: string;
+			/* 插件版本号	 */
+			version: string;
+		};
+	}
+
+	/**
+	 * 获取当前账号信息
+	 * @version >= 2.2.2
+	 */
+	function getAccountInfoSync(): AccountInfo;
+	// #endregion
+
 	/**
 	 * App 实现的接口对象
 	 * 开发者可以添加任意的函数或数据到 Object 参数中，用 this 可以访问
@@ -3670,8 +3697,7 @@ declare namespace wx {
 		Data,
 		Methods,
 		Props
-	> = CombinedInstance<Instance, Data, Methods, Props> &
-		Component<Data, Props>;
+	> = CombinedInstance<Instance, Data, Methods, Props> & Component<Data, Props>;
 
 	// CombinedInstance models the `this`, i.e. instance type for (user defined) component
 	type CombinedInstance<
@@ -3702,9 +3728,7 @@ declare namespace wx {
 
 	type ArrayPropsDefinition<T> = Array<keyof T>;
 
-	type PropsDefinition<T> =
-		| ArrayPropsDefinition<T>
-		| RecordPropsDefinition<T>;
+	type PropsDefinition<T> = ArrayPropsDefinition<T> | RecordPropsDefinition<T>;
 
 	interface ComponentRelation<D = any, P = any> {
 		/** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
@@ -3838,9 +3862,7 @@ declare namespace wx {
 		 * 类似于mixins和traits的组件间代码复用机制
 		 * 参见 [behaviors](https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/behaviors.html)
 		 */
-		behaviors?: Array<
-			(ComponentOptions<Component<object, object>>) | string
-		>;
+		behaviors?: Array<(ComponentOptions<Component<object, object>>) | string>;
 
 		/**
 		 * 组件生命周期声明对象，组件的生命周期：created、attached、ready、moved、detached将收归到lifetimes字段内进行声明，
@@ -3873,7 +3895,9 @@ declare namespace wx {
 		value?: infer T;
 	}
 		? T
-		: Def extends (...args: any[]) => infer T ? T : never;
+		: Def extends (...args: any[]) => infer T
+		? T
+		: never;
 
 	/**
 	 * Component实例方法
@@ -4084,25 +4108,22 @@ declare namespace wx {
 		/**
 		 * 当场景为由从另一个小程序或公众号或App打开时，返回此字段
 		 */
-		referrerInfo: object;
-		/**
-		 * 来源小程序或公众号或App的 appId，详见下方说明
-		 */
-		"referrerInfo.appId": string;
-		/**
-		 * 来源小程序传过来的数据，scene=1037或1038时支持
-		 */
-		"referrerInfo.extraData": object;
+		referrerInfo: {
+			/* 来源小程序或公众号或App的 appId，详见下方说明 */
+			appId: string;
+			/* 来源小程序传过来的数据，scene=1037或1038时支持 */
+			extraData: object;
+		};
 		// #endregion
 	}
 
 	// 云开发
 	// 文档：https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html
-	interface cloud {
+	interface Cloud {
 		/**
 		 * 初始化方法（全局只需一次）
 		 */
-		init: (options: initCloudOptions) => void;
+		init: (options: InitCloudOptions) => void;
 		/**
 		 * 接受一个可选对象参数 env：环境 ID，获取数据库的引用
 		 */
@@ -4115,12 +4136,12 @@ declare namespace wx {
 	/**
 	 * 定义了云开发的默认配置，该配置会作为之后调用其他所有云 API 的默认配置
 	 */
-	interface initCloudOptions {
+	interface InitCloudOptions {
 		/**
 		 * 默认环境配置，传入字符串形式的环境 ID 可以指定所有服务的默认环境，传入对象 initCloudEnvOptions 可以分别指定各个服务的默认环境
 		 * 默认值： default
 		 */
-		env?: string | initCloudEnvOptions;
+		env?: string | InitCloudEnvOptions;
 		/**
 		 * 是否在将用户访问记录到用户管理中，在控制台中可见
 		 * 默认值： false
@@ -4130,7 +4151,7 @@ declare namespace wx {
 	/**
 	 * initCloudOptions 的 env 参数，可以指定各个服务的默认环境
 	 */
-	interface initCloudEnvOptions {
+	interface InitCloudEnvOptions {
 		/**
 		 * 数据库 API 默认环境配置
 		 * 默认值： default

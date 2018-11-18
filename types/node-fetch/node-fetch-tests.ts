@@ -1,4 +1,5 @@
-import fetch, { Headers, Request, RequestInit, Response } from 'node-fetch';
+import fetch = require("node-fetch");
+import { Headers, Request, RequestInit, Response } from 'node-fetch';
 import { Agent } from "http";
 
 function test_fetchUrlWithOptions() {

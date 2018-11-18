@@ -23,6 +23,7 @@
 //                 Marcin Biernat <https://github.com/biern>
 //                 Rayhaneh Banyassady <https://github.com/rayhaneh>
 //                 Ryan McCuaig <https://github.com/rgm>
+//                 Drew Wyatt <https://github.com/drewwyatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -430,12 +431,20 @@ declare namespace R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
     }
 
+    interface Placeholder { __isRamdaPlaceholder__: true; }
+
     interface Reduced<T> {
         '@@transducer/value': T;
         '@@transducer/reduced': true;
     }
 
     interface Static {
+        /**
+         * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
+         * position, and it returns a function waiting for its first argument.
+         */
+        __: Placeholder; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
+
         /**
          * Adds two numbers (or strings). Equivalent to a + b but curried.
          */
@@ -555,8 +564,8 @@ declare namespace R {
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
         assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
-        assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
         assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
+        assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
 
         /**
          * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
@@ -754,6 +763,8 @@ declare namespace R {
          * Returns a new list consisting of the elements of the first list followed by the elements
          * of the second.
          */
+        concat<T>(placeholder: Placeholder): (list2: ReadonlyArray<T>, list1: ReadonlyArray<T>) => T[];
+        concat<T>(placeholder: Placeholder, list2: ReadonlyArray<T>): (list1: ReadonlyArray<T>) => T[];
         concat<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
         concat<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
         concat(list1: string, list2: string): string;
@@ -782,6 +793,10 @@ declare namespace R {
          * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
          * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
          */
+        contains(__: Placeholder, list: string): (a: string) => boolean;
+        contains<T>(__: Placeholder, list: T[]): (a: T) => boolean;
+        contains(__: Placeholder): (list: string, a: string) => boolean;
+        contains<T>(__: Placeholder): (list: T[], a: T) => boolean;
         contains(a: string, list: string): boolean;
         contains<T>(a: T, list: ReadonlyArray<T>): boolean;
         contains(a: string): (list: string) => boolean;
@@ -876,6 +891,8 @@ declare namespace R {
         /**
          * Divides two numbers. Equivalent to a / b.
          */
+        divide(__: Placeholder, b: number): (a: number) => number;
+        divide(__: Placeholder): (b: number, a: number) => number;
         divide(a: number, b: number): number;
         divide(a: number): (b: number) => number;
 
@@ -1053,18 +1070,24 @@ declare namespace R {
         /**
          * Returns true if the first parameter is greater than the second.
          */
+        gt(__: Placeholder, b: number): (a: number) => boolean;
+        gt(__: Placeholder): (b: number, a: number) => boolean;
         gt(a: number, b: number): boolean;
         gt(a: number): (b: number) => boolean;
 
         /**
          * Returns true if the first parameter is greater than or equal to the second.
          */
+        gte(__: Placeholder, b: number): (a: number) => boolean;
+        gte(__: Placeholder): (b: number, a: number) => boolean;
         gte(a: number, b: number): boolean;
         gte(a: number): (b: number) => boolean;
 
         /**
          * Returns whether or not an object has an own property with the specified name.
          */
+        has<T>(__: Placeholder, obj: T): (s: string) => boolean;
+        has<T>(__: Placeholder): (obj: T, s: string) => boolean;
         has<T>(s: string, obj: T): boolean;
         has(s: string): <T>(obj: T) => boolean;
 
@@ -1300,12 +1323,16 @@ declare namespace R {
         /**
          * Returns true if the first parameter is less than the second.
          */
+        lt(__: Placeholder, b: number): (a: number) => boolean;
+        lt(__: Placeholder): (b: number, a: number) => boolean;
         lt(a: number, b: number): boolean;
         lt(a: number): (b: number) => boolean;
 
         /**
          * Returns true if the first parameter is less than or equal to the second.
          */
+        lte(__: Placeholder, b: number): (a: number) => boolean;
+        lte(__: Placeholder): (b: number, a: number) => boolean;
         lte(a: number, b: number): boolean;
         lte(a: number): (b: number) => boolean;
 
@@ -1361,6 +1388,8 @@ declare namespace R {
          * mathMod(-17, 5) is 3. mathMod requires Integer arguments, and returns NaN
          * when the modulus is zero or negative.
          */
+        mathMod(__: Placeholder, b: number): (a: number) => number;
+        mathMod(__: Placeholder): (b: number, a: number) => number;
         mathMod(a: number, b: number): number;
         mathMod(a: number): (b: number) => number;
 
@@ -1409,6 +1438,8 @@ declare namespace R {
          * merged with the own properties of object b.
          * This function will *not* mutate passed-in objects.
          */
+        merge<T2>(__: Placeholder, b: T2): <T1>(a: T1) => T1 & T2;
+        merge(__: Placeholder): <T1, T2>(b: T2, a: T1) => T1 & T2;
         merge<T1, T2>(a: T1, b: T2): T1 & T2;
         merge<T1>(a: T1): <T2>(b: T2) => T1 & T2;
 
@@ -1496,6 +1527,8 @@ declare namespace R {
          * Note that this functions preserves the JavaScript-style behavior for
          * modulo. For mathematical modulo see `mathMod`
          */
+        modulo(__: Placeholder, b: number): (a: number) => number;
+        modulo(__: Placeholder): (b: number, a: number) => number;
         modulo(a: number, b: number): number;
         modulo(a: number): (b: number) => number;
 
@@ -2282,6 +2315,8 @@ declare namespace R {
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
          */
+        subtract(__: Placeholder, b: number): (a: number) => number;
+        subtract(__: Placeholder): (b: number, a: number) => number;
         subtract(a: number, b: number): number;
         subtract(a: number): (b: number) => number;
 

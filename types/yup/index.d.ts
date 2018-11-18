@@ -163,7 +163,7 @@ export interface ArraySchema<T> extends Schema<T[]> {
     min(limit: number | Ref, message?: string): ArraySchema<T>;
     max(limit: number | Ref, message?: string): ArraySchema<T>;
     ensure(): ArraySchema<T>;
-    compact(rejector: (value: any) => boolean): ArraySchema<T>;
+    compact(rejector?: (value: any) => boolean): ArraySchema<T>;
 }
 
 export interface ObjectSchemaConstructor {
@@ -276,6 +276,7 @@ export interface SchemaDescription {
     label: string;
     meta: object;
     tests: string[];
+    fields: object;
 }
 
 export interface ValidationError {

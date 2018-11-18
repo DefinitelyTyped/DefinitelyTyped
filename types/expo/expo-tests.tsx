@@ -569,6 +569,10 @@ async () => {
     </Svg>
 );
 
+() => (
+    <Svg width={100} height={50} preserveAspectRatio="none" />
+);
+
 IntentLauncherAndroid.ACTION_ACCESSIBILITY_SETTINGS === 'android.settings.ACCESSIBILITY_SETTINGS';
 IntentLauncherAndroid.ACTION_APP_NOTIFICATION_REDACTION === 'android.settings.ACTION_APP_NOTIFICATION_REDACTION';
 IntentLauncherAndroid.ACTION_CONDITION_PROVIDER_SETTINGS === 'android.settings.ACTION_CONDITION_PROVIDER_SETTINGS';
