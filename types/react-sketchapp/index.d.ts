@@ -1,4 +1,4 @@
-// Type definitions for react-sketchapp 0.12
+// Type definitions for react-sketchapp 0.13
 // Project: https://github.com/airbnb/react-sketchapp
 // Definitions by: Rico Kahler <https://github.com/ricokahler>
 //                 DomiR <https://github.com/DomiR>
@@ -182,6 +182,7 @@ export interface PageProps {
 
 /**
  * Page, a wrapper for a Sketch page, may contain Artboards as children
+ * http://airbnb.io/react-sketchapp/docs/API.html#page
  */
 export class Page extends React.Component<PageProps, any> {}
 
