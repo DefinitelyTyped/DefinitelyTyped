@@ -22,14 +22,6 @@ declare namespace CompressionPlugin {
         threshold?: number;
         minRatio?: number;
 
-        // zopfli options
-        verbose?: boolean;
-        verbose_more?: boolean;
-        numiterations?: number;
-        blocksplitting?: boolean;
-        blocksplittinglast?: boolean;
-        blocksplittingmax?: number;
-
         // zlib options
         level?: number;
         flush?: number;
