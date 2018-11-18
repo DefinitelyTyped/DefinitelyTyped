@@ -78,6 +78,22 @@ export interface MapEvent {
     features: Array<{}>;
 }
 
+export interface MjolnirEvent {
+    type: string;
+    offsetCenter: {x: number, y: number};
+    deltaX: number;
+    deltaY: number;
+    delta: number;
+    scale: number;
+    rotation: number;
+    pointerType: string;
+    metaKey: boolean;
+    rightButton: boolean;
+    stopPropagation: () => void;
+    preventDefault: () => void;
+    srcEvent: any;
+}
+
 export interface Center {
     x: number;
     y: number;
@@ -201,9 +217,9 @@ export interface MarkerProps extends BaseControlProps {
     latitude: number;
     offsetLeft?: number;
     offsetTop?: number;
-    onDrag: (event: any) => void;
-    onDragStart: (event: any) => void;
-    onDragEnd: (event: any) => void;
+    onDrag: (event: MjolnirEvent) => void;
+    onDragStart: (event: MjolnirEvent) => void;
+    onDragEnd: (event: MjolnirEvent) => void;
 }
 
 export class Marker extends BaseControl<MarkerProps> {}
