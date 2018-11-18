@@ -61,9 +61,9 @@ declare namespace UserAgent {
         electronVersion: string;
         source: string;
     }
-}
 
-declare const UserAgent: Koa.Middleware;
+    const UserAgent: Koa.Middleware;
+}
 
 declare module "koa" {
     interface Context {
@@ -71,4 +71,4 @@ declare module "koa" {
     }
 }
 
-export = UserAgent;
+export = UserAgent.UserAgent;
