@@ -327,7 +327,7 @@ export class Text extends Immutable.Record({}) {
     getFirstText(): Text;
     getLastText(): Text;
     getText(): string;
-    getMarksBetweenOffset(
+    getMarksBetweenOffsets(
         startOffset: number,
         endOffset: number
     ): Immutable.Set<Mark>;
@@ -362,7 +362,7 @@ export interface LeafProperties {
 }
 
 export interface LeafJSON {
-    marks?: Mark[];
+    marks?: MarkJSON[];
     text?: string;
 }
 
