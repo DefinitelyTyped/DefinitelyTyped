@@ -15,7 +15,7 @@ interface SizzleStatic {
     (selector: string, context?: Element | Document | DocumentFragment): Element[];
     // tslint:disable-next-line:ban-types
     compile(selector: string): Function;
-    matchSelector(element: Element, selector: string): boolean;
+    matchesSelector(element: Element, selector: string): boolean;
     matches(selector: string, elements: Element[]): Element[];
 }
 
