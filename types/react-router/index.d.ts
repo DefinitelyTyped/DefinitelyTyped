@@ -62,7 +62,7 @@ export interface RedirectProps {
 export class Redirect extends React.Component<RedirectProps, any> { }
 
 export interface StaticContext {
-  statusCode?: number;
+  status?: number;
 }
 
 export interface RouteComponentProps<Params extends { [K in keyof Params]?: string } = {}, C extends StaticContext = StaticContext, S = H.LocationState> {
