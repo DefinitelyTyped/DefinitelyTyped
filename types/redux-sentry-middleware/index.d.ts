@@ -17,4 +17,5 @@ export interface SentryMiddlewareOptions<T> {
     getTags?: (state: T) => Sentry.SentryEvent['tags'];
 }
 
+// tslint:disable-next-line: no-unnecessary-generics
 export default function createSentryMiddleware<T>(sentry: typeof Sentry, options?: SentryMiddlewareOptions<T>): Middleware;
