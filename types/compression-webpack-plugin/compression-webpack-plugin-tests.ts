@@ -3,15 +3,22 @@ import CompressionPlugin = require('compression-webpack-plugin');
 
 new CompressionPlugin();
 
+new CompressionPlugin({
+    include: ["a"] as ReadonlyArray<string>,
+    exclude: [/a/g] as ReadonlyArray<RegExp>,
+    test: "a",
+});
+
 const config: Configuration = {
     plugins: [
         new CompressionPlugin({
-            filename: "[path].gz[query]",
             algorithm: "gzip",
             cache: true,
+            filename: "[path].gz[query]",
+            minRatio: 0.8,
             test: /\.js$|\.html$/,
             threshold: 10240,
-            minRatio: 0.8
+            deleteOriginalAssets: true
         })
     ]
 };

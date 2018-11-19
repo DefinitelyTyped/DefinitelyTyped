@@ -17,16 +17,19 @@ declare namespace CompressionPlugin {
     type AlgorithmCallback = (error: Error | null, result: Buffer) => void;
     type Algorithm<O> = (source: string, options: O, callback: AlgorithmCallback) => void;
 
-    // NOTE: These are the compression algorithms exported by zlib.
+    // NOTE: These are the async compression algorithms on the zlib object.
     type ZlibAlgorithm = 'deflate' | 'deflateRaw' | 'gzip';
+    type Pattern = string | RegExp | ReadonlyArray<RegExp> | ReadonlyArray<string>;
 
     interface BaseOptions {
-        filename?: string;
         cache?: boolean | string;
-        test?: RegExp | RegExp[];
-        regExp?: RegExp | RegExp[];
-        threshold?: number;
+        deleteOriginalAssets?: boolean;
+        exclude?: Pattern;
+        filename?: string;
+        include?: Pattern;
         minRatio?: number;
+        test?: Pattern;
+        threshold?: number;
     }
 
     interface ZlibOptions extends BaseOptions {
