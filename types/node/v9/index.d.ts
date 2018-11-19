@@ -2390,7 +2390,7 @@ declare module "readline" {
 }
 
 declare module "vm" {
-    export interface Context { 
+    export interface Context {
         [key: string]: any;
     }
     export interface ScriptOptions {

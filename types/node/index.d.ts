@@ -2501,7 +2501,7 @@ declare module "readline" {
 }
 
 declare module "vm" {
-    interface Context { 
+    interface Context {
         [key: string]: any;
     }
     interface BaseOptions {
