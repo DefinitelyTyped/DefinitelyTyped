@@ -6,7 +6,7 @@ new CompressionPlugin();
 const config: Configuration = {
     plugins: [
         new CompressionPlugin({
-            asset: "[path].gz[query]",
+            filename: "[path].gz[query]",
             algorithm: "gzip",
             cache: true,
             test: /\.js$|\.html$/,
@@ -19,6 +19,9 @@ const config: Configuration = {
 const configDefaultAlgo = new CompressionPlugin({
     compressionOptions: { level: 7 }
 });
+
+// $ExpectError
+new CompressionPlugin({ asset: "[path].gz[query]" });
 
 const zlib: Configuration = {
     plugins: [

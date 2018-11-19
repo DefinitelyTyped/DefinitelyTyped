@@ -21,7 +21,7 @@ declare namespace CompressionPlugin {
     type ZlibAlgorithm = 'deflate' | 'deflateRaw' | 'gzip';
 
     interface BaseOptions {
-        asset?: string;
+        filename?: string;
         cache?: boolean | string;
         test?: RegExp | RegExp[];
         regExp?: RegExp | RegExp[];
