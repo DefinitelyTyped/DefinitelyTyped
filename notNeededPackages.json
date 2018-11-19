@@ -940,7 +940,7 @@
             "libraryName": "mali-compose",
             "typingsPackageName": "mali-compose",
             "sourceRepoURL": "https://github.com/malijs/mali-compose",
-            "asOfVersion": "0.1.2"
+            "asOfVersion": "1.2.0"
         },
         {
             "libraryName": "mali-onerror",
