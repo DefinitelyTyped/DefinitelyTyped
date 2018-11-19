@@ -5641,6 +5641,13 @@ export class WebGLRenderer implements Renderer {
     renderBufferDirect(camera: Camera, fog: Fog, material: Material, geometryGroup: any, object: Object3D): void;
 
     /**
+     * Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first rendering.
+     * @param scene 
+     * @param camera 
+     */
+    compile(scene: Scene, camera: Camera): void;
+
+    /**
      * A build in function that can be used instead of requestAnimationFrame. For WebVR projects this function must be used.
      * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
      */
