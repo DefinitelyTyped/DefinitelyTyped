@@ -173,24 +173,6 @@ describe("Included matchers:", () => {
     });
 });
 
-describe("toThrowMatching", () => {
-    expect(() => {
-        ({} as any).doSomething();
-    }).toThrowMatching(error => error != undefined);
-});
-
-describe("toBeNegativeInfinity", () => {
-    expect("").toBeNegativeInfinity();
-});
-
-describe("toBePositiveInfinity", () => {
-    expect("").toBePositiveInfinity();
-});
-
-describe("toHaveClass", () => {
-    expect("").toHaveClass(Array);
-});
-
 describe("A spec", () => {
     it("is just a function, so it can contain any code", () => {
         var foo = 0;
@@ -261,12 +243,6 @@ describe("A spec", () => {
         it("can reference both scopes as needed", () => {
             expect(foo).toEqual(bar);
         });
-    });
-});
-
-describe("withContext", () => {
-    it("can be used after an expectation", () => {
-        expect(1).withContext('context message').toBe(1);
     });
 });
 
