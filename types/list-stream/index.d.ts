@@ -1,6 +1,6 @@
 // Type definitions for list-stream 1.0
 // Project: https://github.com/rvagg/list-stream
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: IanStorm <https://github.com/IanStorm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
