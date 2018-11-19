@@ -1,6 +1,7 @@
 // Type definitions for mailgun-js 0.16
 // Project: https://github.com/bojand/mailgun-js
 // Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
+//                 Andi Pätzold <https://github.com/andipaetzold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -126,7 +127,17 @@ declare namespace Mailgun {
         }
 
         interface ValidateResponse {
+            address: string;
+            did_you_mean: string | null;
+            is_disposable_address: boolean;
+            is_role_address: boolean;
             is_valid: boolean;
+            mailbox_verification: "true" | "false" | "unknown" | null;
+            parts: {
+                display_name: string | null;
+                domain: string;
+                local_part: string;
+            };
         }
     }
 
@@ -147,6 +158,23 @@ declare namespace Mailgun {
 
         validate(
             address: string,
+            callback?: (error: Error, body: validation.ValidateResponse) => void
+        ): Promise<validation.ValidateResponse>;
+        validate(
+            address: string,
+            isPrivate: boolean,
+            callback?: (error: Error, body: validation.ValidateResponse) => void
+        ): Promise<validation.ValidateResponse>;
+        validate(
+            address: string,
+            // tslint:disable-next-line unified-signatures
+            opts: { [key: string]: any },
+            callback?: (error: Error, body: validation.ValidateResponse) => void
+        ): Promise<validation.ValidateResponse>;
+        validate(
+            address: string,
+            isPrivate: boolean,
+            opts: { [key: string]: any },
             callback?: (error: Error, body: validation.ValidateResponse) => void
         ): Promise<validation.ValidateResponse>;
     }
