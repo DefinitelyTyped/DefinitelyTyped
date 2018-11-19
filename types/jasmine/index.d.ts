@@ -8,6 +8,7 @@
 //                 Boris Breuer <https://github.com/Engineer2B>
 //                 Chris Yungmann <https://github.com/cyungmann>
 //                 Giles Roadnight <https://github.com/Roaders>
+//                 Peter Safranek <https://github.com/pe8ter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -102,6 +103,16 @@ declare function expect<T>(actual: T): jasmine.Matchers<T>;
 declare function expect(): jasmine.NothingMatcher;
 
 /**
+ * Create an asynchronous expectation for a spec. Note that the matchers
+ * that are provided by an asynchronous expectation all return promises
+ * which must be either returned from the spec or waited for using `await`
+ * in order for Jasmine to associate them with the correct spec.
+ * @checkReturnValue see https://tsetse.info/check-return-value
+ * @param actual - Actual computed value to test expectations against.
+ */
+declare function expectAsync<T, U>(actual: Promise<T>): jasmine.AsyncMatchers<T, U>;
+
+/**
  * Explicitly mark a spec as failed.
  * @param e
  */
@@ -129,6 +140,12 @@ declare function spyOn<T>(object: T, method: keyof T): jasmine.Spy;
  * @param accessType The access type (get|set) of the property to Spy on.
  */
 declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: 'get' | 'set'): jasmine.Spy;
+
+/**
+ * Installs spies on all writable and configurable properties of an object.
+ * @param object The object upon which to install the Spies
+ */
+declare function spyOnAllFunctions(object: object): jasmine.Spy;
 
 declare function runs(asyncMethod: Function): void;
 declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, timeout?: number): void;
@@ -481,6 +498,44 @@ declare namespace jasmine {
         nothing(): void;
     }
 
+    interface AsyncMatchers<T, U> {
+
+        /**
+         * Expect a promise to be resolved.
+         * @param expectationFailOutput
+         */
+        toBeResolved(expectationFailOutput?: any): Promise<void>;
+
+        /**
+         * Expect a promise to be rejected.
+         * @param expectationFailOutput
+         */
+        toBeRejected(expectationFailOutput?: any): Promise<void>;
+
+        /**
+         * Expect a promise to be resolved to a value equal to the expected, using deep equality comparison.
+         * @param expected - Value that the promise is expected to resolve to.
+         */
+        toBeResolvedTo(expected: Expected<T>): Promise<void>;
+
+        /**
+         * Expect a promise to be rejected with a value equal to the expected, using deep equality comparison.
+         * @param expected - Value that the promise is expected to be rejected with.
+         */
+        toBeRejectedWith(expected: Expected<U>): Promise<void>;
+
+        /**
+         * Add some context for an expect.
+         * @param message - Additional context to show when the matcher fails.
+         */
+        withContext(message: string): AsyncMatchers<T, U>;
+
+        /**
+         * Invert the matcher following this expect.
+         */
+        not: AsyncMatchers<T, U>
+    }
+
     interface Reporter {
         reportRunnerStarting(runner: Runner): void;
         reportRunnerResults(runner: Runner): void;
@@ -598,6 +653,8 @@ declare namespace jasmine {
         explodes(): void;
         spyOn(obj: any, methodName: string, ignoreMethodDoesntExist: boolean): Spy;
         spyOnProperty(object: any, property: string, accessType?: 'get' | 'set'): Spy;
+        spyOnAllFunctions(object: any): Spy;
+
         removeAllSpies(): void;
         throwOnExpectationFailure: boolean;
     }

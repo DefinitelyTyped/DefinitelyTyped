@@ -171,6 +171,28 @@ describe("Included matchers:", () => {
         expect(foo).toThrowError(TypeError);
         expect(foo).toThrowError(TypeError, "foo bar baz");
     });
+
+    it("async matchers", async () => {
+        var badness = new Error("badness");
+        await expectAsync(Promise.resolve()).toBeResolved();
+        await expectAsync(Promise.resolve()).toBeResolved("good job");
+        await expectAsync(Promise.resolve(true)).toBeResolvedTo(true);
+        await expectAsync(Promise.reject(badness)).toBeRejected();
+        await expectAsync(Promise.reject(badness)).toBeRejected("bad mojo");
+        await expectAsync(Promise.reject(badness)).toBeRejectedWith(badness);
+        await expectAsync(Promise.resolve()).withContext("additional info").toBeResolved();
+    });
+
+    it("async matchers - not", async () => {
+        var badness = new Error("badness");
+        var malady = new Error("malady");
+        await expectAsync(Promise.reject(badness)).not.toBeResolved();
+        await expectAsync(Promise.resolve(true)).not.toBeResolvedTo(false);
+        await expectAsync(Promise.resolve()).not.toBeRejected();
+        await expectAsync(Promise.reject(badness)).not.toBeRejectedWith(malady);
+        await expectAsync(Promise.reject(badness)).not.withContext("additional info").toBeResolved();
+        await expectAsync(Promise.reject(badness)).withContext("additional info").not.toBeResolved();
+    });
 });
 
 describe("toThrowMatching", () => {
@@ -692,6 +714,25 @@ describe("Multiple spies, when created manually", () => {
 
     it("tracks all the arguments of its calls", () => {
         expect(tape.rewind).toHaveBeenCalledWith(0);
+    });
+});
+
+describe("multiple spies, when created with spyOnAllFunctions", () => {
+
+    it("spies on all functions", () => {
+
+        const obj = {
+            x: (a: number) => a,
+            y: (a: number) => a,
+        }
+
+        spyOnAllFunctions(obj);
+
+        obj.x(0);
+        obj.y(1);
+
+        expect(obj.x).toHaveBeenCalled();
+        expect(obj.y).toHaveBeenCalledWith(1);
     });
 });
 
