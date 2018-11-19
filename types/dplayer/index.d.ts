@@ -1,4 +1,4 @@
-// Type definitions for dplayer 1.25.0
+// Type definitions for dplayer 1.25
 // Project: https://github.com/DIYgod/DPlayer#readme
 // Definitions by: Guanyunhan <https://github.com/Guanyunhan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -111,7 +111,7 @@ export interface DPlayerVideo {
   thumbnails?: string;
   type?: VideoType | string;
   customType?: any;
-  quality?: DPlayerVideoQuality[]
+  quality?: DPlayerVideoQuality[];
   defaultQuality?: number;
 }
 
@@ -140,7 +140,7 @@ export interface DPlayerAPIBackend {
   send(endpoint: any, danmakuData: DPlayerDanmakuItem, callback: () => void): void;
 }
 
-interface Danmaku {
+export interface Danmaku {
   send(danmaku: DPlayerDanmakuItem, callback: () => void): void;
 
   draw(danmaku: DPlayerDanmakuItem): void;
@@ -154,7 +154,7 @@ interface Danmaku {
   show(): void;
 }
 
-interface FullScreen {
+export interface FullScreen {
   request(type: FullScreenType): void;
 
   cancel(type: FullScreenType): void;
