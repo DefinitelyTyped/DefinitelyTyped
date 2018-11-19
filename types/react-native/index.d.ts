@@ -1859,13 +1859,15 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
     /**
      * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
      */
-    accessibilityStates?: "selected" | "disabled";
+    accessibilityStates?: AccessibilityState[];
 
     /**
      * An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.
      */
     accessibilityHint?: string;
 }
+
+export type AccessibilityState = "selected" | "disabled";
 
 export type AccessibilityRole =
     | "none"

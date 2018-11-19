@@ -756,7 +756,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityTraits={'none'}
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
-                accessibilityStates="selected"
+                accessibilityStates={["selected"]}
                 accessibilityHint="Very importent header"
             >
                 <Text
