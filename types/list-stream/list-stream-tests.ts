@@ -2,7 +2,7 @@ import * as ListStream from "list-stream";
 
 let chunk: any = "chunk";
 let listStream: ListStream;
-let num: number = 1;
+let num = 1;
 
 listStream = new ListStream((err: Error, data: any[]) => {
     if (err) { throw err; }

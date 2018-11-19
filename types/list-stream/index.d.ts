@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-
 import { Duplex, DuplexOptions } from "stream";
 
 declare namespace ListStream {
