@@ -17,4 +17,4 @@ export interface SentryMiddlewareOptions<T> {
     getTags?: (state: T) => Sentry.SentryEvent['tags'];
 }
 
-export default function createSentryMiddleware(sentry: typeof Sentry, options?: SentryMiddlewareOptions<any>): Middleware;
+export default function createSentryMiddleware<T>(sentry: typeof Sentry, options?: SentryMiddlewareOptions<T>): Middleware;
