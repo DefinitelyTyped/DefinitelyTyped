@@ -100,6 +100,9 @@ export interface OAuthClient {
          */
         authorizeURL(
             params: {
+                /** A key-value pair where key is ModuleOptions#client.idParamName and the value represents the Client-ID */
+                [ idParamName: string ]: any
+            } & {
                 /** A string that represents the registered application URI where the user is redirected after authentication */
                 redirect_uri?: string,
                 /** A string or array of strings that represents the application privileges */
