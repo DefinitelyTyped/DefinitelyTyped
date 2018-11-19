@@ -25,6 +25,7 @@
 //                 Denis Frezzato <https://github.com/DenisFrezzato>
 //                 Mickael Wegerich <https://github.com/mickaelw>
 //                 Max Davidson <https://github.com/maxdavidson>
+//                 Lachlan Young <https://github.com/builtbyproxy>
 //                 Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -374,7 +375,9 @@ export interface NavigationToggleDrawerAction {
 export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal';
   headerMode?: HeaderMode;
+  headerBackTitleVisible?: boolean;
   headerTransitionPreset?: 'fade-in-place' | 'uikit';
+  headerLayoutPreset?: 'left' | 'center';
   cardStyle?: StyleProp<ViewStyle>;
   transitionConfig?: (
     transitionProps: NavigationTransitionProps,
@@ -551,6 +554,8 @@ export interface NavigationBottomTabScreenOptions
   ) => void;
 }
 
+export type DrawerLockMode = 'unlocked' | 'locked-closed' | 'locked-open';
+
 export interface NavigationDrawerScreenOptions {
   title?: string;
   drawerIcon?:
@@ -564,7 +569,7 @@ export interface NavigationDrawerScreenOptions {
   | ((
     options: { tintColor: string | null; focused: boolean }
   ) => React.ReactElement<any> | null);
-  drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
+  drawerLockMode?: DrawerLockMode;
 }
 
 export interface NavigationRouteConfigMap {
@@ -896,6 +901,7 @@ export interface DrawerNavigatorConfig
     style?: StyleProp<ViewStyle>;
     labelStyle?: StyleProp<TextStyle>;
   };
+  drawerLockMode?: DrawerLockMode;
 }
 
 export function DrawerNavigator(

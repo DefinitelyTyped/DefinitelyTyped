@@ -1,20 +1,15 @@
-declare const require: (module: string) => Object;
-if (require !== null) {
-  require('es6-shim');
-}
-
 interface Point { x: number; y: number; }
 interface Point3D extends Point { z: number; }
 
 let a: any;
-let s: string = '';
-let i: number = 2;
+let s = '';
+let i = 2;
 let iOrUndef: number | undefined;
 let b: boolean;
 let f: () => void = () => {};
 let o: Object;
 let r: RegExp = /a/;
-let sym: symbol = {} as symbol;
+declare const sym: symbol;
 let e: Error = new Error();
 let date: Date;
 let key: PropertyKey;
@@ -27,7 +22,7 @@ let arrayOfPoint3D: Point3D[];
 let arrayOfSymbol: symbol[];
 let arrayOfPropertyKey: PropertyKey[];
 let arrayOfAny: any[];
-let arrayOfStringAny: [string, any][];
+let arrayOfStringAny: Array<[string, any]>;
 let arrayLikeOfAny: ArrayLike<any> = [];
 let iterableOfPoint: IterableShim<Point> = [];
 let iterableOfStringPoint: IterableShim<[string, Point]> = [];
@@ -86,7 +81,7 @@ b = Number.isSafeInteger(i);
 i = Number.MAX_SAFE_INTEGER;
 i = Number.MIN_SAFE_INTEGER;
 i = Number.parseFloat(s);
-i = Number.parseInt(s);
+i = Number.parseInt(s, 10);
 i = Number.parseInt(s, i);
 i = Math.clz32(i);
 i = Math.imul(i, i);

@@ -76,6 +76,7 @@ declare module 'angular' {
 
         interface IConfirmDialog extends IPresetDialog<IConfirmDialog> {
             cancel(cancel: string): IConfirmDialog;
+            multiple(multiple: boolean): IConfirmDialog;
         }
 
         interface IPromptDialog extends IPresetDialog<IPromptDialog> {

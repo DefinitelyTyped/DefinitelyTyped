@@ -276,6 +276,7 @@ export interface SchemaDescription {
     label: string;
     meta: object;
     tests: string[];
+    fields: object;
 }
 
 export interface ValidationError {

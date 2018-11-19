@@ -7,9 +7,13 @@
 /// <reference types="meteor" />
 
 declare namespace MeteorAstronomy {
+    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]; // tslint:disable-line:ban-types
+    type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
+    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T]; // tslint:disable-line:ban-types
+    type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>;
+
     type TypeOptionsPrimitives = typeof String | typeof Date | typeof Boolean | typeof Object | typeof Number;
     type TypeOptions = TypeOptionsPrimitives | TypeOptionsPrimitives[] | Class<any> | Enum<any>;
-    type MongoQuery = object | string;
 
     interface SaveAndValidateOptions<K> {
         fields?: K[];
@@ -40,7 +44,11 @@ declare namespace MeteorAstronomy {
     type ModelField<Field, Doc> = ModelFullField<Field, Doc> | TypeOptions;
 
     type Fields<T> = {
-        [P in keyof T]: ModelField<T[P], T>;
+        [P in keyof NonFunctionProperties<T>]: ModelField<T[P], T>;
+    };
+
+    type Helpers<T> = {
+        [P in keyof FunctionProperties<T>]: (this: T, ...args: any[]) => any;
     };
 
     interface ClassModel<T> {
@@ -53,7 +61,7 @@ declare namespace MeteorAstronomy {
             update: boolean,
             remove: boolean,
         } | boolean;
-        helpers?: object;
+        helpers?: Helpers<T>;
         events?: object;
         meteorMethods?: object;
         indexes?: object;
@@ -61,7 +69,7 @@ declare namespace MeteorAstronomy {
 
     interface EnumModel<T> {
         name: string;
-        identifiers: T[] | object;
+        identifiers: string[] | T;
     }
 
     type Model<T> = T & {
@@ -84,18 +92,46 @@ declare namespace MeteorAstronomy {
         remove(callback?: RemoveCallback): void;
     };
 
+    interface FindOneOptions {
+        sort?: Mongo.SortSpecifier;
+        skip?: number;
+        fields?: Mongo.FieldSpecifier;
+        reactive?: boolean;
+        transform?: (...args: any[]) => any;
+        disableEvents?: boolean;
+        children?: number;
+        defaults?: boolean;
+    }
+
+    interface FindOptions extends FindOneOptions {
+        limit?: number;
+    }
+
+    interface UpsertOptions {
+        multi?: boolean;
+    }
+
+    interface UpdateOptions extends UpsertOptions {
+        upsert?: boolean;
+    }
+
+    type MongoQuery<T> = Mongo.Selector<T> | Mongo.ObjectID | string;
+
     interface Class<T> {
         new(data?: Partial<T>): Model<T>;
 
-        findOne(query?: MongoQuery): Model<T>;
-        find(query?: MongoQuery): Array<Model<T>>;
-        update(search: object | string, query: object, callback?: () => void): void;
+        findOne(selector?: MongoQuery<T>, options?: FindOneOptions): Model<T>;
+        find(selector?: MongoQuery<T>, options?: FindOptions): Mongo.Cursor<Model<T>>;
+        insert(doc: T, callback?: () => void): string;
+        update(selector: MongoQuery<T>, modifier: Mongo.Modifier<T>, options?: UpdateOptions, callback?: () => void): number;
+        upsert(selector: MongoQuery<T>, modifier: Mongo.Modifier<T>, options?: UpsertOptions, callback?: () => void): number;
+        remove(selector: MongoQuery<T>, callback?: () => void): number;
     }
 
-    interface Enum<T> {
+    type Enum<T> = T & {
         getValues(): any[];
-        getIdentifier(identifier: T): any;
-    }
+        getIdentifier(identifier: any): string;
+    };
 }
 
 declare module 'meteor/jagi:astronomy' { // tslint:disable-line:no-single-declare-module

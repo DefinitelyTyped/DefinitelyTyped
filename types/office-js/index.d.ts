@@ -551,6 +551,37 @@ declare namespace Office {
         */
         asyncContext: any;
         /**
+        * Gets an object that may provide additional information if an error occurred.
+        *
+        * @remarks
+        * 
+        * **Support details**
+        * 
+        * A capital Y in the following matrix indicates that this property is supported in the corresponding Office host application. 
+        * An empty cell indicates that the Office host application doesn't support this enumeration.
+        * 
+        * For more information about Office host application and server requirements, see 
+        * {@link https://docs.microsoft.com/office/dev/add-ins/concepts/requirements-for-running-office-add-ins | Requirements for running Office Add-ins}.
+        * 
+        * *Supported hosts, by platform*
+        *  <table>
+        *   <tr><th>                    </th><th> Office for Windows desktop </th><th> Office Online (in browser) </th><th> Office for iPad </th><th> OWA for Devices </th><th> Office for Mac </th></tr>
+        *   <tr><td><strong>Outlook</strong></td><td> Y (Mailbox Preview)    </td><td>                            </td><td>                 </td><td>                 </td><td>                </td></tr>
+        *  </table>
+        * 
+        * *Supported APIs*
+        * 
+        * `Office.context.mailbox.item.getCallbackTokenAsync`, `Office.context.mailbox.item.getUserIdentityTokenAsync`
+        * 
+        * *Supported errors*
+        * <table>
+        *   <tr><th>`AsyncResult.error.name`            </th><th>`AsyncResult.error.message`                                                                       </th><th>Description of diagnostics object returned                                                                                          </th></tr>
+        *   <tr><td><strong>HTTPRequestFailure</strong> </td><td>The request has failed. Please look at the diagnostics object for the HTTP error code.            </td><td>The HTTP error code in a JSON object e.g., `{"HTTPCode":"401"}`                                                                     </td></tr>
+        *   <tr><td><strong>InternalServerError</strong></td><td>The Exchange server returned an error. Please look at the diagnostics object for more information.</td><td>The error message from the Exchange server in a JSON object e.g., `{"ErrorText": "The mailbox database is temporarily unavailable"}`</td></tr>
+        * </table>
+        */
+       diagnostics: any;
+       /**
         * Gets an {@link Office.Error} object that provides a description of the error, if any error occurred.
         *
         * @remarks
@@ -1087,8 +1118,8 @@ declare namespace Office {
          *
          * - Called from a UI-less command button: No effect. Any dialog opened by displayDialogAsync will remain open.
          *
-         * - Called from a taskpane: The taskpane will close. Any dialog opened by displayDialogAsync will also close. 
-         * If the taskpane supports pinning and was pinned by the user, it will be un-pinned.
+         * - Called from a task pane: The task pane will close. Any dialog opened by displayDialogAsync will also close. 
+         * If the task pane supports pinning and was pinned by the user, it will be un-pinned.
          *
          * - Called from a module extension: No effect.
          */
@@ -1254,17 +1285,17 @@ declare namespace Office {
      */
     interface RangeFormatConfiguration {
         /**
-         * Specifies the range. Example of using Office.Table enum: Office.Table.All. Example of using RangeCoordinates: \{row: 3, column: 4\} specifies 
+         * Specifies the range. Example of using Office.Table enum: Office.Table.All. Example of using RangeCoordinates: `{row: 3, column: 4}` specifies 
          * the cell in the 3rd (zero-based) row in the 4th (zero-based) column.
          */
          cells: Office.Table | RangeCoordinates
         /**
-         * Specifies the formatting as key-value pairs. Example: \{borderColor: "white", fontStyle: "bold"\}
+         * Specifies the formatting as key-value pairs. Example: `{borderColor: "white", fontStyle: "bold"}`
          */
          format: object
     }
     /**
-     * Specifies a cell, or row, or column, by its zero-based row and/or column number. Example: \{row: 3, column: 4\} specifies the cell in the 3rd 
+     * Specifies a cell, or row, or column, by its zero-based row and/or column number. Example: `{row: 3, column: 4}` specifies the cell in the 3rd 
      * (zero-based) row in the 4th (zero-based) column.
      */
     interface RangeCoordinates {
@@ -1409,7 +1440,7 @@ declare namespace Office {
          * Use only with binding type table and when a TableData object is passed for the data parameter. An array of objects that specify a range of 
          * columns, rows, or cells and specify, as key-value pairs, the cell formatting to apply to that range. 
          * 
-         * Example: `[\{cells: Office.Table.Data, format: \{fontColor: "yellow"\}\}, \{cells: \{row: 3, column: 4\}, format: \{borderColor: "white", fontStyle: "bold"\}\}]`
+         * Example: `[{cells: Office.Table.Data, format: {fontColor: "yellow"}}, {cells: {row: 3, column: 4}, format: {borderColor: "white", fontStyle: "bold"}}]`
          */
         cellFormat?: RangeFormatConfiguration[]
         /**
@@ -1909,9 +1940,9 @@ declare namespace Office {
          */
         DocumentSelectionChanged,
         /**
-         * Triggers when the selected Outlook item is changed.
+         * Triggers when a different Outlook item is selected for viewing while the task pane is pinned.
          * 
-         * [Api set: Mailbox 1.1]
+         * [Api set: Mailbox 1.5]
          */
         ItemChanged,
         /**
@@ -4861,7 +4892,7 @@ declare namespace Office {
          * 
          * **Returned format structure**
          * 
-         * Each JavaScript object in the return value array has this form: `\{cells:\{ cell_range \}, format:\{ format_definition \}\}`
+         * Each JavaScript object in the return value array has this form: `{cells:{ cell_range }, format:{ format_definition }}`
          * 
          * The `cells:` property specifies the range you want format using one of the following values:
          * 
@@ -4873,27 +4904,27 @@ declare namespace Office {
          *     <th>Description</th>
          *   </tr>
          *   <tr>
-         *     <td>\{row: n\}</td>
+         *     <td>`{row: n}`</td>
          *     <td>Specifies the range that is the zero-based nth row of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>\{column: n\}</td>
+         *     <td>`{column: n}`</td>
          *     <td>Specifies the range that is the zero-based nth column of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>\{row: i, column: j\}</td>
+         *     <td>`{row: i, column: j}`</td>
          *     <td>Specifies the single cell that is the ith row and jth column of the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.All</td>
+         *     <td>`Office.Table.All`</td>
          *     <td>Specifies the entire table, including column headers, data, and totals (if any).</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.Data</td>
+         *     <td>`Office.Table.Data`</td>
          *     <td>Specifies only the data in the table (no headers and totals).</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.Headers</td>
+         *     <td>`Office.Table.Headers`</td>
          *     <td>Specifies only the header row.</td>
          *   </tr>
          * </table>
@@ -4919,7 +4950,7 @@ declare namespace Office {
          * The value you pass as the cellFormat parameter is an array that contains a list of one or more JavaScript objects that specify which cells 
          * to target (`cells:`) and the formats (`format:`) to apply to them.
          * 
-         * Each JavaScript object in the cellFormat array has this form: `\{cells:\{ cell_range \}, format:\{ format_definition \}\}`
+         * Each JavaScript object in the cellFormat array has this form: `{cells:{ cell_range }, format:{ format_definition }}`
          * 
          * The `cells:` property specifies the range you want format using one of the following values:
          * 
@@ -4931,27 +4962,27 @@ declare namespace Office {
          *     <th>Description</th>
          *   </tr>
          *   <tr>
-         *     <td>\{row: n\}</td>
+         *     <td>`{row: n}`</td>
          *     <td>Specifies the range that is the zero-based nth row of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>\{column: n\}</td>
+         *     <td>`{column: n}`</td>
          *     <td>Specifies the range that is the zero-based nth column of data in the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>\{row: i, column: j\}</td>
+         *     <td>`{row: i, column: j}`</td>
          *     <td>Specifies the single cell that is the ith row and jth column of the table.</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.All</td>
+         *     <td>`Office.Table.All`</td>
          *     <td>Specifies the entire table, including column headers, data, and totals (if any).</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.Data</td>
+         *     <td>`Office.Table.Data`</td>
          *     <td>Specifies only the data in the table (no headers and totals).</td>
          *   </tr>
          *   <tr>
-         *     <td>Office.Table.Headers</td>
+         *     <td>`Office.Table.Headers`</td>
          *     <td>Specifies only the header row.</td>
          *   </tr>
          * </table>
@@ -4967,22 +4998,22 @@ declare namespace Office {
          * 
          * `//Set cells: font color to green and size to 15 points.`
          * 
-         * `format: \{fontColor : "green", fontSize : 15\}`
+         * `format: {fontColor : "green", fontSize : 15}`
          * 
          * `//Set cells: border to dotted blue.`
          * 
-         * `format: \{borderStyle: "dotted", borderColor: "blue"\}`
+         * `format: {borderStyle: "dotted", borderColor: "blue"}`
          * 
          * `//Set cells: background to red and alignment to centered.`
          * 
-         * `format: \{backgroundColor: "red", alignHorizontal: "center"\}`
+         * `format: {backgroundColor: "red", alignHorizontal: "center"}`
          * 
          * 
          * You can specify number formats by specifying the number formatting "code" string in the `numberFormat:` property. 
          * The number format strings you can specify correspond to those you can set in Excel using the Custom category on the Number tab of the Format Cells dialog box. 
          * This example shows how to format a number as a percentage with two decimal places:
          * 
-         * `format: \{numberFormat:"0.00%"\}`
+         * `format: {numberFormat:"0.00%"}`
          * 
          * For more detail, see how to {@link https://support.office.com/article/create-or-delete-a-custom-number-format-78f2a361-936b-4c03-8772-09fab54be7f4 | Create a custom number format}.
          * 
@@ -7380,7 +7411,12 @@ declare namespace Office {
             /**
              * The content of the attachment is returned as a string representing an .eml formatted file.
              */
-            Eml = "eml"
+            Eml = "eml",
+
+            /**
+             * The content of the attachment is returned as a string representing an .icalendar formatted file.
+             */
+            ICalendar = "iCalendar"
         }
         /**
          * Specifies whether an attachment was added to or removed from an item.
@@ -8578,8 +8614,13 @@ declare namespace Office {
         content: string;
         /**
          * The string format to use for an attachment's content.
-         * For file attachments, the formatting is a base64-encoded string. 
-         * For item attachments that represent messages, the formatting is a string representing an .eml formatted file. 
+         * 
+         * For file attachments, the formatting is a base64-encoded string.
+         * 
+         * For item attachments that represent messages, the formatting is a string representing an .eml formatted file.
+         * 
+         * For item attachments that represent calendar items, the formatting is a string representing an .icalendar file.
+         * 
          * For cloud attachments, the formatting is a URL string.
          */
         format: Office.MailboxEnums.AttachmentContentFormat;
@@ -15371,7 +15412,8 @@ declare namespace Office {
          *        isRest: Determines if the token provided will be used for the Outlook REST APIs or Exchange Web Services. Default value is false.
          *        asyncContext: Any state data that is passed to the asynchronous method.
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. The token is provided as a string in the asyncResult.value property.
+         *                 type Office.AsyncResult. The token is provided as a string in the `asyncResult.value` property.
+         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          */
         getCallbackTokenAsync(options: Office.AsyncContextOptions & { isRest?: boolean }, callback: (result: AsyncResult<string>) => void): void;
         /**
@@ -15398,7 +15440,8 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose and read</td></tr></table>
          *
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of type AsyncResult. 
-         *                 The token is provided as a string in the asyncResult.value property.
+         *                 The token is provided as a string in the `asyncResult.value` property.
+         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          */
         getCallbackTokenAsync(callback: (result: AsyncResult<string>) => void): void;
         /**
@@ -15425,7 +15468,8 @@ declare namespace Office {
          * <tr><td>{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}</td><td>Compose and read</td></tr></table>
          *
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of 
-         *                 type Office.AsyncResult. The token is provided as a string in the asyncResult.value property.
+         *                 type Office.AsyncResult. The token is provided as a string in the `asyncResult.value` property.
+         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          * @param userContext Optional. Any state data that is passed to the asynchronous method.
          */
         getCallbackTokenAsync(callback: (result: AsyncResult<string>) => void, userContext?: any): void;
@@ -15447,7 +15491,8 @@ declare namespace Office {
          *
          * @param callback When the method completes, the function passed in the callback parameter is called with a single parameter of 
          *                 type Office.AsyncResult.
-         *                 The token is provided as a string in the asyncResult.value property.
+         *                 The token is provided as a string in the `asyncResult.value` property.
+         *                 If there was an error, then the `asyncResult.error` and `asyncResult.diagnostics` properties may provide additional information.
          * @param userContext Optional. Any state data that is passed to the asynchronous method.|
          */
         getUserIdentityTokenAsync(callback: (result: AsyncResult<string>) => void, userContext?: any): void;

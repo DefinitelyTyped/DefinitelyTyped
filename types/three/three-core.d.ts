@@ -3220,21 +3220,21 @@ export class Box3 {
     max: Vector3;
     min: Vector3;
 
-    set(min: Vector3, max: Vector3): Box3;
-    setFromArray(array: ArrayLike<number>): Box3;
-    setFromPoints(points: Vector3[]): Box3;
-    setFromCenterAndSize(center: Vector3, size: Vector3): Box3;
-    setFromObject(object: Object3D): Box3;
+    set(min: Vector3, max: Vector3): this;
+    setFromArray(array: ArrayLike<number>): this;
+    setFromPoints(points: Vector3[]): this;
+    setFromCenterAndSize(center: Vector3, size: Vector3): this;
+    setFromObject(object: Object3D): this;
     clone(): this;
     copy(box: this): this;
-    makeEmpty(): Box3;
+    makeEmpty(): this;
     isEmpty(): boolean;
     getCenter(target: Vector3): Vector3;
     getSize(target: Vector3): Vector3;
-    expandByPoint(point: Vector3): Box3;
-    expandByVector(vector: Vector3): Box3;
-    expandByScalar(scalar: number): Box3;
-    expandByObject(object: Object3D): Box3;
+    expandByPoint(point: Vector3): this;
+    expandByVector(vector: Vector3): this;
+    expandByScalar(scalar: number): this;
+    expandByObject(object: Object3D): this;
     containsPoint(point: Vector3): boolean;
     containsBox(box: Box3): boolean;
     getParameter(point: Vector3): Vector3;
@@ -3244,10 +3244,10 @@ export class Box3 {
     clampPoint(point: Vector3, target: Vector3): Vector3;
     distanceToPoint(point: Vector3): number;
     getBoundingSphere(target: Sphere): Sphere;
-    intersect(box: Box3): Box3;
-    union(box: Box3): Box3;
-    applyMatrix4(matrix: Matrix4): Box3;
-    translate(offset: Vector3): Box3;
+    intersect(box: Box3): this;
+    union(box: Box3): this;
+    applyMatrix4(matrix: Matrix4): this;
+    translate(offset: Vector3): this;
     equals(box: Box3): boolean;
     /**
      * @deprecated Use {@link Box3#isEmpty .isEmpty()} instead.
@@ -3278,9 +3278,7 @@ export interface HSL {
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Color.js">src/math/Color.js</a>
  */
 export class Color {
-    constructor(color?: Color);
-    constructor(color?: string);
-    constructor(color?: number);
+    constructor(color?: Color|string|number);
     constructor(r: number, g: number, b: number);
 
     /**
@@ -6689,11 +6687,17 @@ export namespace SceneUtils {
     export function attach(child: Object3D, scene: Scene, parent: Object3D): void;
 }
 
+interface Vec2
+{
+    x: number;
+    y: number;
+}
+
 export namespace ShapeUtils {
-    export function area(contour: number[]): number;
-    export function triangulate(contour: number[], indices: boolean): number[];
-    export function triangulateShape(contour: number[], holes: any[]): number[];
-    export function isClockWise(pts: number[]): boolean;
+    export function area(contour: Vec2[]): number;
+    export function triangulate(contour: Vec2[], indices: boolean): number[];
+    export function triangulateShape(contour: Vec2[], holes: Vec2[]): number[][];
+    export function isClockWise(pts: Vec2[]): boolean;
 }
 
 // Extras / Audio /////////////////////////////////////////////////////////////////////

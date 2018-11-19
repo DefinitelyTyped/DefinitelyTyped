@@ -24,6 +24,7 @@ import { Tapable, HookMap,
          SyncBailHook, SyncHook, SyncLoopHook, SyncWaterfallHook,
          AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook } from 'tapable';
 import * as UglifyJS from 'uglify-js';
+import * as anymatch from 'anymatch';
 import { RawSourceMap } from 'source-map';
 
 export = webpack;
@@ -107,7 +108,7 @@ declare namespace webpack {
         /** Stats options for logging  */
         stats?: Options.Stats;
         /** Performance options */
-        performance?: Options.Performance;
+        performance?: Options.Performance | false;
         /** Limit the number of parallel processed modules. Can be used to fine tune performance or to get more reliable profiling results */
         parallelism?: number;
         /** Optimization options */
@@ -1029,7 +1030,7 @@ declare namespace webpack {
              * It is possible to exclude a huge folder like node_modules.
              * It is also possible to use anymatch patterns.
              */
-            ignored?: string | string[] | RegExp;
+            ignored?: anymatch.Matcher;
             /** Turn on polling by passing true, or specifying a poll interval in milliseconds. */
             poll?: boolean | number;
         }
