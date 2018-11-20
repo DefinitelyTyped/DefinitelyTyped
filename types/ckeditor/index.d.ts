@@ -2,13 +2,14 @@
 // Project: https://ckeditor.com/ckeditor-4/
 // Definitions by: Thomas Wittwer <https://github.com/wittwert>
 //                 Stuart Long <https://github.com/stuartlong>
+//                 Viktor Pegy <https://github.com/viktorpegy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // WORK-IN-PROGRESS: Any contribution support welcomed.
 // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/1827 for more informations.
 
 interface Window {
-    CKEDITOR_BASEPATH: string;
+    CKEDITOR_BASEPATH?: string;
 }
 
 declare namespace CKEDITOR {
@@ -2168,6 +2169,8 @@ declare namespace CKEDITOR {
         // tslint:disable-next-line:no-duplicate-variable
         var name: string;
         var ua: { [name: string]: any };
+        var ua_dialog: string;
+        var ua_editor: string;
 
         function addIcon(name: string, path: string, offset?: number, bgsize?: string): void;
         function chameleon(editor: string, part: string): void;
@@ -2530,7 +2533,7 @@ declare namespace CKEDITOR {
                 accessKeyUp(dialog: dialog, key: string): void;
                 disable(): void;
                 enable(): void;
-                focus(): ui.dialog.uiElement;
+                focus(): ui.dialog.uiElement | undefined;
                 getDialog(): dialog;
                 getElement(): dom.element;
                 getInputElement(): dom.element;
@@ -2541,7 +2544,7 @@ declare namespace CKEDITOR {
                 isVisible(): boolean;
                 registerEvents(definition: CKEDITOR.dialog.definition.uiElement): ui.dialog.uiElement;
                 selectParentTab(): ui.dialog.uiElement;
-                setValue(value: any, noChangeEvent: boolean): ui.dialog.uiElement;
+                setValue(value: any, noChangeEvent: boolean): ui.dialog.uiElement | undefined;
             }
 
             class vbox extends hbox {

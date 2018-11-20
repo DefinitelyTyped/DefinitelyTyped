@@ -580,43 +580,43 @@ declare namespace Highcharts {
          * @default rgba(0, 0, 0, 0.75)
          * @since 6.0.0
          */
-        fill: string;
+        fill?: string;
         /**
          * The height of the shape.
          * @default undefined
          * @since 6.0.0
          */
-        height: number;
+        height?: number;
         /**
          * The radius of the shape.
          * @default 0
          * @since 6.0.0
          */
-        r: number;
+        r?: number;
         /**
          * The color of the shape's stroke.
          * @default rgba(0, 0, 0, 0.75)
          * @since 6.0.0
          */
-        stroke: string;
+        stroke?: string;
         /**
          * The pixel stroke width of the shape.
          * @default 1
          * @since 6.0.0
          */
-        strokeWidth: number;
+        strokeWidth?: number;
         /**
          * The type of the shape, e.g. circle or rectangle.
          * @default "rect"
          * @since 6.0.0
          */
-        type: "circle" | "path" | "rect";
+        type?: "circle" | "path" | "rect";
         /**
          * The width of the shape.
          * @default undefined
          * @since 6.0.0
          */
-        width: number;
+        width?: number;
     }
 
     interface AnnotationsShape extends AnnotationsShapeOptions {
@@ -625,13 +625,13 @@ declare namespace Highcharts {
          * @default undefined
          * @since 6.0.0
          */
-        markerEnd: string;
+        markerEnd?: string;
         /**
          * Id of the marker which will be drawn at the final vertex of the path. Custom markers can be defined in defs property.
          * @default undefined
          * @since 6.0.0
          */
-        markerStart: string;
+        markerStart?: string;
         /**
          * This option defines the point to which the shape will be connected.
          * It can be either the point which exists in the series - it is referenced by the point's id
@@ -2976,6 +2976,21 @@ declare namespace Highcharts {
          * @since 3.0.1
          */
         printChart?: string;
+        /**
+         * The text for the label for the "from" input box in the range selector.
+         * @default 'From'
+         */
+        rangeSelectorFrom?: string;
+        /**
+         * The text for the label for the "to" input box in the range selector.
+         * @default 'To'
+         */
+        rangeSelectorTo?: string;
+        /**
+         * The text for the label for the range selector buttons.
+         * @default 'Zoom'
+         */
+        rangeSelectorZoom?: String;
         /**
          * The text for the label appearing when a chart is zoomed.
          * @default 'Reset zoom'
@@ -5767,8 +5782,16 @@ declare namespace Highcharts {
          *            name: 'Point1',
          *            color: '#FF00FF'
          *        }]
+         *
+         * 4. An array of arrays with three values for ranges. In this case the values correspond x, yMin and yMax. If the
+         *    first value is a string it is applied as the name of the point, and the x value is inferred.
+         *        data: [
+         *            [1, 2, 3],
+         *            [2, 4, 6],
+         *            [3, 7, 8]
+         *
          */
-        data?: Array<number | [number, number] | [string, number] | DataPoint>;
+        data?: Array<number | [number, number] | [string, number] | [string, number, number] | [number, number, number] | DataPoint>;
         /**
          * A description of the series to add to the screen reader information about the series.
          * @since 5.0.0
@@ -6411,7 +6434,7 @@ declare namespace Highcharts {
         /**
          * Options for configuring annotations, for example labels, arrows or shapes.
          */
-        annotations?: AnnotationsOptions;
+        annotations?: AnnotationsOptions[];
         /**
          * Options regarding the chart area and plot area as well as general chart options.
          */

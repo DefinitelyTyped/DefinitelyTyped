@@ -1,34 +1,35 @@
 import { IncomingMessage, Server, ServerResponse } from "http";
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify-jwt";
+import fastifyJwt = require("fastify-jwt");
+import fastify = require("fastify");
 
-const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> = {
-  jwt: {
-    decode: (token, options) => {
-      return token;
-    },
-    secret: "some-string",
-    sign: (payload, options) => {
-      return JSON.stringify(payload);
-    },
-    verify: (token, options) => {
-      return token;
-    },
-  },
-};
+const app = fastify();
 
-const req: FastifyRequest<IncomingMessage> = {
-  jwtVerify: (_options) => {
-    return req;
-  },
-};
+app.register<fastifyJwt.FastifyJwtOptions>(fastifyJwt, {
+  secret: "super-secret"
+});
 
-const res: FastifyReply<ServerResponse> = {
-  jwtSign: (_payload, _options, _next) => {
-    return res;
-  },
-};
+app.register<fastifyJwt.FastifyJwtOptions>(fastifyJwt, {
+  secret: (request, reply, callback) => {
+    return "";
+  }
+});
 
-fastify.jwt.sign({ a: "b" }, {}, (err, token) => {
+app.get("/path", (request, reply) => {
+  request.jwtVerify();
+  request.jwtVerify({});
+  request.jwtVerify({}, () => "string");
+  request.jwtVerify(() => "string", () => "string");
+
+  reply.jwtSign("payload");
+  reply.jwtSign("payload", {});
+  reply.jwtSign("payload", {}, () => "string");
+  reply.jwtSign({ a: "b" }, {}, () => "string");
+  reply.jwtSign([], {}, () => "string");
+  reply.jwtSign(new Buffer("buffer"), {}, () => "string");
+  reply.jwtSign("payload", () => "string", () => "string");
+});
+
+app.jwt.sign({ a: "b" }, {}, (err, token) => {
   if (err) {
     throw err;
   }
@@ -36,7 +37,7 @@ fastify.jwt.sign({ a: "b" }, {}, (err, token) => {
   return token;
 });
 
-fastify.jwt.sign("string", { algorithm: "some-algorithm" }, (err, token) => {
+app.jwt.sign("string", { algorithm: "some-algorithm" }, (err, token) => {
   if (err) {
     throw err;
   }
@@ -44,7 +45,7 @@ fastify.jwt.sign("string", { algorithm: "some-algorithm" }, (err, token) => {
   return token;
 });
 
-fastify.jwt.sign([], {}, (err, token) => {
+app.jwt.sign([], {}, (err, token) => {
   if (err) {
     throw err;
   }
@@ -52,7 +53,7 @@ fastify.jwt.sign([], {}, (err, token) => {
   return token;
 });
 
-fastify.jwt.sign(9999, {}, (err, token) => {
+app.jwt.sign(new Buffer("buffer"), {}, (err, token) => {
   if (err) {
     throw err;
   }
@@ -60,26 +61,13 @@ fastify.jwt.sign(9999, {}, (err, token) => {
   return token;
 });
 
-fastify.jwt.decode("some-token");
-fastify.jwt.decode("some-token");
-fastify.jwt.secret = "some-secret";
-fastify.jwt.verify("some-token", {}, (err) => {
+app.jwt.decode("some-token");
+app.jwt.decode("some-token");
+app.jwt.secret = "some-secret";
+app.jwt.verify("some-token", {}, (err) => {
   if (err) {
     throw err;
   }
 
   return true;
 });
-
-req.jwtVerify();
-req.jwtVerify({});
-req.jwtVerify({}, () => "string");
-req.jwtVerify(() => "string", () => "string");
-
-res.jwtSign("payload");
-res.jwtSign("payload", {});
-res.jwtSign("payload", {}, () => "string");
-res.jwtSign({ a: "b" }, {}, () => "string");
-res.jwtSign([], {}, () => "string");
-res.jwtSign(9999, {}, () => "string");
-res.jwtSign("payload", () => "string", () => "string");

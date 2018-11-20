@@ -1,4 +1,4 @@
-import { JSDOM, VirtualConsole, CookieJar, FromUrlOptions, FromFileOptions, DOMWindow } from 'jsdom';
+import { JSDOM, VirtualConsole, CookieJar, FromUrlOptions, FromFileOptions, DOMWindow, ResourceLoader, FetchOptions } from 'jsdom';
 import { CookieJar as ToughCookieJar, MemoryCookieStore } from 'tough-cookie';
 import { Script } from 'vm';
 
@@ -82,6 +82,7 @@ function test_serialize() {
     dom.serialize() === '<!DOCTYPE html><html><head></head><body>hello</body></html>';
 
     // Contrast with:
+    // tslint:disable-next-line no-unnecessary-type-assertion
     dom.window.document.documentElement!.outerHTML === '<html><head></head><body>hello</body></html>';
 }
 
@@ -167,4 +168,17 @@ function test_fragment_serialization() {
             console.log(frag.firstChild.outerHTML); // logs "<p>Hello</p>"
         }
     }
+}
+
+function test_custom_resource_loader() {
+    class CustomResourceLoader extends ResourceLoader {
+        fetch(url: string, options: FetchOptions) {
+          if (options.element) {
+            console.log(`Element ${options.element.localName} is requesting the url ${url}`);
+          }
+
+          return super.fetch(url, options);
+        }
+    }
+    new JSDOM('', { resources: new CustomResourceLoader() });
 }

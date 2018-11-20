@@ -1,4 +1,4 @@
-// Type definitions for Recharts 1.0
+// Type definitions for Recharts 1.1
 // Project: http://recharts.org/
 // Definitions by: Maarten Mulders <https://github.com/mthmulders>
 //                 Raphael Mueller <https://github.com/rapmue>
@@ -15,6 +15,7 @@
 // TypeScript Version: 2.8
 
 import * as React from 'react';
+import { getTickValues, getNiceTickValues, getTickValuesFixedDomain } from 'recharts-scale';
 import { CurveFactory } from 'd3-shape';
 
 export type Percentage = string;
@@ -483,7 +484,7 @@ export interface PolarAngleAxisProps extends EventAttributes, Partial<Presentati
     ticks?: PolarAngleAxisTick[];
     stroke?: string;
     orientation?: 'inner' | 'outer';
-    tickFormatter: TickFormatterFunction;
+    tickFormatter?: TickFormatterFunction;
 }
 
 export class PolarAngleAxis extends React.Component<PolarAngleAxisProps> { }
@@ -520,7 +521,7 @@ export interface PolarRadiusAxisProps extends EventAttributes, Partial<Presentat
     axisLine?: boolean | object;
     tick?: boolean | object | React.ReactElement<any> | ContentRenderer<any>;
     stroke?: string;
-    tickFormatter: TickFormatterFunction;
+    tickFormatter?: TickFormatterFunction;
     domain?: [PolarRadiusAxisDomain, PolarRadiusAxisDomain];
     scale?: ScaleType | RechartsFunction;
     allowDataOverflow?: boolean;
@@ -760,6 +761,8 @@ export interface TextProps extends Partial<PresentationAttributes> {
     textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
     verticalAnchor?: 'start' | 'middle' | 'end';
     style?: object;
+    capHeight?: string;
+    lineHeight?: string;
 }
 
 export class Text extends React.Component<TextProps> { }

@@ -33,7 +33,7 @@ declare namespace G {
         stat?: boolean;
         silent?: boolean;
         strict?: boolean;
-        cache?: { [path: string]: boolean | 'DIR' | 'FILE' | string[] };
+        cache?: { [path: string]: boolean | 'DIR' | 'FILE' | ReadonlyArray<string> };
         statCache?: { [path: string]: false | { isDirectory(): boolean} | undefined };
         symlinks?: { [path: string]: boolean | undefined };
         realpathCache?: { [path: string]: string };
@@ -47,7 +47,7 @@ declare namespace G {
         nocase?: boolean;
         matchBase?: any;
         nodir?: boolean;
-        ignore?: string | string[];
+        ignore?: string | ReadonlyArray<string>;
         follow?: boolean;
         realpath?: boolean;
         nonegate?: boolean;
@@ -70,7 +70,7 @@ declare namespace G {
         minimatch: minimatch.IMinimatch;
         options: IOptions;
         aborted: boolean;
-        cache: { [path: string]: boolean | 'DIR' | 'FILE' | string[] };
+        cache: { [path: string]: boolean | 'DIR' | 'FILE' | ReadonlyArray<string> };
         statCache: { [path: string]: false | { isDirectory(): boolean; } | undefined };
         symlinks: { [path: string]: boolean | undefined };
         realpathCache: { [path: string]: string };

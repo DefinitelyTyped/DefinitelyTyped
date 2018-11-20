@@ -121,6 +121,8 @@ import {
     VariantArgs,
     ButtonStyleProps,
     MixedProps,
+    VerticalAlignProps,
+    verticalAlign
 } from "styled-system";
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -166,7 +168,8 @@ interface BoxProps
         BackgroundSizeProps,
         ColorStyleProps,
         TextStyleProps,
-        MixedProps {
+        MixedProps,
+        VerticalAlignProps {
             boxStyle?: string;
         }
 const Box: React.ComponentType<BoxProps> = styled`
@@ -213,6 +216,7 @@ const Box: React.ComponentType<BoxProps> = styled`
   ${textStyle}
   ${colorStyle}
   ${mixed}
+  ${verticalAlign}
 `;
 
 Box.defaultProps = {
@@ -449,6 +453,8 @@ const test = () => (
             backgroundPosition="center"
             backgroundRepeat="repeat-x"
         />
+        // verticalAlign
+        <Box verticalAlign="middle" />
 
         <TestButton variant="primary" m={2} />
     </div>

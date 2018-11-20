@@ -1,4 +1,4 @@
-// Type definitions for bull 3.3
+// Type definitions for bull 3.4
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -10,6 +10,8 @@
 //                 Bond Akinmade <https://github.com/bondz>
 //                 Wuha Team <https://github.com/wuha-team>
 //                 Alec Brunelle <https://github.com/aleccool213>
+//                 Dan Manastireanu <https://github.com/danmana>
+//                 Kjell-Morten Bratsberg Thorsen <https://github.com/kjellmorten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -23,9 +25,9 @@ import * as Promise from "bluebird";
  */
 declare const Bull: {
   (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  (queueName: string, url?: string): Bull.Queue; // tslint:disable-line unified-signatures
+  (queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
   new (queueName: string, opts?: Bull.QueueOptions): Bull.Queue;
-  new (queueName: string, url?: string): Bull.Queue; // tslint:disable-line unified-signatures
+  new (queueName: string, url: string, opts?: Bull.QueueOptions): Bull.Queue; // tslint:disable-line unified-signatures
 };
 
 declare namespace Bull {
@@ -92,6 +94,12 @@ declare namespace Bull {
     backoffStrategies?: {
       [key: string]: (attemptsMade: number, err: typeof Error) => number;
     };
+
+    /**
+     * A timeout for when the queue is in `drained` state (empty waiting for jobs).
+     * It is used when calling `queue.getNextJob()`, which will pass it to `.brpoplpush` on the Redis client.
+     */
+    drainDelay?: number;
   }
 
   type DoneCallback = (error?: Error | null, value?: any) => void;
@@ -142,11 +150,28 @@ declare namespace Bull {
     retry(): Promise<void>;
 
     /**
+     * Ensure this job is never ran again even if attemptsMade is less than job.attempts.
+     */
+    discard(): Promise<void>;
+
+    /**
      * Returns a promise that resolves to the returned data when the job has been finished.
      * TODO: Add a watchdog to check if the job has finished periodically.
      * since pubsub does not give any guarantees.
      */
     finished(): Promise<any>;
+
+    /**
+     * Moves a job to the `completed` queue. Pulls a job from 'waiting' to 'active'
+     * and returns a tuple containing the next jobs data and id. If no job is in the `waiting` queue, returns null.
+     */
+    moveToCompleted(returnValue?: string, ignoreLock?: boolean): Promise<[any, JobId] | null>;
+
+    /**
+     * Moves a job to the `failed` queue. Pulls a job from 'waiting' to 'active'
+     * and returns a tuple containing the next jobs data and id. If no job is in the `waiting` queue, returns null.
+     */
+    moveToFailed(errorInfo: { message: string; }, ignoreLock?: boolean): Promise<[any, JobId] | null>;
 
     /**
      * Promotes a job that is currently "delayed" to the "waiting" state and executed as soon as possible.
@@ -170,6 +195,7 @@ declare namespace Bull {
   }
 
   type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';
+  type JobStatusClean = 'completed' | 'wait' | 'active' | 'delayed' | 'failed';
 
   interface BackoffOptions {
     /**
@@ -205,6 +231,11 @@ declare namespace Bull {
      * Cron pattern specifying when the job should execute
      */
     cron: string;
+
+    /**
+     * Start date when the repeat job should start repeating (only with cron).
+     */
+    startDate?: Date | string | number;
   }
 
   interface EveryRepeatOptions extends RepeatOptions {
@@ -273,6 +304,11 @@ declare namespace Bull {
      * Default behavior is to keep the job in the completed set.
      */
     removeOnFail?: boolean;
+
+    /**
+     * Limits the amount of stack trace lines that will be recorded in the stacktrace.
+     */
+    stackTraceLimit?: number;
   }
 
   interface JobCounts {
@@ -601,12 +637,12 @@ declare namespace Bull {
 
     /**
      * Tells the queue remove all jobs created outside of a grace period in milliseconds.
-     * You can clean the jobs with the following states: completed, waiting, active, delayed, and failed.
+     * You can clean the jobs with the following states: completed, wait (typo for waiting), active, delayed, and failed.
      * @param grace Grace period in milliseconds.
      * @param status Status of the job to clean. Values are completed, wait, active, delayed, and failed. Defaults to completed.
      * @param limit Maximum amount of jobs to clean per call. If not provided will clean all matching jobs.
      */
-    clean(grace: number, status?: JobStatus, limit?: number): Promise<Array<Job<T>>>;
+    clean(grace: number, status?: JobStatusClean, limit?: number): Promise<Array<Job<T>>>;
 
     /**
      * Listens to queue events
@@ -617,6 +653,11 @@ declare namespace Bull {
      * An error occured
      */
     on(event: 'error', callback: ErrorEventCallback): this;
+
+    /**
+     * A Job is waiting to be processed as soon as a worker is idling.
+     */
+    on(event: 'waiting', callback: WaitingEventCallback): this;
 
     /**
      * A job has started. You can use `jobPromise.cancel()` to abort it
@@ -655,12 +696,23 @@ declare namespace Bull {
     on(event: 'resumed', callback: EventCallback): this; // tslint:disable-line unified-signatures
 
     /**
+     * A job successfully removed.
+     */
+    on(event: 'removed', callback: RemovedEventCallback<T>): this;
+
+    /**
      * Old jobs have been cleaned from the queue.
      * `jobs` is an array of jobs that were removed, and `type` is the type of those jobs.
      *
      * @see Queue#clean() for details
      */
     on(event: 'cleaned', callback: CleanedEventCallback<T>): this;
+
+    /**
+     * Emitted every time the queue has processed all the waiting jobs
+     * (even if there can be some delayed jobs not yet processed)
+     */
+    on(event: 'drained', callback: EventCallback): this; // tslint:disable-line unified-signatures
   }
 
   type EventCallback = () => void;
@@ -684,7 +736,11 @@ declare namespace Bull {
 
   type FailedEventCallback<T = any> = (job: Job<T>, error: Error) => void;
 
-  type CleanedEventCallback<T = any> = (jobs: Array<Job<T>>, status: JobStatus) => void;
+  type CleanedEventCallback<T = any> = (jobs: Array<Job<T>>, status: JobStatusClean) => void;
+
+  type RemovedEventCallback<T = any> = (job: Job<T>) => void;
+
+  type WaitingEventCallback = (jobId: JobId) => void;
 }
 
 export = Bull;

@@ -47,21 +47,9 @@ export interface ElementCreatorOptions {
      * The translation that should be used for the element text
      * `auto` defaults to the browser language
      *
-     * NOTE: Only use the `string` option in combination with
-     * @see isLanguageTag
-     *
      * @default 'auto'
      */
     locale?: 'auto' | 'da' | 'de' | 'en' | 'es' | 'fi' | 'fr' | 'it' | 'ja' | 'no' | 'nl' | 'sv' | 'zh' | string;
-
-    /**
-     * Whether or not the locale is written in a language code
-     * This can be used in combination with localization libraries so that language names won't have to be formatted
-     * @example `en-US`
-     *
-     * @since 0.1.0
-     */
-    isIETFLocaleTag?: boolean;
 }
 
 export interface FontCSSElement {

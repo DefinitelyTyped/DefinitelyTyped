@@ -1,6 +1,9 @@
 // Type definitions for D3JS d3 standard bundle 5.0
 // Project: https://github.com/d3/d3
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
+//                 Alex Ford <https://github.com/gustavderdrache>
+//                 Boris Yankov <https://github.com/borisyankov>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -11,7 +14,11 @@
 
 export as namespace d3;
 
+/**
+ * Version number in format _Major.Minor.BugFix_, like 5.0.0.
+ */
 export const version: string;
+
 export * from 'd3-array';
 export * from 'd3-axis';
 export * from 'd3-brush';

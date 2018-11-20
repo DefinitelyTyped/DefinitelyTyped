@@ -125,3 +125,9 @@ client.addCommand('my other command');
 // redis.print as callback
 client.set(str, str, redis.print);
 client.get(str, redis.print);
+
+// increase-by-float reply a string
+client.incrbyfloat('a', 1.5, (error, value) => value.startsWith('1'));
+client.INCRBYFLOAT('a', 1.5, (error, value) => value.startsWith('1'));
+client.hincrbyfloat('a', 'b', 1.5, (error, value) => value.startsWith('1'));
+client.HINCRBYFLOAT('a', 'b', 1.5, (error, value) => value.startsWith('1'));

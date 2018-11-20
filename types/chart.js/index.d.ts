@@ -10,7 +10,6 @@
 //                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
 //                 Simon Archer <https://github.com/archy-bold>
 //                 Ken Elkabany <https://github.com/braincore>
-//                 Slavik Nychkalo <https://github.com/gebeto>
 //                 Francesco Benedetto <https://github.com/frabnt>
 //                 Alexandros Dorodoulis <https://github.com/alexdor>
 //                 Manuel Heidrich <https://github.com/mahnuh>
@@ -174,6 +173,8 @@ declare namespace Chart {
 
     type PositionType = 'left' | 'right' | 'top' | 'bottom';
 
+    type InteractionMode = 'point' | 'nearest' | 'single' | 'label' | 'index' | 'x-axis' | 'dataset' | 'x' | 'y';
+
     interface ChartArea {
         top: number;
         right: number;
@@ -185,10 +186,10 @@ declare namespace Chart {
         text?: string;
         fillStyle?: string;
         hidden?: boolean;
-        lineCap?: string;
+        lineCap?: 'butt' | 'round' | 'square';
         lineDash?: number[];
         lineDashOffset?: number;
-        lineJoin?: string;
+        lineJoin?: 'bevel' | 'round' | 'miter';
         lineWidth?: number;
         strokeStyle?: string;
         pointStyle?: PointStyle;
@@ -331,7 +332,7 @@ declare namespace Chart {
     interface ChartTooltipOptions {
         enabled?: boolean;
         custom?(a: any): void;
-        mode?: string;
+        mode?: InteractionMode;
         intersect?: boolean;
         backgroundColor?: ChartColor;
         titleFontFamily?: string;
@@ -373,7 +374,7 @@ declare namespace Chart {
     type ChartTooltipPositioner = (elements: any[], eventPosition: Point) => Point;
 
     interface ChartHoverOptions {
-        mode?: string;
+        mode?: InteractionMode;
         animationDuration?: number;
         intersect?: boolean;
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
@@ -479,7 +480,12 @@ declare namespace Chart {
         fontStyle?: string;
     }
 
-    interface TickOptions {
+    interface TickOptions extends NestedTickOptions {
+        minor?: NestedTickOptions | false;
+        major?: NestedTickOptions | false;
+    }
+
+    interface NestedTickOptions {
         autoSkip?: boolean;
         autoSkipPadding?: number;
         backdropColor?: ChartColor;
@@ -504,6 +510,7 @@ declare namespace Chart {
         reverse?: boolean;
         showLabelBackdrop?: boolean;
         source?: 'auto' | 'data' | 'labels';
+        stepSize?: number;
         suggestedMax?: number;
         suggestedMin?: number;
     }
@@ -540,12 +547,12 @@ declare namespace Chart {
         backgroundColor?: ChartColor | ChartColor[];
         borderWidth?: number | number[];
         borderColor?: ChartColor | ChartColor[];
-        borderCapStyle?: string;
+        borderCapStyle?: 'butt' | 'round' | 'square';
         borderDash?: number[];
         borderDashOffset?: number;
-        borderJoinStyle?: string;
+        borderJoinStyle?: 'bevel' | 'round' | 'miter';
         borderSkipped?: PositionType;
-        data?: number[] | ChartPoint[];
+        data?: Array<number | null | undefined> | ChartPoint[];
         fill?: boolean | number | string;
         hoverBackgroundColor?: string | string[];
         hoverBorderColor?: string | string[];
@@ -565,7 +572,7 @@ declare namespace Chart {
         pointStyle?: PointStyle | HTMLImageElement | HTMLCanvasElement | Array<PointStyle | HTMLImageElement | HTMLCanvasElement>;
         xAxisID?: string;
         yAxisID?: string;
-        type?: string;
+        type?: ChartType | string;
         hidden?: boolean;
         hideInLegendAndTooltip?: boolean;
         showLine?: boolean;

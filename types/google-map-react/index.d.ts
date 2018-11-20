@@ -135,7 +135,7 @@ export interface Props {
   onZoomAnimationStart?(args: any): void;
   onZoomAnimationEnd?(args: any): void;
   onMapTypeIdChange?(args: any): void;
-  distanceToMouse?(pt: Point, mousePos: Point): void;
+  distanceToMouse?(pt: Point, mousePos: Point, markerProps?: object): number;
   googleMapLoader?(bootstrapURLKeys: any): void;
   onGoogleApiLoaded?(maps: { map: any, maps: any }): void;
   onTilesLoaded?(): void;

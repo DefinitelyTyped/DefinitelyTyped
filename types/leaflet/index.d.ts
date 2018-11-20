@@ -494,7 +494,11 @@ export interface TileLayerOptions extends GridLayerOptions {
     zoomReverse?: boolean;
     detectRetina?: boolean;
     crossOrigin?: boolean;
-    [name: string]: any;
+    // [name: string]: any;
+    // You are able add additional properties, but it makes this interface unchackable.
+    // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/15313
+    // Example:
+    // tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{abc}', {foo: 'bar', bar: (data: any) => 'foo', abc: () => ''});
 }
 
 export class TileLayer extends GridLayer {
@@ -817,7 +821,7 @@ export interface GeoJSONOptions<P = any> extends LayerOptions {
     pointToLayer?(geoJsonPoint: geojson.Feature<geojson.Point, P>, latlng: LatLng): Layer; // should import GeoJSON typings
 
     /**
-     * A Function defining the Path options for styling GeoJSON lines and polygons,
+     * PathOptions or a Function defining the Path options for styling GeoJSON lines and polygons,
      * called internally when data is added.
      *
      * The default value is to not override any defaults:
@@ -828,7 +832,7 @@ export interface GeoJSONOptions<P = any> extends LayerOptions {
      * }
      * ```
      */
-    style?: StyleFunction<P>;
+    style?: PathOptions | StyleFunction<P>;
 
     /**
      * A Function that will be called once for each created Feature, after it
@@ -918,6 +922,12 @@ export class GeoJSON<P = any> extends FeatureGroup<P> {
      * useful for resetting style after hover events.
      */
     resetStyle(layer: Layer): Layer;
+
+    /**
+     * Same as FeatureGroup's setStyle method, but style-functions are also
+     * allowed here to set the style according to the feature.
+     */
+    setStyle(style: PathOptions | StyleFunction<P>): this;
 
     options: GeoJSONOptions<P>;
 }

@@ -338,6 +338,21 @@ client.indices.updateAliases({
   // ...
 });
 
+client.reindex({
+    body: {
+        source: {
+          index: "twitter"
+        },
+        dest: {
+          index: "new_twitter"
+        }
+      }
+})
+.then(response => {
+    const { took, timed_out } = response;
+    // ...
+});
+
 // Errors
 function testErrors() {
     throw new elasticsearch.errors.AuthenticationException();

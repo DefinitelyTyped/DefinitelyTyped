@@ -75,7 +75,7 @@ export interface PickerProps {
     recent?: string[];
     autoFocus?: boolean;
     /** NOTE: custom emoji are copied into a singleton object on every new mount */
-    custom: CustomEmoji[];
+    custom?: CustomEmoji[];
     skinEmoji?: string;
     notFound?(): React.Component;
     notFoundEmoji?: string;

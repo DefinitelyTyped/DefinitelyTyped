@@ -1,10 +1,12 @@
-import { EmitterBase, Base, Reply, RuntimeEvent } from '../base';
+import { EmitterBase, Base, Reply } from '../base';
 import { Identity } from '../../identity';
 import { _Window } from '../window/window';
 import { Point } from '../system/point';
 import { MonitorInfo } from '../system/monitor';
 import Transport from '../../transport/transport';
 import Bounds from '../window/bounds';
+import { ApplicationEvents } from '../events/application';
+import { ApplicationOption } from './applicationOption';
 export interface TrayIconClickReply extends Point, Reply<'application', 'tray-icon-clicked'> {
     button: number;
     monitorInfo: MonitorInfo;
@@ -21,7 +23,7 @@ export declare class NavigationRejectedReply extends Reply<'window-navigation-re
     sourceName: string;
     url: string;
 }
-export interface ConfigInterface {
+export interface ShortCutConfig {
     desktop?: boolean;
     startMenu?: boolean;
     systemStartup?: boolean;
@@ -32,32 +34,54 @@ export interface TrayInfo {
     x: number;
     y: number;
 }
+/**
+ * @lends Application
+ */
 export default class ApplicationModule extends Base {
     /**
-     * Returns an Application object that represents an existing application.
-     * @param { Identity } indentity
+     * Asynchronously returns an Application object that represents an existing application.
+     * @param { Identity } identity
      * @return {Promise.<Application>}
      * @tutorial Application.wrap
+     * @static
      */
     wrap(identity: Identity): Promise<Application>;
     /**
+     * Synchronously returns an Application object that represents an existing application.
+     * @param { Identity } identity
+     * @return {Application}
+     * @tutorial Application.wrapSync
+     * @static
+     */
+    wrapSync(identity: Identity): Application;
+    /**
      * Creates a new Application.
-     * @param {*} appOptions
+     * @param { ApplicationOption } appOptions
      * @return {Promise.<Application>}
      * @tutorial Application.create
+     * @static
      */
-    create(appOptions: any): Promise<Application>;
+    create(appOptions: ApplicationOption): Promise<Application>;
     /**
-     * Returns an Application object that represents the current application
+     * Asynchronously returns an Application object that represents the current application
      * @return {Promise.<Application>}
      * @tutorial Application.getCurrent
+     * @static
      */
     getCurrent(): Promise<Application>;
+    /**
+     * Synchronously returns an Application object that represents the current application
+     * @return {Application}
+     * @tutorial Application.getCurrentSync
+     * @static
+     */
+    getCurrentSync(): Application;
     /**
      * Retrieves application's manifest and returns a wrapped application.
      * @param {string} manifestUrl - The URL of app's manifest.
      * @return {Promise.<Application>}
      * @tutorial Application.createFromManifest
+     * @static
      */
     createFromManifest(manifestUrl: string): Promise<Application>;
 }
@@ -66,12 +90,11 @@ export default class ApplicationModule extends Base {
  * execute, show/close an application as well as listen to application events.
  * @class
  */
-export declare class Application extends EmitterBase {
+export declare class Application extends EmitterBase<ApplicationEvents> {
     identity: Identity;
     _manifestUrl?: string;
     private window;
     constructor(wire: Transport, identity: Identity);
-    protected runtimeEventComparator: (listener: RuntimeEvent) => boolean;
     private windowListFromIdentityList;
     /**
      * Determines if the application is currently running.
@@ -116,10 +139,16 @@ export declare class Application extends EmitterBase {
     getParentUuid(): Promise<string>;
     /**
      * Retrieves current application's shortcut configuration.
-     * @return {Promise.<ConfigInterface>}
+     * @return {Promise.<ShortCutConfig>}
      * @tutorial Application.getShortcuts
      */
-    getShortcuts(): Promise<ConfigInterface>;
+    getShortcuts(): Promise<ShortCutConfig>;
+    /**
+     * Returns the current zoom level of the application.
+     * @return {Promise.<number>}
+     * @tutorial Application.getZoomLevel
+     */
+    getZoomLevel(): Promise<number>;
     /**
      * Returns an instance of the main Window of the application
      * @return {Promise.<_Window>}
@@ -174,7 +203,15 @@ export declare class Application extends EmitterBase {
      * @return {Promise.<void>}
      * @tutorial Application.setShortcuts
      */
-    setShortcuts(config: ConfigInterface): Promise<void>;
+    setShortcuts(config: ShortCutConfig): Promise<void>;
+    /**
+     * Sets the zoom level of the application. The original size is 0 and each increment above or below represents zooming 20%
+     * larger or smaller to default limits of 300% and 50% of original size, respectively.
+     * @param { number } level The zoom level
+     * @return {Promise.<void>}
+     * @tutorial Application.setZoomLevel
+     */
+    setZoomLevel(level: number): Promise<void>;
     /**
      * @summary Retrieves information about the system tray.
      * @desc The only information currently returned is the position and dimensions.
@@ -202,22 +239,4 @@ export declare class Application extends EmitterBase {
      * @tutorial Application.getInfo
      */
     getInfo(): Promise<ApplicationInfo>;
-}
-export interface Application {
-    on(type: 'closed', listener: (data: Reply<'application', 'closed'>) => void): Promise<void>;
-    on(type: 'initialized', listener: (data: Reply<'application', 'initialized'>) => void): Promise<void>;
-    on(type: 'connected', listener: (data: Reply<'application', 'connected'>) => void): Promise<void>;
-    on(type: 'crashed', listener: (data: Reply<'application', 'crashed'>) => void): Promise<void>;
-    on(type: 'error', listener: (data: Reply<'application', 'error'>) => void): Promise<void>;
-    on(type: 'not-responding', listener: (data: Reply<'application', 'not-responding'>) => void): Promise<void>;
-    on(type: 'out-of-memory', listener: (data: Reply<'application', 'out-of-memory'>) => void): Promise<void>;
-    on(type: 'responding', listener: (data: Reply<'application', 'responding'>) => void): Promise<void>;
-    on(type: 'started', listener: (data: Reply<'application', 'started'>) => void): Promise<void>;
-    on(type: 'run-requested', listener: (data: Reply<'application', 'run-requested'>) => void): Promise<void>;
-    on(type: 'window-navigation-rejected', listener: (data: NavigationRejectedReply) => void): Promise<void>;
-    on(type: 'window-created', listener: (data: Reply<'application', 'window-created'>) => void): Promise<void>;
-    on(type: 'window-closed', listener: (data: Reply<'application', 'window-closed'>) => void): Promise<void>;
-    on(type: 'tray-icon-clicked', listener: (data: TrayIconClickReply) => void): Promise<void>;
-    on(type: 'removeListener', listener: (eventType: string) => void): Promise<void>;
-    on(type: 'newListener', listener: (eventType: string) => void): Promise<void>;
 }

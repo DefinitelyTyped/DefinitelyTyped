@@ -4,6 +4,8 @@
 //                 Budi Irawan <https://github.com/deerawan>
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Silas Rech <https://github.com/lenovouser>
+//                 Philipp Katz <https://github.com/qqilihq>
+//                 Milan Konir <https://github.com/butchyyyy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,7 +16,7 @@ declare namespace i18next {
 
     type FallbackLng = string | string[] | FallbackLngObjList;
 
-    type FormatFunction = (value: string, format?: string, lng?: string) => string;
+    type FormatFunction = (value: any, format?: string, lng?: string) => string;
 
     /* tslint:disable-next-line:no-empty-interface */
     interface DetectionPluginOptions {
@@ -384,6 +386,12 @@ declare namespace i18next {
          * Compatibility JSON version
          */
         compatibilityJSON?: string;
+
+        /**
+         * options for i18n nessage format - check documentation of plugin
+         * @default undefined
+         */
+        i18nFormat?: object;
     }
 
     // Add an indexer to assure that interpolation arguments can be passed
@@ -465,6 +473,17 @@ declare namespace i18next {
         [key: string]: any;
     }
 
+    interface Services {
+      backendConnector: any;
+      i18nFormat: any;
+      interpolator: any;
+      languageDetector: any;
+      languageUtils: any;
+      logger: any;
+      pluralResolver: any;
+      resourceStore: Resource;
+    }
+
     interface i18n {
         /**
          * The default export of the i18next module is an i18next instance ready to be initialized by calling init.
@@ -483,6 +502,11 @@ declare namespace i18next {
          * For available module see the plugins page and don't forget to read the documentation of the plugin.
          */
         use(module: any): i18n;
+
+        /**
+         * Internal container for all used plugins and implmentation details like languageUtils, pluralResolvers, etc.
+         */
+        services: Services;
 
         /**
          * Please have a look at the translation functions like interpolation, formatting and plurals for more details on using it.

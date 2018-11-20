@@ -102,7 +102,7 @@ circles = select<SVGSVGElement, any>('svg')
     .selectAll()
     .data(startCircleData)
     .enter()
-    .append<SVGCircleElement>('circle')
+    .append('circle')
     .attr('cx', d => d.cx)
     .attr('cy', d => d.cy)
     .attr('r', d => d.r)
@@ -114,7 +114,7 @@ circles = circles
 
 const enterCircles = circles
     .enter()
-    .append<SVGCircleElement>('circle')
+    .append('circle')
     .classed('big', d => d.r > 10)
     .attr('cx', d => d.cx)
     .attr('cy', d => d.cy)

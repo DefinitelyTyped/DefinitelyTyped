@@ -1049,7 +1049,7 @@ declare namespace Highland {
 		 * _([txt, md]).merge();
 		 * // => contents of foo.txt, bar.txt and baz.txt in the order they were read
 		 */
-	  merge(): Stream<R>;
+	  merge<U>(this: Stream<Stream<U>>): Stream<U>;
 
 		/**
 		 * Observes a stream, allowing you to handle values as they are emitted, without
@@ -1087,7 +1087,7 @@ declare namespace Highland {
 		 * @param {Number} n - the maximum number of concurrent reads/buffers
 		 * @api public
 		 */
-		parallel(n: number): Stream<R>;
+		parallel<U>(this: Stream<Stream<U>>, n: number): Stream<U>
 
 		/**
 		 * Reads values from a Stream of Streams, emitting them on a Single output
@@ -1100,8 +1100,7 @@ declare namespace Highland {
 		 * @name Stream.sequence()
 		 * @api public
 		 */
-		//TODO figure out typing
-		sequence<U>(): Stream<U>;
+		sequence<U>(this: Stream<Stream<U>>): Stream<U>;
 
 		/**
 		 * An alias for the [sequence](#sequence) method.

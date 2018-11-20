@@ -13,22 +13,22 @@ declare class Ruler {
   /**
    * Replace the rule `ruleName` with a new rule.
    */
-  at(ruleName: string, fn: Remarkable.Rule, options: Remarkable.Options): void;
+  at(ruleName: string, fn: Remarkable.ParsingRule, options: Remarkable.Options): void;
 
   /**
    * Add a rule to the chain before given the `ruleName`.
    */
-  before(beforeName: string, ruleName: string, fn: Remarkable.Rule, options: Remarkable.Options): void;
+  before(beforeName: string, ruleName: string, fn: Remarkable.ParsingRule, options: Remarkable.Options): void;
 
   /**
    * Add a rule to the chain after the given `ruleName`.
    */
-  after(afterName: string, ruleName: string, fn: Remarkable.Rule, options: Remarkable.Options): void;
+  after(afterName: string, ruleName: string, fn: Remarkable.ParsingRule, options: Remarkable.Options): void;
 
   /**
    * Add a rule to the end of chain.
    */
-  push(ruleName: string, fn: Remarkable.Rule, options: Remarkable.Options): void;
+  push(ruleName: string, fn: Remarkable.ParsingRule, options: Remarkable.Options): void;
 
   /**
    * Enable a rule or list of rules.

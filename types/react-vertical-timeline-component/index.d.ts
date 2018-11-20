@@ -1,4 +1,4 @@
-// Type definitions for react-vertical-timeline-component 2.2
+// Type definitions for react-vertical-timeline-component 2.3
 // Project: https://github.com/stephane-monnot/react-vertical-timeline
 // Definitions by: Stéphane Monnot <https://github.com/stephane-monnot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,6 +9,7 @@ import * as React from "react";
 export interface VerticalTimelineProps {
     animate?: boolean;
     className?: string;
+    layout?: '1-column' | '2-columns';
 }
 
 export interface VerticalTimelineElementProps {

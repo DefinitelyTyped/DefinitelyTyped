@@ -20,13 +20,12 @@ mailgun.messages().send(
     }
 );
 
-mailgun.messages().send(
-    {
-        to: "someone@email.com",
-        attachment: new mailgun.Attachment({
-            data: "filepath",
-            filename: "my_custom_name.png"
-        })
-    },
-    (err, body) => {}
-);
+const exampleSendData: mailgunFactory.messages.SendData = {
+    to: "someone@email.com",
+    attachment: new mailgun.Attachment({
+        data: "filepath",
+        filename: "my_custom_name.png"
+    })
+  };
+
+mailgun.messages().send(exampleSendData, (err, body) => {});

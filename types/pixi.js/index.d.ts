@@ -261,7 +261,7 @@ declare namespace PIXI {
 
         getRectangle(rect?: Rectangle): Rectangle;
         addPoint(point: Point): void;
-        addQuad(vertices: number[]): Bounds | undefined;
+        addQuad(vertices: ArrayLike<number>): Bounds | undefined;
         addFrame(
             transform: Transform,
             x0: number,
@@ -271,7 +271,7 @@ declare namespace PIXI {
         ): void;
         addVertices(
             transform: Transform,
-            vertices: number[],
+            vertices: ArrayLike<number>,
             beginOffset: number,
             endOffset: number
         ): void;
@@ -289,9 +289,7 @@ declare namespace PIXI {
         height: number;
 
         protected onChildrenChange: (...args: any[]) => void;
-        addChild<T extends DisplayObject>(
-            ...children: T[]
-        ): T;
+        addChild<T extends DisplayObject>(...children: T[]): T;
         addChildAt<T extends DisplayObject>(child: T, index: number): T;
         swapChildren(child: DisplayObject, child2: DisplayObject): void;
         getChildIndex(child: DisplayObject): number;
@@ -379,9 +377,7 @@ declare namespace PIXI {
             | PIXI.HitArea;
         buttonMode: boolean;
         cursor: string;
-        trackedPointers(): {
-            [key: number]: interaction.InteractionTrackingData;
-        };
+        trackedPointers: { [key: number]: interaction.InteractionTrackingData; };
         // Deprecated
         defaultCursor: string;
         // end interactive target
@@ -608,6 +604,7 @@ declare namespace PIXI {
         boundsPadding: number;
         protected _localBounds: Bounds;
         dirty: number;
+        canvasTintDirty: number;
         fastRectDirty: number;
         clearDirty: number;
         boundsDirty: number;
@@ -869,6 +866,8 @@ declare namespace PIXI {
     }
     class ObservablePoint extends PointLike {
         constructor(cb: () => any, scope?: any, x?: number, y?: number);
+        clone(cb?: Function, scope?: any): ObservablePoint;
+        equals(p: Point | ObservablePoint | PointLike): boolean;
         cb: () => any;
         scope: any;
     }
@@ -1148,7 +1147,7 @@ declare namespace PIXI {
             displayObject: PIXI.DisplayObject,
             renderTexture?: PIXI.RenderTexture,
             clear?: boolean,
-            transform?: PIXI.Transform,
+            transform?: PIXI.Matrix,
             skipUpdateTransform?: boolean
         ): void;
         setBlendMode(blendMode: number): void;
@@ -1267,7 +1266,7 @@ declare namespace PIXI {
             displayObject: PIXI.DisplayObject,
             renderTexture?: PIXI.RenderTexture,
             clear?: boolean,
-            transform?: PIXI.Transform,
+            transform?: PIXI.Matrix,
             skipUpdateTransform?: boolean
         ): void;
         setObjectRenderer(objectRenderer: ObjectRenderer): void;
@@ -1281,7 +1280,7 @@ declare namespace PIXI {
         ): WebGLRenderer;
         bindRenderTexture(
             renderTexture: RenderTexture,
-            transform: Transform
+            transform: Matrix
         ): WebGLRenderer;
         bindRenderTarget(renderTarget: RenderTarget): WebGLRenderer;
         bindShader(shader: Shader, autoProject?: boolean): WebGLRenderer;
@@ -2162,7 +2161,8 @@ declare namespace PIXI {
             frame?: Rectangle,
             orig?: Rectangle,
             trim?: Rectangle,
-            rotate?: number
+            rotate?: number,
+            anchor?: Point
         );
 
         noFrame: boolean;
@@ -2173,6 +2173,7 @@ declare namespace PIXI {
         requiresUpdate: boolean;
         protected _uvs: TextureUvs;
         orig: Rectangle;
+        defaultAnchor: Point;
         protected _updateID: number;
         transform: TextureMatrix;
         textureCacheIds: string[];
@@ -2198,9 +2199,16 @@ declare namespace PIXI {
         ): Texture;
         static fromVideo(
             video: HTMLVideoElement | string,
-            scaleMode?: number
+            scaleMode?: number,
+            crossorigin?: boolean,
+            autoPlay?: boolean
         ): Texture;
-        static fromVideoUrl(videoUrl: string, scaleMode?: number): Texture;
+        static fromVideoUrl(
+            videoUrl: string,
+            scaleMode?: number,
+            crossorigin?: boolean,
+            autoPlay?: boolean
+        ): Texture;
         static from(
             source:
                 | number
@@ -2304,6 +2312,7 @@ declare namespace PIXI {
         );
 
         baseTexture: BaseTexture;
+        animations: { [key: string]: Texture };
         textures: { [key: string]: Texture };
         data: any;
         resolution: number;
@@ -2323,12 +2332,17 @@ declare namespace PIXI {
         ): void;
         protected _processFrames(initialFrameIndex: number): void;
         protected _parseComplete(): void;
+        protected _processAnimations(): void;
         protected _nextBatch(): void;
         destroy(destroyBase?: boolean): void;
     }
 
     class VideoBaseTexture extends BaseTexture {
-        constructor(source: HTMLVideoElement, scaleMode?: number);
+        constructor(
+            source: HTMLVideoElement,
+            scaleMode?: number,
+            autoPlay?: boolean
+        );
 
         autoUpdate: boolean;
         autoPlay: boolean;
@@ -2344,11 +2358,13 @@ declare namespace PIXI {
 
         static fromVideo(
             video: HTMLVideoElement,
-            scaleMode?: number
+            scaleMode?: number,
+            autoPlay?: boolean
         ): VideoBaseTexture;
         static fromUrl(
             videoSrc: string | any | string[] | any[],
-            crossOrigin?: boolean
+            crossorigin?: boolean,
+            autoPlay?: boolean
         ): VideoBaseTexture;
         static fromUrls(
             videoSrc: string | any | string[] | any[]
@@ -2793,7 +2809,7 @@ declare namespace PIXI {
                 | PIXI.HitArea;
             buttonMode: boolean;
             cursor: string;
-            trackedPointers(): { [key: number]: InteractionTrackingData };
+            trackedPointers: { [key: number]: InteractionTrackingData };
 
             // Deprecated
             defaultCursor: string;

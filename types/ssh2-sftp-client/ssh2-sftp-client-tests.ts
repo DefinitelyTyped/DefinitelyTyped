@@ -31,3 +31,5 @@ client.delete('remote/path').then(() => null);
 client.rename('/remote/from', '/remote/to').then(() => null);
 
 client.end().then(() => null);
+
+client.on('event', () => null);

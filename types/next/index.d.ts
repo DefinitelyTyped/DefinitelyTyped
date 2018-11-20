@@ -1,11 +1,12 @@
-// Type definitions for next 6.1
-// Project: https://github.com/zeit/next.js
+// Type definitions for next 7.0
+// Project: https://github.com/zeit/next.js/packages/next
 // Definitions by: Drew Hays <https://github.com/dru89>
 //                 Brice BERNARD <https://github.com/brikou>
 //                 James Hegedus <https://github.com/jthegedus>
 //                 Resi Respati <https://github.com/resir014>
 //                 Scott Jones <https://github.com/scottdj92>
 //                 Joao Vieira <https://github.com/joaovieira>
+//                 AJ Livingston <https://github.com/ajliv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -13,23 +14,27 @@
 
 import * as http from "http";
 import * as url from "url";
-
+import { Server as NextServer, ServerOptions as NextServerOptions, RenderOptions } from 'next-server';
+import { NextConfig as NextServerConfig } from 'next-server/next-config';
 import { Response as NodeResponse } from "node-fetch";
-
-import { SingletonRouter, DefaultQuery } from "./router";
+import { SingletonRouter, DefaultQuery, UrlLike } from "./router";
 
 declare namespace next {
+    // Moved to next-server
+    type NextConfig = NextServerConfig;
+    type Server = NextServer;
+    type ServerOptions = NextServerOptions;
+    // End Moved to next-server
+
     // Deprecated
     type QueryStringMapObject = DefaultQuery;
     type ServerConfig = NextConfig;
     // End Deprecated
 
-    type UrlLike = url.UrlObject | url.Url;
-
     /**
      * Context object used in methods like `getInitialProps()`
-     * https://github.com/zeit/next.js/blob/6.1.1/server/render.js#L77
-     * https://github.com/zeit/next.js/blob/6.1.1/readme.md#fetching-data-and-component-lifecycle
+     * https://github.com/zeit/next.js/blob/7.0.0/server/render.js#L97
+     * https://github.com/zeit/next.js/blob/7.0.0/README.md#fetching-data-and-component-lifecycle
      *
      * @template Q Query object schema.
      */
@@ -51,130 +56,22 @@ declare namespace next {
     }
 
     /**
-     * Next.js config schema.
-     * https://github.com/zeit/next.js/blob/6.1.1/server/config.js#L10
+     * Next.js dev server instance API.
      */
-    interface NextConfig {
-        webpack?: any;
-        webpackDevMiddleware?: any;
-        poweredByHeader?: boolean;
-        distDir?: string;
-        assetPrefix?: string;
-        configOrigin?: string;
-        useFileSystemPublicRoutes?: boolean;
-        generateBuildId?: () => string;
-        generateEtags?: boolean;
-        pageExtensions?: string[];
-        publicRuntimeConfig?: object;
-        serverRuntimeConfig?: object;
-
-        // Plugin can define their own keys.
-        [key: string]: any;
-    }
-
-    /**
-     * Options passed to the Server constructor in Node.js.
-     * https://github.com/zeit/next.js/blob/6.1.1/server/index.js#L30
-     */
-    interface ServerOptions {
-        dir?: string;
-        dev?: boolean;
-        staticMarkup?: boolean;
-        quiet?: boolean;
-        conf?: NextConfig;
-    }
-
-    /**
-     * Next.js server instance API.
-     */
-    interface Server {
-        // From constructor
-        // https://github.com/zeit/next.js/blob/6.1.1/server/index.js#L30
-        dir: string;
-        dev: boolean;
-        quiet: boolean;
-        router: SingletonRouter;
-        http: null | http.Server;
-        nextConfig: NextConfig;
-        distDir: string;
-        buildId: string;
+    interface DevServer extends Server {
         hotReloader: any;
-        renderOpts: {
-            dev: string;
-            staticMarkup: boolean;
-            distDir: string;
+        renderOpts: RenderOptions & {
+            dev: true;
             hotReloader: any;
-            buildId: string;
-            availableChunks: object;
-            generateETags: boolean;
-            runtimeConfig?: object;
         };
 
         getHotReloader(
             dir: string,
             options: { quiet: boolean; config: NextConfig; buildId: string }
         ): any;
-        handleRequest(
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            parsedUrl?: UrlLike
-        ): Promise<void>;
-        getRequestHandler(): (
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            parsedUrl?: UrlLike
-        ) => Promise<void>;
-        setAssetPrefix(prefix: string): void;
 
-        prepare(): Promise<void>;
-        close(): Promise<void>;
-        defineRoutes(): Promise<void>;
-        start(): Promise<void>;
-        run(req: http.IncomingMessage, res: http.ServerResponse, parsedUrl: UrlLike): Promise<void>;
-
-        render(
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            pathname: string,
-            query?: DefaultQuery,
-            parsedUrl?: UrlLike
-        ): Promise<void>;
-        renderToHTML(
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            pathname: string,
-            query?: DefaultQuery
-        ): Promise<string>;
-        renderError(
-            err: any,
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            pathname: string,
-            query?: DefaultQuery
-        ): Promise<void>;
-        renderErrorToHTML(
-            err: any,
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            pathname: string,
-            query?: DefaultQuery
-        ): Promise<string>;
-        render404(
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            parsedUrl?: UrlLike
-        ): Promise<void>;
-
-        serveStatic(
-            req: http.IncomingMessage,
-            res: http.ServerResponse,
-            path: string
-        ): Promise<void>;
-        isServeableUrl(path: string): boolean;
-        readBuildId(): string;
-        handleBuildId(buildId: string, res: http.ServerResponse): boolean;
+        addExportPathMapRoutes(): Promise<void>;
         getCompilationError(): Promise<any>;
-        send404(res: http.ServerResponse): void;
     }
 
     /**
@@ -221,5 +118,6 @@ declare namespace next {
     }
 }
 
+declare function next(options?: next.ServerOptions & { dev: true }): next.DevServer;
 declare function next(options?: next.ServerOptions): next.Server;
 export = next;

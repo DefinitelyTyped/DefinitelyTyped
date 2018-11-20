@@ -1,9 +1,15 @@
-// Type definitions for Jasmine 2.8.0
-// Project: http://jasmine.github.io/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>, Boris Breuer <https://github.com/Engineer2B>
+// Type definitions for Jasmine 3.3
+// Project: https://jasmine.github.io/
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Theodore Brown <https://github.com/theodorejb>
+//                 David Pärsson <https://github.com/davidparsson>
+//                 Gabe Moothart <https://github.com/gmoothart>
+//                 Lukas Zech <https://github.com/lukas-zech-software>
+//                 Boris Breuer <https://github.com/Engineer2B>
+//                 Chris Yungmann <https://github.com/cyungmann>
+//                 Giles Roadnight <https://github.com/Roaders>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
+// TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 /**
@@ -130,7 +136,7 @@ declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
     type Expected<T> = T | ObjectContaining<T> | Any | Spy;
-    type SpyObjMethodNames = string[] | {[methodName: string]: any};
+    type SpyObjMethodNames<T = undefined> = T extends undefined ? (ReadonlyArray<string> | {[methodName: string]: any}) : (ReadonlyArray<keyof T> | {[P in keyof T]?: ReturnType<T[P] extends (...args: any[]) => any ? T[P] : any>});
 
     var clock: () => Clock;
 
@@ -146,7 +152,7 @@ declare namespace jasmine {
     function createSpy(name?: string, originalFn?: Function): Spy;
 
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames): any;
-    function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames): SpyObj<T>;
+    function createSpyObj<T>(baseName: string, methodNames: SpyObjMethodNames<T>): SpyObj<T>;
 
     function createSpyObj(methodNames: SpyObjMethodNames): any;
     function createSpyObj<T>(methodNames: SpyObjMethodNames): SpyObj<T>;
@@ -448,6 +454,16 @@ declare namespace jasmine {
         toThrow(expected?: any): boolean;
         toThrowError(message?: string | RegExp): boolean;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
+        toThrowMatching(predicate: (thrown: any) => boolean): boolean;
+        toBeNegativeInfinity(expectationFailOutput?: any): boolean;
+        toBePositiveInfinity(expectationFailOutput?: any): boolean;
+        toHaveClass(expected: any, expectationFailOutput?: any): boolean;
+
+        /**
+         * Add some context for an expect.
+         * @param message - Additional context to show when the matcher fails
+         */
+        withContext(message: string): Matchers<T>;
 
         not: Matchers<T>;
 

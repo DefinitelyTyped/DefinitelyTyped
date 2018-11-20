@@ -275,3 +275,22 @@ Ember.String.isHTMLSafe('foo'); // $ExpectType boolean
 // Ember.Test
 Ember.Test.checkWaiters(); // $ExpectType boolean
 // checkWaiters
+
+/**
+ * == REMOVED FEATURES ==
+ * These are deprecated and/or private things that have been removed from the
+ * Ember.* namespace. These tests asserts that the types of these things
+ * stay gone
+ */
+
+ Ember.bind; // $ExpectError
+ Ember.deprecate('foo', 'bar'); // $ExpectError
+ Ember.K; // $ExpectError
+ Ember.Binding; // $ExpectError
+ Ember.Transition; // $ExpectError
+ Ember.create; // $ExpectError
+ Ember.reset; // $ExpectError
+ Ember.unsubscribe; // $ExpectError
+ Ember.subscribe; // $ExpectError
+ Ember.instrument; // $ExpectError
+ Ember.Instrumentation; // $ExpectError

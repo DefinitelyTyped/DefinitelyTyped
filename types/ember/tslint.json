@@ -1,13 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // these are disabled because of rfc176 module exports
-        "strict-export-declare-modifiers": false,
-        "no-declare-current-package": false,
-        "no-self-import": false,
-
-        "no-unnecessary-qualifier": false,
-
         // false positives
         "unified-signatures": false
     }
