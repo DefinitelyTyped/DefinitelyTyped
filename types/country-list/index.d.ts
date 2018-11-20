@@ -7,7 +7,7 @@
 /**
  * Expects an array of code and country name pairs to add to the list. Doesn't return anything.
  */
-export function overwrite(countries: Array<{ code: string, name: string}>): undefined;
+export function overwrite(countries: Array<{ code: string, name: string}>): void;
 
 /**
  * Expects a two-digit country code. Returns the name for that country. If not found, it returns undefined.
