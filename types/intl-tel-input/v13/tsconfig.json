@@ -9,10 +9,13 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "intl-tel-input": [ "intl-tel-input/v13" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
