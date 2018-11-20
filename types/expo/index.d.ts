@@ -11,6 +11,7 @@
 //                 Tina Roh <https://github.com/tinaroh>
 //                 Nathan Phillip Brink <https://github.com/binki>
 //                 Martin Olsson <https://github.com/mo>
+//                 Levan Basharuli <https://github.com/levansuper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1559,6 +1560,8 @@ export namespace ImageManipulator {
     }
 
     function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
+
+    function manipulateAsync(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
 
 /**

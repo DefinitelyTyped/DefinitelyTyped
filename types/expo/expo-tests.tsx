@@ -413,6 +413,21 @@ async () => {
     result.width;
 };
 
+async () => {
+    const result = await ImageManipulator.manipulateAsync('url', [
+        { rotate: 360 },
+        { resize: { width: 300 } },
+        { resize: { height: 300 } },
+        { resize: { height: 300, width: 300 } },
+    ], {
+        compress: 0.75
+    });
+
+    result.height;
+    result.uri;
+    result.width;
+};
+
 FaceDetector.Constants.Mode.fast;
 FaceDetector.Constants.Mode.accurate;
 FaceDetector.Constants.Landmarks.all;
