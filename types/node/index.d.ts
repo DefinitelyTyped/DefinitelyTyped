@@ -2655,6 +2655,7 @@ declare module "child_process" {
         windowsHide?: boolean;
     }
 
+    function spawn(command: string, options?: SpawnOptions): ChildProcess;
     function spawn(command: string, args?: ReadonlyArray<string>, options?: SpawnOptions): ChildProcess;
 
     interface ExecOptions {
