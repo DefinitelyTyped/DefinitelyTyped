@@ -637,6 +637,12 @@
             "asOfVersion": "7.1.0"
         },
         {
+            "libraryName": "gitlab",
+            "typingsPackageName": "gitlab",
+            "sourceRepoURL": "https://github.com/jdalrymple/node-gitlab",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "graphene-pk11",
             "typingsPackageName": "graphene-pk11",
             "sourceRepoURL": "https://github.com/PeculiarVentures/graphene",
