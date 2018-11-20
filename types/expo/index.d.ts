@@ -1,4 +1,4 @@
-// Type definitions for expo 27.0
+// Type definitions for expo 30.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
@@ -7,8 +7,12 @@
 //                 Fernando Helwanger <https://github.com/fhelwanger>
 //                 Umidbek Karimov <https://github.com/umidbekkarimov>
 //                 Moshe Feuchtwanger <https://github.com/moshfeu>
+//                 Michael Prokopchuk <https://github.com/prokopcm>
+//                 Tina Roh <https://github.com/tinaroh>
+//                 Nathan Phillip Brink <https://github.com/binki>
+//                 Martin Olsson <https://github.com/mo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref, ComponentType } from 'react';
@@ -16,6 +20,7 @@ import {
     ColorPropType,
     ImageRequireSource,
     ImageURISource,
+    LinkingStatic as ReactNativeLinkingStatic,
     NativeEventEmitter,
     ViewProps,
     ViewStyle,
@@ -25,7 +30,6 @@ import {
 
 export type Axis = number;
 export type BarCodeReadCallback = (params: { type: string; data: string; }) => void;
-export type FloatFromZeroToOne = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
 export type Md5 = string;
 export type Orientation = 'portrait' | 'landscape';
 export type RequireSource = ImageRequireSource;
@@ -35,6 +39,7 @@ export type ResizeModeStretch = 'stretch';
 export type URISource = ImageURISource;
 
 export interface HashMap { [key: string]: any; }
+export interface StringHashMap { [key: string]: string; }
 
 /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
 export namespace Accelerometer {
@@ -548,14 +553,16 @@ export type PlaybackStatus = {
 
 export interface PlaybackStatusToSet {
     androidImplementation?: string;
-    progressUpdateIntervalMillis?: number;
-    positionMillis?: number;
-    shouldPlay?: boolean;
-    rate?: FloatFromZeroToOne;
-    shouldCorrectPitch?: boolean;
-    volume?: FloatFromZeroToOne;
-    isMuted?: boolean;
     isLooping?: boolean;
+    isMuted?: boolean;
+    positionMillis?: number;
+    progressUpdateIntervalMillis?: number;
+    /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
+    rate?: number;
+    shouldCorrectPitch?: boolean;
+    shouldPlay?: boolean;
+    /** A number between `0.0` (silence) and `1.0` (maximum volume). */
+    volume?: number;
 }
 
 export type PlaybackSource = RequireSource | { uri: string } | Asset;
@@ -668,7 +675,6 @@ export class PlaybackObject {
     setRateAsync(
         /** The desired playback rate of the media. This value must be between `0.0` and `32.0`. Only available on Android API version 23 and later and iOS. */
         rate: number,
-
         /** A boolean describing if we should correct the pitch for a changed rate. If set to `true`, the pitch of the audio will be corrected (so a rate different than `1.0` will timestretch the audio). */
         shouldCorrectPitch: boolean
     ): Promise<PlaybackStatus>;
@@ -730,13 +736,32 @@ export class BlurView extends Component<BlurViewProps> { }
 // #endregion
 
 /**
- * Brightness
+ * An API to get and set screen brightness.
  */
 export namespace Brightness {
-    function setBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
-    function getBrightnessAsync(): Promise<FloatFromZeroToOne>;
-    function getSystemBrightnessAsync(): Promise<FloatFromZeroToOne>;
-    function setSystemBrightnessAsync(brightnessValue: FloatFromZeroToOne): Promise<void>;
+    /** Sets screen brightness. */
+    function setBrightnessAsync(
+        /** A number between `0` and `1`, representing the desired screen brightness. */
+        brightnessValue: number
+    ): Promise<void>;
+
+    /**
+     * Gets screen brightness.
+     * @returns A Promise that is resolved with a number between `0` and `1`, representing the current screen brightness.
+     */
+    function getBrightnessAsync(): Promise<number>;
+
+    /**
+     * Gets global system screen brightness.
+     * @returns A Promise that is resolved with a number between `0` and `1`, representing the current system screen brightness.
+     */
+    function getSystemBrightnessAsync(): Promise<number>;
+
+    /** Sets global system screen brightness, requires `WRITE_SETTINGS` permissions on Android. */
+    function setSystemBrightnessAsync(
+        /** A number between `0` and `1`, representing the desired screen brightness. */
+        brightnessValue: number
+    ): Promise<void>;
 }
 
 // #region Camera
@@ -745,6 +770,9 @@ export namespace Brightness {
  */
 export interface PictureOptions {
     quality?: number;
+    base64?: boolean;
+    exif?: boolean;
+    onPictureSaved?: (data: PictureResponse) => void;
 }
 
 export interface PictureResponse {
@@ -769,30 +797,52 @@ export class CameraObject {
 }
 
 export interface CameraProps extends ViewProps {
-    zoom?: FloatFromZeroToOne;
-    ratio?: string;
-    focusDepth?: FloatFromZeroToOne;
-    type?: string | number;
-    onCameraReady?: () => void;
-    onBarCodeRead?: BarCodeReadCallback;
+    autoFocus?: string | number | boolean;
+    barCodeTypes?: Array<string | number>;
+    faceDetectionClassifications?: number;
+    faceDetectionLandmarks?: number;
     faceDetectionMode?: number;
     flashMode?: string | number;
-    barCodeTypes?: Array<string | number>;
-    whiteBalance?: string | number;
-    faceDetectionLandmarks?: number;
-    autoFocus?: string | number | boolean;
-    faceDetectionClassifications?: number;
-    onMountError?: () => void;
+    /** Distance to plane of sharpest focus. A value between `0` and `1`. `0`: infinity focus, `1`: focus as close as possible. Default: `0`. For Android this is available only for some devices and when `useCamera2Api` is set to `true`. */
+    focusDepth?: number;
+    onBarCodeRead?: BarCodeReadCallback;
+    onCameraReady?: () => void;
     onFacesDetected?: (options: { faces: TrackedFaceFeature[] }) => void;
+    onMountError?: () => void;
+    ratio?: string;
     ref?: Ref<CameraObject>;
+    type?: string | number;
+    whiteBalance?: string | number;
+    /** A value between `0` and `1` being a percentage of device's max zoom. `0`: not zoomed, `1`: maximum zoom. Default: `0`. */
+    zoom?: number;
 }
 
 export interface CameraConstants {
-    readonly Type: string;
-    readonly FlashMode: string;
-    readonly AutoFocus: string;
-    readonly WhiteBalance: string;
-    readonly VideoQuality: string;
+    readonly Type: {
+        back: string;
+        front: string;
+    };
+    readonly FlashMode: {
+        on: string;
+        off: string;
+        auto: string;
+        torch: string;
+    };
+    readonly AutoFocus: {
+        on: string;
+        off: string;
+    };
+    readonly WhiteBalance: {
+        auto: string;
+        sunny: string;
+        cloudy: string;
+        shadow: string;
+        fluorescent: string;
+        incandescent: string;
+    };
+    readonly VideoQuality: {
+        [videoQuality: string]: number;
+    };
     readonly BarCodeType: {
         aztec: string;
         codabar: string;
@@ -828,6 +878,7 @@ export class Camera extends Component<CameraProps> {
 export namespace Constants {
     const appOwnership: 'expo' | 'standalone' | 'guest';
     const expoVersion: string;
+    const installationId: string;
     const deviceId: string;
     const deviceName: string;
     const deviceYearClass: number;
@@ -878,7 +929,7 @@ export namespace Constants {
         };
         appKey?: string;
         androidStatusBar?: {
-            barStyle?: 'lignt-content' | 'dark-content',
+            barStyle?: 'light-content' | 'dark-content',
             backgroundColor?: string
         };
         androidShowExponentNotificationInShellApp?: boolean;
@@ -942,6 +993,8 @@ export namespace Constants {
     }
     const manifest: Manifest;
     const linkingUri: string;
+
+    function getWebViewUserAgentAsync(): Promise<string>;
 }
 
 /**
@@ -1350,8 +1403,8 @@ export namespace FileSystem {
 }
 
 /** Use TouchID/FaceID (iOS) or the Fingerprint API (Android) to authenticate the user with a fingerprint scan. */
-export namespace Fingerprint {
-    type FingerprintAuthenticationResult = {
+export namespace LocalAuthentication {
+    type LocalAuthenticationResult = {
         success: true
     } | {
         success: false,
@@ -1360,10 +1413,10 @@ export namespace Fingerprint {
         error: string
     };
 
-    /** Determine whether the Fingerprint scanner is available on the device. */
+    /** Determine whether a face or fingerprint scanner is available on the device. */
     function hasHardwareAsync(): Promise<boolean>;
 
-    /** Determine whether the device has saved fingerprints to use for authentication. */
+    /** Determine whether the device has saved fingerprints or facial data to use for authentication. */
     function isEnrolledAsync(): Promise<boolean>;
 
     /**
@@ -1371,7 +1424,7 @@ export namespace Fingerprint {
      *
      * @param promptMessage A message that is shown alongside the TouchID/FaceID prompt. (iOS only)
      */
-    function authenticateAsync(promptMessageIOS?: string): Promise<FingerprintAuthenticationResult>;
+    function authenticateAsync(promptMessageIOS?: string): Promise<LocalAuthenticationResult>;
 
     /** Cancels the fingerprint authentication flow. (Android only) */
     function cancelAuthenticate(): void;
@@ -1390,12 +1443,24 @@ export namespace Font {
 }
 
 // #region GLView
+export interface ExpoWebGLRenderingContext extends WebGLRenderingContext {
+    endFrameEXP(): void;
+}
+
 /**
- * GLView
+ * A View that acts as an OpenGL ES render target. On mounting, an OpenGL ES
+ * context is created. Its drawing buffer is presented as the contents of
+ * the View every frame.
  */
 export interface GLViewProps extends ViewProps {
-    onContextCreate(): void;
-    msaaSamples: number;
+    /**
+     * A function that will be called when the OpenGL ES context is created.
+     * Passes an object with a WebGLRenderingContext interface as an argument.
+     */
+    onContextCreate(gl: ExpoWebGLRenderingContext): void;
+
+    /** Number of MSAA samples to use on iOS. Defaults to 4. Ignored on Android. */
+    msaaSamples?: number;
 }
 
 export class GLView extends Component<GLViewProps, { msaaSamples: number }> { }
@@ -1458,6 +1523,27 @@ export namespace Gyroscope {
  * ImageManipulator
  */
 export namespace ImageManipulator {
+    type Action = Resize | Rotate | Flip | Crop;
+
+    interface Resize {
+        resize: { width?: number, height?: number };
+    }
+
+    interface Rotate {
+        rotate: number;
+    }
+
+    interface Flip {
+        flip?: { vertical?: boolean; horizontal?: boolean };
+    }
+
+    interface Crop {
+        originX: number;
+        originY: number;
+        width: number;
+        height: number;
+    }
+
     interface ImageResult {
         uri: string;
         width: number;
@@ -1467,25 +1553,12 @@ export namespace ImageManipulator {
 
     interface SaveOptions {
         base64?: boolean;
-        compress?: FloatFromZeroToOne;
+        /** A value in range `0` - `1` specifying compression level of the result image. `1` means no compression and `0` the highest compression. */
+        compress?: number;
         format?: 'jpeg' | 'png';
     }
 
-    interface CropParameters {
-        originX: number;
-        originY: number;
-        width: number;
-        height: number;
-    }
-
-    interface ImageManipulationOptions {
-        resize?: { width?: number; height?: number };
-        rotate?: number;
-        flip?: { vertical?: boolean; horizontal?: boolean };
-        crop?: CropParameters;
-    }
-
-    function manipulate(uri: string, actions: ImageManipulationOptions, saveOptions?: SaveOptions): Promise<ImageResult>;
+    function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
 
 /**
@@ -1530,6 +1603,8 @@ export namespace ImagePicker {
         allowsEditing?: boolean;
         aspect?: [number, number];
         quality?: number;
+        base64?: boolean;
+        exif?: boolean;
     }
 
     /**
@@ -1648,6 +1723,21 @@ export interface LinearGradientProps {
 
 export class LinearGradient extends Component<LinearGradientProps> { }
 // #endregion
+
+/**
+ * Linking
+ */
+export interface LinkInfo {
+    path: string;
+    queryParams: Partial<StringHashMap>;
+}
+
+export interface LinkingStatic extends ReactNativeLinkingStatic {
+    makeUrl(path: string, queryParams?: HashMap): string;
+    parse(url: string): LinkInfo;
+    parseInitialURLAsync(): Promise<LinkInfo>;
+}
+export const Linking: LinkingStatic;
 
 /**
  * Location
@@ -1970,6 +2060,7 @@ export interface SvgCommonProps {
     strokeLineJoin?: string;
     strokeDasharray?: any[];
     strokeDashoffset?: any;
+    transform?: string | object;
     x?: number | string;
     y?: number | string;
     rotate?: number | string;
@@ -2042,10 +2133,13 @@ export interface SvgUseProps extends SvgCommonProps {
     href: string;
     x: number | string;
     y: number | string;
+    width?: number | string;
+    height?: number | string;
 }
 
 export interface SvgSymbolProps extends SvgCommonProps {
     viewBox: string;
+    preserveAspectRatio?: string;
     width: number | string;
     height: number | string;
 }
@@ -2073,7 +2167,7 @@ export interface SvgStopProps extends SvgCommonProps {
     stopOpacity?: string;
 }
 
-export class Svg extends Component<{ width: number, height: number, viewBox?: string }> {
+export class Svg extends Component<{ width: number, height: number, viewBox?: string, preserveAspectRatio?: string }> {
     static Circle: ComponentClass<SvgCircleProps>;
     static ClipPath: ComponentClass<SvgCommonProps>;
     static Defs: ComponentClass;
@@ -2188,6 +2282,7 @@ export interface VideoProps {
     translateY?: number;
     rotation?: number;
     ref?: Ref<PlaybackObject>;
+    style?: StyleProp<ViewStyle>;
 }
 
 export interface VideoState {
@@ -2328,10 +2423,10 @@ export namespace Calendar {
         recurrenceRule?: RecurrenceRule;
 
         /** Date object or string representing the time when the event starts */
-        startDate?: string;
+        startDate?: string | Date;
 
         /** Date object or string representing the time when the event ends */
-        endDate?: string;
+        endDate?: string | Date;
 
         /** For recurring events, the start date for the first (original) instance of the event */
         originalStartDate?: string; // iOS
@@ -2825,6 +2920,11 @@ export namespace Updates {
         message?: string;
     }
 
+    /** An optional params object passed to fetchUpdateAsync. */
+    interface FetchUpdateAsyncParams {
+        eventListener: UpdateEventListener;
+    }
+
     type UpdateEventListener = (event: UpdateEvent) => any;
 
     /**
@@ -2844,7 +2944,7 @@ export namespace Updates {
      * Downloads the most recent published version of your experience to the device's local cache.
      * Rejects if `updates.enabled` is `false` in app.json.
      */
-    function fetchUpdateAsync(listener?: UpdateEventListener): Promise<UpdateBundle>;
+    function fetchUpdateAsync(params?: FetchUpdateAsyncParams): Promise<UpdateBundle>;
 
     /**
      * Immediately reloads the current experience.

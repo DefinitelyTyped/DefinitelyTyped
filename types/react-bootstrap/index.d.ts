@@ -12,8 +12,10 @@
 //                 Karol Janyst <https://github.com/LKay>
 //                 Aaron Beall <https://github.com/aaronbeall>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
+//                 Andrew Makarov <https://github.com/r3nya>
+//                 Duong Tran <https://github.com/t49tran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 

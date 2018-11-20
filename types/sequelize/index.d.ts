@@ -13,8 +13,10 @@
 //                 Florian Oellerich <https://github.com/Raigen>
 //                 Todd Bealmear <https://github.com/todd>
 //                 Nick Schultz <https://github.com/nrschultz>
+//                 Thomas Breleur <https://github.com/thomas-b>
+//                 Antoine Boisadam <https://github.com/Antoine38660>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -137,7 +139,7 @@ declare namespace sequelize {
      * @see http://docs.sequelizejs.com/en/latest/api/associations/belongs-to/
      * @see Instance
      */
-    interface BelongsToCreateAssociationMixin<TAttributes> {
+    interface BelongsToCreateAssociationMixin<TAttributes, TInstance> {
         /**
          * Create a new instance of the associated model and associate it with this.
          * @param values The values used to create the association.
@@ -146,7 +148,7 @@ declare namespace sequelize {
         (
             values?: TAttributes,
             options?: BelongsToCreateAssociationMixinOptions | CreateOptions | BelongsToSetAssociationMixinOptions
-        ): Promise<void>;
+        ): Promise<TInstance>;
     }
 
     /**
@@ -2889,9 +2891,12 @@ declare namespace sequelize {
         changed(): boolean | string[];
 
         /**
-         * Returns the previous value for key from `_previousDataValues`.
+         * If previous is called with a string, it will return the previous value for the key from `_previousDataValues`.
+         *
+         * If previous is called without an argument, it will return an object containing the previous keys and values that have changed.
          */
         previous(key: keyof TAttributes): any;
+        previous(): object;
 
         /**
          * Validate this instance, and if the validation passes, persist it to the database.
@@ -3232,9 +3237,10 @@ declare namespace sequelize {
         as?: string;
 
         /**
-         * The association you want to eagerly load. (This can be used instead of providing a model/as pair)
+         * The association you want to eagerly load. (This can be used instead of providing a model/as pair).
+         * You can also use the association alias.
          */
-        association?: IncludeAssociation;
+        association?: IncludeAssociation | string;
 
         /**
          * Where clauses to apply to the child models. Note that this converts the eager load to an inner join,
@@ -3270,6 +3276,11 @@ declare namespace sequelize {
         paranoid?: boolean;
 
         all?: boolean | string;
+
+        /**
+         * if true, it will also eager load the relations of the child models, recursively.
+         */
+        nested?: boolean;
     }
 
     /**
@@ -3897,6 +3908,7 @@ declare namespace sequelize {
          */
         findById<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
         findByPrimary<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
+        findByPk<TCustomAttributes>(identifier?: number | string | Buffer, options?: FindOptions<TAttributes & TCustomAttributes>): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
@@ -4666,6 +4678,20 @@ declare namespace sequelize {
     }
 
     /**
+     * Interface for Attributes provided for a column
+     *
+     * @see Sequelize.define
+     */
+    type DefineModelAttributes<T> = {
+
+        /**
+         * The description of a database column for model
+         */
+        [P in keyof T]: string | DataTypeAbstract | DefineAttributeColumnOptions;
+
+    }
+
+    /**
      * Interface for query options
      *
      * @see Options
@@ -5212,8 +5238,17 @@ declare namespace sequelize {
          * `this.constructor.prototype.find.apply(this, arguments)`
          */
         classMethods?: Object;
-
+        
+        /**
+         * Change the database schema. PG only feature, but also works with other dialects.
+         */
         schema?: string;
+        
+        
+        /**
+         * Change the database schema delimiter. Defaults to "." on PG but for other dialects can be also changed to "_".
+         */
+        schemaDelimiter?: string;
 
         /**
          * You can also change the database engine, e.g. to MyISAM. InnoDB is the default.
@@ -5256,6 +5291,11 @@ declare namespace sequelize {
          * Set to true or a string with the attribute name you want to use to enable.
          */
         version?: boolean | string;
+
+        /**
+         * Throws an error when no records found
+         */
+        rejectOnError?: boolean | Error;
     }
 
     /**
@@ -5660,6 +5700,13 @@ declare namespace sequelize {
          * Pass object to limit set of aliased operators or false to disable completely.
          */
         operatorsAliases?: boolean | OperatorsAliases;
+
+        /**
+         * Set to `true` to enable connecting over SSL.
+         *
+         * Defaults to undefined
+         */
+        ssl?: boolean;
     }
 
     /**
@@ -5964,7 +6011,7 @@ declare namespace sequelize {
          * @param options    These options are merged with the default define options provided to the Sequelize
          *                   constructor
          */
-        define<TInstance, TAttributes>(modelName: string, attributes: DefineAttributes,
+        define<TInstance, TAttributes>(modelName: string, attributes: DefineModelAttributes<TAttributes>,
             options?: DefineOptions<TInstance>): Model<TInstance, TAttributes>;
 
         /**
@@ -6169,9 +6216,9 @@ declare namespace sequelize {
          * @param options Transaction Options
          * @param autoCallback Callback for the transaction
          */
-        transaction(options: TransactionOptions,
-            autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
-        transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
+        transaction<T>(options: TransactionOptions,
+            autoCallback: (t: Transaction) => PromiseLike<T>): Promise<T>;
+        transaction<T>(autoCallback: (t: Transaction) => PromiseLike<T>): Promise<T>;
         transaction(options?: TransactionOptions): Promise<Transaction>;
 
         /**

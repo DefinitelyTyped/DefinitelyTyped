@@ -1,4 +1,4 @@
-// Type definitions for reactstrap 5.0
+// Type definitions for reactstrap 6.4
 // Project: https://github.com/reactstrap/reactstrap#readme
 // Definitions by: Ali Hammad Baig <https://github.com/alihammad>
 //                 Marco Falkenberg <https://github.com/mfal>
@@ -7,8 +7,9 @@
 //                 Kurt Preston <https://github.com/KurtPreston>
 //                 Tim Chen <https://github.com/timc13>
 //                 Pat Gaffney <https://github.com/patrickrgaffney>
+//                 Prabodh Tiwari <https://github.com/prabodht>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.9
 
 export interface CSSModule {
   [className: string]: string;
@@ -101,6 +102,9 @@ export { CollapseProps } from './lib/Collapse';
 import { default as Container_ } from './lib/Container';
 export class Container<T = {}> extends Container_<T> {}
 export { ContainerProps } from './lib/Container';
+import { default as CustomInput_ } from './lib/CustomInput';
+export class CustomInput<T = {}> extends CustomInput_<T> {}
+export { CustomInputProps } from './lib/CustomInput';
 import { default as Dropdown_ } from './lib/Dropdown';
 export class Dropdown<T = {}> extends Dropdown_<T> {}
 export { DropdownProps } from './lib/Dropdown';
@@ -237,15 +241,18 @@ import {
   UncontrolledAlert as UncontrolledAlert_,
   UncontrolledButtonDropdown as UncontrolledButtonDropdown_,
   UncontrolledDropdown as UncontrolledDropdown_,
-  UncontrolledTooltip as UncontrolledTooltip_
+  UncontrolledTooltip as UncontrolledTooltip_,
+  UncontrolledCollapse as UncontrolledCollapse_
 } from './lib/Uncontrolled';
 export class UncontrolledAlert<T = {}> extends UncontrolledAlert_<T> {}
 export class UncontrolledButtonDropdown<T = {}> extends UncontrolledButtonDropdown_<T> {}
 export class UncontrolledDropdown<T = {}> extends UncontrolledDropdown_<T> {}
 export class UncontrolledTooltip<T = {}> extends UncontrolledTooltip_<T> {}
+export class UncontrolledCollapse<T = {}> extends UncontrolledCollapse_<T> {}
 export {
   UncontrolledButtonDropdownProps,
   UncontrolledAlertProps,
   UncontrolledDropdownProps,
-  UncontrolledTooltipProps
+  UncontrolledTooltipProps,
+  UncontrolledCollapseProps
 } from './lib/Uncontrolled';

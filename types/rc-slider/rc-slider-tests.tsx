@@ -18,6 +18,11 @@ ReactDOM.render(
     />,
     document.querySelector('.another-app')
 );
+
+const onChangeFunc1 = (string: number) => {};
+
+const onChangeFunc2 = (string: number[]) => {};
+
 ReactDOM.render(
     <Slider
         className="bottomRight"
@@ -30,9 +35,9 @@ ReactDOM.render(
         included={true}
         disabled={false}
         dots={true}
-        onBeforeChange={() => { }}
-        onChange={() => { }}
-        onAfterChange={() => { }}
+        onBeforeChange={onChangeFunc1}
+        onChange={onChangeFunc1}
+        onAfterChange={onChangeFunc1}
         defaultValue={0.1}
         value={0.1}
         style={{backgroundColor: 'plum'}}
@@ -49,6 +54,9 @@ ReactDOM.render(
         count={3}
         allowCross={false}
         pushable={true}
+        onChange={onChangeFunc2}
+        onAfterChange={onChangeFunc2}
+        onBeforeChange={onChangeFunc2}
     />,
     document.querySelector('.app')
 );
@@ -60,5 +68,10 @@ ReactDOM.render(
 
 ReactDOM.render(
     <RangeWithTooltip defaultValue={[1]} max={2} step={0.01} min={0.01} />,
+    document.querySelector('.app')
+);
+
+ReactDOM.render(
+    <SliderWithTooltip defaultValue={1} max={2} step={0.01} min={0.01} tipProps={{ placement: 'right' }}/>,
     document.querySelector('.app')
 );

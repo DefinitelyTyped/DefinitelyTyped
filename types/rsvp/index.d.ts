@@ -99,7 +99,8 @@ declare module 'rsvp' {
                 executor: (
                     resolve: (value?: RSVP.Arg<T>) => void,
                     reject: (reason?: any) => void
-                ) => void
+                ) => void,
+                label?: string
             );
 
             new<T>(

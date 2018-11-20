@@ -23,6 +23,7 @@ webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
 	},
 	reporter: null,
 	serverSideRender: false,
+	writeToDisk: false,
 });
 
 const app = express();

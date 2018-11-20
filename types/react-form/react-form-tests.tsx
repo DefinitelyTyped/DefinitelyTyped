@@ -23,10 +23,7 @@ import {
 
 // Form Api
 class FormApiMethods extends React.Component {
-	constructor(props: {}) {
-		super(props);
-		this.state = {};
-	}
+	state = {};
 
 	render() {
 		const FormContent = (props: { formApi?: FormApi }) => (
@@ -82,11 +79,6 @@ const statusOptions = [
 ];
 
 class BasicForm extends React.Component {
-	constructor(props: {}) {
-		super(props);
-		this.state = {};
-	}
-
 	render() {
 		return (
 			<div>
@@ -124,11 +116,6 @@ class BasicForm extends React.Component {
 
 // Form with Arrays
 class FormWithArrays extends React.Component {
-	constructor(props: {}) {
-		super(props);
-		this.state = {};
-	}
-
 	render() {
 		return (
 			<div>
@@ -169,11 +156,6 @@ const Friend = ({ i }: {i: number}) => (
 );
 
 class FormWithSpecialFieldSyntax extends React.Component {
-	constructor(props: {}) {
-		super(props);
-		this.state = {};
-	}
-
 	render() {
 		return (
 			<div>
@@ -215,11 +197,6 @@ const Questions = () => (
 );
 
 class NestedFormExample extends React.Component {
-	constructor(props: {}) {
-		super(props);
-		this.state = {};
-	}
-
 	render() {
 		return (
 			<div>
@@ -240,11 +217,6 @@ class NestedFormExample extends React.Component {
 
 // Dynamic Forms
 class DynamicForm extends React.Component {
-	constructor(props: {}) {
-		super(props);
-		this.state = {};
-	}
-
 	render() {
 		return (
 			<div>
@@ -297,11 +269,6 @@ const MyFriend = ({ i }: {i: number}) => (
 );
 
 class FormWithArrayOfNestedForms extends React.Component {
-	constructor(props: {}) {
-		super(props);
-		this.state = {};
-	}
-
 	render() {
 		return (
 			<div>
@@ -325,11 +292,6 @@ class FormWithArrayOfNestedForms extends React.Component {
 
 // Styled Form
 class StyledForm extends React.Component {
-	constructor(props: {}) {
-		super(props);
-		this.state = {};
-	}
-
 	errorValidator = (values: FormValues) => {
 		const validateFirstName = (firstName: string) => {
 			return !firstName ? 'First name is required.' : undefined;

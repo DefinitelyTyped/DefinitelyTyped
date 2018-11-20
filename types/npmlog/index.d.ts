@@ -1,6 +1,7 @@
 // Type definitions for npmlog 4.1
 // Project: https://github.com/npm/npmlog#readme
 // Definitions by: Daniel Schmidt <https://github.com/DanielMSchmidt>
+//                 Zhu Zijia <https://github.com/littlepiggy03>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -32,39 +33,34 @@ export interface MessageObject {
 }
 
 // TODO: newStream, newGroup, setGaugeTemplate and setGaugeTemplateSet need to be added
-interface npmlog {
-    log(level: LogLevels | string, prefix: string, message: string, ...args: any[]): void;
 
-    silly(prefix: string, message: string, ...args: any[]): void;
-    verbose(prefix: string, message: string, ...args: any[]): void;
-    info(prefix: string, message: string, ...args: any[]): void;
-    http(prefix: string, message: string, ...args: any[]): void;
-    warn(prefix: string, message: string, ...args: any[]): void;
-    error(prefix: string, message: string, ...args: any[]): void;
+export function log(level: LogLevels | string, prefix: string, message: string, ...args: any[]): void;
 
-    level: string;
-    record: MessageObject[];
-    maxRecordSize: number;
-    prefixStyle: StyleObject;
-    headingStyle: StyleObject;
-    heading: string;
-    stream: any; // Defaults to process.stderr
+export function silly(prefix: string, message: string, ...args: any[]): void;
+export function verbose(prefix: string, message: string, ...args: any[]): void;
+export function info(prefix: string, message: string, ...args: any[]): void;
+export function http(prefix: string, message: string, ...args: any[]): void;
+export function warn(prefix: string, message: string, ...args: any[]): void;
+export function error(prefix: string, message: string, ...args: any[]): void;
 
-    enableColor(): void;
-    disableColor(): void;
+export let level: string;
+export let record: MessageObject[];
+export let maxRecordSize: number;
+export let prefixStyle: StyleObject;
+export let headingStyle: StyleObject;
+export let heading: string;
+export let stream: any; // Defaults to process.stderr
 
-    enableProgress(): void;
-    disableProgress(): void;
+export function enableColor(): void;
+export function disableColor(): void;
 
-    enableUnicode(): void;
-    disableUnicode(): void;
+export function enableProgress(): void;
+export function disableProgress(): void;
 
-    pause(): void;
-    resume(): void;
+export function enableUnicode(): void;
+export function disableUnicode(): void;
 
-    addLevel(level: string, n: number, style?: StyleObject, disp?: string): void;
-}
+export function pause(): void;
+export function resume(): void;
 
-declare const logger: npmlog;
-
-export default logger;
+export function addLevel(level: string, n: number, style?: StyleObject, disp?: string): void;

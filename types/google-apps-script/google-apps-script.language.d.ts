@@ -1,4 +1,4 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2018-07-11
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,9 +10,9 @@ declare namespace GoogleAppsScript {
     /**
      * The Language service provides scripts a way to compute automatic translations of text.
      *
-     *      // The code below will write "Esta es una prueba" to the log.
-     *      var spanish = LanguageApp.translate('This is a test', 'en', 'es');
-     *      Logger.log(spanish);
+     *     // The code below will write "Esta es una prueba" to the log.
+     *     var spanish = LanguageApp.translate('This is a test', 'en', 'es');
+     *     Logger.log(spanish);
      */
     export interface LanguageApp {
       translate(text: string, sourceLanguage: string, targetLanguage: string): string;

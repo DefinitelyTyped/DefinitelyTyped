@@ -9,7 +9,6 @@
 //                 Vítor Castro <https://github.com/teves-castro>
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
-//                 Charles-Philippe Clermont <https://github.com/charlespwd>
 //                 Samson Keung <https://github.com/samsonkeung>
 //                 Angelo Ocana <https://github.com/angeloocana>
 //                 Rayner Pupo <https://github.com/raynerd>
@@ -23,15 +22,260 @@
 //                 Maciek Blim <https://github.com/blimusiek>
 //                 Marcin Biernat <https://github.com/biern>
 //                 Rayhaneh Banyassady <https://github.com/rayhaneh>
+//                 Ryan McCuaig <https://github.com/rgm>
+//                 Drew Wyatt <https://github.com/drewwyatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+/// <reference path="./es/add.d.ts" />
+/// <reference path="./es/addIndex.d.ts" />
+/// <reference path="./es/adjust.d.ts" />
+/// <reference path="./es/all.d.ts" />
+/// <reference path="./es/allPass.d.ts" />
+/// <reference path="./es/always.d.ts" />
+/// <reference path="./es/and.d.ts" />
+/// <reference path="./es/any.d.ts" />
+/// <reference path="./es/anyPass.d.ts" />
+/// <reference path="./es/ap.d.ts" />
+/// <reference path="./es/aperture.d.ts" />
+/// <reference path="./es/append.d.ts" />
+/// <reference path="./es/apply.d.ts" />
+/// <reference path="./es/applySpec.d.ts" />
+/// <reference path="./es/applyTo.d.ts" />
+/// <reference path="./es/ascend.d.ts" />
+/// <reference path="./es/assoc.d.ts" />
+/// <reference path="./es/assocPath.d.ts" />
+/// <reference path="./es/binary.d.ts" />
+/// <reference path="./es/bind.d.ts" />
+/// <reference path="./es/both.d.ts" />
+/// <reference path="./es/call.d.ts" />
+/// <reference path="./es/chain.d.ts" />
+/// <reference path="./es/clamp.d.ts" />
+/// <reference path="./es/clone.d.ts" />
+/// <reference path="./es/comparator.d.ts" />
+/// <reference path="./es/complement.d.ts" />
+/// <reference path="./es/compose.d.ts" />
+/// <reference path="./es/composeK.d.ts" />
+/// <reference path="./es/composeP.d.ts" />
+/// <reference path="./es/concat.d.ts" />
+/// <reference path="./es/cond.d.ts" />
+/// <reference path="./es/construct.d.ts" />
+/// <reference path="./es/constructN.d.ts" />
+/// <reference path="./es/contains.d.ts" />
+/// <reference path="./es/converge.d.ts" />
+/// <reference path="./es/countBy.d.ts" />
+/// <reference path="./es/curry.d.ts" />
+/// <reference path="./es/curryN.d.ts" />
+/// <reference path="./es/dec.d.ts" />
+/// <reference path="./es/defaultTo.d.ts" />
+/// <reference path="./es/descend.d.ts" />
+/// <reference path="./es/difference.d.ts" />
+/// <reference path="./es/differenceWith.d.ts" />
+/// <reference path="./es/dissoc.d.ts" />
+/// <reference path="./es/dissocPath.d.ts" />
+/// <reference path="./es/divide.d.ts" />
+/// <reference path="./es/drop.d.ts" />
+/// <reference path="./es/dropLast.d.ts" />
+/// <reference path="./es/dropLastWhile.d.ts" />
+/// <reference path="./es/either.d.ts" />
+/// <reference path="./es/empty.d.ts" />
+/// <reference path="./es/endsWith.d.ts" />
+/// <reference path="./es/eqBy.d.ts" />
+/// <reference path="./es/eqProps.d.ts" />
+/// <reference path="./es/equals.d.ts" />
+/// <reference path="./es/evolve.d.ts" />
+/// <reference path="./es/F.d.ts" />
+/// <reference path="./es/filter.d.ts" />
+/// <reference path="./es/find.d.ts" />
+/// <reference path="./es/findIndex.d.ts" />
+/// <reference path="./es/findLast.d.ts" />
+/// <reference path="./es/findLastIndex.d.ts" />
+/// <reference path="./es/flatten.d.ts" />
+/// <reference path="./es/flip.d.ts" />
+/// <reference path="./es/forEach.d.ts" />
+/// <reference path="./es/forEachObjIndexed.d.ts" />
+/// <reference path="./es/fromPairs.d.ts" />
+/// <reference path="./es/groupBy.d.ts" />
+/// <reference path="./es/groupWith.d.ts" />
+/// <reference path="./es/gt.d.ts" />
+/// <reference path="./es/gte.d.ts" />
+/// <reference path="./es/has.d.ts" />
+/// <reference path="./es/hasIn.d.ts" />
+/// <reference path="./es/head.d.ts" />
+/// <reference path="./es/identical.d.ts" />
+/// <reference path="./es/identity.d.ts" />
+/// <reference path="./es/ifElse.d.ts" />
+/// <reference path="./es/inc.d.ts" />
+/// <reference path="./es/indexBy.d.ts" />
+/// <reference path="./es/indexOf.d.ts" />
+/// <reference path="./es/init.d.ts" />
+/// <reference path="./es/insertAll.d.ts" />
+/// <reference path="./es/insert.d.ts" />
+/// <reference path="./es/intersection.d.ts" />
+/// <reference path="./es/intersectionWith.d.ts" />
+/// <reference path="./es/intersperse.d.ts" />
+/// <reference path="./es/into.d.ts" />
+/// <reference path="./es/invert.d.ts" />
+/// <reference path="./es/invertObj.d.ts" />
+/// <reference path="./es/invoker.d.ts" />
+/// <reference path="./es/isArrayLike.d.ts" />
+/// <reference path="./es/is.d.ts" />
+/// <reference path="./es/isEmpty.d.ts" />
+/// <reference path="./es/isNaN.d.ts" />
+/// <reference path="./es/isNil.d.ts" />
+/// <reference path="./es/join.d.ts" />
+/// <reference path="./es/juxt.d.ts" />
+/// <reference path="./es/keys.d.ts" />
+/// <reference path="./es/keysIn.d.ts" />
+/// <reference path="./es/last.d.ts" />
+/// <reference path="./es/lastIndexOf.d.ts" />
+/// <reference path="./es/length.d.ts" />
+/// <reference path="./es/lens.d.ts" />
+/// <reference path="./es/lensIndex.d.ts" />
+/// <reference path="./es/lensPath.d.ts" />
+/// <reference path="./es/lensProp.d.ts" />
+/// <reference path="./es/lift.d.ts" />
+/// <reference path="./es/lt.d.ts" />
+/// <reference path="./es/lte.d.ts" />
+/// <reference path="./es/mapAccum.d.ts" />
+/// <reference path="./es/mapAccumRight.d.ts" />
+/// <reference path="./es/map.d.ts" />
+/// <reference path="./es/mapObjIndexed.d.ts" />
+/// <reference path="./es/match.d.ts" />
+/// <reference path="./es/mathMod.d.ts" />
+/// <reference path="./es/maxBy.d.ts" />
+/// <reference path="./es/max.d.ts" />
+/// <reference path="./es/mean.d.ts" />
+/// <reference path="./es/median.d.ts" />
+/// <reference path="./es/memoize.d.ts" />
+/// <reference path="./es/memoizeWith.d.ts" />
+/// <reference path="./es/mergeAll.d.ts" />
+/// <reference path="./es/mergeDeepLeft.d.ts" />
+/// <reference path="./es/mergeDeepRight.d.ts" />
+/// <reference path="./es/mergeDeepWith.d.ts" />
+/// <reference path="./es/mergeDeepWithKey.d.ts" />
+/// <reference path="./es/merge.d.ts" />
+/// <reference path="./es/mergeWith.d.ts" />
+/// <reference path="./es/mergeWithKey.d.ts" />
+/// <reference path="./es/minBy.d.ts" />
+/// <reference path="./es/min.d.ts" />
+/// <reference path="./es/modulo.d.ts" />
+/// <reference path="./es/multiply.d.ts" />
+/// <reference path="./es/nAry.d.ts" />
+/// <reference path="./es/negate.d.ts" />
+/// <reference path="./es/none.d.ts" />
+/// <reference path="./es/not.d.ts" />
+/// <reference path="./es/nthArg.d.ts" />
+/// <reference path="./es/nth.d.ts" />
+/// <reference path="./es/objOf.d.ts" />
+/// <reference path="./es/of.d.ts" />
+/// <reference path="./es/omit.d.ts" />
+/// <reference path="./es/once.d.ts" />
+/// <reference path="./es/or.d.ts" />
+/// <reference path="./es/over.d.ts" />
+/// <reference path="./es/pair.d.ts" />
+/// <reference path="./es/partial.d.ts" />
+/// <reference path="./es/partialRight.d.ts" />
+/// <reference path="./es/partition.d.ts" />
+/// <reference path="./es/path.d.ts" />
+/// <reference path="./es/pathEq.d.ts" />
+/// <reference path="./es/pathOr.d.ts" />
+/// <reference path="./es/pathSatisfies.d.ts" />
+/// <reference path="./es/pickAll.d.ts" />
+/// <reference path="./es/pickBy.d.ts" />
+/// <reference path="./es/pick.d.ts" />
+/// <reference path="./es/pipe.d.ts" />
+/// <reference path="./es/pipeK.d.ts" />
+/// <reference path="./es/pipeP.d.ts" />
+/// <reference path="./es/pluck.d.ts" />
+/// <reference path="./es/prepend.d.ts" />
+/// <reference path="./es/product.d.ts" />
+/// <reference path="./es/project.d.ts" />
+/// <reference path="./es/prop.d.ts" />
+/// <reference path="./es/propEq.d.ts" />
+/// <reference path="./es/propIs.d.ts" />
+/// <reference path="./es/propOr.d.ts" />
+/// <reference path="./es/propSatisfies.d.ts" />
+/// <reference path="./es/props.d.ts" />
+/// <reference path="./es/range.d.ts" />
+/// <reference path="./es/reduceBy.d.ts" />
+/// <reference path="./es/reduced.d.ts" />
+/// <reference path="./es/reduce.d.ts" />
+/// <reference path="./es/reduceRight.d.ts" />
+/// <reference path="./es/reduceWhile.d.ts" />
+/// <reference path="./es/reject.d.ts" />
+/// <reference path="./es/remove.d.ts" />
+/// <reference path="./es/repeat.d.ts" />
+/// <reference path="./es/replace.d.ts" />
+/// <reference path="./es/reverse.d.ts" />
+/// <reference path="./es/scan.d.ts" />
+/// <reference path="./es/set.d.ts" />
+/// <reference path="./es/slice.d.ts" />
+/// <reference path="./es/sortBy.d.ts" />
+/// <reference path="./es/sort.d.ts" />
+/// <reference path="./es/sortWith.d.ts" />
+/// <reference path="./es/splitAt.d.ts" />
+/// <reference path="./es/split.d.ts" />
+/// <reference path="./es/splitEvery.d.ts" />
+/// <reference path="./es/splitWhen.d.ts" />
+/// <reference path="./es/startsWith.d.ts" />
+/// <reference path="./es/subtract.d.ts" />
+/// <reference path="./es/sum.d.ts" />
+/// <reference path="./es/symmetricDifference.d.ts" />
+/// <reference path="./es/symmetricDifferenceWith.d.ts" />
+/// <reference path="./es/tail.d.ts" />
+/// <reference path="./es/take.d.ts" />
+/// <reference path="./es/takeLast.d.ts" />
+/// <reference path="./es/takeLastWhile.d.ts" />
+/// <reference path="./es/takeWhile.d.ts" />
+/// <reference path="./es/tap.d.ts" />
+/// <reference path="./es/T.d.ts" />
+/// <reference path="./es/test.d.ts" />
+/// <reference path="./es/times.d.ts" />
+/// <reference path="./es/toLower.d.ts" />
+/// <reference path="./es/toPairs.d.ts" />
+/// <reference path="./es/toPairsIn.d.ts" />
+/// <reference path="./es/toString.d.ts" />
+/// <reference path="./es/toUpper.d.ts" />
+/// <reference path="./es/transduce.d.ts" />
+/// <reference path="./es/transpose.d.ts" />
+/// <reference path="./es/traverse.d.ts" />
+/// <reference path="./es/trim.d.ts" />
+/// <reference path="./es/tryCatch.d.ts" />
+/// <reference path="./es/type.d.ts" />
+/// <reference path="./es/unapply.d.ts" />
+/// <reference path="./es/unary.d.ts" />
+/// <reference path="./es/uncurryN.d.ts" />
+/// <reference path="./es/unfold.d.ts" />
+/// <reference path="./es/union.d.ts" />
+/// <reference path="./es/unionWith.d.ts" />
+/// <reference path="./es/uniqBy.d.ts" />
+/// <reference path="./es/uniq.d.ts" />
+/// <reference path="./es/uniqWith.d.ts" />
+/// <reference path="./es/unless.d.ts" />
+/// <reference path="./es/unnest.d.ts" />
+/// <reference path="./es/until.d.ts" />
+/// <reference path="./es/update.d.ts" />
+/// <reference path="./es/useWith.d.ts" />
+/// <reference path="./es/values.d.ts" />
+/// <reference path="./es/valuesIn.d.ts" />
+/// <reference path="./es/view.d.ts" />
+/// <reference path="./es/when.d.ts" />
+/// <reference path="./es/where.d.ts" />
+/// <reference path="./es/whereEq.d.ts" />
+/// <reference path="./es/without.d.ts" />
+/// <reference path="./es/wrap.d.ts" />
+/// <reference path="./es/xprod.d.ts" />
+/// <reference path="./es/zip.d.ts" />
+/// <reference path="./es/zipObj.d.ts" />
+/// <reference path="./es/zipWith.d.ts" />
 
 declare let R: R.Static;
 
 declare namespace R {
     type Omit<T, K extends string> = Pick<T, Exclude<keyof T, K>>;
 
-    type Ord = number | string | boolean;
+    type Ord = number | string | boolean | Date;
 
     type Path = ReadonlyArray<(number | string)>;
 
@@ -80,9 +324,17 @@ declare namespace R {
         set<T, U>(str: string, obj: T): U;
     }
 
-    interface Filter<T> {
-      (list: ReadonlyArray<T>): T[];
-      (obj: Dictionary<T>): Dictionary<T>;
+    interface Filter {
+        <T>(fn: (value: T) => boolean): FilterOnceApplied<T>;
+        <T, Kind extends 'array'>(fn: (value: T) => boolean): (list: ReadonlyArray<T>) => T[];
+        <T, Kind extends 'object'>(fn: (value: T) => boolean): (list: Dictionary<T>) => Dictionary<T>;
+        <T>(fn: (value: T) => boolean, list: ReadonlyArray<T>): T[];
+        <T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
+    }
+
+    interface FilterOnceApplied<T> {
+        (list: ReadonlyArray<T>): T[];
+        (obj: Dictionary<T>): Dictionary<T>;
     }
 
     type Evolve<O extends Evolvable<E>, E extends Evolver> = {
@@ -179,12 +431,20 @@ declare namespace R {
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): R;
     }
 
+    interface Placeholder { __isRamdaPlaceholder__: true; }
+
     interface Reduced<T> {
         '@@transducer/value': T;
         '@@transducer/reduced': true;
     }
 
     interface Static {
+        /**
+         * Placeholder. When used with functions like curry, or op, the second argument is applied to the second
+         * position, and it returns a function waiting for its first argument.
+         */
+        __: Placeholder; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
+
         /**
          * Adds two numbers (or strings). Equivalent to a + b but curried.
          */
@@ -304,8 +564,8 @@ declare namespace R {
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
         assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
-        assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
         assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
+        assoc<K extends string>(prop: K): <T, U>(val: T, obj: U) => Record<K, T> & U;
 
         /**
          * Makes a shallow clone of an object, setting or overriding the nodes required to create the given path, and
@@ -346,8 +606,8 @@ declare namespace R {
          * `chain` maps a function over a list and concatenates the results.
          * This implementation is compatible with the Fantasy-land Chain spec
          */
-        chain<T, U>(fn: (n: T) => U[], list: ReadonlyArray<T>): U[];
-        chain<T, U>(fn: (n: T) => U[]): (list: ReadonlyArray<T>) => U[];
+        chain<T, U>(fn: (n: T) => ReadonlyArray<U>, list: ReadonlyArray<T>): U[];
+        chain<T, U>(fn: (n: T) => ReadonlyArray<U>): (list: ReadonlyArray<T>) => U[];
 
         /**
          * Restricts a number to be within a range.
@@ -383,26 +643,38 @@ declare namespace R {
          * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
          * functions must be unary.
          */
+
+        // generic rest parameters in TS 3.0 allows writing a single variant for any number of Vx
+        // compose<V extends any[], T1>(fn0: (...args: V) => T1): (...args: V) => T1;
+        // compose<V extends any[], T1, T2>(fn1: (x: T1) => T2, fn0: (...args: V) => T1): (...args: V) => T2;
+        // but requiring TS>=3.0 sounds like a breaking change, so just leaving a comment for the future
+
+        compose<T1>(fn0: () => T1): () => T1;
         compose<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
         compose<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
         compose<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
 
+        compose<T1, T2>(fn1: (x: T1) => T2, fn0: () => T1): () => T2;
         compose<V0, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0) => T1): (x0: V0) => T2;
         compose<V0, V1, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T2;
         compose<V0, V1, V2, T1, T2>(fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T2;
 
+        compose<T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T3;
         compose<V0, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T3;
         compose<V0, V1, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T3;
         compose<V0, V1, V2, T1, T2, T3>(fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T3;
 
+        compose<T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T4;
         compose<V0, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T4;
         compose<V0, V1, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T4;
         compose<V0, V1, V2, T1, T2, T3, T4>(fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T4;
 
+        compose<T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T5;
         compose<V0, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T5;
         compose<V0, V1, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T5;
         compose<V0, V1, V2, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T5;
 
+        compose<T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: () => T1): () => T6;
         compose<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T6;
         compose<V0, V1, T1, T2, T3, T4, T5, T6>(
             fn5: (x: T5) => T6,
@@ -420,17 +692,79 @@ declare namespace R {
             fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
 
         /**
-         * TODO composeK
+         * Returns the right-to-left Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
+         * The typings only support arrays for now.
+         * All functions must be unary.
+         * R.composeK(h, g, f) is equivalent to R.compose(R.chain(h), R.chain(g), f).
          */
+        composeK<V0, T1>(
+            fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
+        composeK<V0, T1, T2>(
+            fn1: (x: T1) => T2[],
+            fn0: (x0: V0) => T1[]): (x0: V0) => T2[];
+        composeK<V0, T1, T2, T3>(
+            fn2: (x: T2) => T3[],
+            fn1: (x: T1) => T2[],
+            fn0: (x: V0) => T1[]): (x: V0) => T3[];
+        composeK<V0, T1, T2, T3, T4>(
+            fn3: (x: T3) => T4[],
+            fn2: (x: T2) => T3[],
+            fn1: (x: T1) => T2[],
+            fn0: (x: V0) => T1[]): (x: V0) => T4[];
+        composeK<V0, T1, T2, T3, T4, T5>(
+            fn4: (x: T4) => T5[],
+            fn3: (x: T3) => T4[],
+            fn2: (x: T2) => T3[],
+            fn1: (x: T1) => T2[],
+            fn0: (x: V0) => T1[]): (x: V0) => T5[];
+        composeK<V0, T1, T2, T3, T4, T5, T6>(
+            fn5: (x: T5) => T6[],
+            fn4: (x: T4) => T5[],
+            fn3: (x: T3) => T4[],
+            fn2: (x: T2) => T3[],
+            fn1: (x: T1) => T2[],
+            fn0: (x: V0) => T1[]): (x: V0) => T6[];
 
         /**
-         * TODO composeP
+         * Performs right-to-left composition of one or more Promise-returning functions.
+         * All functions must be unary.
          */
+        composeP<V0, T1>(
+            fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
+        composeP<V0, T1, T2>(
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T2>;
+        composeP<V0, T1, T2, T3>(
+            fn2: (x: T2) => Promise<T3>,
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x: V0) => Promise<T1>): (x: V0) => Promise<T3>;
+        composeP<V0, T1, T2, T3, T4>(
+            fn3: (x: T3) => Promise<T4>,
+            fn2: (x: T2) => Promise<T3>,
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x: V0) => Promise<T1>): (x: V0) => Promise<T4>;
+        composeP<V0, T1, T2, T3, T4, T5>(
+            fn4: (x: T4) => Promise<T5>,
+            fn3: (x: T3) => Promise<T4>,
+            fn2: (x: T2) => Promise<T3>,
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x: V0) => Promise<T1>):
+        (x: V0) => Promise<T5>;
+        composeP<V0, T1, T2, T3, T4, T5, T6>(
+            fn5: (x: T5) => Promise<T6>,
+            fn4: (x: T4) => Promise<T5>,
+            fn3: (x: T3) => Promise<T4>,
+            fn2: (x: T2) => Promise<T3>,
+            fn1: (x: T1) => Promise<T2>,
+            fn0: (x: V0) => Promise<T1>):
+        (x: V0) => Promise<T6>;
 
         /**
          * Returns a new list consisting of the elements of the first list followed by the elements
          * of the second.
          */
+        concat<T>(placeholder: Placeholder): (list2: ReadonlyArray<T>, list1: ReadonlyArray<T>) => T[];
+        concat<T>(placeholder: Placeholder, list2: ReadonlyArray<T>): (list1: ReadonlyArray<T>) => T[];
         concat<T>(list1: ReadonlyArray<T>, list2: ReadonlyArray<T>): T[];
         concat<T>(list1: ReadonlyArray<T>): (list2: ReadonlyArray<T>) => T[];
         concat(list1: string, list2: string): string;
@@ -459,6 +793,10 @@ declare namespace R {
          * Returns `true` if the specified item is somewhere in the list, `false` otherwise.
          * Equivalent to `indexOf(a)(list) > -1`. Uses strict (`===`) equality checking.
          */
+        contains(__: Placeholder, list: string): (a: string) => boolean;
+        contains<T>(__: Placeholder, list: T[]): (a: T) => boolean;
+        contains(__: Placeholder): (list: string, a: string) => boolean;
+        contains<T>(__: Placeholder): (list: T[], a: T) => boolean;
         contains(a: string, list: string): boolean;
         contains<T>(a: T, list: ReadonlyArray<T>): boolean;
         contains(a: string): (list: string) => boolean;
@@ -553,6 +891,8 @@ declare namespace R {
         /**
          * Divides two numbers. Equivalent to a / b.
          */
+        divide(__: Placeholder, b: number): (a: number) => number;
+        divide(__: Placeholder): (b: number, a: number) => number;
         divide(a: number, b: number): number;
         divide(a: number): (b: number) => number;
 
@@ -649,9 +989,7 @@ declare namespace R {
         /**
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
          */
-        filter<T>(fn: (value: T) => boolean): Filter<T>;
-        filter<T>(fn: (value: T) => boolean, list: ReadonlyArray<T>): T[];
-        filter<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
+        filter: Filter;
 
         /**
          * Returns the first element of the list which matches the predicate, or `undefined` if no
@@ -685,7 +1023,7 @@ declare namespace R {
          * Returns a new list by pulling every item out of it (and all its sub-arrays) and putting
          * them in a new array, depth-first.
          */
-        flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]>): T[];
+        flatten<T>(x: ReadonlyArray<T> | ReadonlyArray<T[]> | ReadonlyArray<ReadonlyArray<T>>): T[];
 
         /**
          * Returns a new function much like the supplied one, except that the first two arguments'
@@ -732,18 +1070,24 @@ declare namespace R {
         /**
          * Returns true if the first parameter is greater than the second.
          */
+        gt(__: Placeholder, b: number): (a: number) => boolean;
+        gt(__: Placeholder): (b: number, a: number) => boolean;
         gt(a: number, b: number): boolean;
         gt(a: number): (b: number) => boolean;
 
         /**
          * Returns true if the first parameter is greater than or equal to the second.
          */
+        gte(__: Placeholder, b: number): (a: number) => boolean;
+        gte(__: Placeholder): (b: number, a: number) => boolean;
         gte(a: number, b: number): boolean;
         gte(a: number): (b: number) => boolean;
 
         /**
          * Returns whether or not an object has an own property with the specified name.
          */
+        has<T>(__: Placeholder, obj: T): (s: string) => boolean;
+        has<T>(__: Placeholder): (obj: T, s: string) => boolean;
         has<T>(s: string, obj: T): boolean;
         has(s: string): <T>(obj: T) => boolean;
 
@@ -911,6 +1255,7 @@ declare namespace R {
          * Returns a list containing the names of all the enumerable own
          * properties of the supplied object.
          */
+        keys<T extends object>(x: T): Array<keyof T>;
         keys<T>(x: T): string[];
 
         /**
@@ -978,12 +1323,16 @@ declare namespace R {
         /**
          * Returns true if the first parameter is less than the second.
          */
+        lt(__: Placeholder, b: number): (a: number) => boolean;
+        lt(__: Placeholder): (b: number, a: number) => boolean;
         lt(a: number, b: number): boolean;
         lt(a: number): (b: number) => boolean;
 
         /**
          * Returns true if the first parameter is less than or equal to the second.
          */
+        lte(__: Placeholder, b: number): (a: number) => boolean;
+        lte(__: Placeholder): (b: number, a: number) => boolean;
         lte(a: number, b: number): boolean;
         lte(a: number): (b: number) => boolean;
 
@@ -1014,6 +1363,16 @@ declare namespace R {
         /**
          * Like mapObj, but but passes additional arguments to the predicate function.
          */
+        mapObjIndexed<T, TResult>(
+            fn: (value: T, key: string, obj?: {
+                [key: string]: T
+            }) => TResult,
+            obj: {
+                [key: string]: T
+            }
+        ): {
+            [key: string]: TResult
+        };
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult, obj: any): { [index: string]: TResult };
         mapObjIndexed<T, TResult>(fn: (value: T, key: string, obj?: any) => TResult): (obj: any) => { [index: string]: TResult };
 
@@ -1029,6 +1388,8 @@ declare namespace R {
          * mathMod(-17, 5) is 3. mathMod requires Integer arguments, and returns NaN
          * when the modulus is zero or negative.
          */
+        mathMod(__: Placeholder, b: number): (a: number) => number;
+        mathMod(__: Placeholder): (b: number, a: number) => number;
         mathMod(a: number, b: number): number;
         mathMod(a: number): (b: number) => number;
 
@@ -1077,6 +1438,8 @@ declare namespace R {
          * merged with the own properties of object b.
          * This function will *not* mutate passed-in objects.
          */
+        merge<T2>(__: Placeholder, b: T2): <T1>(a: T1) => T1 & T2;
+        merge(__: Placeholder): <T1, T2>(b: T2, a: T1) => T1 & T2;
         merge<T1, T2>(a: T1, b: T2): T1 & T2;
         merge<T1>(a: T1): <T2>(b: T2) => T1 & T2;
 
@@ -1164,6 +1527,8 @@ declare namespace R {
          * Note that this functions preserves the JavaScript-style behavior for
          * modulo. For mathematical modulo see `mathMod`
          */
+        modulo(__: Placeholder, b: number): (a: number) => number;
+        modulo(__: Placeholder): (b: number, a: number) => number;
         modulo(a: number, b: number): number;
         modulo(a: number): (b: number) => number;
 
@@ -1353,26 +1718,32 @@ declare namespace R {
          * passing the return value of each function invocation to the next function invocation,
          * beginning with whatever arguments were passed to the initial invocation.
          */
+        pipe<T1>(fn0: () => T1): () => T1;
         pipe<V0, T1>(fn0: (x0: V0) => T1): (x0: V0) => T1;
         pipe<V0, V1, T1>(fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T1;
         pipe<V0, V1, V2, T1>(fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T1;
 
+        pipe<T1, T2>(fn0: () => T1, fn1: (x: T1) => T2): () => T2;
         pipe<V0, T1, T2>(fn0: (x0: V0) => T1, fn1: (x: T1) => T2): (x0: V0) => T2;
         pipe<V0, V1, T1, T2>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1) => T2;
         pipe<V0, V1, V2, T1, T2>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2): (x0: V0, x1: V1, x2: V2) => T2;
 
+        pipe<T1, T2, T3>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): () => T3;
         pipe<V0, T1, T2, T3>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x: V0) => T3;
         pipe<V0, V1, T1, T2, T3>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1) => T3;
         pipe<V0, V1, V2, T1, T2, T3>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3): (x0: V0, x1: V1, x2: V2) => T3;
 
+        pipe<T1, T2, T3, T4>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): () => T4;
         pipe<V0, T1, T2, T3, T4>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x: V0) => T4;
         pipe<V0, V1, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1) => T4;
         pipe<V0, V1, V2, T1, T2, T3, T4>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4): (x0: V0, x1: V1, x2: V2) => T4;
 
+        pipe<T1, T2, T3, T4, T5>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): () => T5;
         pipe<V0, T1, T2, T3, T4, T5>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x: V0) => T5;
         pipe<V0, V1, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1) => T5;
         pipe<V0, V1, V2, T1, T2, T3, T4, T5>(fn0: (x0: V0, x1: V1, x2: V2) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5): (x0: V0, x1: V1, x2: V2) => T5;
 
+        pipe<T1, T2, T3, T4, T5, T6>(fn0: () => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): () => T6;
         pipe<V0, T1, T2, T3, T4, T5, T6>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x: V0) => T6;
         pipe<V0, V1, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x0: V0, x1: V1) => T6;
         pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
@@ -1383,6 +1754,14 @@ declare namespace R {
             fn4: (x: T4) => T5,
             fn5: (x: T5) => T6): (x0: V0, x1: V1, x2: V2) => T6;
 
+        pipe<T1, T2, T3, T4, T5, T6, T7>(
+            fn0: () => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn: (x: T6) => T7): () => T7;
         pipe<V0, T1, T2, T3, T4, T5, T6, T7>(
             fn0: (x: V0) => T1,
             fn1: (x: T1) => T2,
@@ -1408,6 +1787,15 @@ declare namespace R {
             fn5: (x: T5) => T6,
             fn6: (x: T6) => T7): (x0: V0, x1: V1, x2: V2) => T7;
 
+        pipe<T1, T2, T3, T4, T5, T6, T7, T8>(
+            fn0: () => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn: (x: T7) => T8): () => T8;
         pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
             fn0: (x: V0) => T1,
             fn1: (x: T1) => T2,
@@ -1436,6 +1824,16 @@ declare namespace R {
             fn6: (x: T6) => T7,
             fn7: (x: T7) => T8): (x0: V0, x1: V1, x2: V2) => T8;
 
+        pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            fn0: () => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn7: (x: T7) => T8,
+            fn8: (x: T8) => T9): () => T9;
         pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
             fn0: (x0: V0) => T1,
             fn1: (x: T1) => T2,
@@ -1467,6 +1865,17 @@ declare namespace R {
             fn7: (x: T7) => T8,
             fn8: (x: T8) => T9): (x0: V0, x1: V1, x2: V2) => T9;
 
+        pipe<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            fn0: () => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn7: (x: T7) => T8,
+            fn8: (x: T8) => T9,
+            fn9: (x: T9) => T10): () => T10;
         pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             fn0: (x0: V0) => T1,
             fn1: (x: T1) => T2,
@@ -1500,6 +1909,148 @@ declare namespace R {
             fn7: (x: T7) => T8,
             fn8: (x: T8) => T9,
             fn9: (x: T9) => T10): (x0: V0, x1: V1, x2: V2) => T10;
+
+        /*
+         * Returns the left-to-right Kleisli composition of the provided functions, each of which must return a value of a type supported by chain.
+         * The typings currently support arrays only as return values.
+         * All functions need to be unary.
+         * R.pipeK(f, g, h) is equivalent to R.pipe(f, R.chain(g), R.chain(h)).
+         */
+        pipeK<V0, T1>(
+            fn0: (x0: V0) => T1[]): (x0: V0) => T1[];
+        pipeK<V0, T1, T2>(
+            fn0: (x0: V0) => T1[],
+            fn1: (x: T1) => T2[]): (x0: V0) => T2[];
+        pipeK<V0, T1, T2, T3>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[]): (x: V0) => T3[];
+        pipeK<V0, T1, T2, T3, T4>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[]): (x: V0) => T4[];
+        pipeK<V0, T1, T2, T3, T4, T5>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[]): (x: V0) => T5[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[]): (x: V0) => T6[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6, T7>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[],
+            fn: (x: T6) => T7[]): (x: V0) => T7[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
+            fn0: (x: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[],
+            fn6: (x: T6) => T7[],
+            fn: (x: T7) => T8[]): (x: V0) => T8[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            fn0: (x0: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[],
+            fn6: (x: T6) => T7[],
+            fn7: (x: T7) => T8[],
+            fn8: (x: T8) => T9[]): (x0: V0) => T9[];
+        pipeK<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            fn0: (x0: V0) => T1[],
+            fn1: (x: T1) => T2[],
+            fn2: (x: T2) => T3[],
+            fn3: (x: T3) => T4[],
+            fn4: (x: T4) => T5[],
+            fn5: (x: T5) => T6[],
+            fn6: (x: T6) => T7[],
+            fn7: (x: T7) => T8[],
+            fn8: (x: T8) => T9[],
+            fn9: (x: T9) => T10[]): (x0: V0) => T10[];
+
+        /*
+         * Performs left-to-right composition of one or more Promise-returning functions.
+         * All functions need to be unary.
+         */
+        pipeP<V0, T1>(
+            fn0: (x0: V0) => Promise<T1>): (x0: V0) => Promise<T1>;
+        pipeP<V0, T1, T2>(
+            fn0: (x0: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>): (x0: V0) => Promise<T2>;
+        pipeP<V0, T1, T2, T3>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>): (x: V0) => Promise<T3>;
+        pipeP<V0, T1, T2, T3, T4>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>): (x: V0) => Promise<T4>;
+        pipeP<V0, T1, T2, T3, T4, T5>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>): (x: V0) => Promise<T5>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>): (x: V0) => Promise<T6>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6, T7>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>,
+            fn: (x: T6) => Promise<T7>): (x: V0) => Promise<T7>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
+            fn0: (x: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>,
+            fn6: (x: T6) => Promise<T7>,
+            fn: (x: T7) => Promise<T8>): (x: V0) => Promise<T8>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            fn0: (x0: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>,
+            fn6: (x: T6) => Promise<T7>,
+            fn7: (x: T7) => Promise<T8>,
+            fn8: (x: T8) => Promise<T9>): (x0: V0) => Promise<T9>;
+        pipeP<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            fn0: (x0: V0) => Promise<T1>,
+            fn1: (x: T1) => Promise<T2>,
+            fn2: (x: T2) => Promise<T3>,
+            fn3: (x: T3) => Promise<T4>,
+            fn4: (x: T4) => Promise<T5>,
+            fn5: (x: T5) => Promise<T6>,
+            fn6: (x: T6) => Promise<T7>,
+            fn7: (x: T7) => Promise<T8>,
+            fn8: (x: T8) => Promise<T9>,
+            fn9: (x: T9) => Promise<T10>): (x0: V0) => Promise<T10>;
 
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
@@ -1637,9 +2188,7 @@ declare namespace R {
          * Similar to `filter`, except that it keeps only values for which the given predicate
          * function returns falsy.
          */
-        reject<T>(fn: (value: T) => boolean): Filter<T>;
-        reject<T>(fn: (value: T) => boolean, list: ReadonlyArray<T>): T[];
-        reject<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
+        reject: Filter;
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
@@ -1766,6 +2315,8 @@ declare namespace R {
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
          */
+        subtract(__: Placeholder, b: number): (a: number) => number;
+        subtract(__: Placeholder): (b: number, a: number) => number;
         subtract(a: number, b: number): number;
         subtract(a: number): (b: number) => number;
 

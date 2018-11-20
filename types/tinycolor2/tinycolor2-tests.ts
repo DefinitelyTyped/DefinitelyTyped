@@ -1,126 +1,200 @@
-
-
 /*
  * Not all possible formats for construction are displayed.
  * To see a complete list please view: https://github.com/bgrins/TinyColor
  */
-var tester: tinycolorInstance = tinycolor("red");
+const testColor: tinycolor.Instance = tinycolor("red");
 
 /* Constructor Tests*/
 
 // string
-tester = tinycolor("#ffffff");
+// $ExpectType Instance
+tinycolor("#ffffff");
 
-//rgb && rgba
-tester = tinycolor({ r: 40, g: 30, b: 20 });
-tester = tinycolor({ r: 255, g: 20, b: 10, a: 0 });
-tester = tinycolor.fromRatio({ r: 0.5, g: 0.2, b: 1, a: 0 });
-tester = tinycolor.fromRatio({ r: 1, g: 0, b: 0.7, a: 0 });
+// rgb && rgba
+// $ExpectType Instance
+tinycolor({ r: 40, g: 30, b: 20 });
+// $ExpectType Instance
+tinycolor({ r: 255, g: 20, b: 10, a: 0 });
+// $ExpectType Instance
+tinycolor.fromRatio({ r: 0.5, g: 0.2, b: 1, a: 0 });
+// $ExpectType Instance
+tinycolor.fromRatio({ r: 1, g: 0, b: 0.7, a: 0 });
 
-//hsl && hsla
-tester = tinycolor({ h: 0, s: 0, l: 0 });
-tester = tinycolor({ h: 0, s: 0, l: 0, a: 0 });
-tester = tinycolor.fromRatio({ h: 0.5, s: 0.2, l: 1, a: 0 });
+// hsl && hsla
+// $ExpectType Instance
+tinycolor({ h: 0, s: 0, l: 0 });
+// $ExpectType Instance
+tinycolor({ h: 0, s: 0, l: 0, a: 0 });
+// $ExpectType Instance
+tinycolor.fromRatio({ h: 0.5, s: 0.2, l: 1, a: 0 });
 
-//hsv && hsva
-tester = tinycolor({ h: 0, s: 0, v: 0 });
-tester = tinycolor({ h: 0, s: 0, v: 0, a: 0 });
+// hsv && hsva
+// $ExpectType Instance
+tinycolor({ h: 0, s: 0, v: 0 });
+// $ExpectType Instance
+tinycolor({ h: 0, s: 0, v: 0, a: 0 });
 
-//tinycolor static methods
-tester = tinycolor.mix(tester, tester);
-tester = tinycolor.mix("#ff0000", "#00ff00");
-tester = tinycolor.mix(tester, tester, 50);
-tester = tinycolor.random();
-var isEqual = tinycolor.equals(tester, tester);
+// tinycolor static methods
+// $ExpectType Instance
+tinycolor.mix(testColor, testColor);
+// $ExpectType Instance
+tinycolor.mix("#ff0000", "#00ff00");
+// $ExpectType Instance
+tinycolor.mix(testColor, testColor, 50);
+// $ExpectType Instance
+tinycolor.random();
 
-/*Tinycolor object properties*/
+// $ExpectType boolean
+tinycolor.equals(testColor, testColor);
 
-var readable: Readable.Readable = tinycolor.readability(tester, tester);
-var isReadable: boolean = tinycolor.isReadable(tester, tester);
-var isReadable: boolean = tinycolor.isReadable(tester, tester, {size: "small"});
-tester = tinycolor.mostReadable(tester, [tester, tester, tester]);
-tester = tinycolor.mostReadable(tester, [tester, tester, tester], {size: "large", level:"AA"});
+// $ExpectType number
+tinycolor.readability(testColor, testColor);
+// $ExpectType boolean
+tinycolor.isReadable(testColor, testColor);
+// $ExpectType boolean
+tinycolor.isReadable(testColor, testColor, {size: "small"});
+// $ExpectType Instance
+tinycolor.mostReadable(testColor, [testColor, testColor, testColor]);
+// $ExpectType Instance
+tinycolor.mostReadable(testColor, [testColor, testColor, testColor], {size: "large", level: "AA"});
 
-var hexNames: { [key: string]: string } = tinycolor.hexNames;
-var names: { [key: string]: string } = tinycolor.names;
+const hexNames: { [key: string]: string } = tinycolor.hexNames;
+const names: { [key: string]: string } = tinycolor.names;
+// $ExpectType "linen"
+tinycolor.hexNames["faf0e6"];
+// $ExpectType "yellow"
+tinycolor.hexNames["ff0"];
+// $ExpectType "f0f8ff"
+tinycolor.names["aliceblue"];
+// $ExpectType "808080"
+tinycolor.names["gray"];
 
-/*Instance Methods*/
+/* Instance Methods */
 
-//check properties
-var isValid: boolean = tester.isValid();
-var isLight: boolean = tester.isLight();
-var isDark: boolean = tester.isDark();
+// check properties
+// $ExpectType boolean
+testColor.isValid();
+// $ExpectType boolean
+testColor.isLight();
+// $ExpectType boolean
+testColor.isDark();
 
-//get properties
-var alpha: number = tester.getAlpha();
-var brightness: number = tester.getBrightness();
-var format: string = tester.getFormat();
-var originalInput: any = tester.getOriginalInput();
+// get properties
+const alpha: number = testColor.getAlpha();
+// $ExpectType number
+testColor.getBrightness();
+// $ExpectType string
+testColor.getFormat();
+// $ExpectType ColorInput
+testColor.getOriginalInput();
 
-//set properties
-tester = tester.setAlpha(alpha);
+// set properties
+// $ExpectType Instance
+testColor.setAlpha(alpha);
 
-//representations
-var hsva: ColorFormats.HSVA = tester.toHsv();
-var hsvString: string = tester.toHsvString();
+// representations
+// $ExpectType HSVA
+testColor.toHsv();
+// $ExpectType string
+testColor.toHsvString();
 
-var hsl: ColorFormats.HSLA = tester.toHsl();
-var hslString: string = tester.toHslString();
+// $ExpectType HSLA
+testColor.toHsl();
+// $ExpectType string
+testColor.toHslString();
 
-var hex: string = tester.toHex();
-var hexString: string = tester.toHexString();
+// $ExpectType string
+testColor.toHex();
+// $ExpectType string
+testColor.toHexString();
 
-var hex8: string = tester.toHex8();
-var hex8String: string = tester.toHex8String();
+// $ExpectType string
+testColor.toHex8();
+// $ExpectType string
+testColor.toHex8String();
 
-var rgba: ColorFormats.RGBA = tester.toRgb();
-var rgbString: string = tester.toString();
+// $ExpectType RGBA
+testColor.toRgb();
+// $ExpectType string
+testColor.toString();
 
-var percentageRGBA: ColorFormats.RGBA = tester.toPercentageRgb();
-var percentageRGBString: string = tester.toPercentageRgbString();
+// $ExpectType PRGBA
+testColor.toPercentageRgb();
+// $ExpectType string
+testColor.toPercentageRgbString();
 
-var name_: string = tester.toName();
-var filter: string = tester.toFilter();
-var sString: string = tester.toString();
-sString = tester.toString("rgb");
-sString = tester.toString("prgb");
-sString = tester.toString("hex6");
-sString = tester.toString("hex3");
-sString = tester.toString("hex8");
-sString = tester.toString("name");
-sString = tester.toString("hsl");
-sString = tester.toString("hsv");
+// $ExpectType string | false
+testColor.toName();
+// $ExpectType string
+testColor.toFilter();
+// $ExpectType string
+testColor.toString();
+// $ExpectType string
+testColor.toString("rgb");
+// $ExpectType string
+testColor.toString("prgb");
+// $ExpectType string
+testColor.toString("hex6");
+// $ExpectType string
+testColor.toString("hex3");
+// $ExpectType string
+testColor.toString("hex8");
+// $ExpectType string
+testColor.toString("name");
+// $ExpectType string
+testColor.toString("hsl");
+// $ExpectType string
+testColor.toString("hsv");
 
-//color modifications
-tester = tester.lighten();
-tester = tester.lighten(20);
+// color modifications
+// $ExpectType Instance
+testColor.lighten();
+// $ExpectType Instance
+testColor.lighten(20);
 
-tester = tester.brighten();
-tester = tester.brighten(20);
+// $ExpectType Instance
+testColor.brighten();
+// $ExpectType Instance
+testColor.brighten(20);
 
-tester = tester.darken();
-tester = tester.darken(20);
+// $ExpectType Instance
+testColor.darken();
+// $ExpectType Instance
+testColor.darken(20);
 
-tester = tester.desaturate();
-tester = tester.desaturate(20);
+// $ExpectType Instance
+testColor.desaturate();
+// $ExpectType Instance
+testColor.desaturate(20);
 
-tester = tester.saturate();
-tester = tester.saturate(20);
+// $ExpectType Instance
+testColor.saturate();
+// $ExpectType Instance
+testColor.saturate(20);
 
-tester = tester.spin();
-tester = tester.spin(20);
+// $ExpectType Instance
+testColor.spin(20);
 
-tester = tester.greyscale();
+// $ExpectType Instance
+testColor.greyscale();
 
-//color combinations
-var colors: tinycolorInstance[] = tester.analogous();
-colors = tester.analogous(6, 30);
+// color combinations
+// $ExpectType Instance[]
+testColor.analogous();
+// $ExpectType Instance[]
+testColor.analogous(6, 30);
 
-colors = tester.monochromatic();
-colors = tester.monochromatic(10);
+// $ExpectType Instance[]
+testColor.monochromatic();
+// $ExpectType Instance[]
+testColor.monochromatic(10);
 
-colors = tester.splitcomplement();
-colors = tester.triad();
-colors = tester.tetrad();
+// $ExpectType [Instance, Instance, Instance]
+testColor.splitcomplement();
+// $ExpectType [Instance, Instance, Instance]
+testColor.triad();
+// $ExpectType [Instance, Instance, Instance, Instance]
+testColor.tetrad();
 
-tester = tester.complement();
+// $ExpectType Instance
+testColor.complement();

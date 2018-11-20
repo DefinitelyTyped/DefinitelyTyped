@@ -3,6 +3,7 @@
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 //                 Zoltan Ujvary <https://github.com/ujvzolee>
 //                 Simon Colmer <https://github.com/workshop2>
+//                 XtrimSystems <https://github.com/xtrimsystems>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node"/>
@@ -378,6 +379,8 @@ export declare class LCD {
     autoscroll(): void;
     noAutoscroll(): void;
     bgColor(color: any): void;
+    noBacklight(): void;
+    backlight(): void;
 }
 
 export interface LedOption {
@@ -512,9 +515,16 @@ export class Motion {
     on(event: "calibrated", cb: () => void): this;
 }
 
+export interface MotorPins {
+    pwm: number;
+    dir: number;
+    cdir?: number;
+    brake?:number;
+}
+
 export interface MotorOption {
-    pins: any;
-    current?: any;
+    pins: MotorPins;
+    current?: SensorOption;
     invertPWM?: boolean;
     address?: number;
     controller?: string;
@@ -523,7 +533,7 @@ export interface MotorOption {
 }
 
 export declare class Motor {
-    constructor(option: Array<number> | MotorOption);
+    constructor(option: number[] | MotorOption);
 
     readonly isOn: boolean;
 
@@ -531,8 +541,22 @@ export declare class Motor {
     fwd(speed: number): void;
     reverse(speed: number): void;
     rev(speed: number): void;
-    start(): void;
-    start(speed: number): void;
+    start(speed?: number): void;
+    stop(): void;
+    brake(): void;
+    release(): void;
+}
+
+export declare class Motors {
+    constructor(option: number[] | MotorOption[]);
+
+    readonly isOn: boolean;
+
+    forward(speed: number): void;
+    fwd(speed: number): void;
+    reverse(speed: number): void;
+    rev(speed: number): void;
+    start(speed?: number): void;
     stop(): void;
     brake(): void;
     release(): void;
@@ -623,7 +647,7 @@ export declare class Ping {
 export declare interface ProximityOption {
     pin: number | string;
     controller: string;
-}   
+}
 
 export declare interface ProximityData {
     cm: number;
@@ -663,6 +687,7 @@ export interface SensorOption {
     pin: number | string;
     freq?: boolean;
     threshold?: number;
+    enabled?: boolean;
 }
 
 export declare class Sensor {

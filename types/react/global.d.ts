@@ -13,6 +13,7 @@ interface FocusEvent extends Event { }
 interface KeyboardEvent extends Event { }
 interface MouseEvent extends Event { }
 interface TouchEvent extends Event { }
+interface PointerEvent extends Event { }
 interface TransitionEvent extends Event { }
 interface UIEvent extends Event { }
 interface WheelEvent extends Event { }
@@ -177,4 +178,6 @@ interface SVGTSpanElement extends SVGElement { }
 interface SVGUseElement extends SVGElement { }
 interface SVGViewElement extends SVGElement { }
 
+interface Text { }
 interface TouchList { }
+interface WebGLRenderingContext { }

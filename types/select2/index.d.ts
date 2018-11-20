@@ -26,7 +26,7 @@ export type JQueryAjaxSettingsBase =
 /**
  * Same as jQuery v3 `JQuery.EventHandlerBase`.
  */
-export type JQueryEventHandlerBase<TContext extends object, T> =
+export type JQueryEventHandlerBase<TContext, T> =
     (this: TContext, t: T, ...args: any[]) => void | false;
 
 /**
@@ -221,7 +221,7 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
 // jQuery And Select2 Plugin
 // --------------------------------------------------------------------------
 
-export interface Select2Plugin<TElement extends Node = HTMLElement>  {
+export interface Select2Plugin<TElement = HTMLElement>  {
     amd: { require: Require; };
 
     defaults: {
@@ -252,7 +252,7 @@ export interface Select2Plugin<TElement extends Node = HTMLElement>  {
 }
 
 declare global {
-    interface JQuery<TElement extends Node = HTMLElement> {
+    interface JQuery<TElement = HTMLElement> {
         select2: Select2Plugin<TElement>;
         data(key: "select2"): Select2;
 

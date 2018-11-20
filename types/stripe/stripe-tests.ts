@@ -59,6 +59,7 @@ stripe.charges.create({
     // asynchronously called
 
     charge.refunds.create().then(function (refund) {
+        const reason = refund.failure_reason;
         // asynchronously called
     });
     charge.refunds.create({ amount: 100 }).then(function (refund) {
@@ -362,6 +363,10 @@ stripe.customers.list({ limit: 3 }, function (err, customers) {
 });
 stripe.customers.list({ limit: 3 }).then(function (customers) {
     // asynchronously called
+});
+
+stripe.customers.list({ email: "test@example.com" }).then(function (customers) {
+	// asynchronously called
 });
 
 stripe.customers.createCard(
@@ -1018,6 +1023,10 @@ stripe.invoices.list({ customer: "cus_5rfJKDJkuxzh5Q", limit: 3 }).then(function
     // asynchronously called
 });
 
+stripe.invoices.retrieve("in_15fvyXEe31JkLCeQH7QbgZZb", { expand: ["subscription"] }).then(function (invoice) {
+  invoice.subscription
+})
+
 //#endregion
 
 //#region Invoice Items tests
@@ -1155,7 +1164,9 @@ stripe.plans.create({
     },
     nickname: "Something to remember me by",
     currency: "usd",
-    id: "gold-plan"
+    id: "gold-plan",
+    usage_type: 'metered',
+    billing_scheme: 'per_unit'
 }, function (err, plan) {
     // asynchronously called
 });
@@ -1213,6 +1224,13 @@ stripe.plans.del(
     }
 );
 stripe.plans.del("gold-plan").then(function (confirmation) {
+    // asynchronously called
+});
+
+stripe.plans.list({ active: true, product: 'prod_someproduct' }, function(err, plans) {
+    // asynchronously called
+});
+stripe.plans.list({ active: true, product: 'prod_someproduct' }).then(function (plans) {
     // asynchronously called
 });
 
@@ -1328,3 +1346,10 @@ stripe.subscriptionItems.list({ subscription: "si_C9gimdd2l9qvCU" }).then(functi
 stripe.ephemeralKeys.create({ customer: "cus_5rfJKDJkuxzh5Q" }, { stripe_version: "2017-08-15" }).then(function(ephemeralKeys) {
     // asynchronously called
 });
+
+
+stripe.usageRecords.create('sub_8QwCiwZ9tmMSpt', { action: 'set', quantity: 10000, timestamp: 1537006853 }).then((usageRecord: Stripe.usageRecords.IUsageRecord) => {});
+stripe.usageRecords.create('sub_8QwCiwZ9tmMSpt', { action: 'set', quantity: 10000, timestamp: 1537006853 }, (err, usageRecord: Stripe.usageRecords.IUsageRecord) => {})
+
+stripe.usageRecordSummarys.list({ subscription_item: 'si_C9gimdd2l9qvCU', limit: 10 }).then((usageRecordSummarys: Stripe.usageRecordSummarys.IUsageRecordSummarys) => {});
+stripe.usageRecordSummarys.list({ subscription_item: 'si_C9gimdd2l9qvCU', limit: 10 }, (err, usageRecordSummarys: Stripe.usageRecordSummarys.IUsageRecordSummarys) => {})

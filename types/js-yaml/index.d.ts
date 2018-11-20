@@ -6,10 +6,8 @@
 
 export as namespace jsyaml;
 
-export type DocumentLoadResult = object | undefined;
-
-export function safeLoad(str: string, opts?: LoadOptions): DocumentLoadResult;
-export function load(str: string, opts?: LoadOptions): DocumentLoadResult;
+export function safeLoad(str: string, opts?: LoadOptions): any;
+export function load(str: string, opts?: LoadOptions): any;
 
 export class Type {
 	constructor(tag: string, opts?: TypeConstructorOptions);
@@ -30,10 +28,10 @@ export class Schema implements SchemaDefinition {
 	static create(schemas: Schema[] | Schema, types: Type[] | Type): Schema;
 }
 
-export function safeLoadAll(str: string, iterator?: undefined, opts?: LoadOptions): DocumentLoadResult[];
+export function safeLoadAll(str: string, iterator?: undefined, opts?: LoadOptions): any[];
 export function safeLoadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): undefined;
 
-export function loadAll(str: string, iterator?: undefined, opts?: LoadOptions): DocumentLoadResult[];
+export function loadAll(str: string, iterator?: undefined, opts?: LoadOptions): any[];
 
 export function loadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): undefined;
 

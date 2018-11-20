@@ -1,4 +1,4 @@
-// Type definitions for Jest 23.0
+// Type definitions for Jest 23.3
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -10,9 +10,13 @@
 //                 Waseem Dahman <https://github.com/wsmd>
 //                 Jamie Mason <https://github.com/JamieMason>
 //                 Douglas Duteil <https://github.com/douglasduteil>
-//                 Ahn <https://github.com/AhnpGit>
+//                 Ahn <https://github.com/ahnpnl>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
-//                 Bradley Ayers <https://github.com/bradleyayers>
+//                 Jeff Lau <https://github.com/UselessPickles>
+//                 Andrew Makarov <https://github.com/r3nya>
+//                 Martin Hochel <https://github.com/hotell>
+//                 Sebastian Sebald <https://github.com/sebald>
+//                 Andy <https://github.com/andys8>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -107,6 +111,9 @@ declare namespace jest {
      * Creates a mock function. Optionally takes a mock implementation.
      */
     function fn<T extends {}>(implementation: (...args: any[]) => T): Mock<T>;
+    /**
+     * Creates a mock function. Optionally takes a mock implementation.
+     */
     function fn<T>(implementation?: (...args: any[]) => any): Mock<T>;
     /**
      * Use the automatic mocking system to generate a mocked version of the given module.
@@ -171,7 +178,25 @@ declare namespace jest {
      */
     function setTimeout(timeout: number): typeof jest;
     /**
-     * Creates a mock function similar to jest.fn but also tracks calls to object[methodName]
+     * Creates a mock function similar to jest.fn but also tracks calls to `object[methodName]`
+     *
+     * Note: By default, jest.spyOn also calls the spied method. This is different behavior from most
+     * other test libraries.
+     *
+     * @example
+     *
+     * const video = require('./video');
+     *
+     * test('plays video', () => {
+     *   const spy = jest.spyOn(video, 'play');
+     *   const isPlaying = video.play();
+     *
+     *   expect(spy).toHaveBeenCalled();
+     *   expect(isPlaying).toBe(true);
+     *
+     *   spy.mockReset();
+     *   spy.mockRestore();
+     * });
      */
     function spyOn<T extends {}, M extends keyof T>(object: T, method: M, accessType?: 'get' | 'set'): SpyInstance<T[M]>;
     /**
@@ -207,6 +232,14 @@ declare namespace jest {
         readonly name: string;
     }
 
+    interface Each {
+        (cases: any[]): (name: string, fn: (...args: any[]) => any) => void;
+        (strings: TemplateStringsArray, ...placeholders: any[]): (
+            name: string,
+            fn: (arg: any) => any
+        ) => void;
+    }
+
     /**
      * Creates a test closure
      */
@@ -223,18 +256,69 @@ declare namespace jest {
          * Only runs this test in the current file.
          */
         only: It;
+        /**
+         * Skips running this test in the current file.
+         */
         skip: It;
+        /**
+         * Experimental and should be avoided.
+         */
         concurrent: It;
+        /**
+         * Use if you keep duplicating the same test with different data. `.each` allows you to write the
+         * test once and pass data in.
+         *
+         * `.each` is available with two APIs:
+         *
+         * #### 1  `test.each(table)(name, fn)`
+         *
+         * - `table`: Array of Arrays with the arguments that are passed into the test fn for each row.
+         * - `name`: String the title of the test block.
+         * - `fn`: Function the test to be ran, this is the function that will receive the parameters in each row as function arguments.
+         *
+         *
+         * #### 2  `test.each table(name, fn)`
+         *
+         * - `table`: Tagged Template Literal
+         * - `name`: String the title of the test, use `$variable` to inject test data into the test title from the tagged template expressions.
+         * - `fn`: Function the test to be ran, this is the function that will receive the test data object..
+         *
+         * @example
+         *
+         * // API 1
+         * test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+         *   '.add(%i, %i)',
+         *   (a, b, expected) => {
+         *     expect(a + b).toBe(expected);
+         *   },
+         * );
+         *
+         * // API 2
+         * test.each`
+         * a    | b    | expected
+         * ${1} | ${1} | ${2}
+         * ${1} | ${2} | ${3}
+         * ${2} | ${1} | ${3}
+         * `('returns $expected when $a is added $b', ({a, b, expected}) => {
+         *    expect(a + b).toBe(expected);
+         * });
+         *
+         */
+        each: Each;
     }
 
     interface Describe {
         // tslint:disable-next-line ban-types
         (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
+        /** Only runs the tests inside this `describe` for the current file */
         only: Describe;
+        /** Skips running the tests inside this `describe` for the current file */
         skip: Describe;
+        each: Each;
     }
 
     interface MatcherUtils {
+        readonly expand: boolean;
         readonly isNot: boolean;
         utils: {
             readonly EXPECTED_COLOR: (text: string) => string;
@@ -254,10 +338,21 @@ declare namespace jest {
             printWithType(name: string, received: any, print: (value: any) => string): string;
             stringify(object: {}, maxDepth?: number): string;
         };
+        /**
+         *  This is a deep-equality function that will return true if two objects have the same values (recursively).
+         */
+        equals(a: any, b: any): boolean;
     }
 
     interface ExpectExtendMap {
-        [key: string]: (this: MatcherUtils, received: any, ...actual: any[]) => { message(): string, pass: boolean };
+        [key: string]: CustomMatcher;
+    }
+
+    type CustomMatcher = (this: MatcherUtils, received: any, ...actual: any[]) => CustomMatcherResult | Promise<CustomMatcherResult>;
+
+    interface CustomMatcherResult {
+        pass: boolean;
+        message: string | (() => string);
     }
 
     interface SnapshotSerializerOptions {
@@ -298,6 +393,36 @@ declare namespace jest {
         test(val: any): boolean;
     }
 
+    interface InverseAsymmetricMatchers {
+        /**
+         * `expect.not.arrayContaining(array)` matches a received array which
+         * does not contain all of the elements in the expected array. That is,
+         * the expected array is not a subset of the received array. It is the
+         * inverse of `expect.arrayContaining`.
+         */
+        arrayContaining(arr: any[]): any;
+        /**
+         * `expect.not.objectContaining(object)` matches any received object
+         * that does not recursively match the expected properties. That is, the
+         * expected object is not a subset of the received object. Therefore,
+         * it matches a received object which contains properties that are not
+         * in the expected object. It is the inverse of `expect.objectContaining`.
+         */
+        objectContaining(obj: {}): any;
+        /**
+         * `expect.not.stringMatching(string | regexp)` matches the received
+         * string that does not match the expected regexp. It is the inverse of
+         * `expect.stringMatching`.
+         */
+        stringMatching(str: string | RegExp): any;
+        /**
+         * `expect.not.stringContaining(string)` matches the received string
+         * that does not contain the exact expected string. It is the inverse of
+         * `expect.stringContaining`.
+         */
+        stringContaining(str: string): any;
+    }
+
     /**
      * The `expect` function is used every time you want to test a value.
      * You will rarely call `expect` by itself.
@@ -309,11 +434,37 @@ declare namespace jest {
          *
          * @param actual The value to apply matchers against.
          */
-        (actual: any): Matchers<void>;
+        <T = any>(actual: T): Matchers<T>;
+        /**
+         * Matches anything but null or undefined. You can use it inside `toEqual` or `toBeCalledWith` instead
+         * of a literal value. For example, if you want to check that a mock function is called with a
+         * non-null argument:
+         *
+         * @example
+         *
+         * test('map calls its argument with a non-null argument', () => {
+         *   const mock = jest.fn();
+         *   [1].map(x => mock(x));
+         *   expect(mock).toBeCalledWith(expect.anything());
+         * });
+         *
+         */
         anything(): any;
         /**
          * Matches anything that was created with the given constructor.
          * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
+         *
+         * @example
+         *
+         * function randocall(fn) {
+         *   return fn(Math.floor(Math.random() * 6 + 1));
+         * }
+         *
+         * test('randocall calls its callback with a number', () => {
+         *   const mock = jest.fn();
+         *   randocall(mock);
+         *   expect(mock).toBeCalledWith(expect.any(Number));
+         * });
          */
         any(classType: any): any;
         /**
@@ -354,13 +505,31 @@ declare namespace jest {
          * Matches any received string that contains the exact expected string
          */
         stringContaining(str: string): any;
+
+        not: InverseAsymmetricMatchers;
     }
 
     interface Matchers<R> {
         /**
+         * Ensures the last call to a mock function was provided specific args.
+         */
+        lastCalledWith(...args: any[]): R;
+        /**
+         * Ensure that the last call to a mock function has returned a specified value.
+         */
+        lastReturnedWith(value: any): R;
+        /**
          * If you know how to test something, `.not` lets you test its opposite.
          */
         not: Matchers<R>;
+        /**
+         * Ensure that a mock function is called with specific arguments on an Nth call.
+         */
+        nthCalledWith(nthCall: number, ...params: any[]): R;
+        /**
+         * Ensure that the nth call to a mock function has returned a specified value.
+         */
+        nthReturnedWith(n: number, value: any): R;
         /**
          * Use resolves to unwrap the value of a fulfilled promise so any other
          * matcher can be chained. If the promise is rejected the assertion fails.
@@ -371,7 +540,6 @@ declare namespace jest {
          * If the promise is fulfilled the assertion fails.
          */
         rejects: Matchers<Promise<R>>;
-        lastCalledWith(...args: any[]): R;
         /**
          * Checks that a value is what you expect. It uses `===` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
@@ -381,6 +549,10 @@ declare namespace jest {
          * Ensures that a mock function is called.
          */
         toBeCalled(): R;
+        /**
+         * Ensures that a mock function is called an exact number of times.
+         */
+        toBeCalledTimes(expected: number): R;
         /**
          * Ensure that a mock function is called with specific arguments.
          */
@@ -469,16 +641,58 @@ declare namespace jest {
          */
         toHaveBeenCalledWith(...params: any[]): R;
         /**
+         * Ensure that a mock function is called with specific arguments on an Nth call.
+         */
+        toHaveBeenNthCalledWith(nthCall: number, ...params: any[]): R;
+        /**
          * If you have a mock function, you can use `.toHaveBeenLastCalledWith`
          * to test what arguments it was last called with.
          */
         toHaveBeenLastCalledWith(...params: any[]): R;
         /**
+         * Use to test the specific value that a mock function last returned.
+         * If the last call to the mock function threw an error, then this matcher will fail
+         * no matter what value you provided as the expected return value.
+         */
+        toHaveLastReturnedWith(expected: any): R;
+        /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
          */
         toHaveLength(expected: number): R;
+        /**
+         * Use to test the specific value that a mock function returned for the nth call.
+         * If the nth call to the mock function threw an error, then this matcher will fail
+         * no matter what value you provided as the expected return value.
+         */
+        toHaveNthReturnedWith(nthCall: number, expected: any): R;
+        /**
+         * Use to check if property at provided reference keyPath exists for an object.
+         * For checking deeply nested properties in an object you may use dot notation or an array containing
+         * the keyPath for deep references.
+         *
+         * Optionally, you can provide a value to check if it's equal to the value present at keyPath
+         * on the target object. This matcher uses 'deep equality' (like `toEqual()`) and recursively checks
+         * the equality of all fields.
+         *
+         * @example
+         *
+         * expect(houseForSale).toHaveProperty('kitchen.area', 20);
+         */
         toHaveProperty(propertyPath: string | any[], value?: any): R;
+        /**
+         * Use to test that the mock function successfully returned (i.e., did not throw an error) at least one time
+         */
+        toHaveReturned(): R;
+        /**
+         * Use to ensure that a mock function returned successfully (i.e., did not throw an error) an exact number of times.
+         * Any calls to the mock function that throw an error are not counted toward the number of times the function returned.
+         */
+        toHaveReturnedTimes(expected: number): R;
+        /**
+         * Use to ensure that a mock function returned a specific value.
+         */
+        toHaveReturnedWith(expected: any): R;
         /**
          * Check that a string matches a regular expression.
          */
@@ -488,22 +702,60 @@ declare namespace jest {
          */
         toMatchObject(expected: {} | any[]): R;
         /**
+         * This ensures that a value matches the most recent snapshot with property matchers.
+         * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
+         */
+        toMatchSnapshot<T extends {[P in keyof R]: any}>(propertyMatchers: Partial<T>, snapshotName?: string): R;
+        /**
          * This ensures that a value matches the most recent snapshot.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
         toMatchSnapshot(snapshotName?: string): R;
         /**
+         * This ensures that a value matches the most recent snapshot with property matchers.
+         * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
+         * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
+         */
+        toMatchInlineSnapshot<T extends {[P in keyof R]: any}>(propertyMatchers: Partial<T>, snapshot?: string): R;
+        /**
+         * This ensures that a value matches the most recent snapshot with property matchers.
+         * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
+         * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
+         */
+        toMatchInlineSnapshot(snapshot?: string): R;
+        /**
+         * Ensure that a mock function has returned (as opposed to thrown) at least once.
+         */
+        toReturn(): R;
+        /**
+         * Ensure that a mock function has returned (as opposed to thrown) a specified number of times.
+         */
+        toReturnTimes(count: number): R;
+        /**
+         * Ensure that a mock function has returned a specified value at least once.
+         */
+        toReturnWith(value: any): R;
+        /**
+         * Use to test that objects have the same types as well as structure.
+         */
+        toStrictEqual(expected: {}): R;
+        /**
          * Used to test that a function throws when it is called.
          */
-        toThrow(error?: string | Constructable | RegExp): R;
+        toThrow(error?: string | Constructable | RegExp | Error): R;
         /**
          * If you want to test that a specific error is thrown inside a function.
          */
-        toThrowError(error?: string | Constructable | RegExp): R;
+        toThrowError(error?: string | Constructable | RegExp | Error): R;
         /**
          * Used to test that a function throws a error matching the most recent snapshot when it is called.
          */
         toThrowErrorMatchingSnapshot(): R;
+        /**
+         * Used to test that a function throws a error matching the most recent snapshot when it is called.
+         * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
+         */
+        toThrowErrorMatchingInlineSnapshot(snapshot?: string): R;
     }
 
     interface Constructable {
@@ -515,14 +767,13 @@ declare namespace jest {
         (...args: any[]): any;
     }
 
-    interface SpyInstance<T = {}> extends MockInstance<T> {
-        mockRestore(): void;
-    }
+    interface SpyInstance<T = {}> extends MockInstance<T> {}
 
     /**
      * Wrap module with mock definitions
      *
      * @example
+     *
      *  jest.mock("../api");
      *  import { Api } from "../api";
      *
@@ -534,25 +785,186 @@ declare namespace jest {
     } & T;
 
     interface MockInstance<T> {
+        /** Returns the mock name string set by calling `mockFn.mockName(value)`. */
         getMockName(): string;
+        /** Provides access to the mock's metadata */
         mock: MockContext<T>;
+        /**
+         * Resets all information stored in the mockFn.mock.calls and mockFn.mock.instances arrays.
+         *
+         * Often this is useful when you want to clean up a mock's usage data between two assertions.
+         *
+         * Beware that `mockClear` will replace `mockFn.mock`, not just `mockFn.mock.calls` and `mockFn.mock.instances`.
+         * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
+         * don't access stale data.
+         */
         mockClear(): void;
+        /**
+         * Resets all information stored in the mock, including any initial implementation and mock name given.
+         *
+         * This is useful when you want to completely restore a mock back to its initial state.
+         *
+         * Beware that `mockReset` will replace `mockFn.mock`, not just `mockFn.mock.calls` and `mockFn.mock.instances`.
+         * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
+         * don't access stale data.
+         */
         mockReset(): void;
-        mockImplementation(fn: (...args: any[]) => any): Mock<T>;
+        /**
+         * Does everything that `mockFn.mockReset()` does, and also restores the original (non-mocked) implementation.
+         *
+         * This is useful when you want to mock functions in certain test cases and restore the original implementation in others.
+         *
+         * Beware that `mockFn.mockRestore` only works when mock was created with `jest.spyOn`. Thus you have to take care of restoration
+         * yourself when manually assigning `jest.fn()`.
+         *
+         * The [`restoreMocks`](https://jestjs.io/docs/en/configuration.html#restoremocks-boolean) configuration option is available
+         * to restore mocks automatically between tests.
+         */
+        mockRestore(): void;
+        /**
+         * Accepts a function that should be used as the implementation of the mock. The mock itself will still record
+         * all calls that go into and instances that come from itself – the only difference is that the implementation
+         * will also be executed when the mock is called.
+         *
+         * Note: `jest.fn(implementation)` is a shorthand for `jest.fn().mockImplementation(implementation)`.
+         */
+        mockImplementation(fn?: (...args: any[]) => any): Mock<T>;
+        /**
+         * Accepts a function that will be used as an implementation of the mock for one call to the mocked function.
+         * Can be chained so that multiple function calls produce different results.
+         *
+         * @example
+         *
+         * const myMockFn = jest
+         *   .fn()
+         *    .mockImplementationOnce(cb => cb(null, true))
+         *    .mockImplementationOnce(cb => cb(null, false));
+         *
+         * myMockFn((err, val) => console.log(val)); // true
+         *
+         * myMockFn((err, val) => console.log(val)); // false
+         */
         mockImplementationOnce(fn: (...args: any[]) => any): Mock<T>;
+        /** Sets the name of the mock`. */
         mockName(name: string): Mock<T>;
+        /**
+         * Just a simple sugar function for:
+         *
+         * @example
+         *
+         *   jest.fn(function() {
+         *     return this;
+         *   });
+         */
         mockReturnThis(): Mock<T>;
+        /**
+         * Accepts a value that will be returned whenever the mock function is called.
+         *
+         * @example
+         *
+         * const mock = jest.fn();
+         * mock.mockReturnValue(42);
+         * mock(); // 42
+         * mock.mockReturnValue(43);
+         * mock(); // 43
+         */
         mockReturnValue(value: any): Mock<T>;
+        /**
+         * Accepts a value that will be returned for one call to the mock function. Can be chained so that
+         * successive calls to the mock function return different values. When there are no more
+         * `mockReturnValueOnce` values to use, calls will return a value specified by `mockReturnValue`.
+         *
+         * @example
+         *
+         * const myMockFn = jest.fn()
+         *   .mockReturnValue('default')
+         *   .mockReturnValueOnce('first call')
+         *   .mockReturnValueOnce('second call');
+         *
+         * // 'first call', 'second call', 'default', 'default'
+         * console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
+         *
+         */
         mockReturnValueOnce(value: any): Mock<T>;
+        /**
+         * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.resolve(value));`
+         */
         mockResolvedValue(value: any): Mock<T>;
+        /**
+         * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.resolve(value));`
+         *
+         * @example
+         *
+         * test('async test', async () => {
+         *  const asyncMock = jest
+         *    .fn()
+         *    .mockResolvedValue('default')
+         *    .mockResolvedValueOnce('first call')
+         *    .mockResolvedValueOnce('second call');
+         *
+         *  await asyncMock(); // first call
+         *  await asyncMock(); // second call
+         *  await asyncMock(); // default
+         *  await asyncMock(); // default
+         * });
+         *
+         */
         mockResolvedValueOnce(value: any): Mock<T>;
+        /**
+         * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.reject(value));`
+         *
+         * @example
+         *
+         * test('async test', async () => {
+         *   const asyncMock = jest.fn().mockRejectedValue(new Error('Async error'));
+         *
+         *   await asyncMock(); // throws "Async error"
+         * });
+         */
         mockRejectedValue(value: any): Mock<T>;
+
+        /**
+         * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.reject(value));`
+         *
+         * @example
+         *
+         * test('async test', async () => {
+         *  const asyncMock = jest
+         *    .fn()
+         *    .mockResolvedValueOnce('first call')
+         *    .mockRejectedValueOnce(new Error('Async error'));
+         *
+         *  await asyncMock(); // first call
+         *  await asyncMock(); // throws "Async error"
+         * });
+         *
+         */
         mockRejectedValueOnce(value: any): Mock<T>;
+    }
+
+    /**
+     * Represents the result of a single call to a mock function.
+     */
+    interface MockResult {
+        /**
+         * True if the function threw.
+         * False if the function returned.
+         */
+        isThrow: boolean;
+        /**
+         * The value that was either thrown or returned by the function.
+         */
+        value: any;
     }
 
     interface MockContext<T> {
         calls: any[][];
         instances: T[];
+        invocationCallOrder: number[];
+        /**
+         * List of results of calls to the mock function.
+         */
+        results: MockResult[];
     }
 }
 
@@ -794,6 +1206,164 @@ declare namespace jest {
     type ConfigGlobals = object;
 
     type SnapshotUpdateState = 'all' | 'new' | 'none';
+
+    interface DefaultOptions {
+        automock: boolean;
+        bail: boolean;
+        browser: boolean;
+        cache: boolean;
+        cacheDirectory: Path;
+        changedFilesWithAncestor: boolean;
+        clearMocks: boolean;
+        collectCoverage: boolean;
+        collectCoverageFrom: Maybe<string[]>;
+        coverageDirectory: Maybe<string>;
+        coveragePathIgnorePatterns: string[];
+        coverageReporters: string[];
+        coverageThreshold: Maybe<{global: {[key: string]: number}}>;
+        errorOnDeprecated: boolean;
+        expand: boolean;
+        filter: Maybe<Path>;
+        forceCoverageMatch: Glob[];
+        globals: ConfigGlobals;
+        globalSetup: Maybe<string>;
+        globalTeardown: Maybe<string>;
+        haste: HasteConfig;
+        detectLeaks: boolean;
+        detectOpenHandles: boolean;
+        moduleDirectories: string[];
+        moduleFileExtensions: string[];
+        moduleNameMapper: {[key: string]: string};
+        modulePathIgnorePatterns: string[];
+        noStackTrace: boolean;
+        notify: boolean;
+        notifyMode: string;
+        preset: Maybe<string>;
+        projects: Maybe<Array<string | ProjectConfig>>;
+        resetMocks: boolean;
+        resetModules: boolean;
+        resolver: Maybe<Path>;
+        restoreMocks: boolean;
+        rootDir: Maybe<Path>;
+        roots: Maybe<Path[]>;
+        runner: string;
+        runTestsByPath: boolean;
+        setupFiles: Path[];
+        setupTestFrameworkScriptFile: Maybe<Path>;
+        skipFilter: boolean;
+        snapshotSerializers: Path[];
+        testEnvironment: string;
+        testEnvironmentOptions: object;
+        testFailureExitCode: string | number;
+        testLocationInResults: boolean;
+        testMatch: Glob[];
+        testPathIgnorePatterns: string[];
+        testRegex: string;
+        testResultsProcessor: Maybe<string>;
+        testRunner: Maybe<string>;
+        testURL: string;
+        timers: 'real' | 'fake';
+        transform: Maybe<{[key: string]: string}>;
+        transformIgnorePatterns: Glob[];
+        watchPathIgnorePatterns: string[];
+        useStderr: boolean;
+        verbose: Maybe<boolean>;
+        watch: boolean;
+        watchman: boolean;
+    }
+
+    interface InitialOptions {
+        automock?: boolean;
+        bail?: boolean;
+        browser?: boolean;
+        cache?: boolean;
+        cacheDirectory?: Path;
+        clearMocks?: boolean;
+        changedFilesWithAncestor?: boolean;
+        changedSince?: string;
+        collectCoverage?: boolean;
+        collectCoverageFrom?: Glob[];
+        collectCoverageOnlyFrom?: {[key: string]: boolean};
+        coverageDirectory?: string;
+        coveragePathIgnorePatterns?: string[];
+        coverageReporters?: string[];
+        coverageThreshold?: {global: {[key: string]: number}};
+        detectLeaks?: boolean;
+        detectOpenHandles?: boolean;
+        displayName?: string;
+        expand?: boolean;
+        filter?: Path;
+        findRelatedTests?: boolean;
+        forceCoverageMatch?: Glob[];
+        forceExit?: boolean;
+        json?: boolean;
+        globals?: ConfigGlobals;
+        globalSetup?: Maybe<string>;
+        globalTeardown?: Maybe<string>;
+        haste?: HasteConfig;
+        reporters?: Array<ReporterConfig | string>;
+        logHeapUsage?: boolean;
+        lastCommit?: boolean;
+        listTests?: boolean;
+        mapCoverage?: boolean;
+        moduleDirectories?: string[];
+        moduleFileExtensions?: string[];
+        moduleLoader?: Path;
+        moduleNameMapper?: {[key: string]: string};
+        modulePathIgnorePatterns?: string[];
+        modulePaths?: string[];
+        name?: string;
+        noStackTrace?: boolean;
+        notify?: boolean;
+        notifyMode?: string;
+        onlyChanged?: boolean;
+        outputFile?: Path;
+        passWithNoTests?: boolean;
+        preprocessorIgnorePatterns?: Glob[];
+        preset?: Maybe<string>;
+        projects?: Glob[];
+        replname?: Maybe<string>;
+        resetMocks?: boolean;
+        resetModules?: boolean;
+        resolver?: Maybe<Path>;
+        restoreMocks?: boolean;
+        rootDir?: Path;
+        roots?: Path[];
+        runner?: string;
+        runTestsByPath?: boolean;
+        scriptPreprocessor?: string;
+        setupFiles?: Path[];
+        setupTestFrameworkScriptFile?: Path;
+        silent?: boolean;
+        skipFilter?: boolean;
+        skipNodeResolution?: boolean;
+        snapshotSerializers?: Path[];
+        errorOnDeprecated?: boolean;
+        testEnvironment?: string;
+        testEnvironmentOptions?: object;
+        testFailureExitCode?: string | number;
+        testLocationInResults?: boolean;
+        testMatch?: Glob[];
+        testNamePattern?: string;
+        testPathDirs?: Path[];
+        testPathIgnorePatterns?: string[];
+        testRegex?: string;
+        testResultsProcessor?: Maybe<string>;
+        testRunner?: string;
+        testURL?: string;
+        timers?: 'real' | 'fake';
+        transform?: {[key: string]: string};
+        transformIgnorePatterns?: Glob[];
+        watchPathIgnorePatterns?: string[];
+        unmockedModulePathPatterns?: string[];
+        updateSnapshot?: boolean;
+        useStderr?: boolean;
+        verbose?: Maybe<boolean>;
+        watch?: boolean;
+        watchAll?: boolean;
+        watchman?: boolean;
+        watchPlugins?: string[];
+    }
 
     interface GlobalConfig {
         bail: boolean;

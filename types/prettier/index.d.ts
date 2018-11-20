@@ -1,8 +1,8 @@
-// Type definitions for prettier 1.13
+// Type definitions for prettier 1.15
 // Project: https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 export type AST = any;
 export type Doc = doc.builders.Doc;
@@ -29,9 +29,15 @@ export type BuiltInParserName =
     | 'less'
     | 'scss'
     | 'json'
+    | 'json5'
+    | 'json-stringify'
     | 'graphql'
     | 'markdown'
-    | 'vue';
+    | 'vue'
+    | 'html'
+    | 'angular'
+    | 'mdx'
+    | 'yaml';
 
 export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
@@ -45,6 +51,10 @@ export interface RequiredOptions extends doc.printer.Options {
      * Use single quotes instead of double quotes.
      */
     singleQuote: boolean;
+    /**
+     * Use single quotes in JSX.
+     */
+    jsxSingleQuote: boolean;
     /**
      * Print trailing commas wherever possible.
      */
@@ -102,6 +112,14 @@ export interface RequiredOptions extends doc.printer.Options {
      * The plugin API is in a beta state.
      */
     plugins: Array<string | Plugin>;
+    /**
+     * How to handle whitespaces in HTML.
+     */
+    htmlWhitespaceSensitivity: 'css' | 'strict' | 'ignore';
+    /**
+     * Which end of line characters to apply.
+     */
+    endOfLine: 'auto' | 'lf' | 'crlf' | 'cr';
 }
 
 export interface ParserOptions extends RequiredOptions {

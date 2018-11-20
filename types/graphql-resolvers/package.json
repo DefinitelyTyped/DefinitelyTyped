@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "graphql-tools": "^4.0.2"
+    }
+}

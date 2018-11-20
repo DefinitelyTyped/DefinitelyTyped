@@ -118,7 +118,7 @@ declare namespace Chai {
         extensible: Assertion;
         sealed: Assertion;
         frozen: Assertion;
-        oneOf(list: any[], message?: string): Assertion;
+        oneOf(list: ReadonlyArray<any>, message?: string): Assertion;
     }
 
     interface LanguageChains {
@@ -186,6 +186,7 @@ declare namespace Chai {
         property: Property;
         members: Members;
         ordered: Ordered;
+        nested: Nested;
     }
 
     interface Ordered {
@@ -194,6 +195,7 @@ declare namespace Chai {
 
     interface KeyFilter {
         keys: Keys;
+        members: Members;
     }
 
     interface Equal {
@@ -233,7 +235,7 @@ declare namespace Chai {
 
     interface Keys {
         (...keys: string[]): Assertion;
-        (keys: any[]|Object): Assertion;
+        (keys: ReadonlyArray<any>|Object): Assertion;
     }
 
     interface Throw {
@@ -250,7 +252,7 @@ declare namespace Chai {
     }
 
     interface Members {
-        (set: any[], message?: string): Assertion;
+        (set: ReadonlyArray<any>, message?: string): Assertion;
     }
 
     interface PropertyChange {
@@ -353,7 +355,7 @@ declare namespace Chai {
         notStrictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is deeply equal to expected.
+         * Asserts that actual is deeply equal (==) to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -363,7 +365,7 @@ declare namespace Chai {
         deepEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * Asserts that actual is not deeply equal to expected.
+         * Asserts that actual is not deeply equal (==) to expected.
          *
          * @type T   Type of the objects.
          * @param actual   Actual value.
@@ -371,6 +373,16 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         notDeepEqual<T>(actual: T, expected: T, message?: string): void;
+
+        /**
+         * Asserts that actual is deeply strict equal (===) to expected.
+         *
+         * @type T   Type of the objects.
+         * @param actual   Actual value.
+         * @param expected   Potential expected value.
+         * @param message   Message to display on error.
+         */
+        deepStrictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
          * Asserts valueToCheck is strictly greater than (>) valueToBeAbove.
@@ -684,7 +696,7 @@ declare namespace Chai {
          * @param needle   Potential value contained in haystack.
          * @param message   Message to display on error.
          */
-        include<T>(haystack: T[], needle: T, message?: string): void;
+        include<T>(haystack: ReadonlyArray<T>, needle: T, message?: string): void;
 
         /**
          * Asserts that haystack does not include needle.
@@ -693,7 +705,7 @@ declare namespace Chai {
          * @param needle   Potential expected substring of haystack.
          * @param message   Message to display on error.
          */
-        notInclude(haystack: string | any[], needle: any, message?: string): void;
+        notInclude(haystack: string | ReadonlyArray<any>, needle: any, message?: string): void;
 
         /**
          * Asserts that haystack includes needle. Can be used to assert the inclusion of a value in an array or a subset of properties in an object. Deep equality is used.
@@ -720,7 +732,7 @@ declare namespace Chai {
          * @param needle   Potential expected substring of haystack.
          * @param message   Message to display on error.
          */
-        notDeepInclude(haystack: string | any[], needle: any, message?: string): void;
+        notDeepInclude(haystack: string | ReadonlyArray<any>, needle: any, message?: string): void;
 
         /**
          * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object.

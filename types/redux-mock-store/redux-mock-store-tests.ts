@@ -18,7 +18,7 @@ function counter(state: any, action: any) {
 }
 
 function loggingMiddleware() {
-    return (next: Redux.Dispatch<any>) => (action: any) => {
+    return (next: Redux.Dispatch<Redux.AnyAction>) => (action: any) => {
         console.log(action.type);
         return next(action);
     };

@@ -2,7 +2,7 @@
 // Project: https://github.com/hapijs/yar#readme
 // Definitions by: Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.8
 // From https://github.com/hapijs/yar/blob/master/API.md
 
 import {
@@ -105,12 +105,17 @@ declare namespace yar {
              * an optional function to create custom session IDs.
              * Must retun a string and have the signature function (request) where:
              * request - (optional) is the original request received from the client.
+             * Defaults to uuidv4
              */
             customSessionIDGenerator?(req: Request): string;
         };
     }
 
     interface Yar {
+        /**
+         * Session id, see `customSessionIDGenerator`.
+         */
+        readonly id: string;
         /**
          * clears the session and assigns a new session id.
          */

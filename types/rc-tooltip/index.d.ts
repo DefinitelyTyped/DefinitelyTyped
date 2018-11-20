@@ -3,7 +3,7 @@
 // Definitions by: rhysd <https://rhysd.github.io>
 //                 ahstro <http://ahst.ro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 

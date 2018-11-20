@@ -80,7 +80,7 @@ export interface GeometryObject extends GeoJsonObject {
  * Union of geometry objects.
  * https://tools.ietf.org/html/rfc7946#section-3
  */
-export type Geometry = Point | MultiPoint | LineString | Polygon | MultiPolygon | GeometryCollection;
+export type Geometry = Point | MultiPoint | LineString | MultiLineString | Polygon | MultiPolygon | GeometryCollection;
 
 /**
  * Point geometry object.

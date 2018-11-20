@@ -13,24 +13,18 @@ interface State {
 }
 
 export class Demo extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-
-        const keys = this.props.keys;
-        this.state = {
+    static initState({keys}: Props) {
+        return {
             defaultExpandedKeys: keys,
             defaultSelectedKeys: keys,
             defaultCheckedKeys: keys,
             switchIt: true,
         };
     }
-
     static defaultProps: Props = {
         keys: ['0-0-0-0'],
     };
-
-    getInitialState() {
-    }
+    state = Demo.initState(this.props);
 
     onExpand(expandedKeys: string[]) {
         console.log('onExpand', expandedKeys, arguments);

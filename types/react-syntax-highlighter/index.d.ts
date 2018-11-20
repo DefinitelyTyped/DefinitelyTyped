@@ -1,8 +1,24 @@
 // Type definitions for react-syntax-highlighter
 // Project: https://github.com/conorhastings/react-syntax-highlighter
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
+//                 Aimee Gamble-Milner <https://github.com/ajgamble-milner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
+
+type lineTagPropsFunction = (lineNumber: number) => React.DOMAttributes<HTMLElement>
+
+interface SyntaxHighlighterProps {
+    language?: string;
+    style?: any;
+    customStyle?: any;
+    lineProps?: lineTagPropsFunction | React.DOMAttributes<HTMLElement>
+    codeTagProps?: React.DOMAttributes<HTMLElement>;
+    useInlineStyles?: boolean;
+    showLineNumbers?: boolean;
+    startingLineNumber?: number;
+    lineNumberStyle?: any;
+    [spread: string]: any;
+}
 
 declare module 'react-syntax-highlighter' {
     import SyntaxHighlighter from 'react-syntax-highlighter/light';
@@ -11,24 +27,19 @@ declare module 'react-syntax-highlighter' {
 
 declare module 'react-syntax-highlighter/light' {
     import * as React from 'react';
-
     export function registerLanguage(name: string, func: any): void;
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
+}
 
-    interface SyntaxHighlighterProps {
-        language?: string;
-        style?: any;
-        customStyle?: any;
-        codeTagProps?: HTMLElement;
-        useInlineStyles?: boolean;
-        showLineNumbers?: boolean;
-        startingLineNumber?: number;
-        lineNumberStyle?: any;
-        [spread: string]: any;
-    }
+declare module 'react-syntax-highlighter/prism' {
+    import SyntaxHighlighter from 'react-syntax-highlighter/prism-light';
+    export default SyntaxHighlighter;
+}
 
-    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
-
-    }
+declare module 'react-syntax-highlighter/prism-light' {
+    import * as React from 'react';
+    export function registerLanguage(name: string, func: any): void;
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {}
 }
 
 declare module 'react-syntax-highlighter/styles/hljs' {
@@ -513,6 +524,7 @@ declare module 'react-syntax-highlighter/styles/hljs/zenburn' {
     const style: any;
     export default style;
 }
+
 declare module 'react-syntax-highlighter/styles/prism' {
     export { default as atomDark } from 'react-syntax-highlighter/styles/prism/atom-dark';
     export { default as base16AteliersulphurpoolLight } from 'react-syntax-highlighter/styles/prism/base16-ateliersulphurpool.light';
@@ -539,118 +551,857 @@ declare module 'react-syntax-highlighter/styles/prism' {
     export { default as xonokai } from 'react-syntax-highlighter/styles/prism/xonokai';
 }
 
-declare module 'react-syntax-highlighter/styles/prism/atom-dark'  {
+declare module 'react-syntax-highlighter/styles/prism/atom-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/base16-ateliersulphurpool.light'  {
+declare module 'react-syntax-highlighter/styles/prism/base16-ateliersulphurpool.light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/cb'  {
+declare module 'react-syntax-highlighter/styles/prism/cb' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/coy'  {
+declare module 'react-syntax-highlighter/styles/prism/coy' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/darcula'  {
+declare module 'react-syntax-highlighter/styles/prism/darcula' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/dark'  {
+declare module 'react-syntax-highlighter/styles/prism/dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/duotone-dark'  {
+declare module 'react-syntax-highlighter/styles/prism/duotone-dark' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/duotone-earth'  {
+declare module 'react-syntax-highlighter/styles/prism/duotone-earth' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/duotone-forest'  {
+declare module 'react-syntax-highlighter/styles/prism/duotone-forest' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/duotone-light'  {
+declare module 'react-syntax-highlighter/styles/prism/duotone-light' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/duotone-sea'  {
+declare module 'react-syntax-highlighter/styles/prism/duotone-sea' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/duotone-space'  {
+declare module 'react-syntax-highlighter/styles/prism/duotone-space' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/funky'  {
+declare module 'react-syntax-highlighter/styles/prism/funky' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/ghcolors'  {
+declare module 'react-syntax-highlighter/styles/prism/ghcolors' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/hopscotch'  {
+declare module 'react-syntax-highlighter/styles/prism/hopscotch' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/okaidia'  {
+declare module 'react-syntax-highlighter/styles/prism/okaidia' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/pojoaque'  {
+declare module 'react-syntax-highlighter/styles/prism/pojoaque' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/prism'  {
+declare module 'react-syntax-highlighter/styles/prism/prism' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/solarizedlight'  {
+declare module 'react-syntax-highlighter/styles/prism/solarizedlight' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/tomorrow'  {
+declare module 'react-syntax-highlighter/styles/prism/tomorrow' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/twilight'  {
+declare module 'react-syntax-highlighter/styles/prism/twilight' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/vs'  {
+declare module 'react-syntax-highlighter/styles/prism/vs' {
     const style: any;
     export default style;
 }
 
-declare module 'react-syntax-highlighter/styles/prism/xonokai'   {
+declare module 'react-syntax-highlighter/styles/prism/xonokai' {
     const style: any;
     export default style;
 }
 
+declare module 'react-syntax-highlighter/languages/prism/abap' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/actionscript' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/ada' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/apacheconf' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/apl' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/applescript' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/arduino' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/arff' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/asciidoc' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/asm6502' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/aspnet' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/autohotkey' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/autoit' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/bash' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/basic' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/batch' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/bison' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/brainfuck' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/bro' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/c' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/clike' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/clojure' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/coffeescript' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/cpp' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/crystal' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/csharp' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/csp' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/cssExtras' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/css' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/d' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/dart' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/diff' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/django' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/docker' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/eiffel' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/elixir' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/elm' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/erb' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/erlang' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/flow' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/fortran' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/fsharp' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/gedcom' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/gherkin' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/git' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/glsl' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/go' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/graphql' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/groovy' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/haml' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/handlebars' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/haskell' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/haxe' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/hpkp' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/hsts' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/http' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/ichigojam' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/icon' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/inform7' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/ini' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/io' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/j' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/java' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/javascript' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/jolie' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/json' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/jsx' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/julia' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/keyman' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/kotlin' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/latex' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/less' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/liquid' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/lisp' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/livescript' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/lolcode' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/lua' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/makefile' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/markdown' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/markupTemplating' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/markup' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/matlab' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/mel' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/mizar' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/monkey' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/n4js' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/nasm' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/nginx' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/nim' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/nix' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/nsis' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/objectivec' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/ocaml' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/opencl' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/oz' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/parigp' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/parser' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/pascal' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/perl' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/phpExtras' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/php' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/plsql' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/powershell' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/processing' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/prolog' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/properties' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/protobuf' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/pug' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/puppet' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/pure' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/python' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/q' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/qore' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/r' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/reason' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/renpy' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/rest' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/rip' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/roboconf' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/ruby' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/rust' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/sas' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/sass' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/scala' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/scheme' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/scss' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/smalltalk' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/smarty' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/soy' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/sql' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/stylus' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/swift' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/tcl' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/textile' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/tsx' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/twig' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/typescript' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/vbnet' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/velocity' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/verilog' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/vhdl' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/vim' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/visualBasic' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/wasm' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/wiki' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/xeora' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/xojo' {
+    const language: any;
+    export default language;
+}
+
+declare module 'react-syntax-highlighter/languages/prism/yaml' {
+    const language: any;
+    export default language;
+}

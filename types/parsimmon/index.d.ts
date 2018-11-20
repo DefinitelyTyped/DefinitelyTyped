@@ -1,12 +1,13 @@
-// Type definitions for Parsimmon 1.6
+// Type definitions for Parsimmon 1.10
 // Project: https://github.com/jneen/parsimmon
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
 //                 Boris Cherny <https://github.com/bcherny>
 //                 Benny van Reeven <https://github.com/bvanreeven>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
+//                 Jonathan Frere <https://github.com/MrJohz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /**
  * **NOTE:** You probably will never need to use this function. Most parsing
@@ -127,6 +128,14 @@ declare namespace Parsimmon {
 		// tslint:disable-next-line:unified-signatures
 		then<U>(anotherParser: Parser<U>): Parser<U>;
 		/**
+		 * Transforms the input of parser with the given function.
+		 */
+		contramap<U>(fn: (input: T) => U): Parser<U>;
+		/**
+		 * Transforms the input and output of parser with the given function.
+		 */
+		promap<U, V>(inputFn: (input: T) => U, outputFn: (output: U) => V): Parser<V>;
+		/**
 		 * returns wrapper(this) from the parser. Useful for custom functions used
 		 * to wrap your parsers, while keeping with Parsimmon chaining style.
 		 */
@@ -152,6 +161,10 @@ declare namespace Parsimmon {
 		 */
 		skip<U>(otherParser: Parser<U>): Parser<T>;
 		/**
+		 * Expects the parser before before parser and after after parser.
+		 */
+		wrap(before: Parser<any>, after: Parser<any>): Parser<T>;
+		/**
 		 * Returns a parser that looks for anything but whatever anotherParser wants to
 		 * parse, and does not consume it. Yields the same result as parser. Equivalent to
 		 * parser.skip(Parsimmon.notFollowedBy(anotherParser)).
@@ -163,6 +176,17 @@ declare namespace Parsimmon {
 		 * parser.skip(Parsimmon.lookahead(anotherParser)).
 		 */
 		lookahead(arg: Parser<any> | string | RegExp): Parser<T>;
+		/**
+		 * Equivalent to parser.tieWith("").
+		 *
+		 * Note: parser.tie() is usually used after Parsimmon.seq(...parsers) or parser.many().
+		 */
+		tie(): Parser<string>;
+		/**
+		 * When called on a parser yielding an array of strings, yields all their strings
+		 * concatenated with the separator. Asserts that its input is actually an array of strings.
+		 */
+		tieWith(join: string): Parser<string>;
 		/**
 		 * expects parser zero or more times, and yields an array of the results.
 		 */
@@ -198,7 +222,34 @@ declare namespace Parsimmon {
 		 * Returns a new parser whose failure message is description.
 		 * For example, string('x').desc('the letter x') will indicate that 'the letter x' was expected.
 		 */
-		desc(description: string): Parser<T>;
+		desc(description: string | string[]): Parser<T>;
+
+		// Fantasy land support
+
+		/**
+		 * Returns Parsimmon.fail("fantasy-land/empty").
+		 */
+		empty(): Parser<never>;
+		/**
+		 * Takes parser which returns a function and applies it to the parsed value of otherParser.
+		 */
+		ap<U>(otherParser: Parser<(t: T) => U>): Parser<U>;
+		/**
+		 * Equivalent to Parsimmon.sepBy(parser, separator).
+		 *
+		 * Expects zero or more matches for parser, separated by the parser separator, yielding an array.
+		 */
+		sepBy<U>(separator: Parser<U>): Parser<T[]>;
+		/**
+		 * Equivalent to Parsimmon.sepBy(parser, separator).
+		 *
+		 * Expects one or more matches for parser, separated by the parser separator, yielding an array.
+		 */
+		sepBy1<U>(separator: Parser<U>): Parser<T[]>;
+		/**
+		 * Equivalent to Parsimmon.of(result).
+		 */
+		of<U>(result: U): Parser<U>;
 	}
 
 	/**
@@ -265,7 +316,7 @@ declare namespace Parsimmon {
 	 * far the unsuccessful parse went (index), and what kind of syntax it
 	 * expected to see (expectation). See documentation for Parsimmon(fn).
 	 */
-	function makeFailure(furthest: number, expectation: string): FailureReply;
+	function makeFailure(furthest: number, expectation: string | string[]): FailureReply;
 
 	/**
 	 * Returns true if obj is a Parsimmon parser, otherwise false.
@@ -286,6 +337,11 @@ declare namespace Parsimmon {
 	 * Returns a parser that looks for exactly one character NOT from string, and yields that character.
 	 */
 	function noneOf(string: string): Parser<string>;
+
+	/**
+	 * Parsers a single character in from begin to end, inclusive.
+	 */
+	function range(begin: string, end: string): Parser<string>;
 
 	/**
 	 * Returns a parser that looks for a match to the regexp and yields the given match group
@@ -358,6 +414,8 @@ declare namespace Parsimmon {
 		p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, p7: Parser<Z>, p8: Parser<A>,
 		cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y, a7: Z, a8: A) => B): Parser<B>;
 
+	function seqObj<T, Key extends keyof T = keyof T>(...args: Array<[Key, Parser<T[Key]>] | Parser<any>>): Parser<{ [K in Key]: T[K] }>;
+
 	interface SuccessReply<T> {
 		status: true;
 		index: number;
@@ -414,6 +472,11 @@ declare namespace Parsimmon {
 	function fail(message: string): Parser<never>;
 
 	/**
+	 * Returns Parsimmon.fail("fantasy-land/empty").
+	 */
+	function empty(): Parser<never>;
+
+	/**
 	 * is equivalent to Parsimmon.regex(/[a-z]/i)
 	 */
 	const letter: Parser<string>;
@@ -438,6 +501,41 @@ declare namespace Parsimmon {
 	 */
 	const optWhitespace: Parser<string>;
 	/**
+	 * Equivalent to Parsimmon.string("\r").
+	 *
+	 * This parser checks for the "carriage return" character, which is used as the
+	 * line terminator for classic Mac OS 9 text files.
+	 */
+	const cr: Parser<string>;
+	/**
+	 * Equivalent to Parsimmon.string("\n").
+	 *
+	 * This parser checks for the "line feed" character, which is used as the line
+	 * terminator for Linux and macOS text files.
+	 */
+	const lf: Parser<string>;
+	/**
+	 * Equivalent to Parsimmon.string("\r\n").
+	 *
+	 * This parser checks for the "carriage return" character followed by the "line
+	 * feed" character, which is used as the line terminator for Windows text files
+	 * and HTTP headers.
+	 */
+	const crlf: Parser<string>;
+	/**
+	 * This flexible parser will match any kind of text file line ending.
+	 */
+	const newline: Parser<string>;
+	/**
+	 * Equivalent to Parsimmon.alt(Parsimmon.newline, Parsimmon.eof).
+	 *
+	 * This is the most general purpose "end of line" parser. It allows the "end of file"
+	 * in addition to all three text file line endings from Parsimmon.newline. This is
+	 * important because text files frequently do not have line terminators at the
+	 * end ("trailing newline").
+	 */
+	const end: Parser<undefined | string>;
+	/**
 	 * consumes and yields the next character of the stream.
 	 */
 	const any: Parser<string>;
@@ -461,6 +559,23 @@ declare namespace Parsimmon {
 	 * Returns a parser yield a string containing all the next characters that pass the predicate
 	 */
 	function takeWhile(predicate: (char: string) => boolean): Parser<string>;
+	/**
+	 * Returns a parser that yields a byte (as a number) that matches the given input;
+	 * similar to Parsimmon.digit and Parsimmon.letter.
+	 */
+	 function byte(int: number): Parser<number>;
+	/**
+	 * Returns a parser that yields a byte (as a number) that matches the given input;
+	 * similar to Parsimmon.digit and Parsimmon.letter.
+	 */
+	function bitSeq(alignments: number[]): Parser<number[]>;
+	/**
+	 * Works like Parsimmon.bitSeq except each item in the array is either a number of
+	 * bits or pair (array with length = 2) of name and bits. The bits are parsed in order
+	 * and put into an object based on the name supplied. If there's no name for the bits,
+	 * it will be parsed but discarded from the returned value.
+	 */
+	function bitSeqObj<Key extends string>(namedAlignments: Array<[Key, number] | number>): Parser<{ [K in Key]: number }>;
 }
 
 export = Parsimmon;

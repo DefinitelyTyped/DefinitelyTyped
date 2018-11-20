@@ -30,10 +30,15 @@ class ClassPage extends React.Component<Props, State> {
     // ... other stuff
     }
 
+    @track((_props, _state, [e]: [React.MouseEvent]) => ({ event: `drag started at ${e.screenX}x${e.screenY}` }))
+    handleDrag(event: React.MouseEvent) {
+        // no-op
+    }
+
     @track((props, state) => ({ event: `got ${props.someProp} and clicked ${state.isClicked}` }))
     render() {
         return (
-            <button onClick={this.handleClick}>
+            <button onClick={this.handleClick} onDrag={this.handleDrag}>
                 Click Me!
             </button>
         );

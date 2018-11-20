@@ -2,7 +2,7 @@
 // Project: https://github.com/glittershark/reactable
 // Definitions by: Christoph Spielmann <https://github.com/spielc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -13,12 +13,15 @@ export interface KeyLabelObject {
 
 export type ColumnsType = string | KeyLabelObject;
 
+export type SortDirection = 'asc' | 'desc';
+
 export type FilterMethodType = (text: string) => void;
 
 export interface TableComponentProperties<T> {
     data?: T[];
     className?: string;
     columns?: ColumnsType[];
+    defaultSort?: { column: string, direction: SortDirection };
     id?: string;
     sortable?: string[];
     filterable?: string[];

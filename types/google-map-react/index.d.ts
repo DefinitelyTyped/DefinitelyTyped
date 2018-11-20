@@ -2,15 +2,15 @@
 // Project: https://github.com/istarkov/google-map-react
 // Definitions by: Honza Brecka <https://github.com/honzabrecka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
 export type BootstrapURLKeys = ({ key: string; } | { client: string; v: string; }) & { language?: string };
 
 export interface MapTypeStyle {
-  elementType: string;
-  featureType: string;
+  elementType?: string;
+  featureType?: string;
   stylers: any[];
 }
 
@@ -131,12 +131,14 @@ export interface Props {
   onChildClick?(hoverKey: any, childProps: any): void;
   onChildMouseEnter?(hoverKey: any, childProps: any): void;
   onChildMouseLeave?(hoverKey: any, childProps: any): void;
+  onDrag?(args: any): void;
   onZoomAnimationStart?(args: any): void;
   onZoomAnimationEnd?(args: any): void;
   onMapTypeIdChange?(args: any): void;
-  distanceToMouse?(pt: Point, mousePos: Point): void;
+  distanceToMouse?(pt: Point, mousePos: Point, markerProps?: object): number;
   googleMapLoader?(bootstrapURLKeys: any): void;
   onGoogleApiLoaded?(maps: { map: any, maps: any }): void;
+  onTilesLoaded?(): void;
   yesIWantToUseGoogleMapApiInternals?: boolean;
 }
 

@@ -6,12 +6,15 @@
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
-//                 Ahmed T. Ali <https://github.com/ahmed-taj>
 //                 Alan Agius <https://github.com/alan-agius4>
 //                 Spencer Elliott <https://github.com/elliottsj>
 //                 Jason Cheatham <https://github.com/jason0x43>
 //                 Dennis George <https://github.com/dennispg>
 //                 Christophe Hurpeau <https://github.com/christophehurpeau>
+//                 ZSkycat <https://github.com/ZSkycat>
+//                 John Reilly <https://github.com/johnnyreilly>
+//                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
+//                 Kyle Uehlein <https://github.com/kuehlein>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -21,6 +24,7 @@ import { Tapable, HookMap,
          SyncBailHook, SyncHook, SyncLoopHook, SyncWaterfallHook,
          AsyncParallelBailHook, AsyncParallelHook, AsyncSeriesBailHook, AsyncSeriesHook, AsyncSeriesWaterfallHook } from 'tapable';
 import * as UglifyJS from 'uglify-js';
+import * as anymatch from 'anymatch';
 import { RawSourceMap } from 'source-map';
 
 export = webpack;
@@ -60,24 +64,22 @@ declare namespace webpack {
         /** Like resolve but for loaders. */
         resolveLoader?: ResolveLoader;
         /**
-         *  Specify dependencies that shouldn’t be resolved by webpack, but should become dependencies of the resulting bundle.
-         *  The kind of the dependency depends on output.libraryTarget.
+         * Specify dependencies that shouldn’t be resolved by webpack, but should become dependencies of the resulting bundle.
+         * The kind of the dependency depends on output.libraryTarget.
          */
         externals?: ExternalsElement | ExternalsElement[];
         /**
-         * <ul>
-         *   <li>"web" Compile for usage in a browser-like environment (default)</li>
-         *   <li>"webworker" Compile as WebWorker</li>
-         *   <li>"node" Compile for usage in a node.js-like environment (use require to load chunks)</li>
-         *   <li>"async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async)</li>
-         *   <li>"node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)</li>
-         *   <li>"atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.</li>
-         *   <li>"electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin
-         *        for browser environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.<li>
-         *   <li>"electron-main" Compile for Electron for main process.</li>
-         *   <li>"atom" Alias for electron-main</li>
-         *   <li>"electron" Alias for electron-main</li>
-         * <ul>
+         * - "web" Compile for usage in a browser-like environment (default).
+         * - "webworker" Compile as WebWorker.
+         * - "node" Compile for usage in a node.js-like environment (use require to load chunks).
+         * - "async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async).
+         * - "node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)
+         * - "atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.
+         * - "electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin for browser
+         *   environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
+         * - "electron-main" Compile for Electron for main process.
+         * - "atom" Alias for electron-main.
+         * - "electron" Alias for electron-main.
          */
         target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | ((compiler?: any) => void);
         /** Report the first error as a hard error instead of tolerating it. */
@@ -91,10 +93,8 @@ declare namespace webpack {
         watchOptions?: Options.WatchOptions;
         /** Switch loaders to debug mode. */
         debug?: boolean;
-        /** Can be used to configure the behaviour of webpack-dev-server when the webpack config is passed to webpack-dev-server CLI. */
-        devServer?: any; // TODO: Type this
         /** Include polyfills or mocks for various node stuff */
-        node?: Node;
+        node?: Node | false;
         /** Set the value of require.amd and define.amd. */
         amd?: { [moduleName: string]: boolean };
         /** Used for recordsInputPath and recordsOutputPath */
@@ -108,10 +108,9 @@ declare namespace webpack {
         /** Stats options for logging  */
         stats?: Options.Stats;
         /** Performance options */
-        performance?: Options.Performance;
+        performance?: Options.Performance | false;
         /** Limit the number of parallel processed modules. Can be used to fine tune performance or to get more reliable profiling results */
         parallelism?: number;
-
         /** Optimization options */
         optimization?: Options.Optimization;
     }
@@ -120,7 +119,7 @@ declare namespace webpack {
         [name: string]: string | string[];
     }
 
-    type EntryFunc = () => (string | string[] | Promise<string | string[]>);
+    type EntryFunc = () => (string | string[] | Entry | Promise<string | string[] | Entry>);
 
     interface DevtoolModuleFilenameTemplateInfo {
         identifier: string;
@@ -135,14 +134,20 @@ declare namespace webpack {
     }
 
     interface Output {
-        /** The output directory as absolute path. */
-        path?: string;
+        /** When used in tandem with output.library and output.libraryTarget, this option allows users to insert comments within the export wrapper. */
+        auxiliaryComment?: string | AuxiliaryCommentObject;
         /** The filename of the entry chunk as relative path inside the output.path directory. */
         filename?: string;
         /** The filename of non-entry chunks as relative path inside the output.path directory. */
         chunkFilename?: string;
-        /** The filename of the SourceMaps for the JavaScript files. They are inside the output.path directory. */
-        sourceMapFilename?: string;
+        /** Number of milliseconds before chunk request expires, defaults to 120,000. */
+        chunkLoadTimeout?: number;
+        /** This option enables cross-origin loading of chunks. */
+        crossOriginLoading?: string | boolean;
+        /** The JSONP function used by webpack for asnyc loading of chunks. */
+        jsonpFunction?: string;
+        /** Allows customization of the script type webpack injects script tags into the DOM to download async chunks. */
+        jsonpScriptType?: 'text/javascript' | 'module';
         /** Filename template string of function for the sources array in a generated SourceMap. */
         devtoolModuleFilenameTemplate?: string | ((info: DevtoolModuleFilenameTemplateInfo) => string);
         /** Similar to output.devtoolModuleFilenameTemplate, but used in the case of duplicate module identifiers. */
@@ -154,43 +159,43 @@ declare namespace webpack {
          * true enables it for all modules (not recommended)
          */
         devtoolLineToLine?: boolean;
+        /** This option determines the modules namespace used with the output.devtoolModuleFilenameTemplate. */
+        devtoolNamespace?: string;
         /** The filename of the Hot Update Chunks. They are inside the output.path directory. */
         hotUpdateChunkFilename?: string;
-        /** The filename of the Hot Update Main File. It is inside the output.path directory. */
-        hotUpdateMainFilename?: string;
-        /** The output.path from the view of the Javascript / HTML page. */
-        publicPath?: string;
-        /** The JSONP function used by webpack for asnyc loading of chunks. */
-        jsonpFunction?: string;
         /** The JSONP function used by webpack for async loading of hot update chunks. */
         hotUpdateFunction?: string;
-        /** Include comments with information about the modules. */
-        pathinfo?: boolean;
+        /** The filename of the Hot Update Main File. It is inside the output.path directory. */
+        hotUpdateMainFilename?: string;
         /** If set, export the bundle as library. output.library is the name. */
         library?: string | string[];
         /**
          * Which format to export the library:
-         * <ul>
-         *   <li>"var" - Export by setting a variable: var Library = xxx (default)</li>
-         *   <li>"this" - Export by setting a property of this: this["Library"] = xxx</li>
-         *   <li>"commonjs" - Export by setting a property of exports: exports["Library"] = xxx</li>
-         *   <li>"commonjs2" - Export by setting module.exports: module.exports = xxx</li>
-         *   <li>"amd" - Export to AMD (optionally named)</li>
-         *   <li>"umd" - Export to AMD, CommonJS2 or as property in root</li>
-         *   <li>"window" - Assign to window</li>
-         *   <li>"assign" - Assign to a global variable</li>
-         *   <li>"jsonp" - Generate Webpack JSONP module<li>
-         * </ul>
+         * - "var" - Export by setting a variable: var Library = xxx (default)
+         * - "this" - Export by setting a property of this: this["Library"] = xxx
+         * - "commonjs" - Export by setting a property of exports: exports["Library"] = xxx
+         * - "commonjs2" - Export by setting module.exports: module.exports = xxx
+         * - "amd" - Export to AMD (optionally named)
+         * - "umd" - Export to AMD, CommonJS2 or as property in root
+         * - "window" - Assign to window
+         * - "assign" - Assign to a global variable
+         * - "jsonp" - Generate Webpack JSONP module
          */
-        libraryTarget?: 'var' | 'this' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'window' | 'assign' | 'jsonp';
+        libraryTarget?: LibraryTarget;
         /** Configure which module or modules will be exposed via the `libraryTarget` */
         libraryExport?: string | string[];
         /** If output.libraryTarget is set to umd and output.library is set, setting this to true will name the AMD module. */
         umdNamedDefine?: boolean;
+        /** The output directory as absolute path. */
+        path?: string;
+        /** Include comments with information about the modules. */
+        pathinfo?: boolean;
+        /** The output.path from the view of the Javascript / HTML page. */
+        publicPath?: string;
+        /** The filename of the SourceMaps for the JavaScript files. They are inside the output.path directory. */
+        sourceMapFilename?: string;
         /** Prefixes every line of the source in the bundle with this string. */
         sourcePrefix?: string;
-        /** This option enables cross-origin loading of chunks. */
-        crossOriginLoading?: string | boolean;
         /** The encoding to use when generating the hash, defaults to 'hex' */
         hashDigest?: 'hex' | 'latin1' | 'base64';
         /** The prefix length of the hash digest to use, defaults to 20. */
@@ -202,6 +207,10 @@ declare namespace webpack {
         /** An expression which is used to address the global object/scope in runtime code. */
         globalObject?: string;
     }
+
+    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp';
+
+    type AuxiliaryCommentObject = { [P in LibraryTarget]: string };
 
     interface Module {
         /** A array of applied pre loaders. */
@@ -343,20 +352,22 @@ declare namespace webpack {
     type ExternalsElement = string | RegExp | ExternalsObjectElement | ExternalsFunctionElement;
 
     interface ExternalsObjectElement {
-        [key: string]: boolean | string;
+        [key: string]: boolean | string | string[] | Record<string, string | string[]>;
     }
 
     type ExternalsFunctionElement = (context: any, request: any, callback: (error: any, result: any) => void) => any;
 
     interface Node {
-        console?: boolean;
+        console?: boolean | 'mock';
+        process?: boolean | 'mock';
         global?: boolean;
-        process?: boolean;
-        Buffer?: boolean;
-        __filename?: boolean | string;
-        __dirname?: boolean | string;
-        [nodeBuiltin: string]: boolean | string | undefined;
+        __filename?: boolean | 'mock';
+        __dirname?: boolean | 'mock';
+        Buffer?: boolean | 'mock';
+        setImmediate?: boolean | 'mock' | 'empty';
+        [nodeBuiltin: string]: boolean | 'mock' | 'empty' | undefined;
     }
+
     interface NewLoader {
         loader: string;
         options?: { [name: string]: any };
@@ -567,6 +578,8 @@ declare namespace webpack {
             priority?: number;
             /** Minimal size for the created chunk */
             minSize?: number;
+            /** Maximum size for the created chunk */
+            maxSize?: number;
             /** Minimum number of times a module has to be duplicated until it's considered for splitting */
             minChunks?: number;
             /** Maximum number of requests which are accepted for on-demand loading */
@@ -583,6 +596,8 @@ declare namespace webpack {
             chunks?: "initial" | "async" | "all" | ((chunk: compilation.Chunk) => boolean);
             /** Minimal size for the created chunk */
             minSize?: number;
+            /** Maximum size for the created chunk */
+            maxSize?: number;
             /** Minimum number of times a module has to be duplicated until it's considered for splitting */
             minChunks?: number;
             /** Maximum number of requests which are accepted for on-demand loading */
@@ -592,7 +607,7 @@ declare namespace webpack {
             /** Give chunks created a name (chunks with equal name are merged) */
             name?: boolean | string | ((...args: any[]) => any);
             /** Assign modules to a cache group (modules from different cache groups are tried to keep in separate chunks) */
-            cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | { [key: string]: CacheGroupsOptions };
+            cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | { [key: string]: CacheGroupsOptions | false };
         }
         interface RuntimeChunkOptions {
             /** The name or name factory for the runtime chunks. */
@@ -950,44 +965,17 @@ declare namespace webpack {
             childrenCounters: any;
             usedChunkIds: any;
             usedModuleIds: any;
+            fileTimestamps: Map<string, number>;
+            contextTimestamps: Map<string, number>;
+            fileDependencies: SortableSet<string>;
+            contextDependencies: SortableSet<string>;
+            missingDependencies: SortableSet<string>;
+            hash?: string;
             getStats(): Stats;
             addModule(module: CompilationModule, cacheGroup: any): any;
-            // getModule(module)
-            // findModule(identifier)
-            // waitForBuildingFinished(module, callback)
-            // buildModule(module, optional, origin, dependencies, thisCallback)
-            // processModuleDependencies(module, callback)
-            // addModuleDependencies(module, dependencies, bail, cacheGroup, recursive, callback)
             // tslint:disable-next-line:ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;
-            // prefetch(context, dependency, callback)
-            // rebuildModule(module, thisCallback)
-            // finish()
-            // unseal()
-            // seal(callback)
-            // sortModules(modules)
-            // reportDependencyErrorsAndWarnings(module, blocks)
-            // addChunkInGroup(name, module, loc, request)
-            // addChunk(name)
-            // assignIndex(module)
-            // assignDepth(module)
-            // processDependenciesBlocksForChunkGroups(inputChunkGroups)
-            // removeReasonsOfDependencyBlock(module, block)
-            // patchChunksAfterReasonRemoval(module, chunk)
-            // removeChunkFromDependencies(block, chunk)
-            // applyModuleIds()
-            // applyChunkIds()
-            // sortItemsWithModuleIds()
-            // sortItemsWithChunkIds()
-            // summarizeDependencies()
-            // createHash()
-            // modifyHash(update)
-            // createModuleAssets()
-            // createChunkAssets()
             getPath(filename: string, data: {hash?: any, chunk?: any, filename?: string, basename?: string, query?: any}): string;
-            // createChildCompiler(name, outputOptions, plugins)
-            // checkConstraints()
-
             /**
              * @deprecated Compilation.applyPlugins is deprecated. Use new API on `.hooks` instead
              */
@@ -1042,7 +1030,7 @@ declare namespace webpack {
              * It is possible to exclude a huge folder like node_modules.
              * It is also possible to use anymatch patterns.
              */
-            ignored?: string | string[] | RegExp;
+            ignored?: anymatch.Matcher;
             /** Turn on polling by passing true, or specifying a poll interval in milliseconds. */
             poll?: boolean | number;
         }
@@ -1053,6 +1041,32 @@ declare namespace webpack {
         invalidate(): void;
     }
 
+    interface InputFileSystem {
+        purge?(): void;
+        readFile(path: string, callback: (err: Error | undefined | null, contents: Buffer) => void): void;
+        readFileSync(path: string): Buffer;
+        readlink(path: string, callback: (err: Error | undefined | null, linkString: string) => void): void;
+        readlinkSync(path: string): string;
+        stat(path: string, callback: (err: Error | undefined | null, stats: any) => void): void;
+        statSync(path: string): any;
+    }
+
+    interface OutputFileSystem {
+        join(...paths: string[]): string;
+        mkdir(path: string, callback: (err: Error | undefined | null) => void): void;
+        mkdirp(path: string, callback: (err: Error | undefined | null) => void): void;
+        rmdir(path: string, callback: (err: Error | undefined | null) => void): void;
+        unlink(path: string, callback: (err: Error | undefined | null) => void): void;
+        writeFile(path: string, data: any, callback: (err: Error | undefined | null) => void): void;
+    }
+
+    interface SortableSet<T> extends Set<T> {
+        sortWith(sortFn: (a: T, b: T) => number): void;
+        sort(): void;
+        getFromCache(fn: (set: SortableSet<T>) => T[]): T[];
+        getFromUnorderedCache(fn: (set: SortableSet<T>) => string|number|T[]): any;
+    }
+
     class Compiler extends Tapable implements ICompiler {
         constructor();
 
@@ -1061,7 +1075,10 @@ declare namespace webpack {
 
         name: string;
         options: Configuration;
-        outputFileSystem: any;
+        inputFileSystem: InputFileSystem;
+        outputFileSystem: OutputFileSystem;
+        fileTimestamps: Map<string, number>;
+        contextTimestamps: Map<string, number>;
         run(handler: Compiler.Handler): void;
         watch(watchOptions: Compiler.WatchOptions, handler: Compiler.Handler): Compiler.Watching;
     }
@@ -1084,7 +1101,7 @@ declare namespace webpack {
     }
 
     abstract class MultiCompiler extends Tapable implements ICompiler {
-        compilers: ICompiler[];
+        compilers: Compiler[];
         run(handler: MultiCompiler.Handler): void;
         watch(watchOptions: MultiCompiler.WatchOptions, handler: MultiCompiler.Handler): MultiWatching;
     }
@@ -1108,6 +1125,10 @@ declare namespace webpack {
     }
 
     abstract class Stats {
+        compilation: compilation.Compilation;
+        hash?: string;
+        startTime?: Date;
+        endTime?: Date;
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
         /** Returns true if there were warnings while compiling. */
@@ -1128,10 +1149,14 @@ declare namespace webpack {
             | 'verbose';
 
         interface ToJsonOptionsObject {
+            /** fallback value for stats options when an option is not defined (has precedence over local webpack defaults) */
+            all?: boolean;
             /** Add asset Information */
             assets?: boolean;
             /** Sort assets by a field */
             assetsSort?: string;
+            /** Add built at time information */
+            builtAt?: boolean;
             /** Add information about cached (not built) modules */
             cached?: boolean;
             /** Show cached assets (setting this to `false` only shows emitted files) */
@@ -1454,6 +1479,33 @@ declare namespace webpack {
             }
         }
 
+        class AggressiveSplittingPlugin extends Plugin {
+            constructor(options?: AggressiveSplittingPlugin.Options);
+        }
+
+        namespace AggressiveSplittingPlugin {
+            interface Options {
+                /**
+                 * Size in byte.
+                 * Only chunks bigger than the specified minSize are stored in records.
+                 * This ensures the chunks fill up as your application grows,
+                 * instead of creating too many chunks for every change.
+                 *
+                 * Default: 30720
+                 */
+                minSize: 30000;
+                /**
+                 * Size in byte.
+                 * maximum size prefered for each chunk.
+                 *
+                 * Default: 51200
+                 */
+                maxSize: 50000;
+                chunkOverhead: 0;
+                entryChunkMultiplicator: 1;
+            }
+        }
+
         /** @deprecated */
         class DedupePlugin extends Plugin {
             constructor();
@@ -1531,6 +1583,11 @@ declare namespace webpack {
              *  In the example: /abc because resource.js is in this directory
              */
             context: string;
+
+            /**
+             * Starting with webpack 4, the formerly `this.options.context` is provided as `this.rootContext`.
+             */
+            rootContext: string;
 
             /**
              * The resolved request string.
@@ -1623,6 +1680,14 @@ declare namespace webpack {
              *
              */
             exec(code: string, filename: string): any;
+
+            /**
+             * Resolves the given request to a module, applies all configured loaders and calls
+             * back with the generated source, the sourceMap and the module instance (usually an
+             * instance of NormalModule). Use this function if you need to know the source code
+             * of another module to generate the result.
+             */
+            loadModule(request: string, callback: (err: Error | null, source: string, sourceMap: RawSourceMap, module: Module) => void): any;
 
             /**
              * Resolve a request like a require expression.

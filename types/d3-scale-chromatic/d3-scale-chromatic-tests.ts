@@ -125,9 +125,21 @@ colorInterpolator = d3ScaleChromatic.interpolateMagma;
 colorInterpolator = d3ScaleChromatic.interpolateInferno;
 colorInterpolator = d3ScaleChromatic.interpolatePlasma;
 colorInterpolator = d3ScaleChromatic.interpolateRainbow;
+colorInterpolator = d3ScaleChromatic.interpolateSinebow;
 colorInterpolator = d3ScaleChromatic.interpolateWarm;
 colorInterpolator = d3ScaleChromatic.interpolateCool;
 colorInterpolator = d3ScaleChromatic.interpolateCubehelixDefault;
+
+const Viridis: string = d3ScaleChromatic.interpolateViridis(0.7);
+const Magma: string = d3ScaleChromatic.interpolateMagma(0.7);
+const Inferno: string = d3ScaleChromatic.interpolateInferno(0.7);
+const Plasma: string = d3ScaleChromatic.interpolatePlasma(0.7);
+const Rainbow: string = d3ScaleChromatic.interpolateRainbow(0.7);
+const Sinebow: string = d3ScaleChromatic.interpolateSinebow(0.7);
+const Warm: string = d3ScaleChromatic.interpolateWarm(0.7);
+const Cool: string = d3ScaleChromatic.interpolateCool(0.7);
+const CubehelixDefault: string = d3ScaleChromatic.interpolateCubehelixDefault(0.7);
+
 colorInterpolator = d3ScaleChromatic.interpolateBuGn;
 colorInterpolator = d3ScaleChromatic.interpolateBuPu;
 colorInterpolator = d3ScaleChromatic.interpolateGnBu;

@@ -1,6 +1,6 @@
 // Type definitions for Chartist v0.9.81
 // Project: https://github.com/gionkunz/chartist-js
-// Definitions by: Matt Gibbs <https://github.com/mtgibbs>, Simon Pfeifer <https://github.com/psimonski>, Cassey Lottman <https://github.com/clottman>, Anastasiia Antonova <https://github.com/affilnost>
+// Definitions by: Matt Gibbs <https://github.com/mtgibbs>, Simon Pfeifer <https://github.com/psimonski>, Cassey Lottman <https://github.com/clottman>, Anastasiia Antonova <https://github.com/affilnost>, Sunny Juneja <https://github.com/sunnyrjuneja>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chartist {
@@ -101,7 +101,7 @@ declare namespace Chartist {
         value?: number;
         data?: Array<number>;
         className?: string;
-        meta?: string; // I assume this could probably be a number as well?
+        meta?: any;
     }
 
     interface IChartistBase<T extends IChartOptions> {
@@ -283,6 +283,7 @@ declare namespace Chartist {
          * If set to true this property will cause the series bars to be stacked and form a total for each series point. This will also influence the y-axis and the overall bounds of the chart. In stacked mode the seriesBarDistance property will have no effect.
          */
         stackBars?: boolean;
+        stackMode?: 'overlap' | 'accumulate';
 
         horizontalBars?: boolean;
         distributeSeries?: boolean;
@@ -534,7 +535,7 @@ declare namespace Chartist {
         /**
          * Set attributes on the current SVG element of the wrapper you're currently working on.
          */
-        attr(attributes: Object | string, ns: string): Object | string;
+        attr(attributes: Object | string, ns?: string): Object | string;
 
         /**
          * Create a new SVG element whose wrapper object will be selected for further operations. This way you can also create nested groups easily.

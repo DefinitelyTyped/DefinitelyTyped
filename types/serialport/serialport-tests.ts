@@ -117,3 +117,23 @@ function test_parsers() {
     port.pipe(ReadyParser);
     port.pipe(RegexParser);
 }
+
+function test_properties() {
+    const port = new SerialPort('');
+
+    const baudRate: number = port.baudRate;
+    const binding: SerialPort.BaseBinding = port.binding;
+    const isOpen: boolean = port.isOpen;
+    const path: string = port.path;
+}
+
+function test_list_ports_promise() {
+    const ports = SerialPort
+        .list()
+        .then((ports: any) => {})
+        .catch((err: Error) => {});
+}
+
+function test_list_ports_callback() {
+    const ports = SerialPort.list((error: Error, port: any[]) => {});
+}

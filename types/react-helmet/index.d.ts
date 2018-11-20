@@ -2,7 +2,7 @@
 // Project: https://github.com/nfl/react-helmet
 // Definitions by: Evan Bremer <https://github.com/evanbb>, Isman Usoh <https://github.com/isman-usoh>, François Nguyen <https://github.com/lith-light-g>, Kok Sam <https://github.com/sammkj>, Yui T. <https://github.com/yuit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 

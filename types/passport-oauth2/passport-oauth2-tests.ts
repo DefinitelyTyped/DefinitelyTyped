@@ -33,7 +33,6 @@ function verifyFunction4(_req: Request, _accessToken: string, _refreshToken: str
 
 const strategyOptions2: StrategyOptionsWithRequest = {
     authorizationURL: 'http://www.example.com/auth',
-    callbackURL: 'http://www.example.com/callback',
     clientID: 'dummy',
     clientSecret: 'secret',
     tokenURL: 'http://www.example.com/token',
@@ -52,6 +51,8 @@ const err3 = new InternalOAuthError('Hello', {});
 
 class MyStrategy extends OAuth2Strategy {
     useProtectedProperty() {
-        this._oauth2.get('http://www.example.com/profile', 'token', 'http://www.example.com/callback');
+        this._oauth2.get('http://www.example.com/profile', 'token', err => err.statusCode);
+        this._oauth2.get('http://www.example.com/profile', 'token', (err, result) => result);
+        this._oauth2.get('http://www.example.com/profile', 'token', (err, result, response) => response);
     }
 }

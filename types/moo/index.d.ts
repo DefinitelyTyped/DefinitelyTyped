@@ -50,7 +50,7 @@ export interface Rule {
     };
 }
 export interface Rules {
-    [x: string]: RegExp | string | string[] | Rule;
+    [x: string]: RegExp | string | string[] | Rule | Rule[];
 }
 
 export interface Lexer {
@@ -104,7 +104,7 @@ export interface Token {
     /**
      * The number of line breaks found in the match. (Always zero if this rule has lineBreaks: false.)
      */
-    lineBreaks: boolean;
+    lineBreaks: number;
     /**
      * The line number of the beginning of the match, starting from 1.
      */

@@ -27,11 +27,11 @@ declare namespace Snap {
     export function fragment(varargs:any):Fragment;
     export function getElementByPoint(x:number,y:number):Snap.Element;
     export function is(o:any,type:string):boolean;
-    export function load(url:string,callback:Function,scope?:Object):void;
+    export function load(url:string,callback:(f:Fragment)=>void,scope?:Object):void;
     export function plugin(f:Function):void;
     export function select(query:string):Snap.Element;
     export function selectAll(query:string):any;
-    export function snapTo(values:Array<number>,value:number,tolerance?:number):number;
+    export function snapTo(values:Array<number>|number,value:number,tolerance?:number):number;
 
     export function animate(from:number|number[],to:number|number[],updater:(n:number)=>void,duration:number,easing?:(num:number)=>number,callback?:()=>void):mina.MinaAnimation;
     export function animation(attr:Object,duration:number,easing?:(num:number)=>number,callback?:()=>void):Snap.Animation;
@@ -203,16 +203,16 @@ declare namespace Snap {
         touchcancel(handler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
 
         unclick(handler?: (event: MouseEvent) => void): Snap.Element;
-        undblclick(handler: (event: MouseEvent) => void): Snap.Element;
-        unmousedown(handler: (event: MouseEvent) => void): Snap.Element;
-        unmousemove(handler: (event: MouseEvent) => void): Snap.Element;
-        unmouseout(handler: (event: MouseEvent) => void): Snap.Element;
-        unmouseover(handler: (event: MouseEvent) => void): Snap.Element;
-        unmouseup(handler: (event: MouseEvent) => void): Snap.Element;
-        untouchstart(handler: (event: MouseEvent) => void): Snap.Element;
-        untouchmove(handler: (event: MouseEvent) => void): Snap.Element;
-        untouchend(handler: (event: MouseEvent) => void): Snap.Element;
-        untouchcancel(handler: (event: MouseEvent) => void): Snap.Element;
+        undblclick(handler?: (event: MouseEvent) => void): Snap.Element;
+        unmousedown(handler?: (event: MouseEvent) => void): Snap.Element;
+        unmousemove(handler?: (event: MouseEvent) => void): Snap.Element;
+        unmouseout(handler?: (event: MouseEvent) => void): Snap.Element;
+        unmouseover(handler?: (event: MouseEvent) => void): Snap.Element;
+        unmouseup(handler?: (event: MouseEvent) => void): Snap.Element;
+        untouchstart(handler?: (event: MouseEvent) => void): Snap.Element;
+        untouchmove(handler?: (event: MouseEvent) => void): Snap.Element;
+        untouchend(handler?: (event: MouseEvent) => void): Snap.Element;
+        untouchcancel(handler?: (event: MouseEvent) => void): Snap.Element;
 
         hover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void, thisArg?: any): Snap.Element;
         hover(hoverInHandler: (event: MouseEvent) => void, hoverOutHandler: (event: MouseEvent) => void, inThisArg?: any, outThisArg?: any): Snap.Element;
@@ -280,7 +280,7 @@ declare namespace Snap {
         mask(varargs:any):Object;
         ptrn(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
         svg(x:number,y:number,width:number,height:number,vbx:number,vby:number,vbw:number,vbh:number):Object;
-        toDataUrl(): string;
+        toDataURL(): string;
         toString():string;
         use(id?:string):Object;
         use(id?:Snap.Element):Object;

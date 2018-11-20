@@ -72,7 +72,7 @@ const complexQuery = ds.createQuery('special_namespace', kind)
                        .offset(10);
 
 // Running queries:
-const queryCallback: QueryCallback = (err: Error, entities: TestEntity[]) => entities[0][Datastore.KEY];
+const queryCallback: QueryCallback = (err: Error, entities: TestEntity[]) => entities[0][ds.KEY];
 
 ds.runQuery(query, queryCallback);
 ds.runQuery(query, options, queryCallback);

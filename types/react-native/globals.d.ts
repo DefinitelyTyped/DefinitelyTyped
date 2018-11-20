@@ -33,7 +33,7 @@ declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response
 
 interface Blob {}
 
-declare interface FormData {
+declare class FormData {
   append(name: string, value: any): void;
 }
 
