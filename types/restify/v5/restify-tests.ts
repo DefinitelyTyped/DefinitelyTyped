@@ -170,6 +170,11 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
     restify.plugins.auditLogger({ event: 'after', log: logger })(req, res, route, err);
 });
 
+server.on('after', restify.plugins.metrics(
+    {server: server},
+    (err, metrics, req, res, route) => err || metrics
+));
+
 (<any> restify).defaultResponseHeaders = function(this: restify.Request, data: any) {
     this.header('Server', 'helloworld');
 };
