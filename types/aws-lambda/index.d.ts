@@ -63,7 +63,7 @@ export interface APIGatewayProxyEvent {
     headers: { [name: string]: string };
     multiValueHeaders: { [name: string]: string[] };
     httpMethod: string;
-    method: string;
+    method?: string;
     isBase64Encoded: boolean;
     path: string;
     pathParameters: { [name: string]: string } | null;
