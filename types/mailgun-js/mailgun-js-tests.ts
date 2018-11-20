@@ -33,12 +33,12 @@ mailgun.messages().send(exampleSendData, (err, body) => {});
 let validationResultPromise: Promise<mailgunFactory.validation.ValidateResponse>;
 validationResultPromise = mailgun.validate("foo@mailgun.net");
 validationResultPromise = mailgun.validate("foo@mailgun.net", true);
-validationResultPromise = mailgun.validate("foo@mailgun.net", true, { option: "option" });
-validationResultPromise = mailgun.validate("foo@mailgun.net", { option: "option" });
+validationResultPromise = mailgun.validate("foo@mailgun.net", true, { mailbox_verification: true });
+validationResultPromise = mailgun.validate("foo@mailgun.net", { mailbox_verification: false, api_key: "..." });
 mailgun.validate("foo@mailgun.net", (error, body) => {});
 mailgun.validate("foo@mailgun.net", true, (error, body) => {});
-mailgun.validate("foo@mailgun.net", true, { option: "option" }, (error, body) => {});
-mailgun.validate("foo@mailgun.net", { option: "option" }, (error, body) => {});
+mailgun.validate("foo@mailgun.net", true, { mailbox_verification: true }, (error, body) => {});
+mailgun.validate("foo@mailgun.net", { mailbox_verification: false, api_key: "..." }, (error, body) => {});
 
 const validationResult6: mailgunFactory.validation.ValidateResponse = {
     address: "foo@mailgun.net",

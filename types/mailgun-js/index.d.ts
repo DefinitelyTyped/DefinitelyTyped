@@ -128,6 +128,15 @@ declare namespace Mailgun {
 
         type ValidationCallback = (error: Error, body: ValidateResponse) => void;
 
+        interface ValidationOptionsPublic {
+            api_key?: string;
+            mailbox_verification?: boolean | "true" | "false";
+        }
+
+        interface ValidationOptionsPrivate {
+            mailbox_verification?: boolean | "true" | "false";
+        }
+
         interface ValidateResponse {
             address: string;
             did_you_mean: string | null;
@@ -156,13 +165,15 @@ declare namespace Mailgun {
         parse(addressList: string[], callback?: validation.ValidationCallback): Promise<validation.ParseResponse>;
 
         validate(address: string, callback: validation.ValidationCallback): void;
-        validate(address: string, opts: { [key: string]: any }, callback: validation.ValidationCallback): void;
+        validate(address: string, opts: validation.ValidationOptionsPublic, callback: validation.ValidationCallback): void;
         // tslint:disable-next-line unified-signatures
         validate(address: string, isPrivate: boolean, callback: validation.ValidationCallback): void;
-        validate(address: string, isPrivate: boolean, opts: { [key: string]: any }, callback: validation.ValidationCallback): void;
+        validate(address: string, isPrivate: false, opts: validation.ValidationOptionsPublic, callback: validation.ValidationCallback): void;
+        validate(address: string, isPrivate: true, opts: validation.ValidationOptionsPrivate, callback: validation.ValidationCallback): void;
 
-        validate(address: string, isPrivate?: boolean, opts?: { [key: string]: any }): Promise<validation.ValidateResponse>;
-        validate(address: string, opts: { [key: string]: any }): Promise<validation.ValidateResponse>;
+        validate(address: string, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
+        validate(address: string, isPrivate: false, opts?: validation.ValidationOptionsPublic): Promise<validation.ValidateResponse>;
+        validate(address: string, isPrivate: true, opts?: validation.ValidationOptionsPrivate): Promise<validation.ValidateResponse>;
     }
 
     interface Lists {
