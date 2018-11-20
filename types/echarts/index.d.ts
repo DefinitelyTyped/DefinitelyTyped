@@ -9,6 +9,7 @@
 // TypeScript Version: 2.3
 
 /// <reference types="zrender" />
+/// <reference path="./options/index.d.ts" />
 
 declare namespace echarts {
     /**
