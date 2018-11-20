@@ -27,7 +27,7 @@ declare namespace RangeParser {
          */
         combine?: boolean;
     }
-    const enum Result {
+    enum Result {
         invaild = -2,
         unsatisifiable = -1,
     }
