@@ -597,6 +597,7 @@ declare namespace google {
             chartArea?: ChartArea;
             colors?: string[];
             enableInteractivity?: boolean;
+            explorer?: ChartExplorer;
             focusTarget?: string;
             fontSize?: number;
             fontName?: string;
