@@ -423,6 +423,7 @@ function testStub() {
     stub.callsArgWithAsync(1, 'a', 2);
     stub.callsArgOnWithAsync(1, instance, 'a', 2);
     stub.callsFake((s1, s2, s3) => { });
+    stub.callsFake(() => { });
     stub.get(() => true);
     stub.set((v) => { });
     stub.onCall(1).returns(true);
