@@ -1,4 +1,4 @@
-// Type definitions for redis-rate-limiter 1.2.0
+// Type definitions for redis-rate-limiter 1.2
 // Project: https://github.com/TabDigital/redis-rate-limiter
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Hasan Oezdemir <https://github.com/nodify-at>
