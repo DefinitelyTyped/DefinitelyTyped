@@ -156,9 +156,9 @@ declare namespace Sinon {
 
     interface SinonSpy<TArgs extends any[] = any[], TReturnValue = any>
         extends Pick<
-            SinonSpyCallApi<TArgs, TReturnValue>,
-            Exclude<keyof SinonSpyCallApi<TArgs, TReturnValue>, 'args'>
-        > {
+                SinonSpyCallApi<TArgs, TReturnValue>,
+                Exclude<keyof SinonSpyCallApi<TArgs, TReturnValue>, 'args'>
+            > {
         // Properties
         /**
          * The number of recorded calls.
