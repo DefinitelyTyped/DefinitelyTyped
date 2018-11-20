@@ -171,11 +171,11 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
 });
 
 server.on('after', restify.plugins.metrics(
-    {server: server},
+    {server},
     (err, metrics, req, res, route) => err || metrics
 ));
 
-(<any> restify).defaultResponseHeaders = function(this: restify.Request, data: any) {
+(restify as any).defaultResponseHeaders = function(this: restify.Request, data: any) {
     this.header('Server', 'helloworld');
 };
 
