@@ -1,5 +1,5 @@
-// Type definitions for Jasmine 2.8.0
-// Project: http://jasmine.github.io/
+// Type definitions for Jasmine 3.3
+// Project: https://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
 //                 David Pärsson <https://github.com/davidparsson>
@@ -7,6 +7,7 @@
 //                 Lukas Zech <https://github.com/lukas-zech-software>
 //                 Boris Breuer <https://github.com/Engineer2B>
 //                 Chris Yungmann <https://github.com/cyungmann>
+//                 Giles Roadnight <https://github.com/Roaders>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -453,6 +454,10 @@ declare namespace jasmine {
         toThrow(expected?: any): boolean;
         toThrowError(message?: string | RegExp): boolean;
         toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
+        toThrowMatching(predicate: (thrown: any) => boolean): boolean;
+        toBeNegativeInfinity(expectationFailOutput?: any): boolean;
+        toBePositiveInfinity(expectationFailOutput?: any): boolean;
+        toHaveClass(expected: any, expectationFailOutput?: any): boolean;
 
         /**
          * Add some context for an expect.

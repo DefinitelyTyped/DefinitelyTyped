@@ -1,4 +1,4 @@
-import { Value, Data, BlockJSON, Document, Editor, KeyUtils, Range, Point, Inline, Mark } from "slate";
+import { Block, Value, Data, BlockJSON, Document, Editor, KeyUtils, Range, Point, Inline, Mark, SchemaProperties } from "slate";
 
 const data = Data.create({ foo: "bar " });
 const value = Value.create({ data });
@@ -13,7 +13,10 @@ const node: BlockJSON = {
 			leaves: [
 				{
 					text: "example",
-					marks: []
+					marks: [{
+                        data: { testData: "data"},
+                        type: "mark"
+                    }]
 				}
 			]
 		}
@@ -282,3 +285,36 @@ editor
 KeyUtils.setGenerator(() => "Test");
 KeyUtils.create();
 KeyUtils.resetGenerator();
+
+const schema: SchemaProperties = {
+    document: {
+        nodes: [
+            {
+                match: [
+                    { type: 'block-quote' },
+                    { type: 'heading-one' },
+                    { type: 'heading-two' },
+                    { type: 'image' },
+                    { type: 'paragraph' },
+                    { type: 'bulleted-list' },
+                    { type: 'numbered-list' },
+                    { type: 'list-item' },
+                ],
+            },
+        ],
+        last: { type: 'paragraph' },
+        normalize: (editor: Editor, { code, node }: any) => {
+            switch (code) {
+                case 'last_child_type_invalid': {
+                    const paragraph = Block.create('paragraph');
+                    return editor.insertNodeByKey(node.key, node.nodes.size, paragraph);
+                }
+            }
+        },
+    },
+    blocks: {
+        image: {
+            isVoid: true,
+        },
+    },
+};

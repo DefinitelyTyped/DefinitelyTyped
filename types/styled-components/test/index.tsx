@@ -13,6 +13,7 @@ import styled, {
     ThemeProvider,
     withTheme,
     ThemeConsumer,
+    StyledComponent,
 } from 'styled-components';
 
 /**
@@ -124,16 +125,17 @@ class Example extends React.Component {
     render() {
         return (
             <ThemeProvider theme={theme}>
-                <ExampleGlobalStyle />
-                <Wrapper>
-                    <Title>
-                        Hello World, this is my first styled component!
+                <>
+                    <ExampleGlobalStyle />
+                    <Wrapper>
+                        <Title>
+                            Hello World, this is my first styled component!
                     </Title>
 
-                    <Input placeholder="@mxstbr" type="text" />
-                    <TomatoButton name="demo" />
-                </Wrapper>
-                ;
+                        <Input placeholder="@mxstbr" type="text" />
+                        <TomatoButton name="demo" />
+                    </Wrapper>
+                </>
             </ThemeProvider>
         );
     }
@@ -249,7 +251,7 @@ const MyOtherComponentWithProps = () => (
 
 // Create a <LinkFromStringWithPropsAndGenerics> react component that renders an <a>
 // which takes extra props passed as a generic type argument
-const LinkFromStringWithPropsAndGenerics = styled<LinkProps, 'a'>('a')`
+const LinkFromStringWithPropsAndGenerics = styled('a')<LinkProps>`
     font-size: 1.5em;
     text-align: center;
     color: ${a => (a.canClick ? 'palevioletred' : 'gray')};
@@ -392,6 +394,14 @@ class MyComponent extends React.Component<ThemeProps<{}>> {
 
 const ThemedMyComponent = withTheme(MyComponent);
 
+// TODO: passes in TS@3.1, not in TS@3.0
+// <ThemedMyComponent ref={ref => {
+//     // $ExpectType MyComponent | null
+//     ref;
+// }}/>;
+const themedRef = React.createRef<MyComponent>();
+<ThemedMyComponent ref={themedRef}/>;
+
 interface WithThemeProps {
     theme: {
         color: string;
@@ -531,10 +541,23 @@ const WithComponentFirstStyledB = WithComponentFirstStyledA.withComponent(
     WithComponentCompB,
 );
 
+const WithComponentFirstStyledANew = styled(WithComponentStyledA).attrs(props => ({ a: 1 }))``;
+
 const test = () => [
     <WithComponentFirstStyledA color={'black'} />,
     <WithComponentFirstStyledB b={2} color={'black'} />,
+    <WithComponentFirstStyledANew color={'black'} />,
 ];
+
+const WithComponentRequired = styled((props: { to: string }) => <a href={props.to}/>)``;
+// These tests pass in tsservice, but they fail in dtslint. I do not know why.
+// <WithComponentRequired href=''/>; // $ExpectError
+// <WithComponentRequired to=''/>;
+
+const WithComponentRequired2 = WithComponentRequired.withComponent('a');
+// These tests pass in tsservice, but they fail in dtslint. I do not know why.
+// <WithComponentRequired2 href=''/>;
+// <WithComponentRequired2 to=''/>; // $ExpectError
 
 // 4.0 With Component
 
@@ -567,5 +590,30 @@ class Test2Container extends React.Component<Test2ContainerProps> {
 }
 
 const containerTest = (
-    <StyledTestContainer as={Test2Container} size="small" />
+    // TODO (TypeScript 3.2): once the polymorphic overload is un-commented-out this should be the correct test
+    // <StyledTestContainer as={Test2Container} type='foo' />
+    <StyledTestContainer as={Test2Container} size='small' />
 );
+
+// 4.0 refs
+
+const divFnRef = (ref: HTMLDivElement|null) => { /* empty */ };
+const divRef = React.createRef<HTMLDivElement>();
+
+const StyledDiv = styled.div``;
+
+<StyledDiv ref={divRef}/>;
+<StyledDiv ref={divFnRef}/>;
+<StyledDiv ref='string'/>; // $ExpectError
+
+const StyledStyledDiv = styled(StyledDiv)``;
+<StyledStyledDiv ref={divRef}/>;
+<StyledStyledDiv ref={divFnRef}/>;
+<StyledStyledDiv ref='string'/>; // $ExpectError
+
+const StyledA = StyledDiv.withComponent('a');
+<StyledA ref={divRef}/>; // $ExpectError
+<StyledA ref={ref => {
+    // $ExpectType HTMLAnchorElement | null
+    ref;
+}}/>;

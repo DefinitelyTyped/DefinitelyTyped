@@ -304,10 +304,10 @@ import View from 'ol/view';
 
 // Map
 const map: ol.Map = new Map(<any> {});
-const mapView: View = <any> {};
-const layerBase: LayerBase = <any> {};
-const control: ControlControl = <any> {};
-const interaction: InteractionInteraction = <any> {};
+declare const mapView: View;
+declare const layerBase: LayerBase;
+declare const control: ControlControl;
+declare const interaction: InteractionInteraction;
 map.setView(mapView);
 map.addLayer(layerBase);
 map.addControl(control);
@@ -315,9 +315,9 @@ map.addInteraction(interaction);
 
 // View
 let view: View;
-const coordinate: ol.Coordinate = <any> {};
-const size: ol.Size = <any> {};
-const position: ol.Pixel = <any> {};
+declare const coordinate: ol.Coordinate;
+declare const size: ol.Size;
+declare const position: ol.Pixel;
 view = map.getView();
 view.getProjection();
 view.animate(<any> {});

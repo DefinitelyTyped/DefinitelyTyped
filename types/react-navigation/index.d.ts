@@ -14,7 +14,6 @@
 //                 Steven Miller <https://github.com/YourGamesBeOver>
 //                 Armando Assuncao <https://github.com/ArmandoAssuncao>
 //                 Ciaran Liedeman <https://github.com/cliedeman>
-//                 Edward Sammut Alessi <https://github.com/Slessi>
 //                 Jérémy Magrin <https://github.com/magrinj>
 //                 Luca Campana <https://github.com/TizioFittizio>
 //                 Ullrich Schaefer <https://github.com/stigi>
@@ -25,6 +24,7 @@
 //                 Denis Frezzato <https://github.com/DenisFrezzato>
 //                 Mickael Wegerich <https://github.com/mickaelw>
 //                 Max Davidson <https://github.com/maxdavidson>
+//                 Alec Hill <https://github.com/alechill>
 //                 Lachlan Young <https://github.com/builtbyproxy>
 //                 Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -554,6 +554,8 @@ export interface NavigationBottomTabScreenOptions
   ) => void;
 }
 
+export type DrawerLockMode = 'unlocked' | 'locked-closed' | 'locked-open';
+
 export interface NavigationDrawerScreenOptions {
   title?: string;
   drawerIcon?:
@@ -567,7 +569,7 @@ export interface NavigationDrawerScreenOptions {
   | ((
     options: { tintColor: string | null; focused: boolean }
   ) => React.ReactElement<any> | null);
-  drawerLockMode?: 'unlocked' | 'locked-closed' | 'locked-open';
+  drawerLockMode?: DrawerLockMode;
 }
 
 export interface NavigationRouteConfigMap {
@@ -899,6 +901,7 @@ export interface DrawerNavigatorConfig
     style?: StyleProp<ViewStyle>;
     labelStyle?: StyleProp<TextStyle>;
   };
+  drawerLockMode?: DrawerLockMode;
 }
 
 export function DrawerNavigator(
@@ -1244,7 +1247,7 @@ export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 export type InferProps<T extends React.ComponentType<any>> = T extends React.ComponentType<infer P> ? P : never;
 
 export interface NavigationInjectedProps<P = NavigationParams> {
-  navigation: NavigationScreenProp<NavigationState, P>;
+  navigation: NavigationScreenProp<NavigationRoute<P>, P>;
 }
 
 // If the wrapped component is a class, we can get a ref to it

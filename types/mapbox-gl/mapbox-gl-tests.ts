@@ -417,6 +417,7 @@ function expectType<T>(value: T) { /* let the compiler handle things */ }
 expectType<mapboxgl.LngLatLike>(new mapboxgl.LngLat(0, 0));
 expectType<mapboxgl.LngLatLike>([0, 0]);
 expectType<mapboxgl.LngLatLike>({ lng: 0, lat: 0 });
+expectType<mapboxgl.LngLatLike>({ lon: 0, lat: 0 });
 
 /*
  * LngLat
