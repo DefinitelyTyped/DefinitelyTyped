@@ -126,6 +126,8 @@ declare namespace Mailgun {
             unparseable: string[];
         }
 
+        type ValidationCallback = (error: Error, body: ValidateResponse) => void;
+
         interface ValidateResponse {
             address: string;
             did_you_mean: string | null;
@@ -151,32 +153,16 @@ declare namespace Mailgun {
             bodySignature: string
         ): boolean;
 
-        parse(
-            addressList: string[],
-            callback?: (error: Error, body: validation.ValidateResponse) => void
-        ): Promise<validation.ParseResponse>;
+        parse(addressList: string[], callback?: validation.ValidationCallback): Promise<validation.ParseResponse>;
 
-        validate(
-            address: string,
-            callback?: (error: Error, body: validation.ValidateResponse) => void
-        ): Promise<validation.ValidateResponse>;
-        validate(
-            address: string,
-            isPrivate: boolean,
-            callback?: (error: Error, body: validation.ValidateResponse) => void
-        ): Promise<validation.ValidateResponse>;
-        validate(
-            address: string,
-            // tslint:disable-next-line unified-signatures
-            opts: { [key: string]: any },
-            callback?: (error: Error, body: validation.ValidateResponse) => void
-        ): Promise<validation.ValidateResponse>;
-        validate(
-            address: string,
-            isPrivate: boolean,
-            opts: { [key: string]: any },
-            callback?: (error: Error, body: validation.ValidateResponse) => void
-        ): Promise<validation.ValidateResponse>;
+        validate(address: string, callback: validation.ValidationCallback): void;
+        validate(address: string, opts: { [key: string]: any }, callback: validation.ValidationCallback): void;
+        // tslint:disable-next-line unified-signatures
+        validate(address: string, isPrivate: boolean, callback: validation.ValidationCallback): void;
+        validate(address: string, isPrivate: boolean, opts: { [key: string]: any }, callback: validation.ValidationCallback): void;
+
+        validate(address: string, isPrivate?: boolean, opts?: { [key: string]: any }): Promise<validation.ValidateResponse>;
+        validate(address: string, opts: { [key: string]: any }): Promise<validation.ValidateResponse>;
     }
 
     interface Lists {

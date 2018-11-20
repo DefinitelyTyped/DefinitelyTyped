@@ -30,16 +30,15 @@ const exampleSendData: mailgunFactory.messages.SendData = {
 
 mailgun.messages().send(exampleSendData, (err, body) => {});
 
-const validationResult1: Promise<mailgunFactory.validation.ValidateResponse> =
-    mailgun.validate("foo@mailgun.net");
-const validationResult2: Promise<mailgunFactory.validation.ValidateResponse> =
-    mailgun.validate("foo@mailgun.net", (error, body) => {});
-const validationResult3: Promise<mailgunFactory.validation.ValidateResponse> =
-    mailgun.validate("foo@mailgun.net", true);
-const validationResult4: Promise<mailgunFactory.validation.ValidateResponse> =
-    mailgun.validate("foo@mailgun.net", true, (error, body) => {});
-const validationResult5: Promise<mailgunFactory.validation.ValidateResponse> =
-    mailgun.validate("foo@mailgun.net", true, { option: "option" }, (error, body) => {});
+let validationResultPromise: Promise<mailgunFactory.validation.ValidateResponse>;
+validationResultPromise = mailgun.validate("foo@mailgun.net");
+validationResultPromise = mailgun.validate("foo@mailgun.net", true);
+validationResultPromise = mailgun.validate("foo@mailgun.net", true, { option: "option" });
+validationResultPromise = mailgun.validate("foo@mailgun.net", { option: "option" });
+mailgun.validate("foo@mailgun.net", (error, body) => {});
+mailgun.validate("foo@mailgun.net", true, (error, body) => {});
+mailgun.validate("foo@mailgun.net", true, { option: "option" }, (error, body) => {});
+mailgun.validate("foo@mailgun.net", { option: "option" }, (error, body) => {});
 
 const validationResult6: mailgunFactory.validation.ValidateResponse = {
     address: "foo@mailgun.net",
