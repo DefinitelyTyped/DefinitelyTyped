@@ -659,8 +659,8 @@ export interface HostKeys {
 }
 
 export interface HostKey {
-    privatekey: ParsedKey;
-    publickey: ParsedKey;
+    privateKey: ParsedKey;
+    publicKey: ParsedKey;
 }
 
 /**
