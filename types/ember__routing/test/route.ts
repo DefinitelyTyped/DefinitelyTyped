@@ -80,6 +80,22 @@ Route.extend({
     },
 });
 
+class RedirectRoute extends Route {
+    redirect(model: {}, a: Transition) {
+        if (!model) {
+            this.transitionTo('there');
+        }
+    }
+}
+
+class InvalidRedirect extends Route {
+    redirect(model: {}, a: Transition, anOddArg: any) { // $ExpectError
+        if (!model) {
+            this.transitionTo('there');
+        }
+    }
+}
+
 class ApplicationController extends Controller {}
 declare module '@ember/controller' {
     interface Registry {

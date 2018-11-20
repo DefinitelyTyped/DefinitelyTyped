@@ -524,7 +524,7 @@ declare namespace Sinon {
          * Makes the stub call the provided @param func when invoked.
          * @param func
          */
-        callsFake(func: () => TReturnValue): SinonStub<TArgs, TReturnValue>;
+        callsFake(func: (...args: TArgs) => TReturnValue): SinonStub<TArgs, TReturnValue>;
         /**
          * Replaces a new getter for this stub.
          */
