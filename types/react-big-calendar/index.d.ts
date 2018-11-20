@@ -11,9 +11,9 @@
 import { Validator } from 'prop-types';
 import * as React from 'react';
 
-export type DayPropGetter = (date: Date) => { className?: string, style?: object };
+export type DayPropGetter = (date: Date) => { className?: string, style?: React.CSSProperties };
 export type EventPropGetter<T> = (event: T, start: stringOrDate, end: stringOrDate, isSelected: boolean) => { className?: string, style?: React.CSSProperties };
-export type SlotPropGetter = (date: Date) => { className?: string, style?: object };
+export type SlotPropGetter = (date: Date) => { className?: string, style?: React.CSSProperties };
 export type stringOrDate = string | Date;
 export type ViewKey = 'MONTH' | 'WEEK' | 'WORK_WEEK' | 'DAY' | 'AGENDA';
 export type View = 'month' | 'week' | 'work_week' | 'day' | 'agenda';
@@ -114,14 +114,14 @@ export interface HeaderProps {
 
 export interface Components {
     event?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
-    eventWrapper?: React.SFC<EventWrapperProps> | React.Component<EventWrapperProps> | React.ComponentClass<EventWrapperProps> | JSX.Element;
+    eventWrapper?: React.ComponentType<EventWrapperProps>;
     dayWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     dateCellWrapper?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
     /**
      * component used as a header for each column in the TimeGridHeader
      */
     header?: React.ComponentType<HeaderProps>;
-    toolbar?: React.SFC<ToolbarProps> | React.Component<ToolbarProps> | React.ComponentClass<ToolbarProps> | JSX.Element;
+    toolbar?: React.ComponentType<ToolbarProps>;
     agenda?: {
         date?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
         time?: React.SFC | React.Component | React.ComponentClass | JSX.Element;
@@ -154,6 +154,7 @@ export interface ToolbarProps {
 }
 
 export interface EventWrapperProps<T extends Event = Event> {
+    // https://github.com/intljusticemission/react-big-calendar/blob/27a2656b40ac8729634d24376dff8ea781a66d50/src/TimeGridEvent.js#L28
     style?: React.CSSProperties & { xOffset: number };
     className: string;
     event: T;
