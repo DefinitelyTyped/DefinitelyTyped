@@ -1,18 +1,38 @@
-import * as shapefile from 'shapefile'
+import { open, openDbf, openShp, read } from 'shapefile';
 
-shapefile.open('./example.shp')
+open('./example.shp', new ArrayBuffer(123))
     .then(source => {
-        source.bbox
+        source.bbox;
         source.read()
             .then(result => {
-                result.value
-                result.done
-        })
-    })
+                result.value.geometry;
+                result.done;
+        });
+    });
 
-shapefile.read("example.shp")
+openDbf('./example.dbf', {encoding: "utf8"})
+    .then(source => {
+        source.bbox;
+        source.read()
+            .then(result => {
+                result.value;
+                result.done;
+        });
+    });
+
+openShp('./example.shp', {highWaterMark: 0xabad1dea})
+    .then(source => {
+        source.bbox;
+        source.read()
+            .then(result => {
+                result.value;
+                result.done;
+        });
+    });
+
+read("example.shp")
     .then(result => {
-        result.bbox
-        result.features
-        result.type
-    })
+        result.bbox;
+        result.features;
+        result.type;
+    });

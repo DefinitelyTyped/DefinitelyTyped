@@ -21,8 +21,17 @@ export class MyComponent extends wepy.component {
 
     methods = {};
 
-    onLoad() {
+    async onLoad() {
         super.onLoad();
+        await wepy.request("http://www.weixin.com");
+        const a = await wepy.request({
+            url: "www.weixin.com",
+            data: { a: 1, b: 2 },
+            header: {
+                "content-type": "application/json"
+            },
+            method: "POST"
+        });
     }
 }
 

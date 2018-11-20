@@ -1,7 +1,7 @@
-// Type definitions for Node.js 9.6.x
+// Type definitions for Node.js 9.6
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
-//                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
@@ -25,6 +25,7 @@
 //                 Alexander T. <https://github.com/a-tarasyuk>
 //                 Lishude <https://github.com/islishude>
 //                 Andrew Makarov <https://github.com/r3nya>
+//                 Eugene Y. Q. Shen <https://github.com/eyqs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** inspector module types */
@@ -259,6 +260,7 @@ declare var SlowBuffer: {
 // Buffer class
 type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
 interface Buffer extends Uint8Array {
+    constructor: typeof Buffer;
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): { type: 'Buffer', data: any[] };
@@ -674,7 +676,7 @@ declare namespace NodeJS {
         columns?: number;
         rows?: number;
         _write(chunk: any, encoding: string, callback: Function): void;
-        _destroy(err: Error, callback: Function): void;
+        _destroy(err: Error | undefined, callback: Function): void;
         _final(callback: Function): void;
         setDefaultEncoding(encoding: string): this;
         cork(): void;
@@ -687,7 +689,7 @@ declare namespace NodeJS {
         isRaw?: boolean;
         setRawMode?(mode: boolean): void;
         _read(size: number): void;
-        _destroy(err: Error, callback: Function): void;
+        _destroy(err: Error | undefined, callback: Function): void;
         push(chunk: any, encoding?: string): boolean;
         destroy(error?: Error): void;
     }
@@ -1065,6 +1067,7 @@ declare module "http" {
         'transfer-encoding'?: string;
         'tk'?: string;
         'upgrade'?: string;
+        'user-agent'?: string;
         'vary'?: string;
         'via'?: string;
         'warning'?: string;
@@ -1227,6 +1230,7 @@ declare module "http" {
     }
 
     export class Agent {
+        maxFreeSockets: number;
         maxSockets: number;
         sockets: any;
         requests: any;
@@ -1675,6 +1679,7 @@ declare module "os" {
         netmask: string;
         mac: string;
         internal: boolean;
+        cidr: string | null;
     }
 
     export interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
@@ -1876,66 +1881,372 @@ declare module "punycode" {
 }
 
 declare module "repl" {
-    import * as stream from "stream";
-    import * as readline from "readline";
+    import { Interface, Completer, AsyncCompleter } from "readline";
+    import { Context } from "vm";
+    import { InspectOptions } from "util";
 
-    export interface ReplOptions {
+    interface ReplOptions {
+        /**
+         * The input prompt to display.
+         * Default: `"> "`
+         */
         prompt?: string;
+        /**
+         * The `Readable` stream from which REPL input will be read.
+         * Default: `process.stdin`
+         */
         input?: NodeJS.ReadableStream;
+        /**
+         * The `Writable` stream to which REPL output will be written.
+         * Default: `process.stdout`
+         */
         output?: NodeJS.WritableStream;
+        /**
+         * If `true`, specifies that the output should be treated as a TTY terminal, and have
+         * ANSI/VT100 escape codes written to it.
+         * Default: checking the value of the `isTTY` property on the output stream upon
+         * instantiation.
+         */
         terminal?: boolean;
-        eval?: Function;
+        /**
+         * The function to be used when evaluating each given line of input.
+         * Default: an async wrapper for the JavaScript `eval()` function. An `eval` function can
+         * error with `repl.Recoverable` to indicate the input was incomplete and prompt for
+         * additional lines.
+         *
+         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_default_evaluation
+         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_custom_evaluation_functions
+         */
+        eval?: REPLEval;
+        /**
+         * If `true`, specifies that the default `writer` function should include ANSI color
+         * styling to REPL output. If a custom `writer` function is provided then this has no
+         * effect.
+         * Default: the REPL instance's `terminal` value.
+         */
         useColors?: boolean;
+        /**
+         * If `true`, specifies that the default evaluation function will use the JavaScript
+         * `global` as the context as opposed to creating a new separate context for the REPL
+         * instance. The node CLI REPL sets this value to `true`.
+         * Default: `false`.
+         */
         useGlobal?: boolean;
+        /**
+         * If `true`, specifies that the default writer will not output the return value of a
+         * command if it evaluates to `undefined`.
+         * Default: `false`.
+         */
         ignoreUndefined?: boolean;
-        writer?: Function;
-        completer?: Function;
-        replMode?: any;
-        breakEvalOnSigint?: any;
+        /**
+         * The function to invoke to format the output of each command before writing to `output`.
+         * Default: a wrapper for `util.inspect`.
+         *
+         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_customizing_repl_output
+         */
+        writer?: REPLWriter;
+        /**
+         * An optional function used for custom Tab auto completion.
+         *
+         * @see https://nodejs.org/dist/latest-v11.x/docs/api/readline.html#readline_use_of_the_completer_function
+         */
+        completer?: Completer | AsyncCompleter;
+        /**
+         * A flag that specifies whether the default evaluator executes all JavaScript commands in
+         * strict mode or default (sloppy) mode.
+         * Accepted values are:
+         * - `repl.REPL_MODE_SLOPPY` - evaluates expressions in sloppy mode.
+         * - `repl.REPL_MODE_STRICT` - evaluates expressions in strict mode. This is equivalent to
+         *   prefacing every repl statement with `'use strict'`.
+         */
+        replMode?: typeof REPL_MODE_SLOPPY | typeof REPL_MODE_STRICT;
+        /**
+         * Stop evaluating the current piece of code when `SIGINT` is received, i.e. `Ctrl+C` is
+         * pressed. This cannot be used together with a custom `eval` function.
+         * Default: `false`.
+         */
+        breakEvalOnSigint?: boolean;
     }
 
-    export interface REPLServer extends readline.ReadLine {
-        context: any;
-        inputStream: NodeJS.ReadableStream;
-        outputStream: NodeJS.WritableStream;
+    type REPLEval = (this: REPLServer, evalCmd: string, context: Context, file: string, cb: (err: Error | null, result: any) => void) => void;
+    type REPLWriter = (this: REPLServer, obj: any) => string;
 
-        defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
+    /**
+     * This is the default "writer" value, if none is passed in the REPL options,
+     * and it can be overridden by custom print functions.
+     */
+    const writer: REPLWriter & { options: InspectOptions };
+
+    type REPLCommandAction = (this: REPLServer, text: string) => void;
+
+    interface REPLCommand {
+        /**
+         * Help text to be displayed when `.help` is entered.
+         */
+        help?: string;
+        /**
+         * The function to execute, optionally accepting a single string argument.
+         */
+        action: REPLCommandAction;
+    }
+
+    /**
+     * Provides a customizable Read-Eval-Print-Loop (REPL).
+     *
+     * Instances of `repl.REPLServer` will accept individual lines of user input, evaluate those
+     * according to a user-defined evaluation function, then output the result. Input and output
+     * may be from `stdin` and `stdout`, respectively, or may be connected to any Node.js `stream`.
+     *
+     * Instances of `repl.REPLServer` support automatic completion of inputs, simplistic Emacs-style
+     * line editing, multi-line inputs, ANSI-styled output, saving and restoring current REPL session
+     * state, error recovery, and customizable evaluation functions.
+     *
+     * Instances of `repl.REPLServer` are created using the `repl.start()` method and _should not_
+     * be created directly using the JavaScript `new` keyword.
+     *
+     * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_repl
+     */
+    class REPLServer extends Interface {
+        /**
+         * The `vm.Context` provided to the `eval` function to be used for JavaScript
+         * evaluation.
+         */
+        readonly context: Context;
+        /**
+         * The `Readable` stream from which REPL input will be read.
+         */
+        readonly inputStream: NodeJS.ReadableStream;
+        /**
+         * The `Writable` stream to which REPL output will be written.
+         */
+        readonly outputStream: NodeJS.WritableStream;
+        /**
+         * The commands registered via `replServer.defineCommand()`.
+         */
+        readonly commands: { readonly [name: string]: REPLCommand | undefined };
+        /**
+         * A value indicating whether the REPL is currently in "editor mode".
+         *
+         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_commands_and_special_keys
+         */
+        readonly editorMode: boolean;
+        /**
+         * A value indicating whether the `_` variable has been assigned.
+         *
+         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         */
+        readonly underscoreAssigned: boolean;
+        /**
+         * The last evaluation result from the REPL (assigned to the `_` variable inside of the REPL).
+         *
+         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         */
+        readonly last: any;
+        /**
+         * A value indicating whether the `_error` variable has been assigned.
+         *
+         * @since v9.8.0
+         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         */
+        readonly underscoreErrAssigned: boolean;
+        /**
+         * The last error raised inside the REPL (assigned to the `_error` variable inside of the REPL).
+         *
+         * @since v9.8.0
+         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_assignment_of_the_underscore_variable
+         */
+        readonly lastError: any;
+        /**
+         * Specified in the REPL options, this is the function to be used when evaluating each
+         * given line of input. If not specified in the REPL options, this is an async wrapper
+         * for the JavaScript `eval()` function.
+         */
+        readonly eval: REPLEval;
+        /**
+         * Specified in the REPL options, this is a value indicating whether the default
+         * `writer` function should include ANSI color styling to REPL output.
+         */
+        readonly useColors: boolean;
+        /**
+         * Specified in the REPL options, this is a value indicating whether the default `eval`
+         * function will use the JavaScript `global` as the context as opposed to creating a new
+         * separate context for the REPL instance.
+         */
+        readonly useGlobal: boolean;
+        /**
+         * Specified in the REPL options, this is a value indicating whether the default `writer`
+         * function should output the result of a command if it evaluates to `undefined`.
+         */
+        readonly ignoreUndefined: boolean;
+        /**
+         * Specified in the REPL options, this is the function to invoke to format the output of
+         * each command before writing to `outputStream`. If not specified in the REPL options,
+         * this will be a wrapper for `util.inspect`.
+         */
+        readonly writer: REPLWriter;
+        /**
+         * Specified in the REPL options, this is the function to use for custom Tab auto-completion.
+         */
+        readonly completer: Completer | AsyncCompleter;
+        /**
+         * Specified in the REPL options, this is a flag that specifies whether the default `eval`
+         * function should execute all JavaScript commands in strict mode or default (sloppy) mode.
+         * Possible values are:
+         * - `repl.REPL_MODE_SLOPPY` - evaluates expressions in sloppy mode.
+         * - `repl.REPL_MODE_STRICT` - evaluates expressions in strict mode. This is equivalent to
+         *    prefacing every repl statement with `'use strict'`.
+         */
+        readonly replMode: typeof REPL_MODE_SLOPPY | typeof REPL_MODE_STRICT;
+
+        /**
+         * NOTE: According to the documentation:
+         *
+         * > Instances of `repl.REPLServer` are created using the `repl.start()` method and
+         * > _should not_ be created directly using the JavaScript `new` keyword.
+         *
+         * `REPLServer` cannot be subclassed due to implementation specifics in NodeJS.
+         *
+         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_class_replserver
+         */
+        private constructor();
+
+        /**
+         * Used to add new `.`-prefixed commands to the REPL instance. Such commands are invoked
+         * by typing a `.` followed by the `keyword`.
+         *
+         * @param keyword The command keyword (_without_ a leading `.` character).
+         * @param cmd The function to invoke when the command is processed.
+         *
+         * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_replserver_definecommand_keyword_cmd
+         */
+        defineCommand(keyword: string, cmd: REPLCommandAction | REPLCommand): void;
+        /**
+         * Readies the REPL instance for input from the user, printing the configured `prompt` to a
+         * new line in the `output` and resuming the `input` to accept new input.
+         *
+         * When multi-line input is being entered, an ellipsis is printed rather than the 'prompt'.
+         *
+         * This method is primarily intended to be called from within the action function for
+         * commands registered using the `replServer.defineCommand()` method.
+         *
+         * @param preserveCursor When `true`, the cursor placement will not be reset to `0`.
+         */
         displayPrompt(preserveCursor?: boolean): void;
+        /**
+         * Clears any command that has been buffered but not yet executed.
+         *
+         * This method is primarily intended to be called from within the action function for
+         * commands registered using the `replServer.defineCommand()` method.
+         *
+         * @since v9.0.0
+         */
+        clearBufferedCommand(): void;
 
         /**
          * events.EventEmitter
-         * 1. exit
-         * 2. reset
+         * 1. close - inherited from `readline.Interface`
+         * 2. line - inherited from `readline.Interface`
+         * 3. pause - inherited from `readline.Interface`
+         * 4. resume - inherited from `readline.Interface`
+         * 5. SIGCONT - inherited from `readline.Interface`
+         * 6. SIGINT - inherited from `readline.Interface`
+         * 7. SIGTSTP - inherited from `readline.Interface`
+         * 8. exit
+         * 9. reset
          */
 
         addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "line", listener: (input: string) => void): this;
+        addListener(event: "pause", listener: () => void): this;
+        addListener(event: "resume", listener: () => void): this;
+        addListener(event: "SIGCONT", listener: () => void): this;
+        addListener(event: "SIGINT", listener: () => void): this;
+        addListener(event: "SIGTSTP", listener: () => void): this;
         addListener(event: "exit", listener: () => void): this;
-        addListener(event: "reset", listener: (...args: any[]) => void): this;
+        addListener(event: "reset", listener: (context: Context) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "line", input: string): boolean;
+        emit(event: "pause"): boolean;
+        emit(event: "resume"): boolean;
+        emit(event: "SIGCONT"): boolean;
+        emit(event: "SIGINT"): boolean;
+        emit(event: "SIGTSTP"): boolean;
         emit(event: "exit"): boolean;
-        emit(event: "reset", context: any): boolean;
+        emit(event: "reset", context: Context): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "line", listener: (input: string) => void): this;
+        on(event: "pause", listener: () => void): this;
+        on(event: "resume", listener: () => void): this;
+        on(event: "SIGCONT", listener: () => void): this;
+        on(event: "SIGINT", listener: () => void): this;
+        on(event: "SIGTSTP", listener: () => void): this;
         on(event: "exit", listener: () => void): this;
-        on(event: "reset", listener: (...args: any[]) => void): this;
+        on(event: "reset", listener: (context: Context) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "line", listener: (input: string) => void): this;
+        once(event: "pause", listener: () => void): this;
+        once(event: "resume", listener: () => void): this;
+        once(event: "SIGCONT", listener: () => void): this;
+        once(event: "SIGINT", listener: () => void): this;
+        once(event: "SIGTSTP", listener: () => void): this;
         once(event: "exit", listener: () => void): this;
-        once(event: "reset", listener: (...args: any[]) => void): this;
+        once(event: "reset", listener: (context: Context) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "line", listener: (input: string) => void): this;
+        prependListener(event: "pause", listener: () => void): this;
+        prependListener(event: "resume", listener: () => void): this;
+        prependListener(event: "SIGCONT", listener: () => void): this;
+        prependListener(event: "SIGINT", listener: () => void): this;
+        prependListener(event: "SIGTSTP", listener: () => void): this;
         prependListener(event: "exit", listener: () => void): this;
-        prependListener(event: "reset", listener: (...args: any[]) => void): this;
+        prependListener(event: "reset", listener: (context: Context) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "line", listener: (input: string) => void): this;
+        prependOnceListener(event: "pause", listener: () => void): this;
+        prependOnceListener(event: "resume", listener: () => void): this;
+        prependOnceListener(event: "SIGCONT", listener: () => void): this;
+        prependOnceListener(event: "SIGINT", listener: () => void): this;
+        prependOnceListener(event: "SIGTSTP", listener: () => void): this;
         prependOnceListener(event: "exit", listener: () => void): this;
-        prependOnceListener(event: "reset", listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "reset", listener: (context: Context) => void): this;
     }
 
-    export function start(options?: string | ReplOptions): REPLServer;
+    /**
+     * A flag passed in the REPL options. Evaluates expressions in sloppy mode.
+     */
+    export const REPL_MODE_SLOPPY: symbol; // TODO: unique symbol
 
-    export class Recoverable extends SyntaxError {
+    /**
+     * A flag passed in the REPL options. Evaluates expressions in strict mode.
+     * This is equivalent to prefacing every repl statement with `'use strict'`.
+     */
+    export const REPL_MODE_STRICT: symbol; // TODO: unique symbol
+
+    /**
+     * Creates and starts a `repl.REPLServer` instance.
+     *
+     * @param options The options for the `REPLServer`. If `options` is a string, then it specifies
+     * the input prompt.
+     */
+    function start(options?: string | ReplOptions): REPLServer;
+
+    /**
+     * Indicates a recoverable error that a `REPLServer` can use to support multi-line input.
+     *
+     * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_recoverable_errors
+     */
+    class Recoverable extends SyntaxError {
         err: Error;
 
         constructor(err: Error);
@@ -1946,7 +2257,7 @@ declare module "readline" {
     import * as events from "events";
     import * as stream from "stream";
 
-    export interface Key {
+    interface Key {
         sequence?: string;
         name?: string;
         ctrl?: boolean;
@@ -1954,12 +2265,33 @@ declare module "readline" {
         shift?: boolean;
     }
 
-    export interface ReadLine extends events.EventEmitter {
+    class Interface extends events.EventEmitter {
+        readonly terminal: boolean;
+
+        /**
+         * NOTE: According to the documentation:
+         *
+         * > Instances of the `readline.Interface` class are constructed using the
+         * > `readline.createInterface()` method.
+         *
+         * @see https://nodejs.org/dist/latest-v10.x/docs/api/readline.html#readline_class_interface
+         */
+        protected constructor(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean);
+        /**
+         * NOTE: According to the documentation:
+         *
+         * > Instances of the `readline.Interface` class are constructed using the
+         * > `readline.createInterface()` method.
+         *
+         * @see https://nodejs.org/dist/latest-v10.x/docs/api/readline.html#readline_class_interface
+         */
+        protected constructor(options: ReadLineOptions);
+
         setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: (answer: string) => void): void;
-        pause(): ReadLine;
-        resume(): ReadLine;
+        pause(): this;
+        resume(): this;
         close(): void;
         write(data: string | Buffer, key?: Key): void;
 
@@ -2029,12 +2361,14 @@ declare module "readline" {
         prependOnceListener(event: "SIGTSTP", listener: () => void): this;
     }
 
+    type ReadLine = Interface; // type forwarded for backwards compatiblity
+
     type Completer = (line: string) => CompleterResult;
     type AsyncCompleter = (line: string, callback: (err: any, result: CompleterResult) => void) => any;
 
-    export type CompleterResult = [string[], string];
+    type CompleterResult = [string[], string];
 
-    export interface ReadLineOptions {
+    interface ReadLineOptions {
         input: NodeJS.ReadableStream;
         output?: NodeJS.WritableStream;
         completer?: Completer | AsyncCompleter;
@@ -2045,14 +2379,14 @@ declare module "readline" {
         removeHistoryDuplicates?: boolean;
     }
 
-    export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): ReadLine;
-    export function createInterface(options: ReadLineOptions): ReadLine;
+    function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
+    function createInterface(options: ReadLineOptions): Interface;
 
-    export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number): void;
-    export function emitKeypressEvents(stream: NodeJS.ReadableStream, interface?: ReadLine): void;
-    export function moveCursor(stream: NodeJS.WritableStream, dx: number | string, dy: number | string): void;
-    export function clearLine(stream: NodeJS.WritableStream, dir: number): void;
-    export function clearScreenDown(stream: NodeJS.WritableStream): void;
+    function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number): void;
+    function emitKeypressEvents(stream: NodeJS.ReadableStream, interface?: Interface): void;
+    function moveCursor(stream: NodeJS.WritableStream, dx: number | string, dy: number | string): void;
+    function clearLine(stream: NodeJS.WritableStream, dir: number): void;
+    function clearScreenDown(stream: NodeJS.WritableStream): void;
 }
 
 declare module "vm" {
@@ -2097,7 +2431,7 @@ declare module "child_process" {
         stdin: stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
-        stdio: [stream.Writable, stream.Readable, stream.Readable];
+        stdio: StdioStreams;
         killed: boolean;
         pid: number;
         kill(signal?: string): void;
@@ -2159,6 +2493,12 @@ declare module "child_process" {
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "exit", listener: (code: number, signal: string) => void): this;
         prependOnceListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
+    }
+
+    export interface StdioStreams extends ReadonlyArray<stream.Readable|stream.Writable> {
+        0: stream.Writable; // stdin
+        1: stream.Readable; // stdout
+        2: stream.Readable; // stderr
     }
 
     export interface MessageOptions {
@@ -2458,7 +2798,7 @@ declare module "url" {
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;
-        forEach(callback: (value: string, name: string) => void): void;
+        forEach(callback: (value: string, name: string, searchParams: this) => void): void;
         get(name: string): string | null;
         getAll(name: string): string[];
         has(name: string): boolean;
@@ -2545,9 +2885,21 @@ declare module "dns" {
         ttl: number;
     }
 
+    export interface AnyARecord extends RecordWithTtl {
+        type: "A";
+    }
+
+    export interface AnyAaaaRecord extends RecordWithTtl {
+        type: "AAAA";
+    }
+
     export interface MxRecord {
         priority: number;
         exchange: string;
+    }
+
+    export interface AnyMxRecord extends MxRecord {
+        type: "MX";
     }
 
     export interface NaptrRecord {
@@ -2557,6 +2909,10 @@ declare module "dns" {
         replacement: string;
         order: number;
         preference: number;
+    }
+
+    export interface AnyNaptrRecord extends NaptrRecord {
+        type: "NAPTR";
     }
 
     export interface SoaRecord {
@@ -2569,6 +2925,10 @@ declare module "dns" {
         minttl: number;
     }
 
+    export interface AnySoaRecord extends SoaRecord {
+        type: "SOA";
+    }
+
     export interface SrvRecord {
         priority: number;
         weight: number;
@@ -2576,9 +2936,45 @@ declare module "dns" {
         name: string;
     }
 
+    export interface AnySrvRecord extends SrvRecord {
+        type: "SRV";
+    }
+
+    export interface AnyTxtRecord {
+        type: "TXT";
+        entries: string[];
+    }
+
+    export interface AnyNsRecord {
+        type: "NS";
+        value: string;
+    }
+
+    export interface AnyPtrRecord {
+        type: "PTR";
+        value: string;
+    }
+
+    export interface AnyCnameRecord {
+        type: "CNAME";
+        value: string;
+    }
+
+    export type AnyRecord = AnyARecord |
+        AnyAaaaRecord |
+        AnyCnameRecord |
+        AnyMxRecord |
+        AnyNaptrRecord |
+        AnyNsRecord |
+        AnyPtrRecord |
+        AnySoaRecord |
+        AnySrvRecord |
+        AnyTxtRecord;
+
     export function resolve(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: "A", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: "AAAA", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "ANY", callback: (err: NodeJS.ErrnoException, addresses: AnyRecord[]) => void): void;
     export function resolve(hostname: string, rrtype: "CNAME", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve(hostname: string, rrtype: "MX", callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
     export function resolve(hostname: string, rrtype: "NAPTR", callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
@@ -2587,17 +2983,18 @@ declare module "dns" {
     export function resolve(hostname: string, rrtype: "SOA", callback: (err: NodeJS.ErrnoException, addresses: SoaRecord) => void): void;
     export function resolve(hostname: string, rrtype: "SRV", callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
     export function resolve(hostname: string, rrtype: "TXT", callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
-    export function resolve(hostname: string, rrtype: string, callback: (err: NodeJS.ErrnoException, addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][]) => void): void;
+    export function resolve(hostname: string, rrtype: string, callback: (err: NodeJS.ErrnoException, addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     export namespace resolve {
         export function __promisify__(hostname: string, rrtype?: "A" | "AAAA" | "CNAME" | "NS" | "PTR"): Promise<string[]>;
+        export function __promisify__(hostname: string, rrtype: "ANY"): Promise<AnyRecord[]>;
         export function __promisify__(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
         export function __promisify__(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
         export function __promisify__(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
         export function __promisify__(hostname: string, rrtype: "SRV"): Promise<SrvRecord[]>;
         export function __promisify__(hostname: string, rrtype: "TXT"): Promise<string[][]>;
-        export function __promisify__(hostname: string, rrtype?: string): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][]>;
+        export function __promisify__(hostname: string, rrtype: string): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
     }
 
     export function resolve4(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
@@ -2623,16 +3020,53 @@ declare module "dns" {
     }
 
     export function resolveCname(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export namespace resolveCname {
+        export function __promisify__(hostname: string): Promise<string[]>;
+    }
+
     export function resolveMx(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
+    export namespace resolveMx {
+        export function __promisify__(hostname: string): Promise<MxRecord[]>;
+    }
+
     export function resolveNaptr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
+    export namespace resolveNaptr {
+        export function __promisify__(hostname: string): Promise<NaptrRecord[]>;
+    }
+
     export function resolveNs(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export namespace resolveNs {
+        export function __promisify__(hostname: string): Promise<string[]>;
+    }
+
     export function resolvePtr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export namespace resolvePtr {
+        export function __promisify__(hostname: string): Promise<string[]>;
+    }
+
     export function resolveSoa(hostname: string, callback: (err: NodeJS.ErrnoException, address: SoaRecord) => void): void;
+    export namespace resolveSoa {
+        export function __promisify__(hostname: string): Promise<SoaRecord>;
+    }
+
     export function resolveSrv(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
+    export namespace resolveSrv {
+        export function __promisify__(hostname: string): Promise<SrvRecord[]>;
+    }
+
     export function resolveTxt(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
+    export namespace resolveTxt {
+        export function __promisify__(hostname: string): Promise<string[][]>;
+    }
+
+    export function resolveAny(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: AnyRecord[]) => void): void;
+    export namespace resolveAny {
+        export function __promisify__(hostname: string): Promise<AnyRecord[]>;
+    }
 
     export function reverse(ip: string, callback: (err: NodeJS.ErrnoException, hostnames: string[]) => void): void;
     export function setServers(servers: string[]): void;
+    export function getServers(): string[];
 
     // Error codes
     export var NODATA: string;
@@ -2659,6 +3093,25 @@ declare module "dns" {
     export var LOADIPHLPAPI: string;
     export var ADDRGETNETWORKPARAMS: string;
     export var CANCELLED: string;
+
+    export class Resolver {
+        getServers: typeof getServers;
+        setServers: typeof setServers;
+        resolve: typeof resolve;
+        resolve4: typeof resolve4;
+        resolve6: typeof resolve6;
+        resolveAny: typeof resolveAny;
+        resolveCname: typeof resolveCname;
+        resolveMx: typeof resolveMx;
+        resolveNaptr: typeof resolveNaptr;
+        resolveNs: typeof resolveNs;
+        resolvePtr: typeof resolvePtr;
+        resolveSoa: typeof resolveSoa;
+        resolveSrv: typeof resolveSrv;
+        resolveTxt: typeof resolveTxt;
+        reverse: typeof reverse;
+        cancel(): void;
+    }
 }
 
 declare module "net" {
@@ -4732,7 +5185,7 @@ declare module "path" {
     /**
      * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
      *
-     * Starting from leftmost {from} paramter, resolves {to} to an absolute path.
+     * Starting from leftmost {from} parameter, resolves {to} to an absolute path.
      *
      * If {to} isn't already absolute, {from} arguments are prepended in right to left order, until an absolute path is found. If after using all {from} paths still no absolute path is found, the current working directory is used as well. The resulting path is normalized, and trailing slashes are removed unless the path gets resolved to the root directory.
      *
@@ -5273,8 +5726,8 @@ declare module "crypto" {
     export interface Signer extends NodeJS.WritableStream {
         update(data: string | Buffer | DataView): Signer;
         update(data: string | Buffer | DataView, input_encoding: Utf8AsciiLatin1Encoding): Signer;
-        sign(private_key: string | { key: string; passphrase: string }): Buffer;
-        sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
+        sign(private_key: string | { key: string; passphrase?: string }): Buffer;
+        sign(private_key: string | { key: string; passphrase?: string }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string): Verify;
     export interface Verify extends NodeJS.WritableStream {
@@ -5375,7 +5828,7 @@ declare module "stream" {
             encoding?: string;
             objectMode?: boolean;
             read?: (this: Readable, size?: number) => any;
-            destroy?: (error?: Error) => any;
+            destroy?: (error: Error | null, callback: (error?: Error) => void) => void;
         }
 
         export class Readable extends Stream implements NodeJS.ReadableStream {
@@ -5393,7 +5846,7 @@ declare module "stream" {
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: string): boolean;
-            _destroy(err: Error, callback: Function): void;
+            _destroy(error: Error | null, callback: (error?: Error) => void): void;
             destroy(error?: Error): void;
 
             /**
@@ -5461,7 +5914,7 @@ declare module "stream" {
             objectMode?: boolean;
             write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
             writev?: (chunks: Array<{ chunk: string | Buffer, encoding: string }>, callback: Function) => any;
-            destroy?: (error?: Error) => any;
+            destroy?: (error: Error | null, callback: (error?: Error) => void) => void;
             final?: (callback: (error?: Error) => void) => void;
         }
 
@@ -5472,7 +5925,7 @@ declare module "stream" {
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
-            _destroy(err: Error, callback: Function): void;
+            _destroy(error: Error | null, callback: (error?: Error) => void): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
@@ -5565,7 +6018,7 @@ declare module "stream" {
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: (err?: Error) => void): void;
             _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (err?: Error) => void): void;
-            _destroy(err: Error, callback: Function): void;
+            _destroy(error: Error | null, callback: (error?: Error) => void): void;
             _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
@@ -5657,17 +6110,17 @@ declare module "util" {
 
     export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
     export function promisify<TResult>(fn: (callback: (err: Error | null, result: TResult) => void) => void): () => Promise<TResult>;
-    export function promisify(fn: (callback: (err: Error | null) => void) => void): () => Promise<void>;
+    export function promisify(fn: (callback: (err?: Error | null) => void) => void): () => Promise<void>;
     export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
-    export function promisify<T1>(fn: (arg1: T1, callback: (err: Error | null) => void) => void): (arg1: T1) => Promise<void>;
+    export function promisify<T1>(fn: (arg1: T1, callback: (err?: Error | null) => void) => void): (arg1: T1) => Promise<void>;
     export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
-    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err: Error | null) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
+    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
     export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
-    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
     export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
     export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error | null, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: Error | null) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
     export namespace promisify {
         const custom: symbol;
@@ -5707,7 +6160,7 @@ declare module "util" {
 }
 
 declare module "assert" {
-    function internal(value: any, message?: string): void;
+    function internal(value: any, message?: string | Error): void;
     namespace internal {
         export class AssertionError implements Error {
             name: string;
@@ -5716,34 +6169,30 @@ declare module "assert" {
             expected: any;
             operator: string;
             generatedMessage: boolean;
+            code: 'ERR_ASSERTION';
 
             constructor(options?: {
                 message?: string; actual?: any; expected?: any;
-                operator?: string; stackStartFunction?: Function
+                operator?: string; stackStartFn?: Function
             });
         }
 
-        export function fail(message: string): never;
-        export function fail(actual: any, expected: any, message?: string, operator?: string): never;
-        export function ok(value: any, message?: string): void;
-        export function equal(actual: any, expected: any, message?: string): void;
-        export function notEqual(actual: any, expected: any, message?: string): void;
-        export function deepEqual(actual: any, expected: any, message?: string): void;
-        export function notDeepEqual(acutal: any, expected: any, message?: string): void;
-        export function strictEqual(actual: any, expected: any, message?: string): void;
-        export function notStrictEqual(actual: any, expected: any, message?: string): void;
-        export function deepStrictEqual(actual: any, expected: any, message?: string): void;
-        export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
+        export function fail(message?: string | Error): never;
+        export function fail(actual: any, expected: any, message?: string | Error, operator?: string, stackStartFn?: Function): never;
+        export function ok(value: any, message?: string | Error): void;
+        export function equal(actual: any, expected: any, message?: string | Error): void;
+        export function notEqual(actual: any, expected: any, message?: string | Error): void;
+        export function deepEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notDeepEqual(actual: any, expected: any, message?: string | Error): void;
+        export function strictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function deepStrictEqual(actual: any, expected: any, message?: string | Error): void;
+        export function notDeepStrictEqual(actual: any, expected: any, message?: string | Error): void;
 
-        export function throws(block: Function, message?: string): void;
-        export function throws(block: Function, error: Function, message?: string): void;
-        export function throws(block: Function, error: RegExp, message?: string): void;
-        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
-
-        export function doesNotThrow(block: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: Function, message?: string): void;
-        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
-        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
+        export function throws(block: Function, message?: string | Error): void;
+        export function throws(block: Function, error: RegExp | Function, message?: string | Error): void;
+        export function doesNotThrow(block: Function, message?: string | Error): void;
+        export function doesNotThrow(block: Function, error: RegExp | Function, message?: string | Error): void;
 
         export function ifError(value: any): void;
     }
@@ -6759,7 +7208,8 @@ declare module "http2" {
         prependOnceListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
     }
 
-    export interface Http2ServerRequest extends stream.Readable {
+    export class Http2ServerRequest extends stream.Readable {
+        private constructor();
         headers: IncomingHttpHeaders;
         httpVersion: string;
         method: string;
@@ -6790,7 +7240,8 @@ declare module "http2" {
         prependOnceListener(event: "aborted", listener: (hadError: boolean, code: number) => void): this;
     }
 
-    export interface Http2ServerResponse extends events.EventEmitter {
+    export class Http2ServerResponse extends events.EventEmitter {
+        private constructor();
         addTrailers(trailers: OutgoingHttpHeaders): void;
         connection: net.Socket | tls.TLSSocket;
         end(callback?: () => void): void;

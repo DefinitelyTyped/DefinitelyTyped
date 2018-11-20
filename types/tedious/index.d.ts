@@ -396,7 +396,7 @@ export interface Request {
     /**
      * This event, describing result set columns, will be emitted before row events are emitted. This event may be emited multiple times when more than one recordset is produced by the statement.
      */
-    on(event: 'columnMetadata', listener: (columns: ColumnMetaData) => void ):this;
+    on(event: 'columnMetadata', listener: (columns: ColumnMetaData[]) => void ):this;
 
     /**
      * The request has been prepared and can be used in subsequent calls to execute and unprepare. 

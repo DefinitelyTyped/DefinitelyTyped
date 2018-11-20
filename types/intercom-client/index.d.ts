@@ -2,11 +2,13 @@
 // Project: https://github.com/intercom/intercom-node
 // Definitions by: Jinesh Shah <https://github.com/jineshshah36>, Josef Hornych <https://github.com/peping>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 /// <reference types="node" />
 
 import { List as UserList, User, UserIdentifier } from './User';
 import { CompanyIdentifier, List as CompanyList, Company } from './Company';
+import { TagIdentifier, List as TagList, Tag, TagOper } from './Tag';
+import { List as EventList, Event, ListParam as EventListParam } from './Event';
 import { Scroll } from './Scroll';
 import { IntercomError } from './IntercomError';
 
@@ -29,6 +31,8 @@ export class Client {
 
     users: Users;
     companies: Companies;
+    tags: Tags;
+    events: Events;
 }
 
 export class ApiResponse<T> extends IncomingMessage {
@@ -79,4 +83,29 @@ export class Companies {
     scroll: Scroll<Company>;
 
     archive(): Promise<Company>;
+}
+
+export class Tags {
+  create(tag: Partial<Tag>): Promise<ApiResponse<Tag>>;
+  create(tag: Partial<Tag>, cb: callback<ApiResponse<Tag>>): void;
+
+  tag(tagOper: TagOper): Promise<ApiResponse<Tag>>;
+  tag(tagOper: TagOper, cb: callback<ApiResponse<Tag>>): void;
+
+  untag(tagOper: TagOper): Promise<ApiResponse<Tag>>;
+  untag(tagOper: TagOper, cb: callback<ApiResponse<Tag>>): void;
+
+  delete(tag: TagIdentifier): Promise<IncomingMessage>;
+  delete(tag: TagIdentifier, cb: callback<IncomingMessage>): void;
+
+  list(): Promise<ApiResponse<TagList>>;
+  list(cb: callback<ApiResponse<TagList>>): void;
+}
+
+export class Events {
+    create(event: Partial<Event>): Promise<IncomingMessage>;
+    create(event: Partial<Event>, cb: callback<IncomingMessage>): void;
+
+    listBy(params: EventListParam): Promise<ApiResponse<CompanyList>>;
+    listBy(params: EventListParam, cb: callback<ApiResponse<CompanyList>>): void;
 }

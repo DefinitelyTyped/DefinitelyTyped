@@ -49,6 +49,11 @@ auth0.auth.refreshToken({
     scope: "openid"
 });
 
+auth0.auth.resetPassword({
+    email: "me@example.com",
+    connection: "db-connection"
+});
+
 auth0.auth.revoke({
     refreshToken: "refresh-token"
 });
@@ -60,7 +65,9 @@ auth0.auth.userInfo({
 auth0.webAuth.authorize({
     state: "state",
     nonce: "nonce",
-    scope: "openid"
+    scope: "openid",
+    language: "en",
+    prompt: 'login'
 });
 
 auth0.webAuth.clearSession({ federated: false });

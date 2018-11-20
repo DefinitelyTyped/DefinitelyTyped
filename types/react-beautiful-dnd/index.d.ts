@@ -5,7 +5,7 @@
 //                 Austin Turner <https://github.com/paustint>
 //                 Mark Nelissen <https://github.com/marknelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -73,6 +73,7 @@ export interface DroppableStateSnapshot {
 export interface DroppableProps {
     droppableId: DroppableId;
     type?: TypeId;
+    ignoreContainerClipping?: boolean;
     isDropDisabled?: boolean;
     direction?: 'vertical' | 'horizontal';
     children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<any>;

@@ -1,4 +1,4 @@
-// Type definitions for Jest 23.1
+// Type definitions for Jest 23.3
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -15,6 +15,8 @@
 //                 Jeff Lau <https://github.com/UselessPickles>
 //                 Andrew Makarov <https://github.com/r3nya>
 //                 Martin Hochel <https://github.com/hotell>
+//                 Sebastian Sebald <https://github.com/sebald>
+//                 Andy <https://github.com/andys8>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -316,6 +318,7 @@ declare namespace jest {
     }
 
     interface MatcherUtils {
+        readonly expand: boolean;
         readonly isNot: boolean;
         utils: {
             readonly EXPECTED_COLOR: (text: string) => string;
@@ -342,7 +345,14 @@ declare namespace jest {
     }
 
     interface ExpectExtendMap {
-        [key: string]: (this: MatcherUtils, received: any, ...actual: any[]) => { message(): string, pass: boolean } | Promise<{ message(): string, pass: boolean }>;
+        [key: string]: CustomMatcher;
+    }
+
+    type CustomMatcher = (this: MatcherUtils, received: any, ...actual: any[]) => CustomMatcherResult | Promise<CustomMatcherResult>;
+
+    interface CustomMatcherResult {
+        pass: boolean;
+        message: string | (() => string);
     }
 
     interface SnapshotSerializerOptions {
@@ -383,6 +393,36 @@ declare namespace jest {
         test(val: any): boolean;
     }
 
+    interface InverseAsymmetricMatchers {
+        /**
+         * `expect.not.arrayContaining(array)` matches a received array which
+         * does not contain all of the elements in the expected array. That is,
+         * the expected array is not a subset of the received array. It is the
+         * inverse of `expect.arrayContaining`.
+         */
+        arrayContaining(arr: any[]): any;
+        /**
+         * `expect.not.objectContaining(object)` matches any received object
+         * that does not recursively match the expected properties. That is, the
+         * expected object is not a subset of the received object. Therefore,
+         * it matches a received object which contains properties that are not
+         * in the expected object. It is the inverse of `expect.objectContaining`.
+         */
+        objectContaining(obj: {}): any;
+        /**
+         * `expect.not.stringMatching(string | regexp)` matches the received
+         * string that does not match the expected regexp. It is the inverse of
+         * `expect.stringMatching`.
+         */
+        stringMatching(str: string | RegExp): any;
+        /**
+         * `expect.not.stringContaining(string)` matches the received string
+         * that does not contain the exact expected string. It is the inverse of
+         * `expect.stringContaining`.
+         */
+        stringContaining(str: string): any;
+    }
+
     /**
      * The `expect` function is used every time you want to test a value.
      * You will rarely call `expect` by itself.
@@ -394,7 +434,7 @@ declare namespace jest {
          *
          * @param actual The value to apply matchers against.
          */
-        (actual: any): Matchers<void>;
+        <T = any>(actual: T): Matchers<T>;
         /**
          * Matches anything but null or undefined. You can use it inside `toEqual` or `toBeCalledWith` instead
          * of a literal value. For example, if you want to check that a mock function is called with a
@@ -465,6 +505,8 @@ declare namespace jest {
          * Matches any received string that contains the exact expected string
          */
         stringContaining(str: string): any;
+
+        not: InverseAsymmetricMatchers;
     }
 
     interface Matchers<R> {
@@ -480,6 +522,10 @@ declare namespace jest {
          * If you know how to test something, `.not` lets you test its opposite.
          */
         not: Matchers<R>;
+        /**
+         * Ensure that a mock function is called with specific arguments on an Nth call.
+         */
+        nthCalledWith(nthCall: number, ...params: any[]): R;
         /**
          * Ensure that the nth call to a mock function has returned a specified value.
          */
@@ -503,6 +549,10 @@ declare namespace jest {
          * Ensures that a mock function is called.
          */
         toBeCalled(): R;
+        /**
+         * Ensures that a mock function is called an exact number of times.
+         */
+        toBeCalledTimes(expected: number): R;
         /**
          * Ensure that a mock function is called with specific arguments.
          */
@@ -652,10 +702,27 @@ declare namespace jest {
          */
         toMatchObject(expected: {} | any[]): R;
         /**
+         * This ensures that a value matches the most recent snapshot with property matchers.
+         * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
+         */
+        toMatchSnapshot<T extends {[P in keyof R]: any}>(propertyMatchers: Partial<T>, snapshotName?: string): R;
+        /**
          * This ensures that a value matches the most recent snapshot.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
          */
         toMatchSnapshot(snapshotName?: string): R;
+        /**
+         * This ensures that a value matches the most recent snapshot with property matchers.
+         * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
+         * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
+         */
+        toMatchInlineSnapshot<T extends {[P in keyof R]: any}>(propertyMatchers: Partial<T>, snapshot?: string): R;
+        /**
+         * This ensures that a value matches the most recent snapshot with property matchers.
+         * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
+         * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
+         */
+        toMatchInlineSnapshot(snapshot?: string): R;
         /**
          * Ensure that a mock function has returned (as opposed to thrown) at least once.
          */
@@ -684,6 +751,11 @@ declare namespace jest {
          * Used to test that a function throws a error matching the most recent snapshot when it is called.
          */
         toThrowErrorMatchingSnapshot(): R;
+        /**
+         * Used to test that a function throws a error matching the most recent snapshot when it is called.
+         * Instead of writing the snapshot value to a .snap file, it will be written into the source code automatically.
+         */
+        toThrowErrorMatchingInlineSnapshot(snapshot?: string): R;
     }
 
     interface Constructable {
@@ -695,15 +767,7 @@ declare namespace jest {
         (...args: any[]): any;
     }
 
-    interface SpyInstance<T = {}> extends MockInstance<T> {
-        /**
-         * Removes the mock and restores the initial implementation.
-         *
-         * This is useful when you want to mock functions in certain test cases and restore the
-         * original implementation in others.
-         */
-        mockRestore(): void;
-    }
+    interface SpyInstance<T = {}> extends MockInstance<T> {}
 
     /**
      * Wrap module with mock definitions
@@ -746,13 +810,25 @@ declare namespace jest {
          */
         mockReset(): void;
         /**
+         * Does everything that `mockFn.mockReset()` does, and also restores the original (non-mocked) implementation.
+         *
+         * This is useful when you want to mock functions in certain test cases and restore the original implementation in others.
+         *
+         * Beware that `mockFn.mockRestore` only works when mock was created with `jest.spyOn`. Thus you have to take care of restoration
+         * yourself when manually assigning `jest.fn()`.
+         *
+         * The [`restoreMocks`](https://jestjs.io/docs/en/configuration.html#restoremocks-boolean) configuration option is available
+         * to restore mocks automatically between tests.
+         */
+        mockRestore(): void;
+        /**
          * Accepts a function that should be used as the implementation of the mock. The mock itself will still record
          * all calls that go into and instances that come from itself – the only difference is that the implementation
          * will also be executed when the mock is called.
          *
          * Note: `jest.fn(implementation)` is a shorthand for `jest.fn().mockImplementation(implementation)`.
          */
-        mockImplementation(fn: (...args: any[]) => any): Mock<T>;
+        mockImplementation(fn?: (...args: any[]) => any): Mock<T>;
         /**
          * Accepts a function that will be used as an implementation of the mock for one call to the mocked function.
          * Can be chained so that multiple function calls produce different results.

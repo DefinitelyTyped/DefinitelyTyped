@@ -1,7 +1,6 @@
-// Type definitions for react-redux 6.0.3
+// Type definitions for react-redux 6.0.4
 // Project: https://github.com/reduxjs/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
-//                 Thomas Hasner <https://github.com/thasner>,
 //                 Kenzie Togami <https://github.com/kenzierocks>,
 //                 Curits Layne <https://github.com/clayne11>
 //                 Frank Tan <https://github.com/tansongyang>
@@ -11,6 +10,7 @@
 //                 Thomas Charlat <https://github.com/kallikrein>
 //                 Valentin Descamps <https://github.com/val1984>
 //                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
+//                 Anatoli Papirovski <https://github.com/apapirovski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -41,8 +41,8 @@ import {
     Store
 } from 'redux';
 
-// Diff / Omit taken from https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
-type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+// Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export interface DispatchProp<A extends Action = AnyAction> {
     dispatch: Dispatch<A>;
@@ -53,32 +53,58 @@ interface AdvancedComponentDecorator<TProps, TOwnProps> {
 }
 
 /**
+ * A property P will be present if:
+ * - it is present in DecorationTargetProps
+ *
+ * Its value will be dependent on the following conditions
+ * - if property P is present in InjectedProps and its definition extends the definition
+ *   in DecorationTargetProps, then its definition will be that of DecorationTargetProps[P]
+ * - if property P is not present in InjectedProps then its definition will be that of
+ *   DecorationTargetProps[P]
+ * - if property P is present in InjectedProps but does not extend the
+ *   DecorationTargetProps[P] definition, its definition will be that of InjectedProps[P]
+ */
+type Matching<InjectedProps, DecorationTargetProps> = {
+	[P in keyof DecorationTargetProps]: P extends keyof InjectedProps
+		? InjectedProps[P] extends DecorationTargetProps[P]
+			? DecorationTargetProps[P]
+			: InjectedProps[P]
+		: DecorationTargetProps[P];
+};
+
+/**
  * a property P will be present if :
  * - it is present in both DecorationTargetProps and InjectedProps
- * - DecorationTargetProps[P] extends InjectedProps[P]
+ * - InjectedProps[P] can satisfy DecorationTargetProps[P]
  * ie: decorated component can accept more types than decorator is injecting
  *
- * For decoration, inject props or ownProps are all optionnaly
+ * For decoration, inject props or ownProps are all optionally
  * required by the decorated (right hand side) component.
- * But any property required by the decorated component must extend the injected property
+ * But any property required by the decorated component must be satisfied by the injected property.
  */
 type Shared<
     InjectedProps,
     DecorationTargetProps extends Shared<InjectedProps, DecorationTargetProps>
     > = {
-        [P in Extract<keyof InjectedProps, keyof DecorationTargetProps>]?: DecorationTargetProps[P] extends InjectedProps[P] ? InjectedProps[P] : never;
+        [P in Extract<keyof InjectedProps, keyof DecorationTargetProps>]?: InjectedProps[P] extends DecorationTargetProps[P] ? DecorationTargetProps[P] : never;
     };
+
+// Infers prop type from component C
+type GetProps<C> = C extends ComponentType<infer P> ? P : never;
+
+// Applies LibraryManagedAttributes (proper handling of defaultProps
+// and propTypes), as well as defines WrappedComponent.
+type ConnectedComponentClass<C, P> = ComponentClass<JSX.LibraryManagedAttributes<C, P>> & {
+	WrappedComponent: C;
+}
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
 export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
-	(
-		component: StatelessComponent<TInjectedProps>
-	): ComponentClass<TNeedsProps> & {WrappedComponent: StatelessComponent<TInjectedProps>}
-	<P extends Shared<TInjectedProps, P>>(
-		component: ComponentType<P>
-	): ComponentClass<Omit<P, keyof Shared<TInjectedProps, P>> & TNeedsProps> & {WrappedComponent: ComponentType<P>}
+	<C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
+		component: C
+	): ConnectedComponentClass<C, Omit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>
 }
 
 // Injects props and removes them from the prop requirements.
@@ -192,14 +218,14 @@ interface MapStateToPropsFactory<TStateProps, TOwnProps, State> {
 type MapStateToPropsParam<TStateProps, TOwnProps, State> = MapStateToPropsFactory<TStateProps, TOwnProps, State> | MapStateToProps<TStateProps, TOwnProps, State> | null | undefined;
 
 interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
-    (dispatch: Dispatch, ownProps: TOwnProps): TDispatchProps;
+    (dispatch: Dispatch<Action>, ownProps: TOwnProps): TDispatchProps;
 }
 
 type MapDispatchToProps<TDispatchProps, TOwnProps> =
     MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | TDispatchProps;
 
 interface MapDispatchToPropsFactory<TDispatchProps, TOwnProps> {
-    (dispatch: Dispatch, ownProps: TOwnProps): MapDispatchToProps<TDispatchProps, TOwnProps>;
+    (dispatch: Dispatch<Action>, ownProps: TOwnProps): MapDispatchToProps<TDispatchProps, TOwnProps>;
 }
 
 type MapDispatchToPropsParam<TDispatchProps, TOwnProps> = MapDispatchToPropsFactory<TDispatchProps, TOwnProps> | MapDispatchToProps<TDispatchProps, TOwnProps>;
@@ -267,7 +293,7 @@ export declare function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = 
  * previous object when appropriate.
  */
 export interface SelectorFactory<S, TProps, TOwnProps, TFactoryOptions> {
-    (dispatch: Dispatch, factoryOptions: TFactoryOptions): Selector<S, TProps, TOwnProps>
+    (dispatch: Dispatch<Action>, factoryOptions: TFactoryOptions): Selector<S, TProps, TOwnProps>
 }
 
 export interface Selector<S, TProps, TOwnProps> {

@@ -6,7 +6,7 @@ import * as ReactIs from 'react-is';
 // Determining if a Component is Valid
 
 interface CompProps {
-    forwardedRef?: React.Ref<any>;
+    forwardedRef: React.Ref<any> | null;
     children?: React.ReactNode;
 }
 
@@ -72,3 +72,7 @@ ReactIs.typeOf(123) === undefined;
 ReactIs.typeOf({}) === undefined;
 ReactIs.typeOf(null) === undefined;
 ReactIs.typeOf(undefined) === undefined;
+
+// ForwardRef
+const forwardRef = React.forwardRef((props, ref) => <div />);
+ReactIs.isForwardRef(forwardRef); // true

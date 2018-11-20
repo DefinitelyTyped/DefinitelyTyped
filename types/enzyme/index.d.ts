@@ -9,7 +9,7 @@
 //                 Torgeir Hovden <https://github.com/thovden>
 //                 Martin Hochel <https://github.com/hotell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="cheerio" />
 import { ReactElement, Component, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
@@ -101,7 +101,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     /**
      * Returns whether or not the current node exists.
      */
-    exists(): boolean;
+    exists(selector?: EnzymeSelector): boolean;
 
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that don't match the provided selector.
@@ -220,6 +220,13 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
      * @param args?
      */
     simulate(event: string, ...args: any[]): this;
+
+    /**
+     * Used to simulate throwing a rendering error. Pass an error to throw.
+     * Returns itself.
+     * @param error
+     */
+    simulateError(error: any): this;
 
     /**
      * A method to invoke setState() on the root component instance similar to how you might in the definition of
@@ -589,14 +596,14 @@ export interface MountRendererProps {
  * Shallow rendering is useful to constrain yourself to testing a component as a unit, and to ensure that
  * your tests aren't indirectly asserting on behavior of child components.
  */
-export function shallow<C extends Component, P = Component['props'], S = Component['state']>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S, C>;
+export function shallow<C extends Component, P = C['props'], S = C['state']>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S, C>;
 export function shallow<P>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, any>;
 export function shallow<P, S>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S>;
 
 /**
  * Mounts and renders a react component into the document and provides a testing wrapper around it.
  */
-export function mount<C extends Component, P = Component['props'], S = Component['state']>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S, C>;
+export function mount<C extends Component, P = C['props'], S = C['state']>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S, C>;
 export function mount<P>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, any>;
 export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S>;
 

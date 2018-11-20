@@ -122,6 +122,11 @@ declare namespace traverse {
     parent: TraverseContext | undefined;
 
     /**
+     * The contexts of the node's parents.
+     */
+    parents: TraverseContext[];
+
+    /**
      * The name of the key of the present node in its parent.
      * This is `undefined` for the root node.
      */
@@ -173,6 +178,11 @@ declare namespace traverse {
     delete(stopHere?: boolean): void;
 
     /**
+     * Object keys of the node.
+     */
+    keys: string[] | null;
+
+    /**
      * Call this function before all of the children are traversed.
      * You can assign into `this.keys` here to traverse in a custom order.
      */
@@ -192,6 +202,16 @@ declare namespace traverse {
      * Call this function after each of the children are traversed.
      */
     post(callback: (this: TraverseContext, child: any) => void): void;
+
+    /**
+     * Stops traversal entirely.
+     */
+    stop(): void;
+
+    /**
+     * Prevents traversing descendents of the current node.
+     */
+    block(): void;
   }
 }
 

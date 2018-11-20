@@ -2,7 +2,7 @@
 // Project: https://github.com/facebook/react-native-fbsdk
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { ComponentClass, Component } from 'react';
 import { ViewStyle } from 'react-native';

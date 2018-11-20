@@ -1,10 +1,12 @@
-// Type definitions for react-sortable-tree 0.2
+// Type definitions for react-sortable-tree 0.3
 // Project: https://fritz-c.github.io/react-sortable-tree
 // Definitions by: Wouter Hardeman <https://github.com/wouterhardeman>
 //                 Jovica Zoric <https://github.com/jzoric>
 //                 Kevin Perrine <https://github.com/kevinsperrine>
+//                 Alex Maclean <https://github.com/acemac>
+//                 Jan Dolezel <https://github.com/dolezel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { ListProps, Index } from 'react-virtualized';
@@ -19,8 +21,8 @@ export * from './utils/tree-data-utils';
 export * from './utils/default-handlers';
 
 export interface TreeItem {
-    title?: string;
-    subtitle?: string;
+    title?: React.ReactNode;
+    subtitle?: React.ReactNode;
     expanded?: boolean;
     children?: TreeItem[];
     [x: string]: any;
@@ -31,7 +33,7 @@ export interface TreeNode {
 }
 
 export interface TreePath {
-    path: NumberArrayOrStringArray;
+    path: NumberOrStringArray;
 }
 
 export interface TreeIndex {
@@ -42,13 +44,14 @@ export interface FullTree {
     treeData: TreeItem[];
 }
 
-export interface NodeData extends TreeNode, TreePath, TreeIndex {}
+export interface NodeData extends TreeNode, TreePath, TreeIndex { }
 
 export interface SearchData extends NodeData {
     searchQuery: any;
 }
 
 export interface ExtendedNodeData extends NodeData {
+    parentNode: TreeItem;
     lowerSiblingsCounts: number[];
     isSearchMatch: boolean;
     isSearchFocus: boolean;
@@ -60,14 +63,20 @@ export interface OnVisibilityToggleData extends FullTree, TreeNode {
 
 interface PreviousAndNextLocation {
     prevTreeIndex: number;
-    prevPath: number[];
+    prevPath: NumberOrStringArray;
     nextTreeIndex: number;
-    nextPath: number[];
+    nextPath: NumberOrStringArray;
 }
 
 export interface OnDragPreviousAndNextLocation extends PreviousAndNextLocation {
     prevParent: TreeItem | null;
     nextParent: TreeItem | null;
+}
+
+export interface ShouldCopyData {
+    node: TreeNode;
+    prevPath: NumberOrStringArray;
+    prevTreeIndex: number;
 }
 
 export interface OnMovePreviousAndNextLocation extends PreviousAndNextLocation {
@@ -78,7 +87,7 @@ export type NodeRenderer = React.ComponentClass<NodeRendererProps>;
 
 export interface NodeRendererProps {
     node: TreeItem;
-    path: NumberArrayOrStringArray;
+    path: NumberOrStringArray;
     treeIndex: number;
     isSearchMatch: boolean;
     isSearchFocus: boolean;
@@ -110,9 +119,7 @@ export interface NodeRendererProps {
     canDrop?: boolean;
 }
 
-export type PlaceholderRenderer = React.ComponentClass<
-    PlaceholderRendererProps
->;
+export type PlaceholderRenderer = React.ComponentClass<PlaceholderRendererProps>;
 
 export interface PlaceholderRendererProps {
     isOver: boolean;
@@ -120,7 +127,7 @@ export interface PlaceholderRendererProps {
     draggedNode: { [index: string]: any };
 }
 
-type NumberArrayOrStringArray = string[] | number[];
+type NumberOrStringArray = Array<string | number>;
 
 export type TreeRenderer = React.ComponentClass<TreeRendererProps>;
 
@@ -145,13 +152,13 @@ export interface TreeRendererProps {
     // used in dndManager
     getPrevRow: any; // @TODO what is this method?
     node: TreeItem;
-    path: NumberArrayOrStringArray;
+    path: NumberOrStringArray;
 }
 
 export interface ThemeProps {
     style?: { [index: string]: any };
     innerStyle?: { [index: string]: any };
-    reactVirtualizedListProps?: ListProps;
+    reactVirtualizedListProps?: Partial<ListProps>;
     scaffoldBlockPxWidth?: number;
     slideRegionSize?: number;
     rowHeight?: ((info: Index) => number) | number;
@@ -177,7 +184,7 @@ export interface ReactSortableTreeProps {
     onVisibilityToggle?(data: OnVisibilityToggleData): void;
     canDrag?: ((data: ExtendedNodeData) => boolean) | boolean;
     canDrop?(data: OnDragPreviousAndNextLocation & NodeData): boolean;
-    reactVirtualizedListProps?: ListProps;
+    reactVirtualizedListProps?: Partial<ListProps>;
     rowHeight?: ((info: Index) => number) | number;
     slideRegionSize?: number;
     scaffoldBlockPxWidth?: number;
@@ -186,12 +193,12 @@ export interface ReactSortableTreeProps {
     dndType?: string;
     placeholderRenderer?: PlaceholderRenderer;
     theme?: ThemeProps;
+    shouldCopyOnOutsideDrop?: boolean | ((data: ShouldCopyData) => boolean);
+    onlyExpandSearchedNodes?: boolean;
 }
 
 declare const SortableTree: React.ComponentClass<ReactSortableTreeProps>;
 
-export const SortableTreeWithoutDndContext: React.ComponentClass<
-    ReactSortableTreeProps
->;
+export const SortableTreeWithoutDndContext: React.ComponentClass<ReactSortableTreeProps>;
 
 export default SortableTree;

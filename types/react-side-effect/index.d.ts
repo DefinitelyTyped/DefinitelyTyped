@@ -1,22 +1,33 @@
-// Type definitions for react-side-effect v1.0.2
+// Type definitions for react-side-effect 1.1
 // Project: https://github.com/gaearon/react-side-effect
 // Definitions by: Remo H. Jansen <https://github.com/remojansen>
+//                 Martin Charles <https://github.com/0xcaff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
-declare function withSideEffect(
-    reducePropsToState: (propsList: any[]) => any,
-    handleStateChangeOnClient: (state: any) => any,
-    mapStateOnServer?: (state: any) => any
-): ClassDecorator;
+interface WithSideEffect {
+    <TProp, TState>(
+        reducePropsToState: (propsList: TProp[]) => TState,
+        handleStateChangeOnClient: (state: TState) => void
+    ): ClassDecorator<TProp, TState, TState>;
 
-declare class ElementClass extends React.Component<any> {}
-
-interface ClassDecorator {
-    <T extends (typeof ElementClass)>(component:T): T;
+    <TProp, TState, TServerState>(
+        reducePropsToState: (propsList: TProp[]) => TState,
+        handleStateChangeOnClient: (state: TState) => void,
+        mapStateOnServer: (state: TState) => TServerState
+    ): ClassDecorator<TProp, TState | TServerState, TServerState>;
 }
+
+declare const withSideEffect: WithSideEffect;
+
+type ClassDecorator<TProp, TPeek, TRewind> = (
+    component: React.ComponentType<TProp>
+) => React.ComponentType<TProp> & {
+    peek: () => TPeek;
+    rewind: () => TRewind;
+};
 
 declare namespace withSideEffect {} // https://github.com/Microsoft/TypeScript/issues/5073
 

@@ -3,7 +3,7 @@
 // Definitions by: Asana <https://github.com/Asana>
 //                 Vincent Siao <https://github.com/vsiao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 

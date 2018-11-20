@@ -179,6 +179,7 @@ Expressions examples
 
 		const x = parser.get('x');
 		const f = parser.get('f');
+		const y = parser.getAll();
 		const g = f(3, 3);
 
 		parser.set('h', 500);
@@ -270,6 +271,13 @@ Matrices examples
 		math.range('2:-1:-3');
 		math.factorial(math.range('1:6'));
 	}
+
+	// map matrix
+	{
+  	math.map([1, 2, 3], function(value) {
+      return value * value;
+	  });  // returns [1, 4, 9]
+	}
 }
 
 /*
@@ -339,6 +347,12 @@ Units examples
 
 	// the expression parser supports units too
 	math.eval('2 inch to cm');
+
+	// units can be converted to SI
+	math.unit('1 inch').toSI();
+
+	// units can be split into other units
+	math.unit('1 m').splitUnit(['ft', 'in']);
 }
 
 /*

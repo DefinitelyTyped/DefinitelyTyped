@@ -654,9 +654,10 @@ namespace url_tests {
         const searchParams = new url.URLSearchParams('abc=123');
 
         assert.equal(searchParams.toString(), 'abc=123');
-        searchParams.forEach((value: string, name: string): void => {
+        searchParams.forEach((value: string, name: string, me: url.URLSearchParams): void => {
             assert.equal(name, 'abc');
             assert.equal(value, '123');
+            assert.equal(me, searchParams);
         });
 
         assert.equal(searchParams.get('abc'), '123');
@@ -818,6 +819,8 @@ namespace util_tests {
         var arg0NoResult: () => Promise<any> = util.promisify((cb: (err: Error) => void): void => { });
         var arg1: (arg: string) => Promise<number> = util.promisify((arg: string, cb: (err: Error, result: number) => void): void => { });
         var arg1NoResult: (arg: string) => Promise<any> = util.promisify((arg: string, cb: (err: Error) => void): void => { });
+        // The following test requires typescript >= 2.4, but definitions currently tested with typescript@2.1
+        // var cbOptionalError: () => Promise<void> = util.promisify((cb: (err?: Error | null) => void): void => { cb(); });
         assert(typeof util.promisify.custom === 'symbol');
         // util.deprecate
         const foo = () => {};
@@ -913,8 +916,9 @@ function simplified_stream_ctor_test() {
         read(size) {
             size.toFixed();
         },
-        destroy(error) {
+        destroy(error, cb) {
             error.stack;
+            cb(error);
         }
     });
 
@@ -929,8 +933,9 @@ function simplified_stream_ctor_test() {
             chunks[0].encoding.charAt(0);
             cb();
         },
-        destroy(error) {
+        destroy(error, cb) {
             error.stack;
+            cb(error);
         },
         final(cb) {
             cb(null);
@@ -950,6 +955,10 @@ function simplified_stream_ctor_test() {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
+        },
+        destroy(error, cb) {
+            error.stack;
+            cb(error);
         },
         readableObjectMode: true,
         writableObjectMode: true
@@ -977,8 +986,9 @@ function simplified_stream_ctor_test() {
             chunks[0].encoding.charAt(0);
             cb();
         },
-        destroy(error) {
+        destroy(error, cb) {
             error.stack;
+            cb(error);
         },
         allowHalfOpen: true,
         readableObjectMode: true,
@@ -3065,6 +3075,10 @@ namespace dns_tests {
         const _err: NodeJS.ErrnoException = err;
         const _address: dns.LookupAddress[] = addresses;
     });
+    dns.lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
+        const _err: NodeJS.ErrnoException = err;
+        const _address: dns.LookupAddress[] = addresses;
+    });
 
     function trueOrFalse(): boolean {
         return Math.random() > 0.5 ? true : false;
@@ -3118,6 +3132,14 @@ namespace dns_tests {
         dns.resolve6("nodejs.org", { ttl }, (err, addresses) => {
             const _addresses: string[] | dns.RecordWithTtl[] = addresses;
         });
+    }
+    {
+        const resolver = new dns.Resolver();
+        resolver.setServers(["4.4.4.4"]);
+        resolver.resolve("nodejs.org", (err, addresses) => {
+            const _addresses: string[] = addresses;
+        });
+        resolver.cancel();
     }
 }
 

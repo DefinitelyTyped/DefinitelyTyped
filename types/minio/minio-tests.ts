@@ -4,7 +4,7 @@ import Minio = require('minio');
 const minio = new Minio.Client({
     endPoint: 'localhost',
     port: 9000,
-    secure: false,
+    useSSL: false,
     accessKey: 'iV7RAFOtxF',
     secretKey: 'Go1hhOkXnl',
 });
@@ -44,15 +44,21 @@ minio.getPartialObject('testBucket', 'hello.jpg', 10, 20);
 minio.fGetObject('testBucket', 'hello.jpg', 'file/path', (error: Error|null) => { console.log(error); });
 minio.fGetObject('testBucket', 'hello.jpg', 'file/path');
 
+const metaData = {
+    'Content-Type': 'text/html',
+    'Content-Language': 123,
+    'X-Amz-Meta-Testing': 1234,
+    example: 5678
+};
 minio.putObject('testBucket', 'hello.jpg', new Stream(), (error: Error|null, etag: string) => { console.log(error, etag); });
 minio.putObject('testBucket', 'hello.jpg', new Buffer('string'), 100, (error: Error|null, etag: string) => { console.log(error, etag); });
-minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, 'text/plain', (error: Error|null, etag: string) => { console.log(error, etag); });
+minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, metaData, (error: Error|null, etag: string) => { console.log(error, etag); });
 minio.putObject('testBucket', 'hello.jpg', new Stream());
 minio.putObject('testBucket', 'hello.jpg', new Buffer('string'), 100);
-minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, 'text/plain');
+minio.putObject('testBucket', 'hello.txt', 'hello.txt content', 100, metaData);
 
-minio.fPutObject('testBucket', 'hello.jpg', 'file/path', 'image/jpg', (error: Error|null, etag: string) => { console.log(error, etag); });
-minio.fPutObject('testBucket', 'hello.jpg', 'file/path', 'image/jpg');
+minio.fPutObject('testBucket', 'hello.jpg', 'file/path', metaData, (error: Error|null, etag: string) => { console.log(error, etag); });
+minio.fPutObject('testBucket', 'hello.jpg', 'file/path', metaData);
 
 const conditions = new Minio.CopyConditions();
 conditions.setMatchETag('bd891862ea3e22c93ed53a098218791d');

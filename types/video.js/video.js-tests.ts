@@ -1,8 +1,12 @@
-import videojs = require('video.js');
+import videojs from 'video.js';
 
 videojs("example_video_1").ready(function() {
 	// EXAMPLE: Start playing the video.
-	this.play();
+	const playPromise = this.play();
+
+	if (playPromise) {
+		playPromise.then(() => {});
+	}
 
 	this.pause();
 
@@ -53,46 +57,57 @@ videojs("example_video_1").ready(function() {
 
 	this.height(480);
 
-	this.size(640, 480);
-
-	this.requestFullScreen();
+	this.requestFullscreen();
 
 	testEvents(this);
+
+	testComponents(this);
+
+	testPlugin(this, {});
 });
 
-function testEvents(myPlayer: videojs.Player) {
+function testEvents(player: videojs.Player) {
 	const myFunc = function(this: videojs.Player) {
 		// Do something when the event is fired
 	};
-	myPlayer.on("error", myFunc);
+	player.on("error", myFunc);
 	// Removes the specified listener only.
-	myPlayer.off("error", myFunc);
+	player.off("error", myFunc);
 
 	const myFuncWithArg = function(this: videojs.Player, e: Event) {
 		// Do something when the event is fired
 	};
-	myPlayer.on("volumechange", myFuncWithArg);
+	player.on("volumechange", myFuncWithArg);
 	// Removes all listeners for the given event type.
-	myPlayer.off("volumechange");
+	player.off("volumechange");
 
-	myPlayer.on("loadeddata", () => { /* Some handler. */ });
+	player.on("loadeddata", () => { /* Some handler. */ });
 	// Removes all listeners.
-	myPlayer.off();
+	player.off();
 }
 
-function testComponents() {
-	let component = videojs.getComponent('Component');
-	component = videojs.Component.getComponent('Component');
+function testComponents(player: videojs.Player) {
+	class MyWindow extends videojs.getComponent('ModalDialog') {
+		myFunction() {
+			this.player().play();
+		}
+	}
 
-	const button = videojs.getComponent('Button');
-	button.controlText('Button Text');
-	const player = videojs.getComponent('Player');
-	player.play();
+	const myWindow = new MyWindow(player, {});
+	myWindow.controlText('My text');
+	myWindow.open();
+	myWindow.close();
+	myWindow.myFunction();
 }
 
-function testPlugin() {
-	let plugin = videojs.getPlugin('plugin_name');
-	plugin = videojs.getPlugin('plugin_name');
+function testPlugin(player: videojs.Player, options: {}) {
+	if (player.usingPlugin('uloztoExample')) { return; }
 
-	plugin.dispose();
+	videojs.registerPlugin('uloztoExample', function({}: typeof options) {
+		this.play();
+		this.one('ended', () => {
+			// do something
+		});
+	});
+	(player as any).uloztoExample(options);
 }

@@ -2,7 +2,11 @@
 
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action, decorateAction } from '@storybook/addon-actions';
+import { action, decorateAction, configureActions } from '@storybook/addon-actions';
+
+configureActions({
+    depth: 100
+});
 
 const firstArgAction = decorateAction([
     args => args.slice(0, 1)

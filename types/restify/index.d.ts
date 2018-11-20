@@ -851,7 +851,7 @@ export interface RedirectOptions {
     /**
      * redirect location's query string parameters
      */
-    query?: string;
+    query?: string|object;
 
     /**
      * if true, `options.query`
@@ -1230,6 +1230,8 @@ export namespace plugins {
         reviver?: any;
 
         maxFieldsSize?: number;
+
+        maxFileSize?: number;
     }
 
     /**
@@ -1341,7 +1343,7 @@ export namespace plugins {
     }
 
     /**
-     * Parses URL query paramters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
+     * Parses URL query parameters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
      */
     function queryParser(options?: QueryParserOptions): RequestHandler;
 

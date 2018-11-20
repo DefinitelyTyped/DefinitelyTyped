@@ -832,7 +832,12 @@ namespace TestDispatchToPropsAsObject {
 	<Header />
 }
 
-namespace TestInferredFunctionalComponent {
+namespace TestInferredFunctionalComponentWithExplicitOwnProps {
+  type Props = {
+    title: string,
+    extraText: string,
+    onClick: () => void,
+  };
 
 	const Header = connect(
 		(
@@ -845,7 +850,30 @@ namespace TestInferredFunctionalComponent {
 		(dispatch) => ({
 			onClick: () => dispatch({ type: 'test' })
 		})
-	)(({ title, extraText, onClick }) => {
+	)(({ title, extraText, onClick }: Props) => {
+		return <h1 onClick={onClick}>{title} {extraText}</h1>;
+	});
+	<Header extraText='text'/>
+}
+
+namespace TestInferredFunctionalComponentWithImplicitOwnProps {
+
+  type Props = {
+    title: string,
+    extraText: string,
+    onClick: () => void,
+  };
+
+	const Header = connect(
+		(
+			{ app: { title }}: { app: { title: string }},
+		) => ({
+			title,
+		}),
+		(dispatch) => ({
+			onClick: () => dispatch({ type: 'test' })
+		})
+	)(({ title, extraText, onClick }: Props) => {
 		return <h1 onClick={onClick}>{title} {extraText}</h1>;
 	});
 	<Header extraText='text'/>
@@ -1000,4 +1028,168 @@ namespace ProviderAcceptsStoreWithCustomAction {
             <div>Whatever</div>
         </Provider>
     );
+}
+
+namespace TestOptionalPropsMergedCorrectly {
+  interface OptionalDecorationProps {
+    foo: string,
+    bar: number,
+    optionalProp?: boolean,
+    dependsOnDispatch?: () => void,
+  }
+
+  class Component extends React.Component<OptionalDecorationProps> {
+      render () {
+          return <div />;
+      }
+  }
+
+  type MapStateProps = {
+      foo: string,
+      bar: number,
+      optionalProp: boolean,
+  }
+
+  type MapDispatchProps = {
+    dependsOnDispatch: () => void
+  }
+
+  function mapStateToProps (state: any): MapStateProps {
+    return {
+        foo: 'foo',
+        bar: 42,
+        optionalProp: true,
+    };
+  }
+
+  function mapDispatchToProps (dispatch: any): MapDispatchProps {
+    return {
+      dependsOnDispatch: () => {}
+    };
+  }
+
+  connect(mapStateToProps, mapDispatchToProps)(Component)
+}
+
+namespace TestMoreGeneralDecorationProps {
+  // connect() should support decoration props that are more permissive
+  // than the injected props, as long as the injected props can satisfy
+  // the decoration props.
+  interface MoreGeneralDecorationProps {
+    foo: string | number,
+    bar: number | 'foo',
+    optionalProp?: boolean | Object,
+    dependsOnDispatch?: () => void,
+  }
+
+  class Component extends React.Component<MoreGeneralDecorationProps> {
+      render () {
+          return <div />;
+      }
+  }
+
+  type MapStateProps = {
+      foo: string,
+      bar: number,
+      optionalProp: boolean,
+  }
+
+  type MapDispatchProps = {
+    dependsOnDispatch: () => void
+  }
+
+  function mapStateToProps (state: any): MapStateProps {
+    return {
+        foo: 'foo',
+        bar: 42,
+        optionalProp: true,
+    };
+  }
+
+  function mapDispatchToProps (dispatch: any): MapDispatchProps {
+    return {
+      dependsOnDispatch: () => {}
+    };
+  }
+
+  connect(mapStateToProps, mapDispatchToProps)(Component)
+}
+
+namespace TestFailsMoreSpecificInjectedProps {
+  interface MoreSpecificDecorationProps {
+    foo: string,
+    bar: number,
+    dependsOnDispatch: () => void,
+  }
+
+  class Component extends React.Component<MoreSpecificDecorationProps> {
+      render () {
+          return <div />;
+      }
+  }
+
+  type MapStateProps = {
+    foo: string | number,
+    bar: number | 'foo',
+    dependsOnDispatch?: () => void,
+  }
+
+  type MapDispatchProps = {
+    dependsOnDispatch?: () => void
+  }
+
+  function mapStateToProps (state: any): MapStateProps {
+    return {
+        foo: 'foo',
+        bar: 42,
+    };
+  }
+
+  function mapDispatchToProps (dispatch: any): MapDispatchProps {
+    return {
+      dependsOnDispatch: () => {}
+    };
+  }
+
+  // Since it is possible the injected props could fail to satisfy the decoration props,
+  // the following line should fail to compile.
+  connect(mapStateToProps, mapDispatchToProps)(Component) // $ExpectError
+
+  // Confirm that this also fails with functional components
+  const FunctionalComponent = (props: MoreSpecificDecorationProps) => null
+  connect(mapStateToProps, mapDispatchToProps)(Component) // $ExpectError
+
+}
+
+namespace TestLibraryManagedAttributes {
+	interface OwnProps {
+		bar: number,
+		fn: () => void,
+	}
+
+	type MapStateProps = {
+		foo: string,
+	}
+
+	class Component extends React.Component<OwnProps & MapStateProps> {
+		static defaultProps = {
+			bar: 0,
+		}
+
+		render () {
+			return <div />;
+		}
+	}
+
+	function mapStateToProps (state: any): MapStateProps {
+		return {
+			foo: 'foo',
+		};
+	}
+
+	const ConnectedComponent = connect(mapStateToProps)(Component);
+	<ConnectedComponent fn={() => {}} />
+
+	const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
+	<ConnectedComponent2 fn={() => {}} />
 }

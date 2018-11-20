@@ -358,7 +358,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
 
     const contacts: InboxSDK.Common.Contact[] = threadRowView.getContacts();
 
-    threadRowView.on('destroyed', () => console.log());
+    threadRowView.on('destroy', () => console.log());
 
     const destroyed: boolean = threadRowView.destroyed;
   });
@@ -704,7 +704,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   });
 
   modalView.close();
-  modalView.on('destroyed', () => {
+  modalView.on('destroy', () => {
   });
   const destroyed: boolean = modalView.destroyed;
 
@@ -728,7 +728,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   const minimized: boolean = moleView.getMinimized();
   moleView.setMinimized(true);
   moleView.setTitle('title');
-  moleView.on('destroyed', () => {
+  moleView.on('destroy', () => {
   });
   moleView.on('minimize', () => {
   });
@@ -745,7 +745,7 @@ InboxSDK.load(1, '1234').then((sdk: InboxSDK.InboxSDKInstance) => {
   drawerView.close();
   drawerView.disassociateComposeView();
   const destroyed1: boolean = drawerView.destroyed;
-  drawerView.on('destroyed', () => {
+  drawerView.on('destroy', () => {
   });
   drawerView.on('slideAnimationDone', () => {
   });

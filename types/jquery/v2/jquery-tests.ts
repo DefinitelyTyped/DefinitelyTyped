@@ -2715,7 +2715,7 @@ function test_fn_extend() {
 }
 
 function test_jquery() {
-    var a = <any>{ what: "A regular JS object" },
+    var a: any = { what: "A regular JS object" },
     b = $('body');
     if (a.jquery) {
         alert(' a is a jQuery object! ');
@@ -3553,4 +3553,12 @@ function test_promise_then_not_return_deferred() {
   promise = promise.done();
   promise = promise.fail();
   promise = promise.always();
+}
+
+function test_element() {
+    const itemEl = $('#item')[0];
+    $('li').toArray().indexOf(itemEl);
+    $('li').get().indexOf(itemEl);
+    let otherItemEl = $('li').get(0);
+    otherItemEl = itemEl;
 }

@@ -423,7 +423,9 @@ declare namespace Mocha {
      * @returns [bdd] `Suite`
      * @returns [tdd] `void`
      */
-    type PendingSuiteFunction = (title: string, fn: (this: Suite) => void) => Suite | void;
+    interface PendingSuiteFunction {
+        (title: string, fn: (this: Suite) => void): Suite | void;
+    }
 
     interface TestFunction {
         /**

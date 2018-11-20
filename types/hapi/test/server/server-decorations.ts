@@ -58,6 +58,8 @@ function decorateToolkitWithParams(this: ResponseToolkit, x: number, y: string) 
 
 server.decorate('toolkit', 'withParams', decorateToolkitWithParams);
 
+server.decorate('toolkit', Symbol('hi'), decorateToolkitWithParams);
+
 server.route({
     method: 'GET',
     path: '/toolkitWithParams',

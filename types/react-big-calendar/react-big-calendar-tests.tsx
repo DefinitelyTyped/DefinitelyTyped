@@ -1,13 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import * as ReactDOMServer from "react-dom/server";
-import BigCalendar, { BigCalendarProps, Navigate, View } from "react-big-calendar";
+import BigCalendar, { BigCalendarProps, Navigate, View, DateRange, DateLocalizer } from "react-big-calendar";
 
 // Don't want to add this as a dependency, because it is only used for tests.
+declare const globalize: any;
 declare const moment: any;
 
-// Init localizer
-BigCalendar.momentLocalizer(moment);
+declare const allViews: View[];
 
 // Testing examples from demos page
 // http://intljusticemission.github.io/react-big-calendar/examples/index.html
@@ -29,80 +28,92 @@ class CalendarEvent {
 }
 
 // Basic Example Test
-class BasicExample extends React.Component {
-    render() {
-        return (
-            <BigCalendar
-                {...this.props}
-                events={getEvents()}
-            />
-        );
+{
+    interface Props {
+        localizer: DateLocalizer;
     }
-}
-ReactDOM.render(<BasicExample />, document.body);
-const basicExampleHtml = ReactDOMServer.renderToString(<BasicExample />);
-console.log('Test Results -> BasicExample', basicExampleHtml);
+    const Basic = ({ localizer }: Props) => (
+        <BigCalendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+        />
+    );
 
-// Full API Example Test - based on API Documentation
-// http://intljusticemission.github.io/react-big-calendar/examples/index.html#api
-class FullAPIExample extends React.Component<BigCalendarProps<CalendarEvent>> {
-    render() {
-        return (
-            <BigCalendar
-                {...this.props}
-                date={new Date()}
-                view={'day'}
-                events={getEvents()}
-                onNavigate={(newDate: Date, action: Navigate) => { }}
-                onView={(view: View) => { }}
-                onSelectSlot={(slotInfo) => {
-                    const start = slotInfo.start;
-                    const end = slotInfo.end;
-                    const slots = slotInfo.slots;
-                }}
-                onSelectEvent={(event) => { }}
-                onSelecting={(slotInfo) => {
-                    const start = slotInfo.start;
-                    const end = slotInfo.end;
-                    return true;
-                }}
-                views={['day']}
-                toolbar={true}
-                popup={true}
-                popupOffset={20}
-                selectable={true}
-                step={20}
-                rtl={true}
-                eventPropGetter={(event, start, end, isSelected) => ({ className: 'some-class' })}
-                titleAccessor={'title'}
-                allDayAccessor={(event: any) => !!event.allDay}
-                startAccessor={'start'}
-                endAccessor={(event: any) => event.end || event.start}
-                min={new Date()}
-                max={new Date()}
-                scrollToTime={new Date()}
-                formats={{}}
-                messages={{}}
-                timeslots={24}
-                defaultView={'month'}
-                className={'my-calendar'}
-                elementProps={{ id: 'myCalendar' }}
-                components={{
-                    event: Event,
-                    agenda: {
-                        event: EventAgenda
-                    }
-                }}
-                dayPropGetter={customDayPropGetter}
-                slotPropGetter={customSlotPropGetter}
-                defaultDate={new Date()}
-            />
-        );
-    }
+    const localizer = BigCalendar.momentLocalizer(moment);
+
+    ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
-ReactDOM.render(<FullAPIExample />, document.body);
-const fullApiExampleHtml = ReactDOMServer.renderToString(<FullAPIExample />);
-console.log('Test Results -> FullAPIExample', fullApiExampleHtml);
+
+{
+    // Full API Example Test - based on API Documentation
+    // http://intljusticemission.github.io/react-big-calendar/examples/index.html#api
+    class FullAPIExample extends React.Component<BigCalendarProps<CalendarEvent>> {
+        render() {
+            return (
+                <BigCalendar
+                    {...this.props}
+                    date={new Date()}
+                    view={'day'}
+                    events={getEvents()}
+                    onNavigate={(newDate: Date, action: Navigate) => { }}
+                    onView={(view: View) => { }}
+                    onSelectSlot={(slotInfo) => {
+                        const start = slotInfo.start;
+                        const end = slotInfo.end;
+                        const slots = slotInfo.slots;
+                    }}
+                    onSelectEvent={(event) => { }}
+                    onSelecting={(slotInfo) => {
+                        const start = slotInfo.start;
+                        const end = slotInfo.end;
+                        return true;
+                    }}
+                    views={['day']}
+                    toolbar={true}
+                    popup={true}
+                    popupOffset={20}
+                    selectable={true}
+                    step={20}
+                    rtl={true}
+                    eventPropGetter={(event, start, end, isSelected) => ({ className: 'some-class' })}
+                    titleAccessor={'title'}
+                    allDayAccessor={(event: any) => !!event.allDay}
+                    startAccessor={'start'}
+                    endAccessor={(event: any) => event.end || event.start}
+                    min={new Date()}
+                    max={new Date()}
+                    scrollToTime={new Date()}
+                    formats={{
+                        dateFormat: "h a",
+                        agendaDateFormat: (date: Date, culture?: string, localizer?: object) => "some-format",
+                        dayRangeHeaderFormat: (range: DateRange, culture?: string, localizer?: object) => "some-format"
+                    }}
+                    messages={{}}
+                    timeslots={24}
+                    defaultView={'month'}
+                    className={'my-calendar'}
+                    elementProps={{ id: 'myCalendar' }}
+                    components={{
+                        event: Event,
+                        agenda: {
+                            event: EventAgenda
+                        }
+                    }}
+                    dayPropGetter={customDayPropGetter}
+                    slotPropGetter={customSlotPropGetter}
+                    defaultDate={new Date()}
+                />
+            );
+        }
+    }
+
+    const localizer = BigCalendar.globalizeLocalizer(globalize);
+    ReactDOM.render(<FullAPIExample localizer={localizer} />, document.body);
+}
 
 // Test fixtures
 function getEvents(): CalendarEvent[] {

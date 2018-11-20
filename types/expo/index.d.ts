@@ -1,4 +1,4 @@
-// Type definitions for expo 27.0
+// Type definitions for expo 30.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
@@ -9,8 +9,10 @@
 //                 Moshe Feuchtwanger <https://github.com/moshfeu>
 //                 Michael Prokopchuk <https://github.com/prokopcm>
 //                 Tina Roh <https://github.com/tinaroh>
+//                 Nathan Phillip Brink <https://github.com/binki>
+//                 Martin Olsson <https://github.com/mo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { EventSubscription } from 'fbemitter';
 import { Component, ComponentClass, Ref, ComponentType } from 'react';
@@ -18,6 +20,7 @@ import {
     ColorPropType,
     ImageRequireSource,
     ImageURISource,
+    LinkingStatic as ReactNativeLinkingStatic,
     NativeEventEmitter,
     ViewProps,
     ViewStyle,
@@ -36,6 +39,7 @@ export type ResizeModeStretch = 'stretch';
 export type URISource = ImageURISource;
 
 export interface HashMap { [key: string]: any; }
+export interface StringHashMap { [key: string]: string; }
 
 /** Access the device accelerometer sensor(s) to respond to changes in acceleration in 3d space. */
 export namespace Accelerometer {
@@ -766,6 +770,9 @@ export namespace Brightness {
  */
 export interface PictureOptions {
     quality?: number;
+    base64?: boolean;
+    exif?: boolean;
+    onPictureSaved?: (data: PictureResponse) => void;
 }
 
 export interface PictureResponse {
@@ -871,6 +878,7 @@ export class Camera extends Component<CameraProps> {
 export namespace Constants {
     const appOwnership: 'expo' | 'standalone' | 'guest';
     const expoVersion: string;
+    const installationId: string;
     const deviceId: string;
     const deviceName: string;
     const deviceYearClass: number;
@@ -985,6 +993,8 @@ export namespace Constants {
     }
     const manifest: Manifest;
     const linkingUri: string;
+
+    function getWebViewUserAgentAsync(): Promise<string>;
 }
 
 /**
@@ -1393,8 +1403,8 @@ export namespace FileSystem {
 }
 
 /** Use TouchID/FaceID (iOS) or the Fingerprint API (Android) to authenticate the user with a fingerprint scan. */
-export namespace Fingerprint {
-    type FingerprintAuthenticationResult = {
+export namespace LocalAuthentication {
+    type LocalAuthenticationResult = {
         success: true
     } | {
         success: false,
@@ -1403,10 +1413,10 @@ export namespace Fingerprint {
         error: string
     };
 
-    /** Determine whether the Fingerprint scanner is available on the device. */
+    /** Determine whether a face or fingerprint scanner is available on the device. */
     function hasHardwareAsync(): Promise<boolean>;
 
-    /** Determine whether the device has saved fingerprints to use for authentication. */
+    /** Determine whether the device has saved fingerprints or facial data to use for authentication. */
     function isEnrolledAsync(): Promise<boolean>;
 
     /**
@@ -1414,7 +1424,7 @@ export namespace Fingerprint {
      *
      * @param promptMessage A message that is shown alongside the TouchID/FaceID prompt. (iOS only)
      */
-    function authenticateAsync(promptMessageIOS?: string): Promise<FingerprintAuthenticationResult>;
+    function authenticateAsync(promptMessageIOS?: string): Promise<LocalAuthenticationResult>;
 
     /** Cancels the fingerprint authentication flow. (Android only) */
     function cancelAuthenticate(): void;
@@ -1516,7 +1526,7 @@ export namespace ImageManipulator {
     type Action = Resize | Rotate | Flip | Crop;
 
     interface Resize {
-        resize: { width: number, height: number };
+        resize: { width?: number, height?: number };
     }
 
     interface Rotate {
@@ -1593,6 +1603,8 @@ export namespace ImagePicker {
         allowsEditing?: boolean;
         aspect?: [number, number];
         quality?: number;
+        base64?: boolean;
+        exif?: boolean;
     }
 
     /**
@@ -1711,6 +1723,21 @@ export interface LinearGradientProps {
 
 export class LinearGradient extends Component<LinearGradientProps> { }
 // #endregion
+
+/**
+ * Linking
+ */
+export interface LinkInfo {
+    path: string;
+    queryParams: Partial<StringHashMap>;
+}
+
+export interface LinkingStatic extends ReactNativeLinkingStatic {
+    makeUrl(path: string, queryParams?: HashMap): string;
+    parse(url: string): LinkInfo;
+    parseInitialURLAsync(): Promise<LinkInfo>;
+}
+export const Linking: LinkingStatic;
 
 /**
  * Location
@@ -2033,6 +2060,7 @@ export interface SvgCommonProps {
     strokeLineJoin?: string;
     strokeDasharray?: any[];
     strokeDashoffset?: any;
+    transform?: string | object;
     x?: number | string;
     y?: number | string;
     rotate?: number | string;
@@ -2111,6 +2139,7 @@ export interface SvgUseProps extends SvgCommonProps {
 
 export interface SvgSymbolProps extends SvgCommonProps {
     viewBox: string;
+    preserveAspectRatio?: string;
     width: number | string;
     height: number | string;
 }
@@ -2138,7 +2167,7 @@ export interface SvgStopProps extends SvgCommonProps {
     stopOpacity?: string;
 }
 
-export class Svg extends Component<{ width: number, height: number, viewBox?: string }> {
+export class Svg extends Component<{ width: number, height: number, viewBox?: string, preserveAspectRatio?: string }> {
     static Circle: ComponentClass<SvgCircleProps>;
     static ClipPath: ComponentClass<SvgCommonProps>;
     static Defs: ComponentClass;
@@ -2394,10 +2423,10 @@ export namespace Calendar {
         recurrenceRule?: RecurrenceRule;
 
         /** Date object or string representing the time when the event starts */
-        startDate?: string;
+        startDate?: string | Date;
 
         /** Date object or string representing the time when the event ends */
-        endDate?: string;
+        endDate?: string | Date;
 
         /** For recurring events, the start date for the first (original) instance of the event */
         originalStartDate?: string; // iOS
@@ -2891,6 +2920,11 @@ export namespace Updates {
         message?: string;
     }
 
+    /** An optional params object passed to fetchUpdateAsync. */
+    interface FetchUpdateAsyncParams {
+        eventListener: UpdateEventListener;
+    }
+
     type UpdateEventListener = (event: UpdateEvent) => any;
 
     /**
@@ -2910,7 +2944,7 @@ export namespace Updates {
      * Downloads the most recent published version of your experience to the device's local cache.
      * Rejects if `updates.enabled` is `false` in app.json.
      */
-    function fetchUpdateAsync(listener?: UpdateEventListener): Promise<UpdateBundle>;
+    function fetchUpdateAsync(params?: FetchUpdateAsyncParams): Promise<UpdateBundle>;
 
     /**
      * Immediately reloads the current experience.

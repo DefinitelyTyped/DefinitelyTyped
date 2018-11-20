@@ -2,9 +2,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { WithContext as ReactTags } from "react-tag-input";
 
-const tags = Array({ id: 0, text: "test" }, { id: 1, text: "testing" });
+const tags = Array({ id: "0", text: "test" }, { id: "1", text: "testing" });
 
-const suggestions = Array("test1", "test2");
+const suggestions = Array({ id: "0", text: "test" }, { id: "1", text: "testing" });
 
 ReactDOM.render(
     <ReactTags
@@ -14,11 +14,11 @@ ReactDOM.render(
         placeholder="Some placeholder text"
         labelField="Some label"
 
-        handleAddition={(tag: string) => console.log("Add: " + tag)}
+        handleAddition={(tag: { id: string, text: string }) => console.log("Add: " + tag.text)}
         handleDelete={(i: number) => console.log("Delete: " + i)}
-        handleDrag={(tag: { id: number; text: string; }, currPos: number, newPos: number) => console.log("Drag: " + tag.text)}
+        handleDrag={(tag: { id: string; text: string; }, currPos: number, newPos: number) => console.log("Drag: " + tag.text)}
         handleInputChange={(value: string) => console.log("Changed to: ", value)}
-        handleFilterSuggestions={(textInputValue: string, possibleSuggestionsArray: string[]) => true}
+        handleFilterSuggestions={(textInputValue: string, possibleSuggestionsArray: Array<{ id: string, text: string }>) => suggestions}
         handleInputBlur={() => console.log("Blured")}
 
         autofocus={false}

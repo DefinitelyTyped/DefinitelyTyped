@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "apollo-link": "^1.0.0",
+        "apollo-link-http-common": "^0.2.4"
+    }
+}

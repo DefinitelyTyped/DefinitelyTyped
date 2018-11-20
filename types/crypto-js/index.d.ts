@@ -9,11 +9,15 @@ export as namespace CryptoJS;
 declare var CryptoJS: CryptoJS.Hashes;
 declare namespace CryptoJS {
 
-	interface Base {}
+	interface Base {
+		create(): any;
+	}
 
 	interface BufferedBlockAlgorithm extends Base {}
 
-	interface Hasher extends BufferedBlockAlgorithm {}
+	interface Hasher extends BufferedBlockAlgorithm {
+		update(messageUpdate: WordArray|string): Hasher;
+	}
 
 	interface Cipher extends BufferedBlockAlgorithm {
 		createEncryptor(secretPassphrase: string, option?: CipherOption): Encryptor;
@@ -25,7 +29,7 @@ declare namespace CryptoJS {
 	interface StreamCipher extends Cipher {}
 
 	interface CipherHelper {
-		encrypt(message: string, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
+		encrypt(message: string | LibWordArray, secretPassphrase: string | WordArray, option?: CipherOption): WordArray;
 		decrypt(encryptedMessage: string | WordArray, secretPassphrase: string | WordArray, option?: CipherOption): DecryptedMessage;
 	}
 	interface Encryptor {

@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from 'prop-types';
 import {
     // Higher-order components
     mapProps, withProps, withPropsOnChange, withHandlers,
@@ -62,12 +63,9 @@ import createSinkStandalone from "recompose/createSink";
 import componentFromPropStandalone from "recompose/componentFromProp";
 import nestStandalone from "recompose/nest";
 import hoistStaticsStandalone from "recompose/hoistStatics";
-import componentFromStreamStandalone from "recompose/componentFromStream";
-import componentFromStreamWithConfigStandalone from "recompose/componentFromStreamWithConfig";
-import mapPropsStreamStandalone from "recompose/mapPropsStream";
-import mapPropsStreamWithConfigStandalone from "recompose/mapPropsStreamWithConfig";
-import createEventHandlerStandalone from "recompose/createEventHandler";
-import createEventHandlerWithConfigStandalone from "recompose/createEventHandlerWithConfig";
+import componentFromStreamStandalone, { componentFromStreamWithConfig as componentFromStreamWithConfigStandalone } from "recompose/componentFromStream";
+import mapPropsStreamStandalone, { mapPropsStreamWithConfig as mapPropsStreamWithConfigStandalone } from "recompose/mapPropsStream";
+import createEventHandlerStandalone, { createEventHandlerWithConfig as createEventHandlerWithConfigStandalone } from "recompose/createEventHandler";
 import setObservableConfigStandalone from "recompose/setObservableConfig";
 
 function testMapProps() {
@@ -135,7 +133,7 @@ function testWithHandlers() {
         onSubmit: React.MouseEventHandler<HTMLDivElement>;
         onChange: Function;
     }
-    const InnerComponent: React.StatelessComponent<InnerProps & HandlerProps> = ({onChange, onSubmit, foo}) =>
+    const InnerComponent: React.StatelessComponent<InnerProps & HandlerProps & OutterProps> = ({onChange, onSubmit, foo}) =>
       <div onClick={onSubmit}>{foo}</div>;
 
     const enhancer = withHandlers<OutterProps & InnerProps, HandlerProps>({
@@ -255,6 +253,15 @@ function testWithState() {
     const Enhanced2 = enhancer2(InnerComponent);
     const rendered2 = (
         <Enhanced2 title="foo" />
+    );
+
+    // We can also actually provide the generic necessary
+    const enhancer3 = withState<OutterProps, number, "count", "setCount">("count", "setCount", 1);
+    const Enhanced3 = enhancer3(props => {
+        return <div>{props.count}</div>;
+    });
+    const rendered3 = (
+        <Enhanced3 title="foo" />
     );
 }
 
@@ -405,4 +412,87 @@ function testLifecycle() {
             this.instanceValue = 2
         }
     })(component)
+}
+
+function testSetStatic() {
+    interface Props {
+        foo: string;
+    }
+
+    let SfcResult: React.SFC<Props>;
+    const SfcComp: React.SFC<Props> = (props) => (<div>{props.foo}</div>);
+
+    let ClassResult: React.ComponentClass<Props, {}>;
+    class ClassComp extends React.Component<Props> {
+        render() {
+            return (<div>{this.props.foo}</div>);
+        }
+    }
+
+    const hoc1 = setStatic('bar', 'a string');
+    const hoc2 = setStatic('bar', 5);
+    const hoc3 = setStatic('bar', { a: 'b' });
+
+    SfcResult = hoc1(SfcComp);
+    SfcResult = hoc2(SfcComp);
+    SfcResult = hoc3(SfcComp);
+    SfcResult = hoc1(ClassComp); // $ExpectError
+
+    ClassResult = hoc1(ClassComp);
+    ClassResult = hoc2(ClassComp);
+    ClassResult = hoc3(ClassComp);
+    ClassResult = hoc1(SfcComp); // $ExpectError
+}
+
+function testSetPropTypes() {
+    interface Props {
+        foo: string;
+    }
+    const validationMap = {
+        foo: PropTypes.string.isRequired
+    }
+
+    let SfcResult: React.SFC<Props>;
+    const SfcComp: React.SFC<Props> = (props) => (<div>{props.foo}</div>);
+
+    let ClassResult: React.ComponentClass<Props, {}>;
+    class ClassComp extends React.Component<Props> {
+        render() {
+            return (<div>{this.props.foo}</div>);
+        }
+    }
+
+    const hoc = setPropTypes(validationMap);
+
+    SfcResult = hoc(SfcComp);
+    SfcResult = hoc(ClassComp); // $ExpectError
+
+    ClassResult = hoc(ClassComp);
+    ClassResult = hoc(SfcComp); // $ExpectError
+
+    SfcResult = setPropTypes({ bar: PropTypes.string })(SfcComp); // $ExpectError
+}
+
+function testSetDisplayName() {
+    interface Props {
+        foo: string;
+    }
+
+    let SfcResult: React.SFC<Props>;
+    const SfcComp: React.SFC<Props> = (props) => (<div>{props.foo}</div>);
+
+    let ClassResult: React.ComponentClass<Props, {}>;
+    class ClassComp extends React.Component<Props> {
+        render() {
+            return (<div>{this.props.foo}</div>);
+        }
+    }
+
+    const hoc = setDisplayName('NewDisplayName');
+
+    SfcResult = hoc(SfcComp);
+    SfcResult = hoc(ClassComp); // $ExpectError
+
+    ClassResult = hoc(ClassComp);
+    ClassResult = hoc(SfcComp); // $ExpectError
 }

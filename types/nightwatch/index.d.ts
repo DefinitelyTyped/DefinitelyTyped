@@ -2,10 +2,11 @@
 // Project: http://nightwatchjs.org/api
 // Definitions by: Rahul Kavalapara <https://github.com/rkavalap>
 //                 Connor Schlesiger <https://github.com/schlesiger>
+//                 Clayton Astrom <https://github.com/ClaytonAstrom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface NightwatchCustomPageObjects {
-    page: {[name: string]: () => NightwatchBrowser};
+    page: {[name: string]: () => EnhancedPageObject};
 }
 
 export interface NightwatchDesiredCapabilities {
@@ -775,40 +776,12 @@ export interface NightwatchKeys {
     "COMMAND": string;
 }
 
-export interface NightwatchAPI {
+export interface NightwatchAPI extends SharedFunctions {
     assert: NightwatchAssertions;
 
     expect: Expect;
 
     verify: NightwatchAssertions;
-
-    /**
-     * Clear a textarea or a text input element's value. Uses elementIdValue protocol command.
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (client) {
-     *  client.clearValue('input[type=text]');
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param callback: Optional callback function to be called when the command finishes.
-     */
-    clearValue(selector: string, callback?: () => void): this;
-
-    /**
-     * Simulates a click event on the given DOM element. Uses elementIdClick protocol command.
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (client) {
-     *  client.click("#main ul li a.first");
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param callback: Optional callback function to be called when the command finishes.
-     */
-    click(selector: string, callback?: () => void): this;
 
     /**
      * Close the current window. This can be useful when you're working with multiple windows open (e.g. an OAuth login). Uses window protocol command.
@@ -868,26 +841,6 @@ export interface NightwatchAPI {
     end(callback?: () => void): this;
 
     /**
-     * Retrieve the value of an attribute for a given DOM element. Uses elementIdAttribute protocol command.
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (client) {
-     *  client.getAttribute("#main ul li a.first", "href", function(result) {
-     *      this.assert.equal(typeof result, "object");
-     *      this.assert.equal(result.status, 0);
-     *      this.assert.equal(result.value, "#home");
-     *  });
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param attribute: The attribute name to inspect.
-     * @param callback: Optional callback function to be called when the command finishes.
-     * @returns The value of the attribute
-     */
-    getAttribute(selector: string, attribute: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
-
-    /**
      * Retrieve a single cookie visible to the current page. The cookie is returned as a cookie JSON object, as defined here.
      * Uses cookie protocol command.
      *
@@ -925,87 +878,6 @@ export interface NightwatchAPI {
     getCookies(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
-     * Retrieve the value of a css property for a given DOM element. Uses elementIdCssProperty protocol command.
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (client) {
-     *  client.getCssProperty("#main ul li a.first", "display", function(result) {
-     *      this.assert.equal(typeof result, "object");
-     *      this.assert.equal(result.status, 0);
-     *      this.assert.equal(result.value, 'inline');
-     *  });
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param cssProperty: The CSS property to inspect.
-     * @param callback: Optional callback function to be called when the command finishes.
-     * @returns The value of the css property
-     */
-    getCssProperty(selector: string, cssProperty: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
-
-    /**
-     * Determine an element's size in pixels. Uses elementIdSize protocol command.
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (client) {
-     *  client.getElementSize("#main ul li a.first", function(result) {
-     *      this.assert.equal(typeof result, "object");
-     *      this.assert.equal(result.status, 0);
-     *      this.assert.equal(result.value.width, 500);
-     *      this.assert.equal(result.value.height, 20);
-     *  });
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param callback: Optional callback function to be called when the command finishes.
-     * @returns The width and height of the element in pixels
-     */
-    getElementSize(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
-
-    /**
-     * Determine an element's location on the page. The point (0, 0) refers to the upper-left corner of the page.
-     * The element's coordinates are returned as a JSON object with x and y properties. Uses elementIdLocation protocol command.
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (client) {
-     *  client.getLocation("#main ul li a.first", function(result) {
-     *      this.assert.equal(typeof result, "object");
-     *      this.assert.equal(result.status, 0);
-     *      this.assert.equal(result.value.x, 200);
-     *      this.assert.equal(result.value.y, 200);
-     *  });
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param callback: Optional callback function to be called when the command finishes.
-     * @returns The X and Y coordinates for the element on the page
-     */
-    getLocation(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
-
-    /**
-     * Determine an element's location on the screen once it has been scrolled into view. Uses elementIdLocationInView protocol command.
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (browser) {
-     *  browser.getLocationInView("#main ul li a.first", function(result) {
-     *      this.assert.equal(typeof result, "object");
-     *      this.assert.equal(result.status, 0);
-     *      this.assert.equal(result.value.x, 200);
-     *      this.assert.equal(result.value.y, 200);
-     *  });
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param callback: Optional callback function to be called when the command finishes.
-     * @returns The X and Y coordinates for the element on the page.
-     */
-    getLocationInView(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
-
-    /**
      * Gets a log from selenium
      *
      * Usage:
@@ -1041,44 +913,6 @@ export interface NightwatchAPI {
     getLogTypes(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
-     * Query for an element's tag name. Uses elementIdName protocol command.
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (client) {
-     *  client.getTagName("#main ul li .first", function(result) {
-     *      this.assert.equal(typeof result, "object");
-     *      this.assert.equal(result.status, 0);
-     *      this.assert.equal(result.value, "a");
-     *  });
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param callback: Optional callback function to be called when the command finishes.
-     * @returns The element's tag name, as a lowercase string.
-     */
-    getTagName(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
-
-    /**
-     * Returns the visible text for the element. Uses elementIdText protocol command.
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (browser) {
-     *  browser.getText("#main ul li a.first", function(result) {
-     *      this.assert.equal(typeof result, "object");
-     *      this.assert.equal(result.status, 0);
-     *      this.assert.equal(result.value, "nightwatchjs.org");
-     *  });
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param callback: Optional callback function to be called when the command finishes.
-     * @returns The element's visible text.
-     */
-    getText(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
-
-    /**
      * Returns the title of the current page. Uses title protocol command.
      *
      * Usage:
@@ -1094,25 +928,6 @@ export interface NightwatchAPI {
      * @returns The page title.
      */
     getTitle(callback?: (this: NightwatchAPI, result?: string) => void): this;
-
-    /**
-     * Returns a form element current value. Uses elementIdValue protocol command.
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (browser) {
-     *  browser.getValue("form.login input[type=text]", function(result) {
-     *      this.assert.equal(typeof result, "object");
-     *      this.assert.equal(result.status, 0);
-     *      this.assert.equal(result.value, "enter username");
-     *  });
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param callback: Optional callback function to be called when the command finishes.
-     * @returns The element's value.
-     */
-    getValue(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
 
     /**
      * This command is an alias to url and also a convenience method when called without any arguments in the sense that it performs a call to .url() with passing the value of launch_url
@@ -1163,24 +978,6 @@ export interface NightwatchAPI {
     isLogAvailable(typeString: string, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
-     * Determine if an element is currently displayed. Uses elementIdDisplayed protocol command.
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (browser) {
-     *  browser.isVisible('#main', function(result) {
-     *      this.assert.equal(typeof result, "object");
-     *      this.assert.equal(result.status, 0);
-     *      this.assert.equal(result.value, true);
-     *  });
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param callback: Optional callback function to be called when the command finishes.
-     */
-    isVisible(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
-
-    /**
      * Maximizes the current window.
      *
      * Usage:
@@ -1194,22 +991,6 @@ export interface NightwatchAPI {
     maximizeWindow(callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
-     * Move the mouse by an offset of the specified element. Uses moveTo protocol command.
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (browser) {
-     *  browser.moveToElement('#main', 10, 10);
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param xoffset: X offset to move to, relative to the top-left corner of the element.
-     * @param yoffset: Y offset to move to, relative to the top-left corner of the element.
-     * @param callback: Optional callback function to be called when the command finishes.
-     */
-    moveToElement(selector: string, xoffset: number, yoffset: number, callback?: (result: NightwatchCallbackResult) => void): this;
-
-    /**
      * Suspends the test for the given time in milliseconds. If the milliseconds argument is missing it will suspend the test indefinitely
      *
      * Usage:
@@ -1220,10 +1001,10 @@ export interface NightwatchAPI {
      *  browser.pause();
      * };
      * ```
-     * @param ms: The number of milliseconds to wait.
+     * @param ms: Optional - The number of milliseconds to wait.
      * @param callback: Optional callback function to be called when the command finishes.
      */
-    pause(ms: number, callback?: (result: NightwatchCallbackResult) => void): this;
+    pause(ms?: number, callback?: (result: NightwatchCallbackResult) => void): this;
 
     /**
      * A simple perform command which allows access to the "api" in a callback. Can be useful if you want to read variables set by other commands.
@@ -1369,30 +1150,6 @@ export interface NightwatchAPI {
     setCookie(cookie: any, callback?: () => void): this;
 
     /**
-     * Sends some text to an element. Can be used to set the value of a form element or to send a sequence of key strokes to an element. Any UTF-8 character may be specified.
-     * An object map with available keys and their respective UTF-8 characters, as defined on W3C WebDriver draft spec (http://www.w3.org/TR/webdriver/#character-types),
-     * is loaded onto the main Nightwatch instance as client.Keys.
-     *
-     * Usage:
-     * ```
-     * // send some simple text to an input
-     * this.demoTest = function (browser) {
-     *  browser.setValue('input[type=text]', 'nightwatch');
-     * };
-     *
-     * //
-     * // send some text to an input and hit enter.
-     * this.demoTest = function (browser) {
-     *  browser.setValue('input[type=text]', ['nightwatch', browser.Keys.ENTER]);
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param inputValue: The text to send to the element or key strokes.
-     * @param callback: Optional callback function to be called when the command finishes.
-     */
-    setValue(selector: string, inputValue: string, callback?: () => void): this;
-
-    /**
      * Sets the current window position.
      *
      * Usage:
@@ -1406,20 +1163,6 @@ export interface NightwatchAPI {
      * @param callback: ptional callback function to be called when the command finishes.
      */
     setWindowPosition(OffsetX: number, OffsetY: number, callback?: () => void): this;
-
-    /**
-     * Submit a FORM element. The submit command may also be applied to any element that is a descendant of a FORM element. Uses submit protocol command.
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (browser) {
-     *  browser.submitForm('form.login');
-     * };
-     * ```
-     * @param selector: The CSS/Xpath selector used to locate the element.
-     * @param callback: Optional callback function to be called when the command finishes.
-     */
-    submitForm(selector: string, callback?: () => void): this;
 
     /**
      * Change focus to another window. The window to change focus to may be specified by its server assigned window handle, or by the value of its name attribute.
@@ -1454,116 +1197,6 @@ export interface NightwatchAPI {
      * @param callback:
      */
     urlHash(hash: string): this;
-
-    /**
-     * Opposite of waitForElementPresent. Waits a given time in milliseconds for an element to be not present (i.e. removed) in the page before performing any other commands
-     * or assertions. If the element is still present after the specified amount of time, the test fails. You can change the polling interval by defining
-     * a waitForConditionPollInterval property (in milliseconds) in as a global property in your nightwatch.json or in your external globals file.
-     * Similarly, a default timeout can be specified as a global waitForConditionTimeout property (in milliseconds).
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (browser) {
-     *  browser.waitForElementNotPresent('#dialog', 1000);
-     * };
-     * ```
-     * @param selector: The selector (CSS / Xpath) used to locate the element.
-     * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
-     * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails.
-     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
-     * @param callback: Optional callback function to be called when the command finishes.
-     * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time
-     * (e.g. Element %s was not in the page for %d ms).
-     */
-    waitForElementNotPresent(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): this;
-
-    /**
-     * Opposite of waitForElementVisible. Waits a given time in milliseconds for an element to be not visible (i.e. hidden but existing) in the page before performing
-     * any other commands or assertions. If the element fails to be hidden in the specified amount of time, the test fails. You can change the polling interval by
-     * defining a waitForConditionPollInterval property (in milliseconds) in as a global property in your nightwatch.json or in your external globals file.
-     * Similarly, a default timeout can be specified as a global waitForConditionTimeout property (in milliseconds).
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (browser) {
-     *  browser.waitForElementNotVisible('#dialog', 1000);
-     * };
-     * ```
-     * @param selector: The selector (CSS / Xpath) used to locate the element.
-     * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
-     * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails.
-     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
-     * @param callback: Optional callback function to be called when the command finishes.
-     * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time
-     * (e.g. Element %s was not in the page for %d ms).
-     */
-    waitForElementNotVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): this;
-
-    /**
-     * Waits a given time in milliseconds for an element to be present in the page before performing any other commands or assertions.
-     * If the element fails to be present in the specified amount of time, the test fails. You can change this by setting abortOnFailure to false.
-     * You can change the polling interval by defining a waitForConditionPollInterval property (in milliseconds) in as a global property in your nightwatch.json or in
-     * your external globals file.
-     * Similarly, a default timeout can be specified as a global waitForConditionTimeout property (in milliseconds).
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (browser) {
-     *  browser.waitForElementPresent('body', 1000);
-     *  // continue if failed
-     *  browser.waitForElementPresent('body', 1000, false);
-     *  // with callback
-     *  browser.waitForElementPresent('body', 1000, function() {
-     *      // do something while we're here
-     *  });
-     *  // custom Spanish message
-     *  browser.waitForElementPresent('body', 1000, 'elemento %s no era presente en %d ms');
-     *  // many combinations possible - the message is always the last argument
-     *  browser.waitForElementPresent('body', 1000, false, function() {}, 'elemento %s no era presente en %d ms');
-     * };
-     * ```
-     * @param selector: The selector (CSS / Xpath) used to locate the element.
-     * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
-     * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails.
-     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
-     * @param callback: Optional callback function to be called when the command finishes.
-     * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time
-     * (e.g. Element %s was not in the page for %d ms).
-     */
-    waitForElementPresent(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): this;
-
-    /**
-     * Waits a given time in milliseconds for an element to be visible in the page before performing any other commands or assertions.
-     * If the element fails to be present and visible in the specified amount of time, the test fails. You can change this by setting abortOnFailure to false.
-     * You can change the polling interval by defining a waitForConditionPollInterval property (in milliseconds) in as a global property in your nightwatch.json
-     * or in your external globals file.
-     * Similarly, a default timeout can be specified as a global waitForConditionTimeout property (in milliseconds).
-     *
-     * Usage:
-     * ```
-     * this.demoTest = function (browser) {
-     *  browser.waitForElementVisible('body', 1000);
-     *  // continue if failed
-     *  browser.waitForElementVisible('body', 1000, false);
-     *  // with callback
-     *  browser.waitForElementVisible('body', 1000, function() {
-     *  // do something while we're here
-     *  });
-     *  // custom Spanish message
-     *  browser.waitForElementVisible('body', 1000, 'elemento %s no era visible en %d ms');
-     *  // many combinations possible - the message is always the last argument
-     *  browser.waitForElementVisible('body', 1000, false, function() {}, 'elemento %s no era visible en %d ms');
-     * };
-     * ```
-     * @param selector: The selector (CSS / Xpath) used to locate the element.
-     * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
-     * @param abortOnFailure: By the default if the element is not found the test will fail.
-     * Set this to false if you wish for the test to continue even if the assertion fails.
-     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
-     * @param callback: Optional callback function to be called when the command finishes.
-     * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time (e.g. Element %s was not in the page for %d ms).
-     */
-    waitForElementVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): this;
 
     /**
      * Accepts the currently displayed alert dialog. Usually, this is equivalent to clicking on the 'OK' button in the dialog.
@@ -2173,6 +1806,7 @@ export interface NightwatchTestHooks {
     after?: NightwatchTestHook;
     beforeEach?: NightwatchTestHook;
     afterEach?: NightwatchTestHook;
+    '@disabled'?: boolean;
 }
 
 export type NightwatchTests = NightwatchTestFunctions | NightwatchTestHooks;
@@ -2213,4 +1847,433 @@ export interface NightwatchClient {
 export interface Nightwatch {
     api: NightwatchAPI;
     client: NightwatchClient;
+}
+
+/**
+ * #### [Enhanced Element Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-element-instances)
+ * Element instances encapsulate the definition used to handle element selectors.
+ * Generally you won't need to access them directly,
+ * instead referring to them using their `@`-prefixed names for selector arguments,
+ * but they are available through a page object or section's elements property.
+ */
+export interface EnhancedElementInstance {
+    /**
+     * The name of the element as defined by its key in the parent section or the page object's `elements` definition.
+     * This is the same name used with the `@` prefix in selector arguments for page object commands that refer to the element.
+     */
+    name: string;
+
+    /**
+     * The locate strategy to be used with `selector` when finding the element within the DOM.
+     */
+    locateStrategy: string;
+
+    /**
+     * A reference to the parent object instance.
+     * This is the parent section or the page object that contained the definition for this object.
+     */
+    parent: EnhancedPageObject;
+
+    /**
+     * The selector string used to find the element in the DOM.
+     */
+    selector: string;
+}
+
+/**
+ * #### [Enhanced Page Object Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-page-object-instances)
+ * Page object module definitions are used to define page object instances when their respective factory functions within the page reference of the standard command API is called.
+ * ```
+ * var myPageObject = browser.page.MyPage(); // defined in MyPage.js module
+ * ```
+ * Every time a factory function like MyPage above is called, a new instance of the page object is instantiated.
+ */
+export interface EnhancedPageObject extends SharedFunctions {
+    /**
+     * A reference providing access to the full Nightwatch command API,
+     * usually known as "client" or "browser" in test cases.
+     * This is used to access those commands that are not part of the subset of commands within the page object API.
+     */
+    api: NightwatchAPI;
+
+    /**
+     * A map of Element objects (see [Enhanced Element Instances](https://github.com/nightwatchjs/nightwatch/wiki/Page-Object-API#enhanced-element-instances)) used by element selectors.
+     */
+    elements: {[name: string]: EnhancedElementInstance};
+
+    /**
+     * The name of the page object as defined by its module name (not including the extension).
+     * This is the same name used to access the `page` object factory from the page reference in the command API.
+     */
+    name: string;
+}
+
+export interface SharedFunctions {
+    /**
+     * Clear a textarea or a text input element's value. Uses elementIdValue protocol command.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (client) {
+     *  client.clearValue('input[type=text]');
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param callback: Optional callback function to be called when the command finishes.
+     */
+    clearValue(selector: string, callback?: () => void): this;
+
+    /**
+     * Simulates a click event on the given DOM element. Uses elementIdClick protocol command.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (client) {
+     *  client.click("#main ul li a.first");
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param callback: Optional callback function to be called when the command finishes.
+     */
+    click(selector: string, callback?: () => void): this;
+
+    /**
+     * Retrieve the value of an attribute for a given DOM element. Uses elementIdAttribute protocol command.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (client) {
+     *  client.getAttribute("#main ul li a.first", "href", function(result) {
+     *      this.assert.equal(typeof result, "object");
+     *      this.assert.equal(result.status, 0);
+     *      this.assert.equal(result.value, "#home");
+     *  });
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param attribute: The attribute name to inspect.
+     * @param callback: Optional callback function to be called when the command finishes.
+     * @returns The value of the attribute
+     */
+    getAttribute(selector: string, attribute: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
+
+    /**
+     * Retrieve the value of a css property for a given DOM element. Uses elementIdCssProperty protocol command.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (client) {
+     *  client.getCssProperty("#main ul li a.first", "display", function(result) {
+     *      this.assert.equal(typeof result, "object");
+     *      this.assert.equal(result.status, 0);
+     *      this.assert.equal(result.value, 'inline');
+     *  });
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param cssProperty: The CSS property to inspect.
+     * @param callback: Optional callback function to be called when the command finishes.
+     * @returns The value of the css property
+     */
+    getCssProperty(selector: string, cssProperty: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
+
+    /**
+     * Determine an element's size in pixels. Uses elementIdSize protocol command.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (client) {
+     *  client.getElementSize("#main ul li a.first", function(result) {
+     *      this.assert.equal(typeof result, "object");
+     *      this.assert.equal(result.status, 0);
+     *      this.assert.equal(result.value.width, 500);
+     *      this.assert.equal(result.value.height, 20);
+     *  });
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param callback: Optional callback function to be called when the command finishes.
+     * @returns The width and height of the element in pixels
+     */
+    getElementSize(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
+
+    /**
+     * Determine an element's location on the page. The point (0, 0) refers to the upper-left corner of the page.
+     * The element's coordinates are returned as a JSON object with x and y properties. Uses elementIdLocation protocol command.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (client) {
+     *  client.getLocation("#main ul li a.first", function(result) {
+     *      this.assert.equal(typeof result, "object");
+     *      this.assert.equal(result.status, 0);
+     *      this.assert.equal(result.value.x, 200);
+     *      this.assert.equal(result.value.y, 200);
+     *  });
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param callback: Optional callback function to be called when the command finishes.
+     * @returns The X and Y coordinates for the element on the page
+     */
+    getLocation(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
+
+    /**
+     * Determine an element's location on the screen once it has been scrolled into view. Uses elementIdLocationInView protocol command.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (browser) {
+     *  browser.getLocationInView("#main ul li a.first", function(result) {
+     *      this.assert.equal(typeof result, "object");
+     *      this.assert.equal(result.status, 0);
+     *      this.assert.equal(result.value.x, 200);
+     *      this.assert.equal(result.value.y, 200);
+     *  });
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param callback: Optional callback function to be called when the command finishes.
+     * @returns The X and Y coordinates for the element on the page.
+     */
+    getLocationInView(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
+
+    /**
+     * Query for an element's tag name. Uses elementIdName protocol command.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (client) {
+     *  client.getTagName("#main ul li .first", function(result) {
+     *      this.assert.equal(typeof result, "object");
+     *      this.assert.equal(result.status, 0);
+     *      this.assert.equal(result.value, "a");
+     *  });
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param callback: Optional callback function to be called when the command finishes.
+     * @returns The element's tag name, as a lowercase string.
+     */
+    getTagName(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
+
+    /**
+     * Returns the visible text for the element. Uses elementIdText protocol command.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (browser) {
+     *  browser.getText("#main ul li a.first", function(result) {
+     *      this.assert.equal(typeof result, "object");
+     *      this.assert.equal(result.status, 0);
+     *      this.assert.equal(result.value, "nightwatchjs.org");
+     *  });
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param callback: Optional callback function to be called when the command finishes.
+     * @returns The element's visible text.
+     */
+    getText(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
+
+    /**
+     * Returns a form element current value. Uses elementIdValue protocol command.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (browser) {
+     *  browser.getValue("form.login input[type=text]", function(result) {
+     *      this.assert.equal(typeof result, "object");
+     *      this.assert.equal(result.status, 0);
+     *      this.assert.equal(result.value, "enter username");
+     *  });
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param callback: Optional callback function to be called when the command finishes.
+     * @returns The element's value.
+     */
+    getValue(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
+
+    /**
+     * Determine if an element is currently displayed. Uses elementIdDisplayed protocol command.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (browser) {
+     *  browser.isVisible('#main', function(result) {
+     *      this.assert.equal(typeof result, "object");
+     *      this.assert.equal(result.status, 0);
+     *      this.assert.equal(result.value, true);
+     *  });
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param callback: Optional callback function to be called when the command finishes.
+     */
+    isVisible(selector: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult) => void): this;
+
+    /**
+     * Move the mouse by an offset of the specified element. Uses moveTo protocol command.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (browser) {
+     *  browser.moveToElement('#main', 10, 10);
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param xoffset: X offset to move to, relative to the top-left corner of the element.
+     * @param yoffset: Y offset to move to, relative to the top-left corner of the element.
+     * @param callback: Optional callback function to be called when the command finishes.
+     */
+    moveToElement(selector: string, xoffset: number, yoffset: number, callback?: (result: NightwatchCallbackResult) => void): this;
+
+    /**
+     * Sends some text to an element. Can be used to set the value of a form element or to send a sequence of key strokes to an element. Any UTF-8 character may be specified.
+     * An object map with available keys and their respective UTF-8 characters, as defined on W3C WebDriver draft spec (http://www.w3.org/TR/webdriver/#character-types),
+     * is loaded onto the main Nightwatch instance as client.Keys.
+     *
+     * Usage:
+     * ```
+     * // send some simple text to an input
+     * this.demoTest = function (browser) {
+     *  browser.setValue('input[type=text]', 'nightwatch');
+     * };
+     *
+     * //
+     * // send some text to an input and hit enter.
+     * this.demoTest = function (browser) {
+     *  browser.setValue('input[type=text]', ['nightwatch', browser.Keys.ENTER]);
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param inputValue: The text to send to the element or key strokes.
+     * @param callback: Optional callback function to be called when the command finishes.
+     */
+    setValue(selector: string, inputValue: string, callback?: () => void): this;
+
+    /**
+     * Submit a FORM element. The submit command may also be applied to any element that is a descendant of a FORM element. Uses submit protocol command.
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (browser) {
+     *  browser.submitForm('form.login');
+     * };
+     * ```
+     * @param selector: The CSS/Xpath selector used to locate the element.
+     * @param callback: Optional callback function to be called when the command finishes.
+     */
+    submitForm(selector: string, callback?: () => void): this;
+
+    /**
+     * Opposite of waitForElementPresent. Waits a given time in milliseconds for an element to be not present (i.e. removed) in the page before performing any other commands
+     * or assertions. If the element is still present after the specified amount of time, the test fails. You can change the polling interval by defining
+     * a waitForConditionPollInterval property (in milliseconds) in as a global property in your nightwatch.json or in your external globals file.
+     * Similarly, a default timeout can be specified as a global waitForConditionTimeout property (in milliseconds).
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (browser) {
+     *  browser.waitForElementNotPresent('#dialog', 1000);
+     * };
+     * ```
+     * @param selector: The selector (CSS / Xpath) used to locate the element.
+     * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
+     * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails.
+     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
+     * @param callback: Optional callback function to be called when the command finishes.
+     * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time
+     * (e.g. Element %s was not in the page for %d ms).
+     */
+    waitForElementNotPresent(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): this;
+
+    /**
+     * Opposite of waitForElementVisible. Waits a given time in milliseconds for an element to be not visible (i.e. hidden but existing) in the page before performing
+     * any other commands or assertions. If the element fails to be hidden in the specified amount of time, the test fails. You can change the polling interval by
+     * defining a waitForConditionPollInterval property (in milliseconds) in as a global property in your nightwatch.json or in your external globals file.
+     * Similarly, a default timeout can be specified as a global waitForConditionTimeout property (in milliseconds).
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (browser) {
+     *  browser.waitForElementNotVisible('#dialog', 1000);
+     * };
+     * ```
+     * @param selector: The selector (CSS / Xpath) used to locate the element.
+     * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
+     * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails.
+     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
+     * @param callback: Optional callback function to be called when the command finishes.
+     * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time
+     * (e.g. Element %s was not in the page for %d ms).
+     */
+    waitForElementNotVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): this;
+
+    /**
+     * Waits a given time in milliseconds for an element to be present in the page before performing any other commands or assertions.
+     * If the element fails to be present in the specified amount of time, the test fails. You can change this by setting abortOnFailure to false.
+     * You can change the polling interval by defining a waitForConditionPollInterval property (in milliseconds) in as a global property in your nightwatch.json or in
+     * your external globals file.
+     * Similarly, a default timeout can be specified as a global waitForConditionTimeout property (in milliseconds).
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (browser) {
+     *  browser.waitForElementPresent('body', 1000);
+     *  // continue if failed
+     *  browser.waitForElementPresent('body', 1000, false);
+     *  // with callback
+     *  browser.waitForElementPresent('body', 1000, function() {
+     *      // do something while we're here
+     *  });
+     *  // custom Spanish message
+     *  browser.waitForElementPresent('body', 1000, 'elemento %s no era presente en %d ms');
+     *  // many combinations possible - the message is always the last argument
+     *  browser.waitForElementPresent('body', 1000, false, function() {}, 'elemento %s no era presente en %d ms');
+     * };
+     * ```
+     * @param selector: The selector (CSS / Xpath) used to locate the element.
+     * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
+     * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails.
+     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
+     * @param callback: Optional callback function to be called when the command finishes.
+     * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time
+     * (e.g. Element %s was not in the page for %d ms).
+     */
+    waitForElementPresent(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): this;
+
+    /**
+     * Waits a given time in milliseconds for an element to be visible in the page before performing any other commands or assertions.
+     * If the element fails to be present and visible in the specified amount of time, the test fails. You can change this by setting abortOnFailure to false.
+     * You can change the polling interval by defining a waitForConditionPollInterval property (in milliseconds) in as a global property in your nightwatch.json
+     * or in your external globals file.
+     * Similarly, a default timeout can be specified as a global waitForConditionTimeout property (in milliseconds).
+     *
+     * Usage:
+     * ```
+     * this.demoTest = function (browser) {
+     *  browser.waitForElementVisible('body', 1000);
+     *  // continue if failed
+     *  browser.waitForElementVisible('body', 1000, false);
+     *  // with callback
+     *  browser.waitForElementVisible('body', 1000, function() {
+     *  // do something while we're here
+     *  });
+     *  // custom Spanish message
+     *  browser.waitForElementVisible('body', 1000, 'elemento %s no era visible en %d ms');
+     *  // many combinations possible - the message is always the last argument
+     *  browser.waitForElementVisible('body', 1000, false, function() {}, 'elemento %s no era visible en %d ms');
+     * };
+     * ```
+     * @param selector: The selector (CSS / Xpath) used to locate the element.
+     * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
+     * @param abortOnFailure: By the default if the element is not found the test will fail.
+     * Set this to false if you wish for the test to continue even if the assertion fails.
+     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
+     * @param callback: Optional callback function to be called when the command finishes.
+     * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time (e.g. Element %s was not in the page for %d ms).
+     */
+    waitForElementVisible(selector: string, time?: number, abortOnFailure?: boolean, callback?: () => void, message?: string): this;
 }

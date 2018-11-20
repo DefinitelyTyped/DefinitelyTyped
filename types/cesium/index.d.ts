@@ -1,8 +1,9 @@
-// Type definitions for cesium 1.46
+// Type definitions for cesium 1.47
 // Project: http://cesiumjs.org
 // Definitions by: Aigars Zeiza <https://github.com/Zuzon>
 //                 Harry Nicholls <https://github.com/hnipps>
 //                 Jared Szechy <https://github.com/szechyjs>
+//                 Radek Goláň jr. <https://github.com/golyalpha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -796,6 +797,22 @@ declare namespace Cesium {
         isLeapSecond: boolean;
     }
 
+    class HeadingPitchRoll {
+        heading: number;
+        pitch: number;
+        roll: number;
+        constructor(heading?: number, pitch?: number, roll?: number);
+        static clone(headingPitchRoll: HeadingPitchRoll, result?: HeadingPitchRoll): HeadingPitchRoll;
+        static equals(left: HeadingPitchRoll | null | undefined, right: HeadingPitchRoll | null | undefined): boolean;
+        static equalsEpsilon(left: HeadingPitchRoll | null | undefined, right: HeadingPitchRoll | null | undefined, relativeEpsilon: number, absoluteEpsilon?: number): boolean;
+        static fromDegrees(heading: number, pitch: number, roll: number, result?: HeadingPitchRoll): HeadingPitchRoll;
+        static fromQuaternion(quaternion: Quaternion, result?: HeadingPitchRoll): HeadingPitchRoll;
+        clone(result?: HeadingPitchRoll): HeadingPitchRoll;
+        equals(right: HeadingPitchRoll | null | undefined): boolean;
+        equalsEpsilon(right: HeadingPitchRoll | null | undefined, relativeEpsilon: number, absoluteEpsilon?: number): boolean;
+        toString(): string;
+    }
+
     class HeightmapTerrainData {
         waterMask: Uint8Array | HTMLImageElement | HTMLCanvasElement;
         constructor(options: {
@@ -958,6 +975,7 @@ declare namespace Cesium {
         static fromArray(array: number[], startingIndex?: number, result?: Matrix3): Matrix3;
         static fromColumnMajorArray(values: number[], result?: Matrix3): Matrix3;
         static fromRowMajorArray(values: number[], result?: Matrix3): Matrix3;
+        static fromHeadingPitchRoll(headingPitchRoll: HeadingPitchRoll, result?: Matrix3): Matrix3;
         static fromQuaternion(quaternion: Quaternion): Matrix3;
         static fromScale(scale: Cartesian3, result?: Matrix3): Matrix3;
         static fromUniformScale(scale: number, result?: Matrix3): Matrix3;
@@ -1235,7 +1253,7 @@ declare namespace Cesium {
         toString(): string;
         static fromAxisAngle(axis: Cartesian3, angle: number, result?: Quaternion): Quaternion;
         static fromRotationMatrix(matrix: Matrix3, result?: Quaternion): Quaternion;
-        static fromHeadingPitchRoll(heading: number, pitch: number, roll: number, result: Quaternion): Quaternion;
+        static fromHeadingPitchRoll(headingPitchRoll: HeadingPitchRoll, result?: Quaternion): Quaternion;
         static pack(value: Quaternion, array: number[], startingIndex?: number): number[];
         static unpack(array: number[], startingIndex?: number, result?: Quaternion): Quaternion;
         static convertPackedArrayForInterpolation(packedArray: number[], startingIndex?: number, lastIndex?: number, result?: number[]): void;
@@ -1934,15 +1952,15 @@ declare namespace Cesium {
         semiMinorAxis: Property;
         rotation: Property;
         show: Property;
-        material: MaterialProperty;
+        material: MaterialProperty | Color;
         height: Property;
         extrudedHeight: Property;
         granularity: Property;
         stRotation: Property;
-        fill: Property;
-        outline: Property;
-        outlineColor: Property;
-        outlineWidth: Property;
+        fill: boolean;
+        outline: boolean;
+        outlineColor: Color;
+        outlineWidth: number;
         numberOfVerticalLines: Property;
         constructor(options?: {
             semiMajorAxis?: number;
@@ -1950,11 +1968,11 @@ declare namespace Cesium {
             height?: Property;
             extrudedHeight?: Property;
             show?: Property;
-            fill?: Property;
-            material?: MaterialProperty;
-            outline?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property;
+            fill?: boolean;
+            material?: MaterialProperty | Color
+            outline?: boolean;
+            outlineColor?: Color;
+            outlineWidth?: number;
             numberOfVerticalLines?: Property;
             rotation?: Property;
             stRotation?: Property;
@@ -2206,11 +2224,11 @@ declare namespace Cesium {
     class LabelGraphics {
         definitionChanged: Event;
         text: Property;
-        font: Property;
+        font: string;
         style: Property;
-        fillColor: Property;
-        outlineColor: Property;
-        outlineWidth: Property;
+        fillColor: Color;
+        outlineColor: Color;
+        outlineWidth: number;
         horizontalOrigin: Property;
         verticalOrigin: Property;
         eyeOffset: Property;
@@ -2221,11 +2239,11 @@ declare namespace Cesium {
         pixelOffsetScaleByDistance: Property;
         constructor(options?: {
             text?: Property;
-            font?: Property;
+            font?: string;
             style?: Property;
-            fillColor?: Property;
-            outlineColor?: Property;
-            outlineWidth?: Property;
+            fillColor?: Color;
+            outlineColor?: Color;
+            outlineWidth?: number;
             show?: Property;
             scale?: Property;
             horizontalOrigin?: Property;
@@ -2361,16 +2379,16 @@ declare namespace Cesium {
     class PolygonGraphics {
         definitionChanged: Event;
         show: Property;
-        material: MaterialProperty;
+        material: MaterialProperty | Color;
         positions: Property;
         hierarchy: Property;
         height: Property;
         extrudedHeight: Property;
         granularity: Property;
         stRotation: Property;
-        fill: Property;
+        fill: boolean;
         outline: Property;
-        outlineColor: Property;
+        outlineColor: Color;
         outlineWidth: Property;
         perPositionHeight: Property;
         constructor(options?: {
@@ -2378,10 +2396,10 @@ declare namespace Cesium {
             height?: number;
             extrudedHeight?: Property;
             show?: Property;
-            fill?: Property;
-            material?: MaterialProperty;
+            fill?: boolean;
+            material?: MaterialProperty | Color;
             outline?: boolean;
-            outlineColor?: Property;
+            outlineColor?: Color;
             outlineWidth?: number;
             stRotation?: Property;
             granularity?: Property;
@@ -3592,7 +3610,7 @@ declare namespace Cesium {
             cull?: boolean;
             asynchronous?: boolean;
             debugShowBoundingVolume?: boolean;
-            shadows: ShadowMode
+            shadows?: ShadowMode
         });
         destroy(): void;
         getGeometryInstanceAttributes(id: any): any;
@@ -4879,13 +4897,15 @@ declare namespace Cesium {
         function eastNorthUpToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northEastDownToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
         function northUpEastToFixedFrame(origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
-        function headingPitchRollToFixedFrame(origin: Cartesian3, heading: number, pitch: number, roll: number, ellipsoid?: Ellipsoid, result?: Matrix4): Matrix4;
-        function headingPitchRollQuaternion(origin: Cartesian3, heading: number, pitch: number, roll: number, ellipsoid?: Ellipsoid, result?: Quaternion): Quaternion;
+        function headingPitchRollToFixedFrame(origin: Cartesian3, headingPitchRoll: HeadingPitchRoll, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame, result?: Matrix4): Matrix4;
+        function headingPitchRollQuaternion(origin: Cartesian3, headingPitchRoll: HeadingPitchRoll, ellipsoid?: Ellipsoid, fixedFrameTransform?: LocalFrameToFixedFrame,
+                                            result?: Quaternion): Quaternion;
         function computeTemeToPseudoFixedMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function preloadIcrfFixed(timeInterval: TimeInterval): Promise<void>;
         function computeIcrfToFixedMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function computeFixedToIcrfMatrix(date: JulianDate, result?: Matrix3): Matrix3;
         function pointToWindowCoordinates(modelViewProjectionMatrix: Matrix4, viewportTransformation: Matrix4, point: Cartesian3, result?: Cartesian2): Cartesian2;
+        type LocalFrameToFixedFrame = (origin: Cartesian3, ellipsoid?: Ellipsoid, result?: Matrix4) => Matrix4;
     }
 
     namespace TridiagonalSystemSolver {

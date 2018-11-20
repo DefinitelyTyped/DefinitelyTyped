@@ -1,7 +1,21 @@
 {
   "extends": "dtslint/dt.json",
   "rules": {
-    // TODO
-    "no-duplicate-imports": false
+    // All are TODOs
+    "ban-types": false,
+    "callable-types": false,
+    "jsdoc-format": false,
+    "member-access": false,
+    "no-consecutive-blank-lines": false,
+    "no-duplicate-imports": false,
+    "no-padding": false,
+    "no-self-import": false,
+    "no-unnecessary-qualifier": false,
+    "semicolon": false,
+    "space-within-parens": false,
+    "strict-export-declare-modifiers": false,
+    "trim-file": false,
+    "typedef-whitespace": false,
+    "whitespace": false
   }
 }

@@ -1,8 +1,8 @@
-// Type definitions for nuka-carousel 4.2
+// Type definitions for nuka-carousel 4.3
 // Project: https://github.com/FormidableLabs/nuka-carousel
-// Definitions by: Roman Charugin <https://github.com/Romic>
+// Definitions by: Roman Charugin <https://github.com/Romic>, Alex Smith <https://github.com/altaudio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -222,6 +222,11 @@ export interface CarouselProps {
    * @default false
    */
   wrapAround?: boolean;
+  /**
+   * Used to remove all controls at once. Overwrites the render[Top, Right, Bottom, Left]CenterControls()
+   * @default false
+   */
+  withoutControls?: boolean;
 }
 
 export interface CarouselState {

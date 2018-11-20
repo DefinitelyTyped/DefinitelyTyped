@@ -1,9 +1,11 @@
 // Type definitions for mosca 2.8
 // Project: https://github.com/mcollina/mosca
 // Definitions by: Joao Gabriel Gouveia <https://github.com/GabrielGouv>
+//                 Jerray Fu <https://github.com/jerray>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class Server {
+    id: string;
     opts: any;
     modernOpts: any;
     clients: any;
@@ -82,4 +84,16 @@ export interface Message {
     payload: any;
     qos: number;
     retain: boolean;
+}
+
+export namespace persistence {
+    interface Persistence {
+        wire(server: Server): void;
+    }
+    type FactoryFunc = (options: { [key: string]: any }) => Persistence;
+
+    const Redis: FactoryFunc;
+    const Mongo: FactoryFunc;
+    const LevelUp: FactoryFunc;
+    const Memory: FactoryFunc;
 }

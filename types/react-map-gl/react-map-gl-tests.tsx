@@ -1,36 +1,30 @@
 import * as React from "react";
 import {
     Viewport,
-    StaticMapProps,
-    InteractiveMapProps,
     InteractiveMap,
     CanvasOverlay,
     SVGOverlay,
     HTMLOverlay,
-    HTMLOverlayProps,
     CanvasRedrawOptions,
     HTMLRedrawOptions,
-    SVGOverlayProps,
     SVGRedrawOptions,
     StaticMap
 } from 'react-map-gl';
 import * as MapboxGL from "mapbox-gl";
 
-interface MyMapState {
+interface State {
     viewport: Viewport;
 }
 
-class MyMap extends React.Component<{}, MyMapState> {
-    state: MyMapState = {
+class MyMap extends React.Component<{}, State> {
+    readonly state: State = {
         viewport: {
             bearing: 0,
-            isDragging: false,
             latitude: 0,
             longitude: 0,
             zoom: 3,
         }
     };
-
     private map: MapboxGL.Map;
 
     render() {

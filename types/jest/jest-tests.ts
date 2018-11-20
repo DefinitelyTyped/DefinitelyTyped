@@ -279,6 +279,8 @@ jest.fn().mockClear();
 
 jest.fn().mockReset();
 
+jest.fn().mockRestore();
+
 const spiedTarget = {
     returnsVoid(): void { },
     returnsString(): string {
@@ -298,6 +300,7 @@ spy2.mockReset();
 
 const spy3Mock: jest.Mock<() => string> = spy3
     .mockImplementation(() => "")
+    .mockImplementation()
     .mockImplementation((arg: {}) => arg)
     .mockImplementation((...args: string[]) => args.join(""))
     .mockImplementationOnce(() => "")
@@ -309,6 +312,11 @@ const spy3Mock: jest.Mock<() => string> = spy3
     .mockResolvedValueOnce("value")
     .mockRejectedValue("value")
     .mockRejectedValueOnce("value");
+
+let spy4: jest.SpyInstance;
+
+spy4 = jest.spyOn(spiedTarget, "returnsString");
+spy4.mockRestore();
 
 /* Snapshot serialization */
 
@@ -425,6 +433,89 @@ expect.extend({
         };
     }
 });
+expect.extend({
+    foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
+        return {
+            message: JSON.stringify(received),
+            pass: false,
+        };
+    }
+});
+expect.extend({
+    async foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
+        return {
+            message: () => JSON.stringify(received),
+            pass: false,
+        };
+    }
+});
+expect.extend({
+    async foo(this: jest.MatcherUtils, received: {}, ...actual: Array<{}>) {
+        return {
+            message: JSON.stringify(received),
+            pass: false
+        };
+    }
+});
+expect.extend({
+    foo(this: jest.MatcherUtils) {
+        const isNot: boolean = this.isNot;
+        const expand: boolean = this.expand;
+
+        const expectedColor = this.utils.EXPECTED_COLOR("blue");
+        const receivedColor = this.utils.EXPECTED_COLOR("red");
+
+        this.utils.ensureActualIsNumber({});
+        this.utils.ensureActualIsNumber({}, "matcher");
+
+        this.utils.ensureExpectedIsNumber({});
+        this.utils.ensureExpectedIsNumber({}, "matcher");
+
+        this.utils.ensureNoExpected({});
+        this.utils.ensureNoExpected({}, "matcher");
+
+        this.utils.ensureNumbers({}, {});
+        this.utils.ensureNumbers({}, {}, "matcher");
+
+        const valueType: string = this.utils.getType({});
+
+        this.utils.matcherHint("matcher");
+        this.utils.matcherHint("matcher", "received");
+        this.utils.matcherHint("matcher", "received", "expected");
+        this.utils.matcherHint("matcher", "received", "expected", {});
+        this.utils.matcherHint("matcher", "received", "expected", {
+            isDirectExpectCall: true,
+        });
+        this.utils.matcherHint("matcher", "received", "expected", {
+            secondArgument: "",
+        });
+        this.utils.matcherHint("matcher", "received", "expected", {
+            isDirectExpectCall: true,
+            secondArgument: "",
+        });
+
+        const plural: string = this.utils.pluralize("word", 3);
+
+        const expectedPrinted: string = this.utils.printExpected({});
+
+        const receivedPrinted: string = this.utils.printReceived({});
+
+        const printedWithType: string = this.utils.printWithType(
+            "name",
+            {},
+            (value: {}) => "");
+
+        const stringified: string = this.utils.stringify({});
+        const stringifiedWithMaxDepth: string = this.utils.stringify({}, 3);
+
+        const equals: boolean = this.equals({}, {});
+
+        return {
+            message: () => "",
+            pass: false,
+        };
+    }
+});
 
 /* Basic matchers */
 
@@ -437,6 +528,9 @@ describe("", () => {
         expect(jest.fn()).lastReturnedWith("jest");
         expect(jest.fn()).lastReturnedWith({});
 
+        expect(jest.fn()).nthCalledWith(0, "jest");
+        expect(jest.fn()).nthCalledWith(1, {});
+
         expect(jest.fn()).nthReturnedWith(0, "jest");
         expect(jest.fn()).nthReturnedWith(1, {});
 
@@ -445,6 +539,8 @@ describe("", () => {
         expect(10).toBe(10);
 
         expect(jest.fn()).toBeCalled();
+
+        expect(jest.fn()).toBeCalledTimes(1);
 
         expect(jest.fn()).toBeCalledWith();
         expect(jest.fn()).toBeCalledWith("jest");
@@ -544,6 +640,37 @@ describe("", () => {
 
         expect({}).toMatchSnapshot();
         expect({}).toMatchSnapshot("snapshotName");
+        expect({ abc: "def" }).toMatchSnapshot({ abc: expect.any(String) }, "snapshotName");
+        expect({
+            one: 1,
+            two: "2",
+            three: 3,
+            four: { four: 3 },
+            date: new Date(),
+        }).toMatchSnapshot({
+            one: expect.any(Number),
+            // Leave 'two' to the auto-generated snapshot
+            three: 3,
+            four: { four: expect.any(Number) },
+            date: expect.any(Date),
+        });
+
+        expect({}).toMatchInlineSnapshot();
+        expect({}).toMatchInlineSnapshot("snapshot");
+        expect({ abc: "def" }).toMatchInlineSnapshot({ abc: expect.any(String) }, "snapshot");
+        expect({
+            one: 1,
+            two: "2",
+            three: 3,
+            four: { four: 3 },
+            date: new Date(),
+        }).toMatchInlineSnapshot({
+            one: expect.any(Number),
+            // leave out two
+            three: 3,
+            four: { four: expect.any(Number) },
+            date: expect.any(Date),
+        });
 
         expect(jest.fn()).toReturn();
 
@@ -568,6 +695,15 @@ describe("", () => {
         expect(willThrow).toThrowErrorMatchingSnapshot();
         expect(jest.fn()).toThrowErrorMatchingSnapshot();
         expect(jest.fn(willThrow)).toThrowErrorMatchingSnapshot();
+
+        expect(() => {}).toThrowErrorMatchingInlineSnapshot();
+        expect(() => {}).toThrowErrorMatchingInlineSnapshot('Error Message');
+        expect(willThrow).toThrowErrorMatchingInlineSnapshot();
+        expect(willThrow).toThrowErrorMatchingInlineSnapshot('Error Message');
+        expect(jest.fn()).toThrowErrorMatchingInlineSnapshot();
+        expect(jest.fn()).toThrowErrorMatchingInlineSnapshot('Error Message');
+        expect(jest.fn(willThrow)).toThrowErrorMatchingInlineSnapshot();
+        expect(jest.fn(willThrow)).toThrowErrorMatchingInlineSnapshot('Error Message');
 
         /* not */
 
@@ -609,6 +745,13 @@ describe("", () => {
             }),
             ghi: expect.stringMatching("foo"),
         }));
+
+        /* Inverse type matchers */
+
+        expect('How are you?').toEqual(expect.not.stringContaining('Hello world!'));
+        expect('How are you?').toEqual(expect.not.stringMatching(/Hello world!/));
+        expect({bar: 'baz'}).toEqual(expect.not.objectContaining({foo: 'bar'}));
+        expect(['Alice', 'Bob', 'Eve']).toEqual(expect.not.arrayContaining(['Samantha']));
 
         /* Miscellaneous */
 

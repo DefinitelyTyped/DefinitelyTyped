@@ -2,7 +2,7 @@
 // Project: https://github.com/ciferox/adone
 // Definitions by: am <https://github.com/s0m3on3>, Maximus <https://github.com/maxveres>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.6
 
 /// <reference path="./adone.d.ts" />
 /// <reference path="./glosses/app.d.ts" />

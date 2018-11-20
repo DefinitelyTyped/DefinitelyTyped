@@ -1345,7 +1345,7 @@ declare namespace math {
          * the Matrix/array being traversed.
          * @returns Transformed map of x
          */
-        map(x: Matrix | MathArray, callback: ((value: any, index: any, matrix: Matrix | MathArray) => Matrix | MathArray)): Matrix | MathArray;
+        map(x: Matrix | MathArray, callback: ((value: any, index: any, matrix: Matrix | MathArray) => MathType | string)): Matrix | MathArray;
 
         /**
          * Create a matrix filled with ones. The created matrix can have one or
@@ -2647,7 +2647,6 @@ declare namespace math {
     interface Unit {
         valueOf(): string;
         clone(): Unit;
-        isDerived(): boolean;
         hasBase(base: any): boolean;
         equalBase(unit: Unit): boolean;
         equals(unit: Unit): boolean;
@@ -2658,13 +2657,12 @@ declare namespace math {
         to(unit: string): Unit;
         toNumber(unit: string): number;
         toNumeric(unit: string): number | Fraction | BigNumber;
+        toSI(): Unit;
         toString(): string;
         toJSON(): MathJSON;
         formatUnits(): string;
         format(options: FormatOptions): string;
-        parse(str: DOMStringList): Unit;
-        isValuelessUnit(name: string): boolean;
-        fromJSON(json: MathJSON): Unit;
+        splitUnit(parts: ReadonlyArray<string | Unit>): Unit[];
     }
 
     interface CreateUnitOptions {
@@ -2878,6 +2876,7 @@ declare namespace math {
     interface Parser {
         eval(expr: string): any;
         get(variable: string): any;
+        getAll(): { [key: string]: any; };
         set: (variable: string, value: any) => void;
         clear: () => void;
     }

@@ -1,9 +1,10 @@
 // Type definitions for twit 2.2
 // Project: https://github.com/ttezel/twit
 // Definitions by: Volox <https://github.com/Volox>
-//                 lostfictions <https://github.com/lostfictions>
 //                 sapphiredev <https://github.com/sapphiredev>
 //                 abraham <https://github.com/abraham>
+//                 siwalik <https://github.com/siwalikm>
+//                 plhery <https://github.com/plhery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -262,14 +263,17 @@ declare module 'twit' {
       user_id?: number | string,
       lat?: number,
       long?: number,
-      follow?: boolean,
+      follow?: boolean | string,
       include_email?: boolean,
-      cursor?: number,
+      cursor?: number | string,
       tweet_mode?: string,
       trim_user?: boolean,
       exclude_replies?: boolean,
       include_rts?: boolean,
       skip_status?: boolean,
+      url?: string,
+      include_user_entities?: boolean,
+      stringify_ids?: boolean,
     }
     export interface PromiseResponse {
       data: Response,
@@ -288,6 +292,7 @@ declare module 'twit' {
       app_only_auth?: boolean,
       timeout_ms?: number,
       trusted_cert_fingerprints?: string[],
+      strictSSL?: boolean
     }
     export interface Stream extends EventEmitter {
       start(): void;

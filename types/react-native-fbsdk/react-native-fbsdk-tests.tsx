@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as FBSDK from 'react-native-fbsdk';
 import { View } from 'react-native';
 
+declare function alert(s: string): void;
+
 const {
     LoginButton,
     AccessToken,

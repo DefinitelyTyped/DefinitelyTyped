@@ -970,7 +970,7 @@ declare namespace Xrm {
          * Opens a lookup control to select one or more items.
          * @param lookupOptions Defines the options for opening the lookup dialog
          */
-        lookupObjects(lookupOptions: LookupOptions): Async.PromiseLike<LookupValue>;
+        lookupObjects(lookupOptions: LookupOptions): Async.PromiseLike<LookupValue[]>;
 
         /**
          * Refreshes the parent grid containing the specified record.

@@ -17,17 +17,19 @@ export class Pool<T> extends EventEmitter {
     max: number;
     min: number;
 
+    start(): void;
     acquire(priority?: number): PromiseLike<T>;
-    release(resource: T): void;
-    destroy(resource: T): void;
-    drain(): PromiseLike<undefined>;
-    clear(): PromiseLike<undefined[]>;
+    release(resource: T): PromiseLike<void>;
+    destroy(resource: T): PromiseLike<void>;
+    drain(): PromiseLike<void>;
+    clear(): PromiseLike<void>;
     use<U>(cb: (resource: T) => U): PromiseLike<U>;
+    isBorrowedResource(resource: T): boolean;
 }
 
 export interface Factory<T> {
     create(): PromiseLike<T>;
-    destroy(client: T): PromiseLike<undefined>;
+    destroy(client: T): PromiseLike<void>;
     validate?(client: T): PromiseLike<boolean>;
 }
 

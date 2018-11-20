@@ -1,3 +1,15 @@
+// tslint:disable:ban-types
+// tslint:disable:no-var-keyword
+// tslint:disable:object-literal-key-quotes
+// tslint:disable:object-literal-shorthand
+// tslint:disable:one-variable-per-declaration
+// tslint:disable:only-arrow-functions
+// tslint:disable:prefer-const
+// tslint:disable:prefer-for-of
+// tslint:disable:prefer-template
+// tslint:disable:space-within-parens
+// tslint:disable:triple-equals
+
 function longdesc() {
     function add_0() {
         $('p').add('div').addClass('widget');
@@ -940,8 +952,10 @@ function longdesc() {
 
     function jquery_ajax_transport_2() {
         $.ajaxTransport('script', function(options, originalOptions, jqXHR) {
+            let transport: JQuery.Transport = undefined!;
+
             // Will only be called for script requests
-            return {} as JQuery.Transport;
+            return transport;
         });
     }
 
@@ -1280,7 +1294,7 @@ function longdesc() {
             if (borderRadius && borderRadius !== 'borderRadius') {
                 $.cssHooks.borderRadius = {
                     get: function(elem, computed, extra) {
-                        return $.css(elem, borderRadius);
+                        return $.css(elem, borderRadius!);
                     },
                     set: function(elem, value) {
                         (<any> elem.style)[borderRadius!] = value;
@@ -1330,7 +1344,7 @@ function longdesc() {
 
     function jquery_css_hooks_6() {
         $.fx.step.someCSSProp = function(fx) {
-            $.cssHooks.someCSSProp.set(fx.elem as HTMLElement, fx.now + fx.unit);
+            $.cssHooks.someCSSProp.set!(fx.elem as HTMLElement, fx.now + fx.unit);
         };
     }
 
@@ -2358,9 +2372,9 @@ function longdesc() {
     }
 
     function toggle_3(display: boolean) {
-        if (display === true) {
+        if (display) {
             $('#foo').show();
-        } else if (display === false) {
+        } else {
             $('#foo').hide();
         }
     }

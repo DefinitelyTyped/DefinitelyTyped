@@ -1,7 +1,8 @@
 // Type definitions for Node OAuth2 Server 3.0
 // Project: https://github.com/oauthjs/node-oauth2-server
 // Definitions by:  Robbie Van Gorkom <https://github.com/vangorra>,
-//                  Charles Irick <https://github.com/cirick>
+//                  Charles Irick <https://github.com/cirick>,
+//                  Daniel Fischer <https://github.com/d-fischer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -122,7 +123,7 @@ declare namespace OAuth2Server {
         /**
          * The scope(s) to authenticate.
          */
-        scope?: string;
+        scope?: string | string[];
 
         /**
          * Set the X-Accepted-OAuth-Scopes HTTP header on response objects.
@@ -199,7 +200,7 @@ declare namespace OAuth2Server {
          * Invoked to generate a new access token.
          *
          */
-        generateAccessToken?(client: Client, user: User, scope: string, callback?: Callback<string>): Promise<string>;
+        generateAccessToken?(client: Client, user: User, scope: string | string[], callback?: Callback<string>): Promise<string>;
 
         /**
          * Invoked to retrieve a client using a client id or a client id/client secret combination, depending on the grant type.
@@ -211,7 +212,7 @@ declare namespace OAuth2Server {
          * Invoked to save an access token and optionally a refresh token, depending on the grant type.
          *
          */
-        saveToken(token: Token, client: Client, user: User, callback?: Callback<Token>): Promise<Token>;
+        saveToken(token: Token, client: Client, user: User, callback?: Callback<Token>): Promise<Token | Falsey>;
     }
 
     interface RequestAuthenticationModel {
@@ -219,13 +220,13 @@ declare namespace OAuth2Server {
          * Invoked to retrieve an existing access token previously saved through Model#saveToken().
          *
          */
-        getAccessToken(accessToken: string, callback?: Callback<Token>): Promise<Token>;
+        getAccessToken(accessToken: string, callback?: Callback<Token>): Promise<Token | Falsey>;
 
         /**
          * Invoked during request authentication to check if the provided access token was authorized the requested scopes.
          *
          */
-        verifyScope(token: Token, scope: string, callback?: Callback<boolean>): Promise<boolean>;
+        verifyScope(token: Token, scope: string | string[], callback?: Callback<boolean>): Promise<boolean>;
     }
 
     interface AuthorizationCodeModel extends BaseModel, RequestAuthenticationModel {
@@ -233,25 +234,25 @@ declare namespace OAuth2Server {
          * Invoked to generate a new refresh token.
          *
          */
-        generateRefreshToken?(client: Client, user: User, scope: string, callback?: Callback<string>): Promise<string>;
+        generateRefreshToken?(client: Client, user: User, scope: string | string[], callback?: Callback<string>): Promise<string>;
 
         /**
          * Invoked to generate a new authorization code.
          *
          */
-        generateAuthorizationCode?(client: Client, user: User, scope: string, callback?: Callback<string>): Promise<string>;
+        generateAuthorizationCode?(client: Client, user: User, scope: string | string[], callback?: Callback<string>): Promise<string>;
 
         /**
          * Invoked to retrieve an existing authorization code previously saved through Model#saveAuthorizationCode().
          *
          */
-        getAuthorizationCode(authorizationCode: string, callback?: Callback<AuthorizationCode>): Promise<AuthorizationCode>;
+        getAuthorizationCode(authorizationCode: string, callback?: Callback<AuthorizationCode>): Promise<AuthorizationCode | Falsey>;
 
         /**
          * Invoked to save an authorization code.
          *
          */
-        saveAuthorizationCode(code: AuthorizationCode, client: Client, user: User, callback?: Callback<AuthorizationCode>): Promise<AuthorizationCode>;
+        saveAuthorizationCode(code: AuthorizationCode, client: Client, user: User, callback?: Callback<AuthorizationCode>): Promise<AuthorizationCode | Falsey>;
 
         /**
          * Invoked to revoke an authorization code.
@@ -263,7 +264,7 @@ declare namespace OAuth2Server {
          * Invoked to check if the requested scope is valid for a particular client/user combination.
          *
          */
-        validateScope?(user: User, client: Client, scope: string, callback?: Callback<string[] | Falsey>): Promise<string[] | Falsey>;
+        validateScope?(user: User, client: Client, scope: string | string[], callback?: Callback<string | Falsey>): Promise<string | string[] | Falsey>;
     }
 
     interface PasswordModel extends BaseModel, RequestAuthenticationModel {
@@ -271,7 +272,7 @@ declare namespace OAuth2Server {
          * Invoked to generate a new refresh token.
          *
          */
-        generateRefreshToken?(client: Client, user: User, scope: string, callback?: Callback<string>): Promise<string>;
+        generateRefreshToken?(client: Client, user: User, scope: string | string[], callback?: Callback<string>): Promise<string>;
 
         /**
          * Invoked to retrieve a user using a username/password combination.
@@ -283,7 +284,7 @@ declare namespace OAuth2Server {
          * Invoked to check if the requested scope is valid for a particular client/user combination.
          *
          */
-        validateScope?(user: User, client: Client, scope: string, callback?: Callback<string[] | Falsey>): Promise<string[] | Falsey>;
+        validateScope?(user: User, client: Client, scope: string | string[], callback?: Callback<string | Falsey>): Promise<string | string[] | Falsey>;
     }
 
     interface RefreshTokenModel extends BaseModel, RequestAuthenticationModel {
@@ -291,19 +292,19 @@ declare namespace OAuth2Server {
          * Invoked to generate a new refresh token.
          *
          */
-        generateRefreshToken?(client: Client, user: User, scope: string, callback?: Callback<string>): Promise<string>;
+        generateRefreshToken?(client: Client, user: User, scope: string | string[], callback?: Callback<string>): Promise<string>;
 
         /**
          * Invoked to retrieve an existing refresh token previously saved through Model#saveToken().
          *
          */
-        getRefreshToken(refreshToken: string, callback?: Callback<RefreshToken>): Promise<RefreshToken>;
+        getRefreshToken(refreshToken: string, callback?: Callback<RefreshToken>): Promise<RefreshToken | Falsey>;
 
         /**
          * Invoked to revoke a refresh token.
          *
          */
-        revokeToken(token: Token, callback?: Callback<boolean>): Promise<boolean>;
+        revokeToken(token: RefreshToken | Token, callback?: Callback<boolean>): Promise<boolean>;
     }
 
     interface ClientCredentialsModel extends BaseModel, RequestAuthenticationModel {
@@ -317,7 +318,7 @@ declare namespace OAuth2Server {
          * Invoked to check if the requested scope is valid for a particular client/user combination.
          *
          */
-        validateScope?(user: User, client: Client, scope: string, callback?: Callback<string[] | Falsey>): Promise<string[] | Falsey>;
+        validateScope?(user: User, client: Client, scope: string | string[], callback?: Callback<string | Falsey>): Promise<string | string[] | Falsey>;
     }
 
     interface ExtensionModel extends BaseModel, RequestAuthenticationModel {}
@@ -335,8 +336,8 @@ declare namespace OAuth2Server {
      */
     interface Client {
         id: string;
-        redirectUris?: string[];
-        grants: string[];
+        redirectUris?: string | string[];
+        grants: string | string[];
         accessTokenLifetime?: number;
         refreshTokenLifetime?: number;
         [key: string]: any;
@@ -349,7 +350,7 @@ declare namespace OAuth2Server {
         authorizationCode: string;
         expiresAt: Date;
         redirectUri: string;
-        scope?: string;
+        scope?: string | string[];
         client: Client;
         user: User;
         [key: string]: any;
@@ -363,7 +364,7 @@ declare namespace OAuth2Server {
         accessTokenExpiresAt?: Date;
         refreshToken?: string;
         refreshTokenExpiresAt?: Date;
-        scope?: string;
+        scope?: string | string[];
         client: Client;
         user: User;
         [key: string]: any;
@@ -375,11 +376,44 @@ declare namespace OAuth2Server {
     interface RefreshToken {
         refreshToken: string;
         refreshTokenExpiresAt?: Date;
-        scope?: string;
+        scope?: string | string[];
         client: Client;
         user: User;
         [key: string]: any;
     }
+
+    class OAuthError extends Error {
+        constructor(messageOrError: string | Error, properties?: object);
+
+        /**
+         * The HTTP error code.
+         */
+        code: number;
+
+        /**
+         * The OAuth error code.
+         */
+        name: string;
+
+        /**
+         * A human-readable error message.
+         */
+        message: string;
+    }
+
+    class AccessDeniedError extends OAuthError {}
+    class InsufficientScopeError extends OAuthError {}
+    class InvalidArgumentError extends OAuthError {}
+    class InvalidClientError extends OAuthError {}
+    class InvalidGrantError extends OAuthError {}
+    class InvalidRequestError extends OAuthError {}
+    class InvalidScopeError extends OAuthError {}
+    class InvalidTokenError extends OAuthError {}
+    class ServerError extends OAuthError {}
+    class UnauthorizedClientError extends OAuthError {}
+    class UnauthorizedRequestError extends OAuthError {}
+    class UnsupportedGrantTypeError extends OAuthError {}
+    class UnsupportedResponseTypeError extends OAuthError {}
 }
 
 export = OAuth2Server;
