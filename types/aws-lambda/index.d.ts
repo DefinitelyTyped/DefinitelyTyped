@@ -24,6 +24,7 @@
 //                 Oliver Hookins <https://github.com/ohookins>
 //                 Trevor Leach <https://github.com/trevor-leach>
 //                 James Gregory <https://github.com/jagregory>
+//                 Terence Nero <https://github.com/terencenero007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -62,6 +63,7 @@ export interface APIGatewayProxyEvent {
     headers: { [name: string]: string };
     multiValueHeaders: { [name: string]: string[] };
     httpMethod: string;
+    method: string;
     isBase64Encoded: boolean;
     path: string;
     pathParameters: { [name: string]: string } | null;
