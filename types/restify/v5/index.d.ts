@@ -1198,23 +1198,6 @@ export namespace plugins {
         overrides?: any; // any
     }
 
-    interface MetricsCallback {
-        /**
-         *  An error if the request had an error
-         */
-        err: Error;
-
-        metrics: MetricsCallbackOptions;
-
-        req: Request;
-        res: Response;
-
-        /**
-         * The route obj that serviced the request
-         */
-        route: Route;
-    }
-
     type TMetricsCallback = 'close' | 'aborted' | undefined;
 
     interface MetricsCallbackOptions {
@@ -1257,7 +1240,7 @@ export namespace plugins {
      * }));
      * ```
      */
-    function metrics(opts: { server: Server }, callback: (options: MetricsCallback) => any): (...args: any[]) => void;
+    function metrics(opts: { server: Server }, callback: (err: Error, metrics: MetricsCallbackOptions, req: Request, res: Response, route: Route) => any): (...args: any[]) => void;
 
     /**
      * Parse the client's request for an OAUTH2 access tokensTable
