@@ -19,11 +19,8 @@ export interface ViewState {
 }
 
 export interface MapError {
-  error?: {
-    message: string;
+    error?: { message: string; status: number };
     status: number;
-  };
-  status: number;
 }
 
 export interface MapRequest {
@@ -81,7 +78,7 @@ export interface ExtraState {
 }
 
 export interface PositionInput {
-  pos: [number, number];
+    pos: [number, number];
 }
 
 export interface MapControllerOptions {
@@ -99,47 +96,47 @@ export interface MapControllerOptions {
 }
 
 export interface ViewportProps {
-  width: number;
-  height: number;
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  bearing: number;
-  pitch: number;
-  altitude: number;
-  maxZoom: number;
-  minZoom: number;
-  maxPitch: number;
-  minPitch: number;
-  transitionDuration?: number;
-  transitionInterpolator?: TransitionInterpolator;
-  transitionInterruption?: TRANSITION_EVENTS;
-  transitionEasing?: EasingFunction;
+    width: number;
+    height: number;
+    latitude: number;
+    longitude: number;
+    zoom: number;
+    bearing: number;
+    pitch: number;
+    altitude: number;
+    maxZoom: number;
+    minZoom: number;
+    maxPitch: number;
+    minPitch: number;
+    transitionDuration?: number;
+    transitionInterpolator?: TransitionInterpolator;
+    transitionInterruption?: TRANSITION_EVENTS;
+    transitionEasing?: EasingFunction;
 }
 
 export interface InteractiveState {
-  startPanLngLat?: [number, number];
-  startZoomLngLat?: [number, number];
-  startBearing?: number;
-  startPitch?: number;
-  startZoom?: number;
+    startPanLngLat?: [number, number];
+    startZoomLngLat?: [number, number];
+    startBearing?: number;
+    startPitch?: number;
+    startZoom?: number;
 }
 
 export type MapStateProps = Partial<ViewportProps & InteractiveState>;
 
 export class MapState {
-  constructor(props: MapStateProps);
-  getViewportProps(): ViewportProps;
-  getInteractiveState(): InteractiveState;
-  panStart(input: PositionInput): MapState;
-  pan(input: PositionInput & { startPos?: [number, number] }): MapState;
-  panEnd(): MapState;
-  rotateStart(input: PositionInput): MapState;
-  rotate(input: { deltaScaleX?: number; deltaScaleY?: number }): MapState;
-  rotateEnd(): MapState;
-  zoomStart(input: PositionInput): MapState;
-  zoom(input: PositionInput & { scale: number; startPos?: [number, number] }): MapState;
-  zoomEnd(): MapState;
+    constructor(props: MapStateProps);
+    getViewportProps(): ViewportProps;
+    getInteractiveState(): InteractiveState;
+    panStart(input: PositionInput): MapState;
+    pan(input: PositionInput & { startPos?: [number, number] }): MapState;
+    panEnd(): MapState;
+    rotateStart(input: PositionInput): MapState;
+    rotate(input: { deltaScaleX?: number; deltaScaleY?: number }): MapState;
+    rotateEnd(): MapState;
+    zoomStart(input: PositionInput): MapState;
+    zoom(input: PositionInput & { scale: number; startPos?: [number, number] }): MapState;
+    zoomEnd(): MapState;
 }
 
 export interface Center {
@@ -202,7 +199,7 @@ export class LinearInterpolator extends TransitionInterpolator {
 export class FlyToInterpolator extends TransitionInterpolator {}
 
 export interface ViewStateChangeInfo {
-  viewState: ViewState;
+    viewState: ViewState;
 }
 
 export interface InteractiveMapProps extends StaticMapProps {
