@@ -313,7 +313,7 @@ fooOrBarProm = fooProm.caught((error: any) => {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // $ExpectType Bluebird<void | Foo>
-fooProm.catch(Error as { new(message?: string): Error }, (reason: any) => {
+fooProm.catch(Error, (reason: any) => {
 	return;
 });
 // $ExpectType Bluebird<void | Foo>
@@ -321,7 +321,7 @@ fooProm.catch(Promise.CancellationError, (reason: any) => {
 	return;
 });
 // $ExpectType Bluebird<void | Foo>
-fooProm.caught(Error as { new(message?: string): Error }, (reason: any) => {
+fooProm.caught(Error, (reason: any) => {
 	return;
 });
 // $ExpectType Bluebird<void | Foo>
@@ -329,13 +329,13 @@ fooProm.caught(Promise.CancellationError, (reason: any) => {
 	return;
 });
 
-fooOrBarProm = fooProm.catch(Error as { new(message?: string): Error }, (reason: any) => {
+fooOrBarProm = fooProm.catch(Error, (reason: any) => {
 	return bar;
 });
 fooOrBarProm = fooProm.catch(Promise.CancellationError, (reason: any) => {
 	return bar;
 });
-fooOrBarProm = fooProm.caught(Error as { new(message?: string): Error }, (reason: any) => {
+fooOrBarProm = fooProm.caught(Error, (reason: any) => {
 	return bar;
 });
 fooOrBarProm = fooProm.caught(Promise.CancellationError, (reason: any) => {
