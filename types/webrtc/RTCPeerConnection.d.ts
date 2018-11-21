@@ -2,7 +2,7 @@
 // Project: https://www.w3.org/TR/webrtc/
 // Definitions by: Danilo Bargen <https://github.com/dbrgn/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.0
 //
 // W3 Spec: https://www.w3.org/TR/webrtc/
 //
@@ -140,7 +140,7 @@ interface RTCRtpContributingSource {
     //readonly timestamp: number;
     source: number;
     //readonly audioLevel: number | null;
-    readonly voiceActivityFlag?: boolean | undefined;
+    readonly voiceActivityFlag?: boolean;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpcapabilities
