@@ -1,4 +1,4 @@
-// Type definitions for expo 31.0
+// Type definitions for expo 30.0
 // Project: https://github.com/expo/expo-sdk
 // Definitions by: Konstantin Kai <https://github.com/KonstantinKai>
 //                 Martynas Kadiša <https://github.com/martynaskadisa>
@@ -11,7 +11,6 @@
 //                 Tina Roh <https://github.com/tinaroh>
 //                 Nathan Phillip Brink <https://github.com/binki>
 //                 Martin Olsson <https://github.com/mo>
-//                 Levan Basharuli <https://github.com/levansuper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1560,8 +1559,6 @@ export namespace ImageManipulator {
     }
 
     function manipulate(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
-
-    function manipulateAsync(uri: string, actions: Action[], saveOptions?: SaveOptions): Promise<ImageResult>;
 }
 
 /**
