@@ -181,7 +181,8 @@ export type DisplayValue =
     | "contents"
     | "flex"
     | "grid"
-    | "inline-block";
+    | "inline-block"
+    | "inline-flex";
 export type ResponsiveDisplayValue = ResponsiveValue<DisplayValue>;
 export interface DisplayProps {
     /**
