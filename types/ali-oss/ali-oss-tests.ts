@@ -23,4 +23,3 @@ const imageOptions: OSS.ImageClientOptions = {
 };
 
 const imageClient = new OSS.ImageClient(imageOptions);
-
