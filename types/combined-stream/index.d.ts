@@ -9,8 +9,7 @@ import { Stream } from 'stream';
 import { ReadStream } from 'fs';
 
 type Appendable = NodeJS.ReadableStream | NodeJS.WritableStream | Buffer | string | NextFunction;
-// tslint:disable-next-line:no-any-union
-type NextFunction = (next: (stream: Appendable) => any | undefined) => any;
+type NextFunction = (next: (stream: Appendable) => any) => any;
 
 interface Options {
     maxDataSize?: number;
@@ -50,9 +49,6 @@ declare class CombinedStream extends Stream implements Options {
     once(event: 'close' | 'end' | 'resume' | 'pause', cb: () => void): this;
     once(event: 'error', cb: (err: Error) => void): this;
     once(event: 'data', cb: (data: any) => void): this;
-
-    create(options?: Options): CombinedStream;
-    isStreamLike(stream: any): stream is Stream;
 
     static create(options?: Options): CombinedStream;
     static isStreamLike(stream: any): stream is Stream;
