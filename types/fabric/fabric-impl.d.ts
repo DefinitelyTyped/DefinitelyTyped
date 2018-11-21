@@ -140,6 +140,7 @@ interface IDataURLOptions {
 interface IEvent {
 	e: Event;
 	target?: Object;
+    transform?: { corner: string };
 }
 
 interface IFillOptions {
