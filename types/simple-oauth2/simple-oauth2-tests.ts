@@ -26,6 +26,12 @@ const oauth2 = oauth2lib.create(credentials);
         state: '<state>'
     });
 
+    oauth2.authorizationCode.authorizeURL({
+        redirect_uri: 'http://localhost:3000/callback',
+        scope: ['<scope1>', '<scope2>'],
+        state: '<state>'
+    });
+
     // Redirect example using Express (see http://expressjs.com/api.html#res.redirect)
     // res.redirect(authorizationUri);
 
