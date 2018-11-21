@@ -189,6 +189,16 @@ function test_request_constructor() {
     var request4 = new sql.Request();
 }
 
+function test_prepared_statement_constructor() {
+    // Request can be constructed with a connection, preparedStatment, transaction or no arguments
+    var connection: sql.ConnectionPool = new sql.ConnectionPool(config);
+    var preparedStatment = new sql.PreparedStatement(connection);
+    var transaction = new sql.Transaction(connection);
+
+    var preparedSatement1 = new sql.PreparedStatement(connection);
+    var preparedSatement2 = new sql.PreparedStatement(transaction);
+}
+
 function test_classes_extend_eventemitter() {
     var connection: sql.ConnectionPool = new sql.ConnectionPool(config);
     var transaction = new sql.Transaction();
