@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { View } from 'react-native';
 import { withSafeArea } from 'react-native-safe-area';
 
-const SafeAreaView = withSafeArea(View)
+const SafeAreaView = withSafeArea(View);
