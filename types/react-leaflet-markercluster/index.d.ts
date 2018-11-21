@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import 'leaflet.markercluster';
+/// <reference types="leaflet.markercluster" />
 import * as Leaflet from 'leaflet';
 import * as ReactLeaflet from 'react-leaflet';
 
