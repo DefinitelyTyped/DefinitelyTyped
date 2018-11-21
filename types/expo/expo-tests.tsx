@@ -33,6 +33,7 @@ import {
     Linking,
     Location,
     MailComposer,
+    MapView,
     MediaLibrary,
     Permissions,
     PublisherBanner,
@@ -834,6 +835,20 @@ async () => {
     result.status === 'saved';
 };
 
+// #region MapView
+() => (
+    <MapView
+        style={{ flex: 1 }}
+        initialRegion={{
+            latitude: 55.6838499,
+            latitudeDelta: 0.1,
+            longitude: 12.5630238,
+            longitudeDelta: 0.1
+        }}
+    />
+);
+// #endegion
+
 async () => {
     const updateEventListener: Updates.UpdateEventListener = ({ type, manifest, message }) => {
         switch (type) {
@@ -913,6 +928,7 @@ async () => {
       return true;
   }
 };
+
 // #region MediaLibrary
 async () => {
   const mlAsset: MediaLibrary.Asset = await MediaLibrary.createAssetAsync('localUri');
