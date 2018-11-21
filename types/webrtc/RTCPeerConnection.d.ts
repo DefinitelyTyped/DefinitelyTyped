@@ -2,7 +2,6 @@
 // Project: https://www.w3.org/TR/webrtc/
 // Definitions by: Danilo Bargen <https://github.com/dbrgn/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 //
 // W3 Spec: https://www.w3.org/TR/webrtc/
 //
