@@ -32,7 +32,8 @@ interface Props {
         bar?: boolean;
         baz?: any
     };
-    optionalNumber?: number | null;
+    optionalNumber?: number;
+    optionalNullableNumber?: number | null;
     customProp?: typeof uniqueType;
 }
 
@@ -74,6 +75,7 @@ const propTypes: PropTypesMap = {
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number,
+    optionalNullableNumber: PropTypes.number,
     customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
 };
 
@@ -100,6 +102,7 @@ const propTypesWithoutAnnotation = {
     objectOf: PropTypes.objectOf(PropTypes.number.isRequired).isRequired,
     shape: PropTypes.shape(innerProps).isRequired,
     optionalNumber: PropTypes.number,
+    optionalNullableNumber: PropTypes.number,
     customProp: (() => null) as PropTypes.Validator<typeof uniqueType | undefined>
 };
 

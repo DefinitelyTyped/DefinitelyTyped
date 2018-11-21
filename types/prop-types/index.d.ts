@@ -41,7 +41,7 @@ export interface Requireable<T> extends Validator<T | undefined | null> {
     isRequired: Validator<NonNullable<T>>;
 }
 
-export type ValidationMap<T> = { [K in keyof T]-?: Validator<T[K]> };
+export type ValidationMap<T> = { [K in keyof T]-?: Validator<T[K] | null> };
 
 export type InferType<V> = V extends Validator<infer T> ? T : any;
 export type InferProps<V> =
