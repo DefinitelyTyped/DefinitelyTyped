@@ -121,7 +121,7 @@ class ModernComponent extends React.Component<Props, State, Snapshot>
         hello: PropTypes.string.isRequired,
         world: PropTypes.string,
         foo: PropTypes.number.isRequired,
-        key: <PropTypes.Validator<string | number | undefined>> PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]) as PropTypes.Validator<string | number | undefined>
     };
 
     static contextTypes: React.ValidationMap<Context> = {
