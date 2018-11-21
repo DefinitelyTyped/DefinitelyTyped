@@ -36,7 +36,6 @@ declare class Dicer extends stream.Writable {
      * @param boundary The boundary to use
      */
     setBoundary(boundary: string): void;
-    addListener(event: string, listener: (...args: any[]) => void): this;
     addListener(event: "finish", listener: () => void): this;
     addListener(event: "part", listener: (stream: Dicer.PartStream) => void): this;
     addListener(event: "preamble", listener: (stream: Dicer.PartStream) => void): this;
@@ -46,7 +45,7 @@ declare class Dicer extends stream.Writable {
     addListener(event: "error", listener: (err: Error) => void): this;
     addListener(event: "pipe", listener: (src: stream.Readable) => void): this;
     addListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-    on(event: string, listener: (...args: any[]) => void): this;
+    addListener(event: string, listener: (...args: any[]) => void): this;
     on(event: "finish", listener: () => void): this;
     on(event: "part", listener: (stream: Dicer.PartStream) => void): this;
     on(event: "preamble", listener: (stream: Dicer.PartStream) => void): this;
@@ -56,7 +55,7 @@ declare class Dicer extends stream.Writable {
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "pipe", listener: (src: stream.Readable) => void): this;
     on(event: "unpipe", listener: (src: stream.Readable) => void): this;
-    once(event: string, listener: (...args: any[]) => void): this;
+    on(event: string, listener: (...args: any[]) => void): this;
     once(event: "finish", listener: () => void): this;
     once(event: "part", listener: (stream: Dicer.PartStream) => void): this;
     once(event: "preamble", listener: (stream: Dicer.PartStream) => void): this;
@@ -66,7 +65,7 @@ declare class Dicer extends stream.Writable {
     once(event: "error", listener: (err: Error) => void): this;
     once(event: "pipe", listener: (src: stream.Readable) => void): this;
     once(event: "unpipe", listener: (src: stream.Readable) => void): this;
-    prependListener(event: string, listener: (...args: any[]) => void): this;
+    once(event: string, listener: (...args: any[]) => void): this;
     prependListener(event: "finish", listener: () => void): this;
     prependListener(event: "part", listener: (stream: Dicer.PartStream) => void): this;
     prependListener(event: "preamble", listener: (stream: Dicer.PartStream) => void): this;
@@ -76,7 +75,7 @@ declare class Dicer extends stream.Writable {
     prependListener(event: "error", listener: (err: Error) => void): this;
     prependListener(event: "pipe", listener: (src: stream.Readable) => void): this;
     prependListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-    prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+    prependListener(event: string, listener: (...args: any[]) => void): this;
     prependOnceListener(event: "finish", listener: () => void): this;
     prependOnceListener(event: "part", listener: (stream: Dicer.PartStream) => void): this;
     prependOnceListener(event: "preamble", listener: (stream: Dicer.PartStream) => void): this;
@@ -86,7 +85,7 @@ declare class Dicer extends stream.Writable {
     prependOnceListener(event: "error", listener: (err: Error) => void): this;
     prependOnceListener(event: "pipe", listener: (src: stream.Readable) => void): this;
     prependOnceListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-    removeListener(event: string, listener: (...args: any[]) => void): this;
+    prependOnceListener(event: string, listener: (...args: any[]) => void): this;
     removeListener(event: "finish", listener: () => void): this;
     removeListener(event: "part", listener: (stream: Dicer.PartStream) => void): this;
     removeListener(event: "preamble", listener: (stream: Dicer.PartStream) => void): this;
@@ -96,6 +95,7 @@ declare class Dicer extends stream.Writable {
     removeListener(event: "error", listener: (err: Error) => void): this;
     removeListener(event: "pipe", listener: (src: stream.Readable) => void): this;
     removeListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
+    removeListener(event: string, listener: (...args: any[]) => void): this;
 }
 
 declare namespace Dicer {
@@ -121,47 +121,47 @@ declare namespace Dicer {
      * - on('header', (header: object)) - An object containing the header for this particular part. Each property value is an array of one or more string values.
      */
     interface PartStream extends stream.Readable {
-        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "header", listener: (header: object) => void): this;
         addListener(event: "close", listener: () => void): this;
         addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
         addListener(event: "end", listener: () => void): this;
         addListener(event: "readable", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
-        on(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         on(event: "header", listener: (header: object) => void): this;
         on(event: "close", listener: () => void): this;
         on(event: "data", listener: (chunk: Buffer | string) => void): this;
         on(event: "end", listener: () => void): this;
         on(event: "readable", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         once(event: "header", listener: (header: object) => void): this;
         once(event: "close", listener: () => void): this;
         once(event: "data", listener: (chunk: Buffer | string) => void): this;
         once(event: "end", listener: () => void): this;
         once(event: "readable", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "header", listener: (header: object) => void): this;
         prependListener(event: "close", listener: () => void): this;
         prependListener(event: "data", listener: (chunk: Buffer | string) => void): this;
         prependListener(event: "end", listener: () => void): this;
         prependListener(event: "readable", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "header", listener: (header: object) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
         prependOnceListener(event: "data", listener: (chunk: Buffer | string) => void): this;
         prependOnceListener(event: "end", listener: () => void): this;
         prependOnceListener(event: "readable", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        removeListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         removeListener(event: "header", listener: (header: object) => void): this;
         removeListener(event: "close", listener: () => void): this;
         removeListener(event: "data", listener: (chunk: Buffer | string) => void): this;
         removeListener(event: "end", listener: () => void): this;
         removeListener(event: "readable", listener: () => void): this;
         removeListener(event: "error", listener: (err: Error) => void): this;
+        removeListener(event: string, listener: (...args: any[]) => void): this;
     }
 }
