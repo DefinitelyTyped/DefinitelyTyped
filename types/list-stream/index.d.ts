@@ -7,16 +7,21 @@
 
 import { Duplex, DuplexOptions } from "stream";
 
-declare namespace ListStream {
+interface ListStreamMethod {
+    (callback?: (err: Error, data: any[]) => void): ListStream;
+    (options?: DuplexOptions, callback?: (err: Error, data: any[]) => void): ListStream;
 }
 
-declare class ListStream extends Duplex {
-    constructor(callback?: (err: Error, data: any[]) => void);
-    constructor(options?: DuplexOptions, callback?: (err: Error, data: any[]) => void);
+interface ListStreamConstructor extends ListStreamMethod {
+    new(callback?: (err: Error, data: any[]) => void): ListStream;
+    new(options?: DuplexOptions, callback?: (err: Error, data: any[]) => void): ListStream;
 
-    static obj(callback?: (err: Error, data: any[]) => void): ListStream;
-    static obj(options?: DuplexOptions, callback?: (err: Error, data: any[]) => void): ListStream;
+    obj: ListStreamMethod;
+}
 
+declare let ListStream: ListStreamConstructor;
+
+interface ListStream extends Duplex {
     append(chunk: any): void;
     duplicate(): ListStream;
     end(): void;
