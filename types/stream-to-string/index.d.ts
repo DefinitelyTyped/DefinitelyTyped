@@ -7,10 +7,7 @@
 
 export = streamToString;
 
-// tslint:disable:unified-signatures
-
-declare function streamToString(stream: NodeJS.ReadableStream): Promise<string>;
-declare function streamToString(stream: NodeJS.ReadableStream, cb: Callback): Promise<string>;
+declare function streamToString(stream: NodeJS.ReadableStream, cb?: Callback): Promise<string>;
 declare function streamToString(
     stream: NodeJS.ReadableStream,
     enc: string,
