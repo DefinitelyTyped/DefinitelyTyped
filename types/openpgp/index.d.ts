@@ -234,13 +234,13 @@ export namespace armor {
         @param partindex
         @param parttotal
      */
-    function armor(messagetype: enums.armor, body: Object, partindex: number, parttotal: number): string;
+    function encode(messagetype: enums.armor, body: Object, partindex: number, parttotal: number): string;
 
     /** DeArmor an OpenPGP armored message; verify the checksum and return the encoded bytes
 
         @param text OpenPGP armored message
      */
-    function dearmor(text: string): Object;
+    function decode(text: string): Object;
 }
 
 export namespace cleartext {
