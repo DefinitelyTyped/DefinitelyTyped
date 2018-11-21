@@ -168,9 +168,12 @@ export interface NewmanRunExecutionAssertion {
     error: NewmanRunExecutionAssertionError;
 }
 export interface NewmanRunExecutionAssertionError {
+    name: string;
+    index: number;
+    test: string;
     message: string;
-}
-export interface NewmanRunFailure {
+    stack: string;
+}export interface NewmanRunFailure {
     error: NewmanRunExecutionAssertionError;
     /** The event where the failure occurred */
     at: string;
