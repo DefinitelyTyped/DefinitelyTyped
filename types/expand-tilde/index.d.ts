@@ -3,9 +3,8 @@
 // Definitions by: Chris Arnesen <https://github.com/carnesen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /**
- * Bash-like tilde expansion for node.js. 
+ * Bash-like tilde expansion for node.js.
  * Expands a leading tilde (~) in a file path to the user home directory, or ~+ to the cwd.
  *
  * @param {string} filePath - a file path to expand
