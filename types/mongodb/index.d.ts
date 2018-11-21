@@ -45,10 +45,7 @@ export class MongoClient extends EventEmitter {
     static connect(uri: string, callback: MongoCallback<MongoClient>): void;
     static connect(uri: string, options?: MongoClientOptions): Promise<MongoClient>;
     static connect(uri: string, options: MongoClientOptions, callback: MongoCallback<MongoClient>): void;
-    /**
-     * @deprecated
-     * http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#connect
-     */
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#connect */
     connect(): Promise<MongoClient>;
     connect(callback: MongoCallback<MongoClient>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoClient.html#close */
