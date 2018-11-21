@@ -655,9 +655,9 @@ export interface Collection<TSchema = Default> {
     createIndex(fieldOrSpec: string | any, options?: IndexOptions): Promise<string>;
     createIndex(fieldOrSpec: string | any, options: IndexOptions, callback: MongoCallback<string>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#createIndexes and  http://docs.mongodb.org/manual/reference/command/createIndexes/ */
-    createIndexes(indexSpecs: Object[], callback: MongoCallback<any>): void;
-    createIndexes(indexSpecs: Object[], options?: { session?: ClientSession }): Promise<any>;
-    createIndexes(indexSpecs: Object[], options: { session?: ClientSession }, callback: MongoCallback<any>): void;
+    createIndexes(indexSpecs: IndexSpecification[], callback: MongoCallback<any>): void;
+    createIndexes(indexSpecs: IndexSpecification[], options?: { session?: ClientSession }): Promise<any>;
+    createIndexes(indexSpecs: IndexSpecification[], options: { session?: ClientSession }, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Collection.html#deleteMany */
     deleteMany(filter: FilterQuery<TSchema>, callback: MongoCallback<DeleteWriteOpResultObject>): void;
     deleteMany(filter: FilterQuery<TSchema>, options?: CommonOptions): Promise<DeleteWriteOpResultObject>;
@@ -1074,7 +1074,7 @@ export interface CollectionAggregationOptions {
     promoteLongs?: boolean;
     promoteValues?: boolean;
     promoteBuffers?: boolean;
-    collation?: Object;
+    collation?: CollationDocument;
     comment?: string
     session?: ClientSession;
 
@@ -1311,7 +1311,7 @@ export interface FindOneOptions {
     readPreference?: ReadPreference | string;
     partial?: boolean;
     maxTimeMs?: number;
-    collation?: Object;
+    collation?: CollationDocument;
     session?: ClientSession;
 }
 
@@ -1430,7 +1430,7 @@ export class Cursor<T = Default> extends Readable {
     close(): Promise<CursorResult>;
     close(callback: MongoCallback<CursorResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#collation */
-    collation(value: Object): Cursor<T>;
+    collation(value: CollationDocument): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#comment */
     comment(value: string): Cursor<T>;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Cursor.html#count */
@@ -1729,7 +1729,7 @@ export interface ChangeStreamOptions {
     maxAwaitTimeMS?: number;
     resumeAfter?: Object;
     batchSize?: number;
-    collation?: Object;
+    collation?: CollationDocument;
     readPreference?: ReadPreference;
 }
 
@@ -1779,4 +1779,40 @@ export class Logger {
     static filter(type: string, values: string[]): void
     // Set the current log level
     static setLevel(level: string): void
+}
+
+/** https://docs.mongodb.com/manual/reference/collation/#collation-document-fields */
+export interface CollationDocument {
+    locale: string;
+    strength?: number;
+    caseLevel?: boolean;
+    caseFirst?: boolean;
+    numericOrdering?: boolean;
+    alternate?: string;
+    maxVariable?: string;
+    backwards?: boolean;
+    normalization?: boolean;
+
+}
+
+/** https://docs.mongodb.com/manual/reference/command/createIndexes/ */
+export interface IndexSpecification {
+    key: object;
+    name?: string;
+    background?: boolean;
+    unique?: boolean;
+    partialFilterExpression?: object;
+    sparse?: boolean;
+    expireAfterSeconds?: number;
+    storageEngine?: object;
+    weights?: object;
+    default_language?: string;
+    language_override?: string;
+    textIndexVersion?: number;
+    '2dsphereIndexVersion'?: number;
+    bits?: number;
+    min?: number;
+    max?: number;
+    bucketSize?: number;
+    collation?: CollationDocument;
 }
