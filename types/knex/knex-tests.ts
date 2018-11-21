@@ -738,6 +738,10 @@ knex.table('users').first(knex.raw('round(sum(products)) as p')).then((row) => {
   console.log(row);
 });
 
+knex.table('users').orderBy('name', 'desc').clearOrder().orderBy('id', 'asc').then((rows) => {
+  console.log(rows);
+});
+
 knex.table('users').select('*').clearSelect().select('id').then((rows) => {
   console.log(rows);
 });

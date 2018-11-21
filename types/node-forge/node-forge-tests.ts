@@ -8,8 +8,8 @@ let x: string = forge.ssh.privateKeyToOpenSSH(key);
 let pemKey: forge.pki.PEM = publicKeyPem;
 let publicKeyRsa = forge.pki.publicKeyFromPem(pemKey);
 let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
-let privateKeyRsa2 = forge.pki.privateKeyInfoToPem(privateKeyPem);
-let byteBufferString = forge.pki.pemToDer(privateKeyRsa);
+let privateKeyRsa2 = forge.pki.privateKeyInfoToPem(privateKeyRsa);
+let byteBufferString = forge.pki.pemToDer(privateKeyPem);
 let certPem = forge.pki.certificateFromPem(pemKey);
 let cert = forge.pki.createCertificate();
 

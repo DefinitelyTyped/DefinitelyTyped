@@ -3618,7 +3618,7 @@ import * as p from "process";
     {
         let _server: repl.REPLServer;
         let _boolean: boolean;
-        const _ctx: any = 1;
+        const _ctx: vm.Context = {};
 
         _server = _server.addListener("exit", () => { });
         _server = _server.addListener("reset", () => { });
@@ -3640,6 +3640,37 @@ import * as p from "process";
 
         _server.outputStream.write("test");
         const line = _server.inputStream.read();
+
+        _server.clearBufferedCommand();
+        _server.displayPrompt();
+        _server.displayPrompt(true);
+        _server.defineCommand("cmd", function(text) {
+            // $ExpectType string
+            text;
+            // $ExpectType REPLServer
+            this;
+        });
+        _server.defineCommand("cmd", {
+            help: "",
+            action(text) {
+                // $ExpectType string
+                text;
+                // $ExpectType REPLServer
+                this;
+            }
+        });
+
+        repl.start({
+            eval() {
+                // $ExpectType REPLServer
+                this;
+            },
+            writer() {
+                // $ExpectType REPLServer
+                this;
+                return "";
+            }
+        });
 
         function test() {
             throw new repl.Recoverable(new Error("test"));
@@ -4136,6 +4167,7 @@ import * as constants from 'constants';
         http2Stream.on('streamClosed', (code: number) => {});
         http2Stream.on('timeout', () => {});
         http2Stream.on('trailers', (trailers: http2.IncomingHttpHeaders, flags: number) => {});
+        http2Stream.on('wantTrailers', () => {});
 
         const aborted: boolean = http2Stream.aborted;
         const closed: boolean = http2Stream.closed;
@@ -4187,7 +4219,7 @@ import * as constants from 'constants';
 
         const options: http2.ServerStreamResponseOptions = {
             endStream: true,
-            getTrailers: (trailers: http2.OutgoingHttpHeaders) => {}
+            waitForTrailers: true,
         };
         serverHttp2Stream.respond();
         serverHttp2Stream.respond(headers);

@@ -18,7 +18,7 @@ function test_search_returns_nodes() {
 }
 
 function test_search_alternative_heuristic() {
-    let nodes: Array<GridNode> = astar.search(new Graph([]), {x: 1, y: 1}, {x: 2, y: 2}, {heuristic: astar.heuristics.manhatten});
+    let nodes: Array<GridNode> = astar.search(new Graph([]), {x: 1, y: 1}, {x: 2, y: 2}, {heuristic: astar.heuristics.manhattan});
 }
 
 function test_search_or_closest() {

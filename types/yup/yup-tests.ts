@@ -342,7 +342,8 @@ const description: SchemaDescription = {
     type: "type",
     label: "label",
     meta: { key: "value" },
-    tests: ["test1", "test2"]
+    tests: ["test1", "test2"],
+    fields: { key: "value" }
 };
 
 const testOptions: TestOptions = {
