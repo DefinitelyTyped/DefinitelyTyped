@@ -19,6 +19,7 @@
 //                 Mikael Lirbank <https://github.com/lirbank>
 //                 Hector Ribes <https://github.com/hector7>
 //                 Florian Richter <https://github.com/floric>
+//                 Erik Christensen <https://github.com/erikc5000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -450,7 +451,7 @@ export class Db extends EventEmitter {
     indexInformation(name: string, options?: { full?: boolean, readPreference?: ReadPreference | string }): Promise<any>;
     indexInformation(name: string, options: { full?: boolean, readPreference?: ReadPreference | string }, callback: MongoCallback<any>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#listCollections */
-    listCollections(filter?: Object, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
+    listCollections(filter?: Object, options?: { nameOnly?: boolean, batchSize?: number, readPreference?: ReadPreference | string, session?: ClientSession }): CommandCursor;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/Db.html#profilingInfo */
     /** @deprecated Query the system.profile collection directly. */
     profilingInfo(callback: MongoCallback<any>): void;
@@ -1578,24 +1579,30 @@ export class AggregationCursor<T = Default> extends Readable {
     unwind(field: string): AggregationCursor<T>;
 }
 
+/** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#~resultCallback */
+export type CommandCursorResult = any | void;
 /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html */
 export class CommandCursor extends Readable {
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#hasNext */
+    hasNext(): Promise<CommandCursorResult>;
+    /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#hasNext */
+    hasNext(callback: MongoCallback<CommandCursorResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#batchSize */
     batchSize(value: number): CommandCursor;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#clone */
     clone(): CommandCursor;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#close */
-    close(): Promise<AggregationCursorResult>;
-    close(callback: MongoCallback<AggregationCursorResult>): void;
+    close(): Promise<CommandCursorResult>;
+    close(callback: MongoCallback<CommandCursorResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#each */
-    each(callback: MongoCallback<AggregationCursorResult>): void;
+    each(callback: MongoCallback<CommandCursorResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#isClosed */
     isClosed(): boolean;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#maxTimeMS */
     maxTimeMS(value: number): CommandCursor;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#next */
-    next(): Promise<AggregationCursorResult>;
-    next(callback: MongoCallback<AggregationCursorResult>): void;
+    next(): Promise<CommandCursorResult>;
+    next(callback: MongoCallback<CommandCursorResult>): void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#read */
     read(size: number): string | Buffer | void;
     /** http://mongodb.github.io/node-mongodb-native/3.1/api/CommandCursor.html#rewind */
