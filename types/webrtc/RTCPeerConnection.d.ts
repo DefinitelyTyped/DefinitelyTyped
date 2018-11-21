@@ -26,20 +26,11 @@ interface RTCOfferOptions extends RTCOfferAnswerOptions {
 interface RTCAnswerOptions extends RTCOfferAnswerOptions {
 }
 
-// https://www.w3.org/TR/webrtc/#idl-def-rtcpeerconnectionstate
-// type RTCPeerConnectionState = 'new' | 'connecting' | 'connected' | 'disconnected' | 'failed' | 'closed';
-
-// https://www.w3.org/TR/webrtc/#idl-def-rtcicecredentialtype
-// type RTCIceCredentialType = 'password' | 'token';
-
 // https://www.w3.org/TR/webrtc/#idl-def-rtciceserver
 interface RTCIceServer {
     //urls: string | string[];
     credentialType?: RTCIceCredentialType; // default = 'password'
 }
-
-// https://www.w3.org/TR/webrtc/#idl-def-rtcrtcpmuxpolicy
-// type RTCRtcpMuxPolicy = 'negotiate' | 'require';
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtciceparameters
 interface RTCIceParameters {
@@ -98,12 +89,6 @@ interface RTCRtpRtxParameters {
 interface RTCRtpFecParameters {
     //ssrc: number;
 }
-
-// https://www.w3.org/TR/webrtc/#idl-def-rtcdtxstatus
-// type RTCDtxStatus = 'disabled' | 'enabled';
-
-// https://www.w3.org/TR/webrtc/#idl-def-rtcprioritytype
-// type RTCPriorityType = 'very-low' | 'low' | 'medium' | 'high';
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpencodingparameters
 interface RTCRtpEncodingParameters {
@@ -183,9 +168,6 @@ interface RTCRtpReceiver {
     getContributingSources(): RTCRtpContributingSource[];
 }
 
-// https://www.w3.org/TR/webrtc/#idl-def-rtcrtptransceiverdirection
-// type RTCRtpTransceiverDirection = 'sendrecv' | 'sendonly' | 'recvonly' | 'inactive';
-
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtptransceiver
 interface RTCRtpTransceiver {
     readonly mid: string | null;
@@ -240,12 +222,6 @@ interface RTCDataChannelInit {
     negotiated?: boolean; // default = false
     id?: number;
 }
-
-// https://www.w3.org/TR/webrtc/#idl-def-rtcdatachannelstate
-// type RTCDataChannelState = 'connecting' | 'open' | 'closing' | 'closed';
-
-// https://www.w3.org/TR/websockets/#dom-websocket-binarytype
-// type RTCBinaryType = 'blob' | 'arraybuffer';
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcdatachannel
 type DataChannelEventHandler<E extends Event> = ((this: RTCDataChannel, ev: E) => any) | null;
