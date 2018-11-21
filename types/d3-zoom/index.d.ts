@@ -29,12 +29,12 @@ export type ZoomedElementBaseType = Element;
  * that  can be passed into zoomTransform methods rescaleX and rescaleY
  */
 export interface ZoomScale {
-    domain(): number[];
-    domain(domain: number[]): this;
+    domain(): number[] | Date[];
+    domain(domain: Array<Date | number>): this;
     range(): number[];
     range(range: number[]): this;
     copy(): ZoomScale;
-    invert(value: number): number;
+    invert(value: number): number | Date;
 }
 
 // --------------------------------------------------------------------------
