@@ -256,14 +256,43 @@ If the standard is still a draft, it belongs here.
 Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
 When it graduates draft mode, we may remove it from DefinitelyTyped and deprecate the associated `@types` package.
 
-#### I want to update a package to a new major version
+#### How do DefinitelyTyped package versions relate to versions of the corresponding library? 
 
-If you intend to continue updating the older version of the package, you may create a new subfolder with the current version e.g. `v2`, and copy existing files to it. If so, you will need to:
+_NOTE: The discussion in this section assumes familiarity with [Semantic versioning](https://semver.org/)_
+
+Each DefinitelyTyped package is versioned when published to NPM. The [automated tools](https://github.com/Microsoft/types-publisher) that publish typings packages to NPM will set the typings package's version using the version number listed in the first line of the typings file. For example, below is the first few lines of the latest (as of late 2018) [node.js typings file](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/index.d.ts) for node.js library version `10.12`.  Because this version is included in the typings file, the NPM version of the `@types/node` package will also be `10.12`:  
+
+```javascript
+// Type definitions for Node.js 10.12
+// Project: http://nodejs.org/
+// Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped>
+//                 Alberto Schiabel <https://github.com/jkomyno>
+```
+
+Sometimes typings versions and library versions can get out of sync. Below are a few common reasons why, in order of how much they inconvenience users of a library. Only the last case is typically problematic.
+
+* The patch version of the typings package is incremented every time an updated typings file is published for the same major and minor version. For example, a library may have only published `2.3.0` but the typings package might have gone through several revisions so its version would be `2.3.4`. If the library is later updated to `2.3.6` without any type updates needed, then the typings version would remain `2.3.4`. 
+* If a minor release adds new features that don't impact the type system, then there's no need to publish an updated typings file.  In cases like this, updates are often skipped to the typings file.  For example, imagine a contrived example of a library that formats only integers in its `2.0` release.  If a `2.1` release of the library adds the capability to format floating point numbers too without changing API type signatures, then the typings version might remain `2.1.3` even as the library goes to `2.2.0`.
+* Users who are updating typings for a library sometimes forget to increment the typings version to match the library version. This doesn't usually result in any problems because `npm update` will usually pick the latest typings version, although it may be confusing for users because they might assume that a library update is missing types that are really present. 
+* It's common for typings to lag behind library updates because it's often library users, not maintainers, who update DefinitelyTyped when new library features are released.  So there may be a lag of days, weeks, or even months before a helpful community member sends a PR to update the typings for a new library release.
+
+:exclamation:If you're updating the typings for a library version, always set the major/minor version in the first line of the typings file to match the library version that you're documenting!:exclamation:
+
+#### If a library is updated to a new major version with breaking changes, how should I update its typings package?
+
+[Semantic versioning](https://semver.org/) requires that versions with breaking changes must increment the major version number.  For example, a library that removes a publicly exported function after its `3.5.8` release must bump its version to `4.0.0` in its next release.  Furthermore, when the library's `4.0.0` release is out, its DefinitelyTyped typings should also be updated to `4.0.0`, including any breaking changes to the library's API. 
+
+Many libraries have a large installed base of developers (including mainatiners of other packages using that library as a dependency) who who won't move right away to a new version that has breaking changes, because it might be months until a maintainer has time to rewrite code to adapt to the new version. In the meantime, users of old library versions still may want to udpate typings for older versions. 
+
+If you intend to continue updating the older version of the typings package, you may create a new subfolder (e.g. `/v2/`) named for the current (soon to be "old") version, and copy existing files from the current version to it. 
+
+Because the root folder should always contain the typings for the latest ("new") version, you'll need to make a few changes to the files in your old-version subdirectory to ensure that relative path references point to the subdirectory, not the root.
 
 1. Update the relative paths in `tsconfig.json` as well as `tslint.json`.
 2. Add path mapping rules to ensure that tests are running against the intended version.
 
-For example [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) looks like:
+For example, the [`history`](https://github.com/ReactTraining/history/) library introduced breaking changes between version `2.x` and `3.x`.  Many developers waited a while to update their `package.json` to depend on version `3.x` of `history`. Therefore, there's a `v2` folder inside the history repository that contains typings for the older version. The [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) looks like:
 
 ```json
 {
@@ -281,10 +310,9 @@ For example [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/Defi
 }
 ```
 
-If there are other packages on DefinitelyTyped that are incompatible with the new version, you will need to add path mappings to the old version. You will also need to do this for packages depending on packages depending on the old version.
+If there are other packages in DefinitelyTyped that are incompatible with the new version, you will need to add path mappings to the old version. You will also need to do this recursively for packages depending on packages depending on the old version.
 
-For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`;
-transitively `react-router-bootstrap` (which depends on `react-router`) also adds a path mapping in its [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json).
+For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`. Transitively, `react-router-bootstrap` (which depends on `react-router`) also needed to add the same path mapping (`"history": [ "history/v2" ]`) in its `tsconfig.json` until its `react-router` dependency was udpated to the latest version.
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
 
