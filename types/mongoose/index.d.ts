@@ -811,8 +811,8 @@ declare module "mongoose" {
      * @param fn callback
      */
     post<T extends Document>(method: string, fn: (
-        doc: T, next: (err?: NativeError) => void
-      ) => void): this;
+      doc: T, next: (err?: NativeError) => void
+    ) => void): this;
 
     post<T extends Document>(method: string, fn: (
       error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
