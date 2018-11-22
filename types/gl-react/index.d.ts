@@ -124,7 +124,7 @@ export interface Framebuffer {
 export interface NodeProps {
   shader: ShaderIdentifier | ShaderDefinition;
   uniformsOptions?: any;
-  uniforms: { [key: string]: any };
+  uniforms?: { [key: string]: any };
   ignoreUnusedUniforms?: string[] | boolean;
   sync?: boolean;
   width?: number;

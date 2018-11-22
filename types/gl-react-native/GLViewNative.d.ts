@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 export interface GLViewNativeProps {
-  onContextCreate: (gl: WebGLRenderingContext) => void;
-  onContextFailure: (e: Error) => void;
+  onContextCreate?: (gl: WebGLRenderingContext) => void;
+  onContextFailure?: (e: Error) => void;
   style?: any;
   children?: any;
 }
