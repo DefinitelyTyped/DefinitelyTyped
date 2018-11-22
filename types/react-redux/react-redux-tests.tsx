@@ -102,20 +102,27 @@ function MapDispatch() {
 }
 
 function MapDispatchWithThunkActionCreators() {
-    class TestComponent extends React.Component<{
-        foo: string,
-        onClick(): void,
-        thunkAction(): Promise<void>
-    }> {}
-
-    const mapDispatchToProps = () => ({
-        onClick: () => {},
-        thunkAction: () => async () => {}
+    const simpleAction = (payload: boolean) => ({
+        type: 'SIMPLE_ACTION',
+        payload,
     });
+    const thunkAction = (param1: number, param2: string) => (
+        async (dispatch: Dispatch, { foo }: OwnProps) => {
+            return foo;
+        }
+    );
+    interface OwnProps {
+        foo: string;
+    }
+    interface TestComponentProps extends OwnProps {
+        simpleAction: typeof simpleAction;
+        thunkAction(param1: number, param2: string): Promise<string>;
+   }
+    class TestComponent extends React.Component<TestComponentProps> {}
 
     const Test = connect(
         null,
-        mapDispatchToProps,
+        ({ simpleAction, thunkAction }),
     )(TestComponent);
 
     const verify = <Test foo='bar' />;

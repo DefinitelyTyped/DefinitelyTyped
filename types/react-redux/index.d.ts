@@ -13,7 +13,7 @@
 //                 Anatoli Papirovski <https://github.com/apapirovski>
 //                 Boris Sergeyev <https://github.com/surgeboris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 // Known Issue:
 // There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
@@ -112,9 +112,14 @@ export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
 export type InferableComponentEnhancer<TInjectedProps> =
     InferableComponentEnhancerWithProps<TInjectedProps, {}>;
 
+export type WrappedThunkActionCreator<TActionCreator extends (...args: any[]) => any> =
+    TActionCreator extends (...args: infer TParams) => (...args: any[]) => infer TReturn
+        ? (...args: TParams) => TReturn
+        : TActionCreator;
+
 export type HandleThunkActionCreator<TActionCreator> =
-    TActionCreator extends (...args: any[]) => (...args: any[]) => any
-        ? ReturnType<TActionCreator>
+    TActionCreator extends (...args: any[]) => any
+        ? WrappedThunkActionCreator<TActionCreator>
         : TActionCreator;
 
 // redux-thunk middleware returns thunk's return value from dispatch call
