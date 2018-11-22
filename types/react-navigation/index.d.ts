@@ -133,7 +133,13 @@ export interface NavigationLeafRoute<Params = NavigationParams> {
    * e.g. `{ car_id: 123 }` in a route that displays a car.
    */
   params?: Params;
+  /**
+   * Array containing the navigator's routes
+   */
   routes: NavigationRoute[];
+  /**
+   * Flag that indicates the transition state of the route
+   */
   isTransitioning: boolean;
 }
 
