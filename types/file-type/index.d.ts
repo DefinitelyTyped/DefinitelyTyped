@@ -15,4 +15,6 @@ declare namespace FileType {
         ext: string;
         mime: string;
     }
+
+    const minimumBytes: number;
 }
