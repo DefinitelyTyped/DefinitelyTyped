@@ -65,11 +65,11 @@ export type AdvancedComponentDecorator<TProps, TOwnProps> =
  *   DecorationTargetProps[P] definition, its definition will be that of InjectedProps[P]
  */
 export type Matching<InjectedProps, DecorationTargetProps> = {
-	[P in keyof DecorationTargetProps]: P extends keyof InjectedProps
-		? InjectedProps[P] extends DecorationTargetProps[P]
-			? DecorationTargetProps[P]
-			: InjectedProps[P]
-		: DecorationTargetProps[P];
+    [P in keyof DecorationTargetProps]: P extends keyof InjectedProps
+        ? InjectedProps[P] extends DecorationTargetProps[P]
+            ? DecorationTargetProps[P]
+            : InjectedProps[P]
+        : DecorationTargetProps[P];
 };
 
 /**
@@ -95,16 +95,16 @@ export type GetProps<C> = C extends ComponentType<infer P> ? P : never;
 // Applies LibraryManagedAttributes (proper handling of defaultProps
 // and propTypes), as well as defines WrappedComponent.
 export type ConnectedComponentClass<C, P> = ComponentClass<JSX.LibraryManagedAttributes<C, P>> & {
-	WrappedComponent: C;
+    WrappedComponent: C;
 };
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
 // render. Also adds new prop requirements from TNeedsProps.
 export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> =
-	<C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
-		component: C
-	) => ConnectedComponentClass<C, Omit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>;
+    <C extends ComponentType<Matching<TInjectedProps, GetProps<C>>>>(
+        component: C
+    ) => ConnectedComponentClass<C, Omit<GetProps<C>, keyof Shared<TInjectedProps, GetProps<C>>> & TNeedsProps>;
 
 // Injects props and removes them from the prop requirements.
 // Will not pass through the injected props if they are passed in during
