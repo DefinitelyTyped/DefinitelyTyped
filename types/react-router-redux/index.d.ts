@@ -4,7 +4,7 @@
 //                 Shoya Tanaka <https://github.com/8398a7>
 //                 Mykolas <https://github.com/mykolas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import {
     Store,
