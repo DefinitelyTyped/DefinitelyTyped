@@ -1,17 +1,15 @@
-// Type definitions for react-splitter-layout v3.0.1
-// Project: https://github.com/zesik/react-splitter-layout#readme
-// Definitions by: Markus Lasermann <https://github.com/snaptags/>
+// Type definitions for react-splitter-layout 3.0
+// Project: https://github.com/zesik/react-splitter-layout
+// Definitions by: Markus Lasermann <https://github.com/snaptags>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from "react";
 
-export default SplitterLayout;
-
-declare class SplitterLayout extends React.PureComponent<SplitterLayoutProps> {
+export default class SplitterLayout extends React.PureComponent<SplitterLayoutProps> {
 }
 
-type TPrimaryIndex = 0|1;
+export type TPrimaryIndex = 0|1;
 
 export interface SplitterLayoutProps {
     /**
@@ -97,4 +95,3 @@ export interface SplitterLayoutProps {
      */
     onSecondaryPaneSizeChange?: (value: number) => void;
 }
-
