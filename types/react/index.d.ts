@@ -83,6 +83,12 @@ declare namespace React {
         key: Key | null;
     }
 
+    interface TypedReactElement<C extends ReactType> {
+        type: C;
+        props: ComponentPropsWithoutRef<C>;
+        key: Key | null;
+    }
+
     /**
      * @deprecated Please use `FunctionComponentElement`
      */
@@ -190,62 +196,50 @@ declare namespace React {
         type: ClassType<P, T, C>): CFactory<P, T>;
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
-    // DOM Elements
-    function createElement<K extends keyof JSX.IntrinsicElements>(
-        type: K,
-        props?: JSX.IntrinsicElements[K] | null,
-        ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-    function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
-        type: keyof ReactHTML,
-        props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
-    function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
-        type: keyof ReactSVG,
-        props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]): ReactSVGElement;
-
-    // Custom components
-
-    function createElement<C extends React.ReactType>(
+    // createElement without variadic children
+    function createElement<C extends ReactType>(
         type: C,
-        props?: Attributes & React.ComponentPropsWithRef<C> | null,
-    ): ReactElement<React.ComponentPropsWithoutRef<C>> & { type: C };
-    function createElement<C extends React.ComponentClass>(
+        props?: Attributes & ComponentProps<C> | null,
+    ): TypedReactElement<C>;
+    function createElement<C extends ComponentClass>(
         type: C,
-        props?: ClassAttributes<C> & React.ComponentPropsWithoutRef<C> | null
-    ): ReactElement<React.ComponentPropsWithoutRef<C>> & { type: C };
+        props?: ClassAttributes<C> & ComponentPropsWithoutRef<C> | null
+    ): TypedReactElement<C>;
+
+    // types used for variadic children
 
     type SingleChildTupleType<T> = Extract<T, any> extends never
         ? never
         : ([T] | (
             undefined extends T ? [] : never
         ));
-    type MultiChildTupleType<T extends ReadonlyArray<any>> = Extract<T, any> extends never
-        ? never
-        // hack to exclude any as a direct result type (not acceptable as a rest argument type)
-        : keyof any extends Extract<keyof T, keyof any>
-            ? any[]
-            : T;
     // The Extract<T, any> is to work around a problem when T is directly compared with never
     // ChildrenTupleType<never> results in never (???) if Extract is not used
     type ChildrenTupleType<T> = Extract<T, any> extends never
       ? []
-      : SingleChildTupleType<Exclude<T, ReadonlyArray<any>>> | MultiChildTupleType<Extract<T, ReadonlyArray<any>>>;
+      : SingleChildTupleType<Exclude<T, ReadonlyArray<any>>> | Extract<T, ReadonlyArray<any>>;
     // Check first if 'children' key exists to avoid inferring {} if P is {}
     type ChildrenPropTupleType<P> = 'children' extends keyof P
-        ? P extends { children?: infer T } ? ChildrenTupleType<T> : []
+        // we need to do the extends check twice because 'undefined' is
+        // not part of the inferred T if the children are optional
+        ? P extends { children: infer T }
+            ? ChildrenTupleType<T>
+            : P extends { children?: infer T }
+                ? ChildrenTupleType<T | undefined>
+                : []
         : [];
 
-    function createElement<C extends React.ReactType>(
+    // createElement with variadic children
+    function createElement<C extends ReactType>(
         type: C,
-        props?: Attributes & Pick<React.ComponentPropsWithRef<C>, Exclude<keyof React.ComponentPropsWithRef<C>, 'children'>> | null,
+        props?: Attributes & Pick<ComponentProps<C>, Exclude<keyof ComponentProps<C>, 'children'>> | null,
         ...children: ChildrenPropTupleType<ComponentProps<C>>
-    ): ReactElement<React.ComponentPropsWithoutRef<C>> & { type: C };
-    function createElement<C extends React.ComponentClass>(
+    ): TypedReactElement<C>;
+    function createElement<C extends ComponentClass>(
         type: C,
-        props?: ClassAttributes<C> & Pick<React.ComponentPropsWithoutRef<C>, Exclude<keyof React.ComponentPropsWithoutRef<C>, 'children'>> | null,
+        props?: ClassAttributes<C> & Pick<ComponentPropsWithoutRef<C>, Exclude<keyof ComponentPropsWithoutRef<C>, 'children'>> | null,
         ...children: ChildrenPropTupleType<ComponentProps<C>>
-    ): ReactElement<React.ComponentPropsWithoutRef<C>> & { type: C };
+    ): TypedReactElement<C>;
 
     // DOM Elements
     // ReactHTMLElement
@@ -368,7 +362,7 @@ declare namespace React {
 
     // Base component for plain JS classes
     // tslint:disable-next-line:no-empty-interface
-    interface Component<P = { children?: React.ReactNode }, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
+    interface Component<P = { children?: ReactNode }, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
     class Component<P, S> {
         // tslint won't let me format the sample code in a way that vscode likes it :(
         /**
@@ -437,9 +431,9 @@ declare namespace React {
         };
     }
 
-    class PureComponent<P = { children?: React.ReactNode }, S = {}, SS = any> extends Component<P, S, SS> { }
+    class PureComponent<P = { children?: ReactNode }, S = {}, SS = any> extends Component<P, S, SS> { }
 
-    interface ClassicComponent<P = { children?: React.ReactNode }, S = {}> extends Component<P, S> {
+    interface ClassicComponent<P = { children?: ReactNode }, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
         isMounted(): boolean;
         getInitialState?(): S;
