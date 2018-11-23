@@ -43,6 +43,6 @@ export type Direction =
 
 export function withSafeArea(
     WrappedComponent: React.ComponentType<any>,
-    applyTo: 'margin' | 'padding' | 'absolutePosition' | 'contentInset',
-    direction: Direction,
+    applyTo?: 'margin' | 'padding' | 'absolutePosition' | 'contentInset',
+    direction?: Direction,
 ): React.ComponentType<any>;
