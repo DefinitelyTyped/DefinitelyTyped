@@ -59,7 +59,7 @@ export interface TokenData {
     /**
      * The amount paid, not a decimal. In USD this is in cents.
      */
-    amount: number;
+    amount?: number;
 
     /**
      * Fields for billing address information.
