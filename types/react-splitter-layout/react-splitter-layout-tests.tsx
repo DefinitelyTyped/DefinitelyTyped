@@ -1,11 +1,11 @@
 import * as React from "react";
-import SplitterLayout, {SplitterLayoutProps} from "react-splitter-layout";
+import SplitterLayout, { SplitterLayoutProps } from "react-splitter-layout";
 
-export class SplitterLayoutTest extends React.PureComponent<{}> {
+export class SplitterLayoutTest extends React.PureComponent {
     render(): JSX.Element {
         const props: SplitterLayoutProps = {
             percentage: true,
-            secondaryInitialSize: 30,
+            secondaryInitialSize: 40,
         };
         return (
             <SplitterLayout {...props}>
