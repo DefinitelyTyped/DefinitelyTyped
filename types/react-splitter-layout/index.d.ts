@@ -2,7 +2,7 @@
 // Project: https://github.com/zesik/react-splitter-layout#readme
 // Definitions by: Markus Lasermann <https://github.com/snaptags/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
