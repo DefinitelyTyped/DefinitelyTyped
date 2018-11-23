@@ -114,7 +114,6 @@ declare namespace OAuth2Server {
     }
 
     abstract class AbstractGrantType {
-
         /**
          * Instantiates AbstractGrantType using the supplied options.
          *
@@ -128,7 +127,7 @@ declare namespace OAuth2Server {
         generateAccessToken(client: Client, user: User, scope: string | string[]): Promise<string>;
 
         /**
-         * Generate refresh token. Calls
+         * Generate refresh token. Calls Model#generateRefreshToken() if implemented.
          *
          */
         generateRefreshToken(client: Client, user: User, scope: string | string[]): Promise<string>;
@@ -162,9 +161,7 @@ declare namespace OAuth2Server {
          *
          */
         abstract handle(request: Request, client: Client): Promise<Token | Falsey>;
-
     }
-
 
     interface ServerOptions extends AuthenticateOptions, AuthorizeOptions, TokenOptions {
         /**
@@ -241,7 +238,7 @@ declare namespace OAuth2Server {
         /**
          * Additional supported grant types.
          */
-        extendedGrantTypes?: {[key: string]: typeof AbstractGrantType };
+        extendedGrantTypes?: { [key: string]: typeof AbstractGrantType };
     }
 
     /**
