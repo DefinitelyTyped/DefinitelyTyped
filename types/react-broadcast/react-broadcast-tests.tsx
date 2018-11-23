@@ -7,7 +7,7 @@ class ExampleOfUsingReactBroadcast extends React.Component {
     return (
       <Broadcast channel="my-channel" value={42}>
         <div>
-          <Subscriber channel="my-channel">
+          <Subscriber<number> channel="my-channel">
             {state => <div>{state}</div>}
           </Subscriber>
         </div>
