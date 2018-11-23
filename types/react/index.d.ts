@@ -420,12 +420,12 @@ declare namespace React {
         // TODO (TypeScript 3.0): unknown
         context: any;
 
-        constructor(props: Readonly<PropsWithDefaultChildren<P>>);
+        constructor(props: Readonly<P>);
         /**
          * @deprecated
          * @see https://reactjs.org/docs/legacy-context.html
          */
-        constructor(props: PropsWithDefaultChildren<P>, context?: any);
+        constructor(props: P, context?: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
