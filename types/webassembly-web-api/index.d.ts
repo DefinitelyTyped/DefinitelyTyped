@@ -13,5 +13,5 @@
  */
 declare namespace WebAssembly {
     function compileStreaming(source: Response | Promise<Response>): Promise<Module>;
-    function instantiateStreaming(source: Response | Promise<Response>, importObject?: any): Promise<ResultObject>;
+    function instantiateStreaming(source: Response | Promise<Response>, importObject?: object): Promise<ResultObject>;
 }

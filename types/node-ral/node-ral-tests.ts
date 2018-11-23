@@ -17,7 +17,7 @@ class HashringBalance extends nodeRal.Balance {
         return 'hashring';
     }
     fetchServer(balanceContext: nodeRal.Balance.BalanceContextClass, conf: {}, prevBackend: nodeRal.Server) {
-        return <nodeRal.Server> {};
+        return {} as nodeRal.Server;
     }
 }
 

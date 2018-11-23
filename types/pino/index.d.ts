@@ -173,6 +173,20 @@ declare namespace P {
          * Warning: this option may not be supported by downstream transports.
          */
         useOnlyCustomLevels?: boolean;
+
+        /**
+         * As an array, the redact option specifies paths that should have their values redacted from any log output.
+         *
+         * Each path must be a string using a syntax which corresponds to JavaScript dot and bracket notation.
+         *
+         * If an object is supplied, three options can be specified:
+         *
+         *      paths (String[]): Required. An array of paths
+         *      censor (String): Optional. A value to overwrite key which are to be redacted. Default: '[Redacted]'
+         *      remove (Boolean): Optional. Instead of censoring the value, remove both the key and the value. Default: false
+         */
+        redact?: string[] | redactOptions;
+
         /**
          * When defining a custom log level via level, set to an integer value to define the new level. Default: `undefined`.
          */
@@ -419,5 +433,11 @@ declare namespace P {
     interface LogFn {
         (msg: string, ...args: any[]): void;
         (obj: object, msg?: string, ...args: any[]): void;
+    }
+
+    interface redactOptions {
+        paths: string[];
+        censor?: string;
+        remove?: boolean;
     }
 }

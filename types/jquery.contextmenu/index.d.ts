@@ -22,8 +22,8 @@ interface JQueryContextMenuOptions {
         hide?: string;
     };
     events?: {
-        show?: () => void;
-        hide?: () => void;
+        show?: (options: any) => boolean;
+        hide?: (options: any) => boolean;
     };
     callback?: (key: any, options: any) => any;
     items?: any;

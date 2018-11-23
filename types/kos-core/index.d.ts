@@ -1,4 +1,4 @@
-// Type definitions for kos-core 0.3
+// Type definitions for kos-core 0.4
 // Project: https://github.com/ali-Kos/Kos
 // Definitions by: alibaba ali-Kos <https://github.com/ali-Kos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -40,7 +40,7 @@ export interface KosModel<T = any> {
         [key: string]: (state: T, { payload }: { payload: T }) => void;
     };
     asyncs: {
-        [key: string]: (dispatch: KosDispatch, getState?: GetKosState<T>) => void;
+        [key: string]: (dispatch: KosDispatch, getState: GetKosState<T>, action: Action) => void;
     };
     setup?: (dispatch: KosDispatch, getState: GetKosState<T>) => void;
     getAsync?: (

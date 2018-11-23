@@ -24,35 +24,6 @@
  * When running within the OpenFin Runtime your web applications have access to the "fin" namespace and all the modules within the API
  * without the need to include additional source files. You can treat the "fin" namespace as you would the "window", "navigator" or "documennt" objects.
  */
-import { Identity } from './_v2/identity';
-import { ApplicationInfo as LaunchInfo, ShortCutConfig, TrayInfo } from './_v2/api/application/application';
-import { ApplicationOption } from './_v2/api/application/applicationOption';
-import { ExternalApplicationInfo } from './_v2/api/external-application/external-application';
-import { ApplicationInfo } from './_v2/api/system/application';
-import { ClearCacheOption } from './_v2/api/system/clearCacheOption';
-import { CookieInfo, CookieOption } from './_v2/api/system/cookie';
-import { AppAssetInfo, AppAssetRequest, RuntimeDownloadOptions, RuntimeDownloadProgress } from './_v2/api/system/download-asset';
-import { DownloadPreloadInfo, DownloadPreloadOption } from './_v2/api/system/download-preload';
-import { EntityInfo } from './_v2/api/system/entity';
-import { ExternalProcessRequestType, ExternalProcessInfo } from './_v2/api/system/external-process';
-import { HostSpecs } from './_v2/api/system/host-specs';
-import { LogInfo } from './_v2/api/system/log';
-import { MonitorInfo } from './_v2/api/system/monitor';
-import { PointTopLeft } from './_v2/api/system/point';
-import { ProcessInfo } from './_v2/api/system/process';
-import { ProxyInfo } from './_v2/api/system/proxy';
-import { RegistryInfo } from './_v2/api/system/registry-info';
-import { RVMInfo} from './_v2/api/system/rvm';
-import { WindowDetail, WindowInfo } from './_v2/api/system/window';
-import { AnchorType } from './_v2/api/window/anchor-type';
-import Bounds from './_v2/api/window/bounds';
-import { Transition, TransitionOptions } from './_v2/api/window/transition';
-import { WindowOption } from './_v2/api/window/windowOption';
-
-// tslint:disable-next-line:export-just-namespace
-export = fin;
-export as namespace fin;
-
 declare namespace fin {
     var Application: import('./_v2/api/application/application').default;
     var Clipboard: import('./_v2/api/clipboard/clipboard').default;
@@ -63,6 +34,42 @@ declare namespace fin {
     var Notification: import('./_v2/api/notification/notification').default;
     var System: import('./_v2/api/system/system').default;
     var Window: import('./_v2/api/window/window').default;
+
+    // v2 shapes
+    type Identity = import('./_v2/identity').Identity;
+    type LaunchInfo = import('./_v2/api/application/application').ApplicationInfo;
+    type ShortCutConfig = import('./_v2/api/application/application').ShortCutConfig;
+    type TrayInfo = import('./_v2/api/application/application').TrayInfo;
+    type ApplicationOption = import('./_v2/api/application/applicationOption').ApplicationOption;
+    type ExternalApplicationInfo = import('./_v2/api/external-application/external-application').ExternalApplicationInfo;
+    type ApplicationInfo = import('./_v2/api/system/application').ApplicationInfo;
+    type ClearCacheOption = import('./_v2/api/system/clearCacheOption').ClearCacheOption;
+    type CookieInfo = import('./_v2/api/system/cookie').CookieInfo;
+    type CookieOption = import('./_v2/api/system/cookie').CookieOption;
+    type AppAssetInfo = import('./_v2/api/system/download-asset').AppAssetInfo;
+    type AppAssetRequest = import('./_v2/api/system/download-asset').AppAssetRequest;
+    type RuntimeDownloadOptions = import('./_v2/api/system/download-asset').RuntimeDownloadOptions;
+    type RuntimeDownloadProgress = import('./_v2/api/system/download-asset').RuntimeDownloadProgress;
+    type DownloadPreloadInfo = import('./_v2/api/system/download-preload').DownloadPreloadInfo;
+    type DownloadPreloadOption = import('./_v2/api/system/download-preload').DownloadPreloadOption;
+    type EntityInfo = import('./_v2/api/system/entity').EntityInfo;
+    type ExternalProcessRequestType = import('./_v2/api/system/external-process').ExternalProcessRequestType;
+    type ExternalProcessInfo = import('./_v2/api/system/external-process').ExternalProcessInfo;
+    type HostSpecs = import('./_v2/api/system/host-specs').HostSpecs;
+    type LogInfo = import('./_v2/api/system/log').LogInfo;
+    type MonitorInfo = import('./_v2/api/system/monitor').MonitorInfo;
+    type PointTopLeft = import('./_v2/api/system/point').PointTopLeft;
+    type ProcessInfo = import('./_v2/api/system/process').ProcessInfo;
+    type ProxyInfo = import('./_v2/api/system/proxy').ProxyInfo;
+    type RegistryInfo = import('./_v2/api/system/registry-info').RegistryInfo;
+    type RVMInfo = import('./_v2/api/system/rvm').RVMInfo;
+    type WindowDetail = import('./_v2/api/system/window').WindowDetail;
+    type WindowInfo = import('./_v2/api/system/window').WindowInfo;
+    type AnchorType = import('./_v2/api/window/anchor-type').AnchorType;
+    type Bounds = import('./_v2/api/window/bounds').default;
+    type Transition = import('./_v2/api/window/transition').Transition;
+    type TransitionOptions = import('./_v2/api/window/transition').TransitionOptions;
+    type WindowOption = import('./_v2/api/window/windowOption').WindowOption;
 
     const desktop: OpenFinDesktop;
 

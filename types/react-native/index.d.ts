@@ -1859,13 +1859,15 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
     /**
      * Accessibility State tells a person using either VoiceOver on iOS or TalkBack on Android the state of the element currently focused on.
      */
-    accessibilityStates?: "selected" | "disabled";
+    accessibilityStates?: AccessibilityState[];
 
     /**
      * An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.
      */
     accessibilityHint?: string;
 }
+
+export type AccessibilityState = "selected" | "disabled";
 
 export type AccessibilityRole =
     | "none"
@@ -3846,7 +3848,7 @@ export interface ViewabilityConfig {
     viewAreaCoveragePercentThreshold?: number;
 
     /**
-     * Similar to `viewAreaPercentThreshold`, but considers the percent of the item that is visible,
+     * Similar to `viewAreaCoveragePercentThreshold`, but considers the percent of the item that is visible,
      * rather than the fraction of the viewable area it covers.
      */
     itemVisiblePercentThreshold?: number;
@@ -5226,7 +5228,7 @@ export namespace StyleSheet {
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T extends NamedStyles<T>>(styles: T): { [P in keyof T]: RegisteredStyle<T[P]> };
+    export function create<T extends NamedStyles<T> | NamedStyles<any>>(styles: T): { [P in keyof T]: RegisteredStyle<T[P]> };
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
