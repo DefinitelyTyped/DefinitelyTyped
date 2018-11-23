@@ -1400,11 +1400,15 @@ export interface IndicesUpdateAliasesParamsAction {
         index?: string;
         indices?: string[];
         alias: string;
+        routing?: string;
+        filter?: object;
     };
     remove?: {
         index?: string;
         indices?: string[];
         alias: string;
+        routing?: string;
+        filter?: object;
     };
     remove_index?: {
         index: string;
