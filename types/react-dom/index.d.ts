@@ -11,11 +11,16 @@
 export as namespace ReactDOM;
 
 import {
-    ReactInstance, Component, ComponentState,
-    ReactElement, SFCElement, CElement,
-    DOMAttributes, DOMElement, ReactNode, ReactPortal
+    ReactType, ReactInstance, ReactElement,
+    Component, ComponentClass, ComponentState,
+    TypedReactElement, SFCElement, CElement,
+    DOMAttributes, DOMElement, ReactNode, ReactPortal,
+    RefTypeOfProps, ComponentProps, RefObject
 } from 'react';
 
+/**
+ * @deprecated This only returns the first element of fragments
+ */
 export function findDOMNode(instance: ReactInstance): Element | null | Text;
 export function unmountComponentAtNode(container: Element): boolean;
 
@@ -45,9 +50,21 @@ export function unstable_renderSubtreeIntoContainer<P>(
     container: Element,
     callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
 
+/** @deprecated Only used for the deprecated return type of ReactDOM.render */
+type ElementInstanceType<T extends ReactType> =
+    T extends keyof JSX.IntrinsicElements | ComponentClass<any>
+        ? NonNullable<Extract<RefTypeOfProps<ComponentProps<T>>, RefObject<any>>['current']>
+        : void;
+
 export interface Renderer {
     // Deprecated(render): The return value is deprecated.
     // In future releases the render function's return type will be void.
+
+    <T extends ReactType>(
+        element: TypedReactElement<T>,
+        container: Element | null,
+        callback?: () => void
+    ): ElementInstanceType<T>;
 
     <T extends Element>(
         element: DOMElement<DOMAttributes<T>, T>,
@@ -62,16 +79,10 @@ export interface Renderer {
     ): Element;
 
     (
-        element: SFCElement<any> | Array<SFCElement<any>>,
+        element: Array<SFCElement<any>>,
         container: Element | null,
         callback?: () => void
     ): void;
-
-    <P, T extends Component<P, ComponentState>>(
-        element: CElement<P, T>,
-        container: Element | null,
-        callback?: () => void
-    ): T;
 
     (
         element: Array<CElement<any, Component<any, ComponentState>>>,
@@ -79,17 +90,17 @@ export interface Renderer {
         callback?: () => void
     ): Component<any, ComponentState>;
 
-    <P>(
-        element: ReactElement<P>,
-        container: Element | null,
-        callback?: () => void
-    ): Component<P, ComponentState> | Element | void;
-
     (
         element: Array<ReactElement<any>>,
         container: Element | null,
         callback?: () => void
     ): Component<any, ComponentState> | Element | void;
+
+    <P>(
+        element: ReactElement<P>,
+        container: Element | null,
+        callback?: () => void
+    ): Component<P, ComponentState> | Element | void;
 
     (
         parentComponent: Component<any> | Array<Component<any>>,

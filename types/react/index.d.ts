@@ -83,10 +83,22 @@ declare namespace React {
         key: Key | null;
     }
 
+    type RefTypeOfProps<P> = 'ref' extends keyof P
+        ? P extends { ref?: infer R }
+            ? R
+            : never
+        : never;
+
+    type LegacyRefTypeOfComponent<T extends ReactType> =
+        T extends ComponentClass<any>
+            ? LegacyRef<InstanceType<T>>
+            : RefTypeOfProps<ComponentProps<T>>
+
     interface TypedReactElement<C extends ReactType> {
         type: C;
         props: ComponentPropsWithoutRef<C>;
         key: Key | null;
+        ref: LegacyRefTypeOfComponent<C> | null;
     }
 
     /**
@@ -96,21 +108,20 @@ declare namespace React {
 
     interface FunctionComponentElement<P> extends ReactElement<P> {
         type: FunctionComponent<P>;
-        ref?: 'ref' extends keyof P ? P extends { ref?: infer R } ? R : never : never;
+        ref: 'ref' extends keyof P ? P extends { ref?: infer R } ? R : null : null;
     }
 
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
     interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P> {
         type: ComponentClass<P>;
-        ref?: LegacyRef<T>;
+        ref: LegacyRef<T> | null;
     }
 
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
-    // string fallback for custom web-components
-    interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<P> {
+    interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element> extends ReactElement<PropsWithoutRef<P>> {
         type: string;
-        ref: LegacyRef<T>;
+        ref: LegacyRef<T> | null;
     }
 
     // ReactHTML for ReactHTMLElement
@@ -203,7 +214,7 @@ declare namespace React {
     ): TypedReactElement<C>;
     function createElement<C extends ComponentClass>(
         type: C,
-        props?: ClassAttributes<C> & ComponentPropsWithoutRef<C> | null
+        props?: ClassAttributes<InstanceType<C>> & ComponentPropsWithoutRef<C> | null
     ): TypedReactElement<C>;
 
     // types used for variadic children
@@ -362,7 +373,7 @@ declare namespace React {
 
     // Base component for plain JS classes
     // tslint:disable-next-line:no-empty-interface
-    interface Component<P = { children?: ReactNode }, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
+    interface Component<P = { children?: ReactNode }, S = {}, SS = any> extends ComponentLifecycle<PropsWithDefaultChildren<P>, S, SS> { }
     class Component<P, S> {
         // tslint won't let me format the sample code in a way that vscode likes it :(
         /**
@@ -402,25 +413,25 @@ declare namespace React {
         // TODO (TypeScript 3.0): unknown
         context: any;
 
-        constructor(props: Readonly<P>);
+        constructor(props: Readonly<PropsWithDefaultChildren<P>>);
         /**
          * @deprecated
          * @see https://reactjs.org/docs/legacy-context.html
          */
-        constructor(props: P, context?: any);
+        constructor(props: PropsWithDefaultChildren<P>, context?: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
         // Also, the ` | S` allows intellisense to not be dumbisense
         setState<K extends keyof S>(
-            state: ((prevState: Readonly<S>, props: Readonly<P>) => (Pick<S, K> | S | null)) | (Pick<S, K> | S | null),
+            state: ((prevState: Readonly<S>, props: Readonly<PropsWithDefaultChildren<P>>) => (Pick<S, K> | S | null)) | (Pick<S, K> | S | null),
             callback?: () => void
         ): void;
 
         forceUpdate(callBack?: () => void): void;
         render(): ReactNode;
 
-        readonly props: Readonly<P>;
+        readonly props: Readonly<PropsWithDefaultChildren<P>>;
         state: Readonly<S>;
         /**
          * @deprecated
@@ -465,8 +476,12 @@ declare namespace React {
 
     type FC<P = {}> = FunctionComponent<P>;
 
+    // Only intersect with ReactNode if children doesn't otherwise exist as a key
+    // Prevents creating impossible types when intersecting render props
+    type PropsWithDefaultChildren<P> = 'children' extends keyof P ? P : P & { children?: ReactNode };
+
     interface FunctionComponent<P = { children?: ReactNode }> {
-        (props: P, context?: any): ReactElement<any> | null;
+        (props: PropsWithDefaultChildren<P>, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -474,7 +489,7 @@ declare namespace React {
     }
 
     interface RefForwardingComponent<T, P = { children?: ReactNode }> {
-        (props: P, ref: Ref<T> | null): ReactElement<any> | null;
+        (props: PropsWithDefaultChildren<P>, ref: Ref<T> | null): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: Partial<P>;
@@ -482,7 +497,7 @@ declare namespace React {
     }
 
     interface ComponentClass<P = { children?: ReactNode }, S = ComponentState> extends StaticLifecycle<P, S> {
-        new (props: P, context?: any): Component<P, S>;
+        new (props: PropsWithDefaultChildren<P>, context?: any): Component<P, S>;
         propTypes?: ValidationMap<P>;
         contextType?: Context<any>;
         contextTypes?: ValidationMap<any>;
@@ -492,7 +507,7 @@ declare namespace React {
     }
 
     interface ClassicComponentClass<P = { children?: ReactNode }> extends ComponentClass<P> {
-        new (props: P, context?: any): ClassicComponent<P, ComponentState>;
+        new (props: PropsWithDefaultChildren<P>, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
