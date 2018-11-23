@@ -215,21 +215,36 @@ declare namespace React {
         props?: ClassAttributes<C> & React.ComponentPropsWithoutRef<C> | null
     ): ReactElement<React.ComponentPropsWithoutRef<C>> & { type: C };
 
-
-    type ChildrenTupleType<T> = [] extends T ? Extract<T, []> : [T]
-    type ComponentChildrenProp<C extends ReactType> = 'children' extends keyof ComponentProps<C>
-        ? ComponentProps<C> extends { children?: infer T } ? T : never
-        : never
+    type SingleChildTupleType<T> = Extract<T, any> extends never
+        ? never
+        : ([T] | (
+            undefined extends T ? [] : never
+        ));
+    type MultiChildTupleType<T extends ReadonlyArray<any>> = Extract<T, any> extends never
+        ? never
+        // hack to exclude any as a direct result type (not acceptable as a rest argument type)
+        : keyof any extends Extract<keyof T, keyof any>
+            ? any[]
+            : T;
+    // The Extract<T, any> is to work around a problem when T is directly compared with never
+    // ChildrenTupleType<never> results in never (???) if Extract is not used
+    type ChildrenTupleType<T> = Extract<T, any> extends never
+      ? []
+      : SingleChildTupleType<Exclude<T, ReadonlyArray<any>>> | MultiChildTupleType<Extract<T, ReadonlyArray<any>>>;
+    // Check first if 'children' key exists to avoid inferring {} if P is {}
+    type ChildrenPropTupleType<P> = 'children' extends keyof P
+        ? P extends { children?: infer T } ? ChildrenTupleType<T> : []
+        : [];
 
     function createElement<C extends React.ReactType>(
         type: C,
         props?: Attributes & Pick<React.ComponentPropsWithRef<C>, Exclude<keyof React.ComponentPropsWithRef<C>, 'children'>> | null,
-        ...children: ChildrenTupleType<ComponentChildrenProp<C>>
+        ...children: ChildrenPropTupleType<ComponentProps<C>>
     ): ReactElement<React.ComponentPropsWithoutRef<C>> & { type: C };
     function createElement<C extends React.ComponentClass>(
         type: C,
         props?: ClassAttributes<C> & Pick<React.ComponentPropsWithoutRef<C>, Exclude<keyof React.ComponentPropsWithoutRef<C>, 'children'>> | null,
-        ...children: ChildrenTupleType<ComponentChildrenProp<C>>
+        ...children: ChildrenPropTupleType<ComponentProps<C>>
     ): ReactElement<React.ComponentPropsWithoutRef<C>> & { type: C };
 
     // DOM Elements
@@ -353,7 +368,7 @@ declare namespace React {
 
     // Base component for plain JS classes
     // tslint:disable-next-line:no-empty-interface
-    interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
+    interface Component<P = { children?: React.ReactNode }, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
     class Component<P, S> {
         // tslint won't let me format the sample code in a way that vscode likes it :(
         /**
@@ -422,9 +437,9 @@ declare namespace React {
         };
     }
 
-    class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> { }
+    class PureComponent<P = { children?: React.ReactNode }, S = {}, SS = any> extends Component<P, S, SS> { }
 
-    interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
+    interface ClassicComponent<P = { children?: React.ReactNode }, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
         isMounted(): boolean;
         getInitialState?(): S;
@@ -1114,11 +1129,7 @@ declare namespace React {
      * };
      * ```
      */
-    interface Props<T> {
-        children?: ReactNode;
-        key?: Key;
-        ref?: LegacyRef<T>;
-    }
+    interface Props<T> extends ClassAttributes<T> {}
 
     interface HTMLProps<T> extends AllHTMLAttributes<T>, ClassAttributes<T> {
     }
