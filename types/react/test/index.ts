@@ -346,11 +346,7 @@ const componentNullContainer: ModernComponent = ReactDOM.render(element, null);
 const componentElementOrNull: ModernComponent = ReactDOM.render(element, container);
 const componentNoState: ModernComponentNoState = ReactDOM.render(elementNoState, container);
 const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, container);
-// This seems to be a compiler bug.
-// The compiler is picking overload #7 when #2 would be perfectly serviceable and return the correct type.
-// Commenting out overload #7 makes this test pass (but breaks other tests) (???).
-// const domComponent: HTMLDivElement = ReactDOM.render(domElement, container);
-const domComponent = ReactDOM.render(domElement, container) as HTMLDivElement;
+const domComponent: HTMLDivElement = ReactDOM.render(domElement, container);
 
 // Other Top-Level API
 const unmounted: boolean = ReactDOM.unmountComponentAtNode(container);

@@ -2,8 +2,9 @@ import {
     AbstractView, Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
     DOMElement, SFCElement, CElement,
-    ReactHTMLElement, DOMAttributes, SFC
+    ReactHTMLElement, DOMAttributes, SFC, TypedReactElement, ReactType, ComponentElement
 } from 'react';
+import { ElementInstanceType } from 'react-dom'
 
 import * as ReactTestUtils from ".";
 
@@ -156,8 +157,8 @@ export namespace Simulate {
 /**
  * Render a React element into a detached DOM node in the document. __This function requires a DOM__.
  */
-export function renderIntoDocument<T extends Element>(
-    element: DOMElement<any, T>): T;
+export function renderIntoDocument<T extends DOMElement<any, any> | ComponentElement<any, any> | TypedReactElement<any>>(
+    element: T): ElementInstanceType<T>;
 export function renderIntoDocument(
     element: SFCElement<any>): void;
 // If we replace `P` with `any` in this overload, then some tests fail because

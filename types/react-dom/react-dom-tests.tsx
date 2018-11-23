@@ -109,7 +109,7 @@ describe('React dom test utils', () => {
 
     it('isDOMComponent', () => {
         const element = React.createElement('div');
-        const instance = ReactTestUtils.renderIntoDocument(element) as HTMLDivElement;
+        const instance: HTMLDivElement = ReactTestUtils.renderIntoDocument(element);
         const isDOMElement: boolean = ReactTestUtils.isDOMComponent(instance);
     });
 

@@ -15,7 +15,7 @@ import {
     Component, ComponentClass, ComponentState,
     TypedReactElement, SFCElement, CElement,
     DOMAttributes, DOMElement, ReactNode, ReactPortal,
-    RefTypeOfProps, ComponentProps, RefObject
+    RefTypeOfProps, ComponentPropsWithRef, RefObject, ComponentElement, LegacyRef
 } from 'react';
 
 /**
@@ -51,26 +51,18 @@ export function unstable_renderSubtreeIntoContainer<P>(
     callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
 
 /** @deprecated Only used for the deprecated return type of ReactDOM.render */
-type ElementInstanceType<T extends ReactType> =
-    T extends keyof JSX.IntrinsicElements | ComponentClass<any>
-        ? NonNullable<Extract<RefTypeOfProps<ComponentProps<T>>, RefObject<any>>['current']>
-        : void;
+export type ElementInstanceType<T extends { ref: any }> =
+    NonNullable<NonNullable<Extract<T['ref'], RefObject<any>>>['current']>;
 
 export interface Renderer {
     // Deprecated(render): The return value is deprecated.
     // In future releases the render function's return type will be void.
 
-    <T extends ReactType>(
-        element: TypedReactElement<T>,
+    <T extends DOMElement<DOMAttributes<any>, any> | ComponentElement<any, any> | TypedReactElement<any>>(
+        element: T,
         container: Element | null,
         callback?: () => void
     ): ElementInstanceType<T>;
-
-    <T extends Element>(
-        element: DOMElement<DOMAttributes<T>, T>,
-        container: Element | null,
-        callback?: () => void
-    ): T;
 
     (
         element: Array<DOMElement<DOMAttributes<any>, any>>,
