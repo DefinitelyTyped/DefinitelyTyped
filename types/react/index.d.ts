@@ -54,7 +54,7 @@ declare namespace React {
             [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never
         }[keyof JSX.IntrinsicElements] |
         ComponentType<P>;
-    type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
+    type ComponentType<P = {}> = ComponentClass<P> | ClassicComponentClass<P> | FunctionComponent<P>;
 
     type Key = string | number;
 
@@ -90,7 +90,7 @@ declare namespace React {
         : never;
 
     type LegacyRefTypeOfComponent<T extends ReactType> =
-        T extends ComponentClass<any>
+        T extends ComponentClass<any> | ClassicComponentClass<any>
             ? LegacyRef<InstanceType<T>>
             : RefTypeOfProps<ComponentProps<T>>
 
@@ -148,6 +148,10 @@ declare namespace React {
 
     type Factory<P> = (props?: Attributes & P, ...children: ReactNode[]) => ReactElement<P>;
 
+    type TypedFactory<T extends ReactType> = (
+        props?: Attributes & ComponentPropsWithoutRef<T> & { ref?: LegacyRefTypeOfComponent<T> }, ...children: ChildrenPropTupleType<PropsWithDefaultChildren<ComponentProps<T>>>
+    ) => TypedReactElement<T>
+
     /**
      * @deprecated Please use `FunctionComponentFactory`
      */
@@ -200,6 +204,9 @@ declare namespace React {
         type: string): DOMFactory<P, T>;
 
     // Custom components
+    function createFactory<T extends ReactType>(
+        type: T
+    ): TypedFactory<T>;
     function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
     function createFactory<P>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, ComponentState>>;
@@ -496,8 +503,8 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface ComponentClass<P = { children?: ReactNode }, S = ComponentState> extends StaticLifecycle<P, S> {
-        new (props: PropsWithDefaultChildren<P>, context?: any): Component<P, S>;
+    interface ComponentClassConstructor<P, S, I extends Component<P, S> = Component<P, S>> extends StaticLifecycle<P, S>  {
+        new (props: PropsWithDefaultChildren<P>, context?: any): I
         propTypes?: ValidationMap<P>;
         contextType?: Context<any>;
         contextTypes?: ValidationMap<any>;
@@ -506,8 +513,9 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface ClassicComponentClass<P = { children?: ReactNode }> extends ComponentClass<P> {
-        new (props: PropsWithDefaultChildren<P>, context?: any): ClassicComponent<P, ComponentState>;
+    interface ComponentClass<P = { children?: ReactNode }, S = ComponentState> extends ComponentClassConstructor<P, S> {}
+
+    interface ClassicComponentClass<P = { children?: ReactNode }> extends ComponentClassConstructor<P, ComponentState, ClassicComponent<P, ComponentState>> {
         getDefaultProps?(): P;
     }
 
@@ -746,7 +754,7 @@ declare namespace React {
                 ? JSX.IntrinsicElements[T]
                 : {};
     type ComponentPropsWithRef<T extends ReactType> =
-        T extends ComponentClass<infer P>
+        T extends ComponentClass<infer P> | ClassicComponentClass<infer P>
             ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
             : PropsWithRef<ComponentProps<T>>;
     type ComponentPropsWithoutRef<T extends ReactType> =
