@@ -1,4 +1,4 @@
-// Type definitions for fetch-mock 6.0
+// Type definitions for fetch-mock 7.2.5
 // Project: https://github.com/wheresrhys/fetch-mock
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 Tamir Duberstein <https://github.com/tamird>
@@ -7,8 +7,9 @@
 //                 Matt Tennison <https://github.com/matttennison>
 //                 Quentin Bouygues <https://github.com/quentinbouygues>
 //                 Fumiaki Matsushima <https://github.com/mtsmfm>
+//                 Dan Patrikeev <https://github.com/dpatrikeev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.1.4
 
 declare namespace fetchMock {
     type MockRequest = Request | RequestInit;
@@ -16,7 +17,7 @@ declare namespace fetchMock {
     /**
      * Mock matcher function
      */
-    type MockMatcherFunction = (url: string, opts: MockRequest) => boolean;
+    type MockMatcherFunction = (url: string, opts: MockRequest, req?: Request) => boolean;
 
     /**
      * Mock matcher. Can be one of following:
@@ -27,9 +28,9 @@ declare namespace fetchMock {
      *      'http://www.site.com' or 'http://www.site.com/page.html'
      *    * '*' to match any url
      * RegExp: A regular expression to test the url against
-     * Function(url, opts): A function (returning a Boolean) that is passed the
-     *  url and opts fetch() is called with (or, if fetch() was called with one,
-     *  the Request instance)
+     * Function(url, opts, req?): A function (returning a Boolean) that is passed the
+     *  url, opts fetch() is called with (or, if fetch() was called with one,
+     *  the Request instance) and req passed as the original request.
      */
     type MockMatcher = string | RegExp | MockMatcherFunction;
 

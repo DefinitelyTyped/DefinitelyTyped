@@ -17,6 +17,7 @@ fetchMock.mock("http://test.com", 200, {
 fetchMock.mock(/test\.com/, 200);
 fetchMock.mock(() => true, 200);
 fetchMock.mock((url, opts) => true, 200);
+fetchMock.mock((url, opts, req) => true, 200);
 fetchMock.once("http://test.com", 200);
 
 fetchMock.mock(/test/, "test").mock(/test/, { a: "b" });
